@@ -87,14 +87,6 @@ class AER_BRIDGE_DESCRIPTOR_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 7) & 0x1FF
-        set => this._bitfield := ((value & 0x1FF) << 7) | (this._bitfield & ~(0x1FF << 7))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUSHORT {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)

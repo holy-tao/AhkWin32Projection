@@ -51,14 +51,6 @@ class LATENCY_MONITOR_FEATURE_STATUS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1F
-        set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

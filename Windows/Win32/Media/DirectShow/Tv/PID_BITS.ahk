@@ -25,14 +25,6 @@ class PID_BITS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0x7
-        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     ProgramId {
         get => (this._bitfield >> 3) & 0x1FFF
         set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))

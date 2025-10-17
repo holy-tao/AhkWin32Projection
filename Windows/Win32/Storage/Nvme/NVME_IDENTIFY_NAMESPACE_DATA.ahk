@@ -72,14 +72,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 5) & 0x7
-            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-        }
-    
     }
 
     class _FLBAS extends Win32Struct {
@@ -123,14 +115,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 7) & 0x1
-            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
-        }
-    
     }
 
     class _MC extends Win32Struct {
@@ -163,14 +147,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
         MetadataInSeparateBuffer {
             get => (this._bitfield >> 1) & 0x1
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x3F
-            set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
         }
     
     }
@@ -234,14 +210,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 5) & 0x7
-            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-        }
-    
     }
 
     class _DPS extends Win32Struct {
@@ -276,14 +244,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 4) & 0xF
-            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-        }
-    
     }
 
     class _NMIC extends Win32Struct {
@@ -307,14 +267,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
         SharedNameSpace {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
     
     }
@@ -393,14 +345,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 5) & 0x7
-            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-        }
-    
     }
 
     class _NSATTR extends Win32Struct {
@@ -424,14 +368,6 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
         WriteProtected {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
     
     }

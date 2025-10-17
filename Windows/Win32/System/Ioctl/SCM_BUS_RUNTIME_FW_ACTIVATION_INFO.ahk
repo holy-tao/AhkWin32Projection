@@ -52,14 +52,6 @@ class SCM_BUS_RUNTIME_FW_ACTIVATION_INFO extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1FFFFFFF
-            set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
-        }
-    
     }
 
     /**

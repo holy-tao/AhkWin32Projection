@@ -62,14 +62,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 4) & 0xF
-            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-        }
-    
     }
 
     class _OAES extends Win32Struct {
@@ -644,14 +636,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 11) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 11) | (this._bitfield & ~(0x1F << 11))
-        }
-    
     }
 
     class _FRMW extends Win32Struct {
@@ -693,14 +677,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         ActivationWithoutReset {
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 5) & 0x7
-            set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
         }
     
     }
@@ -815,14 +791,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
-        }
-    
     }
 
     class _APSTA extends Win32Struct {
@@ -846,14 +814,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         Supported {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
     
     }
@@ -941,14 +901,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7FFF
-            set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
-        }
-    
     }
 
     class _SANICAP extends Win32Struct {
@@ -992,14 +944,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         Overwrite {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x3FFFFFF
-            set => this._bitfield := ((value & 0x3FFFFFF) << 3) | (this._bitfield & ~(0x3FFFFFF << 3))
         }
     
         /**
@@ -1079,14 +1023,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         ChangeState {
             get => (this._bitfield >> 4) & 0x1
             set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 5) & 0x1
-            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
         }
     
         /**
@@ -1259,14 +1195,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 8) & 0xFF
-            set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
-        }
-    
     }
 
     class _FUSES extends Win32Struct {
@@ -1290,14 +1218,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         CompareAndWrite {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7FFF
-            set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
         }
     
     }
@@ -1352,14 +1272,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 4) & 0xF
-            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-        }
-    
     }
 
     class _VWC extends Win32Struct {
@@ -1394,14 +1306,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
-        }
-    
     }
 
     class _NVSCC extends Win32Struct {
@@ -1425,14 +1329,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         CommandFormatInSpec {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
         }
     
     }
@@ -1476,14 +1372,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         Permanent {
             get => (this._bitfield >> 2) & 0x1
             set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
         }
     
     }
@@ -1616,14 +1504,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
-        }
-    
     }
 
     class _OFCS extends Win32Struct {
@@ -1647,14 +1527,6 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
         IOQueueDeletion {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7FFF
-            set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
         }
     
     }

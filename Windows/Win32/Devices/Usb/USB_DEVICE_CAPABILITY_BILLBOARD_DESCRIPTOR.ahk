@@ -90,14 +90,6 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0xFFF
-        set => this._bitfield := ((value & 0xFFF) << 3) | (this._bitfield & ~(0xFFF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     NoVconnPowerRequired {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))

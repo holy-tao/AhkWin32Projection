@@ -56,14 +56,6 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 3) & 0xF
-            set => this._bitfield := ((value & 0xF) << 3) | (this._bitfield & ~(0xF << 3))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         ZDEV {
             get => (this._bitfield >> 7) & 0x1
             set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))

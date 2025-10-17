@@ -82,12 +82,4 @@ class WHV_X64_MSR_EXIT_BITMAP extends Win32Struct
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFFFFFFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFFFFFFFFFF << 6))
-    }
 }

@@ -70,14 +70,6 @@ class WHV_X64_PENDING_INTERRUPTION_REGISTER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 10) & 0x3F
-        set => this._bitfield := ((value & 0x3F) << 10) | (this._bitfield & ~(0x3F << 10))
-    }
-
-    /**
-     * @type {Integer}
-     */
     InterruptionVector {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))

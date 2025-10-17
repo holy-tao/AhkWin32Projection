@@ -97,14 +97,6 @@ class POWER_LIMIT_ATTRIBUTES extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)

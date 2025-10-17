@@ -63,14 +63,6 @@ class PSAPI_WORKING_SET_BLOCK extends Win32Struct
     /**
      * @type {Pointer}
      */
-    Reserved {
-        get => (this._bitfield >> 9) & 0x7
-        set => this._bitfield := ((value & 0x7) << 9) | (this._bitfield & ~(0x7 << 9))
-    }
-
-    /**
-     * @type {Pointer}
-     */
     VirtualPage {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))

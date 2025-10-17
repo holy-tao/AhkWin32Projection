@@ -97,14 +97,6 @@ class STORAGE_CRYPTO_CAPABILITY_V2 extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7F
-        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 28, "char")
         set => NumPut("char", value, this, 28)

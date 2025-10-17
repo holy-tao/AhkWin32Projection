@@ -33,14 +33,6 @@ class PANEL_SET_BRIGHTNESS_STATE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Value {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

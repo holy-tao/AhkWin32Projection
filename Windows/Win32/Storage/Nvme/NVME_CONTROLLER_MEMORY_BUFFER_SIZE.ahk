@@ -71,14 +71,6 @@ class NVME_CONTROLLER_MEMORY_BUFFER_SIZE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7
-        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     SZU {
         get => (this._bitfield >> 8) & 0xF
         set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))

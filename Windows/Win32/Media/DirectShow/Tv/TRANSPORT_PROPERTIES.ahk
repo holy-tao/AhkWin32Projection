@@ -50,14 +50,6 @@ class TRANSPORT_PROPERTIES extends Win32Struct
             set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 8) & 0xFFFFFFFFFFFFFF
-            set => this._bitfield := ((value & 0xFFFFFFFFFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFFFFFFFFFF << 8))
-        }
-    
     }
 
     /**

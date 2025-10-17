@@ -25,14 +25,6 @@ class NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0xF
-        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     HMDLLA {
         get => (this._bitfield >> 4) & 0xFFFFFFF
         set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))

@@ -44,14 +44,6 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x3FFF
-            set => this._bitfield := ((value & 0x3FFF) << 2) | (this._bitfield & ~(0x3FFF << 2))
-        }
-    
     }
 
     class _OZCS extends Win32Struct {
@@ -75,14 +67,6 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
         ReadAcrossZoneBoundaries {
             get => (this._bitfield >> 0) & 0x1
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7FFF
-            set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
         }
     
     }

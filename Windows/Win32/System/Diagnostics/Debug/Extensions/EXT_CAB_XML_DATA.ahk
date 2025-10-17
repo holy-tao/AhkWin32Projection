@@ -69,14 +69,6 @@ class EXT_CAB_XML_DATA extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1FFFFFFF
-            set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         Reserved2 {
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)

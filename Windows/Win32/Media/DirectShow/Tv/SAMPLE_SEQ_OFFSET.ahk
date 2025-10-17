@@ -38,12 +38,4 @@ class SAMPLE_SEQ_OFFSET extends Win32Struct
         get => (this._bitfield >> 4) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 4) | (this._bitfield & ~(0xFFFFF << 4))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 24) & 0xFF
-        set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
-    }
 }

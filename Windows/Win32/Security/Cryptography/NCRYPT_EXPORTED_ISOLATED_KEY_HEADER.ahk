@@ -49,14 +49,6 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_HEADER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     cbAlgName {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)

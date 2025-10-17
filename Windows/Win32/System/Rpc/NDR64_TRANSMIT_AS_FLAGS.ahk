@@ -47,12 +47,4 @@ class NDR64_TRANSMIT_AS_FLAGS extends Win32Struct
         get => (this._bitfield >> 2) & 0x1
         set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1F
-        set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
-    }
 }

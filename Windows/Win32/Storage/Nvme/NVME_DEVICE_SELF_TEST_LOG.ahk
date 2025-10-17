@@ -35,14 +35,6 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
             set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 4) & 0xF
-            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-        }
-    
     }
 
     class _CurrentCompletion extends Win32Struct {
@@ -66,14 +58,6 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
         CompletePercent {
             get => (this._bitfield >> 0) & 0x7F
             set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 7) & 0x1
-            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
         }
     
     }

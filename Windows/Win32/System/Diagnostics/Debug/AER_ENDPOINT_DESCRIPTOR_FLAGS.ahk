@@ -60,14 +60,6 @@ class AER_ENDPOINT_DESCRIPTOR_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 4) & 0xFFF
-        set => this._bitfield := ((value & 0xFFF) << 4) | (this._bitfield & ~(0xFFF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUSHORT {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)

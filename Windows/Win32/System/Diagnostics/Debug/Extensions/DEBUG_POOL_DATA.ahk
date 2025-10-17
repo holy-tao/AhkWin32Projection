@@ -143,14 +143,6 @@ class DEBUG_POOL_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 7) & 0x1FFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFF) << 7) | (this._bitfield & ~(0x1FFFFFF << 7))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)

@@ -43,14 +43,6 @@ class SCM_BUS_DEDICATED_MEMORY_DEVICE_INFO extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x3FFFFFFF
-            set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
-        }
-    
     }
 
     /**

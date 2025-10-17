@@ -88,14 +88,6 @@ class HIDP_LINK_COLLECTION_NODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 9) & 0x7FFFFF
-        set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
-    }
-
-    /**
      * @type {Pointer<Void>}
      */
     UserContext {

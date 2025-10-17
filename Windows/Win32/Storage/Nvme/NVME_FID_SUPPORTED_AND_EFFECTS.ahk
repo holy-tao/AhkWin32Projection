@@ -77,14 +77,6 @@ class NVME_FID_SUPPORTED_AND_EFFECTS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x3FFF
-        set => this._bitfield := ((value & 0x3FFF) << 5) | (this._bitfield & ~(0x3FFF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     UUIDSelectionSupported {
         get => (this._bitfield >> 19) & 0x1
         set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))

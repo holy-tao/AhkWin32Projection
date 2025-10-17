@@ -30,14 +30,6 @@ class NET_LUID_LH extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 0) & 0xFFFFFF
-            set => this._bitfield := ((value & 0xFFFFFF) << 0) | (this._bitfield & ~(0xFFFFFF << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         NetLuidIndex {
             get => (this._bitfield >> 24) & 0xFFFFFF
             set => this._bitfield := ((value & 0xFFFFFF) << 24) | (this._bitfield & ~(0xFFFFFF << 24))

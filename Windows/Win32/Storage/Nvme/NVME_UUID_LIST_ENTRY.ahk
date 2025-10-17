@@ -31,14 +31,6 @@ class NVME_UUID_LIST_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3F
-        set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
-    }
-
-    /**
      * @type {Array<Byte>}
      */
     Reserved1{

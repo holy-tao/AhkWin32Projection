@@ -61,14 +61,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0xFFF
-        set => this._bitfield := ((value & 0xFFF) << 3) | (this._bitfield & ~(0xFFF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CompliesWithSpec {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
@@ -141,14 +133,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield1 >> 5) & 0x3FF
-        set => this._bitfield1 := ((value & 0x3FF) << 5) | (this._bitfield1 & ~(0x3FF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CompliesWithSpec {
         get => (this._bitfield1 >> 15) & 0x1
         set => this._bitfield1 := ((value & 0x1) << 15) | (this._bitfield1 & ~(0x1 << 15))
@@ -213,14 +197,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield12 >> 5) & 0x3FF
-        set => this._bitfield12 := ((value & 0x3FF) << 5) | (this._bitfield12 & ~(0x3FF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CompliesWithSpec {
         get => (this._bitfield12 >> 15) & 0x1
         set => this._bitfield12 := ((value & 0x1) << 15) | (this._bitfield12 & ~(0x1 << 15))
@@ -253,14 +229,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     AttribDeallocateSupported {
         get => (this._bitfield123 >> 1) & 0x1
         set => this._bitfield123 := ((value & 0x1) << 1) | (this._bitfield123 & ~(0x1 << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield123 >> 2) & 0x1FFF
-        set => this._bitfield123 := ((value & 0x1FFF) << 2) | (this._bitfield123 & ~(0x1FFF << 2))
     }
 
     /**
@@ -321,14 +289,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield1234 >> 4) & 0x7FF
-        set => this._bitfield1234 := ((value & 0x7FF) << 4) | (this._bitfield1234 & ~(0x7FF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CompliesWithSpec {
         get => (this._bitfield1234 >> 15) & 0x1
         set => this._bitfield1234 := ((value & 0x1) << 15) | (this._bitfield1234 & ~(0x1 << 15))
@@ -352,14 +312,6 @@ class NVME_OCP_DEVICE_CAPABILITIES_LOG extends Win32Struct
     CWFusedSupported {
         get => (this._bitfield12345 >> 0) & 0x1
         set => this._bitfield12345 := ((value & 0x1) << 0) | (this._bitfield12345 & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield12345 >> 1) & 0x3FFF
-        set => this._bitfield12345 := ((value & 0x3FFF) << 1) | (this._bitfield12345 & ~(0x3FFF << 1))
     }
 
     /**

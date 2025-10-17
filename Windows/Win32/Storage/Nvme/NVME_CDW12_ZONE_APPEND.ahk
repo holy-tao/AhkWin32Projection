@@ -37,14 +37,6 @@ class NVME_CDW12_ZONE_APPEND extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 16) & 0x1FF
-        set => this._bitfield := ((value & 0x1FF) << 16) | (this._bitfield & ~(0x1FF << 16))
-    }
-
-    /**
-     * @type {Integer}
-     */
     PIREMAP {
         get => (this._bitfield >> 25) & 0x1
         set => this._bitfield := ((value & 0x1) << 25) | (this._bitfield & ~(0x1 << 25))

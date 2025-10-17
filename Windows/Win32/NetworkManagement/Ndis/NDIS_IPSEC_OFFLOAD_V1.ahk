@@ -158,14 +158,6 @@ class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x3
-            set => this._bitfield := ((value & 0x3) << 2) | (this._bitfield & ~(0x3 << 2))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         TripleDes {
             get => (this._bitfield >> 4) & 0x3
             set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))

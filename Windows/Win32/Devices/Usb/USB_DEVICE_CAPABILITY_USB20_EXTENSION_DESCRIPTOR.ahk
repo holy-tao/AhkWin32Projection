@@ -64,14 +64,6 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0x1
-        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     LPMCapable {
         get => (this._bitfield >> 1) & 0x1
         set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))

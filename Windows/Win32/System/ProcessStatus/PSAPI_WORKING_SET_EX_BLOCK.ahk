@@ -160,14 +160,6 @@ class PSAPI_WORKING_SET_EX_BLOCK extends Win32Struct
     /**
      * @type {Pointer}
      */
-    Reserved {
-        get => (this._bitfield >> 24) & 0x7F
-        set => this._bitfield := ((value & 0x7F) << 24) | (this._bitfield & ~(0x7F << 24))
-    }
-
-    /**
-     * @type {Pointer}
-     */
     Bad {
         get => (this._bitfield >> 31) & 0x1
         set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))

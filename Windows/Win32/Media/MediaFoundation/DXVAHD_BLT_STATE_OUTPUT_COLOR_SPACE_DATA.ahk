@@ -74,14 +74,6 @@ class DXVAHD_BLT_STATE_OUTPUT_COLOR_SPACE_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 4) & 0xFFFFFFF
-        set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Value {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

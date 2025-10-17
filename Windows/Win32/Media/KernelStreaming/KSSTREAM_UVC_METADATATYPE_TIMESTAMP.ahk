@@ -49,14 +49,6 @@ class KSSTREAM_UVC_METADATATYPE_TIMESTAMP extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 11) & 0x1F
-        set => this._bitfield := ((value & 0x1F) << 11) | (this._bitfield & ~(0x1F << 11))
-    }
-
-    /**
-     * @type {Integer}
-     */
     SCRToken {
         get => NumGet(this, 8, "ushort")
         set => NumPut("ushort", value, this, 8)

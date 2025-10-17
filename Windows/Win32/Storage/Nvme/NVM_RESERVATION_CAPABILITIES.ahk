@@ -87,14 +87,6 @@ class NVM_RESERVATION_CAPABILITIES extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 7) & 0x1
-        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

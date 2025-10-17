@@ -61,14 +61,6 @@ class PIC_SEQ_SAMPLE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 9) & 0x7FFFF
-        set => this._bitfield := ((value & 0x7FFFF) << 9) | (this._bitfield & ~(0x7FFFF << 9))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Version {
         get => (this._bitfield >> 28) & 0xF
         set => this._bitfield := ((value & 0xF) << 28) | (this._bitfield & ~(0xF << 28))

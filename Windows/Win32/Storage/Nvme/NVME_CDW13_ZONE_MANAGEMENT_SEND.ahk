@@ -42,14 +42,6 @@ class NVME_CDW13_ZONE_MANAGEMENT_SEND extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 9) & 0x7FFFFF
-        set => this._bitfield := ((value & 0x7FFFFF) << 9) | (this._bitfield & ~(0x7FFFFF << 9))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

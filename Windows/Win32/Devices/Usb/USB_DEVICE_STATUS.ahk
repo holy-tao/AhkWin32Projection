@@ -73,12 +73,4 @@ class USB_DEVICE_STATUS extends Win32Struct
         get => (this._bitfield >> 4) & 0x1
         set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FF
-        set => this._bitfield := ((value & 0x7FF) << 5) | (this._bitfield & ~(0x7FF << 5))
-    }
 }

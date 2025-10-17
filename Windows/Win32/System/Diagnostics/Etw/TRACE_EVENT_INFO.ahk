@@ -223,14 +223,6 @@ class TRACE_EVENT_INFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0xF
-        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Tags {
         get => (this._bitfield >> 4) & 0xFFFFFFF
         set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))

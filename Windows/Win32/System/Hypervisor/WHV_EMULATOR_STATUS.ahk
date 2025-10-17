@@ -114,14 +114,6 @@ class WHV_EMULATOR_STATUS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 10) & 0x3FFFFF
-        set => this._bitfield := ((value & 0x3FFFFF) << 10) | (this._bitfield & ~(0x3FFFFF << 10))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT32 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

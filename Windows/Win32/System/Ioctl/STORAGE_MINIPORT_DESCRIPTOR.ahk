@@ -150,14 +150,6 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3F
-        set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsBYTE {
         get => NumGet(this, 17, "char")
         set => NumPut("char", value, this, 17)

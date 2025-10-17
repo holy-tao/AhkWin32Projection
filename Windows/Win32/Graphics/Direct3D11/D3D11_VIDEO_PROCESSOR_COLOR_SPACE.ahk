@@ -211,13 +211,4 @@ class D3D11_VIDEO_PROCESSOR_COLOR_SPACE extends Win32Struct
         get => (this._bitfield >> 4) & 0x3
         set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
     }
-
-    /**
-     * Reserved. Set to zero.
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
-    }
 }

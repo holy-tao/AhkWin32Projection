@@ -44,14 +44,6 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
             set => this._bitfield := ((value & 0x7) << 8) | (this._bitfield & ~(0x7 << 8))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 11) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 11) | (this._bitfield & ~(0x1F << 11))
-        }
-    
     }
 
     /**

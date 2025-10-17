@@ -132,14 +132,6 @@ class ACTIVE_LATENCY_CONFIGURATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 12) & 0xF
-        set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUshort {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)

@@ -99,14 +99,6 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7
-        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     TimeCheck {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)

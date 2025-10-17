@@ -35,14 +35,6 @@ class NVME_CDW14_GET_LOG_PAGE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 7) & 0xFFFF
-        set => this._bitfield := ((value & 0xFFFF) << 7) | (this._bitfield & ~(0xFFFF << 7))
-    }
-
-    /**
-     * @type {Integer}
-     */
     OT {
         get => (this._bitfield >> 23) & 0x1
         set => this._bitfield := ((value & 0x1) << 23) | (this._bitfield & ~(0x1 << 23))

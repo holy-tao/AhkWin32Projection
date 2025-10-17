@@ -130,14 +130,6 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 4) & 0xF
-        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 46, "char")
         set => NumPut("char", value, this, 46)

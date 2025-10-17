@@ -66,15 +66,6 @@ class PROCESSOR_POWER_POLICY extends Win32Struct
     }
 
     /**
-     * Reserved; set to zero.
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-    }
-
-    /**
      * The number of elements in the <b>Policy</b> array.
      * @type {Integer}
      */

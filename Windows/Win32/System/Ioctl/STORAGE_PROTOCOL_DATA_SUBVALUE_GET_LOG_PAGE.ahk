@@ -60,14 +60,6 @@ class STORAGE_PROTOCOL_DATA_SUBVALUE_GET_LOG_PAGE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 15) & 0x1FFFF
-        set => this._bitfield := ((value & 0x1FFFF) << 15) | (this._bitfield & ~(0x1FFFF << 15))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

@@ -109,14 +109,6 @@ class DIMM_ADDRESS extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 32) & 0xFFFFFFFF
-            set => this._bitfield := ((value & 0xFFFFFFFF) << 32) | (this._bitfield & ~(0xFFFFFFFF << 32))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         Row {
             get => NumGet(this, 8, "uint")
             set => NumPut("uint", value, this, 8)
@@ -242,14 +234,6 @@ class DIMM_ADDRESS extends Win32Struct
         Dq {
             get => (this._bitfield >> 38) & 0x1F
             set => this._bitfield := ((value & 0x1F) << 38) | (this._bitfield & ~(0x1F << 38))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 43) & 0x1FFFFF
-            set => this._bitfield := ((value & 0x1FFFFF) << 43) | (this._bitfield & ~(0x1FFFFF << 43))
         }
     
         /**

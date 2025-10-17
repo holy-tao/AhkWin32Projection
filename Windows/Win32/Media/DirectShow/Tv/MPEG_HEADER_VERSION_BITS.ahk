@@ -42,13 +42,4 @@ class MPEG_HEADER_VERSION_BITS extends Win32Struct
         get => (this._bitfield >> 1) & 0x1F
         set => this._bitfield := ((value & 0x1F) << 1) | (this._bitfield & ~(0x1F << 1))
     }
-
-    /**
-     * Two reserved bits.
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3
-        set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
-    }
 }

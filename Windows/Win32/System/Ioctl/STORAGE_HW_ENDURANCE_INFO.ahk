@@ -34,14 +34,6 @@ class STORAGE_HW_ENDURANCE_INFO extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7FFFFFFF
-            set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-        }
-    
     }
 
     /**

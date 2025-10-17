@@ -51,14 +51,6 @@ class NVME_CDW11_DATASET_MANAGEMENT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1FFFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

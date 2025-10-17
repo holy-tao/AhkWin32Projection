@@ -44,14 +44,6 @@ class NVME_CDW10_RESERVATION_RELEASE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 4) & 0xF
-        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     RTYPE {
         get => (this._bitfield >> 8) & 0xFF
         set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))

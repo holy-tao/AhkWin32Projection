@@ -51,14 +51,6 @@ class NVME_GET_FEATURE_TIMESTAMP extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 52) & 0xFFF
-        set => this._bitfield := ((value & 0xFFF) << 52) | (this._bitfield & ~(0xFFF << 52))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlonglong {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)

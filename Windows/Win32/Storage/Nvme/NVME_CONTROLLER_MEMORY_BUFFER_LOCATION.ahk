@@ -34,14 +34,6 @@ class NVME_CONTROLLER_MEMORY_BUFFER_LOCATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1FF
-        set => this._bitfield := ((value & 0x1FF) << 3) | (this._bitfield & ~(0x1FF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     OFST {
         get => (this._bitfield >> 12) & 0xFFFFF
         set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))

@@ -209,12 +209,4 @@ class NDR64_PROC_FLAGS extends Win32Struct
         get => (this._bitfield >> 26) & 0x1
         set => this._bitfield := ((value & 0x1) << 26) | (this._bitfield & ~(0x1 << 26))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 27) & 0x1F
-        set => this._bitfield := ((value & 0x1F) << 27) | (this._bitfield & ~(0x1F << 27))
-    }
 }

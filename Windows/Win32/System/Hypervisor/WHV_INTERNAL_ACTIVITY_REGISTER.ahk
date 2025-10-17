@@ -51,14 +51,6 @@ class WHV_INTERNAL_ACTIVITY_REGISTER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1FFFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFFFFFFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFFFFFFFFFF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

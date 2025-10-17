@@ -34,14 +34,6 @@ class NVMEOF_PROPERTY_SET_COMMAND extends Win32Struct
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
-        }
-    
     }
 
     /**

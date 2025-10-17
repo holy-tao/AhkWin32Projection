@@ -60,14 +60,6 @@ class NVME_OCP_DEVICE_TCG_CONFIGURATION_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 4) & 0xF
-        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

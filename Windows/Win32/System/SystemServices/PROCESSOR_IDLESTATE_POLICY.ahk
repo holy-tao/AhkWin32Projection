@@ -59,14 +59,6 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3FFF
-        set => this._bitfield := ((value & 0x3FFF) << 2) | (this._bitfield & ~(0x3FFF << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     PolicyCount {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)

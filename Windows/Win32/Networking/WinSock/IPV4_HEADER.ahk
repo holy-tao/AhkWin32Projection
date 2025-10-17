@@ -147,14 +147,6 @@ class IPV4_HEADER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield12 >> 7) & 0x1
-        set => this._bitfield12 := ((value & 0x1) << 7) | (this._bitfield12 & ~(0x1 << 7))
-    }
-
-    /**
-     * @type {Integer}
-     */
     DontUse2 {
         get => (this._bitfield12 >> 8) & 0xFF
         set => this._bitfield12 := ((value & 0xFF) << 8) | (this._bitfield12 & ~(0xFF << 8))

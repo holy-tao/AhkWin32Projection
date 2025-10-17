@@ -78,14 +78,6 @@ class NVME_CDW10_FORMAT_NVM extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 14) & 0x3FFFF
-        set => this._bitfield := ((value & 0x3FFFF) << 14) | (this._bitfield & ~(0x3FFFF << 14))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

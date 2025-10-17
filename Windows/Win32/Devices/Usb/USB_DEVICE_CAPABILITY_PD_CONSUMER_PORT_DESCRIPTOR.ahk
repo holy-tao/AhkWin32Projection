@@ -91,14 +91,6 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1FFF
-        set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
-    }
-
-    /**
-     * @type {Integer}
-     */
     wMinVoltage {
         get => NumGet(this, 6, "ushort")
         set => NumPut("ushort", value, this, 6)

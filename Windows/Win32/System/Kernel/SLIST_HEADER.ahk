@@ -56,14 +56,6 @@ class SLIST_HEADER extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield2 >> 0) & 0xF
-            set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         NextEntry {
             get => (this._bitfield2 >> 4) & 0xFFFFFFFFFFFFFFF
             set => this._bitfield2 := ((value & 0xFFFFFFFFFFFFFFF) << 4) | (this._bitfield2 & ~(0xFFFFFFFFFFFFFFF << 4))

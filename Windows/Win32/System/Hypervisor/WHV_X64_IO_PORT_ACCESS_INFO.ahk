@@ -60,14 +60,6 @@ class WHV_X64_IO_PORT_ACCESS_INFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT32 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

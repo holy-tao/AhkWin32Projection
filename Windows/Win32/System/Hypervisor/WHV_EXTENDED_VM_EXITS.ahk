@@ -159,14 +159,6 @@ class WHV_EXTENDED_VM_EXITS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 15) & 0x1FFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFFFFFFFF) << 15) | (this._bitfield & ~(0x1FFFFFFFFFFFF << 15))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

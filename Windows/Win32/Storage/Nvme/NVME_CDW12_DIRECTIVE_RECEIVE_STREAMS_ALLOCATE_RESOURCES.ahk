@@ -33,14 +33,6 @@ class NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES extends Win32Struc
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 16) & 0xFFFF
-        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUlong {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

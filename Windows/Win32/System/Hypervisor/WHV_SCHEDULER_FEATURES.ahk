@@ -69,14 +69,6 @@ class WHV_SCHEDULER_FEATURES extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFFFFFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFFFFFFFFFF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

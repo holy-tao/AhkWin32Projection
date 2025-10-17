@@ -102,12 +102,4 @@ class IMPORT_OBJECT_HEADER extends Win32Struct
         get => (this._bitfield >> 2) & 0x7
         set => this._bitfield := ((value & 0x7) << 2) | (this._bitfield & ~(0x7 << 2))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FF
-        set => this._bitfield := ((value & 0x7FF) << 5) | (this._bitfield & ~(0x7FF << 5))
-    }
 }

@@ -69,14 +69,6 @@ class NVME_HEALTH_INFO_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7
-        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

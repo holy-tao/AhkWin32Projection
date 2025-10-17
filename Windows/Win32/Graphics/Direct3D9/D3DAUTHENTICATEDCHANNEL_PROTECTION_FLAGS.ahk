@@ -42,14 +42,6 @@ class D3DAUTHENTICATEDCHANNEL_PROTECTION_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3FFFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Value {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

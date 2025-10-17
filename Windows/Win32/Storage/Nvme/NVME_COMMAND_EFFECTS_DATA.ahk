@@ -78,14 +78,6 @@ class NVME_COMMAND_EFFECTS_DATA extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FF
-        set => this._bitfield := ((value & 0x7FF) << 5) | (this._bitfield & ~(0x7FF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CSE {
         get => (this._bitfield >> 16) & 0x7
         set => this._bitfield := ((value & 0x7) << 16) | (this._bitfield & ~(0x7 << 16))

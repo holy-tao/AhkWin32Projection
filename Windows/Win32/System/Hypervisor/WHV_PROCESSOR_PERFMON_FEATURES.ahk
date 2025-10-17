@@ -42,14 +42,6 @@ class WHV_PROCESSOR_PERFMON_FEATURES extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3FFFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFFFFFFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFFFFFFFFFF << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

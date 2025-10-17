@@ -78,14 +78,6 @@ class NVME_WCS_DEVICE_RESET_ACTION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3
-        set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUCHAR {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

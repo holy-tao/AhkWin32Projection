@@ -42,14 +42,6 @@ class XPF_MC_BANK_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3F
-        set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUCHAR {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)

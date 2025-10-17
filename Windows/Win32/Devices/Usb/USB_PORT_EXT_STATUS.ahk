@@ -64,12 +64,4 @@ class USB_PORT_EXT_STATUS extends Win32Struct
         get => (this._bitfield >> 12) & 0xF
         set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 16) & 0xFFFF
-        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
-    }
 }

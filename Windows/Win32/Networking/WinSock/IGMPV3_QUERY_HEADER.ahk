@@ -114,14 +114,6 @@ class IGMPV3_QUERY_HEADER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield1 >> 4) & 0xF
-        set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
-    }
-
-    /**
-     * @type {Integer}
-     */
     QueriersQueryInterfaceCode {
         get => NumGet(this, 9, "char")
         set => NumPut("char", value, this, 9)

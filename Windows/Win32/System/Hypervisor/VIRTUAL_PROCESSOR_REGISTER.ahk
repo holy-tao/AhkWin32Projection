@@ -165,14 +165,6 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 8) & 0xF
-            set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         Available {
             get => (this._bitfield >> 12) & 0x1
             set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))

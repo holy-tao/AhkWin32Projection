@@ -303,14 +303,6 @@ class WHV_PROCESSOR_XSAVE_FEATURES extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 31) & 0x1FFFFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFFFF) << 31) | (this._bitfield & ~(0x1FFFFFFFF << 31))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

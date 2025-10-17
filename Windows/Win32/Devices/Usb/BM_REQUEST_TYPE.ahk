@@ -39,14 +39,6 @@ class BM_REQUEST_TYPE extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x7
-            set => this._bitfield := ((value & 0x7) << 2) | (this._bitfield & ~(0x7 << 2))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         Type {
             get => (this._bitfield >> 5) & 0x3
             set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))

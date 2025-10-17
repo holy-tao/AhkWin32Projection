@@ -43,14 +43,6 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 2) & 0x3F
-            set => this._bitfield := ((value & 0x3F) << 2) | (this._bitfield & ~(0x3F << 2))
-        }
-    
     }
 
     /**

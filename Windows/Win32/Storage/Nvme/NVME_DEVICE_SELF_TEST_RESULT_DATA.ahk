@@ -94,14 +94,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 4) & 0xF
-            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
-        }
-    
     }
 
     class _StatusCodeType extends Win32Struct {
@@ -125,14 +117,6 @@ class NVME_DEVICE_SELF_TEST_RESULT_DATA extends Win32Struct
         AdditionalInfo {
             get => (this._bitfield >> 0) & 0x7
             set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1F
-            set => this._bitfield := ((value & 0x1F) << 3) | (this._bitfield & ~(0x1F << 3))
         }
     
     }

@@ -359,14 +359,6 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7F
-        set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUchar {
         get => NumGet(this, 468, "char")
         set => NumPut("char", value, this, 468)

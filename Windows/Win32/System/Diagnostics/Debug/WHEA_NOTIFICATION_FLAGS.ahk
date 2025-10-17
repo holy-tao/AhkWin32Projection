@@ -69,14 +69,6 @@ class WHEA_NOTIFICATION_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FF
-        set => this._bitfield := ((value & 0x7FF) << 5) | (this._bitfield & ~(0x7FF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUSHORT {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)

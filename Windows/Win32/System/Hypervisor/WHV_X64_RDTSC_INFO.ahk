@@ -33,14 +33,6 @@ class WHV_X64_RDTSC_INFO extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFFFFFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFFFFFFFFFF << 1))
-    }
-
-    /**
-     * @type {Integer}
-     */
     AsUINT64 {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

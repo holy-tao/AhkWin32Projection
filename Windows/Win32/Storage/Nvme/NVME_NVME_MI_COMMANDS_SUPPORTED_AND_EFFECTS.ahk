@@ -76,14 +76,6 @@ class NVME_NVME_MI_COMMANDS_SUPPORTED_AND_EFFECTS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FFF
-        set => this._bitfield := ((value & 0x7FFF) << 5) | (this._bitfield & ~(0x7FFF << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     CSPNamespace {
         get => (this._bitfield >> 20) & 0x1
         set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))

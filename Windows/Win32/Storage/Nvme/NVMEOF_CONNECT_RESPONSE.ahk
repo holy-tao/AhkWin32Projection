@@ -63,14 +63,6 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1FFF
-            set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         AsUshort {
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)

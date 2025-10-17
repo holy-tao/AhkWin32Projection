@@ -123,14 +123,6 @@ class HIDP_KEYBOARD_MODIFIER_STATE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 11) & 0x1FFFFF
-        set => this._bitfield := ((value & 0x1FFFFF) << 11) | (this._bitfield & ~(0x1FFFFF << 11))
-    }
-
-    /**
-     * @type {Integer}
-     */
     ul {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)

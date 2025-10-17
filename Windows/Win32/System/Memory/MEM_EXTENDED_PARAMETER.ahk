@@ -36,14 +36,6 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 8) & 0xFFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0xFFFFFFFFFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFFFFFFFFFF << 8))
-    }
-
-    /**
-     * @type {Integer}
-     */
     ULong64 {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)

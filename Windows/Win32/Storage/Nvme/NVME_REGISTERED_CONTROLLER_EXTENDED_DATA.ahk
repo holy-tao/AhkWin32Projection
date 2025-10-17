@@ -34,14 +34,6 @@ class NVME_REGISTERED_CONTROLLER_EXTENDED_DATA extends Win32Struct
             set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 1) & 0x7F
-            set => this._bitfield := ((value & 0x7F) << 1) | (this._bitfield & ~(0x7F << 1))
-        }
-    
     }
 
     /**

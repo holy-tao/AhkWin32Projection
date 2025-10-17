@@ -52,14 +52,6 @@ class WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FFFFFFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFFFFFF << 6))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Sint {
         get => (this._bitfield >> 48) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 48) | (this._bitfield & ~(0xFFFF << 48))

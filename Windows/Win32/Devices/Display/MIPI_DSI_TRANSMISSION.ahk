@@ -94,14 +94,6 @@ class MIPI_DSI_TRANSMISSION extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FF
-        set => this._bitfield := ((value & 0x3FF) << 6) | (this._bitfield & ~(0x3FF << 6))
-    }
-
-    /**
-     * @type {Integer}
-     */
     ReadWordCount {
         get => NumGet(this, 8, "ushort")
         set => NumPut("ushort", value, this, 8)

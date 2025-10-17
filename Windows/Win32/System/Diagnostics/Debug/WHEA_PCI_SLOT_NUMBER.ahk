@@ -43,14 +43,6 @@ class WHEA_PCI_SLOT_NUMBER extends Win32Struct
             set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
         }
     
-        /**
-         * @type {Integer}
-         */
-        Reserved {
-            get => (this._bitfield >> 8) & 0xFFFFFF
-            set => this._bitfield := ((value & 0xFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFF << 8))
-        }
-    
     }
 
     /**

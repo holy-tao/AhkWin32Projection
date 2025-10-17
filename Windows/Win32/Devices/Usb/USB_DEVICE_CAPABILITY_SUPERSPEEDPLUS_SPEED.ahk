@@ -70,14 +70,6 @@ class USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 8) & 0x3F
-        set => this._bitfield := ((value & 0x3F) << 8) | (this._bitfield & ~(0x3F << 8))
-    }
-
-    /**
-     * @type {Integer}
-     */
     LinkProtocol {
         get => (this._bitfield >> 14) & 0x3
         set => this._bitfield := ((value & 0x3) << 14) | (this._bitfield & ~(0x3 << 14))
