@@ -25,7 +25,7 @@ palette[3] := 0x00FF0000    ;Blue
 ;Set up CHOOSECOLORW options
 chooseColor := CHOOSECOLORW()
 chooseColor.lStructSize := CHOOSECOLORW.sizeof
-chooseColor.hwndOwner := mainGui.Hwnd
+chooseColor.hwndOwner.value := mainGui.Hwnd
 chooseColor.rgbResult := 0x00F9F9F9
 chooseColor.lpCustColors := palette.ptr
 chooseColor.flags := CHOOSECOLOR_FLAGS.CC_RGBINIT | CHOOSECOLOR_FLAGS.CC_SOLIDCOLOR

@@ -38,6 +38,9 @@ class TextFileServer {
         "html", "text/html"
     )
 
+    /**
+     * @type {SOCKET}
+     */
     socket := unset
 
     port := unset
@@ -83,12 +86,17 @@ class TextFileServer {
             this.SendResponse(client, response)
         }
         catch Error as err{
-            errResponse := HttpResponse.ServerError(err)
-            this.SendResponse(client, errResponse)
+            if(!(err is OSError && err.number == WSA_ERROR.WSAEWOULDBLOCK)){
+                FileAppend(Format("{1}: {2}`n`t(Specifically: {3})`n", Type(Err), err.Message, err.Extra), "*")
+                FileAppend(err.Stack . "`n", "*")
+
+                errResponse := HttpResponse.ServerError(err)
+                this.SendResponse(client, errResponse)
+            }
         }
         finally{
             WinSock.shutdown(client, WINSOCK_SHUTDOWN_HOW.SD_BOTH)
-            WinSock.closesocket(client)
+            client.Free()
         }
     }
 
@@ -159,7 +167,7 @@ class TextFileServer {
         
         while(responsePtr < responseBuffer.size){
             len := Min(chunkSize, responseBuffer.Size - responsePtr)
-            bytesSent := WinSock.send(client, responseBuffer.ptr + responsePtr, len, 0)
+            bytesSent := WinSock.send(client.value, responseBuffer.ptr + responsePtr, len, 0)
 
             if(bytesSent == WinSock.SOCKET_ERROR){
                 throw OSError(WinSock.WSAGetLastError(), , "WinSock.send()")
@@ -189,7 +197,7 @@ class TextFileServer {
                 clientAddr := SOCKADDR()
                 client := WinSock.accept(this.socket, clientAddr, &tmp := SOCKADDR.sizeof)
 
-                if(client == WinSock.INVALID_SOCKET){
+                if(!client.valid){
                     throw OSError(WinSock.WSAGetLastError(), , "WinSock.accept()")
                 }
             }
@@ -274,7 +282,9 @@ class TextFileServer {
      * Cleanup the server when the object is disposed of
      */
     __Delete(){
-        WinSock.closesocket(this.socket)
+        ; Calling Free() sets the value to an invalid value, which 
+        ; prevents __Delete from double-freeing the resource
+        this.socket.Free()  
 
         ; Shut down WSA
         rc := WinSock.WSACleanup()
