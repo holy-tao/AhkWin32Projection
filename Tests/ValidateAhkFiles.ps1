@@ -33,4 +33,7 @@ $failures = $Files | ForEach-Object -Parallel {
 } -ThrottleLimit 5 | Measure-Object -Sum | Select-Object -ExpandProperty Sum
 
 Write-Output "Done. $failures files had errors or warnings"
-exit $failures> 0
+if($failures -gt 0){
+    exit 1
+}
+exit 0
