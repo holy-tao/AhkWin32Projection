@@ -30,4 +30,18 @@ class Win32HandleTests {
         Yunit.Assert((val := test.Value) == 0, Format("Expected 0 but got {1}", val))
     }
 
+    Clone_Owned_TransfersOwnership(){
+        test := HWND(), test.owned := true
+
+        clone := test.Clone()
+
+        YUnit.Assert(clone.owned)
+        YUnit.Assert(!test.owned)
+    }
+
+    Clone_Unowned_ThrowsError(){
+        test := HWND(), test.owned := false
+
+        Assert.Throws(() => test.Clone(), Error)
+    }
 }
