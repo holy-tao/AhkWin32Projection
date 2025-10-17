@@ -31,6 +31,9 @@ With rich IntelliSense features and full documentation directly in your IDE:
   - [Structs](#structs)
     - [Creating Structs](#creating-structs)
     - [Arrays](#arrays)
+      - [String Members](#string-members)
+    - [Handles](#handles)
+      - [Handle Ownership](#handle-ownership)
     - [Other Notes](#other-notes)
   - [Enums and Constants](#enums-and-constants)
   - [Methods](#methods)
@@ -169,8 +172,22 @@ lpLogFont.lfFaceName := "Papyrus"
 ```
 String property getters and setters handle [string encoding](https://www.autohotkey.com/docs/v2/Concepts.htm#string-encoding) automatically. Note that unlike with generated methods, it is not yet possible to pass string pointers to string property getters.
 
+### Handles
+Handles like `HINSTANCE`, when detected in the metadata, are wrapped in the [`Win32Handle`](./Win32Handle.ahk) type. `Win32Handle` instances are structs with one pointer-sized member. Handles that are owned by the script are freed automatically when they [fall out of scope](https://www.autohotkey.com/docs/v2/Objects.htm#Refs) in your script.
+
+APIs which return handles will automatically wrap their return values in the appropriate `Win32Handle` derivative type. APIs that accept handles as parameters will automatically unwrap handles when passed them. You can access the underlying value of the handle with the `value` property.
+
+#### Handle Ownership
+Handles created by your scripts via `__New` are automatically owned by your script. Similarly, handles in structs created by your script are automatically owned by your script. Most handles returned from APIs are also owned by your script, but this is not guaranteed.
+
+> [!CAUTION]
+> You should not manually change a handle's ownership, as this can cause memory leaks. If an API generates an owned handle when it should be unowned, or vice versa, please write an [issue](https://github.com/holy-tao/AhkWin32Projection/issues).
+
+Cloning an owned handle transfers ownership from the owned handle to the new clone. Like with embedded structs, this can be used to extract handle values from memory which would otherwise be freed. Cloning an unowned handle is an error.
+
+
 ### Other Notes
-- Handles, pointers (including function pointers and COM interface pointers), and "pseudo-primitives" structs like `CHAR` and `HWND` (also known as NativeTypeDefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
+-  Function pointers, COM interface pointers, and "pseudo-primitive" structs like `CHAR` and `HWND` (also known as NativeTypedefs; these are wrapper structs with a single member) have no special handling in generated struct proxies, and are exposed as pure Integers.
   - For COM interfaces, use [`ComObjFromPtr`](https://www.autohotkey.com/docs/v2/lib/ComObjFromPtr.htm) and [`ComObjQuery`](https://www.autohotkey.com/docs/v2/lib/ComObjQuery.htm) to use native AutoHotkey COM functionality.
   - Use [`CallbackCreate`](https://www.autohotkey.com/docs/v2/lib/CallbackCreate.htm) to create function pointers
 - [Unions](https://www.w3schools.com/c/c_unions.php), unlike embedded structs, are flattened. Struct proxies that contain union types will have multiple members at the same offset; in this case, only one can be valid at a time.
