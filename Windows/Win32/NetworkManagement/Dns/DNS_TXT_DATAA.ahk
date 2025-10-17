@@ -44,7 +44,7 @@ class DNS_TXT_DATAA extends Win32Struct
     pStringArray{
         get {
             if(!this.HasProp("__pStringArrayProxyArray"))
-                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, PSTR, "")
+                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char*")
             return this.__pStringArrayProxyArray
         }
     }

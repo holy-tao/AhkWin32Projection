@@ -20,7 +20,7 @@ class ADS_POSTALADDRESS extends Win32Struct
     PostalAddress{
         get {
             if(!this.HasProp("__PostalAddressProxyArray"))
-                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, PWSTR, "")
+                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char*")
             return this.__PostalAddressProxyArray
         }
     }

@@ -41,7 +41,7 @@ class SSL_HPKP_HEADER_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
     rgpszHpkpValue{
         get {
             if(!this.HasProp("__rgpszHpkpValueProxyArray"))
-                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, PSTR, "")
+                this.__rgpszHpkpValueProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char*")
             return this.__rgpszHpkpValueProxyArray
         }
     }

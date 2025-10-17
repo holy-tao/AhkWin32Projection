@@ -259,7 +259,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 140, 16, COLORREF, "")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 140, 16, Primitive, "uint")
             return this.__ColorTableProxyArray
         }
     }

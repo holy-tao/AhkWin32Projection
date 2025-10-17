@@ -83,7 +83,7 @@ class D3D10_BLEND_DESC extends Win32Struct
     BlendEnable{
         get {
             if(!this.HasProp("__BlendEnableProxyArray"))
-                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 8, BOOL, "")
+                this.__BlendEnableProxyArray := Win32FixedArray(this.ptr + 4, 8, Primitive, "int")
             return this.__BlendEnableProxyArray
         }
     }
