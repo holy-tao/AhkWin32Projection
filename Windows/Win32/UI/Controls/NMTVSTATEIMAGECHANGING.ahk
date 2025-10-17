@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 
 /**
@@ -24,7 +25,7 @@ class NMTVSTATEIMAGECHANGING extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -33,7 +34,7 @@ class NMTVSTATEIMAGECHANGING extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the tree-view item whose state image is changing.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hti {
         get => NumGet(this, 24, "ptr")

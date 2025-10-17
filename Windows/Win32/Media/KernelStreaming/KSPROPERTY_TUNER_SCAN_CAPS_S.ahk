@@ -18,13 +18,13 @@ class KSPROPERTY_TUNER_SCAN_CAPS_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSupportsHardwareAssistedScanning {
         get => NumGet(this, 16, "int")

@@ -18,13 +18,13 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     HRDSSSAttributes{
         get {
             if(!this.HasProp("__HRDSSSAttributes"))
-                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(this.ptr + 0)
+                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(0, this)
             return this.__HRDSSSAttributes
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bERPPBCCOptionImplemented {
         get => NumGet(this, 8, "char")
@@ -32,7 +32,7 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDSSSOFDMOptionImplemented {
         get => NumGet(this, 9, "char")
@@ -40,7 +40,7 @@ class DOT11_ERP_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bShortSlotTimeOptionImplemented {
         get => NumGet(this, 10, "char")

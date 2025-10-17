@@ -48,7 +48,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * This parameter must be set to FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fReserved {
         get => NumGet(this, 4, "int")
@@ -109,7 +109,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * Specifies whether to display the keyword in the Index tab of the HTML Help Viewer if the lookup fails. The value of <i>pszWindow</i> specifies the Help Viewer.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIndexOnFail {
         get => NumGet(this, 48, "int")

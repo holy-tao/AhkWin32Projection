@@ -30,7 +30,7 @@ class DNS_NXT_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the name of the next domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pNameNext {
         get => NumGet(this, 0, "ptr")

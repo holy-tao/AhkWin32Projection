@@ -20,7 +20,7 @@ class DEVICE_DSM_DEFINITION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SingleRange {
         get => NumGet(this, 4, "char")
@@ -44,7 +44,7 @@ class DEVICE_DSM_DEFINITION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HasOutput {
         get => NumGet(this, 16, "char")

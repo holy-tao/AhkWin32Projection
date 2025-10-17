@@ -20,10 +20,48 @@ class USB_PORT_EXT_STATUS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - RxSublinkSpeedID
+     * - TxSublinkSpeedID
+     * - RxLaneCount
+     * - TxLaneCount
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RxSublinkSpeedID {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TxSublinkSpeedID {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RxLaneCount {
+        get => (this._bitfield >> 8) & 0xF
+        set => this._bitfield := ((value & 0xF) << 8) | (this._bitfield & ~(0xF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TxLaneCount {
+        get => (this._bitfield >> 12) & 0xF
+        set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
     }
 }

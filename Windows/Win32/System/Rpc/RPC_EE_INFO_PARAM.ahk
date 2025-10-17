@@ -43,7 +43,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     AnsiString {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UnicodeString {
         get => NumGet(this, 8, "ptr")
@@ -88,7 +88,7 @@ class RPC_EE_INFO_PARAM extends Win32Struct
     BVal{
         get {
             if(!this.HasProp("__BVal"))
-                this.__BVal := BinaryParam(this.ptr + 8)
+                this.__BVal := BinaryParam(8, this)
             return this.__BVal
         }
     }

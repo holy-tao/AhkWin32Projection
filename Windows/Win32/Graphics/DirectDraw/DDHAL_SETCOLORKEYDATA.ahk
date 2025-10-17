@@ -42,7 +42,7 @@ class DDHAL_SETCOLORKEYDATA extends Win32Struct
     ckNew{
         get {
             if(!this.HasProp("__ckNew"))
-                this.__ckNew := DDCOLORKEY(this.ptr + 24)
+                this.__ckNew := DDCOLORKEY(24, this)
             return this.__ckNew
         }
     }

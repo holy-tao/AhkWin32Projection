@@ -12,7 +12,7 @@ class D3DRASTER_STATUS extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InVBlank {
         get => NumGet(this, 0, "int")

@@ -130,7 +130,7 @@ class FILE_STAT_BASIC_INFORMATION extends Win32Struct
     FileId128{
         get {
             if(!this.HasProp("__FileId128"))
-                this.__FileId128 := FILE_ID_128(this.ptr + 88)
+                this.__FileId128 := FILE_ID_128(88, this)
             return this.__FileId128
         }
     }

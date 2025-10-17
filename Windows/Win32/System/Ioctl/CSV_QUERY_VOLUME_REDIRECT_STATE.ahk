@@ -28,7 +28,7 @@ class CSV_QUERY_VOLUME_REDIRECT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsDiskConnected {
         get => NumGet(this, 8, "char")
@@ -36,7 +36,7 @@ class CSV_QUERY_VOLUME_REDIRECT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ClusterEnableDirectIo {
         get => NumGet(this, 9, "char")

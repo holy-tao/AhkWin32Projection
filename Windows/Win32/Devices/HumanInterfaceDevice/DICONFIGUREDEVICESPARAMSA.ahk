@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\DICOLORSET.ahk
 
 /**
@@ -30,7 +31,7 @@ class DICONFIGUREDEVICESPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lptszUserNames {
         get => NumGet(this, 8, "ptr")
@@ -54,11 +55,14 @@ class DICONFIGUREDEVICESPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(32, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -67,7 +71,7 @@ class DICONFIGUREDEVICESPARAMSA extends Win32Struct
     dics{
         get {
             if(!this.HasProp("__dics"))
-                this.__dics := DICOLORSET(this.ptr + 40)
+                this.__dics := DICOLORSET(40, this)
             return this.__dics
         }
     }

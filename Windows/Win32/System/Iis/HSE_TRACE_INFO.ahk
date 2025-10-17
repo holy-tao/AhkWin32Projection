@@ -12,7 +12,7 @@ class HSE_TRACE_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTraceRequest {
         get => NumGet(this, 0, "int")

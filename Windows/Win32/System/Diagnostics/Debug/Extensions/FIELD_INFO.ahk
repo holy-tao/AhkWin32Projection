@@ -119,7 +119,7 @@ class FIELD_INFO extends Win32Struct
     BitField{
         get {
             if(!this.HasProp("__BitField"))
-                this.__BitField := %this.__Class%._BitField(this.ptr + 52)
+                this.__BitField := %this.__Class%._BitField(52, this)
             return this.__BitField
         }
     }
@@ -177,13 +177,5 @@ class FIELD_INFO extends Win32Struct
     fStatic {
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 6) & 0x3FFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFF) << 6) | (this._bitfield & ~(0x3FFFFFF << 6))
     }
 }

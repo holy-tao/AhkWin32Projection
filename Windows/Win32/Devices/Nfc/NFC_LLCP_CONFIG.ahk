@@ -44,7 +44,7 @@ class NFC_LLCP_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fAutoActivate {
         get => NumGet(this, 6, "char")

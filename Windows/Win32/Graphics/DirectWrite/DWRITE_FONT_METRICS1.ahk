@@ -31,7 +31,7 @@ class DWRITE_FONT_METRICS1 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_FONT_METRICS(this.ptr + 0)
+                this.__Base := DWRITE_FONT_METRICS(0, this)
             return this.__Base
         }
     }
@@ -146,7 +146,7 @@ class DWRITE_FONT_METRICS1 extends Win32Struct
 
     /**
      * A Boolean value that indicates that the ascent, descent, and lineGap are based on newer 'typographic' values in the font, rather than legacy values.
-     * @type {Integer}
+     * @type {BOOL}
      */
     hasTypographicMetrics {
         get => NumGet(this, 44, "int")

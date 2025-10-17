@@ -33,7 +33,7 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The ID of the cluster resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszId {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszName {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster resource that  hosts the group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszOwnerGroupName {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class CLUSTER_RESOURCE_ENUM_ITEM extends Win32Struct
 
     /**
      * The group ID of the cluster group for the resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszOwnerGroupId {
         get => NumGet(this, 56, "ptr")

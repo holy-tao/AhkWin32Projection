@@ -19,7 +19,7 @@ class NETLOGON_GENERIC_INFO extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(this.ptr + 0)
+                this.__Identity := NETLOGON_LOGON_IDENTITY_INFO(0, this)
             return this.__Identity
         }
     }
@@ -30,7 +30,7 @@ class NETLOGON_GENERIC_INFO extends Win32Struct
     PackageName{
         get {
             if(!this.HasProp("__PackageName"))
-                this.__PackageName := LSA_UNICODE_STRING(this.ptr + 64)
+                this.__PackageName := LSA_UNICODE_STRING(64, this)
             return this.__PackageName
         }
     }

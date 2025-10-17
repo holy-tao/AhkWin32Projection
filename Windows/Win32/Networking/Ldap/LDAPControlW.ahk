@@ -33,7 +33,7 @@ class LDAPControlW extends Win32Struct
 
     /**
      * Pointer to a wide, null-terminated string that indicates  control type, such as "1.2.840.113556.1.4.805".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ldctl_oid {
         get => NumGet(this, 0, "ptr")
@@ -47,14 +47,14 @@ class LDAPControlW extends Win32Struct
     ldctl_value{
         get {
             if(!this.HasProp("__ldctl_value"))
-                this.__ldctl_value := LDAP_BERVAL(this.ptr + 8)
+                this.__ldctl_value := LDAP_BERVAL(8, this)
             return this.__ldctl_value
         }
     }
 
     /**
      * Indicates whether the control is critical, called the Criticality field.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ldctl_iscritical {
         get => NumGet(this, 24, "char")

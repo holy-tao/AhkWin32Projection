@@ -18,7 +18,7 @@ class DWRITE_PAINT_COLOR extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := DWRITE_COLOR_F(this.ptr + 0)
+                this.__value := DWRITE_COLOR_F(0, this)
             return this.__value
         }
     }

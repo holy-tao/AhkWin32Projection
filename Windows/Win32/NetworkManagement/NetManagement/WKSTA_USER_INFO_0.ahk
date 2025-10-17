@@ -17,7 +17,7 @@ class WKSTA_USER_INFO_0 extends Win32Struct
      * Specifies the name of the user currently logged on to the workstation.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui0_username {
         get => NumGet(this, 0, "ptr")

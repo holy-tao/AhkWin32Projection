@@ -12,7 +12,7 @@ class KSAUDIO_COPY_PROTECTION extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCopyrighted {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class KSAUDIO_COPY_PROTECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOriginal {
         get => NumGet(this, 4, "int")

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -18,7 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     omac{
         get {
             if(!this.HasProp("__omac"))
-                this.__omac := D3D_OMAC(this.ptr + 0)
+                this.__omac := D3D_OMAC(0, this)
             return this.__omac
         }
     }
@@ -32,11 +33,14 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hChannel {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hChannel{
+        get {
+            if(!this.HasProp("__hChannel"))
+                this.__hChannel := HANDLE(24, this)
+            return this.__hChannel
+        }
     }
 
     /**

@@ -12,11 +12,22 @@ class NVME_CDW11_RESERVATION_REPORT extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - EDS
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EDS {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

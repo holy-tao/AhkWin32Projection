@@ -22,7 +22,7 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
     ClientConnectInfo{
         get {
             if(!this.HasProp("__ClientConnectInfo"))
-                this.__ClientConnectInfo := WTSSBX_MACHINE_CONNECT_INFO(this.ptr + 0)
+                this.__ClientConnectInfo := WTSSBX_MACHINE_CONNECT_INFO(0, this)
             return this.__ClientConnectInfo
         }
     }
@@ -43,7 +43,7 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
     InternalIPAddress{
         get {
             if(!this.HasProp("__InternalIPAddress"))
-                this.__InternalIPAddress := WTSSBX_IP_ADDRESS(this.ptr + 1168)
+                this.__InternalIPAddress := WTSSBX_IP_ADDRESS(1168, this)
             return this.__InternalIPAddress
         }
     }

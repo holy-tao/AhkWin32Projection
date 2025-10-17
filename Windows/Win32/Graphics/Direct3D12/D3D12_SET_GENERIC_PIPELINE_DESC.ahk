@@ -18,7 +18,7 @@ class D3D12_SET_GENERIC_PIPELINE_DESC extends Win32Struct
     ProgramIdentifier{
         get {
             if(!this.HasProp("__ProgramIdentifier"))
-                this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(this.ptr + 0)
+                this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(0, this)
             return this.__ProgramIdentifier
         }
     }

@@ -20,7 +20,7 @@ class HH_SET_INFOTYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCatName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HH_SET_INFOTYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszInfoTypeName {
         get => NumGet(this, 16, "ptr")

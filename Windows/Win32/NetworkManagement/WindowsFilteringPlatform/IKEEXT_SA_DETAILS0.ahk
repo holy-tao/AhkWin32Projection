@@ -49,9 +49,9 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
-    Anonymous {
+    v4UdpEncapsulation {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
@@ -63,7 +63,7 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     ikeTraffic{
         get {
             if(!this.HasProp("__ikeTraffic"))
-                this.__ikeTraffic := IKEEXT_TRAFFIC0(this.ptr + 24)
+                this.__ikeTraffic := IKEEXT_TRAFFIC0(24, this)
             return this.__ikeTraffic
         }
     }
@@ -75,7 +75,7 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     ikeProposal{
         get {
             if(!this.HasProp("__ikeProposal"))
-                this.__ikeProposal := IKEEXT_PROPOSAL0(this.ptr + 72)
+                this.__ikeProposal := IKEEXT_PROPOSAL0(72, this)
             return this.__ikeProposal
         }
     }
@@ -87,7 +87,7 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     cookiePair{
         get {
             if(!this.HasProp("__cookiePair"))
-                this.__cookiePair := IKEEXT_COOKIE_PAIR0(this.ptr + 104)
+                this.__cookiePair := IKEEXT_COOKIE_PAIR0(104, this)
             return this.__cookiePair
         }
     }
@@ -99,7 +99,7 @@ class IKEEXT_SA_DETAILS0 extends Win32Struct
     ikeCredentials{
         get {
             if(!this.HasProp("__ikeCredentials"))
-                this.__ikeCredentials := IKEEXT_CREDENTIALS0(this.ptr + 120)
+                this.__ikeCredentials := IKEEXT_CREDENTIALS0(120, this)
             return this.__ikeCredentials
         }
     }

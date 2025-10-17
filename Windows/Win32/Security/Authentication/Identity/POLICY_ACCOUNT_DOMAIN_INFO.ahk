@@ -22,14 +22,14 @@ class POLICY_ACCOUNT_DOMAIN_INFO extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__DomainName := LSA_UNICODE_STRING(0, this)
             return this.__DomainName
         }
     }
 
     /**
      * Pointer to the SID of the account domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     DomainSid {
         get => NumGet(this, 16, "ptr")

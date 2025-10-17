@@ -44,7 +44,7 @@ class INTERNET_PER_CONN_OPTION_LISTA extends Win32Struct
 
     /**
      * Pointer to a string that contains the name of the RAS connection or <b>NULL</b>, which indicates the default or LAN connection, to set or query options on.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszConnection {
         get => NumGet(this, 8, "ptr")

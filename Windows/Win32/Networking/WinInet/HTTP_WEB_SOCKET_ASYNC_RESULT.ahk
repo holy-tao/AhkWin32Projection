@@ -18,7 +18,7 @@ class HTTP_WEB_SOCKET_ASYNC_RESULT extends Win32Struct
     AsyncResult{
         get {
             if(!this.HasProp("__AsyncResult"))
-                this.__AsyncResult := INTERNET_ASYNC_RESULT(this.ptr + 0)
+                this.__AsyncResult := INTERNET_ASYNC_RESULT(0, this)
             return this.__AsyncResult
         }
     }

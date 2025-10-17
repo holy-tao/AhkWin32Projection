@@ -34,7 +34,7 @@ class DEVICE_WRITE_AGGREGATION_DESCRIPTOR extends Win32Struct
 
     /**
      * <b>TRUE</b> if the device benefits from write aggregation.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BenefitsFromWriteAggregation {
         get => NumGet(this, 8, "char")

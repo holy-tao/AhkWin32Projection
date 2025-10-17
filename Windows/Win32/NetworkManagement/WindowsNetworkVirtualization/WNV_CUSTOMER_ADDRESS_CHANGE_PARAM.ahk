@@ -23,7 +23,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     MACAddress{
         get {
             if(!this.HasProp("__MACAddress"))
-                this.__MACAddress := DL_EUI48(this.ptr + 0)
+                this.__MACAddress := DL_EUI48(0, this)
             return this.__MACAddress
         }
     }
@@ -42,7 +42,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(this.ptr + 32)
+                this.__CA := WNV_IP_ADDRESS(32, this)
             return this.__CA
         }
     }
@@ -69,7 +69,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(this.ptr + 56)
+                this.__PA := WNV_IP_ADDRESS(56, this)
             return this.__PA
         }
     }

@@ -49,7 +49,7 @@ class DEVICE_DSM_OFFLOAD_WRITE_PARAMETERS extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := STORAGE_OFFLOAD_TOKEN(this.ptr + 16)
+                this.__Token := STORAGE_OFFLOAD_TOKEN(16, this)
             return this.__Token
         }
     }

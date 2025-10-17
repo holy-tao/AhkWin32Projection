@@ -71,7 +71,7 @@ class STORAGE_TEMPERATURE_THRESHOLD extends Win32Struct
 
     /**
      * Indicates if the <i>Threshold</i> specifies the over or under temperature threshold. If <b>true</b>, set the <b>OverThreshold</b> temperature value of the device; otherwise, set the <b>UnderThreshold</b> temperature value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OverThreshold {
         get => NumGet(this, 14, "char")

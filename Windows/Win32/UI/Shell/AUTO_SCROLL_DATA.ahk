@@ -45,7 +45,7 @@ class AUTO_SCROLL_DATA extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that is used to determine whether the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-dad_autoscroll">DAD_AutoScroll</a> function should succeed. This parameter is set to <b>TRUE</b> when the <b>iNextSample</b> parameter is equal to NUM_POINTS.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFull {
         get => NumGet(this, 8, "int")

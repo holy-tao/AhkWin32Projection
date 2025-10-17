@@ -34,7 +34,7 @@ class NFC_REMOTE_DEV_SEND_INFO extends Win32Struct
     sSendBuffer{
         get {
             if(!this.HasProp("__sSendBuffer"))
-                this.__sSendBuffer := NFC_DATA_BUFFER(this.ptr + 12)
+                this.__sSendBuffer := NFC_DATA_BUFFER(12, this)
             return this.__sSendBuffer
         }
     }

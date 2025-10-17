@@ -18,7 +18,7 @@ class NCRYPT_EXPORTED_ISOLATED_KEY_ENVELOPE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(this.ptr + 0)
+                this.__Header := NCRYPT_EXPORTED_ISOLATED_KEY_HEADER(0, this)
             return this.__Header
         }
     }

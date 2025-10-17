@@ -20,7 +20,7 @@ class MCI_OPEN_DRIVER_PARMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrParams {
         get => NumGet(this, 8, "ptr")

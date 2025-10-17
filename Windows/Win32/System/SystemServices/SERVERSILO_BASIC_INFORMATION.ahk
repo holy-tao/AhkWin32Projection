@@ -36,7 +36,7 @@ class SERVERSILO_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Reserved {
         get => NumGet(this, 12, "char")

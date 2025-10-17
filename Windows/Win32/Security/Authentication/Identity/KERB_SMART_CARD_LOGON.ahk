@@ -30,7 +30,7 @@ class KERB_SMART_CARD_LOGON extends Win32Struct
     Pin{
         get {
             if(!this.HasProp("__Pin"))
-                this.__Pin := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__Pin := LSA_UNICODE_STRING(8, this)
             return this.__Pin
         }
     }

@@ -15,7 +15,7 @@ class WM_USER_WEB_URL extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the description of the Web site pointed to by the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WM_USER_WEB_URL extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszURL {
         get => NumGet(this, 8, "ptr")

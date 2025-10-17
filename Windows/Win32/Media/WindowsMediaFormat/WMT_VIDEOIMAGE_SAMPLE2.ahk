@@ -279,7 +279,7 @@ class WMT_VIDEOIMAGE_SAMPLE2 extends Win32Struct
 
     /**
      * For input samples, <b>TRUE</b> indicates that the new image should replace the current image and that the current image should be discarded. The default behavior, indicated by setting this member to <b>FALSE</b>, is for the current image to become the previous image and the new image to become the current image.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bKeepPrevImage {
         get => NumGet(this, 104, "int")

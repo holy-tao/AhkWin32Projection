@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -62,7 +63,7 @@ class UiaPropertyChangedEventArgs extends Win32Struct
     OldValue{
         get {
             if(!this.HasProp("__OldValue"))
-                this.__OldValue := VARIANT(this.ptr + 16)
+                this.__OldValue := VARIANT(16, this)
             return this.__OldValue
         }
     }
@@ -76,7 +77,7 @@ class UiaPropertyChangedEventArgs extends Win32Struct
     NewValue{
         get {
             if(!this.HasProp("__NewValue"))
-                this.__NewValue := VARIANT(this.ptr + 40)
+                this.__NewValue := VARIANT(40, this)
             return this.__NewValue
         }
     }

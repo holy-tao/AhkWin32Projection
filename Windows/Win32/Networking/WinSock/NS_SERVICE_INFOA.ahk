@@ -174,7 +174,7 @@ class NS_SERVICE_INFOA extends Win32Struct
     ServiceInfo{
         get {
             if(!this.HasProp("__ServiceInfo"))
-                this.__ServiceInfo := SERVICE_INFOA(this.ptr + 8)
+                this.__ServiceInfo := SERVICE_INFOA(8, this)
             return this.__ServiceInfo
         }
     }

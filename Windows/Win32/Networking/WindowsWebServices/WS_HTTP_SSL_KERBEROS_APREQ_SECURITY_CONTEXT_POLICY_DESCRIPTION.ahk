@@ -27,7 +27,7 @@ class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win
     channelProperties{
         get {
             if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(this.ptr + 0)
+                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
             return this.__channelProperties
         }
     }
@@ -39,7 +39,7 @@ class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win
     securityProperties{
         get {
             if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(this.ptr + 16)
+                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
             return this.__securityProperties
         }
     }
@@ -51,7 +51,7 @@ class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win
     sslTransportSecurityBinding{
         get {
             if(!this.HasProp("__sslTransportSecurityBinding"))
-                this.__sslTransportSecurityBinding := WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 32)
+                this.__sslTransportSecurityBinding := WS_SSL_TRANSPORT_SECURITY_BINDING_POLICY_DESCRIPTION(32, this)
             return this.__sslTransportSecurityBinding
         }
     }
@@ -63,7 +63,7 @@ class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win
     kerberosApreqMessageSecurityBinding{
         get {
             if(!this.HasProp("__kerberosApreqMessageSecurityBinding"))
-                this.__kerberosApreqMessageSecurityBinding := WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 48)
+                this.__kerberosApreqMessageSecurityBinding := WS_KERBEROS_APREQ_MESSAGE_SECURITY_BINDING_POLICY_DESCRIPTION(48, this)
             return this.__kerberosApreqMessageSecurityBinding
         }
     }
@@ -75,7 +75,7 @@ class WS_HTTP_SSL_KERBEROS_APREQ_SECURITY_CONTEXT_POLICY_DESCRIPTION extends Win
     securityContextSecurityBinding{
         get {
             if(!this.HasProp("__securityContextSecurityBinding"))
-                this.__securityContextSecurityBinding := WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION(this.ptr + 72)
+                this.__securityContextSecurityBinding := WS_SECURITY_CONTEXT_SECURITY_BINDING_POLICY_DESCRIPTION(72, this)
             return this.__securityContextSecurityBinding
         }
     }

@@ -12,7 +12,7 @@ class D3D9ON12_ARGS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable9On12 {
         get => NumGet(this, 0, "int")

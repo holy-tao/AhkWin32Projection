@@ -44,7 +44,7 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     LockUserSession {
         get => NumGet(this, 28, "char")
@@ -52,7 +52,7 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsPostDevice {
         get => NumGet(this, 29, "char")
@@ -60,7 +60,7 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SurpriseRemoval {
         get => NumGet(this, 30, "char")
@@ -68,7 +68,7 @@ class VIDEO_WIN32K_CALLBACKS_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WaitForQueueReady {
         get => NumGet(this, 31, "char")

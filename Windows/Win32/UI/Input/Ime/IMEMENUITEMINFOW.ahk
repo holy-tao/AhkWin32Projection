@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about IME menu items.
@@ -57,20 +58,26 @@ class IMEMENUITEMINFOW extends Win32Struct
 
     /**
      * Handle to the bitmap to display next to the item if it is checked. If this member is <b>NULL</b>, a default bitmap is used. If the IMFT_RADIOCHECK type value is specified, the default bitmap is a bullet. Otherwise, it is a check mark.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpChecked {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hbmpChecked{
+        get {
+            if(!this.HasProp("__hbmpChecked"))
+                this.__hbmpChecked := HBITMAP(16, this)
+            return this.__hbmpChecked
+        }
     }
 
     /**
      * Handle to the bitmap to display next to the item if it is not checked. If this member is <b>NULL</b>, no bitmap is used.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpUnchecked {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hbmpUnchecked{
+        get {
+            if(!this.HasProp("__hbmpUnchecked"))
+                this.__hbmpUnchecked := HBITMAP(24, this)
+            return this.__hbmpUnchecked
+        }
     }
 
     /**
@@ -93,19 +100,18 @@ class IMEMENUITEMINFOW extends Win32Struct
 
     /**
      * Handle to a bitmap to display.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmpItem {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+    hbmpItem{
+        get {
+            if(!this.HasProp("__hbmpItem"))
+                this.__hbmpItem := HBITMAP(200, this)
+            return this.__hbmpItem
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 208
     }
 }

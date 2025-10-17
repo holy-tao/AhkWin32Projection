@@ -16,7 +16,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute that corresponds to this metadata.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the object that this attribute belongs to.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszObjectDn {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
     ftimeDeleted{
         get {
             if(!this.HasProp("__ftimeDeleted"))
-                this.__ftimeDeleted := FILETIME(this.ptr + 32)
+                this.__ftimeDeleted := FILETIME(32, this)
             return this.__ftimeDeleted
         }
     }
@@ -69,7 +69,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
     ftimeCreated{
         get {
             if(!this.HasProp("__ftimeCreated"))
-                this.__ftimeCreated := FILETIME(this.ptr + 40)
+                this.__ftimeCreated := FILETIME(40, this)
             return this.__ftimeCreated
         }
     }
@@ -90,7 +90,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(this.ptr + 56)
+                this.__ftimeLastOriginatingChange := FILETIME(56, this)
             return this.__ftimeLastOriginatingChange
         }
     }
@@ -124,7 +124,7 @@ class DS_REPL_VALUE_META_DATA_2 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name of the directory system agent server that originated the last replication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszLastOriginatingDsaDN {
         get => NumGet(this, 88, "ptr")

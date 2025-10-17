@@ -15,7 +15,7 @@ class PSFEATURE_OUTPUT extends Win32Struct
 
     /**
      * <b>TRUE</b> if PostScript output is page-independent or <b>FALSE</b> if PostScript output is page-dependent.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPageIndependent {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class PSFEATURE_OUTPUT extends Win32Struct
 
     /**
      * <b>TRUE</b> if printer feature code (setpagedevice's) is included or <b>FALSE</b> if all printer feature code is suppressed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSetPageDevice {
         get => NumGet(this, 4, "int")

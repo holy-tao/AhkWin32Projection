@@ -39,7 +39,7 @@ class SecPkgCredentials_SSIProviderA extends Win32Struct
 
     /**
      * The provider information.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ProviderInfo {
         get => NumGet(this, 16, "ptr")

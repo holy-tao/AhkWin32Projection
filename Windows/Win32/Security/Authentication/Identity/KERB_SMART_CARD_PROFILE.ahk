@@ -19,7 +19,7 @@ class KERB_SMART_CARD_PROFILE extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := KERB_INTERACTIVE_PROFILE(this.ptr + 0)
+                this.__Profile := KERB_INTERACTIVE_PROFILE(0, this)
             return this.__Profile
         }
     }

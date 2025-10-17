@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Insert Object dialog box, and space for the library to return information when the dialog box is dismissed.
@@ -191,16 +195,19 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWndOwner{
+        get {
+            if(!this.HasProp("__hWndOwner"))
+                this.__hWndOwner := HWND(8, this)
+            return this.__hWndOwner
+        }
     }
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Insert Object</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -218,7 +225,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIINSERTOBJECT</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 32, "ptr")
@@ -227,16 +234,19 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(40, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Insert Object</b> dialog box template.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -245,11 +255,14 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<Void>}
+     * @type {HRSRC}
      */
-    hResource {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hResource{
+        get {
+            if(!this.HasProp("__hResource"))
+                this.__hResource := HRSRC(56, this)
+            return this.__hResource
+        }
     }
 
     /**
@@ -263,7 +276,7 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * Pointer to the name of the file to be linked or embedded. Filled on output.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszFile {
         get => NumGet(this, 72, "ptr")
@@ -362,10 +375,13 @@ class OLEUIINSERTOBJECTA extends Win32Struct
 
     /**
      * MetafilePict structure containing the iconic aspect, if it wasn't placed in the object's cache.
-     * @type {Pointer<Void>}
+     * @type {HGLOBAL}
      */
-    hMetaPict {
-        get => NumGet(this, 152, "ptr")
-        set => NumPut("ptr", value, this, 152)
+    hMetaPict{
+        get {
+            if(!this.HasProp("__hMetaPict"))
+                this.__hMetaPict := HGLOBAL(152, this)
+            return this.__hMetaPict
+        }
     }
 }

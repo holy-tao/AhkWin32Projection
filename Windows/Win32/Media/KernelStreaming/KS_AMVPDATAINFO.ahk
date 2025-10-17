@@ -35,7 +35,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     amvpDimInfo{
         get {
             if(!this.HasProp("__amvpDimInfo"))
-                this.__amvpDimInfo := KS_AMVPDIMINFO(this.ptr + 8)
+                this.__amvpDimInfo := KS_AMVPDIMINFO(8, this)
             return this.__amvpDimInfo
         }
     }
@@ -57,7 +57,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEnableDoubleClock {
         get => NumGet(this, 48, "int")
@@ -65,7 +65,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEnableVACT {
         get => NumGet(this, 52, "int")
@@ -73,7 +73,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDataIsInterlaced {
         get => NumGet(this, 56, "int")
@@ -89,7 +89,7 @@ class KS_AMVPDATAINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFieldPolarityInverted {
         get => NumGet(this, 64, "int")

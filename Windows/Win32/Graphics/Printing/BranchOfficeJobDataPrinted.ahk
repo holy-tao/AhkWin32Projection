@@ -20,7 +20,7 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDocumentName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUserName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMachineName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class BranchOfficeJobDataPrinted extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPortName {
         get => NumGet(this, 40, "ptr")

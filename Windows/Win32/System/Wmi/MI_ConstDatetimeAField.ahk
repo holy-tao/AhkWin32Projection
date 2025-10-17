@@ -21,7 +21,7 @@ class MI_ConstDatetimeAField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_ConstDatetimeA(this.ptr + 0)
+                this.__value := MI_ConstDatetimeA(0, this)
             return this.__value
         }
     }

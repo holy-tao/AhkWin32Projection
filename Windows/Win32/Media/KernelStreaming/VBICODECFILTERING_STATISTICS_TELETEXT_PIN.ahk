@@ -18,7 +18,7 @@ class VBICODECFILTERING_STATISTICS_TELETEXT_PIN extends Win32Struct
     Common{
         get {
             if(!this.HasProp("__Common"))
-                this.__Common := VBICODECFILTERING_STATISTICS_COMMON_PIN(this.ptr + 0)
+                this.__Common := VBICODECFILTERING_STATISTICS_COMMON_PIN(0, this)
             return this.__Common
         }
     }

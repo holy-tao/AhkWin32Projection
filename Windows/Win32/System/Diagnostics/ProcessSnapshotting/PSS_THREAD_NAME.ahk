@@ -20,7 +20,7 @@ class PSS_THREAD_NAME extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ThreadName {
         get => NumGet(this, 8, "ptr")

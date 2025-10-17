@@ -18,7 +18,7 @@ class WHV_ADVISE_GPA_RANGE_POPULATE extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(this.ptr + 0)
+                this.__Flags := WHV_ADVISE_GPA_RANGE_POPULATE_FLAGS(0, this)
             return this.__Flags
         }
     }

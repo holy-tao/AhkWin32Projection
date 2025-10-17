@@ -15,7 +15,7 @@ class TOKEN_APPCONTAINER_INFORMATION extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the app container.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     TokenAppContainer {
         get => NumGet(this, 0, "ptr")

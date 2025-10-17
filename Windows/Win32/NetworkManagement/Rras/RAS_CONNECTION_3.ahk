@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_IPCP_INFO2.ahk
 #Include .\PPP_IPV6_CP_INFO.ahk
@@ -40,11 +41,14 @@ class RAS_CONNECTION_3 extends Win32Struct
 
     /**
      * A handle to the connection.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hConnection{
+        get {
+            if(!this.HasProp("__hConnection"))
+                this.__hConnection := HANDLE(8, this)
+            return this.__hConnection
+        }
     }
 
     /**
@@ -82,7 +86,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     PppInfo3{
         get {
             if(!this.HasProp("__PppInfo3"))
-                this.__PppInfo3 := PPP_INFO_3(this.ptr + 544)
+                this.__PppInfo3 := PPP_INFO_3(544, this)
             return this.__PppInfo3
         }
     }
@@ -103,7 +107,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     timer{
         get {
             if(!this.HasProp("__timer"))
-                this.__timer := FILETIME(this.ptr + 792)
+                this.__timer := FILETIME(792, this)
             return this.__timer
         }
     }

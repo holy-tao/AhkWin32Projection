@@ -42,7 +42,7 @@ class PEER_OBJECT extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(this.ptr + 8)
+                this.__data := PEER_DATA(8, this)
             return this.__data
         }
     }

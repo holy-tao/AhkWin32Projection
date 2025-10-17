@@ -33,7 +33,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that indicates whether the certificate is a commercial certificate.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCommercial {
         get => NumGet(this, 16, "int")
@@ -42,7 +42,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that indicates whether the certificate is a trusted root certificate.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTrustedRoot {
         get => NumGet(this, 20, "int")
@@ -51,7 +51,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that indicates whether the certificate is self-signed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSelfSigned {
         get => NumGet(this, 24, "int")
@@ -60,7 +60,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that indicates whether the certificate is a test certificate.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTestCert {
         get => NumGet(this, 28, "int")
@@ -180,7 +180,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that specifies whether the certificate is a trust list signer certificate.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTrustListSignerCert {
         get => NumGet(this, 56, "int")
@@ -207,7 +207,7 @@ class CRYPT_PROVIDER_CERT extends Win32Struct
 
     /**
      * Boolean value that indicates whether the certificate trust is cyclical.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsCyclic {
         get => NumGet(this, 76, "int")

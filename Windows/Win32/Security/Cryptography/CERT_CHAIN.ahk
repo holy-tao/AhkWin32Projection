@@ -34,7 +34,7 @@ class CERT_CHAIN extends Win32Struct
     keyLocatorInfo{
         get {
             if(!this.HasProp("__keyLocatorInfo"))
-                this.__keyLocatorInfo := CRYPT_KEY_PROV_INFO(this.ptr + 16)
+                this.__keyLocatorInfo := CRYPT_KEY_PROV_INFO(16, this)
             return this.__keyLocatorInfo
         }
     }

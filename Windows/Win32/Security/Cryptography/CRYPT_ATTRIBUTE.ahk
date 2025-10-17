@@ -15,7 +15,7 @@ class CRYPT_ATTRIBUTE extends Win32Struct
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) that specifies the type of data contained in the <b>rgValue</b> array.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")

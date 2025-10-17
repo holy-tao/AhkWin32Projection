@@ -19,7 +19,7 @@ class SYMBOL_INFO_PACKAGEW extends Win32Struct
     si{
         get {
             if(!this.HasProp("__si"))
-                this.__si := SYMBOL_INFOW(this.ptr + 0)
+                this.__si := SYMBOL_INFOW(0, this)
             return this.__si
         }
     }

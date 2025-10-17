@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
 #Include .\HEAPALIGNMENT.ahk
 
@@ -51,7 +52,7 @@ class DDHAL_GETHEAPALIGNMENTDATA extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(this.ptr + 24)
+                this.__Alignment := HEAPALIGNMENT(24, this)
             return this.__Alignment
         }
     }

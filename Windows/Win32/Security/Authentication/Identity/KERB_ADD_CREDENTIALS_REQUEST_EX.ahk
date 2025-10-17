@@ -28,7 +28,7 @@ class KERB_ADD_CREDENTIALS_REQUEST_EX extends Win32Struct
     Credentials{
         get {
             if(!this.HasProp("__Credentials"))
-                this.__Credentials := KERB_ADD_CREDENTIALS_REQUEST(this.ptr + 0)
+                this.__Credentials := KERB_ADD_CREDENTIALS_REQUEST(0, this)
             return this.__Credentials
         }
     }

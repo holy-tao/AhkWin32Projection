@@ -12,7 +12,7 @@ class HTTP_PUSH_NOTIFICATION_STATUS extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ChannelStatusValid {
         get => NumGet(this, 0, "int")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SOCKET.ahk
 
 /**
  * Stores socket information used by the WSAPoll function.
@@ -26,11 +27,14 @@ class WSAPOLLFD extends Win32Struct
      * Type: <b>SOCKET</b>
      * 
      * The identifier of the socket for which to find status. This parameter is ignored if set to a negative value. See Remarks.
-     * @type {Pointer}
+     * @type {SOCKET}
      */
-    fd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    fd{
+        get {
+            if(!this.HasProp("__fd"))
+                this.__fd := SOCKET(0, this)
+            return this.__fd
+        }
     }
 
     /**

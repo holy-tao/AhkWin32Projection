@@ -12,7 +12,7 @@ class EFS_ENCRYPTION_STATUS_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bHasCurrentKey {
         get => NumGet(this, 0, "int")

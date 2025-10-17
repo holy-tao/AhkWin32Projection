@@ -52,7 +52,7 @@ class BG_FILE_PROGRESS extends Win32Struct
      * 
      * 
      * For uploads, the value is <b>TRUE</b> when the file upload is complete; otherwise, the value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Completed {
         get => NumGet(this, 16, "int")

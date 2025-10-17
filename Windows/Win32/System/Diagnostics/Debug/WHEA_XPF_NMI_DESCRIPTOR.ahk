@@ -20,7 +20,7 @@ class WHEA_XPF_NMI_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 2, "char")

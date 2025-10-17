@@ -42,7 +42,7 @@ class SCH_CRED_SECRET_PRIVKEY extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that Schannel uses to decrypt the private key.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszPassword {
         get => NumGet(this, 24, "ptr")

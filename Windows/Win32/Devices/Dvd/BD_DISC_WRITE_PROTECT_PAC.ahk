@@ -18,7 +18,7 @@ class BD_DISC_WRITE_PROTECT_PAC extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := BD_PAC_HEADER(this.ptr + 0)
+                this.__Header := BD_PAC_HEADER(0, this)
             return this.__Header
         }
     }

@@ -39,7 +39,7 @@ class AUTHENTICATION_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the user name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszUser {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class AUTHENTICATION_INFO extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the password for <b> pcwszUser</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszPassword {
         get => NumGet(this, 16, "ptr")

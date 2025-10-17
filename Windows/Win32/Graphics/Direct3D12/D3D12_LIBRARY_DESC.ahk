@@ -20,7 +20,7 @@ class D3D12_LIBRARY_DESC extends Win32Struct
 
     /**
      * The name of the originator of the library.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Creator {
         get => NumGet(this, 0, "ptr")

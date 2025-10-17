@@ -88,7 +88,7 @@ class DWRITE_UNDERLINE extends Win32Struct
      * Type: <b>const WCHAR*</b>
      * 
      * An array of characters which contains the locale of the text that the underline is being drawn under.  For example, in vertical text, the underline belongs on the left for Chinese but on the right for Japanese.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     localeName {
         get => NumGet(this, 24, "ptr")

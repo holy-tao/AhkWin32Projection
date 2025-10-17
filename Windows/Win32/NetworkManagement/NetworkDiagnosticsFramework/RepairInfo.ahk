@@ -26,7 +26,7 @@ class RepairInfo extends Win32Struct
 
     /**
      * A pointer to a null-terminated  string that contains the helper class name in a user-friendly way.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszClassName {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class RepairInfo extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that describes the repair in a user friendly way.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 16, "ptr")
@@ -213,7 +213,7 @@ class RepairInfo extends Win32Struct
     UiInfo{
         get {
             if(!this.HasProp("__UiInfo"))
-                this.__UiInfo := UiInfo(this.ptr + 48)
+                this.__UiInfo := UiInfo(48, this)
             return this.__UiInfo
         }
     }

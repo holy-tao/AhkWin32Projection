@@ -40,7 +40,7 @@ class D3D12_TILE_REGION_SIZE extends Win32Struct
      *             
      * 
      * When the region includes mipmaps that are packed with nonstandard tiling, <b>UseBox</b> must be <b>FALSE</b> because tile dimensions are not standard and the app only knows a count of how many tiles are consumed by the packed area, which is per array slice.  The corresponding (separate) starting location parameter uses x to offset into the flat range of tiles in this case, and y and z coordinates must each be 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UseBox {
         get => NumGet(this, 4, "int")

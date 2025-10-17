@@ -15,7 +15,7 @@ class USEROBJECTFLAGS extends Win32Struct
 
     /**
      * If this member is TRUE, new processes inherit the handle. Otherwise, the handle is not inherited.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInherit {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class USEROBJECTFLAGS extends Win32Struct
 
     /**
      * Reserved for future use. This member must be FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fReserved {
         get => NumGet(this, 4, "int")

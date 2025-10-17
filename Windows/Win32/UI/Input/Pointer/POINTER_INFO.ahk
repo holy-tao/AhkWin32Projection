@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 
 /**
@@ -64,22 +66,28 @@ class POINTER_INFO extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * Handle to the source device that can be used in calls to the raw input device API and the digitizer device API.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    sourceDevice {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    sourceDevice{
+        get {
+            if(!this.HasProp("__sourceDevice"))
+                this.__sourceDevice := HANDLE(16, this)
+            return this.__sourceDevice
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * Window to which this message was targeted. If the pointer is captured, either implicitly by virtue of having made contact over this window or explicitly using the pointer capture API, this is the capture window. If the pointer is uncaptured, this is the window over which the pointer was when this message was generated.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndTarget {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hwndTarget{
+        get {
+            if(!this.HasProp("__hwndTarget"))
+                this.__hwndTarget := HWND(24, this)
+            return this.__hwndTarget
+        }
     }
 
     /**
@@ -93,7 +101,7 @@ class POINTER_INFO extends Win32Struct
     ptPixelLocation{
         get {
             if(!this.HasProp("__ptPixelLocation"))
-                this.__ptPixelLocation := POINT(this.ptr + 32)
+                this.__ptPixelLocation := POINT(32, this)
             return this.__ptPixelLocation
         }
     }
@@ -109,7 +117,7 @@ class POINTER_INFO extends Win32Struct
     ptHimetricLocation{
         get {
             if(!this.HasProp("__ptHimetricLocation"))
-                this.__ptHimetricLocation := POINT(this.ptr + 40)
+                this.__ptHimetricLocation := POINT(40, this)
             return this.__ptHimetricLocation
         }
     }
@@ -123,7 +131,7 @@ class POINTER_INFO extends Win32Struct
     ptPixelLocationRaw{
         get {
             if(!this.HasProp("__ptPixelLocationRaw"))
-                this.__ptPixelLocationRaw := POINT(this.ptr + 48)
+                this.__ptPixelLocationRaw := POINT(48, this)
             return this.__ptPixelLocationRaw
         }
     }
@@ -137,7 +145,7 @@ class POINTER_INFO extends Win32Struct
     ptHimetricLocationRaw{
         get {
             if(!this.HasProp("__ptHimetricLocationRaw"))
-                this.__ptHimetricLocationRaw := POINT(this.ptr + 56)
+                this.__ptHimetricLocationRaw := POINT(56, this)
             return this.__ptHimetricLocationRaw
         }
     }

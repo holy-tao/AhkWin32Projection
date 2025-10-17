@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * Contains information used with custom text notification.
@@ -23,7 +25,7 @@ class NMCUSTOMTEXT extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -32,18 +34,21 @@ class NMCUSTOMTEXT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * The device context to draw to.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hDC {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hDC{
+        get {
+            if(!this.HasProp("__hDC"))
+                this.__hDC := HDC(24, this)
+            return this.__hDC
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The string to draw.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpString {
         get => NumGet(this, 32, "ptr")
@@ -87,7 +92,7 @@ class NMCUSTOMTEXT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Whether the text is a link.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLink {
         get => NumGet(this, 60, "int")

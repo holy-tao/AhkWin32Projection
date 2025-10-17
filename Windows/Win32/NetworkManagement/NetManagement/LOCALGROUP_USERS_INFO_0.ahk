@@ -20,7 +20,7 @@ class LOCALGROUP_USERS_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of a local group to which the user belongs.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrui0_name {
         get => NumGet(this, 0, "ptr")

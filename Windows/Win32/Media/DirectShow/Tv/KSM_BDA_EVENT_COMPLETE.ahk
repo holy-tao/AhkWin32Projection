@@ -18,7 +18,7 @@ class KSM_BDA_EVENT_COMPLETE extends Win32Struct
     Method{
         get {
             if(!this.HasProp("__Method"))
-                this.__Method := KSIDENTIFIER(this.ptr + 0)
+                this.__Method := KSIDENTIFIER(0, this)
             return this.__Method
         }
     }

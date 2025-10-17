@@ -35,7 +35,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>Filter</b> and <b>Mask</b> members specify the filtering criteria as a pair of bit masks, and the remaining members of this structure are ignored. If this field is <b>FALSE</b>, the <b>Filter</b> and <b>Mask</b> members are ignored, and the other structure members contain the filtering criteria.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUseRawFilteringBits {
         get => NumGet(this, 4, "int")
@@ -68,7 +68,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>table_ID_extension</b> field in the header must match the value of the <b>TableIdExtension</b> structure member. Otherwise, the <b>table_ID_extension</b> field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyTableIdExtension {
         get => NumGet(this, 40, "int")
@@ -86,7 +86,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>version_number</b> field in the header must match the value of the <b>Version</b> structure member. Otherwise, the <b>version_number</b> field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyVersion {
         get => NumGet(this, 48, "int")
@@ -104,7 +104,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>section_number</b> field in the header must match the value of the <b>SectionNumber</b> member. Otherwise, the <b>section_number</b> field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifySectionNumber {
         get => NumGet(this, 56, "int")
@@ -122,7 +122,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>current_next_indicator</b> bit in the header must match the value of the <b>fNext</b> structue member. Otherwise, the <b>current_next_indicator</b> field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyCurrentNext {
         get => NumGet(this, 64, "int")
@@ -131,7 +131,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * Specifies a value for the <b>current_next_indicator</b> bit. You can use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ne-mpeg2structs-mpeg_current_next_bit">MPEG_CURRENT_NEXT_BIT</a> enumeration type to specify this value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNext {
         get => NumGet(this, 68, "int")
@@ -140,7 +140,7 @@ class MPEG2_FILTER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>Dsmcc</b> member contains additional filtering criteria for the DSM-CC portions of the section header. Otherwise, the <b>Dsmcc</b> member is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyDsmccOptions {
         get => NumGet(this, 72, "int")
@@ -154,14 +154,14 @@ class MPEG2_FILTER extends Win32Struct
     Dsmcc{
         get {
             if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(this.ptr + 80)
+                this.__Dsmcc := DSMCC_FILTER_OPTIONS(80, this)
             return this.__Dsmcc
         }
     }
 
     /**
      * If <b>TRUE</b>, the <b>Atsc</b> member contains additional filtering criteria. Otherwise, the <b>Atsc</b> member is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyAtscOptions {
         get => NumGet(this, 140, "int")
@@ -175,7 +175,7 @@ class MPEG2_FILTER extends Win32Struct
     Atsc{
         get {
             if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(this.ptr + 144)
+                this.__Atsc := ATSC_FILTER_OPTIONS(144, this)
             return this.__Atsc
         }
     }

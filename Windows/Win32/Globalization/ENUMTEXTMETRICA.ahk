@@ -40,7 +40,7 @@ class ENUMTEXTMETRICA extends Win32Struct
     etmNewTextMetricEx{
         get {
             if(!this.HasProp("__etmNewTextMetricEx"))
-                this.__etmNewTextMetricEx := NEWTEXTMETRICEXA(this.ptr + 0)
+                this.__etmNewTextMetricEx := NEWTEXTMETRICEXA(0, this)
             return this.__etmNewTextMetricEx
         }
     }
@@ -52,7 +52,7 @@ class ENUMTEXTMETRICA extends Win32Struct
     etmAxesList{
         get {
             if(!this.HasProp("__etmAxesList"))
-                this.__etmAxesList := AXESLISTA(this.ptr + 96)
+                this.__etmAxesList := AXESLISTA(96, this)
             return this.__etmAxesList
         }
     }

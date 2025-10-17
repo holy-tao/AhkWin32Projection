@@ -68,7 +68,7 @@ class DMUS_PORTPARAMS7 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fShare {
         get => NumGet(this, 28, "int")

@@ -15,7 +15,7 @@ class LOCALMANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This is a Unicode string that gives the user friendly name of the application as it appears in the Application Deployment Editor (ADE).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDeploymentName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class LOCALMANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This is the user-friendly name of the group policy object (GPO) from which the application originates.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPolicyName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class LOCALMANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This is a Unicode string that gives the <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> product code GUID for the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProductId {
         get => NumGet(this, 16, "ptr")

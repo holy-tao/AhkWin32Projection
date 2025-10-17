@@ -44,7 +44,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the interface is bound to the DHCPv6 server; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBoundToDHCPServer {
         get => NumGet(this, 4, "int")
@@ -58,7 +58,7 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
     AdapterPrimaryAddress{
         get {
             if(!this.HasProp("__AdapterPrimaryAddress"))
-                this.__AdapterPrimaryAddress := DHCP_IPV6_ADDRESS(this.ptr + 8)
+                this.__AdapterPrimaryAddress := DHCP_IPV6_ADDRESS(8, this)
             return this.__AdapterPrimaryAddress
         }
     }
@@ -70,14 +70,14 @@ class DHCPV6_BIND_ELEMENT extends Win32Struct
     AdapterSubnetAddress{
         get {
             if(!this.HasProp("__AdapterSubnetAddress"))
-                this.__AdapterSubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 24)
+                this.__AdapterSubnetAddress := DHCP_IPV6_ADDRESS(24, this)
             return this.__AdapterSubnetAddress
         }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the name assigned to this interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     IfDescription {
         get => NumGet(this, 40, "ptr")

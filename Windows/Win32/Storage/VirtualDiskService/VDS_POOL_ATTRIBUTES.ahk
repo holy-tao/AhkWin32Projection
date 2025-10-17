@@ -367,7 +367,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * A string that specifies the usage of the storage pool. Typically, this may indicate the application that is using the storage pool (for example,  "SQL" or "Exchange") or the business function that is using the storage pool (for example, "Finance" or "Human Resources").
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIntendedUsage {
         get => NumGet(this, 16, "ptr")
@@ -376,7 +376,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * <b>TRUE</b> if the drives in the storage pool spin down automatically to reduce power usage, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSpinDown {
         get => NumGet(this, 24, "int")
@@ -385,7 +385,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * <b>TRUE</b> if the storage pool is thin provisioned, or <b>FALSE</b> otherwise. If the pool is thin provisioned, the number of bytes in the consumed space of the pool could be less than the number of bytes in the provisioned space of the pool. (The number of bytes in the provisioned space is stored in the <b>ullProvisionedSpace</b> member of this structure. The number of bytes in the consumed space is stored in the <b>ullTotalConsumedSpace</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_storage_pool_prop">VDS_STORAGE_POOL_PROP</a> structure.) When a hardware provider sets this member to <b>TRUE</b>, it must also set the <b>type</b> member of the <b>VDS_STORAGE_POOL_PROP</b> structure to <b>VDS_SPT_CONCRETE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsThinProvisioned {
         get => NumGet(this, 28, "int")
@@ -403,7 +403,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * <b>TRUE</b> if there is no single point of failure in the pool, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNoSinglePointOfFailure {
         get => NumGet(this, 40, "int")
@@ -628,7 +628,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bReserved1 {
         get => NumGet(this, 144, "int")
@@ -637,7 +637,7 @@ class VDS_POOL_ATTRIBUTES extends Win32Struct
 
     /**
      * This member is reserved for future use. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bReserved2 {
         get => NumGet(this, 148, "int")

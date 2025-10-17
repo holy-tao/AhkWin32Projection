@@ -27,14 +27,14 @@ class OLEUIPASTEENTRYA extends Win32Struct
     fmtetc{
         get {
             if(!this.HasProp("__fmtetc"))
-                this.__fmtetc := FORMATETC(this.ptr + 0)
+                this.__fmtetc := FORMATETC(0, this)
             return this.__fmtetc
         }
     }
 
     /**
      * Pointer to the string that represents the format to the user. Any %s in this string is replaced by the FullUserTypeName of the object on the clipboard and the resulting string is placed in the list box of the dialog box. Only one %s is allowed. The presence or absence of %s specifies whether the result-text is to indicate that data is being pasted or that an object that can be activated by an application is being pasted. If %s is present, the resulting text says that an object is being pasted. Otherwise, it says that data is being pasted.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFormatName {
         get => NumGet(this, 32, "ptr")
@@ -43,7 +43,7 @@ class OLEUIPASTEENTRYA extends Win32Struct
 
     /**
      * Pointer to the string used to customize the resulting text of the dialog box when the user selects the format corresponding to this entry. Any %s in this string is replaced by the application name or FullUserTypeName of the object on the clipboard. Only one %s is allowed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrResultText {
         get => NumGet(this, 40, "ptr")

@@ -28,7 +28,7 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     microphoneBoostEnabled {
         get => NumGet(this, 16, "int")
@@ -68,7 +68,7 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     muteSupported {
         get => NumGet(this, 36, "int")
@@ -76,7 +76,7 @@ class AUDIO_MICROPHONE_BOOST_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     mute {
         get => NumGet(this, 40, "int")

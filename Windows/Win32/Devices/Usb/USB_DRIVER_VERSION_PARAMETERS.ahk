@@ -47,7 +47,7 @@ class USB_DRIVER_VERSION_PARAMETERS extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the checked version of the host controller driver is loaded. If <b>TRUE</b>, the checked version of the host controller driver is loaded. If <b>FALSE</b>, the checked version is not loaded.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CheckedPortDriver {
         get => NumGet(this, 12, "char")
@@ -56,7 +56,7 @@ class USB_DRIVER_VERSION_PARAMETERS extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the checked version of the host controller miniport driver is loaded. If <b>TRUE</b>, the checked version of the host controller miniport driver is loaded. If <b>FALSE</b>, the checked version is not loaded.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CheckedMiniportDriver {
         get => NumGet(this, 13, "char")

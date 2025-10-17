@@ -12,7 +12,7 @@ class DNS_CONNECTION_IFINDEX_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszConnectionName {
         get => NumGet(this, 0, "ptr")

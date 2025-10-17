@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CLFS_NODE_ID.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Storage.FileSystem
@@ -18,17 +19,20 @@ class CLS_SCAN_CONTEXT extends Win32Struct
     cidNode{
         get {
             if(!this.HasProp("__cidNode"))
-                this.__cidNode := CLFS_NODE_ID(this.ptr + 0)
+                this.__cidNode := CLFS_NODE_ID(0, this)
             return this.__cidNode
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hLog {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hLog{
+        get {
+            if(!this.HasProp("__hLog"))
+                this.__hLog := HANDLE(8, this)
+            return this.__hLog
+        }
     }
 
     /**

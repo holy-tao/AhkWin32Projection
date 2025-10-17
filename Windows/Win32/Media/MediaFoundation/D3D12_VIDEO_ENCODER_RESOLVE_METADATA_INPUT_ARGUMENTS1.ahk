@@ -29,7 +29,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 extends Win32Struct
     EncoderProfile{
         get {
             if(!this.HasProp("__EncoderProfile"))
-                this.__EncoderProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__EncoderProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__EncoderProfile
         }
     }
@@ -48,7 +48,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 extends Win32Struct
     EncodedPictureEffectiveResolution{
         get {
             if(!this.HasProp("__EncodedPictureEffectiveResolution"))
-                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 32)
+                this.__EncodedPictureEffectiveResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
             return this.__EncodedPictureEffectiveResolution
         }
     }
@@ -59,7 +59,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 extends Win32Struct
     HWLayoutMetadata{
         get {
             if(!this.HasProp("__HWLayoutMetadata"))
-                this.__HWLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 40)
+                this.__HWLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(40, this)
             return this.__HWLayoutMetadata
         }
     }
@@ -78,7 +78,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_INPUT_ARGUMENTS1 extends Win32Struct
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 64)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(64, this)
             return this.__CodecConfiguration
         }
     }

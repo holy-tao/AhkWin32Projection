@@ -22,7 +22,7 @@ class KSSTREAMALLOCATOR_STATUS_EX extends Win32Struct
     Framing{
         get {
             if(!this.HasProp("__Framing"))
-                this.__Framing := KSALLOCATOR_FRAMING_EX(this.ptr + 0)
+                this.__Framing := KSALLOCATOR_FRAMING_EX(0, this)
             return this.__Framing
         }
     }

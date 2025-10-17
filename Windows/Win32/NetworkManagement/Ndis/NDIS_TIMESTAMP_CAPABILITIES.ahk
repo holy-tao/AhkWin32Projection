@@ -19,7 +19,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -33,7 +33,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CrossTimestamp {
         get => NumGet(this, 16, "char")
@@ -62,7 +62,7 @@ class NDIS_TIMESTAMP_CAPABILITIES extends Win32Struct
     TimestampFlags{
         get {
             if(!this.HasProp("__TimestampFlags"))
-                this.__TimestampFlags := NDIS_TIMESTAMP_CAPABILITY_FLAGS(this.ptr + 40)
+                this.__TimestampFlags := NDIS_TIMESTAMP_CAPABILITY_FLAGS(40, this)
             return this.__TimestampFlags
         }
     }

@@ -55,7 +55,7 @@ class CERT_CHAIN_PARA extends Win32Struct
     RequestedUsage{
         get {
             if(!this.HasProp("__RequestedUsage"))
-                this.__RequestedUsage := CERT_USAGE_MATCH(this.ptr + 8)
+                this.__RequestedUsage := CERT_USAGE_MATCH(8, this)
             return this.__RequestedUsage
         }
     }
@@ -70,7 +70,7 @@ class CERT_CHAIN_PARA extends Win32Struct
     RequestedIssuancePolicy{
         get {
             if(!this.HasProp("__RequestedIssuancePolicy"))
-                this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(this.ptr + 32)
+                this.__RequestedIssuancePolicy := CERT_USAGE_MATCH(32, this)
             return this.__RequestedIssuancePolicy
         }
     }
@@ -92,7 +92,7 @@ class CERT_CHAIN_PARA extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  This member can be used only if <b>CERT_CHAIN_PARA_HAS_EXTRA_FIELDS</b> is defined by using the <b>#define</b> directive before including Wincrypt.h. If this value is defined, the application must zero all unused fields.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCheckRevocationFreshnessTime {
         get => NumGet(this, 60, "int")
@@ -172,12 +172,8 @@ class CERT_CHAIN_PARA extends Win32Struct
         set => NumPut("uint", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

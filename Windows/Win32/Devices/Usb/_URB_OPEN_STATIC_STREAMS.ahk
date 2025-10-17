@@ -18,7 +18,7 @@ class _URB_OPEN_STATIC_STREAMS extends Win32Struct
     Hdr{
         get {
             if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(this.ptr + 0)
+                this.__Hdr := _URB_HEADER(0, this)
             return this.__Hdr
         }
     }

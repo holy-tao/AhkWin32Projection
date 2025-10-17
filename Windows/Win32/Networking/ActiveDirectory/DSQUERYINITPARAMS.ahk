@@ -40,7 +40,7 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the ADsPath of the default scope for the search. Set this member to <b>NULL</b> if no default search scope is specified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDefaultScope {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the default file system path where searches will be saved. This member is ignored if the <b>dwFlags</b> member does not contain <b>DSQPF_SAVELOCATION</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDefaultSaveLocation {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the user name in the valid domain notation, for example, "fabrikam\jeffsmith".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the password of the user specified by the <b>pUserName</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPassword {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class DSQUERYINITPARAMS extends Win32Struct
 
     /**
      * Pointer to  a  null-terminated Unicode string that contains the name of the server from which the list of trusted domains is read. The list is used to populate the <b>In:</b> drop-down list in the dialog box.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pServer {
         get => NumGet(this, 40, "ptr")

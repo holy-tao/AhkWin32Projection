@@ -24,7 +24,7 @@ class IMESTRUCT extends Win32Struct
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class IMESTRUCT extends Win32Struct
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam1 {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class IMESTRUCT extends Win32Struct
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam2 {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class IMESTRUCT extends Win32Struct
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam3 {
         get => NumGet(this, 48, "ptr")

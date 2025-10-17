@@ -29,7 +29,7 @@ class CCSTYLEFLAGW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszStyle {
         get => NumGet(this, 8, "ptr")

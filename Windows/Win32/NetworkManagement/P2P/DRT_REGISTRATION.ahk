@@ -21,7 +21,7 @@ class DRT_REGISTRATION extends Win32Struct
     key{
         get {
             if(!this.HasProp("__key"))
-                this.__key := DRT_DATA(this.ptr + 0)
+                this.__key := DRT_DATA(0, this)
             return this.__key
         }
     }
@@ -33,7 +33,7 @@ class DRT_REGISTRATION extends Win32Struct
     appData{
         get {
             if(!this.HasProp("__appData"))
-                this.__appData := DRT_DATA(this.ptr + 16)
+                this.__appData := DRT_DATA(16, this)
             return this.__appData
         }
     }

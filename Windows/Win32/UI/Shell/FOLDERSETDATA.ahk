@@ -23,7 +23,7 @@ class FOLDERSETDATA extends Win32Struct
     _fs{
         get {
             if(!this.HasProp("___fs"))
-                this.___fs := FOLDERSETTINGS(this.ptr + 0)
+                this.___fs := FOLDERSETTINGS(0, this)
             return this.___fs
         }
     }

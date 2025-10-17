@@ -24,7 +24,7 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
     ScopeCtx{
         get {
             if(!this.HasProp("__ScopeCtx"))
-                this.__ScopeCtx := MCAST_SCOPE_CTX(this.ptr + 0)
+                this.__ScopeCtx := MCAST_SCOPE_CTX(0, this)
             return this.__ScopeCtx
         }
     }
@@ -37,7 +37,7 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
     LastAddr{
         get {
             if(!this.HasProp("__LastAddr"))
-                this.__LastAddr := IPNG_ADDRESS(this.ptr + 72)
+                this.__LastAddr := IPNG_ADDRESS(72, this)
             return this.__LastAddr
         }
     }
@@ -58,7 +58,7 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
     ScopeDesc{
         get {
             if(!this.HasProp("__ScopeDesc"))
-                this.__ScopeDesc := UNICODE_STRING(this.ptr + 96)
+                this.__ScopeDesc := UNICODE_STRING(96, this)
             return this.__ScopeDesc
         }
     }

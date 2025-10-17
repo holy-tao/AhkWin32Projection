@@ -21,7 +21,7 @@ class HrtfDirectivityCardioid extends Win32Struct
     directivity{
         get {
             if(!this.HasProp("__directivity"))
-                this.__directivity := HrtfDirectivity(this.ptr + 0)
+                this.__directivity := HrtfDirectivity(0, this)
             return this.__directivity
         }
     }

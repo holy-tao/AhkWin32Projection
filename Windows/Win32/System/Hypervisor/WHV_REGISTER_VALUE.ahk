@@ -30,7 +30,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     Reg128{
         get {
             if(!this.HasProp("__Reg128"))
-                this.__Reg128 := WHV_UINT128(this.ptr + 0)
+                this.__Reg128 := WHV_UINT128(0, this)
             return this.__Reg128
         }
     }
@@ -73,7 +73,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     Fp{
         get {
             if(!this.HasProp("__Fp"))
-                this.__Fp := WHV_X64_FP_REGISTER(this.ptr + 0)
+                this.__Fp := WHV_X64_FP_REGISTER(0, this)
             return this.__Fp
         }
     }
@@ -84,7 +84,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     FpControlStatus{
         get {
             if(!this.HasProp("__FpControlStatus"))
-                this.__FpControlStatus := WHV_X64_FP_CONTROL_STATUS_REGISTER(this.ptr + 0)
+                this.__FpControlStatus := WHV_X64_FP_CONTROL_STATUS_REGISTER(0, this)
             return this.__FpControlStatus
         }
     }
@@ -95,7 +95,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     XmmControlStatus{
         get {
             if(!this.HasProp("__XmmControlStatus"))
-                this.__XmmControlStatus := WHV_X64_XMM_CONTROL_STATUS_REGISTER(this.ptr + 0)
+                this.__XmmControlStatus := WHV_X64_XMM_CONTROL_STATUS_REGISTER(0, this)
             return this.__XmmControlStatus
         }
     }
@@ -106,7 +106,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     Segment{
         get {
             if(!this.HasProp("__Segment"))
-                this.__Segment := WHV_X64_SEGMENT_REGISTER(this.ptr + 0)
+                this.__Segment := WHV_X64_SEGMENT_REGISTER(0, this)
             return this.__Segment
         }
     }
@@ -117,7 +117,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__Table"))
-                this.__Table := WHV_X64_TABLE_REGISTER(this.ptr + 0)
+                this.__Table := WHV_X64_TABLE_REGISTER(0, this)
             return this.__Table
         }
     }
@@ -128,7 +128,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     InterruptState{
         get {
             if(!this.HasProp("__InterruptState"))
-                this.__InterruptState := WHV_X64_INTERRUPT_STATE_REGISTER(this.ptr + 0)
+                this.__InterruptState := WHV_X64_INTERRUPT_STATE_REGISTER(0, this)
             return this.__InterruptState
         }
     }
@@ -139,7 +139,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     PendingInterruption{
         get {
             if(!this.HasProp("__PendingInterruption"))
-                this.__PendingInterruption := WHV_X64_PENDING_INTERRUPTION_REGISTER(this.ptr + 0)
+                this.__PendingInterruption := WHV_X64_PENDING_INTERRUPTION_REGISTER(0, this)
             return this.__PendingInterruption
         }
     }
@@ -150,7 +150,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     DeliverabilityNotifications{
         get {
             if(!this.HasProp("__DeliverabilityNotifications"))
-                this.__DeliverabilityNotifications := WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(this.ptr + 0)
+                this.__DeliverabilityNotifications := WHV_X64_DELIVERABILITY_NOTIFICATIONS_REGISTER(0, this)
             return this.__DeliverabilityNotifications
         }
     }
@@ -161,7 +161,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     ExceptionEvent{
         get {
             if(!this.HasProp("__ExceptionEvent"))
-                this.__ExceptionEvent := WHV_X64_PENDING_EXCEPTION_EVENT(this.ptr + 0)
+                this.__ExceptionEvent := WHV_X64_PENDING_EXCEPTION_EVENT(0, this)
             return this.__ExceptionEvent
         }
     }
@@ -172,7 +172,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     ExtIntEvent{
         get {
             if(!this.HasProp("__ExtIntEvent"))
-                this.__ExtIntEvent := WHV_X64_PENDING_EXT_INT_EVENT(this.ptr + 0)
+                this.__ExtIntEvent := WHV_X64_PENDING_EXT_INT_EVENT(0, this)
             return this.__ExtIntEvent
         }
     }
@@ -183,7 +183,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     InternalActivity{
         get {
             if(!this.HasProp("__InternalActivity"))
-                this.__InternalActivity := WHV_INTERNAL_ACTIVITY_REGISTER(this.ptr + 0)
+                this.__InternalActivity := WHV_INTERNAL_ACTIVITY_REGISTER(0, this)
             return this.__InternalActivity
         }
     }
@@ -194,7 +194,7 @@ class WHV_REGISTER_VALUE extends Win32Struct
     PendingDebugException{
         get {
             if(!this.HasProp("__PendingDebugException"))
-                this.__PendingDebugException := WHV_X64_PENDING_DEBUG_EXCEPTION(this.ptr + 0)
+                this.__PendingDebugException := WHV_X64_PENDING_DEBUG_EXCEPTION(0, this)
             return this.__PendingDebugException
         }
     }

@@ -31,7 +31,7 @@ class DOT11_RESET_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bSetDefaultMIB {
         get => NumGet(this, 10, "char")

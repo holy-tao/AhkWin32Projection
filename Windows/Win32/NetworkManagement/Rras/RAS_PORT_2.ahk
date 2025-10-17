@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Rras
@@ -12,19 +13,25 @@ class RAS_PORT_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPort {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hPort{
+        get {
+            if(!this.HasProp("__hPort"))
+                this.__hPort := HANDLE(0, this)
+            return this.__hPort
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hConnection {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hConnection{
+        get {
+            if(!this.HasProp("__hConnection"))
+                this.__hConnection := HANDLE(8, this)
+            return this.__hConnection
+        }
     }
 
     /**

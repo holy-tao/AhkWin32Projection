@@ -42,7 +42,7 @@ class TF_LANGUAGEPROFILE extends Win32Struct
 
     /**
      * A Boolean value, when <b>TRUE</b>, indicates that the language is activated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fActive {
         get => NumGet(this, 24, "int")

@@ -50,7 +50,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Created{
         get {
             if(!this.HasProp("__Created"))
-                this.__Created := SYSTEMTIME(this.ptr + 8)
+                this.__Created := SYSTEMTIME(8, this)
             return this.__Created
         }
     }
@@ -61,7 +61,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Modified{
         get {
             if(!this.HasProp("__Modified"))
-                this.__Modified := SYSTEMTIME(this.ptr + 24)
+                this.__Modified := SYSTEMTIME(24, this)
             return this.__Modified
         }
     }
@@ -75,7 +75,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 48, "int")
@@ -112,7 +112,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Drive{
         get {
             if(!this.HasProp("__Drive"))
-                this.__Drive := NTMS_DRIVEINFORMATIONW(this.ptr + 440)
+                this.__Drive := NTMS_DRIVEINFORMATIONW(440, this)
             return this.__Drive
         }
     }
@@ -123,7 +123,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     DriveType{
         get {
             if(!this.HasProp("__DriveType"))
-                this.__DriveType := NTMS_DRIVETYPEINFORMATIONW(this.ptr + 440)
+                this.__DriveType := NTMS_DRIVETYPEINFORMATIONW(440, this)
             return this.__DriveType
         }
     }
@@ -134,7 +134,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Library{
         get {
             if(!this.HasProp("__Library"))
-                this.__Library := NTMS_I1_LIBRARYINFORMATION(this.ptr + 440)
+                this.__Library := NTMS_I1_LIBRARYINFORMATION(440, this)
             return this.__Library
         }
     }
@@ -145,7 +145,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Changer{
         get {
             if(!this.HasProp("__Changer"))
-                this.__Changer := NTMS_CHANGERINFORMATIONW(this.ptr + 440)
+                this.__Changer := NTMS_CHANGERINFORMATIONW(440, this)
             return this.__Changer
         }
     }
@@ -156,7 +156,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     ChangerType{
         get {
             if(!this.HasProp("__ChangerType"))
-                this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONW(this.ptr + 440)
+                this.__ChangerType := NTMS_CHANGERTYPEINFORMATIONW(440, this)
             return this.__ChangerType
         }
     }
@@ -167,7 +167,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     StorageSlot{
         get {
             if(!this.HasProp("__StorageSlot"))
-                this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(this.ptr + 440)
+                this.__StorageSlot := NTMS_STORAGESLOTINFORMATION(440, this)
             return this.__StorageSlot
         }
     }
@@ -178,7 +178,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     IEDoor{
         get {
             if(!this.HasProp("__IEDoor"))
-                this.__IEDoor := NTMS_IEDOORINFORMATION(this.ptr + 440)
+                this.__IEDoor := NTMS_IEDOORINFORMATION(440, this)
             return this.__IEDoor
         }
     }
@@ -189,7 +189,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     IEPort{
         get {
             if(!this.HasProp("__IEPort"))
-                this.__IEPort := NTMS_IEPORTINFORMATION(this.ptr + 440)
+                this.__IEPort := NTMS_IEPORTINFORMATION(440, this)
             return this.__IEPort
         }
     }
@@ -200,7 +200,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     PhysicalMedia{
         get {
             if(!this.HasProp("__PhysicalMedia"))
-                this.__PhysicalMedia := NTMS_I1_PMIDINFORMATIONW(this.ptr + 440)
+                this.__PhysicalMedia := NTMS_I1_PMIDINFORMATIONW(440, this)
             return this.__PhysicalMedia
         }
     }
@@ -211,7 +211,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     LogicalMedia{
         get {
             if(!this.HasProp("__LogicalMedia"))
-                this.__LogicalMedia := NTMS_LMIDINFORMATION(this.ptr + 440)
+                this.__LogicalMedia := NTMS_LMIDINFORMATION(440, this)
             return this.__LogicalMedia
         }
     }
@@ -222,7 +222,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     Partition{
         get {
             if(!this.HasProp("__Partition"))
-                this.__Partition := NTMS_I1_PARTITIONINFORMATIONW(this.ptr + 440)
+                this.__Partition := NTMS_I1_PARTITIONINFORMATIONW(440, this)
             return this.__Partition
         }
     }
@@ -233,7 +233,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     MediaPool{
         get {
             if(!this.HasProp("__MediaPool"))
-                this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(this.ptr + 440)
+                this.__MediaPool := NTMS_MEDIAPOOLINFORMATION(440, this)
             return this.__MediaPool
         }
     }
@@ -244,7 +244,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     MediaType{
         get {
             if(!this.HasProp("__MediaType"))
-                this.__MediaType := NTMS_MEDIATYPEINFORMATION(this.ptr + 440)
+                this.__MediaType := NTMS_MEDIATYPEINFORMATION(440, this)
             return this.__MediaType
         }
     }
@@ -255,7 +255,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     LibRequest{
         get {
             if(!this.HasProp("__LibRequest"))
-                this.__LibRequest := NTMS_I1_LIBREQUESTINFORMATIONW(this.ptr + 440)
+                this.__LibRequest := NTMS_I1_LIBREQUESTINFORMATIONW(440, this)
             return this.__LibRequest
         }
     }
@@ -266,7 +266,7 @@ class NTMS_I1_OBJECTINFORMATIONW extends Win32Struct
     OpRequest{
         get {
             if(!this.HasProp("__OpRequest"))
-                this.__OpRequest := NTMS_I1_OPREQUESTINFORMATIONW(this.ptr + 440)
+                this.__OpRequest := NTMS_I1_OPREQUESTINFORMATIONW(440, this)
             return this.__OpRequest
         }
     }

@@ -15,7 +15,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Id {
         get => NumGet(this, 0, "ptr")
@@ -42,7 +42,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Description {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class CLUSTER_HEALTH_FAULT extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Provider {
         get => NumGet(this, 24, "ptr")

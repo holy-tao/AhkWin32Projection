@@ -36,7 +36,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BoolValue {
         get => NumGet(this, 8, "char")
@@ -108,7 +108,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     AnsiStringValue {
         get => NumGet(this, 8, "ptr")
@@ -116,7 +116,7 @@ class IMAGE_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UnicodeStringValue {
         get => NumGet(this, 8, "ptr")

@@ -40,7 +40,7 @@ class AMVPDATAINFO extends Win32Struct
     amvpDimInfo{
         get {
             if(!this.HasProp("__amvpDimInfo"))
-                this.__amvpDimInfo := AMVPDIMINFO(this.ptr + 8)
+                this.__amvpDimInfo := AMVPDIMINFO(8, this)
             return this.__amvpDimInfo
         }
     }
@@ -65,7 +65,7 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Video port should enable double clocking.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEnableDoubleClock {
         get => NumGet(this, 48, "int")
@@ -74,7 +74,7 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Video port should use an external VACT signal.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEnableVACT {
         get => NumGet(this, 52, "int")
@@ -83,7 +83,7 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Indicates that the signal is interlaced.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDataIsInterlaced {
         get => NumGet(this, 56, "int")
@@ -101,7 +101,7 @@ class AMVPDATAINFO extends Win32Struct
 
     /**
      * Video port should invert the field polarity.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFieldPolarityInverted {
         get => NumGet(this, 64, "int")

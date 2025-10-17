@@ -39,7 +39,7 @@ class DS_REPL_ATTR_META_DATA_BLOB extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(this.ptr + 8)
+                this.__ftimeLastOriginatingChange := FILETIME(8, this)
             return this.__ftimeLastOriginatingChange
         }
     }

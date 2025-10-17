@@ -23,7 +23,7 @@ class OCSP_REQUEST_ENTRY extends Win32Struct
     CertId{
         get {
             if(!this.HasProp("__CertId"))
-                this.__CertId := OCSP_CERT_ID(this.ptr + 0)
+                this.__CertId := OCSP_CERT_ID(0, this)
             return this.__CertId
         }
     }

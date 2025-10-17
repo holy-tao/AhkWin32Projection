@@ -41,7 +41,7 @@ class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
     Triangles{
         get {
             if(!this.HasProp("__Triangles"))
-                this.__Triangles := D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC(this.ptr + 8)
+                this.__Triangles := D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC(8, this)
             return this.__Triangles
         }
     }
@@ -52,7 +52,7 @@ class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
     AABBs{
         get {
             if(!this.HasProp("__AABBs"))
-                this.__AABBs := D3D12_RAYTRACING_GEOMETRY_AABBS_DESC(this.ptr + 8)
+                this.__AABBs := D3D12_RAYTRACING_GEOMETRY_AABBS_DESC(8, this)
             return this.__AABBs
         }
     }
@@ -63,7 +63,7 @@ class D3D12_RAYTRACING_GEOMETRY_DESC extends Win32Struct
     OmmTriangles{
         get {
             if(!this.HasProp("__OmmTriangles"))
-                this.__OmmTriangles := D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC(this.ptr + 8)
+                this.__OmmTriangles := D3D12_RAYTRACING_GEOMETRY_OMM_TRIANGLES_DESC(8, this)
             return this.__OmmTriangles
         }
     }

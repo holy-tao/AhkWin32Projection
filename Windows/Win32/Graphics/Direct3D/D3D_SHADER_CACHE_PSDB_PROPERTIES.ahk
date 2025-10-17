@@ -12,7 +12,7 @@ class D3D_SHADER_CACHE_PSDB_PROPERTIES extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pAdapterFamily {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class D3D_SHADER_CACHE_PSDB_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPsdbPath {
         get => NumGet(this, 8, "ptr")

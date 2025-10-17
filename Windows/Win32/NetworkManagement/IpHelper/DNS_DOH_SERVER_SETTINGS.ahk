@@ -12,7 +12,7 @@ class DNS_DOH_SERVER_SETTINGS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Template {
         get => NumGet(this, 0, "ptr")

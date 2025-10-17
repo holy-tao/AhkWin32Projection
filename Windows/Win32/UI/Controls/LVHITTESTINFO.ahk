@@ -23,7 +23,7 @@ class LVHITTESTINFO extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 0)
+                this.__pt := POINT(0, this)
             return this.__pt
         }
     }

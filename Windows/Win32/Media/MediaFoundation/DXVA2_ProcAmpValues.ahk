@@ -21,7 +21,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
     Brightness{
         get {
             if(!this.HasProp("__Brightness"))
-                this.__Brightness := DXVA2_Fixed32(this.ptr + 0)
+                this.__Brightness := DXVA2_Fixed32(0, this)
             return this.__Brightness
         }
     }
@@ -33,7 +33,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
     Contrast{
         get {
             if(!this.HasProp("__Contrast"))
-                this.__Contrast := DXVA2_Fixed32(this.ptr + 4)
+                this.__Contrast := DXVA2_Fixed32(4, this)
             return this.__Contrast
         }
     }
@@ -45,7 +45,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
     Hue{
         get {
             if(!this.HasProp("__Hue"))
-                this.__Hue := DXVA2_Fixed32(this.ptr + 8)
+                this.__Hue := DXVA2_Fixed32(8, this)
             return this.__Hue
         }
     }
@@ -57,7 +57,7 @@ class DXVA2_ProcAmpValues extends Win32Struct
     Saturation{
         get {
             if(!this.HasProp("__Saturation"))
-                this.__Saturation := DXVA2_Fixed32(this.ptr + 12)
+                this.__Saturation := DXVA2_Fixed32(12, this)
             return this.__Saturation
         }
     }

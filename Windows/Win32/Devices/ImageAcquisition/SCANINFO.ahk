@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\RANGEVALUE.ahk
 #Include .\SCANWINDOW.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -75,7 +76,7 @@ class SCANINFO extends Win32Struct
     IntensityRange{
         get {
             if(!this.HasProp("__IntensityRange"))
-                this.__IntensityRange := RANGEVALUE(this.ptr + 32)
+                this.__IntensityRange := RANGEVALUE(32, this)
             return this.__IntensityRange
         }
     }
@@ -86,7 +87,7 @@ class SCANINFO extends Win32Struct
     ContrastRange{
         get {
             if(!this.HasProp("__ContrastRange"))
-                this.__ContrastRange := RANGEVALUE(this.ptr + 48)
+                this.__ContrastRange := RANGEVALUE(48, this)
             return this.__ContrastRange
         }
     }
@@ -185,7 +186,7 @@ class SCANINFO extends Win32Struct
     Window{
         get {
             if(!this.HasProp("__Window"))
-                this.__Window := SCANWINDOW(this.ptr + 104)
+                this.__Window := SCANWINDOW(104, this)
             return this.__Window
         }
     }
@@ -287,12 +288,12 @@ class SCANINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<HANDLE>}
      */
     DeviceIOHandles{
         get {
             if(!this.HasProp("__DeviceIOHandlesProxyArray"))
-                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 16, Primitive, "ptr")
+                this.__DeviceIOHandlesProxyArray := Win32FixedArray(this.ptr + 168, 16, HANDLE, "")
             return this.__DeviceIOHandlesProxyArray
         }
     }

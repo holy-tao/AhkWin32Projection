@@ -28,7 +28,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
      * Source color key. This member is used if the <b>dwFlags</b> member contains the MFVideoAlphaBitmap_SrcColorKey flag. Any pixels in the bitmap that match the color key are rendered as transparent pixels.
      * 
      * You cannot specify a color key if you are alpha-blending a Direct3D surface with per-pixel alpha (D3DFMT_A8R8G8B8).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrSrcKey {
         get => NumGet(this, 4, "uint")
@@ -50,7 +50,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
     rcSrc{
         get {
             if(!this.HasProp("__rcSrc"))
-                this.__rcSrc := RECT(this.ptr + 8)
+                this.__rcSrc := RECT(8, this)
             return this.__rcSrc
         }
     }
@@ -64,7 +64,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
     nrcDest{
         get {
             if(!this.HasProp("__nrcDest"))
-                this.__nrcDest := MFVideoNormalizedRect(this.ptr + 24)
+                this.__nrcDest := MFVideoNormalizedRect(24, this)
             return this.__nrcDest
         }
     }

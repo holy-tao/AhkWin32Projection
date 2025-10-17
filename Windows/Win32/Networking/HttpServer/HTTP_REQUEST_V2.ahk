@@ -25,7 +25,7 @@ class HTTP_REQUEST_V2 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := HTTP_REQUEST_V1(this.ptr + 0)
+                this.__Base := HTTP_REQUEST_V1(0, this)
             return this.__Base
         }
     }

@@ -18,7 +18,7 @@ class DIPROPRANGE extends Win32Struct
     diph{
         get {
             if(!this.HasProp("__diph"))
-                this.__diph := DIPROPHEADER(this.ptr + 0)
+                this.__diph := DIPROPHEADER(0, this)
             return this.__diph
         }
     }

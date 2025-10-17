@@ -38,7 +38,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXVAHD_RATIONAL(this.ptr + 8)
+                this.__InputFrameRate := DXVAHD_RATIONAL(8, this)
             return this.__InputFrameRate
         }
     }
@@ -68,7 +68,7 @@ class DXVAHD_CONTENT_DESC extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXVAHD_RATIONAL(this.ptr + 24)
+                this.__OutputFrameRate := DXVAHD_RATIONAL(24, this)
             return this.__OutputFrameRate
         }
     }

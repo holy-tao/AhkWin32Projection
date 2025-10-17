@@ -28,7 +28,7 @@ class SHChangeNotifyEntry extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A flag indicating whether to post notifications for children of this PIDL. For example, if the PIDL points to a folder, then file notifications would come from the folder's children if this flag was <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRecursive {
         get => NumGet(this, 8, "int")

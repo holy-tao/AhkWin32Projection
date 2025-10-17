@@ -20,7 +20,7 @@ class WEBAUTHN_COSE_CREDENTIAL_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCredentialType {
         get => NumGet(this, 8, "ptr")

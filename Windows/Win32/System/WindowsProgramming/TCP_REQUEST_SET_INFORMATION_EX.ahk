@@ -19,7 +19,7 @@ class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
     ID{
         get {
             if(!this.HasProp("__ID"))
-                this.__ID := TDIObjectID(this.ptr + 0)
+                this.__ID := TDIObjectID(0, this)
             return this.__ID
         }
     }

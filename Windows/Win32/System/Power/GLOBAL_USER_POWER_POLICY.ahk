@@ -32,7 +32,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     PowerButtonAc{
         get {
             if(!this.HasProp("__PowerButtonAc"))
-                this.__PowerButtonAc := POWER_ACTION_POLICY(this.ptr + 8)
+                this.__PowerButtonAc := POWER_ACTION_POLICY(8, this)
             return this.__PowerButtonAc
         }
     }
@@ -45,7 +45,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     PowerButtonDc{
         get {
             if(!this.HasProp("__PowerButtonDc"))
-                this.__PowerButtonDc := POWER_ACTION_POLICY(this.ptr + 24)
+                this.__PowerButtonDc := POWER_ACTION_POLICY(24, this)
             return this.__PowerButtonDc
         }
     }
@@ -58,7 +58,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     SleepButtonAc{
         get {
             if(!this.HasProp("__SleepButtonAc"))
-                this.__SleepButtonAc := POWER_ACTION_POLICY(this.ptr + 40)
+                this.__SleepButtonAc := POWER_ACTION_POLICY(40, this)
             return this.__SleepButtonAc
         }
     }
@@ -71,7 +71,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     SleepButtonDc{
         get {
             if(!this.HasProp("__SleepButtonDc"))
-                this.__SleepButtonDc := POWER_ACTION_POLICY(this.ptr + 56)
+                this.__SleepButtonDc := POWER_ACTION_POLICY(56, this)
             return this.__SleepButtonDc
         }
     }
@@ -84,7 +84,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     LidCloseAc{
         get {
             if(!this.HasProp("__LidCloseAc"))
-                this.__LidCloseAc := POWER_ACTION_POLICY(this.ptr + 72)
+                this.__LidCloseAc := POWER_ACTION_POLICY(72, this)
             return this.__LidCloseAc
         }
     }
@@ -97,7 +97,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     LidCloseDc{
         get {
             if(!this.HasProp("__LidCloseDc"))
-                this.__LidCloseDc := POWER_ACTION_POLICY(this.ptr + 88)
+                this.__LidCloseDc := POWER_ACTION_POLICY(88, this)
             return this.__LidCloseDc
         }
     }

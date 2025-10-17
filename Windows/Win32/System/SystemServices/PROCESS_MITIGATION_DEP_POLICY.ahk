@@ -22,16 +22,44 @@ class PROCESS_MITIGATION_DEP_POLICY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Enable
+     * - DisableAtlThunkEmulation
+     * - ReservedFlags
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }
 
     /**
-     * DEP is permanently enabled and cannot be disabled if this field is set to TRUE.
      * @type {Integer}
+     */
+    Enable {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DisableAtlThunkEmulation {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedFlags {
+        get => (this._bitfield >> 2) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
+    }
+
+    /**
+     * DEP is permanently enabled and cannot be disabled if this field is set to TRUE.
+     * @type {BOOLEAN}
      */
     Permanent {
         get => NumGet(this, 4, "char")

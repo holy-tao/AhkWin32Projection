@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS8 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     UnalignedBlockTexturesSupported {
         get => NumGet(this, 0, "int")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -28,7 +29,7 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSpcFile {
         get => NumGet(this, 8, "ptr")
@@ -52,19 +53,18 @@ class SIGNER_CERT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(16, this)
+            return this.__hwnd
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

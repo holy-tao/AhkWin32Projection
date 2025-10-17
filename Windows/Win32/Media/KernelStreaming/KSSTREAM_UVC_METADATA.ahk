@@ -18,7 +18,7 @@ class KSSTREAM_UVC_METADATA extends Win32Struct
     StartOfFrameTimestamp{
         get {
             if(!this.HasProp("__StartOfFrameTimestamp"))
-                this.__StartOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(this.ptr + 0)
+                this.__StartOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(0, this)
             return this.__StartOfFrameTimestamp
         }
     }
@@ -29,7 +29,7 @@ class KSSTREAM_UVC_METADATA extends Win32Struct
     EndOfFrameTimestamp{
         get {
             if(!this.HasProp("__EndOfFrameTimestamp"))
-                this.__EndOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(this.ptr + 16)
+                this.__EndOfFrameTimestamp := KSSTREAM_UVC_METADATATYPE_TIMESTAMP(16, this)
             return this.__EndOfFrameTimestamp
         }
     }

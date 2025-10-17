@@ -33,7 +33,7 @@ class DL_TEREDO_ADDRESS extends Win32Struct
     Eui64{
         get {
             if(!this.HasProp("__Eui64"))
-                this.__Eui64 := DL_EUI64(this.ptr + 8)
+                this.__Eui64 := DL_EUI64(8, this)
             return this.__Eui64
         }
     }
@@ -60,7 +60,7 @@ class DL_TEREDO_ADDRESS extends Win32Struct
     MappedAddress{
         get {
             if(!this.HasProp("__MappedAddress"))
-                this.__MappedAddress := IN_ADDR(this.ptr + 12)
+                this.__MappedAddress := IN_ADDR(12, this)
             return this.__MappedAddress
         }
     }

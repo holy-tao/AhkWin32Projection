@@ -12,20 +12,76 @@ class NVME_DEVICE_SELF_TEST_LOG extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    CurrentOperation {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    class _CurrentOperation extends Win32Struct {
+        static sizeof => 168
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Status
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Status {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+    }
+
+    class _CurrentCompletion extends Win32Struct {
+        static sizeof => 168
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - CompletePercent
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompletePercent {
+            get => (this._bitfield >> 0) & 0x7F
+            set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_CurrentOperation}
      */
-    CurrentCompletion {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    CurrentOperation{
+        get {
+            if(!this.HasProp("__CurrentOperation"))
+                this.__CurrentOperation := %this.__Class%._CurrentOperation(0, this)
+            return this.__CurrentOperation
+        }
+    }
+
+    /**
+     * @type {_CurrentCompletion}
+     */
+    CurrentCompletion{
+        get {
+            if(!this.HasProp("__CurrentCompletion"))
+                this.__CurrentCompletion := %this.__Class%._CurrentCompletion(1, this)
+            return this.__CurrentCompletion
+        }
     }
 
     /**

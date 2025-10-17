@@ -12,7 +12,7 @@ class SCM_PD_RUNTIME_FW_ACTIVATION_ARM_STATE extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ArmState {
         get => NumGet(this, 0, "char")

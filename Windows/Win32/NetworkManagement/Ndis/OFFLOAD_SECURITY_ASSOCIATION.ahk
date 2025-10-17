@@ -34,7 +34,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     IntegrityAlgo{
         get {
             if(!this.HasProp("__IntegrityAlgo"))
-                this.__IntegrityAlgo := OFFLOAD_ALGO_INFO(this.ptr + 8)
+                this.__IntegrityAlgo := OFFLOAD_ALGO_INFO(8, this)
             return this.__IntegrityAlgo
         }
     }
@@ -45,7 +45,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     ConfAlgo{
         get {
             if(!this.HasProp("__ConfAlgo"))
-                this.__ConfAlgo := OFFLOAD_ALGO_INFO(this.ptr + 24)
+                this.__ConfAlgo := OFFLOAD_ALGO_INFO(24, this)
             return this.__ConfAlgo
         }
     }
@@ -56,7 +56,7 @@ class OFFLOAD_SECURITY_ASSOCIATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__Reserved"))
-                this.__Reserved := OFFLOAD_ALGO_INFO(this.ptr + 40)
+                this.__Reserved := OFFLOAD_ALGO_INFO(40, this)
             return this.__Reserved
         }
     }

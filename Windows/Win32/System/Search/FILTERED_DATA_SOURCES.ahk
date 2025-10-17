@@ -22,7 +22,7 @@ class FILTERED_DATA_SOURCES extends Win32Struct
 
     /**
      * Pointer to a buffer that contains a file name extension.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsExtension {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class FILTERED_DATA_SOURCES extends Win32Struct
 
     /**
      * Pointer to a buffer that contains the name of a MIME type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsMime {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class FILTERED_DATA_SOURCES extends Win32Struct
 
     /**
      * Not implemented.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsOverride {
         get => NumGet(this, 24, "ptr")

@@ -26,7 +26,7 @@ class RIO_BUF extends Win32Struct
 
     /**
      * The registered buffer descriptor for a Winsock registered I/O buffer used with send and receive requests.
-     * @type {Pointer}
+     * @type {RIO_BUFFERID}
      */
     BufferId {
         get => NumGet(this, 0, "ptr")

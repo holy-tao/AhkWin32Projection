@@ -38,7 +38,7 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * <pre class="syntax" xml:space="preserve"><code>\Device\NetBT_Tcpip_{2C9725F4-151A-11D3-AEEC-C3B211BD350B}
      * </code></pre>
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     svti1_transportname {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportaddex">NetServerTransportAddEx</a> function.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     svti1_networkaddress {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +92,7 @@ class SERVER_TRANSPORT_INFO_1 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmserver/nf-lmserver-netservertransportenum">NetServerTransportEnum</a>, this member is the name of the domain to which the server is announcing its presence.)
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     svti1_domain {
         get => NumGet(this, 40, "ptr")

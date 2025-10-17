@@ -24,7 +24,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
     StartDate{
         get {
             if(!this.HasProp("__StartDate"))
-                this.__StartDate := FILETIME(this.ptr + 0)
+                this.__StartDate := FILETIME(0, this)
             return this.__StartDate
         }
     }
@@ -38,7 +38,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
     Duration{
         get {
             if(!this.HasProp("__Duration"))
-                this.__Duration := WCM_TIME_INTERVAL(this.ptr + 8)
+                this.__Duration := WCM_TIME_INTERVAL(8, this)
             return this.__Duration
         }
     }
@@ -47,7 +47,7 @@ class WCM_BILLING_CYCLE_INFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * True if at the end of the billing cycle, a new billing cycle of the same duration will start. False if the service will terminate at the end of the billing cycle.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reset {
         get => NumGet(this, 24, "int")

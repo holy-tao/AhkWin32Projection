@@ -19,7 +19,7 @@ class IMAGE_ROM_HEADERS extends Win32Struct
     FileHeader{
         get {
             if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(this.ptr + 0)
+                this.__FileHeader := IMAGE_FILE_HEADER(0, this)
             return this.__FileHeader
         }
     }
@@ -30,7 +30,7 @@ class IMAGE_ROM_HEADERS extends Win32Struct
     OptionalHeader{
         get {
             if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_ROM_OPTIONAL_HEADER(this.ptr + 24)
+                this.__OptionalHeader := IMAGE_ROM_OPTIONAL_HEADER(24, this)
             return this.__OptionalHeader
         }
     }

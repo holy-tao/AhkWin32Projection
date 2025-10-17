@@ -43,7 +43,7 @@ class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")
@@ -59,7 +59,7 @@ class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
     SourceRect{
         get {
             if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(this.ptr + 8)
+                this.__SourceRect := RECT(8, this)
             return this.__SourceRect
         }
     }

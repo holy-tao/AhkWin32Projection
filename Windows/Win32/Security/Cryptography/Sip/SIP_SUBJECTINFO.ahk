@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 #Include ..\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -41,16 +42,19 @@ class SIP_SUBJECTINFO extends Win32Struct
 
     /**
      * A file handle that represents the subject. If the storage type of the subject is a file, set <i>hFile</i> to <b>INVALID_HANDLE_VALUE</b> and set the <i>pwsFileName</i> parameter to the name of the file.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(16, this)
+            return this.__hFile
+        }
     }
 
     /**
      * A pointer to a null-terminated Unicode string that contains the file name of the subject.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwsFileName {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +64,7 @@ class SIP_SUBJECTINFO extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the display name of 
      *                                                 the subject.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwsDisplayName {
         get => NumGet(this, 32, "ptr")
@@ -102,7 +106,7 @@ class SIP_SUBJECTINFO extends Win32Struct
     DigestAlgorithm{
         get {
             if(!this.HasProp("__DigestAlgorithm"))
-                this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 56)
+                this.__DigestAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(56, this)
             return this.__DigestAlgorithm
         }
     }
@@ -273,12 +277,8 @@ class SIP_SUBJECTINFO extends Win32Struct
         set => NumPut("ptr", value, this, 120)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 128
     }
 }

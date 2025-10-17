@@ -32,7 +32,7 @@ class DESKBANDINFO extends Win32Struct
     ptMinSize{
         get {
             if(!this.HasProp("__ptMinSize"))
-                this.__ptMinSize := POINTL(this.ptr + 8)
+                this.__ptMinSize := POINTL(8, this)
             return this.__ptMinSize
         }
     }
@@ -46,7 +46,7 @@ class DESKBANDINFO extends Win32Struct
     ptMaxSize{
         get {
             if(!this.HasProp("__ptMaxSize"))
-                this.__ptMaxSize := POINTL(this.ptr + 16)
+                this.__ptMaxSize := POINTL(16, this)
             return this.__ptMaxSize
         }
     }
@@ -62,7 +62,7 @@ class DESKBANDINFO extends Win32Struct
     ptIntegral{
         get {
             if(!this.HasProp("__ptIntegral"))
-                this.__ptIntegral := POINTL(this.ptr + 24)
+                this.__ptIntegral := POINTL(24, this)
             return this.__ptIntegral
         }
     }
@@ -76,7 +76,7 @@ class DESKBANDINFO extends Win32Struct
     ptActual{
         get {
             if(!this.HasProp("__ptActual"))
-                this.__ptActual := POINTL(this.ptr + 32)
+                this.__ptActual := POINTL(32, this)
             return this.__ptActual
         }
     }
@@ -105,7 +105,7 @@ class DESKBANDINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that receives the background color of the band. The <b>dwModeFlags</b> member must contain the <b>DBIMF_BKCOLOR</b> flag; otherwise, <b>crBkgnd</b> is ignored.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBkgnd {
         get => NumGet(this, 556, "uint")

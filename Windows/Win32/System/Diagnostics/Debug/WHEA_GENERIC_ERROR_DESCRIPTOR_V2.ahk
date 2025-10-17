@@ -99,7 +99,7 @@ class WHEA_GENERIC_ERROR_DESCRIPTOR_V2 extends Win32Struct
     Notify{
         get {
             if(!this.HasProp("__Notify"))
-                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(this.ptr + 24)
+                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(24, this)
             return this.__Notify
         }
     }

@@ -18,7 +18,7 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
 
     /**
      * Represents the <b>streamId</b> for which <b>streamData</b> is defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     streamId {
         get => NumGet(this, 0, "ptr")
@@ -32,14 +32,14 @@ class WSMAN_RECEIVE_DATA_RESULT extends Win32Struct
     streamData{
         get {
             if(!this.HasProp("__streamData"))
-                this.__streamData := WSMAN_DATA(this.ptr + 8)
+                this.__streamData := WSMAN_DATA(8, this)
             return this.__streamData
         }
     }
 
     /**
      * Specifies the status of the command. If this member is set to <b>WSMAN_COMMAND_STATE_DONE</b>, the command should be immediately closed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     commandState {
         get => NumGet(this, 40, "ptr")

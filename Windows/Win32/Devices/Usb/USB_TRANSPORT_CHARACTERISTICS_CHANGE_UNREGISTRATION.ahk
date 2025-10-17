@@ -12,7 +12,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_UNREGISTRATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {USB_CHANGE_REGISTRATION_HANDLE}
      */
     Handle {
         get => NumGet(this, 0, "ptr")

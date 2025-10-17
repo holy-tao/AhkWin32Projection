@@ -21,7 +21,7 @@ class USER_INFO_1014 extends Win32Struct
      * <b>NetUserSetInfo</b> function. 
      * 
      * As many as eight workstations can be specified; the names must be separated by commas. A null string indicates that there is no restriction.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1014_workstations {
         get => NumGet(this, 0, "ptr")

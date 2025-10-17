@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 
 /**
@@ -24,7 +25,7 @@ class NMTVASYNCDRAW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -56,7 +57,7 @@ class NMTVASYNCDRAW extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle of the tree item that failed to draw.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hItem {
         get => NumGet(this, 40, "ptr")
@@ -67,7 +68,7 @@ class NMTVASYNCDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Data for <b>hItem</b>. This is the same data for the item that is retrieved with the message <a href="https://docs.microsoft.com/windows/desktop/Controls/tvm-getitem">TVM_GETITEM</a> using the appropriate <b>mask</b> in structure <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-tvitema">TVITEM</a>. This data is parent specific; the parent can store information that helps it identify the tree item or other information. Data is provided in <b>lParam</b> for convenience, so that the parent does not need to send message <b>TVM_GETITEM</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")

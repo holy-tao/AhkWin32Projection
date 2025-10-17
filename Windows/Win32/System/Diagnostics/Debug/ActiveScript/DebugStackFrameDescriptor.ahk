@@ -36,7 +36,7 @@ class DebugStackFrameDescriptor extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fFinal {
         get => NumGet(this, 16, "int")

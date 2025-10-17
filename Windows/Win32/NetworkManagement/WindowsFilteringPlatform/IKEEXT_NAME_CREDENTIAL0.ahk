@@ -20,7 +20,7 @@ class IKEEXT_NAME_CREDENTIAL0 extends Win32Struct
 
     /**
      * Name of the principal.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     principalName {
         get => NumGet(this, 0, "ptr")

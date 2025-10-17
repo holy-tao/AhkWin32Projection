@@ -12,7 +12,7 @@ class VGA_CHAR extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     Char {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class VGA_CHAR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     Attributes {
         get => NumGet(this, 1, "char")

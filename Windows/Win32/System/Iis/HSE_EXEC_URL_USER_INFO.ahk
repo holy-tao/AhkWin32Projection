@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -12,15 +13,18 @@ class HSE_EXEC_URL_USER_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hImpersonationToken {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hImpersonationToken{
+        get {
+            if(!this.HasProp("__hImpersonationToken"))
+                this.__hImpersonationToken := HANDLE(0, this)
+            return this.__hImpersonationToken
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCustomUserName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +32,7 @@ class HSE_EXEC_URL_USER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCustomAuthType {
         get => NumGet(this, 16, "ptr")

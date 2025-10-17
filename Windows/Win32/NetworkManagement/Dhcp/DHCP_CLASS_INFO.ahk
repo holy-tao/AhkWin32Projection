@@ -15,7 +15,7 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Unicode string that contains the name of the class.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClassName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Unicode string that contains a comment associated with the class.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClassComment {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class DHCP_CLASS_INFO extends Win32Struct
 
     /**
      * Specifies whether or not this option class is a vendor-defined option class. If <b>TRUE</b>, it is a vendor class; if not, it is not a vendor class. Vendor-defined option classes can be used by DHCP clients that are configured to optionally identify themselves by their vendor type to the DHCP server when obtaining a lease.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsVendor {
         get => NumGet(this, 20, "int")

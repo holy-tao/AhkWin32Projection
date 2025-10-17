@@ -21,7 +21,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")
@@ -61,7 +61,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pHelpFile {
         get => NumGet(this, 48, "ptr")
@@ -69,7 +69,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDependentFiles {
         get => NumGet(this, 56, "ptr")
@@ -77,7 +77,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pMonitorName {
         get => NumGet(this, 64, "ptr")
@@ -85,7 +85,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDefaultDataType {
         get => NumGet(this, 72, "ptr")
@@ -93,7 +93,7 @@ class DRIVER_INFO_4A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszzPreviousNames {
         get => NumGet(this, 80, "ptr")

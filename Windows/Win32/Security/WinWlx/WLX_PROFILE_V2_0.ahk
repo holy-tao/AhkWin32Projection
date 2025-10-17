@@ -37,7 +37,7 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszProfile</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProfile {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszPolicy</b> must be separately allocated by your <a href="https://docs.microsoft.com/windows/desktop/SecGloss/g-gly">GINA</a> DLL. It will be deallocated by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPolicy {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszNetworkDefaultUserProfile</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszNetworkDefaultUserProfile {
         get => NumGet(this, 24, "ptr")
@@ -79,7 +79,7 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszServerName</b> must be separately allocated by your GINA DLL. It will be deallocated by Winlogon.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszServerName {
         get => NumGet(this, 32, "ptr")
@@ -106,7 +106,7 @@ class WLX_PROFILE_V2_0 extends Win32Struct
      * homepath=%logonServer%\share
      * 
      * ```
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszEnvironment {
         get => NumGet(this, 40, "ptr")

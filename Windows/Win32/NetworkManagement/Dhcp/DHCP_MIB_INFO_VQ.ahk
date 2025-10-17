@@ -74,7 +74,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     ServerStartTime{
         get {
             if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(this.ptr + 32)
+                this.__ServerStartTime := DATE_TIME(32, this)
             return this.__ServerStartTime
         }
     }

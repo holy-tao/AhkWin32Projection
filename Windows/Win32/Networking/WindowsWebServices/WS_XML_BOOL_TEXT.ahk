@@ -21,14 +21,14 @@ class WS_XML_BOOL_TEXT extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := WS_XML_TEXT(this.ptr + 0)
+                this.__text := WS_XML_TEXT(0, this)
             return this.__text
         }
     }
 
     /**
      * The Boolean value.  0 represents the text "false", while 1 represents the text "true".
-     * @type {Integer}
+     * @type {BOOL}
      */
     value {
         get => NumGet(this, 4, "int")

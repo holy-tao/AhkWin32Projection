@@ -14,7 +14,7 @@ class NVME_CDW11_SANITIZE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous {
+    OVRPAT {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
     }

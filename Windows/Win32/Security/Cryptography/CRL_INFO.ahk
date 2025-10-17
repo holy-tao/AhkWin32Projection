@@ -64,7 +64,7 @@ class CRL_INFO extends Win32Struct
     SignatureAlgorithm{
         get {
             if(!this.HasProp("__SignatureAlgorithm"))
-                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__SignatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__SignatureAlgorithm
         }
     }
@@ -76,7 +76,7 @@ class CRL_INFO extends Win32Struct
     Issuer{
         get {
             if(!this.HasProp("__Issuer"))
-                this.__Issuer := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__Issuer := CRYPT_INTEGER_BLOB(32, this)
             return this.__Issuer
         }
     }
@@ -88,7 +88,7 @@ class CRL_INFO extends Win32Struct
     ThisUpdate{
         get {
             if(!this.HasProp("__ThisUpdate"))
-                this.__ThisUpdate := FILETIME(this.ptr + 48)
+                this.__ThisUpdate := FILETIME(48, this)
             return this.__ThisUpdate
         }
     }
@@ -100,7 +100,7 @@ class CRL_INFO extends Win32Struct
     NextUpdate{
         get {
             if(!this.HasProp("__NextUpdate"))
-                this.__NextUpdate := FILETIME(this.ptr + 56)
+                this.__NextUpdate := FILETIME(56, this)
             return this.__NextUpdate
         }
     }

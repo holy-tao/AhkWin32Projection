@@ -34,11 +34,28 @@ class PRJ_EXTENDED_INFO extends Win32Struct
         set => NumPut("uint", value, this, 4)
     }
 
+    class _Symlink extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {PWSTR}
+         */
+        TargetName {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
-     * @type {Pointer<Char>}
+     * @type {_Symlink}
      */
-    Anonymous {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Symlink{
+        get {
+            if(!this.HasProp("__Symlink"))
+                this.__Symlink := %this.__Class%._Symlink(8, this)
+            return this.__Symlink
+        }
     }
 }

@@ -38,7 +38,7 @@ class CorrelationId extends Win32Struct
     timeStamp{
         get {
             if(!this.HasProp("__timeStamp"))
-                this.__timeStamp := FILETIME(this.ptr + 8)
+                this.__timeStamp := FILETIME(8, this)
             return this.__timeStamp
         }
     }

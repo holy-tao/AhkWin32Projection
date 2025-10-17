@@ -51,7 +51,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     FixBasicData{
         get {
             if(!this.HasProp("__FixBasicData"))
-                this.__FixBasicData := GNSS_FIXDATA_BASIC(this.ptr + 16)
+                this.__FixBasicData := GNSS_FIXDATA_BASIC(16, this)
             return this.__FixBasicData
         }
     }
@@ -62,7 +62,7 @@ class GNSS_GEOFENCE_ALERT_DATA extends Win32Struct
     FixAccuracyData{
         get {
             if(!this.HasProp("__FixAccuracyData"))
-                this.__FixAccuracyData := GNSS_FIXDATA_ACCURACY(this.ptr + 64)
+                this.__FixAccuracyData := GNSS_FIXDATA_ACCURACY(64, this)
             return this.__FixAccuracyData
         }
     }

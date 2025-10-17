@@ -12,7 +12,7 @@ class DOMAINDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPath {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszNCName {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTrustParent {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszObjectClass {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DOMAINDESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDownLevel {
         get => NumGet(this, 44, "int")

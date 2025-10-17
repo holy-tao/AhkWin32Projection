@@ -34,7 +34,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the PNRP cloud name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzCloudName {
         get => NumGet(this, 8, "ptr")
@@ -127,7 +127,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the peer name of the peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzGroupPeerName {
         get => NumGet(this, 24, "ptr")
@@ -136,7 +136,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer issuing the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzIssuerPeerName {
         get => NumGet(this, 32, "ptr")
@@ -145,7 +145,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the PNRP name of the peer that receives the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzSubjectPeerName {
         get => NumGet(this, 40, "ptr")
@@ -154,7 +154,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzGroupFriendlyName {
         get => NumGet(this, 48, "ptr")
@@ -163,7 +163,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer issuing the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzIssuerFriendlyName {
         get => NumGet(this, 56, "ptr")
@@ -172,7 +172,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the peer that receives the invitation.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzSubjectFriendlyName {
         get => NumGet(this, 64, "ptr")
@@ -186,7 +186,7 @@ class PEER_INVITATION_INFO extends Win32Struct
     ftValidityStart{
         get {
             if(!this.HasProp("__ftValidityStart"))
-                this.__ftValidityStart := FILETIME(this.ptr + 72)
+                this.__ftValidityStart := FILETIME(72, this)
             return this.__ftValidityStart
         }
     }
@@ -198,7 +198,7 @@ class PEER_INVITATION_INFO extends Win32Struct
     ftValidityEnd{
         get {
             if(!this.HasProp("__ftValidityEnd"))
-                this.__ftValidityEnd := FILETIME(this.ptr + 80)
+                this.__ftValidityEnd := FILETIME(80, this)
             return this.__ftValidityEnd
         }
     }
@@ -259,7 +259,7 @@ class PEER_INVITATION_INFO extends Win32Struct
 
     /**
      * List of pointers to Unicode strings. This field is reserved for future use.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppwzClassifiers {
         get => NumGet(this, 112, "ptr")

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\SECPKG_BYTE_VECTOR.ahk
 
 /**
@@ -67,18 +68,21 @@ class SECPKG_CREDENTIAL extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 24)
+                this.__LogonId := LUID(24, this)
             return this.__LogonId
         }
     }
 
     /**
      * The client token of the caller.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientToken {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    ClientToken{
+        get {
+            if(!this.HasProp("__ClientToken"))
+                this.__ClientToken := HANDLE(32, this)
+            return this.__ClientToken
+        }
     }
 
     /**
@@ -97,7 +101,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     ModifiedId{
         get {
             if(!this.HasProp("__ModifiedId"))
-                this.__ModifiedId := LUID(this.ptr + 48)
+                this.__ModifiedId := LUID(48, this)
             return this.__ModifiedId
         }
     }
@@ -127,7 +131,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     PrincipalName{
         get {
             if(!this.HasProp("__PrincipalName"))
-                this.__PrincipalName := SECPKG_BYTE_VECTOR(this.ptr + 64)
+                this.__PrincipalName := SECPKG_BYTE_VECTOR(64, this)
             return this.__PrincipalName
         }
     }
@@ -139,7 +143,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     PackageList{
         get {
             if(!this.HasProp("__PackageList"))
-                this.__PackageList := SECPKG_BYTE_VECTOR(this.ptr + 72)
+                this.__PackageList := SECPKG_BYTE_VECTOR(72, this)
             return this.__PackageList
         }
     }
@@ -151,7 +155,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     MarshaledSuppliedCreds{
         get {
             if(!this.HasProp("__MarshaledSuppliedCreds"))
-                this.__MarshaledSuppliedCreds := SECPKG_BYTE_VECTOR(this.ptr + 80)
+                this.__MarshaledSuppliedCreds := SECPKG_BYTE_VECTOR(80, this)
             return this.__MarshaledSuppliedCreds
         }
     }

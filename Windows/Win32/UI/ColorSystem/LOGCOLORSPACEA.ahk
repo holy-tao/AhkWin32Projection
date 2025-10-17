@@ -98,7 +98,7 @@ class LOGCOLORSPACEA extends Win32Struct
     lcsEndpoints{
         get {
             if(!this.HasProp("__lcsEndpoints"))
-                this.__lcsEndpoints := CIEXYZTRIPLE(this.ptr + 24)
+                this.__lcsEndpoints := CIEXYZTRIPLE(24, this)
             return this.__lcsEndpoints
         }
     }

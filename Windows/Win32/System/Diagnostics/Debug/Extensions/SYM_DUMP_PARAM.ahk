@@ -168,12 +168,4 @@ class SYM_DUMP_PARAM extends Win32Struct
         get => (this._bitfield >> 4) & 0x1
         set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x7FFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFF << 5))
-    }
 }

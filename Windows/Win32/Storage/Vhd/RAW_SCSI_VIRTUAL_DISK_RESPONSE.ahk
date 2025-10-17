@@ -58,7 +58,7 @@ class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(this.ptr + 8)
+                this.__Version1 := %this.__Class%._Version1(8, this)
             return this.__Version1
         }
     }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
@@ -3388,7 +3388,7 @@ class WiFi {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} pdwNegotiatedVersion The version of the WLAN API that will be used in this session.  This value is usually the highest version supported by both the client and server.
-     * @param {Pointer<Void>} phClientHandle A handle for the client to use in this session.  This handle is used by other functions throughout the session.
+     * @param {Pointer<HANDLE>} phClientHandle A handle for the client to use in this session.  This handle is used by other functions throughout the session.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -3455,7 +3455,7 @@ class WiFi {
 
     /**
      * Closes a connection to the server.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, which identifies the connection to be closed. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, which identifies the connection to be closed. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -3505,13 +3505,15 @@ class WiFi {
     static WlanCloseHandle(hClientHandle) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanCloseHandle", "ptr", hClientHandle, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Enumerates all of the wireless LAN interfaces currently enabled on the local computer.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<WLAN_INTERFACE_INFO_LIST>} ppInterfaceList A pointer to storage for a pointer to receive the returned list of wireless LAN interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_interface_info_list">WLAN_INTERFACE_INFO_LIST</a> structure.
      * 
      * The buffer for the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_interface_info_list">WLAN_INTERFACE_INFO_LIST</a> returned is allocated by the <b>WlanEnumInterfaces</b> function if the call succeeds.
@@ -3575,13 +3577,15 @@ class WiFi {
     static WlanEnumInterfaces(hClientHandle, ppInterfaceList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanEnumInterfaces", "ptr", hClientHandle, "ptr", pReserved, "ptr", ppInterfaceList, "uint")
         return result
     }
 
     /**
      * Sets parameters for the automatic configuration service.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_autoconf_opcode-r1">WLAN_AUTOCONF_OPCODE</a> value that specifies the parameter to be set. Only some of the opcodes in the <b>WLAN_AUTOCONF_OPCODE</b> enumeration support set operations.
      * 
      * <table>
@@ -3710,13 +3714,15 @@ class WiFi {
     static WlanSetAutoConfigParameter(hClientHandle, OpCode, dwDataSize, pData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanSetAutoConfigParameter", "ptr", hClientHandle, "int", OpCode, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Queries for the parameters of the auto configuration service.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} OpCode A value that specifies the configuration parameter to be queried.
      * 
      * <table>
@@ -3872,13 +3878,15 @@ class WiFi {
     static WlanQueryAutoConfigParameter(hClientHandle, OpCode, pdwDataSize, ppData, pWlanOpcodeValueType) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanQueryAutoConfigParameter", "ptr", hClientHandle, "int", OpCode, "ptr", pReserved, "uint*", pdwDataSize, "ptr", ppData, "int*", pWlanOpcodeValueType, "uint")
         return result
     }
 
     /**
      * Retrieves the capabilities of an interface.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of this interface.
      * @param {Pointer<WLAN_INTERFACE_CAPABILITY>} ppCapability A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_interface_capability">WLAN_INTERFACE_CAPABILITY</a> structure that contains information about the capabilities of the specified interface.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -3941,13 +3949,15 @@ class WiFi {
     static WlanGetInterfaceCapability(hClientHandle, pInterfaceGuid, ppCapability) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetInterfaceCapability", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pReserved, "ptr", ppCapability, "uint")
         return result
     }
 
     /**
      * Sets user-configurable parameters.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be configured.
      * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be set.  The following table lists the valid constants along with the data type of the parameter in <i>pData</i>.
      * 
@@ -4045,13 +4055,15 @@ class WiFi {
     static WlanSetInterface(hClientHandle, pInterfaceGuid, OpCode, dwDataSize, pData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanSetInterface", "ptr", hClientHandle, "ptr", pInterfaceGuid, "int", OpCode, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * The WlanQueryInterface function queries various parameters of a specified interface.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be queried.
      * @param {Integer} OpCode A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_intf_opcode-r1">WLAN_INTF_OPCODE</a> value that specifies the parameter to be queried.  The following table lists the valid constants along with the data type of the parameter in <i>ppData</i>.
      * 
@@ -4161,13 +4173,15 @@ class WiFi {
     static WlanQueryInterface(hClientHandle, pInterfaceGuid, OpCode, pdwDataSize, ppData, pWlanOpcodeValueType) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanQueryInterface", "ptr", hClientHandle, "ptr", pInterfaceGuid, "int", OpCode, "ptr", pReserved, "uint*", pdwDataSize, "ptr", ppData, "int*", pWlanOpcodeValueType, "uint")
         return result
     }
 
     /**
      * Provides a mechanism for independent hardware vendor (IHV) control of WLAN drivers or services.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
      * @param {Integer} Type A <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_ihv_control_type-r1">WLAN_IHV_CONTROL_TYPE</a> structure that specifies the type of software bypassed by the IHV control function.
      * @param {Integer} dwInBufferSize The size, in bytes, of the input buffer.
@@ -4244,13 +4258,15 @@ class WiFi {
      * @since windows6.0.6000
      */
     static WlanIhvControl(hClientHandle, pInterfaceGuid, Type, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanIhvControl", "ptr", hClientHandle, "ptr", pInterfaceGuid, "int", Type, "uint", dwInBufferSize, "ptr", pInBuffer, "uint", dwOutBufferSize, "ptr", pOutBuffer, "uint*", pdwBytesReturned, "uint")
         return result
     }
 
     /**
      * Requests a scan for available networks on the indicated interface.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be queried.
      * 
      *  The GUID of each wireless LAN interface enabled on a local computer can be determined using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function.
@@ -4317,13 +4333,15 @@ class WiFi {
     static WlanScan(hClientHandle, pInterfaceGuid, pDot11Ssid, pIeData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanScan", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pDot11Ssid, "ptr", pIeData, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Retrieves the list of available networks on a wireless LAN interface.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid A pointer to the GUID of the wireless LAN interface to be queried.
      * 
      *  The GUID of each wireless LAN interface enabled on a local computer can be determined using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function.
@@ -4435,13 +4453,15 @@ class WiFi {
     static WlanGetAvailableNetworkList(hClientHandle, pInterfaceGuid, dwFlags, ppAvailableNetworkList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", pReserved, "ptr", ppAvailableNetworkList, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hClientHandle 
+     * @param {HANDLE} hClientHandle 
      * @param {Pointer<Guid>} pInterfaceGuid 
      * @param {Integer} dwFlags 
      * @param {Pointer<WLAN_AVAILABLE_NETWORK_LIST_V2>} ppAvailableNetworkList 
@@ -4450,13 +4470,15 @@ class WiFi {
     static WlanGetAvailableNetworkList2(hClientHandle, pInterfaceGuid, dwFlags, ppAvailableNetworkList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetAvailableNetworkList2", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", pReserved, "ptr", ppAvailableNetworkList, "uint")
         return result
     }
 
     /**
      * Retrieves a list of the basic service set (BSS) entries of the wireless network or networks on a given wireless LAN interface.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid A pointer to the GUID of the wireless LAN interface to be queried.
      * 
      *  The GUID of each wireless LAN interface enabled on a local computer can be determined using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function.
@@ -4464,7 +4486,7 @@ class WiFi {
      * 
      * If a pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/dot11-ssid">DOT11_SSID</a> structure is specified, the SSID length specified in the <b>uSSIDLength</b> member of <b>DOT11_SSID</b> structure must be less than or equal to <b>DOT11_SSID_MAX_LENGTH</b> defined in the <i>Wlantypes.h</i> header file. In addition, the <i>dot11BssType</i> parameter must be set to either <b>dot11_BSS_type_infrastructure</b> or <b>dot11_BSS_type_independent</b> and the <i>bSecurityEnabled</i> parameter must be specified.
      * @param {Integer} dot11BssType The BSS type of the network. This parameter is ignored if the SSID of the network for the BSS list is unspecified (the <i>pDot11Ssid</i> parameter is <b>NULL</b>).
-     * @param {Integer} bSecurityEnabled A value that indicates whether security is enabled on the network.  This parameter is only valid when the SSID of the network for the BSS list is specified (the <i>pDot11Ssid</i> parameter is not <b>NULL</b>).
+     * @param {BOOL} bSecurityEnabled A value that indicates whether security is enabled on the network.  This parameter is only valid when the SSID of the network for the BSS list is specified (the <i>pDot11Ssid</i> parameter is not <b>NULL</b>).
      * @param {Pointer<WLAN_BSS_LIST>} ppWlanBssList A pointer to storage for a pointer to receive the returned list of of BSS entries in a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_list">WLAN_BSS_LIST</a> structure. 
      * 
      * The buffer for the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_list">WLAN_BSS_LIST</a> returned is allocated by the <b>WlanGetNetworkBssList</b> function if the call succeeds.
@@ -4572,13 +4594,15 @@ class WiFi {
     static WlanGetNetworkBssList(hClientHandle, pInterfaceGuid, pDot11Ssid, dot11BssType, bSecurityEnabled, ppWlanBssList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetNetworkBssList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pDot11Ssid, "int", dot11BssType, "int", bSecurityEnabled, "ptr", pReserved, "ptr", ppWlanBssList, "uint")
         return result
     }
 
     /**
      * Attempts to connect to a specific network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to use for the connection.
      * @param {Pointer<WLAN_CONNECTION_PARAMETERS>} pConnectionParameters Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_connection_parameters">WLAN_CONNECTION_PARAMETERS</a> structure that specifies the connection type, mode, network profile, SSID that identifies the network, and other parameters.
      * 
@@ -4657,13 +4681,15 @@ class WiFi {
     static WlanConnect(hClientHandle, pInterfaceGuid, pConnectionParameters) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanConnect", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pConnectionParameters, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hClientHandle 
+     * @param {HANDLE} hClientHandle 
      * @param {Pointer<Guid>} pInterfaceGuid 
      * @param {Pointer<WLAN_CONNECTION_PARAMETERS_V2>} pConnectionParameters 
      * @returns {Integer} 
@@ -4671,13 +4697,15 @@ class WiFi {
     static WlanConnect2(hClientHandle, pInterfaceGuid, pConnectionParameters) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanConnect2", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pConnectionParameters, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Disconnects an interface from its current network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface to be disconnected.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -4750,13 +4778,15 @@ class WiFi {
     static WlanDisconnect(hClientHandle, pInterfaceGuid) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanDisconnect", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Is used to register and unregister notifications on all wireless interfaces.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} dwNotifSource The notification sources to be registered. These flags may be combined. When this parameter is set to <b>WLAN_NOTIFICATION_SOURCE_NONE</b>, <b>WlanRegisterNotification</b> unregisters notifications on all wireless interfaces. 
      * 
      * The possible values for this parameter are defined in the <i>Wlanapi.h</i> and <i>L2cmn.h</i> header files.
@@ -4874,7 +4904,7 @@ class WiFi {
      * </table>
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>This parameter must be set to WLAN_NOTIFICATION_SOURCE_NONE, WLAN_NOTIFICATION_SOURCE_ALL, or WLAN_NOTIFICATION_SOURCE_ACM.
-     * @param {Integer} bIgnoreDuplicate Specifies whether duplicate notifications will be ignored.  If set to <b>TRUE</b>, a notification will not be sent to the client if it is identical to the previous one.
+     * @param {BOOL} bIgnoreDuplicate Specifies whether duplicate notifications will be ignored.  If set to <b>TRUE</b>, a notification will not be sent to the client if it is identical to the previous one.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>This parameter is ignored.
      * @param {Pointer<WLAN_NOTIFICATION_CALLBACK>} funcCallback A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nc-wlanapi-wlan_notification_callback">WLAN_NOTIFICATION_CALLBACK</a>  type that defines the type of notification callback function.
@@ -4942,20 +4972,22 @@ class WiFi {
     static WlanRegisterNotification(hClientHandle, dwNotifSource, bIgnoreDuplicate, funcCallback, pCallbackContext, pdwPrevNotifSource) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanRegisterNotification", "ptr", hClientHandle, "uint", dwNotifSource, "int", bIgnoreDuplicate, "ptr", funcCallback, "ptr", pCallbackContext, "ptr", pReserved, "uint*", pdwPrevNotifSource, "uint")
         return result
     }
 
     /**
      * Retrieves all information about a specified wireless profile.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the wireless interface. 
      * 
      * A list of the GUIDs for wireless interfaces on the local computer can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function.
-     * @param {Pointer<Char>} strProfileName The name of the profile. Profile names are case-sensitive. This string must be NULL-terminated. The maximum length of the profile name is 255 characters. This means that the maximum length of this string, including the NULL terminator, is 256 characters.
+     * @param {PWSTR} strProfileName The name of the profile. Profile names are case-sensitive. This string must be NULL-terminated. The maximum length of the profile name is 255 characters. This means that the maximum length of this string, including the NULL terminator, is 256 characters.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The name of the profile is derived automatically from the SSID of the network. For infrastructure network profiles, the name of the profile is the SSID of the network. For ad hoc network profiles, the name of the profile is the SSID of the ad hoc network followed by <c>-adhoc</c>.
-     * @param {Pointer<Char>} pstrProfileXml A string that is the XML representation of the queried profile. There is no predefined maximum string length.
+     * @param {Pointer<PWSTR>} pstrProfileXml A string that is the XML representation of the queried profile. There is no predefined maximum string length.
      * @param {Pointer<UInt32>} pdwFlags On input, a pointer to the address location used to provide additional information about the request. If this parameter is <b>NULL</b> on input, then no information on profile flags will be returned. On output,  a pointer to the address location used to receive profile flags.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>Per-user profiles are not supported. Set this parameter to <b>NULL</b>. 
@@ -5140,7 +5172,8 @@ class WiFi {
     static WlanGetProfile(hClientHandle, pInterfaceGuid, strProfileName, pstrProfileXml, pdwFlags, pdwGrantedAccess) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanGetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "ptr", pstrProfileXml, "uint*", pdwFlags, "uint*", pdwGrantedAccess, "uint")
         return result
@@ -5148,10 +5181,10 @@ class WiFi {
 
     /**
      * Sets the Extensible Authentication Protocol (EAP) user credentials as specified by raw EAP data.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
-     * @param {Pointer} eapType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that contains the method for which the caller is supplying EAP user credentials.
+     * @param {PWSTR} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {EAP_METHOD_TYPE} eapType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that contains the method for which the caller is supplying EAP user credentials.
      * @param {Integer} dwFlags A set of flags that modify the behavior of the function. 
      * 
      * On Windows Vista and Windows Server 2008, this parameter is reserved and should be set to zero.
@@ -5272,7 +5305,8 @@ class WiFi {
     static WlanSetProfileEapUserData(hClientHandle, pInterfaceGuid, strProfileName, eapType, dwFlags, dwEapUserDataSize, pbEapUserData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetProfileEapUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", eapType, "uint", dwFlags, "uint", dwEapUserDataSize, "ptr", pbEapUserData, "ptr", pReserved, "uint")
         return result
@@ -5280,15 +5314,15 @@ class WiFi {
 
     /**
      * Sets the Extensible Authentication Protocol (EAP) user credentials as specified by an XML string.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strProfileName The name of the profile associated with the EAP user data. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied name must match the profile name derived automatically from the SSID of the network. For an infrastructure network profile, the SSID must be supplied for the profile name. For an ad hoc network profile, the supplied name must be the SSID of the ad hoc network followed by <c>-adhoc</c>.
      * @param {Integer} dwFlags A set of flags that modify the behavior of the function. 
      * 
      * On Wireless LAN API for Windows XP with SP2, Windows XP with SP3,Windows Vista, and Windows Server 2008, this parameter is reserved and should be set to zero.
-     * @param {Pointer<Char>} strEapXmlUserData A pointer to XML data used to set the user credentials. 
+     * @param {PWSTR} strEapXmlUserData A pointer to XML data used to set the user credentials. 
      * 
      * The XML data must be based on the <a href="https://docs.microsoft.com/windows/win32/eaphost/eaphostusercredentialsschema-schema">EAPHost User Credentials schema</a>. To view sample user credential XML data, see EAPHost <a href="https://docs.microsoft.com/windows/win32/eaphost/user-profiles">User Properties</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -5406,8 +5440,9 @@ class WiFi {
     static WlanSetProfileEapXmlUserData(hClientHandle, pInterfaceGuid, strProfileName, dwFlags, strEapXmlUserData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
-        strEapXmlUserData := strEapXmlUserData is String? StrPtr(strEapXmlUserData) : strEapXmlUserData
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        strEapXmlUserData := strEapXmlUserData is String ? StrPtr(strEapXmlUserData) : strEapXmlUserData
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetProfileEapXmlUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwFlags, "ptr", strEapXmlUserData, "ptr", pReserved, "uint")
         return result
@@ -5415,7 +5450,7 @@ class WiFi {
 
     /**
      * Sets the content of a specific profile.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
      * @param {Integer} dwFlags The flags to set on the profile.
      * 
@@ -5460,10 +5495,10 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} strProfileXml Contains the XML representation of the profile. The <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-profileschema-wlanprofile-element">WLANProfile</a> element is the root profile element. To view sample profiles, see <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-samples">Wireless Profile Samples</a>. There is no predefined maximum string length.
+     * @param {PWSTR} strProfileXml Contains the XML representation of the profile. The <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-profileschema-wlanprofile-element">WLANProfile</a> element is the root profile element. To view sample profiles, see <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-samples">Wireless Profile Samples</a>. There is no predefined maximum string length.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied profile must meet the compatibility criteria described in <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wireless-profile-compatibility">Wireless Profile Compatibility</a>.
-     * @param {Pointer<Char>} strAllUserProfileSecurity Sets the security descriptor string on the all-user profile.  For more information about profile permissions, see the Remarks section.
+     * @param {PWSTR} strAllUserProfileSecurity Sets the security descriptor string on the all-user profile.  For more information about profile permissions, see the Remarks section.
      * 
      * If <i>dwFlags</i> is set to WLAN_PROFILE_USER, this parameter is ignored.
      * 
@@ -5474,7 +5509,7 @@ class WiFi {
      * If this parameter is not <b>NULL</b> for an all-user profile, the security descriptor string associated with the profile is created or modified  after the security descriptor object is created and parsed as a string.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>This parameter must be <b>NULL</b>.
-     * @param {Integer} bOverwrite Specifies whether this profile is overwriting an existing profile.  If this parameter is <b>FALSE</b> and the profile already exists, the existing profile will not be overwritten and an error will be returned.
+     * @param {BOOL} bOverwrite Specifies whether this profile is overwriting an existing profile.  If this parameter is <b>FALSE</b> and the profile already exists, the existing profile will not be overwritten and an error will be returned.
      * @param {Pointer<UInt32>} pdwReasonCode A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value that indicates why the profile is not valid.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5570,8 +5605,9 @@ class WiFi {
     static WlanSetProfile(hClientHandle, pInterfaceGuid, dwFlags, strProfileXml, strAllUserProfileSecurity, bOverwrite, pdwReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileXml := strProfileXml is String? StrPtr(strProfileXml) : strProfileXml
-        strAllUserProfileSecurity := strAllUserProfileSecurity is String? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
+        strProfileXml := strProfileXml is String ? StrPtr(strProfileXml) : strProfileXml
+        strAllUserProfileSecurity := strAllUserProfileSecurity is String ? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwFlags, "ptr", strProfileXml, "ptr", strAllUserProfileSecurity, "int", bOverwrite, "ptr", pReserved, "uint*", pdwReasonCode, "uint")
         return result
@@ -5579,9 +5615,9 @@ class WiFi {
 
     /**
      * Deletes a wireless profile for a wireless interface on the local computer.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface from which to delete the profile.
-     * @param {Pointer<Char>} strProfileName The name of the profile to be deleted. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strProfileName The name of the profile to be deleted. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied name must match the profile name derived automatically from the SSID of the network. For an infrastructure network profile, the SSID must be supplied for the profile name. For an ad hoc network profile, the supplied name must be the SSID of the ad hoc network followed by <c>-adhoc</c>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -5655,7 +5691,8 @@ class WiFi {
     static WlanDeleteProfile(hClientHandle, pInterfaceGuid, strProfileName) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanDeleteProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "uint")
         return result
@@ -5663,10 +5700,10 @@ class WiFi {
 
     /**
      * Renames the specified profile.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strOldProfileName The profile name to be changed.
-     * @param {Pointer<Char>} strNewProfileName The new name of the profile.
+     * @param {PWSTR} strOldProfileName The profile name to be changed.
+     * @param {PWSTR} strNewProfileName The new name of the profile.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -5749,8 +5786,9 @@ class WiFi {
     static WlanRenameProfile(hClientHandle, pInterfaceGuid, strOldProfileName, strNewProfileName) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strOldProfileName := strOldProfileName is String? StrPtr(strOldProfileName) : strOldProfileName
-        strNewProfileName := strNewProfileName is String? StrPtr(strNewProfileName) : strNewProfileName
+        strOldProfileName := strOldProfileName is String ? StrPtr(strOldProfileName) : strOldProfileName
+        strNewProfileName := strNewProfileName is String ? StrPtr(strNewProfileName) : strNewProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanRenameProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strOldProfileName, "ptr", strNewProfileName, "ptr", pReserved, "uint")
         return result
@@ -5758,7 +5796,7 @@ class WiFi {
 
     /**
      * Retrieves the list of profiles.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the wireless interface. 
      * 
      * A list of the GUIDs for wireless interfaces on the local computer can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanenuminterfaces">WlanEnumInterfaces</a> function.
@@ -5829,16 +5867,18 @@ class WiFi {
     static WlanGetProfileList(hClientHandle, pInterfaceGuid, ppProfileList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetProfileList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pReserved, "ptr", ppProfileList, "uint")
         return result
     }
 
     /**
      * Sets the preference order of profiles.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
      * @param {Integer} dwItems The number of profiles in the <i>strProfileNames</i> parameter.
-     * @param {Pointer<Char>} strProfileNames The names of the profiles in the desired order. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {Pointer<PWSTR>} strProfileNames The names of the profiles in the desired order. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied names must match the profile names derived automatically from the SSID of the network. For infrastructure network profiles, the SSID must be supplied for the profile name. For ad hoc network profiles, the supplied name must be the SSID of the ad hoc network followed by <c>-adhoc</c>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -5922,15 +5962,17 @@ class WiFi {
     static WlanSetProfileList(hClientHandle, pInterfaceGuid, dwItems, strProfileNames) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanSetProfileList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwItems, "ptr", strProfileNames, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Sets the position of a single, specified profile in the preference list.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strProfileName The name of the profile. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * <b>Windows XP with SP3 and Wireless LAN API for Windows XP with SP2:  </b>The supplied name must match the profile name derived automatically from the SSID of the network. For an infrastructure network profile, the SSID must be supplied for the profile name. For an ad hoc network profile, the supplied name must be the SSID of the ad hoc network followed by <c>-adhoc</c>.
      * @param {Integer} dwPosition Indicates the position in the preference list that the profile should be shifted to.  0 (zero) corresponds to the first profile in the list that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetprofilelist">WlanGetProfileList</a> function.
@@ -5996,7 +6038,8 @@ class WiFi {
     static WlanSetProfilePosition(hClientHandle, pInterfaceGuid, strProfileName, dwPosition) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetProfilePosition", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwPosition, "ptr", pReserved, "uint")
         return result
@@ -6004,9 +6047,9 @@ class WiFi {
 
     /**
      * Sets the custom user data associated with a profile.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile associated with the custom user data. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strProfileName The name of the profile associated with the custom user data. Profile names are case-sensitive. This string must be NULL-terminated.
      * @param {Integer} dwDataSize The size of <i>pData</i>, in bytes.
      * @param {Pointer} pData A pointer to the user data to be set.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -6076,7 +6119,8 @@ class WiFi {
     static WlanSetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, dwDataSize, pData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetProfileCustomUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "uint", dwDataSize, "ptr", pData, "ptr", pReserved, "uint")
         return result
@@ -6084,9 +6128,9 @@ class WiFi {
 
     /**
      * Gets the custom user data associated with a wireless profile.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid A pointer to the GUID of the wireless LAN interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile with which the custom user data is associated. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strProfileName The name of the profile with which the custom user data is associated. Profile names are case-sensitive. This string must be NULL-terminated.
      * @param {Pointer<UInt32>} pdwDataSize The size, in bytes,  of the user data buffer pointed to by the <i>ppData</i>parameter.
      * @param {Pointer<Byte>} ppData A pointer to the user data.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -6171,15 +6215,16 @@ class WiFi {
     static WlanGetProfileCustomUserData(hClientHandle, pInterfaceGuid, strProfileName, pdwDataSize, ppData) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanGetProfileCustomUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "uint*", pdwDataSize, "ptr", ppData, "uint")
+        result := DllCall("wlanapi.dll\WlanGetProfileCustomUserData", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "uint*", pdwDataSize, "char*", ppData, "uint")
         return result
     }
 
     /**
      * Sets the permit/deny list.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  The value must be either <b>wlan_filter_list_type_user_permit</b> or <b>wlan_filter_list_type_user_deny</b>.  Group policy-defined lists cannot be set using this function.
      * @param {Pointer<DOT11_NETWORK_LIST>} pNetworkList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-dot11_network_list">DOT11_NETWORK_LIST</a> structure that contains the list of networks to permit or deny. The <b>dwIndex</b> member of the structure must have a value less than the value of the <b>dwNumberOfItems</b> member of the structure; otherwise, an access violation may occur.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -6255,13 +6300,15 @@ class WiFi {
     static WlanSetFilterList(hClientHandle, wlanFilterListType, pNetworkList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanSetFilterList", "ptr", hClientHandle, "int", wlanFilterListType, "ptr", pNetworkList, "ptr", pReserved, "uint")
         return result
     }
 
     /**
      * Retrieves a group policy or user permission list.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} wlanFilterListType A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_filter_list_type">WLAN_FILTER_LIST_TYPE</a> value that specifies the type of filter list.  All user defined and group policy filter lists can be queried.
      * @param {Pointer<DOT11_NETWORK_LIST>} ppNetworkList Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-dot11_network_list">DOT11_NETWORK_LIST</a> structure that contains the list of permitted or denied networks.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -6337,14 +6384,16 @@ class WiFi {
     static WlanGetFilterList(hClientHandle, wlanFilterListType, ppNetworkList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetFilterList", "ptr", hClientHandle, "int", wlanFilterListType, "ptr", pReserved, "ptr", ppNetworkList, "uint")
         return result
     }
 
     /**
      * Sets the proximity service discovery (PSD) information element (IE) data list.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Pointer<Char>} strFormat The format of a PSD IE in the PSD IE data list passed in the <i>pPsdIEDataList</i> parameter. This is a NULL-terminated URI string that specifies the namespace of the protocol used for discovery.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {PWSTR} strFormat The format of a PSD IE in the PSD IE data list passed in the <i>pPsdIEDataList</i> parameter. This is a NULL-terminated URI string that specifies the namespace of the protocol used for discovery.
      * @param {Pointer<WLAN_RAW_DATA_LIST>} pPsdIEDataList A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_raw_data_list">WLAN_RAW_DATA_LIST</a> structure that contains the PSD IE data list to be set.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6406,7 +6455,8 @@ class WiFi {
     static WlanSetPsdIEDataList(hClientHandle, strFormat, pPsdIEDataList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strFormat := strFormat is String? StrPtr(strFormat) : strFormat
+        strFormat := strFormat is String ? StrPtr(strFormat) : strFormat
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetPsdIEDataList", "ptr", hClientHandle, "ptr", strFormat, "ptr", pPsdIEDataList, "ptr", pReserved, "uint")
         return result
@@ -6414,10 +6464,10 @@ class WiFi {
 
     /**
      * Saves a temporary profile to the profile store.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Char>} strProfileName The name of the profile to be saved. Profile names are case-sensitive. This string must be NULL-terminated.
-     * @param {Pointer<Char>} strAllUserProfileSecurity Sets the security descriptor string on the all-user profile.  By default, for a new all-user profile, all users have write access on the profile. For more information about profile permissions, see the Remarks section.
+     * @param {PWSTR} strProfileName The name of the profile to be saved. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} strAllUserProfileSecurity Sets the security descriptor string on the all-user profile.  By default, for a new all-user profile, all users have write access on the profile. For more information about profile permissions, see the Remarks section.
      * 
      * If <i>dwFlags</i> is set to WLAN_PROFILE_USER, this parameter is ignored.
      * 
@@ -6476,7 +6526,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} bOverWrite Specifies whether this profile is overwriting an existing profile.  If this parameter is <b>FALSE</b> and the profile already exists, the existing profile will not be overwritten and an error will be returned.
+     * @param {BOOL} bOverWrite Specifies whether this profile is overwriting an existing profile.  If this parameter is <b>FALSE</b> and the profile already exists, the existing profile will not be overwritten and an error will be returned.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -6555,8 +6605,9 @@ class WiFi {
     static WlanSaveTemporaryProfile(hClientHandle, pInterfaceGuid, strProfileName, strAllUserProfileSecurity, dwFlags, bOverWrite) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strProfileName := strProfileName is String? StrPtr(strProfileName) : strProfileName
-        strAllUserProfileSecurity := strAllUserProfileSecurity is String? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
+        strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
+        strAllUserProfileSecurity := strAllUserProfileSecurity is String ? StrPtr(strAllUserProfileSecurity) : strAllUserProfileSecurity
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSaveTemporaryProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", strAllUserProfileSecurity, "uint", dwFlags, "int", bOverWrite, "ptr", pReserved, "uint")
         return result
@@ -6564,7 +6615,7 @@ class WiFi {
 
     /**
      * Allows an OEM or IHV component to communicate with a device service on a particular wireless LAN interface.
-     * @param {Pointer<Void>} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * The client's session handle, obtained by a previous call to the [WlanOpenHandle](./nf-wlanapi-wlanopenhandle.md) function.
      * @param {Pointer<Guid>} pInterfaceGuid Type: **CONST [GUID](../guiddef/ns-guiddef-guid.md)\***
@@ -6597,13 +6648,15 @@ class WiFi {
      * @see https://docs.microsoft.com/windows/win32/api//wlanapi/nf-wlanapi-wlandeviceservicecommand
      */
     static WlanDeviceServiceCommand(hClientHandle, pInterfaceGuid, pDeviceServiceGuid, dwOpCode, dwInBufferSize, pInBuffer, dwOutBufferSize, pOutBuffer, pdwBytesReturned) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanDeviceServiceCommand", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", pDeviceServiceGuid, "uint", dwOpCode, "uint", dwInBufferSize, "ptr", pInBuffer, "uint", dwOutBufferSize, "ptr", pOutBuffer, "uint*", pdwBytesReturned, "uint")
         return result
     }
 
     /**
      * Retrieves a list of the supported device services on a given wireless LAN interface.
-     * @param {Pointer<Void>} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * The client's session handle, obtained by a previous call to the [WlanOpenHandle](./nf-wlanapi-wlanopenhandle.md) function.
      * @param {Pointer<Guid>} pInterfaceGuid Type: **CONST [GUID](../guiddef/ns-guiddef-guid.md)\***
@@ -6618,13 +6671,15 @@ class WiFi {
      * @see https://docs.microsoft.com/windows/win32/api//wlanapi/nf-wlanapi-wlangetsupporteddeviceservices
      */
     static WlanGetSupportedDeviceServices(hClientHandle, pInterfaceGuid, ppDevSvcGuidList) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetSupportedDeviceServices", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", ppDevSvcGuidList, "uint")
         return result
     }
 
     /**
      * Allows user mode clients with admin privileges, or User-Mode Driver Framework (UMDF) drivers, to register for unsolicited notifications corresponding to device services that they're interested in.
-     * @param {Pointer<Void>} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
+     * @param {HANDLE} hClientHandle Type: **[HANDLE](/windows/win32/winprog/windows-data-types)**
      * 
      * The client's session handle, obtained by a previous call to the [WlanOpenHandle](./nf-wlanapi-wlanopenhandle.md) function.
      * @param {Pointer<WLAN_DEVICE_SERVICE_GUID_LIST>} pDevSvcGuidList Type: **CONST [PWLAN_DEVICE_SERVICE_GUID_LIST](./ns-wlanapi-wlan_device_service_guid_list.md)**
@@ -6638,16 +6693,18 @@ class WiFi {
      * @see https://docs.microsoft.com/windows/win32/api//wlanapi/nf-wlanapi-wlanregisterdeviceservicenotification
      */
     static WlanRegisterDeviceServiceNotification(hClientHandle, pDevSvcGuidList) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanRegisterDeviceServiceNotification", "ptr", hClientHandle, "ptr", pDevSvcGuidList, "uint")
         return result
     }
 
     /**
      * Extracts the proximity service discovery (PSD) information element (IE) data list from raw IE data included in a beacon.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} dwIeDataSize The size, in bytes, of the <i>pRawIeData</i> parameter.
      * @param {Pointer} pRawIeData The raw IE data for all IEs in the list.
-     * @param {Pointer<Char>} strFormat Describes the format of a PSD IE. Only IEs with a matching format are returned.
+     * @param {PWSTR} strFormat Describes the format of a PSD IE. Only IEs with a matching format are returned.
      * @param {Pointer<WLAN_RAW_DATA_LIST>} ppPsdIEDataList A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_raw_data_list">PWLAN_RAW_DATA_LIST</a> structure that contains the formatted data list.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6709,7 +6766,8 @@ class WiFi {
     static WlanExtractPsdIEDataList(hClientHandle, dwIeDataSize, pRawIeData, strFormat, ppPsdIEDataList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        strFormat := strFormat is String? StrPtr(strFormat) : strFormat
+        strFormat := strFormat is String ? StrPtr(strFormat) : strFormat
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanExtractPsdIEDataList", "ptr", hClientHandle, "uint", dwIeDataSize, "ptr", pRawIeData, "ptr", strFormat, "ptr", pReserved, "ptr", ppPsdIEDataList, "uint")
         return result
@@ -6719,7 +6777,7 @@ class WiFi {
      * Retrieves a string that describes a specified reason code.
      * @param {Integer} dwReasonCode A <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value of which the string description is requested.
      * @param {Integer} dwBufferSize The size of the buffer used to store the string, in <b>WCHAR</b>.  If the reason code string is longer than the buffer, it will be truncated and NULL-terminated. If <i>dwBufferSize</i> is larger than the actual amount of memory allocated to <i>pStringBuffer</i>, then an access violation will occur in the calling program.
-     * @param {Pointer<Char>} pStringBuffer Pointer to a buffer that will receive the string. The caller must allocate memory to <i>pStringBuffer</i> before calling <b>WlanReasonCodeToString</b>.
+     * @param {PWSTR} pStringBuffer Pointer to a buffer that will receive the string. The caller must allocate memory to <i>pStringBuffer</i> before calling <b>WlanReasonCodeToString</b>.
      * @returns {Integer} If the function succeeds, the return value is a pointer to a constant string.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -6765,7 +6823,7 @@ class WiFi {
     static WlanReasonCodeToString(dwReasonCode, dwBufferSize, pStringBuffer) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        pStringBuffer := pStringBuffer is String? StrPtr(pStringBuffer) : pStringBuffer
+        pStringBuffer := pStringBuffer is String ? StrPtr(pStringBuffer) : pStringBuffer
 
         result := DllCall("wlanapi.dll\WlanReasonCodeToString", "uint", dwReasonCode, "uint", dwBufferSize, "ptr", pStringBuffer, "ptr", pReserved, "uint")
         return result
@@ -6812,9 +6870,9 @@ class WiFi {
 
     /**
      * Sets the security settings for a configurable object.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings will be applied.
-     * @param {Pointer<Char>} strModifiedSDDL A security descriptor string that specifies the new security settings for the object. This string must be NULL-terminated. For more information, see the Remarks section.
+     * @param {PWSTR} strModifiedSDDL A security descriptor string that specifies the new security settings for the object. This string must be NULL-terminated. For more information, see the Remarks section.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -6878,7 +6936,8 @@ class WiFi {
      * @since windows6.0.6000
      */
     static WlanSetSecuritySettings(hClientHandle, SecurableObject, strModifiedSDDL) {
-        strModifiedSDDL := strModifiedSDDL is String? StrPtr(strModifiedSDDL) : strModifiedSDDL
+        strModifiedSDDL := strModifiedSDDL is String ? StrPtr(strModifiedSDDL) : strModifiedSDDL
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         result := DllCall("wlanapi.dll\WlanSetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, "ptr", strModifiedSDDL, "uint")
         return result
@@ -6886,7 +6945,7 @@ class WiFi {
 
     /**
      * Gets the security settings associated with a configurable object.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} SecurableObject A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_securable_object">WLAN_SECURABLE_OBJECT</a> value that specifies the object to which the security settings apply.
      * @param {Pointer<Int32>} pValueType A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wlanapi/ne-wlanapi-wlan_opcode_value_type-r1">WLAN_OPCODE_VALUE_TYPE</a> value that specifies the source of the security settings.
      * 
@@ -6916,7 +6975,7 @@ class WiFi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pstrCurrentSDDL On input, this parameter must be <b>NULL</b>. 
+     * @param {Pointer<PWSTR>} pstrCurrentSDDL On input, this parameter must be <b>NULL</b>. 
      * 
      * On output, this parameter receives a pointer to the security descriptor string that specifies the security settings for the object if the function call succeeds. For more information about this string, see <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlansetsecuritysettings">WlanSetSecuritySettings</a> function.
      * @param {Pointer<UInt32>} pdwGrantedAccess The access mask of the object.
@@ -7024,6 +7083,8 @@ class WiFi {
      * @since windows6.0.6000
      */
     static WlanGetSecuritySettings(hClientHandle, SecurableObject, pValueType, pstrCurrentSDDL, pdwGrantedAccess) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanGetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, "int*", pValueType, "ptr", pstrCurrentSDDL, "uint*", pdwGrantedAccess, "uint")
         return result
     }
@@ -7032,11 +7093,11 @@ class WiFi {
      * Displays the wireless profile user interface (UI).
      * @param {Integer} dwClientVersion Specifies the highest version of the WLAN API that the client supports. 
      * Values other than WLAN_UI_API_VERSION will be ignored.
-     * @param {Pointer<Char>} wstrProfileName Contains the name of the profile to be viewed or edited. Profile names are case-sensitive. This string must be NULL-terminated.
+     * @param {PWSTR} wstrProfileName Contains the name of the profile to be viewed or edited. Profile names are case-sensitive. This string must be NULL-terminated.
      * 
      * The supplied profile must be present on the interface <i>pInterfaceGuid</i>. That means the profile must have been previously created and saved in the profile store and that the profile must be valid for the supplied interface.
      * @param {Pointer<Guid>} pInterfaceGuid The GUID of the interface.
-     * @param {Pointer<Void>} hWnd The handle of the  application window requesting the UI display.
+     * @param {HWND} hWnd The handle of the  application window requesting the UI display.
      * @param {Integer} wlStartPage A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wl_display_pages">WL_DISPLAY_PAGES</a> value that specifies the active tab when the UI dialog box appears.
      * @param {Pointer<UInt32>} pWlanReasonCode A pointer to a <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/wlan-reason-code">WLAN_REASON_CODE</a> value that indicates why the UI display failed.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -7088,7 +7149,8 @@ class WiFi {
     static WlanUIEditProfile(dwClientVersion, wstrProfileName, pInterfaceGuid, hWnd, wlStartPage, pWlanReasonCode) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        wstrProfileName := wstrProfileName is String? StrPtr(wstrProfileName) : wstrProfileName
+        wstrProfileName := wstrProfileName is String ? StrPtr(wstrProfileName) : wstrProfileName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("wlanui.dll\WlanUIEditProfile", "uint", dwClientVersion, "ptr", wstrProfileName, "ptr", pInterfaceGuid, "ptr", hWnd, "int", wlStartPage, "ptr", pReserved, "uint*", pWlanReasonCode, "uint")
         return result
@@ -7096,7 +7158,7 @@ class WiFi {
 
     /**
      * Starts the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkStartUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7175,13 +7237,15 @@ class WiFi {
     static WlanHostedNetworkStartUsing(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkStartUsing", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Stops the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkStopUsing</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7260,13 +7324,15 @@ class WiFi {
     static WlanHostedNetworkStopUsing(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkStopUsing", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Transitions the wireless Hosted Network to the wlan_hosted_network_active state without associating the request with the application's calling handle.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkForceStart</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7358,13 +7424,15 @@ class WiFi {
     static WlanHostedNetworkForceStart(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkForceStart", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Transitions the wireless Hosted Network to the wlan_hosted_network_idle without associating the request with the application's calling handle.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkForceStop</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7443,13 +7511,15 @@ class WiFi {
     static WlanHostedNetworkForceStop(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkForceStop", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Queries the current static properties of the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} OpCode The identifier for property to be queried. This identifier can be any of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i>header file.
      * @param {Pointer<UInt32>} pdwDataSize A pointer to a value that specifies the size, in bytes, of the buffer returned in the <i>ppvData</i> parameter, if the call to the <b>WlanHostedNetworkQueryProperty</b> function succeeds.
      * @param {Pointer<Void>} ppvData On input, this parameter must be <b>NULL</b>. 
@@ -7559,13 +7629,15 @@ class WiFi {
     static WlanHostedNetworkQueryProperty(hClientHandle, OpCode, pdwDataSize, ppvData, pWlanOpcodeValueType) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkQueryProperty", "ptr", hClientHandle, "int", OpCode, "uint*", pdwDataSize, "ptr", ppvData, "int*", pWlanOpcodeValueType, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Sets static properties of the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} OpCode The identifier for the property to be set. This identifier can only be the following values in the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_opcode">WLAN_HOSTED_NETWORK_OPCODE</a> enumeration defined in the <i>Wlanapi.h </i>header file:
      * 
      * * **wlan_hosted_network_opcode_connection_settings**
@@ -7692,13 +7764,15 @@ class WiFi {
     static WlanHostedNetworkSetProperty(hClientHandle, OpCode, dwDataSize, pvData, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkSetProperty", "ptr", hClientHandle, "int", OpCode, "uint", dwDataSize, "ptr", pvData, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Configures and persists to storage the network connection settings (SSID and maximum number of peers, for example) on the wireless Hosted Network if these settings are not already configured.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason  if the call to the <b>WlanHostedNetworkInitSettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7777,13 +7851,15 @@ class WiFi {
     static WlanHostedNetworkInitSettings(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkInitSettings", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Refreshes the configurable and auto-generated parts of the wireless Hosted Network security settings.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkRefreshSecuritySettings</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -7862,13 +7938,15 @@ class WiFi {
     static WlanHostedNetworkRefreshSecuritySettings(hClientHandle, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkRefreshSecuritySettings", "ptr", hClientHandle, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Queries the current status of the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<WLAN_HOSTED_NETWORK_STATUS>} ppWlanHostedNetworkStatus On input, this parameter must be <b>NULL</b>. 
      * 
      * On output, this parameter receives a pointer to the current status of the wireless Hosted Network,  if the call to the <b>WlanHostedNetworkQueryStatus</b> function succeeds. The current status is returned in a <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_hosted_network_status">WLAN_HOSTED_NETWORK_STATUS</a> structure.
@@ -7950,19 +8028,21 @@ class WiFi {
     static WlanHostedNetworkQueryStatus(hClientHandle, ppWlanHostedNetworkStatus) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkQueryStatus", "ptr", hClientHandle, "ptr", ppWlanHostedNetworkStatus, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Configures the secondary security key that will be used by the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Integer} dwKeyLength The number of valid data bytes in the key data array pointed to by the <i>pucKeyData</i> parameter. This key length should include the terminating ‘\0’ if the key is a passphrase.
      * @param {Pointer} pucKeyData A pointer to a buffer that contains the key data. The number of valid data bytes in the buffer must be at least the value specified in <i>dwKeyLength</i> parameter.
-     * @param {Integer} bIsPassPhrase A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is in passphrase format. 
+     * @param {BOOL} bIsPassPhrase A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is in passphrase format. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is in passphrase format. If this parameter is <b>FALSE</b>, the key data array is not in passphrase format.
-     * @param {Integer} bPersistent A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
+     * @param {BOOL} bPersistent A Boolean value that indicates if the key data array pointed to by the <i>pucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is to be stored and reused later. If this parameter is <b>FALSE</b>, the key data array is to be used for one session (either the current session or the next session if the Hosted Network is not started).
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <b>WlanHostedNetworkSetSecondaryKey</b> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
@@ -8045,21 +8125,23 @@ class WiFi {
     static WlanHostedNetworkSetSecondaryKey(hClientHandle, dwKeyLength, pucKeyData, bIsPassPhrase, bPersistent, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanHostedNetworkSetSecondaryKey", "ptr", hClientHandle, "uint", dwKeyLength, "ptr", pucKeyData, "int", bIsPassPhrase, "int", bPersistent, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Queries the secondary security key that is configured to be used by the wireless Hosted Network.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle The client's session handle, returned by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
      * @param {Pointer<UInt32>} pdwKeyLength A pointer to a value that specifies number of valid data bytes in the key data array pointed to by the <i>ppucKeyData</i> parameter, if the call to the <b>WlanHostedNetworkQuerySecondaryKey</b> function succeeds. 
      * 
      * This key length includes the terminating ‘\0’ if the key is a passphrase.
      * @param {Pointer<Byte>} ppucKeyData A pointer to a value that receives a pointer to the buffer returned with the secondary security key data,  if the call to the <b>WlanHostedNetworkQuerySecondaryKey</b> function succeeds.
-     * @param {Pointer<Int32>} pbIsPassPhrase A pointer to a Boolean value that indicates if the key data array pointed to by the <i>ppucKeyData</i> parameter is in passphrase format. 
+     * @param {Pointer<BOOL>} pbIsPassPhrase A pointer to a Boolean value that indicates if the key data array pointed to by the <i>ppucKeyData</i> parameter is in passphrase format. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is in passphrase format. If this parameter is <b>FALSE</b>, the key data array is not in passphrase format.
-     * @param {Pointer<Int32>} pbPersistent A pointer to a Boolean value that indicates if the key data array pointed to by the <i>ppucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
+     * @param {Pointer<BOOL>} pbPersistent A pointer to a Boolean value that indicates if the key data array pointed to by the <i>ppucKeyData</i> parameter is to be stored and reused later or is for one-time use only. 
      * 
      * If this parameter is <b>TRUE</b>, the key data array is to be stored and reused later. If this parameter is <b>FALSE</b>, the key data array is for one-time use only.
      * @param {Pointer<Int32>} pFailReason An optional pointer to a value that receives the failure reason,  if the call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanhostednetworksetsecondarykey">WlanHostedNetworkSetSecondaryKey</a> function fails. Possible values for the failure reason are from the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_hosted_network_reason">WLAN_HOSTED_NETWORK_REASON</a> enumeration type defined in the <i>Wlanapi.h </i>header file.
@@ -8155,14 +8237,16 @@ class WiFi {
     static WlanHostedNetworkQuerySecondaryKey(hClientHandle, pdwKeyLength, ppucKeyData, pbIsPassPhrase, pbPersistent, pFailReason) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("wlanapi.dll\WlanHostedNetworkQuerySecondaryKey", "ptr", hClientHandle, "uint*", pdwKeyLength, "ptr", ppucKeyData, "int*", pbIsPassPhrase, "int*", pbPersistent, "int*", pFailReason, "ptr", pvReserved, "uint")
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
+        result := DllCall("wlanapi.dll\WlanHostedNetworkQuerySecondaryKey", "ptr", hClientHandle, "uint*", pdwKeyLength, "char*", ppucKeyData, "ptr", pbIsPassPhrase, "ptr", pbPersistent, "int*", pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 
     /**
      * Is used to register and unregister notifications on a virtual station.
-     * @param {Pointer<Void>} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
-     * @param {Integer} bRegister A value that specifies whether to receive notifications on a virtual station.
+     * @param {HANDLE} hClientHandle The client's session handle, obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlanopenhandle">WlanOpenHandle</a> function.
+     * @param {BOOL} bRegister A value that specifies whether to receive notifications on a virtual station.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -8240,6 +8324,8 @@ class WiFi {
     static WlanRegisterVirtualStationNotification(hClientHandle, bRegister) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WlanRegisterVirtualStationNotification", "ptr", hClientHandle, "int", bRegister, "ptr", pReserved, "uint")
         return result
     }
@@ -8252,7 +8338,7 @@ class WiFi {
      * @param {Pointer<UInt32>} pdwNegotiatedVersion A pointer to a <b>DWORD</b> to received the negotiated version.
      * 
      * If the <b>WFDOpenHandle</b> function is successful, the version negotiated with the Wi-Fi Direct Service to be used by this session is returned. This value is usually the highest version supported by both the client and Wi-Fi Direct service.
-     * @param {Pointer<Void>} phClientHandle A pointer to a <b>HANDLE</b> to receive the handle to the Wi-Fi Direct service for this session.
+     * @param {Pointer<HANDLE>} phClientHandle A pointer to a <b>HANDLE</b> to receive the handle to the Wi-Fi Direct service for this session.
      * 
      * If the <b>WFDOpenHandle</b> function is successful, a handle to the Wi-Fi Direct service to use in this session is returned.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -8325,7 +8411,7 @@ class WiFi {
 
     /**
      * Closes a handle to the Wi-Fi Direct service.
-     * @param {Pointer<Void>} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -8377,17 +8463,19 @@ class WiFi {
      * @since windows8.0
      */
     static WFDCloseHandle(hClientHandle) {
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
         result := DllCall("wlanapi.dll\WFDCloseHandle", "ptr", hClientHandle, "uint")
         return result
     }
 
     /**
      * Starts an on-demand connection to a specific Wi-Fi Direct device, which has been previously paired through the Windows Pairing experience.
-     * @param {Pointer<Void>} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle A client handle to the Wi-Fi Direct service. This handle was  obtained by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @param {Pointer<Byte>} pDeviceAddress A pointer to the target device’s Wi-Fi Direct device address. This is the MAC address of the target Wi-Fi device.
      * @param {Pointer<Void>} pvContext An optional context pointer which is passed to the callback function specified in the <i>pfnCallback</i> parameter.
      * @param {Pointer<WFD_OPEN_SESSION_COMPLETE_CALLBACK>} pfnCallback A pointer to the callback function to be called once the <b>WFDStartOpenSession</b> request has completed.
-     * @param {Pointer<Void>} phSessionHandle A handle to this specific Wi-Fi Direct session.
+     * @param {Pointer<HANDLE>} phSessionHandle A handle to this specific Wi-Fi Direct session.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -8465,13 +8553,15 @@ class WiFi {
      * @since windows8.0
      */
     static WFDStartOpenSession(hClientHandle, pDeviceAddress, pvContext, pfnCallback, phSessionHandle) {
-        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, "ptr", pDeviceAddress, "ptr", pvContext, "ptr", pfnCallback, "ptr", phSessionHandle, "uint")
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
+        result := DllCall("wlanapi.dll\WFDStartOpenSession", "ptr", hClientHandle, "char*", pDeviceAddress, "ptr", pvContext, "ptr", pfnCallback, "ptr", phSessionHandle, "uint")
         return result
     }
 
     /**
      * Indicates that the application wants to cancel a pending WFDStartOpenSession function that has not completed.
-     * @param {Pointer<Void>} hSessionHandle A session handle to a Wi-Fi Direct session to cancel. This is a session handle previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
+     * @param {HANDLE} hSessionHandle A session handle to a Wi-Fi Direct session to cancel. This is a session handle previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -8523,15 +8613,17 @@ class WiFi {
      * @since windows8.0
      */
     static WFDCancelOpenSession(hSessionHandle) {
+        hSessionHandle := hSessionHandle is Win32Handle ? NumGet(hSessionHandle, "ptr") : hSessionHandle
+
         result := DllCall("wlanapi.dll\WFDCancelOpenSession", "ptr", hSessionHandle, "uint")
         return result
     }
 
     /**
      * Retrieves and applies a stored profile for a Wi-Fi Direct legacy device.
-     * @param {Pointer<Void>} hClientHandle A <b>HANDLE</b> to the Wi-Fi Direct service for this session. This parameter is retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
+     * @param {HANDLE} hClientHandle A <b>HANDLE</b> to the Wi-Fi Direct service for this session. This parameter is retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdopenhandle">WFDOpenHandle</a> function.
      * @param {Pointer<Byte>} pLegacyMacAddress A pointer to Wi-Fi Direct device address of the legacy client device.
-     * @param {Pointer<Void>} phSessionHandle A pointer to a <b>HANDLE</b> to receive the handle to the Wi-Fi Direct service for this session.
+     * @param {Pointer<HANDLE>} phSessionHandle A pointer to a <b>HANDLE</b> to receive the handle to the Wi-Fi Direct service for this session.
      * 
      * If the <b>WFDOpenLegacySession</b> function is successful, a handle to the Wi-Fi Direct service to use in this session is returned.
      * @param {Pointer<Guid>} pGuidSessionInterface A pointer to the GUID of the network interface for this session.
@@ -8588,13 +8680,15 @@ class WiFi {
      * @since windows8.0
      */
     static WFDOpenLegacySession(hClientHandle, pLegacyMacAddress, phSessionHandle, pGuidSessionInterface) {
-        result := DllCall("wlanapi.dll\WFDOpenLegacySession", "ptr", hClientHandle, "ptr", pLegacyMacAddress, "ptr", phSessionHandle, "ptr", pGuidSessionInterface, "uint")
+        hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
+
+        result := DllCall("wlanapi.dll\WFDOpenLegacySession", "ptr", hClientHandle, "char*", pLegacyMacAddress, "ptr", phSessionHandle, "ptr", pGuidSessionInterface, "uint")
         return result
     }
 
     /**
      * Closes a session after a previously successful call to the WFDStartOpenSession function.
-     * @param {Pointer<Void>} hSessionHandle A session handle to a Wi-Fi Direct session. This is a session handle previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
+     * @param {HANDLE} hSessionHandle A session handle to a Wi-Fi Direct session. This is a session handle previously returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wfdstartopensession">WFDStartOpenSession</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value may be one of the following return codes.
@@ -8659,6 +8753,8 @@ class WiFi {
      * @since windows8.0
      */
     static WFDCloseSession(hSessionHandle) {
+        hSessionHandle := hSessionHandle is Win32Handle ? NumGet(hSessionHandle, "ptr") : hSessionHandle
+
         result := DllCall("wlanapi.dll\WFDCloseSession", "ptr", hSessionHandle, "uint")
         return result
     }
@@ -8717,7 +8813,7 @@ class WiFi {
      * @since windows8.0
      */
     static WFDUpdateDeviceVisibility(pDeviceAddress) {
-        result := DllCall("wlanapi.dll\WFDUpdateDeviceVisibility", "ptr", pDeviceAddress, "uint")
+        result := DllCall("wlanapi.dll\WFDUpdateDeviceVisibility", "char*", pDeviceAddress, "uint")
         return result
     }
 

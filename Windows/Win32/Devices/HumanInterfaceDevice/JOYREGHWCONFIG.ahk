@@ -21,7 +21,7 @@ class JOYREGHWCONFIG extends Win32Struct
     hws{
         get {
             if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(this.ptr + 0)
+                this.__hws := JOYREGHWSETTINGS(0, this)
             return this.__hws
         }
     }
@@ -40,7 +40,7 @@ class JOYREGHWCONFIG extends Win32Struct
     hwv{
         get {
             if(!this.HasProp("__hwv"))
-                this.__hwv := JOYREGHWVALUES(this.ptr + 16)
+                this.__hwv := JOYREGHWVALUES(16, this)
             return this.__hwv
         }
     }

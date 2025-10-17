@@ -34,7 +34,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     Eui64{
         get {
             if(!this.HasProp("__Eui64"))
-                this.__Eui64 := DL_EUI64(this.ptr + 8)
+                this.__Eui64 := DL_EUI64(8, this)
             return this.__Eui64
         }
     }
@@ -61,7 +61,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     MappedAddress{
         get {
             if(!this.HasProp("__MappedAddress"))
-                this.__MappedAddress := IN_ADDR(this.ptr + 12)
+                this.__MappedAddress := IN_ADDR(12, this)
             return this.__MappedAddress
         }
     }
@@ -72,7 +72,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     LocalAddress{
         get {
             if(!this.HasProp("__LocalAddress"))
-                this.__LocalAddress := IN_ADDR(this.ptr + 16)
+                this.__LocalAddress := IN_ADDR(16, this)
             return this.__LocalAddress
         }
     }
@@ -99,7 +99,7 @@ class DL_TEREDO_ADDRESS_PRV extends Win32Struct
     DlDestination{
         get {
             if(!this.HasProp("__DlDestination"))
-                this.__DlDestination := DL_EUI48(this.ptr + 32)
+                this.__DlDestination := DL_EUI48(32, this)
             return this.__DlDestination
         }
     }

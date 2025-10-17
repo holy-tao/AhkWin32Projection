@@ -22,7 +22,7 @@ class EXCEPTION_DEBUG_INFO extends Win32Struct
     ExceptionRecord{
         get {
             if(!this.HasProp("__ExceptionRecord"))
-                this.__ExceptionRecord := EXCEPTION_RECORD(this.ptr + 0)
+                this.__ExceptionRecord := EXCEPTION_RECORD(0, this)
             return this.__ExceptionRecord
         }
     }

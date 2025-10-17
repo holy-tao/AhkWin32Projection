@@ -35,7 +35,7 @@ class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct
     signatureAlgorithm{
         get {
             if(!this.HasProp("__signatureAlgorithm"))
-                this.__signatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__signatureAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__signatureAlgorithm
         }
     }
@@ -46,7 +46,7 @@ class SEALING_SIGNATURE_ATTRIBUTE extends Win32Struct
     encryptedDigest{
         get {
             if(!this.HasProp("__encryptedDigest"))
-                this.__encryptedDigest := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__encryptedDigest := CRYPT_INTEGER_BLOB(32, this)
             return this.__encryptedDigest
         }
     }

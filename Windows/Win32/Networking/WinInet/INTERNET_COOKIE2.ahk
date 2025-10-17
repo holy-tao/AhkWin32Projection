@@ -22,7 +22,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie name. May be NULL if value is not NULL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie value. May be NULL if name is not NULL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszValue {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie domain. May be NULL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDomain {
         get => NumGet(this, 16, "ptr")
@@ -49,7 +49,7 @@ class INTERNET_COOKIE2 extends Win32Struct
 
     /**
      * Pointer to a string containing the cookie path. May be NULL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPath {
         get => NumGet(this, 24, "ptr")
@@ -83,14 +83,14 @@ class INTERNET_COOKIE2 extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 40)
+                this.__ftExpires := FILETIME(40, this)
             return this.__ftExpires
         }
     }
 
     /**
      * Whether or not the expiry time is set.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fExpiresSet {
         get => NumGet(this, 48, "int")

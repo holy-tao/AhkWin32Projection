@@ -43,7 +43,7 @@ class FIXED_INFO_W2KSP1 extends Win32Struct
     DnsServerList{
         get {
             if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(this.ptr + 536)
+                this.__DnsServerList := IP_ADDR_STRING(536, this)
             return this.__DnsServerList
         }
     }

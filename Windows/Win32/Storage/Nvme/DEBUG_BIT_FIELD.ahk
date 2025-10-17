@@ -128,12 +128,4 @@ class DEBUG_BIT_FIELD extends Win32Struct
         get => (this._bitfield >> 11) & 0x1
         set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 12) & 0xF
-        set => this._bitfield := ((value & 0xF) << 12) | (this._bitfield & ~(0xF << 12))
-    }
 }

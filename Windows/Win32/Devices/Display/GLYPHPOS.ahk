@@ -42,7 +42,7 @@ class GLYPHPOS extends Win32Struct
     ptl{
         get {
             if(!this.HasProp("__ptl"))
-                this.__ptl := POINTL(this.ptr + 16)
+                this.__ptl := POINTL(16, this)
             return this.__ptl
         }
     }

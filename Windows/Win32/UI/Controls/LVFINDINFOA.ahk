@@ -33,7 +33,7 @@ class LVFINDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Address of a null-terminated string to compare with the item text. It is valid only if LVFI_STRING or LVFI_PARTIAL is set in the <b>flags</b> member.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     psz {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class LVFINDINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Value to compare with the <b>lParam</b> member of a list-view item's <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-lvitema">LVITEM</a> structure. It is valid only if LVFI_PARAM is set in the <b>flags</b> member.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class LVFINDINFOA extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 24)
+                this.__pt := POINT(24, this)
             return this.__pt
         }
     }

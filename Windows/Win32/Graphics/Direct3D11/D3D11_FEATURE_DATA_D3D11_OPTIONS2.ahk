@@ -30,7 +30,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support <b>PSSpecifiedStencilRef</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PSSpecifiedStencilRefSupported {
         get => NumGet(this, 0, "int")
@@ -40,7 +40,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support <b>TypedUAVLoadAdditionalFormats</b>.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TypedUAVLoadAdditionalFormats {
         get => NumGet(this, 4, "int")
@@ -50,7 +50,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support ROVs.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ROVsSupported {
         get => NumGet(this, 8, "int")
@@ -80,7 +80,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support mapping on default textures.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     MapOnDefaultTextures {
         get => NumGet(this, 20, "int")
@@ -90,7 +90,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support standard swizzle.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     StandardSwizzle {
         get => NumGet(this, 24, "int")
@@ -100,7 +100,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS2 extends Win32Struct
     /**
      * Specifies whether the hardware and driver support Unified Memory Architecture.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support this option.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UnifiedMemoryArchitecture {
         get => NumGet(this, 28, "int")

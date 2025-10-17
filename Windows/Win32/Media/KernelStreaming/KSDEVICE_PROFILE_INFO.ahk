@@ -38,7 +38,7 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
         Info{
             get {
                 if(!this.HasProp("__Info"))
-                    this.__Info := KSCAMERA_PROFILE_INFO(this.ptr + 0)
+                    this.__Info := KSCAMERA_PROFILE_INFO(0, this)
                 return this.__Info
             }
         }
@@ -75,7 +75,7 @@ class KSDEVICE_PROFILE_INFO extends Win32Struct
     Camera{
         get {
             if(!this.HasProp("__Camera"))
-                this.__Camera := %this.__Class%._Camera(this.ptr + 8)
+                this.__Camera := %this.__Class%._Camera(8, this)
             return this.__Camera
         }
     }

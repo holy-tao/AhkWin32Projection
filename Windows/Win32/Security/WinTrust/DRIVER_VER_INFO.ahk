@@ -82,7 +82,7 @@ class DRIVER_VER_INFO extends Win32Struct
     sOSVersionLow{
         get {
             if(!this.HasProp("__sOSVersionLow"))
-                this.__sOSVersionLow := DRIVER_VER_MAJORMINOR(this.ptr + 1080)
+                this.__sOSVersionLow := DRIVER_VER_MAJORMINOR(1080, this)
             return this.__sOSVersionLow
         }
     }
@@ -93,7 +93,7 @@ class DRIVER_VER_INFO extends Win32Struct
     sOSVersionHigh{
         get {
             if(!this.HasProp("__sOSVersionHigh"))
-                this.__sOSVersionHigh := DRIVER_VER_MAJORMINOR(this.ptr + 1088)
+                this.__sOSVersionHigh := DRIVER_VER_MAJORMINOR(1088, this)
             return this.__sOSVersionHigh
         }
     }

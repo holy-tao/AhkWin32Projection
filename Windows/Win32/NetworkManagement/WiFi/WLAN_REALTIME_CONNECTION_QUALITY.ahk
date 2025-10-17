@@ -46,7 +46,7 @@ class WLAN_REALTIME_CONNECTION_QUALITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsMLOConnection {
         get => NumGet(this, 16, "int")

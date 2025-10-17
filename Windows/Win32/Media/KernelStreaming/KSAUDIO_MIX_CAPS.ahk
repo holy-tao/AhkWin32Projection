@@ -12,7 +12,7 @@ class KSAUDIO_MIX_CAPS extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Mute {
         get => NumGet(this, 0, "int")

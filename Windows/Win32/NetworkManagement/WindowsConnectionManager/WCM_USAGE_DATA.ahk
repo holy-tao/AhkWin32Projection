@@ -34,7 +34,7 @@ class WCM_USAGE_DATA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(this.ptr + 8)
+                this.__LastSyncTime := FILETIME(8, this)
             return this.__LastSyncTime
         }
     }

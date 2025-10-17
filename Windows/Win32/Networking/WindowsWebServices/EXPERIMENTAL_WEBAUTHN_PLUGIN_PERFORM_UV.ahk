@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WindowsWebServices
@@ -12,11 +13,14 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(0, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -36,7 +40,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszUsername {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +48,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_PERFORM_UV extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszContext {
         get => NumGet(this, 32, "ptr")

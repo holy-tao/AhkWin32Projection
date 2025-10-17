@@ -25,7 +25,7 @@ class EMRCREATECOLORSPACE extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -46,7 +46,7 @@ class EMRCREATECOLORSPACE extends Win32Struct
     lcs{
         get {
             if(!this.HasProp("__lcs"))
-                this.__lcs := LOGCOLORSPACEA(this.ptr + 16)
+                this.__lcs := LOGCOLORSPACEA(16, this)
             return this.__lcs
         }
     }

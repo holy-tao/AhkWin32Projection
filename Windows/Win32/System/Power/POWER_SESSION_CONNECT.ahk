@@ -12,7 +12,7 @@ class POWER_SESSION_CONNECT extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Connected {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class POWER_SESSION_CONNECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Console {
         get => NumGet(this, 1, "char")

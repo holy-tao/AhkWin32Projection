@@ -95,7 +95,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     localPrincipalNameForAuth {
         get => NumGet(this, 64, "ptr")
@@ -103,7 +103,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     remotePrincipalNameForAuth {
         get => NumGet(this, 72, "ptr")
@@ -119,7 +119,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     localPrincipalGroupSids {
         get => NumGet(this, 88, "ptr")
@@ -135,7 +135,7 @@ class FWPM_NET_EVENT_IKEEXT_MM_FAILURE2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     remotePrincipalGroupSids {
         get => NumGet(this, 104, "ptr")

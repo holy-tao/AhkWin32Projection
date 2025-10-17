@@ -29,7 +29,7 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * URL of a license-granting website.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszURL {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * The path and file name of a local HTML file that will automatically send a license request when loaded in a browser.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszLocalFilename {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class DRM_LICENSE_ACQ_DATA extends Win32Struct
 
     /**
      * A human-readable name for the license-granting website.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszFriendlyName {
         get => NumGet(this, 40, "ptr")

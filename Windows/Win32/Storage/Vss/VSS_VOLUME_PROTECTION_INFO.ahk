@@ -24,7 +24,7 @@ class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
 
     /**
      * TRUE if the volume is offline due to a protection fault, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     m_volumeIsOfflineForProtection {
         get => NumGet(this, 4, "int")
@@ -51,7 +51,7 @@ class VSS_VOLUME_PROTECTION_INFO extends Win32Struct
 
     /**
      * TRUE if the volume has unused shadow copy storage area files, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     m_volumeHasUnusedDiffArea {
         get => NumGet(this, 16, "int")

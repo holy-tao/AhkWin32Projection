@@ -27,7 +27,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := BLUETOOTH_ADDRESS(this.ptr + 8)
+                this.__Address := BLUETOOTH_ADDRESS(8, this)
             return this.__Address
         }
     }
@@ -41,7 +41,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fConnected {
         get => NumGet(this, 28, "int")
@@ -49,7 +49,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRemembered {
         get => NumGet(this, 32, "int")
@@ -57,7 +57,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuthenticated {
         get => NumGet(this, 36, "int")
@@ -70,7 +70,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastSeen{
         get {
             if(!this.HasProp("__stLastSeen"))
-                this.__stLastSeen := SYSTEMTIME(this.ptr + 40)
+                this.__stLastSeen := SYSTEMTIME(40, this)
             return this.__stLastSeen
         }
     }
@@ -81,7 +81,7 @@ class BLUETOOTH_DEVICE_INFO extends Win32Struct
     stLastUsed{
         get {
             if(!this.HasProp("__stLastUsed"))
-                this.__stLastUsed := SYSTEMTIME(this.ptr + 56)
+                this.__stLastUsed := SYSTEMTIME(56, this)
             return this.__stLastUsed
         }
     }

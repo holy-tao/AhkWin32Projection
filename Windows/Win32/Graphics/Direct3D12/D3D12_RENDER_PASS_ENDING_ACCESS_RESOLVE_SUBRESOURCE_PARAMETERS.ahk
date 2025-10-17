@@ -57,7 +57,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_SUBRESOURCE_PARAMETERS extends Win
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(this.ptr + 16)
+                this.__SrcRect := RECT(16, this)
             return this.__SrcRect
         }
     }

@@ -12,7 +12,7 @@ class GOPHER_VERONICA_ATTRIBUTE_TYPE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     TreeWalk {
         get => NumGet(this, 0, "int")

@@ -24,7 +24,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * TRUE if all strings are Unicode.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUniCodeStrings {
         get => NumGet(this, 4, "int")
@@ -51,7 +51,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * TRUE for StemmedSearch only.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fStemmedSearch {
         get => NumGet(this, 20, "int")
@@ -60,7 +60,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * TRUE for Title search only.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTitleOnly {
         get => NumGet(this, 24, "int")
@@ -69,7 +69,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * TRUE to initiate the search.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fExecute {
         get => NumGet(this, 28, "int")

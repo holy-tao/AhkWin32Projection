@@ -16,7 +16,7 @@ class CRYPT_CONTENT_INFO extends Win32Struct
 
     /**
      * Object identifier (OID) of the type of data contained in the <b>Content</b> member. ContentType in PKCS #7 defines a set of predefined OIDs. However, additional OIDs can be defined and used.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CRYPT_CONTENT_INFO extends Win32Struct
     Content{
         get {
             if(!this.HasProp("__Content"))
-                this.__Content := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Content := CRYPT_INTEGER_BLOB(8, this)
             return this.__Content
         }
     }

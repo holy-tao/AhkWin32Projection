@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
@@ -25,7 +26,7 @@ class NMITEMACTIVATE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -96,7 +97,7 @@ class NMITEMACTIVATE extends Win32Struct
     ptAction{
         get {
             if(!this.HasProp("__ptAction"))
-                this.__ptAction := POINT(this.ptr + 48)
+                this.__ptAction := POINT(48, this)
             return this.__ptAction
         }
     }
@@ -105,7 +106,7 @@ class NMITEMACTIVATE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined value of the item. This member is undefined for notification codes that do not use it.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 56, "ptr")

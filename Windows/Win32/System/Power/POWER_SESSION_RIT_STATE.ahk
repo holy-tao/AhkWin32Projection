@@ -12,7 +12,7 @@ class POWER_SESSION_RIT_STATE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Active {
         get => NumGet(this, 0, "char")

@@ -19,7 +19,7 @@ class VSS_OBJECT_UNION extends Win32Struct
     Snap{
         get {
             if(!this.HasProp("__Snap"))
-                this.__Snap := VSS_SNAPSHOT_PROP(this.ptr + 0)
+                this.__Snap := VSS_SNAPSHOT_PROP(0, this)
             return this.__Snap
         }
     }
@@ -30,7 +30,7 @@ class VSS_OBJECT_UNION extends Win32Struct
     Prov{
         get {
             if(!this.HasProp("__Prov"))
-                this.__Prov := VSS_PROVIDER_PROP(this.ptr + 0)
+                this.__Prov := VSS_PROVIDER_PROP(0, this)
             return this.__Prov
         }
     }

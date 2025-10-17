@@ -39,7 +39,7 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * Type: <b>LPSTR</b>
      * 
      * The name of the property sheet. If the specified sheet is not found, the property sheet still appears with the default first page.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSheetName {
         get => NumGet(this, 8, "ptr")
@@ -72,7 +72,7 @@ class OPEN_PRINTER_PROPS_INFOA extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the property sheet should be modal; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bModal {
         get => NumGet(this, 24, "int")

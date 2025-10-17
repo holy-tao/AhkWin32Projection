@@ -55,7 +55,7 @@ class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct
     position{
         get {
             if(!this.HasProp("__position"))
-                this.__position := POINTL(this.ptr + 16)
+                this.__position := POINTL(16, this)
             return this.__position
         }
     }

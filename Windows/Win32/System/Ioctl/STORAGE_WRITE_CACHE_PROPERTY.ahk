@@ -247,7 +247,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * A <b>BOOLEAN</b> value that indicates whether the device allows host software to 
      *       flush the device cache. If <b>TRUE</b>, the device allows host software to flush the device 
      *       cache. If <b>FALSE</b>, host software cannot flush the device cache.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FlushCacheSupported {
         get => NumGet(this, 24, "char")
@@ -259,7 +259,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      *       protection characteristics in the registry. If <b>TRUE</b>, a user can configure the device's 
      *       power protection characteristics in the registry. If <b>FALSE</b>, the user cannot configure 
      *       the device's power protection characteristics in the registry.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UserDefinedPowerProtection {
         get => NumGet(this, 25, "char")
@@ -270,7 +270,7 @@ class STORAGE_WRITE_CACHE_PROPERTY extends Win32Struct
      * A <b>BOOLEAN</b> value that indicates whether the device has a battery backup for the 
      *       write cache. If <b>TRUE</b>, the device has a battery backup for the write cache. If 
      *       <b>FALSE</b>, the device does not have a battery backup for the writer cache.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     NVCacheEnabled {
         get => NumGet(this, 26, "char")

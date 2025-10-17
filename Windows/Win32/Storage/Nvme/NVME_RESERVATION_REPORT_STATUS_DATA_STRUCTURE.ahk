@@ -19,7 +19,7 @@ class NVME_RESERVATION_REPORT_STATUS_DATA_STRUCTURE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NVME_RESERVATION_REPORT_STATUS_HEADER(this.ptr + 0)
+                this.__Header := NVME_RESERVATION_REPORT_STATUS_HEADER(0, this)
             return this.__Header
         }
     }

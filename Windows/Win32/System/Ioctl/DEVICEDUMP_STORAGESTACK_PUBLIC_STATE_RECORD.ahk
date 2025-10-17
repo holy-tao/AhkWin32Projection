@@ -65,27 +65,78 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_STATE_RECORD extends Win32Struct
         set => NumPut("uint", value, this, 52)
     }
 
-    /**
-     * @type {Integer}
-     */
-    ExternalStack {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    class _ExternalStack extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        dwReserved {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _AtaPort extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        dwAtaPortSpecific {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _StorPort extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Integer}
+         */
+        SrbTag {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ExternalStack}
      */
-    AtaPort {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ExternalStack{
+        get {
+            if(!this.HasProp("__ExternalStack"))
+                this.__ExternalStack := %this.__Class%._ExternalStack(56, this)
+            return this.__ExternalStack
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_AtaPort}
      */
-    StorPort {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    AtaPort{
+        get {
+            if(!this.HasProp("__AtaPort"))
+                this.__AtaPort := %this.__Class%._AtaPort(56, this)
+            return this.__AtaPort
+        }
+    }
+
+    /**
+     * @type {_StorPort}
+     */
+    StorPort{
+        get {
+            if(!this.HasProp("__StorPort"))
+                this.__StorPort := %this.__Class%._StorPort(56, this)
+            return this.__StorPort
+        }
     }
 }

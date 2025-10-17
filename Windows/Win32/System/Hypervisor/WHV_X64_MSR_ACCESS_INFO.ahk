@@ -12,11 +12,22 @@ class WHV_X64_MSR_ACCESS_INFO extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - IsWrite
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsWrite {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

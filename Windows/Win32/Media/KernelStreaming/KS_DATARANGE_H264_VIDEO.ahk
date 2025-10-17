@@ -21,13 +21,13 @@ class KS_DATARANGE_H264_VIDEO extends Win32Struct
     DataRange{
         get {
             if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(this.ptr + 0)
+                this.__DataRange := KSDATAFORMAT(0, this)
             return this.__DataRange
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFixedSizeSamples {
         get => NumGet(this, 48, "int")
@@ -35,7 +35,7 @@ class KS_DATARANGE_H264_VIDEO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bTemporalCompression {
         get => NumGet(this, 52, "int")
@@ -64,7 +64,7 @@ class KS_DATARANGE_H264_VIDEO extends Win32Struct
     ConfigCaps{
         get {
             if(!this.HasProp("__ConfigCaps"))
-                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(this.ptr + 64)
+                this.__ConfigCaps := KS_VIDEO_STREAM_CONFIG_CAPS(64, this)
             return this.__ConfigCaps
         }
     }
@@ -75,7 +75,7 @@ class KS_DATARANGE_H264_VIDEO extends Win32Struct
     VideoInfoHeader{
         get {
             if(!this.HasProp("__VideoInfoHeader"))
-                this.__VideoInfoHeader := KS_H264VIDEOINFO(this.ptr + 184)
+                this.__VideoInfoHeader := KS_H264VIDEOINFO(184, this)
             return this.__VideoInfoHeader
         }
     }

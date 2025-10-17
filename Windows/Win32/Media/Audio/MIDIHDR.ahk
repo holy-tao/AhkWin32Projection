@@ -15,7 +15,7 @@ class MIDIHDR extends Win32Struct
 
     /**
      * Pointer to MIDI data.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpData {
         get => NumGet(this, 0, "ptr")

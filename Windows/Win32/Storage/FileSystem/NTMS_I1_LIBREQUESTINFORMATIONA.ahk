@@ -83,7 +83,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONA extends Win32Struct
     TimeQueued{
         get {
             if(!this.HasProp("__TimeQueued"))
-                this.__TimeQueued := SYSTEMTIME(this.ptr + 56)
+                this.__TimeQueued := SYSTEMTIME(56, this)
             return this.__TimeQueued
         }
     }
@@ -94,7 +94,7 @@ class NTMS_I1_LIBREQUESTINFORMATIONA extends Win32Struct
     TimeCompleted{
         get {
             if(!this.HasProp("__TimeCompleted"))
-                this.__TimeCompleted := SYSTEMTIME(this.ptr + 72)
+                this.__TimeCompleted := SYSTEMTIME(72, this)
             return this.__TimeCompleted
         }
     }

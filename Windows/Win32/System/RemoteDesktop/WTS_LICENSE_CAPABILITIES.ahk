@@ -37,7 +37,7 @@ class WTS_LICENSE_CAPABILITIES extends Win32Struct
 
     /**
      * A Boolean value that specifies whether the client will authenticate the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuthenticateServer {
         get => NumGet(this, 8, "int")

@@ -36,7 +36,7 @@ class VMEML extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDiscardable {
         get => NumGet(this, 20, "int")

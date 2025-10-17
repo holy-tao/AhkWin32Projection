@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -30,11 +32,14 @@ class TTTOOLINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -51,21 +56,24 @@ class TTTOOLINFOA extends Win32Struct
     rect{
         get {
             if(!this.HasProp("__rect"))
-                this.__rect := RECT(this.ptr + 24)
+                this.__rect := RECT(24, this)
             return this.__rect
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hinst {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hinst{
+        get {
+            if(!this.HasProp("__hinst"))
+                this.__hinst := HINSTANCE(40, this)
+            return this.__hinst
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszText {
         get => NumGet(this, 48, "ptr")
@@ -73,7 +81,7 @@ class TTTOOLINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 56, "ptr")
@@ -88,12 +96,8 @@ class TTTOOLINFOA extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

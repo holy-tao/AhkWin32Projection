@@ -31,7 +31,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     GenericPipeline{
         get {
             if(!this.HasProp("__GenericPipeline"))
-                this.__GenericPipeline := D3D12_SET_GENERIC_PIPELINE_DESC(this.ptr + 8)
+                this.__GenericPipeline := D3D12_SET_GENERIC_PIPELINE_DESC(8, this)
             return this.__GenericPipeline
         }
     }
@@ -42,7 +42,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     RaytracingPipeline{
         get {
             if(!this.HasProp("__RaytracingPipeline"))
-                this.__RaytracingPipeline := D3D12_SET_RAYTRACING_PIPELINE_DESC(this.ptr + 8)
+                this.__RaytracingPipeline := D3D12_SET_RAYTRACING_PIPELINE_DESC(8, this)
             return this.__RaytracingPipeline
         }
     }
@@ -53,7 +53,7 @@ class D3D12_SET_PROGRAM_DESC extends Win32Struct
     WorkGraph{
         get {
             if(!this.HasProp("__WorkGraph"))
-                this.__WorkGraph := D3D12_SET_WORK_GRAPH_DESC(this.ptr + 8)
+                this.__WorkGraph := D3D12_SET_WORK_GRAPH_DESC(8, this)
             return this.__WorkGraph
         }
     }

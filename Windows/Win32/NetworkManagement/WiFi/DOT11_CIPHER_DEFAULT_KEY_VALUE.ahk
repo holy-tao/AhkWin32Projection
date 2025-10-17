@@ -18,7 +18,7 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -51,7 +51,7 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDelete {
         get => NumGet(this, 18, "char")
@@ -59,7 +59,7 @@ class DOT11_CIPHER_DEFAULT_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bStatic {
         get => NumGet(this, 19, "char")

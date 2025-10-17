@@ -111,7 +111,7 @@ class DHCP_MIB_INFO_V6 extends Win32Struct
     ServerStartTime{
         get {
             if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(this.ptr + 40)
+                this.__ServerStartTime := DATE_TIME(40, this)
             return this.__ServerStartTime
         }
     }

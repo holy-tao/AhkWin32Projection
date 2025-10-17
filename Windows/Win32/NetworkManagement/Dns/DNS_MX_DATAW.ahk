@@ -30,7 +30,7 @@ class DNS_MX_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the fully qualified domain name (FQDN) of the host willing to act as a mail exchange.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pNameExchange {
         get => NumGet(this, 0, "ptr")

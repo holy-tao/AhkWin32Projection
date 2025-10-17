@@ -67,7 +67,7 @@ class TRACE_GUID_PROPERTIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the element identified by the <b>Guid</b> member is currently enabled for the session identified by the <b>LoggerId</b> member. If this member is <b>FALSE</b>, all other members have no meaning and should be zero.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsEnable {
         get => NumGet(this, 24, "char")

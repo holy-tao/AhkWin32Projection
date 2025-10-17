@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPEG_HEADER_BITS_MIDL.ahk
 
 /**
  * The SECTION structure represents a short header from an MPEG-2 table section.
@@ -47,11 +48,14 @@ class SECTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MPEG_HEADER_BITS_MIDL}
      */
-    S {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    S{
+        get {
+            if(!this.HasProp("__S"))
+                this.__S := MPEG_HEADER_BITS_MIDL(2, this)
+            return this.__S
+        }
     }
 
     /**

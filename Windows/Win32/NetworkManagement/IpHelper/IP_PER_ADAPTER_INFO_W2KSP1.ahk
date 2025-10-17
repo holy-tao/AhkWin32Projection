@@ -43,7 +43,7 @@ class IP_PER_ADAPTER_INFO_W2KSP1 extends Win32Struct
     DnsServerList{
         get {
             if(!this.HasProp("__DnsServerList"))
-                this.__DnsServerList := IP_ADDR_STRING(this.ptr + 16)
+                this.__DnsServerList := IP_ADDR_STRING(16, this)
             return this.__DnsServerList
         }
     }

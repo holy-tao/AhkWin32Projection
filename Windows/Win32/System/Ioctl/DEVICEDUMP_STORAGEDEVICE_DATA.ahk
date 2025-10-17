@@ -20,7 +20,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     Descriptor{
         get {
             if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(this.ptr + 0)
+                this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(0, this)
             return this.__Descriptor
         }
     }
@@ -31,7 +31,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     SectionHeader{
         get {
             if(!this.HasProp("__SectionHeader"))
-                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(this.ptr + 16)
+                this.__SectionHeader := DEVICEDUMP_SECTION_HEADER(16, this)
             return this.__SectionHeader
         }
     }
@@ -58,7 +58,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     PublicData{
         get {
             if(!this.HasProp("__PublicData"))
-                this.__PublicData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 264)
+                this.__PublicData := DEVICEDUMP_SUBSECTION_POINTER(264, this)
             return this.__PublicData
         }
     }
@@ -69,7 +69,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     RestrictedData{
         get {
             if(!this.HasProp("__RestrictedData"))
-                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 280)
+                this.__RestrictedData := DEVICEDUMP_SUBSECTION_POINTER(280, this)
             return this.__RestrictedData
         }
     }
@@ -80,7 +80,7 @@ class DEVICEDUMP_STORAGEDEVICE_DATA extends Win32Struct
     PrivateData{
         get {
             if(!this.HasProp("__PrivateData"))
-                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(this.ptr + 296)
+                this.__PrivateData := DEVICEDUMP_SUBSECTION_POINTER(296, this)
             return this.__PrivateData
         }
     }

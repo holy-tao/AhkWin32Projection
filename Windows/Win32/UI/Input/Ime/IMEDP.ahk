@@ -18,7 +18,7 @@ class IMEDP extends Win32Struct
     wrdModifier{
         get {
             if(!this.HasProp("__wrdModifier"))
-                this.__wrdModifier := IMEWRD(this.ptr + 0)
+                this.__wrdModifier := IMEWRD(0, this)
             return this.__wrdModifier
         }
     }
@@ -29,7 +29,7 @@ class IMEDP extends Win32Struct
     wrdModifiee{
         get {
             if(!this.HasProp("__wrdModifiee"))
-                this.__wrdModifiee := IMEWRD(this.ptr + 48)
+                this.__wrdModifiee := IMEWRD(48, this)
             return this.__wrdModifiee
         }
     }

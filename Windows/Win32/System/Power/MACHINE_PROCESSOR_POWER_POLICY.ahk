@@ -32,7 +32,7 @@ class MACHINE_PROCESSOR_POWER_POLICY extends Win32Struct
     ProcessorPolicyAc{
         get {
             if(!this.HasProp("__ProcessorPolicyAc"))
-                this.__ProcessorPolicyAc := PROCESSOR_POWER_POLICY(this.ptr + 8)
+                this.__ProcessorPolicyAc := PROCESSOR_POWER_POLICY(8, this)
             return this.__ProcessorPolicyAc
         }
     }
@@ -45,7 +45,7 @@ class MACHINE_PROCESSOR_POWER_POLICY extends Win32Struct
     ProcessorPolicyDc{
         get {
             if(!this.HasProp("__ProcessorPolicyDc"))
-                this.__ProcessorPolicyDc := PROCESSOR_POWER_POLICY(this.ptr + 48)
+                this.__ProcessorPolicyDc := PROCESSOR_POWER_POLICY(48, this)
             return this.__ProcessorPolicyDc
         }
     }

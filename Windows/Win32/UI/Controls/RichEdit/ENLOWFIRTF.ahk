@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
 
 /**
@@ -28,7 +29,7 @@ class ENLOWFIRTF extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -37,7 +38,7 @@ class ENLOWFIRTF extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">CHAR</a>*</b>
      * 
      * The unsupported RTF keyword.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szControl {
         get => NumGet(this, 24, "ptr")

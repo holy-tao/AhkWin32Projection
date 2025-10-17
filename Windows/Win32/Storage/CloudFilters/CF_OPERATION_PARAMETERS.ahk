@@ -35,7 +35,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -127,7 +127,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -203,7 +203,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -257,7 +257,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -295,7 +295,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -317,7 +317,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {NTSTATUS}
          */
         CompletionStatus {
             get => NumGet(this, 4, "int")
@@ -332,7 +332,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     TransferData{
         get {
             if(!this.HasProp("__TransferData"))
-                this.__TransferData := %this.__Class%._TransferData(this.ptr + 8)
+                this.__TransferData := %this.__Class%._TransferData(8, this)
             return this.__TransferData
         }
     }
@@ -343,7 +343,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     RetrieveData{
         get {
             if(!this.HasProp("__RetrieveData"))
-                this.__RetrieveData := %this.__Class%._RetrieveData(this.ptr + 8)
+                this.__RetrieveData := %this.__Class%._RetrieveData(8, this)
             return this.__RetrieveData
         }
     }
@@ -354,7 +354,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     AckData{
         get {
             if(!this.HasProp("__AckData"))
-                this.__AckData := %this.__Class%._AckData(this.ptr + 8)
+                this.__AckData := %this.__Class%._AckData(8, this)
             return this.__AckData
         }
     }
@@ -365,7 +365,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     RestartHydration{
         get {
             if(!this.HasProp("__RestartHydration"))
-                this.__RestartHydration := %this.__Class%._RestartHydration(this.ptr + 8)
+                this.__RestartHydration := %this.__Class%._RestartHydration(8, this)
             return this.__RestartHydration
         }
     }
@@ -376,7 +376,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     TransferPlaceholders{
         get {
             if(!this.HasProp("__TransferPlaceholders"))
-                this.__TransferPlaceholders := %this.__Class%._TransferPlaceholders(this.ptr + 8)
+                this.__TransferPlaceholders := %this.__Class%._TransferPlaceholders(8, this)
             return this.__TransferPlaceholders
         }
     }
@@ -387,7 +387,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     AckDehydrate{
         get {
             if(!this.HasProp("__AckDehydrate"))
-                this.__AckDehydrate := %this.__Class%._AckDehydrate(this.ptr + 8)
+                this.__AckDehydrate := %this.__Class%._AckDehydrate(8, this)
             return this.__AckDehydrate
         }
     }
@@ -398,7 +398,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     AckRename{
         get {
             if(!this.HasProp("__AckRename"))
-                this.__AckRename := %this.__Class%._AckRename(this.ptr + 8)
+                this.__AckRename := %this.__Class%._AckRename(8, this)
             return this.__AckRename
         }
     }
@@ -409,7 +409,7 @@ class CF_OPERATION_PARAMETERS extends Win32Struct
     AckDelete{
         get {
             if(!this.HasProp("__AckDelete"))
-                this.__AckDelete := %this.__Class%._AckDelete(this.ptr + 8)
+                this.__AckDelete := %this.__Class%._AckDelete(8, this)
             return this.__AckDelete
         }
     }

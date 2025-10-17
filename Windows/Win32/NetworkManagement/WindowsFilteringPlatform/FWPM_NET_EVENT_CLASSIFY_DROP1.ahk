@@ -77,7 +77,7 @@ class FWPM_NET_EVENT_CLASSIFY_DROP1 extends Win32Struct
 
     /**
      * Indicates whether the packet originated from (or was heading to) the loopback adapter.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isLoopback {
         get => NumGet(this, 28, "int")

@@ -33,7 +33,7 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
         SubnetScopeInfo{
             get {
                 if(!this.HasProp("__SubnetScopeInfo"))
-                    this.__SubnetScopeInfo := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                    this.__SubnetScopeInfo := DHCP_IPV6_ADDRESS(0, this)
                 return this.__SubnetScopeInfo
             }
         }
@@ -44,7 +44,7 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
         ReservedScopeInfo{
             get {
                 if(!this.HasProp("__ReservedScopeInfo"))
-                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE6(this.ptr + 0)
+                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE6(0, this)
                 return this.__ReservedScopeInfo
             }
         }
@@ -67,7 +67,7 @@ class DHCP_OPTION_SCOPE_INFO6 extends Win32Struct
     ScopeInfo{
         get {
             if(!this.HasProp("__ScopeInfo"))
-                this.__ScopeInfo := %this.__Class%.DHCP_OPTION_SCOPE_UNION6(this.ptr + 8)
+                this.__ScopeInfo := %this.__Class%.DHCP_OPTION_SCOPE_UNION6(8, this)
             return this.__ScopeInfo
         }
     }

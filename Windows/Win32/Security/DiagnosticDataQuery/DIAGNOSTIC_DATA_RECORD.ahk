@@ -55,7 +55,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The full event name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     fullEventName {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The provider group GUID for this event.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     providerGroupGuid {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +75,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/com/structure-of-com-error-codes)**
      * The name of the producer associated with this event.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     producerName {
         get => NumGet(this, 40, "ptr")
@@ -125,7 +125,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * `TRUE` if this record is core data. `FALSE` otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isCoreData {
         get => NumGet(this, 76, "int")
@@ -134,7 +134,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     extra1 {
         get => NumGet(this, 80, "ptr")
@@ -143,7 +143,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     extra2 {
         get => NumGet(this, 88, "ptr")
@@ -152,7 +152,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     extra3 {
         get => NumGet(this, 96, "ptr")

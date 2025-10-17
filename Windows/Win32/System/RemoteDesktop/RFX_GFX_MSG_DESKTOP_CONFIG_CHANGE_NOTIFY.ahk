@@ -18,7 +18,7 @@ class RFX_GFX_MSG_DESKTOP_CONFIG_CHANGE_NOTIFY extends Win32Struct
     channelHdr{
         get {
             if(!this.HasProp("__channelHdr"))
-                this.__channelHdr := RFX_GFX_MSG_HEADER(this.ptr + 0)
+                this.__channelHdr := RFX_GFX_MSG_HEADER(0, this)
             return this.__channelHdr
         }
     }

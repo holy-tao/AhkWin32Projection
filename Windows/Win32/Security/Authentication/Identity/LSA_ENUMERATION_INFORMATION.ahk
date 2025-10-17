@@ -15,7 +15,7 @@ class LSA_ENUMERATION_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a SID.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 0, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -20,7 +21,7 @@ class SIGNER_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFileName {
         get => NumGet(this, 8, "ptr")
@@ -28,19 +29,18 @@ class SIGNER_FILE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(16, this)
+            return this.__hFile
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

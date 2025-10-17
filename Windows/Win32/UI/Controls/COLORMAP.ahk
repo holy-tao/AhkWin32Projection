@@ -17,7 +17,7 @@ class COLORMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color to map from.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     from {
         get => NumGet(this, 0, "uint")
@@ -28,7 +28,7 @@ class COLORMAP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color to map to.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     to {
         get => NumGet(this, 4, "uint")

@@ -15,7 +15,7 @@ class EAP_METHOD_AUTHENTICATOR_RESULT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the supplicant was successfully authenticated; if <b>FALSE</b>, it was not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsSuccess {
         get => NumGet(this, 0, "int")

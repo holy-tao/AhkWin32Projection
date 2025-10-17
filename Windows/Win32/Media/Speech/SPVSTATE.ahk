@@ -67,7 +67,7 @@ class SPVSTATE extends Win32Struct
     PitchAdj{
         get {
             if(!this.HasProp("__PitchAdj"))
-                this.__PitchAdj := SPVPITCH(this.ptr + 24)
+                this.__PitchAdj := SPVPITCH(24, this)
             return this.__PitchAdj
         }
     }
@@ -102,7 +102,7 @@ class SPVSTATE extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := SPVCONTEXT(this.ptr + 56)
+                this.__Context := SPVCONTEXT(56, this)
             return this.__Context
         }
     }

@@ -12,7 +12,7 @@ class SCM_BUS_DEDICATED_MEMORY_STATE extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ActivateState {
         get => NumGet(this, 0, "char")

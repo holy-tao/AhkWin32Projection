@@ -24,7 +24,7 @@ class TAPE_PREPARE extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Immediate {
         get => NumGet(this, 4, "char")

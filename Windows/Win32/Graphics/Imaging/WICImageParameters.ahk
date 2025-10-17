@@ -34,7 +34,7 @@ class WICImageParameters extends Win32Struct
     PixelFormat{
         get {
             if(!this.HasProp("__PixelFormat"))
-                this.__PixelFormat := D2D1_PIXEL_FORMAT(this.ptr + 0)
+                this.__PixelFormat := D2D1_PIXEL_FORMAT(0, this)
             return this.__PixelFormat
         }
     }

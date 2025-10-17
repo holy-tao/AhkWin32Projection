@@ -22,7 +22,7 @@ class IO_RESOURCE extends Win32Struct
     IO_Header{
         get {
             if(!this.HasProp("__IO_Header"))
-                this.__IO_Header := IO_DES(this.ptr + 0)
+                this.__IO_Header := IO_DES(0, this)
             return this.__IO_Header
         }
     }

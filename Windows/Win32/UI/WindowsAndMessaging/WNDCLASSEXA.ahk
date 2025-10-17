@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include .\HICON.ahk
+#Include .\HCURSOR.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
 
 /**
  * Contains window class information.
@@ -79,33 +83,42 @@ class WNDCLASSEXA extends Win32Struct
      * Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance that contains the window procedure for the class.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(24, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Type: <b>HICON</b>
      * 
      * A handle to the class icon. This member must be a handle to an icon resource. If this member is <b>NULL</b>, the system provides a default icon.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(32, this)
+            return this.__hIcon
+        }
     }
 
     /**
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the class cursor. This member must be a handle to a cursor resource. If this member is <b>NULL</b>, an application must explicitly set the cursor shape whenever the mouse moves into the application's window.
-     * @type {Pointer<Void>}
+     * @type {HCURSOR}
      */
-    hCursor {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hCursor{
+        get {
+            if(!this.HasProp("__hCursor"))
+                this.__hCursor := HCURSOR(40, this)
+            return this.__hCursor
+        }
     }
 
     /**
@@ -140,18 +153,21 @@ class WNDCLASSEXA extends Win32Struct
      * When this member is <b>NULL</b>, an application must paint its own background whenever it is requested to paint in its client area. To determine whether the background must be painted, an application can either process the 
      * 						<a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-erasebkgnd">WM_ERASEBKGND</a> message or test the 
      * 						<b>fErase</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-paintstruct">PAINTSTRUCT</a> structure filled by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-beginpaint">BeginPaint</a> function.
-     * @type {Pointer<Void>}
+     * @type {HBRUSH}
      */
-    hbrBackground {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hbrBackground{
+        get {
+            if(!this.HasProp("__hbrBackground"))
+                this.__hbrBackground := HBRUSH(48, this)
+            return this.__hbrBackground
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated character string that specifies the resource name of the class menu, as the name appears in the resource file. If you use an integer to identify the menu, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. If this member is <b>NULL</b>, windows belonging to this class have no default menu.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszMenuName {
         get => NumGet(this, 56, "ptr")
@@ -168,7 +184,7 @@ class WNDCLASSEXA extends Win32Struct
      * If <b>lpszClassName</b> is a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names. 
      * 
      * The maximum length for <b>lpszClassName</b> is 256. If <b>lpszClassName</b> is greater than the maximum length, the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function will fail.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszClassName {
         get => NumGet(this, 64, "ptr")
@@ -180,19 +196,18 @@ class WNDCLASSEXA extends Win32Struct
      * 
      * A handle to a small icon that is associated with the window class. If this member is <b>NULL</b>, the system searches the icon resource specified by the 
      * 					<b>hIcon</b> member for an icon of the appropriate size to use as the small icon.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIconSm {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hIconSm{
+        get {
+            if(!this.HasProp("__hIconSm"))
+                this.__hIconSm := HICON(72, this)
+            return this.__hIconSm
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

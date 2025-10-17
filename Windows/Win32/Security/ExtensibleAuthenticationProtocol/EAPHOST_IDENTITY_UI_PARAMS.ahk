@@ -19,7 +19,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     eapMethodType{
         get {
             if(!this.HasProp("__eapMethodType"))
-                this.__eapMethodType := EAP_METHOD_TYPE(this.ptr + 0)
+                this.__eapMethodType := EAP_METHOD_TYPE(0, this)
             return this.__eapMethodType
         }
     }
@@ -81,7 +81,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIdentity {
         get => NumGet(this, 64, "ptr")

@@ -24,7 +24,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * Set this flag to <b>TRUE</b> if the currently logged on user's credentials should be used as the default credentials.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllowLoggedOnUser {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the authentication package will send unencrypted credentials over the network. Otherwise, the authentication package encrypts the credentials.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fClearTextPackage {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUrl {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSite {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the realm for this authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszRealm {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class MFNetCredentialManagerGetParam extends Win32Struct
 
     /**
      * The name of the authentication package. For example, "Digest" or "MBS_BASIC".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPackage {
         get => NumGet(this, 40, "ptr")

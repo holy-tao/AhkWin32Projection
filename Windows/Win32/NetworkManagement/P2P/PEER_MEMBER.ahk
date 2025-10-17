@@ -50,7 +50,7 @@ class PEER_MEMBER extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the peer name of the member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzIdentity {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class PEER_MEMBER extends Win32Struct
 
     /**
      * Pointer to a unicode string that specifies the attributes of the member. The format of this string is defined by the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzAttributes {
         get => NumGet(this, 16, "ptr")

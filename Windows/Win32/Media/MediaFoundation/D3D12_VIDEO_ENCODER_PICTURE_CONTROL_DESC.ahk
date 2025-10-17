@@ -35,7 +35,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
     PictureControlCodecData{
         get {
             if(!this.HasProp("__PictureControlCodecData"))
-                this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(this.ptr + 8)
+                this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA(8, this)
             return this.__PictureControlCodecData
         }
     }
@@ -46,7 +46,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC extends Win32Struct
     ReferenceFrames{
         get {
             if(!this.HasProp("__ReferenceFrames"))
-                this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(this.ptr + 24)
+                this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(24, this)
             return this.__ReferenceFrames
         }
     }

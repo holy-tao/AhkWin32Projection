@@ -39,7 +39,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string that contains the application display name. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDisplayName {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszVersion {
         get => NumGet(this, 16, "ptr")
@@ -59,7 +59,7 @@ class APPINFODATA extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPublisher {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProductID {
         get => NumGet(this, 32, "ptr")
@@ -81,7 +81,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszRegisteredOwner {
         get => NumGet(this, 40, "ptr")
@@ -92,7 +92,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszRegisteredCompany {
         get => NumGet(this, 48, "ptr")
@@ -107,7 +107,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszLanguage {
         get => NumGet(this, 56, "ptr")
@@ -118,7 +118,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A URL to support information. This string is displayed as a link with the application name in Control Panel Add/Remove Programs. Memory for this string must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSupportUrl {
         get => NumGet(this, 64, "ptr")
@@ -129,7 +129,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSupportTelephone {
         get => NumGet(this, 72, "ptr")
@@ -140,7 +140,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHelpLink {
         get => NumGet(this, 80, "ptr")
@@ -151,7 +151,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInstallLocation {
         get => NumGet(this, 88, "ptr")
@@ -162,7 +162,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInstallSource {
         get => NumGet(this, 96, "ptr")
@@ -173,7 +173,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInstallDate {
         get => NumGet(this, 104, "ptr")
@@ -184,7 +184,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszContact {
         get => NumGet(this, 112, "ptr")
@@ -195,7 +195,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszComments {
         get => NumGet(this, 120, "ptr")
@@ -206,7 +206,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszImage {
         get => NumGet(this, 128, "ptr")
@@ -217,7 +217,7 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszReadmeUrl {
         get => NumGet(this, 136, "ptr")
@@ -228,19 +228,15 @@ class APPINFODATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Not applicable to published applications.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUpdateInfoUrl {
         get => NumGet(this, 144, "ptr")
         set => NumPut("ptr", value, this, 144)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 152
     }
 }

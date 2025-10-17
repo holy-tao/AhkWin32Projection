@@ -35,7 +35,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
     SupportedUsbProtocols{
         get {
             if(!this.HasProp("__SupportedUsbProtocols"))
-                this.__SupportedUsbProtocols := USB_PROTOCOLS(this.ptr + 8)
+                this.__SupportedUsbProtocols := USB_PROTOCOLS(8, this)
             return this.__SupportedUsbProtocols
         }
     }
@@ -46,7 +46,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX_V2 extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(this.ptr + 16)
+                this.__Flags := USB_NODE_CONNECTION_INFORMATION_EX_V2_FLAGS(16, this)
             return this.__Flags
         }
     }

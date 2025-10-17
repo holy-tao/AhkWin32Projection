@@ -20,7 +20,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszConnectionName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WINHTTP_PROXY_SETTINGS_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszProbeHost {
         get => NumGet(this, 16, "ptr")

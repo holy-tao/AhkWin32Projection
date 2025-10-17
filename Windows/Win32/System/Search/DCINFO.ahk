@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -28,7 +29,7 @@ class DCINFO extends Win32Struct
     vData{
         get {
             if(!this.HasProp("__vData"))
-                this.__vData := VARIANT(this.ptr + 8)
+                this.__vData := VARIANT(8, this)
             return this.__vData
         }
     }

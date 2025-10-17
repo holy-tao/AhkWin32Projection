@@ -15,7 +15,7 @@ class PREVENT_MEDIA_REMOVAL extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the media is to be locked. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PreventMediaRemoval {
         get => NumGet(this, 0, "char")

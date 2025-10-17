@@ -55,7 +55,7 @@ class SPEVENTEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +63,7 @@ class SPEVENTEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 24, "ptr")

@@ -15,7 +15,7 @@ class TXFS_TRANSACTION_ACTIVE_INFO extends Win32Struct
 
     /**
      * This member is <b>TRUE</b> if the mounted snapshot volume had active transactions when the snapshot was taken; and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     TransactionsActiveAtSnapshot {
         get => NumGet(this, 0, "char")

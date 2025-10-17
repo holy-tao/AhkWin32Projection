@@ -26,7 +26,7 @@ class UCPTrie extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := UCPTrieData(this.ptr + 8)
+                this.__data := UCPTrieData(8, this)
             return this.__data
         }
     }

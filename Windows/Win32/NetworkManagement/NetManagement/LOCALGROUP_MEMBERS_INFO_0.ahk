@@ -17,7 +17,7 @@ class LOCALGROUP_MEMBERS_INFO_0 extends Win32Struct
      * Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">security identifier (SID)</a> of the local group member.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     lgrmi0_sid {
         get => NumGet(this, 0, "ptr")

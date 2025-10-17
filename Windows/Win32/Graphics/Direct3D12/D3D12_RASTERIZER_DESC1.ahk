@@ -28,7 +28,7 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     FrontCounterClockwise {
         get => NumGet(this, 8, "int")
@@ -60,7 +60,7 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthClipEnable {
         get => NumGet(this, 24, "int")
@@ -68,7 +68,7 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MultisampleEnable {
         get => NumGet(this, 28, "int")
@@ -76,7 +76,7 @@ class D3D12_RASTERIZER_DESC1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AntialiasedLineEnable {
         get => NumGet(this, 32, "int")

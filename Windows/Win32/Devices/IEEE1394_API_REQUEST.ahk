@@ -34,7 +34,7 @@ class IEEE1394_API_REQUEST extends Win32Struct
     AddVirtualDevice{
         get {
             if(!this.HasProp("__AddVirtualDevice"))
-                this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(this.ptr + 8)
+                this.__AddVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(8, this)
             return this.__AddVirtualDevice
         }
     }
@@ -45,7 +45,7 @@ class IEEE1394_API_REQUEST extends Win32Struct
     RemoveVirtualDevice{
         get {
             if(!this.HasProp("__RemoveVirtualDevice"))
-                this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(this.ptr + 8)
+                this.__RemoveVirtualDevice := IEEE1394_VDEV_PNP_REQUEST(8, this)
             return this.__RemoveVirtualDevice
         }
     }

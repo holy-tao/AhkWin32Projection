@@ -26,7 +26,7 @@ class DNS_MINFO_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the <a href="https://docs.microsoft.com/windows/win32/dns/f-gly">fully qualified domain name</a> (FQDN) of the mailbox responsible for the mailing list or mailbox specified in the record's owner name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pNameMailbox {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class DNS_MINFO_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the FQDN of the mailbox to receive error messages related to the mailing list.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pNameErrorsMailbox {
         get => NumGet(this, 8, "ptr")

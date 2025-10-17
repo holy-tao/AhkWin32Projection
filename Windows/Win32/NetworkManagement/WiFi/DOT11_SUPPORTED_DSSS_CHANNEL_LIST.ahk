@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DOT11_SUPPORTED_DSSS_CHANNEL.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.WiFi
@@ -7,9 +8,9 @@
  */
 class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -28,12 +29,12 @@ class DOT11_SUPPORTED_DSSS_CHANNEL_LIST extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<DOT11_SUPPORTED_DSSS_CHANNEL>}
      */
     dot11SupportedDSSSChannel{
         get {
             if(!this.HasProp("__dot11SupportedDSSSChannelProxyArray"))
-                this.__dot11SupportedDSSSChannelProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
+                this.__dot11SupportedDSSSChannelProxyArray := Win32FixedArray(this.ptr + 8, 1, DOT11_SUPPORTED_DSSS_CHANNEL, "")
             return this.__dot11SupportedDSSSChannelProxyArray
         }
     }

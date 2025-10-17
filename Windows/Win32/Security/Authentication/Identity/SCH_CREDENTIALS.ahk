@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\Cryptography\HCERTSTORE.ahk
 
 /**
  * Contains the data for an Schannel credential.
@@ -89,11 +90,14 @@ class SCH_CREDENTIALS extends Win32Struct
 
     /**
      * *Optional.* Valid for server applications only. Handle to a certificate store that contains self-signed root certificates for certification authorities (CAs) trusted by the application. This member is used only by server-side applications that require client authentication.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hRootStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hRootStore{
+        get {
+            if(!this.HasProp("__hRootStore"))
+                this.__hRootStore := HCERTSTORE(24, this)
+            return this.__hRootStore
+        }
     }
 
     /**
@@ -107,7 +111,7 @@ class SCH_CREDENTIALS extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_HMAPPER>}
      */
     aphMappers {
         get => NumGet(this, 40, "ptr")

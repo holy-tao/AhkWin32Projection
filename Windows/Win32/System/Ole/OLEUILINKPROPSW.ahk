@@ -60,7 +60,7 @@ class OLEUILINKPROPSW extends Win32Struct
 
     /**
      * Custom data to pass to hook (not used in this dialog box).
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 24, "ptr")

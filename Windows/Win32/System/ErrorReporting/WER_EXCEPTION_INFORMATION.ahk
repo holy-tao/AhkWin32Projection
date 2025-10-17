@@ -24,7 +24,7 @@ class WER_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * A process (calling process) can provide error reporting functionality for another process (client process). If this member is <b>TRUE</b>, the exception pointer is located inside the  address space of the client process. If this member is <b>FALSE</b>, the exception pointer is located inside the address space of the calling process.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bClientPointers {
         get => NumGet(this, 8, "int")

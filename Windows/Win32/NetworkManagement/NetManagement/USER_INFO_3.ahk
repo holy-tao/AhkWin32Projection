@@ -36,7 +36,7 @@ class USER_INFO_3 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member is ignored. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_name {
         get => NumGet(this, 0, "ptr")
@@ -54,7 +54,7 @@ class USER_INFO_3 extends Win32Struct
      * 
      * 
      * By convention, the length of passwords is limited to LM20_PWLEN characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_password {
         get => NumGet(this, 8, "ptr")
@@ -90,7 +90,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path of the home directory of the user specified by the <b>usri3_name</b> member. The string can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_home_dir {
         get => NumGet(this, 24, "ptr")
@@ -101,7 +101,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment to associate with the user account. The string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_comment {
         get => NumGet(this, 32, "ptr")
@@ -121,7 +121,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the path for the user's logon script file. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_script_path {
         get => NumGet(this, 48, "ptr")
@@ -154,7 +154,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_full_name {
         get => NumGet(this, 64, "ptr")
@@ -165,7 +165,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a user comment. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_usr_comment {
         get => NumGet(this, 72, "ptr")
@@ -176,7 +176,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that is reserved for use by applications. This string can be a <b>NULL</b> string, or it can have any number of characters before the terminating null character. Microsoft products use this member to store user configuration information. Do not modify this information.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_parms {
         get => NumGet(this, 80, "ptr")
@@ -190,7 +190,7 @@ class USER_INFO_3 extends Win32Struct
      * > You should no longer use **usri3_workstations**. Instead, you can control sign-in access to workstations by configuring the User Rights Assignment settings (**Allow log on locally** and **Deny log on locally**, or **Allow log on through Remote Desktop Services** and **Deny log on through Remote Desktop Services**).
      * 
      * A pointer to a Unicode string that contains the names of workstations from which the user can log on. As many as eight workstations can be specified; the names must be separated by commas. If you do not want to restrict the number of workstations, use a <b>NULL</b> string. To disable logons from all workstations to this account, set the UF_ACCOUNTDISABLE value in the <b>usri3_flags</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_workstations {
         get => NumGet(this, 88, "ptr")
@@ -339,7 +339,7 @@ class USER_INFO_3 extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuserenum">NetUserEnum</a> return \\*. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netuseradd">NetUserAdd</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> functions ignore this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_logon_server {
         get => NumGet(this, 136, "ptr")
@@ -400,7 +400,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies a path to the user's profile. This value can be a <b>NULL</b> string, a local absolute path, or a UNC path.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_profile {
         get => NumGet(this, 160, "ptr")
@@ -411,7 +411,7 @@ class USER_INFO_3 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the drive letter assigned to the user's home directory for logon purposes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri3_home_dir_drive {
         get => NumGet(this, 168, "ptr")

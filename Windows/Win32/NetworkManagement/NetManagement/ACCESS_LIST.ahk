@@ -12,7 +12,7 @@ class ACCESS_LIST extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     acl_ugname {
         get => NumGet(this, 0, "ptr")

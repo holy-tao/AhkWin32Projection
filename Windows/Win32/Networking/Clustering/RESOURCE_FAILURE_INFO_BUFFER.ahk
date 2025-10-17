@@ -30,7 +30,7 @@ class RESOURCE_FAILURE_INFO_BUFFER extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := RESOURCE_FAILURE_INFO(this.ptr + 8)
+                this.__Info := RESOURCE_FAILURE_INFO(8, this)
             return this.__Info
         }
     }

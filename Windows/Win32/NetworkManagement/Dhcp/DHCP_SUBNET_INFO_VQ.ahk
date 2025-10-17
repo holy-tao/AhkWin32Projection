@@ -34,7 +34,7 @@ class DHCP_SUBNET_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the network name of the subnet.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SubnetName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class DHCP_SUBNET_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains an optional comment particular to this subnet.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SubnetComment {
         get => NumGet(this, 16, "ptr")
@@ -57,7 +57,7 @@ class DHCP_SUBNET_INFO_VQ extends Win32Struct
     PrimaryHost{
         get {
             if(!this.HasProp("__PrimaryHost"))
-                this.__PrimaryHost := DHCP_HOST_INFO(this.ptr + 24)
+                this.__PrimaryHost := DHCP_HOST_INFO(24, this)
             return this.__PrimaryHost
         }
     }

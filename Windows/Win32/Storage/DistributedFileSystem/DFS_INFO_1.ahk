@@ -43,7 +43,7 @@ class DFS_INFO_1 extends Win32Struct
      * &#92;&#92;<i>DomainName</i>&#92;<i>DomDfsname</i>
      * 
      * where the values of the names are the same as those described previously.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     EntryPath {
         get => NumGet(this, 0, "ptr")

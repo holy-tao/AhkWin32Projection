@@ -62,19 +62,15 @@ class CRYPT_DECRYPT_MESSAGE_PARA extends Win32Struct
      * Recipients can also be identified by their KeyId. Both Key Agreement (Diffie-Hellman) and Key Transport (RSA) recipients are supported.
      * 
      * Only certificate contexts in the store with one of the following properties, CERT_KEY_PROV_INFO_PROP_ID, or CERT_KEY_CONTEXT_PROP_ID can be used. These properties specify the location of a needed private exchange key.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghCertStore {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

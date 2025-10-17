@@ -32,7 +32,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRfc822Name {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDNSName {
         get => NumGet(this, 8, "ptr")
@@ -53,13 +53,13 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     DirectoryName{
         get {
             if(!this.HasProp("__DirectoryName"))
-                this.__DirectoryName := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__DirectoryName := CRYPT_INTEGER_BLOB(8, this)
             return this.__DirectoryName
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszURL {
         get => NumGet(this, 8, "ptr")
@@ -72,13 +72,13 @@ class CERT_ALT_NAME_ENTRY extends Win32Struct
     IPAddress{
         get {
             if(!this.HasProp("__IPAddress"))
-                this.__IPAddress := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__IPAddress := CRYPT_INTEGER_BLOB(8, this)
             return this.__IPAddress
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszRegisteredID {
         get => NumGet(this, 8, "ptr")

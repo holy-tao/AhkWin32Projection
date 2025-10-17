@@ -39,7 +39,7 @@ class DCOMPOSITION_FRAME_STATISTICS extends Win32Struct
     currentCompositionRate{
         get {
             if(!this.HasProp("__currentCompositionRate"))
-                this.__currentCompositionRate := DXGI_RATIONAL(this.ptr + 8)
+                this.__currentCompositionRate := DXGI_RATIONAL(8, this)
             return this.__currentCompositionRate
         }
     }

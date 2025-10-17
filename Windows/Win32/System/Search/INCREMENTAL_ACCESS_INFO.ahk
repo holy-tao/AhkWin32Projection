@@ -34,7 +34,7 @@ class INCREMENTAL_ACCESS_INFO extends Win32Struct
     ftLastModifiedTime{
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(this.ptr + 8)
+                this.__ftLastModifiedTime := FILETIME(8, this)
             return this.__ftLastModifiedTime
         }
     }

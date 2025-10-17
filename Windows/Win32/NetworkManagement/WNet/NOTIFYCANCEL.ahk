@@ -15,7 +15,7 @@ class NOTIFYCANCEL extends Win32Struct
 
     /**
      * Pointer to the name of the local device or network resource whose connection is being canceled.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class NOTIFYCANCEL extends Win32Struct
      * 
      * 
      * For after-the-fact notification, if the cancel operation was successful, this field specifies the name of the network provider that canceled the connection.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpProvider {
         get => NumGet(this, 8, "ptr")
@@ -47,7 +47,7 @@ class NOTIFYCANCEL extends Win32Struct
 
     /**
      * Indicates whether the disconnect should continue even if there are open files or jobs on the connection. If this field is <b>TRUE</b>, the connection is canceled regardless of open files or jobs. If this field is <b>FALSE</b>, the connection will not be canceled if there are open files or jobs.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fForce {
         get => NumGet(this, 20, "int")

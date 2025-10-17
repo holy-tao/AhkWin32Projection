@@ -55,7 +55,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Pointer to a string that specifies the path to the directory service portion of the GPO.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDSPath {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Pointer to a string that specifies the path to the file system portion of the GPO.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpFileSysPath {
         get => NumGet(this, 16, "ptr")
@@ -73,7 +73,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Pointer to the display name of the GPO.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDisplayName {
         get => NumGet(this, 24, "ptr")
@@ -100,7 +100,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * User-supplied data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 88, "ptr")
@@ -127,7 +127,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Extensions that have stored data in this GPO. The format is a string of <b>GUID</b>s grouped in brackets. For more information, see the following Remarks section.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpExtensions {
         get => NumGet(this, 112, "ptr")
@@ -136,7 +136,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * User-supplied data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam2 {
         get => NumGet(this, 120, "ptr")
@@ -145,7 +145,7 @@ class GROUP_POLICY_OBJECTA extends Win32Struct
 
     /**
      * Path to the Active Directory site, domain, or organization unit to which this GPO is linked. If the GPO is linked to the local GPO, this member is "Local".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpLink {
         get => NumGet(this, 128, "ptr")

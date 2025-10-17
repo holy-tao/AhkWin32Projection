@@ -28,13 +28,13 @@ class SPVTEXTFRAG extends Win32Struct
     State{
         get {
             if(!this.HasProp("__State"))
-                this.__State := SPVSTATE(this.ptr + 8)
+                this.__State := SPVSTATE(8, this)
             return this.__State
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pTextStart {
         get => NumGet(this, 88, "ptr")

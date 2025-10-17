@@ -39,14 +39,14 @@ class DS_REPL_CURSOR_3W extends Win32Struct
     ftimeLastSyncSuccess{
         get {
             if(!this.HasProp("__ftimeLastSyncSuccess"))
-                this.__ftimeLastSyncSuccess := FILETIME(this.ptr + 16)
+                this.__ftimeLastSyncSuccess := FILETIME(16, this)
             return this.__ftimeLastSyncSuccess
         }
     }
 
     /**
      * Pointer to  a null-terminated string that contains the distinguished name of the directory service agent that corresponds to the source server to which this replication state data applies.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSourceDsaDN {
         get => NumGet(this, 24, "ptr")

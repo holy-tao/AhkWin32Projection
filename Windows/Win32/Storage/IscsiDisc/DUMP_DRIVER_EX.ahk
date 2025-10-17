@@ -42,7 +42,7 @@ class DUMP_DRIVER_EX extends Win32Struct
     DriverFullPath{
         get {
             if(!this.HasProp("__DriverFullPath"))
-                this.__DriverFullPath := NTSCSI_UNICODE_STRING(this.ptr + 72)
+                this.__DriverFullPath := NTSCSI_UNICODE_STRING(72, this)
             return this.__DriverFullPath
         }
     }

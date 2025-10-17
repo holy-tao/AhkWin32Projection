@@ -38,7 +38,7 @@ class DXVAHD_STREAM_STATE_ALPHA_DATA extends Win32Struct
 
     /**
      * <b>If TRUE</b>, alpha blending is enabled. Otherwise, alpha blending is disabled. The default state value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

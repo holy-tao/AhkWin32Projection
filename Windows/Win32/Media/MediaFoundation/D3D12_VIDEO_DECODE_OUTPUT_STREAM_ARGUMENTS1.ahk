@@ -43,7 +43,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS1 extends Win32Struct
     ConversionArguments{
         get {
             if(!this.HasProp("__ConversionArguments"))
-                this.__ConversionArguments := D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1(this.ptr + 16)
+                this.__ConversionArguments := D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS1(16, this)
             return this.__ConversionArguments
         }
     }

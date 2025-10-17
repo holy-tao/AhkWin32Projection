@@ -15,7 +15,7 @@ class EapHostPeerMethodResult extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the supplicant was successfully authenticated; if <b>FALSE</b>, it was not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsSuccess {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class EapHostPeerMethodResult extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the connection data specified in <b>pConnectionData</b> data must be persisted to disk; otherwise, it does not need to be saved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSaveConnectionData {
         get => NumGet(this, 8, "int")
@@ -60,7 +60,7 @@ class EapHostPeerMethodResult extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the user data specified in <b>pUserData</b> data must be persisted to disk; otherwise, it does not need to be saved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSaveUserData {
         get => NumGet(this, 24, "int")

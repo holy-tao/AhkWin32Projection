@@ -77,7 +77,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
      * 
      * > [!NOTE]
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     BlendEnable {
         get => NumGet(this, 0, "int")
@@ -89,7 +89,7 @@ class D3D12_RENDER_TARGET_BLEND_DESC extends Win32Struct
      * 
      * > [!NOTE]
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogicOpEnable {
         get => NumGet(this, 4, "int")

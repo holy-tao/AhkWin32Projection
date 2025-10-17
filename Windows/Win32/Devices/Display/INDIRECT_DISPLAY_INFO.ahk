@@ -18,7 +18,7 @@ class INDIRECT_DISPLAY_INFO extends Win32Struct
     DisplayAdapterLuid{
         get {
             if(!this.HasProp("__DisplayAdapterLuid"))
-                this.__DisplayAdapterLuid := LUID(this.ptr + 0)
+                this.__DisplayAdapterLuid := LUID(0, this)
             return this.__DisplayAdapterLuid
         }
     }

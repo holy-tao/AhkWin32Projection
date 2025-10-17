@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -28,14 +29,14 @@ class ITEMPROP extends Win32Struct
     variantValue{
         get {
             if(!this.HasProp("__variantValue"))
-                this.__variantValue := VARIANT(this.ptr + 0)
+                this.__variantValue := VARIANT(0, this)
             return this.__variantValue
         }
     }
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 24, "ptr")

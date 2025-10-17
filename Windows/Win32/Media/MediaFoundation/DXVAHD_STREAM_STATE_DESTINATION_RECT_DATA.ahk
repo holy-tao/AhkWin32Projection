@@ -43,7 +43,7 @@ class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")
@@ -59,7 +59,7 @@ class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
     DestinationRect{
         get {
             if(!this.HasProp("__DestinationRect"))
-                this.__DestinationRect := RECT(this.ptr + 8)
+                this.__DestinationRect := RECT(8, this)
             return this.__DestinationRect
         }
     }

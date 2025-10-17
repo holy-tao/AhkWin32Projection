@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -20,10 +21,13 @@ class CKCL_LISTHEAD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Heap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Heap{
+        get {
+            if(!this.HasProp("__Heap"))
+                this.__Heap := HANDLE(8, this)
+            return this.__Heap
+        }
     }
 }

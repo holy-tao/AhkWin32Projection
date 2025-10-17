@@ -42,7 +42,7 @@ class DNS_SERVER_PROPERTY extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := DNS_SERVER_PROPERTY_TYPES(this.ptr + 16)
+                this.__Property := DNS_SERVER_PROPERTY_TYPES(16, this)
             return this.__Property
         }
     }

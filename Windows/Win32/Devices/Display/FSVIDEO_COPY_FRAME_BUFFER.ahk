@@ -19,7 +19,7 @@ class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
     SrcScreen{
         get {
             if(!this.HasProp("__SrcScreen"))
-                this.__SrcScreen := FSCNTL_SCREEN_INFO(this.ptr + 0)
+                this.__SrcScreen := FSCNTL_SCREEN_INFO(0, this)
             return this.__SrcScreen
         }
     }
@@ -30,7 +30,7 @@ class FSVIDEO_COPY_FRAME_BUFFER extends Win32Struct
     DestScreen{
         get {
             if(!this.HasProp("__DestScreen"))
-                this.__DestScreen := FSCNTL_SCREEN_INFO(this.ptr + 16)
+                this.__DestScreen := FSCNTL_SCREEN_INFO(16, this)
             return this.__DestScreen
         }
     }

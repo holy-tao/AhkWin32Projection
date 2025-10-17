@@ -18,7 +18,7 @@ class EXBMINFOHEADER extends Win32Struct
     bmi{
         get {
             if(!this.HasProp("__bmi"))
-                this.__bmi := BITMAPINFOHEADER(this.ptr + 0)
+                this.__bmi := BITMAPINFOHEADER(0, this)
             return this.__bmi
         }
     }

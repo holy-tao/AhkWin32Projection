@@ -31,7 +31,7 @@ class IsolationInfo extends Win32Struct
     probEndTime{
         get {
             if(!this.HasProp("__probEndTime"))
-                this.__probEndTime := FILETIME(this.ptr + 8)
+                this.__probEndTime := FILETIME(8, this)
             return this.__probEndTime
         }
     }
@@ -43,7 +43,7 @@ class IsolationInfo extends Win32Struct
     failureUrl{
         get {
             if(!this.HasProp("__failureUrl"))
-                this.__failureUrl := CountedString(this.ptr + 16)
+                this.__failureUrl := CountedString(16, this)
             return this.__failureUrl
         }
     }

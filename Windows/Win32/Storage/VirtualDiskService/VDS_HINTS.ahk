@@ -223,7 +223,7 @@ class VDS_HINTS extends Win32Struct
     /**
      * If this member is TRUE, the recovery time is limited. Set the <b>VDS_HINT_FASTCRASHRECOVERYREQUIRED</b> 
      *       flag in the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFastCrashRecoveryRequired {
         get => NumGet(this, 40, "int")
@@ -234,7 +234,7 @@ class VDS_HINTS extends Win32Struct
      * To optimize for a mostly-reads usage pattern (for example, through mirroring rather than parity striping), set 
      *       this member to TRUE. Otherwise, set it to <b>FALSE</b>. Set the <b>VDS_HINT_MOSTLYREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMostlyReads {
         get => NumGet(this, 44, "int")
@@ -247,7 +247,7 @@ class VDS_HINTS extends Win32Struct
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALREADS</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOptimizeForSequentialReads {
         get => NumGet(this, 48, "int")
@@ -260,7 +260,7 @@ class VDS_HINTS extends Win32Struct
      *       <b>bOptimizeForSequentialWrites</b> members both to <b>FALSE</b> optimizes for random I/O. Set the 
      *       <b>VDS_HINT_OPTIMIZEFORSEQUENTIALWRITES</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOptimizeForSequentialWrites {
         get => NumGet(this, 52, "int")
@@ -272,7 +272,7 @@ class VDS_HINTS extends Win32Struct
      *       to drive extents remains fixed after LUN configuration unless extents are explicitly remapped to avoid 
      *       corrupted blocks. Set the <b>VDS_HINT_REMAPENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRemapEnabled {
         get => NumGet(this, 56, "int")
@@ -283,7 +283,7 @@ class VDS_HINTS extends Win32Struct
      * If this member is set to <b>TRUE</b>, the provider verifies the writes to the LUN by readback. If it is set to <b>FALSE</b>, the provider does not verify writes. 
      *       Set the <b>VDS_HINT_READBACKVERIFYENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bReadBackVerifyEnabled {
         get => NumGet(this, 60, "int")
@@ -294,7 +294,7 @@ class VDS_HINTS extends Win32Struct
      * If this member is <b>TRUE</b>, the provider enables write-through caching on the LUN. If it is <b>FALSE</b>, the provider does not enable
      *       write-through caching. Set the <b>VDS_HINT_WRITETHROUGHCACHINGENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bWriteThroughCachingEnabled {
         get => NumGet(this, 64, "int")
@@ -305,7 +305,7 @@ class VDS_HINTS extends Win32Struct
      * If this member is <b>TRUE</b>, the provider enables a checksum on the LUN. Set the 
      *       <b>VDS_HINT_HARDWARECHECKSUMENABLED</b> flag in 
      *       the <b>ullHintMask</b> member to indicate interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bHardwareChecksumEnabled {
         get => NumGet(this, 68, "int")
@@ -318,7 +318,7 @@ class VDS_HINTS extends Win32Struct
      *       cannot be removed without significant disruption to the system. Set the 
      *       <b>VDS_HINT_ISYANKABLE</b> flag in the <b>ullHintMask</b> member to indicate 
      *       interest in this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsYankable {
         get => NumGet(this, 72, "int")

@@ -56,7 +56,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszValue {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class INTERNET_PER_CONN_OPTIONA extends Win32Struct
     ftValue{
         get {
             if(!this.HasProp("__ftValue"))
-                this.__ftValue := FILETIME(this.ptr + 8)
+                this.__ftValue := FILETIME(8, this)
             return this.__ftValue
         }
     }

@@ -19,7 +19,7 @@ class PDF_RENDER_PARAMS extends Win32Struct
     SourceRect{
         get {
             if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := D2D_RECT_F(this.ptr + 0)
+                this.__SourceRect := D2D_RECT_F(0, this)
             return this.__SourceRect
         }
     }
@@ -46,13 +46,13 @@ class PDF_RENDER_PARAMS extends Win32Struct
     BackgroundColor{
         get {
             if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := D2D_COLOR_F(this.ptr + 24)
+                this.__BackgroundColor := D2D_COLOR_F(24, this)
             return this.__BackgroundColor
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IgnoreHighContrast {
         get => NumGet(this, 40, "char")

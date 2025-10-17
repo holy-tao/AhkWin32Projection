@@ -15,7 +15,7 @@ class AudioExtensionParams extends Win32Struct
 
     /**
      * The add page param.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     AddPageParam {
         get => NumGet(this, 0, "ptr")

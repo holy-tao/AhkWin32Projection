@@ -28,7 +28,7 @@ class GNSS_SELFTESTRESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     TestResultStatus {
         get => NumGet(this, 8, "int")

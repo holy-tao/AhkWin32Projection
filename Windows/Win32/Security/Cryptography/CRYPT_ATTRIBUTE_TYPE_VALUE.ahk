@@ -16,7 +16,7 @@ class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">Object identifier</a> (OID) that specifies the attribute type data contained in the <b>Value</b> BLOB.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CRYPT_ATTRIBUTE_TYPE_VALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Value := CRYPT_INTEGER_BLOB(8, this)
             return this.__Value
         }
     }

@@ -120,7 +120,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     mmCrypto{
         get {
             if(!this.HasProp("__mmCrypto"))
-                this.__mmCrypto := IKEEXT_PROPOSAL0(this.ptr + 64)
+                this.__mmCrypto := IKEEXT_PROPOSAL0(64, this)
             return this.__mmCrypto
         }
     }
@@ -134,7 +134,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     mmPeer{
         get {
             if(!this.HasProp("__mmPeer"))
-                this.__mmPeer := IKEEXT_CREDENTIAL2(this.ptr + 96)
+                this.__mmPeer := IKEEXT_CREDENTIAL2(96, this)
             return this.__mmPeer
         }
     }
@@ -148,7 +148,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     emPeer{
         get {
             if(!this.HasProp("__emPeer"))
-                this.__emPeer := IKEEXT_CREDENTIAL2(this.ptr + 112)
+                this.__emPeer := IKEEXT_CREDENTIAL2(112, this)
             return this.__emPeer
         }
     }
@@ -195,7 +195,7 @@ class FWPM_CONNECTION0 extends Win32Struct
     startSysTime{
         get {
             if(!this.HasProp("__startSysTime"))
-                this.__startSysTime := FILETIME(this.ptr + 152)
+                this.__startSysTime := FILETIME(152, this)
             return this.__startSysTime
         }
     }

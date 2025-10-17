@@ -167,7 +167,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * A value that indicates whether the loaded PDB is unmatched.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PdbUnmatched {
         get => NumGet(this, 3220, "int")
@@ -176,7 +176,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * A value that indicates whether the loaded DBG is unmatched.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DbgUnmatched {
         get => NumGet(this, 3224, "int")
@@ -185,7 +185,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * A value that indicates whether line number information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LineNumbers {
         get => NumGet(this, 3228, "int")
@@ -194,7 +194,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * A value that indicates whether symbol information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
     GlobalSymbols {
         get => NumGet(this, 3232, "int")
@@ -203,7 +203,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
 
     /**
      * A value that indicates whether type information is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TypeInfo {
         get => NumGet(this, 3236, "int")
@@ -214,7 +214,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * A value that indicates whether the .pdb supports the source server.
      * 
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SourceIndexed {
         get => NumGet(this, 3240, "int")
@@ -225,7 +225,7 @@ class IMAGEHLP_MODULE64 extends Win32Struct
      * A value that indicates whether the module contains public symbols.
      * 
      * <b>DbgHelp 6.1 and earlier:  </b>This member is not supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Publics {
         get => NumGet(this, 3244, "int")

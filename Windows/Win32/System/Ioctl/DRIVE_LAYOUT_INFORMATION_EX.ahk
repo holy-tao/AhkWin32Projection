@@ -48,7 +48,7 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := DRIVE_LAYOUT_INFORMATION_MBR(this.ptr + 8)
+                this.__Mbr := DRIVE_LAYOUT_INFORMATION_MBR(8, this)
             return this.__Mbr
         }
     }
@@ -59,7 +59,7 @@ class DRIVE_LAYOUT_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := DRIVE_LAYOUT_INFORMATION_GPT(this.ptr + 8)
+                this.__Gpt := DRIVE_LAYOUT_INFORMATION_GPT(8, this)
             return this.__Gpt
         }
     }

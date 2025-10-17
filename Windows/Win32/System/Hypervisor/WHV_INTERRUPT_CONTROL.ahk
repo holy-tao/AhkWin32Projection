@@ -51,14 +51,6 @@ class WHV_INTERRUPT_CONTROL extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 16) & 0xFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield & ~(0xFFFFFFFFFFFF << 16))
-    }
-
-    /**
-     * @type {Integer}
-     */
     Destination {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a date and time picker (DTP) control.
@@ -34,7 +35,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcCheck{
         get {
             if(!this.HasProp("__rcCheck"))
-                this.__rcCheck := RECT(this.ptr + 8)
+                this.__rcCheck := RECT(8, this)
             return this.__rcCheck
         }
     }
@@ -59,7 +60,7 @@ class DATETIMEPICKERINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 32)
+                this.__rcButton := RECT(32, this)
             return this.__rcButton
         }
     }
@@ -79,41 +80,46 @@ class DATETIMEPICKERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit control. For information see, <a href="https://docs.microsoft.com/windows/desktop/Controls/edit-controls">Edit Controls</a>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndEdit {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hwndEdit{
+        get {
+            if(!this.HasProp("__hwndEdit"))
+                this.__hwndEdit := HWND(56, this)
+            return this.__hwndEdit
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the up/down control—an alternative to using the drop-down grid (looks like month calendar control). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/up-down-controls">Up-Down Controls</a>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndUD {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hwndUD{
+        get {
+            if(!this.HasProp("__hwndUD"))
+                this.__hwndUD := HWND(64, this)
+            return this.__hwndUD
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down grid.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndDropDown {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hwndDropDown{
+        get {
+            if(!this.HasProp("__hwndDropDown"))
+                this.__hwndDropDown := HWND(72, this)
+            return this.__hwndDropDown
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

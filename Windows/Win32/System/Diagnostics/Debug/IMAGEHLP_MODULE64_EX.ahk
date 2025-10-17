@@ -18,7 +18,7 @@ class IMAGEHLP_MODULE64_EX extends Win32Struct
     Module{
         get {
             if(!this.HasProp("__Module"))
-                this.__Module := IMAGEHLP_MODULE64(this.ptr + 0)
+                this.__Module := IMAGEHLP_MODULE64(0, this)
             return this.__Module
         }
     }

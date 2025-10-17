@@ -47,7 +47,7 @@ class STORAGE_COUNTER extends Win32Struct
     ManufactureDate{
         get {
             if(!this.HasProp("__ManufactureDate"))
-                this.__ManufactureDate := %this.__Class%._ManufactureDate(this.ptr + 8)
+                this.__ManufactureDate := %this.__Class%._ManufactureDate(8, this)
             return this.__ManufactureDate
         }
     }

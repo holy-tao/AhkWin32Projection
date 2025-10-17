@@ -35,7 +35,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     RequestFixedIEs{
         get {
             if(!this.HasProp("__RequestFixedIEs"))
-                this.__RequestFixedIEs := NDIS_802_11_AI_REQFI(this.ptr + 8)
+                this.__RequestFixedIEs := NDIS_802_11_AI_REQFI(8, this)
             return this.__RequestFixedIEs
         }
     }
@@ -70,7 +70,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     ResponseFixedIEs{
         get {
             if(!this.HasProp("__ResponseFixedIEs"))
-                this.__ResponseFixedIEs := NDIS_802_11_AI_RESFI(this.ptr + 30)
+                this.__ResponseFixedIEs := NDIS_802_11_AI_RESFI(30, this)
             return this.__ResponseFixedIEs
         }
     }

@@ -22,7 +22,7 @@ class OCSP_CERT_ID extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__HashAlgorithm
         }
     }
@@ -34,7 +34,7 @@ class OCSP_CERT_ID extends Win32Struct
     IssuerNameHash{
         get {
             if(!this.HasProp("__IssuerNameHash"))
-                this.__IssuerNameHash := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__IssuerNameHash := CRYPT_INTEGER_BLOB(24, this)
             return this.__IssuerNameHash
         }
     }
@@ -46,7 +46,7 @@ class OCSP_CERT_ID extends Win32Struct
     IssuerKeyHash{
         get {
             if(!this.HasProp("__IssuerKeyHash"))
-                this.__IssuerKeyHash := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__IssuerKeyHash := CRYPT_INTEGER_BLOB(40, this)
             return this.__IssuerKeyHash
         }
     }
@@ -58,7 +58,7 @@ class OCSP_CERT_ID extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 56)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(56, this)
             return this.__SerialNumber
         }
     }

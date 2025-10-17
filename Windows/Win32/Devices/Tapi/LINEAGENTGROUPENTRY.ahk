@@ -58,7 +58,7 @@ class LINEAGENTGROUPENTRY extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := %this.__Class%._GroupID(this.ptr + 0)
+                this.__GroupID := %this.__Class%._GroupID(0, this)
             return this.__GroupID
         }
     }

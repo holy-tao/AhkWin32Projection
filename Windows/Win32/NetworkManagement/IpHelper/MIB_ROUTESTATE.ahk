@@ -12,7 +12,7 @@ class MIB_ROUTESTATE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRoutesSetToStack {
         get => NumGet(this, 0, "int")

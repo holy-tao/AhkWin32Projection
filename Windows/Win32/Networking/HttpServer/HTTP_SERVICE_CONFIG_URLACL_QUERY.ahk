@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTTP_SERVICE_CONFIG_URLACL_KEY.ahk
 
 /**
  * Used to specify a particular reservation record to query in the URL namespace reservation store.
@@ -30,11 +31,14 @@ class HTTP_SERVICE_CONFIG_URLACL_QUERY extends Win32Struct
      * 
      * 
      * If the <i>QueryDesc</i> parameter is equal to <b>HttpServiceConfigQueryNext</b>, <i>KeyDesc</i> is ignored.
-     * @type {Pointer<Char>}
+     * @type {HTTP_SERVICE_CONFIG_URLACL_KEY}
      */
-    KeyDesc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    KeyDesc{
+        get {
+            if(!this.HasProp("__KeyDesc"))
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_URLACL_KEY(8, this)
+            return this.__KeyDesc
+        }
     }
 
     /**

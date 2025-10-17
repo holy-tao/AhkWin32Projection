@@ -30,7 +30,7 @@ class CMC_TAGGED_CONTENT_INFO extends Win32Struct
     EncodedContentInfo{
         get {
             if(!this.HasProp("__EncodedContentInfo"))
-                this.__EncodedContentInfo := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__EncodedContentInfo := CRYPT_INTEGER_BLOB(8, this)
             return this.__EncodedContentInfo
         }
     }

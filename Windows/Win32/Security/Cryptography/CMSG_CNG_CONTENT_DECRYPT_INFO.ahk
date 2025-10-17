@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
+#Include .\NCRYPT_KEY_HANDLE.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Contains all the relevant information passed between CryptMsgControl and object identifier (OID) installable functions for the import and decryption of a Cryptography API:\_Next Generation (CNG) content encryption key (CEK).
@@ -31,7 +33,7 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
     ContentEncryptionAlgorithm{
         get {
             if(!this.HasProp("__ContentEncryptionAlgorithm"))
-                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__ContentEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__ContentEncryptionAlgorithm
         }
     }
@@ -56,11 +58,14 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * A handle to the CNG <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a> to be used for decryption of the CEK contained in the <i>pKeyTransDecryptPara</i> parameter or the <i>pKeyAgreeDecryptPara</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_cng_import_key_trans">PFN_CMSG_CNG_IMPORT_KEY_TRANS</a> function. Callback functions must use this key instead of the one contained in the <i>DecryptPara</i> structure because that structure might contain a converted <b>HCRYPTPROV</b> handle.
-     * @type {Pointer}
+     * @type {NCRYPT_KEY_HANDLE}
      */
-    hNCryptKey {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hNCryptKey{
+        get {
+            if(!this.HasProp("__hNCryptKey"))
+                this.__hNCryptKey := NCRYPT_KEY_HANDLE(48, this)
+            return this.__hNCryptKey
+        }
     }
 
     /**
@@ -83,11 +88,14 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nc-wincrypt-pfn_cmsg_cng_import_content_encrypt_key">PFN_CMSG_CNG_IMPORT_CONTENT_ENCRYPT_KEY</a> function must update this member with the generated <b>BCRYPT_KEY_HANDLE</b> to be used for content decryption. Even for an error, you must release this handle by using the <a href="https://docs.microsoft.com/windows/desktop/api/bcrypt/nf-bcrypt-bcryptdestroykey">BCryptDestroyKey</a> function.
-     * @type {Pointer<Void>}
+     * @type {BCRYPT_KEY_HANDLE}
      */
-    hCNGContentEncryptKey {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hCNGContentEncryptKey{
+        get {
+            if(!this.HasProp("__hCNGContentEncryptKey"))
+                this.__hCNGContentEncryptKey := BCRYPT_KEY_HANDLE(72, this)
+            return this.__hCNGContentEncryptKey
+        }
     }
 
     /**
@@ -99,12 +107,8 @@ class CMSG_CNG_CONTENT_DECRYPT_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

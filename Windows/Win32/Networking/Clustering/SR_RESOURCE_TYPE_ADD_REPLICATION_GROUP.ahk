@@ -68,7 +68,7 @@ class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EnableWriteConsistency {
         get => NumGet(this, 1580, "char")
@@ -76,7 +76,7 @@ class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EnableEncryption {
         get => NumGet(this, 1581, "char")
@@ -84,7 +84,7 @@ class SR_RESOURCE_TYPE_ADD_REPLICATION_GROUP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EnableCompression {
         get => NumGet(this, 1582, "char")

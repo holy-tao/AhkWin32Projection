@@ -13,7 +13,7 @@ class MODULE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ProcessImageName {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class MODULE_INFO extends Win32Struct
     Image{
         get {
             if(!this.HasProp("__Image"))
-                this.__Image := DOS_IMAGE_INFO(this.ptr + 8)
+                this.__Image := DOS_IMAGE_INFO(8, this)
             return this.__Image
         }
     }

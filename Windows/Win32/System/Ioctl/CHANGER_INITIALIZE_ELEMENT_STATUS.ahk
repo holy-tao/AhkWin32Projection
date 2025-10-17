@@ -29,7 +29,7 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
     ElementList{
         get {
             if(!this.HasProp("__ElementList"))
-                this.__ElementList := CHANGER_ELEMENT_LIST(this.ptr + 0)
+                this.__ElementList := CHANGER_ELEMENT_LIST(0, this)
             return this.__ElementList
         }
     }
@@ -42,7 +42,7 @@ class CHANGER_INITIALIZE_ELEMENT_STATUS extends Win32Struct
      * 
      * This member is applicable only if CHANGER_BAR_CODE_SCANNER_INSTALLED is set in the <b>Features0</b> member of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BarCodeScan {
         get => NumGet(this, 16, "char")

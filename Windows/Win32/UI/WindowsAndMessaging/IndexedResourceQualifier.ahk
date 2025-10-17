@@ -15,7 +15,7 @@ class IndexedResourceQualifier extends Win32Struct
 
     /**
      * The name of the qualifier, such as "language", "contrast", or "scale".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class IndexedResourceQualifier extends Win32Struct
      * <li>"high" for contrast.
      * </li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     value {
         get => NumGet(this, 8, "ptr")

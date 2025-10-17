@@ -22,7 +22,7 @@ class DWRITE_COLOR_GLYPH_RUN extends Win32Struct
     glyphRun{
         get {
             if(!this.HasProp("__glyphRun"))
-                this.__glyphRun := DWRITE_GLYPH_RUN(this.ptr + 0)
+                this.__glyphRun := DWRITE_GLYPH_RUN(0, this)
             return this.__glyphRun
         }
     }
@@ -61,7 +61,7 @@ class DWRITE_COLOR_GLYPH_RUN extends Win32Struct
     runColor{
         get {
             if(!this.HasProp("__runColor"))
-                this.__runColor := DWRITE_COLOR_F(this.ptr + 64)
+                this.__runColor := DWRITE_COLOR_F(64, this)
             return this.__runColor
         }
     }

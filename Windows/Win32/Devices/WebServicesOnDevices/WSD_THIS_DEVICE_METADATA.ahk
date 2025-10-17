@@ -42,7 +42,7 @@ class WSD_THIS_DEVICE_METADATA extends Win32Struct
 
     /**
      * The firmware version of the device. It should be set to fewer than 256 characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FirmwareVersion {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class WSD_THIS_DEVICE_METADATA extends Win32Struct
 
     /**
      * The serial number of the device. It should be set to fewer than 256 characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SerialNumber {
         get => NumGet(this, 16, "ptr")

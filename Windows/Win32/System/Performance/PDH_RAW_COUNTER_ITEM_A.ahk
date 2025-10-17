@@ -18,7 +18,7 @@ class PDH_RAW_COUNTER_ITEM_A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the instance name of the counter. The string is appended to the end of this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szName {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +32,7 @@ class PDH_RAW_COUNTER_ITEM_A extends Win32Struct
     RawValue{
         get {
             if(!this.HasProp("__RawValue"))
-                this.__RawValue := PDH_RAW_COUNTER(this.ptr + 8)
+                this.__RawValue := PDH_RAW_COUNTER(8, this)
             return this.__RawValue
         }
     }

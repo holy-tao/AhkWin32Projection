@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
 
 /**
  * Defines the standard information passed to a provider for every operation callback.
@@ -33,11 +34,14 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * Opaque handle to the virtualization instance that is sending the callback.
-     * @type {Pointer<Void>}
+     * @type {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT}
      */
-    NamespaceVirtualizationContext {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    NamespaceVirtualizationContext{
+        get {
+            if(!this.HasProp("__NamespaceVirtualizationContext"))
+                this.__NamespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT(8, this)
+            return this.__NamespaceVirtualizationContext
+        }
     }
 
     /**
@@ -75,7 +79,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * The path to the target file. This is a null-terminated string of Unicode characters. This path is always specified relative to the virtualization root.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FilePathName {
         get => NumGet(this, 40, "ptr")
@@ -104,7 +108,7 @@ class PRJ_CALLBACK_DATA extends Win32Struct
 
     /**
      * A null-terminated Unicode string specifying the image file name corresponding to TriggeringProcessId. If TriggeringProcessId is 0 this will be NULL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TriggeringProcessImageFileName {
         get => NumGet(this, 64, "ptr")

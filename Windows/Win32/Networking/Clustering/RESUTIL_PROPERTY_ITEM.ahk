@@ -22,7 +22,7 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
 
     /**
      * The name of the property.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +32,7 @@ class RESUTIL_PROPERTY_ITEM extends Win32Struct
     /**
      * Optional name of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> subkey for 
      *       the property. This parameter can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     KeyName {
         get => NumGet(this, 8, "ptr")

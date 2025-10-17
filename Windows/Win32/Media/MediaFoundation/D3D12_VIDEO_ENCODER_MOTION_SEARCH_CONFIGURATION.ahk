@@ -12,7 +12,7 @@ class D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 0, "int")
@@ -36,7 +36,7 @@ class D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     BidirectionalRefFrameEnabled {
         get => NumGet(this, 12, "int")

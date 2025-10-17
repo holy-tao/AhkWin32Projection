@@ -43,7 +43,7 @@ class FILE_STANDARD_INFO extends Win32Struct
     /**
      * <b>TRUE</b> if the file in the delete queue; otherwise, 
      *       <b>false</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeletePending {
         get => NumGet(this, 20, "char")
@@ -53,7 +53,7 @@ class FILE_STANDARD_INFO extends Win32Struct
     /**
      * <b>TRUE</b> if  the  file is a directory; otherwise, 
      *       <b>false</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Directory {
         get => NumGet(this, 21, "char")

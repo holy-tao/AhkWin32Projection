@@ -30,7 +30,7 @@ class CLUSCTL_GROUP_GET_LAST_MOVE_TIME_OUTPUT extends Win32Struct
     GetSystemTime{
         get {
             if(!this.HasProp("__GetSystemTime"))
-                this.__GetSystemTime := SYSTEMTIME(this.ptr + 8)
+                this.__GetSystemTime := SYSTEMTIME(8, this)
             return this.__GetSystemTime
         }
     }

@@ -12,7 +12,7 @@ class TRACE_STACK_CACHING_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 0, "char")

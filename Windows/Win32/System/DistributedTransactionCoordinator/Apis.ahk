@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  * @version v4.0.30319
@@ -357,8 +357,8 @@ class DistributedTransactionCoordinator {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Byte>} i_pszHost 
-     * @param {Pointer<Byte>} i_pszTmName 
+     * @param {PSTR} i_pszHost 
+     * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
@@ -367,8 +367,8 @@ class DistributedTransactionCoordinator {
      * @returns {HRESULT} 
      */
     static DtcGetTransactionManager(i_pszHost, i_pszTmName, i_riid, i_dwReserved1, i_wcbReserved2, i_pvReserved2, o_ppvObject) {
-        i_pszHost := i_pszHost is String? StrPtr(i_pszHost) : i_pszHost
-        i_pszTmName := i_pszTmName is String? StrPtr(i_pszTmName) : i_pszTmName
+        i_pszHost := i_pszHost is String ? StrPtr(i_pszHost) : i_pszHost
+        i_pszTmName := i_pszTmName is String ? StrPtr(i_pszTmName) : i_pszTmName
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManager", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, "ptr", o_ppvObject, "CDecl int")
         if(result != 0)
@@ -379,8 +379,8 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<Byte>} i_pszHost 
-     * @param {Pointer<Byte>} i_pszTmName 
+     * @param {PSTR} i_pszHost 
+     * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_dwReserved1 
      * @param {Integer} i_wcbReserved2 
@@ -389,8 +389,8 @@ class DistributedTransactionCoordinator {
      * @returns {HRESULT} 
      */
     static DtcGetTransactionManagerC(i_pszHost, i_pszTmName, i_riid, i_dwReserved1, i_wcbReserved2, i_pvReserved2, o_ppvObject) {
-        i_pszHost := i_pszHost is String? StrPtr(i_pszHost) : i_pszHost
-        i_pszTmName := i_pszTmName is String? StrPtr(i_pszTmName) : i_pszTmName
+        i_pszHost := i_pszHost is String ? StrPtr(i_pszHost) : i_pszHost
+        i_pszTmName := i_pszTmName is String ? StrPtr(i_pszTmName) : i_pszTmName
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerC", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_dwReserved1, "ushort", i_wcbReserved2, "ptr", i_pvReserved2, "ptr", o_ppvObject, "CDecl int")
         if(result != 0)
@@ -401,8 +401,8 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<Byte>} i_pszHost 
-     * @param {Pointer<Byte>} i_pszTmName 
+     * @param {PSTR} i_pszHost 
+     * @param {PSTR} i_pszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_grfOptions 
      * @param {Pointer<Void>} i_pvConfigParams 
@@ -410,8 +410,8 @@ class DistributedTransactionCoordinator {
      * @returns {HRESULT} 
      */
     static DtcGetTransactionManagerExA(i_pszHost, i_pszTmName, i_riid, i_grfOptions, i_pvConfigParams, o_ppvObject) {
-        i_pszHost := i_pszHost is String? StrPtr(i_pszHost) : i_pszHost
-        i_pszTmName := i_pszTmName is String? StrPtr(i_pszTmName) : i_pszTmName
+        i_pszHost := i_pszHost is String ? StrPtr(i_pszHost) : i_pszHost
+        i_pszTmName := i_pszTmName is String ? StrPtr(i_pszTmName) : i_pszTmName
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExA", "ptr", i_pszHost, "ptr", i_pszTmName, "ptr", i_riid, "uint", i_grfOptions, "ptr", i_pvConfigParams, "ptr", o_ppvObject, "CDecl int")
         if(result != 0)
@@ -422,8 +422,8 @@ class DistributedTransactionCoordinator {
 
     /**
      * 
-     * @param {Pointer<Char>} i_pwszHost 
-     * @param {Pointer<Char>} i_pwszTmName 
+     * @param {PWSTR} i_pwszHost 
+     * @param {PWSTR} i_pwszTmName 
      * @param {Pointer<Guid>} i_riid 
      * @param {Integer} i_grfOptions 
      * @param {Pointer<Void>} i_pvConfigParams 
@@ -431,8 +431,8 @@ class DistributedTransactionCoordinator {
      * @returns {HRESULT} 
      */
     static DtcGetTransactionManagerExW(i_pwszHost, i_pwszTmName, i_riid, i_grfOptions, i_pvConfigParams, o_ppvObject) {
-        i_pwszHost := i_pwszHost is String? StrPtr(i_pwszHost) : i_pwszHost
-        i_pwszTmName := i_pwszTmName is String? StrPtr(i_pwszTmName) : i_pwszTmName
+        i_pwszHost := i_pwszHost is String ? StrPtr(i_pwszHost) : i_pwszHost
+        i_pwszTmName := i_pwszTmName is String ? StrPtr(i_pwszTmName) : i_pwszTmName
 
         result := DllCall("XOLEHLP.dll\DtcGetTransactionManagerExW", "ptr", i_pwszHost, "ptr", i_pwszTmName, "ptr", i_riid, "uint", i_grfOptions, "ptr", i_pvConfigParams, "ptr", o_ppvObject, "CDecl int")
         if(result != 0)

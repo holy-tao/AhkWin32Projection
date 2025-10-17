@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Shutdown
  * @version v4.0.30319
@@ -77,8 +77,8 @@ class Shutdown {
 ;@region Methods
     /**
      * Initiates a shutdown and optional restart of the specified computer.
-     * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<Byte>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
+     * @param {PSTR} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {PSTR} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This string is also stored as a comment in the event log entry.
      * 
@@ -95,11 +95,11 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>The time-out value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b> seconds.
      * 
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
-     * @param {Integer} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. Note that this can result in data loss.
+     * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. Note that this can result in data loss.
      * 
      * If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
-     * @param {Integer} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -107,8 +107,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         A_LastError := 0
 
@@ -121,8 +121,8 @@ class Shutdown {
 
     /**
      * Initiates a shutdown and optional restart of the specified computer.
-     * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<Char>} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
+     * @param {PWSTR} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {PWSTR} lpMessage The  message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>This string is also stored as a comment in the event log entry.
      * 
@@ -139,11 +139,11 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>The time-out value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b> seconds.
      * 
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
-     * @param {Integer} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. Note that this can result in data loss.
+     * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. Note that this can result in data loss.
      * 
      * If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
-     * @param {Integer} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -151,8 +151,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         A_LastError := 0
 
@@ -165,8 +165,8 @@ class Shutdown {
 
     /**
      * Stops a system shutdown that has been initiated.
-     * @param {Pointer<Byte>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PSTR} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -174,7 +174,7 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static AbortSystemShutdownA(lpMachineName) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
         A_LastError := 0
 
@@ -187,8 +187,8 @@ class Shutdown {
 
     /**
      * Stops a system shutdown that has been initiated.
-     * @param {Pointer<Char>} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {PWSTR} lpMachineName The network name of the computer where the shutdown is to be stopped. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function stops the shutdown on the local computer.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -196,7 +196,7 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static AbortSystemShutdownW(lpMachineName) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
 
         A_LastError := 0
 
@@ -209,8 +209,8 @@ class Shutdown {
 
     /**
      * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown.
-     * @param {Pointer<Byte>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<Byte>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
+     * @param {PSTR} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {PSTR} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
      * 
      * 
@@ -233,8 +233,8 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>The time-out value is limited to MAX_SHUTDOWN_TIMEOUT seconds.
      * 
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
-     * @param {Integer} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
-     * @param {Integer} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
+     * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
+     * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
      * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * 
@@ -244,7 +244,7 @@ class Shutdown {
      * If this parameter is zero, the default is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
      * 
      * <b>Windows XP:  </b>System state information is not saved during an unplanned system shutdown. The preceding text does not apply.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -252,8 +252,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExA(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         A_LastError := 0
 
@@ -266,8 +266,8 @@ class Shutdown {
 
     /**
      * Initiates a shutdown and optional restart of the specified computer, and optionally records the reason for the shutdown.
-     * @param {Pointer<Char>} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
-     * @param {Pointer<Char>} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
+     * @param {PWSTR} lpMachineName The network name of the computer to be shut down. If <i>lpMachineName</i> is <b>NULL</b> or an empty string, the function shuts down the local computer.
+     * @param {PWSTR} lpMessage The message to be displayed in the shutdown dialog box. This parameter can be <b>NULL</b> if no message is required. 
      * 
      * 
      * 
@@ -290,8 +290,8 @@ class Shutdown {
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>The time-out value is limited to MAX_SHUTDOWN_TIMEOUT seconds.
      * 
      * <b>Windows Server 2003 and Windows XP with SP1:  </b>If the computer to be shut down is a Terminal Services server, the system displays a dialog box to all local and remote users warning them that shutdown has been initiated. The dialog box includes who requested the shutdown, the display message (see <i>lpMessage</i>), and how much time there is until the server is shut down.
-     * @param {Integer} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
-     * @param {Integer} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
+     * @param {BOOL} bForceAppsClosed If this parameter is <b>TRUE</b>, applications with unsaved changes are to be forcibly closed. If this parameter is <b>FALSE</b>, the system displays a dialog box instructing the user to close the applications.
+     * @param {BOOL} bRebootAfterShutdown If this parameter is <b>TRUE</b>, the computer is to restart immediately after shutting down. If this parameter is <b>FALSE</b>, the system flushes all caches to disk  and  safely powers down the system.
      * @param {Integer} dwReason The reason for initiating the shutdown. This parameter must be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>. 
      * 
@@ -301,7 +301,7 @@ class Shutdown {
      * If this parameter is zero, the default is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
      * 
      * <b>Windows XP:  </b>System state information is not saved during an unplanned system shutdown. The preceding text does not apply.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -309,8 +309,8 @@ class Shutdown {
      * @since windows5.1.2600
      */
     static InitiateSystemShutdownExW(lpMachineName, lpMessage, dwTimeout, bForceAppsClosed, bRebootAfterShutdown, dwReason) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         A_LastError := 0
 
@@ -323,8 +323,8 @@ class Shutdown {
 
     /**
      * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart.
-     * @param {Pointer<Byte>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
-     * @param {Pointer<Byte>} lpMessage The message to be displayed in the interactive shutdown dialog box.
+     * @param {PSTR} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
+     * @param {PSTR} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
@@ -546,8 +546,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static InitiateShutdownA(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         result := DllCall("ADVAPI32.dll\InitiateShutdownA", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, "uint", dwShutdownFlags, "uint", dwReason, "uint")
         return result
@@ -555,8 +555,8 @@ class Shutdown {
 
     /**
      * Initiates a shutdown and restart of the specified computer, and restarts any applications that have been registered for restart.
-     * @param {Pointer<Char>} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
-     * @param {Pointer<Char>} lpMessage The message to be displayed in the interactive shutdown dialog box.
+     * @param {PWSTR} lpMachineName The name of the computer to be shut down. If the value of this parameter is <b>NULL</b>, the local computer is shut down.
+     * @param {PWSTR} lpMessage The message to be displayed in the interactive shutdown dialog box.
      * @param {Integer} dwGracePeriod The number of seconds to wait before shutting down the computer. If the value of this parameter is zero, the computer is shut down immediately. This value is limited to <b>MAX_SHUTDOWN_TIMEOUT</b>.
      * 
      * If the value of this parameter is greater than zero, and the <i>dwShutdownFlags</i> parameter specifies the flag <b>SHUTDOWN_GRACE_OVERRIDE</b>, the function fails and returns the error code <b>ERROR_BAD_ARGUMENTS</b>.
@@ -778,8 +778,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static InitiateShutdownW(lpMachineName, lpMessage, dwGracePeriod, dwShutdownFlags, dwReason) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
-        lpMessage := lpMessage is String? StrPtr(lpMessage) : lpMessage
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        lpMessage := lpMessage is String ? StrPtr(lpMessage) : lpMessage
 
         result := DllCall("ADVAPI32.dll\InitiateShutdownW", "ptr", lpMachineName, "ptr", lpMessage, "uint", dwGracePeriod, "uint", dwShutdownFlags, "uint", dwReason, "uint")
         return result
@@ -787,12 +787,12 @@ class Shutdown {
 
     /**
      * 
-     * @param {Pointer<Byte>} pHiberboot 
-     * @param {Integer} bClearFlag 
+     * @param {Pointer<BOOLEAN>} pHiberboot 
+     * @param {BOOLEAN} bClearFlag 
      * @returns {Integer} 
      */
     static CheckForHiberboot(pHiberboot, bClearFlag) {
-        result := DllCall("ADVAPI32.dll\CheckForHiberboot", "char*", pHiberboot, "char", bClearFlag, "uint")
+        result := DllCall("ADVAPI32.dll\CheckForHiberboot", "ptr", pHiberboot, "char", bClearFlag, "uint")
         return result
     }
 
@@ -803,7 +803,7 @@ class Shutdown {
      * <a href="https://docs.microsoft.com/windows/desktop/Shutdown/system-shutdown-reason-codes">system shutdown reason codes</a>.
      * 
      * If this parameter is zero, the SHTDN_REASON_FLAG_PLANNED reason code  will not be set and therefore the default action is an undefined shutdown that is logged as "No title for this reason could be found". By default, it is also an unplanned shutdown. Depending on how the system is configured, an unplanned shutdown triggers the creation of a file that contains the system state information, which can delay shutdown. Therefore, do not use zero for this parameter.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the shutdown has been initiated. It does not indicate whether the shutdown will succeed. It is possible that the system, the user, or another application will abort the shutdown.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the shutdown has been initiated. It does not indicate whether the shutdown will succeed. It is possible that the system, the user, or another application will abort the shutdown.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -822,7 +822,7 @@ class Shutdown {
 
     /**
      * Locks the workstation's display.
-     * @returns {Integer} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the operation has been initiated. It does not indicate whether the workstation has been successfully locked.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero. Because the function executes asynchronously, a nonzero return value indicates that the operation has been initiated. It does not indicate whether the workstation has been successfully locked.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -841,9 +841,9 @@ class Shutdown {
 
     /**
      * Indicates that the system cannot be shut down and sets a reason string to be displayed to the user if system shutdown is initiated.
-     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
-     * @param {Pointer<Char>} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
-     * @returns {Integer} If the call succeeds, the return value is nonzero.
+     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {PWSTR} pwszReason The reason the application must block system shutdown. This string will be truncated for display purposes after MAX_STR_BLOCKREASON characters.
+     * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -851,7 +851,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonCreate(hWnd, pwszReason) {
-        pwszReason := pwszReason is String? StrPtr(pwszReason) : pwszReason
+        pwszReason := pwszReason is String ? StrPtr(pwszReason) : pwszReason
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -864,10 +865,10 @@ class Shutdown {
 
     /**
      * Retrieves the reason string set by the ShutdownBlockReasonCreate function.
-     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
-     * @param {Pointer<Char>} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
+     * @param {HWND} hWnd A handle to the main window of the application.
+     * @param {PWSTR} pwszBuff A pointer to a buffer that receives the reason string. If this parameter is <b>NULL</b>, the function retrieves the number of characters in the reason string.
      * @param {Pointer<UInt32>} pcchBuff A pointer to a variable that specifies the size of the <i>pwszBuff</i> buffer, in characters. If the function succeeds, this variable receives the number of characters copied into the buffer, including the <b>null</b>-terminating character. If the buffer is too small, the variable receives the required buffer size, in characters, not including the <b>null</b>-terminating character.
-     * @returns {Integer} If the call succeeds, the return value is nonzero.
+     * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -875,7 +876,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
-        pwszBuff := pwszBuff is String? StrPtr(pwszBuff) : pwszBuff
+        pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -888,8 +890,8 @@ class Shutdown {
 
     /**
      * Indicates that the system can be shut down and frees the reason string.
-     * @param {Pointer<Void>} hWnd A handle to the main window of the application.
-     * @returns {Integer} If the call succeeds, the return value is nonzero.
+     * @param {HWND} hWnd A handle to the main window of the application.
+     * @returns {BOOL} If the call succeeds, the return value is nonzero.
      * 
      * If the call fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -897,6 +899,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonDestroy(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShutdownBlockReasonDestroy", "ptr", hWnd, "int")

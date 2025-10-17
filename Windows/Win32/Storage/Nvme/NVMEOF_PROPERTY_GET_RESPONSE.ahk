@@ -39,7 +39,7 @@ class NVMEOF_PROPERTY_GET_RESPONSE extends Win32Struct
     FourBytes{
         get {
             if(!this.HasProp("__FourBytes"))
-                this.__FourBytes := %this.__Class%._FourBytes(this.ptr + 0)
+                this.__FourBytes := %this.__Class%._FourBytes(0, this)
             return this.__FourBytes
         }
     }

@@ -30,7 +30,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 512)
+                this.__dot11Ssid := DOT11_SSID(512, this)
             return this.__dot11Ssid
         }
     }
@@ -57,7 +57,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
 
     /**
      * Indicates whether the network is connectable or not.    If set to <b>TRUE</b>, the network is connectable, otherwise the network cannot be connected to.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNetworkConnectable {
         get => NumGet(this, 556, "int")
@@ -229,7 +229,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
      * Specifies if there are more than <b>WLAN_MAX_PHY_TYPE_NUMBER</b> PHY types supported. 
      * 
      * When this member is set to <b>TRUE</b>, an application must call <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/nf-wlanapi-wlangetnetworkbsslist">WlanGetNetworkBssList</a> to get the complete list of PHY types. The returned  <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_list">WLAN_BSS_LIST</a> structure has an array of <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ns-wlanapi-wlan_bss_entry">WLAN_BSS_ENTRY</a> structures. The <i>uPhyId</i> member of the <b>WLAN_BSS_ENTRY</b>   structure contains the PHY type for an entry.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMorePhyTypes {
         get => NumGet(this, 600, "int")
@@ -247,7 +247,7 @@ class WLAN_AVAILABLE_NETWORK extends Win32Struct
 
     /**
      * Indicates whether security is enabled on the network.  A value of <b>TRUE</b> indicates that security is enabled, otherwise it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSecurityEnabled {
         get => NumGet(this, 608, "int")

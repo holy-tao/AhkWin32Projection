@@ -57,7 +57,7 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct
     ftimeDeleted{
         get {
             if(!this.HasProp("__ftimeDeleted"))
-                this.__ftimeDeleted := FILETIME(this.ptr + 16)
+                this.__ftimeDeleted := FILETIME(16, this)
             return this.__ftimeDeleted
         }
     }
@@ -69,7 +69,7 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct
     ftimeCreated{
         get {
             if(!this.HasProp("__ftimeCreated"))
-                this.__ftimeCreated := FILETIME(this.ptr + 24)
+                this.__ftimeCreated := FILETIME(24, this)
             return this.__ftimeCreated
         }
     }
@@ -90,7 +90,7 @@ class DS_REPL_VALUE_META_DATA_BLOB extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(this.ptr + 40)
+                this.__ftimeLastOriginatingChange := FILETIME(40, this)
             return this.__ftimeLastOriginatingChange
         }
     }

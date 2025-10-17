@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\PPP_NBFCP_INFO.ahk
 #Include .\PPP_IPCP_INFO2.ahk
 #Include .\PPP_IPXCP_INFO.ahk
@@ -22,11 +23,14 @@ class RAS_CONNECTION_2 extends Win32Struct
 
     /**
      * A handle to the connection.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hConnection {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hConnection{
+        get {
+            if(!this.HasProp("__hConnection"))
+                this.__hConnection := HANDLE(0, this)
+            return this.__hConnection
+        }
     }
 
     /**
@@ -64,7 +68,7 @@ class RAS_CONNECTION_2 extends Win32Struct
     PppInfo2{
         get {
             if(!this.HasProp("__PppInfo2"))
-                this.__PppInfo2 := PPP_INFO_2(this.ptr + 536)
+                this.__PppInfo2 := PPP_INFO_2(536, this)
             return this.__PppInfo2
         }
     }

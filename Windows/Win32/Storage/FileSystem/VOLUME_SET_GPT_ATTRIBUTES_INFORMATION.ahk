@@ -20,7 +20,7 @@ class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RevertOnClose {
         get => NumGet(this, 8, "char")
@@ -28,7 +28,7 @@ class VOLUME_SET_GPT_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ApplyToAllConnectedVolumes {
         get => NumGet(this, 9, "char")

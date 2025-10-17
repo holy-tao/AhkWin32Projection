@@ -68,7 +68,7 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMinPosition{
         get {
             if(!this.HasProp("__ptMinPosition"))
-                this.__ptMinPosition := POINT(this.ptr + 16)
+                this.__ptMinPosition := POINT(16, this)
             return this.__ptMinPosition
         }
     }
@@ -82,7 +82,7 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMaxPosition{
         get {
             if(!this.HasProp("__ptMaxPosition"))
-                this.__ptMaxPosition := POINT(this.ptr + 24)
+                this.__ptMaxPosition := POINT(24, this)
             return this.__ptMaxPosition
         }
     }
@@ -96,7 +96,7 @@ class WINDOWPLACEMENT extends Win32Struct
     rcNormalPosition{
         get {
             if(!this.HasProp("__rcNormalPosition"))
-                this.__rcNormalPosition := RECT(this.ptr + 32)
+                this.__rcNormalPosition := RECT(32, this)
             return this.__rcNormalPosition
         }
     }

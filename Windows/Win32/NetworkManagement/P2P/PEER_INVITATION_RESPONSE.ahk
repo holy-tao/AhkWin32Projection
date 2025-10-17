@@ -25,7 +25,7 @@ class PEER_INVITATION_RESPONSE extends Win32Struct
 
     /**
      * Reserved. This member must be set to <b>NULL</b>, and is set exclusively by the Peer Collaboration infrastructure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzMessage {
         get => NumGet(this, 8, "ptr")

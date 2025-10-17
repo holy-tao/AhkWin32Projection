@@ -57,7 +57,7 @@ class JOBOBJECT_IO_RATE_CONTROL_INFORMATION extends Win32Struct
      * The NT device name for the volume to which you want to apply the policy for the I/O rate. For information about NT device names, see <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/nt-device-names">NT Device Names</a>.
      * 
      * If this member is <b>NULL</b>, the policy for the I/O rate applies to all of the volumes for the operating system. For example, if this member is <b>NULL</b> and the <b>MaxIops</b> member is 100, the maximum limit for the I/O rate for each volume is set to 100 IOPS, instead of setting an aggregate limit for the I/O rate across all volumes of 100 IOPS.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     VolumeName {
         get => NumGet(this, 24, "ptr")

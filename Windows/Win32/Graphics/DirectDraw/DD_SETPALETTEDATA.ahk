@@ -33,7 +33,7 @@ class DD_SETPALETTEDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_palette_global">DD_PALETTE_GLOBAL</a> structure that specifies the palette to set to the surface.
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<DD_PALETTE_GLOBAL>}
      */
     lpDDPalette {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class DD_SETPALETTEDATA extends Win32Struct
 
     /**
      * Indicates whether to attach this palette to the surface.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Attach {
         get => NumGet(this, 40, "int")

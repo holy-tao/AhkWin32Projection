@@ -20,7 +20,7 @@ class InternetCookieHistory extends Win32Struct
 
     /**
      * If true, the cookie was accepted.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAccepted {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class InternetCookieHistory extends Win32Struct
 
     /**
      * If true, the cookie was leashed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLeashed {
         get => NumGet(this, 4, "int")
@@ -38,7 +38,7 @@ class InternetCookieHistory extends Win32Struct
 
     /**
      * If true, the cookie was downgraded.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDowngraded {
         get => NumGet(this, 8, "int")
@@ -47,7 +47,7 @@ class InternetCookieHistory extends Win32Struct
 
     /**
      * If true, the cookie was rejected.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRejected {
         get => NumGet(this, 12, "int")

@@ -42,7 +42,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := MFP_EVENT_HEADER(this.ptr + 0)
+                this.__header := MFP_EVENT_HEADER(0, this)
             return this.__header
         }
     }
@@ -62,7 +62,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
      * The application should set this member to either <b>TRUE</b> or <b>FALSE</b> before returning from the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nf-mfplay-imfpmediaplayercallback-onmediaplayerevent">IMFPMediaPlayerCallback::OnMediaPlayerEvent</a> event callback. 
      * 
      * If the value is <b>TRUE</b> when the callback returns, MFPlay continues the authentication attempt. Otherwise, authentication fails.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fProceedWithAuthentication {
         get => NumGet(this, 40, "int")
@@ -80,7 +80,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The original URL that requires authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszURL {
         get => NumGet(this, 48, "ptr")
@@ -89,7 +89,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the site or proxy that requires authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSite {
         get => NumGet(this, 56, "ptr")
@@ -98,7 +98,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the realm for this authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRealm {
         get => NumGet(this, 64, "ptr")
@@ -107,7 +107,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * The name of the authentication package, such as "Digest" or "MBS_BASIC".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPackage {
         get => NumGet(this, 72, "ptr")

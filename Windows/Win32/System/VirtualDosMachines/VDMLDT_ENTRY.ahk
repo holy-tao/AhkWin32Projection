@@ -65,22 +65,130 @@ class VDMLDT_ENTRY extends Win32Struct
     
     }
 
+    class _Bits extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - BaseMid
+         * - Type
+         * - Dpl
+         * - Pres
+         * - LimitHi
+         * - Sys
+         * - Reserved_0
+         * - Default_Big
+         * - Granularity
+         * - BaseHi
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BaseMid {
+            get => (this._bitfield >> 0) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Type {
+            get => (this._bitfield >> 8) & 0x1F
+            set => this._bitfield := ((value & 0x1F) << 8) | (this._bitfield & ~(0x1F << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Dpl {
+            get => (this._bitfield >> 13) & 0x3
+            set => this._bitfield := ((value & 0x3) << 13) | (this._bitfield & ~(0x3 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Pres {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LimitHi {
+            get => (this._bitfield >> 16) & 0xF
+            set => this._bitfield := ((value & 0xF) << 16) | (this._bitfield & ~(0xF << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Sys {
+            get => (this._bitfield >> 20) & 0x1
+            set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved_0 {
+            get => (this._bitfield >> 21) & 0x1
+            set => this._bitfield := ((value & 0x1) << 21) | (this._bitfield & ~(0x1 << 21))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Default_Big {
+            get => (this._bitfield >> 22) & 0x1
+            set => this._bitfield := ((value & 0x1) << 22) | (this._bitfield & ~(0x1 << 22))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Granularity {
+            get => (this._bitfield >> 23) & 0x1
+            set => this._bitfield := ((value & 0x1) << 23) | (this._bitfield & ~(0x1 << 23))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BaseHi {
+            get => (this._bitfield >> 24) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
+        }
+    
+    }
+
     /**
      * @type {_Bytes}
      */
     Bytes{
         get {
             if(!this.HasProp("__Bytes"))
-                this.__Bytes := %this.__Class%._Bytes(this.ptr + 4)
+                this.__Bytes := %this.__Class%._Bytes(4, this)
             return this.__Bytes
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_Bits}
      */
-    Bits {
-        get => NumGet(this, 4, "uint")
-        set => NumPut("uint", value, this, 4)
+    Bits{
+        get {
+            if(!this.HasProp("__Bits"))
+                this.__Bits := %this.__Class%._Bits(4, this)
+            return this.__Bits
+        }
     }
 }

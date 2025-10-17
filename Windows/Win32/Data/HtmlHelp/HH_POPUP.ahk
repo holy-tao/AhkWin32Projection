@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\POINT.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -26,11 +27,14 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Instance handle of the program or DLL to retrieve the string resource from. Ignored if <i>idString</i> is zero, or if <i>idString</i> specifies a file name.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hinst {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hinst{
+        get {
+            if(!this.HasProp("__hinst"))
+                this.__hinst := HINSTANCE(8, this)
+            return this.__hinst
+        }
     }
 
     /**
@@ -58,14 +62,14 @@ class HH_POPUP extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 32)
+                this.__pt := POINT(32, this)
             return this.__pt
         }
     }
 
     /**
      * Specifies the RGB value to use for the foreground color of the pop-up window. To use the system color for the window text, specify -1.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrForeground {
         get => NumGet(this, 40, "uint")
@@ -74,7 +78,7 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Specifies the RGB value to use for the background color of the pop-up window. To use the system color for the window background, specify -1.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrBackground {
         get => NumGet(this, 44, "uint")
@@ -88,7 +92,7 @@ class HH_POPUP extends Win32Struct
     rcMargins{
         get {
             if(!this.HasProp("__rcMargins"))
-                this.__rcMargins := RECT(this.ptr + 48)
+                this.__rcMargins := RECT(48, this)
             return this.__rcMargins
         }
     }

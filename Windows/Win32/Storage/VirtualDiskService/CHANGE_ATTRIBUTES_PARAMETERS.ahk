@@ -30,19 +30,53 @@ class CHANGE_ATTRIBUTES_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    /**
-     * @type {Integer}
-     */
-    MbrPartInfo {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    class _MbrPartInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {BOOLEAN}
+         */
+        bootIndicator {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
+    class _GptPartInfo extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        attributes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_MbrPartInfo}
      */
-    GptPartInfo {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MbrPartInfo{
+        get {
+            if(!this.HasProp("__MbrPartInfo"))
+                this.__MbrPartInfo := %this.__Class%._MbrPartInfo(8, this)
+            return this.__MbrPartInfo
+        }
+    }
+
+    /**
+     * @type {_GptPartInfo}
+     */
+    GptPartInfo{
+        get {
+            if(!this.HasProp("__GptPartInfo"))
+                this.__GptPartInfo := %this.__Class%._GptPartInfo(8, this)
+            return this.__GptPartInfo
+        }
     }
 }

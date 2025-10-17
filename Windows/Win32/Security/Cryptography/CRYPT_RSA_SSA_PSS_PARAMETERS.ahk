@@ -23,7 +23,7 @@ class CRYPT_RSA_SSA_PSS_PARAMETERS extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__HashAlgorithm
         }
     }
@@ -35,7 +35,7 @@ class CRYPT_RSA_SSA_PSS_PARAMETERS extends Win32Struct
     MaskGenAlgorithm{
         get {
             if(!this.HasProp("__MaskGenAlgorithm"))
-                this.__MaskGenAlgorithm := CRYPT_MASK_GEN_ALGORITHM(this.ptr + 24)
+                this.__MaskGenAlgorithm := CRYPT_MASK_GEN_ALGORITHM(24, this)
             return this.__MaskGenAlgorithm
         }
     }

@@ -19,7 +19,7 @@ class KDDEBUGGER_DATA64 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := DBGKD_DEBUG_DATA_HEADER64(this.ptr + 0)
+                this.__Header := DBGKD_DEBUG_DATA_HEADER64(0, this)
             return this.__Header
         }
     }

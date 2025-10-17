@@ -150,19 +150,15 @@ class AUTHENTICODE_TS_EXTRA_CERT_CHAIN_POLICY_PARA extends Win32Struct
 
     /**
      * BOOL flag. If <b>TRUE</b>, a signer has been verified by a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) as meeting certain minimum financial standards.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCommercial {
         get => NumGet(this, 8, "int")
         set => NumPut("int", value, this, 8)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 12
     }
 }

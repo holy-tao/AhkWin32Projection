@@ -30,7 +30,7 @@ class WitnessTagUpdateHelper extends Win32Struct
     paxosToSet{
         get {
             if(!this.HasProp("__paxosToSet"))
-                this.__paxosToSet := PaxosTagCStruct(this.ptr + 8)
+                this.__paxosToSet := PaxosTagCStruct(8, this)
             return this.__paxosToSet
         }
     }
@@ -42,7 +42,7 @@ class WitnessTagUpdateHelper extends Win32Struct
     paxosToValidate{
         get {
             if(!this.HasProp("__paxosToValidate"))
-                this.__paxosToValidate := PaxosTagCStruct(this.ptr + 88)
+                this.__paxosToValidate := PaxosTagCStruct(88, this)
             return this.__paxosToValidate
         }
     }

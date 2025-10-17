@@ -38,7 +38,7 @@ class SECURITY_ATTRIBUTES extends Win32Struct
 
     /**
      * A Boolean value that specifies whether the returned handle is inherited when a new process is created. If this member is **TRUE**, the new process inherits the handle.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInheritHandle {
         get => NumGet(this, 16, "int")

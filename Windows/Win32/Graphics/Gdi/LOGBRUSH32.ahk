@@ -74,7 +74,7 @@ class LOGBRUSH32 extends Win32Struct
 
     /**
      * The color in which the brush is to be drawn. If <b>lbStyle</b> is the BS_HOLLOW or BS_PATTERN style, <b>lbColor</b> is ignored.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     lbColor {
         get => NumGet(this, 4, "uint")

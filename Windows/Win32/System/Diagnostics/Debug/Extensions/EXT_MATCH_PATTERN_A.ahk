@@ -12,7 +12,7 @@ class EXT_MATCH_PATTERN_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Str {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class EXT_MATCH_PATTERN_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Pattern {
         get => NumGet(this, 8, "ptr")

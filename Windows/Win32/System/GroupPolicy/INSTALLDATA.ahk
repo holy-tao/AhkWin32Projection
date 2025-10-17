@@ -30,7 +30,7 @@ class INSTALLDATA extends Win32Struct
     Spec{
         get {
             if(!this.HasProp("__Spec"))
-                this.__Spec := INSTALLSPEC(this.ptr + 8)
+                this.__Spec := INSTALLSPEC(8, this)
             return this.__Spec
         }
     }

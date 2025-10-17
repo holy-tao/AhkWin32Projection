@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Direct3D12\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
+#Include ..\..\..\Graphics\Direct3D12\D3D12_GPU_DESCRIPTOR_HANDLE.ahk
 
 /**
  * Specifies parameters to IDMLDevice::CreateBindingTable and IDMLBindingTable::Reset.
@@ -31,22 +33,28 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
      * 
      * A valid CPU descriptor handle representing the start of a range into a constant buffer view (CBV)/shader resource view (SRV)/ unordered access view (UAV) descriptor heap into which
      *         DirectML may write descriptors.
-     * @type {Pointer}
+     * @type {D3D12_CPU_DESCRIPTOR_HANDLE}
      */
-    CPUDescriptorHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    CPUDescriptorHandle{
+        get {
+            if(!this.HasProp("__CPUDescriptorHandle"))
+                this.__CPUDescriptorHandle := D3D12_CPU_DESCRIPTOR_HANDLE(8, this)
+            return this.__CPUDescriptorHandle
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_gpu_descriptor_handle">D3D12_GPU_DESCRIPTOR_HANDLE</a></b>
      * 
      * A valid GPU descriptor handle representing the start of a range into a constant buffer view (CBV)/shader resource view (SRV)/ unordered access view (UAV) descriptor heap that DirectML may use to bind resources to the pipeline.
-     * @type {Integer}
+     * @type {D3D12_GPU_DESCRIPTOR_HANDLE}
      */
-    GPUDescriptorHandle {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    GPUDescriptorHandle{
+        get {
+            if(!this.HasProp("__GPUDescriptorHandle"))
+                this.__GPUDescriptorHandle := D3D12_GPU_DESCRIPTOR_HANDLE(16, this)
+            return this.__GPUDescriptorHandle
+        }
     }
 
     /**

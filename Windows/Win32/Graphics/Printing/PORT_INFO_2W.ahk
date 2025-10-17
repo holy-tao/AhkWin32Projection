@@ -13,7 +13,7 @@ class PORT_INFO_2W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPortName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class PORT_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMonitorName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class PORT_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDescription {
         get => NumGet(this, 16, "ptr")

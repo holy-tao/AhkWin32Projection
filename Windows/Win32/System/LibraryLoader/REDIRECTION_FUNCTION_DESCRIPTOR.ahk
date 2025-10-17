@@ -12,7 +12,7 @@ class REDIRECTION_FUNCTION_DESCRIPTOR extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     DllName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class REDIRECTION_FUNCTION_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     FunctionName {
         get => NumGet(this, 8, "ptr")

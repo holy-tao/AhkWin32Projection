@@ -198,7 +198,7 @@ class EXTLOGPEN extends Win32Struct
      *  
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro is used to generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     elpColor {
         get => NumGet(this, 12, "uint")

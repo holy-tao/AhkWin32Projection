@@ -18,7 +18,7 @@ class MPIO_PASS_THROUGH_PATH_DIRECT32 extends Win32Struct
     PassThrough{
         get {
             if(!this.HasProp("__PassThrough"))
-                this.__PassThrough := SCSI_PASS_THROUGH_DIRECT32(this.ptr + 0)
+                this.__PassThrough := SCSI_PASS_THROUGH_DIRECT32(0, this)
             return this.__PassThrough
         }
     }

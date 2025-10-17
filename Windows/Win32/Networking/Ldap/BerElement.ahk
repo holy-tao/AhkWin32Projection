@@ -26,7 +26,7 @@ class BerElement extends Win32Struct
 
     /**
      * Pointer to an opaque buffer. Do not attempt to access it.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     opaque {
         get => NumGet(this, 0, "ptr")

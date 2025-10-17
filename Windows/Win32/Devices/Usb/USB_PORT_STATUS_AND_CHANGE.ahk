@@ -31,7 +31,7 @@ class USB_PORT_STATUS_AND_CHANGE extends Win32Struct
     PortStatus{
         get {
             if(!this.HasProp("__PortStatus"))
-                this.__PortStatus := USB_PORT_STATUS(this.ptr + 0)
+                this.__PortStatus := USB_PORT_STATUS(0, this)
             return this.__PortStatus
         }
     }
@@ -42,7 +42,7 @@ class USB_PORT_STATUS_AND_CHANGE extends Win32Struct
     PortChange{
         get {
             if(!this.HasProp("__PortChange"))
-                this.__PortChange := USB_PORT_CHANGE(this.ptr + 16)
+                this.__PortChange := USB_PORT_CHANGE(16, this)
             return this.__PortChange
         }
     }

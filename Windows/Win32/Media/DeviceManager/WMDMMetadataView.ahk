@@ -12,7 +12,7 @@ class WMDMMetadataView extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszViewName {
         get => NumGet(this, 0, "ptr")

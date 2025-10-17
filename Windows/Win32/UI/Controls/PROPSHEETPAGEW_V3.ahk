@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -28,15 +31,18 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(8, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -52,15 +58,18 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(24, this)
+            return this.__hIcon
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +77,7 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +93,7 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")
@@ -108,7 +117,7 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHeaderTitle {
         get => NumGet(this, 72, "ptr")
@@ -116,7 +125,7 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHeaderSubTitle {
         get => NumGet(this, 80, "ptr")
@@ -124,10 +133,13 @@ class PROPSHEETPAGEW_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hActCtx {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hActCtx{
+        get {
+            if(!this.HasProp("__hActCtx"))
+                this.__hActCtx := HANDLE(88, this)
+            return this.__hActCtx
+        }
     }
 }

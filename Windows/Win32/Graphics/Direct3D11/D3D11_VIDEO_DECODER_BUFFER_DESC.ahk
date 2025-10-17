@@ -124,7 +124,7 @@ class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the video surfaces are partially encrypted.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PartialEncryption {
         get => NumGet(this, 52, "int")
@@ -138,7 +138,7 @@ class D3D11_VIDEO_DECODER_BUFFER_DESC extends Win32Struct
     EncryptedBlockInfo{
         get {
             if(!this.HasProp("__EncryptedBlockInfo"))
-                this.__EncryptedBlockInfo := D3D11_ENCRYPTED_BLOCK_INFO(this.ptr + 56)
+                this.__EncryptedBlockInfo := D3D11_ENCRYPTED_BLOCK_INFO(56, this)
             return this.__EncryptedBlockInfo
         }
     }

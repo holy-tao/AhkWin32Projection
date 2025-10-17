@@ -19,7 +19,7 @@ class KSPROPERTY_CAMERACONTROL_NODE_FOCAL_LENGTH_S extends Win32Struct
     NodeProperty{
         get {
             if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSNODEPROPERTY(this.ptr + 0)
+                this.__NodeProperty := KSNODEPROPERTY(0, this)
             return this.__NodeProperty
         }
     }

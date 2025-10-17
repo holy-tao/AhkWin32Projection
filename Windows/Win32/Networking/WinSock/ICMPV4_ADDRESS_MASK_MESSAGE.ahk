@@ -19,7 +19,7 @@ class ICMPV4_ADDRESS_MASK_MESSAGE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := ICMP_MESSAGE(this.ptr + 0)
+                this.__Header := ICMP_MESSAGE(0, this)
             return this.__Header
         }
     }

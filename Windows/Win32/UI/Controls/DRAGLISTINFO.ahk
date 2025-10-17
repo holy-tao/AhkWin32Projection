@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -27,11 +28,14 @@ class DRAGLISTINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drag list box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(8, this)
+            return this.__hWnd
+        }
     }
 
     /**
@@ -43,7 +47,7 @@ class DRAGLISTINFO extends Win32Struct
     ptCursor{
         get {
             if(!this.HasProp("__ptCursor"))
-                this.__ptCursor := POINT(this.ptr + 16)
+                this.__ptCursor := POINT(16, this)
             return this.__ptCursor
         }
     }

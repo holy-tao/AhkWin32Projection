@@ -24,7 +24,7 @@ class WSABUF extends Win32Struct
 
     /**
      * A pointer to the buffer.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     buf {
         get => NumGet(this, 8, "ptr")

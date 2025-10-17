@@ -19,7 +19,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     envelope{
         get {
             if(!this.HasProp("__envelope"))
-                this.__envelope := GameInputForceFeedbackEnvelope(this.ptr + 0)
+                this.__envelope := GameInputForceFeedbackEnvelope(0, this)
             return this.__envelope
         }
     }
@@ -30,7 +30,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     startMagnitude{
         get {
             if(!this.HasProp("__startMagnitude"))
-                this.__startMagnitude := GameInputForceFeedbackMagnitude(this.ptr + 48)
+                this.__startMagnitude := GameInputForceFeedbackMagnitude(48, this)
             return this.__startMagnitude
         }
     }
@@ -41,7 +41,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     endMagnitude{
         get {
             if(!this.HasProp("__endMagnitude"))
-                this.__endMagnitude := GameInputForceFeedbackMagnitude(this.ptr + 80)
+                this.__endMagnitude := GameInputForceFeedbackMagnitude(80, this)
             return this.__endMagnitude
         }
     }

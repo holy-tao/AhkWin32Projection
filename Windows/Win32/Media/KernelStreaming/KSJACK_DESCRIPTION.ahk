@@ -289,7 +289,7 @@ class KSJACK_DESCRIPTION extends Win32Struct
 
     /**
      * If the audio adapter supports jack-presence detection on the jack, the value of <b>IsConnected</b> indicates whether an endpoint device is plugged into the jack. If <b>IsConnected</b> is <b>TRUE</b>, a device is plugged in. If it is <b>FALSE</b>, the jack is empty. For devices that do not support jack-presence detection, this member is always <b>TRUE</b>. For more information about jack-presence detection, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/audio-endpoint-devices">Audio Endpoint Devices</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsConnected {
         get => NumGet(this, 24, "int")

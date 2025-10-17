@@ -58,7 +58,7 @@ class HTTP_SSL_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string of octets that specifies the name of the entity that issued the certificate.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pServerCertIssuer {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +67,7 @@ class HTTP_SSL_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated string of octets that specifies the name of the entity to which the certificate belongs.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pServerCertSubject {
         get => NumGet(this, 24, "ptr")

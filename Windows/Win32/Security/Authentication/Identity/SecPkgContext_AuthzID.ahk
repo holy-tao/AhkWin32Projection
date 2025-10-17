@@ -20,7 +20,7 @@ class SecPkgContext_AuthzID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     AuthzID {
         get => NumGet(this, 8, "ptr")

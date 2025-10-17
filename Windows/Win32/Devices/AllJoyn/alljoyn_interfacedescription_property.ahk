@@ -12,7 +12,7 @@ class alljoyn_interfacedescription_property extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class alljoyn_interfacedescription_property extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     signature {
         get => NumGet(this, 8, "ptr")

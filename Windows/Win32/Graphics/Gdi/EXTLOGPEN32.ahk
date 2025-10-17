@@ -36,7 +36,7 @@ class EXTLOGPEN32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
     elpColor {
         get => NumGet(this, 12, "uint")

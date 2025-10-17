@@ -34,7 +34,7 @@ class MINIDUMP_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * Determines where to get the memory regions pointed to by the <b>ExceptionPointers</b> member. Set to <b>TRUE</b> if the memory resides in the process being debugged (the target process of the debugger). Otherwise, set to <b>FALSE</b> if the memory resides in the address space of the calling program (the debugger process). If you are accessing local memory (in the calling process) you should not set this member to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ClientPointers {
         get => NumGet(this, 16, "int")

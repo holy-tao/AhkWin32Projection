@@ -29,7 +29,7 @@ class STORAGE_FIRMWARE_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UpgradeSupport {
         get => NumGet(this, 8, "char")
@@ -61,7 +61,7 @@ class STORAGE_FIRMWARE_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FirmwareShared {
         get => NumGet(this, 12, "char")

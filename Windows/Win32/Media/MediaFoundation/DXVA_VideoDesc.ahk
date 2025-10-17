@@ -58,7 +58,7 @@ class DXVA_VideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := DXVA_Frequency(this.ptr + 24)
+                this.__InputSampleFreq := DXVA_Frequency(24, this)
             return this.__InputSampleFreq
         }
     }
@@ -69,7 +69,7 @@ class DXVA_VideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := DXVA_Frequency(this.ptr + 32)
+                this.__OutputFrameFreq := DXVA_Frequency(32, this)
             return this.__OutputFrameFreq
         }
     }

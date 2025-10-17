@@ -23,7 +23,7 @@ class SnmpVarBind extends Win32Struct
     name{
         get {
             if(!this.HasProp("__name"))
-                this.__name := AsnObjectIdentifier(this.ptr + 0)
+                this.__name := AsnObjectIdentifier(0, this)
             return this.__name
         }
     }
@@ -35,7 +35,7 @@ class SnmpVarBind extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := AsnAny(this.ptr + 16)
+                this.__value := AsnAny(16, this)
             return this.__value
         }
     }

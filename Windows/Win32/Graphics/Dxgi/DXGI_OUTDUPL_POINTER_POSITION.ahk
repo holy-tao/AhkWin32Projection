@@ -26,14 +26,14 @@ class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := POINT(this.ptr + 0)
+                this.__Position := POINT(0, this)
             return this.__Position
         }
     }
 
     /**
      * Specifies whether the hardware cursor is visible. <b>TRUE</b> if visible; otherwise, <b>FALSE</b>. If the hardware cursor is not visible, the calling application does not display the cursor in the client.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Visible {
         get => NumGet(this, 8, "int")

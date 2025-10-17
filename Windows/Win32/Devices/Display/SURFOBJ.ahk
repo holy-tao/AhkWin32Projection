@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DHSURF.ahk
+#Include .\HSURF.ahk
+#Include .\DHPDEV.ahk
+#Include .\HDEV.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
 /**
@@ -26,38 +30,50 @@ class SURFOBJ extends Win32Struct
 
     /**
      * Handle to a surface, provided that the surface is device-managed. Otherwise, this member is zero.
-     * @type {Pointer<Void>}
+     * @type {DHSURF}
      */
-    dhsurf {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    dhsurf{
+        get {
+            if(!this.HasProp("__dhsurf"))
+                this.__dhsurf := DHSURF(0, this)
+            return this.__dhsurf
+        }
     }
 
     /**
      * Handle to the surface.
-     * @type {Pointer<Void>}
+     * @type {HSURF}
      */
-    hsurf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hsurf{
+        get {
+            if(!this.HasProp("__hsurf"))
+                this.__hsurf := HSURF(8, this)
+            return this.__hsurf
+        }
     }
 
     /**
      * Identifies the device's <a href="https://docs.microsoft.com/windows-hardware/drivers/">PDEV</a> that is associated with the specified surface.
-     * @type {Pointer<Void>}
+     * @type {DHPDEV}
      */
-    dhpdev {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    dhpdev{
+        get {
+            if(!this.HasProp("__dhpdev"))
+                this.__dhpdev := DHPDEV(16, this)
+            return this.__dhpdev
+        }
     }
 
     /**
      * GDI's logical handle to the PDEV associated with this device.
-     * @type {Pointer<Void>}
+     * @type {HDEV}
      */
-    hdev {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hdev{
+        get {
+            if(!this.HasProp("__hdev"))
+                this.__hdev := HDEV(24, this)
+            return this.__hdev
+        }
     }
 
     /**
@@ -67,7 +83,7 @@ class SURFOBJ extends Win32Struct
     sizlBitmap{
         get {
             if(!this.HasProp("__sizlBitmap"))
-                this.__sizlBitmap := SIZE(this.ptr + 32)
+                this.__sizlBitmap := SIZE(32, this)
             return this.__sizlBitmap
         }
     }

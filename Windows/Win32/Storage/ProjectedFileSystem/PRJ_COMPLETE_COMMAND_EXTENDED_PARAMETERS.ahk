@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\PRJ_DIR_ENTRY_BUFFER_HANDLE.ahk
 
 /**
  * Specifies parameters required for completing certain callbacks.
@@ -42,22 +43,42 @@ class PRJ_COMPLETE_COMMAND_EXTENDED_PARAMETERS extends Win32Struct
     
     }
 
+    class _Enumeration extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * @type {PRJ_DIR_ENTRY_BUFFER_HANDLE}
+         */
+        DirEntryBufferHandle{
+            get {
+                if(!this.HasProp("__DirEntryBufferHandle"))
+                    this.__DirEntryBufferHandle := PRJ_DIR_ENTRY_BUFFER_HANDLE(0, this)
+                return this.__DirEntryBufferHandle
+            }
+        }
+    
+    }
+
     /**
      * @type {_Notification}
      */
     Notification{
         get {
             if(!this.HasProp("__Notification"))
-                this.__Notification := %this.__Class%._Notification(this.ptr + 8)
+                this.__Notification := %this.__Class%._Notification(8, this)
             return this.__Notification
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_Enumeration}
      */
-    Enumeration {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Enumeration{
+        get {
+            if(!this.HasProp("__Enumeration"))
+                this.__Enumeration := %this.__Class%._Enumeration(8, this)
+            return this.__Enumeration
+        }
     }
 }

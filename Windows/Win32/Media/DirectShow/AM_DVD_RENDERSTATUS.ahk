@@ -24,7 +24,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the specified DVD volume to be played does not exist; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDvdVolInvalid {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if no DVD volume is specified or if it isn't found; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDvdVolUnknown {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the video decoder doesn't produce line 21 (closed captioning) data; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNoLine21In {
         get => NumGet(this, 12, "int")
@@ -51,7 +51,7 @@ class AM_DVD_RENDERSTATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the video decoder can't be shown as closed captioning on video due to a problem with graph building; <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNoLine21Out {
         get => NumGet(this, 16, "int")

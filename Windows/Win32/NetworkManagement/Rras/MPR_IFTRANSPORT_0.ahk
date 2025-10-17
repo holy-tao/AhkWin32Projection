@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The MPR_IFTRANSPORT_0 structure contains information for a particular interface transport.
@@ -24,11 +25,14 @@ class MPR_IFTRANSPORT_0 extends Win32Struct
 
     /**
      * Handle to the interface transport.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hIfTransport {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hIfTransport{
+        get {
+            if(!this.HasProp("__hIfTransport"))
+                this.__hIfTransport := HANDLE(8, this)
+            return this.__hIfTransport
+        }
     }
 
     /**

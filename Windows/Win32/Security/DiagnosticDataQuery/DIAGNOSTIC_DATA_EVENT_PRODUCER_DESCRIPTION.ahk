@@ -19,7 +19,7 @@ class DIAGNOSTIC_DATA_EVENT_PRODUCER_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of this producer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")

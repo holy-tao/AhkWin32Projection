@@ -41,7 +41,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -52,7 +52,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     Level{
         get {
             if(!this.HasProp("__Level"))
-                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 24)
+                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(24, this)
             return this.__Level
         }
     }
@@ -71,7 +71,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     InputResolution{
         get {
             if(!this.HasProp("__InputResolution"))
-                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 48)
+                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
             return this.__InputResolution
         }
     }
@@ -82,7 +82,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 56)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
             return this.__CodecConfiguration
         }
     }
@@ -101,7 +101,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     SubregionFrameEncodingData{
         get {
             if(!this.HasProp("__SubregionFrameEncodingData"))
-                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(this.ptr + 80)
+                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(80, this)
             return this.__SubregionFrameEncodingData
         }
     }
@@ -112,7 +112,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     QPMap{
         get {
             if(!this.HasProp("__QPMap"))
-                this.__QPMap := D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION(this.ptr + 96)
+                this.__QPMap := D3D12_VIDEO_ENCODER_QPMAP_CONFIGURATION(96, this)
             return this.__QPMap
         }
     }
@@ -123,7 +123,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     DirtyRegions{
         get {
             if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION(this.ptr + 104)
+                this.__DirtyRegions := D3D12_VIDEO_ENCODER_DIRTY_REGIONS_CONFIGURATION(104, this)
             return this.__DirtyRegions
         }
     }
@@ -134,7 +134,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     MotionSearch{
         get {
             if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(this.ptr + 120)
+                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(120, this)
             return this.__MotionSearch
         }
     }

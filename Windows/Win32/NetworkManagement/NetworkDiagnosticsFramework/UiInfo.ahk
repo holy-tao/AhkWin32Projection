@@ -21,7 +21,7 @@ class UiInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzNull {
         get => NumGet(this, 8, "ptr")
@@ -34,13 +34,13 @@ class UiInfo extends Win32Struct
     ShellInfo{
         get {
             if(!this.HasProp("__ShellInfo"))
-                this.__ShellInfo := ShellCommandInfo(this.ptr + 8)
+                this.__ShellInfo := ShellCommandInfo(8, this)
             return this.__ShellInfo
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzHelpUrl {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class UiInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzDui {
         get => NumGet(this, 8, "ptr")

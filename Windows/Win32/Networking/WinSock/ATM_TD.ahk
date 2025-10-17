@@ -60,7 +60,7 @@ class ATM_TD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Tagging {
         get => NumGet(this, 24, "int")

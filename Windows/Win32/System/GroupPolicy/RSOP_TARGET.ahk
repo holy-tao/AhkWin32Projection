@@ -15,7 +15,7 @@ class RSOP_TARGET extends Win32Struct
 
     /**
      * Pointer to the account name of the computer or the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAccountName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class RSOP_TARGET extends Win32Struct
 
     /**
      * Pointer to the new domain or organizational unit that is the location for the account identified by the <b>pwszAccountName</b> member. This member can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszNewSOM {
         get => NumGet(this, 8, "ptr")

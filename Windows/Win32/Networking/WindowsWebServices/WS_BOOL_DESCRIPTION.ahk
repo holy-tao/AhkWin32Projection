@@ -15,7 +15,7 @@ class WS_BOOL_DESCRIPTION extends Win32Struct
 
     /**
      * Specifies the required value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     value {
         get => NumGet(this, 0, "int")

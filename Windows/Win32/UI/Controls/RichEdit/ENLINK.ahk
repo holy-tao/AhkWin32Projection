@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
 #Include .\CHARRANGE.ahk
 
@@ -24,7 +25,7 @@ class ENLINK extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -44,7 +45,7 @@ class ENLINK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
      * The <b>wParam</b> parameter of the message received by the rich edit control.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 32, "ptr")
@@ -55,7 +56,7 @@ class ENLINK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * The <b>lParam</b> parameter of the message received by the rich edit control.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")
@@ -71,7 +72,7 @@ class ENLINK extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 48)
+                this.__chrg := CHARRANGE(48, this)
             return this.__chrg
         }
     }

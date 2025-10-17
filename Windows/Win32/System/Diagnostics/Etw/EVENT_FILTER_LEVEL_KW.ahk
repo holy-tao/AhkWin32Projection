@@ -49,7 +49,7 @@ class EVENT_FILTER_LEVEL_KW extends Win32Struct
      * filter them out.
      * 
      * If set to **true**, the filtered events will have stacks collected.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FilterIn {
         get => NumGet(this, 17, "char")

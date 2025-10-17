@@ -23,7 +23,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
 
     /**
      * <b>If TRUE</b>, the <b>SourceAspectRatio</b> and <b>DestinationAspectRatio</b> members contain valid values<b></b>. Otherwise, the pixel aspect ratios are unspecified.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")
@@ -37,7 +37,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     SourceAspectRatio{
         get {
             if(!this.HasProp("__SourceAspectRatio"))
-                this.__SourceAspectRatio := DXVAHD_RATIONAL(this.ptr + 8)
+                this.__SourceAspectRatio := DXVAHD_RATIONAL(8, this)
             return this.__SourceAspectRatio
         }
     }
@@ -49,7 +49,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     DestinationAspectRatio{
         get {
             if(!this.HasProp("__DestinationAspectRatio"))
-                this.__DestinationAspectRatio := DXVAHD_RATIONAL(this.ptr + 16)
+                this.__DestinationAspectRatio := DXVAHD_RATIONAL(16, this)
             return this.__DestinationAspectRatio
         }
     }

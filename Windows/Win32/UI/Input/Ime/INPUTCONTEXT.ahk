@@ -1,11 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTA.ahk
 #Include ..\..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 #Include .\COMPOSITIONFORM.ahk
 #Include .\CANDIDATEFORM.ahk
+#Include .\HIMCC.ahk
 
 /**
  * @namespace Windows.Win32.UI.Input.Ime
@@ -18,15 +20,18 @@ class INPUTCONTEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(0, this)
+            return this.__hWnd
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOpen {
         get => NumGet(this, 8, "int")
@@ -39,7 +44,7 @@ class INPUTCONTEXT extends Win32Struct
     ptStatusWndPos{
         get {
             if(!this.HasProp("__ptStatusWndPos"))
-                this.__ptStatusWndPos := POINT(this.ptr + 16)
+                this.__ptStatusWndPos := POINT(16, this)
             return this.__ptStatusWndPos
         }
     }
@@ -50,7 +55,7 @@ class INPUTCONTEXT extends Win32Struct
     ptSoftKbdPos{
         get {
             if(!this.HasProp("__ptSoftKbdPos"))
-                this.__ptSoftKbdPos := POINT(this.ptr + 24)
+                this.__ptSoftKbdPos := POINT(24, this)
             return this.__ptSoftKbdPos
         }
     }
@@ -77,7 +82,7 @@ class INPUTCONTEXT extends Win32Struct
     A{
         get {
             if(!this.HasProp("__A"))
-                this.__A := LOGFONTA(this.ptr + 40)
+                this.__A := LOGFONTA(40, this)
             return this.__A
         }
     }
@@ -88,7 +93,7 @@ class INPUTCONTEXT extends Win32Struct
     W{
         get {
             if(!this.HasProp("__W"))
-                this.__W := LOGFONTW(this.ptr + 40)
+                this.__W := LOGFONTW(40, this)
             return this.__W
         }
     }
@@ -99,7 +104,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCompForm{
         get {
             if(!this.HasProp("__cfCompForm"))
-                this.__cfCompForm := COMPOSITIONFORM(this.ptr + 136)
+                this.__cfCompForm := COMPOSITIONFORM(136, this)
             return this.__cfCompForm
         }
     }
@@ -116,35 +121,47 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMCC}
      */
-    hCompStr {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+    hCompStr{
+        get {
+            if(!this.HasProp("__hCompStr"))
+                this.__hCompStr := HIMCC(200, this)
+            return this.__hCompStr
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMCC}
      */
-    hCandInfo {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+    hCandInfo{
+        get {
+            if(!this.HasProp("__hCandInfo"))
+                this.__hCandInfo := HIMCC(208, this)
+            return this.__hCandInfo
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMCC}
      */
-    hGuideLine {
-        get => NumGet(this, 216, "ptr")
-        set => NumPut("ptr", value, this, 216)
+    hGuideLine{
+        get {
+            if(!this.HasProp("__hGuideLine"))
+                this.__hGuideLine := HIMCC(216, this)
+            return this.__hGuideLine
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMCC}
      */
-    hPrivate {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+    hPrivate{
+        get {
+            if(!this.HasProp("__hPrivate"))
+                this.__hPrivate := HIMCC(224, this)
+            return this.__hPrivate
+        }
     }
 
     /**
@@ -156,11 +173,14 @@ class INPUTCONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HIMCC}
      */
-    hMsgBuf {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+    hMsgBuf{
+        get {
+            if(!this.HasProp("__hMsgBuf"))
+                this.__hMsgBuf := HIMCC(240, this)
+            return this.__hMsgBuf
+        }
     }
 
     /**

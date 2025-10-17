@@ -47,7 +47,7 @@ class DD_BLTDATA extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(this.ptr + 16)
+                this.__rDest := RECTL(16, this)
             return this.__rDest
         }
     }
@@ -68,7 +68,7 @@ class DD_BLTDATA extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(this.ptr + 40)
+                this.__rSrc := RECTL(40, this)
             return this.__rSrc
         }
     }
@@ -274,7 +274,7 @@ class DD_BLTDATA extends Win32Struct
     bltFX{
         get {
             if(!this.HasProp("__bltFX"))
-                this.__bltFX := DDBLTFX(this.ptr + 64)
+                this.__bltFX := DDBLTFX(64, this)
             return this.__bltFX
         }
     }
@@ -299,7 +299,7 @@ class DD_BLTDATA extends Win32Struct
 
     /**
      * Indicates whether this is a clipped blit. On Windows 2000 and later, this member is always <b>FALSE</b>, indicating that the blit is unclipped.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsClipped {
         get => NumGet(this, 208, "int")
@@ -313,7 +313,7 @@ class DD_BLTDATA extends Win32Struct
     rOrigDest{
         get {
             if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(this.ptr + 216)
+                this.__rOrigDest := RECTL(216, this)
             return this.__rOrigDest
         }
     }
@@ -325,7 +325,7 @@ class DD_BLTDATA extends Win32Struct
     rOrigSrc{
         get {
             if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(this.ptr + 232)
+                this.__rOrigSrc := RECTL(232, this)
             return this.__rOrigSrc
         }
     }
@@ -364,7 +364,7 @@ class DD_BLTDATA extends Win32Struct
     ddargbScaleFactors{
         get {
             if(!this.HasProp("__ddargbScaleFactors"))
-                this.__ddargbScaleFactors := DDARGB(this.ptr + 268)
+                this.__ddargbScaleFactors := DDARGB(268, this)
             return this.__ddargbScaleFactors
         }
     }

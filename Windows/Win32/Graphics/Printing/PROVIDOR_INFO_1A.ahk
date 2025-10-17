@@ -13,7 +13,7 @@ class PROVIDOR_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class PROVIDOR_INFO_1A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pEnvironment {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class PROVIDOR_INFO_1A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDLLName {
         get => NumGet(this, 16, "ptr")

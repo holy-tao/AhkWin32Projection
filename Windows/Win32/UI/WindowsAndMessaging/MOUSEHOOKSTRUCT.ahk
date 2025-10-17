@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a mouse event passed to a WH_MOUSE hook procedure, MouseProc.
@@ -23,7 +24,7 @@ class MOUSEHOOKSTRUCT extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 0)
+                this.__pt := POINT(0, this)
             return this.__pt
         }
     }
@@ -32,11 +33,14 @@ class MOUSEHOOKSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that will receive the mouse message corresponding to the mouse event.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**

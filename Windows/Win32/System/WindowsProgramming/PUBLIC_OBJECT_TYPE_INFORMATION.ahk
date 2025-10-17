@@ -18,7 +18,7 @@ class PUBLIC_OBJECT_TYPE_INFORMATION extends Win32Struct
     TypeName{
         get {
             if(!this.HasProp("__TypeName"))
-                this.__TypeName := UNICODE_STRING(this.ptr + 0)
+                this.__TypeName := UNICODE_STRING(0, this)
             return this.__TypeName
         }
     }

@@ -39,7 +39,7 @@ class WRDS_DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
     StandardDate{
         get {
             if(!this.HasProp("__StandardDate"))
-                this.__StandardDate := WTS_SYSTEMTIME(this.ptr + 72)
+                this.__StandardDate := WTS_SYSTEMTIME(72, this)
             return this.__StandardDate
         }
     }
@@ -69,7 +69,7 @@ class WRDS_DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
     DaylightDate{
         get {
             if(!this.HasProp("__DaylightDate"))
-                this.__DaylightDate := WTS_SYSTEMTIME(this.ptr + 160)
+                this.__DaylightDate := WTS_SYSTEMTIME(160, this)
             return this.__DaylightDate
         }
     }

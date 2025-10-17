@@ -19,7 +19,7 @@ class SCARD_T0_REQUEST extends Win32Struct
     ioRequest{
         get {
             if(!this.HasProp("__ioRequest"))
-                this.__ioRequest := SCARD_IO_REQUEST(this.ptr + 0)
+                this.__ioRequest := SCARD_IO_REQUEST(0, this)
             return this.__ioRequest
         }
     }
@@ -46,7 +46,7 @@ class SCARD_T0_REQUEST extends Win32Struct
     CmdBytes{
         get {
             if(!this.HasProp("__CmdBytes"))
-                this.__CmdBytes := SCARD_T0_COMMAND(this.ptr + 10)
+                this.__CmdBytes := SCARD_T0_COMMAND(10, this)
             return this.__CmdBytes
         }
     }

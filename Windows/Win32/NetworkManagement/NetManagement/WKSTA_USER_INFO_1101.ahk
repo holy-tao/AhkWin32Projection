@@ -17,7 +17,7 @@ class WKSTA_USER_INFO_1101 extends Win32Struct
      * Specifies the list of operating system domains browsed by the workstation. The domain names are separated by blanks.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui1101_oth_domains {
         get => NumGet(this, 0, "ptr")

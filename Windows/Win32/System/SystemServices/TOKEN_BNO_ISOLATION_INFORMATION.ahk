@@ -12,7 +12,7 @@ class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     IsolationPrefix {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class TOKEN_BNO_ISOLATION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsolationEnabled {
         get => NumGet(this, 8, "char")

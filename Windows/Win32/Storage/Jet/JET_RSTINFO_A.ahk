@@ -44,7 +44,7 @@ class JET_RSTINFO_A extends Win32Struct
     lgposStop{
         get {
             if(!this.HasProp("__lgposStop"))
-                this.__lgposStop := JET_LGPOS(this.ptr + 24)
+                this.__lgposStop := JET_LGPOS(24, this)
             return this.__lgposStop
         }
     }
@@ -55,7 +55,7 @@ class JET_RSTINFO_A extends Win32Struct
     logtimeStop{
         get {
             if(!this.HasProp("__logtimeStop"))
-                this.__logtimeStop := JET_LOGTIME(this.ptr + 32)
+                this.__logtimeStop := JET_LOGTIME(32, this)
             return this.__logtimeStop
         }
     }

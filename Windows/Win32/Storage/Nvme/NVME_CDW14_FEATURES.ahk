@@ -18,7 +18,7 @@ class NVME_CDW14_FEATURES extends Win32Struct
     HostMemoryBuffer{
         get {
             if(!this.HasProp("__HostMemoryBuffer"))
-                this.__HostMemoryBuffer := NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER(this.ptr + 0)
+                this.__HostMemoryBuffer := NVME_CDW14_FEATURE_HOST_MEMORY_BUFFER(0, this)
             return this.__HostMemoryBuffer
         }
     }

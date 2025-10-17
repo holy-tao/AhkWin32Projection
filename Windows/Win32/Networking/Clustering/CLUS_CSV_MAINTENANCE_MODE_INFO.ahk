@@ -16,7 +16,7 @@ class CLUS_CSV_MAINTENANCE_MODE_INFO extends Win32Struct
     /**
      * Specifies the maintenance mode for the CSV. <b>TRUE</b> enables maintenance mode, 
      *       <b>FALSE</b> disables it.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InMaintenance {
         get => NumGet(this, 0, "int")

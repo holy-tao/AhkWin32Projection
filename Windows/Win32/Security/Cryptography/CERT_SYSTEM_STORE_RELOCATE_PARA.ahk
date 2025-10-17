@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * The CERT_SYSTEM_STORE_RELOCATE_PARA structure contains data to be passed to CertOpenStore when that function's dwFlags parameter is set to CERT_SYSTEM_STORE_RELOCATE_FLAG.
@@ -20,11 +21,14 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HKEY}
      */
-    hKeyBase {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hKeyBase{
+        get {
+            if(!this.HasProp("__hKeyBase"))
+                this.__hKeyBase := HKEY(0, this)
+            return this.__hKeyBase
+        }
     }
 
     /**
@@ -44,7 +48,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSystemStore {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +56,7 @@ class CERT_SYSTEM_STORE_RELOCATE_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSystemStore {
         get => NumGet(this, 8, "ptr")

@@ -21,7 +21,7 @@ class SECURITY_USER_DATA extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := SECURITY_STRING(this.ptr + 0)
+                this.__UserName := SECURITY_STRING(0, this)
             return this.__UserName
         }
     }
@@ -33,7 +33,7 @@ class SECURITY_USER_DATA extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := SECURITY_STRING(this.ptr + 16)
+                this.__LogonDomainName := SECURITY_STRING(16, this)
             return this.__LogonDomainName
         }
     }
@@ -45,14 +45,14 @@ class SECURITY_USER_DATA extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := SECURITY_STRING(this.ptr + 32)
+                this.__LogonServer := SECURITY_STRING(32, this)
             return this.__LogonServer
         }
     }
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the user.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     pSid {
         get => NumGet(this, 48, "ptr")

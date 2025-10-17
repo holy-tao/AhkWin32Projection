@@ -30,7 +30,7 @@ class sockaddr_gen extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR(this.ptr + 0)
+                this.__Address := SOCKADDR(0, this)
             return this.__Address
         }
     }
@@ -42,7 +42,7 @@ class sockaddr_gen extends Win32Struct
     AddressIn{
         get {
             if(!this.HasProp("__AddressIn"))
-                this.__AddressIn := SOCKADDR_IN(this.ptr + 0)
+                this.__AddressIn := SOCKADDR_IN(0, this)
             return this.__AddressIn
         }
     }
@@ -54,7 +54,7 @@ class sockaddr_gen extends Win32Struct
     AddressIn6{
         get {
             if(!this.HasProp("__AddressIn6"))
-                this.__AddressIn6 := sockaddr_in6_old(this.ptr + 0)
+                this.__AddressIn6 := sockaddr_in6_old(0, this)
             return this.__AddressIn6
         }
     }

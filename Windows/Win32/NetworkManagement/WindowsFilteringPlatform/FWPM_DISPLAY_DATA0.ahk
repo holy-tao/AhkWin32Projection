@@ -24,7 +24,7 @@ class FWPM_DISPLAY_DATA0 extends Win32Struct
 
     /**
      * Optional friendly name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class FWPM_DISPLAY_DATA0 extends Win32Struct
 
     /**
      * Optional description.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     description {
         get => NumGet(this, 8, "ptr")

@@ -34,7 +34,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
     RxSuperSpeedPlus{
         get {
             if(!this.HasProp("__RxSuperSpeedPlus"))
-                this.__RxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(this.ptr + 8)
+                this.__RxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(8, this)
             return this.__RxSuperSpeedPlus
         }
     }
@@ -53,7 +53,7 @@ class USB_NODE_CONNECTION_SUPERSPEEDPLUS_INFORMATION extends Win32Struct
     TxSuperSpeedPlus{
         get {
             if(!this.HasProp("__TxSuperSpeedPlus"))
-                this.__TxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(this.ptr + 24)
+                this.__TxSuperSpeedPlus := USB_DEVICE_CAPABILITY_SUPERSPEEDPLUS_SPEED(24, this)
             return this.__TxSuperSpeedPlus
         }
     }

@@ -13,7 +13,7 @@ class DBCOLUMNINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -82,7 +82,7 @@ class DBCOLUMNINFO extends Win32Struct
     columnid{
         get {
             if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(this.ptr + 48)
+                this.__columnid := DBID(48, this)
             return this.__columnid
         }
     }

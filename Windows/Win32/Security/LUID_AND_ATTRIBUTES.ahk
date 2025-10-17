@@ -26,7 +26,7 @@ class LUID_AND_ATTRIBUTES extends Win32Struct
     Luid{
         get {
             if(!this.HasProp("__Luid"))
-                this.__Luid := LUID(this.ptr + 0)
+                this.__Luid := LUID(0, this)
             return this.__Luid
         }
     }

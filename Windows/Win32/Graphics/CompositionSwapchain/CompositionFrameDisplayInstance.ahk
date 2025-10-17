@@ -19,7 +19,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     displayAdapterLUID{
         get {
             if(!this.HasProp("__displayAdapterLUID"))
-                this.__displayAdapterLUID := LUID(this.ptr + 0)
+                this.__displayAdapterLUID := LUID(0, this)
             return this.__displayAdapterLUID
         }
     }
@@ -46,7 +46,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     renderAdapterLUID{
         get {
             if(!this.HasProp("__renderAdapterLUID"))
-                this.__renderAdapterLUID := LUID(this.ptr + 16)
+                this.__renderAdapterLUID := LUID(16, this)
             return this.__renderAdapterLUID
         }
     }
@@ -65,7 +65,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     finalTransform{
         get {
             if(!this.HasProp("__finalTransform"))
-                this.__finalTransform := PresentationTransform(this.ptr + 32)
+                this.__finalTransform := PresentationTransform(32, this)
             return this.__finalTransform
         }
     }

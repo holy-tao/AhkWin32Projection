@@ -19,7 +19,7 @@ class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -30,7 +30,7 @@ class KS_DATAFORMAT_H264VIDEOINFO extends Win32Struct
     H264VideoInfoHeader{
         get {
             if(!this.HasProp("__H264VideoInfoHeader"))
-                this.__H264VideoInfoHeader := KS_H264VIDEOINFO(this.ptr + 48)
+                this.__H264VideoInfoHeader := KS_H264VIDEOINFO(48, this)
             return this.__H264VideoInfoHeader
         }
     }

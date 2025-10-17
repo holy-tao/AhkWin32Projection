@@ -15,7 +15,7 @@ class DD_UPDATEVPORTDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class DD_UPDATEVPORTDATA extends Win32Struct
 
     /**
      * Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_surface_int">DD_SURFACE_INT</a> structures that represent regular video surfaces. This member can be <b>NULL</b>.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_SURFACE_INT>}
      */
     lplpDDSurface {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DD_UPDATEVPORTDATA extends Win32Struct
 
     /**
      * Points to an array of DD_SURFACE_INT structures that represent <a href="https://docs.microsoft.com/windows-hardware/drivers/">VBI</a> surfaces. This member can be <b>NULL</b>.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_SURFACE_INT>}
      */
     lplpDDVBISurface {
         get => NumGet(this, 24, "ptr")

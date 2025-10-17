@@ -21,7 +21,7 @@ class OCSP_BASIC_REVOKED_INFO extends Win32Struct
     RevocationDate{
         get {
             if(!this.HasProp("__RevocationDate"))
-                this.__RevocationDate := FILETIME(this.ptr + 0)
+                this.__RevocationDate := FILETIME(0, this)
             return this.__RevocationDate
         }
     }

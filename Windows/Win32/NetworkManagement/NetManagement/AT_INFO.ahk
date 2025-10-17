@@ -79,7 +79,7 @@ class AT_INFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the name of the command, batch program, or binary file to execute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Command {
         get => NumGet(this, 16, "ptr")

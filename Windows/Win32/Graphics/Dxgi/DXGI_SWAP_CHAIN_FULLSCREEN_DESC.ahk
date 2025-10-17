@@ -26,7 +26,7 @@ class DXGI_SWAP_CHAIN_FULLSCREEN_DESC extends Win32Struct
     RefreshRate{
         get {
             if(!this.HasProp("__RefreshRate"))
-                this.__RefreshRate := DXGI_RATIONAL(this.ptr + 0)
+                this.__RefreshRate := DXGI_RATIONAL(0, this)
             return this.__RefreshRate
         }
     }
@@ -51,7 +51,7 @@ class DXGI_SWAP_CHAIN_FULLSCREEN_DESC extends Win32Struct
 
     /**
      * A Boolean value that specifies whether the swap chain is in windowed mode. <b>TRUE</b> if the swap chain is in windowed mode; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Windowed {
         get => NumGet(this, 16, "int")

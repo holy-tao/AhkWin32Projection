@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SCRIPT_STATE.ahk
 
 /**
  * Contains a portion of a Unicode string, that is, an &quot;item&quot;.
@@ -267,10 +268,13 @@ class SCRIPT_ANALYSIS extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/usp10/ns-usp10-script_state">SCRIPT_STATE</a> structure containing a copy of the Unicode algorithm state.
-     * @type {Integer}
+     * @type {SCRIPT_STATE}
      */
-    s {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    s{
+        get {
+            if(!this.HasProp("__s"))
+                this.__s := SCRIPT_STATE(2, this)
+            return this.__s
+        }
     }
 }

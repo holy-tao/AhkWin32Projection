@@ -4,11 +4,13 @@
 #Include .\NVME_VERSION.ahk
 #Include .\NVME_CONTROLLER_CONFIGURATION.ahk
 #Include .\NVME_CONTROLLER_STATUS.ahk
+#Include .\NVME_NVM_SUBSYSTEM_RESET.ahk
 #Include .\NVME_ADMIN_QUEUE_ATTRIBUTES.ahk
 #Include .\NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS.ahk
 #Include .\NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_LOCATION.ahk
 #Include .\NVME_CONTROLLER_MEMORY_BUFFER_SIZE.ahk
+#Include .\NVME_NVM_SUBSYSTEM_SHUTDOWN.ahk
 #Include .\NVME_CONTROLLER_READY_TIMEOUTS.ahk
 
 /**
@@ -27,7 +29,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CAP{
         get {
             if(!this.HasProp("__CAP"))
-                this.__CAP := NVME_CONTROLLER_CAPABILITIES(this.ptr + 0)
+                this.__CAP := NVME_CONTROLLER_CAPABILITIES(0, this)
             return this.__CAP
         }
     }
@@ -38,7 +40,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     VS{
         get {
             if(!this.HasProp("__VS"))
-                this.__VS := NVME_VERSION(this.ptr + 16)
+                this.__VS := NVME_VERSION(16, this)
             return this.__VS
         }
     }
@@ -65,7 +67,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CC{
         get {
             if(!this.HasProp("__CC"))
-                this.__CC := NVME_CONTROLLER_CONFIGURATION(this.ptr + 32)
+                this.__CC := NVME_CONTROLLER_CONFIGURATION(32, this)
             return this.__CC
         }
     }
@@ -84,17 +86,20 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CSTS{
         get {
             if(!this.HasProp("__CSTS"))
-                this.__CSTS := NVME_CONTROLLER_STATUS(this.ptr + 48)
+                this.__CSTS := NVME_CONTROLLER_STATUS(48, this)
             return this.__CSTS
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_NVM_SUBSYSTEM_RESET}
      */
-    NSSR {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    NSSR{
+        get {
+            if(!this.HasProp("__NSSR"))
+                this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(56, this)
+            return this.__NSSR
+        }
     }
 
     /**
@@ -103,7 +108,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     AQA{
         get {
             if(!this.HasProp("__AQA"))
-                this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(this.ptr + 64)
+                this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(64, this)
             return this.__AQA
         }
     }
@@ -114,7 +119,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     ASQ{
         get {
             if(!this.HasProp("__ASQ"))
-                this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(this.ptr + 72)
+                this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(72, this)
             return this.__ASQ
         }
     }
@@ -125,7 +130,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     ACQ{
         get {
             if(!this.HasProp("__ACQ"))
-                this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(this.ptr + 88)
+                this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(88, this)
             return this.__ACQ
         }
     }
@@ -136,7 +141,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CMBLOC{
         get {
             if(!this.HasProp("__CMBLOC"))
-                this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(this.ptr + 104)
+                this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(104, this)
             return this.__CMBLOC
         }
     }
@@ -147,7 +152,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CMBSZ{
         get {
             if(!this.HasProp("__CMBSZ"))
-                this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(this.ptr + 112)
+                this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(112, this)
             return this.__CMBSZ
         }
     }
@@ -164,11 +169,14 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_NVM_SUBSYSTEM_SHUTDOWN}
      */
-    NSSD {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+    NSSD{
+        get {
+            if(!this.HasProp("__NSSD"))
+                this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(156, this)
+            return this.__NSSD
+        }
     }
 
     /**
@@ -177,7 +185,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CRTO{
         get {
             if(!this.HasProp("__CRTO"))
-                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(this.ptr + 160)
+                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(160, this)
             return this.__CRTO
         }
     }

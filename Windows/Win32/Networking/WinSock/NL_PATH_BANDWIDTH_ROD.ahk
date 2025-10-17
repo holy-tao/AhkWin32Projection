@@ -28,7 +28,7 @@ class NL_PATH_BANDWIDTH_ROD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BandwidthPeaked {
         get => NumGet(this, 16, "char")

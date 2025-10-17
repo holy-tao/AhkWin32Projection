@@ -28,7 +28,7 @@ class D2D1_BITMAP_PROPERTIES1 extends Win32Struct
     pixelFormat{
         get {
             if(!this.HasProp("__pixelFormat"))
-                this.__pixelFormat := D2D1_PIXEL_FORMAT(this.ptr + 0)
+                this.__pixelFormat := D2D1_PIXEL_FORMAT(0, this)
             return this.__pixelFormat
         }
     }

@@ -30,7 +30,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     DescriptorUuid{
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 8)
+                this.__DescriptorUuid := BTH_LE_UUID(8, this)
             return this.__DescriptorUuid
         }
     }
@@ -40,7 +40,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
         IsReliableWriteEnabled {
             get => NumGet(this, 0, "char")
@@ -48,7 +48,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
         IsAuxiliariesWritable {
             get => NumGet(this, 1, "char")
@@ -62,7 +62,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
         IsSubscribeToNotification {
             get => NumGet(this, 0, "char")
@@ -70,11 +70,25 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
         IsSubscribeToIndication {
             get => NumGet(this, 1, "char")
             set => NumPut("char", value, this, 1)
+        }
+    
+    }
+
+    class _ServerCharacteristicConfiguration extends Win32Struct {
+        static sizeof => 48
+        static packingSize => 8
+
+        /**
+         * @type {BOOLEAN}
+         */
+        IsBroadcast {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
         }
     
     }
@@ -105,7 +119,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Unit{
             get {
                 if(!this.HasProp("__Unit"))
-                    this.__Unit := BTH_LE_UUID(this.ptr + 8)
+                    this.__Unit := BTH_LE_UUID(8, this)
                 return this.__Unit
             }
         }
@@ -124,7 +138,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
         Description{
             get {
                 if(!this.HasProp("__Description"))
-                    this.__Description := BTH_LE_UUID(this.ptr + 32)
+                    this.__Description := BTH_LE_UUID(32, this)
                 return this.__Description
             }
         }
@@ -137,7 +151,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicExtendedProperties{
         get {
             if(!this.HasProp("__CharacteristicExtendedProperties"))
-                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(this.ptr + 24)
+                this.__CharacteristicExtendedProperties := %this.__Class%._CharacteristicExtendedProperties(24, this)
             return this.__CharacteristicExtendedProperties
         }
     }
@@ -148,17 +162,20 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     ClientCharacteristicConfiguration{
         get {
             if(!this.HasProp("__ClientCharacteristicConfiguration"))
-                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(this.ptr + 24)
+                this.__ClientCharacteristicConfiguration := %this.__Class%._ClientCharacteristicConfiguration(24, this)
             return this.__ClientCharacteristicConfiguration
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ServerCharacteristicConfiguration}
      */
-    ServerCharacteristicConfiguration {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+    ServerCharacteristicConfiguration{
+        get {
+            if(!this.HasProp("__ServerCharacteristicConfiguration"))
+                this.__ServerCharacteristicConfiguration := %this.__Class%._ServerCharacteristicConfiguration(24, this)
+            return this.__ServerCharacteristicConfiguration
+        }
     }
 
     /**
@@ -167,7 +184,7 @@ class BTH_LE_GATT_DESCRIPTOR_VALUE extends Win32Struct
     CharacteristicFormat{
         get {
             if(!this.HasProp("__CharacteristicFormat"))
-                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(this.ptr + 24)
+                this.__CharacteristicFormat := %this.__Class%._CharacteristicFormat(24, this)
             return this.__CharacteristicFormat
         }
     }

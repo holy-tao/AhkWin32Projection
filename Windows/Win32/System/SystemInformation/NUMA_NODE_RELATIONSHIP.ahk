@@ -50,7 +50,7 @@ class NUMA_NODE_RELATIONSHIP extends Win32Struct
     GroupMask{
         get {
             if(!this.HasProp("__GroupMask"))
-                this.__GroupMask := GROUP_AFFINITY(this.ptr + 24)
+                this.__GroupMask := GROUP_AFFINITY(24, this)
             return this.__GroupMask
         }
     }

@@ -18,7 +18,7 @@ class DNS_INTERFACE_SETTINGS_EX extends Win32Struct
     SettingsV1{
         get {
             if(!this.HasProp("__SettingsV1"))
-                this.__SettingsV1 := DNS_INTERFACE_SETTINGS(this.ptr + 0)
+                this.__SettingsV1 := DNS_INTERFACE_SETTINGS(0, this)
             return this.__SettingsV1
         }
     }
@@ -32,7 +32,7 @@ class DNS_INTERFACE_SETTINGS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SupplementalSearchList {
         get => NumGet(this, 72, "ptr")

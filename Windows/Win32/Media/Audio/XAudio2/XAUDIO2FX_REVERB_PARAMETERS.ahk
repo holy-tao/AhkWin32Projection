@@ -405,7 +405,7 @@ class XAUDIO2FX_REVERB_PARAMETERS extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  The DirectX SDK versions of XAUDIO2 don't support this member.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
     DisableLateField {
         get => NumGet(this, 56, "int")

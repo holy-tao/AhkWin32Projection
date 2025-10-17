@@ -20,7 +20,7 @@ class KS_MPEGVIDEOINFO2 extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := KS_VIDEOINFOHEADER2(this.ptr + 0)
+                this.__hdr := KS_VIDEOINFOHEADER2(0, this)
             return this.__hdr
         }
     }

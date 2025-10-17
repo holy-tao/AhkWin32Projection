@@ -20,7 +20,7 @@ class CRYPT_URL_ARRAY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     rgwszUrl {
         get => NumGet(this, 8, "ptr")

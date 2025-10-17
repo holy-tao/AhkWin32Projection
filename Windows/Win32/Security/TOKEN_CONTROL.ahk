@@ -22,7 +22,7 @@ class TOKEN_CONTROL extends Win32Struct
     TokenId{
         get {
             if(!this.HasProp("__TokenId"))
-                this.__TokenId := LUID(this.ptr + 0)
+                this.__TokenId := LUID(0, this)
             return this.__TokenId
         }
     }
@@ -34,7 +34,7 @@ class TOKEN_CONTROL extends Win32Struct
     AuthenticationId{
         get {
             if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(this.ptr + 8)
+                this.__AuthenticationId := LUID(8, this)
             return this.__AuthenticationId
         }
     }
@@ -46,7 +46,7 @@ class TOKEN_CONTROL extends Win32Struct
     ModifiedId{
         get {
             if(!this.HasProp("__ModifiedId"))
-                this.__ModifiedId := LUID(this.ptr + 16)
+                this.__ModifiedId := LUID(16, this)
             return this.__ModifiedId
         }
     }
@@ -58,7 +58,7 @@ class TOKEN_CONTROL extends Win32Struct
     TokenSource{
         get {
             if(!this.HasProp("__TokenSource"))
-                this.__TokenSource := TOKEN_SOURCE(this.ptr + 24)
+                this.__TokenSource := TOKEN_SOURCE(24, this)
             return this.__TokenSource
         }
     }

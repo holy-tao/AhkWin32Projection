@@ -49,7 +49,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
     sizel{
         get {
             if(!this.HasProp("__sizel"))
-                this.__sizel := SIZE(this.ptr + 24)
+                this.__sizel := SIZE(24, this)
             return this.__sizel
         }
     }
@@ -61,7 +61,7 @@ class OBJECTDESCRIPTOR extends Win32Struct
     pointl{
         get {
             if(!this.HasProp("__pointl"))
-                this.__pointl := POINTL(this.ptr + 32)
+                this.__pointl := POINTL(32, this)
             return this.__pointl
         }
     }
@@ -93,12 +93,8 @@ class OBJECTDESCRIPTOR extends Win32Struct
         set => NumPut("uint", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

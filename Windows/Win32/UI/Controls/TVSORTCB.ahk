@@ -29,7 +29,7 @@ class TVSORTCB extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the parent item.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hParent {
         get => NumGet(this, 0, "ptr")
@@ -53,7 +53,7 @@ class TVSORTCB extends Win32Struct
      * Application-defined value that gets passed as the 
      * 					<i>lParamSort</i> argument in the callback function specified in 
      * 					<b>lpfnCompare</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 16, "ptr")

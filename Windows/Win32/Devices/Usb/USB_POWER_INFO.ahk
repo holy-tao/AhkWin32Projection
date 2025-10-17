@@ -92,7 +92,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the host controller device can wake up the system from the specified system power state. If <b>TRUE</b>, the host controller device can wake up the system. If <b>FALSE</b>, the host controller cannot wake up the system.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CanWakeup {
         get => NumGet(this, 32, "char")
@@ -101,7 +101,7 @@ class USB_POWER_INFO extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the host controller is powered when in the specified system power state. If <b>TRUE</b>, the host controller is powered. If <b>FALSE</b>, the host controller is not powered.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsPowered {
         get => NumGet(this, 33, "char")

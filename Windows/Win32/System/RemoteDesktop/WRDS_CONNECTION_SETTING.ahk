@@ -27,7 +27,7 @@ class WRDS_CONNECTION_SETTING extends Win32Struct
     WRdsConnectionSettings1{
         get {
             if(!this.HasProp("__WRdsConnectionSettings1"))
-                this.__WRdsConnectionSettings1 := WRDS_CONNECTION_SETTINGS_1(this.ptr + 0)
+                this.__WRdsConnectionSettings1 := WRDS_CONNECTION_SETTINGS_1(0, this)
             return this.__WRdsConnectionSettings1
         }
     }

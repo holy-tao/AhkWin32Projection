@@ -66,7 +66,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
     Status{
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := NVME_COMMAND_STATUS(this.ptr + 20)
+                this.__Status := NVME_COMMAND_STATUS(20, this)
             return this.__Status
         }
     }

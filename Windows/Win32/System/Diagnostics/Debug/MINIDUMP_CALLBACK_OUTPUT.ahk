@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\MINIDUMP_MEMORY_INFO.ahk
 
 /**
@@ -55,7 +56,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     CheckCancel {
         get => NumGet(this, 0, "int")
@@ -63,7 +64,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Cancel {
         get => NumGet(this, 4, "int")
@@ -71,11 +72,14 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(0, this)
+            return this.__Handle
+        }
     }
 
     /**
@@ -84,13 +88,13 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     VmRegion{
         get {
             if(!this.HasProp("__VmRegion"))
-                this.__VmRegion := MINIDUMP_MEMORY_INFO(this.ptr + 0)
+                this.__VmRegion := MINIDUMP_MEMORY_INFO(0, this)
             return this.__VmRegion
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Continue {
         get => NumGet(this, 48, "int")
@@ -111,7 +115,7 @@ class MINIDUMP_CALLBACK_OUTPUT extends Win32Struct
     VmQueryResult{
         get {
             if(!this.HasProp("__VmQueryResult"))
-                this.__VmQueryResult := MINIDUMP_MEMORY_INFO(this.ptr + 8)
+                this.__VmQueryResult := MINIDUMP_MEMORY_INFO(8, this)
             return this.__VmQueryResult
         }
     }

@@ -19,7 +19,7 @@ class D2D1_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct
 
     /**
      * Shader model 4 compute shaders are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     computeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x {
         get => NumGet(this, 0, "int")

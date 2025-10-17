@@ -45,7 +45,7 @@ class D3D12_TEXTURE_COPY_LOCATION extends Win32Struct
     PlacedFootprint{
         get {
             if(!this.HasProp("__PlacedFootprint"))
-                this.__PlacedFootprint := D3D12_PLACED_SUBRESOURCE_FOOTPRINT(this.ptr + 16)
+                this.__PlacedFootprint := D3D12_PLACED_SUBRESOURCE_FOOTPRINT(16, this)
             return this.__PlacedFootprint
         }
     }

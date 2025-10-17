@@ -157,7 +157,7 @@ class DUMP_HEADER64 extends Win32Struct
     PhysicalMemoryBlock{
         get {
             if(!this.HasProp("__PhysicalMemoryBlock"))
-                this.__PhysicalMemoryBlock := PHYSICAL_MEMORY_DESCRIPTOR64(this.ptr + 168)
+                this.__PhysicalMemoryBlock := PHYSICAL_MEMORY_DESCRIPTOR64(168, this)
             return this.__PhysicalMemoryBlock
         }
     }
@@ -190,7 +190,7 @@ class DUMP_HEADER64 extends Win32Struct
     Exception{
         get {
             if(!this.HasProp("__Exception"))
-                this.__Exception := EXCEPTION_RECORD64(this.ptr + 3872)
+                this.__Exception := EXCEPTION_RECORD64(3872, this)
             return this.__Exception
         }
     }
@@ -308,7 +308,7 @@ class DUMP_HEADER64 extends Win32Struct
     Attributes{
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := DUMP_FILE_ATTRIBUTES(this.ptr + 4336)
+                this.__Attributes := DUMP_FILE_ATTRIBUTES(4336, this)
             return this.__Attributes
         }
     }

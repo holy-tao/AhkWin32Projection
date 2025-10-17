@@ -15,7 +15,7 @@ class GROUP_INFO_1002 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode character string that contains a remark to associate with the global group. This member can be a null string. The comment can contain MAXCOMMENTSZ characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     grpi1002_comment {
         get => NumGet(this, 0, "ptr")

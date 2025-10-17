@@ -20,7 +20,7 @@ class BANNER_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     providerIdentity {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class BANNER_NOTIFICATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     contentId {
         get => NumGet(this, 16, "ptr")

@@ -48,7 +48,7 @@ class UAL_DATA_BLOB extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_STORAGE(this.ptr + 24)
+                this.__Address := SOCKADDR_STORAGE(24, this)
             return this.__Address
         }
     }

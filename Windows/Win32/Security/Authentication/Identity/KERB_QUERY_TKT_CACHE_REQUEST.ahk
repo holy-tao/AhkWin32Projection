@@ -35,7 +35,7 @@ class KERB_QUERY_TKT_CACHE_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }

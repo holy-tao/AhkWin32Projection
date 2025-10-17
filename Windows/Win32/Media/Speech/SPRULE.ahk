@@ -12,7 +12,7 @@ class SPRULE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszRuleName {
         get => NumGet(this, 0, "ptr")

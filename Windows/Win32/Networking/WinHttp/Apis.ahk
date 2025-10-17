@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Networking.WinHttp
  * @version v4.0.30319
@@ -3191,8 +3191,8 @@ class WinHttp {
      * Formats a date and time according to the HTTP version 1.0 specification.
      * @param {Pointer<SYSTEMTIME>} pst A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the date and time to format.
-     * @param {Pointer<Char>} pwszTime A pointer to a string buffer that receives the formatted date and time. The buffer should equal to the size, in bytes, of WINHTTP_TIME_FORMAT_BUFSIZE.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get  extended error information, call 
+     * @param {PWSTR} pwszTime A pointer to a string buffer that receives the formatted date and time. The buffer should equal to the size, in bytes, of WINHTTP_TIME_FORMAT_BUFSIZE.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get  extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Error codes include the following.
      * 
      * <table>
@@ -3216,7 +3216,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpTimeFromSystemTime(pst, pwszTime) {
-        pwszTime := pwszTime is String? StrPtr(pwszTime) : pwszTime
+        pwszTime := pwszTime is String ? StrPtr(pwszTime) : pwszTime
 
         A_LastError := 0
 
@@ -3229,10 +3229,10 @@ class WinHttp {
 
     /**
      * The WinHttpTimeToSystemTime function takes an HTTP time/date string and converts it to a SYSTEMTIME structure.
-     * @param {Pointer<Char>} pwszTime Pointer to a null-terminated date/time string to convert. This value must use the format defined in section 3.3 of the <a href="http://www.ietf.org/rfc/rfc2616.txt">RFC2616</a>.
+     * @param {PWSTR} pwszTime Pointer to a null-terminated date/time string to convert. This value must use the format defined in section 3.3 of the <a href="http://www.ietf.org/rfc/rfc2616.txt">RFC2616</a>.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned is:
      * 
      * <table>
@@ -3256,7 +3256,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpTimeToSystemTime(pwszTime, pst) {
-        pwszTime := pwszTime is String? StrPtr(pwszTime) : pwszTime
+        pwszTime := pwszTime is String ? StrPtr(pwszTime) : pwszTime
 
         A_LastError := 0
 
@@ -3269,7 +3269,7 @@ class WinHttp {
 
     /**
      * The WinHttpCrackUrl function separates a URL into its component parts such as host name and path.
-     * @param {Pointer<Char>} pwszUrl Pointer to a string that contains the canonical URL to separate. <b>WinHttpCrackUrl</b> does not check this URL for validity or correct format before attempting to crack it.
+     * @param {PWSTR} pwszUrl Pointer to a string that contains the canonical URL to separate. <b>WinHttpCrackUrl</b> does not check this URL for validity or correct format before attempting to crack it.
      * @param {Integer} dwUrlLength The length of the 
      * <i>pwszUrl</i> string, in characters. If 
      * <i>dwUrlLength</i> is set to zero, 
@@ -3318,7 +3318,7 @@ class WinHttp {
      * </table>
      * @param {Pointer<URL_COMPONENTS>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-url_components">URL_COMPONENTS</a> structure that receives the URL components.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -3375,7 +3375,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpCrackUrl(pwszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         A_LastError := 0
 
@@ -3391,11 +3391,11 @@ class WinHttp {
      * @param {Pointer<URL_COMPONENTS>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-url_components">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Char>} pwszUrl Pointer to a character buffer that receives the URL as a wide character (Unicode) string.
+     * @param {PWSTR} pwszUrl Pointer to a character buffer that receives the URL as a wide character (Unicode) string.
      * @param {Pointer<UInt32>} pdwUrlLength Pointer to a variable of type unsigned long integer that receives the length of the 
      * <i>pwszUrl</i> buffer in wide (Unicode) characters. When the function returns, this parameter receives the length of the URL string wide in characters, minus 1 for the terminating character. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of wide characters required to hold the created URL.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -3430,7 +3430,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpCreateUrl(lpUrlComponents, dwFlags, pwszUrl, pdwUrlLength) {
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         A_LastError := 0
 
@@ -3443,7 +3443,7 @@ class WinHttp {
 
     /**
      * The WinHttpCheckPlatform function determines whether the current platform is supported by this version of Microsoft Windows HTTP Services (WinHTTP).
-     * @returns {Integer} The return value is <b>TRUE</b> if the platform is supported by Microsoft Windows HTTP Services (WinHTTP), or <b>FALSE</b> otherwise.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the platform is supported by Microsoft Windows HTTP Services (WinHTTP), or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//winhttp/nf-winhttp-winhttpcheckplatform
      * @since windows5.1.2600
      */
@@ -3461,7 +3461,7 @@ class WinHttp {
      * Retrieves the default WinHTTP proxy configuration from the registry.
      * @param {Pointer<WINHTTP_PROXY_INFO>} pProxyInfo A pointer to a variable of type 
      * <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_info">WINHTTP_PROXY_INFO</a> that receives the default proxy configuration.
-     * @returns {Integer} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To retrieve a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful or <b>FALSE</b> otherwise. To retrieve a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Error codes returned include the following.
      * 
      * <table>
@@ -3509,7 +3509,7 @@ class WinHttp {
      * Sets the default WinHTTP proxy configuration in the registry.
      * @param {Pointer<WINHTTP_PROXY_INFO>} pProxyInfo A pointer to a variable of type 
      * <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_info">WINHTTP_PROXY_INFO</a> that specifies the default proxy configuration.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -3555,14 +3555,14 @@ class WinHttp {
 
     /**
      * Initializes, for an application, the use of WinHTTP functions and returns a WinHTTP-session handle.
-     * @param {Pointer<Char>} pszAgentW A pointer to a string variable that contains the name of the application or entity calling the WinHTTP functions. This name is used as the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/glossary">user agent</a> in the HTTP protocol.
+     * @param {PWSTR} pszAgentW A pointer to a string variable that contains the name of the application or entity calling the WinHTTP functions. This name is used as the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/glossary">user agent</a> in the HTTP protocol.
      * @param {Integer} dwAccessType 
-     * @param {Pointer<Char>} pszProxyW A pointer to a string variable that contains the name of the proxy server to use when proxy access is specified by setting 
+     * @param {PWSTR} pszProxyW A pointer to a string variable that contains the name of the proxy server to use when proxy access is specified by setting 
      * <i>dwAccessType</i> to 
      * <b>WINHTTP_ACCESS_TYPE_NAMED_PROXY</b>. The WinHTTP functions recognize only CERN type proxies for HTTP. If 
      * <i>dwAccessType</i> is not set to 
      * <b>WINHTTP_ACCESS_TYPE_NAMED_PROXY</b>, this parameter must be set to <b>WINHTTP_NO_PROXY_NAME</b>.
-     * @param {Pointer<Char>} pszProxyBypassW A pointer to a string variable that contains an optional semicolon delimited list of host names or IP addresses, or both, that should not be routed through the proxy when 
+     * @param {PWSTR} pszProxyBypassW A pointer to a string variable that contains an optional semicolon delimited list of host names or IP addresses, or both, that should not be routed through the proxy when 
      * <i>dwAccessType</i> is set to 
      * <b>WINHTTP_ACCESS_TYPE_NAMED_PROXY</b>. The list can contain wildcard characters. Do not use an empty string, because the 
      * <b>WinHttpOpen</b> function uses it as the proxy bypass list. If this parameter specifies the "&lt;local&gt;" macro in the list as the only entry, this function bypasses any host name that does not contain a period. If 
@@ -3622,9 +3622,9 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpOpen(pszAgentW, dwAccessType, pszProxyW, pszProxyBypassW, dwFlags) {
-        pszAgentW := pszAgentW is String? StrPtr(pszAgentW) : pszAgentW
-        pszProxyW := pszProxyW is String? StrPtr(pszProxyW) : pszProxyW
-        pszProxyBypassW := pszProxyBypassW is String? StrPtr(pszProxyBypassW) : pszProxyBypassW
+        pszAgentW := pszAgentW is String ? StrPtr(pszAgentW) : pszAgentW
+        pszProxyW := pszProxyW is String ? StrPtr(pszProxyW) : pszProxyW
+        pszProxyBypassW := pszProxyBypassW is String ? StrPtr(pszProxyBypassW) : pszProxyBypassW
 
         A_LastError := 0
 
@@ -3638,7 +3638,7 @@ class WinHttp {
     /**
      * The WinHttpCloseHandle function closes a single **HINTERNET** handle.
      * @param {Pointer<Void>} hInternet A valid **HINTERNET** handle (see [HINTERNET Handles in WinHTTP](/windows/win32/winhttp/hinternet-handles-in-winhttp)) to be closed.
-     * @returns {Integer} **TRUE** if the handle is successfully closed, otherwise **FALSE**. To get extended error information, call 
+     * @returns {BOOL} **TRUE** if the handle is successfully closed, otherwise **FALSE**. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -3698,7 +3698,7 @@ class WinHttp {
      * @param {Pointer<Void>} hSession Valid 
      * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> WinHTTP session handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopen">WinHttpOpen</a>.
-     * @param {Pointer<Char>} pswzServerName Pointer to a <b>null</b>-terminated string that contains the host name of an HTTP server. Alternately, the string can contain the IP address of the site in ASCII, for example, 10.0.1.45.
+     * @param {PWSTR} pswzServerName Pointer to a <b>null</b>-terminated string that contains the host name of an HTTP server. Alternately, the string can contain the IP address of the site in ASCII, for example, 10.0.1.45.
      * Note that WinHttp does not accept international host names without converting them first to <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/">Punycode</a>. For more information, see <a href="https://docs.microsoft.com/windows/win32/intl/handling-internationalized-domain-names--idns">Handling Internationalized Domain Names (IDNs)</a>.
      * @param {Integer} nServerPort 
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
@@ -3792,7 +3792,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpConnect(hSession, pswzServerName, nServerPort, dwReserved) {
-        pswzServerName := pswzServerName is String? StrPtr(pswzServerName) : pswzServerName
+        pswzServerName := pswzServerName is String ? StrPtr(pswzServerName) : pswzServerName
 
         A_LastError := 0
 
@@ -3812,7 +3812,7 @@ class WinHttp {
      * @param {Integer} dwNumberOfBytesToRead Unsigned long integer value that contains the number of bytes to read.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesRead Pointer to an unsigned long integer variable that receives the number of bytes read. 
      * <b>WinHttpReadData</b> sets this value to zero before doing any work or error checking.  When using WinHTTP asynchronously, always set this parameter to <b>NULL</b> and retrieve the information in the callback function; not doing so can cause a memory fault.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following table identifies the error codes that are returned.
      * 
      * <table>
@@ -3947,7 +3947,7 @@ class WinHttp {
      * @param {Integer} dwNumberOfBytesToWrite Unsigned long integer value that contains the number of bytes to be written to the file.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesWritten Pointer to an unsigned long integer variable that receives the number of bytes written to the buffer. The 
      * <b>WinHttpWriteData</b> function sets this value to zero before doing any work or error checking.  When using WinHTTP asynchronously, this parameter must be set to <b>NULL</b> and retrieve the information in the callback function. Not doing so can cause a memory fault.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are:
      * 
      * <table>
@@ -4052,7 +4052,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>. <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpreceiveresponse">WinHttpReceiveResponse</a> must have been called for this handle and have completed before <b>WinHttpQueryDataAvailable</b> is called.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesAvailable A pointer to an unsigned long integer variable that receives the number of available bytes. When WinHTTP is used in asynchronous mode, always set this parameter to <b>NULL</b> and retrieve data in the callback function; not doing so can cause a memory fault.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error data, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -4164,7 +4164,7 @@ class WinHttp {
      * <i>lpBuffer</i>, in bytes. When the function returns, the variable receives the length of the data placed into 
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the requested information.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following:
      * 
      * <table>
@@ -4249,7 +4249,7 @@ class WinHttp {
      * @param {Pointer<Void>} lpBuffer A pointer to a buffer that contains the option setting.
      * @param {Integer} dwBufferLength Unsigned long integer value that contains the length of the 
      * <i>lpBuffer</i> buffer. The length of the buffer is specified in characters for the following options; for all other options, the length is specified in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following:
      * 
      * <table>
@@ -4377,7 +4377,7 @@ class WinHttp {
      * TCP/IP can time out while setting up the socket during the three leg SYN/ACK exchange, regardless of the value of this parameter.
      * @param {Integer} nSendTimeout A value of type integer that specifies the time-out value, in milliseconds, to use for sending requests. If sending a request takes longer than this time-out value, the send is canceled. The initial value is 30,000 (30 seconds).
      * @param {Integer} nReceiveTimeout A value of type integer that specifies the time-out value, in milliseconds, to receive a response to a request. If a response takes longer than this time-out value, the request is canceled. The initial value is 30,000 (30 seconds).
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -4458,12 +4458,12 @@ class WinHttp {
      * The WinHttpOpenRequest function creates an HTTP request handle.
      * @param {Pointer<Void>} hConnect <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> connection handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpconnect">WinHttpConnect</a>.
-     * @param {Pointer<Char>} pwszVerb Pointer to a string that contains the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/glossary">HTTP verb</a> to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the <i>HTTP verb</i>. <b>Note</b>  This string should be all uppercase. Many servers treat HTTP verbs as case-sensitive, and the Internet Engineering Task Force (IETF)  Requests for Comments (RFCs) spell these verbs using uppercase characters only.
-     * @param {Pointer<Char>} pwszObjectName Pointer to a string that contains the name of the target resource of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
-     * @param {Pointer<Char>} pwszVersion Pointer to a string that contains the HTTP version. If this parameter is <b>NULL</b>, the function uses HTTP/1.1.
-     * @param {Pointer<Char>} pwszReferrer Pointer to a string that specifies the URL of the document from which the URL in the request 
+     * @param {PWSTR} pwszVerb Pointer to a string that contains the <a href="https://docs.microsoft.com/windows/desktop/WinHttp/glossary">HTTP verb</a> to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the <i>HTTP verb</i>. <b>Note</b>  This string should be all uppercase. Many servers treat HTTP verbs as case-sensitive, and the Internet Engineering Task Force (IETF)  Requests for Comments (RFCs) spell these verbs using uppercase characters only.
+     * @param {PWSTR} pwszObjectName Pointer to a string that contains the name of the target resource of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
+     * @param {PWSTR} pwszVersion Pointer to a string that contains the HTTP version. If this parameter is <b>NULL</b>, the function uses HTTP/1.1.
+     * @param {PWSTR} pwszReferrer Pointer to a string that specifies the URL of the document from which the URL in the request 
      * <i>pwszObjectName</i> was obtained. If this parameter is set to <b>WINHTTP_NO_REFERER</b>, no referring document is specified.
-     * @param {Pointer<Char>} ppwszAcceptTypes Pointer to a <b>null</b>-terminated array of string pointers that specifies media types accepted by the client. If this parameter is set to <b>WINHTTP_DEFAULT_ACCEPT_TYPES</b>, no types are accepted by the client. Typically, servers handle a lack of accepted types as indication that the client accepts only documents of type "text//"; that is, only text documents—no pictures or other binary files. For a list of valid media types, see Media Types defined by IANA at http://www.iana.org/assignments/media-types/.
+     * @param {Pointer<PWSTR>} ppwszAcceptTypes Pointer to a <b>null</b>-terminated array of string pointers that specifies media types accepted by the client. If this parameter is set to <b>WINHTTP_DEFAULT_ACCEPT_TYPES</b>, no types are accepted by the client. Typically, servers handle a lack of accepted types as indication that the client accepts only documents of type "text//"; that is, only text documents—no pictures or other binary files. For a list of valid media types, see Media Types defined by IANA at http://www.iana.org/assignments/media-types/.
      * @param {Integer} dwFlags 
      * @returns {Pointer<Void>} Returns a valid HTTP request handle if successful, or <b>NULL</b> if not. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
@@ -4544,10 +4544,10 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpOpenRequest(hConnect, pwszVerb, pwszObjectName, pwszVersion, pwszReferrer, ppwszAcceptTypes, dwFlags) {
-        pwszVerb := pwszVerb is String? StrPtr(pwszVerb) : pwszVerb
-        pwszObjectName := pwszObjectName is String? StrPtr(pwszObjectName) : pwszObjectName
-        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
-        pwszReferrer := pwszReferrer is String? StrPtr(pwszReferrer) : pwszReferrer
+        pwszVerb := pwszVerb is String ? StrPtr(pwszVerb) : pwszVerb
+        pwszObjectName := pwszObjectName is String ? StrPtr(pwszObjectName) : pwszObjectName
+        pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
+        pwszReferrer := pwszReferrer is String ? StrPtr(pwszReferrer) : pwszReferrer
 
         A_LastError := 0
 
@@ -4562,7 +4562,7 @@ class WinHttp {
      * Adds one or more HTTP request headers to the HTTP request handle.
      * @param {Pointer<Void>} hRequest A <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a> function.
-     * @param {Pointer<Char>} lpszHeaders A pointer to a string variable that contains the headers to append to the request. Each header except the last must be terminated by a carriage return/line feed (CR/LF).
+     * @param {PWSTR} lpszHeaders A pointer to a string variable that contains the headers to append to the request. Each header except the last must be terminated by a carriage return/line feed (CR/LF).
      * @param {Integer} dwHeadersLength An unsigned long integer value that contains the length, in characters, of 
      * <i>pwszHeaders</i>. If this parameter is -1L, the function assumes that 
      * <i>pwszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
@@ -4635,7 +4635,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -4692,7 +4692,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpAddRequestHeaders(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -4722,7 +4722,7 @@ class WinHttp {
      * Sends the specified request to the HTTP server.
      * @param {Pointer<Void>} hRequest An <a href="https://docs.microsoft.com/windows/desktop/WinHttp/hinternet-handles-in-winhttp">HINTERNET</a> handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a>.
-     * @param {Pointer<Char>} lpszHeaders A pointer to a string  that contains the additional headers to append to the request. This parameter can be <b>WINHTTP_NO_ADDITIONAL_HEADERS</b> if there are no additional headers to append.
+     * @param {PWSTR} lpszHeaders A pointer to a string  that contains the additional headers to append to the request. This parameter can be <b>WINHTTP_NO_ADDITIONAL_HEADERS</b> if there are no additional headers to append.
      * @param {Integer} dwHeadersLength An unsigned long integer value that contains the length, in characters, of the additional headers. If this parameter is <b>-1L</b> and 
      * <i>pwszHeaders</i> is not <b>NULL</b>, this function assumes that 
      * <i>pwszHeaders</i> is <b>null</b>-terminated, and the length is calculated.
@@ -4740,7 +4740,7 @@ class WinHttp {
      * 
      * <i>dwTotalLength</i> must not change between calls to <b>WinHttpSendRequest</b> for the same request.  If <i>dwTotalLength</i> needs to be changed, the caller should create a new request.
      * @param {Pointer} dwContext A pointer to a pointer-sized variable that contains an application-defined value that is passed, with the request handle, to any callback functions.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Error codes are listed in the following table.
      * 
      * <table>
@@ -4966,7 +4966,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpSendRequest(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength, dwTotalLength, dwContext) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -5069,10 +5069,10 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pwszUserName Pointer to a string that contains a valid user name.
-     * @param {Pointer<Char>} pwszPassword Pointer to a string that contains a valid password.  The password can be blank.
+     * @param {PWSTR} pwszUserName Pointer to a string that contains a valid user name.
+     * @param {PWSTR} pwszPassword Pointer to a string that contains a valid password.  The password can be blank.
      * @param {Pointer<Void>} pAuthParams This parameter is reserved and must be <b>NULL</b>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following table identifies the error codes returned.
      * 
      * <table>
@@ -5129,8 +5129,8 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpSetCredentials(hRequest, AuthTargets, AuthScheme, pwszUserName, pwszPassword, pAuthParams) {
-        pwszUserName := pwszUserName is String? StrPtr(pwszUserName) : pwszUserName
-        pwszPassword := pwszPassword is String? StrPtr(pwszPassword) : pwszPassword
+        pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
+        pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
         A_LastError := 0
 
@@ -5290,7 +5290,7 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> if unsuccessful. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> if unsuccessful. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following table identifies the error codes that are returned.
      * 
      * <table>
@@ -5351,7 +5351,7 @@ class WinHttp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopenrequest">WinHttpOpenRequest</a> and sent by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpsendrequest">WinHttpSendRequest</a>.  Wait until <b>WinHttpSendRequest</b> has completed for this handle before calling  <b>WinHttpReceiveResponse</b>.
      * @param {Pointer<Void>} lpReserved This parameter is reserved and must be <b>NULL</b>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -5614,7 +5614,7 @@ class WinHttp {
      * WinHttpReceiveResponse must have been called for this handle and have completed before <b>WinHttpQueryHeaders</b> is called.
      * @param {Integer} dwInfoLevel Value of type <b>DWORD</b> that specifies a combination of attribute and modifier flags listed on the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinHttp/query-info-flags">Query Info Flags</a> page. These attribute and modifier flags indicate that the information is being requested and how it is to be formatted.
-     * @param {Pointer<Char>} pwszName Pointer to a string that contains the header name. If the flag in 
+     * @param {PWSTR} pwszName Pointer to a string that contains the header name. If the flag in 
      * <i>dwInfoLevel</i> is not 
      * <b>WINHTTP_QUERY_CUSTOM</b>, set this parameter to WINHTTP_HEADER_NAME_BY_INDEX.
      * @param {Pointer} lpBuffer Pointer to the buffer that receives the information. Setting this parameter to WINHTTP_NO_OUTPUT_BUFFER causes this function to return <b>FALSE</b>.  Calling 
@@ -5633,7 +5633,7 @@ class WinHttp {
      * </ul>
      * @param {Pointer<UInt32>} lpdwIndex Pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, 
      * <b>ERROR_WINHTTP_HEADER_NOT_FOUND</b> is returned. Set this parameter to WINHTTP_NO_HEADER_INDEX to specify that only the first occurrence of a header should be returned.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -5701,7 +5701,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpQueryHeaders(hRequest, dwInfoLevel, pwszName, lpBuffer, lpdwBufferLength, lpdwIndex) {
-        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
+        pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         A_LastError := 0
 
@@ -5783,8 +5783,8 @@ class WinHttp {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} ppwstrAutoConfigUrl A data type that returns a pointer to a null-terminated Unicode string that contains the configuration URL that receives the proxy data. You must free the string pointed to by <i>ppwszAutoConfigUrl</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @param {Pointer<PWSTR>} ppwstrAutoConfigUrl A data type that returns a pointer to a null-terminated Unicode string that contains the configuration URL that receives the proxy data. You must free the string pointed to by <i>ppwszAutoConfigUrl</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -5842,10 +5842,10 @@ class WinHttp {
     /**
      * Retrieves the proxy data for the specified URL.
      * @param {Pointer<Void>} hSession The WinHTTP session handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpopen">WinHttpOpen</a> function.
-     * @param {Pointer<Char>} lpcwszUrl A pointer to a null-terminated Unicode string that contains the URL of the HTTP request that the application is preparing to send.
+     * @param {PWSTR} lpcwszUrl A pointer to a null-terminated Unicode string that contains the URL of the HTTP request that the application is preparing to send.
      * @param {Pointer<WINHTTP_AUTOPROXY_OPTIONS>} pAutoProxyOptions A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_autoproxy_options">WINHTTP_AUTOPROXY_OPTIONS</a> structure that specifies the auto-proxy options to use.
      * @param {Pointer<WINHTTP_PROXY_INFO>} pProxyInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_proxy_info">WINHTTP_PROXY_INFO</a> structure that receives the proxy setting. This structure is then applied to the request handle using the WINHTTP_OPTION_PROXY option. Free the <b>lpszProxy</b> and <b>lpszProxyBypass</b> strings contained in this structure (if they are non-NULL) using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalfree">GlobalFree</a> function.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error data, call 
@@ -5974,7 +5974,7 @@ class WinHttp {
      * @since windows5.1.2600
      */
     static WinHttpGetProxyForUrl(hSession, lpcwszUrl, pAutoProxyOptions, pProxyInfo) {
-        lpcwszUrl := lpcwszUrl is String? StrPtr(lpcwszUrl) : lpcwszUrl
+        lpcwszUrl := lpcwszUrl is String ? StrPtr(lpcwszUrl) : lpcwszUrl
 
         A_LastError := 0
 
@@ -6042,7 +6042,7 @@ class WinHttp {
     /**
      * Retrieves the proxy data for the specified URL.
      * @param {Pointer<Void>} hResolver The WinHTTP resolver handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpcreateproxyresolver">WinHttpCreateProxyResolver</a> function.
-     * @param {Pointer<Char>} pcwszUrl A pointer to a null-terminated Unicode string that contains a URL for which proxy information will be determined.
+     * @param {PWSTR} pcwszUrl A pointer to a null-terminated Unicode string that contains a URL for which proxy information will be determined.
      * @param {Pointer<WINHTTP_AUTOPROXY_OPTIONS>} pAutoProxyOptions A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winhttp/ns-winhttp-winhttp_autoproxy_options">WINHTTP_AUTOPROXY_OPTIONS</a> structure that specifies the auto-proxy options to use.
      * @param {Pointer} pContext Context data that will be passed to the completion callback function.
      * @returns {Integer} A status code indicating the result of the operation.
@@ -6156,7 +6156,7 @@ class WinHttp {
      * @since windows8.0
      */
     static WinHttpGetProxyForUrlEx(hResolver, pcwszUrl, pAutoProxyOptions, pContext) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx", "ptr", hResolver, "ptr", pcwszUrl, "ptr", pAutoProxyOptions, "ptr", pContext, "uint")
         return result
@@ -6165,7 +6165,7 @@ class WinHttp {
     /**
      * 
      * @param {Pointer<Void>} hResolver 
-     * @param {Pointer<Char>} pcwszUrl 
+     * @param {PWSTR} pcwszUrl 
      * @param {Pointer<WINHTTP_AUTOPROXY_OPTIONS>} pAutoProxyOptions 
      * @param {Integer} cbInterfaceSelectionContext 
      * @param {Pointer} pInterfaceSelectionContext 
@@ -6173,7 +6173,7 @@ class WinHttp {
      * @returns {Integer} 
      */
     static WinHttpGetProxyForUrlEx2(hResolver, pcwszUrl, pAutoProxyOptions, cbInterfaceSelectionContext, pInterfaceSelectionContext, pContext) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WINHTTP.dll\WinHttpGetProxyForUrlEx2", "ptr", hResolver, "ptr", pcwszUrl, "ptr", pAutoProxyOptions, "uint", cbInterfaceSelectionContext, "ptr", pInterfaceSelectionContext, "ptr", pContext, "uint")
         return result
@@ -6405,7 +6405,7 @@ class WinHttp {
     /**
      * Retrieves the Internet Explorer proxy configuration for the current user.
      * @param {Pointer<WINHTTP_CURRENT_USER_IE_PROXY_CONFIG>} pProxyConfig A pointer, on input, to a <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/ns-winhttp-winhttp_current_user_ie_proxy_config">WINHTTP_CURRENT_USER_IE_PROXY_CONFIG</a> structure. On output, the structure contains the Internet Explorer proxy settings for the current active network connection (for example, LAN, dial-up, or VPN connection).
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. For extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Among the error codes returned are the following.
      * 
      * <table>
@@ -6463,7 +6463,7 @@ class WinHttp {
     /**
      * 
      * @param {Pointer<Void>} hSession 
-     * @param {Integer} fForceUpdate 
+     * @param {BOOL} fForceUpdate 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {Integer} 
      */
@@ -6475,18 +6475,18 @@ class WinHttp {
     /**
      * 
      * @param {Pointer<Void>} hSession 
-     * @param {Pointer<Char>} pcwszConnectionName 
-     * @param {Integer} fFallBackToDefaultSettings 
-     * @param {Integer} fSetAutoDiscoverForDefaultSettings 
+     * @param {PWSTR} pcwszConnectionName 
+     * @param {BOOL} fFallBackToDefaultSettings 
+     * @param {BOOL} fSetAutoDiscoverForDefaultSettings 
      * @param {Pointer<UInt32>} pdwSettingsVersion 
-     * @param {Pointer<Int32>} pfDefaultSettingsAreReturned 
+     * @param {Pointer<BOOL>} pfDefaultSettingsAreReturned 
      * @param {Pointer<WINHTTP_PROXY_SETTINGS>} pWinHttpProxySettings 
      * @returns {Integer} 
      */
     static WinHttpReadProxySettings(hSession, pcwszConnectionName, fFallBackToDefaultSettings, fSetAutoDiscoverForDefaultSettings, pdwSettingsVersion, pfDefaultSettingsAreReturned, pWinHttpProxySettings) {
-        pcwszConnectionName := pcwszConnectionName is String? StrPtr(pcwszConnectionName) : pcwszConnectionName
+        pcwszConnectionName := pcwszConnectionName is String ? StrPtr(pcwszConnectionName) : pcwszConnectionName
 
-        result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", "ptr", hSession, "ptr", pcwszConnectionName, "int", fFallBackToDefaultSettings, "int", fSetAutoDiscoverForDefaultSettings, "uint*", pdwSettingsVersion, "int*", pfDefaultSettingsAreReturned, "ptr", pWinHttpProxySettings, "uint")
+        result := DllCall("WINHTTP.dll\WinHttpReadProxySettings", "ptr", hSession, "ptr", pcwszConnectionName, "int", fFallBackToDefaultSettings, "int", fSetAutoDiscoverForDefaultSettings, "uint*", pdwSettingsVersion, "ptr", pfDefaultSettingsAreReturned, "ptr", pWinHttpProxySettings, "uint")
         return result
     }
 
@@ -6512,7 +6512,7 @@ class WinHttp {
 
     /**
      * 
-     * @param {Integer} fProxySettingsPerUser 
+     * @param {BOOL} fProxySettingsPerUser 
      * @returns {Integer} 
      */
     static WinHttpSetProxySettingsPerUser(fProxySettingsPerUser) {

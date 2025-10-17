@@ -36,7 +36,7 @@ class WLX_PROFILE_V1_0 extends Win32Struct
      * 
      * 
      * The string pointed to by <b>pszProfile</b> must be separately allocated by your <a href="https://docs.microsoft.com/windows/desktop/SecGloss/g-gly">GINA</a> DLL. It will be deallocated by <a href="https://docs.microsoft.com/windows/desktop/SecGloss/w-gly">Winlogon</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProfile {
         get => NumGet(this, 8, "ptr")

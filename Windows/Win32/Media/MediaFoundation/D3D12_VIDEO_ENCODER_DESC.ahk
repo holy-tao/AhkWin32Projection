@@ -43,7 +43,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     EncodeProfile{
         get {
             if(!this.HasProp("__EncodeProfile"))
-                this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 16)
+                this.__EncodeProfile := D3D12_VIDEO_ENCODER_PROFILE_DESC(16, this)
             return this.__EncodeProfile
         }
     }
@@ -62,7 +62,7 @@ class D3D12_VIDEO_ENCODER_DESC extends Win32Struct
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 40)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(40, this)
             return this.__CodecConfiguration
         }
     }

@@ -46,7 +46,7 @@ class BANDINFOSFB extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the background color of the band.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBkgnd {
         get => NumGet(this, 12, "uint")
@@ -58,7 +58,7 @@ class BANDINFOSFB extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the light button color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBtnLt {
         get => NumGet(this, 16, "uint")
@@ -70,7 +70,7 @@ class BANDINFOSFB extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that contains the dark button color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBtnDk {
         get => NumGet(this, 20, "uint")

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\SECPKG_GSS_INFO.ahk
 #Include .\SECPKG_CONTEXT_THUNKS.ahk
+#Include .\SECPKG_MUTUAL_AUTH_LEVEL.ahk
 #Include .\SECURITY_STRING.ahk
 #Include .\SECPKG_WOW_CLIENT_DLL.ahk
 #Include .\SECPKG_SERIALIZED_OID.ahk
@@ -36,7 +37,7 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     GssInfo{
         get {
             if(!this.HasProp("__GssInfo"))
-                this.__GssInfo := SECPKG_GSS_INFO(this.ptr + 8)
+                this.__GssInfo := SECPKG_GSS_INFO(8, this)
             return this.__GssInfo
         }
     }
@@ -47,17 +48,20 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     ContextThunks{
         get {
             if(!this.HasProp("__ContextThunks"))
-                this.__ContextThunks := SECPKG_CONTEXT_THUNKS(this.ptr + 8)
+                this.__ContextThunks := SECPKG_CONTEXT_THUNKS(8, this)
             return this.__ContextThunks
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {SECPKG_MUTUAL_AUTH_LEVEL}
      */
-    MutualAuthLevel {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MutualAuthLevel{
+        get {
+            if(!this.HasProp("__MutualAuthLevel"))
+                this.__MutualAuthLevel := SECPKG_MUTUAL_AUTH_LEVEL(8, this)
+            return this.__MutualAuthLevel
+        }
     }
 
     /**
@@ -66,7 +70,7 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     WowClientDll{
         get {
             if(!this.HasProp("__WowClientDll"))
-                this.__WowClientDll := SECPKG_WOW_CLIENT_DLL(this.ptr + 8)
+                this.__WowClientDll := SECPKG_WOW_CLIENT_DLL(8, this)
             return this.__WowClientDll
         }
     }
@@ -77,7 +81,7 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     ExtraOids{
         get {
             if(!this.HasProp("__ExtraOids"))
-                this.__ExtraOids := SECPKG_EXTRA_OIDS(this.ptr + 8)
+                this.__ExtraOids := SECPKG_EXTRA_OIDS(8, this)
             return this.__ExtraOids
         }
     }
@@ -88,7 +92,7 @@ class SECPKG_EXTENDED_INFORMATION extends Win32Struct
     Nego2Info{
         get {
             if(!this.HasProp("__Nego2Info"))
-                this.__Nego2Info := SECPKG_NEGO2_INFO(this.ptr + 8)
+                this.__Nego2Info := SECPKG_NEGO2_INFO(8, this)
             return this.__Nego2Info
         }
     }

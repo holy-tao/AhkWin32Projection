@@ -19,7 +19,7 @@ class WHV_VP_EXIT_CONTEXT extends Win32Struct
     ExecutionState{
         get {
             if(!this.HasProp("__ExecutionState"))
-                this.__ExecutionState := WHV_X64_VP_EXECUTION_STATE(this.ptr + 0)
+                this.__ExecutionState := WHV_X64_VP_EXECUTION_STATE(0, this)
             return this.__ExecutionState
         }
     }
@@ -73,7 +73,7 @@ class WHV_VP_EXIT_CONTEXT extends Win32Struct
     Cs{
         get {
             if(!this.HasProp("__Cs"))
-                this.__Cs := WHV_X64_SEGMENT_REGISTER(this.ptr + 16)
+                this.__Cs := WHV_X64_SEGMENT_REGISTER(16, this)
             return this.__Cs
         }
     }

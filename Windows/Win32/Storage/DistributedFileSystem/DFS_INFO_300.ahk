@@ -42,7 +42,7 @@ class DFS_INFO_300 extends Win32Struct
      * &#92;<i>DomainName</i>&#92;<i>DomDfsName</i>
      * 
      * where <i>DomainName</i> is the name of the domain that hosts the domain-based DFS namespace and <i>DomDfsname</i> is the name of the DFS namespace.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DfsName {
         get => NumGet(this, 8, "ptr")

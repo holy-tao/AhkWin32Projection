@@ -21,7 +21,7 @@ class CRYPT_PKCS8_IMPORT_PARAMS extends Win32Struct
     PrivateKey{
         get {
             if(!this.HasProp("__PrivateKey"))
-                this.__PrivateKey := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__PrivateKey := CRYPT_INTEGER_BLOB(0, this)
             return this.__PrivateKey
         }
     }

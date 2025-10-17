@@ -39,7 +39,7 @@ class AM_MPEGSTREAMTYPE extends Win32Struct
     mt{
         get {
             if(!this.HasProp("__mt"))
-                this.__mt := AM_MEDIA_TYPE(this.ptr + 8)
+                this.__mt := AM_MEDIA_TYPE(8, this)
             return this.__mt
         }
     }

@@ -118,7 +118,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     irdaAttribOctetSeq{
         get {
             if(!this.HasProp("__irdaAttribOctetSeq"))
-                this.__irdaAttribOctetSeq := %this.__Class%._irdaAttribOctetSeq(this.ptr + 648)
+                this.__irdaAttribOctetSeq := %this.__Class%._irdaAttribOctetSeq(648, this)
             return this.__irdaAttribOctetSeq
         }
     }
@@ -129,7 +129,7 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     irdaAttribUsrStr{
         get {
             if(!this.HasProp("__irdaAttribUsrStr"))
-                this.__irdaAttribUsrStr := %this.__Class%._irdaAttribUsrStr(this.ptr + 648)
+                this.__irdaAttribUsrStr := %this.__Class%._irdaAttribUsrStr(648, this)
             return this.__irdaAttribUsrStr
         }
     }

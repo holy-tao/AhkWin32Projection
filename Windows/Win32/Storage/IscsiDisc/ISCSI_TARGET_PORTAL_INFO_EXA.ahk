@@ -162,7 +162,7 @@ class ISCSI_TARGET_PORTAL_INFO_EXA extends Win32Struct
     LoginOptions{
         get {
             if(!this.HasProp("__LoginOptions"))
-                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(this.ptr + 784)
+                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(784, this)
             return this.__LoginOptions
         }
     }

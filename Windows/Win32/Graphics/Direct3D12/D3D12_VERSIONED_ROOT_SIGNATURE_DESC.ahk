@@ -49,7 +49,7 @@ class D3D12_VERSIONED_ROOT_SIGNATURE_DESC extends Win32Struct
     Desc_1_0{
         get {
             if(!this.HasProp("__Desc_1_0"))
-                this.__Desc_1_0 := D3D12_ROOT_SIGNATURE_DESC(this.ptr + 8)
+                this.__Desc_1_0 := D3D12_ROOT_SIGNATURE_DESC(8, this)
             return this.__Desc_1_0
         }
     }
@@ -60,7 +60,7 @@ class D3D12_VERSIONED_ROOT_SIGNATURE_DESC extends Win32Struct
     Desc_1_1{
         get {
             if(!this.HasProp("__Desc_1_1"))
-                this.__Desc_1_1 := D3D12_ROOT_SIGNATURE_DESC1(this.ptr + 8)
+                this.__Desc_1_1 := D3D12_ROOT_SIGNATURE_DESC1(8, this)
             return this.__Desc_1_1
         }
     }
@@ -71,7 +71,7 @@ class D3D12_VERSIONED_ROOT_SIGNATURE_DESC extends Win32Struct
     Desc_1_2{
         get {
             if(!this.HasProp("__Desc_1_2"))
-                this.__Desc_1_2 := D3D12_ROOT_SIGNATURE_DESC2(this.ptr + 8)
+                this.__Desc_1_2 := D3D12_ROOT_SIGNATURE_DESC2(8, this)
             return this.__Desc_1_2
         }
     }

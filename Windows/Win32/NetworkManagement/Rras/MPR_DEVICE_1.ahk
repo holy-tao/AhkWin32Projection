@@ -43,7 +43,7 @@ class MPR_DEVICE_1 extends Win32Struct
 
     /**
      * Pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials in the order listed if the primary number (see <b>szLocalPhoneNumber</b>) fails to connect.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szAlternates {
         get => NumGet(this, 552, "ptr")

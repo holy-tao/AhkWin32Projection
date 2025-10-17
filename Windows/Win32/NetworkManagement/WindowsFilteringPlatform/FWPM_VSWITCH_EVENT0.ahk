@@ -35,7 +35,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
      * Type: <b>wchar_t*</b>
      * 
      * GUID that identifies a vSwitch.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     vSwitchId {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +55,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {Pointer<PWSTR>}
          */
         vSwitchFilterExtensions {
             get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         inRequiredPosition {
             get => NumGet(this, 0, "int")
@@ -85,7 +85,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {Pointer<PWSTR>}
          */
         vSwitchFilterExtensions {
             get => NumGet(this, 8, "ptr")
@@ -100,7 +100,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     positionInfo{
         get {
             if(!this.HasProp("__positionInfo"))
-                this.__positionInfo := %this.__Class%._positionInfo(this.ptr + 16)
+                this.__positionInfo := %this.__Class%._positionInfo(16, this)
             return this.__positionInfo
         }
     }
@@ -111,7 +111,7 @@ class FWPM_VSWITCH_EVENT0 extends Win32Struct
     reorderInfo{
         get {
             if(!this.HasProp("__reorderInfo"))
-                this.__reorderInfo := %this.__Class%._reorderInfo(this.ptr + 16)
+                this.__reorderInfo := %this.__Class%._reorderInfo(16, this)
             return this.__reorderInfo
         }
     }

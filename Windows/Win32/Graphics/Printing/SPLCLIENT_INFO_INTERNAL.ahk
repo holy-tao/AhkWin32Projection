@@ -36,7 +36,7 @@ class SPLCLIENT_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMachineName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class SPLCLIENT_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -107,12 +107,8 @@ class SPLCLIENT_INFO_INTERNAL extends Win32Struct
         set => NumPut("uint", value, this, 60)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 64
     }
 }

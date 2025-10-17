@@ -12,7 +12,7 @@ class WKSTA_INFO_1057 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1057_use_encryption {
         get => NumGet(this, 0, "int")

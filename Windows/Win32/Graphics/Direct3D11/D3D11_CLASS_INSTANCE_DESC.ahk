@@ -101,7 +101,7 @@ class D3D11_CLASS_INSTANCE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * True if the class was created; the default value is false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Created {
         get => NumGet(this, 28, "int")

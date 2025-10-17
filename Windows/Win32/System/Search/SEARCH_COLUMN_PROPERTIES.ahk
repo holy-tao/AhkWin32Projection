@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
@@ -50,7 +51,7 @@ class SEARCH_COLUMN_PROPERTIES extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := PROPVARIANT(this.ptr + 0)
+                this.__Value := PROPVARIANT(0, this)
             return this.__Value
         }
     }

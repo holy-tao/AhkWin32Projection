@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -29,15 +33,18 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpVerb {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +52,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpFile {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +60,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpParameters {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +68,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDirectory {
         get => NumGet(this, 40, "ptr")
@@ -77,11 +84,14 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstApp {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hInstApp{
+        get {
+            if(!this.HasProp("__hInstApp"))
+                this.__hInstApp := HINSTANCE(56, this)
+            return this.__hInstApp
+        }
     }
 
     /**
@@ -93,7 +103,7 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpClass {
         get => NumGet(this, 72, "ptr")
@@ -101,11 +111,14 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HKEY}
      */
-    hkeyClass {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    hkeyClass{
+        get {
+            if(!this.HasProp("__hkeyClass"))
+                this.__hkeyClass := HKEY(80, this)
+            return this.__hkeyClass
+        }
     }
 
     /**
@@ -117,35 +130,40 @@ class SHELLEXECUTEINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hIcon {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HANDLE(96, this)
+            return this.__hIcon
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hMonitor {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hMonitor{
+        get {
+            if(!this.HasProp("__hMonitor"))
+                this.__hMonitor := HANDLE(96, this)
+            return this.__hMonitor
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(104, this)
+            return this.__hProcess
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

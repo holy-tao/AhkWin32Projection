@@ -30,7 +30,7 @@ class TOKEN_SOURCE extends Win32Struct
     SourceIdentifier{
         get {
             if(!this.HasProp("__SourceIdentifier"))
-                this.__SourceIdentifier := LUID(this.ptr + 16)
+                this.__SourceIdentifier := LUID(16, this)
             return this.__SourceIdentifier
         }
     }

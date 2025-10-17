@@ -18,7 +18,7 @@ class KSRTAUDIO_BUFFER_PROPERTY_WITH_NOTIFICATION extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }

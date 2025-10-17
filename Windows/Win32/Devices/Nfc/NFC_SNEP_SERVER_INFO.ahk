@@ -27,7 +27,7 @@ class NFC_SNEP_SERVER_INFO extends Win32Struct
     sSocketOption{
         get {
             if(!this.HasProp("__sSocketOption"))
-                this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(this.ptr + 4)
+                this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(4, this)
             return this.__sSocketOption
         }
     }
@@ -54,7 +54,7 @@ class NFC_SNEP_SERVER_INFO extends Win32Struct
     sService{
         get {
             if(!this.HasProp("__sService"))
-                this.__sService := NFC_LLCP_SERVICE_NAME_ENTRY(this.ptr + 16)
+                this.__sService := NFC_LLCP_SERVICE_NAME_ENTRY(16, this)
             return this.__sService
         }
     }

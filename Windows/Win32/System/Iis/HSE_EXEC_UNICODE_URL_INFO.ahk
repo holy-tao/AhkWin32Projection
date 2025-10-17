@@ -12,7 +12,7 @@ class HSE_EXEC_UNICODE_URL_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUrl {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HSE_EXEC_UNICODE_URL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszMethod {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HSE_EXEC_UNICODE_URL_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszChildHeaders {
         get => NumGet(this, 16, "ptr")

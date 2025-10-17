@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.UI.Input.XboxController
  * @version v4.0.30319
@@ -119,7 +119,7 @@ class XboxController {
      * Windows 8 (XInput 1.4), DirectX SDK (XInput 1.3)
      * 
      * 
-     * @param {Integer} enable If enable is <b>FALSE</b>, XInput will only send neutral data in response to <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputgetstate">XInputGetState</a> (all buttons up, axes centered, and triggers at 0). <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputsetstate">XInputSetState</a> calls will be registered but not sent to the device. Sending any value other than <b>FALSE </b>will restore reading and writing functionality to normal.
+     * @param {BOOL} enable If enable is <b>FALSE</b>, XInput will only send neutral data in response to <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputgetstate">XInputGetState</a> (all buttons up, axes centered, and triggers at 0). <a href="https://docs.microsoft.com/windows/desktop/api/xinput/nf-xinput-xinputsetstate">XInputSetState</a> calls will be registered but not sent to the device. Sending any value other than <b>FALSE </b>will restore reading and writing functionality to normal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//xinput/nf-xinput-xinputenable
      */
@@ -130,9 +130,9 @@ class XboxController {
     /**
      * Retrieves the sound rendering and sound capture audio device IDs that are associated with the headset connected to the specified controller.
      * @param {Integer} dwUserIndex Index of the gamer associated with the device.
-     * @param {Pointer<Char>} pRenderDeviceId Windows Core Audio device ID string for render (speakers).
+     * @param {PWSTR} pRenderDeviceId Windows Core Audio device ID string for render (speakers).
      * @param {Pointer<UInt32>} pRenderCount Size, in wide-chars, of the render device ID string buffer.
-     * @param {Pointer<Char>} pCaptureDeviceId Windows Core Audio device ID string for capture (microphone).
+     * @param {PWSTR} pCaptureDeviceId Windows Core Audio device ID string for capture (microphone).
      * @param {Pointer<UInt32>} pCaptureCount Size, in wide-chars, of capture device ID string buffer.
      * @returns {Integer} If the function successfully retrieves the device IDs for render and capture, the return code is <b>ERROR_SUCCESS</b>.
      * 
@@ -147,8 +147,8 @@ class XboxController {
      * @see https://docs.microsoft.com/windows/win32/api//xinput/nf-xinput-xinputgetaudiodeviceids
      */
     static XInputGetAudioDeviceIds(dwUserIndex, pRenderDeviceId, pRenderCount, pCaptureDeviceId, pCaptureCount) {
-        pRenderDeviceId := pRenderDeviceId is String? StrPtr(pRenderDeviceId) : pRenderDeviceId
-        pCaptureDeviceId := pCaptureDeviceId is String? StrPtr(pCaptureDeviceId) : pCaptureDeviceId
+        pRenderDeviceId := pRenderDeviceId is String ? StrPtr(pRenderDeviceId) : pRenderDeviceId
+        pCaptureDeviceId := pCaptureDeviceId is String ? StrPtr(pCaptureDeviceId) : pCaptureDeviceId
 
         result := DllCall("xinput1_4.dll\XInputGetAudioDeviceIds", "uint", dwUserIndex, "ptr", pRenderDeviceId, "uint*", pRenderCount, "ptr", pCaptureDeviceId, "uint*", pCaptureCount, "uint")
         return result

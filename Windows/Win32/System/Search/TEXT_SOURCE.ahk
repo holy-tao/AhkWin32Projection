@@ -46,7 +46,7 @@ class TEXT_SOURCE extends Win32Struct
      * Type: <b>WCHAR*</b>
      * 
      * Pointer to a buffer that contains text from the source document for the word breaker to parse.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     awcBuffer {
         get => NumGet(this, 8, "ptr")

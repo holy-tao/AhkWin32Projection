@@ -29,11 +29,31 @@ class PROCESSOR_IDLESTATE_POLICY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - AllowScaling
+     * - Disabled
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 2, "ushort")
         set => NumPut("ushort", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AllowScaling {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Disabled {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

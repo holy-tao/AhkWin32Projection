@@ -19,7 +19,7 @@ class D2D1_FEATURE_DATA_DOUBLES extends Win32Struct
 
     /**
      * TRUE is doubles are supported within the shaders.
-     * @type {Integer}
+     * @type {BOOL}
      */
     doublePrecisionFloatShaderOps {
         get => NumGet(this, 0, "int")

@@ -54,7 +54,7 @@ class ADDRINFOEXA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")

@@ -18,7 +18,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -43,7 +43,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bReAssocReq {
         get => NumGet(this, 16, "char")
@@ -51,7 +51,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bReAssocResp {
         get => NumGet(this, 17, "char")
@@ -163,7 +163,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bFourAddressSupported {
         get => NumGet(this, 72, "char")
@@ -171,7 +171,7 @@ class DOT11_ASSOCIATION_COMPLETION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bPortAuthorized {
         get => NumGet(this, 73, "char")

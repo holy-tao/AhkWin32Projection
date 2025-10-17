@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Kernel\LIST_ENTRY.ahk
 
 /**
@@ -29,7 +30,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * The file name of the mapped file.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ModuleName {
         get => NumGet(this, 0, "ptr")
@@ -38,11 +39,14 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * A handle to the mapped file.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(8, this)
+            return this.__hFile
+        }
     }
 
     /**
@@ -104,7 +108,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * If the image is a kernel mode executable image, this value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fSystemImage {
         get => NumGet(this, 60, "char")
@@ -113,7 +117,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * If the image is a 16-bit executable image, this value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDOSImage {
         get => NumGet(this, 61, "char")
@@ -124,7 +128,7 @@ class LOADED_IMAGE extends Win32Struct
      * If the image is read-only, this value is <b>TRUE</b>.
      * 
      * <b>Prior to Windows Vista:  </b>This member is not included in the structure.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fReadOnly {
         get => NumGet(this, 62, "char")
@@ -149,7 +153,7 @@ class LOADED_IMAGE extends Win32Struct
     Links{
         get {
             if(!this.HasProp("__Links"))
-                this.__Links := LIST_ENTRY(this.ptr + 64)
+                this.__Links := LIST_ENTRY(64, this)
             return this.__Links
         }
     }

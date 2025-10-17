@@ -35,7 +35,7 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
     Bank0{
         get {
             if(!this.HasProp("__Bank0"))
-                this.__Bank0 := WHV_PROCESSOR_FEATURES(this.ptr + 8)
+                this.__Bank0 := WHV_PROCESSOR_FEATURES(8, this)
             return this.__Bank0
         }
     }
@@ -46,7 +46,7 @@ class WHV_PROCESSOR_FEATURES_BANKS extends Win32Struct
     Bank1{
         get {
             if(!this.HasProp("__Bank1"))
-                this.__Bank1 := WHV_PROCESSOR_FEATURES1(this.ptr + 24)
+                this.__Bank1 := WHV_PROCESSOR_FEATURES1(24, this)
             return this.__Bank1
         }
     }

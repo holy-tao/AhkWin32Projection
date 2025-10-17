@@ -45,7 +45,7 @@ class LVINSERTGROUPSORTED extends Win32Struct
     lvGroup{
         get {
             if(!this.HasProp("__lvGroup"))
-                this.__lvGroup := LVGROUP(this.ptr + 16)
+                this.__lvGroup := LVGROUP(16, this)
             return this.__lvGroup
         }
     }

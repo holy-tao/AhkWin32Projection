@@ -66,7 +66,7 @@ class IPSEC_TRANSPORT_POLICY2 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(this.ptr + 24)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(24, this)
             return this.__saIdleTimeout
         }
     }

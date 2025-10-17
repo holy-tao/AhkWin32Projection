@@ -22,7 +22,7 @@ class CMC_PEND_INFO extends Win32Struct
     PendToken{
         get {
             if(!this.HasProp("__PendToken"))
-                this.__PendToken := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__PendToken := CRYPT_INTEGER_BLOB(0, this)
             return this.__PendToken
         }
     }
@@ -34,7 +34,7 @@ class CMC_PEND_INFO extends Win32Struct
     PendTime{
         get {
             if(!this.HasProp("__PendTime"))
-                this.__PendTime := FILETIME(this.ptr + 16)
+                this.__PendTime := FILETIME(16, this)
             return this.__PendTime
         }
     }

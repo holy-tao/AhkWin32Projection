@@ -18,7 +18,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     ResolvedLayoutMetadata{
         get {
             if(!this.HasProp("__ResolvedLayoutMetadata"))
-                this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 0)
+                this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(0, this)
             return this.__ResolvedLayoutMetadata
         }
     }
@@ -53,7 +53,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     ResolvedFramePSNRData{
         get {
             if(!this.HasProp("__ResolvedFramePSNRData"))
-                this.__ResolvedFramePSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 40)
+                this.__ResolvedFramePSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(40, this)
             return this.__ResolvedFramePSNRData
         }
     }
@@ -64,7 +64,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS1 extends Win32Struct
     ResolvedSubregionsPSNRData{
         get {
             if(!this.HasProp("__ResolvedSubregionsPSNRData"))
-                this.__ResolvedSubregionsPSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 56)
+                this.__ResolvedSubregionsPSNRData := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(56, this)
             return this.__ResolvedSubregionsPSNRData
         }
     }

@@ -36,7 +36,7 @@ class DHCPV6CAPI_PARAMS extends Win32Struct
 
     /**
      * This option is set to <b>TRUE</b> if this parameter is vendor-specific.  Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsVendor {
         get => NumGet(this, 8, "int")

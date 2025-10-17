@@ -23,7 +23,7 @@ class IKEEXT_CERTIFICATE_CREDENTIAL1 extends Win32Struct
     subjectName{
         get {
             if(!this.HasProp("__subjectName"))
-                this.__subjectName := FWP_BYTE_BLOB(this.ptr + 0)
+                this.__subjectName := FWP_BYTE_BLOB(0, this)
             return this.__subjectName
         }
     }
@@ -37,7 +37,7 @@ class IKEEXT_CERTIFICATE_CREDENTIAL1 extends Win32Struct
     certHash{
         get {
             if(!this.HasProp("__certHash"))
-                this.__certHash := FWP_BYTE_BLOB(this.ptr + 16)
+                this.__certHash := FWP_BYTE_BLOB(16, this)
             return this.__certHash
         }
     }
@@ -63,7 +63,7 @@ class IKEEXT_CERTIFICATE_CREDENTIAL1 extends Win32Struct
     certificate{
         get {
             if(!this.HasProp("__certificate"))
-                this.__certificate := FWP_BYTE_BLOB(this.ptr + 40)
+                this.__certificate := FWP_BYTE_BLOB(40, this)
             return this.__certificate
         }
     }

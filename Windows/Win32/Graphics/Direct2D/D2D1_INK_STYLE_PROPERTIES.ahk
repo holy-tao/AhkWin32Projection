@@ -30,7 +30,7 @@ class D2D1_INK_STYLE_PROPERTIES extends Win32Struct
     nibTransform{
         get {
             if(!this.HasProp("__nibTransform"))
-                this.__nibTransform := D2D_MATRIX_3X2_F(this.ptr + 8)
+                this.__nibTransform := D2D_MATRIX_3X2_F(8, this)
             return this.__nibTransform
         }
     }

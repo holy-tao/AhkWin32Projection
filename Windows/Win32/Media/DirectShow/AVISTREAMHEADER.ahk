@@ -122,7 +122,7 @@ class AVIStreamHeader extends Win32Struct
     rcFrame{
         get {
             if(!this.HasProp("__rcFrame"))
-                this.__rcFrame := RECT(this.ptr + 48)
+                this.__rcFrame := RECT(48, this)
             return this.__rcFrame
         }
     }

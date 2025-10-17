@@ -94,7 +94,7 @@ class DWRITE_HIT_TEST_METRICS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * true if the hit region contains text; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isText {
         get => NumGet(this, 28, "int")
@@ -105,7 +105,7 @@ class DWRITE_HIT_TEST_METRICS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * true if the text range is trimmed; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isTrimmed {
         get => NumGet(this, 32, "int")

@@ -30,7 +30,7 @@ class SERVICE_DELAYED_AUTO_START_INFO extends Win32Struct
      * If this member is <b>TRUE</b>, the service is started after other auto-start services are started plus a short delay. Otherwise, the service is started during system boot.
      * 
      * This setting is ignored unless the service is an auto-start service.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDelayedAutostart {
         get => NumGet(this, 0, "int")

@@ -34,7 +34,7 @@ class WSD_EVENT extends Win32Struct
 
     /**
      * Pointer to the protocol string when dispatch by tags is required.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DispatchTag {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class WSD_EVENT extends Win32Struct
     HandlerContext{
         get {
             if(!this.HasProp("__HandlerContext"))
-                this.__HandlerContext := WSD_HANDLER_CONTEXT(this.ptr + 16)
+                this.__HandlerContext := WSD_HANDLER_CONTEXT(16, this)
             return this.__HandlerContext
         }
     }

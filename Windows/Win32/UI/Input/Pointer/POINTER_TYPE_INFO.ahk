@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include .\POINTER_INFO.ahk
 #Include ..\..\..\Foundation\RECT.ahk
@@ -33,7 +35,7 @@ class POINTER_TYPE_INFO extends Win32Struct
     touchInfo{
         get {
             if(!this.HasProp("__touchInfo"))
-                this.__touchInfo := POINTER_TOUCH_INFO(this.ptr + 8)
+                this.__touchInfo := POINTER_TOUCH_INFO(8, this)
             return this.__touchInfo
         }
     }
@@ -44,7 +46,7 @@ class POINTER_TYPE_INFO extends Win32Struct
     penInfo{
         get {
             if(!this.HasProp("__penInfo"))
-                this.__penInfo := POINTER_PEN_INFO(this.ptr + 8)
+                this.__penInfo := POINTER_PEN_INFO(8, this)
             return this.__penInfo
         }
     }

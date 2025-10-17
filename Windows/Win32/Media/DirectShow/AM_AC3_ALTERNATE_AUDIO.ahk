@@ -12,7 +12,7 @@ class AM_AC3_ALTERNATE_AUDIO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fStereo {
         get => NumGet(this, 0, "int")

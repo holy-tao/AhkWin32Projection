@@ -17,7 +17,7 @@ class DML_FEATURE_DATA_TENSOR_DATA_TYPE_SUPPORT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the tensor data type is supported within tensors by the DirectML device. Otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 0, "int")

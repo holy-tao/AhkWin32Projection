@@ -42,7 +42,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the cover page file (.cov) to associate with the received fax document. The string can be the file name of the common cover page file, or it can be the UNC path to a local cover page file.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     CoverPageName {
         get => NumGet(this, 8, "ptr")
@@ -53,7 +53,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax cover page file is stored on the local computer or in the common cover page location. A value of <b>TRUE</b> indicates that the cover page file resides in the common cover page location on the fax server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UseServerCoverPage {
         get => NumGet(this, 16, "int")
@@ -64,7 +64,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecName {
         get => NumGet(this, 24, "ptr")
@@ -75,7 +75,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the fax number of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecFaxNumber {
         get => NumGet(this, 32, "ptr")
@@ -86,7 +86,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the company name of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecCompany {
         get => NumGet(this, 40, "ptr")
@@ -97,7 +97,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the street address of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecStreetAddress {
         get => NumGet(this, 48, "ptr")
@@ -108,7 +108,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the city of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecCity {
         get => NumGet(this, 56, "ptr")
@@ -119,7 +119,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the state of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecState {
         get => NumGet(this, 64, "ptr")
@@ -130,7 +130,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the postal ZIP code of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecZip {
         get => NumGet(this, 72, "ptr")
@@ -141,7 +141,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the country/region of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecCountry {
         get => NumGet(this, 80, "ptr")
@@ -152,7 +152,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the title of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecTitle {
         get => NumGet(this, 88, "ptr")
@@ -163,7 +163,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the department of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecDepartment {
         get => NumGet(this, 96, "ptr")
@@ -174,7 +174,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office location of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecOfficeLocation {
         get => NumGet(this, 104, "ptr")
@@ -185,7 +185,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the home telephone number of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecHomePhone {
         get => NumGet(this, 112, "ptr")
@@ -196,7 +196,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office telephone number of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecOfficePhone {
         get => NumGet(this, 120, "ptr")
@@ -207,7 +207,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrName {
         get => NumGet(this, 128, "ptr")
@@ -218,7 +218,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the fax number of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrFaxNumber {
         get => NumGet(this, 136, "ptr")
@@ -229,7 +229,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the company name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrCompany {
         get => NumGet(this, 144, "ptr")
@@ -240,7 +240,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the address of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrAddress {
         get => NumGet(this, 152, "ptr")
@@ -251,7 +251,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the title of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrTitle {
         get => NumGet(this, 160, "ptr")
@@ -262,7 +262,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the department name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrDepartment {
         get => NumGet(this, 168, "ptr")
@@ -273,7 +273,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office location of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrOfficeLocation {
         get => NumGet(this, 176, "ptr")
@@ -284,7 +284,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the home telephone number of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrHomePhone {
         get => NumGet(this, 184, "ptr")
@@ -295,7 +295,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the office telephone number of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SdrOfficePhone {
         get => NumGet(this, 192, "ptr")
@@ -306,7 +306,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that contains the text of a message or note from the sender that pertains to the fax transmission. The text will appear on the cover page.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Note {
         get => NumGet(this, 200, "ptr")
@@ -317,7 +317,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the subject line of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Subject {
         get => NumGet(this, 208, "ptr")
@@ -333,7 +333,7 @@ class FAX_COVERPAGE_INFOA extends Win32Struct
     TimeSent{
         get {
             if(!this.HasProp("__TimeSent"))
-                this.__TimeSent := SYSTEMTIME(this.ptr + 216)
+                this.__TimeSent := SYSTEMTIME(216, this)
             return this.__TimeSent
         }
     }

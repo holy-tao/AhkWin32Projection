@@ -61,7 +61,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -73,7 +73,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     UserKeyingMaterial{
         get {
             if(!this.HasProp("__UserKeyingMaterial"))
-                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__UserKeyingMaterial := CRYPT_INTEGER_BLOB(32, this)
             return this.__UserKeyingMaterial
         }
     }
@@ -93,7 +93,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     OriginatorCertId{
         get {
             if(!this.HasProp("__OriginatorCertId"))
-                this.__OriginatorCertId := CERT_ID(this.ptr + 56)
+                this.__OriginatorCertId := CERT_ID(56, this)
             return this.__OriginatorCertId
         }
     }
@@ -104,7 +104,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
     OriginatorPublicKeyInfo{
         get {
             if(!this.HasProp("__OriginatorPublicKeyInfo"))
-                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 56)
+                this.__OriginatorPublicKeyInfo := CERT_PUBLIC_KEY_INFO(56, this)
             return this.__OriginatorPublicKeyInfo
         }
     }
@@ -209,12 +209,8 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
         set => NumPut("uint", value, this, 120)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 128
     }
 }

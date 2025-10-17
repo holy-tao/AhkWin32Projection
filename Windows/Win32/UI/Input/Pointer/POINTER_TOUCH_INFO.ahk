@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include .\POINTER_INFO.ahk
 #Include ..\..\..\Foundation\RECT.ahk
@@ -25,7 +27,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
     pointerInfo{
         get {
             if(!this.HasProp("__pointerInfo"))
-                this.__pointerInfo := POINTER_INFO(this.ptr + 0)
+                this.__pointerInfo := POINTER_INFO(0, this)
             return this.__pointerInfo
         }
     }
@@ -65,7 +67,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
     rcContact{
         get {
             if(!this.HasProp("__rcContact"))
-                this.__rcContact := RECT(this.ptr + 104)
+                this.__rcContact := RECT(104, this)
             return this.__rcContact
         }
     }
@@ -79,7 +81,7 @@ class POINTER_TOUCH_INFO extends Win32Struct
     rcContactRaw{
         get {
             if(!this.HasProp("__rcContactRaw"))
-                this.__rcContactRaw := RECT(this.ptr + 120)
+                this.__rcContactRaw := RECT(120, this)
             return this.__rcContactRaw
         }
     }

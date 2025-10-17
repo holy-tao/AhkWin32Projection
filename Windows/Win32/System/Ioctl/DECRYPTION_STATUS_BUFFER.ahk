@@ -12,7 +12,7 @@ class DECRYPTION_STATUS_BUFFER extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     NoEncryptedStreams {
         get => NumGet(this, 0, "char")

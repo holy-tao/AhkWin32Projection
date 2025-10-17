@@ -19,7 +19,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     recipient{
         get {
             if(!this.HasProp("__recipient"))
-                this.__recipient := ENDPOINTADDRESS2(this.ptr + 0)
+                this.__recipient := ENDPOINTADDRESS2(0, this)
             return this.__recipient
         }
     }
@@ -30,13 +30,13 @@ class RECIPIENTPOLICY2 extends Win32Struct
     issuer{
         get {
             if(!this.HasProp("__issuer"))
-                this.__issuer := ENDPOINTADDRESS2(this.ptr + 32)
+                this.__issuer := ENDPOINTADDRESS2(32, this)
             return this.__issuer
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     tokenType {
         get => NumGet(this, 64, "ptr")
@@ -49,7 +49,7 @@ class RECIPIENTPOLICY2 extends Win32Struct
     requiredClaims{
         get {
             if(!this.HasProp("__requiredClaims"))
-                this.__requiredClaims := CLAIMLIST(this.ptr + 72)
+                this.__requiredClaims := CLAIMLIST(72, this)
             return this.__requiredClaims
         }
     }
@@ -60,13 +60,13 @@ class RECIPIENTPOLICY2 extends Win32Struct
     optionalClaims{
         get {
             if(!this.HasProp("__optionalClaims"))
-                this.__optionalClaims := CLAIMLIST(this.ptr + 88)
+                this.__optionalClaims := CLAIMLIST(88, this)
             return this.__optionalClaims
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     privacyUrl {
         get => NumGet(this, 104, "ptr")

@@ -87,7 +87,7 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * <li>L"SHA256" (BCRYPT_SHA256_ALGORITHM)</li>
      * <li>L"SHA512" (BCRYPT_SHA512_ALGORITHM)</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCNGSignHashAlgids {
         get => NumGet(this, 8, "ptr")
@@ -104,7 +104,7 @@ class CERT_STRONG_SIGN_SERIALIZED_INFO extends Win32Struct
      * <li>L"DSA" (BCRYPT_DSA_ALGORITHM)</li>
      * <li>L"ECDSA" (SSL_ECDSA_ALGORITHM)</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCNGPubKeyMinBitLengths {
         get => NumGet(this, 16, "ptr")

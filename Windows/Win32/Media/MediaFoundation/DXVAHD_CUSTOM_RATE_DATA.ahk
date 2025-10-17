@@ -53,7 +53,7 @@ class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct
     CustomRate{
         get {
             if(!this.HasProp("__CustomRate"))
-                this.__CustomRate := DXVAHD_RATIONAL(this.ptr + 0)
+                this.__CustomRate := DXVAHD_RATIONAL(0, this)
             return this.__CustomRate
         }
     }
@@ -69,7 +69,7 @@ class DXVAHD_CUSTOM_RATE_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the input stream must be interlaced<b></b>. Otherwise, the input stream must be progressive.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InputInterlaced {
         get => NumGet(this, 12, "int")

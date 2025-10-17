@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -25,7 +26,7 @@ class NMPGSCROLL extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -48,7 +49,7 @@ class NMPGSCROLL extends Win32Struct
     rcParent{
         get {
             if(!this.HasProp("__rcParent"))
-                this.__rcParent := RECT(this.ptr + 32)
+                this.__rcParent := RECT(32, this)
             return this.__rcParent
         }
     }

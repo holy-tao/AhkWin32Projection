@@ -50,7 +50,7 @@ class UI_EVENTPARAMS extends Win32Struct
     Params{
         get {
             if(!this.HasProp("__Params"))
-                this.__Params := UI_EVENTPARAMS_COMMAND(this.ptr + 8)
+                this.__Params := UI_EVENTPARAMS_COMMAND(8, this)
             return this.__Params
         }
     }

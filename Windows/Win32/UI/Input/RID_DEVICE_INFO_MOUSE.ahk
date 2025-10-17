@@ -63,7 +63,7 @@ class RID_DEVICE_INFO_MOUSE extends Win32Struct
      * <b>TRUE</b> if the mouse has a wheel for horizontal scrolling; otherwise, <b>FALSE</b>.
      * 
      * <b>Windows XP:</b> This member is only supported starting with Windows Vista.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasHorizontalWheel {
         get => NumGet(this, 12, "int")

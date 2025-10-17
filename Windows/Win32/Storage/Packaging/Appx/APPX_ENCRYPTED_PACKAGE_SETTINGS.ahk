@@ -24,7 +24,7 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct
 
     /**
      * The encryption algorithm used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     encryptionAlgorithm {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class APPX_ENCRYPTED_PACKAGE_SETTINGS extends Win32Struct
 
     /**
      * True is diffusion is used, false otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     useDiffusion {
         get => NumGet(this, 16, "int")

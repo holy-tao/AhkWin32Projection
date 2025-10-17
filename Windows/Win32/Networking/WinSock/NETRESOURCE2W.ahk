@@ -46,7 +46,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpLocalName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpRemoteName {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +62,7 @@ class NETRESOURCE2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpComment {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +75,7 @@ class NETRESOURCE2W extends Win32Struct
     ns_info{
         get {
             if(!this.HasProp("__ns_info"))
-                this.__ns_info := NS_INFOA(this.ptr + 40)
+                this.__ns_info := NS_INFOA(40, this)
             return this.__ns_info
         }
     }

@@ -18,7 +18,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := DS3DVECTOR(this.ptr + 0)
+                this.__Position := DS3DVECTOR(0, this)
             return this.__Position
         }
     }
@@ -29,7 +29,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     Velocity{
         get {
             if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(this.ptr + 16)
+                this.__Velocity := DS3DVECTOR(16, this)
             return this.__Velocity
         }
     }
@@ -40,7 +40,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     OrientFront{
         get {
             if(!this.HasProp("__OrientFront"))
-                this.__OrientFront := DS3DVECTOR(this.ptr + 32)
+                this.__OrientFront := DS3DVECTOR(32, this)
             return this.__OrientFront
         }
     }
@@ -51,7 +51,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     OrientTop{
         get {
             if(!this.HasProp("__OrientTop"))
-                this.__OrientTop := DS3DVECTOR(this.ptr + 48)
+                this.__OrientTop := DS3DVECTOR(48, this)
             return this.__OrientTop
         }
     }

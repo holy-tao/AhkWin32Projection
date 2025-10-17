@@ -28,7 +28,7 @@ class REMSECURITY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInheritHandle {
         get => NumGet(this, 8, "int")

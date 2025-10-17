@@ -34,7 +34,7 @@ class WHV_SYNTHETIC_PROCESSOR_FEATURES_BANKS extends Win32Struct
     Bank0{
         get {
             if(!this.HasProp("__Bank0"))
-                this.__Bank0 := WHV_SYNTHETIC_PROCESSOR_FEATURES(this.ptr + 8)
+                this.__Bank0 := WHV_SYNTHETIC_PROCESSOR_FEATURES(8, this)
             return this.__Bank0
         }
     }

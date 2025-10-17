@@ -51,7 +51,7 @@ class SERVICE_NOTIFY_2W extends Win32Struct
     ServiceStatus{
         get {
             if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(this.ptr + 32)
+                this.__ServiceStatus := SERVICE_STATUS_PROCESS(32, this)
             return this.__ServiceStatus
         }
     }
@@ -65,7 +65,7 @@ class SERVICE_NOTIFY_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszServiceNames {
         get => NumGet(this, 72, "ptr")

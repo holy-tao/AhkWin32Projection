@@ -43,7 +43,7 @@ class BG_AUTH_CREDENTIALS extends Win32Struct
     Credentials{
         get {
             if(!this.HasProp("__Credentials"))
-                this.__Credentials := BG_AUTH_CREDENTIALS_UNION(this.ptr + 8)
+                this.__Credentials := BG_AUTH_CREDENTIALS_UNION(8, this)
             return this.__Credentials
         }
     }

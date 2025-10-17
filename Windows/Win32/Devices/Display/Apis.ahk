@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include .\HSURF.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\HSEMAPHORE.ahk
 /**
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
@@ -3702,13 +3707,15 @@ class Display {
 ;@region Methods
     /**
      * Retrieves the number of physical monitors associated with an HMONITOR monitor handle.
-     * @param {Pointer<Void>} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
+     * @param {HMONITOR} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
      * @param {Pointer<UInt32>} pdwNumberOfPhysicalMonitors Receives the number of physical monitors associated with the monitor handle.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor
      * @since windows6.0.6000
      */
     static GetNumberOfPhysicalMonitorsFromHMONITOR(hMonitor, pdwNumberOfPhysicalMonitors) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetNumberOfPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint*", pdwNumberOfPhysicalMonitors, "int")
@@ -3736,14 +3743,16 @@ class Display {
 
     /**
      * Retrieves the physical monitors associated with an HMONITOR monitor handle.
-     * @param {Pointer<Void>} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
+     * @param {HMONITOR} hMonitor A monitor handle. Monitor handles are returned by several Multiple Display Monitor functions, including <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumdisplaymonitors">EnumDisplayMonitors</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-monitorfromwindow">MonitorFromWindow</a>, which are part of the graphics device interface (GDI).
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in <i>pPhysicalMonitorArray</i>. To get the required size of the array, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getnumberofphysicalmonitorsfromhmonitor">GetNumberOfPhysicalMonitorsFromHMONITOR</a>.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures. The caller must allocate the array.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor
      * @since windows6.0.6000
      */
     static GetPhysicalMonitorsFromHMONITOR(hMonitor, dwPhysicalMonitorArraySize, pPhysicalMonitorArray) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetPhysicalMonitorsFromHMONITOR", "ptr", hMonitor, "uint", dwPhysicalMonitorArraySize, "ptr", pPhysicalMonitorArray, "int")
@@ -3772,12 +3781,14 @@ class Display {
 
     /**
      * Closes a handle to a physical monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitor
      * @since windows6.0.6000
      */
     static DestroyPhysicalMonitor(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DestroyPhysicalMonitor", "ptr", hMonitor, "int")
@@ -3791,7 +3802,7 @@ class Display {
      * Closes an array of physical monitor handles.
      * @param {Integer} dwPhysicalMonitorArraySize Number of elements in the <i>pPhysicalMonitorArray</i> array.
      * @param {Pointer<PHYSICAL_MONITOR>} pPhysicalMonitorArray Pointer to an array of <a href="https://docs.microsoft.com/windows/win32/api/physicalmonitorenumerationapi/ns-physicalmonitorenumerationapi-physical_monitor">PHYSICAL_MONITOR</a> structures.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-destroyphysicalmonitors
      * @since windows6.0.6000
      */
@@ -3807,7 +3818,7 @@ class Display {
 
     /**
      * Retrieves the current value, maximum value, and code type of a Virtual Control Panel (VCP) code for a monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} bVCPCode VCP code to query. The VCP codes are Include the VESA Monitor Control Command Set (MCCS) standard, versions 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
      * @param {Pointer<Int32>} pvct Receives the VCP code type, as a member of the <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ne-lowlevelmonitorconfigurationapi-mc_vcp_code_type">MC_VCP_CODE_TYPE</a> enumeration. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwCurrentValue Receives the current value of the VCP code. This parameter can be <b>NULL</b>.
@@ -3817,6 +3828,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetVCPFeatureAndVCPFeatureReply(hMonitor, bVCPCode, pvct, pdwCurrentValue, pdwMaximumValue) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetVCPFeatureAndVCPFeatureReply", "ptr", hMonitor, "char", bVCPCode, "int*", pvct, "uint*", pdwCurrentValue, "uint*", pdwMaximumValue, "int")
@@ -3828,7 +3841,7 @@ class Display {
 
     /**
      * Sets the value of a Virtual Control Panel (VCP) code for a monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} bVCPCode VCP code to set. The VCP codes are defined in the VESA Monitor Control Command Set (MCCS) standard, version 1.0 and 2.0. This parameter must specify a continuous or non-continuous VCP, or a vendor-specific code. It should not be a table control code.
      * @param {Integer} dwNewValue Value of the VCP code.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
@@ -3836,18 +3849,22 @@ class Display {
      * @since windows6.0.6000
      */
     static SetVCPFeature(hMonitor, bVCPCode, dwNewValue) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         result := DllCall("dxva2.dll\SetVCPFeature", "ptr", hMonitor, "char", bVCPCode, "uint", dwNewValue, "int")
         return result
     }
 
     /**
      * Saves the current monitor settings to the display's nonvolatile storage.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-savecurrentsettings
      * @since windows6.0.6000
      */
     static SaveCurrentSettings(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SaveCurrentSettings", "ptr", hMonitor, "int")
@@ -3859,13 +3876,15 @@ class Display {
 
     /**
      * Retrieves the length of a monitor's capabilities string.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<UInt32>} pdwCapabilitiesStringLengthInCharacters Receives the length of the capabilities string, in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      * @since windows6.0.6000
      */
     static GetCapabilitiesStringLength(hMonitor, pdwCapabilitiesStringLengthInCharacters) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetCapabilitiesStringLength", "ptr", hMonitor, "uint*", pdwCapabilitiesStringLengthInCharacters, "int")
@@ -3877,15 +3896,16 @@ class Display {
 
     /**
      * Retrieves a string describing a monitor's capabilities.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
-     * @param {Pointer<Byte>} pszASCIICapabilitiesString Pointer to a buffer that receives the monitor's capabilities string. The caller must allocate this buffer. To get the size of the string, call <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength">GetCapabilitiesStringLength</a>. The capabilities string is always an ASCII string. The buffer must include space for the terminating null character.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {PSTR} pszASCIICapabilitiesString Pointer to a buffer that receives the monitor's capabilities string. The caller must allocate this buffer. To get the size of the string, call <a href="https://docs.microsoft.com/windows/desktop/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength">GetCapabilitiesStringLength</a>. The capabilities string is always an ASCII string. The buffer must include space for the terminating null character.
      * @param {Integer} dwCapabilitiesStringLengthInCharacters Size of <i>pszASCIICapabilitiesString</i> in characters, including the terminating null character.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-capabilitiesrequestandcapabilitiesreply
      * @since windows6.0.6000
      */
     static CapabilitiesRequestAndCapabilitiesReply(hMonitor, pszASCIICapabilitiesString, dwCapabilitiesStringLengthInCharacters) {
-        pszASCIICapabilitiesString := pszASCIICapabilitiesString is String? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
+        pszASCIICapabilitiesString := pszASCIICapabilitiesString is String ? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
 
         A_LastError := 0
 
@@ -3898,13 +3918,15 @@ class Display {
 
     /**
      * Retrieves a monitor's horizontal and vertical synchronization frequencies.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<MC_TIMING_REPORT>} pmtrMonitorTimingReport Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/ns-lowlevelmonitorconfigurationapi-mc_timing_report">MC_TIMING_REPORT</a> structure that receives the timing information.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-gettimingreport
      * @since windows6.0.6000
      */
     static GetTimingReport(hMonitor, pmtrMonitorTimingReport) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetTimingReport", "ptr", hMonitor, "ptr", pmtrMonitorTimingReport, "int")
@@ -3916,7 +3938,7 @@ class Display {
 
     /**
      * Retrieves the configuration capabilities of a monitor. Call this function to find out which high-level monitor configuration functions are supported by the monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<UInt32>} pdwMonitorCapabilities Receives a bitwise <b>OR</b> of capabilities flags. See Remarks.
      * @param {Pointer<UInt32>} pdwSupportedColorTemperatures Receives a bitwise <b>OR</b> of color temperature flags. See Remarks.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <b>GetLastError</b>.
@@ -3926,18 +3948,22 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorCapabilities(hMonitor, pdwMonitorCapabilities, pdwSupportedColorTemperatures) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         result := DllCall("dxva2.dll\GetMonitorCapabilities", "ptr", hMonitor, "uint*", pdwMonitorCapabilities, "uint*", pdwSupportedColorTemperatures, "int")
         return result
     }
 
     /**
      * Saves the current monitor settings to the display's nonvolatile storage.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-savecurrentmonitorsettings
      * @since windows6.0.6000
      */
     static SaveCurrentMonitorSettings(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SaveCurrentMonitorSettings", "ptr", hMonitor, "int")
@@ -3949,13 +3975,15 @@ class Display {
 
     /**
      * Retrieves the type of technology used by a monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Int32>} pdtyDisplayTechnologyType Receives the technology type, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_display_technology_type">MC_DISPLAY_TECHNOLOGY_TYPE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitortechnologytype
      * @since windows6.0.6000
      */
     static GetMonitorTechnologyType(hMonitor, pdtyDisplayTechnologyType) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorTechnologyType", "ptr", hMonitor, "int*", pdtyDisplayTechnologyType, "int")
@@ -3967,7 +3995,7 @@ class Display {
 
     /**
      * Retrieves a monitor's minimum, maximum, and current brightness settings.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<UInt32>} pdwMinimumBrightness Receives the monitor's minimum brightness.
      * @param {Pointer<UInt32>} pdwCurrentBrightness Receives the monitor's current brightness.
      * @param {Pointer<UInt32>} pdwMaximumBrightness Receives the monitor's maximum brightness.
@@ -3976,6 +4004,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorBrightness(hMonitor, pdwMinimumBrightness, pdwCurrentBrightness, pdwMaximumBrightness) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorBrightness", "ptr", hMonitor, "uint*", pdwMinimumBrightness, "uint*", pdwCurrentBrightness, "uint*", pdwMaximumBrightness, "int")
@@ -3987,7 +4017,7 @@ class Display {
 
     /**
      * Retrieves a monitor's minimum, maximum, and current contrast settings.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<UInt32>} pdwMinimumContrast Receives the monitor's minimum contrast.
      * @param {Pointer<UInt32>} pdwCurrentContrast Receives the monitor's current contrast.
      * @param {Pointer<UInt32>} pdwMaximumContrast Receives the monitor's maximum contrast.
@@ -3996,6 +4026,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorContrast(hMonitor, pdwMinimumContrast, pdwCurrentContrast, pdwMaximumContrast) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorContrast", "ptr", hMonitor, "uint*", pdwMinimumContrast, "uint*", pdwCurrentContrast, "uint*", pdwMaximumContrast, "int")
@@ -4007,13 +4039,15 @@ class Display {
 
     /**
      * Retrieves a monitor's current color temperature.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Pointer<Int32>} pctCurrentColorTemperature Receives the monitor's current color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcolortemperature
      * @since windows6.0.6000
      */
     static GetMonitorColorTemperature(hMonitor, pctCurrentColorTemperature) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorColorTemperature", "ptr", hMonitor, "int*", pctCurrentColorTemperature, "int")
@@ -4025,7 +4059,7 @@ class Display {
 
     /**
      * Retrieves a monitor's red, green, or blue drive value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue drive value.
      * @param {Pointer<UInt32>} pdwMinimumDrive Receives the minimum red, green, or blue drive value.
      * @param {Pointer<UInt32>} pdwCurrentDrive Receives the current red, green, or blue drive value.
@@ -4035,6 +4069,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorRedGreenOrBlueDrive(hMonitor, dtDriveType, pdwMinimumDrive, pdwCurrentDrive, pdwMaximumDrive) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, "uint*", pdwMinimumDrive, "uint*", pdwCurrentDrive, "uint*", pdwMaximumDrive, "int")
@@ -4046,7 +4082,7 @@ class Display {
 
     /**
      * Retrieves a monitor's red, green, or blue gain value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to retrieve the red, green, or blue gain value.
      * @param {Pointer<UInt32>} pdwMinimumGain Receives the minimum red, green, or blue gain value.
      * @param {Pointer<UInt32>} pdwCurrentGain Receives the current red, green, or blue gain value.
@@ -4056,6 +4092,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorRedGreenOrBlueGain(hMonitor, gtGainType, pdwMinimumGain, pdwCurrentGain, pdwMaximumGain) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, "uint*", pdwMinimumGain, "uint*", pdwCurrentGain, "uint*", pdwMaximumGain, "int")
@@ -4067,13 +4105,15 @@ class Display {
 
     /**
      * Sets a monitor's brightness value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dwNewBrightness Brightness value. To get the monitor's minimum and maximum brightness values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorbrightness">GetMonitorBrightness</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorbrightness
      * @since windows6.0.6000
      */
     static SetMonitorBrightness(hMonitor, dwNewBrightness) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorBrightness", "ptr", hMonitor, "uint", dwNewBrightness, "int")
@@ -4085,13 +4125,15 @@ class Display {
 
     /**
      * Sets a monitor's contrast value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dwNewContrast Contrast value. To get the monitor's minimum and maximum contrast values, call, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorcontrast">GetMonitorContrast</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcontrast
      * @since windows6.0.6000
      */
     static SetMonitorContrast(hMonitor, dwNewContrast) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorContrast", "ptr", hMonitor, "uint", dwNewContrast, "int")
@@ -4103,13 +4145,15 @@ class Display {
 
     /**
      * Sets a monitor's color temperature.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} ctCurrentColorTemperature Color temperature, specified as a member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_color_temperature">MC_COLOR_TEMPERATURE</a> enumeration.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-setmonitorcolortemperature
      * @since windows6.0.6000
      */
     static SetMonitorColorTemperature(hMonitor, ctCurrentColorTemperature) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorColorTemperature", "ptr", hMonitor, "int", ctCurrentColorTemperature, "int")
@@ -4121,7 +4165,7 @@ class Display {
 
     /**
      * Sets a monitor's red, green, or blue drive value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} dtDriveType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_drive_type">MC_DRIVE_TYPE</a> enumeration, specifying whether to set the red, green, or blue drive value.
      * @param {Integer} dwNewDrive Red, green, or blue drive value. To get the monitor's minimum and maximum drive values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluedrive">GetMonitorRedGreenOrBlueDrive</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
@@ -4129,13 +4173,15 @@ class Display {
      * @since windows6.0.6000
      */
     static SetMonitorRedGreenOrBlueDrive(hMonitor, dtDriveType, dwNewDrive) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueDrive", "ptr", hMonitor, "int", dtDriveType, "uint", dwNewDrive, "int")
         return result
     }
 
     /**
      * Sets a monitor's red, green, or blue gain value.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} gtGainType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_gain_type">MC_GAIN_TYPE</a> enumeration, specifying whether to set the red, green, or blue gain.
      * @param {Integer} dwNewGain Red, green, or blue gain value. To get the monitor's minimum and maximum gain values, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitorredgreenorbluegain">GetMonitorRedGreenOrBlueGain</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call GetLastError.
@@ -4143,18 +4189,22 @@ class Display {
      * @since windows6.0.6000
      */
     static SetMonitorRedGreenOrBlueGain(hMonitor, gtGainType, dwNewGain) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         result := DllCall("dxva2.dll\SetMonitorRedGreenOrBlueGain", "ptr", hMonitor, "int", gtGainType, "uint", dwNewGain, "int")
         return result
     }
 
     /**
      * Degausses a monitor.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-degaussmonitor
      * @since windows6.0.6000
      */
     static DegaussMonitor(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\DegaussMonitor", "ptr", hMonitor, "int")
@@ -4166,7 +4216,7 @@ class Display {
 
     /**
      * Retrieves a monitor's minimum, maximum, and current width or height.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to retrieve the width or the height.
      * @param {Pointer<UInt32>} pdwMinimumWidthOrHeight Receives the minimum width or height.
      * @param {Pointer<UInt32>} pdwCurrentWidthOrHeight Receives the current width or height.
@@ -4176,6 +4226,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorDisplayAreaSize(hMonitor, stSizeType, pdwMinimumWidthOrHeight, pdwCurrentWidthOrHeight, pdwMaximumWidthOrHeight) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, "uint*", pdwMinimumWidthOrHeight, "uint*", pdwCurrentWidthOrHeight, "uint*", pdwMaximumWidthOrHeight, "int")
@@ -4187,7 +4239,7 @@ class Display {
 
     /**
      * Retrieves a monitor's minimum, maximum, and current horizontal or vertical position.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to retrieve the horizontal position or the vertical position.
      * @param {Pointer<UInt32>} pdwMinimumPosition Receives the minimum horizontal or vertical position.
      * @param {Pointer<UInt32>} pdwCurrentPosition Receives the current horizontal or vertical position.
@@ -4197,6 +4249,8 @@ class Display {
      * @since windows6.0.6000
      */
     static GetMonitorDisplayAreaPosition(hMonitor, ptPositionType, pdwMinimumPosition, pdwCurrentPosition, pdwMaximumPosition) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\GetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, "uint*", pdwMinimumPosition, "uint*", pdwCurrentPosition, "uint*", pdwMaximumPosition, "int")
@@ -4208,7 +4262,7 @@ class Display {
 
     /**
      * Sets the width or height of a monitor's display area.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} stSizeType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_size_type">MC_SIZE_TYPE</a> enumeration, specifying whether to set the width or the height.
      * @param {Integer} dwNewDisplayAreaWidthOrHeight Display area width or height. To get the minimum and maximum width and height, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareasize">GetMonitorDisplayAreaSize</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4216,6 +4270,8 @@ class Display {
      * @since windows6.0.6000
      */
     static SetMonitorDisplayAreaSize(hMonitor, stSizeType, dwNewDisplayAreaWidthOrHeight) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorDisplayAreaSize", "ptr", hMonitor, "int", stSizeType, "uint", dwNewDisplayAreaWidthOrHeight, "int")
@@ -4227,7 +4283,7 @@ class Display {
 
     /**
      * Sets the horizontal or vertical position of a monitor's display area.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @param {Integer} ptPositionType A member of the <a href="https://docs.microsoft.com/windows/win32/api/highlevelmonitorconfigurationapi/ne-highlevelmonitorconfigurationapi-mc_position_type">MC_POSITION_TYPE</a> enumeration, specifying whether to set the horizontal position or the vertical position.
      * @param {Integer} dwNewPosition Horizontal or vertical position. To get the minimum and maximum position, call <a href="https://docs.microsoft.com/windows/desktop/api/highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-getmonitordisplayareaposition">GetMonitorDisplayAreaPosition</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -4235,6 +4291,8 @@ class Display {
      * @since windows6.0.6000
      */
     static SetMonitorDisplayAreaPosition(hMonitor, ptPositionType, dwNewPosition) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\SetMonitorDisplayAreaPosition", "ptr", hMonitor, "int", ptPositionType, "uint", dwNewPosition, "int")
@@ -4246,12 +4304,14 @@ class Display {
 
     /**
      * Restores a monitor's color settings to their factory defaults.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorycolordefaults
      * @since windows6.0.6000
      */
     static RestoreMonitorFactoryColorDefaults(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\RestoreMonitorFactoryColorDefaults", "ptr", hMonitor, "int")
@@ -4263,12 +4323,14 @@ class Display {
 
     /**
      * Restores a monitor's settings to their factory defaults.
-     * @param {Pointer<Void>} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
+     * @param {HANDLE} hMonitor Handle to a physical monitor. To get the monitor handle, call <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromhmonitor">GetPhysicalMonitorsFromHMONITOR</a> or <a href="https://docs.microsoft.com/windows/desktop/api/physicalmonitorenumerationapi/nf-physicalmonitorenumerationapi-getphysicalmonitorsfromidirect3ddevice9">GetPhysicalMonitorsFromIDirect3DDevice9</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//highlevelmonitorconfigurationapi/nf-highlevelmonitorconfigurationapi-restoremonitorfactorydefaults
      * @since windows6.0.6000
      */
     static RestoreMonitorFactoryDefaults(hMonitor) {
+        hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+
         A_LastError := 0
 
         result := DllCall("dxva2.dll\RestoreMonitorFactoryDefaults", "ptr", hMonitor, "int")
@@ -4318,19 +4380,19 @@ class Display {
     /**
      * The BRUSHOBJ_hGetColorTransform function retrieves the color transform for the specified brush.
      * @param {Pointer<BRUSHOBJ>} pbo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-brushobj">BRUSHOBJ</a> structure whose color transform is being queried. The color transform was created in a prior call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvicmcreatecolortransform">DrvIcmCreateColorTransform</a>.
-     * @returns {Pointer<Void>} <b>BRUSHOBJ_hGetColorTransform</b> returns a handle to the color transform for the specified BRUSHOBJ structure upon success. Otherwise, it returns <b>NULL</b>.
+     * @returns {HANDLE} <b>BRUSHOBJ_hGetColorTransform</b> returns a handle to the color transform for the specified BRUSHOBJ structure upon success. Otherwise, it returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-brushobj_hgetcolortransform
      * @since windows5.0
      */
     static BRUSHOBJ_hGetColorTransform(pbo) {
         result := DllCall("GDI32.dll\BRUSHOBJ_hGetColorTransform", "ptr", pbo, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The CLIPOBJ_cEnumStart function sets parameters for enumerating rectangles in a specified clip region.
      * @param {Pointer<CLIPOBJ>} pco Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure that defines the clip region to be enumerated.
-     * @param {Integer} bAll Specifies whether the entire region should be enumerated. This parameter is <b>TRUE</b> if the whole region should be enumerated. It is <b>FALSE</b> if only the parts relevant to the present drawing operation should be enumerated.
+     * @param {BOOL} bAll Specifies whether the entire region should be enumerated. This parameter is <b>TRUE</b> if the whole region should be enumerated. It is <b>FALSE</b> if only the parts relevant to the present drawing operation should be enumerated.
      * 
      * A driver that caches clip regions must enumerate the entire region.
      * @param {Integer} iType Specifies the data structures that are to be written by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-clipobj_benum">CLIPOBJ_bEnum</a>. This parameter currently must be CT_RECTANGLES, indicating that the region is to be enumerated as a list of rectangles.
@@ -4407,7 +4469,7 @@ class Display {
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure describing the clip region that is to be enumerated.
      * @param {Integer} cj Specifies the size, in bytes, of the buffer pointed to by <i>pv</i>.
      * @param {Pointer<UInt32>} pul Pointer to the buffer that will receive data about the clip region in an <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-enumrects">ENUMRECTS</a> structure.
-     * @returns {Integer} The return value is <b>TRUE</b> if the driver must call this function again for more enumeration data, or <b>FALSE</b> if the enumeration is complete. It is possible for <b>CLIPOBJ_bEnum</b> to return <b>TRUE</b> with the number of clipping rectangles equal to zero. In such cases, the driver should call <b>CLIPOBJ_bEnum</b> again without taking any action.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the driver must call this function again for more enumeration data, or <b>FALSE</b> if the enumeration is complete. It is possible for <b>CLIPOBJ_bEnum</b> to return <b>TRUE</b> with the number of clipping rectangles equal to zero. In such cases, the driver should call <b>CLIPOBJ_bEnum</b> again without taking any action.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-clipobj_benum
      * @since windows5.0
      */
@@ -4473,7 +4535,7 @@ class Display {
     /**
      * The FONTOBJ_pxoGetXform function retrieves the notional-to-device transform for the specified font.
      * @param {Pointer<FONTOBJ>} pfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-fontobj">FONTOBJ</a> structure for which the transform is to be retrieved.
-     * @returns {Pointer<UInt32>} The return value is a pointer to an <a href="/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that describes the transform. The XFORMOBJ structure can be used by the <b>XFORMOBJ_</b><b><i>Xxx</i></b> service routines. The XFORMOBJ structure assumes that: 
+     * @returns {Pointer<XFORMOBJ>} The return value is a pointer to an <a href="/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that describes the transform. The XFORMOBJ structure can be used by the <b>XFORMOBJ_</b><b><i>Xxx</i></b> service routines. The XFORMOBJ structure assumes that: 
      * 
      * <ul>
      * <li>The distance between the pixels is in device space units. </li>
@@ -4484,7 +4546,7 @@ class Display {
      * @since windows5.0
      */
     static FONTOBJ_pxoGetXform(pfo) {
-        result := DllCall("GDI32.dll\FONTOBJ_pxoGetXform", "ptr", pfo, "uint*")
+        result := DllCall("GDI32.dll\FONTOBJ_pxoGetXform", "ptr", pfo, "ptr")
         return result
     }
 
@@ -4570,7 +4632,7 @@ class Display {
      * The PATHOBJ_bEnum function retrieves the next PATHDATA record from a specified path and enumerates the curves in the path.
      * @param {Pointer<PATHOBJ>} ppo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure whose curves and/or lines are to be enumerated.
      * @param {Pointer<PATHDATA>} ppd Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathdata">PATHDATA</a> structure that is to be filled.
-     * @returns {Integer} The return value is <b>TRUE</b> if the specified path contains more PATHDATA records, indicating that this service should be called again. Otherwise, if the output is the last PATHDATA record in the path, the return value is <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the specified path contains more PATHDATA records, indicating that this service should be called again. Otherwise, if the output is the last PATHDATA record in the path, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-pathobj_benum
      * @since windows5.0
      */
@@ -4602,7 +4664,7 @@ class Display {
      * If a clip region is complex, a single line segment can be broken into many RUN structures. A segment is returned as many times as necessary to list all of its RUN structures.
      * 
      * The CLIPLINE structure contains the starting and ending points of the original unclipped line and the line segments, or RUN structures, of that line that are to appear on the display.
-     * @returns {Integer} The return value is <b>TRUE</b> if more line segments are to be enumerated, indicating that this service should be called again. Otherwise, it is <b>FALSE</b>, indicating that the returned segment is the last segment in the path.
+     * @returns {BOOL} The return value is <b>TRUE</b> if more line segments are to be enumerated, indicating that this service should be called again. Otherwise, it is <b>FALSE</b>, indicating that the returned segment is the last segment in the path.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-pathobj_benumcliplines
      * @since windows5.0
      */
@@ -4639,7 +4701,7 @@ class Display {
      * @param {Pointer<STROBJ>} pstro Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-strobj">STROBJ</a> structure containing the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphpos">GLYPHPOS</a> information.
      * @param {Pointer<UInt32>} pc Pointer to the count, returned by GDI, of GLYPHPOS structures.
      * @param {Pointer<GLYPHPOS>} ppgpos Pointer to the array in which GDI writes the GLYPHPOS structures.
-     * @returns {Integer} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-strobj_benum
      * @since windows5.0
      */
@@ -4653,7 +4715,7 @@ class Display {
      * @param {Pointer<STROBJ>} pstro A caller-supplied pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-strobj">STROBJ</a> structure describing a text string. This is typically the STROBJ structure received by the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvtextout">DrvTextOut</a> function.
      * @param {Pointer<UInt32>} pc A caller-supplied address to receive the GDI-supplied number of GLYPHPOS structures pointed to by the pointer in <i>ppgpos</i>.
      * @param {Pointer<GLYPHPOS>} ppgpos A caller-supplied address that receives a GDI-supplied pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-glyphpos">GLYPHPOS</a> structures. (See the following <b>Remarks</b> section.)
-     * @returns {Integer} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if more glyphs remain to be enumerated, or <b>FALSE</b> if the enumeration is complete. The return value is DDI_ERROR if the glyphs cannot be enumerated, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-strobj_benumpositionsonly
      * @since windows5.0
      */
@@ -4680,7 +4742,7 @@ class Display {
      * @param {Integer} iFirst Is a caller-supplied, zero-based index into the text string supplied by the STROBJ structure. This index represents the first character of the string for which a width is to be returned.
      * @param {Integer} c Is a caller-supplied count of the number of contiguous characters, starting and the character specified by <i>iFirst</i>, for which width values are to be returned.
      * @param {Pointer<POINTQF>} pptqD Is a caller-supplied pointer to a <i>c</i>-sized array of POINTQF structures to receive character widths in (28.36, 28.36) format. For a description of this data type, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/gdi-data-types">GDI Data Types</a>.
-     * @returns {Integer} If the operation succeeds, the function returns <b>TRUE</b>; otherwise it returns <b>FALSE</b>.
+     * @returns {BOOL} If the operation succeeds, the function returns <b>TRUE</b>; otherwise it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-strobj_bgetadvancewidths
      * @since windows5.0
      */
@@ -4691,7 +4753,7 @@ class Display {
 
     /**
      * The XFORMOBJ_iGetXform function downloads a transform to the driver.
-     * @param {Pointer<UInt32>} pxo Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that defines the transform to be downloaded to the driver.
+     * @param {Pointer<XFORMOBJ>} pxo Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that defines the transform to be downloaded to the driver.
      * @param {Pointer<XFORML>} pxform Pointer to the buffer that is to receive the <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570616(v=vs.85)">XFORML</a> structure. This parameter can be <b>NULL</b>.
      * @returns {Integer} If an error occurs, the return value is DDI_ERROR. Otherwise, the return value is a complexity hint about the transform object. The value of this transform characterization can be one of the following:
      * 
@@ -4749,13 +4811,13 @@ class Display {
      * @since windows5.0
      */
     static XFORMOBJ_iGetXform(pxo, pxform) {
-        result := DllCall("GDI32.dll\XFORMOBJ_iGetXform", "uint*", pxo, "ptr", pxform, "uint")
+        result := DllCall("GDI32.dll\XFORMOBJ_iGetXform", "ptr", pxo, "ptr", pxform, "uint")
         return result
     }
 
     /**
      * The XFORMOBJ_bApplyXform function applies the given transform or its inverse to the given array of points.
-     * @param {Pointer<UInt32>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that defines the transform to be applied to the <i>pvIn</i> array.
+     * @param {Pointer<XFORMOBJ>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that defines the transform to be applied to the <i>pvIn</i> array.
      * @param {Integer} iMode Identifies the transform and the input and output data types. This parameter can be one of the following:
      * 
      * <table>
@@ -4807,12 +4869,12 @@ class Display {
      * @param {Integer} cPoints Specifies the count of points in <i>pvIn</i> to be transformed.
      * @param {Pointer<Void>} pvIn Pointer to an array of input points. The format of the points is specified by the <i>iMode</i> parameter.
      * @param {Pointer<Void>} pvOut Pointer to the buffer that is to receive the transformed points. The <i>iMode</i> parameter specifies the format of the points.
-     * @returns {Integer} The return value is <b>TRUE</b> if all points were transformed without overflow. <b>FALSE</b> is returned if <i>pxo</i>, <i>pvIn</i>, or <i>pvOut</i> are <b>null</b>, or if overflow occurs during the transformation.
+     * @returns {BOOL} The return value is <b>TRUE</b> if all points were transformed without overflow. <b>FALSE</b> is returned if <i>pxo</i>, <i>pvIn</i>, or <i>pvOut</i> are <b>null</b>, or if overflow occurs during the transformation.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-xformobj_bapplyxform
      * @since windows5.0
      */
     static XFORMOBJ_bApplyXform(pxo, iMode, cPoints, pvIn, pvOut) {
-        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "uint*", pxo, "uint", iMode, "uint", cPoints, "ptr", pvIn, "ptr", pvOut, "int")
+        result := DllCall("GDI32.dll\XFORMOBJ_bApplyXform", "ptr", pxo, "uint", iMode, "uint", cPoints, "ptr", pvIn, "ptr", pvOut, "int")
         return result
     }
 
@@ -4861,81 +4923,89 @@ class Display {
     /**
      * The XLATEOBJ_hGetColorTransform function returns the color transform for the specified translation object.
      * @param {Pointer<XLATEOBJ>} pxlo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-xlateobj">XLATEOBJ</a> structure whose color transform is being queried. The color transform was created in a prior call to <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvicmcreatecolortransform">DrvIcmCreateColorTransform</a>.
-     * @returns {Pointer<Void>} <b>XLATEOBJ_hGetColorTransform</b> returns a handle to the color transform for the specified XLATEOBJ upon success. Otherwise, it returns <b>NULL</b>.
+     * @returns {HANDLE} <b>XLATEOBJ_hGetColorTransform</b> returns a handle to the color transform for the specified XLATEOBJ upon success. Otherwise, it returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-xlateobj_hgetcolortransform
      * @since windows5.0
      */
     static XLATEOBJ_hGetColorTransform(pxlo) {
         result := DllCall("GDI32.dll\XLATEOBJ_hGetColorTransform", "ptr", pxlo, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The EngCreateBitmap function requests that GDI create and manage a bitmap.
-     * @param {Pointer} sizl Specifies a SIZEL structure whose members contain the width and height, in pixels, of the bitmap to be created. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
+     * @param {SIZE} sizl Specifies a SIZEL structure whose members contain the width and height, in pixels, of the bitmap to be created. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * 
      * If <i>pvBits</i> is not <b>NULL</b>, this value should represent all pixels visible on the device, allowing the device to keep <a href="https://docs.microsoft.com/windows-hardware/drivers/">off-screen memory</a>.
      * @param {Integer} lWidth Specifies the allocation width of the bitmap, which is the number of bytes that must be added to a pointer to move down one scan line.
      * @param {Integer} iFormat 
      * @param {Integer} fl 
      * @param {Pointer<Void>} pvBits Pointer to the first scan line of the bitmap that is to be created. If this parameter is <b>NULL</b>, GDI allocates the storage space for the pixels of the bitmap. If <i>pvBits</i> is not <b>NULL</b>, it is a pointer to the buffer for the bitmap.
-     * @returns {Pointer<Void>} If the function completes successfully, the return value is a handle that identifies the created bitmap. Otherwise, the return value is 0. <b>EngCreateBitmap</b> does not log an error code.
+     * @returns {HBITMAP} If the function completes successfully, the return value is a handle that identifies the created bitmap. Otherwise, the return value is 0. <b>EngCreateBitmap</b> does not log an error code.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcreatebitmap
      * @since windows5.0
      */
     static EngCreateBitmap(sizl, lWidth, iFormat, fl, pvBits) {
         result := DllCall("GDI32.dll\EngCreateBitmap", "ptr", sizl, "int", lWidth, "uint", iFormat, "uint", fl, "ptr", pvBits, "ptr")
-        return result
+        return HBITMAP({Value: result}, True)
     }
 
     /**
      * The EngCreateDeviceSurface function creates and returns a handle for a device surface that the driver will manage.
-     * @param {Pointer<Void>} dhsurf Device handle to the surface to be managed by the device. This handle is passed to the driver when a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure is passed for input or output.
-     * @param {Pointer} sizl Specifies a SIZEL structure that contains the width and height of the surface to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the surface's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
+     * @param {DHSURF} dhsurf Device handle to the surface to be managed by the device. This handle is passed to the driver when a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure is passed for input or output.
+     * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the surface to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the surface's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call.
-     * @returns {Pointer<Void>} The return value is a handle that identifies the surface if the function is successful. Otherwise, it is zero, and an error code is logged.
+     * @returns {HSURF} The return value is a handle that identifies the surface if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcreatedevicesurface
      * @since windows5.0
      */
     static EngCreateDeviceSurface(dhsurf, sizl, iFormatCompat) {
+        dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
+
         result := DllCall("GDI32.dll\EngCreateDeviceSurface", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
-        return result
+        return HSURF({Value: result}, True)
     }
 
     /**
      * The EngCreateDeviceBitmap function requests GDI to create a handle for a device bitmap.
-     * @param {Pointer<Void>} dhsurf Device handle to the device bitmap to be created.
-     * @param {Pointer} sizl Specifies a SIZEL structure that contains the width and height of the bitmap to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the bitmap's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
+     * @param {DHSURF} dhsurf Device handle to the device bitmap to be created.
+     * @param {SIZE} sizl Specifies a SIZEL structure that contains the width and height of the bitmap to be created. The <b>cx</b> and <b>cy</b> members of this structure contain respectively, the bitmap's width and height, in pixels. A SIZEL structure is identical to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-size">SIZE</a> structure.
      * @param {Integer} iFormatCompat Specifies the compatible engine format of the device surface being created. This is used by GDI if a temporary buffer is needed to simulate a complicated drawing call. The allowable values for <i>iFormatCompat</i> are BMF_1BPP, BMF_4BPP, BMF_8BPP, BMF_16BPP, BMF_24BPP, and BMF_32BPP.
-     * @returns {Pointer<Void>} The return value is a handle that identifies the bitmap if the function is successful. Otherwise, it is zero, and an error code is logged.
+     * @returns {HBITMAP} The return value is a handle that identifies the bitmap if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcreatedevicebitmap
      * @since windows5.0
      */
     static EngCreateDeviceBitmap(dhsurf, sizl, iFormatCompat) {
+        dhsurf := dhsurf is Win32Handle ? NumGet(dhsurf, "ptr") : dhsurf
+
         result := DllCall("GDI32.dll\EngCreateDeviceBitmap", "ptr", dhsurf, "ptr", sizl, "uint", iFormatCompat, "ptr")
-        return result
+        return HBITMAP({Value: result}, True)
     }
 
     /**
      * The EngDeleteSurface function deletes the specified surface.
-     * @param {Pointer<Void>} hsurf Handle to the surface to delete. This handle can be an HSURF or HBM.
-     * @returns {Integer} <b>EngDeleteSurface</b> returns <b>TRUE</b> if it is successful in deleting the surface. Otherwise, it returns <b>FALSE</b> and an error code is logged.
+     * @param {HSURF} hsurf Handle to the surface to delete. This handle can be an HSURF or HBM.
+     * @returns {BOOL} <b>EngDeleteSurface</b> returns <b>TRUE</b> if it is successful in deleting the surface. Otherwise, it returns <b>FALSE</b> and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engdeletesurface
      * @since windows5.0
      */
     static EngDeleteSurface(hsurf) {
+        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+
         result := DllCall("GDI32.dll\EngDeleteSurface", "ptr", hsurf, "int")
         return result
     }
 
     /**
      * The EngLockSurface function creates a user object for a given surface. This function gives drivers access to surfaces they create.
-     * @param {Pointer<Void>} hsurf Handle to the surface to be locked.
+     * @param {HSURF} hsurf Handle to the surface to be locked.
      * @returns {Pointer<SURFOBJ>} <b>EngLockSurface</b> returns a pointer to a <a href="/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure if the function is successful. Otherwise, this function returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-englocksurface
      * @since windows5.0
      */
     static EngLockSurface(hsurf) {
+        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+
         result := DllCall("GDI32.dll\EngLockSurface", "ptr", hsurf, "ptr")
         return result
     }
@@ -4956,7 +5026,7 @@ class Display {
      * @param {Pointer<SURFOBJ>} pso Pointer to the surface to erase.
      * @param {Pointer<RECTL>} prcl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines which pixels to erase on the surface. This rectangle is exclusive of the bottom and right edges.
      * @param {Integer} iColor Specifies a color index. This is an index to the value that will be written into each pixel.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is reported.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is reported.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engerasesurface
      * @since windows5.0
      */
@@ -4967,26 +5037,31 @@ class Display {
 
     /**
      * The EngAssociateSurface function marks a given surface as belonging to a specified device.
-     * @param {Pointer<Void>} hsurf Handle to the surface or bitmap to be associated with <i>hdev</i>. This handle was returned by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatebitmap">EngCreateBitmap</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatedevicebitmap">EngCreateDeviceBitmap</a>.
-     * @param {Pointer<Void>} hdev Handle to the device with which the surface is to be associated. This is the GDI-created handle that was passed to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a> function.
+     * @param {HSURF} hsurf Handle to the surface or bitmap to be associated with <i>hdev</i>. This handle was returned by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatebitmap">EngCreateBitmap</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatedevicebitmap">EngCreateDeviceBitmap</a>.
+     * @param {HDEV} hdev Handle to the device with which the surface is to be associated. This is the GDI-created handle that was passed to the driver's <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a> function.
      * @param {Integer} flHooks 
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, the driver should send the information to the GDI function it is implementing, and return GDI's return value.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, the driver should send the information to the GDI function it is implementing, and return GDI's return value.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engassociatesurface
      * @since windows5.0
      */
     static EngAssociateSurface(hsurf, hdev, flHooks) {
+        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+
         result := DllCall("GDI32.dll\EngAssociateSurface", "ptr", hsurf, "ptr", hdev, "uint", flHooks, "int")
         return result
     }
 
     /**
      * The EngMarkBandingSurface function marks the specified surface as a banding surface.
-     * @param {Pointer<Void>} hsurf Caller-supplied handle to the surface to mark as a banding surface.
-     * @returns {Integer} <b>EngMarkBandingSurface</b> returns <b>TRUE</b> upon success; otherwise it returns <b>FALSE</b>.
+     * @param {HSURF} hsurf Caller-supplied handle to the surface to mark as a banding surface.
+     * @returns {BOOL} <b>EngMarkBandingSurface</b> returns <b>TRUE</b> upon success; otherwise it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engmarkbandingsurface
      * @since windows5.0
      */
     static EngMarkBandingSurface(hsurf) {
+        hsurf := hsurf is Win32Handle ? NumGet(hsurf, "ptr") : hsurf
+
         result := DllCall("GDI32.dll\EngMarkBandingSurface", "ptr", hsurf, "int")
         return result
     }
@@ -4994,7 +5069,7 @@ class Display {
     /**
      * The EngCheckAbort function enables a printer graphics DLL to determine if a print job should be terminated.
      * @param {Pointer<SURFOBJ>} pso Caller-supplied pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure, previously received from GDI.
-     * @returns {Integer} If the print job should be terminated, the function returns <b>TRUE</b>. If the print job should not be terminated, or if <i>pso</i> does not point to a valid SURFOBJ structure, the function returns <b>FALSE</b>.
+     * @returns {BOOL} If the print job should be terminated, the function returns <b>TRUE</b>. If the print job should not be terminated, or if <i>pso</i> does not point to a valid SURFOBJ structure, the function returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcheckabort
      * @since windows5.0
      */
@@ -5022,23 +5097,25 @@ class Display {
      * @param {Integer} flRed If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
      * @param {Integer} flGreen If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
      * @param {Integer} flBlue If the <i>iMode</i> parameter is PAL_BITFIELDS, the <i>flRed</i>, <i>flGreen</i> and <i>flBlue</i> parameters are masks that show which bits correspond to red, green, and blue. Each mask must consist of contiguous bits and should not overlap other masks. All combinations of bitfields are supported by GDI.
-     * @returns {Pointer<Void>} The return value is a handle to the new palette if the function is successful. Otherwise, it is zero, and an error code is logged.
+     * @returns {HPALETTE} The return value is a handle to the new palette if the function is successful. Otherwise, it is zero, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcreatepalette
      * @since windows5.0
      */
     static EngCreatePalette(iMode, cColors, pulColors, flRed, flGreen, flBlue) {
         result := DllCall("GDI32.dll\EngCreatePalette", "uint", iMode, "uint", cColors, "uint*", pulColors, "uint", flRed, "uint", flGreen, "uint", flBlue, "ptr")
-        return result
+        return HPALETTE({Value: result}, True)
     }
 
     /**
      * The EngDeletePalette function sends a request to GDI to delete the specified palette.
-     * @param {Pointer<Void>} hpal Handle to the palette to be deleted. This handle is supplied by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful; otherwise, it returns <b>FALSE</b>.
+     * @param {HPALETTE} hpal Handle to the palette to be deleted. This handle is supplied by <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatepalette">EngCreatePalette</a>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful; otherwise, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engdeletepalette
      * @since windows5.0
      */
     static EngDeletePalette(hpal) {
+        hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
+
         result := DllCall("GDI32.dll\EngDeletePalette", "ptr", hpal, "int")
         return result
     }
@@ -5086,7 +5163,7 @@ class Display {
      * @param {Integer} rop4 Represents a raster operation that defines how the mask, pattern, source, and destination pixels are combined to write an output pixel to the destination surface.
      * 
      * This is a quaternary raster operation, which is a natural extension of the usual ternary Rop3 operation. A Rop4 has 16 relevant bits, which are similar to the 8 defining bits of a Rop3. (The other, redundant bits of the Rop3 are ignored.) The simplest way to implement a Rop4 is to consider its 2 bytes separately. The lower byte specifies a Rop3 that should be computed wherever the mask is 1. The high byte specifies a Rop3 that can be computed and applied wherever the mask is 0.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engbitblt
      * @since windows5.0
      */
@@ -5106,7 +5183,7 @@ class Display {
      * @param {Integer} y2 Specify the integer x- and y-coordinate of the line's end point.
      * @param {Pointer<RECTL>} prclBounds Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that describes the rectangle that bounds the unclipped line. Drivers that support hardware line drawing can use this rectangle to quickly determine whether the line fits in a coordinate space small enough to be rendered by the hardware.
      * @param {Integer} mix Defines how the incoming pattern should be mixed with the data already on the device surface. The low-order byte defines the raster operation. For more information about raster operation codes, see the Microsoft Windows SDK documentation.
-     * @returns {Integer} <b>EngLineTo</b> returns <b>TRUE</b> if it succeeds; otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} <b>EngLineTo</b> returns <b>TRUE</b> if it succeeds; otherwise, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-englineto
      * @since windows5.0
      */
@@ -5189,7 +5266,7 @@ class Display {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b> and an error code is reported.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b> and an error code is reported.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engstretchblt
      * @since windows5.0
      */
@@ -5229,7 +5306,7 @@ class Display {
      * @param {Integer} rop4 Represents a raster operation that defines how the mask, pattern, source, and destination pixels are combined to write an output pixel to the destination surface.
      * 
      * This is a quaternary raster operation, which is a natural extension of the usual ternary Rop3 operation. A Rop4 has 16 relevant bits, which are similar to the 8 defining bits of a Rop3. (The other redundant bits of the Rop3 are ignored.) The simplest way to implement a Rop4 is to consider its 2 bytes separately. The lower byte specifies a Rop3 that should be computed wherever the mask to which <i>psoMask</i> points is 1. The high byte specifies a Rop3 that can be computed and applied wherever the mask is zero.
-     * @returns {Integer} <b>EngStretchBltROP</b> returns <b>TRUE</b> upon success. Otherwise, it reports an error and returns <b>FALSE</b>.
+     * @returns {BOOL} <b>EngStretchBltROP</b> returns <b>TRUE</b> upon success. Otherwise, it reports an error and returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engstretchbltrop
      * @since windows5.0
      */
@@ -5273,7 +5350,7 @@ class Display {
      * <b>SourceConstantAlpha</b> defines the constant blend factor to apply to the entire source surface. This value is in the range of [0,255], where 0 is completely transparent and 255 is completely opaque.
      * 
      * <b>AlphaFormat</b> defines whether the surface is assumed to have an alpha channel. This member can optionally be set to the following value:
-     * @returns {Integer} <b>EngAlphaBlend</b> returns <b>TRUE</b> upon success. If an error occurs, it returns <b>FALSE</b> and reports an error code.
+     * @returns {BOOL} <b>EngAlphaBlend</b> returns <b>TRUE</b> upon success. If an error occurs, it returns <b>FALSE</b> and reports an error code.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engalphablend
      * @since windows5.0
      */
@@ -5298,7 +5375,7 @@ class Display {
      * @param {Pointer<RECTL>} prclExtents Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines the area in which the gradient drawing is to occur. The points are specified in the coordinate system of the destination surface. This parameter is useful in estimating the size of the drawing operations.
      * @param {Pointer<POINTL>} pptlDitherOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the origin on the surface for dithering. The upper-left pixel of the dither pattern is aligned with this point.
      * @param {Integer} ulMode 
-     * @returns {Integer} <b>EngGradientFill</b> returns <b>TRUE</b> upon success. Otherwise, it reports an error and returns <b>FALSE</b>.
+     * @returns {BOOL} <b>EngGradientFill</b> returns <b>TRUE</b> upon success. Otherwise, it reports an error and returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-enggradientfill
      * @since windows5.0
      */
@@ -5323,7 +5400,7 @@ class Display {
      * This rectangle is mapped to the destination rectangle defined by <i>prclDst</i>. The driver must never call <b>EngTransparentBlt</b> with an empty source rectangle.
      * @param {Integer} TransColor Specifies the physical transparent color, in the source surface's format. This is a color index value that has been translated to the source surface's palette. For more information, see the <b>Remarks</b> section.
      * @param {Integer} bCalledFromBitBlt Reserved. This parameter must be set to zero.
-     * @returns {Integer} <b>EngTransparentBlt</b> returns <b>TRUE</b> upon success. Otherwise, it returns <b>FALSE</b>.
+     * @returns {BOOL} <b>EngTransparentBlt</b> returns <b>TRUE</b> upon success. Otherwise, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engtransparentblt
      * @since windows5.0
      */
@@ -5344,7 +5421,7 @@ class Display {
      * @param {Pointer<BRUSHOBJ>} pboOpaque Pointer to a BRUSHOBJ structure that represents the brush object for the opaque pixels. Both the foreground and background mix modes for this brush are assumed to be R2_COPYPEN. Unless the driver sets the GCAPS_ARBRUSHOPAQUE capabilities bit in the <b>flGraphicsCaps</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-devinfo">DEVINFO</a> structure, it will always be called with a solid color brush.
      * @param {Pointer<POINTL>} pptlOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the brush origin for both brushes. If this parameter is set to 0 when <b>EngTextOut</b> is called, some printer drivers may print color images incorrectly. For more information, see <b>Remarks</b>.
      * @param {Integer} mix Specifies foreground and background raster operations (mix modes) for <i>pboFore</i>.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engtextout
      * @since windows5.0
      */
@@ -5358,19 +5435,19 @@ class Display {
      * @param {Pointer<SURFOBJ>} pso Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure that describes the surface on which to draw.
      * @param {Pointer<PATHOBJ>} ppo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure. The <b>PATHOBJ_</b><i>Xxx</i> service routines are provided to enumerate the lines, Bezier curves, and other data that make up the path. This indicates what is to be drawn.
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure. The <b>CLIPOBJ_</b><i>Xxx</i> service routines are provided to enumerate the <a href="https://docs.microsoft.com/windows-hardware/drivers/">clip region</a> as a set of rectangles. Optionally, all the lines in the path can be enumerated preclipped by this CLIPOBJ. This means that drivers can have all their line clipping calculations done for them.
-     * @param {Pointer<UInt32>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure. This is needed only when a geometric wide line is to be drawn. It specifies the transform that converts world coordinates to device coordinates. This is needed because the path is provided in device coordinates but a geometric wide line is actually widened in world coordinates.
+     * @param {Pointer<XFORMOBJ>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure. This is needed only when a geometric wide line is to be drawn. It specifies the transform that converts world coordinates to device coordinates. This is needed because the path is provided in device coordinates but a geometric wide line is actually widened in world coordinates.
      * 
      * The driver can use the <b>XFORMOBJ_</b><i>Xxx</i> service routines to determine the transform.
      * @param {Pointer<BRUSHOBJ>} pbo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-brushobj">BRUSHOBJ</a> structure that specifies the brush to be used when drawing the path.
      * @param {Pointer<POINTL>} pptlBrushOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that contains the brush origin used to align the brush pattern on the device.
      * @param {Pointer<LINEATTRS>} plineattrs Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-lineattrs">LINEATTRS</a> structure. Note that the <b>elStyleState</b> member of this structure must be updated as part of this function if the line is styled. Also note the <b>ptlLastPel</b> member of the same structure must be updated if a single-pixel-width cosmetic line is being drawn.
      * @param {Integer} mix Specifies how to combine the brush with the destination.
-     * @returns {Integer} The return value is <b>TRUE</b> if GDI strokes the path. If the driver should stroke the path, the return value is <b>FALSE</b>, and no error is logged. If GDI encounters an error, the return value is DDI_ERROR, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if GDI strokes the path. If the driver should stroke the path, the return value is <b>FALSE</b>, and no error is logged. If GDI encounters an error, the return value is DDI_ERROR, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engstrokepath
      * @since windows5.0
      */
     static EngStrokePath(pso, ppo, pco, pxo, pbo, pptlBrushOrg, plineattrs, mix) {
-        result := DllCall("GDI32.dll\EngStrokePath", "ptr", pso, "ptr", ppo, "ptr", pco, "uint*", pxo, "ptr", pbo, "ptr", pptlBrushOrg, "ptr", plineattrs, "uint", mix, "int")
+        result := DllCall("GDI32.dll\EngStrokePath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pbo, "ptr", pptlBrushOrg, "ptr", plineattrs, "uint", mix, "int")
         return result
     }
 
@@ -5383,7 +5460,7 @@ class Display {
      * @param {Pointer<POINTL>} pptlBrushOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure defining the brush origin to use to align the brush pattern on the device.
      * @param {Integer} mix Defines the foreground and background raster operations to use for the brush.
      * @param {Integer} flOptions Specifies the mode to use when filling the path. This value should be FP_WINDINGMODE or FP_ALTERNATEMODE. All other flags should be ignored. For more information about these modes, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/path-fill-modes">Path Fill Modes</a>.
-     * @returns {Integer} The return value is <b>TRUE</b> if GDI is able to fill the path. Otherwise, it is <b>FALSE</b>, and an error code is not logged. If an error is encountered, the return value is <b>FALSE</b>, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if GDI is able to fill the path. Otherwise, it is <b>FALSE</b>, and an error code is not logged. If an error is encountered, the return value is <b>FALSE</b>, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engfillpath
      * @since windows5.0
      */
@@ -5397,7 +5474,7 @@ class Display {
      * @param {Pointer<SURFOBJ>} pso Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-surfobj">SURFOBJ</a> structure that defines the drawing surface.
      * @param {Pointer<PATHOBJ>} ppo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-pathobj">PATHOBJ</a> structure that defines the path to be filled. The <b>PATHOBJ_</b><i>Xxx</i> service routines are provided to enumerate the lines, Bezier curves, and other data that make up the path.
      * @param {Pointer<CLIPOBJ>} pco Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-clipobj">CLIPOBJ</a> structure. The <b>CLIPOBJ_</b><i>Xxx</i> service routines are provided to enumerate the <a href="https://docs.microsoft.com/windows-hardware/drivers/">clip region</a> as a set of rectangles.
-     * @param {Pointer<UInt32>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that is only needed when a geometric wide line is to be drawn and specifies the transform that converts world coordinates to device coordinates. The path is provided in device coordinates but a geometric wide line is actually widened in world coordinates.
+     * @param {Pointer<XFORMOBJ>} pxo Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff570618(v=vs.85)">XFORMOBJ</a> structure that is only needed when a geometric wide line is to be drawn and specifies the transform that converts world coordinates to device coordinates. The path is provided in device coordinates but a geometric wide line is actually widened in world coordinates.
      * 
      * The driver can use the <b>XFORMOBJ_</b><i>Xxx</i> service routines to determine the transform.
      * @param {Pointer<BRUSHOBJ>} pboStroke Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-brushobj">BRUSHOBJ</a> structure that describes the brush to use when stroking the path.
@@ -5406,12 +5483,12 @@ class Display {
      * @param {Pointer<POINTL>} pptlBrushOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the brush origin for both brushes.
      * @param {Integer} mixFill Defines the foreground and background raster operations to use for the fill brush.
      * @param {Integer} flOptions Specifies which fill mode to use. This parameter can be FP_WINDINGMODE or FP_ALTERNATEMODE; all other bits should be ignored. For more information about these modes, see <a href="https://docs.microsoft.com/windows-hardware/drivers/display/path-fill-modes">Path Fill Modes</a>.
-     * @returns {Integer} The return value is <b>TRUE</b> if GDI fills the path. If the driver should fill the path, the return value is <b>FALSE</b>, and an error code is not logged. If GDI encounters an unexpected error, such as not being able to realize the brush, the return value is DDI_ERROR, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if GDI fills the path. If the driver should fill the path, the return value is <b>FALSE</b>, and an error code is not logged. If GDI encounters an unexpected error, such as not being able to realize the brush, the return value is DDI_ERROR, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engstrokeandfillpath
      * @since windows5.0
      */
     static EngStrokeAndFillPath(pso, ppo, pco, pxo, pboStroke, plineattrs, pboFill, pptlBrushOrg, mixFill, flOptions) {
-        result := DllCall("GDI32.dll\EngStrokeAndFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "uint*", pxo, "ptr", pboStroke, "ptr", plineattrs, "ptr", pboFill, "ptr", pptlBrushOrg, "uint", mixFill, "uint", flOptions, "int")
+        result := DllCall("GDI32.dll\EngStrokeAndFillPath", "ptr", pso, "ptr", ppo, "ptr", pco, "ptr", pxo, "ptr", pboStroke, "ptr", plineattrs, "ptr", pboFill, "ptr", pptlBrushOrg, "uint", mixFill, "uint", flOptions, "int")
         return result
     }
 
@@ -5422,7 +5499,7 @@ class Display {
      * @param {Pointer<BRUSHOBJ>} pbo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-brushobj">BRUSHOBJ</a> structure that defines the pattern and colors with which to fill.
      * @param {Pointer<POINTL>} pptlBrushOrg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the brush origin used to align the brush pattern on the device.
      * @param {Integer} mix Defines the foreground and background raster operations to use for the brush.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b>, and an error code is logged.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engpaint
      * @since windows5.0
      */
@@ -5439,7 +5516,7 @@ class Display {
      * @param {Pointer<XLATEOBJ>} pxlo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-xlateobj">XLATEOBJ</a> structure that defines the translation of color indices between the source and target surfaces.
      * @param {Pointer<RECTL>} prclDest Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines the area in the coordinate system of the destination surface that will be modified. The rectangle is lower-right exclusive, meaning the lower and right edges of this rectangle are not part of the copy.
      * @param {Pointer<POINTL>} pptlSrc Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-pointl">POINTL</a> structure that defines the upper left corner of the source rectangle.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. If it is unsuccessful, it logs an error and returns <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. If it is unsuccessful, it logs an error and returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcopybits
      * @since windows5.0
      */
@@ -5473,7 +5550,7 @@ class Display {
      * @param {Pointer<RECTL>} prcl Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rectl">RECTL</a> structure that defines, in the coordinate system of the source surface, the area to be copied. The points of the source rectangle are well ordered. <b>EngPlgBlt</b> will never be given an empty source rectangle.
      * @param {Pointer<POINTL>} pptl Pointer to a POINTL structure that specifies which pixel in the given mask corresponds to the upper-left pixel in the source rectangle. Ignore this parameter if <i>psoMsk</i> is <b>NULL</b>.
      * @param {Integer} iMode 
-     * @returns {Integer} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b> and an error code is reported.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function is successful. Otherwise, it is <b>FALSE</b> and an error code is reported.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engplgblt
      * @since windows5.0
      */
@@ -5504,7 +5581,7 @@ class Display {
      * For a driver that runs on Windows XP and later operating system versions, GDI checks <i>pPaletteEntry</i>[0] to determine how to return the composed CMY palette. If <i>pPaletteEntry</i>[0] is set to 'RGB0', the palette will be in one of the CMY_INVERTED modes and will have its indexes inverted. That is, index 0 in the palette is black, and index 255 is white. If <i>pPaletteEntry</i>[0] is not set to 'RGB0', the palette is a normal CMY palette, with index 0 being white and index 255 being black. See <a href="https://docs.microsoft.com/windows-hardware/drivers/display/using-gdi-8-bit-per-pixel-cmy-mask-modes">Using GDI 8-Bit-Per-Pixel CMY Mask Modes</a> for new requirements and details on how to use this parameter.
      * 
      * Windows 2000 ignores any value the driver places in <i>pPaletteEntry</i>[0]. For this reason, if your driver is intended to run on Windows 2000 <i>and</i> on Windows XP or later versions, and your driver sets <i>pPaletteEntry</i>[0] to 'RGB0', the bitmaps your driver receives from Windows XP and later might have their colors inverted, relative to those received from Windows 2000. Therefore, such a driver must examine the palette before downloading a bitmap.
-     * @param {Integer} Use8BPPMaskPal Indicates which type of palette should be returned. When <i>Use8BPPMaskPal</i> is <b>TRUE</b>, <b>HT_Get8BPPMaskPalette</b> sets the <i>pPaletteEntry</i> parameter with the address of a CMY palette (an array of PALETTEENTRY structures) that is described by the bitmask specified in <i>CMYMask</i>. When <i>Use8BPPMaskPal</i> is <b>FALSE</b>, the function sets <i>pPaletteEntry</i> with the address of a standard RGB 8-bit-per-pixel halftone palette.
+     * @param {BOOL} Use8BPPMaskPal Indicates which type of palette should be returned. When <i>Use8BPPMaskPal</i> is <b>TRUE</b>, <b>HT_Get8BPPMaskPalette</b> sets the <i>pPaletteEntry</i> parameter with the address of a CMY palette (an array of PALETTEENTRY structures) that is described by the bitmask specified in <i>CMYMask</i>. When <i>Use8BPPMaskPal</i> is <b>FALSE</b>, the function sets <i>pPaletteEntry</i> with the address of a standard RGB 8-bit-per-pixel halftone palette.
      * @param {Integer} CMYMask 
      * @param {Integer} RedGamma If <i>Use8BPPMaskPal</i> is <b>TRUE</b>, the value of this parameter is  not used. In that case, gamma values will be specified in the <b>ciDevice</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-gdiinfo">GDIINFO</a> structure. 
      * 
@@ -5528,45 +5605,49 @@ class Display {
 
     /**
      * The EngGetPrinterDataFileName function retrieves the string name of the printer's data file.
-     * @param {Pointer<Void>} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
-     * @returns {Pointer<Char>} <b>EngGetPrinterDataFileName</b> returns a pointer to the null-terminated string buffer in which the name of the printer's data file is specified. The system obtains and stores the printer's data file name from the DRIVER_INFO_2 structure (described in the Microsoft Windows SDK documentation) when the driver is first installed through the Microsoft Win32 <b>AddPrinterDriver</b> routine.
+     * @param {HDEV} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
+     * @returns {PWSTR} <b>EngGetPrinterDataFileName</b> returns a pointer to the null-terminated string buffer in which the name of the printer's data file is specified. The system obtains and stores the printer's data file name from the DRIVER_INFO_2 structure (described in the Microsoft Windows SDK documentation) when the driver is first installed through the Microsoft Win32 <b>AddPrinterDriver</b> routine.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-enggetprinterdatafilename
      * @since windows5.0
      */
     static EngGetPrinterDataFileName(hdev) {
+        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+
         result := DllCall("GDI32.dll\EngGetPrinterDataFileName", "ptr", hdev, "char*")
         return result
     }
 
     /**
      * The EngGetDriverName function returns the name of the driver's DLL.
-     * @param {Pointer<Void>} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
-     * @returns {Pointer<Char>} <b>EngGetDriverName</b> returns a pointer to the null-terminated string buffer in which the name of the driver's DLL is specified. The system obtains and stores the driver's name from the DRIVER_INFO_2 structure when the driver is first installed through the Win32 <b>AddPrinterDriver</b> routine.
+     * @param {HDEV} hdev Handle to the device. This is the GDI handle received by the driver as the <i>hdev</i> parameter for <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-drvcompletepdev">DrvCompletePDEV</a>.
+     * @returns {PWSTR} <b>EngGetDriverName</b> returns a pointer to the null-terminated string buffer in which the name of the driver's DLL is specified. The system obtains and stores the driver's name from the DRIVER_INFO_2 structure when the driver is first installed through the Win32 <b>AddPrinterDriver</b> routine.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-enggetdrivername
      * @since windows5.0
      */
     static EngGetDriverName(hdev) {
+        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+
         result := DllCall("GDI32.dll\EngGetDriverName", "ptr", hdev, "char*")
         return result
     }
 
     /**
      * The EngLoadModule function loads the specified data module into system memory for reading.
-     * @param {Pointer<Char>} pwsz Pointer to a null-terminated string that contains the name of the data file to be loaded.
-     * @returns {Pointer<Void>} If <b>EngLoadModule</b> succeeds, the return value is a handle to the module that was loaded. Otherwise, the return value is <b>NULL</b>.
+     * @param {PWSTR} pwsz Pointer to a null-terminated string that contains the name of the data file to be loaded.
+     * @returns {HANDLE} If <b>EngLoadModule</b> succeeds, the return value is a handle to the module that was loaded. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engloadmodule
      * @since windows5.0
      */
     static EngLoadModule(pwsz) {
-        pwsz := pwsz is String? StrPtr(pwsz) : pwsz
+        pwsz := pwsz is String ? StrPtr(pwsz) : pwsz
 
         result := DllCall("GDI32.dll\EngLoadModule", "ptr", pwsz, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The EngFindResource function determines the location of a resource in a module.
-     * @param {Pointer<Void>} h Handle to the module that contains the resource. This handle is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a>.
+     * @param {HANDLE} h Handle to the module that contains the resource. This handle is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a>.
      * @param {Integer} iName Is an integer identifier representing the name of the resource being looked up.
      * @param {Integer} iType Is an integer identifier representing the type of the resource being looked up.
      * @param {Pointer<UInt32>} pulSize Pointer to a ULONG in which the resource's size, in bytes, is returned.
@@ -5575,62 +5656,72 @@ class Display {
      * @since windows5.0
      */
     static EngFindResource(h, iName, iType, pulSize) {
+        h := h is Win32Handle ? NumGet(h, "ptr") : h
+
         result := DllCall("GDI32.dll\EngFindResource", "ptr", h, "int", iName, "int", iType, "uint*", pulSize, "ptr")
         return result
     }
 
     /**
      * The EngFreeModule function unmaps a file from system memory.
-     * @param {Pointer<Void>} h Handle to the memory-mapped file to be freed. This handle was obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmoduleforwrite">EngLoadModuleForWrite</a>.
+     * @param {HANDLE} h Handle to the memory-mapped file to be freed. This handle was obtained from <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmodule">EngLoadModule</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engloadmoduleforwrite">EngLoadModuleForWrite</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engfreemodule
      * @since windows5.0
      */
     static EngFreeModule(h) {
+        h := h is Win32Handle ? NumGet(h, "ptr") : h
+
         DllCall("GDI32.dll\EngFreeModule", "ptr", h)
     }
 
     /**
      * The EngCreateSemaphore function creates a semaphore object.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the semaphore object. A null pointer is returned if the function fails.
+     * @returns {HSEMAPHORE} If the function succeeds, the return value is a handle to the semaphore object. A null pointer is returned if the function fails.
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engcreatesemaphore
      * @since windows5.0
      */
     static EngCreateSemaphore() {
         result := DllCall("GDI32.dll\EngCreateSemaphore", "ptr")
-        return result
+        return HSEMAPHORE({Value: result}, True)
     }
 
     /**
      * The EngAcquireSemaphore function acquires the resource associated with the semaphore for exclusive access by the calling thread.
-     * @param {Pointer<Void>} hsem Handle to the semaphore associated with the resource to be acquired.
+     * @param {HSEMAPHORE} hsem Handle to the semaphore associated with the resource to be acquired.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engacquiresemaphore
      * @since windows5.0
      */
     static EngAcquireSemaphore(hsem) {
+        hsem := hsem is Win32Handle ? NumGet(hsem, "ptr") : hsem
+
         DllCall("GDI32.dll\EngAcquireSemaphore", "ptr", hsem)
     }
 
     /**
      * The EngReleaseSemaphore function releases the specified semaphore.
-     * @param {Pointer<Void>} hsem Handle to the semaphore to be released.
+     * @param {HSEMAPHORE} hsem Handle to the semaphore to be released.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engreleasesemaphore
      * @since windows5.0
      */
     static EngReleaseSemaphore(hsem) {
+        hsem := hsem is Win32Handle ? NumGet(hsem, "ptr") : hsem
+
         DllCall("GDI32.dll\EngReleaseSemaphore", "ptr", hsem)
     }
 
     /**
      * The EngDeleteSemaphore function deletes a semaphore object from the system's resource list.
-     * @param {Pointer<Void>} hsem Handle to the semaphore to be deleted. The semaphore was created in <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatesemaphore">EngCreateSemaphore</a>.
+     * @param {HSEMAPHORE} hsem Handle to the semaphore to be deleted. The semaphore was created in <a href="https://docs.microsoft.com/windows/desktop/api/winddi/nf-winddi-engcreatesemaphore">EngCreateSemaphore</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winddi/nf-winddi-engdeletesemaphore
      * @since windows5.0
      */
     static EngDeleteSemaphore(hsem) {
+        hsem := hsem is Win32Handle ? NumGet(hsem, "ptr") : hsem
+
         DllCall("GDI32.dll\EngDeleteSemaphore", "ptr", hsem)
     }
 
@@ -5735,11 +5826,13 @@ class Display {
 
     /**
      * 
-     * @param {Pointer<Void>} hdev 
+     * @param {HDEV} hdev 
      * @param {Pointer<EMFINFO>} pEMFInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EngQueryEMFInfo(hdev, pEMFInfo) {
+        hdev := hdev is Win32Handle ? NumGet(hdev, "ptr") : hdev
+
         result := DllCall("GDI32.dll\EngQueryEMFInfo", "ptr", hdev, "ptr", pEMFInfo, "int")
         return result
     }
@@ -6176,7 +6269,7 @@ class Display {
     /**
      * Retrieves an AR_STATE value containing the state of screen auto-rotation for the system, for example whether auto-rotation is supported, and whether it is enabled by the user.
      * @param {Pointer<Int32>} pState Pointer to a location in memory that will receive the current state of auto-rotation for the system.
-     * @returns {Integer} TRUE if the method succeeds, otherwise FALSE.
+     * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * 
      * See <a href="/windows/desktop/api/winuser/nf-winuser-getdisplayautorotationpreferences">GetDisplayAutoRotationPreferences</a> for an example of using this function.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getautorotationstate
@@ -6189,7 +6282,7 @@ class Display {
     /**
      * Retrieves the screen auto-rotation preferences for the current process.
      * @param {Pointer<Int32>} pOrientation Pointer to a location in memory that will receive the current orientation preference setting for the calling process.
-     * @returns {Integer} TRUE if the method succeeds, otherwise FALSE.
+     * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdisplayautorotationpreferences
      */
     static GetDisplayAutoRotationPreferences(pOrientation) {
@@ -6200,7 +6293,7 @@ class Display {
     /**
      * Sets the screen auto-rotation preferences for the current process.
      * @param {Integer} orientation Pointer to a location in memory with the screen orientation preferences to set for the calling process.
-     * @returns {Integer} TRUE if the method succeeds, otherwise FALSE.
+     * @returns {BOOL} TRUE if the method succeeds, otherwise FALSE.
      * 
      * See <a href="/windows/desktop/api/winuser/nf-winuser-getdisplayautorotationpreferences">GetDisplayAutoRotationPreferences</a> for an example of using this function.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setdisplayautorotationpreferences

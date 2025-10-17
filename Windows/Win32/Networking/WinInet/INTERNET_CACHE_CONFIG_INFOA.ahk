@@ -65,7 +65,7 @@ class INTERNET_CACHE_CONFIG_INFOA extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fPerUser {
         get => NumGet(this, 16, "int")

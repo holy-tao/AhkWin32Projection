@@ -58,7 +58,7 @@ class EXPLICIT_ACCESS_W extends Win32Struct
     Trustee{
         get {
             if(!this.HasProp("__Trustee"))
-                this.__Trustee := TRUSTEE_W(this.ptr + 16)
+                this.__Trustee := TRUSTEE_W(16, this)
             return this.__Trustee
         }
     }

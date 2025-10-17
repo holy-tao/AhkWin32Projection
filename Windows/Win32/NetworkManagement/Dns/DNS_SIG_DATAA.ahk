@@ -77,7 +77,7 @@ class DNS_SIG_DATAA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pNameSigner {
         get => NumGet(this, 24, "ptr")

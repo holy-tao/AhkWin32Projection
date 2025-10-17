@@ -177,7 +177,7 @@ class WAVEFORMATEXTENSIBLE extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := WAVEFORMATEX(this.ptr + 0)
+                this.__Format := WAVEFORMATEX(0, this)
             return this.__Format
         }
     }

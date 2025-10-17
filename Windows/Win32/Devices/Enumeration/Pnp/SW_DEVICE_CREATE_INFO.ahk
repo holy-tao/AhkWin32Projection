@@ -29,7 +29,7 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
 
     /**
      * A string that represents the instance ID portion of the device instance ID. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryInstanceID</b>.  Because all software devices are considered "UniqueId" devices, this string must be a unique name for all devices on this software device enumerator.  For more info, see <a href="https://docs.microsoft.com/windows-hardware/drivers/install/instance-ids">Instance IDs</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInstanceId {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
 
     /**
      * A list of strings for the hardware IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryHardwareIDs</b>.  If a client expects a driver or device metadata to bind to the device, the client specifies hardware IDs.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszzHardwareIds {
         get => NumGet(this, 16, "ptr")
@@ -47,7 +47,7 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
 
     /**
      * A list of strings for the compatible IDs for the software device. This value is used for <a href="https://docs.microsoft.com/windows-hardware/drivers/kernel/irp-mn-query-id">IRP_MN_QUERY_ID</a> <b>BusQueryCompatibleIDs</b>.  If a client expects a class driver to load, the client specifies compatible IDs that match the class driver.  If a driver isn't needed, we recommend to specify a compatible ID to classify the type of software device.  In addition to the compatible IDs specified in this member, SWD\Generic and possibly SWD\GenericRaw will always be added as the least specific compatible IDs.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszzCompatibleIds {
         get => NumGet(this, 24, "ptr")
@@ -149,7 +149,7 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
      * 
      * </div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDeviceDescription {
         get => NumGet(this, 48, "ptr")
@@ -161,7 +161,7 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Specifying a location is uncommon.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDeviceLocation {
         get => NumGet(this, 56, "ptr")
@@ -177,12 +177,8 @@ class SW_DEVICE_CREATE_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

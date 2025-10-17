@@ -29,7 +29,7 @@ class D3D11_FEATURE_DATA_D3D9_SHADOW_SUPPORT extends Win32Struct
 
     /**
      * Specifies whether the driver supports the shadowing feature with the comparison-filtering mode set to less than or equal to. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a>.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>TRUE</b> only if the hardware and driver support the shadowing feature; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportsDepthAsTextureWithLessEqualComparisonFilter {
         get => NumGet(this, 0, "int")

@@ -27,7 +27,7 @@ class RPC_SERVER_INTERFACE extends Win32Struct
     InterfaceId{
         get {
             if(!this.HasProp("__InterfaceId"))
-                this.__InterfaceId := RPC_SYNTAX_IDENTIFIER(this.ptr + 8)
+                this.__InterfaceId := RPC_SYNTAX_IDENTIFIER(8, this)
             return this.__InterfaceId
         }
     }
@@ -38,7 +38,7 @@ class RPC_SERVER_INTERFACE extends Win32Struct
     TransferSyntax{
         get {
             if(!this.HasProp("__TransferSyntax"))
-                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(this.ptr + 24)
+                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(24, this)
             return this.__TransferSyntax
         }
     }

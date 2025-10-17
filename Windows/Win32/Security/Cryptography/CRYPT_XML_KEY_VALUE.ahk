@@ -33,7 +33,7 @@ class CRYPT_XML_KEY_VALUE extends Win32Struct
     DSAKeyValue{
         get {
             if(!this.HasProp("__DSAKeyValue"))
-                this.__DSAKeyValue := CRYPT_XML_KEY_DSA_KEY_VALUE(this.ptr + 8)
+                this.__DSAKeyValue := CRYPT_XML_KEY_DSA_KEY_VALUE(8, this)
             return this.__DSAKeyValue
         }
     }
@@ -44,7 +44,7 @@ class CRYPT_XML_KEY_VALUE extends Win32Struct
     RSAKeyValue{
         get {
             if(!this.HasProp("__RSAKeyValue"))
-                this.__RSAKeyValue := CRYPT_XML_KEY_RSA_KEY_VALUE(this.ptr + 8)
+                this.__RSAKeyValue := CRYPT_XML_KEY_RSA_KEY_VALUE(8, this)
             return this.__RSAKeyValue
         }
     }
@@ -55,7 +55,7 @@ class CRYPT_XML_KEY_VALUE extends Win32Struct
     ECDSAKeyValue{
         get {
             if(!this.HasProp("__ECDSAKeyValue"))
-                this.__ECDSAKeyValue := CRYPT_XML_KEY_ECDSA_KEY_VALUE(this.ptr + 8)
+                this.__ECDSAKeyValue := CRYPT_XML_KEY_ECDSA_KEY_VALUE(8, this)
             return this.__ECDSAKeyValue
         }
     }
@@ -66,7 +66,7 @@ class CRYPT_XML_KEY_VALUE extends Win32Struct
     Custom{
         get {
             if(!this.HasProp("__Custom"))
-                this.__Custom := CRYPT_XML_BLOB(this.ptr + 8)
+                this.__Custom := CRYPT_XML_BLOB(8, this)
             return this.__Custom
         }
     }

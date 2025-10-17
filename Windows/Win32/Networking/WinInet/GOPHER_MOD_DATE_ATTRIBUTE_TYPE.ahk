@@ -18,7 +18,7 @@ class GOPHER_MOD_DATE_ATTRIBUTE_TYPE extends Win32Struct
     DateAndTime{
         get {
             if(!this.HasProp("__DateAndTime"))
-                this.__DateAndTime := FILETIME(this.ptr + 0)
+                this.__DateAndTime := FILETIME(0, this)
             return this.__DateAndTime
         }
     }

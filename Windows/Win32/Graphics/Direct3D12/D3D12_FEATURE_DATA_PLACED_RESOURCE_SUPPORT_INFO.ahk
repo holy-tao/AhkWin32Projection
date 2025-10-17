@@ -34,13 +34,13 @@ class D3D12_FEATURE_DATA_PLACED_RESOURCE_SUPPORT_INFO extends Win32Struct
     DestHeapProperties{
         get {
             if(!this.HasProp("__DestHeapProperties"))
-                this.__DestHeapProperties := D3D12_HEAP_PROPERTIES(this.ptr + 8)
+                this.__DestHeapProperties := D3D12_HEAP_PROPERTIES(8, this)
             return this.__DestHeapProperties
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Supported {
         get => NumGet(this, 28, "int")

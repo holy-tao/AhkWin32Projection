@@ -38,7 +38,7 @@ class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
     displayData{
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(this.ptr + 8)
+                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
             return this.__displayData
         }
     }
@@ -72,7 +72,7 @@ class FWPM_PROVIDER_CONTEXT0 extends Win32Struct
     providerData{
         get {
             if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(this.ptr + 40)
+                this.__providerData := FWP_BYTE_BLOB(40, this)
             return this.__providerData
         }
     }

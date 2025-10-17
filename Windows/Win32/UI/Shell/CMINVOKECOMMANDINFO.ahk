@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information needed by IContextMenu::InvokeCommand to invoke a shortcut menu command.
@@ -43,11 +45,14 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is the owner of the shortcut menu. An extension can also use this handle as the owner of any message boxes or dialog boxes it displays.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -84,7 +89,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * If a canonical verb exists and a menu handler does not implement the canonical verb, it must return a failure code to enable the next handler to be able to handle this verb. Failing to do this will break functionality in the system including <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a>.
      * 
      * Alternatively, rather than a pointer, this parameter can be <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a>(offset) where <i>offset</i> is the menu-identifier offset of the command to carry out. Implementations can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-is_intresource">IS_INTRESOURCE</a> macro to detect that this alternative is being employed. The Shell uses this alternative when the user chooses a menu command.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpVerb {
         get => NumGet(this, 16, "ptr")
@@ -95,7 +100,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * Type: <b>LPCSTR</b>
      * 
      * An optional string containing parameters that are passed to the command. The format of this string is determined by the command that is to be invoked. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpParameters {
         get => NumGet(this, 24, "ptr")
@@ -106,7 +111,7 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * Type: <b>LPCSTR</b>
      * 
      * An optional working directory name. This member is always <b>NULL</b> for menu items inserted by a Shell extension.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDirectory {
         get => NumGet(this, 32, "ptr")
@@ -139,19 +144,18 @@ class CMINVOKECOMMANDINFO extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * An icon to use for any application activated by the command. If the <b>fMask</b> member does not specify <b>CMIC_MASK_ICON</b>, this member is ignored.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hIcon {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HANDLE(48, this)
+            return this.__hIcon
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

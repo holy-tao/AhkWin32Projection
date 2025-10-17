@@ -77,7 +77,7 @@ class D3D10_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines whether or not to use the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a>multisampling technique when setting a render-target pixel.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AlphaToCoverageEnable {
         get => NumGet(this, 0, "int")
@@ -88,7 +88,7 @@ class D3D10_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Set to <b>TRUE</b> to enable independent blending in simultaneous render targets. If set to <b>FALSE</b>, only the RenderTarget[0] members are used. RenderTarget[1..7] are ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IndependentBlendEnable {
         get => NumGet(this, 4, "int")

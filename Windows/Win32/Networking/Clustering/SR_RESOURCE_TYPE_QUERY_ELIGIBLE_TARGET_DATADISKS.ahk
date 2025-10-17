@@ -33,7 +33,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS extends Win32Struct
 
     /**
      * <b>true</b> if the disks that are connected to the same nodes as the source disk are included in result set.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SkipConnectivityCheck {
         get => NumGet(this, 16, "char")
@@ -42,7 +42,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_TARGET_DATADISKS extends Win32Struct
 
     /**
      * <b>true</b> if the result set includes all offline disks in the available storage group.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IncludeOfflineDisks {
         get => NumGet(this, 17, "char")

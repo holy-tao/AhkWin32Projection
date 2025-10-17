@@ -52,7 +52,7 @@ class MMCBUTTON extends Win32Struct
     /**
      * A pointer to the text associated with a particular instance of the 
      * <b>MMCBUTTON</b> structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpButtonText {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class MMCBUTTON extends Win32Struct
 
     /**
      * A pointer to the text for a particular tooltip.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpTooltipText {
         get => NumGet(this, 24, "ptr")

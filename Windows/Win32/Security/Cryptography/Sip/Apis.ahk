@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.Cryptography.Sip
  * @version v4.0.30319
@@ -105,7 +105,7 @@ class Sip {
      * 
      * To determine the size of the buffer needed, set the <i>pbSignedDataMsg</i> parameter to <b>NULL</b> and call the <b>CryptSIPGetSignedDataMsg</b> function. This function will place the required size of the buffer, in bytes, in the value pointed to by <i>pcbSignedDataMsg</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Some possible error codes follow.
      * 
@@ -192,7 +192,7 @@ class Sip {
      * @param {Pointer<UInt32>} pdwIndex Pointer to the message index.
      * @param {Integer} cbSignedDataMsg Length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
      * @param {Pointer<Byte>} pbSignedDataMsg Pointer to the buffer that contains the message.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Some possible error codes follow.
      * 
@@ -263,7 +263,7 @@ class Sip {
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains the subject to which the indirect data reference will point.
      * @param {Pointer<UInt32>} pcbIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure.
      * @param {Pointer<SIP_INDIRECT_DATA>} pIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure to receive the catalog item.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * 
      * If this function returns <b>FALSE</b>, additional error information can be obtained by calling the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -348,7 +348,7 @@ class Sip {
      * Validates the indirect hashed data against the supplied subject.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
      * @param {Pointer<SIP_INDIRECT_DATA>} pIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure that contains information about the hashed subject information.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * 
      * If this function returns <b>FALSE</b>, additional error information can be obtained by calling the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -400,7 +400,7 @@ class Sip {
      * Removes a specified Authenticode signature.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
      * @param {Integer} dwIndex This parameter is reserved and should be set to zero.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipremovesigneddatamsg
@@ -421,7 +421,7 @@ class Sip {
      * @param {Pointer<Guid>} pgSubject A pointer to a GUID returned by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mssip/nf-mssip-cryptsipretrievesubjectguid">CryptSIPRetrieveSubjectGuid</a> function.
      * @param {Integer} dwFlags This parameter is reserved and must be set to zero.
      * @param {Pointer<SIP_DISPATCH_INFO>} pSipDispatch A pointer to a [SIP_DISPATCH_INFO](/windows/desktop/api/mssip/ns-mssip-sip_dispatch_info) structure that contains pointers to SIP provider functions that are specific to the subject type. The caller must initialize this structure to binary zeros, and set the <b>cbSize</b> member to <c>sizeof(SIP_DISPATCH_INFO)</c> before calling the <b>CryptSIPLoad</b> function.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipload
@@ -439,17 +439,18 @@ class Sip {
 
     /**
      * Retrieves a GUID based on the header information in a specified file.
-     * @param {Pointer<Char>} FileName The name of the file.
-     * @param {Pointer<Void>} hFileIn A handle to the file to check.
+     * @param {PWSTR} FileName The name of the file.
+     * @param {HANDLE} hFileIn A handle to the file to check.
      * @param {Pointer<Guid>} pgSubject A GUID that identifies the subject.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipretrievesubjectguid
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuid(FileName, hFileIn, pgSubject) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hFileIn := hFileIn is Win32Handle ? NumGet(hFileIn, "ptr") : hFileIn
 
         A_LastError := 0
 
@@ -462,10 +463,10 @@ class Sip {
 
     /**
      * Retrieves the subject GUID associated with the specified file.
-     * @param {Pointer<Char>} FileName The name of the file. If the <i>hFileIn</i> parameter is set, the value in this parameter is ignored.
-     * @param {Pointer<Void>} hFileIn A handle to the file to check. This parameter must contain a valid handle if the <i>FileName</i> parameter is <b>NULL</b>.
+     * @param {PWSTR} FileName The name of the file. If the <i>hFileIn</i> parameter is set, the value in this parameter is ignored.
+     * @param {HANDLE} hFileIn A handle to the file to check. This parameter must contain a valid handle if the <i>FileName</i> parameter is <b>NULL</b>.
      * @param {Pointer<Guid>} pgSubject A globally unique ID that identifies the subject.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * 
      * If this function returns <b>FALSE</b>, additional error information can be obtained by calling the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. <b>GetLastError</b> will return one of the following error codes.
@@ -493,7 +494,8 @@ class Sip {
      * @since windows5.1.2600
      */
     static CryptSIPRetrieveSubjectGuidForCatalogFile(FileName, hFileIn, pgSubject) {
-        FileName := FileName is String? StrPtr(FileName) : FileName
+        FileName := FileName is String ? StrPtr(FileName) : FileName
+        hFileIn := hFileIn is Win32Handle ? NumGet(hFileIn, "ptr") : hFileIn
 
         A_LastError := 0
 
@@ -507,7 +509,7 @@ class Sip {
     /**
      * The CryptSIPAddProvider function registers functions that are exported by a given DLL file that implements a Subject Interface Package (SIP).
      * @param {Pointer<SIP_ADD_NEWPROVIDER>} psNewProv A pointer to a [SIP_ADD_NEWPROVIDER](/windows/desktop/api/mssip/ns-mssip-sip_add_newprovider) structure that specifies the DLL file and function names to register.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipaddprovider
      * @since windows5.1.2600
      */
@@ -524,7 +526,7 @@ class Sip {
     /**
      * Removes registry details of a Subject Interface Package (SIP) DLL file added by a previous call to the CryptSIPAddProvider function.
      * @param {Pointer<Guid>} pgProv A pointer to the GUID that identifies the SIP DLL  to remove.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function to determine the reason for failure.
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipremoveprovider
      * @since windows5.1.2600
      */
@@ -547,7 +549,7 @@ class Sip {
      * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjInfo Pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that specifies subject information data to the SIP APIs.
      * @param {Pointer<SIP_CAP_SET_V3>} pCaps Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/mssip/ns-mssip-sip_cap_set_v2">SIP_CAP_SET</a> structure that defines the capabilities of an SIP.
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//mssip/nf-mssip-cryptsipgetcaps
      * @since windows8.0
      */
@@ -563,7 +565,7 @@ class Sip {
      * @param {Integer} dwSig 
      * @param {Pointer<Byte>} pbDigest 
      * @param {Pointer<UInt32>} pcbDigest 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {
         result := DllCall("WINTRUST.dll\CryptSIPGetSealedDigest", "ptr", pSubjectInfo, "char*", pSig, "uint", dwSig, "char*", pbDigest, "uint*", pcbDigest, "int")

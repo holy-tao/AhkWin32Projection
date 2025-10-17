@@ -20,7 +20,7 @@ class GETCLIPBMETADATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsDelayRendered {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class GETCLIPBMETADATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSynthetic {
         get => NumGet(this, 8, "int")

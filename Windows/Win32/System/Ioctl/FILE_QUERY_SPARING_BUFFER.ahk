@@ -24,7 +24,7 @@ class FILE_QUERY_SPARING_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that sparing behavior is software-based; if <b>FALSE</b>, it is hardware-based.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SoftwareSparing {
         get => NumGet(this, 4, "char")

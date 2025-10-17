@@ -36,7 +36,7 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * A string representing the name to be queried over mDNS.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Query {
         get => NumGet(this, 8, "ptr")
@@ -90,7 +90,7 @@ class MDNS_QUERY_REQUEST extends Win32Struct
 
     /**
      * Reserved. Do not use.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAnswerReceived {
         get => NumGet(this, 56, "int")

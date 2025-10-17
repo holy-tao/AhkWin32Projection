@@ -20,7 +20,7 @@ class PROFILER_PROPERTY_TYPE_SUBSTRING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     value {
         get => NumGet(this, 8, "ptr")

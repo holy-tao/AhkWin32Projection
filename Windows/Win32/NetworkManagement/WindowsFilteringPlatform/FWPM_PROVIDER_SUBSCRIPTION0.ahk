@@ -29,7 +29,7 @@ class FWPM_PROVIDER_SUBSCRIPTION0 extends Win32Struct
      *  Enumeration template for limiting the subscription.
      * 
      * See [FWPM_PROVIDER_ENUM_TEMPLATE0](/windows/desktop/api/fwpmtypes/ns-fwpmtypes-fwpm_provider_enum_template0) for more information.
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<FWPM_PROVIDER_ENUM_TEMPLATE0>}
      */
     enumTemplate {
         get => NumGet(this, 0, "ptr")

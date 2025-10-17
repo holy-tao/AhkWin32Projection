@@ -28,7 +28,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 512)
+                this.__dot11Ssid := DOT11_SSID(512, this)
             return this.__dot11Ssid
         }
     }
@@ -50,7 +50,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNetworkConnectable {
         get => NumGet(this, 556, "int")
@@ -85,7 +85,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMorePhyTypes {
         get => NumGet(this, 600, "int")
@@ -101,7 +101,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSecurityEnabled {
         get => NumGet(this, 608, "int")
@@ -138,7 +138,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     AccessNetworkOptions{
         get {
             if(!this.HasProp("__AccessNetworkOptions"))
-                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(this.ptr + 625)
+                this.__AccessNetworkOptions := DOT11_ACCESSNETWORKOPTIONS(625, this)
             return this.__AccessNetworkOptions
         }
     }
@@ -160,7 +160,7 @@ class WLAN_AVAILABLE_NETWORK_V2 extends Win32Struct
     VenueInfo{
         get {
             if(!this.HasProp("__VenueInfo"))
-                this.__VenueInfo := DOT11_VENUEINFO(this.ptr + 636)
+                this.__VenueInfo := DOT11_VENUEINFO(636, this)
             return this.__VenueInfo
         }
     }

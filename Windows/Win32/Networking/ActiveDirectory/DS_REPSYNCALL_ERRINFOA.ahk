@@ -21,7 +21,7 @@ class DS_REPSYNCALL_ERRINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the DNS GUID of the server where the error occurred. Alternatively, this member can contain the distinguished name of the server if <b>DS_REPSYNCALL_ID_SERVERS_BY_DN</b> is specified in the <i>ulFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicasyncalla">DsReplicaSyncAll</a> function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSvrId {
         get => NumGet(this, 0, "ptr")
@@ -48,7 +48,7 @@ class DS_REPSYNCALL_ERRINFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the DNS GUID of the source server. Alternatively, this member can contain the distinguished name of the source server if <b>DS_REPSYNCALL_ID_SERVERS_BY_DN</b> is specified in the <i>ulFlags</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicasyncalla">DsReplicaSyncAll</a> function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSrcId {
         get => NumGet(this, 16, "ptr")

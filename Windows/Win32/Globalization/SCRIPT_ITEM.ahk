@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Struct.ahk
+#Include .\SCRIPT_STATE.ahk
 #Include .\SCRIPT_ANALYSIS.ahk
 
 /**
@@ -30,7 +31,7 @@ class SCRIPT_ITEM extends Win32Struct
     a{
         get {
             if(!this.HasProp("__a"))
-                this.__a := SCRIPT_ANALYSIS(this.ptr + 4)
+                this.__a := SCRIPT_ANALYSIS(4, this)
             return this.__a
         }
     }

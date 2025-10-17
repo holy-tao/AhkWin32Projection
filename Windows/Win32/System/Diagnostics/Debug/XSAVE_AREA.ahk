@@ -20,7 +20,7 @@ class XSAVE_AREA extends Win32Struct
     LegacyState{
         get {
             if(!this.HasProp("__LegacyState"))
-                this.__LegacyState := XSAVE_FORMAT(this.ptr + 0)
+                this.__LegacyState := XSAVE_FORMAT(0, this)
             return this.__LegacyState
         }
     }
@@ -31,7 +31,7 @@ class XSAVE_AREA extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := XSAVE_AREA_HEADER(this.ptr + 320)
+                this.__Header := XSAVE_AREA_HEADER(320, this)
             return this.__Header
         }
     }

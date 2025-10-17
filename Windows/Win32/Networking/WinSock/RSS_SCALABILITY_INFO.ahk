@@ -12,7 +12,7 @@ class RSS_SCALABILITY_INFO extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RssEnabled {
         get => NumGet(this, 0, "char")

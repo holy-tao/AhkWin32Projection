@@ -35,7 +35,7 @@ class XINPUT_STATE extends Win32Struct
     Gamepad{
         get {
             if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(this.ptr + 8)
+                this.__Gamepad := XINPUT_GAMEPAD(8, this)
             return this.__Gamepad
         }
     }

@@ -83,7 +83,7 @@ class MCI_DGV_QUALITY_PARMSW extends Win32Struct
 
     /**
      * String naming description.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrName {
         get => NumGet(this, 16, "ptr")

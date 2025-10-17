@@ -26,7 +26,7 @@ class DBCOLUMNACCESS extends Win32Struct
     columnid{
         get {
             if(!this.HasProp("__columnid"))
-                this.__columnid := DBID(this.ptr + 8)
+                this.__columnid := DBID(8, this)
             return this.__columnid
         }
     }

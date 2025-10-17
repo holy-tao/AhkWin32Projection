@@ -39,7 +39,7 @@ class TS_SELECTION_ACP extends Win32Struct
     style{
         get {
             if(!this.HasProp("__style"))
-                this.__style := TS_SELECTIONSTYLE(this.ptr + 8)
+                this.__style := TS_SELECTIONSTYLE(8, this)
             return this.__style
         }
     }

@@ -57,7 +57,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
     CreateTime{
         get {
             if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(this.ptr + 1248)
+                this.__CreateTime := FILETIME(1248, this)
             return this.__CreateTime
         }
     }
@@ -69,7 +69,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
     DisconnectTime{
         get {
             if(!this.HasProp("__DisconnectTime"))
-                this.__DisconnectTime := FILETIME(this.ptr + 1256)
+                this.__DisconnectTime := FILETIME(1256, this)
             return this.__DisconnectTime
         }
     }

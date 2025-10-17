@@ -12,7 +12,7 @@ class DXGI_GAMMA_CONTROL_CAPABILITIES extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ScaleAndOffsetSupported {
         get => NumGet(this, 0, "int")

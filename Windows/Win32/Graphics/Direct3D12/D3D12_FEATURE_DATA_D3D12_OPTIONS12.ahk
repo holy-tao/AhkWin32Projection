@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS12 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnhancedBarriersSupported {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS12 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     RelaxedFormatCastingSupported {
         get => NumGet(this, 8, "int")

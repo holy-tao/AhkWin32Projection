@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\SourceInfo.ahk
 
 /**
@@ -30,27 +31,33 @@ class VisualElement extends Win32Struct
     SrcInfo{
         get {
             if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := SourceInfo(this.ptr + 8)
+                this.__SrcInfo := SourceInfo(8, this)
             return this.__SrcInfo
         }
     }
 
     /**
      * The type of the object.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    Type {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    Type{
+        get {
+            if(!this.HasProp("__Type"))
+                this.__Type := BSTR(40, this)
+            return this.__Type
+        }
     }
 
     /**
      * The name of the XAML element, if it has an <a href="https://docs.microsoft.com/windows/uwp/xaml-platform/x-name-attribute">x:Name</a> defined in markup.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    Name {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    Name{
+        get {
+            if(!this.HasProp("__Name"))
+                this.__Name := BSTR(48, this)
+            return this.__Name
+        }
     }
 
     /**

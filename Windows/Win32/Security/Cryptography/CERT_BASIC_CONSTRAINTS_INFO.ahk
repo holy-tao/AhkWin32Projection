@@ -28,14 +28,14 @@ class CERT_BASIC_CONSTRAINTS_INFO extends Win32Struct
     SubjectType{
         get {
             if(!this.HasProp("__SubjectType"))
-                this.__SubjectType := CRYPT_BIT_BLOB(this.ptr + 0)
+                this.__SubjectType := CRYPT_BIT_BLOB(0, this)
             return this.__SubjectType
         }
     }
 
     /**
      * A Boolean value that indicates whether the <b>dwPathLenConstraint</b> field sets the maximum length of the certification path.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fPathLenConstraint {
         get => NumGet(this, 24, "int")

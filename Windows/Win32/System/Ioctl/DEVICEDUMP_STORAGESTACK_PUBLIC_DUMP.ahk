@@ -19,7 +19,7 @@ class DEVICEDUMP_STORAGESTACK_PUBLIC_DUMP extends Win32Struct
     Descriptor{
         get {
             if(!this.HasProp("__Descriptor"))
-                this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(this.ptr + 0)
+                this.__Descriptor := DEVICEDUMP_STRUCTURE_VERSION(0, this)
             return this.__Descriptor
         }
     }

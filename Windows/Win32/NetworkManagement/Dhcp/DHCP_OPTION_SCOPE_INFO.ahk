@@ -48,13 +48,13 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
         ReservedScopeInfo{
             get {
                 if(!this.HasProp("__ReservedScopeInfo"))
-                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(this.ptr + 0)
+                    this.__ReservedScopeInfo := DHCP_RESERVED_SCOPE(0, this)
                 return this.__ReservedScopeInfo
             }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         MScopeInfo {
             get => NumGet(this, 0, "ptr")
@@ -79,7 +79,7 @@ class DHCP_OPTION_SCOPE_INFO extends Win32Struct
     ScopeInfo{
         get {
             if(!this.HasProp("__ScopeInfo"))
-                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(this.ptr + 8)
+                this.__ScopeInfo := %this.__Class%._DHCP_OPTION_SCOPE_UNION(8, this)
             return this.__ScopeInfo
         }
     }

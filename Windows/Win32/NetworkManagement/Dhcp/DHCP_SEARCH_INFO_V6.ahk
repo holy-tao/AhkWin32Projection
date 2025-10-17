@@ -25,7 +25,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         ClientIpAddress{
             get {
                 if(!this.HasProp("__ClientIpAddress"))
-                    this.__ClientIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                    this.__ClientIpAddress := DHCP_IPV6_ADDRESS(0, this)
                 return this.__ClientIpAddress
             }
         }
@@ -36,13 +36,13 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
         ClientDUID{
             get {
                 if(!this.HasProp("__ClientDUID"))
-                    this.__ClientDUID := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__ClientDUID := DHCP_BINARY_DATA(0, this)
                 return this.__ClientDUID
             }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         ClientName {
             get => NumGet(this, 0, "ptr")
@@ -67,7 +67,7 @@ class DHCP_SEARCH_INFO_V6 extends Win32Struct
     SearchInfo{
         get {
             if(!this.HasProp("__SearchInfo"))
-                this.__SearchInfo := %this.__Class%._DHCP_CLIENT_SEARCH_UNION_V6(this.ptr + 8)
+                this.__SearchInfo := %this.__Class%._DHCP_CLIENT_SEARCH_UNION_V6(8, this)
             return this.__SearchInfo
         }
     }

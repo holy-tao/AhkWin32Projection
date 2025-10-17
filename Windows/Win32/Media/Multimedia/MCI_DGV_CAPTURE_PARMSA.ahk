@@ -38,7 +38,7 @@ class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string specifying the destination path and filename for the file that receives the captured data.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class MCI_DGV_CAPTURE_PARMSA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

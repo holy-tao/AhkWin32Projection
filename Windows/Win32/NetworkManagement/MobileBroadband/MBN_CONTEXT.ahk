@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The MBN_CONTEXT structure stores information about the connection context.
@@ -35,33 +36,42 @@ class MBN_CONTEXT extends Win32Struct
      * Contains connection-specific access information.  In GSM networks, this would be an access point name (APN) such as "data.thephone-company.com".  In CDMA networks, this might be a special dial code such as "#777" or a NAI (Network Access Identifier) such as "somebody@thephone-company.com".  
      * 
      * This string must not exceed <b>MBN_ACCESSSTRING_LEN</b> characters. For the definition of <b>MBN_ACCESSTRING_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. This string can be empty.  The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    accessString {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    accessString{
+        get {
+            if(!this.HasProp("__accessString"))
+                this.__accessString := BSTR(8, this)
+            return this.__accessString
+        }
     }
 
     /**
      * Contains the user name that is used for authentication.
      * 
      * The string must not exceed <b>MBN_USERNAME_LEN</b> characters.  The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>. For the definition of <b>MBN_USERNAME_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    userName {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    userName{
+        get {
+            if(!this.HasProp("__userName"))
+                this.__userName := BSTR(16, this)
+            return this.__userName
+        }
     }
 
     /**
      * Contains the password that is used for authentication.
      * 
      * The string must not exceed <b>MBN_PASSWORD_LEN</b> characters. This string can be empty.  For the definition of <b>MBN_PASSWORD_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_context_constants">MBN_CONTEXT_CONSTANTS</a>. The calling application must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    password {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    password{
+        get {
+            if(!this.HasProp("__password"))
+                this.__password := BSTR(24, this)
+            return this.__password
+        }
     }
 
     /**

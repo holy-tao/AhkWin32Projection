@@ -22,7 +22,7 @@ class CHANGER_ELEMENT_STATUS_EX extends Win32Struct
     Element{
         get {
             if(!this.HasProp("__Element"))
-                this.__Element := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Element := CHANGER_ELEMENT(0, this)
             return this.__Element
         }
     }
@@ -40,7 +40,7 @@ class CHANGER_ELEMENT_STATUS_EX extends Win32Struct
     SrcElementAddress{
         get {
             if(!this.HasProp("__SrcElementAddress"))
-                this.__SrcElementAddress := CHANGER_ELEMENT(this.ptr + 8)
+                this.__SrcElementAddress := CHANGER_ELEMENT(8, this)
             return this.__SrcElementAddress
         }
     }

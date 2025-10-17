@@ -19,7 +19,7 @@ class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -30,7 +30,7 @@ class KS_DATAFORMAT_VBIINFOHEADER extends Win32Struct
     VBIInfoHeader{
         get {
             if(!this.HasProp("__VBIInfoHeader"))
-                this.__VBIInfoHeader := KS_VBIINFOHEADER(this.ptr + 48)
+                this.__VBIInfoHeader := KS_VBIINFOHEADER(48, this)
             return this.__VBIInfoHeader
         }
     }

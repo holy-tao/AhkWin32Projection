@@ -20,7 +20,7 @@ class DFS_INFO_200 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the name of a domain-based DFS namespace.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FtDfsName {
         get => NumGet(this, 0, "ptr")

@@ -60,7 +60,7 @@ class SPPHRASEELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDisplayText {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class SPPHRASEELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszLexicalForm {
         get => NumGet(this, 32, "ptr")

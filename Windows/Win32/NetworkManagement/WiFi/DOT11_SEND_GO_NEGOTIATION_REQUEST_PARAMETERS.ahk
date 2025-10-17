@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
+#Include .\DOT11_WFD_GO_INTENT.ahk
 #Include .\DOT11_WFD_CONFIGURATION_TIMEOUT.ahk
 
 /**
@@ -19,7 +20,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -52,11 +53,14 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_WFD_GO_INTENT}
      */
-    GroupOwnerIntent {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    GroupOwnerIntent{
+        get {
+            if(!this.HasProp("__GroupOwnerIntent"))
+                this.__GroupOwnerIntent := DOT11_WFD_GO_INTENT(16, this)
+            return this.__GroupOwnerIntent
+        }
     }
 
     /**
@@ -65,7 +69,7 @@ class DOT11_SEND_GO_NEGOTIATION_REQUEST_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(this.ptr + 18)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(18, this)
             return this.__MinimumConfigTimeout
         }
     }

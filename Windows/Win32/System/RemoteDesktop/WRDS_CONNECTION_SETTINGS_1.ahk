@@ -21,7 +21,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the initial program to start in the Remote Desktop Services shell is inherited. This value overwrites the  <b>fInheritInitialProgram</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fInheritInitialProgram {
         get => NumGet(this, 0, "char")
@@ -30,7 +30,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to inherit the monitor color depth. This value overwrites the  <b>fInheritColorDepth</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fInheritColorDepth {
         get => NumGet(this, 1, "char")
@@ -39,7 +39,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the title bar is hidden.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fHideTitleBar {
         get => NumGet(this, 2, "char")
@@ -48,7 +48,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the logon process is automatic. This value overwrites the  <b>fInheritAutoLogon</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fInheritAutoLogon {
         get => NumGet(this, 3, "char")
@@ -57,7 +57,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the initial program is displayed maximized. This value is used if <b>fInheritInitialProgram</b> is set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fMaximizeShell {
         get => NumGet(this, 4, "char")
@@ -66,7 +66,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether PNP redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisablePNP {
         get => NumGet(this, 5, "char")
@@ -75,7 +75,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies that a smart card was used during the logon process. The smart card PIN is the password.  This value is used if <b>fInheritAutoLogon</b> is set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fPasswordIsScPin {
         get => NumGet(this, 6, "char")
@@ -84,7 +84,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to prompt the user for a password. If this value is <b>TRUE</b>, the user will be prompted even if the <b>fInheritAutoLogon</b> registry value is <b>TRUE</b> and the "Always ask for a password" policy is not set.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fPromptForPassword {
         get => NumGet(this, 7, "char")
@@ -93,7 +93,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether printer mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCpm {
         get => NumGet(this, 8, "char")
@@ -102,7 +102,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether drive mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCdm {
         get => NumGet(this, 9, "char")
@@ -111,7 +111,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether COM port  mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCcm {
         get => NumGet(this, 10, "char")
@@ -120,7 +120,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether LPT printer redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableLPT {
         get => NumGet(this, 11, "char")
@@ -129,7 +129,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether clipboard redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableClip {
         get => NumGet(this, 12, "char")
@@ -138,7 +138,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies the action the server takes when the connection or idle timers expire, or when a connection is lost due to a connection error.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fResetBroken {
         get => NumGet(this, 13, "char")
@@ -147,7 +147,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to disable encryption for communication between the client and server.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableEncryption {
         get => NumGet(this, 14, "char")
@@ -156,7 +156,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to disable automatic reconnect of the client.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableAutoReconnect {
         get => NumGet(this, 15, "char")
@@ -165,7 +165,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the Ctrl+Alt+Delete keyboard shortcut is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCtrlAltDel {
         get => NumGet(this, 16, "char")
@@ -174,7 +174,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the client can double-click.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDoubleClickDetect {
         get => NumGet(this, 17, "char")
@@ -183,7 +183,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the Windows key is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fEnableWindowsKey {
         get => NumGet(this, 18, "char")
@@ -192,7 +192,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether the client is using saved credentials during the logon process.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fUsingSavedCreds {
         get => NumGet(this, 19, "char")
@@ -201,7 +201,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether mouse input is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fMouse {
         get => NumGet(this, 20, "char")
@@ -210,7 +210,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to turn on audio playback. A value of <b>TRUE</b> specifies no audio.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fNoAudioPlayback {
         get => NumGet(this, 21, "char")
@@ -219,7 +219,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether to leave audio playback on the remote computer.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fRemoteConsoleAudio {
         get => NumGet(this, 22, "char")
@@ -559,7 +559,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientSockAddress{
         get {
             if(!this.HasProp("__ClientSockAddress"))
-                this.__ClientSockAddress := WTS_SOCKADDR(this.ptr + 3504)
+                this.__ClientSockAddress := WTS_SOCKADDR(3504, this)
             return this.__ClientSockAddress
         }
     }
@@ -571,7 +571,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     ClientTimeZone{
         get {
             if(!this.HasProp("__ClientTimeZone"))
-                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 3544)
+                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(3544, this)
             return this.__ClientTimeZone
         }
     }
@@ -583,7 +583,7 @@ class WRDS_CONNECTION_SETTINGS_1 extends Win32Struct
     WRdsListenerSettings{
         get {
             if(!this.HasProp("__WRdsListenerSettings"))
-                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(this.ptr + 3728)
+                this.__WRdsListenerSettings := WRDS_LISTENER_SETTINGS(3728, this)
             return this.__WRdsListenerSettings
         }
     }

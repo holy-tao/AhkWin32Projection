@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * The OPENFILENAME_NT4 structure is identical to OPENFILENAME with _WIN32_WINNT set to 0x0400.
@@ -29,23 +31,29 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrFilter {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +61,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrCustomFilter {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +85,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrFile {
         get => NumGet(this, 48, "ptr")
@@ -93,7 +101,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrFileTitle {
         get => NumGet(this, 64, "ptr")
@@ -109,7 +117,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrInitialDir {
         get => NumGet(this, 80, "ptr")
@@ -117,7 +125,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrTitle {
         get => NumGet(this, 88, "ptr")
@@ -149,7 +157,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrDefExt {
         get => NumGet(this, 104, "ptr")
@@ -157,7 +165,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 112, "ptr")
@@ -173,7 +181,7 @@ class OPENFILENAME_NT4W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpTemplateName {
         get => NumGet(this, 128, "ptr")

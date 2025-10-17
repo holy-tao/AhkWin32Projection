@@ -15,7 +15,7 @@ class EapSimCredential extends Win32Struct
 
     /**
      * A NULL-terminated Unicode string that contains the ICC-ID of the SIM.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     iccID {
         get => NumGet(this, 0, "ptr")

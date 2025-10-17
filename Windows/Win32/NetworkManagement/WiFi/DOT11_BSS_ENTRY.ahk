@@ -26,7 +26,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     PhySpecificInfo{
         get {
             if(!this.HasProp("__PhySpecificInfo"))
-                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(this.ptr + 8)
+                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(8, this)
             return this.__PhySpecificInfo
         }
     }
@@ -67,7 +67,7 @@ class DOT11_BSS_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bInRegDomain {
         get => NumGet(this, 52, "char")

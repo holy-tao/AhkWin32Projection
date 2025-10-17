@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Device notification filter structure.
@@ -68,6 +69,23 @@ class CM_NOTIFY_FILTER extends Win32Struct
     
     }
 
+    class _DeviceHandle extends Win32Struct {
+        static sizeof => 400
+        static packingSize => 8
+
+        /**
+         * @type {HANDLE}
+         */
+        hTarget{
+            get {
+                if(!this.HasProp("__hTarget"))
+                    this.__hTarget := HANDLE(0, this)
+                return this.__hTarget
+            }
+        }
+    
+    }
+
     class _DeviceInstance extends Win32Struct {
         static sizeof => 400
         static packingSize => 8
@@ -88,17 +106,20 @@ class CM_NOTIFY_FILTER extends Win32Struct
     DeviceInterface{
         get {
             if(!this.HasProp("__DeviceInterface"))
-                this.__DeviceInterface := %this.__Class%._DeviceInterface(this.ptr + 16)
+                this.__DeviceInterface := %this.__Class%._DeviceInterface(16, this)
             return this.__DeviceInterface
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {_DeviceHandle}
      */
-    DeviceHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    DeviceHandle{
+        get {
+            if(!this.HasProp("__DeviceHandle"))
+                this.__DeviceHandle := %this.__Class%._DeviceHandle(16, this)
+            return this.__DeviceHandle
+        }
     }
 
     /**
@@ -107,17 +128,13 @@ class CM_NOTIFY_FILTER extends Win32Struct
     DeviceInstance{
         get {
             if(!this.HasProp("__DeviceInstance"))
-                this.__DeviceInstance := %this.__Class%._DeviceInstance(this.ptr + 16)
+                this.__DeviceInstance := %this.__Class%._DeviceInstance(16, this)
             return this.__DeviceInstance
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 416
     }
 }

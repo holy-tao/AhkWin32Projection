@@ -46,7 +46,7 @@ class D3D12_RESOURCE_BARRIER extends Win32Struct
     Transition{
         get {
             if(!this.HasProp("__Transition"))
-                this.__Transition := D3D12_RESOURCE_TRANSITION_BARRIER(this.ptr + 8)
+                this.__Transition := D3D12_RESOURCE_TRANSITION_BARRIER(8, this)
             return this.__Transition
         }
     }
@@ -57,7 +57,7 @@ class D3D12_RESOURCE_BARRIER extends Win32Struct
     Aliasing{
         get {
             if(!this.HasProp("__Aliasing"))
-                this.__Aliasing := D3D12_RESOURCE_ALIASING_BARRIER(this.ptr + 8)
+                this.__Aliasing := D3D12_RESOURCE_ALIASING_BARRIER(8, this)
             return this.__Aliasing
         }
     }
@@ -68,7 +68,7 @@ class D3D12_RESOURCE_BARRIER extends Win32Struct
     UAV{
         get {
             if(!this.HasProp("__UAV"))
-                this.__UAV := D3D12_RESOURCE_UAV_BARRIER(this.ptr + 8)
+                this.__UAV := D3D12_RESOURCE_UAV_BARRIER(8, this)
             return this.__UAV
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -28,10 +29,13 @@ class MCI_BREAK_PARMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndBreak {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwndBreak{
+        get {
+            if(!this.HasProp("__hwndBreak"))
+                this.__hwndBreak := HWND(16, this)
+            return this.__hwndBreak
+        }
     }
 }

@@ -33,7 +33,7 @@ class ICCOMPRESSFRAMES extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lOutput {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class ICCOMPRESSFRAMES extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lInput {
         get => NumGet(this, 32, "ptr")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HTASK.ahk
+#Include .\HMMIO.ahk
 
 /**
  * @namespace Windows.Win32.Media.Multimedia
@@ -44,11 +46,14 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HTASK}
      */
-    htask {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    htask{
+        get {
+            if(!this.HasProp("__htask"))
+                this.__htask := HTASK(24, this)
+            return this.__htask
+        }
     }
 
     /**
@@ -135,10 +140,13 @@ class MMIOINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HMMIO}
      */
-    hmmio {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    hmmio{
+        get {
+            if(!this.HasProp("__hmmio"))
+                this.__hmmio := HMMIO(104, this)
+            return this.__hmmio
+        }
     }
 }

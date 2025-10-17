@@ -4,6 +4,7 @@
 #Include .\BranchOfficeJobDataRendered.ahk
 #Include .\BranchOfficeJobDataError.ahk
 #Include .\BranchOfficeJobDataPipelineFailed.ahk
+#Include .\BranchOfficeLogOfflineFileFull.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -37,7 +38,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobPrinted{
         get {
             if(!this.HasProp("__LogJobPrinted"))
-                this.__LogJobPrinted := BranchOfficeJobDataPrinted(this.ptr + 8)
+                this.__LogJobPrinted := BranchOfficeJobDataPrinted(8, this)
             return this.__LogJobPrinted
         }
     }
@@ -48,7 +49,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobRendered{
         get {
             if(!this.HasProp("__LogJobRendered"))
-                this.__LogJobRendered := BranchOfficeJobDataRendered(this.ptr + 8)
+                this.__LogJobRendered := BranchOfficeJobDataRendered(8, this)
             return this.__LogJobRendered
         }
     }
@@ -59,7 +60,7 @@ class BranchOfficeJobData extends Win32Struct
     LogJobError{
         get {
             if(!this.HasProp("__LogJobError"))
-                this.__LogJobError := BranchOfficeJobDataError(this.ptr + 8)
+                this.__LogJobError := BranchOfficeJobDataError(8, this)
             return this.__LogJobError
         }
     }
@@ -70,16 +71,19 @@ class BranchOfficeJobData extends Win32Struct
     LogPipelineFailed{
         get {
             if(!this.HasProp("__LogPipelineFailed"))
-                this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(this.ptr + 8)
+                this.__LogPipelineFailed := BranchOfficeJobDataPipelineFailed(8, this)
             return this.__LogPipelineFailed
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BranchOfficeLogOfflineFileFull}
      */
-    LogOfflineFileFull {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    LogOfflineFileFull{
+        get {
+            if(!this.HasProp("__LogOfflineFileFull"))
+                this.__LogOfflineFileFull := BranchOfficeLogOfflineFileFull(8, this)
+            return this.__LogOfflineFileFull
+        }
     }
 }

@@ -32,14 +32,14 @@ class PEER_ENDPOINT extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := PEER_ADDRESS(this.ptr + 0)
+                this.__address := PEER_ADDRESS(0, this)
             return this.__address
         }
     }
 
     /**
      * Zero-terminated Unicode string that contains the specific displayable name of the endpoint.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzEndpointName {
         get => NumGet(this, 40, "ptr")

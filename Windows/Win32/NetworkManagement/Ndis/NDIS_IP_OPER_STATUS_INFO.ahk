@@ -19,7 +19,7 @@ class NDIS_IP_OPER_STATUS_INFO extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }

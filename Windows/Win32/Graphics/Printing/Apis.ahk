@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\Gdi\HDC.ahk
 /**
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
@@ -7082,47 +7084,55 @@ class Printing {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Void>} hWndOwner 
+     * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {Pointer} lParam 
+     * @param {LPARAM} lParam 
      * @param {Pointer<UInt32>} pResult 
      * @returns {Integer} 
      */
     static CommonPropertySheetUIA(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+        hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+
         result := DllCall("COMPSTUI.dll\CommonPropertySheetUIA", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, "uint*", pResult, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWndOwner 
+     * @param {HWND} hWndOwner 
      * @param {Pointer<PFNPROPSHEETUI>} pfnPropSheetUI 
-     * @param {Pointer} lParam 
+     * @param {LPARAM} lParam 
      * @param {Pointer<UInt32>} pResult 
      * @returns {Integer} 
      */
     static CommonPropertySheetUIW(hWndOwner, pfnPropSheetUI, lParam, pResult) {
+        hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+
         result := DllCall("COMPSTUI.dll\CommonPropertySheetUIW", "ptr", hWndOwner, "ptr", pfnPropSheetUI, "ptr", lParam, "uint*", pResult, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hDlg 
+     * @param {HWND} hDlg 
      * @returns {Pointer} 
      */
     static GetCPSUIUserData(hDlg) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("COMPSTUI.dll\GetCPSUIUserData", "ptr", hDlg, "ptr")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hDlg 
+     * @param {HWND} hDlg 
      * @param {Pointer} CPSUIUserData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetCPSUIUserData(hDlg, CPSUIUserData) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("COMPSTUI.dll\SetCPSUIUserData", "ptr", hDlg, "ptr", CPSUIUserData, "int")
         return result
     }
@@ -7130,16 +7140,16 @@ class Printing {
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<Byte>} Name 
+     * @param {PSTR} Name 
      * @param {Integer} Level 
      * @param {Pointer} pPrinterEnum 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintersA(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -7153,16 +7163,16 @@ class Printing {
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<Char>} Name 
+     * @param {PWSTR} Name 
      * @param {Integer} Level 
      * @param {Pointer} pPrinterEnum 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintersW(Flags, Name, Level, pPrinterEnum, cbBuf, pcbNeeded, pcReturned) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -7175,51 +7185,59 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Pointer<Void>} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {HANDLE} 
      */
     static GetSpoolFileHandle(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\GetSpoolFileHandle", "ptr", hPrinter, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Void>} hSpoolFile 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {HANDLE} hSpoolFile 
      * @param {Integer} cbCommit 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static CommitSpoolData(hPrinter, hSpoolFile, cbCommit) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hSpoolFile := hSpoolFile is Win32Handle ? NumGet(hSpoolFile, "ptr") : hSpoolFile
+
         result := DllCall("winspool.drv\CommitSpoolData", "ptr", hPrinter, "ptr", hSpoolFile, "uint", cbCommit, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Void>} hSpoolFile 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {HANDLE} hSpoolFile 
+     * @returns {BOOL} 
      */
     static CloseSpoolFileHandle(hPrinter, hSpoolFile) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hSpoolFile := hSpoolFile is Win32Handle ? NumGet(hSpoolFile, "ptr") : hSpoolFile
+
         result := DllCall("winspool.drv\CloseSpoolFileHandle", "ptr", hPrinter, "ptr", hSpoolFile, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} pPrinterName 
-     * @param {Pointer<Void>} phPrinter 
+     * @param {PSTR} pPrinterName 
+     * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static OpenPrinterA(pPrinterName, phPrinter, pDefault) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         A_LastError := 0
 
@@ -7232,13 +7250,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pPrinterName 
-     * @param {Pointer<Void>} phPrinter 
+     * @param {PWSTR} pPrinterName 
+     * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static OpenPrinterW(pPrinterName, phPrinter, pDefault) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         A_LastError := 0
 
@@ -7251,36 +7269,42 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ResetPrinterA(hPrinter, pDefault) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\ResetPrinterA", "ptr", hPrinter, "ptr", pDefault, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ResetPrinterW(hPrinter, pDefault) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\ResetPrinterW", "ptr", hPrinter, "ptr", pDefault, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Integer} Level 
      * @param {Integer} Command 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetJobA(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
+
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetJobA", "ptr", hPrinter, "uint", JobId, "uint", Level, "char*", pJob, "uint", Command, "int")
         return result
@@ -7288,14 +7312,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Integer} Level 
      * @param {Integer} Command 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetJobW(hPrinter, JobId, Level, Command) {
         static pJob := 0 ;Reserved parameters must always be NULL
+
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetJobW", "ptr", hPrinter, "uint", JobId, "uint", Level, "char*", pJob, "uint", Command, "int")
         return result
@@ -7303,37 +7329,41 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetJobA(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\GetJobA", "ptr", hPrinter, "uint", JobId, "uint", Level, "ptr", pJob, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Integer} Level 
      * @param {Pointer} pJob 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetJobW(hPrinter, JobId, Level, pJob, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\GetJobW", "ptr", hPrinter, "uint", JobId, "uint", Level, "ptr", pJob, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} FirstJob 
      * @param {Integer} NoJobs 
      * @param {Integer} Level 
@@ -7341,9 +7371,11 @@ class Printing {
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumJobsA(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumJobsA", "ptr", hPrinter, "uint", FirstJob, "uint", NoJobs, "uint", Level, "ptr", pJob, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
@@ -7355,7 +7387,7 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} FirstJob 
      * @param {Integer} NoJobs 
      * @param {Integer} Level 
@@ -7363,9 +7395,11 @@ class Printing {
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumJobsW(hPrinter, FirstJob, NoJobs, Level, pJob, cbBuf, pcbNeeded, pcReturned) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\EnumJobsW", "ptr", hPrinter, "uint", FirstJob, "uint", NoJobs, "uint", Level, "ptr", pJob, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
@@ -7377,13 +7411,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pPrinter 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static AddPrinterA(pName, Level, pPrinter) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -7391,18 +7425,18 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pPrinter 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static AddPrinterW(pName, Level, pPrinter) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -7410,15 +7444,17 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static DeletePrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\DeletePrinter", "ptr", hPrinter, "int")
@@ -7430,13 +7466,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pPrinter 
      * @param {Integer} Command 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetPrinterA(hPrinter, Level, pPrinter, Command) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPrinterA", "ptr", hPrinter, "uint", Level, "char*", pPrinter, "uint", Command, "int")
@@ -7448,13 +7486,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pPrinter 
      * @param {Integer} Command 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetPrinterW(hPrinter, Level, pPrinter, Command) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\SetPrinterW", "ptr", hPrinter, "uint", Level, "char*", pPrinter, "uint", Command, "int")
@@ -7466,14 +7506,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pPrinter 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterA(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\GetPrinterA", "ptr", hPrinter, "uint", Level, "ptr", pPrinter, "uint", cbBuf, "uint*", pcbNeeded, "int")
@@ -7485,14 +7527,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pPrinter 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterW(hPrinter, Level, pPrinter, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\GetPrinterW", "ptr", hPrinter, "uint", Level, "ptr", pPrinter, "uint", cbBuf, "uint*", pcbNeeded, "int")
@@ -7504,13 +7548,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pDriverInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterDriverA(pName, Level, pDriverInfo) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -7523,13 +7567,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pDriverInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterDriverW(pName, Level, pDriverInfo) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -7542,14 +7586,14 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} lpbDriverInfo 
      * @param {Integer} dwFileCopyFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterDriverExA(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrinterDriverExA", "ptr", pName, "uint", Level, "char*", lpbDriverInfo, "uint", dwFileCopyFlags, "int")
         return result
@@ -7557,14 +7601,14 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} lpbDriverInfo 
      * @param {Integer} dwFileCopyFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterDriverExW(pName, Level, lpbDriverInfo, dwFileCopyFlags) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrinterDriverExW", "ptr", pName, "uint", Level, "char*", lpbDriverInfo, "uint", dwFileCopyFlags, "int")
         return result
@@ -7572,18 +7616,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrinterDriversA(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         A_LastError := 0
 
@@ -7596,18 +7640,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrinterDriversW(pName, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         A_LastError := 0
 
@@ -7620,16 +7664,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDriverA", "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7637,16 +7682,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDriverW", "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7654,17 +7700,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverDirectory 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriverDirectoryA(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriverDirectoryA", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pDriverDirectory, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7672,17 +7718,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverDirectory 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriverDirectoryW(pName, pEnvironment, Level, pDriverDirectory, cbBuf, pcbNeeded) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriverDirectoryW", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pDriverDirectory, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7690,15 +7736,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pDriverName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pDriverName 
+     * @returns {BOOL} 
      */
     static DeletePrinterDriverA(pName, pEnvironment, pDriverName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pDriverName := pDriverName is String? StrPtr(pDriverName) : pDriverName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pDriverName := pDriverName is String ? StrPtr(pDriverName) : pDriverName
 
         result := DllCall("winspool.drv\DeletePrinterDriverA", "ptr", pName, "ptr", pEnvironment, "ptr", pDriverName, "int")
         return result
@@ -7706,15 +7752,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pDriverName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pDriverName 
+     * @returns {BOOL} 
      */
     static DeletePrinterDriverW(pName, pEnvironment, pDriverName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pDriverName := pDriverName is String? StrPtr(pDriverName) : pDriverName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pDriverName := pDriverName is String ? StrPtr(pDriverName) : pDriverName
 
         result := DllCall("winspool.drv\DeletePrinterDriverW", "ptr", pName, "ptr", pEnvironment, "ptr", pDriverName, "int")
         return result
@@ -7722,17 +7768,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pDriverName 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pDriverName 
      * @param {Integer} dwDeleteFlag 
      * @param {Integer} dwVersionFlag 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DeletePrinterDriverExA(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pDriverName := pDriverName is String? StrPtr(pDriverName) : pDriverName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pDriverName := pDriverName is String ? StrPtr(pDriverName) : pDriverName
 
         result := DllCall("winspool.drv\DeletePrinterDriverExA", "ptr", pName, "ptr", pEnvironment, "ptr", pDriverName, "uint", dwDeleteFlag, "uint", dwVersionFlag, "int")
         return result
@@ -7740,17 +7786,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pDriverName 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pDriverName 
      * @param {Integer} dwDeleteFlag 
      * @param {Integer} dwVersionFlag 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DeletePrinterDriverExW(pName, pEnvironment, pDriverName, dwDeleteFlag, dwVersionFlag) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pDriverName := pDriverName is String? StrPtr(pDriverName) : pDriverName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pDriverName := pDriverName is String ? StrPtr(pDriverName) : pDriverName
 
         result := DllCall("winspool.drv\DeletePrinterDriverExW", "ptr", pName, "ptr", pEnvironment, "ptr", pDriverName, "uint", dwDeleteFlag, "uint", dwVersionFlag, "int")
         return result
@@ -7758,17 +7804,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pPathName 
-     * @param {Pointer<Byte>} pPrintProcessorName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pPathName 
+     * @param {PSTR} pPrintProcessorName 
+     * @returns {BOOL} 
      */
     static AddPrintProcessorA(pName, pEnvironment, pPathName, pPrintProcessorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPathName := pPathName is String? StrPtr(pPathName) : pPathName
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPathName := pPathName is String ? StrPtr(pPathName) : pPathName
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\AddPrintProcessorA", "ptr", pName, "ptr", pEnvironment, "ptr", pPathName, "ptr", pPrintProcessorName, "int")
         return result
@@ -7776,17 +7822,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pPathName 
-     * @param {Pointer<Char>} pPrintProcessorName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pPathName 
+     * @param {PWSTR} pPrintProcessorName 
+     * @returns {BOOL} 
      */
     static AddPrintProcessorW(pName, pEnvironment, pPathName, pPrintProcessorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPathName := pPathName is String? StrPtr(pPathName) : pPathName
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPathName := pPathName is String ? StrPtr(pPathName) : pPathName
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\AddPrintProcessorW", "ptr", pName, "ptr", pEnvironment, "ptr", pPathName, "ptr", pPrintProcessorName, "int")
         return result
@@ -7794,18 +7840,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintProcessorsA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\EnumPrintProcessorsA", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pPrintProcessorInfo, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -7813,18 +7859,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintProcessorsW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\EnumPrintProcessorsW", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pPrintProcessorInfo, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -7832,17 +7878,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrintProcessorDirectoryA(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrintProcessorDirectoryA", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pPrintProcessorInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7850,17 +7896,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pPrintProcessorInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrintProcessorDirectoryW(pName, pEnvironment, Level, pPrintProcessorInfo, cbBuf, pcbNeeded) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrintProcessorDirectoryW", "ptr", pName, "ptr", pEnvironment, "uint", Level, "ptr", pPrintProcessorInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7868,18 +7914,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pPrintProcessorName 
+     * @param {PSTR} pName 
+     * @param {PSTR} pPrintProcessorName 
      * @param {Integer} Level 
      * @param {Pointer} pDatatypes 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintProcessorDatatypesA(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\EnumPrintProcessorDatatypesA", "ptr", pName, "ptr", pPrintProcessorName, "uint", Level, "ptr", pDatatypes, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -7887,18 +7933,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pPrintProcessorName 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pPrintProcessorName 
      * @param {Integer} Level 
      * @param {Pointer} pDatatypes 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPrintProcessorDatatypesW(pName, pPrintProcessorName, Level, pDatatypes, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\EnumPrintProcessorDatatypesW", "ptr", pName, "ptr", pPrintProcessorName, "uint", Level, "ptr", pDatatypes, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -7906,15 +7952,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pPrintProcessorName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pPrintProcessorName 
+     * @returns {BOOL} 
      */
     static DeletePrintProcessorA(pName, pEnvironment, pPrintProcessorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\DeletePrintProcessorA", "ptr", pName, "ptr", pEnvironment, "ptr", pPrintProcessorName, "int")
         return result
@@ -7922,15 +7968,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pPrintProcessorName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pPrintProcessorName 
+     * @returns {BOOL} 
      */
     static DeletePrintProcessorW(pName, pEnvironment, pPrintProcessorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPrintProcessorName := pPrintProcessorName is String? StrPtr(pPrintProcessorName) : pPrintProcessorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPrintProcessorName := pPrintProcessorName is String ? StrPtr(pPrintProcessorName) : pPrintProcessorName
 
         result := DllCall("winspool.drv\DeletePrintProcessorW", "ptr", pName, "ptr", pEnvironment, "ptr", pPrintProcessorName, "int")
         return result
@@ -7938,170 +7984,199 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<DOC_INFO_1A>} pDocInfo 
      * @returns {Integer} 
      */
     static StartDocPrinterA(hPrinter, Level, pDocInfo) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\StartDocPrinterA", "ptr", hPrinter, "uint", Level, "ptr", pDocInfo, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<DOC_INFO_1W>} pDocInfo 
      * @returns {Integer} 
      */
     static StartDocPrinterW(hPrinter, Level, pDocInfo) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\StartDocPrinterW", "ptr", hPrinter, "uint", Level, "ptr", pDocInfo, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static StartPagePrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\StartPagePrinter", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcWritten 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static WritePrinter(hPrinter, pBuf, cbBuf, pcWritten) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\WritePrinter", "ptr", hPrinter, "ptr", pBuf, "uint", cbBuf, "uint*", pcWritten, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcWritten 
      * @param {Integer} cSleep 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FlushPrinter(hPrinter, pBuf, cbBuf, pcWritten, cSleep) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\FlushPrinter", "ptr", hPrinter, "ptr", pBuf, "uint", cbBuf, "uint*", pcWritten, "uint", cSleep, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static EndPagePrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EndPagePrinter", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static AbortPrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\AbortPrinter", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer} pBuf 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pNoBytesRead 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReadPrinter(hPrinter, pBuf, cbBuf, pNoBytesRead) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\ReadPrinter", "ptr", hPrinter, "ptr", pBuf, "uint", cbBuf, "uint*", pNoBytesRead, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static EndDocPrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EndDocPrinter", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pData 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddJobA(hPrinter, Level, pData, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\AddJobA", "ptr", hPrinter, "uint", Level, "ptr", pData, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pData 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddJobW(hPrinter, Level, pData, cbBuf, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\AddJobW", "ptr", hPrinter, "uint", Level, "ptr", pData, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ScheduleJob(hPrinter, JobId) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\ScheduleJob", "ptr", hPrinter, "uint", JobId, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static PrinterProperties(hWnd, hPrinter) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\PrinterProperties", "ptr", hWnd, "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pDeviceName 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pDeviceName 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
      * @param {Pointer<DEVMODEA>} pDevModeInput 
      * @param {Integer} fMode 
      * @returns {Integer} 
      */
     static DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
@@ -8109,16 +8184,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pDeviceName 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pDeviceName 
      * @param {Pointer<DEVMODEW>} pDevModeOutput 
      * @param {Pointer<DEVMODEW>} pDevModeInput 
      * @param {Integer} fMode 
      * @returns {Integer} 
      */
     static DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
@@ -8126,15 +8203,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pDeviceName 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pDeviceName 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
      * @param {Pointer<DEVMODEA>} pDevModeInput 
      * @returns {Integer} 
      */
     static AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
@@ -8142,15 +8221,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pDeviceName 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pDeviceName 
      * @param {Pointer<DEVMODEW>} pDevModeOutput 
      * @param {Pointer<DEVMODEW>} pDevModeInput 
      * @returns {Integer} 
      */
     static AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
@@ -8158,20 +8239,22 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hInst 
+     * @param {HWND} hWnd 
+     * @param {HANDLE} hInst 
      * @param {Pointer<DEVMODEA>} pDevModeOutput 
-     * @param {Pointer<Byte>} pDeviceName 
-     * @param {Pointer<Byte>} pPort 
+     * @param {PSTR} pDeviceName 
+     * @param {PSTR} pPort 
      * @param {Pointer<DEVMODEA>} pDevModeInput 
-     * @param {Pointer<Byte>} pProfile 
+     * @param {PSTR} pProfile 
      * @param {Integer} fMode 
      * @returns {Integer} 
      */
     static ExtDeviceMode(hWnd, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
-        pPort := pPort is String? StrPtr(pPort) : pPort
-        pProfile := pProfile is String? StrPtr(pProfile) : pProfile
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        pPort := pPort is String ? StrPtr(pPort) : pPort
+        pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("winspool.drv\ExtDeviceMode", "ptr", hWnd, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
         return result
@@ -8179,8 +8262,8 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pValueName 
      * @param {Pointer<UInt32>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
@@ -8188,7 +8271,8 @@ class Printing {
      * @returns {Integer} 
      */
     static GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8196,8 +8280,8 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pValueName 
      * @param {Pointer<UInt32>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
@@ -8205,7 +8289,8 @@ class Printing {
      * @returns {Integer} 
      */
     static GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8213,9 +8298,9 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
+     * @param {PSTR} pValueName 
      * @param {Pointer<UInt32>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
@@ -8223,8 +8308,9 @@ class Printing {
      * @returns {Integer} 
      */
     static GetPrinterDataExA(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8232,9 +8318,9 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
+     * @param {PWSTR} pValueName 
      * @param {Pointer<UInt32>} pType 
      * @param {Pointer} pData 
      * @param {Integer} nSize 
@@ -8242,8 +8328,9 @@ class Printing {
      * @returns {Integer} 
      */
     static GetPrinterDataExW(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8251,7 +8338,7 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} dwIndex 
      * @param {Pointer} pValueName 
      * @param {Integer} cbValueName 
@@ -8263,13 +8350,15 @@ class Printing {
      * @returns {Integer} 
      */
     static EnumPrinterDataA(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EnumPrinterDataA", "ptr", hPrinter, "uint", dwIndex, "ptr", pValueName, "uint", cbValueName, "uint*", pcbValueName, "uint*", pType, "char*", pData, "uint", cbData, "uint*", pcbData, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} dwIndex 
      * @param {Pointer} pValueName 
      * @param {Integer} cbValueName 
@@ -8281,14 +8370,16 @@ class Printing {
      * @returns {Integer} 
      */
     static EnumPrinterDataW(hPrinter, dwIndex, pValueName, cbValueName, pcbValueName, pType, pData, cbData, pcbData) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EnumPrinterDataW", "ptr", hPrinter, "uint", dwIndex, "ptr", pValueName, "uint", cbValueName, "uint*", pcbValueName, "uint*", pType, "char*", pData, "uint", cbData, "uint*", pcbData, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
      * @param {Pointer} pEnumValues 
      * @param {Integer} cbEnumValues 
      * @param {Pointer<UInt32>} pcbEnumValues 
@@ -8296,7 +8387,8 @@ class Printing {
      * @returns {Integer} 
      */
     static EnumPrinterDataExA(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\EnumPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pEnumValues, "uint", cbEnumValues, "uint*", pcbEnumValues, "uint*", pnEnumValues, "uint")
         return result
@@ -8304,8 +8396,8 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
      * @param {Pointer} pEnumValues 
      * @param {Integer} cbEnumValues 
      * @param {Pointer<UInt32>} pcbEnumValues 
@@ -8313,7 +8405,8 @@ class Printing {
      * @returns {Integer} 
      */
     static EnumPrinterDataExW(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\EnumPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pEnumValues, "uint", cbEnumValues, "uint*", pcbEnumValues, "uint*", pnEnumValues, "uint")
         return result
@@ -8321,15 +8414,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
      * @param {Pointer} pSubkey 
      * @param {Integer} cbSubkey 
      * @param {Pointer<UInt32>} pcbSubkey 
      * @returns {Integer} 
      */
     static EnumPrinterKeyA(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\EnumPrinterKeyA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pSubkey, "uint", cbSubkey, "uint*", pcbSubkey, "uint")
         return result
@@ -8337,15 +8431,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
      * @param {Pointer} pSubkey 
      * @param {Integer} cbSubkey 
      * @param {Pointer<UInt32>} pcbSubkey 
      * @returns {Integer} 
      */
     static EnumPrinterKeyW(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\EnumPrinterKeyW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pSubkey, "uint", cbSubkey, "uint*", pcbSubkey, "uint")
         return result
@@ -8353,15 +8448,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pValueName 
      * @param {Integer} Type 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
      */
     static SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8369,15 +8465,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pValueName 
      * @param {Integer} Type 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
      */
     static SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8385,17 +8482,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
+     * @param {PSTR} pValueName 
      * @param {Integer} Type 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
      */
     static SetPrinterDataExA(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8403,17 +8501,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
+     * @param {PWSTR} pValueName 
      * @param {Integer} Type 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
      */
     static SetPrinterDataExW(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8421,12 +8520,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pValueName 
      * @returns {Integer} 
      */
     static DeletePrinterDataA(hPrinter, pValueName) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint")
         return result
@@ -8434,12 +8534,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pValueName 
      * @returns {Integer} 
      */
     static DeletePrinterDataW(hPrinter, pValueName) {
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint")
         return result
@@ -8447,14 +8548,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
-     * @param {Pointer<Byte>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
+     * @param {PSTR} pValueName 
      * @returns {Integer} 
      */
     static DeletePrinterDataExA(hPrinter, pKeyName, pValueName) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint")
         return result
@@ -8462,14 +8564,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
-     * @param {Pointer<Char>} pValueName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
+     * @param {PWSTR} pValueName 
      * @returns {Integer} 
      */
     static DeletePrinterDataExW(hPrinter, pKeyName, pValueName) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
-        pValueName := pValueName is String? StrPtr(pValueName) : pValueName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint")
         return result
@@ -8477,12 +8580,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pKeyName 
      * @returns {Integer} 
      */
     static DeletePrinterKeyA(hPrinter, pKeyName) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterKeyA", "ptr", hPrinter, "ptr", pKeyName, "uint")
         return result
@@ -8490,12 +8594,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pKeyName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pKeyName 
      * @returns {Integer} 
      */
     static DeletePrinterKeyW(hPrinter, pKeyName) {
-        pKeyName := pKeyName is String? StrPtr(pKeyName) : pKeyName
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterKeyW", "ptr", hPrinter, "ptr", pKeyName, "uint")
         return result
@@ -8503,37 +8608,43 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Flags 
      * @returns {Integer} 
      */
     static WaitForPrinterChange(hPrinter, Flags) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\WaitForPrinterChange", "ptr", hPrinter, "uint", Flags, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwFilter 
      * @param {Integer} fdwOptions 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static FindFirstPrinterChangeNotification(hPrinter, fdwFilter, fdwOptions, pPrinterNotifyOptions) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\FindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilter, "uint", fdwOptions, "ptr", pPrinterNotifyOptions, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hChange 
+     * @param {HANDLE} hChange 
      * @param {Pointer<UInt32>} pdwChange 
      * @param {Pointer<Void>} pvReserved 
      * @param {Pointer<Void>} ppPrinterNotifyInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FindNextPrinterChangeNotification(hChange, pdwChange, pvReserved, ppPrinterNotifyInfo) {
+        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+
         result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, "uint*", pdwChange, "ptr", pvReserved, "ptr", ppPrinterNotifyInfo, "int")
         return result
     }
@@ -8541,7 +8652,7 @@ class Printing {
     /**
      * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pPrinterNotifyInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FreePrinterNotifyInfo(pPrinterNotifyInfo) {
         result := DllCall("winspool.drv\FreePrinterNotifyInfo", "ptr", pPrinterNotifyInfo, "int")
@@ -8550,27 +8661,31 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hChange 
-     * @returns {Integer} 
+     * @param {HANDLE} hChange 
+     * @returns {BOOL} 
      */
     static FindClosePrinterChangeNotification(hChange) {
+        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+
         result := DllCall("winspool.drv\FindClosePrinterChangeNotification", "ptr", hChange, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Byte>} pText 
-     * @param {Pointer<Byte>} pCaption 
+     * @param {HWND} hWnd 
+     * @param {PSTR} pText 
+     * @param {PSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
     static PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType) {
-        pText := pText is String? StrPtr(pText) : pText
-        pCaption := pCaption is String? StrPtr(pCaption) : pCaption
+        pText := pText is String ? StrPtr(pText) : pText
+        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
@@ -8578,17 +8693,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Error 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pText 
-     * @param {Pointer<Char>} pCaption 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pText 
+     * @param {PWSTR} pCaption 
      * @param {Integer} dwType 
      * @returns {Integer} 
      */
     static PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType) {
-        pText := pText is String? StrPtr(pText) : pText
-        pCaption := pCaption is String? StrPtr(pCaption) : pCaption
+        pText := pText is String ? StrPtr(pText) : pText
+        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
@@ -8596,10 +8713,12 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static ClosePrinter(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         A_LastError := 0
 
         result := DllCall("winspool.drv\ClosePrinter", "ptr", hPrinter, "int")
@@ -8611,36 +8730,41 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pForm 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddFormA(hPrinter, Level, pForm) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\AddFormA", "ptr", hPrinter, "uint", Level, "char*", pForm, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pForm 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddFormW(hPrinter, Level, pForm) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\AddFormW", "ptr", hPrinter, "uint", Level, "char*", pForm, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pFormName 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pFormName 
+     * @returns {BOOL} 
      */
     static DeleteFormA(hPrinter, pFormName) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeleteFormA", "ptr", hPrinter, "ptr", pFormName, "int")
         return result
@@ -8648,12 +8772,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pFormName 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pFormName 
+     * @returns {BOOL} 
      */
     static DeleteFormW(hPrinter, pFormName) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeleteFormW", "ptr", hPrinter, "ptr", pFormName, "int")
         return result
@@ -8661,16 +8786,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pFormName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pFormName 
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetFormA", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -8678,16 +8804,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pFormName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pFormName 
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetFormW", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -8695,14 +8822,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pFormName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pFormName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pForm 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetFormA(hPrinter, pFormName, Level, pForm) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetFormA", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "char*", pForm, "int")
         return result
@@ -8710,14 +8838,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pFormName 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pFormName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pForm 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetFormW(hPrinter, pFormName, Level, pForm) {
-        pFormName := pFormName is String? StrPtr(pFormName) : pFormName
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetFormW", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "char*", pForm, "int")
         return result
@@ -8725,46 +8854,50 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumFormsA(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EnumFormsA", "ptr", hPrinter, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} Level 
      * @param {Pointer} pForm 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumFormsW(hPrinter, Level, pForm, cbBuf, pcbNeeded, pcReturned) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EnumFormsW", "ptr", hPrinter, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer} pMonitor 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumMonitorsA(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\EnumMonitorsA", "ptr", pName, "uint", Level, "ptr", pMonitor, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -8772,16 +8905,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer} pMonitor 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumMonitorsW(pName, Level, pMonitor, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\EnumMonitorsW", "ptr", pName, "uint", Level, "ptr", pMonitor, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -8789,13 +8922,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pMonitors 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddMonitorA(pName, Level, pMonitors) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -8808,13 +8941,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pMonitors 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddMonitorW(pName, Level, pMonitors) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         A_LastError := 0
 
@@ -8827,15 +8960,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pMonitorName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pMonitorName 
+     * @returns {BOOL} 
      */
     static DeleteMonitorA(pName, pEnvironment, pMonitorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pMonitorName := pMonitorName is String? StrPtr(pMonitorName) : pMonitorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
@@ -8848,15 +8981,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pMonitorName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pMonitorName 
+     * @returns {BOOL} 
      */
     static DeleteMonitorW(pName, pEnvironment, pMonitorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pMonitorName := pMonitorName is String? StrPtr(pMonitorName) : pMonitorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
@@ -8869,16 +9002,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer} pPort 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPortsA(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\EnumPortsA", "ptr", pName, "uint", Level, "ptr", pPort, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -8886,16 +9019,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer} pPort 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
      * @param {Pointer<UInt32>} pcReturned 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static EnumPortsW(pName, Level, pPort, cbBuf, pcbNeeded, pcReturned) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\EnumPortsW", "ptr", pName, "uint", Level, "ptr", pPort, "uint", cbBuf, "uint*", pcbNeeded, "uint*", pcReturned, "int")
         return result
@@ -8903,14 +9036,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Byte>} pMonitorName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PSTR} pMonitorName 
+     * @returns {BOOL} 
      */
     static AddPortA(pName, hWnd, pMonitorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pMonitorName := pMonitorName is String? StrPtr(pMonitorName) : pMonitorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -8923,14 +9057,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pMonitorName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pMonitorName 
+     * @returns {BOOL} 
      */
     static AddPortW(pName, hWnd, pMonitorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pMonitorName := pMonitorName is String? StrPtr(pMonitorName) : pMonitorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -8943,14 +9078,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Byte>} pPortName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PSTR} pPortName 
+     * @returns {BOOL} 
      */
     static ConfigurePortA(pName, hWnd, pPortName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
         return result
@@ -8958,14 +9094,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pPortName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pPortName 
+     * @returns {BOOL} 
      */
     static ConfigurePortW(pName, hWnd, pPortName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
         return result
@@ -8973,14 +9110,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Byte>} pPortName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PSTR} pPortName 
+     * @returns {BOOL} 
      */
     static DeletePortA(pName, hWnd, pPortName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -8993,14 +9131,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pPortName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pPortName 
+     * @returns {BOOL} 
      */
     static DeletePortW(pName, hWnd, pPortName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -9013,18 +9152,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hXcv 
-     * @param {Pointer<Char>} pszDataName 
+     * @param {HANDLE} hXcv 
+     * @param {PWSTR} pszDataName 
      * @param {Pointer} pInputData 
      * @param {Integer} cbInputData 
      * @param {Pointer} pOutputData 
      * @param {Integer} cbOutputData 
      * @param {Pointer<UInt32>} pcbOutputNeeded 
      * @param {Pointer<UInt32>} pdwStatus 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static XcvDataW(hXcv, pszDataName, pInputData, cbInputData, pOutputData, cbOutputData, pcbOutputNeeded, pdwStatus) {
-        pszDataName := pszDataName is String? StrPtr(pszDataName) : pszDataName
+        pszDataName := pszDataName is String ? StrPtr(pszDataName) : pszDataName
+        hXcv := hXcv is Win32Handle ? NumGet(hXcv, "ptr") : hXcv
 
         result := DllCall("winspool.drv\XcvDataW", "ptr", hXcv, "ptr", pszDataName, "ptr", pInputData, "uint", cbInputData, "ptr", pOutputData, "uint", cbOutputData, "uint*", pcbOutputNeeded, "uint*", pdwStatus, "int")
         return result
@@ -9032,12 +9172,12 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszBuffer 
+     * @param {PSTR} pszBuffer 
      * @param {Pointer<UInt32>} pcchBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDefaultPrinterA(pszBuffer, pcchBuffer) {
-        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("winspool.drv\GetDefaultPrinterA", "ptr", pszBuffer, "uint*", pcchBuffer, "int")
         return result
@@ -9045,12 +9185,12 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszBuffer 
+     * @param {PWSTR} pszBuffer 
      * @param {Pointer<UInt32>} pcchBuffer 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDefaultPrinterW(pszBuffer, pcchBuffer) {
-        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("winspool.drv\GetDefaultPrinterW", "ptr", pszBuffer, "uint*", pcchBuffer, "int")
         return result
@@ -9058,11 +9198,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszPrinter 
-     * @returns {Integer} 
+     * @param {PSTR} pszPrinter 
+     * @returns {BOOL} 
      */
     static SetDefaultPrinterA(pszPrinter) {
-        pszPrinter := pszPrinter is String? StrPtr(pszPrinter) : pszPrinter
+        pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
         result := DllCall("winspool.drv\SetDefaultPrinterA", "ptr", pszPrinter, "int")
         return result
@@ -9070,11 +9210,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszPrinter 
-     * @returns {Integer} 
+     * @param {PWSTR} pszPrinter 
+     * @returns {BOOL} 
      */
     static SetDefaultPrinterW(pszPrinter) {
-        pszPrinter := pszPrinter is String? StrPtr(pszPrinter) : pszPrinter
+        pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
         result := DllCall("winspool.drv\SetDefaultPrinterW", "ptr", pszPrinter, "int")
         return result
@@ -9082,15 +9222,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pPortName 
+     * @param {PSTR} pName 
+     * @param {PSTR} pPortName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Byte>} pPortInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetPortA(pName, pPortName, dwLevel, pPortInfo) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
@@ -9103,15 +9243,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pPortName 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pPortName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Byte>} pPortInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetPortW(pName, pPortName, dwLevel, pPortInfo) {
-        pName := pName is String? StrPtr(pName) : pName
-        pPortName := pPortName is String? StrPtr(pPortName) : pPortName
+        pName := pName is String ? StrPtr(pName) : pName
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
@@ -9124,11 +9264,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @returns {BOOL} 
      */
     static AddPrinterConnectionA(pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrinterConnectionA", "ptr", pName, "int")
         return result
@@ -9136,11 +9276,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @returns {BOOL} 
      */
     static AddPrinterConnectionW(pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrinterConnectionW", "ptr", pName, "int")
         return result
@@ -9148,11 +9288,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @returns {BOOL} 
      */
     static DeletePrinterConnectionA(pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\DeletePrinterConnectionA", "ptr", pName, "int")
         return result
@@ -9160,11 +9300,11 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @returns {BOOL} 
      */
     static DeletePrinterConnectionW(pName) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\DeletePrinterConnectionW", "ptr", pName, "int")
         return result
@@ -9172,24 +9312,26 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
+     * @param {HWND} hwnd 
      * @param {Integer} Flags 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static ConnectToPrinterDlg(hwnd, Flags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("winspool.drv\ConnectToPrinterDlg", "ptr", hwnd, "uint", Flags, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
+     * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pProvidorInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrintProvidorA(pName, Level, pProvidorInfo) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrintProvidorA", "ptr", pName, "uint", Level, "char*", pProvidorInfo, "int")
         return result
@@ -9197,13 +9339,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Byte>} pProvidorInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrintProvidorW(pName, Level, pProvidorInfo) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("winspool.drv\AddPrintProvidorW", "ptr", pName, "uint", Level, "char*", pProvidorInfo, "int")
         return result
@@ -9211,15 +9353,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pName 
-     * @param {Pointer<Byte>} pEnvironment 
-     * @param {Pointer<Byte>} pPrintProvidorName 
-     * @returns {Integer} 
+     * @param {PSTR} pName 
+     * @param {PSTR} pEnvironment 
+     * @param {PSTR} pPrintProvidorName 
+     * @returns {BOOL} 
      */
     static DeletePrintProvidorA(pName, pEnvironment, pPrintProvidorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPrintProvidorName := pPrintProvidorName is String? StrPtr(pPrintProvidorName) : pPrintProvidorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPrintProvidorName := pPrintProvidorName is String ? StrPtr(pPrintProvidorName) : pPrintProvidorName
 
         result := DllCall("winspool.drv\DeletePrintProvidorA", "ptr", pName, "ptr", pEnvironment, "ptr", pPrintProvidorName, "int")
         return result
@@ -9227,15 +9369,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
-     * @param {Pointer<Char>} pEnvironment 
-     * @param {Pointer<Char>} pPrintProvidorName 
-     * @returns {Integer} 
+     * @param {PWSTR} pName 
+     * @param {PWSTR} pEnvironment 
+     * @param {PWSTR} pPrintProvidorName 
+     * @returns {BOOL} 
      */
     static DeletePrintProvidorW(pName, pEnvironment, pPrintProvidorName) {
-        pName := pName is String? StrPtr(pName) : pName
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
-        pPrintProvidorName := pPrintProvidorName is String? StrPtr(pPrintProvidorName) : pPrintProvidorName
+        pName := pName is String ? StrPtr(pName) : pName
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        pPrintProvidorName := pPrintProvidorName is String ? StrPtr(pPrintProvidorName) : pPrintProvidorName
 
         result := DllCall("winspool.drv\DeletePrintProvidorW", "ptr", pName, "ptr", pEnvironment, "ptr", pPrintProvidorName, "int")
         return result
@@ -9245,7 +9387,7 @@ class Printing {
      * 
      * @param {Pointer<DEVMODEA>} pDevmode 
      * @param {Pointer} DevmodeSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsValidDevmodeA(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeA", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -9256,7 +9398,7 @@ class Printing {
      * 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Pointer} DevmodeSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsValidDevmodeW(pDevmode, DevmodeSize) {
         result := DllCall("winspool.drv\IsValidDevmodeW", "ptr", pDevmode, "ptr", DevmodeSize, "int")
@@ -9265,14 +9407,14 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pPrinterName 
-     * @param {Pointer<Void>} phPrinter 
+     * @param {PSTR} pPrinterName 
+     * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSA>} pDefault 
      * @param {Pointer<PRINTER_OPTIONSA>} pOptions 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static OpenPrinter2A(pPrinterName, phPrinter, pDefault, pOptions) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         A_LastError := 0
 
@@ -9285,14 +9427,14 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pPrinterName 
-     * @param {Pointer<Void>} phPrinter 
+     * @param {PWSTR} pPrinterName 
+     * @param {Pointer<PRINTER_HANDLE>} phPrinter 
      * @param {Pointer<PRINTER_DEFAULTSW>} pDefault 
      * @param {Pointer<PRINTER_OPTIONSW>} pOptions 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static OpenPrinter2W(pPrinterName, phPrinter, pDefault, pOptions) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         A_LastError := 0
 
@@ -9305,14 +9447,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Byte>} pszName 
+     * @param {HWND} hWnd 
+     * @param {PSTR} pszName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Void>} pConnectionInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterConnection2A(hWnd, pszName, dwLevel, pConnectionInfo) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, "ptr", pConnectionInfo, "int")
         return result
@@ -9320,14 +9463,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pszName 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pszName 
      * @param {Integer} dwLevel 
      * @param {Pointer<Void>} pConnectionInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AddPrinterConnection2W(hWnd, pszName, dwLevel, pConnectionInfo) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, "ptr", pConnectionInfo, "int")
         return result
@@ -9335,18 +9479,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszInfPath 
-     * @param {Pointer<Byte>} pszDriverName 
-     * @param {Pointer<Byte>} pszEnvironment 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszInfPath 
+     * @param {PSTR} pszDriverName 
+     * @param {PSTR} pszEnvironment 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     static InstallPrinterDriverFromPackageA(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszDriverName := pszDriverName is String? StrPtr(pszDriverName) : pszDriverName
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszDriverName := pszDriverName is String ? StrPtr(pszDriverName) : pszDriverName
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\InstallPrinterDriverFromPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
         if(result != 0)
@@ -9357,18 +9501,18 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszInfPath 
-     * @param {Pointer<Char>} pszDriverName 
-     * @param {Pointer<Char>} pszEnvironment 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszInfPath 
+     * @param {PWSTR} pszDriverName 
+     * @param {PWSTR} pszEnvironment 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
     static InstallPrinterDriverFromPackageW(pszServer, pszInfPath, pszDriverName, pszEnvironment, dwFlags) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszDriverName := pszDriverName is String? StrPtr(pszDriverName) : pszDriverName
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszDriverName := pszDriverName is String ? StrPtr(pszDriverName) : pszDriverName
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\InstallPrinterDriverFromPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszDriverName, "ptr", pszEnvironment, "uint", dwFlags, "int")
         if(result != 0)
@@ -9379,20 +9523,21 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszInfPath 
-     * @param {Pointer<Byte>} pszEnvironment 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszInfPath 
+     * @param {PSTR} pszEnvironment 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Byte>} pszDestInfPath 
+     * @param {HWND} hwnd 
+     * @param {PSTR} pszDestInfPath 
      * @param {Pointer<UInt32>} pcchDestInfPath 
      * @returns {HRESULT} 
      */
     static UploadPrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszDestInfPath := pszDestInfPath is String? StrPtr(pszDestInfPath) : pszDestInfPath
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
         if(result != 0)
@@ -9403,20 +9548,21 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszInfPath 
-     * @param {Pointer<Char>} pszEnvironment 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszInfPath 
+     * @param {PWSTR} pszEnvironment 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Char>} pszDestInfPath 
+     * @param {HWND} hwnd 
+     * @param {PWSTR} pszDestInfPath 
      * @param {Pointer<UInt32>} pcchDestInfPath 
      * @returns {HRESULT} 
      */
     static UploadPrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment, dwFlags, hwnd, pszDestInfPath, pcchDestInfPath) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszDestInfPath := pszDestInfPath is String? StrPtr(pszDestInfPath) : pszDestInfPath
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
         if(result != 0)
@@ -9427,17 +9573,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszEnvironment 
-     * @param {Pointer<Byte>} pszzCoreDriverDependencies 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszEnvironment 
+     * @param {PSTR} pszzCoreDriverDependencies 
      * @param {Integer} cCorePrinterDrivers 
      * @param {Pointer<CORE_PRINTER_DRIVERA>} pCorePrinterDrivers 
      * @returns {HRESULT} 
      */
     static GetCorePrinterDriversA(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszzCoreDriverDependencies := pszzCoreDriverDependencies is String? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszzCoreDriverDependencies := pszzCoreDriverDependencies is String ? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
         result := DllCall("winspool.drv\GetCorePrinterDriversA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
         if(result != 0)
@@ -9448,17 +9594,17 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszEnvironment 
-     * @param {Pointer<Char>} pszzCoreDriverDependencies 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszEnvironment 
+     * @param {PWSTR} pszzCoreDriverDependencies 
      * @param {Integer} cCorePrinterDrivers 
      * @param {Pointer<CORE_PRINTER_DRIVERW>} pCorePrinterDrivers 
      * @returns {HRESULT} 
      */
     static GetCorePrinterDriversW(pszServer, pszEnvironment, pszzCoreDriverDependencies, cCorePrinterDrivers, pCorePrinterDrivers) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszzCoreDriverDependencies := pszzCoreDriverDependencies is String? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszzCoreDriverDependencies := pszzCoreDriverDependencies is String ? StrPtr(pszzCoreDriverDependencies) : pszzCoreDriverDependencies
 
         result := DllCall("winspool.drv\GetCorePrinterDriversW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszzCoreDriverDependencies, "uint", cCorePrinterDrivers, "ptr", pCorePrinterDrivers, "int")
         if(result != 0)
@@ -9469,19 +9615,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszEnvironment 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszEnvironment 
      * @param {Pointer<Guid>} CoreDriverGUID 
-     * @param {Pointer} ftDriverDate 
+     * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
-     * @param {Pointer<Int32>} pbDriverInstalled 
+     * @param {Pointer<BOOL>} pbDriverInstalled 
      * @returns {HRESULT} 
      */
     static CorePrinterDriverInstalledA(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", pbDriverInstalled, "int")
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "ptr", pbDriverInstalled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9490,19 +9636,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszEnvironment 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszEnvironment 
      * @param {Pointer<Guid>} CoreDriverGUID 
-     * @param {Pointer} ftDriverDate 
+     * @param {FILETIME} ftDriverDate 
      * @param {Integer} dwlDriverVersion 
-     * @param {Pointer<Int32>} pbDriverInstalled 
+     * @param {Pointer<BOOL>} pbDriverInstalled 
      * @returns {HRESULT} 
      */
     static CorePrinterDriverInstalledW(pszServer, pszEnvironment, CoreDriverGUID, ftDriverDate, dwlDriverVersion, pbDriverInstalled) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
-        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "int*", pbDriverInstalled, "int")
+        result := DllCall("winspool.drv\CorePrinterDriverInstalledW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", CoreDriverGUID, "ptr", ftDriverDate, "uint", dwlDriverVersion, "ptr", pbDriverInstalled, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -9511,21 +9657,21 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszEnvironment 
-     * @param {Pointer<Byte>} pszLanguage 
-     * @param {Pointer<Byte>} pszPackageID 
-     * @param {Pointer<Byte>} pszDriverPackageCab 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszEnvironment 
+     * @param {PSTR} pszLanguage 
+     * @param {PSTR} pszPackageID 
+     * @param {PSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
      * @param {Pointer<UInt32>} pcchRequiredSize 
      * @returns {HRESULT} 
      */
     static GetPrinterDriverPackagePathA(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszLanguage := pszLanguage is String? StrPtr(pszLanguage) : pszLanguage
-        pszPackageID := pszPackageID is String? StrPtr(pszPackageID) : pszPackageID
-        pszDriverPackageCab := pszDriverPackageCab is String? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszLanguage := pszLanguage is String ? StrPtr(pszLanguage) : pszLanguage
+        pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
+        pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
         result := DllCall("winspool.drv\GetPrinterDriverPackagePathA", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", pcchRequiredSize, "int")
         if(result != 0)
@@ -9536,21 +9682,21 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszEnvironment 
-     * @param {Pointer<Char>} pszLanguage 
-     * @param {Pointer<Char>} pszPackageID 
-     * @param {Pointer<Char>} pszDriverPackageCab 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszEnvironment 
+     * @param {PWSTR} pszLanguage 
+     * @param {PWSTR} pszPackageID 
+     * @param {PWSTR} pszDriverPackageCab 
      * @param {Integer} cchDriverPackageCab 
      * @param {Pointer<UInt32>} pcchRequiredSize 
      * @returns {HRESULT} 
      */
     static GetPrinterDriverPackagePathW(pszServer, pszEnvironment, pszLanguage, pszPackageID, pszDriverPackageCab, cchDriverPackageCab, pcchRequiredSize) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
-        pszLanguage := pszLanguage is String? StrPtr(pszLanguage) : pszLanguage
-        pszPackageID := pszPackageID is String? StrPtr(pszPackageID) : pszPackageID
-        pszDriverPackageCab := pszDriverPackageCab is String? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
+        pszLanguage := pszLanguage is String ? StrPtr(pszLanguage) : pszLanguage
+        pszPackageID := pszPackageID is String ? StrPtr(pszPackageID) : pszPackageID
+        pszDriverPackageCab := pszDriverPackageCab is String ? StrPtr(pszDriverPackageCab) : pszDriverPackageCab
 
         result := DllCall("winspool.drv\GetPrinterDriverPackagePathW", "ptr", pszServer, "ptr", pszEnvironment, "ptr", pszLanguage, "ptr", pszPackageID, "ptr", pszDriverPackageCab, "uint", cchDriverPackageCab, "uint*", pcchRequiredSize, "int")
         if(result != 0)
@@ -9561,15 +9707,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszServer 
-     * @param {Pointer<Byte>} pszInfPath 
-     * @param {Pointer<Byte>} pszEnvironment 
+     * @param {PSTR} pszServer 
+     * @param {PSTR} pszInfPath 
+     * @param {PSTR} pszEnvironment 
      * @returns {HRESULT} 
      */
     static DeletePrinterDriverPackageA(pszServer, pszInfPath, pszEnvironment) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\DeletePrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
         if(result != 0)
@@ -9580,15 +9726,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszServer 
-     * @param {Pointer<Char>} pszInfPath 
-     * @param {Pointer<Char>} pszEnvironment 
+     * @param {PWSTR} pszServer 
+     * @param {PWSTR} pszInfPath 
+     * @param {PWSTR} pszEnvironment 
      * @returns {HRESULT} 
      */
     static DeletePrinterDriverPackageW(pszServer, pszInfPath, pszEnvironment) {
-        pszServer := pszServer is String? StrPtr(pszServer) : pszServer
-        pszInfPath := pszInfPath is String? StrPtr(pszInfPath) : pszInfPath
-        pszEnvironment := pszEnvironment is String? StrPtr(pszEnvironment) : pszEnvironment
+        pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
+        pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
+        pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
 
         result := DllCall("winspool.drv\DeletePrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "int")
         if(result != 0)
@@ -9599,13 +9745,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} printerHandle 
+     * @param {HANDLE} printerHandle 
      * @param {Integer} jobId 
      * @param {Integer} jobOperation 
      * @param {Integer} jobProgress 
      * @returns {HRESULT} 
      */
     static ReportJobProcessingProgress(printerHandle, jobId, jobOperation, jobProgress) {
+        printerHandle := printerHandle is Win32Handle ? NumGet(printerHandle, "ptr") : printerHandle
+
         result := DllCall("winspool.drv\ReportJobProcessingProgress", "ptr", printerHandle, "uint", jobId, "int", jobOperation, "int", jobProgress, "int")
         if(result != 0)
             throw OSError(result)
@@ -9615,17 +9763,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Byte>} pEnvironment 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriver2A(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -9633,17 +9783,19 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Char>} pEnvironment 
+     * @param {HWND} hWnd 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {PWSTR} pEnvironment 
      * @param {Integer} Level 
      * @param {Pointer} pDriverInfo 
      * @param {Integer} cbBuf 
      * @param {Pointer<UInt32>} pcbNeeded 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrinterDriver2W(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String? StrPtr(pEnvironment) : pEnvironment
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -9652,7 +9804,7 @@ class Printing {
     /**
      * 
      * @param {Pointer<PRINT_EXECUTION_DATA>} pData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetPrintExecutionData(pData) {
         result := DllCall("winspool.drv\GetPrintExecutionData", "ptr", pData, "int")
@@ -9661,14 +9813,15 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
-     * @param {Pointer<Char>} pszName 
+     * @param {PWSTR} pszName 
      * @param {Pointer<PrintPropertyValue>} pValue 
      * @returns {Integer} 
      */
     static GetJobNamedPropertyValue(hPrinter, JobId, pszName, pValue) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetJobNamedPropertyValue", "ptr", hPrinter, "uint", JobId, "ptr", pszName, "ptr", pValue, "uint")
         return result
@@ -9695,25 +9848,28 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<PrintNamedProperty>} pProperty 
      * @returns {Integer} 
      */
     static SetJobNamedProperty(hPrinter, JobId, pProperty) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\SetJobNamedProperty", "ptr", hPrinter, "uint", JobId, "ptr", pProperty, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
-     * @param {Pointer<Char>} pszName 
+     * @param {PWSTR} pszName 
      * @returns {Integer} 
      */
     static DeleteJobNamedProperty(hPrinter, JobId, pszName) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeleteJobNamedProperty", "ptr", hPrinter, "uint", JobId, "ptr", pszName, "uint")
         return result
@@ -9721,27 +9877,30 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<UInt32>} pcProperties 
      * @param {Pointer<PrintNamedProperty>} ppProperties 
      * @returns {Integer} 
      */
     static EnumJobNamedProperties(hPrinter, JobId, pcProperties, ppProperties) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\EnumJobNamedProperties", "ptr", hPrinter, "uint", JobId, "uint*", pcProperties, "ptr", ppProperties, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
-     * @param {Pointer<Char>} pszPrinter 
-     * @param {Pointer<Void>} phFile 
-     * @param {Pointer<Char>} ppszOutputFile 
+     * @param {HWND} hWnd 
+     * @param {PWSTR} pszPrinter 
+     * @param {Pointer<HANDLE>} phFile 
+     * @param {Pointer<PWSTR>} ppszOutputFile 
      * @returns {HRESULT} 
      */
     static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
-        pszPrinter := pszPrinter is String? StrPtr(pszPrinter) : pszPrinter
+        pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, "ptr", ppszOutputFile, "int")
         if(result != 0)
@@ -9753,7 +9912,7 @@ class Printing {
     /**
      * 
      * @param {Pointer<DEVQUERYPRINT_INFO>} pDQPInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DevQueryPrintEx(pDQPInfo) {
         result := DllCall("winspool.drv\DevQueryPrintEx", "ptr", pDQPInfo, "int")
@@ -9762,7 +9921,7 @@ class Printing {
 
     /**
      * Enables an application to register for notifications from Print Spooler-hosted printing components such as printer drivers, print processors, and port monitors.
-     * @param {Pointer<Char>} pszName A pointer to the name of a print server or print queue.
+     * @param {PWSTR} pszName A pointer to the name of a print server or print queue.
      * @param {Pointer<Guid>} pNotificationType A pointer to the GUID of the data schema for the type of notifications that the application must receive.
      * @param {Integer} eUserFilter A value specifying whether notifications will be sent to:
      * 
@@ -9772,7 +9931,7 @@ class Printing {
      * </ul>
      * @param {Integer} eConversationStyle A value specifying whether communication is bidirectional or unidirectional.
      * @param {Pointer<IPrintAsyncNotifyCallback>} pCallback A pointer to an object that the Print Spooler-hosted component will use to call back the application. This should never be <b>NULL</b>.
-     * @param {Pointer<Void>} phNotify A pointer to a structure that represents the registration.
+     * @param {Pointer<HANDLE>} phNotify A pointer to a structure that represents the registration.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>
@@ -9854,7 +10013,7 @@ class Printing {
      * @since windows6.0.6000
      */
     static RegisterForPrintAsyncNotifications(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, phNotify) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\RegisterForPrintAsyncNotifications", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", phNotify, "int")
         if(result != 0)
@@ -9865,7 +10024,7 @@ class Printing {
 
     /**
      * Enables an application that has registered to receive notifications from Print Spooler-hosted printing components to unregister.
-     * @param {Pointer<Void>} param0 
+     * @param {HANDLE} param0 
      * @returns {HRESULT} <table>
      * <tr>
      * <th>HRESULT</th>
@@ -9940,6 +10099,8 @@ class Printing {
      * @since windows6.0.6000
      */
     static UnRegisterForPrintAsyncNotifications(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("winspool.drv\UnRegisterForPrintAsyncNotifications", "ptr", param0, "int")
         if(result != 0)
             throw OSError(result)
@@ -9949,7 +10110,7 @@ class Printing {
 
     /**
      * Creates a communication channel between a Print Spooler-hosted printing component, such as a print driver or port monitor, and an application that receives notifications from the component.
-     * @param {Pointer<Char>} pszName A pointer to the name of a print server or print queue.
+     * @param {PWSTR} pszName A pointer to the name of a print server or print queue.
      * @param {Pointer<Guid>} pNotificationType A pointer to the GUID of the data schema for the type of notifications to be sent in the channel.
      * @param {Integer} eUserFilter A value specifying whether notifications will be sent to:
      * 
@@ -10025,7 +10186,7 @@ class Printing {
      * @since windows6.0.6000
      */
     static CreatePrintAsyncNotifyChannel(pszName, pNotificationType, eUserFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\CreatePrintAsyncNotifyChannel", "ptr", pszName, "ptr", pNotificationType, "int", eUserFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
         if(result != 0)
@@ -10036,10 +10197,12 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hNotify 
+     * @param {HANDLE} hNotify 
      * @returns {HRESULT} 
      */
     static RouterUnregisterForPrintAsyncNotifications(hNotify) {
+        hNotify := hNotify is Win32Handle ? NumGet(hNotify, "ptr") : hNotify
+
         result := DllCall("SPOOLSS.dll\RouterUnregisterForPrintAsyncNotifications", "ptr", hNotify, "int")
         if(result != 0)
             throw OSError(result)
@@ -10049,7 +10212,7 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pName 
+     * @param {PWSTR} pName 
      * @param {Pointer<Guid>} pNotificationType 
      * @param {Integer} eNotifyFilter 
      * @param {Integer} eConversationStyle 
@@ -10058,7 +10221,7 @@ class Printing {
      * @returns {HRESULT} 
      */
     static RouterCreatePrintAsyncNotificationChannel(pName, pNotificationType, eNotifyFilter, eConversationStyle, pCallback, ppIAsynchNotification) {
-        pName := pName is String? StrPtr(pName) : pName
+        pName := pName is String ? StrPtr(pName) : pName
 
         result := DllCall("SPOOLSS.dll\RouterCreatePrintAsyncNotificationChannel", "ptr", pName, "ptr", pNotificationType, "int", eNotifyFilter, "int", eConversationStyle, "ptr", pCallback, "ptr", ppIAsynchNotification, "int")
         if(result != 0)
@@ -10069,13 +10232,13 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pPrinter 
+     * @param {PWSTR} pPrinter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppv 
      * @returns {HRESULT} 
      */
     static RouterGetPrintClassObject(pPrinter, riid, ppv) {
-        pPrinter := pPrinter is String? StrPtr(pPrinter) : pPrinter
+        pPrinter := pPrinter is String ? StrPtr(pPrinter) : pPrinter
 
         result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -10086,150 +10249,173 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszPrinterName 
+     * @param {PWSTR} pwszPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
-     * @param {Pointer<Char>} pwszDocName 
-     * @returns {Pointer<Void>} 
+     * @param {PWSTR} pwszDocName 
+     * @returns {HANDLE} 
      */
     static GdiGetSpoolFileHandle(pwszPrinterName, pDevmode, pwszDocName) {
-        pwszPrinterName := pwszPrinterName is String? StrPtr(pwszPrinterName) : pwszPrinterName
-        pwszDocName := pwszDocName is String? StrPtr(pwszDocName) : pwszDocName
+        pwszPrinterName := pwszPrinterName is String ? StrPtr(pwszPrinterName) : pwszPrinterName
+        pwszDocName := pwszDocName is String ? StrPtr(pwszDocName) : pwszDocName
 
         result := DllCall("GDI32.dll\GdiGetSpoolFileHandle", "ptr", pwszPrinterName, "ptr", pDevmode, "ptr", pwszDocName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
-     * @returns {Integer} 
+     * @param {HANDLE} SpoolFileHandle 
+     * @returns {BOOL} 
      */
     static GdiDeleteSpoolFileHandle(SpoolFileHandle) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiDeleteSpoolFileHandle", "ptr", SpoolFileHandle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @returns {Integer} 
      */
     static GdiGetPageCount(SpoolFileHandle) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiGetPageCount", "ptr", SpoolFileHandle, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
-     * @returns {Pointer<Void>} 
+     * @param {HANDLE} SpoolFileHandle 
+     * @returns {HDC} 
      */
     static GdiGetDC(SpoolFileHandle) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiGetDC", "ptr", SpoolFileHandle, "ptr")
-        return result
+        return HDC({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} Page 
      * @param {Pointer<UInt32>} pdwPageType 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static GdiGetPageHandle(SpoolFileHandle, Page, pdwPageType) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiGetPageHandle", "ptr", SpoolFileHandle, "uint", Page, "uint*", pdwPageType, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @param {Pointer<DOCINFOW>} pDocInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GdiStartDocEMF(SpoolFileHandle, pDocInfo) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiStartDocEMF", "ptr", SpoolFileHandle, "ptr", pDocInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
-     * @returns {Integer} 
+     * @param {HANDLE} SpoolFileHandle 
+     * @returns {BOOL} 
      */
     static GdiStartPageEMF(SpoolFileHandle) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiStartPageEMF", "ptr", SpoolFileHandle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
-     * @param {Pointer<Void>} hemf 
+     * @param {HANDLE} SpoolFileHandle 
+     * @param {HANDLE} hemf 
      * @param {Pointer<RECT>} prectDocument 
      * @param {Pointer<RECT>} prectBorder 
      * @param {Pointer<RECT>} prectClip 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GdiPlayPageEMF(SpoolFileHandle, hemf, prectDocument, prectBorder, prectClip) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+        hemf := hemf is Win32Handle ? NumGet(hemf, "ptr") : hemf
+
         result := DllCall("GDI32.dll\GdiPlayPageEMF", "ptr", SpoolFileHandle, "ptr", hemf, "ptr", prectDocument, "ptr", prectBorder, "ptr", prectClip, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} dwOptimization 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GdiEndPageEMF(SpoolFileHandle, dwOptimization) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiEndPageEMF", "ptr", SpoolFileHandle, "uint", dwOptimization, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
-     * @returns {Integer} 
+     * @param {HANDLE} SpoolFileHandle 
+     * @returns {BOOL} 
      */
     static GdiEndDocEMF(SpoolFileHandle) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiEndDocEMF", "ptr", SpoolFileHandle, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @param {Integer} dwPageNumber 
      * @param {Pointer<DEVMODEW>} pCurrDM 
      * @param {Pointer<DEVMODEW>} pLastDM 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GdiGetDevmodeForPage(SpoolFileHandle, dwPageNumber, pCurrDM, pLastDM) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiGetDevmodeForPage", "ptr", SpoolFileHandle, "uint", dwPageNumber, "ptr", pCurrDM, "ptr", pLastDM, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} SpoolFileHandle 
+     * @param {HANDLE} SpoolFileHandle 
      * @param {Pointer<DEVMODEW>} pCurrDM 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GdiResetDCEMF(SpoolFileHandle, pCurrDM) {
+        SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
+
         result := DllCall("GDI32.dll\GdiResetDCEMF", "ptr", SpoolFileHandle, "ptr", pCurrDM, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pPrinterName 
+     * @param {PWSTR} pPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Pointer<ATTRIBUTE_INFO_3>} pAttributeInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetJobAttributes(pPrinterName, pDevmode, pAttributeInfo) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         result := DllCall("SPOOLSS.dll\GetJobAttributes", "ptr", pPrinterName, "ptr", pDevmode, "ptr", pAttributeInfo, "int")
         return result
@@ -10237,16 +10423,16 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pPrinterName 
+     * @param {PWSTR} pPrinterName 
      * @param {Pointer<DEVMODEW>} pDevmode 
      * @param {Integer} dwLevel 
      * @param {Pointer} pAttributeInfo 
      * @param {Integer} nSize 
      * @param {Integer} dwFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetJobAttributesEx(pPrinterName, pDevmode, dwLevel, pAttributeInfo, nSize, dwFlags) {
-        pPrinterName := pPrinterName is String? StrPtr(pPrinterName) : pPrinterName
+        pPrinterName := pPrinterName is String ? StrPtr(pPrinterName) : pPrinterName
 
         result := DllCall("SPOOLSS.dll\GetJobAttributesEx", "ptr", pPrinterName, "ptr", pDevmode, "uint", dwLevel, "ptr", pAttributeInfo, "uint", nSize, "uint", dwFlags, "int")
         return result
@@ -10254,105 +10440,121 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEW>} pDevMode 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static CreatePrinterIC(hPrinter, pDevMode) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\CreatePrinterIC", "ptr", hPrinter, "ptr", pDevMode, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinterIC 
+     * @param {HANDLE} hPrinterIC 
      * @param {Pointer} pIn 
      * @param {Integer} cIn 
      * @param {Pointer} pOut 
      * @param {Integer} cOut 
      * @param {Integer} ul 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PlayGdiScriptOnPrinterIC(hPrinterIC, pIn, cIn, pOut, cOut, ul) {
+        hPrinterIC := hPrinterIC is Win32Handle ? NumGet(hPrinterIC, "ptr") : hPrinterIC
+
         result := DllCall("winspool.drv\PlayGdiScriptOnPrinterIC", "ptr", hPrinterIC, "ptr", pIn, "uint", cIn, "ptr", pOut, "uint", cOut, "uint", ul, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinterIC 
-     * @returns {Integer} 
+     * @param {HANDLE} hPrinterIC 
+     * @returns {BOOL} 
      */
     static DeletePrinterIC(hPrinterIC) {
+        hPrinterIC := hPrinterIC is Win32Handle ? NumGet(hPrinterIC, "ptr") : hPrinterIC
+
         result := DllCall("winspool.drv\DeletePrinterIC", "ptr", hPrinterIC, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<DEVMODEA>} pDevMode 
      * @param {Pointer<UInt32>} pResID 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DevQueryPrint(hPrinter, pDevMode, pResID) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("winspool.drv\DevQueryPrint", "ptr", hPrinter, "ptr", pDevMode, "uint*", pResID, "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static RevertToPrinterSelf() {
         result := DllCall("SPOOLSS.dll\RevertToPrinterSelf", "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hToken 
-     * @returns {Integer} 
+     * @param {HANDLE} hToken 
+     * @returns {BOOL} 
      */
     static ImpersonatePrinterClient(hToken) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SPOOLSS.dll\ImpersonatePrinterClient", "ptr", hToken, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwChangeFlags 
      * @param {Pointer<UInt32>} pdwResult 
      * @param {Pointer<Void>} pPrinterNotifyInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReplyPrinterChangeNotification(hPrinter, fdwChangeFlags, pdwResult, pPrinterNotifyInfo) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\ReplyPrinterChangeNotification", "ptr", hPrinter, "uint", fdwChangeFlags, "uint*", pdwResult, "ptr", pPrinterNotifyInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hNotify 
+     * @param {HANDLE} hNotify 
      * @param {Integer} dwColor 
      * @param {Integer} fdwFlags 
      * @param {Pointer<UInt32>} pdwResult 
      * @param {Pointer<Void>} pPrinterNotifyInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReplyPrinterChangeNotificationEx(hNotify, dwColor, fdwFlags, pdwResult, pPrinterNotifyInfo) {
+        hNotify := hNotify is Win32Handle ? NumGet(hNotify, "ptr") : hNotify
+
         result := DllCall("SPOOLSS.dll\ReplyPrinterChangeNotificationEx", "ptr", hNotify, "uint", dwColor, "uint", fdwFlags, "uint*", pdwResult, "ptr", pPrinterNotifyInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<PRINTER_NOTIFY_INFO_DATA>} pDataSrc 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PartialReplyPrinterChangeNotification(hPrinter, pDataSrc) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\PartialReplyPrinterChangeNotification", "ptr", hPrinter, "ptr", pDataSrc, "int")
         return result
     }
@@ -10370,7 +10572,7 @@ class Printing {
     /**
      * 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RouterFreePrinterNotifyInfo(pInfo) {
         result := DllCall("SPOOLSS.dll\RouterFreePrinterNotifyInfo", "ptr", pInfo, "int")
@@ -10421,7 +10623,7 @@ class Printing {
      * @param {Pointer<PRINTER_NOTIFY_INFO>} pInfoDest 
      * @param {Pointer<PRINTER_NOTIFY_INFO_DATA>} pDataSrc 
      * @param {Integer} fdwFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static AppendPrinterNotifyInfoData(pInfoDest, pDataSrc, fdwFlags) {
         result := DllCall("SPOOLSS.dll\AppendPrinterNotifyInfoData", "ptr", pInfoDest, "ptr", pDataSrc, "uint", fdwFlags, "int")
@@ -10430,82 +10632,96 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinterRPC 
+     * @param {HANDLE} hPrinterRPC 
      * @param {Integer} fdwFilterFlags 
      * @param {Integer} fdwOptions 
-     * @param {Pointer<Void>} hNotify 
+     * @param {HANDLE} hNotify 
      * @param {Pointer<PRINTER_NOTIFY_OPTIONS>} pPrinterNotifyOptions 
      * @returns {Integer} 
      */
     static CallRouterFindFirstPrinterChangeNotification(hPrinterRPC, fdwFilterFlags, fdwOptions, hNotify, pPrinterNotifyOptions) {
+        hPrinterRPC := hPrinterRPC is Win32Handle ? NumGet(hPrinterRPC, "ptr") : hPrinterRPC
+        hNotify := hNotify is Win32Handle ? NumGet(hNotify, "ptr") : hNotify
+
         result := DllCall("SPOOLSS.dll\CallRouterFindFirstPrinterChangeNotification", "ptr", hPrinterRPC, "uint", fdwFilterFlags, "uint", fdwOptions, "ptr", hNotify, "ptr", pPrinterNotifyOptions, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwFlags 
      * @param {Integer} fdwOptions 
-     * @param {Pointer<Void>} hNotify 
+     * @param {HANDLE} hNotify 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
      * @param {Pointer<Void>} pvReserved1 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ProvidorFindFirstPrinterChangeNotification(hPrinter, fdwFlags, fdwOptions, hNotify, pPrinterNotifyOptions, pvReserved1) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hNotify := hNotify is Win32Handle ? NumGet(hNotify, "ptr") : hNotify
+
         result := DllCall("SPOOLSS.dll\ProvidorFindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFlags, "uint", fdwOptions, "ptr", hNotify, "ptr", pPrinterNotifyOptions, "ptr", pvReserved1, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static ProvidorFindClosePrinterChangeNotification(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\ProvidorFindClosePrinterChangeNotification", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} fdwFilterFlags 
      * @param {Integer} fdwOptions 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
      * @param {Pointer<Void>} pvReserved 
      * @param {Pointer<Void>} pNotificationConfig 
-     * @param {Pointer<Void>} phNotify 
-     * @param {Pointer<Void>} phEvent 
-     * @returns {Integer} 
+     * @param {Pointer<HANDLE>} phNotify 
+     * @param {Pointer<HANDLE>} phEvent 
+     * @returns {BOOL} 
      */
     static SpoolerFindFirstPrinterChangeNotification(hPrinter, fdwFilterFlags, fdwOptions, pPrinterNotifyOptions, pvReserved, pNotificationConfig, phNotify, phEvent) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\SpoolerFindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilterFlags, "uint", fdwOptions, "ptr", pPrinterNotifyOptions, "ptr", pvReserved, "ptr", pNotificationConfig, "ptr", phNotify, "ptr", phEvent, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Pointer<UInt32>} pfdwChange 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
      * @param {Pointer<Void>} ppPrinterNotifyInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SpoolerFindNextPrinterChangeNotification(hPrinter, pfdwChange, pPrinterNotifyOptions, ppPrinterNotifyInfo) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\SpoolerFindNextPrinterChangeNotification", "ptr", hPrinter, "uint*", pfdwChange, "ptr", pPrinterNotifyOptions, "ptr", ppPrinterNotifyInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} dwColor 
      * @param {Pointer<PRINTER_NOTIFY_OPTIONS>} pOptions 
      * @param {Pointer<PRINTER_NOTIFY_INFO>} ppInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SpoolerRefreshPrinterChangeNotification(hPrinter, dwColor, pOptions, ppInfo) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\SpoolerRefreshPrinterChangeNotification", "ptr", hPrinter, "uint", dwColor, "ptr", pOptions, "ptr", ppInfo, "int")
         return result
     }
@@ -10521,24 +10737,26 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @returns {Integer} 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @returns {BOOL} 
      */
     static SpoolerFindClosePrinterChangeNotification(hPrinter) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\SpoolerFindClosePrinterChangeNotification", "ptr", hPrinter, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pszPrinterName 
-     * @param {Pointer<Char>} pszKey 
+     * @param {PWSTR} pszPrinterName 
+     * @param {PWSTR} pszKey 
      * @param {Integer} dwCopyFileEvent 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SpoolerCopyFileEvent(pszPrinterName, pszKey, dwCopyFileEvent) {
-        pszPrinterName := pszPrinterName is String? StrPtr(pszPrinterName) : pszPrinterName
-        pszKey := pszKey is String? StrPtr(pszKey) : pszKey
+        pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
+        pszKey := pszKey is String ? StrPtr(pszKey) : pszKey
 
         result := DllCall("mscms.dll\SpoolerCopyFileEvent", "ptr", pszPrinterName, "ptr", pszKey, "uint", dwCopyFileEvent, "int")
         return result
@@ -10546,22 +10764,22 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Char>} pszPrinterName 
-     * @param {Pointer<Char>} pszDirectory 
+     * @param {PWSTR} pszPrinterName 
+     * @param {PWSTR} pszDirectory 
      * @param {Pointer<Byte>} pSplClientInfo 
      * @param {Integer} dwLevel 
-     * @param {Pointer<Char>} pszSourceDir 
+     * @param {PWSTR} pszSourceDir 
      * @param {Pointer<UInt32>} pcchSourceDirSize 
-     * @param {Pointer<Char>} pszTargetDir 
+     * @param {PWSTR} pszTargetDir 
      * @param {Pointer<UInt32>} pcchTargetDirSize 
      * @param {Integer} dwFlags 
      * @returns {Integer} 
      */
     static GenerateCopyFilePaths(pszPrinterName, pszDirectory, pSplClientInfo, dwLevel, pszSourceDir, pcchSourceDirSize, pszTargetDir, pcchTargetDirSize, dwFlags) {
-        pszPrinterName := pszPrinterName is String? StrPtr(pszPrinterName) : pszPrinterName
-        pszDirectory := pszDirectory is String? StrPtr(pszDirectory) : pszDirectory
-        pszSourceDir := pszSourceDir is String? StrPtr(pszSourceDir) : pszSourceDir
-        pszTargetDir := pszTargetDir is String? StrPtr(pszTargetDir) : pszTargetDir
+        pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
+        pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
+        pszSourceDir := pszSourceDir is String ? StrPtr(pszSourceDir) : pszSourceDir
+        pszTargetDir := pszTargetDir is String ? StrPtr(pszTargetDir) : pszTargetDir
 
         result := DllCall("mscms.dll\GenerateCopyFilePaths", "ptr", pszPrinterName, "ptr", pszDirectory, "char*", pSplClientInfo, "uint", dwLevel, "ptr", pszSourceDir, "uint*", pcchSourceDirSize, "ptr", pszTargetDir, "uint*", pcchTargetDirSize, "uint", dwFlags, "uint")
         return result
@@ -10569,36 +10787,42 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
      * @param {Pointer<SHOWUIPARAMS>} pUIParams 
      * @param {Pointer<UInt32>} pResponse 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SplPromptUIInUsersSession(hPrinter, JobId, pUIParams, pResponse) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\SplPromptUIInUsersSession", "ptr", hPrinter, "uint", JobId, "ptr", pUIParams, "uint*", pResponse, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
+     * @param {PRINTER_HANDLE} hPrinter 
      * @param {Integer} JobId 
-     * @param {Pointer<Int32>} pIsSessionZero 
+     * @param {Pointer<BOOL>} pIsSessionZero 
      * @returns {Integer} 
      */
     static SplIsSessionZero(hPrinter, JobId, pIsSessionZero) {
-        result := DllCall("SPOOLSS.dll\SplIsSessionZero", "ptr", hPrinter, "uint", JobId, "int*", pIsSessionZero, "uint")
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
+        result := DllCall("SPOOLSS.dll\SplIsSessionZero", "ptr", hPrinter, "uint", JobId, "ptr", pIsSessionZero, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Void>} phDeviceObject 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {Pointer<HANDLE>} phDeviceObject 
      * @returns {HRESULT} 
      */
     static AddPrintDeviceObject(hPrinter, phDeviceObject) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+
         result := DllCall("SPOOLSS.dll\AddPrintDeviceObject", "ptr", hPrinter, "ptr", phDeviceObject, "int")
         if(result != 0)
             throw OSError(result)
@@ -10608,11 +10832,14 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hPrinter 
-     * @param {Pointer<Void>} hDeviceObject 
+     * @param {PRINTER_HANDLE} hPrinter 
+     * @param {HANDLE} hDeviceObject 
      * @returns {HRESULT} 
      */
     static UpdatePrintDeviceObject(hPrinter, hDeviceObject) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        hDeviceObject := hDeviceObject is Win32Handle ? NumGet(hDeviceObject, "ptr") : hDeviceObject
+
         result := DllCall("SPOOLSS.dll\UpdatePrintDeviceObject", "ptr", hPrinter, "ptr", hDeviceObject, "int")
         if(result != 0)
             throw OSError(result)
@@ -10622,10 +10849,12 @@ class Printing {
 
     /**
      * 
-     * @param {Pointer<Void>} hDeviceObject 
+     * @param {HANDLE} hDeviceObject 
      * @returns {HRESULT} 
      */
     static RemovePrintDeviceObject(hDeviceObject) {
+        hDeviceObject := hDeviceObject is Win32Handle ? NumGet(hDeviceObject, "ptr") : hDeviceObject
+
         result := DllCall("SPOOLSS.dll\RemovePrintDeviceObject", "ptr", hDeviceObject, "int")
         if(result != 0)
             throw OSError(result)

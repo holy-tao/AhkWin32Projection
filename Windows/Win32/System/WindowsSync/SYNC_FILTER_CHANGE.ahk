@@ -13,7 +13,7 @@ class SYNC_FILTER_CHANGE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMoveIn {
         get => NumGet(this, 0, "int")
@@ -26,7 +26,7 @@ class SYNC_FILTER_CHANGE extends Win32Struct
     moveVersion{
         get {
             if(!this.HasProp("__moveVersion"))
-                this.__moveVersion := SYNC_VERSION(this.ptr + 8)
+                this.__moveVersion := SYNC_VERSION(8, this)
             return this.__moveVersion
         }
     }

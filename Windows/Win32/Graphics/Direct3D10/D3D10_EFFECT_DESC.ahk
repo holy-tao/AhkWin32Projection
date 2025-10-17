@@ -22,7 +22,7 @@ class D3D10_EFFECT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the effect is a <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects-performance">child effect</a>; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsChildEffect {
         get => NumGet(this, 0, "int")

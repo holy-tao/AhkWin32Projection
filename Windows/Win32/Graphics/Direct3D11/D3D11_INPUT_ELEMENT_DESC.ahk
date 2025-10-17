@@ -23,7 +23,7 @@ class D3D11_INPUT_ELEMENT_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The HLSL semantic associated with this element in a shader input-signature.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SemanticName {
         get => NumGet(this, 0, "ptr")

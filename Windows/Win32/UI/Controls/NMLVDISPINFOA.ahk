@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include .\LVITEMA.ahk
 
@@ -40,7 +41,7 @@ class NMLVDISPINFOA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -56,7 +57,7 @@ class NMLVDISPINFOA extends Win32Struct
     item{
         get {
             if(!this.HasProp("__item"))
-                this.__item := LVITEMA(this.ptr + 24)
+                this.__item := LVITEMA(24, this)
             return this.__item
         }
     }

@@ -20,7 +20,7 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 0)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(0, this)
             return this.__DeviceDescriptor
         }
     }
@@ -31,7 +31,7 @@ class USB_COMPOSITE_DEVICE_INFO extends Win32Struct
     CurrentConfigDescriptor{
         get {
             if(!this.HasProp("__CurrentConfigDescriptor"))
-                this.__CurrentConfigDescriptor := USB_CONFIGURATION_DESCRIPTOR(this.ptr + 24)
+                this.__CurrentConfigDescriptor := USB_CONFIGURATION_DESCRIPTOR(24, this)
             return this.__CurrentConfigDescriptor
         }
     }

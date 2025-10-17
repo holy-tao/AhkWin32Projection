@@ -24,9 +24,9 @@
  */
 class DNS_TXT_DATAW extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 16
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * The number of strings represented in <b>pStringArray</b>.
@@ -39,10 +39,13 @@ class DNS_TXT_DATAW extends Win32Struct
 
     /**
      * An array of strings representing the descriptive text of the TXT resource record.
-     * @type {String}
+     * @type {Array<PWSTR>}
      */
-    pStringArray {
-        get => StrGet(this.ptr + 4, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 4, 0, "UTF-16")
+    pStringArray{
+        get {
+            if(!this.HasProp("__pStringArrayProxyArray"))
+                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char*")
+            return this.__pStringArrayProxyArray
+        }
     }
 }

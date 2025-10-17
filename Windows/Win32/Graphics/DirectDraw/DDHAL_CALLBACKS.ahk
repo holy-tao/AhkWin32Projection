@@ -26,7 +26,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDCallbacks{
         get {
             if(!this.HasProp("__cbDDCallbacks"))
-                this.__cbDDCallbacks := DDHAL_DDCALLBACKS(this.ptr + 0)
+                this.__cbDDCallbacks := DDHAL_DDCALLBACKS(0, this)
             return this.__cbDDCallbacks
         }
     }
@@ -37,7 +37,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDSurfaceCallbacks{
         get {
             if(!this.HasProp("__cbDDSurfaceCallbacks"))
-                this.__cbDDSurfaceCallbacks := DDHAL_DDSURFACECALLBACKS(this.ptr + 88)
+                this.__cbDDSurfaceCallbacks := DDHAL_DDSURFACECALLBACKS(88, this)
             return this.__cbDDSurfaceCallbacks
         }
     }
@@ -48,7 +48,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDPaletteCallbacks{
         get {
             if(!this.HasProp("__cbDDPaletteCallbacks"))
-                this.__cbDDPaletteCallbacks := DDHAL_DDPALETTECALLBACKS(this.ptr + 208)
+                this.__cbDDPaletteCallbacks := DDHAL_DDPALETTECALLBACKS(208, this)
             return this.__cbDDPaletteCallbacks
         }
     }
@@ -59,7 +59,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDD{
         get {
             if(!this.HasProp("__HALDD"))
-                this.__HALDD := DDHAL_DDCALLBACKS(this.ptr + 232)
+                this.__HALDD := DDHAL_DDCALLBACKS(232, this)
             return this.__HALDD
         }
     }
@@ -70,7 +70,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDSurface{
         get {
             if(!this.HasProp("__HALDDSurface"))
-                this.__HALDDSurface := DDHAL_DDSURFACECALLBACKS(this.ptr + 320)
+                this.__HALDDSurface := DDHAL_DDSURFACECALLBACKS(320, this)
             return this.__HALDDSurface
         }
     }
@@ -81,7 +81,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDPalette{
         get {
             if(!this.HasProp("__HALDDPalette"))
-                this.__HALDDPalette := DDHAL_DDPALETTECALLBACKS(this.ptr + 440)
+                this.__HALDDPalette := DDHAL_DDPALETTECALLBACKS(440, this)
             return this.__HALDDPalette
         }
     }
@@ -92,7 +92,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HELDD{
         get {
             if(!this.HasProp("__HELDD"))
-                this.__HELDD := DDHAL_DDCALLBACKS(this.ptr + 464)
+                this.__HELDD := DDHAL_DDCALLBACKS(464, this)
             return this.__HELDD
         }
     }
@@ -103,7 +103,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HELDDSurface{
         get {
             if(!this.HasProp("__HELDDSurface"))
-                this.__HELDDSurface := DDHAL_DDSURFACECALLBACKS(this.ptr + 552)
+                this.__HELDDSurface := DDHAL_DDSURFACECALLBACKS(552, this)
             return this.__HELDDSurface
         }
     }
@@ -114,7 +114,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HELDDPalette{
         get {
             if(!this.HasProp("__HELDDPalette"))
-                this.__HELDDPalette := DDHAL_DDPALETTECALLBACKS(this.ptr + 672)
+                this.__HELDDPalette := DDHAL_DDPALETTECALLBACKS(672, this)
             return this.__HELDDPalette
         }
     }
@@ -125,7 +125,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDExeBufCallbacks{
         get {
             if(!this.HasProp("__cbDDExeBufCallbacks"))
-                this.__cbDDExeBufCallbacks := DDHAL_DDEXEBUFCALLBACKS(this.ptr + 696)
+                this.__cbDDExeBufCallbacks := DDHAL_DDEXEBUFCALLBACKS(696, this)
             return this.__cbDDExeBufCallbacks
         }
     }
@@ -136,7 +136,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDExeBuf{
         get {
             if(!this.HasProp("__HALDDExeBuf"))
-                this.__HALDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(this.ptr + 744)
+                this.__HALDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(744, this)
             return this.__HALDDExeBuf
         }
     }
@@ -147,7 +147,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HELDDExeBuf{
         get {
             if(!this.HasProp("__HELDDExeBuf"))
-                this.__HELDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(this.ptr + 792)
+                this.__HELDDExeBuf := DDHAL_DDEXEBUFCALLBACKS(792, this)
             return this.__HELDDExeBuf
         }
     }
@@ -158,7 +158,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDVideoPortCallbacks{
         get {
             if(!this.HasProp("__cbDDVideoPortCallbacks"))
-                this.__cbDDVideoPortCallbacks := DDHAL_DDVIDEOPORTCALLBACKS(this.ptr + 840)
+                this.__cbDDVideoPortCallbacks := DDHAL_DDVIDEOPORTCALLBACKS(840, this)
             return this.__cbDDVideoPortCallbacks
         }
     }
@@ -169,7 +169,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDVideoPort{
         get {
             if(!this.HasProp("__HALDDVideoPort"))
-                this.__HALDDVideoPort := DDHAL_DDVIDEOPORTCALLBACKS(this.ptr + 976)
+                this.__HALDDVideoPort := DDHAL_DDVIDEOPORTCALLBACKS(976, this)
             return this.__HALDDVideoPort
         }
     }
@@ -180,7 +180,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDColorControlCallbacks{
         get {
             if(!this.HasProp("__cbDDColorControlCallbacks"))
-                this.__cbDDColorControlCallbacks := DDHAL_DDCOLORCONTROLCALLBACKS(this.ptr + 1112)
+                this.__cbDDColorControlCallbacks := DDHAL_DDCOLORCONTROLCALLBACKS(1112, this)
             return this.__cbDDColorControlCallbacks
         }
     }
@@ -191,7 +191,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDColorControl{
         get {
             if(!this.HasProp("__HALDDColorControl"))
-                this.__HALDDColorControl := DDHAL_DDCOLORCONTROLCALLBACKS(this.ptr + 1128)
+                this.__HALDDColorControl := DDHAL_DDCOLORCONTROLCALLBACKS(1128, this)
             return this.__HALDDColorControl
         }
     }
@@ -202,7 +202,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDMiscellaneousCallbacks{
         get {
             if(!this.HasProp("__cbDDMiscellaneousCallbacks"))
-                this.__cbDDMiscellaneousCallbacks := DDHAL_DDMISCELLANEOUSCALLBACKS(this.ptr + 1144)
+                this.__cbDDMiscellaneousCallbacks := DDHAL_DDMISCELLANEOUSCALLBACKS(1144, this)
             return this.__cbDDMiscellaneousCallbacks
         }
     }
@@ -213,7 +213,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDMiscellaneous{
         get {
             if(!this.HasProp("__HALDDMiscellaneous"))
-                this.__HALDDMiscellaneous := DDHAL_DDMISCELLANEOUSCALLBACKS(this.ptr + 1184)
+                this.__HALDDMiscellaneous := DDHAL_DDMISCELLANEOUSCALLBACKS(1184, this)
             return this.__HALDDMiscellaneous
         }
     }
@@ -224,7 +224,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDKernelCallbacks{
         get {
             if(!this.HasProp("__cbDDKernelCallbacks"))
-                this.__cbDDKernelCallbacks := DDHAL_DDKERNELCALLBACKS(this.ptr + 1224)
+                this.__cbDDKernelCallbacks := DDHAL_DDKERNELCALLBACKS(1224, this)
             return this.__cbDDKernelCallbacks
         }
     }
@@ -235,7 +235,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDKernel{
         get {
             if(!this.HasProp("__HALDDKernel"))
-                this.__HALDDKernel := DDHAL_DDKERNELCALLBACKS(this.ptr + 1248)
+                this.__HALDDKernel := DDHAL_DDKERNELCALLBACKS(1248, this)
             return this.__HALDDKernel
         }
     }
@@ -246,7 +246,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     cbDDMotionCompCallbacks{
         get {
             if(!this.HasProp("__cbDDMotionCompCallbacks"))
-                this.__cbDDMotionCompCallbacks := DDHAL_DDMOTIONCOMPCALLBACKS(this.ptr + 1272)
+                this.__cbDDMotionCompCallbacks := DDHAL_DDMOTIONCOMPCALLBACKS(1272, this)
             return this.__cbDDMotionCompCallbacks
         }
     }
@@ -257,7 +257,7 @@ class DDHAL_CALLBACKS extends Win32Struct
     HALDDMotionComp{
         get {
             if(!this.HasProp("__HALDDMotionComp"))
-                this.__HALDDMotionComp := DDHAL_DDMOTIONCOMPCALLBACKS(this.ptr + 1360)
+                this.__HALDDMotionComp := DDHAL_DDMOTIONCOMPCALLBACKS(1360, this)
             return this.__HALDDMotionComp
         }
     }

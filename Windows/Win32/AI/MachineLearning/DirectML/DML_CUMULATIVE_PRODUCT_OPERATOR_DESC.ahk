@@ -44,7 +44,7 @@ class DML_CUMULATIVE_PRODUCT_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     HasExclusiveProduct {
         get => NumGet(this, 24, "int")

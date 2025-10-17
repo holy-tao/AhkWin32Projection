@@ -81,7 +81,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Pointer to the unique ID of a record creator.   This member is set to <b>NULL</b> for calls to <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphaddrecord">PeerGraphAddRecord</a> and <a href="https://docs.microsoft.com/windows/desktop/api/p2p/nf-p2p-peergraphupdaterecord">PeerGraphUpdateRecord</a>. An application cannot set this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzCreatorId {
         get => NumGet(this, 32, "ptr")
@@ -90,7 +90,7 @@ class PEER_RECORD extends Win32Struct
 
     /**
      * Specifies the unique ID of  the last person who changes a record. An application cannot set this member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzModifiedById {
         get => NumGet(this, 40, "ptr")
@@ -109,7 +109,7 @@ class PEER_RECORD extends Win32Struct
      * <li><b>peercreationtime</b></li>
      * <li><b>peerlastmodificationtime</b></li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzAttributes {
         get => NumGet(this, 48, "ptr")
@@ -123,7 +123,7 @@ class PEER_RECORD extends Win32Struct
     ftCreation{
         get {
             if(!this.HasProp("__ftCreation"))
-                this.__ftCreation := FILETIME(this.ptr + 56)
+                this.__ftCreation := FILETIME(56, this)
             return this.__ftCreation
         }
     }
@@ -138,7 +138,7 @@ class PEER_RECORD extends Win32Struct
     ftExpiration{
         get {
             if(!this.HasProp("__ftExpiration"))
-                this.__ftExpiration := FILETIME(this.ptr + 64)
+                this.__ftExpiration := FILETIME(64, this)
             return this.__ftExpiration
         }
     }
@@ -150,7 +150,7 @@ class PEER_RECORD extends Win32Struct
     ftLastModified{
         get {
             if(!this.HasProp("__ftLastModified"))
-                this.__ftLastModified := FILETIME(this.ptr + 72)
+                this.__ftLastModified := FILETIME(72, this)
             return this.__ftLastModified
         }
     }
@@ -163,7 +163,7 @@ class PEER_RECORD extends Win32Struct
     securityData{
         get {
             if(!this.HasProp("__securityData"))
-                this.__securityData := PEER_DATA(this.ptr + 80)
+                this.__securityData := PEER_DATA(80, this)
             return this.__securityData
         }
     }
@@ -176,7 +176,7 @@ class PEER_RECORD extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(this.ptr + 96)
+                this.__data := PEER_DATA(96, this)
             return this.__data
         }
     }

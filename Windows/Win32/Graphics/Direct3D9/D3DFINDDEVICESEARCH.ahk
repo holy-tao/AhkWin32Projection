@@ -29,7 +29,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bHardware {
         get => NumGet(this, 8, "int")
@@ -66,7 +66,7 @@ class D3DFINDDEVICESEARCH extends Win32Struct
     dpcPrimCaps{
         get {
             if(!this.HasProp("__dpcPrimCaps"))
-                this.__dpcPrimCaps := D3DPRIMCAPS(this.ptr + 32)
+                this.__dpcPrimCaps := D3DPRIMCAPS(32, this)
             return this.__dpcPrimCaps
         }
     }

@@ -27,7 +27,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     rnRandomNumber{
         get {
             if(!this.HasProp("__rnRandomNumber"))
-                this.__rnRandomNumber := OPM_RANDOM_NUMBER(this.ptr + 0)
+                this.__rnRandomNumber := OPM_RANDOM_NUMBER(0, this)
             return this.__rnRandomNumber
         }
     }
@@ -86,7 +86,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     ksvB{
         get {
             if(!this.HasProp("__ksvB"))
-                this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(this.ptr + 25)
+                this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(25, this)
             return this.__ksvB
         }
     }

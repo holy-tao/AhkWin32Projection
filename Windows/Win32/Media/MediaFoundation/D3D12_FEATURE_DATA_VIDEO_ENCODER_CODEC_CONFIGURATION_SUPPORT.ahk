@@ -35,13 +35,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT extends Win32
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 24, "int")
@@ -54,7 +54,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT extends Win32
     CodecSupportLimits{
         get {
             if(!this.HasProp("__CodecSupportLimits"))
-                this.__CodecSupportLimits := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(this.ptr + 32)
+                this.__CodecSupportLimits := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION_SUPPORT(32, this)
             return this.__CodecSupportLimits
         }
     }

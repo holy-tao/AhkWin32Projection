@@ -60,7 +60,7 @@ class OLEUIGNRLPROPSW extends Win32Struct
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member during WM_INITDIALOG.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 24, "ptr")

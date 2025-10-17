@@ -24,7 +24,7 @@ class CRYPT_PROVIDER_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that identifies the algorithm or function that the reference applies to. This can be one of the standard <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a> or the identifier for another registered algorithm.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszFunction {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_PROVIDER_REF extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProvider {
         get => NumGet(this, 16, "ptr")

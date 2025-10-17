@@ -44,7 +44,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     connectionInfo{
         get {
             if(!this.HasProp("__connectionInfo"))
-                this.__connectionInfo := SecPkgContext_ConnectionInfo(this.ptr + 24)
+                this.__connectionInfo := SecPkgContext_ConnectionInfo(24, this)
             return this.__connectionInfo
         }
     }
@@ -55,7 +55,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     cipherInfo{
         get {
             if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(this.ptr + 56)
+                this.__cipherInfo := SecPkgContext_CipherInfo(56, this)
             return this.__cipherInfo
         }
     }
@@ -74,7 +74,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     channelBindingToken{
         get {
             if(!this.HasProp("__channelBindingToken"))
-                this.__channelBindingToken := SecPkgContext_Bindings(this.ptr + 744)
+                this.__channelBindingToken := SecPkgContext_Bindings(744, this)
             return this.__channelBindingToken
         }
     }

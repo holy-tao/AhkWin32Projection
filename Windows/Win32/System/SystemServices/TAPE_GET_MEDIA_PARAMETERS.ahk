@@ -57,7 +57,7 @@ class TAPE_GET_MEDIA_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the tape is write-protected. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WriteProtected {
         get => NumGet(this, 24, "char")

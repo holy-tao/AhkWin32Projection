@@ -29,7 +29,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to a service category, for example, "Language Detection". The application must set this member to <b>NULL</b> if the service category is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCategory {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to an input language string, following the IETF naming convention, that identifies the input language that services should accept. The application can set this member to <b>NULL</b> if the supported input language is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInputLanguage {
         get => NumGet(this, 16, "ptr")
@@ -47,7 +47,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to an output language string, following the IETF naming convention, that identifies the output language that services use to retrieve results. The application can set this member to <b>NULL</b> if the output language is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOutputLanguage {
         get => NumGet(this, 24, "ptr")
@@ -56,7 +56,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to a standard Unicode script name that can be accepted by services. The application set this member to <b>NULL</b> if the input script is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInputScript {
         get => NumGet(this, 32, "ptr")
@@ -65,7 +65,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to a standard Unicode script name used by services. The application can set this member to <b>NULL</b> if the output script is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOutputScript {
         get => NumGet(this, 40, "ptr")
@@ -77,7 +77,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  In Windows 7, the ELS services support only the content type "text/plain". A content type specification can be found at <a href="https://www.iana.org/assignments/media-types/text">Text Media Types</a>.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInputContentType {
         get => NumGet(this, 48, "ptr")
@@ -86,7 +86,7 @@ class MAPPING_ENUM_OPTIONS extends Win32Struct
 
     /**
      * Optional. Pointer to a string, following the format of the MIME content types, that identifies the format in which the services retrieve data. The application can set this member to <b>NULL</b> if the output content type is not a search criterion.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOutputContentType {
         get => NumGet(this, 56, "ptr")

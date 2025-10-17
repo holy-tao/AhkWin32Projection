@@ -60,7 +60,7 @@ class AUDIO_VOLUME_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * Specifies whether the audio stream is currently muted. If <b>bMuted</b> is <b>TRUE</b>, the stream is muted. If <b>FALSE</b>, the stream is not muted.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMuted {
         get => NumGet(this, 8, "int")

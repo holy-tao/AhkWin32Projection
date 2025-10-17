@@ -33,7 +33,7 @@ class VDS_STORAGE_POOL_DRIVE_EXTENT extends Win32Struct
 
     /**
      * <b>TRUE</b> if the drive extent is currently being used by the storage pool, <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bUsed {
         get => NumGet(this, 16, "int")

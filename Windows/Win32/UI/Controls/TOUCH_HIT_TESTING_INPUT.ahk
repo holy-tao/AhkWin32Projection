@@ -31,7 +31,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     point{
         get {
             if(!this.HasProp("__point"))
-                this.__point := POINT(this.ptr + 8)
+                this.__point := POINT(8, this)
             return this.__point
         }
     }
@@ -52,7 +52,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     boundingBox{
         get {
             if(!this.HasProp("__boundingBox"))
-                this.__boundingBox := RECT(this.ptr + 16)
+                this.__boundingBox := RECT(16, this)
             return this.__boundingBox
         }
     }
@@ -64,7 +64,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     nonOccludedBoundingBox{
         get {
             if(!this.HasProp("__nonOccludedBoundingBox"))
-                this.__nonOccludedBoundingBox := RECT(this.ptr + 32)
+                this.__nonOccludedBoundingBox := RECT(32, this)
             return this.__nonOccludedBoundingBox
         }
     }

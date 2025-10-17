@@ -52,7 +52,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         Alertable {
             get => NumGet(this, 264, "int")
@@ -105,7 +105,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     LockObject{
         get {
             if(!this.HasProp("__LockObject"))
-                this.__LockObject := %this.__Class%._LockObject(this.ptr + 8)
+                this.__LockObject := %this.__Class%._LockObject(8, this)
             return this.__LockObject
         }
     }
@@ -116,7 +116,7 @@ class WAITCHAIN_NODE_INFO extends Win32Struct
     ThreadObject{
         get {
             if(!this.HasProp("__ThreadObject"))
-                this.__ThreadObject := %this.__Class%._ThreadObject(this.ptr + 8)
+                this.__ThreadObject := %this.__Class%._ThreadObject(8, this)
             return this.__ThreadObject
         }
     }

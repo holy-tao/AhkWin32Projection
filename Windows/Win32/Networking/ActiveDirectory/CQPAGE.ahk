@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Used to define a query page added to a form in the query dialog box with the CQAddPagesProc callback function.
@@ -42,11 +43,14 @@ class CQPAGE extends Win32Struct
 
     /**
      * Contains the instance handle of the module that contains the resources identified by the <b>idPageName</b> and <b>idPageTemplate</b> members.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
@@ -78,7 +82,7 @@ class CQPAGE extends Win32Struct
 
     /**
      * An extension-defined 32-bit value passed in the <b>lParam</b> member of the <b>CQPAGE</b> structure passed as the <i>pPage</i> parameter in  the <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/nc-cmnquery-lpcqpageproc">CQPageProc</a> callback function.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")

@@ -13,11 +13,30 @@ class IGMP_HEADER extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Type
+     * - Version
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Type {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Version {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**
@@ -66,7 +85,7 @@ class IGMP_HEADER extends Win32Struct
     MulticastAddress{
         get {
             if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN_ADDR(this.ptr + 4)
+                this.__MulticastAddress := IN_ADDR(4, this)
             return this.__MulticastAddress
         }
     }

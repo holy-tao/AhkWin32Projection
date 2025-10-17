@@ -18,13 +18,13 @@ class WLAN_CONNECTION_QOS_INFO extends Win32Struct
     peerCapabilities{
         get {
             if(!this.HasProp("__peerCapabilities"))
-                this.__peerCapabilities := WLAN_QOS_CAPABILITIES(this.ptr + 0)
+                this.__peerCapabilities := WLAN_QOS_CAPABILITIES(0, this)
             return this.__peerCapabilities
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMSCSConfigured {
         get => NumGet(this, 16, "int")
@@ -32,7 +32,7 @@ class WLAN_CONNECTION_QOS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDSCPToUPMappingConfigured {
         get => NumGet(this, 20, "int")

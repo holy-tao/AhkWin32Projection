@@ -30,7 +30,7 @@ class VDS_ISCSI_PORTAL_PROP extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := VDS_IPADDRESS(this.ptr + 8)
+                this.__address := VDS_IPADDRESS(8, this)
             return this.__address
         }
     }

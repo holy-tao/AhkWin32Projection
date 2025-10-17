@@ -25,7 +25,7 @@ class VDS_POOL_CUSTOM_ATTRIBUTES extends Win32Struct
 
     /**
      * A string containing the name of the custom attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +34,7 @@ class VDS_POOL_CUSTOM_ATTRIBUTES extends Win32Struct
 
     /**
      * A string containing the value of the custom attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszValue {
         get => NumGet(this, 8, "ptr")

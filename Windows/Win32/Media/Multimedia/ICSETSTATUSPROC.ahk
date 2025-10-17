@@ -24,7 +24,7 @@ class ICSETSTATUSPROC extends Win32Struct
 
     /**
      * Parameter that contains a constant to pass to the status procedure.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 8, "ptr")

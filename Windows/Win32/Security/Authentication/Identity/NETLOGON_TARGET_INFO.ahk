@@ -26,7 +26,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     NbComputerName{
         get {
             if(!this.HasProp("__NbComputerName"))
-                this.__NbComputerName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__NbComputerName := LSA_UNICODE_STRING(8, this)
             return this.__NbComputerName
         }
     }
@@ -37,7 +37,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     NbDomainName{
         get {
             if(!this.HasProp("__NbDomainName"))
-                this.__NbDomainName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__NbDomainName := LSA_UNICODE_STRING(24, this)
             return this.__NbDomainName
         }
     }
@@ -48,7 +48,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     DnsComputerName{
         get {
             if(!this.HasProp("__DnsComputerName"))
-                this.__DnsComputerName := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__DnsComputerName := LSA_UNICODE_STRING(40, this)
             return this.__DnsComputerName
         }
     }
@@ -59,7 +59,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     DnsDomainName{
         get {
             if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__DnsDomainName := LSA_UNICODE_STRING(56, this)
             return this.__DnsDomainName
         }
     }
@@ -70,7 +70,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     DnsTreeName{
         get {
             if(!this.HasProp("__DnsTreeName"))
-                this.__DnsTreeName := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__DnsTreeName := LSA_UNICODE_STRING(72, this)
             return this.__DnsTreeName
         }
     }
@@ -81,7 +81,7 @@ class NETLOGON_TARGET_INFO extends Win32Struct
     TargetName{
         get {
             if(!this.HasProp("__TargetName"))
-                this.__TargetName := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__TargetName := LSA_UNICODE_STRING(88, this)
             return this.__TargetName
         }
     }

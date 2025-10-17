@@ -15,7 +15,7 @@ class ADS_EMAIL extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the user address.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Address {
         get => NumGet(this, 0, "ptr")

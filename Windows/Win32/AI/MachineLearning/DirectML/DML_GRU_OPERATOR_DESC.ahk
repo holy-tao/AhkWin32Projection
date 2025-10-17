@@ -138,7 +138,7 @@ class DML_GRU_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** to specify that, when computing the output of the hidden gate, the linear transformation should be applied before multiplying by the output of the reset gate. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LinearBeforeReset {
         get => NumGet(this, 84, "int")

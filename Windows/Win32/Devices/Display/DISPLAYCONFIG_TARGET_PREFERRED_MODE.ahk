@@ -26,7 +26,7 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(this.ptr + 0)
+                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
             return this.__header
         }
     }
@@ -56,7 +56,7 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
     targetMode{
         get {
             if(!this.HasProp("__targetMode"))
-                this.__targetMode := DISPLAYCONFIG_TARGET_MODE(this.ptr + 32)
+                this.__targetMode := DISPLAYCONFIG_TARGET_MODE(32, this)
             return this.__targetMode
         }
     }

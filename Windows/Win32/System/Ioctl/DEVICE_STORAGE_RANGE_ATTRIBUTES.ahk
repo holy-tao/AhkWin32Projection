@@ -28,11 +28,21 @@ class DEVICE_STORAGE_RANGE_ATTRIBUTES extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IsRangeBad
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 8, "uint")
         set => NumPut("uint", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsRangeBad {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

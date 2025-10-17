@@ -38,7 +38,7 @@ class BITMAPINFO extends Win32Struct
     bmiHeader{
         get {
             if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(this.ptr + 0)
+                this.__bmiHeader := BITMAPINFOHEADER(0, this)
             return this.__bmiHeader
         }
     }

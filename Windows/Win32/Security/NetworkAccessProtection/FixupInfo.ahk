@@ -51,7 +51,7 @@ class FixupInfo extends Win32Struct
     resultCodes{
         get {
             if(!this.HasProp("__resultCodes"))
-                this.__resultCodes := ResultCodes(this.ptr + 8)
+                this.__resultCodes := ResultCodes(8, this)
             return this.__resultCodes
         }
     }

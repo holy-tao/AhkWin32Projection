@@ -40,7 +40,7 @@ class NL_BANDWIDTH_INFORMATION extends Win32Struct
      * A value that indicates if the bandwidth estimate in the <b>Bandwidth</b> member has peaked and reached its maximum value for the given network conditions. 
      * 
      * The TCP/IP stack uses a heuristic to set this variable. Until this variable is set, there is no guarantee that the true available maximum bandwidth is not higher than the estimated bandwidth in the <b>Bandwidth</b> member. However, it is safe to assume that maximum available bandwidth is not lower than the estimate reported in the <b>Bandwidth</b> member.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BandwidthPeaked {
         get => NumGet(this, 16, "char")

@@ -18,7 +18,7 @@ class D3D12_SERIALIZED_RAYTRACING_ACCELERATION_STRUCTURE_HEADER1 extends Win32St
     DriverMatchingIdentifier{
         get {
             if(!this.HasProp("__DriverMatchingIdentifier"))
-                this.__DriverMatchingIdentifier := D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER(this.ptr + 0)
+                this.__DriverMatchingIdentifier := D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER(0, this)
             return this.__DriverMatchingIdentifier
         }
     }

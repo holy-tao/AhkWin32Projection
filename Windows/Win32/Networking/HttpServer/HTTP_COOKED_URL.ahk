@@ -56,7 +56,7 @@ class HTTP_COOKED_URL extends Win32Struct
 
     /**
      * Pointer to the scheme element at the beginning of the URL (must be either "http://..." or "https://...").
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pFullUrl {
         get => NumGet(this, 8, "ptr")
@@ -65,7 +65,7 @@ class HTTP_COOKED_URL extends Win32Struct
 
     /**
      * Pointer to the first character in the host element, immediately following the double slashes at the end of the scheme element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pHost {
         get => NumGet(this, 16, "ptr")
@@ -74,7 +74,7 @@ class HTTP_COOKED_URL extends Win32Struct
 
     /**
      * Pointer to the third forward slash ("/") in the string. In a UrlPrefix string, this is the slash immediately preceding the relativeUri element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pAbsPath {
         get => NumGet(this, 24, "ptr")
@@ -83,7 +83,7 @@ class HTTP_COOKED_URL extends Win32Struct
 
     /**
      * Pointer to the first question mark (?) in the string, or <b>NULL</b> if there is none.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pQueryString {
         get => NumGet(this, 32, "ptr")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains notification information for asynchronous remote procedure calls. This notification information can be configured for I/O completion ports (IOC), Windows asynchronous procedure calls (APC), Windows messaging, and Windows event notification.
@@ -31,11 +33,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hThread {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hThread{
+            get {
+                if(!this.HasProp("__hThread"))
+                    this.__hThread := HANDLE(8, this)
+                return this.__hThread
+            }
         }
     
     }
@@ -45,11 +50,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hIOPort {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hIOPort{
+            get {
+                if(!this.HasProp("__hIOPort"))
+                    this.__hIOPort := HANDLE(0, this)
+                return this.__hIOPort
+            }
         }
     
         /**
@@ -83,11 +91,14 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HWND}
          */
-        hWnd {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hWnd{
+            get {
+                if(!this.HasProp("__hWnd"))
+                    this.__hWnd := HWND(0, this)
+                return this.__hWnd
+            }
         }
     
         /**
@@ -107,7 +118,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     APC{
         get {
             if(!this.HasProp("__APC"))
-                this.__APC := %this.__Class%._APC(this.ptr + 0)
+                this.__APC := %this.__Class%._APC(0, this)
             return this.__APC
         }
     }
@@ -119,7 +130,7 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     IOC{
         get {
             if(!this.HasProp("__IOC"))
-                this.__IOC := %this.__Class%._IOC(this.ptr + 0)
+                this.__IOC := %this.__Class%._IOC(0, this)
             return this.__IOC
         }
     }
@@ -130,18 +141,21 @@ class RPC_ASYNC_NOTIFICATION_INFO extends Win32Struct
     IntPtr{
         get {
             if(!this.HasProp("__IntPtr"))
-                this.__IntPtr := %this.__Class%._IntPtr(this.ptr + 0)
+                this.__IntPtr := %this.__Class%._IntPtr(0, this)
             return this.__IntPtr
         }
     }
 
     /**
      * Handle used for notification by an event.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hEvent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hEvent{
+        get {
+            if(!this.HasProp("__hEvent"))
+                this.__hEvent := HANDLE(0, this)
+            return this.__hEvent
+        }
     }
 
     /**

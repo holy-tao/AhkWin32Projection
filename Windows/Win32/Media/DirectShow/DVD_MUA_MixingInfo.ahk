@@ -86,7 +86,7 @@ class DVD_MUA_MixingInfo extends Win32Struct
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMixTo0 {
         get => NumGet(this, 0, "int")
@@ -95,7 +95,7 @@ class DVD_MUA_MixingInfo extends Win32Struct
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed to channel 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMixTo1 {
         get => NumGet(this, 4, "int")
@@ -104,7 +104,7 @@ class DVD_MUA_MixingInfo extends Win32Struct
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMix0InPhase {
         get => NumGet(this, 8, "int")
@@ -113,7 +113,7 @@ class DVD_MUA_MixingInfo extends Win32Struct
 
     /**
      * Variable of type BOOL; <b>TRUE</b> means the channel is mixed in phase to channel 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMix1InPhase {
         get => NumGet(this, 12, "int")

@@ -23,7 +23,7 @@ class KERB_RETRIEVE_TKT_RESPONSE extends Win32Struct
     Ticket{
         get {
             if(!this.HasProp("__Ticket"))
-                this.__Ticket := KERB_EXTERNAL_TICKET(this.ptr + 0)
+                this.__Ticket := KERB_EXTERNAL_TICKET(0, this)
             return this.__Ticket
         }
     }

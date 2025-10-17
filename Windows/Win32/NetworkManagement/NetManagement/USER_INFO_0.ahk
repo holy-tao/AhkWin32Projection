@@ -21,7 +21,7 @@ class USER_INFO_0 extends Win32Struct
     /**
      * Pointer to a Unicode string that specifies the name of the user account. For the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function, this member specifies the name of the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri0_name {
         get => NumGet(this, 0, "ptr")

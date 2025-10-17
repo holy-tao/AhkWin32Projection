@@ -18,13 +18,13 @@ class EMRSETTEXTCOLOR extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crColor {
         get => NumGet(this, 8, "uint")

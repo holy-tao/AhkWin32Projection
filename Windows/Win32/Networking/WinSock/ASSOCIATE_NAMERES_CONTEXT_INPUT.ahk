@@ -27,7 +27,7 @@ class ASSOCIATE_NAMERES_CONTEXT_INPUT extends Win32Struct
     TransportSettingId{
         get {
             if(!this.HasProp("__TransportSettingId"))
-                this.__TransportSettingId := TRANSPORT_SETTING_ID(this.ptr + 0)
+                this.__TransportSettingId := TRANSPORT_SETTING_ID(0, this)
             return this.__TransportSettingId
         }
     }

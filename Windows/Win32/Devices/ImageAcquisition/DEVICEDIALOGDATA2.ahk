@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -36,27 +38,36 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(24, this)
+            return this.__hwndParent
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrFolderName {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    bstrFolderName{
+        get {
+            if(!this.HasProp("__bstrFolderName"))
+                this.__bstrFolderName := BSTR(32, this)
+            return this.__bstrFolderName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrFilename {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    bstrFilename{
+        get {
+            if(!this.HasProp("__bstrFilename"))
+                this.__bstrFilename := BSTR(40, this)
+            return this.__bstrFilename
+        }
     }
 
     /**
@@ -68,7 +79,7 @@ class DEVICEDIALOGDATA2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<BSTR>}
      */
     pbstrFilePaths {
         get => NumGet(this, 56, "ptr")
@@ -83,12 +94,8 @@ class DEVICEDIALOGDATA2 extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

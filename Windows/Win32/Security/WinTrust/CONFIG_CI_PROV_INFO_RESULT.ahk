@@ -36,7 +36,7 @@ class CONFIG_CI_PROV_INFO_RESULT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fIsExplicitDeny {
         get => NumGet(this, 12, "char")

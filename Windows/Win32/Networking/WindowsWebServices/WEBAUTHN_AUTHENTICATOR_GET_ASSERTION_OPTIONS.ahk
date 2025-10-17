@@ -35,7 +35,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIALS(this.ptr + 8)
+                this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
             return this.__CredentialList
         }
     }
@@ -46,7 +46,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 24)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)
             return this.__Extensions
         }
     }
@@ -76,7 +76,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszU2fAppId {
         get => NumGet(this, 56, "ptr")
@@ -84,7 +84,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pbU2fAppId {
         get => NumGet(this, 64, "ptr")
@@ -140,7 +140,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bBrowserInPrivateMode {
         get => NumGet(this, 112, "int")
@@ -156,7 +156,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bAutoFill {
         get => NumGet(this, 128, "int")

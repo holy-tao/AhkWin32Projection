@@ -26,7 +26,7 @@ class AACS_SEND_CHALLENGE_KEY extends Win32Struct
     ChallengeKey{
         get {
             if(!this.HasProp("__ChallengeKey"))
-                this.__ChallengeKey := AACS_CHALLENGE_KEY(this.ptr + 8)
+                this.__ChallengeKey := AACS_CHALLENGE_KEY(8, this)
             return this.__ChallengeKey
         }
     }

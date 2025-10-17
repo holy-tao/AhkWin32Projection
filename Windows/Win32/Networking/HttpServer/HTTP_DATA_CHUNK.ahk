@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\HTTP_BYTE_RANGE.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\HTTP_WINHTTP_FAST_FORWARDING_DATA.ahk
 
 /**
@@ -56,17 +57,20 @@ class HTTP_DATA_CHUNK extends Win32Struct
         ByteRange{
             get {
                 if(!this.HasProp("__ByteRange"))
-                    this.__ByteRange := HTTP_BYTE_RANGE(this.ptr + 0)
+                    this.__ByteRange := HTTP_BYTE_RANGE(0, this)
                 return this.__ByteRange
             }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        FileHandle {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        FileHandle{
+            get {
+                if(!this.HasProp("__FileHandle"))
+                    this.__FileHandle := HANDLE(16, this)
+                return this.__FileHandle
+            }
         }
     
     }
@@ -84,7 +88,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pFragmentName {
             get => NumGet(this, 8, "ptr")
@@ -103,13 +107,13 @@ class HTTP_DATA_CHUNK extends Win32Struct
         ByteRange{
             get {
                 if(!this.HasProp("__ByteRange"))
-                    this.__ByteRange := HTTP_BYTE_RANGE(this.ptr + 0)
+                    this.__ByteRange := HTTP_BYTE_RANGE(0, this)
                 return this.__ByteRange
             }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pFragmentName {
             get => NumGet(this, 16, "ptr")
@@ -150,7 +154,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
         WhFastForwardingData{
             get {
                 if(!this.HasProp("__WhFastForwardingData"))
-                    this.__WhFastForwardingData := HTTP_WINHTTP_FAST_FORWARDING_DATA(this.ptr + 0)
+                    this.__WhFastForwardingData := HTTP_WINHTTP_FAST_FORWARDING_DATA(0, this)
                 return this.__WhFastForwardingData
             }
         }
@@ -163,7 +167,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     FromMemory{
         get {
             if(!this.HasProp("__FromMemory"))
-                this.__FromMemory := %this.__Class%._FromMemory(this.ptr + 8)
+                this.__FromMemory := %this.__Class%._FromMemory(8, this)
             return this.__FromMemory
         }
     }
@@ -174,7 +178,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     FromFileHandle{
         get {
             if(!this.HasProp("__FromFileHandle"))
-                this.__FromFileHandle := %this.__Class%._FromFileHandle(this.ptr + 8)
+                this.__FromFileHandle := %this.__Class%._FromFileHandle(8, this)
             return this.__FromFileHandle
         }
     }
@@ -185,7 +189,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     FromFragmentCache{
         get {
             if(!this.HasProp("__FromFragmentCache"))
-                this.__FromFragmentCache := %this.__Class%._FromFragmentCache(this.ptr + 8)
+                this.__FromFragmentCache := %this.__Class%._FromFragmentCache(8, this)
             return this.__FromFragmentCache
         }
     }
@@ -196,7 +200,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     FromFragmentCacheEx{
         get {
             if(!this.HasProp("__FromFragmentCacheEx"))
-                this.__FromFragmentCacheEx := %this.__Class%._FromFragmentCacheEx(this.ptr + 8)
+                this.__FromFragmentCacheEx := %this.__Class%._FromFragmentCacheEx(8, this)
             return this.__FromFragmentCacheEx
         }
     }
@@ -207,7 +211,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     Trailers{
         get {
             if(!this.HasProp("__Trailers"))
-                this.__Trailers := %this.__Class%._Trailers(this.ptr + 8)
+                this.__Trailers := %this.__Class%._Trailers(8, this)
             return this.__Trailers
         }
     }
@@ -218,7 +222,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
     FromWinHttpFastForwarding{
         get {
             if(!this.HasProp("__FromWinHttpFastForwarding"))
-                this.__FromWinHttpFastForwarding := %this.__Class%._FromWinHttpFastForwarding(this.ptr + 8)
+                this.__FromWinHttpFastForwarding := %this.__Class%._FromWinHttpFastForwarding(8, this)
             return this.__FromWinHttpFastForwarding
         }
     }

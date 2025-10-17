@@ -28,7 +28,7 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszTemplate {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DNS_CUSTOM_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszHostname {
         get => NumGet(this, 16, "ptr")

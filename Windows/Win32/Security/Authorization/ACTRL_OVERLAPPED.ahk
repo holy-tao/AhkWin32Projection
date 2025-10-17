@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authorization
@@ -36,10 +37,13 @@ class ACTRL_OVERLAPPED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hEvent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hEvent{
+        get {
+            if(!this.HasProp("__hEvent"))
+                this.__hEvent := HANDLE(16, this)
+            return this.__hEvent
+        }
     }
 }

@@ -43,7 +43,7 @@ class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")
@@ -59,7 +59,7 @@ class DXVAHD_BLT_STATE_TARGET_RECT_DATA extends Win32Struct
     TargetRect{
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(this.ptr + 8)
+                this.__TargetRect := RECT(8, this)
             return this.__TargetRect
         }
     }

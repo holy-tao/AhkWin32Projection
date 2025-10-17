@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NET_LUID_LH.ahk
+#Include ..\..\Networking\WinSock\NL_INTERFACE_OFFLOAD_ROD.ahk
 #Include .\MIB_IPINTERFACE_ROW.ahk
 
 /**

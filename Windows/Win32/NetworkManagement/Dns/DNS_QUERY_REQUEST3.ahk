@@ -20,7 +20,7 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")
@@ -76,7 +76,7 @@ class DNS_QUERY_REQUEST3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsNetworkQueryRequired {
         get => NumGet(this, 64, "int")

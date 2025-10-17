@@ -4,6 +4,8 @@
 #Include .\COORD.ahk
 #Include .\MOUSE_EVENT_RECORD.ahk
 #Include .\WINDOW_BUFFER_SIZE_RECORD.ahk
+#Include .\MENU_EVENT_RECORD.ahk
+#Include .\FOCUS_EVENT_RECORD.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -29,7 +31,7 @@ class INPUT_RECORD extends Win32Struct
     KeyEvent{
         get {
             if(!this.HasProp("__KeyEvent"))
-                this.__KeyEvent := KEY_EVENT_RECORD(this.ptr + 8)
+                this.__KeyEvent := KEY_EVENT_RECORD(8, this)
             return this.__KeyEvent
         }
     }
@@ -40,7 +42,7 @@ class INPUT_RECORD extends Win32Struct
     MouseEvent{
         get {
             if(!this.HasProp("__MouseEvent"))
-                this.__MouseEvent := MOUSE_EVENT_RECORD(this.ptr + 8)
+                this.__MouseEvent := MOUSE_EVENT_RECORD(8, this)
             return this.__MouseEvent
         }
     }
@@ -51,24 +53,30 @@ class INPUT_RECORD extends Win32Struct
     WindowBufferSizeEvent{
         get {
             if(!this.HasProp("__WindowBufferSizeEvent"))
-                this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(this.ptr + 8)
+                this.__WindowBufferSizeEvent := WINDOW_BUFFER_SIZE_RECORD(8, this)
             return this.__WindowBufferSizeEvent
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {MENU_EVENT_RECORD}
      */
-    MenuEvent {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MenuEvent{
+        get {
+            if(!this.HasProp("__MenuEvent"))
+                this.__MenuEvent := MENU_EVENT_RECORD(8, this)
+            return this.__MenuEvent
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {FOCUS_EVENT_RECORD}
      */
-    FocusEvent {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    FocusEvent{
+        get {
+            if(!this.HasProp("__FocusEvent"))
+                this.__FocusEvent := FOCUS_EVENT_RECORD(8, this)
+            return this.__FocusEvent
+        }
     }
 }

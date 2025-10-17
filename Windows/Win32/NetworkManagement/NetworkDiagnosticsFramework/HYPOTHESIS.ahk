@@ -12,7 +12,7 @@ class HYPOTHESIS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszClassName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HYPOTHESIS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 8, "ptr")

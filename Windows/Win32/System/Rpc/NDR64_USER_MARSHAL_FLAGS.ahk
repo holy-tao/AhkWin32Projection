@@ -27,14 +27,6 @@ class NDR64_USER_MARSHAL_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0x1F
-        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     IID {
         get => (this._bitfield >> 5) & 0x1
         set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))

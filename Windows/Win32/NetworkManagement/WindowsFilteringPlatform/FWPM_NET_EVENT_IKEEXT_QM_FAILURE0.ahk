@@ -79,7 +79,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct
     localSubNet{
         get {
             if(!this.HasProp("__localSubNet"))
-                this.__localSubNet := FWP_CONDITION_VALUE0(this.ptr + 24)
+                this.__localSubNet := FWP_CONDITION_VALUE0(24, this)
             return this.__localSubNet
         }
     }
@@ -90,7 +90,7 @@ class FWPM_NET_EVENT_IKEEXT_QM_FAILURE0 extends Win32Struct
     remoteSubNet{
         get {
             if(!this.HasProp("__remoteSubNet"))
-                this.__remoteSubNet := FWP_CONDITION_VALUE0(this.ptr + 40)
+                this.__remoteSubNet := FWP_CONDITION_VALUE0(40, this)
             return this.__remoteSubNet
         }
     }

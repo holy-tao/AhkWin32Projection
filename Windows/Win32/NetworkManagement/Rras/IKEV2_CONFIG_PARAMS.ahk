@@ -84,7 +84,7 @@ class IKEV2_CONFIG_PARAMS extends Win32Struct
     TunnelConfigParams{
         get {
             if(!this.HasProp("__TunnelConfigParams"))
-                this.__TunnelConfigParams := IKEV2_TUNNEL_CONFIG_PARAMS4(this.ptr + 16)
+                this.__TunnelConfigParams := IKEV2_TUNNEL_CONFIG_PARAMS4(16, this)
             return this.__TunnelConfigParams
         }
     }

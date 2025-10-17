@@ -31,7 +31,7 @@ class WIA_PROPID_TO_NAME extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Property names are not localized. They are primarily used to support scripting languages; therefore, they are always the same on any system.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 8, "ptr")

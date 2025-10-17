@@ -20,7 +20,7 @@ class ALLOC_CONSOLE_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     useShowWindow {
         get => NumGet(this, 4, "int")

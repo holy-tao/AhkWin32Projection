@@ -34,7 +34,7 @@ class MULTIKEYHELPA extends Win32Struct
      * Type: <b>TCHAR</b>
      * 
      * A single character that identifies the keyword table to search.
-     * @type {Integer}
+     * @type {CHAR}
      */
     mkKeylist {
         get => NumGet(this, 4, "char")

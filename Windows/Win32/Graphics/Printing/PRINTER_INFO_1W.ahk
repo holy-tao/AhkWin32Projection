@@ -21,7 +21,7 @@ class PRINTER_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDescription {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class PRINTER_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class PRINTER_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pComment {
         get => NumGet(this, 24, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -25,7 +26,7 @@ class NMREBARCHILDSIZE extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -62,7 +63,7 @@ class NMREBARCHILDSIZE extends Win32Struct
     rcChild{
         get {
             if(!this.HasProp("__rcChild"))
-                this.__rcChild := RECT(this.ptr + 32)
+                this.__rcChild := RECT(32, this)
             return this.__rcChild
         }
     }
@@ -77,7 +78,7 @@ class NMREBARCHILDSIZE extends Win32Struct
     rcBand{
         get {
             if(!this.HasProp("__rcBand"))
-                this.__rcBand := RECT(this.ptr + 48)
+                this.__rcBand := RECT(48, this)
             return this.__rcBand
         }
     }

@@ -42,7 +42,7 @@ class APPDATA extends Win32Struct
     m_AppStatistics{
         get {
             if(!this.HasProp("__m_AppStatistics"))
-                this.__m_AppStatistics := APPSTATISTICS(this.ptr + 88)
+                this.__m_AppStatistics := APPSTATISTICS(88, this)
             return this.__m_AppStatistics
         }
     }

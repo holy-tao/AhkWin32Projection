@@ -18,7 +18,7 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(this.ptr + 0)
+                this.__header := DVD_DISC_CONTROL_BLOCK_HEADER(0, this)
             return this.__header
         }
     }

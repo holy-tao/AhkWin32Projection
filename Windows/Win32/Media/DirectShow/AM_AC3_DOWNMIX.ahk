@@ -12,7 +12,7 @@ class AM_AC3_DOWNMIX extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDownMix {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class AM_AC3_DOWNMIX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDolbySurround {
         get => NumGet(this, 4, "int")

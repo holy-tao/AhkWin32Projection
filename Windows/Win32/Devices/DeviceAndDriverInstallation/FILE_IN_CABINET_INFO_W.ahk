@@ -13,7 +13,7 @@ class FILE_IN_CABINET_INFO_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NameInCabinet {
         get => NumGet(this, 0, "ptr")

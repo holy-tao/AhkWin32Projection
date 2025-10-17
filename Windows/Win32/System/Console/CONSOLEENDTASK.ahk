@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -12,19 +14,25 @@ class CONSOLEENDTASK extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ProcessId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    ProcessId{
+        get {
+            if(!this.HasProp("__ProcessId"))
+                this.__ProcessId := HANDLE(0, this)
+            return this.__ProcessId
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**

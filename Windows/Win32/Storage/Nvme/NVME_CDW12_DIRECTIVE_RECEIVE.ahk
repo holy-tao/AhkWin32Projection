@@ -18,7 +18,7 @@ class NVME_CDW12_DIRECTIVE_RECEIVE extends Win32Struct
     AllocateResources{
         get {
             if(!this.HasProp("__AllocateResources"))
-                this.__AllocateResources := NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(this.ptr + 0)
+                this.__AllocateResources := NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES(0, this)
             return this.__AllocateResources
         }
     }

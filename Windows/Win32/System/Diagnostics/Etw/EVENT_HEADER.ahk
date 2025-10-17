@@ -224,7 +224,7 @@ class EVENT_HEADER extends Win32Struct
     EventDescriptor{
         get {
             if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(this.ptr + 32)
+                this.__EventDescriptor := EVENT_DESCRIPTOR(32, this)
             return this.__EventDescriptor
         }
     }

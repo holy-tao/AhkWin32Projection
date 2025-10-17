@@ -50,7 +50,7 @@ class PrintPropertyValue extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     propertyString {
         get => NumGet(this, 8, "ptr")
@@ -79,7 +79,7 @@ class PrintPropertyValue extends Win32Struct
     propertyBlob{
         get {
             if(!this.HasProp("__propertyBlob"))
-                this.__propertyBlob := %this.__Class%._propertyBlob(this.ptr + 8)
+                this.__propertyBlob := %this.__Class%._propertyBlob(8, this)
             return this.__propertyBlob
         }
     }

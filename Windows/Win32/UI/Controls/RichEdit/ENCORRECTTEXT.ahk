@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
 #Include .\CHARRANGE.ahk
 
@@ -24,7 +25,7 @@ class ENCORRECTTEXT extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -38,7 +39,7 @@ class ENCORRECTTEXT extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 24)
+                this.__chrg := CHARRANGE(24, this)
             return this.__chrg
         }
     }

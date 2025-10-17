@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_COR_ILMETHOD_SECT_FAT.ahk
 #Include .\IMAGE_COR_ILMETHOD_SECT_EH_CLAUSE_FAT.ahk
 
 /**
@@ -13,11 +14,14 @@ class IMAGE_COR_ILMETHOD_SECT_EH_FAT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {IMAGE_COR_ILMETHOD_SECT_FAT}
      */
-    SectFat {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    SectFat{
+        get {
+            if(!this.HasProp("__SectFat"))
+                this.__SectFat := IMAGE_COR_ILMETHOD_SECT_FAT(0, this)
+            return this.__SectFat
+        }
     }
 
     /**

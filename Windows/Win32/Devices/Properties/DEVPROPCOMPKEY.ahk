@@ -18,7 +18,7 @@ class DEVPROPCOMPKEY extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := DEVPROPKEY(this.ptr + 0)
+                this.__Key := DEVPROPKEY(0, this)
             return this.__Key
         }
     }
@@ -32,7 +32,7 @@ class DEVPROPCOMPKEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     LocaleName {
         get => NumGet(this, 24, "ptr")

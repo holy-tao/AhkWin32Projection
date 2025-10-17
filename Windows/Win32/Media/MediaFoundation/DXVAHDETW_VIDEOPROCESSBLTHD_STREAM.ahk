@@ -34,7 +34,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     SourceRect{
         get {
             if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(this.ptr + 16)
+                this.__SourceRect := RECT(16, this)
             return this.__SourceRect
         }
     }
@@ -45,7 +45,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD_STREAM extends Win32Struct
     DestinationRect{
         get {
             if(!this.HasProp("__DestinationRect"))
-                this.__DestinationRect := RECT(this.ptr + 32)
+                this.__DestinationRect := RECT(32, this)
             return this.__DestinationRect
         }
     }

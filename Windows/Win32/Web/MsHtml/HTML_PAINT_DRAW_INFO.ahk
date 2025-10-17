@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
 #Include .\HTML_PAINT_XFORM.ahk
 
 /**
@@ -19,17 +20,20 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     rcViewport{
         get {
             if(!this.HasProp("__rcViewport"))
-                this.__rcViewport := RECT(this.ptr + 0)
+                this.__rcViewport := RECT(0, this)
             return this.__rcViewport
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HRGN}
      */
-    hrgnUpdate {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hrgnUpdate{
+        get {
+            if(!this.HasProp("__hrgnUpdate"))
+                this.__hrgnUpdate := HRGN(16, this)
+            return this.__hrgnUpdate
+        }
     }
 
     /**
@@ -38,7 +42,7 @@ class HTML_PAINT_DRAW_INFO extends Win32Struct
     xform{
         get {
             if(!this.HasProp("__xform"))
-                this.__xform := HTML_PAINT_XFORM(this.ptr + 24)
+                this.__xform := HTML_PAINT_XFORM(24, this)
             return this.__xform
         }
     }

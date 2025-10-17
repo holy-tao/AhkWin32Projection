@@ -18,7 +18,7 @@ class DEV_QUERY_PARAMETER extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := DEVPROPKEY(this.ptr + 0)
+                this.__Key := DEVPROPKEY(0, this)
             return this.__Key
         }
     }

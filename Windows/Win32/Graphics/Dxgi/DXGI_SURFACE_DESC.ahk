@@ -61,7 +61,7 @@ class DXGI_SURFACE_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 16)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
             return this.__SampleDesc
         }
     }

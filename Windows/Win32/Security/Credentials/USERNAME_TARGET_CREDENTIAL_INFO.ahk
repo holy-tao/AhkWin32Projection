@@ -15,7 +15,7 @@ class USERNAME_TARGET_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * User name of the USERNAME_TARGET_CREDENTIAL_INFO credential.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UserName {
         get => NumGet(this, 0, "ptr")

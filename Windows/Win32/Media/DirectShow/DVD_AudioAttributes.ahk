@@ -60,7 +60,7 @@ class DVD_AudioAttributes extends Win32Struct
 
     /**
      * Indicates whether multichannel attributes are present. If <b>TRUE</b>, it means there is additional mixing information available, such as for SurroundSound. Call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-idvdinfo2-gettitleattributes">IDvdInfo2::GetTitleAttributes</a> to retrieve the multichannel information.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasMultichannelInfo {
         get => NumGet(this, 20, "int")

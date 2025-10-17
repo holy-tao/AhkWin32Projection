@@ -18,7 +18,7 @@ class WINBIO_BIR extends Win32Struct
     HeaderBlock{
         get {
             if(!this.HasProp("__HeaderBlock"))
-                this.__HeaderBlock := WINBIO_BIR_DATA(this.ptr + 0)
+                this.__HeaderBlock := WINBIO_BIR_DATA(0, this)
             return this.__HeaderBlock
         }
     }
@@ -29,7 +29,7 @@ class WINBIO_BIR extends Win32Struct
     StandardDataBlock{
         get {
             if(!this.HasProp("__StandardDataBlock"))
-                this.__StandardDataBlock := WINBIO_BIR_DATA(this.ptr + 8)
+                this.__StandardDataBlock := WINBIO_BIR_DATA(8, this)
             return this.__StandardDataBlock
         }
     }
@@ -40,7 +40,7 @@ class WINBIO_BIR extends Win32Struct
     VendorDataBlock{
         get {
             if(!this.HasProp("__VendorDataBlock"))
-                this.__VendorDataBlock := WINBIO_BIR_DATA(this.ptr + 16)
+                this.__VendorDataBlock := WINBIO_BIR_DATA(16, this)
             return this.__VendorDataBlock
         }
     }
@@ -51,7 +51,7 @@ class WINBIO_BIR extends Win32Struct
     SignatureBlock{
         get {
             if(!this.HasProp("__SignatureBlock"))
-                this.__SignatureBlock := WINBIO_BIR_DATA(this.ptr + 24)
+                this.__SignatureBlock := WINBIO_BIR_DATA(24, this)
             return this.__SignatureBlock
         }
     }

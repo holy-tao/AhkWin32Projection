@@ -20,7 +20,7 @@ class POWER_SESSION_WINLOGON extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Console {
         get => NumGet(this, 4, "char")
@@ -28,7 +28,7 @@ class POWER_SESSION_WINLOGON extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Locked {
         get => NumGet(this, 5, "char")

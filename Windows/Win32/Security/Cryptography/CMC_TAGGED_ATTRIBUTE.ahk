@@ -30,7 +30,7 @@ class CMC_TAGGED_ATTRIBUTE extends Win32Struct
     Attribute{
         get {
             if(!this.HasProp("__Attribute"))
-                this.__Attribute := CRYPT_ATTRIBUTE(this.ptr + 8)
+                this.__Attribute := CRYPT_ATTRIBUTE(8, this)
             return this.__Attribute
         }
     }

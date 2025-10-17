@@ -12,7 +12,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpcwszHostName {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpcwszUrl {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpcwszRealm {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuthIdentity {
         get => NumGet(this, 32, "int")
@@ -60,7 +60,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpcwszUserName {
         get => NumGet(this, 40, "ptr")
@@ -68,7 +68,7 @@ class INTERNET_CREDENTIALS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpcwszPassword {
         get => NumGet(this, 48, "ptr")

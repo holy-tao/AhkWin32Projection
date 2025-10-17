@@ -51,7 +51,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     Enable{
         get {
             if(!this.HasProp("__Enable"))
-                this.__Enable := FS_BPIO_RESULTS(this.ptr + 24)
+                this.__Enable := FS_BPIO_RESULTS(24, this)
             return this.__Enable
         }
     }
@@ -62,7 +62,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     Query{
         get {
             if(!this.HasProp("__Query"))
-                this.__Query := FS_BPIO_RESULTS(this.ptr + 24)
+                this.__Query := FS_BPIO_RESULTS(24, this)
             return this.__Query
         }
     }
@@ -73,7 +73,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     VolumeStackResume{
         get {
             if(!this.HasProp("__VolumeStackResume"))
-                this.__VolumeStackResume := FS_BPIO_RESULTS(this.ptr + 24)
+                this.__VolumeStackResume := FS_BPIO_RESULTS(24, this)
             return this.__VolumeStackResume
         }
     }
@@ -84,7 +84,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     StreamResume{
         get {
             if(!this.HasProp("__StreamResume"))
-                this.__StreamResume := FS_BPIO_RESULTS(this.ptr + 24)
+                this.__StreamResume := FS_BPIO_RESULTS(24, this)
             return this.__StreamResume
         }
     }
@@ -95,7 +95,7 @@ class FS_BPIO_OUTPUT extends Win32Struct
     GetInfo{
         get {
             if(!this.HasProp("__GetInfo"))
-                this.__GetInfo := FS_BPIO_INFO(this.ptr + 24)
+                this.__GetInfo := FS_BPIO_INFO(24, this)
             return this.__GetInfo
         }
     }

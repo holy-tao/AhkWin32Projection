@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\SIZE.ahk
 
@@ -30,7 +31,7 @@ class NMDATETIMEFORMATQUERYA extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -39,7 +40,7 @@ class NMDATETIMEFORMATQUERYA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to a substring that defines a DTP control callback field. The substring is one or more "X" characters followed by a <b>NULL</b>. (For additional information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszFormat {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +56,7 @@ class NMDATETIMEFORMATQUERYA extends Win32Struct
     szMax{
         get {
             if(!this.HasProp("__szMax"))
-                this.__szMax := SIZE(this.ptr + 32)
+                this.__szMax := SIZE(32, this)
             return this.__szMax
         }
     }

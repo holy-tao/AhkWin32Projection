@@ -27,7 +27,7 @@ class DAV_CALLBACK_CRED extends Win32Struct
     AuthBlob{
         get {
             if(!this.HasProp("__AuthBlob"))
-                this.__AuthBlob := DAV_CALLBACK_AUTH_BLOB(this.ptr + 0)
+                this.__AuthBlob := DAV_CALLBACK_AUTH_BLOB(0, this)
             return this.__AuthBlob
         }
     }
@@ -39,14 +39,14 @@ class DAV_CALLBACK_CRED extends Win32Struct
     UNPBlob{
         get {
             if(!this.HasProp("__UNPBlob"))
-                this.__UNPBlob := DAV_CALLBACK_AUTH_UNP(this.ptr + 16)
+                this.__UNPBlob := DAV_CALLBACK_AUTH_UNP(16, this)
             return this.__UNPBlob
         }
     }
 
     /**
      * <b>TRUE</b> if the credential information is stored in the <b>AuthBlob</b> member, and the <b>UNPBlob</b> member should be ignored. <b>FALSE</b> if it is stored in the <b>UNPBlob</b> member, and the <b>AuthBlob</b> member should be ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bAuthBlobValid {
         get => NumGet(this, 48, "int")
@@ -55,7 +55,7 @@ class DAV_CALLBACK_CRED extends Win32Struct
 
     /**
      * <b>TRUE</b> if the credential information was written to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/credential-manager">credential manager</a>, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSave {
         get => NumGet(this, 52, "int")

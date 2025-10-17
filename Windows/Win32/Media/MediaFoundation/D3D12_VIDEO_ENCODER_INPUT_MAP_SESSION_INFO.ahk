@@ -30,7 +30,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -41,7 +41,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     Level{
         get {
             if(!this.HasProp("__Level"))
-                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 24)
+                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(24, this)
             return this.__Level
         }
     }
@@ -60,7 +60,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     InputResolution{
         get {
             if(!this.HasProp("__InputResolution"))
-                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 48)
+                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
             return this.__InputResolution
         }
     }
@@ -71,7 +71,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 56)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
             return this.__CodecConfiguration
         }
     }
@@ -90,7 +90,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO extends Win32Struct
     SubregionFrameEncodingData{
         get {
             if(!this.HasProp("__SubregionFrameEncodingData"))
-                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(this.ptr + 80)
+                this.__SubregionFrameEncodingData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(80, this)
             return this.__SubregionFrameEncodingData
         }
     }

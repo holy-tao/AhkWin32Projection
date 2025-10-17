@@ -28,7 +28,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the NetBIOS name of the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     NetbiosName {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +37,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the DNS host name of the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     DnsHostName {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the site to which the domain controller belongs.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SiteName {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the site object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SiteObjectName {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the computer object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ComputerObjectName {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +73,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the server object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ServerObjectName {
         get => NumGet(this, 40, "ptr")
@@ -82,7 +82,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * Pointer to a null-terminated  string that specifies the name of the NTDS DSA object on the domain controller.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     NtdsDsaObjectName {
         get => NumGet(this, 48, "ptr")
@@ -91,7 +91,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * A Boolean value that indicates whether or not this domain controller is the primary domain controller. If this value is <b>TRUE</b>, the domain controller is the primary domain controller; otherwise, the domain controller is not the primary domain controller.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsPdc {
         get => NumGet(this, 56, "int")
@@ -100,7 +100,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * A Boolean value that indicates whether or not the domain controller is enabled. If this value is <b>TRUE</b>, the domain controller is enabled; otherwise, it is not enabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDsEnabled {
         get => NumGet(this, 60, "int")
@@ -109,7 +109,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * A Boolean value that indicates whether or not the domain controller is global catalog server. If this value is <b>TRUE</b>, the domain controller is a global catalog server; otherwise, it is not a global catalog server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsGc {
         get => NumGet(this, 64, "int")
@@ -118,7 +118,7 @@ class DS_DOMAIN_CONTROLLER_INFO_3A extends Win32Struct
 
     /**
      * A Boolean value that indicates if the domain controller is a read-only domain controller. If this value is <b>TRUE</b>, the domain controller is a read-only domain controller; otherwise, it is not a read-only domain controller.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsRodc {
         get => NumGet(this, 68, "int")

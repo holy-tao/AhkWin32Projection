@@ -22,7 +22,7 @@ class WS_THUMBPRINT_CERT_CREDENTIAL extends Win32Struct
     credential{
         get {
             if(!this.HasProp("__credential"))
-                this.__credential := WS_CERT_CREDENTIAL(this.ptr + 0)
+                this.__credential := WS_CERT_CREDENTIAL(0, this)
             return this.__credential
         }
     }
@@ -46,7 +46,7 @@ class WS_THUMBPRINT_CERT_CREDENTIAL extends Win32Struct
     storeName{
         get {
             if(!this.HasProp("__storeName"))
-                this.__storeName := WS_STRING(this.ptr + 8)
+                this.__storeName := WS_STRING(8, this)
             return this.__storeName
         }
     }
@@ -62,7 +62,7 @@ class WS_THUMBPRINT_CERT_CREDENTIAL extends Win32Struct
     thumbprint{
         get {
             if(!this.HasProp("__thumbprint"))
-                this.__thumbprint := WS_STRING(this.ptr + 24)
+                this.__thumbprint := WS_STRING(24, this)
             return this.__thumbprint
         }
     }

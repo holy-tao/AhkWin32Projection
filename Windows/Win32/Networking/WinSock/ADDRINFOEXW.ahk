@@ -53,7 +53,7 @@ class ADDRINFOEXW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")

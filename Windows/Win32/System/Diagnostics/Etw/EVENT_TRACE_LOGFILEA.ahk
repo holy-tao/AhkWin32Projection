@@ -49,7 +49,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * If the controller set the <b>LogFileMode</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> to  <b>EVENT_TRACE_FILE_MODE_NEWFILE</b>, the log file name must include the sequential serial number used to create each new log file.
      * 
      * The user consuming the events must have permissions to read the file.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     LogFileName {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * Only users with administrative privileges, users in the Performance Log Users group, and applications running as LocalSystem, LocalService, NetworkService can consume events in real time. To grant a restricted user the ability to consume events in real time, add them to the Performance Log Users group or call <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/nf-evntcons-eventaccesscontrol">EventAccessControl</a>.
      * 
      * <b>Windows XP and Windows 2000:  </b>Anyone can consume real time events.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     LoggerName {
         get => NumGet(this, 8, "ptr")
@@ -113,7 +113,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
     CurrentEvent{
         get {
             if(!this.HasProp("__CurrentEvent"))
-                this.__CurrentEvent := EVENT_TRACE(this.ptr + 32)
+                this.__CurrentEvent := EVENT_TRACE(32, this)
             return this.__CurrentEvent
         }
     }
@@ -126,7 +126,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
     LogfileHeader{
         get {
             if(!this.HasProp("__LogfileHeader"))
-                this.__LogfileHeader := TRACE_LOGFILE_HEADER(this.ptr + 104)
+                this.__LogfileHeader := TRACE_LOGFILE_HEADER(104, this)
             return this.__LogfileHeader
         }
     }

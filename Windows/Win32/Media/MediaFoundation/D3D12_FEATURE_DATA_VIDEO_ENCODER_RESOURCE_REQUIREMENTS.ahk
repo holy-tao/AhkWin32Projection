@@ -35,7 +35,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -54,13 +54,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS extends Win32Struct
     PictureTargetResolution{
         get {
             if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 32)
+                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
             return this.__PictureTargetResolution
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 40, "int")

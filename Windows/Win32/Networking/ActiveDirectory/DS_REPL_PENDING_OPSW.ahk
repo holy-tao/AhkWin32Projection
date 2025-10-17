@@ -22,7 +22,7 @@ class DS_REPL_PENDING_OPSW extends Win32Struct
     ftimeCurrentOpStarted{
         get {
             if(!this.HasProp("__ftimeCurrentOpStarted"))
-                this.__ftimeCurrentOpStarted := FILETIME(this.ptr + 0)
+                this.__ftimeCurrentOpStarted := FILETIME(0, this)
             return this.__ftimeCurrentOpStarted
         }
     }

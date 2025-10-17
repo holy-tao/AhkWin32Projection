@@ -22,7 +22,7 @@ class WS_RSA_ENDPOINT_IDENTITY extends Win32Struct
     identity{
         get {
             if(!this.HasProp("__identity"))
-                this.__identity := WS_ENDPOINT_IDENTITY(this.ptr + 0)
+                this.__identity := WS_ENDPOINT_IDENTITY(0, this)
             return this.__identity
         }
     }
@@ -34,7 +34,7 @@ class WS_RSA_ENDPOINT_IDENTITY extends Win32Struct
     modulus{
         get {
             if(!this.HasProp("__modulus"))
-                this.__modulus := WS_BYTES(this.ptr + 8)
+                this.__modulus := WS_BYTES(8, this)
             return this.__modulus
         }
     }
@@ -46,7 +46,7 @@ class WS_RSA_ENDPOINT_IDENTITY extends Win32Struct
     exponent{
         get {
             if(!this.HasProp("__exponent"))
-                this.__exponent := WS_BYTES(this.ptr + 24)
+                this.__exponent := WS_BYTES(24, this)
             return this.__exponent
         }
     }

@@ -28,7 +28,7 @@ class HTTP_SERVICE_CONFIG_URLACL_PARAM extends Win32Struct
     /**
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor Definition Language (SDDL) string</a> that contains the permissions associated with this URL namespace reservation record.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pStringSecurityDescriptor {
         get => NumGet(this, 0, "ptr")

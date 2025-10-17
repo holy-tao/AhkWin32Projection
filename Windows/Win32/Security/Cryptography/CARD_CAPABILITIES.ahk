@@ -20,7 +20,7 @@ class CARD_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCertificateCompression {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class CARD_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fKeyGen {
         get => NumGet(this, 8, "int")

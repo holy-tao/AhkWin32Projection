@@ -22,7 +22,7 @@ class TRUSTED_DOMAIN_NAME_INFO extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Name := LSA_UNICODE_STRING(0, this)
             return this.__Name
         }
     }

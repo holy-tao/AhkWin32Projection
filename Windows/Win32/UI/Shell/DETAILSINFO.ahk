@@ -54,7 +54,7 @@ class DETAILSINFO extends Win32Struct
     str{
         get {
             if(!this.HasProp("__str"))
-                this.__str := STRRET(this.ptr + 16)
+                this.__str := STRRET(16, this)
             return this.__str
         }
     }

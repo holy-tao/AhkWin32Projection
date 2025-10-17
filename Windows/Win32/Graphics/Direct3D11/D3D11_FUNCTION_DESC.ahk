@@ -28,7 +28,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the originator of the function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Creator {
         get => NumGet(this, 8, "ptr")
@@ -325,7 +325,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The name of the function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Name {
         get => NumGet(this, 128, "ptr")
@@ -347,7 +347,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether the function returns a value. <b>TRUE</b> indicates it returns a value; otherwise, <b>FALSE</b> (it is a subroutine).
-     * @type {Integer}
+     * @type {BOOL}
      */
     HasReturn {
         get => NumGet(this, 140, "int")
@@ -358,7 +358,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether there is a Direct3D 10Level9 vertex shader blob. <b>TRUE</b> indicates there is a 10Level9 vertex shader blob; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Has10Level9VertexShader {
         get => NumGet(this, 144, "int")
@@ -369,7 +369,7 @@ class D3D11_FUNCTION_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether there is a Direct3D 10Level9 pixel shader blob. <b>TRUE</b> indicates there is a 10Level9 pixel shader blob; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Has10Level9PixelShader {
         get => NumGet(this, 148, "int")

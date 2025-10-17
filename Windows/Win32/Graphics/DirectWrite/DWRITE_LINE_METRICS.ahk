@@ -75,7 +75,7 @@ class DWRITE_LINE_METRICS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * The line is trimmed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isTrimmed {
         get => NumGet(this, 20, "int")

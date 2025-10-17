@@ -63,7 +63,7 @@ class FILE_LAYOUT_INFO_ENTRY extends Win32Struct
     BasicInformation{
         get {
             if(!this.HasProp("__BasicInformation"))
-                this.__BasicInformation := %this.__Class%._BasicInformation(this.ptr + 0)
+                this.__BasicInformation := %this.__Class%._BasicInformation(0, this)
             return this.__BasicInformation
         }
     }

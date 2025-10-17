@@ -12,7 +12,7 @@ class KEY_EVENT_RECORD extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bKeyDown {
         get => NumGet(this, 0, "int")
@@ -52,7 +52,7 @@ class KEY_EVENT_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     AsciiChar {
         get => NumGet(this, 12, "char")

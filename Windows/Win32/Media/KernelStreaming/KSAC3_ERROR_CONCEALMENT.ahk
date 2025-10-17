@@ -12,7 +12,7 @@ class KSAC3_ERROR_CONCEALMENT extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRepeatPreviousBlock {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class KSAC3_ERROR_CONCEALMENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fErrorInCurrentBlock {
         get => NumGet(this, 4, "int")

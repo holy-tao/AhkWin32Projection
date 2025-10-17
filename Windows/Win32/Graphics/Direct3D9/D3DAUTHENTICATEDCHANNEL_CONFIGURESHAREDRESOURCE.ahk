@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
@@ -19,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }
@@ -33,15 +34,18 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGURESHAREDRESOURCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ProcessHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ProcessHandle{
+        get {
+            if(!this.HasProp("__ProcessHandle"))
+                this.__ProcessHandle := HANDLE(48, this)
+            return this.__ProcessHandle
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AllowAccess {
         get => NumGet(this, 56, "int")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Contains information that the GetOpenFileName and GetSaveFileName functions use to initialize an Open or Save As dialog box. After the user closes the dialog box, the system returns information about the user's selection in this structure.
@@ -42,22 +44,28 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
      * Type: <b>HINSTANCE</b>
      * 
      * If the <b>OFN_ENABLETEMPLATEHANDLE</b> flag is set in the <b>Flags</b> member, <b>hInstance</b> is a handle to a memory object containing a dialog box template. If the <b>OFN_ENABLETEMPLATE</b> flag is set, <b>hInstance</b> is a handle to a module that contains a dialog box template named by the <b>lpTemplateName</b> member. If neither flag is set, this member is ignored. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
@@ -72,7 +80,7 @@ class OPENFILENAMEA extends Win32Struct
      * If <b>lpstrFilter</b> is <b>NULL</b>, the dialog box does not display any filters.
      * 
      *  In the case of a shortcut, if no filter is set, <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> retrieve the name of the .lnk file, not its target. This behavior is the same as setting the <b>OFN_NODEREFERENCELINKS</b> flag in the <b>Flags</b> member. To retrieve a shortcut's target without filtering, use the string <c>"All Files\0*.*\0\0"</c>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFilter {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +95,7 @@ class OPENFILENAMEA extends Win32Struct
      * If this member is <b>NULL</b>, the dialog box does not preserve user-defined filter patterns.
      * 
      * If this member is not <b>NULL</b>, the value of the <b>nMaxCustFilter</b> member must specify the size, in characters, of the <b>lpstrCustomFilter</b> buffer.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrCustomFilter {
         get => NumGet(this, 32, "ptr")
@@ -124,7 +132,7 @@ class OPENFILENAMEA extends Win32Struct
      * If the <b>OFN_ALLOWMULTISELECT</b> flag is set and the user selects multiple files, the buffer contains the current directory followed by the file names of the selected files. For Explorer-style dialog boxes, the directory and file name strings are <b>NULL</b> separated, with an extra <b>NULL</b> character after the last file name. For old-style dialog boxes, the strings are space separated and the function uses short file names for file names with spaces. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function to convert between long and short file names. If the user selects only one file, the <b>lpstrFile</b> string does not have a separator between the path and file name.
      * 
      * If the buffer is too small, the function returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function returns <b>FNERR_BUFFERTOOSMALL</b>. In this case, the first two bytes of the <b>lpstrFile</b> buffer contain the required size, in bytes or characters.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFile {
         get => NumGet(this, 48, "ptr")
@@ -146,7 +154,7 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The file name and extension (without path information) of the selected file. This member can be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFileTitle {
         get => NumGet(this, 64, "ptr")
@@ -189,7 +197,7 @@ class OPENFILENAMEA extends Win32Struct
      * <li>Otherwise, the initial directory is the personal files directory of the current user.</li>
      * <li>Otherwise, the initial directory is the Desktop folder.</li>
      * </ol>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrInitialDir {
         get => NumGet(this, 80, "ptr")
@@ -200,7 +208,7 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * A string to be placed in the title bar of the dialog box. If this member is <b>NULL</b>, the system uses the default title (that is, <b>Save As</b> or <b>Open</b>).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrTitle {
         get => NumGet(this, 88, "ptr")
@@ -548,7 +556,7 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The default extension. <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getopenfilenamea">GetOpenFileName</a> and <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-getsavefilenamea">GetSaveFileName</a> append this extension to the file name if the user fails to type an extension. This string can be any length, but only the first three characters are appended. The string should not contain a period (.). If this member is <b>NULL</b> and the user fails to type an extension, no extension is appended.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrDefExt {
         get => NumGet(this, 104, "ptr")
@@ -559,7 +567,7 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>OPENFILENAME</b> structure specified when the dialog box was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 112, "ptr")
@@ -585,7 +593,7 @@ class OPENFILENAMEA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the dialog template resource in the module identified by the <b>hInstance</b> member. For numbered dialog box resources, this can be a value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. This member is ignored unless the <b>OFN_ENABLETEMPLATE</b> flag is set in the <b>Flags</b> member. If the <b>OFN_EXPLORER</b> flag is set, the system uses the specified template to create a dialog box that is a child of the default Explorer-style dialog box. If the <b>OFN_EXPLORER</b> flag is not set, the system uses the template to create an old-style dialog box that replaces the default dialog box.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpTemplateName {
         get => NumGet(this, 128, "ptr")

@@ -29,7 +29,7 @@ class DIAGNOSTIC_DATA_EVENT_CATEGORY_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of this category.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 8, "ptr")

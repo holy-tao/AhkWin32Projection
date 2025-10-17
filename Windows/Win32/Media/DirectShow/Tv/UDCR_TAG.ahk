@@ -47,7 +47,7 @@ class UDCR_TAG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fScrambled {
         get => NumGet(this, 48, "int")

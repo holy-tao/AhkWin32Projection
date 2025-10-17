@@ -19,7 +19,7 @@ class USBUSER_SEND_RAW_COMMAND extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class USBUSER_SEND_RAW_COMMAND extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := USB_SEND_RAW_COMMAND_PARAMETERS(this.ptr + 16)
+                this.__Parameters := USB_SEND_RAW_COMMAND_PARAMETERS(16, this)
             return this.__Parameters
         }
     }

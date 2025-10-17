@@ -42,13 +42,13 @@ class SECPKG_APP_MODE_INFO extends Win32Struct
     UserData{
         get {
             if(!this.HasProp("__UserData"))
-                this.__UserData := SecBuffer(this.ptr + 24)
+                this.__UserData := SecBuffer(24, this)
             return this.__UserData
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReturnToLsa {
         get => NumGet(this, 40, "char")

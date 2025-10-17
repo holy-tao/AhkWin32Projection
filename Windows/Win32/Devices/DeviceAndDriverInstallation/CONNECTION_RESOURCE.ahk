@@ -18,7 +18,7 @@ class CONNECTION_RESOURCE extends Win32Struct
     Connection_Header{
         get {
             if(!this.HasProp("__Connection_Header"))
-                this.__Connection_Header := CONNECTION_DES(this.ptr + 0)
+                this.__Connection_Header := CONNECTION_DES(0, this)
             return this.__Connection_Header
         }
     }

@@ -18,7 +18,7 @@ class USB_PIPE_INFO extends Win32Struct
     EndpointDescriptor{
         get {
             if(!this.HasProp("__EndpointDescriptor"))
-                this.__EndpointDescriptor := USB_ENDPOINT_DESCRIPTOR(this.ptr + 0)
+                this.__EndpointDescriptor := USB_ENDPOINT_DESCRIPTOR(0, this)
             return this.__EndpointDescriptor
         }
     }

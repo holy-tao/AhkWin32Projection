@@ -18,13 +18,13 @@ class KSPROPERTY_TUNER_STANDARD_MODE_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AutoDetect {
         get => NumGet(this, 16, "int")

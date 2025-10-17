@@ -20,7 +20,7 @@ class CUSTOM_SYSTEM_EVENT_TRIGGER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TriggerId {
         get => NumGet(this, 8, "ptr")

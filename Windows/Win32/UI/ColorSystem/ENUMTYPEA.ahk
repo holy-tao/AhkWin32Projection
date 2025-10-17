@@ -80,7 +80,7 @@ class ENUMTYPEA extends Win32Struct
 
     /**
      * User friendly name of the device.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDeviceName {
         get => NumGet(this, 16, "ptr")

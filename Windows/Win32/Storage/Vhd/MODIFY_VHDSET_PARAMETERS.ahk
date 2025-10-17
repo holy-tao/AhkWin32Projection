@@ -35,7 +35,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         SnapshotFilePath {
             get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     SnapshotPath{
         get {
             if(!this.HasProp("__SnapshotPath"))
-                this.__SnapshotPath := %this.__Class%._SnapshotPath(this.ptr + 8)
+                this.__SnapshotPath := %this.__Class%._SnapshotPath(8, this)
             return this.__SnapshotPath
         }
     }
@@ -64,7 +64,7 @@ class MODIFY_VHDSET_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DefaultFilePath {
         get => NumGet(this, 8, "ptr")

@@ -42,7 +42,7 @@ class MLDV2_REPORT_RECORD_HEADER extends Win32Struct
     MulticastAddress{
         get {
             if(!this.HasProp("__MulticastAddress"))
-                this.__MulticastAddress := IN6_ADDR(this.ptr + 8)
+                this.__MulticastAddress := IN6_ADDR(8, this)
             return this.__MulticastAddress
         }
     }

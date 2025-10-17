@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CLS_LSN.ahk
 
 /**
  * The CLFS_MGMT_NOTIFICATION structure specifies information about the notifications that the client receives.
@@ -87,11 +88,14 @@ class CLFS_MGMT_NOTIFICATION extends Win32Struct
      * If <b>Notification</b> is <b>ClfsMgmtAdvanceTailNotification</b>, 
      *       <b>Lsn</b> specifies the target log sequence number (LSN) the client should advance the log 
      *       tail to.
-     * @type {Integer}
+     * @type {CLS_LSN}
      */
-    Lsn {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Lsn{
+        get {
+            if(!this.HasProp("__Lsn"))
+                this.__Lsn := CLS_LSN(8, this)
+            return this.__Lsn
+        }
     }
 
     /**

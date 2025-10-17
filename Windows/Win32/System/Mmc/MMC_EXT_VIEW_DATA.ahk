@@ -31,7 +31,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * URL to the HTML used in the result pane; this typically points to an HTML resource in the snap-in's DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszURL {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * Title of the view extension.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszViewTitle {
         get => NumGet(this, 16, "ptr")
@@ -49,7 +49,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * This value is reserved for future use.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTooltipText {
         get => NumGet(this, 24, "ptr")
@@ -58,7 +58,7 @@ class MMC_EXT_VIEW_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>Standard</b> tab does not appear in the tab selector; otherwise, the <b>Standard</b> tab appears. There is usually no need to display the <b>Standard</b> tab if the view extension snap-in displays the list of the primary snap-in.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bReplacesDefaultView {
         get => NumGet(this, 32, "int")

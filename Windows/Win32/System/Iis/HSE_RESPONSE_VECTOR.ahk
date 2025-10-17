@@ -20,7 +20,7 @@ class HSE_RESPONSE_VECTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszStatus {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class HSE_RESPONSE_VECTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszHeaders {
         get => NumGet(this, 16, "ptr")

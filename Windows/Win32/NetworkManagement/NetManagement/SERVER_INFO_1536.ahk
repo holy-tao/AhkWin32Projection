@@ -15,7 +15,7 @@ class SERVER_INFO_1536 extends Win32Struct
 
     /**
      * Specifies whether the server allows clients to use oplocks on files. Opportunistic locks are a significant performance enhancement, but have the potential to cause lost cached data on some networks, particularly wide-area networks.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1536_enableoplocks {
         get => NumGet(this, 0, "int")

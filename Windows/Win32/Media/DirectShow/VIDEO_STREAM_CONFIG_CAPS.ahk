@@ -73,7 +73,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     InputSize{
         get {
             if(!this.HasProp("__InputSize"))
-                this.__InputSize := SIZE(this.ptr + 16)
+                this.__InputSize := SIZE(16, this)
             return this.__InputSize
         }
     }
@@ -89,7 +89,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     MinCroppingSize{
         get {
             if(!this.HasProp("__MinCroppingSize"))
-                this.__MinCroppingSize := SIZE(this.ptr + 24)
+                this.__MinCroppingSize := SIZE(24, this)
             return this.__MinCroppingSize
         }
     }
@@ -104,7 +104,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     MaxCroppingSize{
         get {
             if(!this.HasProp("__MaxCroppingSize"))
-                this.__MaxCroppingSize := SIZE(this.ptr + 32)
+                this.__MaxCroppingSize := SIZE(32, this)
             return this.__MaxCroppingSize
         }
     }
@@ -172,7 +172,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     MinOutputSize{
         get {
             if(!this.HasProp("__MinOutputSize"))
-                this.__MinOutputSize := SIZE(this.ptr + 56)
+                this.__MinOutputSize := SIZE(56, this)
             return this.__MinOutputSize
         }
     }
@@ -188,7 +188,7 @@ class VIDEO_STREAM_CONFIG_CAPS extends Win32Struct
     MaxOutputSize{
         get {
             if(!this.HasProp("__MaxOutputSize"))
-                this.__MaxOutputSize := SIZE(this.ptr + 64)
+                this.__MaxOutputSize := SIZE(64, this)
             return this.__MaxOutputSize
         }
     }

@@ -100,7 +100,7 @@ class FAX_PORT_INFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DeviceName {
         get => NumGet(this, 24, "ptr")
@@ -111,7 +111,7 @@ class FAX_PORT_INFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the TSID. This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a TSID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Tsid {
         get => NumGet(this, 32, "ptr")
@@ -122,7 +122,7 @@ class FAX_PORT_INFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the called station identifier (CSID). This identifier is usually a telephone number. Only printable characters such as English letters, numeric symbols, and punctuation marks (ASCII range 0x20 to 0x7F) can be used in a CSID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Csid {
         get => NumGet(this, 40, "ptr")

@@ -24,7 +24,7 @@ class CRYPT_PROVIDER_REG extends Win32Struct
 
     /**
      * An array of null-terminated Unicode strings that contains the aliases of the provider. If the provider has no aliases, this member will contain <b>NULL</b> and the <b>cAliases</b> member will contain zero.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     rgpszAliases {
         get => NumGet(this, 8, "ptr")

@@ -16,7 +16,7 @@ class USER_INFO_1009 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the path for the user's logon script file. The user is specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. The script file can be a .CMD file, an .EXE file, or a .BAT file. The string can also be null.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1009_script_path {
         get => NumGet(this, 0, "ptr")

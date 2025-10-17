@@ -26,7 +26,7 @@ class D3D12_NODE extends Win32Struct
     Shader{
         get {
             if(!this.HasProp("__Shader"))
-                this.__Shader := D3D12_SHADER_NODE(this.ptr + 8)
+                this.__Shader := D3D12_SHADER_NODE(8, this)
             return this.__Shader
         }
     }

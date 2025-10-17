@@ -29,13 +29,13 @@ class WSMAN_AUTHENTICATION_CREDENTIALS extends Win32Struct
     userAccount{
         get {
             if(!this.HasProp("__userAccount"))
-                this.__userAccount := WSMAN_USERNAME_PASSWORD_CREDS(this.ptr + 8)
+                this.__userAccount := WSMAN_USERNAME_PASSWORD_CREDS(8, this)
             return this.__userAccount
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     certificateThumbprint {
         get => NumGet(this, 8, "ptr")

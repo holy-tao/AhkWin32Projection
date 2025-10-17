@@ -54,7 +54,7 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
     pixelFormat{
         get {
             if(!this.HasProp("__pixelFormat"))
-                this.__pixelFormat := D2D1_PIXEL_FORMAT(this.ptr + 8)
+                this.__pixelFormat := D2D1_PIXEL_FORMAT(8, this)
             return this.__pixelFormat
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\KSEVENTDATA.ahk
 
 /**
@@ -18,7 +19,7 @@ class KSEVENT_TUNER_INITIATE_SCAN_S extends Win32Struct
     EventData{
         get {
             if(!this.HasProp("__EventData"))
-                this.__EventData := KSEVENTDATA(this.ptr + 0)
+                this.__EventData := KSEVENTDATA(0, this)
             return this.__EventData
         }
     }

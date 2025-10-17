@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -36,18 +37,18 @@ class CDDDXGK_REDIRBITMAPPRESENTINFO extends Win32Struct
     }
 
     /**
-     * @type {Array<Void>}
+     * @type {Array<HANDLE>}
      */
     hContext{
         get {
             if(!this.HasProp("__hContextProxyArray"))
-                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, Primitive, "ptr")
+                this.__hContextProxyArray := Win32FixedArray(this.ptr + 24, 65, HANDLE, "")
             return this.__hContextProxyArray
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDoNotSynchronizeWithDxContent {
         get => NumGet(this, 544, "char")

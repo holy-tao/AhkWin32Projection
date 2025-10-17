@@ -16,7 +16,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         SubTag {
             get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         MatchPattern {
             get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         ReturnText {
             get => NumGet(this, 16, "ptr")
@@ -69,14 +69,6 @@ class EXT_CAB_XML_DATA extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield >> 3) & 0x1FFFFFFF
-            set => this._bitfield := ((value & 0x1FFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFF << 3))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         Reserved2 {
             get => NumGet(this, 32, "uint")
             set => NumPut("uint", value, this, 32)
@@ -93,7 +85,7 @@ class EXT_CAB_XML_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     XmlObjectTag {
         get => NumGet(this, 8, "ptr")

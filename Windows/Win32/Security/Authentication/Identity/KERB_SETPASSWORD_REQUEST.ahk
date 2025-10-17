@@ -28,7 +28,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -39,7 +39,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     CredentialsHandle{
         get {
             if(!this.HasProp("__CredentialsHandle"))
-                this.__CredentialsHandle := SecHandle(this.ptr + 16)
+                this.__CredentialsHandle := SecHandle(16, this)
             return this.__CredentialsHandle
         }
     }
@@ -58,7 +58,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__DomainName := LSA_UNICODE_STRING(40, this)
             return this.__DomainName
         }
     }
@@ -69,7 +69,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     AccountName{
         get {
             if(!this.HasProp("__AccountName"))
-                this.__AccountName := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__AccountName := LSA_UNICODE_STRING(56, this)
             return this.__AccountName
         }
     }
@@ -80,7 +80,7 @@ class KERB_SETPASSWORD_REQUEST extends Win32Struct
     Password{
         get {
             if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__Password := LSA_UNICODE_STRING(72, this)
             return this.__Password
         }
     }

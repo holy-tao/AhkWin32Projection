@@ -36,7 +36,7 @@ class KDEXTS_LOCK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ExclusiveOwned {
         get => NumGet(this, 24, "int")

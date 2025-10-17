@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Registry\HKEY.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * This structure is used by the WdsTransportProviderInitialize callback function.
@@ -34,19 +36,25 @@ class WDS_TRANSPORTPROVIDER_INIT_PARAMS extends Win32Struct
     /**
      * An open handle to the registry key where this provider should
      *      store and retrieve its settings.
-     * @type {Pointer<Void>}
+     * @type {HKEY}
      */
-    hRegistryKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hRegistryKey{
+        get {
+            if(!this.HasProp("__hRegistryKey"))
+                this.__hRegistryKey := HKEY(8, this)
+            return this.__hRegistryKey
+        }
     }
 
     /**
      * A handle that the provider can use to uniquely identify itself in calls to the multicast server.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProvider {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hProvider{
+        get {
+            if(!this.HasProp("__hProvider"))
+                this.__hProvider := HANDLE(16, this)
+            return this.__hProvider
+        }
     }
 }

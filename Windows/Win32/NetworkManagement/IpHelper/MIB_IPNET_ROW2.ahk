@@ -42,7 +42,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKADDR_INET(this.ptr + 0)
+                this.__Address := SOCKADDR_INET(0, this)
             return this.__Address
         }
     }
@@ -67,7 +67,7 @@ class MIB_IPNET_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 72)
+                this.__InterfaceLuid := NET_LUID_LH(72, this)
             return this.__InterfaceLuid
         }
     }
@@ -215,11 +215,30 @@ class MIB_IPNET_ROW2 extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IsRouter
+     * - IsUnreachable
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 128, "char")
         set => NumPut("char", value, this, 128)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsRouter {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsUnreachable {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

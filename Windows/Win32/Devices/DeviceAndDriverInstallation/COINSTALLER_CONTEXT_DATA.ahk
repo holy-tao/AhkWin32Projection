@@ -12,7 +12,7 @@ class COINSTALLER_CONTEXT_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     PostProcessing {
         get => NumGet(this, 0, "int")

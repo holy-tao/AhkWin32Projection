@@ -15,7 +15,7 @@ class SHARE_INFO_1004 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains an optional comment about the shared resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     shi1004_remark {
         get => NumGet(this, 0, "ptr")

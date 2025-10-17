@@ -49,7 +49,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
     AuthenticationId{
         get {
             if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(this.ptr + 24)
+                this.__AuthenticationId := LUID(24, this)
             return this.__AuthenticationId
         }
     }
@@ -79,7 +79,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
     MandatoryPolicy{
         get {
             if(!this.HasProp("__MandatoryPolicy"))
-                this.__MandatoryPolicy := TOKEN_MANDATORY_POLICY(this.ptr + 40)
+                this.__MandatoryPolicy := TOKEN_MANDATORY_POLICY(40, this)
             return this.__MandatoryPolicy
         }
     }
@@ -108,7 +108,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
      * The app container SID or <b>NULL</b> if this is not an app container token.
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>This member is not available.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     PackageSid {
         get => NumGet(this, 56, "ptr")
@@ -128,7 +128,7 @@ class TOKEN_ACCESS_INFORMATION extends Win32Struct
 
     /**
      * The protected process trust level of the token.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     TrustLevelSid {
         get => NumGet(this, 72, "ptr")

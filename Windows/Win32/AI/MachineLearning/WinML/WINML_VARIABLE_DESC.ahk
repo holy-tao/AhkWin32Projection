@@ -19,7 +19,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The name of the variable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * The description of the variable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Description {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
 
     /**
      * <b>true</b> if the variable is required; otherwise, <b>false</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Required {
         get => NumGet(this, 20, "int")
@@ -59,7 +59,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Tensor{
         get {
             if(!this.HasProp("__Tensor"))
-                this.__Tensor := WINML_TENSOR_VARIABLE_DESC(this.ptr + 24)
+                this.__Tensor := WINML_TENSOR_VARIABLE_DESC(24, this)
             return this.__Tensor
         }
     }
@@ -70,7 +70,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Sequence{
         get {
             if(!this.HasProp("__Sequence"))
-                this.__Sequence := WINML_SEQUENCE_VARIABLE_DESC(this.ptr + 24)
+                this.__Sequence := WINML_SEQUENCE_VARIABLE_DESC(24, this)
             return this.__Sequence
         }
     }
@@ -81,7 +81,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Map{
         get {
             if(!this.HasProp("__Map"))
-                this.__Map := WINML_MAP_VARIABLE_DESC(this.ptr + 24)
+                this.__Map := WINML_MAP_VARIABLE_DESC(24, this)
             return this.__Map
         }
     }
@@ -92,7 +92,7 @@ class WINML_VARIABLE_DESC extends Win32Struct
     Image{
         get {
             if(!this.HasProp("__Image"))
-                this.__Image := WINML_IMAGE_VARIABLE_DESC(this.ptr + 24)
+                this.__Image := WINML_IMAGE_VARIABLE_DESC(24, this)
             return this.__Image
         }
     }

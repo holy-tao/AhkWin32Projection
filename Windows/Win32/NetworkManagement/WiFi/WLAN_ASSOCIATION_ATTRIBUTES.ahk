@@ -21,7 +21,7 @@ class WLAN_ASSOCIATION_ATTRIBUTES extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 0)
+                this.__dot11Ssid := DOT11_SSID(0, this)
             return this.__dot11Ssid
         }
     }

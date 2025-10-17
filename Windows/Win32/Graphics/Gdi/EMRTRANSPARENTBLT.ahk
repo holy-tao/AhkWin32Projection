@@ -20,7 +20,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -31,7 +31,7 @@ class EMRTRANSPARENTBLT extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(this.ptr + 8)
+                this.__rclBounds := RECTL(8, this)
             return this.__rclBounds
         }
     }
@@ -98,13 +98,13 @@ class EMRTRANSPARENTBLT extends Win32Struct
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(this.ptr + 56)
+                this.__xformSrc := XFORM(56, this)
             return this.__xformSrc
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBkColorSrc {
         get => NumGet(this, 80, "uint")

@@ -13,7 +13,7 @@ class PRINTER_INFO_7A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjectGUID {
         get => NumGet(this, 0, "ptr")

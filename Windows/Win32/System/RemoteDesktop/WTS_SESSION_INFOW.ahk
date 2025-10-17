@@ -30,7 +30,7 @@ class WTS_SESSION_INFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the WinStation name of this session. The WinStation name is a name that Windows associates with the session, for example, "services", "console", or "RDP-Tcp#0".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pWinStationName {
         get => NumGet(this, 8, "ptr")

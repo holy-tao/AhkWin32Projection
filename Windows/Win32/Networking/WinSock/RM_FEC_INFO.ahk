@@ -54,7 +54,7 @@ class RM_FEC_INFO extends Win32Struct
 
     /**
      * Specifies whether the sender is enabled for sending parity repair packets. When <b>TRUE</b>, receivers should only request parity repair packets.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fFECOnDemandParityEnabled {
         get => NumGet(this, 5, "char")

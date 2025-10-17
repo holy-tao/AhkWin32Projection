@@ -70,7 +70,7 @@ class GOPHER_FIND_DATAA extends Win32Struct
     LastModificationTime{
         get {
             if(!this.HasProp("__LastModificationTime"))
-                this.__LastModificationTime := FILETIME(this.ptr + 144)
+                this.__LastModificationTime := FILETIME(144, this)
             return this.__LastModificationTime
         }
     }

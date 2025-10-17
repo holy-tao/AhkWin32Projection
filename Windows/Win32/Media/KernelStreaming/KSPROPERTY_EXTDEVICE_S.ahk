@@ -19,7 +19,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -30,7 +30,7 @@ class KSPROPERTY_EXTDEVICE_S extends Win32Struct
     Capabilities{
         get {
             if(!this.HasProp("__Capabilities"))
-                this.__Capabilities := DEVCAPS(this.ptr + 16)
+                this.__Capabilities := DEVCAPS(16, this)
             return this.__Capabilities
         }
     }

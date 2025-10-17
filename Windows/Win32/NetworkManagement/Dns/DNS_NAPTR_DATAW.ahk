@@ -40,7 +40,7 @@ class DNS_NAPTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string  that represents a set of NAPTR RR flags which determine the interpretation and processing of NAPTR record fields as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pFlags {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class DNS_NAPTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the available services in this rewrite path as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pService {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class DNS_NAPTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents a substitution expression as defined in sections 2 and 3 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pRegularExpression {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class DNS_NAPTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the next NAPTR query name as defined in section 2 of <a href="https://www.ietf.org/rfc/rfc2915.txt">RFC 2915</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pReplacement {
         get => NumGet(this, 32, "ptr")

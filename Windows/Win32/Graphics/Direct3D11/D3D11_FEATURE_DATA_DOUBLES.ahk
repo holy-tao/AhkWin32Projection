@@ -63,7 +63,7 @@ class D3D11_FEATURE_DATA_DOUBLES extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-scalar">double</a> types are allowed. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-scalar">double</a> types are allowed; otherwise <b>FALSE</b>. The runtime must set <b>DoublePrecisionFloatShaderOps</b> to  <b>TRUE</b> in order for you to use any <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl">HLSL</a> shader that is compiled with a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/dx-graphics-hlsl-scalar">double</a> type.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DoublePrecisionFloatShaderOps {
         get => NumGet(this, 0, "int")

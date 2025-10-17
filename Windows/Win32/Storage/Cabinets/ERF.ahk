@@ -28,7 +28,7 @@ class ERF extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fError {
         get => NumGet(this, 8, "int")

@@ -18,7 +18,7 @@ class TRANSPORT_SETTING extends Win32Struct
     SettingId{
         get {
             if(!this.HasProp("__SettingId"))
-                this.__SettingId := TRANSPORT_SETTING_ID(this.ptr + 0)
+                this.__SettingId := TRANSPORT_SETTING_ID(0, this)
             return this.__SettingId
         }
     }

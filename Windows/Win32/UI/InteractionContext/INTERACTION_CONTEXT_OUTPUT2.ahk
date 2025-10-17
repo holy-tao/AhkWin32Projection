@@ -3,6 +3,7 @@
 #Include .\MANIPULATION_TRANSFORM.ahk
 #Include .\MANIPULATION_VELOCITY.ahk
 #Include .\INTERACTION_ARGUMENTS_MANIPULATION.ahk
+#Include .\INTERACTION_ARGUMENTS_TAP.ahk
 #Include .\INTERACTION_ARGUMENTS_CROSS_SLIDE.ahk
 
 /**
@@ -77,17 +78,20 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     manipulation{
         get {
             if(!this.HasProp("__manipulation"))
-                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(this.ptr + 32)
+                this.__manipulation := INTERACTION_ARGUMENTS_MANIPULATION(32, this)
             return this.__manipulation
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {INTERACTION_ARGUMENTS_TAP}
      */
-    tap {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+    tap{
+        get {
+            if(!this.HasProp("__tap"))
+                this.__tap := INTERACTION_ARGUMENTS_TAP(32, this)
+            return this.__tap
+        }
     }
 
     /**
@@ -96,7 +100,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     crossSlide{
         get {
             if(!this.HasProp("__crossSlide"))
-                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(this.ptr + 32)
+                this.__crossSlide := INTERACTION_ARGUMENTS_CROSS_SLIDE(32, this)
             return this.__crossSlide
         }
     }

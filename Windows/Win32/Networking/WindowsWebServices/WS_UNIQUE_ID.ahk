@@ -31,7 +31,7 @@ class WS_UNIQUE_ID extends Win32Struct
     uri{
         get {
             if(!this.HasProp("__uri"))
-                this.__uri := WS_STRING(this.ptr + 0)
+                this.__uri := WS_STRING(0, this)
             return this.__uri
         }
     }

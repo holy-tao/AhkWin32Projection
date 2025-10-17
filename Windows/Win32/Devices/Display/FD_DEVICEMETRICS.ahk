@@ -32,7 +32,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     pteBase{
         get {
             if(!this.HasProp("__pteBase"))
-                this.__pteBase := POINTE(this.ptr + 8)
+                this.__pteBase := POINTE(8, this)
             return this.__pteBase
         }
     }
@@ -44,7 +44,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     pteSide{
         get {
             if(!this.HasProp("__pteSide"))
-                this.__pteSide := POINTE(this.ptr + 16)
+                this.__pteSide := POINTE(16, this)
             return this.__pteSide
         }
     }
@@ -83,7 +83,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlUnderline1{
         get {
             if(!this.HasProp("__ptlUnderline1"))
-                this.__ptlUnderline1 := POINTL(this.ptr + 40)
+                this.__ptlUnderline1 := POINTL(40, this)
             return this.__ptlUnderline1
         }
     }
@@ -95,7 +95,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlStrikeOut{
         get {
             if(!this.HasProp("__ptlStrikeOut"))
-                this.__ptlStrikeOut := POINTL(this.ptr + 48)
+                this.__ptlStrikeOut := POINTL(48, this)
             return this.__ptlStrikeOut
         }
     }
@@ -107,7 +107,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlULThickness{
         get {
             if(!this.HasProp("__ptlULThickness"))
-                this.__ptlULThickness := POINTL(this.ptr + 56)
+                this.__ptlULThickness := POINTL(56, this)
             return this.__ptlULThickness
         }
     }
@@ -119,7 +119,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlSOThickness{
         get {
             if(!this.HasProp("__ptlSOThickness"))
-                this.__ptlSOThickness := POINTL(this.ptr + 64)
+                this.__ptlSOThickness := POINTL(64, this)
             return this.__ptlSOThickness
         }
     }
@@ -158,7 +158,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     fdxQuantized{
         get {
             if(!this.HasProp("__fdxQuantized"))
-                this.__fdxQuantized := FD_XFORM(this.ptr + 88)
+                this.__fdxQuantized := FD_XFORM(88, this)
             return this.__fdxQuantized
         }
     }

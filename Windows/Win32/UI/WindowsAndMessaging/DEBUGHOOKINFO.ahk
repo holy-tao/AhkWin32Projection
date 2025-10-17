@@ -40,7 +40,7 @@ class DEBUGHOOKINFO extends Win32Struct
      * 
      * The value to be passed to the hook in the 
      * 					<i>lParam</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms644978(v=vs.85)">DebugProc</a> callback function.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class DEBUGHOOKINFO extends Win32Struct
      * 
      * The value to be passed to the hook in the 
      * 					<i>wParam</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms644978(v=vs.85)">DebugProc</a> callback function.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 16, "ptr")

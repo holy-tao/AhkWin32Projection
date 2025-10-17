@@ -22,7 +22,7 @@ class EMRSETPIXELV extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,14 +34,14 @@ class EMRSETPIXELV extends Win32Struct
     ptlPixel{
         get {
             if(!this.HasProp("__ptlPixel"))
-                this.__ptlPixel := POINTL(this.ptr + 8)
+                this.__ptlPixel := POINTL(8, this)
             return this.__ptlPixel
         }
     }
 
     /**
      * Color value. To make a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crColor {
         get => NumGet(this, 16, "uint")

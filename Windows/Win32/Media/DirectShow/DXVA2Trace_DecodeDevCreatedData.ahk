@@ -18,7 +18,7 @@ class DXVA2Trace_DecodeDevCreatedData extends Win32Struct
     wmiHeader{
         get {
             if(!this.HasProp("__wmiHeader"))
-                this.__wmiHeader := EVENT_TRACE_HEADER(this.ptr + 0)
+                this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
             return this.__wmiHeader
         }
     }
@@ -64,7 +64,7 @@ class DXVA2Trace_DecodeDevCreatedData extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enter {
         get => NumGet(this, 72, "int")

@@ -151,7 +151,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     int128{
         get {
             if(!this.HasProp("__int128"))
-                this.__int128 := SDP_LARGE_INTEGER_16(this.ptr + 8)
+                this.__int128 := SDP_LARGE_INTEGER_16(8, this)
             return this.__int128
         }
     }
@@ -181,7 +181,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     int8 {
         get => NumGet(this, 8, "char")
@@ -194,7 +194,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     uint128{
         get {
             if(!this.HasProp("__uint128"))
-                this.__uint128 := SDP_ULARGE_INTEGER_16(this.ptr + 8)
+                this.__uint128 := SDP_ULARGE_INTEGER_16(8, this)
             return this.__uint128
         }
     }
@@ -269,7 +269,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     string{
         get {
             if(!this.HasProp("__string"))
-                this.__string := %this.__Class%._string(this.ptr + 8)
+                this.__string := %this.__Class%._string(8, this)
             return this.__string
         }
     }
@@ -280,7 +280,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     url{
         get {
             if(!this.HasProp("__url"))
-                this.__url := %this.__Class%._url(this.ptr + 8)
+                this.__url := %this.__Class%._url(8, this)
             return this.__url
         }
     }
@@ -291,7 +291,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     sequence{
         get {
             if(!this.HasProp("__sequence"))
-                this.__sequence := %this.__Class%._sequence(this.ptr + 8)
+                this.__sequence := %this.__Class%._sequence(8, this)
             return this.__sequence
         }
     }
@@ -302,7 +302,7 @@ class SDP_ELEMENT_DATA extends Win32Struct
     alternative{
         get {
             if(!this.HasProp("__alternative"))
-                this.__alternative := %this.__Class%._alternative(this.ptr + 8)
+                this.__alternative := %this.__Class%._alternative(8, this)
             return this.__alternative
         }
     }

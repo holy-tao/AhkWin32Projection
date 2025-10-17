@@ -92,7 +92,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
      *       must also specify a flip-model swap chain (that is, a swap chain that has the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_swap_effect">DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL</a> 
      *       value set in the <b>SwapEffect</b> member).
-     * @type {Integer}
+     * @type {BOOL}
      */
     Stereo {
         get => NumGet(this, 12, "int")
@@ -108,7 +108,7 @@ class DXGI_SWAP_CHAIN_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 16)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
             return this.__SampleDesc
         }
     }

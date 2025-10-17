@@ -16,7 +16,7 @@ class LSA_FOREST_TRUST_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> of the domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class LSA_FOREST_TRUST_DOMAIN_INFO extends Win32Struct
     DnsName{
         get {
             if(!this.HasProp("__DnsName"))
-                this.__DnsName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DnsName := LSA_UNICODE_STRING(8, this)
             return this.__DnsName
         }
     }
@@ -42,7 +42,7 @@ class LSA_FOREST_TRUST_DOMAIN_INFO extends Win32Struct
     NetbiosName{
         get {
             if(!this.HasProp("__NetbiosName"))
-                this.__NetbiosName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__NetbiosName := LSA_UNICODE_STRING(24, this)
             return this.__NetbiosName
         }
     }

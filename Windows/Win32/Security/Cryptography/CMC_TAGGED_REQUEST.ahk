@@ -27,9 +27,9 @@ class CMC_TAGGED_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<CMC_TAGGED_CERT_REQUEST>}
      */
-    Anonymous {
+    pTaggedCertRequest {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }

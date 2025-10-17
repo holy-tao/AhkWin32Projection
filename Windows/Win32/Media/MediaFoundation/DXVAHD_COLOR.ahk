@@ -27,7 +27,7 @@ class DXVAHD_COLOR extends Win32Struct
     RGB{
         get {
             if(!this.HasProp("__RGB"))
-                this.__RGB := DXVAHD_COLOR_RGBA(this.ptr + 0)
+                this.__RGB := DXVAHD_COLOR_RGBA(0, this)
             return this.__RGB
         }
     }
@@ -39,7 +39,7 @@ class DXVAHD_COLOR extends Win32Struct
     YCbCr{
         get {
             if(!this.HasProp("__YCbCr"))
-                this.__YCbCr := DXVAHD_COLOR_YCbCrA(this.ptr + 0)
+                this.__YCbCr := DXVAHD_COLOR_YCbCrA(0, this)
             return this.__YCbCr
         }
     }

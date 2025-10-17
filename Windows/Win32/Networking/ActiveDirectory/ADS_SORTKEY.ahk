@@ -22,7 +22,7 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the attribute type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszAttrType {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszReserved {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class ADS_SORTKEY extends Win32Struct
 
     /**
      * Reverse the order of the sorted results.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fReverseorder {
         get => NumGet(this, 16, "char")

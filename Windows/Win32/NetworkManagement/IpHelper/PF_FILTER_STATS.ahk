@@ -26,7 +26,7 @@ class PF_FILTER_STATS extends Win32Struct
     info{
         get {
             if(!this.HasProp("__info"))
-                this.__info := PF_FILTER_DESCRIPTOR(this.ptr + 8)
+                this.__info := PF_FILTER_DESCRIPTOR(8, this)
             return this.__info
         }
     }

@@ -20,11 +20,30 @@ class MIPI_DSI_PACKET extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - DataType
+     * - VirtualChannel
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DataType {
+        get => (this._bitfield >> 0) & 0x3F
+        set => this._bitfield := ((value & 0x3F) << 0) | (this._bitfield & ~(0x3F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    VirtualChannel {
+        get => (this._bitfield >> 6) & 0x3
+        set => this._bitfield := ((value & 0x3) << 6) | (this._bitfield & ~(0x3 << 6))
     }
 
     /**

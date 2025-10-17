@@ -15,7 +15,7 @@ class CERT_POLICY_CONSTRAINTS_INFO extends Win32Struct
 
     /**
      * <b>BOOL</b> flag indicating whether explicit policy information is required.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRequireExplicitPolicy {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class CERT_POLICY_CONSTRAINTS_INFO extends Win32Struct
 
     /**
      * <b>BOOL</b> flag indicating whether policy mapping is inhibited.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInhibitPolicyMapping {
         get => NumGet(this, 8, "int")

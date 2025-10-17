@@ -24,7 +24,7 @@ class EapPeerMethodOutput extends Win32Struct
 
     /**
      * If <b>TRUE</b>, allows EAPHost to raise a notification to the user; otherwise, do not allow notifications.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllowNotifications {
         get => NumGet(this, 4, "int")

@@ -42,7 +42,7 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Specifies whether or not this binding is set on the DHCP server. If <b>TRUE</b>, the binding is set; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBoundToDHCPServer {
         get => NumGet(this, 4, "int")
@@ -69,7 +69,7 @@ class DHCP_BIND_ELEMENT extends Win32Struct
 
     /**
      * Unicode string that specifies the name assigned to this network interface device.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     IfDescription {
         get => NumGet(this, 16, "ptr")

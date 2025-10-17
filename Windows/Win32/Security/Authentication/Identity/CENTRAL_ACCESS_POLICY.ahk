@@ -16,7 +16,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
 
     /**
      * The identifier of the central access policy.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     CAPID {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__Name := LSA_UNICODE_STRING(8, this)
             return this.__Name
         }
     }
@@ -42,7 +42,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     Description{
         get {
             if(!this.HasProp("__Description"))
-                this.__Description := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__Description := LSA_UNICODE_STRING(24, this)
             return this.__Description
         }
     }
@@ -54,7 +54,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
     ChangeId{
         get {
             if(!this.HasProp("__ChangeId"))
-                this.__ChangeId := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__ChangeId := LSA_UNICODE_STRING(40, this)
             return this.__ChangeId
         }
     }

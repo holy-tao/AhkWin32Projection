@@ -22,7 +22,7 @@ class WS_METADATA_ENDPOINT extends Win32Struct
     endpointAddress{
         get {
             if(!this.HasProp("__endpointAddress"))
-                this.__endpointAddress := WS_ENDPOINT_ADDRESS(this.ptr + 0)
+                this.__endpointAddress := WS_ENDPOINT_ADDRESS(0, this)
             return this.__endpointAddress
         }
     }
@@ -31,7 +31,7 @@ class WS_METADATA_ENDPOINT extends Win32Struct
      * An opaque handle representing the policy of the endpoint.  
      *                     This handle is good until the metadata object
      *                     is freed or reset.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_POLICY>}
      */
     endpointPolicy {
         get => NumGet(this, 40, "ptr")

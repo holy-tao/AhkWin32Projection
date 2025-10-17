@@ -15,7 +15,7 @@ class TOKEN_OWNER extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure representing a user who will become the owner of any objects created by a process using this <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access token</a>. The SID must be one of the user or group SIDs already in the token.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Owner {
         get => NumGet(this, 0, "ptr")

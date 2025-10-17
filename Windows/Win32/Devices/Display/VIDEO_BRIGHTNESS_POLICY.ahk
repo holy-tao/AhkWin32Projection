@@ -12,7 +12,7 @@ class VIDEO_BRIGHTNESS_POLICY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DefaultToBiosPolicy {
         get => NumGet(this, 0, "char")

@@ -29,7 +29,7 @@ class NET_VALIDATE_OUTPUT_ARG extends Win32Struct
     ChangedPersistedFields{
         get {
             if(!this.HasProp("__ChangedPersistedFields"))
-                this.__ChangedPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__ChangedPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__ChangedPersistedFields
         }
     }

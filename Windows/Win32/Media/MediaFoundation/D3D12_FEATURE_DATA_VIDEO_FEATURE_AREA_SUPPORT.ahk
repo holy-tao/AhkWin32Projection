@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_VIDEO_FEATURE_AREA_SUPPORT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     VideoDecodeSupport {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_VIDEO_FEATURE_AREA_SUPPORT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     VideoProcessSupport {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_FEATURE_AREA_SUPPORT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     VideoEncodeSupport {
         get => NumGet(this, 12, "int")

@@ -52,7 +52,7 @@ class EVENT_FILTER_EVENT_NAME extends Win32Struct
      * 
      * When used for the **EVENT_FILTER_TYPE_STACKWALK_NAME**filter type, the filtered
      * in events will have stacks collected for them.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FilterIn {
         get => NumGet(this, 17, "char")

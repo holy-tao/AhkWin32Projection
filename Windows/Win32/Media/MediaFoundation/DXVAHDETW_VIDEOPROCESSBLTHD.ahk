@@ -34,7 +34,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
     TargetRect{
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(this.ptr + 16)
+                this.__TargetRect := RECT(16, this)
             return this.__TargetRect
         }
     }
@@ -72,7 +72,7 @@ class DXVAHDETW_VIDEOPROCESSBLTHD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enter {
         get => NumGet(this, 48, "int")

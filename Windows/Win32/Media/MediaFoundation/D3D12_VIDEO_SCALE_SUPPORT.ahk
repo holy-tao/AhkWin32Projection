@@ -27,7 +27,7 @@ class D3D12_VIDEO_SCALE_SUPPORT extends Win32Struct
     OutputSizeRange{
         get {
             if(!this.HasProp("__OutputSizeRange"))
-                this.__OutputSizeRange := D3D12_VIDEO_SIZE_RANGE(this.ptr + 0)
+                this.__OutputSizeRange := D3D12_VIDEO_SIZE_RANGE(0, this)
             return this.__OutputSizeRange
         }
     }

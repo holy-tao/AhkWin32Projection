@@ -37,7 +37,7 @@ class DS_NAME_RESULT_ITEMW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the DNS domain in which the object resides. This member will contain valid data if <b>status</b> contains <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_error">DS_NAME_NO_ERROR</a> or <b>DS_NAME_ERROR_DOMAIN_ONLY</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDomain {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class DS_NAME_RESULT_ITEMW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the newly formatted object name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 16, "ptr")

@@ -31,7 +31,7 @@ class ADDRESS_LIST_DESCRIPTOR extends Win32Struct
     AddressList{
         get {
             if(!this.HasProp("__AddressList"))
-                this.__AddressList := NETWORK_ADDRESS_LIST(this.ptr + 8)
+                this.__AddressList := NETWORK_ADDRESS_LIST(8, this)
             return this.__AddressList
         }
     }

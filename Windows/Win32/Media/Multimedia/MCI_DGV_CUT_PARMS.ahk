@@ -53,7 +53,7 @@ class MCI_DGV_CUT_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

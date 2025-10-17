@@ -34,7 +34,7 @@ class PARSEDURLA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the beginning of the protocol part of the URL.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszProtocol {
         get => NumGet(this, 8, "ptr")
@@ -56,7 +56,7 @@ class PARSEDURLA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * [out] A pointer to the section of the URL that follows the protocol and colon (':'). For file URLs, the function also skips the leading "//" characters.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSuffix {
         get => NumGet(this, 24, "ptr")
@@ -85,12 +85,8 @@ class PARSEDURLA extends Win32Struct
         set => NumPut("uint", value, this, 36)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

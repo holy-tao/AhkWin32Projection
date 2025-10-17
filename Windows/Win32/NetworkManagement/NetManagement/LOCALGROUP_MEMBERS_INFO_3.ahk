@@ -26,7 +26,7 @@ class LOCALGROUP_MEMBERS_INFO_3 extends Win32Struct
      * 
      * <pre class="syntax" xml:space="preserve"><code>&lt;DomainName&gt;\&lt;AccountName&gt;
      * </code></pre>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrmi3_domainandname {
         get => NumGet(this, 0, "ptr")

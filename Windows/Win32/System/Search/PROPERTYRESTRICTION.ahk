@@ -4,6 +4,7 @@
 #Include ..\..\Storage\IndexServer\FULLPROPSPEC.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
@@ -55,7 +56,7 @@ class PROPERTYRESTRICTION extends Win32Struct
     prop{
         get {
             if(!this.HasProp("__prop"))
-                this.__prop := FULLPROPSPEC(this.ptr + 8)
+                this.__prop := FULLPROPSPEC(8, this)
             return this.__prop
         }
     }
@@ -66,7 +67,7 @@ class PROPERTYRESTRICTION extends Win32Struct
     prval{
         get {
             if(!this.HasProp("__prval"))
-                this.__prval := PROPVARIANT(this.ptr + 32)
+                this.__prval := PROPVARIANT(32, this)
             return this.__prval
         }
     }

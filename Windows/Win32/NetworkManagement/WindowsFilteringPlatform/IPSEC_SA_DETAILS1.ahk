@@ -42,7 +42,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     traffic{
         get {
             if(!this.HasProp("__traffic"))
-                this.__traffic := IPSEC_TRAFFIC1(this.ptr + 8)
+                this.__traffic := IPSEC_TRAFFIC1(8, this)
             return this.__traffic
         }
     }
@@ -54,15 +54,15 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     saBundle{
         get {
             if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE1(this.ptr + 88)
+                this.__saBundle := IPSEC_SA_BUNDLE1(88, this)
             return this.__saBundle
         }
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
-    Anonymous {
+    udpEncapsulation {
         get => NumGet(this, 200, "ptr")
         set => NumPut("ptr", value, this, 200)
     }
@@ -83,7 +83,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     virtualIfTunnelInfo{
         get {
             if(!this.HasProp("__virtualIfTunnelInfo"))
-                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(this.ptr + 216)
+                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(216, this)
             return this.__virtualIfTunnelInfo
         }
     }

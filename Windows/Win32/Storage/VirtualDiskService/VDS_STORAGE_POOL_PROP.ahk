@@ -93,7 +93,7 @@ class VDS_STORAGE_POOL_PROP extends Win32Struct
 
     /**
      * A string that specifies the name of the storage pool.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 24, "ptr")
@@ -102,7 +102,7 @@ class VDS_STORAGE_POOL_PROP extends Win32Struct
 
     /**
      * A string that contains a description of the storage pool.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 32, "ptr")

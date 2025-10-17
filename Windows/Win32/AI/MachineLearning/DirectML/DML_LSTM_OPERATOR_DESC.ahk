@@ -182,7 +182,7 @@ class DML_LSTM_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if *ClipThreshold* should be used. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UseClipThreshold {
         get => NumGet(this, 112, "int")
@@ -193,7 +193,7 @@ class DML_LSTM_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the input and forget gates should be coupled. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CoupleInputForget {
         get => NumGet(this, 116, "int")

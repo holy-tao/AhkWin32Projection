@@ -18,7 +18,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_UNION extends Win32Struct
     Legacy{
         get {
             if(!this.HasProp("__Legacy"))
-                this.__Legacy := AUTHZ_AUDIT_EVENT_TYPE_LEGACY(this.ptr + 0)
+                this.__Legacy := AUTHZ_AUDIT_EVENT_TYPE_LEGACY(0, this)
             return this.__Legacy
         }
     }

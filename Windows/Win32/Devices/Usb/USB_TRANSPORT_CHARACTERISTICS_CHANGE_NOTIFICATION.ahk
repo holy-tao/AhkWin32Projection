@@ -13,7 +13,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {USB_CHANGE_REGISTRATION_HANDLE}
      */
     Handle {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_NOTIFICATION extends Win32Struct
     UsbTransportCharacteristics{
         get {
             if(!this.HasProp("__UsbTransportCharacteristics"))
-                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(this.ptr + 8)
+                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(8, this)
             return this.__UsbTransportCharacteristics
         }
     }

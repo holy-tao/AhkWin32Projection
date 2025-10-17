@@ -20,7 +20,7 @@ class DVBScramblingControlSpanningEvent extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fScrambled {
         get => NumGet(this, 4, "int")

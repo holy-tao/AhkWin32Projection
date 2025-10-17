@@ -24,7 +24,7 @@ class MFMPEG2DLNASINKSTATS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the video stream is a PAL format. Otherwise, the video stream is an NTSC format.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fPAL {
         get => NumGet(this, 8, "int")

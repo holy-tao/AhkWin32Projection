@@ -34,7 +34,7 @@ class PANEL_GET_BACKLIGHT_REDUCTION extends Win32Struct
     GammaRamp{
         get {
             if(!this.HasProp("__GammaRamp"))
-                this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(this.ptr + 8)
+                this.__GammaRamp := BACKLIGHT_REDUCTION_GAMMA_RAMP(8, this)
             return this.__GammaRamp
         }
     }

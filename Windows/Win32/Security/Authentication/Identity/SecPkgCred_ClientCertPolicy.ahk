@@ -44,7 +44,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCheckRevocationFreshnessTime {
         get => NumGet(this, 24, "int")
@@ -60,7 +60,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOmitUsageCheck {
         get => NumGet(this, 32, "int")
@@ -68,7 +68,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSslCtlStoreName {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class SecPkgCred_ClientCertPolicy extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSslCtlIdentifier {
         get => NumGet(this, 48, "ptr")

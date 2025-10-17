@@ -15,7 +15,7 @@ class MSG_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the alias to which the message is to be sent. The constant LEN specifies the maximum number of characters in the string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     msgi1_name {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class MSG_INFO_1 extends Win32Struct
 
     /**
      * This member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     msgi1_forward {
         get => NumGet(this, 16, "ptr")

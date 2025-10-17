@@ -28,7 +28,7 @@ class IKEEXT_CERT_EKUS0 extends Win32Struct
      * Type: <b>LPSTR*</b>
      * 
      * The list of EKU object identifiers (OIDs).
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     eku {
         get => NumGet(this, 8, "ptr")

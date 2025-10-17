@@ -12,7 +12,7 @@ class DOT11_MANUFACTURING_FUNCTIONAL_TEST_RX extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bEnabled {
         get => NumGet(this, 0, "char")

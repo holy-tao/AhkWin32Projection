@@ -43,7 +43,7 @@ class MT_ARBITRARY_HEADER extends Win32Struct
     /**
      * If <b>TRUE</b>, samples have a fixed size in bytes.
      *           Otherwise, samples have variable size.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFixedSizeSamples {
         get => NumGet(this, 16, "int")
@@ -52,7 +52,7 @@ class MT_ARBITRARY_HEADER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the data in this stream uses temporal compression. Otherwise, samples are independent of each other.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bTemporalCompression {
         get => NumGet(this, 20, "int")

@@ -28,7 +28,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(this.ptr + 8)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(8, this)
             return this.__DeviceDescriptor
         }
     }
@@ -50,7 +50,7 @@ class USB_NODE_CONNECTION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeviceIsHub {
         get => NumGet(this, 28, "char")

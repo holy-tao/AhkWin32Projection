@@ -29,7 +29,7 @@ class FINDTEXTEXA extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 0)
+                this.__chrg := CHARRANGE(0, this)
             return this.__chrg
         }
     }
@@ -38,7 +38,7 @@ class FINDTEXTEXA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * The null-terminated string to find.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrText {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class FINDTEXTEXA extends Win32Struct
     chrgText{
         get {
             if(!this.HasProp("__chrgText"))
-                this.__chrgText := CHARRANGE(this.ptr + 16)
+                this.__chrgText := CHARRANGE(16, this)
             return this.__chrgText
         }
     }

@@ -16,7 +16,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the system battery charger is currently operating on external 
      *       power.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AcOnLine {
         get => NumGet(this, 0, "char")
@@ -25,7 +25,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, at least one battery is present in the system.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BatteryPresent {
         get => NumGet(this, 1, "char")
@@ -34,7 +34,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, a battery is currently charging.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Charging {
         get => NumGet(this, 2, "char")
@@ -43,7 +43,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, a battery is currently discharging.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Discharging {
         get => NumGet(this, 3, "char")
@@ -52,7 +52,7 @@ class SYSTEM_BATTERY_STATE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Array<Byte>}
+     * @type {Array<BOOLEAN>}
      */
     Spare1{
         get {

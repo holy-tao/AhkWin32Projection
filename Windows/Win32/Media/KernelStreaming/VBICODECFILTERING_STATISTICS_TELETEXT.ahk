@@ -18,7 +18,7 @@ class VBICODECFILTERING_STATISTICS_TELETEXT extends Win32Struct
     Common{
         get {
             if(!this.HasProp("__Common"))
-                this.__Common := VBICODECFILTERING_STATISTICS_COMMON(this.ptr + 0)
+                this.__Common := VBICODECFILTERING_STATISTICS_COMMON(0, this)
             return this.__Common
         }
     }

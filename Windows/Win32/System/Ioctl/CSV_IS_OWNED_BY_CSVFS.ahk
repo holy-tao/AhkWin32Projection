@@ -16,7 +16,7 @@ class CSV_IS_OWNED_BY_CSVFS extends Win32Struct
     /**
      * <b>TRUE</b> if a volume is owned by CSVFS; otherwise, 
      *       <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OwnedByCSVFS {
         get => NumGet(this, 0, "char")

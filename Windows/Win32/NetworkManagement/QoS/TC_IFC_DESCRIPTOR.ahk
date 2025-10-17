@@ -29,7 +29,7 @@ class TC_IFC_DESCRIPTOR extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string representing the name of the packet shaper interface. This name is used in subsequent TC API calls to reference the interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pInterfaceName {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class TC_IFC_DESCRIPTOR extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string naming the DeviceName of the interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pInterfaceID {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class TC_IFC_DESCRIPTOR extends Win32Struct
     AddressListDesc{
         get {
             if(!this.HasProp("__AddressListDesc"))
-                this.__AddressListDesc := ADDRESS_LIST_DESCRIPTOR(this.ptr + 24)
+                this.__AddressListDesc := ADDRESS_LIST_DESCRIPTOR(24, this)
             return this.__AddressListDesc
         }
     }

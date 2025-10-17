@@ -33,7 +33,7 @@ class WSMAN_OPTION_SET extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the plug-in must return an error if any of the options are not understood.
-     * @type {Integer}
+     * @type {BOOL}
      */
     optionsMustUnderstand {
         get => NumGet(this, 16, "int")

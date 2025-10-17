@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\WNODE_HEADER.ahk
 
 /**
@@ -39,7 +40,7 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
     Wnode{
         get {
             if(!this.HasProp("__Wnode"))
-                this.__Wnode := WNODE_HEADER(this.ptr + 0)
+                this.__Wnode := WNODE_HEADER(0, this)
             return this.__Wnode
         }
     }
@@ -197,11 +198,14 @@ class EVENT_TRACE_PROPERTIES extends Win32Struct
 
     /**
      * On output, the thread identifier for the event tracing session.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    LoggerThreadId {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    LoggerThreadId{
+        get {
+            if(!this.HasProp("__LoggerThreadId"))
+                this.__LoggerThreadId := HANDLE(96, this)
+            return this.__LoggerThreadId
+        }
     }
 
     /**

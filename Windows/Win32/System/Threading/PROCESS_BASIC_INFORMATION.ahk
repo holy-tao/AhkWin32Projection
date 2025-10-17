@@ -12,7 +12,7 @@ class PROCESS_BASIC_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     ExitStatus {
         get => NumGet(this, 0, "int")

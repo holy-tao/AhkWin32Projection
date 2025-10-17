@@ -12,6 +12,1525 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
 
     static packingSize => 8
 
+    class _CMIC extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - MultiPCIePorts
+         * - MultiControllers
+         * - SRIOV
+         * - ANAR
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MultiPCIePorts {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MultiControllers {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SRIOV {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ANAR {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+    }
+
+    class _OAES extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Reserved0
+         * - NamespaceAttributeChanged
+         * - FirmwareActivation
+         * - Reserved1
+         * - AsymmetricAccessChanged
+         * - PredictableLatencyAggregateLogChanged
+         * - LbaStatusChanged
+         * - EnduranceGroupAggregateLogChanged
+         * - NormalNvmSubsystemShutdown
+         * - Reserved2
+         * - ZoneInformation
+         * - Reserved3
+         * - DiscoveryLogChanged
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved0 {
+            get => (this._bitfield >> 0) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NamespaceAttributeChanged {
+            get => (this._bitfield >> 8) & 0x1
+            set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FirmwareActivation {
+            get => (this._bitfield >> 9) & 0x1
+            set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => (this._bitfield >> 10) & 0x1
+            set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AsymmetricAccessChanged {
+            get => (this._bitfield >> 11) & 0x1
+            set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PredictableLatencyAggregateLogChanged {
+            get => (this._bitfield >> 12) & 0x1
+            set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LbaStatusChanged {
+            get => (this._bitfield >> 13) & 0x1
+            set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EnduranceGroupAggregateLogChanged {
+            get => (this._bitfield >> 14) & 0x1
+            set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NormalNvmSubsystemShutdown {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved2 {
+            get => (this._bitfield >> 16) & 0x7FF
+            set => this._bitfield := ((value & 0x7FF) << 16) | (this._bitfield & ~(0x7FF << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ZoneInformation {
+            get => (this._bitfield >> 27) & 0x1
+            set => this._bitfield := ((value & 0x1) << 27) | (this._bitfield & ~(0x1 << 27))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved3 {
+            get => (this._bitfield >> 28) & 0x7
+            set => this._bitfield := ((value & 0x7) << 28) | (this._bitfield & ~(0x7 << 28))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DiscoveryLogChanged {
+            get => (this._bitfield >> 31) & 0x1
+            set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
+        }
+    
+    }
+
+    class _CTRATT extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - HostIdentifier128Bit
+         * - NOPSPMode
+         * - NVMSets
+         * - ReadRecoveryLevels
+         * - EnduranceGroups
+         * - PredictableLatencyMode
+         * - TBKAS
+         * - NamespaceGranularity
+         * - SQAssociations
+         * - UUIDList
+         * - MultiDomainSubsystem
+         * - FixedCapacityManagement
+         * - VariableCapacityManagement
+         * - DeleteEnduranceGroup
+         * - DeleteNVMSet
+         * - ELBAS
+         * - Reserved0
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HostIdentifier128Bit {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NOPSPMode {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NVMSets {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevels {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        EnduranceGroups {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PredictableLatencyMode {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TBKAS {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NamespaceGranularity {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SQAssociations {
+            get => (this._bitfield >> 8) & 0x1
+            set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UUIDList {
+            get => (this._bitfield >> 9) & 0x1
+            set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MultiDomainSubsystem {
+            get => (this._bitfield >> 10) & 0x1
+            set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FixedCapacityManagement {
+            get => (this._bitfield >> 11) & 0x1
+            set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VariableCapacityManagement {
+            get => (this._bitfield >> 12) & 0x1
+            set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DeleteEnduranceGroup {
+            get => (this._bitfield >> 13) & 0x1
+            set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DeleteNVMSet {
+            get => (this._bitfield >> 14) & 0x1
+            set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ELBAS {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved0 {
+            get => (this._bitfield >> 16) & 0xFFFF
+            set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
+        }
+    
+    }
+
+    class _RRLS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ReadRecoveryLevel0
+         * - ReadRecoveryLevel1
+         * - ReadRecoveryLevel2
+         * - ReadRecoveryLevel3
+         * - ReadRecoveryLevel4
+         * - ReadRecoveryLevel5
+         * - ReadRecoveryLevel6
+         * - ReadRecoveryLevel7
+         * - ReadRecoveryLevel8
+         * - ReadRecoveryLevel9
+         * - ReadRecoveryLevel10
+         * - ReadRecoveryLevel11
+         * - ReadRecoveryLevel12
+         * - ReadRecoveryLevel13
+         * - ReadRecoveryLevel14
+         * - ReadRecoveryLevel15
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel0 {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel1 {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel2 {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel3 {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel4 {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel5 {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel6 {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel7 {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel8 {
+            get => (this._bitfield >> 8) & 0x1
+            set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel9 {
+            get => (this._bitfield >> 9) & 0x1
+            set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel10 {
+            get => (this._bitfield >> 10) & 0x1
+            set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel11 {
+            get => (this._bitfield >> 11) & 0x1
+            set => this._bitfield := ((value & 0x1) << 11) | (this._bitfield & ~(0x1 << 11))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel12 {
+            get => (this._bitfield >> 12) & 0x1
+            set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel13 {
+            get => (this._bitfield >> 13) & 0x1
+            set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel14 {
+            get => (this._bitfield >> 14) & 0x1
+            set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadRecoveryLevel15 {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
+        }
+    
+    }
+
+    class _OACS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - SecurityCommands
+         * - FormatNVM
+         * - FirmwareCommands
+         * - NamespaceCommands
+         * - DeviceSelfTest
+         * - Directives
+         * - NVMeMICommands
+         * - VirtualizationMgmt
+         * - DoorBellBufferConfig
+         * - GetLBAStatus
+         * - CommandFeatureLockdown
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SecurityCommands {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FormatNVM {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FirmwareCommands {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NamespaceCommands {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DeviceSelfTest {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Directives {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NVMeMICommands {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VirtualizationMgmt {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DoorBellBufferConfig {
+            get => (this._bitfield >> 8) & 0x1
+            set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        GetLBAStatus {
+            get => (this._bitfield >> 9) & 0x1
+            set => this._bitfield := ((value & 0x1) << 9) | (this._bitfield & ~(0x1 << 9))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CommandFeatureLockdown {
+            get => (this._bitfield >> 10) & 0x1
+            set => this._bitfield := ((value & 0x1) << 10) | (this._bitfield & ~(0x1 << 10))
+        }
+    
+    }
+
+    class _FRMW extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Slot1ReadOnly
+         * - SlotCount
+         * - ActivationWithoutReset
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Slot1ReadOnly {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SlotCount {
+            get => (this._bitfield >> 1) & 0x7
+            set => this._bitfield := ((value & 0x7) << 1) | (this._bitfield & ~(0x7 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ActivationWithoutReset {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+    }
+
+    class _LPA extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - SmartPagePerNamespace
+         * - CommandEffectsLog
+         * - LogPageExtendedData
+         * - TelemetrySupport
+         * - PersistentEventLog
+         * - SupportedLogPages
+         * - TelemetryDataArea4
+         * - Reserved1
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SmartPagePerNamespace {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CommandEffectsLog {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        LogPageExtendedData {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TelemetrySupport {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PersistentEventLog {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SupportedLogPages {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TelemetryDataArea4 {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
+    class _AVSCC extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - CommandFormatInSpec
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CommandFormatInSpec {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _APSTA extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Supported
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Supported {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _RPMBS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - RPMBUnitCount
+         * - AuthenticationMethod
+         * - Reserved0
+         * - TotalSize
+         * - AccessSize
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RPMBUnitCount {
+            get => (this._bitfield >> 0) & 0x7
+            set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AuthenticationMethod {
+            get => (this._bitfield >> 3) & 0x7
+            set => this._bitfield := ((value & 0x7) << 3) | (this._bitfield & ~(0x7 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved0 {
+            get => (this._bitfield >> 6) & 0x3FF
+            set => this._bitfield := ((value & 0x3FF) << 6) | (this._bitfield & ~(0x3FF << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TotalSize {
+            get => (this._bitfield >> 16) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 16) | (this._bitfield & ~(0xFF << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AccessSize {
+            get => (this._bitfield >> 24) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 24) | (this._bitfield & ~(0xFF << 24))
+        }
+    
+    }
+
+    class _HCTMA extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Supported
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Supported {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _SANICAP extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - CryptoErase
+         * - BlockErase
+         * - Overwrite
+         * - Reserved
+         * - NDI
+         * - NODMMAS
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CryptoErase {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BlockErase {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Overwrite {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NDI {
+            get => (this._bitfield >> 29) & 0x1
+            set => this._bitfield := ((value & 0x1) << 29) | (this._bitfield & ~(0x1 << 29))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NODMMAS {
+            get => (this._bitfield >> 30) & 0x3
+            set => this._bitfield := ((value & 0x3) << 30) | (this._bitfield & ~(0x3 << 30))
+        }
+    
+    }
+
+    class _ANACAP extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - OptimizedState
+         * - NonOptimizedState
+         * - InaccessibleState
+         * - PersistentLossState
+         * - ChangeState
+         * - Reserved
+         * - StaticANAGRPID
+         * - SupportNonZeroANAGRPID
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OptimizedState {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NonOptimizedState {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        InaccessibleState {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        PersistentLossState {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ChangeState {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StaticANAGRPID {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SupportNonZeroANAGRPID {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
+    class _SQES extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - RequiredEntrySize
+         * - MaxEntrySize
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredEntrySize {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaxEntrySize {
+            get => (this._bitfield >> 4) & 0xF
+            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+        }
+    
+    }
+
+    class _CQES extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - RequiredEntrySize
+         * - MaxEntrySize
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RequiredEntrySize {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MaxEntrySize {
+            get => (this._bitfield >> 4) & 0xF
+            set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+        }
+    
+    }
+
+    class _ONCS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Compare
+         * - WriteUncorrectable
+         * - DatasetManagement
+         * - WriteZeroes
+         * - FeatureField
+         * - Reservations
+         * - Timestamp
+         * - Verify
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Compare {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteUncorrectable {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DatasetManagement {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteZeroes {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FeatureField {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reservations {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Timestamp {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Verify {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
+    class _FUSES extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - CompareAndWrite
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CompareAndWrite {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _FNA extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - FormatApplyToAll
+         * - SecureEraseApplyToAll
+         * - CryptographicEraseSupported
+         * - FormatSupportNSIDAllF
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FormatApplyToAll {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SecureEraseApplyToAll {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CryptographicEraseSupported {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FormatSupportNSIDAllF {
+            get => (this._bitfield >> 3) & 0x1
+            set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+        }
+    
+    }
+
+    class _VWC extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Present
+         * - FlushBehavior
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Present {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FlushBehavior {
+            get => (this._bitfield >> 1) & 0x3
+            set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
+        }
+    
+    }
+
+    class _NVSCC extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - CommandFormatInSpec
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        CommandFormatInSpec {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _NWPC extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - WriteProtect
+         * - UntilPowerCycle
+         * - Permanent
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteProtect {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UntilPowerCycle {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Permanent {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+    }
+
+    class _SGLS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - SGLSupported
+         * - KeyedSGLData
+         * - Reserved0
+         * - BitBucketDescrSupported
+         * - ByteAlignedContiguousPhysicalBuffer
+         * - SGLLengthLargerThanDataLength
+         * - MPTRSGLDescriptor
+         * - AddressFieldSGLDataBlock
+         * - TransportSGLData
+         * - Reserved1
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SGLSupported {
+            get => (this._bitfield >> 0) & 0x3
+            set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        KeyedSGLData {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved0 {
+            get => (this._bitfield >> 3) & 0x1FFF
+            set => this._bitfield := ((value & 0x1FFF) << 3) | (this._bitfield & ~(0x1FFF << 3))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        BitBucketDescrSupported {
+            get => (this._bitfield >> 16) & 0x1
+            set => this._bitfield := ((value & 0x1) << 16) | (this._bitfield & ~(0x1 << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ByteAlignedContiguousPhysicalBuffer {
+            get => (this._bitfield >> 17) & 0x1
+            set => this._bitfield := ((value & 0x1) << 17) | (this._bitfield & ~(0x1 << 17))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SGLLengthLargerThanDataLength {
+            get => (this._bitfield >> 18) & 0x1
+            set => this._bitfield := ((value & 0x1) << 18) | (this._bitfield & ~(0x1 << 18))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MPTRSGLDescriptor {
+            get => (this._bitfield >> 19) & 0x1
+            set => this._bitfield := ((value & 0x1) << 19) | (this._bitfield & ~(0x1 << 19))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AddressFieldSGLDataBlock {
+            get => (this._bitfield >> 20) & 0x1
+            set => this._bitfield := ((value & 0x1) << 20) | (this._bitfield & ~(0x1 << 20))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TransportSGLData {
+            get => (this._bitfield >> 21) & 0x1
+            set => this._bitfield := ((value & 0x1) << 21) | (this._bitfield & ~(0x1 << 21))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => (this._bitfield >> 22) & 0x3FF
+            set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
+        }
+    
+    }
+
+    class _FCATT extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - StaticControllerModel
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        StaticControllerModel {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
+    class _OFCS extends Win32Struct {
+        static sizeof => 3328
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - IOQueueDeletion
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        IOQueueDeletion {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -81,11 +1600,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_CMIC}
      */
-    CMIC {
-        get => NumGet(this, 76, "char")
-        set => NumPut("char", value, this, 76)
+    CMIC{
+        get {
+            if(!this.HasProp("__CMIC"))
+                this.__CMIC := %this.__Class%._CMIC(76, this)
+            return this.__CMIC
+        }
     }
 
     /**
@@ -129,27 +1651,36 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_OAES}
      */
-    OAES {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+    OAES{
+        get {
+            if(!this.HasProp("__OAES"))
+                this.__OAES := %this.__Class%._OAES(92, this)
+            return this.__OAES
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CTRATT}
      */
-    CTRATT {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+    CTRATT{
+        get {
+            if(!this.HasProp("__CTRATT"))
+                this.__CTRATT := %this.__Class%._CTRATT(96, this)
+            return this.__CTRATT
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_RRLS}
      */
-    RRLS {
-        get => NumGet(this, 100, "ushort")
-        set => NumPut("ushort", value, this, 100)
+    RRLS{
+        get {
+            if(!this.HasProp("__RRLS"))
+                this.__RRLS := %this.__Class%._RRLS(100, this)
+            return this.__RRLS
+        }
     }
 
     /**
@@ -253,11 +1784,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_OACS}
      */
-    OACS {
-        get => NumGet(this, 256, "ushort")
-        set => NumPut("ushort", value, this, 256)
+    OACS{
+        get {
+            if(!this.HasProp("__OACS"))
+                this.__OACS := %this.__Class%._OACS(256, this)
+            return this.__OACS
+        }
     }
 
     /**
@@ -277,19 +1811,25 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FRMW}
      */
-    FRMW {
-        get => NumGet(this, 260, "char")
-        set => NumPut("char", value, this, 260)
+    FRMW{
+        get {
+            if(!this.HasProp("__FRMW"))
+                this.__FRMW := %this.__Class%._FRMW(260, this)
+            return this.__FRMW
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_LPA}
      */
-    LPA {
-        get => NumGet(this, 261, "char")
-        set => NumPut("char", value, this, 261)
+    LPA{
+        get {
+            if(!this.HasProp("__LPA"))
+                this.__LPA := %this.__Class%._LPA(261, this)
+            return this.__LPA
+        }
     }
 
     /**
@@ -309,19 +1849,25 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_AVSCC}
      */
-    AVSCC {
-        get => NumGet(this, 264, "char")
-        set => NumPut("char", value, this, 264)
+    AVSCC{
+        get {
+            if(!this.HasProp("__AVSCC"))
+                this.__AVSCC := %this.__Class%._AVSCC(264, this)
+            return this.__AVSCC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_APSTA}
      */
-    APSTA {
-        get => NumGet(this, 265, "char")
-        set => NumPut("char", value, this, 265)
+    APSTA{
+        get {
+            if(!this.HasProp("__APSTA"))
+                this.__APSTA := %this.__Class%._APSTA(265, this)
+            return this.__APSTA
+        }
     }
 
     /**
@@ -387,11 +1933,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_RPMBS}
      */
-    RPMBS {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
+    RPMBS{
+        get {
+            if(!this.HasProp("__RPMBS"))
+                this.__RPMBS := %this.__Class%._RPMBS(312, this)
+            return this.__RPMBS
+        }
     }
 
     /**
@@ -427,11 +1976,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_HCTMA}
      */
-    HCTMA {
-        get => NumGet(this, 322, "ushort")
-        set => NumPut("ushort", value, this, 322)
+    HCTMA{
+        get {
+            if(!this.HasProp("__HCTMA"))
+                this.__HCTMA := %this.__Class%._HCTMA(322, this)
+            return this.__HCTMA
+        }
     }
 
     /**
@@ -451,11 +2003,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_SANICAP}
      */
-    SANICAP {
-        get => NumGet(this, 328, "uint")
-        set => NumPut("uint", value, this, 328)
+    SANICAP{
+        get {
+            if(!this.HasProp("__SANICAP"))
+                this.__SANICAP := %this.__Class%._SANICAP(328, this)
+            return this.__SANICAP
+        }
     }
 
     /**
@@ -499,11 +2054,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ANACAP}
      */
-    ANACAP {
-        get => NumGet(this, 343, "char")
-        set => NumPut("char", value, this, 343)
+    ANACAP{
+        get {
+            if(!this.HasProp("__ANACAP"))
+                this.__ANACAP := %this.__Class%._ANACAP(343, this)
+            return this.__ANACAP
+        }
     }
 
     /**
@@ -572,19 +2130,25 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_SQES}
      */
-    SQES {
-        get => NumGet(this, 512, "char")
-        set => NumPut("char", value, this, 512)
+    SQES{
+        get {
+            if(!this.HasProp("__SQES"))
+                this.__SQES := %this.__Class%._SQES(512, this)
+            return this.__SQES
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_CQES}
      */
-    CQES {
-        get => NumGet(this, 513, "char")
-        set => NumPut("char", value, this, 513)
+    CQES{
+        get {
+            if(!this.HasProp("__CQES"))
+                this.__CQES := %this.__Class%._CQES(513, this)
+            return this.__CQES
+        }
     }
 
     /**
@@ -604,35 +2168,47 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_ONCS}
      */
-    ONCS {
-        get => NumGet(this, 520, "ushort")
-        set => NumPut("ushort", value, this, 520)
+    ONCS{
+        get {
+            if(!this.HasProp("__ONCS"))
+                this.__ONCS := %this.__Class%._ONCS(520, this)
+            return this.__ONCS
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FUSES}
      */
-    FUSES {
-        get => NumGet(this, 522, "ushort")
-        set => NumPut("ushort", value, this, 522)
+    FUSES{
+        get {
+            if(!this.HasProp("__FUSES"))
+                this.__FUSES := %this.__Class%._FUSES(522, this)
+            return this.__FUSES
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_FNA}
      */
-    FNA {
-        get => NumGet(this, 524, "char")
-        set => NumPut("char", value, this, 524)
+    FNA{
+        get {
+            if(!this.HasProp("__FNA"))
+                this.__FNA := %this.__Class%._FNA(524, this)
+            return this.__FNA
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_VWC}
      */
-    VWC {
-        get => NumGet(this, 525, "char")
-        set => NumPut("char", value, this, 525)
+    VWC{
+        get {
+            if(!this.HasProp("__VWC"))
+                this.__VWC := %this.__Class%._VWC(525, this)
+            return this.__VWC
+        }
     }
 
     /**
@@ -652,19 +2228,25 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_NVSCC}
      */
-    NVSCC {
-        get => NumGet(this, 530, "char")
-        set => NumPut("char", value, this, 530)
+    NVSCC{
+        get {
+            if(!this.HasProp("__NVSCC"))
+                this.__NVSCC := %this.__Class%._NVSCC(530, this)
+            return this.__NVSCC
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_NWPC}
      */
-    NWPC {
-        get => NumGet(this, 531, "char")
-        set => NumPut("char", value, this, 531)
+    NWPC{
+        get {
+            if(!this.HasProp("__NWPC"))
+                this.__NWPC := %this.__Class%._NWPC(531, this)
+            return this.__NWPC
+        }
     }
 
     /**
@@ -684,11 +2266,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_SGLS}
      */
-    SGLS {
-        get => NumGet(this, 536, "uint")
-        set => NumPut("uint", value, this, 536)
+    SGLS{
+        get {
+            if(!this.HasProp("__SGLS"))
+                this.__SGLS := %this.__Class%._SGLS(536, this)
+            return this.__SGLS
+        }
     }
 
     /**
@@ -776,11 +2361,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_FCATT}
      */
-    FCATT {
-        get => NumGet(this, 1802, "char")
-        set => NumPut("char", value, this, 1802)
+    FCATT{
+        get {
+            if(!this.HasProp("__FCATT"))
+                this.__FCATT := %this.__Class%._FCATT(1802, this)
+            return this.__FCATT
+        }
     }
 
     /**
@@ -792,11 +2380,14 @@ class NVME_IDENTIFY_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_OFCS}
      */
-    OFCS {
-        get => NumGet(this, 1804, "ushort")
-        set => NumPut("ushort", value, this, 1804)
+    OFCS{
+        get {
+            if(!this.HasProp("__OFCS"))
+                this.__OFCS := %this.__Class%._OFCS(1804, this)
+            return this.__OFCS
+        }
     }
 
     /**

@@ -44,7 +44,7 @@ class PROPBAG2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pstrName {
         get => NumGet(this, 16, "ptr")

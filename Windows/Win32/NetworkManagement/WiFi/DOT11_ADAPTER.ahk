@@ -21,7 +21,7 @@ class DOT11_ADAPTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDescription {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DOT11_ADAPTER extends Win32Struct
     Dot11CurrentOpMode{
         get {
             if(!this.HasProp("__Dot11CurrentOpMode"))
-                this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(this.ptr + 16)
+                this.__Dot11CurrentOpMode := DOT11_CURRENT_OPERATION_MODE(16, this)
             return this.__Dot11CurrentOpMode
         }
     }

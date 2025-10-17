@@ -46,13 +46,13 @@ class GNSS_FIXDATA extends Win32Struct
     FixTimeStamp{
         get {
             if(!this.HasProp("__FixTimeStamp"))
-                this.__FixTimeStamp := FILETIME(this.ptr + 16)
+                this.__FixTimeStamp := FILETIME(16, this)
             return this.__FixTimeStamp
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsFinalFix {
         get => NumGet(this, 24, "int")
@@ -60,7 +60,7 @@ class GNSS_FIXDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     FixStatus {
         get => NumGet(this, 28, "int")
@@ -81,7 +81,7 @@ class GNSS_FIXDATA extends Win32Struct
     BasicData{
         get {
             if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(this.ptr + 40)
+                this.__BasicData := GNSS_FIXDATA_BASIC(40, this)
             return this.__BasicData
         }
     }
@@ -92,7 +92,7 @@ class GNSS_FIXDATA extends Win32Struct
     AccuracyData{
         get {
             if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(this.ptr + 88)
+                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(88, this)
             return this.__AccuracyData
         }
     }
@@ -103,7 +103,7 @@ class GNSS_FIXDATA extends Win32Struct
     SatelliteData{
         get {
             if(!this.HasProp("__SatelliteData"))
-                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(this.ptr + 152)
+                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(152, this)
             return this.__SatelliteData
         }
     }

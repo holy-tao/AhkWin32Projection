@@ -13,7 +13,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszValue {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszDomain {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszPath {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class INTERNET_CALLBACK_COOKIE extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 32)
+                this.__ftExpires := FILETIME(32, this)
             return this.__ftExpires
         }
     }

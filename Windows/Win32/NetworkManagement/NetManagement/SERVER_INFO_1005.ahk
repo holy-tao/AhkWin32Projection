@@ -17,7 +17,7 @@ class SERVER_INFO_1005 extends Win32Struct
      * Pointer to a string that contains a comment describing the server. The comment can be null.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv1005_comment {
         get => NumGet(this, 0, "ptr")

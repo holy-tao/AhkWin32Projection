@@ -19,7 +19,7 @@ class USBUSER_CONTROLLER_INFO_0 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class USBUSER_CONTROLLER_INFO_0 extends Win32Struct
     Info0{
         get {
             if(!this.HasProp("__Info0"))
-                this.__Info0 := USB_CONTROLLER_INFO_0(this.ptr + 16)
+                this.__Info0 := USB_CONTROLLER_INFO_0(16, this)
             return this.__Info0
         }
     }

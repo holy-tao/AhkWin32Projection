@@ -12,7 +12,7 @@ class PROTOENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     p_name {
         get => NumGet(this, 0, "ptr")

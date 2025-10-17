@@ -22,7 +22,7 @@ class CMD_GROUP_ENTRY extends Win32Struct
 
     /**
      * The token (name) for the command group
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCmdGroupToken {
         get => NumGet(this, 0, "ptr")

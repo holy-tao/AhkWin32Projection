@@ -21,7 +21,7 @@ class WS_DATETIME_DESCRIPTION extends Win32Struct
     minValue{
         get {
             if(!this.HasProp("__minValue"))
-                this.__minValue := WS_DATETIME(this.ptr + 0)
+                this.__minValue := WS_DATETIME(0, this)
             return this.__minValue
         }
     }
@@ -33,7 +33,7 @@ class WS_DATETIME_DESCRIPTION extends Win32Struct
     maxValue{
         get {
             if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_DATETIME(this.ptr + 16)
+                this.__maxValue := WS_DATETIME(16, this)
             return this.__maxValue
         }
     }

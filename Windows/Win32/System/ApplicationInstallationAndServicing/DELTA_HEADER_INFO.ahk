@@ -51,7 +51,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     TargetFileTime{
         get {
             if(!this.HasProp("__TargetFileTime"))
-                this.__TargetFileTime := FILETIME(this.ptr + 32)
+                this.__TargetFileTime := FILETIME(32, this)
             return this.__TargetFileTime
         }
     }
@@ -70,7 +70,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     TargetHash{
         get {
             if(!this.HasProp("__TargetHash"))
-                this.__TargetHash := DELTA_HASH(this.ptr + 48)
+                this.__TargetHash := DELTA_HASH(48, this)
             return this.__TargetHash
         }
     }

@@ -104,7 +104,7 @@ class LDAPMessage extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     lm_chased {
         get => NumGet(this, 62, "char")
@@ -112,7 +112,7 @@ class LDAPMessage extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     lm_eom {
         get => NumGet(this, 63, "char")
@@ -120,7 +120,7 @@ class LDAPMessage extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ConnectionReferenced {
         get => NumGet(this, 64, "char")

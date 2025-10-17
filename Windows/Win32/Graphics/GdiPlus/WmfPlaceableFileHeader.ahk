@@ -50,7 +50,7 @@ class WmfPlaceableFileHeader extends Win32Struct
     BoundingBox{
         get {
             if(!this.HasProp("__BoundingBox"))
-                this.__BoundingBox := PWMFRect16(this.ptr + 8)
+                this.__BoundingBox := PWMFRect16(8, this)
             return this.__BoundingBox
         }
     }

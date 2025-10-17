@@ -24,7 +24,7 @@ class SERVICE_PREFERRED_NODE_INFO extends Win32Struct
 
     /**
      * If this member is TRUE, the preferred node setting is deleted.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDelete {
         get => NumGet(this, 2, "char")

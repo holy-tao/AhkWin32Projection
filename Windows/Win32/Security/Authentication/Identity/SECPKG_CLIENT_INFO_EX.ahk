@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
@@ -18,7 +19,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 0)
+                this.__LogonId := LUID(0, this)
             return this.__LogonId
         }
     }
@@ -40,7 +41,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HasTcbPrivilege {
         get => NumGet(this, 16, "char")
@@ -48,7 +49,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Impersonating {
         get => NumGet(this, 17, "char")
@@ -56,7 +57,7 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Restricted {
         get => NumGet(this, 18, "char")
@@ -80,11 +81,14 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientToken {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientToken{
+        get {
+            if(!this.HasProp("__ClientToken"))
+                this.__ClientToken := HANDLE(24, this)
+            return this.__ClientToken
+        }
     }
 
     /**
@@ -93,16 +97,19 @@ class SECPKG_CLIENT_INFO_EX extends Win32Struct
     IdentificationLogonId{
         get {
             if(!this.HasProp("__IdentificationLogonId"))
-                this.__IdentificationLogonId := LUID(this.ptr + 32)
+                this.__IdentificationLogonId := LUID(32, this)
             return this.__IdentificationLogonId
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    IdentificationToken {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    IdentificationToken{
+        get {
+            if(!this.HasProp("__IdentificationToken"))
+                this.__IdentificationToken := HANDLE(40, this)
+            return this.__IdentificationToken
+        }
     }
 }

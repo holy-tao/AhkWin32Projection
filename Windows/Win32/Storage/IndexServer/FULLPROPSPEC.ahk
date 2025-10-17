@@ -30,7 +30,7 @@ class FULLPROPSPEC extends Win32Struct
     psProperty{
         get {
             if(!this.HasProp("__psProperty"))
-                this.__psProperty := PROPSPEC(this.ptr + 8)
+                this.__psProperty := PROPSPEC(8, this)
             return this.__psProperty
         }
     }

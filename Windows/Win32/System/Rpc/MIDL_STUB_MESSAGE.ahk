@@ -123,7 +123,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<NDR_ALLOC_ALL_NODES_CONTEXT>}
      */
     pAllocAllNodesContext {
         get => NumGet(this, 64, "ptr")
@@ -132,7 +132,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<NDR_POINTER_QUEUE_STATE>}
      */
     pPointerQueueState {
         get => NumGet(this, 72, "ptr")
@@ -570,7 +570,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {PNDR_ASYNC_MESSAGE}
      */
     pAsyncMsg {
         get => NumGet(this, 288, "ptr")
@@ -579,7 +579,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {PNDR_CORRELATION_INFO}
      */
     pCorrInfo {
         get => NumGet(this, 296, "ptr")
@@ -642,7 +642,7 @@ class MIDL_STUB_MESSAGE extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_NDR_PROC_CONTEXT>}
      */
     pContext {
         get => NumGet(this, 352, "ptr")

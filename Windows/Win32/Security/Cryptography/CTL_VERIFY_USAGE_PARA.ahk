@@ -34,7 +34,7 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
     ListIdentifier{
         get {
             if(!this.HasProp("__ListIdentifier"))
-                this.__ListIdentifier := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__ListIdentifier := CRYPT_INTEGER_BLOB(8, this)
             return this.__ListIdentifier
         }
     }
@@ -50,7 +50,7 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
 
     /**
      * Array of handles of stores to be searched to find a matching CTL.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghCtlStore {
         get => NumGet(this, 32, "ptr")
@@ -68,19 +68,15 @@ class CTL_VERIFY_USAGE_PARA extends Win32Struct
 
     /**
      * Array of handles of stores to be searched for acceptable CTL signers.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghSignerStore {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

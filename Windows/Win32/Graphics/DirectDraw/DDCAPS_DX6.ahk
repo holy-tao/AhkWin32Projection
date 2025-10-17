@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDSCAPS2.ahk
 
 /**
@@ -224,11 +225,14 @@ class DDCAPS_DX6 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsOldCaps {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+    ddsOldCaps{
+        get {
+            if(!this.HasProp("__ddsOldCaps"))
+                this.__ddsOldCaps := DDSCAPS(132, this)
+            return this.__ddsOldCaps
+        }
     }
 
     /**
@@ -481,7 +485,7 @@ class DDCAPS_DX6 extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(this.ptr + 368)
+                this.__ddsCaps := DDSCAPS2(368, this)
             return this.__ddsCaps
         }
     }

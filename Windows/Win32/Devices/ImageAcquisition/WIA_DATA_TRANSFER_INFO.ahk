@@ -50,7 +50,7 @@ class WIA_DATA_TRANSFER_INFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Contains <b>TRUE</b> if the device is double buffered, <b>FALSE</b> if the device is not double buffered.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDoubleBuffer {
         get => NumGet(this, 12, "int")

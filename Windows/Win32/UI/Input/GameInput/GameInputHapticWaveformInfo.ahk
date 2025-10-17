@@ -18,7 +18,7 @@ class GameInputHapticWaveformInfo extends Win32Struct
     usage{
         get {
             if(!this.HasProp("__usage"))
-                this.__usage := GameInputUsage(this.ptr + 0)
+                this.__usage := GameInputUsage(0, this)
             return this.__usage
         }
     }

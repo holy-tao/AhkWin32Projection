@@ -36,7 +36,7 @@ class WLDP_DEVICE_SECURITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ManufacturerID {
         get => NumGet(this, 24, "ptr")

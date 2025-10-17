@@ -66,7 +66,7 @@ class PARTITION_INFORMATION extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the partition is bootable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BootIndicator {
         get => NumGet(this, 25, "char")
@@ -75,7 +75,7 @@ class PARTITION_INFORMATION extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the partition is of a recognized type.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RecognizedPartition {
         get => NumGet(this, 26, "char")
@@ -85,7 +85,7 @@ class PARTITION_INFORMATION extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the partition information has changed. When you change a partition (with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_drive_layout">IOCTL_DISK_SET_DRIVE_LAYOUT</a>), the system uses this member to determine which partitions have changed and need their information rewritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RewritePartition {
         get => NumGet(this, 27, "char")

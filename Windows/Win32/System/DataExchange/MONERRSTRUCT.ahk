@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about the current Dynamic Data Exchange (DDE) error. A DDE monitoring application can use this structure to monitor errors returned by DDE Management Library functions.
@@ -50,10 +51,13 @@ class MONERRSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) that called the DDE function that caused the error.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTask {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hTask{
+        get {
+            if(!this.HasProp("__hTask"))
+                this.__hTask := HANDLE(16, this)
+            return this.__hTask
+        }
     }
 }

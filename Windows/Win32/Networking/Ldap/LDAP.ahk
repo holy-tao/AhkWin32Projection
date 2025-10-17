@@ -76,13 +76,13 @@ class LDAP extends Win32Struct
     ld_sb{
         get {
             if(!this.HasProp("__ld_sb"))
-                this.__ld_sb := %this.__Class%._ld_sb(this.ptr + 0)
+                this.__ld_sb := %this.__Class%._ld_sb(0, this)
             return this.__ld_sb
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ld_host {
         get => NumGet(this, 88, "ptr")
@@ -138,7 +138,7 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ld_matched {
         get => NumGet(this, 120, "ptr")
@@ -146,7 +146,7 @@ class LDAP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ld_error {
         get => NumGet(this, 128, "ptr")

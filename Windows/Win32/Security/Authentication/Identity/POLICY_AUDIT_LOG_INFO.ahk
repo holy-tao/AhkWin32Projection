@@ -36,7 +36,7 @@ class POLICY_AUDIT_LOG_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AuditLogFullShutdownInProgress {
         get => NumGet(this, 16, "char")

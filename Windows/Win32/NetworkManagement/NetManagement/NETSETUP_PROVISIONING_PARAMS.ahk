@@ -61,7 +61,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the name of the domain where the computer account is created.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDomain {
         get => NumGet(this, 8, "ptr")
@@ -70,7 +70,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to a <b>NULL</b>-terminated character string that specifies the short name of the machine from which the computer account attribute sAMAccountName is derived by appending a '$'. This parameter must contain a valid DNS or NetBIOS machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpHostName {
         get => NumGet(this, 16, "ptr")
@@ -81,7 +81,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * A optional pointer to a <b>NULL</b>-terminated character string that contains the RFC 1779 format name of the organizational unit (OU) where the computer account will be created. If you specify this parameter, the string must contain a full path, for example, OU=testOU,DC=domain,DC=Domain,DC=com. Otherwise, this parameter must be <b>NULL</b>.
      * 
      * If this parameter is <b>NULL</b>, the well known computer object container will be used as published in the domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpMachineAccountOU {
         get => NumGet(this, 24, "ptr")
@@ -90,7 +90,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * An optional pointer to a <b>NULL</b>-terminated character string that contains the name of the domain controller to target.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDcName {
         get => NumGet(this, 32, "ptr")
@@ -108,7 +108,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated certificate template names.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     aCertTemplateNames {
         get => NumGet(this, 48, "ptr")
@@ -126,7 +126,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * A pointer to an array of <b>NULL</b>-terminated  machine policy names.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     aMachinePolicyNames {
         get => NumGet(this, 64, "ptr")
@@ -146,7 +146,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
      * A pointer to an array of  character strings. Each array element is a NULL-terminated character string which specifies the full or partial path to a file in the Registry Policy File format. For more information on the Registry Policy File Format , see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/registry-policy-file-format">Registry Policy File Format</a>
      * 
      * This path could be a UNC path on a remote server.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     aMachinePolicyPaths {
         get => NumGet(this, 80, "ptr")
@@ -164,7 +164,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpNetbiosName {
         get => NumGet(this, 96, "ptr")
@@ -173,7 +173,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpSiteName {
         get => NumGet(this, 104, "ptr")
@@ -182,7 +182,7 @@ class NETSETUP_PROVISIONING_PARAMS extends Win32Struct
 
     /**
      * TBD
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpPrimaryDNSDomain {
         get => NumGet(this, 112, "ptr")

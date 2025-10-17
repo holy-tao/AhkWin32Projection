@@ -28,7 +28,7 @@ class WS_SECURITY_CONTEXT_MESSAGE_SECURITY_BINDING_CONSTRAINT extends Win32Struc
     bindingConstraint{
         get {
             if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(this.ptr + 0)
+                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
             return this.__bindingConstraint
         }
     }

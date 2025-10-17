@@ -51,7 +51,7 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object. This member associates the new virtual disk with an existing virtual disk.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pParentPath {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class VDS_CREATE_VDISK_PARAMETERS extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a source of data to be copied to the new virtual disk.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pSourcePath {
         get => NumGet(this, 32, "ptr")

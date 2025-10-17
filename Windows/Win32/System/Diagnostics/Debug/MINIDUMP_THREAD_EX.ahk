@@ -69,7 +69,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
     Stack{
         get {
             if(!this.HasProp("__Stack"))
-                this.__Stack := MINIDUMP_MEMORY_DESCRIPTOR(this.ptr + 24)
+                this.__Stack := MINIDUMP_MEMORY_DESCRIPTOR(24, this)
             return this.__Stack
         }
     }
@@ -82,7 +82,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
     ThreadContext{
         get {
             if(!this.HasProp("__ThreadContext"))
-                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(this.ptr + 40)
+                this.__ThreadContext := MINIDUMP_LOCATION_DESCRIPTOR(40, this)
             return this.__ThreadContext
         }
     }
@@ -94,7 +94,7 @@ class MINIDUMP_THREAD_EX extends Win32Struct
     BackingStore{
         get {
             if(!this.HasProp("__BackingStore"))
-                this.__BackingStore := MINIDUMP_MEMORY_DESCRIPTOR(this.ptr + 48)
+                this.__BackingStore := MINIDUMP_MEMORY_DESCRIPTOR(48, this)
             return this.__BackingStore
         }
     }

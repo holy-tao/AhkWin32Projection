@@ -35,7 +35,7 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
 
     /**
      * Optional. A pointer to a string that contains the text information about request failure.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     rgFreeText {
         get => NumGet(this, 8, "ptr")
@@ -144,7 +144,7 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
     FailureInfo{
         get {
             if(!this.HasProp("__FailureInfo"))
-                this.__FailureInfo := CRYPT_BIT_BLOB(this.ptr + 16)
+                this.__FailureInfo := CRYPT_BIT_BLOB(16, this)
             return this.__FailureInfo
         }
     }
@@ -156,7 +156,7 @@ class CRYPT_TIMESTAMP_RESPONSE extends Win32Struct
     ContentInfo{
         get {
             if(!this.HasProp("__ContentInfo"))
-                this.__ContentInfo := CRYPT_INTEGER_BLOB(this.ptr + 40)
+                this.__ContentInfo := CRYPT_INTEGER_BLOB(40, this)
             return this.__ContentInfo
         }
     }

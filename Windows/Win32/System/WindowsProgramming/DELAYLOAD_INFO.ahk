@@ -37,7 +37,7 @@ class DELAYLOAD_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     TargetDllName {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class DELAYLOAD_INFO extends Win32Struct
     TargetApiDescriptor{
         get {
             if(!this.HasProp("__TargetApiDescriptor"))
-                this.__TargetApiDescriptor := DELAYLOAD_PROC_DESCRIPTOR(this.ptr + 32)
+                this.__TargetApiDescriptor := DELAYLOAD_PROC_DESCRIPTOR(32, this)
             return this.__TargetApiDescriptor
         }
     }

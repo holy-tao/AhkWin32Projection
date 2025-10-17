@@ -30,7 +30,7 @@ class DNS_PTR_DATAW extends Win32Struct
 
     /**
      * A pointer to a string that represents the pointer (PTR) record data.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pNameHost {
         get => NumGet(this, 0, "ptr")

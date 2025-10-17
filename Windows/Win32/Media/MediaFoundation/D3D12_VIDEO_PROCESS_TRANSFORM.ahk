@@ -26,7 +26,7 @@ class D3D12_VIDEO_PROCESS_TRANSFORM extends Win32Struct
     SourceRectangle{
         get {
             if(!this.HasProp("__SourceRectangle"))
-                this.__SourceRectangle := RECT(this.ptr + 0)
+                this.__SourceRectangle := RECT(0, this)
             return this.__SourceRectangle
         }
     }
@@ -38,7 +38,7 @@ class D3D12_VIDEO_PROCESS_TRANSFORM extends Win32Struct
     DestinationRectangle{
         get {
             if(!this.HasProp("__DestinationRectangle"))
-                this.__DestinationRectangle := RECT(this.ptr + 16)
+                this.__DestinationRectangle := RECT(16, this)
             return this.__DestinationRectangle
         }
     }

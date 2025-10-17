@@ -12,11 +12,39 @@ class NVME_CDW11_FEATURE_SET_HOST_METADATA extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved0
+     * - EA
+     * - Reserved1
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 0) & 0x1FFF
+        set => this._bitfield := ((value & 0x1FFF) << 0) | (this._bitfield & ~(0x1FFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EA {
+        get => (this._bitfield >> 13) & 0x3
+        set => this._bitfield := ((value & 0x3) << 13) | (this._bitfield & ~(0x3 << 13))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 15) & 0x1FFFF
+        set => this._bitfield := ((value & 0x1FFFF) << 15) | (this._bitfield & ~(0x1FFFF << 15))
     }
 
     /**

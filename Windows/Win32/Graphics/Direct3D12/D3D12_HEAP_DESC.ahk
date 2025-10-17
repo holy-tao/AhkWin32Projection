@@ -38,7 +38,7 @@ class D3D12_HEAP_DESC extends Win32Struct
     Properties{
         get {
             if(!this.HasProp("__Properties"))
-                this.__Properties := D3D12_HEAP_PROPERTIES(this.ptr + 8)
+                this.__Properties := D3D12_HEAP_PROPERTIES(8, this)
             return this.__Properties
         }
     }

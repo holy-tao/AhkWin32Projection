@@ -34,7 +34,7 @@ class VIDEO_CLUT extends Win32Struct
     RgbArray{
         get {
             if(!this.HasProp("__RgbArray"))
-                this.__RgbArray := VIDEO_CLUTDATA(this.ptr + 8)
+                this.__RgbArray := VIDEO_CLUTDATA(8, this)
             return this.__RgbArray
         }
     }

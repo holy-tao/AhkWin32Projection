@@ -271,7 +271,7 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv4Transmit{
         get {
             if(!this.HasProp("__IPv4Transmit"))
-                this.__IPv4Transmit := %this.__Class%._IPv4Transmit(this.ptr + 0)
+                this.__IPv4Transmit := %this.__Class%._IPv4Transmit(0, this)
             return this.__IPv4Transmit
         }
     }
@@ -282,7 +282,7 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv4Receive{
         get {
             if(!this.HasProp("__IPv4Receive"))
-                this.__IPv4Receive := %this.__Class%._IPv4Receive(this.ptr + 8)
+                this.__IPv4Receive := %this.__Class%._IPv4Receive(8, this)
             return this.__IPv4Receive
         }
     }
@@ -293,7 +293,7 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv6Transmit{
         get {
             if(!this.HasProp("__IPv6Transmit"))
-                this.__IPv6Transmit := %this.__Class%._IPv6Transmit(this.ptr + 16)
+                this.__IPv6Transmit := %this.__Class%._IPv6Transmit(16, this)
             return this.__IPv6Transmit
         }
     }
@@ -304,7 +304,7 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv6Receive{
         get {
             if(!this.HasProp("__IPv6Receive"))
-                this.__IPv6Receive := %this.__Class%._IPv6Receive(this.ptr + 24)
+                this.__IPv6Receive := %this.__Class%._IPv6Receive(24, this)
             return this.__IPv6Receive
         }
     }

@@ -20,7 +20,7 @@ class AUDIO_SYSTEMEFFECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     canSetState {
         get => NumGet(this, 8, "int")

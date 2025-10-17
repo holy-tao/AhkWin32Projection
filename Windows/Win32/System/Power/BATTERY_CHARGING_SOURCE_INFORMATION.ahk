@@ -20,7 +20,7 @@ class BATTERY_CHARGING_SOURCE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SourceOnline {
         get => NumGet(this, 4, "char")

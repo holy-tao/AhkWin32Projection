@@ -12,7 +12,7 @@ class DNS_DOT_SERVER_SETTINGS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Hostname {
         get => NumGet(this, 0, "ptr")

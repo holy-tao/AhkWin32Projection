@@ -12,11 +12,49 @@ class NVME_CDW10_RESERVATION_ACQUIRE extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - RACQA
+     * - IEKEY
+     * - Reserved
+     * - RTYPE
+     * - Reserved1
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RACQA {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IEKEY {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RTYPE {
+        get => (this._bitfield >> 8) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

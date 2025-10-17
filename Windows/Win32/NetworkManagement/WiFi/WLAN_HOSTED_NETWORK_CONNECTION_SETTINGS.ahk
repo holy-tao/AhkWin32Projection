@@ -26,7 +26,7 @@ class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS extends Win32Struct
     hostedNetworkSSID{
         get {
             if(!this.HasProp("__hostedNetworkSSID"))
-                this.__hostedNetworkSSID := DOT11_SSID(this.ptr + 0)
+                this.__hostedNetworkSSID := DOT11_SSID(0, this)
             return this.__hostedNetworkSSID
         }
     }

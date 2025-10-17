@@ -15,7 +15,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
 
     /**
      * A pointer to a string of Unicode characters that contains the name of the security attribute. This string must be at least 4 bytes in length.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -148,7 +148,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppString {
         get => NumGet(this, 24, "ptr")

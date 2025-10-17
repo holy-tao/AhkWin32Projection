@@ -22,7 +22,7 @@ class BG_AUTH_CREDENTIALS_UNION extends Win32Struct
     Basic{
         get {
             if(!this.HasProp("__Basic"))
-                this.__Basic := BG_BASIC_CREDENTIALS(this.ptr + 0)
+                this.__Basic := BG_BASIC_CREDENTIALS(0, this)
             return this.__Basic
         }
     }

@@ -12,7 +12,7 @@ class DUMP_POINTERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<_ADAPTER_OBJECT>}
      */
     AdapterObject {
         get => NumGet(this, 0, "ptr")
@@ -60,7 +60,7 @@ class DUMP_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AllocateCommonBuffers {
         get => NumGet(this, 44, "char")
@@ -68,7 +68,7 @@ class DUMP_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UseDiskDump {
         get => NumGet(this, 45, "char")

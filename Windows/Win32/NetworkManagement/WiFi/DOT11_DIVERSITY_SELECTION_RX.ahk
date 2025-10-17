@@ -20,7 +20,7 @@ class DOT11_DIVERSITY_SELECTION_RX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDiversitySelectionRX {
         get => NumGet(this, 4, "char")

@@ -20,7 +20,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains the nickname of the contact.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzNickName {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
     endpoint{
         get {
             if(!this.HasProp("__endpoint"))
-                this.__endpoint := PEER_ENDPOINT(this.ptr + 8)
+                this.__endpoint := PEER_ENDPOINT(8, this)
             return this.__endpoint
         }
     }

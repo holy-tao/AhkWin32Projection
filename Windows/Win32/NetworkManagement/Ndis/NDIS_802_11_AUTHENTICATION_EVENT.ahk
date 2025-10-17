@@ -19,7 +19,7 @@ class NDIS_802_11_AUTHENTICATION_EVENT extends Win32Struct
     Status{
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := NDIS_802_11_STATUS_INDICATION(this.ptr + 0)
+                this.__Status := NDIS_802_11_STATUS_INDICATION(0, this)
             return this.__Status
         }
     }

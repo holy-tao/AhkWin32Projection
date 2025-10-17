@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
@@ -22,7 +23,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -30,7 +31,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pMachineName {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +39,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +47,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDocument {
         get => NumGet(this, 32, "ptr")
@@ -54,7 +55,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pNotifyName {
         get => NumGet(this, 40, "ptr")
@@ -62,7 +63,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDatatype {
         get => NumGet(this, 48, "ptr")
@@ -70,7 +71,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pPrintProcessor {
         get => NumGet(this, 56, "ptr")
@@ -78,7 +79,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pParameters {
         get => NumGet(this, 64, "ptr")
@@ -86,7 +87,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDriverName {
         get => NumGet(this, 72, "ptr")
@@ -102,7 +103,7 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pStatus {
         get => NumGet(this, 88, "ptr")
@@ -110,11 +111,14 @@ class JOB_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
+            return this.__pSecurityDescriptor
+        }
     }
 
     /**
@@ -179,7 +183,7 @@ class JOB_INFO_2A extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(this.ptr + 136)
+                this.__Submitted := SYSTEMTIME(136, this)
             return this.__Submitted
         }
     }

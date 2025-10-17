@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a notification message.
@@ -17,11 +18,14 @@ class NMHDR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A window handle to the control sending the message.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndFrom {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndFrom{
+        get {
+            if(!this.HasProp("__hwndFrom"))
+                this.__hwndFrom := HWND(0, this)
+            return this.__hwndFrom
+        }
     }
 
     /**

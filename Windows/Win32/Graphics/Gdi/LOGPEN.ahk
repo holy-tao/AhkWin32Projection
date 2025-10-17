@@ -35,14 +35,14 @@ class LOGPEN extends Win32Struct
     lopnWidth{
         get {
             if(!this.HasProp("__lopnWidth"))
-                this.__lopnWidth := POINT(this.ptr + 8)
+                this.__lopnWidth := POINT(8, this)
             return this.__lopnWidth
         }
     }
 
     /**
      * The pen color. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     lopnColor {
         get => NumGet(this, 16, "uint")

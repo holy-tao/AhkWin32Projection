@@ -32,13 +32,13 @@ class DHCP_SEARCH_INFO extends Win32Struct
         ClientHardwareAddress{
             get {
                 if(!this.HasProp("__ClientHardwareAddress"))
-                    this.__ClientHardwareAddress := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__ClientHardwareAddress := DHCP_BINARY_DATA(0, this)
                 return this.__ClientHardwareAddress
             }
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         ClientName {
             get => NumGet(this, 0, "ptr")
@@ -63,7 +63,7 @@ class DHCP_SEARCH_INFO extends Win32Struct
     SearchInfo{
         get {
             if(!this.HasProp("__SearchInfo"))
-                this.__SearchInfo := %this.__Class%.DHCP_CLIENT_SEARCH_UNION(this.ptr + 8)
+                this.__SearchInfo := %this.__Class%.DHCP_CLIENT_SEARCH_UNION(8, this)
             return this.__SearchInfo
         }
     }

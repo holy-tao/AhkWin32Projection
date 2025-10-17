@@ -24,7 +24,7 @@ class CALLFRAMEINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if there are any [in] parameters in the method; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasInValues {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class CALLFRAMEINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if there are any [in, out] parameters in the method; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasInOutValues {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class CALLFRAMEINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if there are any out parameters other than <b>HRESULT</b> or <b>void</b> return values in the method; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasOutValues {
         get => NumGet(this, 12, "int")
@@ -51,7 +51,7 @@ class CALLFRAMEINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if the interface is derived from <b>IDispatch</b>; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDerivesFromIDispatch {
         get => NumGet(this, 16, "int")

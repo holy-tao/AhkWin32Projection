@@ -430,7 +430,7 @@ class LINEDEVCAPS extends Win32Struct
     MinDialParams{
         get {
             if(!this.HasProp("__MinDialParams"))
-                this.__MinDialParams := LINEDIALPARAMS(this.ptr + 160)
+                this.__MinDialParams := LINEDIALPARAMS(160, this)
             return this.__MinDialParams
         }
     }
@@ -442,7 +442,7 @@ class LINEDEVCAPS extends Win32Struct
     MaxDialParams{
         get {
             if(!this.HasProp("__MaxDialParams"))
-                this.__MaxDialParams := LINEDIALPARAMS(this.ptr + 176)
+                this.__MaxDialParams := LINEDIALPARAMS(176, this)
             return this.__MaxDialParams
         }
     }
@@ -454,7 +454,7 @@ class LINEDEVCAPS extends Win32Struct
     DefaultDialParams{
         get {
             if(!this.HasProp("__DefaultDialParams"))
-                this.__DefaultDialParams := LINEDIALPARAMS(this.ptr + 192)
+                this.__DefaultDialParams := LINEDIALPARAMS(192, this)
             return this.__DefaultDialParams
         }
     }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
@@ -72,10 +72,10 @@ class EventNotificationService {
 ;@region Methods
     /**
      * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination.
-     * @param {Pointer<Byte>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
+     * @param {PSTR} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
-     * @returns {Integer} <table>
+     * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
      * <th>Description</th>
@@ -119,7 +119,7 @@ class EventNotificationService {
      * @since windows5.1.2600
      */
     static IsDestinationReachableA(lpszDestination, lpQOCInfo) {
-        lpszDestination := lpszDestination is String? StrPtr(lpszDestination) : lpszDestination
+        lpszDestination := lpszDestination is String ? StrPtr(lpszDestination) : lpszDestination
 
         A_LastError := 0
 
@@ -132,10 +132,10 @@ class EventNotificationService {
 
     /**
      * The IsDestinationReachable function determines whether or not a specified destination can be reached, and provides Quality of Connection (QOC) information for a destination.
-     * @param {Pointer<Char>} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
+     * @param {PWSTR} lpszDestination A pointer to a <b>null</b>-terminated string that specifies a destination. The destination can be an IP address, UNC name, or URL.
      * @param {Pointer<QOCINFO>} lpQOCInfo A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sensapi/ns-sensapi-qocinfo">QOCINFO</a> structure that receives the Quality of Connection (QOC) information. You can supply a <b>NULL</b> pointer if you do not want to receive the QOC information.
-     * @returns {Integer} <table>
+     * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
      * <th>Description</th>
@@ -179,7 +179,7 @@ class EventNotificationService {
      * @since windows5.1.2600
      */
     static IsDestinationReachableW(lpszDestination, lpQOCInfo) {
-        lpszDestination := lpszDestination is String? StrPtr(lpszDestination) : lpszDestination
+        lpszDestination := lpszDestination is String ? StrPtr(lpszDestination) : lpszDestination
 
         A_LastError := 0
 
@@ -193,7 +193,7 @@ class EventNotificationService {
     /**
      * The IsNetworkAlive function determines whether or not a local system is connected to a network, and identifies the type of network connection, for example, a LAN, WAN, or both.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @returns {Integer} Always call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> before checking the return code of this function.  If the last error is not 0, the <b>IsNetworkAlive</b> function has failed and the following <b>TRUE</b> and <b>FALSE</b> values do not apply.
+     * @returns {BOOL} Always call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> before checking the return code of this function.  If the last error is not 0, the <b>IsNetworkAlive</b> function has failed and the following <b>TRUE</b> and <b>FALSE</b> values do not apply.
      * 
      * <table>
      * <tr>

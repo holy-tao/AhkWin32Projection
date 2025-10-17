@@ -31,7 +31,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     adapterId{
         get {
             if(!this.HasProp("__adapterId"))
-                this.__adapterId := LUID(this.ptr + 0)
+                this.__adapterId := LUID(0, this)
             return this.__adapterId
         }
     }
@@ -54,11 +54,30 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - desktopModeInfoIdx
+     * - targetModeInfoIdx
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    desktopModeInfoIdx {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    targetModeInfoIdx {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**
@@ -95,7 +114,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     refreshRate{
         get {
             if(!this.HasProp("__refreshRate"))
-                this.__refreshRate := DISPLAYCONFIG_RATIONAL(this.ptr + 32)
+                this.__refreshRate := DISPLAYCONFIG_RATIONAL(32, this)
             return this.__refreshRate
         }
     }
@@ -113,7 +132,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * A Boolean value that specifies whether the target is available. <b>TRUE</b> indicates that the target is available.
      * 
      * Because the asynchronous nature of display topology changes when a monitor is removed, a path might still be marked as active even though the monitor has been removed. In such a case, <b>targetAvailable</b> could be <b>FALSE</b> for an active path. This is typically a transient situation that will change after the operating system  takes action on the monitor removal.
-     * @type {Integer}
+     * @type {BOOL}
      */
     targetAvailable {
         get => NumGet(this, 44, "int")

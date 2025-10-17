@@ -15,7 +15,7 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies the name of the option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies the value of the option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     value {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WSMAN_OPTION extends Win32Struct
 
     /**
      * Specifies whether the option must be understood and complied with.  If this value is <b>TRUE</b>, the plug-in must understand and adhere to the meaning of the option; otherwise, the plug-in must return an error.  If this is <b>FALSE</b>, the plug-in should ignore the option if it is not understood.
-     * @type {Integer}
+     * @type {BOOL}
      */
     mustComply {
         get => NumGet(this, 16, "int")

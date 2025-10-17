@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Diagnostics\Debug\EXCEPTION_RECORD.ahk
 #Include ..\Diagnostics\Debug\ARM64_NT_NEON128.ahk
 #Include ..\Diagnostics\Debug\CONTEXT.ahk
@@ -27,20 +28,26 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
 
     /**
      * The handle to the process that crashed.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(8, this)
+            return this.__hProcess
+        }
     }
 
     /**
      * The handle to the thread that crashed.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hThread{
+        get {
+            if(!this.HasProp("__hThread"))
+                this.__hThread := HANDLE(16, this)
+            return this.__hThread
+        }
     }
 
     /**
@@ -50,7 +57,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     exceptionRecord{
         get {
             if(!this.HasProp("__exceptionRecord"))
-                this.__exceptionRecord := EXCEPTION_RECORD(this.ptr + 24)
+                this.__exceptionRecord := EXCEPTION_RECORD(24, this)
             return this.__exceptionRecord
         }
     }
@@ -62,14 +69,14 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     context{
         get {
             if(!this.HasProp("__context"))
-                this.__context := CONTEXT(this.ptr + 176)
+                this.__context := CONTEXT(176, this)
             return this.__context
         }
     }
 
     /**
      * A pointer to a constant, null-terminated string that contains the size of the exception information.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszReportId {
         get => NumGet(this, 832, "ptr")
@@ -77,7 +84,7 @@ class WER_RUNTIME_EXCEPTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsFatal {
         get => NumGet(this, 840, "int")

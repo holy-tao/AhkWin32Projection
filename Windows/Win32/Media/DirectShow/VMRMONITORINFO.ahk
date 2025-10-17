@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\VMRGUID.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 
 /**
  * The VMRMONITORINFO structure is used in the IVMRMonitorConfig::GetAvailableMonitors method to set and retrieve information about monitors on the system (VMR-7 only).
@@ -22,7 +23,7 @@ class VMRMONITORINFO extends Win32Struct
     guid{
         get {
             if(!this.HasProp("__guid"))
-                this.__guid := VMRGUID(this.ptr + 0)
+                this.__guid := VMRGUID(0, this)
             return this.__guid
         }
     }
@@ -34,18 +35,21 @@ class VMRMONITORINFO extends Win32Struct
     rcMonitor{
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(this.ptr + 16)
+                this.__rcMonitor := RECT(16, this)
             return this.__rcMonitor
         }
     }
 
     /**
      * A handle to the monitor.
-     * @type {Pointer<Void>}
+     * @type {HMONITOR}
      */
-    hMon {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hMon{
+        get {
+            if(!this.HasProp("__hMon"))
+                this.__hMon := HMONITOR(32, this)
+            return this.__hMon
+        }
     }
 
     /**

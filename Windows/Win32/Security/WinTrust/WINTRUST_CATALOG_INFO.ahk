@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The WINTRUST_CATALOG_INFO structure is used when calling WinVerifyTrust to verify a member of a Microsoft catalog.
@@ -33,7 +34,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * The full path and file name of the catalog file that contains the member to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszCatalogFilePath {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +43,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * Tag of a member file to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszMemberTag {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +52,7 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * The full path and file name of the catalog member file to be verified.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pcwszMemberFilePath {
         get => NumGet(this, 24, "ptr")
@@ -60,11 +61,14 @@ class WINTRUST_CATALOG_INFO extends Win32Struct
 
     /**
      * Optional. Handle of the open catalog member file to be verified. The handle must be to a file with at least read permissions.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hMemberFile {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hMemberFile{
+        get {
+            if(!this.HasProp("__hMemberFile"))
+                this.__hMemberFile := HANDLE(32, this)
+            return this.__hMemberFile
+        }
     }
 
     /**

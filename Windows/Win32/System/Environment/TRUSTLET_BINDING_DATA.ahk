@@ -26,7 +26,7 @@ class TRUSTLET_BINDING_DATA extends Win32Struct
     TrustletSessionId{
         get {
             if(!this.HasProp("__TrustletSessionId"))
-                this.__TrustletSessionId := PS_TRUSTLET_TKSESSION_ID(this.ptr + 8)
+                this.__TrustletSessionId := PS_TRUSTLET_TKSESSION_ID(8, this)
             return this.__TrustletSessionId
         }
     }

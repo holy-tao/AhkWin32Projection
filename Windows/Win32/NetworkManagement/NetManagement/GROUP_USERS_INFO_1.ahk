@@ -32,7 +32,7 @@ class GROUP_USERS_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a null-terminated Unicode character string that specifies a name. For more information, see the Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     grui1_name {
         get => NumGet(this, 0, "ptr")

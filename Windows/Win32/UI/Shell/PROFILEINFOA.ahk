@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information used when loading or unloading a user profile.
@@ -59,7 +60,7 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the user. This member is used as the base name of the directory in which to store a new profile.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpUserName {
         get => NumGet(this, 8, "ptr")
@@ -70,7 +71,7 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb776897(v=vs.85)">roaming user profile</a> path. If the user does not have a roaming profile, this member can be <b>NULL</b>. To retrieve the user's roaming profile path, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusergetinfo">NetUserGetInfo</a> function, specifying information level 3 or 4. For more information, see Remarks.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpProfilePath {
         get => NumGet(this, 16, "ptr")
@@ -81,7 +82,7 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the default user profile path. This member can be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDefaultPath {
         get => NumGet(this, 24, "ptr")
@@ -92,7 +93,7 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to the name of the validating domain controller, in NetBIOS format.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpServerName {
         get => NumGet(this, 32, "ptr")
@@ -103,7 +104,7 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Not used, set to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpPolicyPath {
         get => NumGet(this, 40, "ptr")
@@ -114,10 +115,13 @@ class PROFILEINFOA extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the <b>HKEY_CURRENT_USER</b> registry subtree. For more information, see Remarks.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProfile {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hProfile{
+        get {
+            if(!this.HasProp("__hProfile"))
+                this.__hProfile := HANDLE(48, this)
+            return this.__hProfile
+        }
     }
 }

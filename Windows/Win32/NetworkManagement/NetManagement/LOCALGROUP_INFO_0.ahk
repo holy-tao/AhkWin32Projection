@@ -24,7 +24,7 @@ class LOCALGROUP_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies a local group name. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrpi0_name {
         get => NumGet(this, 0, "ptr")

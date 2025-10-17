@@ -65,7 +65,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the MeanVariance layer includes channels in the Mean and Variance calculations. Otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CrossChannel {
         get => NumGet(this, 32, "int")
@@ -76,7 +76,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the Normalization layer includes Variance in the normalization calculation. Otherwise, **FALSE**. If **FALSE**, then normalization equation is `Output = FusedActivation(Scale * (Input - Mean) + Bias)`.
-     * @type {Integer}
+     * @type {BOOL}
      */
     NormalizeVariance {
         get => NumGet(this, 36, "int")

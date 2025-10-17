@@ -23,7 +23,7 @@ class SCARD_READERSTATEA extends Win32Struct
      * A pointer to the name of the reader being monitored.
      * 
      * Set the value of this member to "\\\\?PnP?\\Notification" and the values of all other members to zero to be notified of the arrival of a new smart card reader.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szReader {
         get => NumGet(this, 0, "ptr")

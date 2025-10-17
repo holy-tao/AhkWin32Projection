@@ -31,7 +31,7 @@ class VDS_PARTITION_INFO_MBR extends Win32Struct
 
     /**
      * If true, the partition is active and can be booted; otherwise, the partition cannot be used to boot the computer.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bootIndicator {
         get => NumGet(this, 1, "char")
@@ -40,7 +40,7 @@ class VDS_PARTITION_INFO_MBR extends Win32Struct
 
     /**
      * If true, the operating system recognizes the partition style; otherwise, the partition style is unknown.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     recognizedPartition {
         get => NumGet(this, 2, "char")

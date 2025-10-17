@@ -36,7 +36,7 @@ class DEBUG_DEVICE_OBJECT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     QBusy {
         get => NumGet(this, 20, "int")

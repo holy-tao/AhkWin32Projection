@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Contains information about a certificate manager dialog box.
@@ -24,11 +25,14 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
 
     /**
      * Handle of the parent window of the dialog box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
@@ -42,7 +46,7 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
 
     /**
      * Title of the dialog box.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszTitle {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +55,7 @@ class CRYPTUI_CERT_MGR_STRUCT extends Win32Struct
 
     /**
      * Enhanced key usage <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the certificates that will initially appear in the dialog box. The default value is <b>NULL</b>, which displays all certificates.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszInitUsageOID {
         get => NumGet(this, 32, "ptr")

@@ -35,7 +35,7 @@ class VSS_MGMT_OBJECT_PROP extends Win32Struct
     Obj{
         get {
             if(!this.HasProp("__Obj"))
-                this.__Obj := VSS_MGMT_OBJECT_UNION(this.ptr + 8)
+                this.__Obj := VSS_MGMT_OBJECT_UNION(8, this)
             return this.__Obj
         }
     }

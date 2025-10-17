@@ -31,7 +31,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * User-initiated capture flag. If this member is <b>TRUE</b>, AVICap displays a dialog box prompting the user to initiate capture. The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMakeUserHitOKToCapture {
         get => NumGet(this, 4, "int")
@@ -51,7 +51,7 @@ class CAPTUREPARMS extends Win32Struct
      * Yield flag. If this member is <b>TRUE</b>, the capture window spawns a separate background thread to perform step and streaming capture. The default value is <b>FALSE</b>.
      * 
      * Applications that set this flag must handle potential reentry issues because the controls in the application are not disabled while capture is in progress.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fYield {
         get => NumGet(this, 12, "int")
@@ -80,7 +80,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUsingDOSMemory {
         get => NumGet(this, 24, "int")
@@ -98,7 +98,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Capture audio flag. If this member is <b>TRUE</b>, audio is captured during streaming capture. This is the default value if audio hardware is installed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCaptureAudio {
         get => NumGet(this, 32, "int")
@@ -127,7 +127,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Abort flag for left mouse button. If this member is <b>TRUE</b>, streaming capture stops if the left mouse button is pressed. The default value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAbortLeftMouse {
         get => NumGet(this, 44, "int")
@@ -136,7 +136,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Abort flag for right mouse button. If this member is <b>TRUE</b>, streaming capture stops if the right mouse button is pressed. The default value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAbortRightMouse {
         get => NumGet(this, 48, "int")
@@ -145,7 +145,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Time limit enabled flag. If this member is <b>TRUE</b>, streaming capture stops after the number of seconds in <b>wTimeLimit</b> has elapsed. The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLimitEnabled {
         get => NumGet(this, 52, "int")
@@ -163,7 +163,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * MCI device capture flag. If this member is <b>TRUE</b>, AVICap controls an MCI-compatible video source during streaming capture. MCI-compatible video sources include VCRs and laserdiscs.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMCIControl {
         get => NumGet(this, 60, "int")
@@ -172,7 +172,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * MCI device step capture flag. If this member is <b>TRUE</b>, step capture using an MCI device as a video source is enabled. If it is <b>FALSE</b>, real-time capture using an MCI device is enabled. (If <b>fMCIControl</b> is <b>FALSE</b>, this member is ignored.)
-     * @type {Integer}
+     * @type {BOOL}
      */
     fStepMCIDevice {
         get => NumGet(this, 64, "int")
@@ -201,7 +201,7 @@ class CAPTUREPARMS extends Win32Struct
      * Double-resolution step capture flag. If this member is <b>TRUE</b>, the capture hardware captures at twice the specified resolution. (The resolution for the height and width is doubled.)
      * 
      * Enable this option if the hardware does not support hardware-based decimation and you are capturing in the RGB format.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fStepCaptureAt2x {
         get => NumGet(this, 76, "int")
@@ -228,7 +228,7 @@ class CAPTUREPARMS extends Win32Struct
 
     /**
      * Not used in Win32 applications.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDisableWriteCache {
         get => NumGet(this, 88, "int")

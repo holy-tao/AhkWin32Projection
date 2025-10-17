@@ -46,7 +46,7 @@ class D2D1_GRADIENT_STOP extends Win32Struct
     color{
         get {
             if(!this.HasProp("__color"))
-                this.__color := D2D1_COLOR_F(this.ptr + 8)
+                this.__color := D2D1_COLOR_F(8, this)
             return this.__color
         }
     }

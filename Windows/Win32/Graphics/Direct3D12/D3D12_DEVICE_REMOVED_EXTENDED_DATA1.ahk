@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk
 
 /**
@@ -25,11 +26,14 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA1 extends Win32Struct
 
     /**
      * A [D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT](ns-d3d12-d3d12_auto_breadcrumb_node.md) value that contains the auto-breadcrumb state prior to device removal.
-     * @type {Pointer<TypeHandle>}
+     * @type {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT}
      */
-    AutoBreadcrumbsOutput {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    AutoBreadcrumbsOutput{
+        get {
+            if(!this.HasProp("__AutoBreadcrumbsOutput"))
+                this.__AutoBreadcrumbsOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT(8, this)
+            return this.__AutoBreadcrumbsOutput
+        }
     }
 
     /**
@@ -39,7 +43,7 @@ class D3D12_DEVICE_REMOVED_EXTENDED_DATA1 extends Win32Struct
     PageFaultOutput{
         get {
             if(!this.HasProp("__PageFaultOutput"))
-                this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT(this.ptr + 16)
+                this.__PageFaultOutput := D3D12_DRED_PAGE_FAULT_OUTPUT(16, this)
             return this.__PageFaultOutput
         }
     }

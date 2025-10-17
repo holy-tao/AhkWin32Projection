@@ -36,7 +36,7 @@ class WER_DUMP_CUSTOM_OPTIONS_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOnlyThisThread {
         get => NumGet(this, 12, "int")

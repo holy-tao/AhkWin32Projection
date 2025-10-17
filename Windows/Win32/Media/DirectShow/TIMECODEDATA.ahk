@@ -18,7 +18,7 @@ class TIMECODEDATA extends Win32Struct
     time{
         get {
             if(!this.HasProp("__time"))
-                this.__time := TIMECODE(this.ptr + 0)
+                this.__time := TIMECODE(0, this)
             return this.__time
         }
     }

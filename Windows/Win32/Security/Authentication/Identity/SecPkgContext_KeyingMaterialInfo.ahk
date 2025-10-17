@@ -26,7 +26,7 @@ class SecPkgContext_KeyingMaterialInfo extends Win32Struct
      * A NUL-terminated ASCII string. The NUL terminator will be removed by schannel before mixing in pszLabel. 
      * 
      * IANA-registered labels should begin with "EXPORTER" to  avoid collisions with existing PRF labels. Labels beginning with "EXPERIMENTAL" may be used without registration.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszLabel {
         get => NumGet(this, 8, "ptr")

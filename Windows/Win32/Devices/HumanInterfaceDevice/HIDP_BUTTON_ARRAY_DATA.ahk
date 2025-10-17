@@ -20,7 +20,7 @@ class HIDP_BUTTON_ARRAY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     On {
         get => NumGet(this, 2, "char")

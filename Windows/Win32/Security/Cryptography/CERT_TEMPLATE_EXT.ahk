@@ -15,7 +15,7 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>LPSTR</b> object identifier (OID).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class CERT_TEMPLATE_EXT extends Win32Struct
 
     /**
      * <b>BOOL</b> flag set to <b>TRUE</b> if there is a minor version number.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMinorVersion {
         get => NumGet(this, 12, "int")

@@ -20,10 +20,65 @@ class WHV_X64_PENDING_DEBUG_EXCEPTION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Breakpoint0
+     * - Breakpoint1
+     * - Breakpoint2
+     * - Breakpoint3
+     * - SingleStep
+     * - Reserved0
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Breakpoint0 {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Breakpoint1 {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Breakpoint2 {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Breakpoint3 {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SingleStep {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 5) & 0x7FFFFFFFFFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFFFFFFFFF) << 5) | (this._bitfield & ~(0x7FFFFFFFFFFFFFF << 5))
     }
 }

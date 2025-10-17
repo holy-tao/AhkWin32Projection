@@ -49,20 +49,12 @@ class WHV_X64_FP_REGISTER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 16) & 0xFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0xFFFFFFFFFFFF) << 16) | (this._bitfield & ~(0xFFFFFFFFFFFF << 16))
-    }
-
-    /**
      * @type {WHV_UINT128}
      */
     AsUINT128{
         get {
             if(!this.HasProp("__AsUINT128"))
-                this.__AsUINT128 := WHV_UINT128(this.ptr + 0)
+                this.__AsUINT128 := WHV_UINT128(0, this)
             return this.__AsUINT128
         }
     }

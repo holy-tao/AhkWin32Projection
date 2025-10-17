@@ -13,7 +13,7 @@ class TRUSTEE_ACCESSW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpProperty {
         get => NumGet(this, 0, "ptr")

@@ -15,7 +15,7 @@ class SERVER_INFO_1540 extends Win32Struct
 
     /**
      * Specifies whether the server allows redirected server drives to be shared.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1540_enablesharednetdrives {
         get => NumGet(this, 0, "int")

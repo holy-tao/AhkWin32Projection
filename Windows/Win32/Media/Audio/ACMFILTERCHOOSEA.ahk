@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -29,11 +31,14 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -53,7 +58,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +82,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszName {
         get => NumGet(this, 216, "ptr")
@@ -109,15 +114,18 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(240, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszTemplateName {
         get => NumGet(this, 248, "ptr")
@@ -125,7 +133,7 @@ class ACMFILTERCHOOSEA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 256, "ptr")

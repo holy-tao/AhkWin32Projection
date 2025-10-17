@@ -20,7 +20,7 @@ class INPUT_BUTTON_ENABLE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 4, "char")

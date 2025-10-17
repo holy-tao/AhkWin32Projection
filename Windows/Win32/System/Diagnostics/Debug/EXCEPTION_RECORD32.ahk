@@ -12,7 +12,7 @@ class EXCEPTION_RECORD32 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     ExceptionCode {
         get => NumGet(this, 0, "int")

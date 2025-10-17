@@ -28,7 +28,7 @@ class HH_ENUM_IT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCatName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class HH_ENUM_IT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszITName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class HH_ENUM_IT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszITDescription {
         get => NumGet(this, 24, "ptr")

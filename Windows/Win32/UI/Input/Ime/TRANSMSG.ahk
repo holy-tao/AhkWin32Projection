@@ -20,7 +20,7 @@ class TRANSMSG extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class TRANSMSG extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 16, "ptr")

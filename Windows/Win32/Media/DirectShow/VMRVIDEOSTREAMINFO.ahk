@@ -67,7 +67,7 @@ class VMRVIDEOSTREAMINFO extends Win32Struct
     ddClrKey{
         get {
             if(!this.HasProp("__ddClrKey"))
-                this.__ddClrKey := DDCOLORKEY(this.ptr + 24)
+                this.__ddClrKey := DDCOLORKEY(24, this)
             return this.__ddClrKey
         }
     }
@@ -79,7 +79,7 @@ class VMRVIDEOSTREAMINFO extends Win32Struct
     rNormal{
         get {
             if(!this.HasProp("__rNormal"))
-                this.__rNormal := NORMALIZEDRECT(this.ptr + 32)
+                this.__rNormal := NORMALIZEDRECT(32, this)
             return this.__rNormal
         }
     }

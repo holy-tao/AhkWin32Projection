@@ -20,7 +20,7 @@ class CLAIMLIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     claims {
         get => NumGet(this, 8, "ptr")

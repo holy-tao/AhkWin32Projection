@@ -24,7 +24,7 @@ class MMC_FILTERDATA extends Win32Struct
 
     /**
      * When a snap-in sets a text filter value, pszText points to the filter string to set and cchTextMax sets the maximum length of the filter string that the user can type into the filter field. When a snap-in reads a text filter value, pszText points to a buffer to receive the text and cchTextMax gives the length of the buffer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszText {
         get => NumGet(this, 0, "ptr")

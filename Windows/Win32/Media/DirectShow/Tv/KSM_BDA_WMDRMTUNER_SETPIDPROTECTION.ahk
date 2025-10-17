@@ -19,7 +19,7 @@ class KSM_BDA_WMDRMTUNER_SETPIDPROTECTION extends Win32Struct
     NodeMethod{
         get {
             if(!this.HasProp("__NodeMethod"))
-                this.__NodeMethod := KSM_NODE(this.ptr + 0)
+                this.__NodeMethod := KSM_NODE(0, this)
             return this.__NodeMethod
         }
     }

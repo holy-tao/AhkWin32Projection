@@ -20,7 +20,7 @@ class TRANSPORT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SkipCertificateCheck {
         get => NumGet(this, 4, "char")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include .\LITEM.ahk
 
@@ -25,7 +26,7 @@ class NMLVLINK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -40,7 +41,7 @@ class NMLVLINK extends Win32Struct
     link{
         get {
             if(!this.HasProp("__link"))
-                this.__link := LITEM(this.ptr + 24)
+                this.__link := LITEM(24, this)
             return this.__link
         }
     }

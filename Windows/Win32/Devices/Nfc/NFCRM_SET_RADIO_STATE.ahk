@@ -12,7 +12,7 @@ class NFCRM_SET_RADIO_STATE extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemStateUpdate {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class NFCRM_SET_RADIO_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     MediaRadioOn {
         get => NumGet(this, 1, "char")

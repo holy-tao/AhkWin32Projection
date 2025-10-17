@@ -21,7 +21,7 @@ class KSPROPERTY_TIMECODE_NODE_S extends Win32Struct
     NodeProperty{
         get {
             if(!this.HasProp("__NodeProperty"))
-                this.__NodeProperty := KSP_NODE(this.ptr + 0)
+                this.__NodeProperty := KSP_NODE(0, this)
             return this.__NodeProperty
         }
     }
@@ -32,7 +32,7 @@ class KSPROPERTY_TIMECODE_NODE_S extends Win32Struct
     TimecodeSamp{
         get {
             if(!this.HasProp("__TimecodeSamp"))
-                this.__TimecodeSamp := TIMECODE_SAMPLE(this.ptr + 24)
+                this.__TimecodeSamp := TIMECODE_SAMPLE(24, this)
             return this.__TimecodeSamp
         }
     }

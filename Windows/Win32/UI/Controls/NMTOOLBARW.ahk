@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include .\TBBUTTON.ahk
 #Include ..\..\Foundation\RECT.ahk
@@ -32,7 +33,7 @@ class NMTOOLBARW extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -58,7 +59,7 @@ class NMTOOLBARW extends Win32Struct
     tbButton{
         get {
             if(!this.HasProp("__tbButton"))
-                this.__tbButton := TBBUTTON(this.ptr + 32)
+                this.__tbButton := TBBUTTON(32, this)
             return this.__tbButton
         }
     }
@@ -78,7 +79,7 @@ class NMTOOLBARW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains the button text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszText {
         get => NumGet(this, 72, "ptr")
@@ -95,7 +96,7 @@ class NMTOOLBARW extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 80)
+                this.__rcButton := RECT(80, this)
             return this.__rcButton
         }
     }

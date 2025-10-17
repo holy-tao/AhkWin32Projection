@@ -28,7 +28,7 @@ class UIAutomationPatternInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the control pattern (a non-localizable string).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pProgrammaticName {
         get => NumGet(this, 8, "ptr")

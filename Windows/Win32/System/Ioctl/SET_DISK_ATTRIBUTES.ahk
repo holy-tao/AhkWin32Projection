@@ -24,7 +24,7 @@ class SET_DISK_ATTRIBUTES extends Win32Struct
 
     /**
      * If <b>TRUE</b>, these settings are persisted across reboots.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Persist {
         get => NumGet(this, 4, "char")

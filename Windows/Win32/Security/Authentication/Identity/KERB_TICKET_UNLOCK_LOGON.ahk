@@ -22,7 +22,7 @@ class KERB_TICKET_UNLOCK_LOGON extends Win32Struct
     Logon{
         get {
             if(!this.HasProp("__Logon"))
-                this.__Logon := KERB_TICKET_LOGON(this.ptr + 0)
+                this.__Logon := KERB_TICKET_LOGON(0, this)
             return this.__Logon
         }
     }
@@ -35,7 +35,7 @@ class KERB_TICKET_UNLOCK_LOGON extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 32)
+                this.__LogonId := LUID(32, this)
             return this.__LogonId
         }
     }

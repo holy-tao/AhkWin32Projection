@@ -35,7 +35,7 @@ class D3D12_SUBRESOURCE_RANGE_UINT64 extends Win32Struct
     Range{
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := D3D12_RANGE_UINT64(this.ptr + 8)
+                this.__Range := D3D12_RANGE_UINT64(8, this)
             return this.__Range
         }
     }

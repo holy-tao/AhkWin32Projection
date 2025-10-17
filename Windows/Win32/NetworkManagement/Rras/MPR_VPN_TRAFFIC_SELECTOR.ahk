@@ -60,7 +60,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     addrStart{
         get {
             if(!this.HasProp("__addrStart"))
-                this.__addrStart := VPN_TS_IP_ADDRESS(this.ptr + 16)
+                this.__addrStart := VPN_TS_IP_ADDRESS(16, this)
             return this.__addrStart
         }
     }
@@ -71,7 +71,7 @@ class MPR_VPN_TRAFFIC_SELECTOR extends Win32Struct
     addrEnd{
         get {
             if(!this.HasProp("__addrEnd"))
-                this.__addrEnd := VPN_TS_IP_ADDRESS(this.ptr + 40)
+                this.__addrEnd := VPN_TS_IP_ADDRESS(40, this)
             return this.__addrEnd
         }
     }

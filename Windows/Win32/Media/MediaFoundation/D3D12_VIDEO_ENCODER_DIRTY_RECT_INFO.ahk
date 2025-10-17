@@ -12,7 +12,7 @@ class D3D12_VIDEO_ENCODER_DIRTY_RECT_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     FullFrameIdentical {
         get => NumGet(this, 0, "int")

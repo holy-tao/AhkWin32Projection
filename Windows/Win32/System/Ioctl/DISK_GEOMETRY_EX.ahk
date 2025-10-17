@@ -42,7 +42,7 @@ class DISK_GEOMETRY_EX extends Win32Struct
     Geometry{
         get {
             if(!this.HasProp("__Geometry"))
-                this.__Geometry := DISK_GEOMETRY(this.ptr + 0)
+                this.__Geometry := DISK_GEOMETRY(0, this)
             return this.__Geometry
         }
     }

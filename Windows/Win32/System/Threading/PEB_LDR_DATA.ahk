@@ -74,7 +74,7 @@ class PEB_LDR_DATA extends Win32Struct
     InMemoryOrderModuleList{
         get {
             if(!this.HasProp("__InMemoryOrderModuleList"))
-                this.__InMemoryOrderModuleList := LIST_ENTRY(this.ptr + 32)
+                this.__InMemoryOrderModuleList := LIST_ENTRY(32, this)
             return this.__InMemoryOrderModuleList
         }
     }

@@ -28,7 +28,7 @@ class DOT11_MANUFACTURING_SELF_TEST_QUERY_RESULTS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bResult {
         get => NumGet(this, 8, "char")

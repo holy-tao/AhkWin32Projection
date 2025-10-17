@@ -21,7 +21,7 @@ class RASPPPLCPW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBundled {
         get => NumGet(this, 4, "int")
@@ -85,7 +85,7 @@ class RASPPPLCPW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMultilink {
         get => NumGet(this, 36, "int")

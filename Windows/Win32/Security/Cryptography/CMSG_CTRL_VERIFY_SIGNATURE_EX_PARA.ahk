@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
 
 /**
  * Contains information used to verify a message signature. It contains the signer index and signer public key.
@@ -30,11 +31,14 @@ class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct
      * This member is not used and should be set to <b>NULL</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic provider</a> used to verify the signature. If <b>NULL</b>, the cryptographic provider specified in <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmsgopentodecode">CryptMsgOpenToDecode</a> is used. If the <i>hCryptProv</i> in <b>CryptMsgOpenToDecode</b> is also <b>NULL</b>, the default provider according to the signer's public key <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) is used.This member's data type is <b>HCRYPTPROV</b>.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
+            return this.__hCryptProv
+        }
     }
 
     /**
@@ -117,12 +121,8 @@ class CMSG_CTRL_VERIFY_SIGNATURE_EX_PARA extends Win32Struct
         set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

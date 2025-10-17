@@ -84,7 +84,7 @@ class DNS_WINSR_DATAA extends Win32Struct
 
     /**
      * A pointer to a string that represents the domain name to append to the name returned by a WINS reverse-lookup.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pNameResultDomain {
         get => NumGet(this, 16, "ptr")

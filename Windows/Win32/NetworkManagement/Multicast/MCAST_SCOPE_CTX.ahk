@@ -22,7 +22,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     ScopeID{
         get {
             if(!this.HasProp("__ScopeID"))
-                this.__ScopeID := IPNG_ADDRESS(this.ptr + 0)
+                this.__ScopeID := IPNG_ADDRESS(0, this)
             return this.__ScopeID
         }
     }
@@ -35,7 +35,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := IPNG_ADDRESS(this.ptr + 24)
+                this.__Interface := IPNG_ADDRESS(24, this)
             return this.__Interface
         }
     }
@@ -48,7 +48,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     ServerID{
         get {
             if(!this.HasProp("__ServerID"))
-                this.__ServerID := IPNG_ADDRESS(this.ptr + 48)
+                this.__ServerID := IPNG_ADDRESS(48, this)
             return this.__ServerID
         }
     }

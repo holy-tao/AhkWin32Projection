@@ -29,7 +29,7 @@ class TEXTRANGEA extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 0)
+                this.__chrg := CHARRANGE(0, this)
             return this.__chrg
         }
     }
@@ -38,7 +38,7 @@ class TEXTRANGEA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * The text.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrText {
         get => NumGet(this, 8, "ptr")

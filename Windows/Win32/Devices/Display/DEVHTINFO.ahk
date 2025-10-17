@@ -51,7 +51,7 @@ class DEVHTINFO extends Win32Struct
     ColorInfo{
         get {
             if(!this.HasProp("__ColorInfo"))
-                this.__ColorInfo := COLORINFO(this.ptr + 16)
+                this.__ColorInfo := COLORINFO(16, this)
             return this.__ColorInfo
         }
     }

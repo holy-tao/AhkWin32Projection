@@ -39,7 +39,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG0 extends Win32Struct
     certificateName{
         get {
             if(!this.HasProp("__certificateName"))
-                this.__certificateName := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__certificateName := CRYPT_INTEGER_BLOB(8, this)
             return this.__certificateName
         }
     }

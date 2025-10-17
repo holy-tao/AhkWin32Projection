@@ -22,7 +22,7 @@ class CLUSPROP_FILETIME extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(this.ptr + 0)
+                this.__Base := CLUSPROP_VALUE(0, this)
             return this.__Base
         }
     }
@@ -34,7 +34,7 @@ class CLUSPROP_FILETIME extends Win32Struct
     ft{
         get {
             if(!this.HasProp("__ft"))
-                this.__ft := FILETIME(this.ptr + 16)
+                this.__ft := FILETIME(16, this)
             return this.__ft
         }
     }

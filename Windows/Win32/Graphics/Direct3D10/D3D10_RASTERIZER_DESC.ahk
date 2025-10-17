@@ -80,7 +80,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines if a triangle is front-facing or back-facing. If this parameter is <b>TRUE</b>, then a triangle is considered front-facing if its vertices are counter-clockwise on the render target, and considered back-facing if they are clockwise. If this parameter is <b>FALSE</b>, then the opposite is true.  The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     FrontCounterClockwise {
         get => NumGet(this, 8, "int")
@@ -135,7 +135,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * 0 &lt;= z &lt;= w
      * </code></pre>
      * When you set <b>DepthClipEnable</b> to FALSE, the hardware skips the z clipping (that is, the last step in the preceding algorithm). However, the hardware still performs the "0 &lt; w" clipping. When z clipping is disabled, improper depth ordering at the pixel level might result. However, when z clipping is disabled, stencil shadow implementations are simplified. In other words, you can avoid complex special-case handling for geometry that goes beyond the back clipping plane.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthClipEnable {
         get => NumGet(this, 24, "int")
@@ -146,7 +146,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable or disables scissor-rectangle culling. All pixels outside an active scissor rectangle are culled. The default value is <b>FALSE</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-rasterizer-stage-getting-started">Set the Scissor Rectangle</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ScissorEnable {
         get => NumGet(this, 28, "int")
@@ -157,7 +157,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether to use the quadrilateral or alpha line anti-aliasing algorithm on multisample antialiasing (MSAA) render targets. The default value is <b>FALSE</b>. Set to <b>TRUE</b> to use the quadrilateral line anti-aliasing algorithm and to <b>FALSE</b> to use the alpha line anti-aliasing algorithm. For more info about this member, see Remarks.
-     * @type {Integer}
+     * @type {BOOL}
      */
     MultisampleEnable {
         get => NumGet(this, 32, "int")
@@ -168,7 +168,7 @@ class D3D10_RASTERIZER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Specifies whether to enable line antialiasing; only applies when alpha blending is enabled, you are drawing lines, and the <b>MultisampleEnable</b> member is <b>FALSE</b>.  The default value is <b>FALSE</b>. For more info about this member, see Remarks.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AntialiasedLineEnable {
         get => NumGet(this, 36, "int")

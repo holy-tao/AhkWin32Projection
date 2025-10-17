@@ -13,7 +13,7 @@ class CERT_OTHER_NAME extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class CERT_OTHER_NAME extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Value := CRYPT_INTEGER_BLOB(8, this)
             return this.__Value
         }
     }

@@ -15,7 +15,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS3 extends Win32Struct
 
     /**
      * Whether to use the VP and RT array index from any shader feeding the rasterizer.
-     * @type {Integer}
+     * @type {BOOL}
      */
     VPAndRTArrayIndexFromAnyShaderFeedingRasterizer {
         get => NumGet(this, 0, "int")

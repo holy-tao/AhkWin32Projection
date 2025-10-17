@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_PREDICATION extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Supported {
         get => NumGet(this, 0, "int")

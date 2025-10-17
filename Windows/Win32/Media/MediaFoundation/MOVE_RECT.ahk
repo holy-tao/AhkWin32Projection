@@ -19,7 +19,7 @@ class MOVE_RECT extends Win32Struct
     SourcePoint{
         get {
             if(!this.HasProp("__SourcePoint"))
-                this.__SourcePoint := POINT(this.ptr + 0)
+                this.__SourcePoint := POINT(0, this)
             return this.__SourcePoint
         }
     }
@@ -30,7 +30,7 @@ class MOVE_RECT extends Win32Struct
     DestRect{
         get {
             if(!this.HasProp("__DestRect"))
-                this.__DestRect := RECT(this.ptr + 8)
+                this.__DestRect := RECT(8, this)
             return this.__DestRect
         }
     }

@@ -21,7 +21,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crText{
         get {
             if(!this.HasProp("__crText"))
-                this.__crText := TF_DA_COLOR(this.ptr + 0)
+                this.__crText := TF_DA_COLOR(0, this)
             return this.__crText
         }
     }
@@ -33,7 +33,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crBk{
         get {
             if(!this.HasProp("__crBk"))
-                this.__crBk := TF_DA_COLOR(this.ptr + 8)
+                this.__crBk := TF_DA_COLOR(8, this)
             return this.__crBk
         }
     }
@@ -49,7 +49,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
 
     /**
      * A BOOL value that specifies if the underline should be bold or normal weight. If this value is nonzero, the underline should be bold. If this value is zero, the underline should be normal.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBoldLine {
         get => NumGet(this, 20, "int")
@@ -63,7 +63,7 @@ class TF_DISPLAYATTRIBUTE extends Win32Struct
     crLine{
         get {
             if(!this.HasProp("__crLine"))
-                this.__crLine := TF_DA_COLOR(this.ptr + 24)
+                this.__crLine := TF_DA_COLOR(24, this)
             return this.__crLine
         }
     }

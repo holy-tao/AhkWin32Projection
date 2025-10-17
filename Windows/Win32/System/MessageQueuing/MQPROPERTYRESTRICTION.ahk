@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\Com\BLOB.ahk
 #Include ..\Com\StructuredStorage\CAC.ahk
@@ -61,7 +62,7 @@ class MQPROPERTYRESTRICTION extends Win32Struct
     prval{
         get {
             if(!this.HasProp("__prval"))
-                this.__prval := PROPVARIANT(this.ptr + 8)
+                this.__prval := PROPVARIANT(8, this)
             return this.__prval
         }
     }

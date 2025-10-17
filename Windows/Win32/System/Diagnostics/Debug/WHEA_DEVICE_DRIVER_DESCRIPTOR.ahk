@@ -21,7 +21,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 2, "char")
@@ -90,7 +90,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     Config{
         get {
             if(!this.HasProp("__Config"))
-                this.__Config := WHEA_ERROR_SOURCE_CONFIGURATION_DD(this.ptr + 40)
+                this.__Config := WHEA_ERROR_SOURCE_CONFIGURATION_DD(40, this)
             return this.__Config
         }
     }

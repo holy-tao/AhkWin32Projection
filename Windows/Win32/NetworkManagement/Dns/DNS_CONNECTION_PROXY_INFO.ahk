@@ -20,7 +20,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszServer {
             get => NumGet(this, 0, "ptr")
@@ -56,7 +56,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszUsername {
             get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszPassword {
             get => NumGet(this, 16, "ptr")
@@ -72,7 +72,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszException {
             get => NumGet(this, 24, "ptr")
@@ -80,7 +80,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszExtraInfo {
             get => NumGet(this, 32, "ptr")
@@ -102,7 +102,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszScript {
             get => NumGet(this, 0, "ptr")
@@ -110,7 +110,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszUsername {
             get => NumGet(this, 8, "ptr")
@@ -118,7 +118,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pwszPassword {
             get => NumGet(this, 16, "ptr")
@@ -133,7 +133,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     Config{
         get {
             if(!this.HasProp("__Config"))
-                this.__Config := %this.__Class%._DNS_CONNECTION_PROXY_INFO_CONFIG(this.ptr + 24)
+                this.__Config := %this.__Class%._DNS_CONNECTION_PROXY_INFO_CONFIG(24, this)
             return this.__Config
         }
     }
@@ -144,7 +144,7 @@ class DNS_CONNECTION_PROXY_INFO extends Win32Struct
     Script{
         get {
             if(!this.HasProp("__Script"))
-                this.__Script := %this.__Class%._DNS_CONNECTION_PROXY_INFO_SCRIPT(this.ptr + 24)
+                this.__Script := %this.__Class%._DNS_CONNECTION_PROXY_INFO_SCRIPT(24, this)
             return this.__Script
         }
     }

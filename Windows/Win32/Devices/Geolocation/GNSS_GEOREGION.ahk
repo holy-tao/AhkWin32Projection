@@ -42,7 +42,7 @@ class GNSS_GEOREGION extends Win32Struct
     Circle{
         get {
             if(!this.HasProp("__Circle"))
-                this.__Circle := GNSS_GEOREGION_CIRCLE(this.ptr + 16)
+                this.__Circle := GNSS_GEOREGION_CIRCLE(16, this)
             return this.__Circle
         }
     }

@@ -483,7 +483,7 @@ class CERT_RDN_ATTR extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -513,7 +513,7 @@ class CERT_RDN_ATTR extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Value := CRYPT_INTEGER_BLOB(16, this)
             return this.__Value
         }
     }

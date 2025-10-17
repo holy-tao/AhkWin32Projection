@@ -27,7 +27,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct
 
     /**
      * True if the driver supports HLSL 6.0 wave operations.
-     * @type {Integer}
+     * @type {BOOL}
      */
     WaveOps {
         get => NumGet(this, 0, "int")
@@ -63,7 +63,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct
 
     /**
      * Indicates transitions are possible  in and out of the CBV, and indirect argument states, on compute command lists. If <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device-checkfeaturesupport">CheckFeatureSupport</a> succeeds this value will always be true.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ExpandedComputeResourceStates {
         get => NumGet(this, 16, "int")
@@ -72,7 +72,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS1 extends Win32Struct
 
     /**
      * Indicates that 64bit integer operations are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Int64ShaderOps {
         get => NumGet(this, 20, "int")

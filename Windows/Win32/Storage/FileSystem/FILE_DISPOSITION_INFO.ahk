@@ -17,7 +17,7 @@ class FILE_DISPOSITION_INFO extends Win32Struct
      * Indicates whether the file should be deleted. Set to <b>TRUE</b> to delete the file. 
      *       This member has no effect if the handle was opened with 
      *       <b>FILE_FLAG_DELETE_ON_CLOSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeleteFile {
         get => NumGet(this, 0, "char")

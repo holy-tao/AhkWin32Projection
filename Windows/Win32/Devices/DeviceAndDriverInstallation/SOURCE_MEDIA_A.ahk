@@ -13,7 +13,7 @@ class SOURCE_MEDIA_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Reserved {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class SOURCE_MEDIA_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Tagfile {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class SOURCE_MEDIA_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Description {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class SOURCE_MEDIA_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourcePath {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class SOURCE_MEDIA_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourceFile {
         get => NumGet(this, 32, "ptr")

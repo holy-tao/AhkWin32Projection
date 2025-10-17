@@ -40,7 +40,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := SECPKG_SHORT_VECTOR(this.ptr + 8)
+                this.__UserName := SECPKG_SHORT_VECTOR(8, this)
             return this.__UserName
         }
     }
@@ -52,7 +52,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := SECPKG_SHORT_VECTOR(this.ptr + 16)
+                this.__DomainName := SECPKG_SHORT_VECTOR(16, this)
             return this.__DomainName
         }
     }
@@ -64,7 +64,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     PackedCredentials{
         get {
             if(!this.HasProp("__PackedCredentials"))
-                this.__PackedCredentials := SECPKG_BYTE_VECTOR(this.ptr + 24)
+                this.__PackedCredentials := SECPKG_BYTE_VECTOR(24, this)
             return this.__PackedCredentials
         }
     }

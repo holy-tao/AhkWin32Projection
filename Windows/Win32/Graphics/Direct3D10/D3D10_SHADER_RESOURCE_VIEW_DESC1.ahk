@@ -5,6 +5,7 @@
 #Include .\D3D10_TEX1D_ARRAY_SRV.ahk
 #Include .\D3D10_TEX2D_SRV.ahk
 #Include .\D3D10_TEX2D_ARRAY_SRV.ahk
+#Include .\D3D10_TEX2DMS_SRV.ahk
 #Include .\D3D10_TEX2DMS_ARRAY_SRV.ahk
 #Include .\D3D10_TEX3D_SRV.ahk
 #Include .\D3D10_TEXCUBE_SRV.ahk
@@ -62,7 +63,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__Buffer"))
-                this.__Buffer := D3D10_BUFFER_SRV(this.ptr + 8)
+                this.__Buffer := D3D10_BUFFER_SRV(8, this)
             return this.__Buffer
         }
     }
@@ -73,7 +74,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D10_TEX1D_SRV(this.ptr + 8)
+                this.__Texture1D := D3D10_TEX1D_SRV(8, this)
             return this.__Texture1D
         }
     }
@@ -84,7 +85,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D10_TEX1D_ARRAY_SRV(this.ptr + 8)
+                this.__Texture1DArray := D3D10_TEX1D_ARRAY_SRV(8, this)
             return this.__Texture1DArray
         }
     }
@@ -95,7 +96,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D10_TEX2D_SRV(this.ptr + 8)
+                this.__Texture2D := D3D10_TEX2D_SRV(8, this)
             return this.__Texture2D
         }
     }
@@ -106,17 +107,20 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D10_TEX2D_ARRAY_SRV(this.ptr + 8)
+                this.__Texture2DArray := D3D10_TEX2D_ARRAY_SRV(8, this)
             return this.__Texture2DArray
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D10_TEX2DMS_SRV}
      */
-    Texture2DMS {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Texture2DMS{
+        get {
+            if(!this.HasProp("__Texture2DMS"))
+                this.__Texture2DMS := D3D10_TEX2DMS_SRV(8, this)
+            return this.__Texture2DMS
+        }
     }
 
     /**
@@ -125,7 +129,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_SRV(this.ptr + 8)
+                this.__Texture2DMSArray := D3D10_TEX2DMS_ARRAY_SRV(8, this)
             return this.__Texture2DMSArray
         }
     }
@@ -136,7 +140,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     Texture3D{
         get {
             if(!this.HasProp("__Texture3D"))
-                this.__Texture3D := D3D10_TEX3D_SRV(this.ptr + 8)
+                this.__Texture3D := D3D10_TEX3D_SRV(8, this)
             return this.__Texture3D
         }
     }
@@ -147,7 +151,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     TextureCube{
         get {
             if(!this.HasProp("__TextureCube"))
-                this.__TextureCube := D3D10_TEXCUBE_SRV(this.ptr + 8)
+                this.__TextureCube := D3D10_TEXCUBE_SRV(8, this)
             return this.__TextureCube
         }
     }
@@ -158,7 +162,7 @@ class D3D10_SHADER_RESOURCE_VIEW_DESC1 extends Win32Struct
     TextureCubeArray{
         get {
             if(!this.HasProp("__TextureCubeArray"))
-                this.__TextureCubeArray := D3D10_TEXCUBE_ARRAY_SRV1(this.ptr + 8)
+                this.__TextureCubeArray := D3D10_TEXCUBE_ARRAY_SRV1(8, this)
             return this.__TextureCubeArray
         }
     }

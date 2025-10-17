@@ -38,7 +38,7 @@ class DIJOYCONFIG_DX5 extends Win32Struct
     hwc{
         get {
             if(!this.HasProp("__hwc"))
-                this.__hwc := JOYREGHWCONFIG(this.ptr + 16)
+                this.__hwc := JOYREGHWCONFIG(16, this)
             return this.__hwc
         }
     }

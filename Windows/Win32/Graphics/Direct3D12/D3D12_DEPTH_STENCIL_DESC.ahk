@@ -102,7 +102,7 @@ class D3D12_DEPTH_STENCIL_DESC extends Win32Struct
 
     /**
      * Specifies whether to enable depth testing. Set this member to <b>TRUE</b> to enable depth testing.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthEnable {
         get => NumGet(this, 0, "int")
@@ -129,7 +129,7 @@ class D3D12_DEPTH_STENCIL_DESC extends Win32Struct
 
     /**
      * Specifies whether to enable stencil testing. Set this member to <b>TRUE</b> to enable stencil testing.
-     * @type {Integer}
+     * @type {BOOL}
      */
     StencilEnable {
         get => NumGet(this, 12, "int")
@@ -161,7 +161,7 @@ class D3D12_DEPTH_STENCIL_DESC extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(this.ptr + 24)
+                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(24, this)
             return this.__FrontFace
         }
     }
@@ -173,7 +173,7 @@ class D3D12_DEPTH_STENCIL_DESC extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(this.ptr + 40)
+                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(40, this)
             return this.__BackFace
         }
     }

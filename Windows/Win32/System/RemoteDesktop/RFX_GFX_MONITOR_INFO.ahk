@@ -68,7 +68,7 @@ class RFX_GFX_MONITOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     primary {
         get => NumGet(this, 28, "int")

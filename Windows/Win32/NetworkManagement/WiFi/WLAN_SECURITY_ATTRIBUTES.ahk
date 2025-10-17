@@ -15,7 +15,7 @@ class WLAN_SECURITY_ATTRIBUTES extends Win32Struct
 
     /**
      * Indicates whether security is enabled for this connection.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSecurityEnabled {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class WLAN_SECURITY_ATTRIBUTES extends Win32Struct
 
     /**
      * Indicates whether 802.1X is enabled for this connection.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOneXEnabled {
         get => NumGet(this, 4, "int")

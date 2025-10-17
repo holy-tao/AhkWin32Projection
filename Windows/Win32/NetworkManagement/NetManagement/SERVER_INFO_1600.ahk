@@ -12,7 +12,7 @@ class SERVER_INFO_1600 extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     sv1598_disabledos {
         get => NumGet(this, 0, "char")

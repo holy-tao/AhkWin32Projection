@@ -31,7 +31,7 @@ class DOT11_PORT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPortControlled {
         get => NumGet(this, 12, "int")
@@ -39,7 +39,7 @@ class DOT11_PORT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPortAuthorized {
         get => NumGet(this, 16, "int")

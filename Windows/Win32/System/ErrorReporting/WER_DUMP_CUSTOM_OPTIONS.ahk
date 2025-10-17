@@ -53,7 +53,7 @@ class WER_DUMP_CUSTOM_OPTIONS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b> and <b>dwMask</b> contains WER_DUMP_MASK_ONLY_THISTHREAD, the minidump is to be collected only for the calling thread.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOnlyThisThread {
         get => NumGet(this, 12, "int")

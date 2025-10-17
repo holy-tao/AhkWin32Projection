@@ -12,7 +12,7 @@ class D3D12_GENERIC_PROGRAM_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProgramName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class D3D12_GENERIC_PROGRAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     pExports {
         get => NumGet(this, 16, "ptr")

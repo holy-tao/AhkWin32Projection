@@ -177,7 +177,7 @@ class DEVMODEW extends Win32Struct
     dmPosition{
         get {
             if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(this.ptr + 80)
+                this.__dmPosition := POINTL(80, this)
             return this.__dmPosition
         }
     }

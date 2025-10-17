@@ -43,7 +43,7 @@ class SECURITY_QUALITY_OF_SERVICE extends Win32Struct
 
     /**
      * Specifies whether the server may enable or disable <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> and groups that the client's security context may include.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EffectiveOnly {
         get => NumGet(this, 9, "char")

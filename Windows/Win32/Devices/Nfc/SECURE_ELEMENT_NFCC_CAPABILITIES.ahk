@@ -20,7 +20,7 @@ class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsAidRoutingSupported {
         get => NumGet(this, 2, "char")
@@ -28,7 +28,7 @@ class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsProtocolRoutingSupported {
         get => NumGet(this, 3, "char")
@@ -36,7 +36,7 @@ class SECURE_ELEMENT_NFCC_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsTechRoutingSupported {
         get => NumGet(this, 4, "char")

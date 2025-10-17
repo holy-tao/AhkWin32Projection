@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.ErrorReporting
@@ -36,7 +37,7 @@ class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOnlyThisThread {
         get => NumGet(this, 12, "int")
@@ -124,11 +125,14 @@ class WER_DUMP_CUSTOM_OPTIONS_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSnapshot {
-        get => NumGet(this, 568, "ptr")
-        set => NumPut("ptr", value, this, 568)
+    hSnapshot{
+        get {
+            if(!this.HasProp("__hSnapshot"))
+                this.__hSnapshot := HANDLE(568, this)
+            return this.__hSnapshot
+        }
     }
 
     /**

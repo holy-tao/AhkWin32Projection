@@ -39,12 +39,12 @@ class DNS_TXT_DATAA extends Win32Struct
 
     /**
      * An array of strings representing the descriptive text of the TXT resource record.
-     * @type {Array<Byte>}
+     * @type {Array<PSTR>}
      */
     pStringArray{
         get {
             if(!this.HasProp("__pStringArrayProxyArray"))
-                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "ptr")
+                this.__pStringArrayProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "char*")
             return this.__pStringArrayProxyArray
         }
     }

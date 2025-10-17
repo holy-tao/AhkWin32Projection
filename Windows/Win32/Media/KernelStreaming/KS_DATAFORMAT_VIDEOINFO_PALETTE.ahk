@@ -23,7 +23,7 @@ class KS_DATAFORMAT_VIDEOINFO_PALETTE extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -34,7 +34,7 @@ class KS_DATAFORMAT_VIDEOINFO_PALETTE extends Win32Struct
     VideoInfo{
         get {
             if(!this.HasProp("__VideoInfo"))
-                this.__VideoInfo := KS_VIDEOINFO(this.ptr + 48)
+                this.__VideoInfo := KS_VIDEOINFO(48, this)
             return this.__VideoInfo
         }
     }

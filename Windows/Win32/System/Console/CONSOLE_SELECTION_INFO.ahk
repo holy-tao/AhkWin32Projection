@@ -27,7 +27,7 @@ class CONSOLE_SELECTION_INFO extends Win32Struct
     dwSelectionAnchor{
         get {
             if(!this.HasProp("__dwSelectionAnchor"))
-                this.__dwSelectionAnchor := COORD(this.ptr + 4)
+                this.__dwSelectionAnchor := COORD(4, this)
             return this.__dwSelectionAnchor
         }
     }
@@ -38,7 +38,7 @@ class CONSOLE_SELECTION_INFO extends Win32Struct
     srSelection{
         get {
             if(!this.HasProp("__srSelection"))
-                this.__srSelection := SMALL_RECT(this.ptr + 8)
+                this.__srSelection := SMALL_RECT(8, this)
             return this.__srSelection
         }
     }

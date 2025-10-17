@@ -20,7 +20,7 @@ class CONSOLE_CURSOR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bVisible {
         get => NumGet(this, 4, "int")

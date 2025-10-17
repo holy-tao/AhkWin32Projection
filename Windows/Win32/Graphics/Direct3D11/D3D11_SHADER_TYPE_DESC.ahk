@@ -99,7 +99,7 @@ class D3D11_SHADER_TYPE_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Name of the shader-variable type. This member can be <b>NULL</b> if it isn't used. This member supports dynamic shader linkage interface types, which have names. For more info about dynamic shader linkage, see <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/overviews-direct3d-11-hlsl-dynamic-linking">Dynamic Linking</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Name {
         get => NumGet(this, 32, "ptr")

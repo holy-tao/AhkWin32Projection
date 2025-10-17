@@ -324,7 +324,7 @@ class GDIINFO extends Win32Struct
     ptlPhysOffset{
         get {
             if(!this.HasProp("__ptlPhysOffset"))
-                this.__ptlPhysOffset := POINTL(this.ptr + 88)
+                this.__ptlPhysOffset := POINTL(88, this)
             return this.__ptlPhysOffset
         }
     }
@@ -336,7 +336,7 @@ class GDIINFO extends Win32Struct
     szlPhysSize{
         get {
             if(!this.HasProp("__szlPhysSize"))
-                this.__szlPhysSize := SIZE(this.ptr + 96)
+                this.__szlPhysSize := SIZE(96, this)
             return this.__szlPhysSize
         }
     }
@@ -357,7 +357,7 @@ class GDIINFO extends Win32Struct
     ciDevice{
         get {
             if(!this.HasProp("__ciDevice"))
-                this.__ciDevice := COLORINFO(this.ptr + 112)
+                this.__ciDevice := COLORINFO(112, this)
             return this.__ciDevice
         }
     }

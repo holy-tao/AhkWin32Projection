@@ -56,14 +56,6 @@ class SLIST_HEADER extends Win32Struct
         /**
          * @type {Integer}
          */
-        Reserved {
-            get => (this._bitfield2 >> 0) & 0xF
-            set => this._bitfield2 := ((value & 0xF) << 0) | (this._bitfield2 & ~(0xF << 0))
-        }
-    
-        /**
-         * @type {Integer}
-         */
         NextEntry {
             get => (this._bitfield2 >> 4) & 0xFFFFFFFFFFFFFFF
             set => this._bitfield2 := ((value & 0xFFFFFFFFFFFFFFF) << 4) | (this._bitfield2 & ~(0xFFFFFFFFFFFFFFF << 4))
@@ -93,7 +85,7 @@ class SLIST_HEADER extends Win32Struct
     HeaderX64{
         get {
             if(!this.HasProp("__HeaderX64"))
-                this.__HeaderX64 := %this.__Class%._HeaderX64(this.ptr + 0)
+                this.__HeaderX64 := %this.__Class%._HeaderX64(0, this)
             return this.__HeaderX64
         }
     }

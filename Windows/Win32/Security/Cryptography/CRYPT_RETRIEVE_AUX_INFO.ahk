@@ -70,7 +70,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains a prefix for a cached file name. If not <b>NULL</b>, the specified prefix string is concatenated to the front of the cached file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCacheFileNamePrefix {
         get => NumGet(this, 48, "ptr")
@@ -88,7 +88,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A value that indicates whether <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptretrieveobjectbyurla">CryptRetrieveObjectByUrl</a> was called with <b>CRYPT_PROXY_CACHE_RETRIEVAL</b> set in <i>dwRetrievalFlags</i> and a proxy cache was not explicitly bypassed for the retrieval. This flag is not explicitly cleared and only applies to HTTP URL retrievals.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fProxyCacheRetrieval {
         get => NumGet(this, 64, "int")
@@ -106,7 +106,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppwszErrorResponseHeaders {
         get => NumGet(this, 72, "ptr")
@@ -122,12 +122,8 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

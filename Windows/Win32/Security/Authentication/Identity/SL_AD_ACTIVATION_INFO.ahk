@@ -26,14 +26,14 @@ class SL_AD_ACTIVATION_INFO extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := SL_ACTIVATION_INFO_HEADER(this.ptr + 0)
+                this.__header := SL_ACTIVATION_INFO_HEADER(0, this)
             return this.__header
         }
     }
 
     /**
      * The product key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProductKey {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class SL_AD_ACTIVATION_INFO extends Win32Struct
 
     /**
      * The name of the activation object.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszActivationObjectName {
         get => NumGet(this, 16, "ptr")

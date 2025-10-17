@@ -12,7 +12,7 @@ class DBLITERALINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszLiteralValue {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DBLITERALINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszInvalidChars {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class DBLITERALINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszInvalidStartingChars {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class DBLITERALINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSupported {
         get => NumGet(this, 28, "int")

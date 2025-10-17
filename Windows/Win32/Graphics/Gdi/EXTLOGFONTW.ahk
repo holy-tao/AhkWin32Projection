@@ -28,7 +28,7 @@ class EXTLOGFONTW extends Win32Struct
     elfLogFont{
         get {
             if(!this.HasProp("__elfLogFont"))
-                this.__elfLogFont := LOGFONTW(this.ptr + 0)
+                this.__elfLogFont := LOGFONTW(0, this)
             return this.__elfLogFont
         }
     }
@@ -115,7 +115,7 @@ class EXTLOGFONTW extends Win32Struct
     elfPanose{
         get {
             if(!this.HasProp("__elfPanose"))
-                this.__elfPanose := PANOSE(this.ptr + 312)
+                this.__elfPanose := PANOSE(312, this)
             return this.__elfPanose
         }
     }

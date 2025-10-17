@@ -42,7 +42,7 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a string value that identifies the application that references assembly. The meaning of this identifier depends on the <b>guidScheme</b> parameter.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szIdentifier {
         get => NumGet(this, 16, "ptr")
@@ -51,19 +51,15 @@ class FUSION_INSTALL_REFERENCE extends Win32Struct
 
     /**
      * A string that is used only by the application that reference the assembly.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szNonCannonicalData {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

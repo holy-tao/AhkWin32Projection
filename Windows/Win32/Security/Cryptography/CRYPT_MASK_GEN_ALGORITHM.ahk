@@ -35,7 +35,7 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -49,7 +49,7 @@ class CRYPT_MASK_GEN_ALGORITHM extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 8)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(8, this)
             return this.__HashAlgorithm
         }
     }

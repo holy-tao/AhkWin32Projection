@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\RAWINPUTHEADER.ahk
 #Include .\RAWMOUSE.ahk
 #Include .\RAWKEYBOARD.ahk
@@ -39,7 +40,7 @@ class RAWINPUT extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := RAWINPUTHEADER(this.ptr + 0)
+                this.__header := RAWINPUTHEADER(0, this)
             return this.__header
         }
     }
@@ -50,7 +51,7 @@ class RAWINPUT extends Win32Struct
     mouse{
         get {
             if(!this.HasProp("__mouse"))
-                this.__mouse := RAWMOUSE(this.ptr + 24)
+                this.__mouse := RAWMOUSE(24, this)
             return this.__mouse
         }
     }
@@ -61,7 +62,7 @@ class RAWINPUT extends Win32Struct
     keyboard{
         get {
             if(!this.HasProp("__keyboard"))
-                this.__keyboard := RAWKEYBOARD(this.ptr + 24)
+                this.__keyboard := RAWKEYBOARD(24, this)
             return this.__keyboard
         }
     }
@@ -72,7 +73,7 @@ class RAWINPUT extends Win32Struct
     hid{
         get {
             if(!this.HasProp("__hid"))
-                this.__hid := RAWHID(this.ptr + 24)
+                this.__hid := RAWHID(24, this)
             return this.__hid
         }
     }

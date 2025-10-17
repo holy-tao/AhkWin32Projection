@@ -21,7 +21,7 @@ class BLENDOBJ extends Win32Struct
     BlendFunction{
         get {
             if(!this.HasProp("__BlendFunction"))
-                this.__BlendFunction := BLENDFUNCTION(this.ptr + 0)
+                this.__BlendFunction := BLENDFUNCTION(0, this)
             return this.__BlendFunction
         }
     }

@@ -50,7 +50,7 @@ class KS_AMVPDIMINFO extends Win32Struct
     rcValidRegion{
         get {
             if(!this.HasProp("__rcValidRegion"))
-                this.__rcValidRegion := RECT(this.ptr + 16)
+                this.__rcValidRegion := RECT(16, this)
             return this.__rcValidRegion
         }
     }

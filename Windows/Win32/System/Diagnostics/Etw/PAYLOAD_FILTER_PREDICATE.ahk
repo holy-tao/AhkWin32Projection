@@ -33,7 +33,7 @@ class PAYLOAD_FILTER_PREDICATE extends Win32Struct
 
     /**
      * The name of the field to filter in package manifest.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FieldName {
         get => NumGet(this, 0, "ptr")
@@ -240,7 +240,7 @@ class PAYLOAD_FILTER_PREDICATE extends Win32Struct
 
     /**
      * The string that contains one or values to compare depending on the <b>CompareOp</b> member.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Value {
         get => NumGet(this, 16, "ptr")

@@ -1,5 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include .\HDEVNOTIFY.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\HDWP.ahk
+#Include .\HACCEL.ahk
+#Include .\HMENU.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HCURSOR.ahk
+#Include .\HHOOK.ahk
+#Include .\HICON.ahk
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
@@ -7052,13 +7061,13 @@ class WindowsAndMessaging {
 ;@region Methods
     /**
      * Loads a string resource from the executable file associated with a specified module, copies the string into a buffer, and appends a terminating null character.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
-     * @param {Pointer<Byte>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The buffer to receive the string (if *cchBufferMax* is non-zero) or a read-only pointer to the string resource itself (if *cchBufferMax* is zero). Must be of sufficient length to hold a pointer (8 bytes).
      * @param {Integer} cchBufferMax Type: <b>int</b>
@@ -7077,7 +7086,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadStringA(hInstance, uID, lpBuffer, cchBufferMax) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -7090,13 +7100,13 @@ class WindowsAndMessaging {
 
     /**
      * Loads a string resource from the executable file associated with a specified module, copies the string into a buffer, and appends a terminating null character.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the string resource. To get the handle to the application itself, call the <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a> function with <b>NULL</b>.
      * @param {Integer} uID Type: <b>UINT</b>
      * 
      * The identifier of the string to be loaded.
-     * @param {Pointer<Char>} lpBuffer Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpBuffer Type: <b>LPTSTR</b>
      * 
      * The buffer to receive the string (if *cchBufferMax* is non-zero) or a read-only pointer to the string resource itself (if *cchBufferMax* is zero). Must be of sufficient length to hold a pointer (8 bytes).
      * @param {Integer} cchBufferMax Type: <b>int</b>
@@ -7115,7 +7125,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadStringW(hInstance, uID, lpBuffer, cchBufferMax) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -7128,7 +7139,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window. The function also retrieves the value at a specified offset into the extra window memory.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7143,6 +7154,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowLongPtrA(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowLongPtrA", "ptr", hWnd, "int", nIndex, "ptr")
@@ -7154,7 +7167,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window. The function also retrieves the value at a specified offset into the extra window memory.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7169,6 +7182,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowLongPtrW(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowLongPtrW", "ptr", hWnd, "int", nIndex, "ptr")
@@ -7180,7 +7195,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an attribute of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
      * 
@@ -7200,6 +7215,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowLongPtrA(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowLongPtrA", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
@@ -7211,7 +7228,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an attribute of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs. The <b>SetWindowLongPtr</b> function fails if the process that owns the window specified by the <i>hWnd</i> parameter is at a higher process privilege in the UIPI hierarchy than the process the calling thread resides in.
      * 
@@ -7231,6 +7248,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowLongPtrW(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowLongPtrW", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
@@ -7242,7 +7261,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the specified value from the WNDCLASSEX structure associated with the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7255,6 +7274,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassLongPtrA(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassLongPtrA", "ptr", hWnd, "int", nIndex, "ptr")
@@ -7266,7 +7287,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the specified value from the WNDCLASSEX structure associated with the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7279,6 +7300,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassLongPtrW(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassLongPtrW", "ptr", hWnd, "int", nIndex, "ptr")
@@ -7290,7 +7313,7 @@ class WindowsAndMessaging {
 
     /**
      * Replaces the specified value at the specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7306,6 +7329,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetClassLongPtrA(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClassLongPtrA", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
@@ -7317,7 +7342,7 @@ class WindowsAndMessaging {
 
     /**
      * Replaces the specified value at the specified offset in the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -7333,6 +7358,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetClassLongPtrW(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClassLongPtrW", "ptr", hWnd, "int", nIndex, "ptr", dwNewLong, "ptr")
@@ -7344,8 +7371,8 @@ class WindowsAndMessaging {
 
     /**
      * Writes formatted data to the specified buffer using a pointer to a list of arguments.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
@@ -7359,8 +7386,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wvsprintfA(param0, param1, arglist) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
@@ -7373,8 +7400,8 @@ class WindowsAndMessaging {
 
     /**
      * Writes formatted data to the specified buffer using a pointer to a list of arguments.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
      * 
      * Each element of this list specifies an argument for the format-control string. The number, type, and interpretation of the arguments depend on the corresponding format-control specifications in the 
@@ -7388,8 +7415,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wvsprintfW(param0, param1, arglist) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
@@ -7402,8 +7429,8 @@ class WindowsAndMessaging {
 
     /**
      * Writes formatted data to the specified buffer.
-     * @param {Pointer<Byte>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {PSTR} param0 
+     * @param {PSTR} param1 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
@@ -7413,8 +7440,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wsprintfA(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
@@ -7427,8 +7454,8 @@ class WindowsAndMessaging {
 
     /**
      * Writes formatted data to the specified buffer.
-     * @param {Pointer<Char>} param0 
-     * @param {Pointer<Char>} param1 
+     * @param {PWSTR} param0 
+     * @param {PWSTR} param1 
      * @returns {Integer} Type: <b>int</b>
      * 
      * If the function succeeds, the return value is the number of characters stored in the output buffer, not counting the terminating null character.
@@ -7438,8 +7465,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static wsprintfW(param0, param1) {
-        param0 := param0 is String? StrPtr(param0) : param0
-        param1 := param1 is String? StrPtr(param1) : param1
+        param0 := param0 is String ? StrPtr(param0) : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         A_LastError := 0
 
@@ -7452,10 +7479,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether the system considers that a specified application is not responding.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is <b>TRUE</b> if the window stops responding; otherwise, it is <b>FALSE</b>.  Ghost windows always return
      *         <b>TRUE</b>.
@@ -7463,6 +7490,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsHungAppWindow(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\IsHungAppWindow", "ptr", hwnd, "int")
         return result
     }
@@ -7484,7 +7513,7 @@ class WindowsAndMessaging {
 
     /**
      * Defines a new window message that is guaranteed to be unique throughout the system. The message value can be used when sending or posting messages.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The message to be registered.
      * @returns {Integer} Type: <b>UINT</b>
@@ -7496,7 +7525,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RegisterWindowMessageA(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -7509,7 +7538,7 @@ class WindowsAndMessaging {
 
     /**
      * Defines a new window message that is guaranteed to be unique throughout the system. The message value can be used when sending or posting messages.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The message to be registered.
      * @returns {Integer} Type: <b>UINT</b>
@@ -7521,7 +7550,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RegisterWindowMessageW(lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -7537,7 +7566,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
      * 
@@ -7560,7 +7589,7 @@ class WindowsAndMessaging {
      * Use <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a> here and in <i>wMsgFilterMin</i> to specify only the <b>WM_INPUT</b> messages.
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>GetMessage</b> returns all available messages (that is, no range filtering is performed).
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function retrieves a message other than <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a>, the return value is nonzero.
      * 
@@ -7599,6 +7628,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMessageA", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
@@ -7613,7 +7644,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information from the thread's message queue.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
      * 
@@ -7636,7 +7667,7 @@ class WindowsAndMessaging {
      * Use <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-input">WM_INPUT</a> here and in <i>wMsgFilterMin</i> to specify only the <b>WM_INPUT</b> messages.
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>GetMessage</b> returns all available messages (that is, no range filtering is performed).
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function retrieves a message other than <a href="/windows/desktop/winmsg/wm-quit">WM_QUIT</a>, the return value is nonzero.
      * 
@@ -7675,6 +7706,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMessageW(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMessageW", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "int")
@@ -7689,7 +7722,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains message information retrieved from the calling thread's message queue by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the message is translated (that is, a character message is posted to the thread's message queue), the return value is nonzero.
      * 
@@ -7709,7 +7742,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
      * A pointer to a structure that contains the message.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the value returned by the window procedure. Although its meaning depends on the message being dispatched, the return value generally is ignored.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dispatchmessagea
@@ -7725,7 +7758,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
      * A pointer to a structure that contains the message.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the value returned by the window procedure. Although its meaning depends on the message being dispatched, the return value generally is ignored.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-dispatchmessagew
@@ -7739,7 +7772,7 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {Integer} cMessagesMax 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetMessageQueue(cMessagesMax) {
         result := DllCall("USER32.dll\SetMessageQueue", "int", cMessagesMax, "int")
@@ -7751,7 +7784,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
      * 
@@ -7771,7 +7804,7 @@ class WindowsAndMessaging {
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>PeekMessage</b> returns all available messages (that is, no range filtering is performed).
      * @param {Integer} wRemoveMsg Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If a message is available, the return value is nonzero.
      * 
@@ -7780,6 +7813,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PeekMessageA(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\PeekMessageA", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
         return result
     }
@@ -7789,7 +7824,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message information.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be retrieved. The window must belong to the current thread. 
      * 
@@ -7809,7 +7844,7 @@ class WindowsAndMessaging {
      * 
      * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, <b>PeekMessage</b> returns all available messages (that is, no range filtering is performed).
      * @param {Integer} wRemoveMsg Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If a message is available, the return value is nonzero.
      * 
@@ -7818,6 +7853,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PeekMessageW(lpMsg, hWnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\PeekMessageW", "ptr", lpMsg, "ptr", hWnd, "uint", wMsgFilterMin, "uint", wMsgFilterMax, "uint", wRemoveMsg, "int")
         return result
     }
@@ -7850,7 +7887,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the extra message information for the current thread. Extra message information is an application- or driver-defined value associated with the current thread's message queue.
-     * @returns {Pointer} Type: <b>LPARAM</b>
+     * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value specifies the extra information. The meaning of the extra information is device specific.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmessageextrainfo
@@ -7863,7 +7900,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether the last message read from the current thread's queue originated from a WOW64 process.
-     * @returns {Integer} The function returns TRUE if the last message read from the current thread's queue originated from a WOW64 process, and FALSE otherwise.
+     * @returns {BOOL} The function returns TRUE if the last message read from the current thread's queue originated from a WOW64 process, and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-iswow64message
      * @since windows6.0.6000
      */
@@ -7874,10 +7911,10 @@ class WindowsAndMessaging {
 
     /**
      * Sets the extra message information for the current thread.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * The value to be associated with the current thread.
-     * @returns {Pointer} Type: <b>LPARAM</b>
+     * @returns {LPARAM} Type: <b>LPARAM</b>
      * 
      * The return value is the previous value associated with the current thread.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setmessageextrainfo
@@ -7890,7 +7927,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * 
@@ -7900,19 +7937,21 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-sendmessagea
      * @since windows5.0
      */
     static SendMessageA(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
@@ -7924,7 +7963,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * 
@@ -7934,19 +7973,21 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-sendmessagew
      * @since windows5.0
      */
     static SendMessageW(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
@@ -7958,7 +7999,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to one or more windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message.
      * 
@@ -7968,10 +8009,10 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Any additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Any additional message-specific information.
      * @param {Integer} fuFlags Type: <b>UINT</b>
@@ -7981,7 +8022,7 @@ class WindowsAndMessaging {
      * @param {Pointer<UIntPtr>} lpdwResult Type: <b>PDWORD_PTR</b>
      * 
      * The result of the message processing. The value of this parameter depends on the message that is specified.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * If the function succeeds, the return value is nonzero. <b>SendMessageTimeout</b> does not provide information about individual windows timing out if <b>HWND_BROADCAST</b> is used.
      * 
@@ -7992,6 +8033,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendMessageTimeoutA(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageTimeoutA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "uint", fuFlags, "uint", uTimeout, "ptr*", lpdwResult, "ptr")
@@ -8003,7 +8046,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to one or more windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message.
      * 
@@ -8013,10 +8056,10 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Any additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Any additional message-specific information.
      * @param {Integer} fuFlags Type: <b>UINT</b>
@@ -8026,7 +8069,7 @@ class WindowsAndMessaging {
      * @param {Pointer<UIntPtr>} lpdwResult Type: <b>PDWORD_PTR</b>
      * 
      * The result of the message processing. The value of this parameter depends on the message that is specified.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * If the function succeeds, the return value is nonzero. <b>SendMessageTimeout</b> does not provide information about individual windows timing out if <b>HWND_BROADCAST</b> is used.
      * 
@@ -8037,6 +8080,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendMessageTimeoutW(hWnd, Msg, wParam, lParam, fuFlags, uTimeout, lpdwResult) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageTimeoutW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "uint", fuFlags, "uint", uTimeout, "ptr*", lpdwResult, "ptr")
@@ -8048,7 +8093,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * @param {Integer} Msg Type: <b>UINT</b>
@@ -8056,13 +8101,13 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8071,6 +8116,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendNotifyMessageA(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendNotifyMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
@@ -8082,7 +8129,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * @param {Integer} Msg Type: <b>UINT</b>
@@ -8090,13 +8137,13 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8105,6 +8152,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendNotifyMessageW(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendNotifyMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
@@ -8116,7 +8165,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * @param {Integer} Msg Type: <b>UINT</b>
@@ -8124,10 +8173,10 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
@@ -8140,7 +8189,7 @@ class WindowsAndMessaging {
      * @param {Pointer} dwData Type: <b>ULONG_PTR</b>
      * 
      * An application-defined value to be sent to the callback function pointed to by the <i>lpCallBack</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8149,6 +8198,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendMessageCallbackA(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageCallbackA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
@@ -8160,7 +8211,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends the specified message to a window or windows.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure will receive the message. If this parameter is <b>HWND_BROADCAST</b> ((HWND)0xffff), the message is sent to all top-level windows in the system, including disabled or invisible unowned windows, overlapped windows, and pop-up windows; but the message is not sent to child windows.
      * @param {Integer} Msg Type: <b>UINT</b>
@@ -8168,10 +8219,10 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
      * @param {Pointer<SENDASYNCPROC>} lpResultCallBack Type: <b>SENDASYNCPROC</b>
@@ -8184,7 +8235,7 @@ class WindowsAndMessaging {
      * @param {Pointer} dwData Type: <b>ULONG_PTR</b>
      * 
      * An application-defined value to be sent to the callback function pointed to by the <i>lpCallBack</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8193,6 +8244,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SendMessageCallbackW(hWnd, Msg, wParam, lParam, lpResultCallBack, dwData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SendMessageCallbackW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr", lpResultCallBack, "ptr", dwData, "int")
@@ -8204,7 +8257,7 @@ class WindowsAndMessaging {
 
     /**
      * Registers the device or type of device for which a window will receive notifications.
-     * @param {Pointer<Void>} hRecipient A handle to the window or service that will receive device events for the devices specified in the 
+     * @param {HANDLE} hRecipient A handle to the window or service that will receive device events for the devices specified in the 
      *        <i>NotificationFilter</i> parameter. The same window handle can be used in multiple calls to 
      *        <b>RegisterDeviceNotification</b>.
      * 
@@ -8216,7 +8269,7 @@ class WindowsAndMessaging {
      *       <b>DBT_DEVTYP_DEVICEINTERFACE</b> or <b>DBT_DEVTYP_HANDLE</b>. For more 
      *       information, see Remarks.
      * @param {Integer} Flags 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a device notification handle.
+     * @returns {HDEVNOTIFY} If the function succeeds, the return value is a device notification handle.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8224,18 +8277,20 @@ class WindowsAndMessaging {
      * @since windows5.1.2600
      */
     static RegisterDeviceNotificationA(hRecipient, NotificationFilter, Flags) {
+        hRecipient := hRecipient is Win32Handle ? NumGet(hRecipient, "ptr") : hRecipient
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterDeviceNotificationA", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HDEVNOTIFY({Value: result}, True)
     }
 
     /**
      * Registers the device or type of device for which a window will receive notifications.
-     * @param {Pointer<Void>} hRecipient A handle to the window or service that will receive device events for the devices specified in the 
+     * @param {HANDLE} hRecipient A handle to the window or service that will receive device events for the devices specified in the 
      *        <i>NotificationFilter</i> parameter. The same window handle can be used in multiple calls to 
      *        <b>RegisterDeviceNotification</b>.
      * 
@@ -8247,7 +8302,7 @@ class WindowsAndMessaging {
      *       <b>DBT_DEVTYP_DEVICEINTERFACE</b> or <b>DBT_DEVTYP_HANDLE</b>. For more 
      *       information, see Remarks.
      * @param {Integer} Flags 
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a device notification handle.
+     * @returns {HDEVNOTIFY} If the function succeeds, the return value is a device notification handle.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8255,20 +8310,22 @@ class WindowsAndMessaging {
      * @since windows5.1.2600
      */
     static RegisterDeviceNotificationW(hRecipient, NotificationFilter, Flags) {
+        hRecipient := hRecipient is Win32Handle ? NumGet(hRecipient, "ptr") : hRecipient
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterDeviceNotificationW", "ptr", hRecipient, "ptr", NotificationFilter, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HDEVNOTIFY({Value: result}, True)
     }
 
     /**
      * Closes the specified device notification handle.
-     * @param {Pointer<Void>} Handle Device notification handle returned by the 
+     * @param {HDEVNOTIFY} Handle Device notification handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8276,6 +8333,8 @@ class WindowsAndMessaging {
      * @since windows5.1.2600
      */
     static UnregisterDeviceNotification(Handle) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterDeviceNotification", "ptr", Handle, "int")
@@ -8287,7 +8346,7 @@ class WindowsAndMessaging {
 
     /**
      * Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
      * 
@@ -8327,13 +8386,13 @@ class WindowsAndMessaging {
      * The message to be posted.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8342,6 +8401,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PostMessageA(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\PostMessageA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
@@ -8353,7 +8414,7 @@ class WindowsAndMessaging {
 
     /**
      * Places (posts) a message in the message queue associated with the thread that created the specified window and returns without waiting for the thread to process the message.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose window procedure is to receive the message. The following values have special meanings.
      * 
@@ -8393,13 +8454,13 @@ class WindowsAndMessaging {
      * The message to be posted.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8408,6 +8469,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PostMessageW(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\PostMessageW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "int")
@@ -8433,13 +8496,13 @@ class WindowsAndMessaging {
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The type of message to be posted.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8473,13 +8536,13 @@ class WindowsAndMessaging {
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The type of message to be posted.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8499,10 +8562,10 @@ class WindowsAndMessaging {
 
     /**
      * Replies to a message sent from another thread by the SendMessage function.
-     * @param {Pointer} lResult Type: <b>LRESULT</b>
+     * @param {LRESULT} lResult Type: <b>LRESULT</b>
      * 
      * The result of the message processing. The possible values are based on the message sent.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the calling thread was processing a message sent from another thread or process, the return value is nonzero.
      * 
@@ -8517,7 +8580,7 @@ class WindowsAndMessaging {
 
     /**
      * Yields control to other threads when a thread has no other messages in its message queue. The WaitMessage function suspends the thread and does not return until a new message is placed in the thread's message queue.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -8537,50 +8600,54 @@ class WindowsAndMessaging {
 
     /**
      * Calls the default window procedure to provide default processing for any window messages that an application does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window procedure that received the message.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defwindowproca
      * @since windows5.0
      */
     static DefWindowProcA(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\DefWindowProcA", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Calls the default window procedure to provide default processing for any window messages that an application does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window procedure that received the message.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message information. The content of this parameter depends on the value of the <i>Msg</i> parameter.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is the result of the message processing and depends on the message.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defwindowprocw
      * @since windows5.0
      */
     static DefWindowProcW(hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\DefWindowProcW", "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
@@ -8611,25 +8678,27 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window procedure to receive the message.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-callwindowproca
      * @since windows5.0
      */
     static CallWindowProcA(lpPrevWndFunc, hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\CallWindowProcA", "ptr", lpPrevWndFunc, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
@@ -8639,32 +8708,34 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDPROC>} lpPrevWndFunc Type: <b>WNDPROC</b>
      * 
      * The previous window procedure. If this value is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindowlonga">GetWindowLong</a> function with the <i>nIndex</i> parameter set to <b>GWL_WNDPROC</b> or <b>DWL_DLGPROC</b>, it is actually either the address of a window or dialog box procedure, or a special internal value meaningful only to <b>CallWindowProc</b>.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window procedure to receive the message.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information. The contents of this parameter depend on the value of the <i>Msg</i> parameter.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-callwindowprocw
      * @since windows5.0
      */
     static CallWindowProcW(lpPrevWndFunc, hWnd, Msg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\CallWindowProcW", "ptr", lpPrevWndFunc, "ptr", hWnd, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Determines whether the current window procedure is processing a message that was sent from another thread (in the same process or a different process) by a call to the SendMessage function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window procedure is processing a message sent to it from another thread using the <a href="/windows/desktop/api/winuser/nf-winuser-sendmessage">SendMessage</a> function, the return value is nonzero.
      * 
@@ -8795,13 +8866,13 @@ class WindowsAndMessaging {
 
     /**
      * Unregisters a window class, freeing the memory required for the class.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the module that created the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -8810,7 +8881,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UnregisterClassA(lpClassName, hInstance) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -8823,13 +8895,13 @@ class WindowsAndMessaging {
 
     /**
      * Unregisters a window class, freeing the memory required for the class.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or a class atom. If <i>lpClassName</i> is a string, it specifies the window class name. This class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. System classes, such as dialog box controls, cannot be unregistered. If this parameter is an atom, it must be a class atom created by a previous call to the <b>RegisterClass</b> or <b>RegisterClassEx</b> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the module that created the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -8838,7 +8910,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UnregisterClassW(lpClassName, hInstance) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -8851,10 +8924,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a window class.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
@@ -8863,7 +8936,7 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDCLASSA>} lpWndClass Type: <b>LPWNDCLASS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure that receives the information about the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function finds a matching class and successfully copies the data, the return value is nonzero.
      * 
@@ -8872,7 +8945,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoA(hInstance, lpClassName, lpWndClass) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -8885,10 +8959,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a window class.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. 
      * 
@@ -8897,7 +8971,7 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDCLASSW>} lpWndClass Type: <b>LPWNDCLASS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassa">WNDCLASS</a> structure that receives the information about the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function finds a matching class and successfully copies the data, the return value is nonzero.
      * 
@@ -8906,7 +8980,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoW(hInstance, lpClassName, lpWndClass) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -8961,17 +9036,17 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a window class, including a handle to the small icon associated with the window class. The GetClassInfo function does not retrieve a handle to the small icon.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
-     * @param {Pointer<Byte>} lpszClass Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
      * 					<i>lpszClass</i>; the high-order word must be zero.
      * @param {Pointer<WNDCLASSEXA>} lpwcx Type: <b>LPWNDCLASSEX</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure that receives the information about the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function finds a matching class and successfully copies the data, the return value is nonzero.
      * 
@@ -8980,7 +9055,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoExA(hInstance, lpszClass, lpwcx) {
-        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+        lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -8993,17 +9069,17 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a window class, including a handle to the small icon associated with the window class. The GetClassInfo function does not retrieve a handle to the small icon.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application that created the class. To retrieve information about classes defined by the system (such as buttons or list boxes), set this parameter to <b>NULL</b>.
-     * @param {Pointer<Char>} lpszClass Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name. The name must be that of a preregistered class or a class registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. Alternatively, this parameter can be a class atom created by a previous call to <b>RegisterClass</b> or <b>RegisterClassEx</b>. The atom must be in the low-order word of 
      * 					<i>lpszClass</i>; the high-order word must be zero.
      * @param {Pointer<WNDCLASSEXW>} lpwcx Type: <b>LPWNDCLASSEX</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-wndclassexa">WNDCLASSEX</a> structure that receives the information about the class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function finds a matching class and successfully copies the data, the return value is nonzero.
      * 
@@ -9012,7 +9088,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassInfoExW(hInstance, lpszClass, lpwcx) {
-        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
+        lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -9028,10 +9105,10 @@ class WindowsAndMessaging {
      * @param {Integer} dwExStyle Type: <b>DWORD</b>
      * 
      * The extended window style of the window being created. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A <b>null</b>-terminated string or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero. If <i>lpClassName</i> is a string, it specifies the window class name. The class name can be any name registered with <b>RegisterClass</b> or <b>RegisterClassEx</b>, provided that the module that registers the class is also the module that creates the window. The class name can also be any of the predefined <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-window-classes">system class</a> names.
-     * @param {Pointer<Byte>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. If the window style specifies a title bar, the window title pointed to by <i>lpWindowName</i> is displayed in the title bar. When using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create controls, such as buttons, check boxes, and static controls, use <i>lpWindowName</i> to specify the text of the control. When creating a static control with the <b>SS_ICON</b> style, use <i>lpWindowName</i> to specify the icon name or identifier. To specify an identifier, use the syntax "#<i>num</i>".
      * @param {Integer} dwStyle Type: <b>DWORD</b>
@@ -9052,15 +9129,15 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The height, in device units, of the window. For overlapped windows, <i>nHeight</i> is the window's height, in screen coordinates. If the <i>nWidth</i> parameter is set to <b>CW_USEDEFAULT</b>, the system ignores <i>nHeight</i>.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the module to be associated with the window.
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
@@ -9068,7 +9145,7 @@ class WindowsAndMessaging {
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
      * 
      * If an application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create a MDI client window, <i>lpParam</i> should point to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-clientcreatestruct">CLIENTCREATESTRUCT</a> structure. If an MDI client window calls <b>CreateWindow</b> to create an MDI child window, <i>lpParam</i> should point to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-mdicreatestructa">MDICREATESTRUCT</a> structure. <i>lpParam</i> may be <b>NULL</b> if no additional data is needed.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the new window.
      * 
@@ -9087,8 +9164,11 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateWindowExA(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -9096,7 +9176,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
@@ -9104,10 +9184,10 @@ class WindowsAndMessaging {
      * @param {Integer} dwExStyle Type: <b>DWORD</b>
      * 
      * The extended window style of the window being created. For a list of possible values, see  <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * A <b>null</b>-terminated string or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero. If <i>lpClassName</i> is a string, it specifies the window class name. The class name can be any name registered with <b>RegisterClass</b> or <b>RegisterClassEx</b>, provided that the module that registers the class is also the module that creates the window. The class name can also be any of the predefined <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-window-classes">system class</a> names.
-     * @param {Pointer<Char>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. If the window style specifies a title bar, the window title pointed to by <i>lpWindowName</i> is displayed in the title bar. When using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create controls, such as buttons, check boxes, and static controls, use <i>lpWindowName</i> to specify the text of the control. When creating a static control with the <b>SS_ICON</b> style, use <i>lpWindowName</i> to specify the icon name or identifier. To specify an identifier, use the syntax "#<i>num</i>".
      * @param {Integer} dwStyle Type: <b>DWORD</b>
@@ -9128,15 +9208,15 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The height, in device units, of the window. For overlapped windows, <i>nHeight</i> is the window's height, in screen coordinates. If the <i>nWidth</i> parameter is set to <b>CW_USEDEFAULT</b>, the system ignores <i>nHeight</i>.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent or owner window of the window being created. To create a child window or an owned window, supply a valid window handle. This parameter is optional for pop-up windows.
      * 
      *  To create a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>, supply <b>HWND_MESSAGE</b> or a handle to an existing message-only window.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to a menu, or specifies a child-window identifier, depending on the window style. For an overlapped or pop-up window, <i>hMenu</i> identifies the menu to be used with the window; it can be <b>NULL</b> if the class menu is to be used. For a child window, <i>hMenu</i> specifies the child-window identifier, an integer value used by a dialog box control to notify its parent about events. The application determines the child-window identifier; it must be unique for all child windows with the same parent window.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the module to be associated with the window.
      * @param {Pointer<Void>} lpParam Type: <b>LPVOID</b>
@@ -9144,7 +9224,7 @@ class WindowsAndMessaging {
      * Pointer to a value to be passed to the window through the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-createstructa">CREATESTRUCT</a> structure (<b>lpCreateParams</b> member) pointed to by the <i>lParam</i> param of the <b>WM_CREATE</b> message.  This message is sent to the created window by this function before it returns.
      * 
      * If an application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowa">CreateWindow</a> to create a MDI client window, <i>lpParam</i> should point to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-clientcreatestruct">CLIENTCREATESTRUCT</a> structure. If an MDI client window calls <b>CreateWindow</b> to create an MDI child window, <i>lpParam</i> should point to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-mdicreatestructa">MDICREATESTRUCT</a> structure. <i>lpParam</i> may be <b>NULL</b> if no additional data is needed.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the new window.
      * 
@@ -9163,8 +9243,11 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateWindowExW(dwExStyle, lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hMenu, hInstance, lpParam) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -9172,15 +9255,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Determines whether the specified window handle identifies an existing window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window handle identifies an existing window, the return value is nonzero.
      * 
@@ -9189,16 +9272,18 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsWindow", "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Determines whether a handle is a menu handle.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the handle is a menu handle, the return value is nonzero. 
      * 
@@ -9207,19 +9292,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsMenu(hMenu) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\IsMenu", "ptr", hMenu, "int")
         return result
     }
 
     /**
      * Determines whether a window is a child window or descendant window of a specified parent window.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a child or descendant window of the specified parent window, the return value is nonzero.
      * 
@@ -9228,16 +9315,19 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsChild(hWndParent, hWnd) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsChild", "ptr", hWndParent, "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Destroys the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be destroyed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9246,6 +9336,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DestroyWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DestroyWindow", "ptr", hWnd, "int")
@@ -9257,11 +9349,11 @@ class WindowsAndMessaging {
 
     /**
      * Sets the specified window's show state.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Integer} nCmdShow Type: <b>int</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was previously visible, the return value is nonzero. 
      * 
@@ -9270,20 +9362,22 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ShowWindow(hWnd, nCmdShow) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\ShowWindow", "ptr", hWnd, "int", nCmdShow, "int")
         return result
     }
 
     /**
      * Enables you to produce special effects when showing or hiding windows. There are four types of animation:\_roll, slide, collapse or expand, and alpha-blended fade.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to animate. The calling thread must own this window.
      * @param {Integer} dwTime Type: <b>DWORD</b>
      * 
      * The time it takes to play the animation, in milliseconds. Typically, an animation takes 200 milliseconds to play.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9301,6 +9395,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static AnimateWindow(hWnd, dwTime, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\AnimateWindow", "ptr", hWnd, "uint", dwTime, "uint", dwFlags, "int")
@@ -9312,12 +9408,12 @@ class WindowsAndMessaging {
 
     /**
      * Updates the position, size, shape, content, and translucency of a layered window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to a layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function. 
      * 
      * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
-     * @param {Pointer<Void>} hdcDst Type: <b>HDC</b>
+     * @param {HDC} hdcDst Type: <b>HDC</b>
      * 
      * A handle to a DC for the screen. This handle is obtained by specifying <b>NULL</b> when calling the <a href="https://docs.microsoft.com/windows/win32/api/winuser/nf-winuser-getdc">GetDC</a> function. It is used for palette color matching when the window contents are updated. If <i>hdcDst</i> is <b>NULL</b>, the default palette will be used.
      * 
@@ -9328,20 +9424,20 @@ class WindowsAndMessaging {
      * @param {Pointer<SIZE>} psize Type: <b><a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a>*</b>
      * 
      * A pointer to a structure that specifies the new size of the layered window. If the size of the window is not changing, <i>psize</i> can be <b>NULL</b>. If <i>hdcSrc</i> is <b>NULL</b>, <i>psize</i> must be <b>NULL</b>.
-     * @param {Pointer<Void>} hdcSrc Type: <b>HDC</b>
+     * @param {HDC} hdcSrc Type: <b>HDC</b>
      * 
      * A handle to a DC for the surface that defines the layered window. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createcompatibledc">CreateCompatibleDC</a> function. If the shape and visual context of the window are not changing, <i>hdcSrc</i> can be <b>NULL</b>.
      * @param {Pointer<POINT>} pptSrc Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * A pointer to a structure that specifies the location of the layer in the device context. If <i>hdcSrc</i> is <b>NULL</b>, <i>pptSrc</i> should be <b>NULL</b>.
-     * @param {Integer} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @param {COLORREF} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A structure that specifies the color key to be used when composing the layered window. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @param {Pointer<BLENDFUNCTION>} pblend Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a>*</b>
      * 
      * A pointer to a structure that specifies the transparency value to be used when composing the layered window.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9350,6 +9446,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UpdateLayeredWindow(hWnd, hdcDst, pptDst, psize, hdcSrc, pptSrc, crKey, pblend, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hdcDst := hdcDst is Win32Handle ? NumGet(hdcDst, "ptr") : hdcDst
+        hdcSrc := hdcSrc is Win32Handle ? NumGet(hdcSrc, "ptr") : hdcSrc
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\UpdateLayeredWindow", "ptr", hWnd, "ptr", hdcDst, "ptr", pptDst, "ptr", psize, "ptr", hdcSrc, "ptr", pptSrc, "uint", crKey, "ptr", pblend, "uint", dwFlags, "int")
@@ -9361,28 +9461,30 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Pointer<UPDATELAYEREDWINDOWINFO>} pULWInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static UpdateLayeredWindowIndirect(hWnd, pULWInfo) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\UpdateLayeredWindowIndirect", "ptr", hWnd, "ptr", pULWInfo, "int")
         return result
     }
 
     /**
      * Retrieves the opacity and transparency color key of a layered window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
-     * @param {Pointer<UInt32>} pcrKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
+     * @param {Pointer<COLORREF>} pcrKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that receives the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. This can be <b>NULL</b> if the argument is not needed.
      * @param {Pointer<Byte>} pbAlpha Type: <b>BYTE*</b>
      * 
      * The Alpha value used to describe the opacity of the layered window. Similar to the <b>SourceConstantAlpha</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure. When the variable referred to by <i>pbAlpha</i> is 0, the window is completely transparent. When the variable referred to by <i>pbAlpha</i> is 255, the window is opaque. This can be <b>NULL</b> if the argument is not needed.
      * @param {Pointer<UInt32>} pdwFlags Type: <b>DWORD*</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9391,9 +9493,11 @@ class WindowsAndMessaging {
      * @since windows5.1.2600
      */
     static GetLayeredWindowAttributes(hwnd, pcrKey, pbAlpha, pdwFlags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", hwnd, "uint*", pcrKey, "char*", pbAlpha, "uint*", pdwFlags, "int")
+        result := DllCall("USER32.dll\GetLayeredWindowAttributes", "ptr", hwnd, "ptr", pcrKey, "char*", pbAlpha, "uint*", pdwFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9402,19 +9506,19 @@ class WindowsAndMessaging {
 
     /**
      * Sets the opacity and transparency color key of a layered window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the layered window. A layered window is created by specifying <b>WS_EX_LAYERED</b> when creating the window with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createwindowexa">CreateWindowEx</a> function or by setting <b>WS_EX_LAYERED</b> via <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowlonga">SetWindowLong</a> after the window has been created.
      * 
      * <b>Windows 8:  </b>The <b>WS_EX_LAYERED</b> style is supported for top-level windows and child windows. Previous Windows versions support <b>WS_EX_LAYERED</b> only for top-level windows.
-     * @param {Integer} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @param {COLORREF} crKey Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that specifies the transparency color key to be used when composing the layered window. All pixels painted by the window in this color will be transparent. To generate a <b>COLORREF</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
      * @param {Integer} bAlpha Type: <b>BYTE</b>
      * 
      * Alpha value used to describe the opacity of the layered window. Similar to the <b>SourceConstantAlpha</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-blendfunction">BLENDFUNCTION</a> structure. When <i>bAlpha</i> is 0, the window is completely transparent. When <i>bAlpha</i> is 255, the window is opaque.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9425,6 +9529,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetLayeredWindowAttributes(hwnd, crKey, bAlpha, dwFlags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetLayeredWindowAttributes", "ptr", hwnd, "uint", crKey, "char", bAlpha, "uint", dwFlags, "int")
@@ -9436,38 +9542,42 @@ class WindowsAndMessaging {
 
     /**
      * Sets the show state of a window without waiting for the operation to complete.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Integer} nCmdShow Type: <b>int</b>
      * 
      * Controls how the window is to be shown. For a list of possible values, see the description of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the operation was successfully started, the return value is nonzero.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-showwindowasync
      * @since windows5.0
      */
     static ShowWindowAsync(hWnd, nCmdShow) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\ShowWindowAsync", "ptr", hWnd, "int", nCmdShow, "int")
         return result
     }
 
     /**
      * Flashes the specified window one time. It does not change the active state of the window.
-     * @param {Pointer<Void>} hWnd A handle to the window to be flashed. The window can be either open or minimized.
-     * @param {Integer} bInvert If this parameter is <b>TRUE</b>, the window is flashed from one state to the other. If it is <b>FALSE</b>, the window is returned to its original state (either active or inactive). 
+     * @param {HWND} hWnd A handle to the window to be flashed. The window can be either open or minimized.
+     * @param {BOOL} bInvert If this parameter is <b>TRUE</b>, the window is flashed from one state to the other. If it is <b>FALSE</b>, the window is returned to its original state (either active or inactive). 
      * 
      * 
      * 
      * 
      * When an application is minimized and this parameter is <b>TRUE</b>, the taskbar window button flashes active/inactive. If it is <b>FALSE</b>, the taskbar window button flashes inactive, meaning that it does not change colors. It flashes, as if it were being redrawn, but it does not provide the visual invert clue to the user.
-     * @returns {Integer} The return value specifies the window's state before the call to the 
+     * @returns {BOOL} The return value specifies the window's state before the call to the 
      * <b>FlashWindow</b> function. If the window caption was drawn as active before the call, the return value is nonzero. Otherwise, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-flashwindow
      * @since windows5.1.2600
      */
     static FlashWindow(hWnd, bInvert) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\FlashWindow", "ptr", hWnd, "int", bInvert, "int")
         return result
     }
@@ -9476,7 +9586,7 @@ class WindowsAndMessaging {
      * Flashes the specified window. It does not change the active state of the window.
      * @param {Pointer<FLASHWINFO>} pfwi A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-flashwinfo">FLASHWINFO</a> structure.
-     * @returns {Integer} The return value specifies the window's state before the call to the 
+     * @returns {BOOL} The return value specifies the window's state before the call to the 
      * <b>FlashWindowEx</b> function. If the window caption was drawn as active before the call, the return value is nonzero. Otherwise, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-flashwindowex
      * @since windows5.1.2600
@@ -9488,13 +9598,13 @@ class WindowsAndMessaging {
 
     /**
      * Shows or hides all pop-up windows owned by the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the pop-up windows to be shown or hidden.
-     * @param {Integer} fShow Type: <b>BOOL</b>
+     * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
      * If this parameter is <b>TRUE</b>, all hidden pop-up windows are shown. If this parameter is <b>FALSE</b>, all visible pop-up windows are hidden.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9503,6 +9613,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ShowOwnedPopups(hWnd, fShow) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShowOwnedPopups", "ptr", hWnd, "int", fShow, "int")
@@ -9514,10 +9626,10 @@ class WindowsAndMessaging {
 
     /**
      * Restores a minimized (iconic) window to its previous size and position; it then activates the window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be restored and activated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9526,6 +9638,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OpenIcon(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\OpenIcon", "ptr", hWnd, "int")
@@ -9537,10 +9651,10 @@ class WindowsAndMessaging {
 
     /**
      * Minimizes (but does not destroy) the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be minimized.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9549,6 +9663,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CloseWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CloseWindow", "ptr", hWnd, "int")
@@ -9560,7 +9676,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes the position and dimensions of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Integer} X Type: <b>int</b>
@@ -9575,10 +9691,10 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The new height of the window.
-     * @param {Integer} bRepaint Type: <b>BOOL</b>
+     * @param {BOOL} bRepaint Type: <b>BOOL</b>
      * 
      * Indicates whether the window is to be repainted. If this parameter is <b>TRUE</b>, the window receives a  message. If the parameter is <b>FALSE</b>, no repainting of any kind occurs. This applies to the client area, the nonclient area (including the title bar and scroll bars), and any part of the parent window uncovered as a result of moving a child window.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9587,6 +9703,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MoveWindow(hWnd, X, Y, nWidth, nHeight, bRepaint) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MoveWindow", "ptr", hWnd, "int", X, "int", Y, "int", nWidth, "int", nHeight, "int", bRepaint, "int")
@@ -9598,10 +9716,10 @@ class WindowsAndMessaging {
 
     /**
      * Changes the size, position, and Z order of a child, pop-up, or top-level window. These windows are ordered according to their appearance on the screen. The topmost window receives the highest rank and is the first window in the Z order.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
-     * @param {Pointer<Void>} hWndInsertAfter Type: <b>HWND</b>
+     * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} X Type: <b>int</b>
      * 
      * The new position of the left side of the window, in client coordinates.
@@ -9615,7 +9733,7 @@ class WindowsAndMessaging {
      * 
      * The new height of the window, in pixels.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9624,6 +9742,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowPos(hWnd, hWndInsertAfter, X, Y, cx, cy, uFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWndInsertAfter := hWndInsertAfter is Win32Handle ? NumGet(hWndInsertAfter, "ptr") : hWndInsertAfter
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowPos", "ptr", hWnd, "ptr", hWndInsertAfter, "int", X, "int", Y, "int", cx, "int", cy, "uint", uFlags, "int")
@@ -9635,13 +9756,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the show state and the restored, minimized, and maximized positions of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that receives the show state and position information. Before calling <b>GetWindowPlacement</b>, set the <b>length</b> member to <c>sizeof(WINDOWPLACEMENT)</c>. <b>GetWindowPlacement</b> fails if <i>lpwndpl</i>-&gt; <i>length</i> is not set correctly.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9650,6 +9771,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowPlacement(hWnd, lpwndpl) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowPlacement", "ptr", hWnd, "ptr", lpwndpl, "int")
@@ -9661,7 +9784,7 @@ class WindowsAndMessaging {
 
     /**
      * Sets the show state and the restored, minimized, and maximized positions of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Pointer<WINDOWPLACEMENT>} lpwndpl Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a>*</b>
@@ -9669,7 +9792,7 @@ class WindowsAndMessaging {
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure that specifies the new show state and window positions.
      * 
      *  Before calling <b>SetWindowPlacement</b>, set the <b>length</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowplacement">WINDOWPLACEMENT</a> structure to sizeof(<b>WINDOWPLACEMENT</b>). <b>SetWindowPlacement</b> fails if the <b>length</b> member is not set correctly.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9678,6 +9801,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowPlacement(hWnd, lpwndpl) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowPlacement", "ptr", hWnd, "ptr", lpwndpl, "int")
@@ -9689,14 +9814,14 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the current display affinity setting, from any process, for a given window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Pointer<UInt32>} pdwAffinity Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that receives the display affinity setting.
      * See <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowdisplayaffinity">SetWindowDisplayAffinity</a> for a list of affinity settings and their meanings.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * This function succeeds only when the window is layered and Desktop Windows Manager 
      * 				is composing the desktop. If this function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b>. 
@@ -9705,6 +9830,8 @@ class WindowsAndMessaging {
      * @since windows6.1
      */
     static GetWindowDisplayAffinity(hWnd, pdwAffinity) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowDisplayAffinity", "ptr", hWnd, "uint*", pdwAffinity, "int")
@@ -9716,19 +9843,21 @@ class WindowsAndMessaging {
 
     /**
      * Stores the display affinity setting in kernel mode on the hWnd associated with the window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the top-level window. The window must belong to the current process.
      * @param {Integer} dwAffinity Type: <b>DWORD</b>
      * 
      * The display affinity setting that specifies where the content of the window can be displayed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b> when, for example, the function call is made on a non top-level window. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setwindowdisplayaffinity
      * @since windows6.1
      */
     static SetWindowDisplayAffinity(hWnd, dwAffinity) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowDisplayAffinity", "ptr", hWnd, "uint", dwAffinity, "int")
@@ -9743,7 +9872,7 @@ class WindowsAndMessaging {
      * @param {Integer} nNumWindows Type: <b>int</b>
      * 
      * The initial number of windows for which to store position information. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-deferwindowpos">DeferWindowPos</a> function increases the size of the structure, if necessary.
-     * @returns {Pointer<Void>} Type: <b>HDWP</b>
+     * @returns {HDWP} Type: <b>HDWP</b>
      * 
      * If the function succeeds, the return value identifies the multiple-window-position structure. If insufficient system resources are available to allocate the structure, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-begindeferwindowpos
@@ -9756,20 +9885,20 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HDWP({Value: result}, True)
     }
 
     /**
      * Updates the specified multiple-window � position structure for the specified window.
-     * @param {Pointer<Void>} hWinPosInfo Type: <b>HDWP</b>
+     * @param {HDWP} hWinPosInfo Type: <b>HDWP</b>
      * 
      * A handle to a multiple-window 
      * 					– position structure that contains size and position information for one or more windows. This structure is returned by <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-begindeferwindowpos">BeginDeferWindowPos</a> or by the most recent call to <b>DeferWindowPos</b>.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window for which update information is stored in the structure. All windows in a multiple-window 
      * 					– position structure must have the same parent.
-     * @param {Pointer<Void>} hWndInsertAfter Type: <b>HWND</b>
+     * @param {HWND} hWndInsertAfter Type: <b>HWND</b>
      * @param {Integer} x Type: <b>int</b>
      * 
      * The x-coordinate of the window's upper-left corner.
@@ -9783,7 +9912,7 @@ class WindowsAndMessaging {
      * 
      * The window's new height, in pixels.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HDWP</b>
+     * @returns {HDWP} Type: <b>HDWP</b>
      * 
      * The return value identifies the updated multiple-window 
      * 						– position structure. The handle returned by this function may differ from the handle passed to the function. The new handle that this function returns should be passed during the next call to the <b>DeferWindowPos</b> or <a href="/windows/desktop/api/winuser/nf-winuser-enddeferwindowpos">EndDeferWindowPos</a> function. 
@@ -9793,22 +9922,26 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DeferWindowPos(hWinPosInfo, hWnd, hWndInsertAfter, x, y, cx, cy, uFlags) {
+        hWinPosInfo := hWinPosInfo is Win32Handle ? NumGet(hWinPosInfo, "ptr") : hWinPosInfo
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWndInsertAfter := hWndInsertAfter is Win32Handle ? NumGet(hWndInsertAfter, "ptr") : hWndInsertAfter
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DeferWindowPos", "ptr", hWinPosInfo, "ptr", hWnd, "ptr", hWndInsertAfter, "int", x, "int", y, "int", cx, "int", cy, "uint", uFlags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HDWP({Value: result}, True)
     }
 
     /**
      * Simultaneously updates the position and size of one or more windows in a single screen-refreshing cycle.
-     * @param {Pointer<Void>} hWinPosInfo Type: <b>HDWP</b>
+     * @param {HDWP} hWinPosInfo Type: <b>HDWP</b>
      * 
      * A handle to a multiple-window 
      * 					– position structure that contains size and position information for one or more windows. This internal structure is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-begindeferwindowpos">BeginDeferWindowPos</a> function or by the most recent call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-deferwindowpos">DeferWindowPos</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9817,6 +9950,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EndDeferWindowPos(hWinPosInfo) {
+        hWinPosInfo := hWinPosInfo is Win32Handle ? NumGet(hWinPosInfo, "ptr") : hWinPosInfo
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\EndDeferWindowPos", "ptr", hWinPosInfo, "int")
@@ -9828,10 +9963,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines the visibility state of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the specified window, its parent window, its parent's parent window, and so forth, have the <b>WS_VISIBLE</b> style, the return value is nonzero. Otherwise, the return value is zero. 
      * 
@@ -9840,16 +9975,18 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsWindowVisible(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsWindowVisible", "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Determines whether the specified window is minimized (iconic).
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is iconic, the return value is nonzero.
      * 
@@ -9858,13 +9995,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsIconic(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsIconic", "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Indicates whether an owned, visible, top-level pop-up, or overlapped window exists on the screen. The function searches the entire screen, not just the calling application's client area.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If a pop-up window exists, the return value is nonzero, even if the pop-up window is completely covered by other windows.
      * 
@@ -9879,10 +10018,10 @@ class WindowsAndMessaging {
 
     /**
      * Brings the specified window to the top of the Z order. If the window is a top-level window, it is activated. If the window is a child window, the top-level parent window associated with the child window is activated.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to bring to the top of the Z order.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -9891,6 +10030,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static BringWindowToTop(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\BringWindowToTop", "ptr", hWnd, "int")
@@ -9902,10 +10043,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a window is maximized.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is zoomed, the return value is nonzero.
      * 
@@ -9914,28 +10055,30 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsZoomed(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsZoomed", "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Creates a modeless dialog box from a dialog box template resource.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
-     * @param {Pointer<Byte>} lpTemplateName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to be passed to the dialog box procedure in the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box.
      * 
@@ -9944,7 +10087,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+        lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
@@ -9952,27 +10097,27 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a modeless dialog box from a dialog box template resource.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
-     * @param {Pointer<Char>} lpTemplateName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to be passed to the dialog box procedure in the <i>lParam</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box.
      * 
@@ -9981,7 +10126,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+        lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
@@ -9989,12 +10136,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a modeless dialog box from a dialog box template in memory.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
@@ -10007,16 +10154,16 @@ class WindowsAndMessaging {
      * In an extended dialog box template, the header uses the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgtemplateex">DLGTEMPLATEEX</a> format and the control definitions use the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgitemtemplateex">DLGITEMTEMPLATEEX</a> format. 
      * 
      * After <b>CreateDialogIndirectParam</b> returns, you can free the template, which is only used to get the dialog box started.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box.
      * 
@@ -10025,18 +10172,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogIndirectParamA(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDialogIndirectParamA", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a modeless dialog box from a dialog box template in memory.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
      * @param {Pointer<DLGTEMPLATE>} lpTemplate Type: <b>LPCDLGTEMPLATE</b>
@@ -10049,16 +10199,16 @@ class WindowsAndMessaging {
      * In an extended dialog box template, the header uses the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgtemplateex">DLGTEMPLATEEX</a> format and the control definitions use the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgitemtemplateex">DLGITEMTEMPLATEEX</a> format. 
      * 
      * After <b>CreateDialogIndirectParam</b> returns, you can free the template, which is only used to get the dialog box started.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle to the dialog box.
      * 
@@ -10067,30 +10217,33 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateDialogIndirectParamW(hInstance, lpTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateDialogIndirectParamW", "ptr", hInstance, "ptr", lpTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a modal dialog box from a dialog box template resource.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
-     * @param {Pointer<Byte>} lpTemplateName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
      * @returns {Pointer} Type: <b>INT_PTR</b>
@@ -10102,7 +10255,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxParamA(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+        lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
@@ -10115,19 +10270,19 @@ class WindowsAndMessaging {
 
     /**
      * Creates a modal dialog box from a dialog box template resource.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module which contains the dialog box template. If this parameter is NULL, then the current executable is used.
-     * @param {Pointer<Char>} lpTemplateName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpTemplateName Type: <b>LPCTSTR</b>
      * 
      * The dialog box template. This parameter is either the pointer to a null-terminated character string that specifies the name of the dialog box template or an integer value that specifies the resource identifier of the dialog box template. If the parameter specifies a resource identifier, its high-order word must be zero and its low-order word must contain the identifier. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
      * @returns {Pointer} Type: <b>INT_PTR</b>
@@ -10139,7 +10294,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxParamW(hInstance, lpTemplateName, hWndParent, lpDialogFunc, dwInitParam) {
-        lpTemplateName := lpTemplateName is String? StrPtr(lpTemplateName) : lpTemplateName
+        lpTemplateName := lpTemplateName is String ? StrPtr(lpTemplateName) : lpTemplateName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
         A_LastError := 0
 
@@ -10152,7 +10309,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates a modal dialog box from a dialog box template in memory.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module that creates the dialog box.
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
@@ -10163,13 +10320,13 @@ class WindowsAndMessaging {
      * In a standard template for a dialog box, the header is a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-dlgtemplate">DLGTEMPLATE</a> structure followed by additional variable-length arrays. The data for each control consists of a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-dlgitemtemplate">DLGITEMTEMPLATE</a> structure followed by additional variable-length arrays. 
      * 
      * In an extended template for a dialog box, the header uses the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgtemplateex">DLGTEMPLATEEX</a> format and the control definitions use the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgitemtemplateex">DLGITEMTEMPLATEEX</a> format.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
      * @returns {Pointer} Type: <b>INT_PTR</b>
@@ -10181,6 +10338,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxIndirectParamA(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DialogBoxIndirectParamA", "ptr", hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -10192,7 +10352,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates a modal dialog box from a dialog box template in memory.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module that creates the dialog box.
      * @param {Pointer<DLGTEMPLATE>} hDialogTemplate Type: <b>LPCDLGTEMPLATE</b>
@@ -10203,13 +10363,13 @@ class WindowsAndMessaging {
      * In a standard template for a dialog box, the header is a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-dlgtemplate">DLGTEMPLATE</a> structure followed by additional variable-length arrays. The data for each control consists of a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-dlgitemtemplate">DLGITEMTEMPLATE</a> structure followed by additional variable-length arrays. 
      * 
      * In an extended template for a dialog box, the header uses the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgtemplateex">DLGTEMPLATEEX</a> format and the control definitions use the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/dlgitemtemplateex">DLGITEMTEMPLATEEX</a> format.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box.
      * @param {Pointer<DLGPROC>} lpDialogFunc Type: <b>DLGPROC</b>
      * 
      * A pointer to the dialog box procedure. For more information about the dialog box procedure, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-dlgproc">DialogProc</a>.
-     * @param {Pointer} dwInitParam Type: <b>LPARAM</b>
+     * @param {LPARAM} dwInitParam Type: <b>LPARAM</b>
      * 
      * The value to pass to the dialog box in the <i>lParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message.
      * @returns {Pointer} Type: <b>INT_PTR</b>
@@ -10221,6 +10381,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DialogBoxIndirectParamW(hInstance, hDialogTemplate, hWndParent, lpDialogFunc, dwInitParam) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DialogBoxIndirectParamW", "ptr", hInstance, "ptr", hDialogTemplate, "ptr", hWndParent, "ptr", lpDialogFunc, "ptr", dwInitParam, "ptr")
@@ -10232,13 +10395,13 @@ class WindowsAndMessaging {
 
     /**
      * Destroys a modal dialog box, causing the system to end any processing for the dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box to be destroyed.
      * @param {Pointer} nResult Type: <b>INT_PTR</b>
      * 
      * The value to be returned to the application from the function that created the dialog box.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -10247,6 +10410,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EndDialog(hDlg, nResult) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\EndDialog", "ptr", hDlg, "ptr", nResult, "int")
@@ -10258,13 +10423,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a handle to a control in the specified dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle of the specified control. 
      * 
@@ -10273,18 +10438,20 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItem(hDlg, nIDDlgItem) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetDlgItem", "ptr", hDlg, "int", nIDDlgItem, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Sets the text of a control in a dialog box to the string representation of a specified integer value.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
@@ -10293,10 +10460,10 @@ class WindowsAndMessaging {
      * @param {Integer} uValue Type: <b>UINT</b>
      * 
      * The integer value used to generate the item text.
-     * @param {Integer} bSigned Type: <b>BOOL</b>
+     * @param {BOOL} bSigned Type: <b>BOOL</b>
      * 
      * Indicates whether the <i>uValue</i> parameter is signed or unsigned. If this parameter is <b>TRUE</b>, <i>uValue</i> is signed. If this parameter is <b>TRUE</b> and <i>uValue</i> is less than zero, a minus sign is placed before the first digit in the string. If this parameter is <b>FALSE</b>, <i>uValue</i> is unsigned.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -10305,6 +10472,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetDlgItemInt(hDlg, nIDDlgItem, uValue, bSigned) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "uint", uValue, "int", bSigned, "int")
@@ -10316,18 +10485,18 @@ class WindowsAndMessaging {
 
     /**
      * Translates the text of a specified control in a dialog box into an integer value.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control of interest.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control whose text is to be translated.
-     * @param {Pointer<Int32>} lpTranslated Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} lpTranslated Type: <b>BOOL*</b>
      * 
      * Indicates success or failure (<b>TRUE</b> indicates success, <b>FALSE</b> indicates failure). 
      * 
      * If this parameter is <b>NULL</b>, the function returns no information about success or failure.
-     * @param {Integer} bSigned Type: <b>BOOL</b>
+     * @param {BOOL} bSigned Type: <b>BOOL</b>
      * 
      * Indicates whether the function should examine the text for a minus sign at the beginning and return a signed integer value if it finds one (<b>TRUE</b> specifies this should be done, <b>FALSE</b> that it should not).
      * @returns {Integer} Type: <b>UINT</b>
@@ -10345,9 +10514,11 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItemInt(hDlg, nIDDlgItem, lpTranslated, bSigned) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         A_LastError := 0
 
-        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "int*", lpTranslated, "int", bSigned, "uint")
+        result := DllCall("USER32.dll\GetDlgItemInt", "ptr", hDlg, "int", nIDDlgItem, "ptr", lpTranslated, "int", bSigned, "uint")
         if(A_LastError)
             throw OSError()
 
@@ -10356,16 +10527,16 @@ class WindowsAndMessaging {
 
     /**
      * Sets the title or text of a control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The control with a title or text to be set.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The text to be copied to the control.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -10374,7 +10545,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetDlgItemTextA(hDlg, nIDDlgItem, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         A_LastError := 0
 
@@ -10387,16 +10559,16 @@ class WindowsAndMessaging {
 
     /**
      * Sets the title or text of a control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The control with a title or text to be set.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The text to be copied to the control.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -10405,7 +10577,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetDlgItemTextW(hDlg, nIDDlgItem, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         A_LastError := 0
 
@@ -10418,13 +10591,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the title or text associated with a control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control whose title or text is to be retrieved.
-     * @param {Pointer<Byte>} lpString Type: <b>LPTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer to receive the title or text.
      * @param {Integer} cchMax Type: <b>int</b>
@@ -10439,7 +10612,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItemTextA(hDlg, nIDDlgItem, lpString, cchMax) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         A_LastError := 0
 
@@ -10452,13 +10626,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the title or text associated with a control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
      * 
      * The identifier of the control whose title or text is to be retrieved.
-     * @param {Pointer<Char>} lpString Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer to receive the title or text.
      * @param {Integer} cchMax Type: <b>int</b>
@@ -10473,7 +10647,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgItemTextW(hDlg, nIDDlgItem, lpString, cchMax) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         A_LastError := 0
 
@@ -10486,7 +10661,7 @@ class WindowsAndMessaging {
 
     /**
      * Sends a message to the specified control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
@@ -10497,26 +10672,28 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-senddlgitemmessagea
      * @since windows5.0
      */
     static SendDlgItemMessageA(hDlg, nIDDlgItem, Msg, wParam, lParam) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\SendDlgItemMessageA", "ptr", hDlg, "int", nIDDlgItem, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Sends a message to the specified control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box that contains the control.
      * @param {Integer} nIDDlgItem Type: <b>int</b>
@@ -10527,35 +10704,37 @@ class WindowsAndMessaging {
      * The message to be sent.
      * 
      * For lists of the system-provided messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">System-Defined Messages</a>.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-senddlgitemmessagew
      * @since windows5.0
      */
     static SendDlgItemMessageW(hDlg, nIDDlgItem, Msg, wParam, lParam) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\SendDlgItemMessageW", "ptr", hDlg, "int", nIDDlgItem, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Retrieves a handle to the first control in a group of controls that precedes (or follows) the specified control in a dialog box.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box to be searched.
-     * @param {Pointer<Void>} hCtl Type: <b>HWND</b>
+     * @param {HWND} hCtl Type: <b>HWND</b>
      * 
      * A handle to the control to be used as the starting point for the search. If this parameter is <b>NULL</b>, the function uses the last (or first) control in the dialog box as the starting point for the search.
-     * @param {Integer} bPrevious Type: <b>BOOL</b>
+     * @param {BOOL} bPrevious Type: <b>BOOL</b>
      * 
      * Indicates how the function is to search the group of controls in the dialog box. If this parameter is <b>TRUE</b>, the function searches for the previous control in the group. If it is <b>FALSE</b>, the function searches for the next control in the group.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous (or next) control in the group of controls. 
      * 
@@ -10564,31 +10743,34 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetNextDlgGroupItem(hDlg, hCtl, bPrevious) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        hCtl := hCtl is Win32Handle ? NumGet(hCtl, "ptr") : hCtl
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetNextDlgGroupItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the first control that has the WS_TABSTOP style that precedes (or follows) the specified control.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box to be searched.
-     * @param {Pointer<Void>} hCtl Type: <b>HWND</b>
+     * @param {HWND} hCtl Type: <b>HWND</b>
      * 
      * A handle to the control to be used as the starting point for the search. 
      * 				If this parameter is <b>NULL</b>, the function fails.
-     * @param {Integer} bPrevious Type: <b>BOOL</b>
+     * @param {BOOL} bPrevious Type: <b>BOOL</b>
      * 
      * Indicates how the function is to search the dialog box. If this parameter 
      * 				is <b>TRUE</b>, the function searches for the previous control 
      * 				in the dialog box. If this parameter is <b>FALSE</b>, the function searches 
      * 				for the next control in the dialog box.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the window handle 
      * 				of the previous (or next) control that has the 
@@ -10600,18 +10782,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetNextDlgTabItem(hDlg, hCtl, bPrevious) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        hCtl := hCtl is Win32Handle ? NumGet(hCtl, "ptr") : hCtl
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetNextDlgTabItem", "ptr", hDlg, "ptr", hCtl, "int", bPrevious, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves the identifier of the specified control.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the control.
      * @returns {Integer} Type: <b>int</b>
@@ -10623,6 +10808,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetDlgCtrlID(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetDlgCtrlID", "ptr", hWnd, "int")
@@ -10647,49 +10834,53 @@ class WindowsAndMessaging {
 
     /**
      * Calls the default dialog box window procedure to provide default processing for any window messages that a dialog box with a private window class does not process.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defdlgproca
      */
     static DefDlgProcA(hDlg, Msg, wParam, lParam) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\DefDlgProcA", "ptr", hDlg, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Calls the default dialog box window procedure to provide default processing for any window messages that a dialog box with a private window class does not process.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
      * @param {Integer} Msg Type: <b>UINT</b>
      * 
      * The message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message sent.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defdlgprocw
      * @since windows5.0
      */
     static DefDlgProcW(hDlg, Msg, wParam, lParam) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\DefDlgProcW", "ptr", hDlg, "uint", Msg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
@@ -10702,7 +10893,7 @@ class WindowsAndMessaging {
      * @param {Integer} nCode Type: <b>int</b>
      * 
      * An application-defined code used by the hook procedure to determine how to process the message. The code must not have the same value as system-defined hook codes (MSGF_ and HC_) associated with the <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-hooks">WH_SYSMSGFILTER</a> and <b>WH_MSGFILTER</b> hooks.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the application should process the message further, the return value is zero.
      * 
@@ -10723,7 +10914,7 @@ class WindowsAndMessaging {
      * @param {Integer} nCode Type: <b>int</b>
      * 
      * An application-defined code used by the hook procedure to determine how to process the message. The code must not have the same value as system-defined hook codes (MSGF_ and HC_) associated with the <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-hooks">WH_SYSMSGFILTER</a> and <b>WH_MSGFILTER</b> hooks.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the application should process the message further, the return value is zero.
      * 
@@ -10738,15 +10929,15 @@ class WindowsAndMessaging {
 
     /**
      * Translates a string into the OEM-defined character set.Warning  Do not use.
-     * @param {Pointer<Byte>} pSrc Type: <b>LPCTSTR</b>
+     * @param {PSTR} pSrc Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be translated.
-     * @param {Pointer<Byte>} pDst Type: <b>LPSTR</b>
+     * @param {PSTR} pDst Type: <b>LPSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>CharToOem</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
      * 					<i>lpszSrc</i> parameter. This cannot be done if <b>CharToOem</b> is being used as a wide-character function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10756,8 +10947,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemA(pSrc, pDst) {
-        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
-        pDst := pDst is String? StrPtr(pDst) : pDst
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
+        pDst := pDst is String ? StrPtr(pDst) : pDst
 
         A_LastError := 0
 
@@ -10770,15 +10961,15 @@ class WindowsAndMessaging {
 
     /**
      * Translates a string into the OEM-defined character set.Warning  Do not use.
-     * @param {Pointer<Char>} pSrc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pSrc Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be translated.
-     * @param {Pointer<Byte>} pDst Type: <b>LPSTR</b>
+     * @param {PSTR} pDst Type: <b>LPSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>CharToOem</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
      * 					<i>lpszSrc</i> parameter. This cannot be done if <b>CharToOem</b> is being used as a wide-character function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10788,8 +10979,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharToOemW(pSrc, pDst) {
-        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
-        pDst := pDst is String? StrPtr(pDst) : pDst
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
+        pDst := pDst is String ? StrPtr(pDst) : pDst
 
         A_LastError := 0
 
@@ -10802,15 +10993,15 @@ class WindowsAndMessaging {
 
     /**
      * Translates a string from the OEM-defined character set into either an ANSI or a wide-character string.Warning  Do not use.
-     * @param {Pointer<Byte>} pSrc Type: <b>LPCSTR</b>
+     * @param {PSTR} pSrc Type: <b>LPCSTR</b>
      * 
      * A null-terminated string of characters from the OEM-defined character set.
-     * @param {Pointer<Byte>} pDst Type: <b>LPTSTR</b>
+     * @param {PSTR} pDst Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>OemToChar</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
      * 					<i>lpszSrc</i> parameter. This cannot be done if <b>OemToChar</b> is being used as a wide-character function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10820,8 +11011,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharA(pSrc, pDst) {
-        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
-        pDst := pDst is String? StrPtr(pDst) : pDst
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
+        pDst := pDst is String ? StrPtr(pDst) : pDst
 
         A_LastError := 0
 
@@ -10834,15 +11025,15 @@ class WindowsAndMessaging {
 
     /**
      * Translates a string from the OEM-defined character set into either an ANSI or a wide-character string.Warning  Do not use.
-     * @param {Pointer<Byte>} pSrc Type: <b>LPCSTR</b>
+     * @param {PSTR} pSrc Type: <b>LPCSTR</b>
      * 
      * A null-terminated string of characters from the OEM-defined character set.
-     * @param {Pointer<Char>} pDst Type: <b>LPTSTR</b>
+     * @param {PWSTR} pDst Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>OemToChar</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
      * 					<i>lpszSrc</i> parameter. This cannot be done if <b>OemToChar</b> is being used as a wide-character function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10852,8 +11043,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharW(pSrc, pDst) {
-        pSrc := pSrc is String? StrPtr(pSrc) : pSrc
-        pDst := pDst is String? StrPtr(pDst) : pDst
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
+        pDst := pDst is String ? StrPtr(pDst) : pDst
 
         A_LastError := 0
 
@@ -10866,24 +11057,24 @@ class WindowsAndMessaging {
 
     /**
      * Translates a specified number of characters in a string into the OEM-defined character set.
-     * @param {Pointer<Byte>} lpszSrc Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszSrc Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be translated.
-     * @param {Pointer<Byte>} lpszDst Type: <b>LPSTR</b>
+     * @param {PSTR} lpszDst Type: <b>LPSTR</b>
      * 
      * The buffer for the translated string. If the <b>CharToOemBuff</b> function is being used as an ANSI function, the string can be translated in place by setting the <i>lpszDst</i> parameter to the same address as the <i>lpszSrc</i> parameter. This cannot be done if <b>CharToOemBuff</b> is being used as a wide-character function.
      * @param {Integer} cchDstLength Type: <b>DWORD</b>
      * 
      * The number of characters to translate in the string identified by the <i>lpszSrc</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to <i>lpszSrc</i> and <i>lpszDst</i> in the wide-character version of the function. In this case the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INVALID_ADDRESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-chartooembuffa
      * @since windows5.0
      */
     static CharToOemBuffA(lpszSrc, lpszDst, cchDstLength) {
-        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
-        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+        lpszSrc := lpszSrc is String ? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String ? StrPtr(lpszDst) : lpszDst
 
         A_LastError := 0
 
@@ -10896,24 +11087,24 @@ class WindowsAndMessaging {
 
     /**
      * Translates a specified number of characters in a string into the OEM-defined character set.
-     * @param {Pointer<Char>} lpszSrc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszSrc Type: <b>LPCTSTR</b>
      * 
      * The null-terminated string to be translated.
-     * @param {Pointer<Byte>} lpszDst Type: <b>LPSTR</b>
+     * @param {PSTR} lpszDst Type: <b>LPSTR</b>
      * 
      * The buffer for the translated string. If the <b>CharToOemBuff</b> function is being used as an ANSI function, the string can be translated in place by setting the <i>lpszDst</i> parameter to the same address as the <i>lpszSrc</i> parameter. This cannot be done if <b>CharToOemBuff</b> is being used as a wide-character function.
      * @param {Integer} cchDstLength Type: <b>DWORD</b>
      * 
      * The number of characters to translate in the string identified by the <i>lpszSrc</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to <i>lpszSrc</i> and <i>lpszDst</i> in the wide-character version of the function. In this case the function returns zero and <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INVALID_ADDRESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-chartooembuffw
      * @since windows5.0
      */
     static CharToOemBuffW(lpszSrc, lpszDst, cchDstLength) {
-        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
-        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+        lpszSrc := lpszSrc is String ? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String ? StrPtr(lpszDst) : lpszDst
 
         A_LastError := 0
 
@@ -10926,10 +11117,10 @@ class WindowsAndMessaging {
 
     /**
      * Translates a specified number of characters in a string from the OEM-defined character set into either an ANSI or a wide-character string.
-     * @param {Pointer<Byte>} lpszSrc Type: <b>LPCSTR</b>
+     * @param {PSTR} lpszSrc Type: <b>LPCSTR</b>
      * 
      * One or more characters from the OEM-defined character set.
-     * @param {Pointer<Byte>} lpszDst Type: <b>LPTSTR</b>
+     * @param {PSTR} lpszDst Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>OemToCharBuff</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
@@ -10939,7 +11130,7 @@ class WindowsAndMessaging {
      * The number of 
      * 					characters to be translated in the buffer identified by the 
      * 					<i>lpszSrc</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10949,8 +11140,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharBuffA(lpszSrc, lpszDst, cchDstLength) {
-        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
-        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+        lpszSrc := lpszSrc is String ? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String ? StrPtr(lpszDst) : lpszDst
 
         A_LastError := 0
 
@@ -10963,10 +11154,10 @@ class WindowsAndMessaging {
 
     /**
      * Translates a specified number of characters in a string from the OEM-defined character set into either an ANSI or a wide-character string.
-     * @param {Pointer<Byte>} lpszSrc Type: <b>LPCSTR</b>
+     * @param {PSTR} lpszSrc Type: <b>LPCSTR</b>
      * 
      * One or more characters from the OEM-defined character set.
-     * @param {Pointer<Char>} lpszDst Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpszDst Type: <b>LPTSTR</b>
      * 
      * The destination buffer, which receives the translated string. If the <b>OemToCharBuff</b> function is being used as an ANSI function, the string can be translated in place by setting the 
      * 					<i>lpszDst</i> parameter to the same address as the 
@@ -10976,7 +11167,7 @@ class WindowsAndMessaging {
      * The number of 
      * 					characters to be translated in the buffer identified by the 
      * 					<i>lpszSrc</i> parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is always nonzero except when you pass the same address to 
      * 						<i>lpszSrc</i> and 
@@ -10986,8 +11177,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static OemToCharBuffW(lpszSrc, lpszDst, cchDstLength) {
-        lpszSrc := lpszSrc is String? StrPtr(lpszSrc) : lpszSrc
-        lpszDst := lpszDst is String? StrPtr(lpszDst) : lpszDst
+        lpszSrc := lpszSrc is String ? StrPtr(lpszSrc) : lpszSrc
+        lpszDst := lpszDst is String ? StrPtr(lpszDst) : lpszDst
 
         A_LastError := 0
 
@@ -11000,10 +11191,10 @@ class WindowsAndMessaging {
 
     /**
      * Converts a character string or a single character to uppercase. If the operand is a character string, the function converts the characters in place.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A null-terminated string, or a single character. If the high-order word of this parameter is zero, the low-order word must contain a single character to be converted.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * If the operand is a character string, the function returns a pointer to the converted string. Because the string is converted in place, the return value is equal to 
      * 						<i>lpsz</i>. 
@@ -11016,7 +11207,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperA(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         A_LastError := 0
 
@@ -11029,10 +11220,10 @@ class WindowsAndMessaging {
 
     /**
      * Converts a character string or a single character to uppercase. If the operand is a character string, the function converts the characters in place.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A null-terminated string, or a single character. If the high-order word of this parameter is zero, the low-order word must contain a single character to be converted.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * If the operand is a character string, the function returns a pointer to the converted string. Because the string is converted in place, the return value is equal to 
      * 						<i>lpsz</i>. 
@@ -11045,7 +11236,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperW(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         A_LastError := 0
 
@@ -11058,7 +11249,7 @@ class WindowsAndMessaging {
 
     /**
      * Converts lowercase characters in a buffer to uppercase characters. The function converts the characters in place.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A buffer containing one or more characters to be processed.
      * @param {Integer} cchLength Type: <b>DWORD</b>
@@ -11077,7 +11268,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperBuffA(lpsz, cchLength) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharUpperBuffA", "ptr", lpsz, "uint", cchLength, "uint")
         return result
@@ -11085,7 +11276,7 @@ class WindowsAndMessaging {
 
     /**
      * Converts lowercase characters in a buffer to uppercase characters. The function converts the characters in place.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A buffer containing one or more characters to be processed.
      * @param {Integer} cchLength Type: <b>DWORD</b>
@@ -11104,7 +11295,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharUpperBuffW(lpsz, cchLength) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharUpperBuffW", "ptr", lpsz, "uint", cchLength, "uint")
         return result
@@ -11112,10 +11303,10 @@ class WindowsAndMessaging {
 
     /**
      * Converts a character string or a single character to lowercase. If the operand is a character string, the function converts the characters in place.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A null-terminated string, or specifies a single character. If the high-order word of this parameter is zero, the low-order word must contain a single character to be converted.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * If the operand is a character string, the function returns a pointer to the converted string. Because the string is converted in place, the return value is equal to 
      * 						<i>lpsz</i>. 
@@ -11128,7 +11319,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerA(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         A_LastError := 0
 
@@ -11141,10 +11332,10 @@ class WindowsAndMessaging {
 
     /**
      * Converts a character string or a single character to lowercase. If the operand is a character string, the function converts the characters in place.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A null-terminated string, or specifies a single character. If the high-order word of this parameter is zero, the low-order word must contain a single character to be converted.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * If the operand is a character string, the function returns a pointer to the converted string. Because the string is converted in place, the return value is equal to 
      * 						<i>lpsz</i>. 
@@ -11157,7 +11348,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerW(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         A_LastError := 0
 
@@ -11170,7 +11361,7 @@ class WindowsAndMessaging {
 
     /**
      * Converts uppercase characters in a buffer to lowercase characters. The function converts the characters in place.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A buffer containing one or more characters to be processed.
      * @param {Integer} cchLength Type: <b>DWORD</b>
@@ -11188,7 +11379,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerBuffA(lpsz, cchLength) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharLowerBuffA", "ptr", lpsz, "uint", cchLength, "uint")
         return result
@@ -11196,7 +11387,7 @@ class WindowsAndMessaging {
 
     /**
      * Converts uppercase characters in a buffer to lowercase characters. The function converts the characters in place.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A buffer containing one or more characters to be processed.
      * @param {Integer} cchLength Type: <b>DWORD</b>
@@ -11214,7 +11405,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharLowerBuffW(lpsz, cchLength) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharLowerBuffW", "ptr", lpsz, "uint", cchLength, "uint")
         return result
@@ -11222,10 +11413,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a pointer to the next character in a string. This function can handle strings consisting of either single- or multi-byte characters.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPCTSTR</b>
      * 
      * A character in a null-terminated string.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * The return value is a pointer to the next character in the string, or to the terminating null character if at the end of the string.
      * 
@@ -11236,7 +11427,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextA(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharNextA", "ptr", lpsz, "char*")
         return result
@@ -11244,10 +11435,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a pointer to the next character in a string. This function can handle strings consisting of either single- or multi-byte characters.
-     * @param {Pointer<Char>} lpsz Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPCTSTR</b>
      * 
      * A character in a null-terminated string.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * The return value is a pointer to the next character in the string, or to the terminating null character if at the end of the string.
      * 
@@ -11258,7 +11449,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextW(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("USER32.dll\CharNextW", "ptr", lpsz, "char*")
         return result
@@ -11266,13 +11457,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a pointer to the preceding character in a string. This function can handle strings consisting of either single- or multi-byte characters.
-     * @param {Pointer<Byte>} lpszStart Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszStart Type: <b>LPCTSTR</b>
      * 
      * The beginning of the string.
-     * @param {Pointer<Byte>} lpszCurrent Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszCurrent Type: <b>LPCTSTR</b>
      * 
      * A character in a null-terminated string.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * The return value is a pointer to the preceding character in the string, or to the first character in the string if the 
      * 						<i>lpszCurrent</i> parameter equals the 
@@ -11281,8 +11472,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevA(lpszStart, lpszCurrent) {
-        lpszStart := lpszStart is String? StrPtr(lpszStart) : lpszStart
-        lpszCurrent := lpszCurrent is String? StrPtr(lpszCurrent) : lpszCurrent
+        lpszStart := lpszStart is String ? StrPtr(lpszStart) : lpszStart
+        lpszCurrent := lpszCurrent is String ? StrPtr(lpszCurrent) : lpszCurrent
 
         result := DllCall("USER32.dll\CharPrevA", "ptr", lpszStart, "ptr", lpszCurrent, "char*")
         return result
@@ -11290,13 +11481,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a pointer to the preceding character in a string. This function can handle strings consisting of either single- or multi-byte characters.
-     * @param {Pointer<Char>} lpszStart Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszStart Type: <b>LPCTSTR</b>
      * 
      * The beginning of the string.
-     * @param {Pointer<Char>} lpszCurrent Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszCurrent Type: <b>LPCTSTR</b>
      * 
      * A character in a null-terminated string.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * The return value is a pointer to the preceding character in the string, or to the first character in the string if the 
      * 						<i>lpszCurrent</i> parameter equals the 
@@ -11305,8 +11496,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevW(lpszStart, lpszCurrent) {
-        lpszStart := lpszStart is String? StrPtr(lpszStart) : lpszStart
-        lpszCurrent := lpszCurrent is String? StrPtr(lpszCurrent) : lpszCurrent
+        lpszStart := lpszStart is String ? StrPtr(lpszStart) : lpszStart
+        lpszCurrent := lpszCurrent is String ? StrPtr(lpszCurrent) : lpszCurrent
 
         result := DllCall("USER32.dll\CharPrevW", "ptr", lpszStart, "ptr", lpszCurrent, "char*")
         return result
@@ -11357,13 +11548,13 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpCurrentChar Type: <b>LPCSTR</b>
+     * @param {PSTR} lpCurrentChar Type: <b>LPCSTR</b>
      * 
      * A character in a null-terminated string.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * This parameter is reserved and must be 0.
-     * @returns {Pointer<Byte>} Type: <b>LPSTR</b>
+     * @returns {PSTR} Type: <b>LPSTR</b>
      * 
      * The return value is a pointer to the next character in the string, or to the terminating null character if at the end of the string.
      * 
@@ -11374,7 +11565,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharNextExA(CodePage, lpCurrentChar, dwFlags) {
-        lpCurrentChar := lpCurrentChar is String? StrPtr(lpCurrentChar) : lpCurrentChar
+        lpCurrentChar := lpCurrentChar is String ? StrPtr(lpCurrentChar) : lpCurrentChar
 
         result := DllCall("USER32.dll\CharNextExA", "ushort", CodePage, "ptr", lpCurrentChar, "uint", dwFlags, "char*")
         return result
@@ -11425,16 +11616,16 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpStart Type: <b>LPCSTR</b>
+     * @param {PSTR} lpStart Type: <b>LPCSTR</b>
      * 
      * The beginning of the string.
-     * @param {Pointer<Byte>} lpCurrentChar Type: <b>LPCSTR</b>
+     * @param {PSTR} lpCurrentChar Type: <b>LPCSTR</b>
      * 
      * A character in a null-terminated string.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * This parameter is reserved and must be zero.
-     * @returns {Pointer<Byte>} Type: <b>LPSTR</b>
+     * @returns {PSTR} Type: <b>LPSTR</b>
      * 
      * The return value is a pointer to the preceding character in the string, or to the first character in the string if the 
      * 						<i>lpCurrentChar</i> parameter equals the 
@@ -11443,8 +11634,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CharPrevExA(CodePage, lpStart, lpCurrentChar, dwFlags) {
-        lpStart := lpStart is String? StrPtr(lpStart) : lpStart
-        lpCurrentChar := lpCurrentChar is String? StrPtr(lpCurrentChar) : lpCurrentChar
+        lpStart := lpStart is String ? StrPtr(lpStart) : lpStart
+        lpCurrentChar := lpCurrentChar is String ? StrPtr(lpCurrentChar) : lpCurrentChar
 
         result := DllCall("USER32.dll\CharPrevExA", "ushort", CodePage, "ptr", lpStart, "ptr", lpCurrentChar, "uint", dwFlags, "char*")
         return result
@@ -11452,10 +11643,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a character is an alphabetical character. This determination is based on the semantics of the language selected by the user during setup or through Control Panel.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is alphabetical, the return value is nonzero.
      * 
@@ -11478,7 +11669,7 @@ class WindowsAndMessaging {
      * @param {Integer} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is alphabetical, the return value is nonzero.
      * 
@@ -11498,10 +11689,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a character is either an alphabetical or a numeric character. This determination is based on the semantics of the language selected by the user during setup or through Control Panel.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is alphanumeric, the return value is nonzero.
      * 
@@ -11524,7 +11715,7 @@ class WindowsAndMessaging {
      * @param {Integer} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is alphanumeric, the return value is nonzero.
      * 
@@ -11544,10 +11735,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a character is uppercase. This determination is based on the semantics of the language selected by the user during setup or through Control Panel.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is uppercase, the return value is nonzero.
      * 
@@ -11570,7 +11761,7 @@ class WindowsAndMessaging {
      * @param {Integer} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is uppercase, the return value is nonzero.
      * 
@@ -11590,10 +11781,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether a character is lowercase. This determination is based on the semantics of the language selected by the user during setup or through Control Panel.
-     * @param {Integer} ch Type: <b>TCHAR</b>
+     * @param {CHAR} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is lowercase, the return value is nonzero.
      * 
@@ -11616,7 +11807,7 @@ class WindowsAndMessaging {
      * @param {Integer} ch Type: <b>TCHAR</b>
      * 
      * The character to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the character is lowercase, the return value is nonzero.
      * 
@@ -11635,7 +11826,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether there are mouse-button or keyboard messages in the calling thread's message queue.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the queue contains one or more new mouse-button or keyboard messages, the return value is nonzero.
      * 
@@ -11665,7 +11856,7 @@ class WindowsAndMessaging {
     /**
      * Waits until one or all of the specified objects are in the signaled state or the time-out interval elapses. The objects can include input event objects.
      * @param {Integer} nCount The number of object handles in the array pointed to by <i>pHandles</i>. The maximum number of object handles is <b>MAXIMUM_WAIT_OBJECTS</b> minus one. If this parameter has the value zero, then the function waits only for an input event.
-     * @param {Pointer<Void>} pHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle. 
+     * @param {Pointer<HANDLE>} pHandles An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles of objects of different types. It may not contain multiple copies of the same handle. 
      * 
      * 
      * 
@@ -11674,7 +11865,7 @@ class WindowsAndMessaging {
      * 
      * The handles must have the <b>SYNCHRONIZE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
-     * @param {Integer} fWaitAll If this parameter is <b>TRUE</b>, the function returns when the states of all objects in the <i>pHandles</i> array have been set to signaled and an input event has been received. If this parameter is <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled or an input event has been received. In this case, the return value indicates the object whose state caused the function to return.
+     * @param {BOOL} fWaitAll If this parameter is <b>TRUE</b>, the function returns when the states of all objects in the <i>pHandles</i> array have been set to signaled and an input event has been received. If this parameter is <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled or an input event has been received. In this case, the return value indicates the object whose state caused the function to return.
      * @param {Integer} dwMilliseconds The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the specified objects are signaled or the interval elapses. If <i>dwMilliseconds</i> is zero, the function does not enter a wait state if the specified objects are not signaled; it always returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function will return only when the specified objects are signaled.
      * 
      * <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep.
@@ -11778,7 +11969,7 @@ class WindowsAndMessaging {
     /**
      * Waits until one or all of the specified objects are in the signaled state, an I/O completion routine or asynchronous procedure call (APC) is queued to the thread, or the time-out interval elapses. The array of objects can include input event objects.
      * @param {Integer} nCount The number of object handles in the array pointed to by <i>pHandles</i>. The maximum number of object handles is <b>MAXIMUM_WAIT_OBJECTS</b> minus one. If this parameter has the value zero, then the function waits only for an input event.
-     * @param {Pointer<Void>} pHandles An array of object handles. For a list of the object types whose handles you can specify, see the Remarks section later in this topic. The array can contain handles to multiple types of objects. It may not contain multiple copies of the same handle. 
+     * @param {Pointer<HANDLE>} pHandles An array of object handles. For a list of the object types whose handles you can specify, see the Remarks section later in this topic. The array can contain handles to multiple types of objects. It may not contain multiple copies of the same handle. 
      * 
      * 
      * 
@@ -11904,7 +12095,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates a timer with the specified time-out value.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
@@ -11929,6 +12120,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetTimer(hWnd, nIDEvent, uElapse, lpTimerFunc) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetTimer", "ptr", hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "ptr")
@@ -11940,7 +12133,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates a timer with the specified time-out value and coalescing tolerance delay.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be associated with the timer. This window must be owned by the calling thread. If a <b>NULL</b> value for <i>hWnd</i> is passed in along with an <i>nIDEvent</i> of an existing timer, that timer will be replaced in the same way that an existing non-NULL <i>hWnd</i> timer will be.
      * @param {Pointer} nIDEvent Type: <b>UINT_PTR</b>
@@ -11968,6 +12161,8 @@ class WindowsAndMessaging {
      * @since windows8.0
      */
     static SetCoalescableTimer(hWnd, nIDEvent, uElapse, lpTimerFunc, uToleranceDelay) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetCoalescableTimer", "ptr", hWnd, "ptr", nIDEvent, "uint", uElapse, "ptr", lpTimerFunc, "uint", uToleranceDelay, "ptr")
@@ -11979,7 +12174,7 @@ class WindowsAndMessaging {
 
     /**
      * Destroys the specified timer.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window associated with the specified timer. This value must be the same as the 
      * 					<i>hWnd</i> value passed to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-settimer">SetTimer</a> function that created the timer.
@@ -11990,7 +12185,7 @@ class WindowsAndMessaging {
      * 
      * value passed to <b>SetTimer</b>. If the application calls <b>SetTimer</b> with 
      * 					<i>hWnd</i> set to <b>NULL</b>, this parameter must be the timer identifier returned by <b>SetTimer</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -11999,6 +12194,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static KillTimer(hWnd, uIDEvent) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\KillTimer", "ptr", hWnd, "ptr", uIDEvent, "int")
@@ -12010,10 +12207,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines whether the specified window is a native Unicode window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window is a native Unicode window, the return value is nonzero.
      * 
@@ -12022,19 +12219,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsWindowUnicode(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\IsWindowUnicode", "ptr", hWnd, "int")
         return result
     }
 
     /**
      * Loads the specified accelerator table.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module whose executable file contains the accelerator table to be loaded.
-     * @param {Pointer<Byte>} lpTableName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @returns {Pointer<Void>} Type: <b>HACCEL</b>
+     * @returns {HACCEL} Type: <b>HACCEL</b>
      * 
      * If the function succeeds, the return value is a handle to the loaded accelerator table.
      * 
@@ -12043,7 +12242,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadAcceleratorsA(hInstance, lpTableName) {
-        lpTableName := lpTableName is String? StrPtr(lpTableName) : lpTableName
+        lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -12051,18 +12251,18 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HACCEL({Value: result}, True)
     }
 
     /**
      * Loads the specified accelerator table.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module whose executable file contains the accelerator table to be loaded.
-     * @param {Pointer<Char>} lpTableName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpTableName Type: <b>LPCTSTR</b>
      * 
      * The name of the accelerator table to be loaded. Alternatively, this parameter can specify the resource identifier of an accelerator-table resource in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @returns {Pointer<Void>} Type: <b>HACCEL</b>
+     * @returns {HACCEL} Type: <b>HACCEL</b>
      * 
      * If the function succeeds, the return value is a handle to the loaded accelerator table.
      * 
@@ -12071,7 +12271,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadAcceleratorsW(hInstance, lpTableName) {
-        lpTableName := lpTableName is String? StrPtr(lpTableName) : lpTableName
+        lpTableName := lpTableName is String ? StrPtr(lpTableName) : lpTableName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -12079,7 +12280,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HACCEL({Value: result}, True)
     }
 
     /**
@@ -12090,7 +12291,7 @@ class WindowsAndMessaging {
      * @param {Integer} cAccel Type: <b>int</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures in the array. This must be within the range 1 to 32767 or the function will fail.
-     * @returns {Pointer<Void>} Type: <b>HACCEL</b>
+     * @returns {HACCEL} Type: <b>HACCEL</b>
      * 
      * If the function succeeds, the return value is the handle to the created accelerator table; otherwise, it is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createacceleratortablea
@@ -12103,7 +12304,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HACCEL({Value: result}, True)
     }
 
     /**
@@ -12114,7 +12315,7 @@ class WindowsAndMessaging {
      * @param {Integer} cAccel Type: <b>int</b>
      * 
      * The number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-accel">ACCEL</a> structures in the array. This must be within the range 1 to 32767 or the function will fail.
-     * @returns {Pointer<Void>} Type: <b>HACCEL</b>
+     * @returns {HACCEL} Type: <b>HACCEL</b>
      * 
      * If the function succeeds, the return value is the handle to the created accelerator table; otherwise, it is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-createacceleratortablew
@@ -12127,15 +12328,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HACCEL({Value: result}, True)
     }
 
     /**
      * Destroys an accelerator table.
-     * @param {Pointer<Void>} hAccel Type: <b>HACCEL</b>
+     * @param {HACCEL} hAccel Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table to be destroyed. This handle must have been created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. However, if the table has been loaded more than one call to <a href="/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a>, the function will return a nonzero value only when <b>DestroyAcceleratorTable</b> has been called an equal number of times.
      * 
@@ -12144,13 +12345,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DestroyAcceleratorTable(hAccel) {
+        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+
         result := DllCall("USER32.dll\DestroyAcceleratorTable", "ptr", hAccel, "int")
         return result
     }
 
     /**
      * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data.
-     * @param {Pointer<Void>} hAccelSrc Type: <b>HACCEL</b>
+     * @param {HACCEL} hAccelSrc Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table to copy.
      * @param {Pointer<ACCEL>} lpAccelDst Type: <b>LPACCEL</b>
@@ -12168,13 +12371,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyAcceleratorTableA(hAccelSrc, lpAccelDst, cAccelEntries) {
+        hAccelSrc := hAccelSrc is Win32Handle ? NumGet(hAccelSrc, "ptr") : hAccelSrc
+
         result := DllCall("USER32.dll\CopyAcceleratorTableA", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries, "int")
         return result
     }
 
     /**
      * Copies the specified accelerator table. This function is used to obtain the accelerator-table data that corresponds to an accelerator-table handle, or to determine the size of the accelerator-table data.
-     * @param {Pointer<Void>} hAccelSrc Type: <b>HACCEL</b>
+     * @param {HACCEL} hAccelSrc Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table to copy.
      * @param {Pointer<ACCEL>} lpAccelDst Type: <b>LPACCEL</b>
@@ -12192,16 +12397,18 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyAcceleratorTableW(hAccelSrc, lpAccelDst, cAccelEntries) {
+        hAccelSrc := hAccelSrc is Win32Handle ? NumGet(hAccelSrc, "ptr") : hAccelSrc
+
         result := DllCall("USER32.dll\CopyAcceleratorTableW", "ptr", hAccelSrc, "ptr", lpAccelDst, "int", cAccelEntries, "int")
         return result
     }
 
     /**
      * Processes accelerator keys for menu commands.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be translated.
-     * @param {Pointer<Void>} hAccTable Type: <b>HACCEL</b>
+     * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
@@ -12216,6 +12423,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static TranslateAcceleratorA(hWnd, hAccTable, lpMsg) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hAccTable := hAccTable is Win32Handle ? NumGet(hAccTable, "ptr") : hAccTable
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\TranslateAcceleratorA", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
@@ -12227,10 +12437,10 @@ class WindowsAndMessaging {
 
     /**
      * Processes accelerator keys for menu commands.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose messages are to be translated.
-     * @param {Pointer<Void>} hAccTable Type: <b>HACCEL</b>
+     * @param {HACCEL} hAccTable Type: <b>HACCEL</b>
      * 
      * A handle to the accelerator table. The accelerator table must have been loaded by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadacceleratorsa">LoadAccelerators</a> function or created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createacceleratortablea">CreateAcceleratorTable</a> function.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
@@ -12245,6 +12455,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static TranslateAcceleratorW(hWnd, hAccTable, lpMsg) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hAccTable := hAccTable is Win32Handle ? NumGet(hAccTable, "ptr") : hAccTable
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\TranslateAcceleratorW", "ptr", hWnd, "ptr", hAccTable, "ptr", lpMsg, "int")
@@ -12273,13 +12486,13 @@ class WindowsAndMessaging {
 
     /**
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module containing the menu resource to be loaded.
-     * @param {Pointer<Byte>} lpMenuName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the menu resource.
      * 
@@ -12288,7 +12501,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadMenuA(hInstance, lpMenuName) {
-        lpMenuName := lpMenuName is String? StrPtr(lpMenuName) : lpMenuName
+        lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -12296,18 +12510,18 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Loads the specified menu resource from the executable (.exe) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the module containing the menu resource to be loaded.
-     * @param {Pointer<Char>} lpMenuName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpMenuName Type: <b>LPCTSTR</b>
      * 
      * The name of the menu resource. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the menu resource.
      * 
@@ -12316,7 +12530,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadMenuW(hInstance, lpMenuName) {
-        lpMenuName := lpMenuName is String? StrPtr(lpMenuName) : lpMenuName
+        lpMenuName := lpMenuName is String ? StrPtr(lpMenuName) : lpMenuName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -12324,7 +12539,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
@@ -12332,7 +12547,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} lpMenuTemplate Type: <b>const MENUTEMPLATE*</b>
      * 
      * A pointer to a menu template or an extended menu template. A menu template consists of a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuitemtemplateheader">MENUITEMTEMPLATEHEADER</a> structure followed by one or more contiguous <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuitemtemplate">MENUITEMTEMPLATE</a> structures. An extended menu template consists of a <a href="https://docs.microsoft.com/windows/desktop/menurc/menuex-template-header">MENUEX_TEMPLATE_HEADER</a> structure followed by one or more contiguous <a href="https://docs.microsoft.com/windows/desktop/menurc/menuex-template-item">MENUEX_TEMPLATE_ITEM</a> structures.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the menu.
      * 
@@ -12347,7 +12562,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
@@ -12355,7 +12570,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Void>} lpMenuTemplate Type: <b>const MENUTEMPLATE*</b>
      * 
      * A pointer to a menu template or an extended menu template. A menu template consists of a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuitemtemplateheader">MENUITEMTEMPLATEHEADER</a> structure followed by one or more contiguous <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuitemtemplate">MENUITEMTEMPLATE</a> structures. An extended menu template consists of a <a href="https://docs.microsoft.com/windows/desktop/menurc/menuex-template-header">MENUEX_TEMPLATE_HEADER</a> structure followed by one or more contiguous <a href="https://docs.microsoft.com/windows/desktop/menurc/menuex-template-item">MENUEX_TEMPLATE_ITEM</a> structures.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the menu.
      * 
@@ -12370,34 +12585,36 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the menu assigned to the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose menu handle is to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * The return value is a handle to the menu. If the specified window has no menu, the return value is <b>NULL</b>. If the window is a child window, the return value is undefined.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getmenu
      * @since windows5.0
      */
     static GetMenu(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\GetMenu", "ptr", hWnd, "ptr")
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Assigns a new menu to the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window to which the menu is to be assigned.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the new menu. If this parameter is <b>NULL</b>, the window's current menu is removed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -12406,6 +12623,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenu(hWnd, hMenu) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenu", "ptr", hWnd, "ptr", hMenu, "int")
@@ -12417,15 +12637,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} hMenu 
+     * @param {HMENU} hMenu 
      * @param {Integer} cmd 
-     * @param {Pointer<Byte>} lpszNewItem 
+     * @param {PSTR} lpszNewItem 
      * @param {Integer} cmdInsert 
      * @param {Integer} flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChangeMenuA(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
-        lpszNewItem := lpszNewItem is String? StrPtr(lpszNewItem) : lpszNewItem
+        lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("USER32.dll\ChangeMenuA", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
@@ -12433,15 +12654,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} hMenu 
+     * @param {HMENU} hMenu 
      * @param {Integer} cmd 
-     * @param {Pointer<Char>} lpszNewItem 
+     * @param {PWSTR} lpszNewItem 
      * @param {Integer} cmdInsert 
      * @param {Integer} flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ChangeMenuW(hMenu, cmd, lpszNewItem, cmdInsert, flags) {
-        lpszNewItem := lpszNewItem is String? StrPtr(lpszNewItem) : lpszNewItem
+        lpszNewItem := lpszNewItem is String ? StrPtr(lpszNewItem) : lpszNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("USER32.dll\ChangeMenuW", "ptr", hMenu, "uint", cmd, "ptr", lpszNewItem, "uint", cmdInsert, "uint", flags, "int")
         return result
@@ -12449,10 +12671,10 @@ class WindowsAndMessaging {
 
     /**
      * Adds or removes highlighting from an item in a menu bar.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that contains the menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu bar that contains the item.
      * @param {Integer} uIDHiliteItem Type: <b>UINT</b>
@@ -12512,7 +12734,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the menu item is set to the specified highlight state, the return value is nonzero.
      * 
@@ -12521,19 +12743,22 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static HiliteMenuItem(hWnd, hMenu, uIDHiliteItem, uHilite) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\HiliteMenuItem", "ptr", hWnd, "ptr", hMenu, "uint", uIDHiliteItem, "uint", uHilite, "int")
         return result
     }
 
     /**
      * Copies the text string of the specified menu item into the specified buffer.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu.
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
-     * @param {Pointer<Byte>} lpString Type: <b>LPTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the null-terminated string. If the string is as long or longer than <i>lpString</i>, the string is truncated and the terminating null character is added. If <i>lpString</i> is <b>NULL</b>, the function returns the length of the menu string.
      * @param {Integer} cchMax Type: <b>int</b>
@@ -12551,7 +12776,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuStringA(hMenu, uIDItem, lpString, cchMax, flags) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("USER32.dll\GetMenuStringA", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
@@ -12559,13 +12785,13 @@ class WindowsAndMessaging {
 
     /**
      * Copies the text string of the specified menu item into the specified buffer.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu.
      * @param {Integer} uIDItem Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlag</i> parameter.
-     * @param {Pointer<Char>} lpString Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that receives the null-terminated string. If the string is as long or longer than <i>lpString</i>, the string is truncated and the terminating null character is added. If <i>lpString</i> is <b>NULL</b>, the function returns the length of the menu string.
      * @param {Integer} cchMax Type: <b>int</b>
@@ -12583,7 +12809,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuStringW(hMenu, uIDItem, lpString, cchMax, flags) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("USER32.dll\GetMenuStringW", "ptr", hMenu, "uint", uIDItem, "ptr", lpString, "int", cchMax, "uint", flags, "int")
         return result
@@ -12591,7 +12818,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the menu flags associated with the specified menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the menu item whose flags are to be retrieved.
      * @param {Integer} uId Type: <b>UINT</b>
@@ -12724,16 +12951,18 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuState(hMenu, uId, uFlags) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\GetMenuState", "ptr", hMenu, "uint", uId, "uint", uFlags, "uint")
         return result
     }
 
     /**
      * Redraws the menu bar of the specified window. If the menu bar changes after the system has created the window, this function must be called to draw the changed menu bar.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose menu bar is to be redrawn.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -12742,6 +12971,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DrawMenuBar(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DrawMenuBar", "ptr", hWnd, "int")
@@ -12753,26 +12984,28 @@ class WindowsAndMessaging {
 
     /**
      * Enables the application to access the window menu (also known as the system menu or the control menu) for copying and modifying.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that will own a copy of the window menu.
-     * @param {Integer} bRevert Type: <b>BOOL</b>
+     * @param {BOOL} bRevert Type: <b>BOOL</b>
      * 
      * The action to be taken. If this parameter is <b>FALSE</b>, <b>GetSystemMenu</b> returns a handle to the copy of the window menu currently in use. The copy is initially identical to the window menu, but it can be modified. If this parameter is <b>TRUE</b>, <b>GetSystemMenu</b> resets the window menu back to the default state. The previous window menu, if any, is destroyed.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the <i>bRevert</i> parameter is <b>FALSE</b>, the return value is a handle to a copy of the window menu. If the <i>bRevert</i> parameter is <b>TRUE</b>, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getsystemmenu
      * @since windows5.0
      */
     static GetSystemMenu(hWnd, bRevert) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\GetSystemMenu", "ptr", hWnd, "int", bRevert, "ptr")
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Creates a menu. The menu is initially empty, but it can be filled with menu items by using the InsertMenuItem, AppendMenu, and InsertMenu functions.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the newly created menu.
      * 
@@ -12787,12 +13020,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Creates a drop-down menu, submenu, or shortcut menu.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the newly created menu.
      * 
@@ -12807,15 +13040,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Destroys the specified menu and frees any memory that the menu occupies.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be destroyed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -12824,6 +13057,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DestroyMenu(hMenu) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DestroyMenu", "ptr", hMenu, "int")
@@ -12835,7 +13070,7 @@ class WindowsAndMessaging {
 
     /**
      * Sets the state of the specified menu item's check-mark attribute to either selected or clear.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu of interest.
      * @param {Integer} uIDCheckItem Type: <b>UINT</b>
@@ -12902,52 +13137,58 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CheckMenuItem(hMenu, uIDCheckItem, uCheck) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\CheckMenuItem", "ptr", hMenu, "uint", uIDCheckItem, "uint", uCheck, "uint")
         return result
     }
 
     /**
      * Enables, disables, or grays the specified menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu.
      * @param {Integer} uIDEnableItem Type: <b>UINT</b>
      * 
      * The menu item to be enabled, disabled, or grayed, as determined by the <i>uEnable</i> parameter. This parameter specifies an item in a menu bar, menu, or submenu.
      * @param {Integer} uEnable Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value specifies the previous state of the menu item (it is either <b>MF_DISABLED</b>, <b>MF_ENABLED</b>, or <b>MF_GRAYED</b>). If the menu item does not exist, the return value is -1.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enablemenuitem
      * @since windows5.0
      */
     static EnableMenuItem(hMenu, uIDEnableItem, uEnable) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\EnableMenuItem", "ptr", hMenu, "uint", uIDEnableItem, "uint", uEnable, "int")
         return result
     }
 
     /**
      * Retrieves a handle to the drop-down menu or submenu activated by the specified menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu.
      * @param {Integer} nPos Type: <b>int</b>
      * 
      * The zero-based relative position in the specified menu of an item that activates a drop-down menu or submenu.
-     * @returns {Pointer<Void>} Type: <b>HMENU</b>
+     * @returns {HMENU} Type: <b>HMENU</b>
      * 
      * If the function succeeds, the return value is a handle to the drop-down menu or submenu activated by the menu item. If the menu item does not activate a drop-down menu or submenu, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getsubmenu
      * @since windows5.0
      */
     static GetSubMenu(hMenu, nPos) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\GetSubMenu", "ptr", hMenu, "int", nPos, "ptr")
-        return result
+        return HMENU({Value: result}, True)
     }
 
     /**
      * Retrieves the menu item identifier of a menu item located at the specified position in a menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the item whose identifier is to be retrieved.
      * @param {Integer} nPos Type: <b>int</b>
@@ -12960,13 +13201,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuItemID(hMenu, nPos) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\GetMenuItemID", "ptr", hMenu, "int", nPos, "uint")
         return result
     }
 
     /**
      * Determines the number of items in the specified menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be examined.
      * @returns {Integer} Type: <b>int</b>
@@ -12978,6 +13221,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuItemCount(hMenu) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuItemCount", "ptr", hMenu, "int")
@@ -12989,7 +13234,7 @@ class WindowsAndMessaging {
 
     /**
      * Inserts a new menu item into a menu, moving other items down the menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
@@ -13030,7 +13275,7 @@ class WindowsAndMessaging {
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter has the <b>MF_POPUP</b> flag set, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Byte>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The content of the new menu item. The interpretation of <i>lpNewItem</i> depends on whether the <i>uFlags</i> parameter includes the <b>MF_BITMAP</b>, <b>MF_OWNERDRAW</b>, or <b>MF_STRING</b> flag, as follows. 
      * 
@@ -13073,7 +13318,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -13082,7 +13327,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuA(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         A_LastError := 0
 
@@ -13095,7 +13341,7 @@ class WindowsAndMessaging {
 
     /**
      * Inserts a new menu item into a menu, moving other items down the menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
@@ -13136,7 +13382,7 @@ class WindowsAndMessaging {
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter has the <b>MF_POPUP</b> flag set, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Char>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The content of the new menu item. The interpretation of <i>lpNewItem</i> depends on whether the <i>uFlags</i> parameter includes the <b>MF_BITMAP</b>, <b>MF_OWNERDRAW</b>, or <b>MF_STRING</b> flag, as follows. 
      * 
@@ -13179,7 +13425,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -13188,7 +13434,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuW(hMenu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         A_LastError := 0
 
@@ -13201,14 +13448,14 @@ class WindowsAndMessaging {
 
     /**
      * Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can use this function to specify the content, appearance, and behavior of the menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter is set to <b>MF_POPUP</b>, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Byte>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The content of the new menu item. The interpretation of <i>lpNewItem</i> depends on whether the <i>uFlags</i> parameter includes the following values. 
      * 
@@ -13251,14 +13498,15 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-appendmenua
      * @since windows5.0
      */
     static AppendMenuA(hMenu, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         A_LastError := 0
 
@@ -13271,14 +13519,14 @@ class WindowsAndMessaging {
 
     /**
      * Appends a new item to the end of the specified menu bar, drop-down menu, submenu, or shortcut menu. You can use this function to specify the content, appearance, and behavior of the menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu bar, drop-down menu, submenu, or shortcut menu to be changed.
      * @param {Integer} uFlags Type: <b>UINT</b>
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the new menu item or, if the <i>uFlags</i> parameter is set to <b>MF_POPUP</b>, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Char>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The content of the new menu item. The interpretation of <i>lpNewItem</i> depends on whether the <i>uFlags</i> parameter includes the following values. 
      * 
@@ -13321,14 +13569,15 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-appendmenuw
      * @since windows5.0
      */
     static AppendMenuW(hMenu, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         A_LastError := 0
 
@@ -13341,7 +13590,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an existing menu item.
-     * @param {Pointer<Void>} hMnu Type: <b>HMENU</b>
+     * @param {HMENU} hMnu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
@@ -13382,7 +13631,7 @@ class WindowsAndMessaging {
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the modified menu item or, if the <i>uFlags</i> parameter has the <b>MF_POPUP</b> flag set, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Byte>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The contents of the changed menu item. The interpretation of this parameter depends on whether the <i>uFlags</i> parameter includes the <b>MF_BITMAP</b>, <b>MF_OWNERDRAW</b>, or <b>MF_STRING</b> flag. 
      * 
@@ -13425,7 +13674,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                     
@@ -13435,7 +13684,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ModifyMenuA(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMnu := hMnu is Win32Handle ? NumGet(hMnu, "ptr") : hMnu
 
         A_LastError := 0
 
@@ -13448,7 +13698,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an existing menu item.
-     * @param {Pointer<Void>} hMnu Type: <b>HMENU</b>
+     * @param {HMENU} hMnu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
@@ -13489,7 +13739,7 @@ class WindowsAndMessaging {
      * @param {Pointer} uIDNewItem Type: <b>UINT_PTR</b>
      * 
      * The identifier of the modified menu item or, if the <i>uFlags</i> parameter has the <b>MF_POPUP</b> flag set, a handle to the drop-down menu or submenu.
-     * @param {Pointer<Char>} lpNewItem Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpNewItem Type: <b>LPCTSTR</b>
      * 
      * The contents of the changed menu item. The interpretation of this parameter depends on whether the <i>uFlags</i> parameter includes the <b>MF_BITMAP</b>, <b>MF_OWNERDRAW</b>, or <b>MF_STRING</b> flag. 
      * 
@@ -13532,7 +13782,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                     
@@ -13542,7 +13792,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ModifyMenuW(hMnu, uPosition, uFlags, uIDNewItem, lpNewItem) {
-        lpNewItem := lpNewItem is String? StrPtr(lpNewItem) : lpNewItem
+        lpNewItem := lpNewItem is String ? StrPtr(lpNewItem) : lpNewItem
+        hMnu := hMnu is Win32Handle ? NumGet(hMnu, "ptr") : hMnu
 
         A_LastError := 0
 
@@ -13555,14 +13806,14 @@ class WindowsAndMessaging {
 
     /**
      * Deletes a menu item or detaches a submenu from the specified menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -13571,6 +13822,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RemoveMenu(hMenu, uPosition, uFlags) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\RemoveMenu", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "int")
@@ -13582,14 +13835,14 @@ class WindowsAndMessaging {
 
     /**
      * Deletes an item from the specified menu. If the menu item opens a menu or submenu, this function destroys the handle to the menu or submenu and frees the memory used by the menu or submenu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to be changed.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be deleted, as determined by the <i>uFlags</i> parameter.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -13598,6 +13851,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DeleteMenu(hMenu, uPosition, uFlags) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DeleteMenu", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "int")
@@ -13609,20 +13864,20 @@ class WindowsAndMessaging {
 
     /**
      * Associates the specified bitmap with a menu item. Whether the menu item is selected or clear, the system displays the appropriate bitmap next to the menu item.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu containing the item to receive new check-mark bitmaps.
      * @param {Integer} uPosition Type: <b>UINT</b>
      * 
      * The menu item to be changed, as determined by the <i>uFlags</i> parameter.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @param {Pointer<Void>} hBitmapUnchecked Type: <b>HBITMAP</b>
+     * @param {HBITMAP} hBitmapUnchecked Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap displayed when the menu item is not selected.
-     * @param {Pointer<Void>} hBitmapChecked Type: <b>HBITMAP</b>
+     * @param {HBITMAP} hBitmapChecked Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap displayed when the menu item is selected.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -13631,6 +13886,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenuItemBitmaps(hMenu, uPosition, uFlags, hBitmapUnchecked, hBitmapChecked) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        hBitmapUnchecked := hBitmapUnchecked is Win32Handle ? NumGet(hBitmapUnchecked, "ptr") : hBitmapUnchecked
+        hBitmapChecked := hBitmapChecked is Win32Handle ? NumGet(hBitmapChecked, "ptr") : hBitmapChecked
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuItemBitmaps", "ptr", hMenu, "uint", uPosition, "uint", uFlags, "ptr", hBitmapUnchecked, "ptr", hBitmapChecked, "int")
@@ -13655,7 +13914,7 @@ class WindowsAndMessaging {
 
     /**
      * Displays a shortcut menu at the specified location and tracks the selection of items on the menu. The shortcut menu can appear anywhere on the screen.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the shortcut menu to be displayed. The handle can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> to create a new shortcut menu, or by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> to retrieve a handle to a submenu associated with an existing menu item.
      * @param {Integer} uFlags Type: <b>UINT</b>
@@ -13903,13 +14162,13 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>uFlags</i> parameter, the function does not send messages to the window identified by <i>hWnd</i>. However, you must still pass a window handle in <i>hWnd</i>. It can be any window handle from your application.
      * @param {Pointer<RECT>} prcRect Type: <b>const RECT*</b>
      * 
      * Ignored.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If you specify <b>TPM_RETURNCMD</b> in the <i>uFlags</i> parameter, the return value is the menu-item identifier of the item that the user selected. If the user cancels the menu without making a selection, or if an error occurs, the return value is zero.
      * 
@@ -13919,6 +14178,9 @@ class WindowsAndMessaging {
      */
     static TrackPopupMenu(hMenu, uFlags, x, y, hWnd, prcRect) {
         static nReserved := 0 ;Reserved parameters must always be NULL
+
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -13931,7 +14193,7 @@ class WindowsAndMessaging {
 
     /**
      * Displays a shortcut menu at the specified location and tracks the selection of items on the shortcut menu. The shortcut menu can appear anywhere on the screen.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the shortcut menu to be displayed. This handle can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createpopupmenu">CreatePopupMenu</a> function to create a new shortcut menu or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsubmenu">GetSubMenu</a> function to retrieve a handle to a submenu associated with an existing menu item.
      * @param {Integer} uFlags Type: <b>UINT</b>
@@ -14213,13 +14475,13 @@ class WindowsAndMessaging {
      * @param {Integer} y Type: <b>int</b>
      * 
      * The vertical location of the shortcut menu, in screen coordinates.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the shortcut menu. This window receives all messages from the menu. The window does not receive a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message from the menu until the function returns. If you specify TPM_NONOTIFY in the <i>fuFlags</i> parameter, the function does not send messages to the window identified by <i>hwnd</i>. However, you must still pass a window handle in <i>hwnd</i>. It can be any window handle from your application.
      * @param {Pointer<TPMPARAMS>} lptpm Type: <b>LPTPMPARAMS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-tpmparams">TPMPARAMS</a> structure that specifies an area of the screen the menu should not overlap. This parameter can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If you specify <b>TPM_RETURNCMD</b> in the <i>fuFlags</i> parameter, the return value is the menu-item identifier of the item that the user selected. If the user cancels the menu without making a selection, or if an error occurs, the return value is zero.
      * 
@@ -14228,6 +14490,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static TrackPopupMenuEx(hMenu, uFlags, x, y, hwnd, lptpm) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\TrackPopupMenuEx", "ptr", hMenu, "uint", uFlags, "int", x, "int", y, "ptr", hwnd, "ptr", lptpm, "int")
@@ -14435,7 +14700,7 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} popupWindowPosition Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to a structure that specifies the pop-up window position.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b>. 
      * 				To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -14454,9 +14719,9 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a specified menu.
-     * @param {Pointer<Void>} param0 
+     * @param {HMENU} param0 
      * @param {Pointer<MENUINFO>} param1 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -14465,6 +14730,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuInfo(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuInfo", "ptr", param0, "ptr", param1, "int")
@@ -14476,9 +14743,9 @@ class WindowsAndMessaging {
 
     /**
      * Sets information for a specified menu.
-     * @param {Pointer<Void>} param0 
+     * @param {HMENU} param0 
      * @param {Pointer<MENUINFO>} param1 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -14487,6 +14754,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenuInfo(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuInfo", "ptr", param0, "ptr", param1, "int")
@@ -14498,7 +14767,7 @@ class WindowsAndMessaging {
 
     /**
      * Ends the calling thread's active menu.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -14518,19 +14787,19 @@ class WindowsAndMessaging {
 
     /**
      * Inserts a new menu item at the specified position in a menu.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu in which the new menu item is inserted.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPosition Type: <b>BOOL</b>
+     * @param {BOOL} fByPosition Type: <b>BOOL</b>
      * 
      * Controls the meaning of <i>item</i>. If this parameter is <b>FALSE</b>, <i>item</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">Accessing Menu Items Programmatically</a> for more information.
      * @param {Pointer<MENUITEMINFOA>} lpmi Type: <b>LPCMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that contains information about the new menu item.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14539,6 +14808,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuItemA(hmenu, item, fByPosition, lpmi) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\InsertMenuItemA", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
@@ -14550,19 +14821,19 @@ class WindowsAndMessaging {
 
     /**
      * Inserts a new menu item at the specified position in a menu.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu in which the new menu item is inserted.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item before which to insert the new item. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPosition Type: <b>BOOL</b>
+     * @param {BOOL} fByPosition Type: <b>BOOL</b>
      * 
      * Controls the meaning of <i>item</i>. If this parameter is <b>FALSE</b>, <i>item</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">Accessing Menu Items Programmatically</a> for more information.
      * @param {Pointer<MENUITEMINFOW>} lpmi Type: <b>LPCMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that contains information about the new menu item.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14571,6 +14842,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InsertMenuItemW(hmenu, item, fByPosition, lpmi) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\InsertMenuItemW", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmi, "int")
@@ -14582,19 +14855,19 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a menu item.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPosition Type: <b>BOOL</b>
+     * @param {BOOL} fByPosition Type: <b>BOOL</b>
      * 
      * The meaning of <i>uItem</i>. If this parameter is <b>FALSE</b>, <i>uItem</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">Accessing Menu Items Programmatically</a> for more information.
      * @param {Pointer<MENUITEMINFOA>} lpmii Type: <b>LPMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that specifies the information to retrieve and receives information about the menu item. Note that you must set the <b>cbSize</b> member to <c>sizeof(MENUITEMINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14603,6 +14876,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuItemInfoA(hmenu, item, fByPosition, lpmii) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuItemInfoA", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
@@ -14614,19 +14889,19 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about a menu item.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to get information about. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPosition Type: <b>BOOL</b>
+     * @param {BOOL} fByPosition Type: <b>BOOL</b>
      * 
      * The meaning of <i>uItem</i>. If this parameter is <b>FALSE</b>, <i>uItem</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">Accessing Menu Items Programmatically</a> for more information.
      * @param {Pointer<MENUITEMINFOW>} lpmii Type: <b>LPMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that specifies the information to retrieve and receives information about the menu item. Note that you must set the <b>cbSize</b> member to <c>sizeof(MENUITEMINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14635,6 +14910,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuItemInfoW(hmenu, item, fByPosition, lpmii) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuItemInfoW", "ptr", hmenu, "uint", item, "int", fByPosition, "ptr", lpmii, "int")
@@ -14646,19 +14923,19 @@ class WindowsAndMessaging {
 
     /**
      * Changes information about a menu item.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPositon Type: <b>BOOL</b>
+     * @param {BOOL} fByPositon Type: <b>BOOL</b>
      * 
      * The meaning of <i>uItem</i>. If this parameter is <b>FALSE</b>, <i>uItem</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">About Menus</a> for more information.
      * @param {Pointer<MENUITEMINFOA>} lpmii Type: <b>LPMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that contains information about the menu item and specifies which menu item attributes to change.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14667,6 +14944,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenuItemInfoA(hmenu, item, fByPositon, lpmii) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuItemInfoA", "ptr", hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
@@ -14678,19 +14957,19 @@ class WindowsAndMessaging {
 
     /**
      * Changes information about a menu item.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the menu item.
      * @param {Integer} item Type: <b>UINT</b>
      * 
      * The identifier or position of the menu item to change. The meaning of this parameter depends on the value of <i>fByPosition</i>.
-     * @param {Integer} fByPositon Type: <b>BOOL</b>
+     * @param {BOOL} fByPositon Type: <b>BOOL</b>
      * 
      * The meaning of <i>uItem</i>. If this parameter is <b>FALSE</b>, <i>uItem</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">About Menus</a> for more information.
      * @param {Pointer<MENUITEMINFOW>} lpmii Type: <b>LPMENUITEMINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menuiteminfoa">MENUITEMINFO</a> structure that contains information about the menu item and specifies which menu item attributes to change.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14699,6 +14978,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenuItemInfoW(hmenu, item, fByPositon, lpmii) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuItemInfoW", "ptr", hmenu, "uint", item, "int", fByPositon, "ptr", lpmii, "int")
@@ -14710,7 +14991,7 @@ class WindowsAndMessaging {
 
     /**
      * Determines the default menu item on the specified menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu for which to retrieve the default menu item.
      * @param {Integer} fByPos Type: <b>UINT</b>
@@ -14726,6 +15007,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuDefaultItem(hMenu, fByPos, gmdiFlags) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuDefaultItem", "ptr", hMenu, "uint", fByPos, "uint", gmdiFlags, "uint")
@@ -14737,7 +15020,7 @@ class WindowsAndMessaging {
 
     /**
      * Sets the default menu item for the specified menu.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu to set the default item for.
      * @param {Integer} uItem Type: <b>UINT</b>
@@ -14747,7 +15030,7 @@ class WindowsAndMessaging {
      * @param {Integer} fByPos Type: <b>UINT</b>
      * 
      * The meaning of <i>uItem</i>. If this parameter is <b>FALSE</b>, <i>uItem</i> is a menu item identifier. Otherwise, it is a menu item position. See <a href="https://docs.microsoft.com/windows/desktop/menurc/about-menus">About Menus</a> for more information.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14756,6 +15039,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetMenuDefaultItem(hMenu, uItem, fByPos) {
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuDefaultItem", "ptr", hMenu, "uint", uItem, "uint", fByPos, "int")
@@ -14767,13 +15052,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the bounding rectangle for the specified menu item.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window containing the menu.
      * 
      * If this value is <b>NULL</b> and the <i>hMenu</i> 
      * 						parameter represents a popup menu, the function will find the menu window.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to a menu.
      * @param {Integer} uItem Type: <b>UINT</b>
@@ -14783,7 +15068,7 @@ class WindowsAndMessaging {
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the 
      * 				bounding rectangle of the specified menu item expressed in screen coordinates.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14793,6 +15078,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuItemRect(hWnd, hMenu, uItem, lprcItem) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuItemRect", "ptr", hWnd, "ptr", hMenu, "uint", uItem, "ptr", lprcItem, "int")
@@ -14804,13 +15092,13 @@ class WindowsAndMessaging {
 
     /**
      * Determines which menu item, if any, is at the specified location.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window containing the menu. If this value is <b>NULL</b> and the <i>hMenu</i> parameter represents a popup menu, the function will find the menu window.
-     * @param {Pointer<Void>} hMenu Type: <b>HMENU</b>
+     * @param {HMENU} hMenu Type: <b>HMENU</b>
      * 
      * A handle to the menu containing the menu items to hit test.
-     * @param {Pointer} ptScreen Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} ptScreen Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * A structure that specifies the location to test. If <i>hMenu</i> specifies a menu bar, this parameter is in window coordinates. Otherwise, it is in client coordinates.
      * @returns {Integer} Type: <b>int</b>
@@ -14820,27 +15108,34 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MenuItemFromPoint(hWnd, hMenu, ptScreen) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
+
         result := DllCall("USER32.dll\MenuItemFromPoint", "ptr", hWnd, "ptr", hMenu, "ptr", ptScreen, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hwndParent 
-     * @param {Pointer<Void>} hwndFrom 
+     * @param {HWND} hwndParent 
+     * @param {HWND} hwndFrom 
      * @param {Integer} fmt 
      * @param {Pointer} data 
-     * @param {Pointer<Void>} hcur 
+     * @param {HCURSOR} hcur 
      * @returns {Integer} 
      */
     static DragObject(hwndParent, hwndFrom, fmt, data, hcur) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        hwndFrom := hwndFrom is Win32Handle ? NumGet(hwndFrom, "ptr") : hwndFrom
+        hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
+
         result := DllCall("USER32.dll\DragObject", "ptr", hwndParent, "ptr", hwndFrom, "uint", fmt, "ptr", data, "ptr", hcur, "uint")
         return result
     }
 
     /**
      * Draws an icon or cursor into the specified device context.
-     * @param {Pointer<Void>} hDC Type: <b>HDC</b>
+     * @param {HDC} hDC Type: <b>HDC</b>
      * 
      * A handle to the device context into which the icon or cursor will be drawn.
      * @param {Integer} X Type: <b>int</b>
@@ -14849,10 +15144,10 @@ class WindowsAndMessaging {
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * A handle to the icon to be drawn.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14861,6 +15156,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DrawIcon(hDC, X, Y, hIcon) {
+        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DrawIcon", "ptr", hDC, "int", X, "int", Y, "ptr", hIcon, "int")
@@ -14872,7 +15170,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a handle to the foreground window (the window with which the user is currently working). The system assigns a slightly higher priority to the thread that creates the foreground window than it does to other threads.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the foreground window. The foreground window can be <b>NULL</b> in certain circumstances, such as when a window is losing activation.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getforegroundwindow
@@ -14880,7 +15178,7 @@ class WindowsAndMessaging {
      */
     static GetForegroundWindow() {
         result := DllCall("USER32.dll\GetForegroundWindow", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
@@ -14892,10 +15190,10 @@ class WindowsAndMessaging {
      * This function was not included in the SDK headers and libraries until Windows XP with Service Pack 1 (SP1) and Windows Server 2003. If you do not have a header file and import library for this function, you can call the function using <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-loadlibrarya">LoadLibrary</a> and <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getprocaddress">GetProcAddress</a>.
      * 
      * 
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window.
-     * @param {Integer} fUnknown Type: <b>BOOL</b>
+     * @param {BOOL} fUnknown Type: <b>BOOL</b>
      * 
      * A <b>TRUE</b> for this parameter indicates that the window
      * 				is being switched to using the Alt/Ctl+Tab key sequence.  This parameter
@@ -14905,15 +15203,17 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SwitchToThisWindow(hwnd, fUnknown) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         DllCall("USER32.dll\SwitchToThisWindow", "ptr", hwnd, "int", fUnknown)
     }
 
     /**
      * Brings the thread that created the specified window into the foreground and activates the window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that should be activated and brought to the foreground.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the window was brought to the foreground, the return value is nonzero.
      *                     
@@ -14924,6 +15224,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetForegroundWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\SetForegroundWindow", "ptr", hWnd, "int")
         return result
     }
@@ -14933,7 +15235,7 @@ class WindowsAndMessaging {
      * @param {Integer} dwProcessId Type: <b>DWORD</b>
      * 
      * The identifier of the process that will be enabled to set the foreground window. If this parameter is <b>ASFW_ANY</b>, all processes will be enabled to set the foreground window.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14954,7 +15256,7 @@ class WindowsAndMessaging {
     /**
      * The foreground process can call the LockSetForegroundWindow function to disable calls to the SetForegroundWindow function.
      * @param {Integer} uLockCode Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14974,7 +15276,7 @@ class WindowsAndMessaging {
 
     /**
      * The ScrollWindow function scrolls the contents of the specified window's client area.
-     * @param {Pointer<Void>} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the window where the client area is to be scrolled.
      * @param {Integer} XAmount Type: <b>int</b>
@@ -14990,7 +15292,7 @@ class WindowsAndMessaging {
      * 
      * Pointer to the 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the clipping rectangle. Only device bits within the clipping rectangle are affected. Bits scrolled from the outside of the rectangle to the inside are painted; bits scrolled from the inside of the rectangle to the outside are not painted.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -14999,6 +15301,8 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static ScrollWindow(hWnd, XAmount, YAmount, lpRect, lpClipRect) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ScrollWindow", "ptr", hWnd, "int", XAmount, "int", YAmount, "ptr", lpRect, "ptr", lpClipRect, "int")
@@ -15010,7 +15314,7 @@ class WindowsAndMessaging {
 
     /**
      * The ScrollDC function scrolls a rectangle of bits horizontally and vertically.
-     * @param {Pointer<Void>} hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
+     * @param {HDC} hDC Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * Handle to the device context that contains the bits to be scrolled.
      * @param {Integer} dx Type: <b>int</b>
@@ -15029,13 +15333,13 @@ class WindowsAndMessaging {
      * Pointer to a 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure containing the coordinates of the clipping rectangle. The only bits that will be painted are the bits that remain inside this rectangle after the scroll operation has been completed. If 
      * 					<i>lprcClip</i> is <b>NULL</b>, the entire client area is used.
-     * @param {Pointer<Void>} hrgnUpdate Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a></b>
+     * @param {HRGN} hrgnUpdate Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a></b>
      * 
      * Handle to the region uncovered by the scrolling process. <b>ScrollDC</b> defines this region; it is not necessarily a rectangle.
      * @param {Pointer<RECT>} lprcUpdate Type: <b>LPRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the coordinates of the rectangle bounding the scrolling update region. This is the largest rectangular area that requires repainting. When the function returns, the values in the structure are in client coordinates, regardless of the mapping mode for the specified device context. This allows applications to use the update region in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidatergn">InvalidateRgn</a> function, if required.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15044,6 +15348,9 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static ScrollDC(hDC, dx, dy, lprcScroll, lprcClip, hrgnUpdate, lprcUpdate) {
+        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ScrollDC", "ptr", hDC, "int", dx, "int", dy, "ptr", lprcScroll, "ptr", lprcClip, "ptr", hrgnUpdate, "ptr", lprcUpdate, "int")
@@ -15055,7 +15362,7 @@ class WindowsAndMessaging {
 
     /**
      * The ScrollWindowEx function scrolls the contents of the specified window's client area.
-     * @param {Pointer<Void>} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to the window where the client area is to be scrolled.
      * @param {Integer} dx Type: <b>int</b>
@@ -15071,7 +15378,7 @@ class WindowsAndMessaging {
      * 
      * Pointer to a 
      * 					<a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the coordinates of the clipping rectangle. Only device bits within the clipping rectangle are affected. Bits scrolled from the outside of the rectangle to the inside are painted; bits scrolled from the inside of the rectangle to the outside are not painted. This parameter may be <b>NULL</b>.
-     * @param {Pointer<Void>} hrgnUpdate Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a></b>
+     * @param {HRGN} hrgnUpdate Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a></b>
      * 
      * Handle to the region that is modified to hold the region invalidated by scrolling. This parameter may be <b>NULL</b>.
      * @param {Pointer<RECT>} prcUpdate Type: <b>LPRECT</b>
@@ -15087,6 +15394,9 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static ScrollWindowEx(hWnd, dx, dy, prcScroll, prcClip, hrgnUpdate, prcUpdate, flags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hrgnUpdate := hrgnUpdate is Win32Handle ? NumGet(hrgnUpdate, "ptr") : hrgnUpdate
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ScrollWindowEx", "ptr", hWnd, "int", dx, "int", dy, "ptr", prcScroll, "ptr", prcClip, "ptr", hrgnUpdate, "ptr", prcUpdate, "uint", flags, "int")
@@ -15098,7 +15408,7 @@ class WindowsAndMessaging {
 
     /**
      * The GetScrollPos function retrieves the current position of the scroll box (thumb) in the specified scroll bar.
-     * @param {Pointer<Void>} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
      * 					<i>nBar</i> parameter.
@@ -15112,6 +15422,8 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static GetScrollPos(hWnd, nBar) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetScrollPos", "ptr", hWnd, "int", nBar, "int")
@@ -15123,7 +15435,7 @@ class WindowsAndMessaging {
 
     /**
      * The GetScrollRange function retrieves the current minimum and maximum scroll box (thumb) positions for the specified scroll bar.
-     * @param {Pointer<Void>} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hWnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
      * 					<i>nBar</i> parameter.
@@ -15134,7 +15446,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Int32>} lpMaxPos Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPINT</a></b>
      * 
      * Pointer to the integer variable that receives the maximum position.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15143,6 +15455,8 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static GetScrollRange(hWnd, nBar, lpMinPos, lpMaxPos) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetScrollRange", "ptr", hWnd, "int", nBar, "int*", lpMinPos, "int*", lpMaxPos, "int")
@@ -15154,16 +15468,16 @@ class WindowsAndMessaging {
 
     /**
      * Adds a new entry or changes an existing entry in the property list of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list receives the new entry.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
-     * @param {Pointer<Void>} hData Type: <b>HANDLE</b>
+     * @param {HANDLE} hData Type: <b>HANDLE</b>
      * 
      * A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the data handle and string are added to the property list, the return value is nonzero.
      * 
@@ -15172,7 +15486,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetPropA(hWnd, lpString, hData) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
         A_LastError := 0
 
@@ -15185,16 +15501,16 @@ class WindowsAndMessaging {
 
     /**
      * Adds a new entry or changes an existing entry in the property list of the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list receives the new entry.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string or an atom that identifies a string. If this parameter is an atom, it must be a global atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
-     * @param {Pointer<Void>} hData Type: <b>HANDLE</b>
+     * @param {HANDLE} hData Type: <b>HANDLE</b>
      * 
      * A handle to the data to be copied to the property list. The data handle can identify any value useful to the application.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the data handle and string are added to the property list, the return value is nonzero.
      * 
@@ -15203,7 +15519,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetPropW(hWnd, lpString, hData) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
 
         A_LastError := 0
 
@@ -15216,62 +15534,65 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the SetProp function.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be searched.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getpropa
      * @since windows5.0
      */
     static GetPropA(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\GetPropA", "ptr", hWnd, "ptr", lpString, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves a data handle from the property list of the specified window. The character string identifies the handle to be retrieved. The string and handle must have been added to the property list by a previous call to the SetProp function.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be searched.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * An atom that identifies a string. If this parameter is an atom, it must have been created by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of the <i>lpString</i> parameter; the high-order word must be zero.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the property list contains the string, the return value is the associated data handle. Otherwise, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getpropw
      * @since windows5.0
      */
     static GetPropW(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("USER32.dll\GetPropW", "ptr", hWnd, "ptr", lpString, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be changed.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-removepropa
      * @since windows5.0
      */
     static RemovePropA(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15279,25 +15600,26 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Removes an entry from the property list of the specified window. The specified character string identifies the entry to be removed.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be changed.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * A null-terminated character string or an atom that identifies a string. If this parameter is an atom, it must have been created using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globaladdatoma">GlobalAddAtom</a> function. The atom, a 16-bit value, must be placed in the low-order word of <i>lpString</i>; the high-order word must be zero.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * The return value identifies the specified data. If the data cannot be found in the specified property list, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-removepropw
      * @since windows5.0
      */
     static RemovePropW(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15305,18 +15627,18 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCEXA>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexa">PropEnumProcEx</a> function.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Application-defined data to be passed to the callback function.
      * @returns {Integer} Type: <b>int</b>
@@ -15326,19 +15648,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EnumPropsExA(hWnd, lpEnumFunc, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\EnumPropsExA", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
     /**
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumPropsEx continues until the last entry is enumerated or the callback function returns FALSE.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCEXW>} lpEnumFunc Type: <b>PROPENUMPROCEX</b>
      * 
      * A pointer to the callback function. For more information about the callback function, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nc-winuser-propenumprocexa">PropEnumProcEx</a> function.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Application-defined data to be passed to the callback function.
      * @returns {Integer} Type: <b>int</b>
@@ -15348,13 +15672,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EnumPropsExW(hWnd, lpEnumFunc, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\EnumPropsExW", "ptr", hWnd, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
     /**
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumProps continues until the last entry is enumerated or the callback function returns FALSE.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCA>} lpEnumFunc Type: <b>PROPENUMPROC</b>
@@ -15367,13 +15693,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EnumPropsA(hWnd, lpEnumFunc) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\EnumPropsA", "ptr", hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
     /**
      * Enumerates all entries in the property list of a window by passing them, one by one, to the specified callback function. EnumProps continues until the last entry is enumerated or the callback function returns FALSE.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose property list is to be enumerated.
      * @param {Pointer<PROPENUMPROCW>} lpEnumFunc Type: <b>PROPENUMPROC</b>
@@ -15386,19 +15714,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static EnumPropsW(hWnd, lpEnumFunc) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\EnumPropsW", "ptr", hWnd, "ptr", lpEnumFunc, "int")
         return result
     }
 
     /**
      * Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control whose text is to be changed.
-     * @param {Pointer<Byte>} lpString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The new title or control text.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15407,7 +15737,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowTextA(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15420,13 +15751,13 @@ class WindowsAndMessaging {
 
     /**
      * Changes the text of the specified window's title bar (if it has one). If the specified window is a control, the text of the control is changed. However, SetWindowText cannot change the text of a control in another application.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control whose text is to be changed.
-     * @param {Pointer<Char>} lpString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPCTSTR</b>
      * 
      * The new title or control text.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15435,7 +15766,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowTextW(hWnd, lpString) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15448,10 +15780,10 @@ class WindowsAndMessaging {
 
     /**
      * Copies the text of the specified window's title bar (if it has one) into a buffer. If the specified window is a control, the text of the control is copied. However, GetWindowText cannot retrieve the text of a control in another application.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control containing the text.
-     * @param {Pointer<Byte>} lpString Type: <b>LPTSTR</b>
+     * @param {PSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
      * @param {Integer} nMaxCount Type: <b>int</b>
@@ -15466,7 +15798,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextA(hWnd, lpString, nMaxCount) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15479,10 +15812,10 @@ class WindowsAndMessaging {
 
     /**
      * Copies the text of the specified window's title bar (if it has one) into a buffer. If the specified window is a control, the text of the control is copied. However, GetWindowText cannot retrieve the text of a control in another application.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control containing the text.
-     * @param {Pointer<Char>} lpString Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpString Type: <b>LPTSTR</b>
      * 
      * The buffer that will receive the text. If the string is as long or longer than the buffer, the string is truncated and terminated with a null character.
      * @param {Integer} nMaxCount Type: <b>int</b>
@@ -15497,7 +15830,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextW(hWnd, lpString, nMaxCount) {
-        lpString := lpString is String? StrPtr(lpString) : lpString
+        lpString := lpString is String ? StrPtr(lpString) : lpString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15510,7 +15844,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control.
      * @returns {Integer} Type: <b>int</b>
@@ -15527,6 +15861,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextLengthA(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowTextLengthA", "ptr", hWnd, "int")
@@ -15538,7 +15874,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the length, in characters, of the specified window's title bar text (if the window has a title bar).
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control.
      * @returns {Integer} Type: <b>int</b>
@@ -15555,6 +15891,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowTextLengthW(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowTextLengthW", "ptr", hWnd, "int")
@@ -15566,13 +15904,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the coordinates of a window's client area.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose client coordinates are to be retrieved.
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the client coordinates. The <b>left</b> and <b>top</b> members are zero. The <b>right</b> and <b>bottom</b> members contain the width and height of the window.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15581,6 +15919,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClientRect(hWnd, lpRect) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClientRect", "ptr", hWnd, "ptr", lpRect, "int")
@@ -15592,13 +15932,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the dimensions of the bounding rectangle of the specified window. The dimensions are given in screen coordinates that are relative to the upper-left corner of the screen.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the screen coordinates of the upper-left and lower-right corners of the window.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15607,6 +15947,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowRect(hWnd, lpRect) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowRect", "ptr", hWnd, "ptr", lpRect, "int")
@@ -15624,10 +15966,10 @@ class WindowsAndMessaging {
      * @param {Integer} dwStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
-     * @param {Integer} bMenu Type: <b>BOOL</b>
+     * @param {BOOL} bMenu Type: <b>BOOL</b>
      * 
      * Indicates whether the window has a menu.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15653,13 +15995,13 @@ class WindowsAndMessaging {
      * @param {Integer} dwStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-styles">window style</a> of the window whose required size is to be calculated. Note that you cannot specify the <b>WS_OVERLAPPED</b> style.
-     * @param {Integer} bMenu Type: <b>BOOL</b>
+     * @param {BOOL} bMenu Type: <b>BOOL</b>
      * 
      * Indicates whether the window has a menu.
      * @param {Integer} dwExStyle Type: <b>DWORD</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">extended window style</a> of the window whose required size is to be calculated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -15679,13 +16021,13 @@ class WindowsAndMessaging {
 
     /**
      * Displays a modal dialog box that contains a system icon, a set of buttons, and a brief application-specific message, such as status or error information. The message box returns an integer value that indicates which button the user clicked.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
-     * @param {Pointer<Byte>} lpText Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
-     * @param {Pointer<Byte>} lpCaption Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title is <b>Error</b>.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -15817,8 +16159,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxA(hWnd, lpText, lpCaption, uType) {
-        lpText := lpText is String? StrPtr(lpText) : lpText
-        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+        lpText := lpText is String ? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15831,13 +16174,13 @@ class WindowsAndMessaging {
 
     /**
      * Displays a modal dialog box that contains a system icon, a set of buttons, and a brief application-specific message, such as status or error information. The message box returns an integer value that indicates which button the user clicked.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
-     * @param {Pointer<Char>} lpText Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed. If the string consists of more than one line, you can separate the lines using a carriage return and/or linefeed character between each line.
-     * @param {Pointer<Char>} lpCaption Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title is <b>Error</b>.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -15969,8 +16312,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxW(hWnd, lpText, lpCaption, uType) {
-        lpText := lpText is String? StrPtr(lpText) : lpText
-        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+        lpText := lpText is String ? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -15983,13 +16327,13 @@ class WindowsAndMessaging {
 
     /**
      * Creates, displays, and operates a message box.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
-     * @param {Pointer<Byte>} lpText Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
-     * @param {Pointer<Byte>} lpCaption Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title <b>Error</b> is used.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -16127,8 +16471,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxExA(hWnd, lpText, lpCaption, uType, wLanguageId) {
-        lpText := lpText is String? StrPtr(lpText) : lpText
-        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+        lpText := lpText is String ? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -16141,13 +16486,13 @@ class WindowsAndMessaging {
 
     /**
      * Creates, displays, and operates a message box.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this parameter is <b>NULL</b>, the message box has no owner window.
-     * @param {Pointer<Char>} lpText Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpText Type: <b>LPCTSTR</b>
      * 
      * The message to be displayed.
-     * @param {Pointer<Char>} lpCaption Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpCaption Type: <b>LPCTSTR</b>
      * 
      * The dialog box title. If this parameter is <b>NULL</b>, the default title <b>Error</b> is used.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -16285,8 +16630,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MessageBoxExW(hWnd, lpText, lpCaption, uType, wLanguageId) {
-        lpText := lpText is String? StrPtr(lpText) : lpText
-        lpCaption := lpCaption is String? StrPtr(lpCaption) : lpCaption
+        lpText := lpText is String ? StrPtr(lpText) : lpText
+        lpCaption := lpCaption is String ? StrPtr(lpCaption) : lpCaption
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -16569,7 +16915,7 @@ class WindowsAndMessaging {
 
     /**
      * Displays or hides the cursor.
-     * @param {Integer} bShow Type: <b>BOOL</b>
+     * @param {BOOL} bShow Type: <b>BOOL</b>
      * 
      * If <i>bShow</i> is <b>TRUE</b>, the display count is incremented by one. If <i>bShow</i> is <b>FALSE</b>, the display count is decremented by one.
      * @returns {Integer} Type: <b>int</b>
@@ -16591,7 +16937,7 @@ class WindowsAndMessaging {
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The new y-coordinate of the cursor, in screen coordinates.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful or zero otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setcursorpos
@@ -16615,7 +16961,7 @@ class WindowsAndMessaging {
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The new y-coordinate of the cursor, in physical coordinates.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setphysicalcursorpos
@@ -16633,10 +16979,10 @@ class WindowsAndMessaging {
 
     /**
      * Sets the cursor shape.
-     * @param {Pointer<Void>} hCursor Type: <b>HCURSOR</b>
+     * @param {HCURSOR} hCursor Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor. The cursor must have been created by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-createcursor">CreateCursor</a> function or loaded by the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadcursora">LoadCursor</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadimagea">LoadImage</a> function. If this parameter is <b>NULL</b>, the cursor is removed from the screen.
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * The return value is the handle to the previous cursor, if there was one. 
      * 
@@ -16645,8 +16991,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetCursor(hCursor) {
+        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+
         result := DllCall("USER32.dll\SetCursor", "ptr", hCursor, "ptr")
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
@@ -16654,7 +17002,7 @@ class WindowsAndMessaging {
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that receives the screen coordinates of the cursor.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful or zero otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getcursorpos
@@ -16675,7 +17023,7 @@ class WindowsAndMessaging {
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * The position of the cursor, in physical coordinates.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise <b>FALSE</b>.
      * 
@@ -16699,7 +17047,7 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that receives the screen coordinates of the confining rectangle. The structure receives the dimensions of the screen if the cursor is not confined to a rectangle.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16719,7 +17067,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a handle to the current cursor.
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * The return value is the handle to the current cursor. If there is no cursor, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getcursor
@@ -16727,15 +17075,15 @@ class WindowsAndMessaging {
      */
     static GetCursor() {
         result := DllCall("USER32.dll\GetCursor", "ptr")
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
      * Creates a new shape for the system caret and assigns ownership of the caret to the specified window. The caret shape can be a line, a block, or a bitmap.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the caret.
-     * @param {Pointer<Void>} hBitmap Type: <b>HBITMAP</b>
+     * @param {HBITMAP} hBitmap Type: <b>HBITMAP</b>
      * 
      * A handle to the bitmap that defines the caret shape. If this parameter is <b>NULL</b>, the caret is solid. If this parameter is <c>(HBITMAP) 1</c>, the caret is gray. If this parameter is a bitmap handle, the caret is the specified bitmap. The bitmap handle must have been created by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createbitmap">CreateBitmap</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibitmap">CreateDIBitmap</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadbitmapa">LoadBitmap</a> function.
      * 
@@ -16746,7 +17094,7 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The height of the caret, in logical units. If this parameter is zero, the height is set to the system-defined window border height. If <i>hBitmap</i> is a bitmap handle, <b>CreateCaret</b> ignores this parameter.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                     
@@ -16756,6 +17104,9 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateCaret(hWnd, hBitmap, nWidth, nHeight) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateCaret", "ptr", hWnd, "ptr", hBitmap, "int", nWidth, "int", nHeight, "int")
@@ -16794,7 +17145,7 @@ class WindowsAndMessaging {
      * @param {Integer} uMSeconds Type: <b>UINT</b>
      * 
      * The new blink time, in milliseconds.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16814,7 +17165,7 @@ class WindowsAndMessaging {
 
     /**
      * Destroys the caret's current shape, frees the caret from the window, and removes the caret from the screen.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16834,10 +17185,10 @@ class WindowsAndMessaging {
 
     /**
      * Removes the caret from the screen. Hiding a caret does not destroy its current shape or invalidate the insertion point.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>HideCaret</b> searches the current task for the window that owns the caret.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16846,6 +17197,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static HideCaret(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\HideCaret", "ptr", hWnd, "int")
@@ -16857,10 +17210,10 @@ class WindowsAndMessaging {
 
     /**
      * Makes the caret visible on the screen at the caret's current position. When the caret becomes visible, it begins flashing automatically.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the caret. If this parameter is <b>NULL</b>, <b>ShowCaret</b> searches the current task for the window that owns the caret.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16869,6 +17222,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ShowCaret(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ShowCaret", "ptr", hWnd, "int")
@@ -16886,7 +17241,7 @@ class WindowsAndMessaging {
      * @param {Integer} Y Type: <b>int</b>
      * 
      * The new y-coordinate of the caret.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -16909,7 +17264,7 @@ class WindowsAndMessaging {
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that is to receive the client coordinates of the caret.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      *                 
@@ -16944,17 +17299,19 @@ class WindowsAndMessaging {
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
      * 
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the logical coordinates to be converted. The new physical coordinates are copied into this structure if the function succeeds.
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-logicaltophysicalpoint
      * @since windows6.0.6000
      */
     static LogicalToPhysicalPoint(hWnd, lpPoint) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\LogicalToPhysicalPoint", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
@@ -16975,27 +17332,29 @@ class WindowsAndMessaging {
      * This behavior preserves functionality for the majority of applications, but there are some exceptions in which you must make changes to ensure that the application works as expected.
      * In those cases, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-physicaltologicalpointforpermonitordpi">PhysicalToLogicalPointForPerMonitorDPI</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-logicaltophysicalpointforpermonitordpi">LogicalToPhysicalPointForPerMonitorDPI.</a>
      * 
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose transform is used for the conversion. Top level windows are fully supported. In the case of child windows, only the area of overlap between the parent and the child window is converted.
      * @param {Pointer<POINT>} lpPoint Type: <b>LPPOINT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that specifies the physical/screen coordinates to be converted. The new logical coordinates are copied into this structure if the function succeeds.
-     * @returns {Integer} 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-physicaltologicalpoint
      * @since windows6.0.6000
      */
     static PhysicalToLogicalPoint(hWnd, lpPoint) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\PhysicalToLogicalPoint", "ptr", hWnd, "ptr", lpPoint, "int")
         return result
     }
 
     /**
      * Retrieves a handle to the window that contains the specified point.
-     * @param {Pointer} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The point to be checked.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the window that contains the point. If no window exists at the given point, the return value is <b>NULL</b>. If the point is over a static text control, the return value is a handle to the window under the static text control.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-windowfrompoint
@@ -17003,15 +17362,15 @@ class WindowsAndMessaging {
      */
     static WindowFromPoint(Point) {
         result := DllCall("USER32.dll\WindowFromPoint", "ptr", Point, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the window that contains the specified physical point.
-     * @param {Pointer} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The physical coordinates of the point.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * A handle to the window that contains the given physical point. If no window exists at the point, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-windowfromphysicalpoint
@@ -17019,20 +17378,20 @@ class WindowsAndMessaging {
      */
     static WindowFromPhysicalPoint(Point) {
         result := DllCall("USER32.dll\WindowFromPhysicalPoint", "ptr", Point, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Determines which, if any, of the child windows belonging to a parent window contains the specified point. The search is restricted to immediate child windows. Grandchildren, and deeper descendant windows are not searched.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} Point Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * A structure that defines the client 
      * 				coordinates, relative to <i>hWndParent</i>, 
      * 				of the point to be checked.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the child window that contains the point, 
      * 				even if the child window is hidden or disabled. If the point lies outside the 
@@ -17043,8 +17402,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ChildWindowFromPoint(hWndParent, Point) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         result := DllCall("USER32.dll\ChildWindowFromPoint", "ptr", hWndParent, "ptr", Point, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
@@ -17052,7 +17413,7 @@ class WindowsAndMessaging {
      * @param {Pointer<RECT>} lpRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * A pointer to the structure that contains the screen coordinates of the upper-left and lower-right corners of the confining rectangle. If this parameter is <b>NULL</b>, the cursor is free to move anywhere on the screen.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -17072,10 +17433,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines which, if any, of the child windows belonging to the specified parent window contains the specified point.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * A structure that defines the 
      * 				client coordinates (relative to <i>hwndParent</i>) 
@@ -17135,7 +17496,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the first child window that contains 
      * 				the point and meets the criteria specified by <i>uFlags</i>. 
@@ -17147,36 +17508,42 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ChildWindowFromPointEx(hwnd, pt, flags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\ChildWindowFromPointEx", "ptr", hwnd, "ptr", pt, "uint", flags, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Integer} nIndex 
      * @returns {Integer} 
      */
     static GetWindowWord(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\GetWindowWord", "ptr", hWnd, "int", nIndex, "ushort")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Integer} nIndex 
      * @param {Integer} wNewWord 
      * @returns {Integer} 
      */
     static SetWindowWord(hWnd, nIndex, wNewWord) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\SetWindowWord", "ptr", hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
         return result
     }
 
     /**
      * Retrieves information about the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17191,6 +17558,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowLongA(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowLongA", "ptr", hWnd, "int", nIndex, "int")
@@ -17202,7 +17571,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17217,6 +17586,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowLongW(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowLongW", "ptr", hWnd, "int", nIndex, "int")
@@ -17228,7 +17599,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an attribute of the specified window. The function also sets the 32-bit (long) value at the specified offset into the extra window memory.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17246,6 +17617,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowLongA(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowLongA", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "int")
@@ -17257,7 +17630,7 @@ class WindowsAndMessaging {
 
     /**
      * Changes an attribute of the specified window. The function also sets the 32-bit (long) value at the specified offset into the extra window memory.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17275,6 +17648,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowLongW(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowLongW", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "int")
@@ -17286,7 +17661,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the 16-bit (WORD) value at the specified offset into the extra class memory for the window class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17319,6 +17694,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassWord(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassWord", "ptr", hWnd, "int", nIndex, "ushort")
@@ -17330,7 +17707,7 @@ class WindowsAndMessaging {
 
     /**
      * Replaces the 16-bit (WORD) value at the specified offset into the extra class memory for the window class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17348,6 +17725,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetClassWord(hWnd, nIndex, wNewWord) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClassWord", "ptr", hWnd, "int", nIndex, "ushort", wNewWord, "ushort")
@@ -17359,7 +17738,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the specified 32-bit (DWORD) value from the WNDCLASSEX structure associated with the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17372,6 +17751,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassLongA(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassLongA", "ptr", hWnd, "int", nIndex, "uint")
@@ -17383,7 +17764,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the specified 32-bit (DWORD) value from the WNDCLASSEX structure associated with the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17396,6 +17777,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassLongW(hWnd, nIndex) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetClassLongW", "ptr", hWnd, "int", nIndex, "uint")
@@ -17407,7 +17790,7 @@ class WindowsAndMessaging {
 
     /**
      * Replaces the specified 32-bit (long) value at the specified offset into the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17423,6 +17806,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetClassLongA(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClassLongA", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "uint")
@@ -17434,7 +17819,7 @@ class WindowsAndMessaging {
 
     /**
      * Replaces the specified 32-bit (long) value at the specified offset into the extra class memory or the WNDCLASSEX structure for the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
      * @param {Integer} nIndex Type: <b>int</b>
@@ -17450,6 +17835,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetClassLongW(hWnd, nIndex, dwNewLong) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetClassLongW", "ptr", hWnd, "int", nIndex, "int", dwNewLong, "uint")
@@ -17464,7 +17851,7 @@ class WindowsAndMessaging {
      * @param {Pointer<UInt32>} pdwDefaultLayout Type: <b>DWORD*</b>
      * 
      * The current default process layout. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setprocessdefaultlayout">SetProcessDefaultLayout</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -17505,7 +17892,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -17525,7 +17912,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a handle to the desktop window. The desktop window covers the entire screen. The desktop window is the area on top of which other windows are painted.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the desktop window.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdesktopwindow
@@ -17533,15 +17920,15 @@ class WindowsAndMessaging {
      */
     static GetDesktopWindow() {
         result := DllCall("USER32.dll\GetDesktopWindow", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window whose parent window handle is to be retrieved.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
      * 
@@ -17558,25 +17945,27 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetParent(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetParent", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Changes the parent window of the specified child window.
-     * @param {Pointer<Void>} hWndChild Type: <b>HWND</b>
+     * @param {HWND} hWndChild Type: <b>HWND</b>
      * 
      * A handle to the child window.
-     * @param {Pointer<Void>} hWndNewParent Type: <b>HWND</b>
+     * @param {HWND} hWndNewParent Type: <b>HWND</b>
      * 
      * A handle to the new parent window. If this parameter is <b>NULL</b>, the desktop window becomes the new parent window. 
      * 					 If this parameter is <b>HWND_MESSAGE</b>, the child window becomes a <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only window</a>.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the previous parent window.
      * 
@@ -17585,50 +17974,55 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetParent(hWndChild, hWndNewParent) {
+        hWndChild := hWndChild is Win32Handle ? NumGet(hWndChild, "ptr") : hWndChild
+        hWndNewParent := hWndNewParent is Win32Handle ? NumGet(hWndNewParent, "ptr") : hWndNewParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetParent", "ptr", hWndChild, "ptr", hWndNewParent, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Enumerates the child windows that belong to the specified parent window by passing the handle to each child window, in turn, to an application-defined callback function.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window whose child windows are to be enumerated. If this parameter is <b>NULL</b>, this function is equivalent to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumwindows">EnumWindows</a>.
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633493(v=vs.85)">EnumChildProc</a>.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value to be passed to the callback function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The return value is not used.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumchildwindows
      * @since windows5.0
      */
     static EnumChildWindows(hWndParent, lpEnumFunc, lParam) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         result := DllCall("USER32.dll\EnumChildWindows", "ptr", hWndParent, "ptr", lpEnumFunc, "ptr", lParam, "int")
         return result
     }
 
     /**
      * Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero. 
      * 
      * If <i>lpClassName</i> points to a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names. 
      * 
      * If <i>lpClassName</i> is <b>NULL</b>, it finds any window whose title matches the <i>lpWindowName</i> parameter.
-     * @param {Pointer<Byte>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name (the window's title). If this parameter is <b>NULL</b>, all window names match.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the window that has the specified class name and window name.
      * 
@@ -17637,8 +18031,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowA(lpClassName, lpWindowName) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
         A_LastError := 0
 
@@ -17646,22 +18040,22 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the top-level window whose class name and window name match the specified strings. This function does not search child windows. This function does not perform a case-sensitive search.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The class name or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be in the low-order word of <i>lpClassName</i>; the high-order word must be zero. 
      * 
      * If <i>lpClassName</i> points to a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names. 
      * 
      * If <i>lpClassName</i> is <b>NULL</b>, it finds any window whose title matches the <i>lpWindowName</i> parameter.
-     * @param {Pointer<Char>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name (the window's title). If this parameter is <b>NULL</b>, all window names match.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the window that has the specified class name and window name.
      * 
@@ -17670,8 +18064,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowW(lpClassName, lpWindowName) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
 
         A_LastError := 0
 
@@ -17679,34 +18073,34 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window whose child windows are to be searched.
      * 
      * If <i>hwndParent</i> is <b>NULL</b>, the function uses the desktop window as the parent window. The function searches among windows that are child windows of the desktop. 
      * 
      * If <i>hwndParent</i> is <b>HWND_MESSAGE</b>, the function searches all <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only windows</a>.
-     * @param {Pointer<Void>} hWndChildAfter Type: <b>HWND</b>
+     * @param {HWND} hWndChildAfter Type: <b>HWND</b>
      * 
      * A handle to a child window. The search begins with the next child window in the Z order. The child window must be a direct child window of <i>hwndParent</i>, not just a descendant window. 
      * 
      * If <i>hwndChildAfter</i> is <b>NULL</b>, the search begins with the first child window of <i>hwndParent</i>. 
      * 
      * Note that if both <i>hwndParent</i> and <i>hwndChildAfter</i> are <b>NULL</b>, the function searches all top-level and message-only windows.
-     * @param {Pointer<Byte>} lpszClass Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be placed in the low-order word of <i>lpszClass</i>; the high-order word must be zero.
      * 
      *  If <i>lpszClass</i> is a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names, or it can be <c>MAKEINTATOM(0x8000)</c>. In this latter case, 0x8000 is the atom for a menu class. For more information, see the Remarks section of this topic.
-     * @param {Pointer<Byte>} lpszWindow Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszWindow Type: <b>LPCTSTR</b>
      * 
      * The window name (the window's title). If this parameter is <b>NULL</b>, all window names match.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the window that has the specified class and window names.
      * 
@@ -17715,8 +18109,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowExA(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
-        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
-        lpszWindow := lpszWindow is String? StrPtr(lpszWindow) : lpszWindow
+        lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
+        lpszWindow := lpszWindow is String ? StrPtr(lpszWindow) : lpszWindow
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hWndChildAfter := hWndChildAfter is Win32Handle ? NumGet(hWndChildAfter, "ptr") : hWndChildAfter
 
         A_LastError := 0
 
@@ -17724,34 +18120,34 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to a window whose class name and window name match the specified strings. The function searches child windows, beginning with the one following the specified child window. This function does not perform a case-sensitive search.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window whose child windows are to be searched.
      * 
      * If <i>hwndParent</i> is <b>NULL</b>, the function uses the desktop window as the parent window. The function searches among windows that are child windows of the desktop. 
      * 
      * If <i>hwndParent</i> is <b>HWND_MESSAGE</b>, the function searches all <a href="https://docs.microsoft.com/windows/desktop/winmsg/window-features">message-only windows</a>.
-     * @param {Pointer<Void>} hWndChildAfter Type: <b>HWND</b>
+     * @param {HWND} hWndChildAfter Type: <b>HWND</b>
      * 
      * A handle to a child window. The search begins with the next child window in the Z order. The child window must be a direct child window of <i>hwndParent</i>, not just a descendant window. 
      * 
      * If <i>hwndChildAfter</i> is <b>NULL</b>, the search begins with the first child window of <i>hwndParent</i>. 
      * 
      * Note that if both <i>hwndParent</i> and <i>hwndChildAfter</i> are <b>NULL</b>, the function searches all top-level and message-only windows.
-     * @param {Pointer<Char>} lpszClass Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszClass Type: <b>LPCTSTR</b>
      * 
      * The class name or a class atom created by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function. The atom must be placed in the low-order word of <i>lpszClass</i>; the high-order word must be zero.
      * 
      *  If <i>lpszClass</i> is a string, it specifies the window class name. The class name can be any name registered with <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a>, or any of the predefined control-class names, or it can be <c>MAKEINTATOM(0x8000)</c>. In this latter case, 0x8000 is the atom for a menu class. For more information, see the Remarks section of this topic.
-     * @param {Pointer<Char>} lpszWindow Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszWindow Type: <b>LPCTSTR</b>
      * 
      * The window name (the window's title). If this parameter is <b>NULL</b>, all window names match.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the window that has the specified class and window names.
      * 
@@ -17760,8 +18156,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static FindWindowExW(hWndParent, hWndChildAfter, lpszClass, lpszWindow) {
-        lpszClass := lpszClass is String? StrPtr(lpszClass) : lpszClass
-        lpszWindow := lpszWindow is String? StrPtr(lpszWindow) : lpszWindow
+        lpszClass := lpszClass is String ? StrPtr(lpszClass) : lpszClass
+        lpszWindow := lpszWindow is String ? StrPtr(lpszWindow) : lpszWindow
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hWndChildAfter := hWndChildAfter is Win32Handle ? NumGet(hWndChildAfter, "ptr") : hWndChildAfter
 
         A_LastError := 0
 
@@ -17769,12 +18167,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the Shell's desktop window.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle of the Shell's desktop window. If no Shell process is present, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getshellwindow
@@ -17782,32 +18180,34 @@ class WindowsAndMessaging {
      */
     static GetShellWindow() {
         result := DllCall("USER32.dll\GetShellWindow", "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Registers a specified Shell window to receive certain messages for events or notifications that are useful to Shell applications.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window to register for Shell hook messages.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-registershellhookwindow
      * @since windows5.0
      */
     static RegisterShellHookWindow(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\RegisterShellHookWindow", "ptr", hwnd, "int")
         return result
     }
 
     /**
      * Unregisters a specified Shell window that is registered to receive Shell hook messages.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window to be unregistered. The window was registered with a call to the
      * 		<a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registershellhookwindow">RegisterShellHookWindow</a> function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the
      * 				function fails.
@@ -17815,6 +18215,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DeregisterShellHookWindow(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\DeregisterShellHookWindow", "ptr", hwnd, "int")
         return result
     }
@@ -17824,10 +18226,10 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpEnumFunc Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633498(v=vs.85)">EnumWindowsProc</a>.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value to be passed to the callback function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -17855,10 +18257,10 @@ class WindowsAndMessaging {
      * @param {Pointer<WNDENUMPROC>} lpfn Type: <b>WNDENUMPROC</b>
      * 
      * A pointer to an application-defined callback function. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms633496(v=vs.85)">EnumThreadWndProc</a>.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value to be passed to the callback function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the callback function returns <b>TRUE</b> for all windows in the thread specified by <i>dwThreadId</i>, the return value is <b>TRUE</b>. If the callback function returns <b>FALSE</b> on any enumerated window, or if there are no windows found in the thread specified by <i>dwThreadId</i>, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-enumthreadwindows
@@ -17871,10 +18273,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the name of the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
      * @param {Integer} nMaxCount Type: <b>int</b>
@@ -17890,7 +18292,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassNameA(hWnd, lpClassName, nMaxCount) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -17903,10 +18306,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the name of the class to which the specified window belongs.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window and, indirectly, the class to which the window belongs.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPTSTR</b>
      * 
      * The class name string.
      * @param {Integer} nMaxCount Type: <b>int</b>
@@ -17922,7 +18325,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetClassNameW(hWnd, lpClassName, nMaxCount) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -17935,28 +18339,30 @@ class WindowsAndMessaging {
 
     /**
      * Examines the Z order of the child windows associated with the specified parent window and retrieves a handle to the child window at the top of the Z order.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the parent window whose child windows are to be examined. If this parameter is <b>NULL</b>, the function returns a handle to the window at the top of the Z order.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a handle to the child window at the top of the Z order. If the specified window has no child windows, the return value is <b>NULL</b>. To get extended error information, use the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-gettopwindow
      * @since windows5.0
      */
     static GetTopWindow(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetTopWindow", "ptr", hWnd, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves the identifier of the thread that created the specified window and, optionally, the identifier of the process that created the window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window.
      * @param {Pointer<UInt32>} lpdwProcessId Type: <b>LPDWORD</b>
@@ -17969,16 +18375,18 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowThreadProcessId(hWnd, lpdwProcessId) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\GetWindowThreadProcessId", "ptr", hWnd, "uint*", lpdwProcessId, "uint")
         return result
     }
 
     /**
      * Determines whether the calling thread is already a GUI thread. It can also optionally convert the thread to a GUI thread.
-     * @param {Integer} bConvert Type: <b>BOOL</b>
+     * @param {BOOL} bConvert Type: <b>BOOL</b>
      * 
      * If <b>TRUE</b> and the thread is not a GUI thread, convert the thread to a GUI thread.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The function returns a nonzero value in the following situations: 
      * 
@@ -17999,10 +18407,10 @@ class WindowsAndMessaging {
 
     /**
      * Determines which pop-up window owned by the specified window was most recently active.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value identifies the most recently active pop-up window. The return value is the same as the <i>hWnd</i> parameter, if any of the following conditions are met: 
      * 
@@ -18015,59 +18423,63 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetLastActivePopup(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\GetLastActivePopup", "ptr", hWnd, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to a window. The window handle retrieved is relative to this window, based on the value of the <i>uCmd</i> parameter.
      * @param {Integer} uCmd Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      * @since windows5.0
      */
     static GetWindow(hWnd, uCmd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindow", "ptr", hWnd, "uint", uCmd, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * 
      * @param {Integer} nFilterType 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
-     * @returns {Pointer<Void>} 
+     * @returns {HHOOK} 
      */
     static SetWindowsHookA(nFilterType, pfnFilterProc) {
         result := DllCall("USER32.dll\SetWindowsHookA", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
-        return result
+        return HHOOK({Value: result}, True)
     }
 
     /**
      * 
      * @param {Integer} nFilterType 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
-     * @returns {Pointer<Void>} 
+     * @returns {HHOOK} 
      */
     static SetWindowsHookW(nFilterType, pfnFilterProc) {
         result := DllCall("USER32.dll\SetWindowsHookW", "int", nFilterType, "ptr", pfnFilterProc, "ptr")
-        return result
+        return HHOOK({Value: result}, True)
     }
 
     /**
      * 
      * @param {Integer} nCode 
      * @param {Pointer<HOOKPROC>} pfnFilterProc 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static UnhookWindowsHook(nCode, pfnFilterProc) {
         result := DllCall("USER32.dll\UnhookWindowsHook", "int", nCode, "ptr", pfnFilterProc, "int")
@@ -18080,13 +18492,13 @@ class WindowsAndMessaging {
      * @param {Pointer<HOOKPROC>} lpfn Type: <b>HOOKPROC</b>
      * 
      * A pointer to the hook procedure. If the <i>dwThreadId</i> parameter is zero or specifies the identifier of a thread created by a different process, the <i>lpfn</i> parameter must point to a hook procedure in a DLL. Otherwise, <i>lpfn</i> can point to a hook procedure in the code associated with the current process.
-     * @param {Pointer<Void>} hmod Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hmod Type: <b>HINSTANCE</b>
      * 
      * A handle to the DLL containing the hook procedure pointed to by the <i>lpfn</i> parameter. The <i>hMod</i> parameter must be set to <b>NULL</b> if the <i>dwThreadId</i> parameter specifies a thread created by the current process and if the hook procedure is within the code associated with the current process.
      * @param {Integer} dwThreadId Type: <b>DWORD</b>
      * 
      * The identifier of the thread with which the hook procedure is to be associated. For desktop apps, if this parameter is zero, the hook procedure is associated with all existing threads running in the same desktop as the calling thread. For Windows Store apps, see the Remarks section.
-     * @returns {Pointer<Void>} Type: <b>HHOOK</b>
+     * @returns {HHOOK} Type: <b>HHOOK</b>
      * 
      * If the function succeeds, the return value is the handle to the hook procedure. 
      * 
@@ -18095,13 +18507,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowsHookExA(idHook, lpfn, hmod, dwThreadId) {
+        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowsHookExA", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HHOOK({Value: result}, True)
     }
 
     /**
@@ -18110,13 +18524,13 @@ class WindowsAndMessaging {
      * @param {Pointer<HOOKPROC>} lpfn Type: <b>HOOKPROC</b>
      * 
      * A pointer to the hook procedure. If the <i>dwThreadId</i> parameter is zero or specifies the identifier of a thread created by a different process, the <i>lpfn</i> parameter must point to a hook procedure in a DLL. Otherwise, <i>lpfn</i> can point to a hook procedure in the code associated with the current process.
-     * @param {Pointer<Void>} hmod Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hmod Type: <b>HINSTANCE</b>
      * 
      * A handle to the DLL containing the hook procedure pointed to by the <i>lpfn</i> parameter. The <i>hMod</i> parameter must be set to <b>NULL</b> if the <i>dwThreadId</i> parameter specifies a thread created by the current process and if the hook procedure is within the code associated with the current process.
      * @param {Integer} dwThreadId Type: <b>DWORD</b>
      * 
      * The identifier of the thread with which the hook procedure is to be associated. For desktop apps, if this parameter is zero, the hook procedure is associated with all existing threads running in the same desktop as the calling thread. For Windows Store apps, see the Remarks section.
-     * @returns {Pointer<Void>} Type: <b>HHOOK</b>
+     * @returns {HHOOK} Type: <b>HHOOK</b>
      * 
      * If the function succeeds, the return value is the handle to the hook procedure. 
      * 
@@ -18125,21 +18539,23 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetWindowsHookExW(idHook, lpfn, hmod, dwThreadId) {
+        hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowsHookExW", "int", idHook, "ptr", lpfn, "ptr", hmod, "uint", dwThreadId, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HHOOK({Value: result}, True)
     }
 
     /**
      * Removes a hook procedure installed in a hook chain by the SetWindowsHookEx function.
-     * @param {Pointer<Void>} hhk Type: <b>HHOOK</b>
+     * @param {HHOOK} hhk Type: <b>HHOOK</b>
      * 
      * A handle to the hook to be removed. This parameter is a hook handle obtained by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setwindowshookexa">SetWindowsHookEx</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -18148,6 +18564,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static UnhookWindowsHookEx(hhk) {
+        hhk := hhk is Win32Handle ? NumGet(hhk, "ptr") : hhk
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnhookWindowsHookEx", "ptr", hhk, "int")
@@ -18159,32 +18577,34 @@ class WindowsAndMessaging {
 
     /**
      * Passes the hook information to the next hook procedure in the current hook chain. A hook procedure can call this function either before or after processing the hook information.
-     * @param {Pointer<Void>} hhk Type: <b>HHOOK</b>
+     * @param {HHOOK} hhk Type: <b>HHOOK</b>
      * 
      * This parameter is ignored.
      * @param {Integer} nCode Type: <b>int</b>
      * 
      * The hook code passed to the current hook procedure. The next hook procedure uses this code to determine how to process the hook information.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * The <i>wParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * The <i>lParam</i> value passed to the current hook procedure. The meaning of this parameter depends on the type of hook associated with the current hook chain.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * This value is returned by the next hook procedure in the chain. The current hook procedure must also return this value. The meaning of the return value depends on the hook type. For more information, see the descriptions of the individual hook procedures.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-callnexthookex
      * @since windows5.0
      */
     static CallNextHookEx(hhk, nCode, wParam, lParam) {
+        hhk := hhk is Win32Handle ? NumGet(hhk, "ptr") : hhk
+
         result := DllCall("USER32.dll\CallNextHookEx", "ptr", hhk, "int", nCode, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Checks a specified menu item and makes it a radio item. At the same time, the function clears all other menu items in the associated group and clears the radio-item type flag for those items.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * A handle to the menu that contains the group of menu items.
      * @param {Integer} first Type: <b>UINT</b>
@@ -18199,7 +18619,7 @@ class WindowsAndMessaging {
      * @param {Integer} flags Type: <b>UINT</b>
      * 
      * Indicates the meaning of <i>idFirst</i>, <i>idLast</i>, and <i>idCheck</i>. If this parameter is <b>MF_BYCOMMAND</b>, the other parameters specify menu item identifiers. If it is <b>MF_BYPOSITION</b>, the other parameters specify the menu item positions.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -18208,6 +18628,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CheckMenuRadioItem(hmenu, first, last, check, flags) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CheckMenuRadioItem", "ptr", hmenu, "uint", first, "uint", last, "uint", check, "uint", flags, "int")
@@ -18219,10 +18641,10 @@ class WindowsAndMessaging {
 
     /**
      * Loads the specified cursor resource from the executable (.EXE) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the cursor to be loaded.
-     * @param {Pointer<Byte>} lpCursorName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
      * 
@@ -18408,7 +18830,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * If the function succeeds, the return value is the handle to the newly loaded cursor.
      * 
@@ -18417,7 +18839,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorA(hInstance, lpCursorName) {
-        lpCursorName := lpCursorName is String? StrPtr(lpCursorName) : lpCursorName
+        lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -18425,15 +18848,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HCURSOR({Value: result}, False)
     }
 
     /**
      * Loads the specified cursor resource from the executable (.EXE) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the cursor to be loaded.
-     * @param {Pointer<Char>} lpCursorName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpCursorName Type: <b>LPCTSTR</b>
      * 
      * The name of the cursor resource to be loaded. Alternatively, this parameter can consist of the resource identifier in the low-order word and zero in the high-order word. The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro can also be used to create this value. To use one of the predefined cursors, the application must set the <i>hInstance</i> parameter to <b>NULL</b> and the <i>lpCursorName</i> parameter to one the following values.
      * 
@@ -18619,7 +19042,7 @@ class WindowsAndMessaging {
      * </td>
      * </tr>
      * </table>
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * If the function succeeds, the return value is the handle to the newly loaded cursor.
      * 
@@ -18628,7 +19051,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorW(hInstance, lpCursorName) {
-        lpCursorName := lpCursorName is String? StrPtr(lpCursorName) : lpCursorName
+        lpCursorName := lpCursorName is String ? StrPtr(lpCursorName) : lpCursorName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -18636,17 +19060,17 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HCURSOR({Value: result}, False)
     }
 
     /**
      * Creates a cursor based on data contained in a file.
-     * @param {Pointer<Byte>} lpFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpFileName Type: <b>LPCTSTR</b>
      * 
      * The source of the file data to be used to create the cursor. The data in the file must be in either .CUR or .ANI format.
      * 
      * If the high-order word of <i>lpFileName</i> is nonzero, it is a pointer to a string that is a fully qualified name of a file containing cursor data.
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * If the function is successful, the return value is a handle to the new cursor.
      * 
@@ -18674,7 +19098,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorFromFileA(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -18682,17 +19106,17 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
      * Creates a cursor based on data contained in a file.
-     * @param {Pointer<Char>} lpFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpFileName Type: <b>LPCTSTR</b>
      * 
      * The source of the file data to be used to create the cursor. The data in the file must be in either .CUR or .ANI format.
      * 
      * If the high-order word of <i>lpFileName</i> is nonzero, it is a pointer to a string that is a fully qualified name of a file containing cursor data.
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * If the function is successful, the return value is a handle to the new cursor.
      * 
@@ -18720,7 +19144,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadCursorFromFileW(lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         A_LastError := 0
 
@@ -18728,12 +19152,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
      * Creates a cursor having the specified size, bit patterns, and hot spot.
-     * @param {Pointer<Void>} hInst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInst Type: <b>HINSTANCE</b>
      * 
      * A handle to the current instance of the application creating the cursor.
      * @param {Integer} xHotSpot Type: <b>int</b>
@@ -18756,7 +19180,7 @@ class WindowsAndMessaging {
      * 
      * An array of bytes that contains the bit values for the 
      * 					XOR mask of the cursor, as in a device-dependent monochrome bitmap.
-     * @returns {Pointer<Void>} Type: <b>HCURSOR</b>
+     * @returns {HCURSOR} Type: <b>HCURSOR</b>
      * 
      * If the function succeeds, the return value is a handle to the cursor.
      * 
@@ -18765,21 +19189,23 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateCursor(hInst, xHotSpot, yHotSpot, nWidth, nHeight, pvANDPlane, pvXORPlane) {
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateCursor", "ptr", hInst, "int", xHotSpot, "int", yHotSpot, "int", nWidth, "int", nHeight, "ptr", pvANDPlane, "ptr", pvXORPlane, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
      * Destroys a cursor and frees any memory the cursor occupied. Do not use this function to destroy a shared cursor.
-     * @param {Pointer<Void>} hCursor Type: <b>HCURSOR</b>
+     * @param {HCURSOR} hCursor Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor to be destroyed. The cursor must not be in use.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -18788,6 +19214,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DestroyCursor(hCursor) {
+        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DestroyCursor", "ptr", hCursor, "int")
@@ -18799,13 +19227,13 @@ class WindowsAndMessaging {
 
     /**
      * Enables an application to customize the system cursors. It replaces the contents of the system cursor specified by the id parameter with the contents of the cursor specified by the hcur parameter and then destroys hcur.
-     * @param {Pointer<Void>} hcur Type: <b>HCURSOR</b>
+     * @param {HCURSOR} hcur Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor. The function replaces the contents of the system cursor specified by <i>id</i> with the contents of the cursor handled by <i>hcur</i>.
      * 
      * The system destroys <i>hcur</i> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. Therefore, <i>hcur</i> cannot be a cursor loaded using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadcursora">LoadCursor</a> function. To specify a cursor loaded from a resource, copy the cursor using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-copycursor">CopyCursor</a> function, then pass the copy to <b>SetSystemCursor</b>.
      * @param {Integer} id Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -18814,6 +19242,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static SetSystemCursor(hcur, id) {
+        hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetSystemCursor", "ptr", hcur, "uint", id, "int")
@@ -18825,13 +19255,13 @@ class WindowsAndMessaging {
 
     /**
      * Loads the specified icon resource from the executable (.exe) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
-     * @param {Pointer<Byte>} lpIconName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the newly loaded icon.
      * 
@@ -18840,7 +19270,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadIconA(hInstance, lpIconName) {
-        lpIconName := lpIconName is String? StrPtr(lpIconName) : lpIconName
+        lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -18848,18 +19279,18 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Loads the specified icon resource from the executable (.exe) file associated with an application instance.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to an instance of the module whose executable file contains the icon to be loaded. This parameter must be <b>NULL</b> when a standard icon is being loaded.
-     * @param {Pointer<Char>} lpIconName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpIconName Type: <b>LPCTSTR</b>
      * 
      * The name of the icon resource to be loaded. Alternatively, this parameter can contain the resource identifier in the low-order word and zero in the high-order word. Use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to create this value.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the newly loaded icon.
      * 
@@ -18868,7 +19299,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadIconW(hInstance, lpIconName) {
-        lpIconName := lpIconName is String? StrPtr(lpIconName) : lpIconName
+        lpIconName := lpIconName is String ? StrPtr(lpIconName) : lpIconName
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -18876,12 +19308,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Creates an array of handles to icons that are extracted from a specified file.
-     * @param {Pointer<Byte>} szFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} szFileName Type: <b>LPCTSTR</b>
      * 
      * The path and name of the file
      * 				from which the icon(s) are to be extracted.
@@ -18896,7 +19328,7 @@ class WindowsAndMessaging {
      * @param {Integer} cyIcon Type: <b>int</b>
      * 
      * The vertical icon size wanted. See Remarks.
-     * @param {Pointer<Void>} phicon Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phicon Type: <b>HICON*</b>
      * 
      * A pointer to the returned array of icon handles.
      * @param {Pointer<UInt32>} piconid Type: <b>UINT*</b>
@@ -18927,7 +19359,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PrivateExtractIconsA(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
         result := DllCall("USER32.dll\PrivateExtractIconsA", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags, "uint")
         return result
@@ -18935,7 +19367,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates an array of handles to icons that are extracted from a specified file.
-     * @param {Pointer<Char>} szFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szFileName Type: <b>LPCTSTR</b>
      * 
      * The path and name of the file
      * 				from which the icon(s) are to be extracted.
@@ -18950,7 +19382,7 @@ class WindowsAndMessaging {
      * @param {Integer} cyIcon Type: <b>int</b>
      * 
      * The vertical icon size wanted. See Remarks.
-     * @param {Pointer<Void>} phicon Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phicon Type: <b>HICON*</b>
      * 
      * A pointer to the returned array of icon handles.
      * @param {Pointer<UInt32>} piconid Type: <b>UINT*</b>
@@ -18981,7 +19413,7 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static PrivateExtractIconsW(szFileName, nIconIndex, cxIcon, cyIcon, phicon, piconid, nIcons, flags) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
         result := DllCall("USER32.dll\PrivateExtractIconsW", "ptr", szFileName, "int", nIconIndex, "int", cxIcon, "int", cyIcon, "ptr", phicon, "uint*", piconid, "uint", nIcons, "uint", flags, "uint")
         return result
@@ -18989,7 +19421,7 @@ class WindowsAndMessaging {
 
     /**
      * Creates an icon that has the specified size, colors, and bit patterns.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the module creating the icon.
      * @param {Integer} nWidth Type: <b>int</b>
@@ -19010,7 +19442,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Byte>} lpbXORbits Type: <b>const BYTE*</b>
      * 
      * An array of bytes that contains the bit values for the XOR bitmask of the icon. This bitmask describes a monochrome or device-dependent color bitmap.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to an icon.
      * 
@@ -19019,21 +19451,23 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateIcon(hInstance, nWidth, nHeight, cPlanes, cBitsPixel, lpbANDbits, lpbXORbits) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CreateIcon", "ptr", hInstance, "int", nWidth, "int", nHeight, "char", cPlanes, "char", cBitsPixel, "char*", lpbANDbits, "char*", lpbXORbits, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Destroys an icon and frees any memory the icon occupied.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * A handle to the icon to be destroyed. The icon must not be in use.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -19042,6 +19476,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DestroyIcon(hIcon) {
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DestroyIcon", "ptr", hIcon, "int")
@@ -19056,7 +19492,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Byte>} presbits Type: <b>PBYTE</b>
      * 
      * The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <i>presbits</i> is not pointing to valid resource data.
-     * @param {Integer} fIcon Type: <b>BOOL</b>
+     * @param {BOOL} fIcon Type: <b>BOOL</b>
      * 
      * Indicates whether an icon or a cursor is sought. If this parameter is <b>TRUE</b>, the function is searching for an icon; if the parameter is <b>FALSE</b>, the function is searching for a cursor.
      * @returns {Integer} Type: <b>int</b>
@@ -19082,7 +19518,7 @@ class WindowsAndMessaging {
      * @param {Pointer<Byte>} presbits Type: <b>PBYTE</b>
      * 
      * The icon or cursor directory data. Because this function does not validate the resource data, it causes a general protection (GP) fault or returns an undefined value if <i>presbits</i> is not pointing to valid resource data.
-     * @param {Integer} fIcon Type: <b>BOOL</b>
+     * @param {BOOL} fIcon Type: <b>BOOL</b>
      * 
      * Indicates whether an icon or a cursor is sought. If this parameter is <b>TRUE</b>, the function is searching for an icon; if the parameter is <b>FALSE</b>, the function is searching for a cursor.
      * @param {Integer} cxDesired Type: <b>int</b>
@@ -19118,13 +19554,13 @@ class WindowsAndMessaging {
      * @param {Integer} dwResSize Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the set of bits pointed to by the <i>presbits</i> parameter.
-     * @param {Integer} fIcon Type: <b>BOOL</b>
+     * @param {BOOL} fIcon Type: <b>BOOL</b>
      * 
      * Indicates whether an icon or a cursor is to be created. If this parameter is <b>TRUE</b>, an icon is to be created. If it is <b>FALSE</b>, a cursor is to be created.
      * @param {Integer} dwVer Type: <b>DWORD</b>
      * 
      * The version number of the icon or cursor format for the resource bits pointed to by the <i>presbits</i> parameter. The value must be greater than or equal to 0x00020000 and less than or equal to 0x00030000. This parameter is generally set to 0x00030000.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the icon or cursor.
      * 
@@ -19139,7 +19575,7 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
@@ -19150,7 +19586,7 @@ class WindowsAndMessaging {
      * @param {Integer} dwResSize Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the set of bits pointed to by the <i>pbIconBits</i> parameter.
-     * @param {Integer} fIcon Type: <b>BOOL</b>
+     * @param {BOOL} fIcon Type: <b>BOOL</b>
      * 
      * Indicates whether an icon or a cursor is to be created. If this parameter is <b>TRUE</b>, an icon is to be created. If it is <b>FALSE</b>, a cursor is to be created.
      * @param {Integer} dwVer Type: <b>DWORD</b>
@@ -19163,7 +19599,7 @@ class WindowsAndMessaging {
      * 
      * The desired height, in pixels, of the icon or cursor. If this parameter is zero, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height.
      * @param {Integer} Flags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the icon or cursor.
      * 
@@ -19178,12 +19614,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Loads an icon, cursor, animated cursor, or bitmap.
-     * @param {Pointer<Void>} hInst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInst Type: <b>HINSTANCE</b>
      * 
      * A handle to the module of either a DLL or executable (.exe) that contains the image to be loaded. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>. Note that as of  32-bit Windows, an instance handle (<b>HINSTANCE</b>), such as the application instance handle exposed by system function call of <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-winmain">WinMain</a>, and a module handle (<b>HMODULE</b>) are the same thing.
      * 
@@ -19191,7 +19627,7 @@ class WindowsAndMessaging {
      * To load an OEM image, set this parameter to <b>NULL</b>.
      * 
      * To load a stand-alone resource (icon, cursor, or bitmap file)—for example, c:\myimage.bmp—set this parameter to <b>NULL</b>.
-     * @param {Pointer<Byte>} name Type: <b>LPCTSTR</b>
+     * @param {PSTR} name Type: <b>LPCTSTR</b>
      * 
      * The image to be loaded. If the <i>hinst</i> parameter is non-<b>NULL</b> and the <i>fuLoad</i> parameter omits <b>LR_LOADFROMFILE</b>, <i>lpszName</i> specifies the image resource in the <i>hinst</i> module. If the image resource is to be loaded by name from the module, the <i>lpszName</i> parameter is a pointer to a null-terminated string that contains the name of the image resource. If the image resource is to be loaded by ordinal from the module, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to convert the image ordinal into a form that can be passed to the <b>LoadImage</b> function.
      * 
@@ -19230,7 +19666,7 @@ class WindowsAndMessaging {
      * 
      * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
      * @param {Integer} fuLoad Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle of the newly loaded image.
      * 
@@ -19239,7 +19675,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadImageA(hInst, name, type, cx, cy, fuLoad) {
-        name := name is String? StrPtr(name) : name
+        name := name is String ? StrPtr(name) : name
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         A_LastError := 0
 
@@ -19247,12 +19684,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Loads an icon, cursor, animated cursor, or bitmap.
-     * @param {Pointer<Void>} hInst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInst Type: <b>HINSTANCE</b>
      * 
      * A handle to the module of either a DLL or executable (.exe) that contains the image to be loaded. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/libloaderapi/nf-libloaderapi-getmodulehandlea">GetModuleHandle</a>. Note that as of  32-bit Windows, an instance handle (<b>HINSTANCE</b>), such as the application instance handle exposed by system function call of <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-winmain">WinMain</a>, and a module handle (<b>HMODULE</b>) are the same thing.
      * 
@@ -19260,7 +19697,7 @@ class WindowsAndMessaging {
      * To load an OEM image, set this parameter to <b>NULL</b>.
      * 
      * To load a stand-alone resource (icon, cursor, or bitmap file)—for example, c:\myimage.bmp—set this parameter to <b>NULL</b>.
-     * @param {Pointer<Char>} name Type: <b>LPCTSTR</b>
+     * @param {PWSTR} name Type: <b>LPCTSTR</b>
      * 
      * The image to be loaded. If the <i>hinst</i> parameter is non-<b>NULL</b> and the <i>fuLoad</i> parameter omits <b>LR_LOADFROMFILE</b>, <i>lpszName</i> specifies the image resource in the <i>hinst</i> module. If the image resource is to be loaded by name from the module, the <i>lpszName</i> parameter is a pointer to a null-terminated string that contains the name of the image resource. If the image resource is to be loaded by ordinal from the module, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro to convert the image ordinal into a form that can be passed to the <b>LoadImage</b> function.
      * 
@@ -19299,7 +19736,7 @@ class WindowsAndMessaging {
      * 
      * The height, in pixels, of the icon or cursor. If this parameter is zero and the <i>fuLoad</i> parameter is <b>LR_DEFAULTSIZE</b>, the function uses the <b>SM_CYICON</b> or <b>SM_CYCURSOR</b> system metric value to set the height. If this parameter is zero and <b>LR_DEFAULTSIZE</b> is not used, the function uses the actual resource height.
      * @param {Integer} fuLoad Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle of the newly loaded image.
      * 
@@ -19308,7 +19745,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static LoadImageW(hInst, name, type, cx, cy, fuLoad) {
-        name := name is String? StrPtr(name) : name
+        name := name is String ? StrPtr(name) : name
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         A_LastError := 0
 
@@ -19316,12 +19754,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Creates a new image (icon, cursor, or bitmap) and copies the attributes of the specified image to the new one. If necessary, the function stretches the bits to fit the desired size of the new image.
-     * @param {Pointer<Void>} h Type: <b>HANDLE</b>
+     * @param {HANDLE} h Type: <b>HANDLE</b>
      * 
      * A handle to the image to be copied.
      * @param {Integer} type Type: <b>UINT</b>
@@ -19332,7 +19770,7 @@ class WindowsAndMessaging {
      * 
      * The desired height, in pixels, of the image. If this is zero, then the returned image will have the same height as the original <i>hImage</i>.
      * @param {Integer} flags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, the return value is the handle to the newly created image.
      * 
@@ -19341,18 +19779,20 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyImage(h, type, cx, cy, flags) {
+        h := h is Win32Handle ? NumGet(h, "ptr") : h
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CopyImage", "ptr", h, "uint", type, "int", cx, "int", cy, "uint", flags, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Draws an icon or cursor into the specified device context, performing the specified raster operations, and stretching or compressing the icon or cursor as specified.
-     * @param {Pointer<Void>} hdc Type: <b>HDC</b>
+     * @param {HDC} hdc Type: <b>HDC</b>
      * 
      * A handle to the device context into which the icon or cursor will be drawn.
      * @param {Integer} xLeft Type: <b>int</b>
@@ -19361,7 +19801,7 @@ class WindowsAndMessaging {
      * @param {Integer} yTop Type: <b>int</b>
      * 
      * The logical y-coordinate of the upper-left corner of the icon or cursor.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * A handle to the icon or cursor to be drawn. This parameter can identify an animated cursor.
      * @param {Integer} cxWidth Type: <b>int</b>
@@ -19373,11 +19813,11 @@ class WindowsAndMessaging {
      * @param {Integer} istepIfAniCur Type: <b>UINT</b>
      * 
      * The index of the frame to draw, if <i>hIcon</i> identifies an animated cursor. This parameter is ignored if <i>hIcon</i> does not identify an animated cursor.
-     * @param {Pointer<Void>} hbrFlickerFreeDraw Type: <b>HBRUSH</b>
+     * @param {HBRUSH} hbrFlickerFreeDraw Type: <b>HBRUSH</b>
      * 
      * A handle to a brush that the system uses for flicker-free drawing. If <i>hbrFlickerFreeDraw</i> is a valid brush handle, the system creates an offscreen bitmap using the specified brush for the background color, draws the icon or cursor into the bitmap, and then copies the bitmap into the device context identified by <i>hdc</i>. If <i>hbrFlickerFreeDraw</i> is <b>NULL</b>, the system draws the icon or cursor directly into the device context.
      * @param {Integer} diFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -19386,6 +19826,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static DrawIconEx(hdc, xLeft, yTop, hIcon, cxWidth, cyWidth, istepIfAniCur, hbrFlickerFreeDraw, diFlags) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+        hbrFlickerFreeDraw := hbrFlickerFreeDraw is Win32Handle ? NumGet(hbrFlickerFreeDraw, "ptr") : hbrFlickerFreeDraw
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\DrawIconEx", "ptr", hdc, "int", xLeft, "int", yTop, "ptr", hIcon, "int", cxWidth, "int", cyWidth, "uint", istepIfAniCur, "ptr", hbrFlickerFreeDraw, "uint", diFlags, "int")
@@ -19400,7 +19844,7 @@ class WindowsAndMessaging {
      * @param {Pointer<ICONINFO>} piconinfo Type: <b>PICONINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a> structure the function uses to create the icon or cursor.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the icon or cursor that is created.
      * 
@@ -19415,15 +19859,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Copies the specified icon from another module to the current module.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * A handle to the icon to be copied.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is a handle to the duplicate icon.
      * 
@@ -19432,22 +19876,24 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CopyIcon(hIcon) {
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CopyIcon", "ptr", hIcon, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Retrieves information about the specified icon or cursor.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * @param {Pointer<ICONINFO>} piconinfo Type: <b>PICONINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a> structure. The function fills in the structure's members.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero and the function fills in the members of the specified <a href="/windows/desktop/api/winuser/ns-winuser-iconinfo">ICONINFO</a> structure.
      * 
@@ -19456,6 +19902,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetIconInfo(hIcon, piconinfo) {
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetIconInfo", "ptr", hIcon, "ptr", piconinfo, "int")
@@ -19467,47 +19915,51 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified icon or cursor. GetIconInfoEx extends GetIconInfo by using the newer ICONINFOEX structure.
-     * @param {Pointer<Void>} hicon Type: <b>HICON</b>
+     * @param {HICON} hicon Type: <b>HICON</b>
      * @param {Pointer<ICONINFOEXA>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> indicates success, <b>FALSE</b> indicates failure.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-geticoninfoexa
      * @since windows6.0.6000
      */
     static GetIconInfoExA(hicon, piconinfo) {
+        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+
         result := DllCall("USER32.dll\GetIconInfoExA", "ptr", hicon, "ptr", piconinfo, "int")
         return result
     }
 
     /**
      * Retrieves information about the specified icon or cursor. GetIconInfoEx extends GetIconInfo by using the newer ICONINFOEX structure.
-     * @param {Pointer<Void>} hicon Type: <b>HICON</b>
+     * @param {HICON} hicon Type: <b>HICON</b>
      * @param {Pointer<ICONINFOEXW>} piconinfo Type: <b>PICONINFOEX</b>
      * 
      * When this method returns, contains a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-iconinfoexa">ICONINFOEX</a> structure. The function fills in the structure's members.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> indicates success, <b>FALSE</b> indicates failure.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-geticoninfoexw
      * @since windows6.0.6000
      */
     static GetIconInfoExW(hicon, piconinfo) {
+        hicon := hicon is Win32Handle ? NumGet(hicon, "ptr") : hicon
+
         result := DllCall("USER32.dll\GetIconInfoExW", "ptr", hicon, "ptr", piconinfo, "int")
         return result
     }
 
     /**
      * Determines whether a message is intended for the specified dialog box and, if it is, processes the message.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the message to be checked.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the message has been processed, the return value is nonzero.
      * 
@@ -19516,19 +19968,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsDialogMessageA(hDlg, lpMsg) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\IsDialogMessageA", "ptr", hDlg, "ptr", lpMsg, "int")
         return result
     }
 
     /**
      * Determines whether a message is intended for the specified dialog box and, if it is, processes the message.
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the message to be checked.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the message has been processed, the return value is nonzero.
      * 
@@ -19537,19 +19991,21 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static IsDialogMessageW(hDlg, lpMsg) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         result := DllCall("USER32.dll\IsDialogMessageW", "ptr", hDlg, "ptr", lpMsg, "int")
         return result
     }
 
     /**
      * Converts the specified dialog box units to screen units (pixels).
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to a dialog box. This function accepts only handles returned by one of the dialog box creation functions; handles for other windows are not valid.
      * @param {Pointer<RECT>} lpRect Type: <b>LPRECT</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the dialog box coordinates to be converted.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -19558,6 +20014,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static MapDialogRect(hDlg, lpRect) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\MapDialogRect", "ptr", hDlg, "ptr", lpRect, "int")
@@ -19569,7 +20027,7 @@ class WindowsAndMessaging {
 
     /**
      * The GetScrollInfo function retrieves the parameters of a scroll bar, including the minimum and maximum scrolling positions, the page size, and the position of the scroll box (thumb).
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a scroll bar control or a window with a standard scroll bar, depending on the value of the 
      * 					<i>fnBar</i> parameter.
@@ -19582,7 +20040,7 @@ class WindowsAndMessaging {
      * 					<b>fMask</b> member to specify the scroll bar parameters to retrieve. Before returning, the function copies the specified parameters to the appropriate members of the structure.
      * 
      * The
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function retrieved any values, the return value is nonzero.
      * 
@@ -19591,6 +20049,8 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static GetScrollInfo(hwnd, nBar, lpsi) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetScrollInfo", "ptr", hwnd, "int", nBar, "ptr", lpsi, "int")
@@ -19602,119 +20062,129 @@ class WindowsAndMessaging {
 
     /**
      * Provides default processing for any window messages that the window procedure of a multiple-document interface (MDI) frame window does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the MDI frame window.
-     * @param {Pointer<Void>} hWndMDIClient Type: <b>HWND</b>
+     * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defframeproca
      * @since windows5.0
      */
     static DefFrameProcA(hWnd, hWndMDIClient, uMsg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWndMDIClient := hWndMDIClient is Win32Handle ? NumGet(hWndMDIClient, "ptr") : hWndMDIClient
+
         result := DllCall("USER32.dll\DefFrameProcA", "ptr", hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Provides default processing for any window messages that the window procedure of a multiple-document interface (MDI) frame window does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the MDI frame window.
-     * @param {Pointer<Void>} hWndMDIClient Type: <b>HWND</b>
+     * @param {HWND} hWndMDIClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message. If the <i>hWndMDIClient</i> parameter is <b>NULL</b>, the return value is the same as for the <a href="/windows/desktop/api/winuser/nf-winuser-defwindowproca">DefWindowProc</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defframeprocw
      * @since windows5.0
      */
     static DefFrameProcW(hWnd, hWndMDIClient, uMsg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWndMDIClient := hWndMDIClient is Win32Handle ? NumGet(hWndMDIClient, "ptr") : hWndMDIClient
+
         result := DllCall("USER32.dll\DefFrameProcW", "ptr", hWnd, "ptr", hWndMDIClient, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Provides default processing for any window message that the window procedure of a multiple-document interface (MDI) child window does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the MDI child window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defmdichildproca
      * @since windows5.0
      */
     static DefMDIChildProcA(hWnd, uMsg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\DefMDIChildProcA", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Provides default processing for any window message that the window procedure of a multiple-document interface (MDI) child window does not process.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the MDI child window.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to be processed.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing and depends on the message.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-defmdichildprocw
      * @since windows5.0
      */
     static DefMDIChildProcW(hWnd, uMsg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\DefMDIChildProcW", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Processes accelerator keystrokes for window menu commands of the multiple-document interface (MDI) child windows associated with the specified MDI client window.
-     * @param {Pointer<Void>} hWndClient Type: <b>HWND</b>
+     * @param {HWND} hWndClient Type: <b>HWND</b>
      * 
      * A handle to the MDI client window.
      * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
      * 
      * A pointer to a message retrieved by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function. The message must be an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure and contain message information from the application's message queue.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the message is translated into a system command, the return value is nonzero.
      * 
@@ -19723,13 +20193,15 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static TranslateMDISysAccel(hWndClient, lpMsg) {
+        hWndClient := hWndClient is Win32Handle ? NumGet(hWndClient, "ptr") : hWndClient
+
         result := DllCall("USER32.dll\TranslateMDISysAccel", "ptr", hWndClient, "ptr", lpMsg, "int")
         return result
     }
 
     /**
      * Arranges all the minimized (iconic) child windows of the specified parent window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @returns {Integer} Type: <b>UINT</b>
@@ -19741,6 +20213,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static ArrangeIconicWindows(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ArrangeIconicWindows", "ptr", hWnd, "uint")
@@ -19752,10 +20226,10 @@ class WindowsAndMessaging {
 
     /**
      * Creates a multiple-document interface (MDI) child window.
-     * @param {Pointer<Byte>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The window class of the MDI child window. The class name must have been registered by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {Pointer<Byte>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. The system displays the name in the title bar of the child window.
      * @param {Integer} dwStyle Type: <b>DWORD</b>
@@ -19771,16 +20245,16 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The initial height, in device units, of the MDI child window. If this parameter is set to <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default height.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application creating the MDI child window.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
      * 
@@ -19789,8 +20263,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateMDIWindowA(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -19798,15 +20274,15 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Creates a multiple-document interface (MDI) child window.
-     * @param {Pointer<Char>} lpClassName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpClassName Type: <b>LPCTSTR</b>
      * 
      * The window class of the MDI child window. The class name must have been registered by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassexa">RegisterClassEx</a> function.
-     * @param {Pointer<Char>} lpWindowName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpWindowName Type: <b>LPCTSTR</b>
      * 
      * The window name. The system displays the name in the title bar of the child window.
      * @param {Integer} dwStyle Type: <b>DWORD</b>
@@ -19822,16 +20298,16 @@ class WindowsAndMessaging {
      * @param {Integer} nHeight Type: <b>int</b>
      * 
      * The initial height, in device units, of the MDI child window. If this parameter is set to <b>CW_USEDEFAULT</b>, the MDI child window is assigned the default height.
-     * @param {Pointer<Void>} hWndParent Type: <b>HWND</b>
+     * @param {HWND} hWndParent Type: <b>HWND</b>
      * 
      * A handle to the MDI client window that will be the parent of the new MDI child window.
-     * @param {Pointer<Void>} hInstance Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hInstance Type: <b>HINSTANCE</b>
      * 
      * A handle to the instance of the application creating the MDI child window.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * If the function succeeds, the return value is the handle to the created window.
      * 
@@ -19840,8 +20316,10 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CreateMDIWindowW(lpClassName, lpWindowName, dwStyle, X, Y, nWidth, nHeight, hWndParent, hInstance, lParam) {
-        lpClassName := lpClassName is String? StrPtr(lpClassName) : lpClassName
-        lpWindowName := lpWindowName is String? StrPtr(lpWindowName) : lpWindowName
+        lpClassName := lpClassName is String ? StrPtr(lpClassName) : lpClassName
+        lpWindowName := lpWindowName is String ? StrPtr(lpWindowName) : lpWindowName
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         A_LastError := 0
 
@@ -19849,12 +20327,12 @@ class WindowsAndMessaging {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Tiles the specified child windows of the specified parent window.
-     * @param {Pointer<Void>} hwndParent Type: <b>HWND</b>
+     * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window. If this parameter is <b>NULL</b>, the desktop window is assumed.
      * @param {Integer} wHow Type: <b>UINT</b>
@@ -19864,7 +20342,7 @@ class WindowsAndMessaging {
      * @param {Integer} cKids Type: <b>UINT</b>
      * 
      * The number of elements in the array specified by the <i>lpKids</i> parameter. This parameter is ignored if <i>lpKids</i> is <b>NULL</b>.
-     * @param {Pointer<Void>} lpKids Type: <b>const HWND*</b>
+     * @param {Pointer<HWND>} lpKids Type: <b>const HWND*</b>
      * 
      * An array of handles to the child windows to arrange. If a specified child window is a top-level window with the style <b>WS_EX_TOPMOST</b> or <b>WS_EX_TOOLWINDOW</b>, the child window is not arranged. If this parameter is <b>NULL</b>, all child windows of the specified parent window (or of the desktop window) are arranged.
      * @returns {Integer} Type: <b>WORD</b>
@@ -19876,6 +20354,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static TileWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\TileWindows", "ptr", hwndParent, "uint", wHow, "ptr", lpRect, "uint", cKids, "ptr", lpKids, "ushort")
@@ -19887,7 +20367,7 @@ class WindowsAndMessaging {
 
     /**
      * Cascades the specified child windows of the specified parent window.
-     * @param {Pointer<Void>} hwndParent Type: <b>HWND</b>
+     * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * A handle to the parent window. If this parameter is <b>NULL</b>, the desktop window is assumed.
      * @param {Integer} wHow Type: <b>UINT</b>
@@ -19898,7 +20378,7 @@ class WindowsAndMessaging {
      * 
      * The number of elements in the array specified by the 
      * <i>lpKids</i> parameter. This parameter is ignored if <i>lpKids</i> is <b>NULL</b>.
-     * @param {Pointer<Void>} lpKids Type: <b>const HWND*</b>
+     * @param {Pointer<HWND>} lpKids Type: <b>const HWND*</b>
      * 
      * An array of handles to the child windows to arrange. If a specified child window is a top-level window with the style <b>WS_EX_TOPMOST</b> or <b>WS_EX_TOOLWINDOW</b>, the child window is not arranged. If this parameter is <b>NULL</b>, all child windows of the specified parent window (or of the desktop window) are arranged.
      * @returns {Integer} Type: <b>WORD</b>
@@ -19910,6 +20390,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static CascadeWindows(hwndParent, wHow, lpRect, cKids, lpKids) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\CascadeWindows", "ptr", hwndParent, "uint", wHow, "ptr", lpRect, "uint", cKids, "ptr", lpKids, "ushort")
@@ -22752,7 +23234,7 @@ class WindowsAndMessaging {
      * @param {Integer} fWinIni Type: <b>UINT</b>
      * 
      * If a system parameter is being set, specifies whether the user profile is to be updated, and if so, whether the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is to be broadcast to all top-level windows to notify them of the change.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is a nonzero value.
      * 
@@ -25603,7 +26085,7 @@ class WindowsAndMessaging {
      * @param {Integer} fWinIni Type: <b>UINT</b>
      * 
      * If a system parameter is being set, specifies whether the user profile is to be updated, and if so, whether the <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-settingchange">WM_SETTINGCHANGE</a> message is to be broadcast to all top-level windows to notify them of the change.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is a nonzero value.
      * 
@@ -25623,7 +26105,7 @@ class WindowsAndMessaging {
 
     /**
      * Triggers a visual signal to indicate that a sound is playing.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * This function returns one of the following values.
      * 
@@ -25674,10 +26156,10 @@ class WindowsAndMessaging {
 
     /**
      * Copies the text of the specified window's title bar (if it has one) into a buffer.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window or control containing the text.
-     * @param {Pointer<Char>} pString Type: <b>LPWSTR</b>
+     * @param {PWSTR} pString Type: <b>LPWSTR</b>
      * 
      * The buffer that is to receive the text.
      * 				
@@ -25694,7 +26176,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static InternalGetWindowText(hWnd, pString, cchMaxCount) {
-        pString := pString is String? StrPtr(pString) : pString
+        pString := pString is String ? StrPtr(pString) : pString
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -25707,7 +26190,7 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static CancelShutdown() {
         result := DllCall("USER32.dll\CancelShutdown", "int")
@@ -25722,7 +26205,7 @@ class WindowsAndMessaging {
      * @param {Pointer<GUITHREADINFO>} pgui Type: <b>LPGUITHREADINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-guithreadinfo">GUITHREADINFO</a> structure that receives information describing the thread. Note that you must set the <b>cbSize</b> member to <c>sizeof(GUITHREADINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25742,7 +26225,7 @@ class WindowsAndMessaging {
 
     /**
      * SetProcessDPIAware may be altered or unavailable. Instead, use SetProcessDPIAwareness.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. Otherwise, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setprocessdpiaware
@@ -25755,7 +26238,7 @@ class WindowsAndMessaging {
 
     /**
      * IsProcessDPIAware may be altered or unavailable. Instead, use GetProcessDPIAwareness.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the process is dpi aware; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-isprocessdpiaware
@@ -25768,21 +26251,24 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Void>} hwndInherit 
-     * @returns {Integer} 
+     * @param {HWND} hwnd 
+     * @param {HWND} hwndInherit 
+     * @returns {BOOL} 
      */
     static InheritWindowMonitor(hwnd, hwndInherit) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwndInherit := hwndInherit is Win32Handle ? NumGet(hwndInherit, "ptr") : hwndInherit
+
         result := DllCall("USER32.dll\InheritWindowMonitor", "ptr", hwnd, "ptr", hwndInherit, "int")
         return result
     }
 
     /**
      * Retrieves the full path and file name of the module associated with the specified window handle.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose module file name is to be retrieved.
-     * @param {Pointer<Byte>} pszFileName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
      * @param {Integer} cchFileNameMax Type: <b>UINT</b>
@@ -25795,7 +26281,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowModuleFileNameA(hwnd, pszFileName, cchFileNameMax) {
-        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\GetWindowModuleFileNameA", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
@@ -25803,10 +26290,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the full path and file name of the module associated with the specified window handle.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose module file name is to be retrieved.
-     * @param {Pointer<Char>} pszFileName Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszFileName Type: <b>LPTSTR</b>
      * 
      * The path and file name.
      * @param {Integer} cchFileNameMax Type: <b>UINT</b>
@@ -25819,7 +26306,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowModuleFileNameW(hwnd, pszFileName, cchFileNameMax) {
-        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\GetWindowModuleFileNameW", "ptr", hwnd, "ptr", pszFileName, "uint", cchFileNameMax, "uint")
         return result
@@ -25830,7 +26318,7 @@ class WindowsAndMessaging {
      * @param {Pointer<CURSORINFO>} pci Type: <b>PCURSORINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winuser/ns-winuser-cursorinfo">CURSORINFO</a> structure that receives the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(CURSORINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25850,13 +26338,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose information is to be retrieved.
      * @param {Pointer<WINDOWINFO>} pwi Type: <b>PWINDOWINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-windowinfo">WINDOWINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(WINDOWINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25867,6 +26355,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetWindowInfo(hwnd, pwi) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetWindowInfo", "ptr", hwnd, "ptr", pwi, "int")
@@ -25878,13 +26368,13 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified title bar.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the title bar whose information is to be retrieved.
      * @param {Pointer<TITLEBARINFO>} pti Type: <b>PTITLEBARINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-titlebarinfo">TITLEBARINFO</a> structure to receive the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(TITLEBARINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25893,6 +26383,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetTitleBarInfo(hwnd, pti) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetTitleBarInfo", "ptr", hwnd, "ptr", pti, "int")
@@ -25904,7 +26396,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves information about the specified menu bar.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window (menu bar) whose information is to be retrieved.
      * @param {Integer} idObject Type: <b>LONG</b>
@@ -25914,7 +26406,7 @@ class WindowsAndMessaging {
      * @param {Pointer<MENUBARINFO>} pmbi Type: <b>PMENUBARINFO</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-menubarinfo">MENUBARINFO</a> structure that receives the information. Note that you must set the <b>cbSize</b> member to <c>sizeof(MENUBARINFO)</c> before calling this function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25923,6 +26415,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetMenuBarInfo(hwnd, idObject, idItem, pmbi) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetMenuBarInfo", "ptr", hwnd, "int", idObject, "int", idItem, "ptr", pmbi, "int")
@@ -25934,7 +26428,7 @@ class WindowsAndMessaging {
 
     /**
      * The GetScrollBarInfo function retrieves information about the specified scroll bar.
-     * @param {Pointer<Void>} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
+     * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * Handle to a window associated with the scroll bar whose information is to be retrieved. If the 
      * 					<i>idObject</i> parameter is OBJID_CLIENT, 
@@ -25946,7 +26440,7 @@ class WindowsAndMessaging {
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-scrollbarinfo">SCROLLBARINFO</a> structure to receive the information. Before calling <b>GetScrollBarInfo</b>, set the 
      * 					<b>cbSize</b> member to 
      * 					<b>sizeof</b>(<b>SCROLLBARINFO</b>).
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If the function succeeds, the return value is nonzero.
      * 
@@ -25955,6 +26449,8 @@ class WindowsAndMessaging {
      * @since windows6.0.6000
      */
     static GetScrollBarInfo(hwnd, idObject, psbi) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetScrollBarInfo", "ptr", hwnd, "int", idObject, "ptr", psbi, "int")
@@ -25966,46 +26462,50 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves the handle to the ancestor of the specified window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose ancestor is to be retrieved. If this parameter is the desktop window, the function returns <b>NULL</b>.
      * @param {Integer} gaFlags Type: <b>UINT</b>
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is the handle to the ancestor window.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getancestor
      * @since windows5.0
      */
     static GetAncestor(hwnd, gaFlags) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\GetAncestor", "ptr", hwnd, "uint", gaFlags, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a handle to the child window at the specified point. The search is restricted to immediate child windows; grandchildren and deeper descendant windows are not searched.
-     * @param {Pointer<Void>} hwndParent Type: <b>HWND</b>
+     * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * A handle to the window whose child is to be retrieved.
-     * @param {Pointer} ptParentClientCoords Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} ptParentClientCoords Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that defines the client coordinates of the point to be checked.
-     * @returns {Pointer<Void>} Type: <b>HWND</b>
+     * @returns {HWND} Type: <b>HWND</b>
      * 
      * The return value is a handle to the child window that contains the specified point.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-realchildwindowfrompoint
      * @since windows5.0
      */
     static RealChildWindowFromPoint(hwndParent, ptParentClientCoords) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("USER32.dll\RealChildWindowFromPoint", "ptr", hwndParent, "ptr", ptParentClientCoords, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
      * Retrieves a string that specifies the window type.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose type will be retrieved.
-     * @param {Pointer<Byte>} ptszClassName Type: <b>LPTSTR</b>
+     * @param {PSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
      * @param {Integer} cchClassNameMax Type: <b>UINT</b>
@@ -26019,7 +26519,8 @@ class WindowsAndMessaging {
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-realgetwindowclassa
      */
     static RealGetWindowClassA(hwnd, ptszClassName, cchClassNameMax) {
-        ptszClassName := ptszClassName is String? StrPtr(ptszClassName) : ptszClassName
+        ptszClassName := ptszClassName is String ? StrPtr(ptszClassName) : ptszClassName
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("USER32.dll\RealGetWindowClassA", "ptr", hwnd, "ptr", ptszClassName, "uint", cchClassNameMax, "uint")
         return result
@@ -26027,10 +26528,10 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves a string that specifies the window type.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose type will be retrieved.
-     * @param {Pointer<Char>} ptszClassName Type: <b>LPTSTR</b>
+     * @param {PWSTR} ptszClassName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the window type.
      * @param {Integer} cchClassNameMax Type: <b>UINT</b>
@@ -26045,7 +26546,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static RealGetWindowClassW(hwnd, ptszClassName, cchClassNameMax) {
-        ptszClassName := ptszClassName is String? StrPtr(ptszClassName) : ptszClassName
+        ptszClassName := ptszClassName is String ? StrPtr(ptszClassName) : ptszClassName
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         A_LastError := 0
 
@@ -26058,7 +26560,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves status information for the specified window if it is the application-switching (ALT+TAB) window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
      * @param {Integer} iItem Type: <b>int</b>
@@ -26067,13 +26569,13 @@ class WindowsAndMessaging {
      * @param {Pointer<ALTTABINFO>} pati Type: <b>PALTTABINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-alttabinfo">ALTTABINFO</a> structure to receive the status information. Note that you must set the <b>csSize</b> member to <c>sizeof(ALTTABINFO)</c> before calling this function.
-     * @param {Pointer<Byte>} pszItemText Type: <b>LPTSTR</b>
+     * @param {PSTR} pszItemText Type: <b>LPTSTR</b>
      * 
      * The name of the item. If this parameter is <b>NULL</b>, the name of the item is not copied.
      * @param {Integer} cchItemText Type: <b>UINT</b>
      * 
      * The size, in characters, of the <i>pszItemText</i> buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -26082,7 +26584,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetAltTabInfoA(hwnd, iItem, pati, pszItemText, cchItemText) {
-        pszItemText := pszItemText is String? StrPtr(pszItemText) : pszItemText
+        pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         A_LastError := 0
 
@@ -26095,7 +26598,7 @@ class WindowsAndMessaging {
 
     /**
      * Retrieves status information for the specified window if it is the application-switching (ALT+TAB) window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window for which status information will be retrieved. This window must be the application-switching window.
      * @param {Integer} iItem Type: <b>int</b>
@@ -26104,13 +26607,13 @@ class WindowsAndMessaging {
      * @param {Pointer<ALTTABINFO>} pati Type: <b>PALTTABINFO</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-alttabinfo">ALTTABINFO</a> structure to receive the status information. Note that you must set the <b>csSize</b> member to <c>sizeof(ALTTABINFO)</c> before calling this function.
-     * @param {Pointer<Char>} pszItemText Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszItemText Type: <b>LPTSTR</b>
      * 
      * The name of the item. If this parameter is <b>NULL</b>, the name of the item is not copied.
      * @param {Integer} cchItemText Type: <b>UINT</b>
      * 
      * The size, in characters, of the <i>pszItemText</i> buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is nonzero. 
      * 
@@ -26119,7 +26622,8 @@ class WindowsAndMessaging {
      * @since windows5.0
      */
     static GetAltTabInfoW(hwnd, iItem, pati, pszItemText, cchItemText) {
-        pszItemText := pszItemText is String? StrPtr(pszItemText) : pszItemText
+        pszItemText := pszItemText is String ? StrPtr(pszItemText) : pszItemText
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         A_LastError := 0
 
@@ -26136,7 +26640,7 @@ class WindowsAndMessaging {
      * 
      * The message to add to or remove from the filter.
      * @param {Integer} dwFlag Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -26159,7 +26663,7 @@ class WindowsAndMessaging {
 
     /**
      * Modifies the User Interface Privilege Isolation (UIPI) message filter for a specified window.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose UIPI message filter is to be modified.
      * @param {Integer} message Type: <b>UINT</b>
@@ -26169,13 +26673,15 @@ class WindowsAndMessaging {
      * @param {Pointer<CHANGEFILTERSTRUCT>} pChangeFilterStruct Type: <b>PCHANGEFILTERSTRUCT</b>
      * 
      * Optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-changefilterstruct">CHANGEFILTERSTRUCT</a> structure.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, it returns <b>TRUE</b>; otherwise, it returns <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-changewindowmessagefilterex
      * @since windows6.1
      */
     static ChangeWindowMessageFilterEx(hwnd, message, action, pChangeFilterStruct) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\ChangeWindowMessageFilterEx", "ptr", hwnd, "uint", message, "uint", action, "ptr", pChangeFilterStruct, "int")
@@ -26187,33 +26693,39 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} topLevelWindow 
+     * @param {HWND} topLevelWindow 
      * @param {Integer} processHandleCount 
-     * @param {Pointer<Void>} processHandleArray 
-     * @returns {Integer} 
+     * @param {Pointer<HANDLE>} processHandleArray 
+     * @returns {BOOL} 
      */
     static SetAdditionalForegroundBoostProcesses(topLevelWindow, processHandleCount, processHandleArray) {
+        topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
+
         result := DllCall("USER32.dll\SetAdditionalForegroundBoostProcesses", "ptr", topLevelWindow, "uint", processHandleCount, "ptr", processHandleArray, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Integer} tdFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RegisterForTooltipDismissNotification(hWnd, tdFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("USER32.dll\RegisterForTooltipDismissNotification", "ptr", hWnd, "int", tdFlags, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @returns {Integer} 
+     * @param {HWND} hwnd 
+     * @returns {BOOL} 
      */
     static IsWindowArranged(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("USER32.dll\IsWindowArranged", "ptr", hwnd, "int")
         return result
     }
@@ -26229,16 +26741,16 @@ class WindowsAndMessaging {
 
     /**
      * Creates a new resource indexer for the specified paths of the root of the project files and the extension DLL.
-     * @param {Pointer<Char>} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
-     * @param {Pointer<Char>} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
+     * @param {PWSTR} projectRoot The path of the root folder to use for the project for the files to be produced, in string form. This path is used to determine file paths relative to the package that contains them. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
+     * @param {PWSTR} extensionDllPath The full path to an extension dynamic-link library (DLL) that is Microsoft-signed and implements the ext-ms-win-mrmcorer-environment-l1 API set. This path determines the file path from where the extension DLL for the modern resource technology (MRT) environment is loaded. This path must be an absolute path with the drive letter specified. Long file paths are not supported.
      * @param {Pointer<Void>} ppResourceIndexer The newly created resource indexer.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//resourceindexer/nf-resourceindexer-createresourceindexer
      * @since windows10.0.10240
      */
     static CreateResourceIndexer(projectRoot, extensionDllPath, ppResourceIndexer) {
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        extensionDllPath := extensionDllPath is String? StrPtr(extensionDllPath) : extensionDllPath
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        extensionDllPath := extensionDllPath is String ? StrPtr(extensionDllPath) : extensionDllPath
 
         result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr", ppResourceIndexer, "int")
         if(result != 0)
@@ -26261,8 +26773,8 @@ class WindowsAndMessaging {
     /**
      * Indexes a file path for file and folder naming conventions.
      * @param {Pointer<Void>} resourceIndexer The resource indexer object that you created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/resourceindexer/nf-resourceindexer-createresourceindexer">CreateResourceIndexer</a> function.
-     * @param {Pointer<Char>} filePath The path for the folder that you want to index. The path must be an absolute path with the drive letter specified. Long file paths are not supported.
-     * @param {Pointer<Char>} ppResourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
+     * @param {PWSTR} filePath The path for the folder that you want to index. The path must be an absolute path with the drive letter specified. Long file paths are not supported.
+     * @param {Pointer<PWSTR>} ppResourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
      * @param {Pointer<UInt32>} pQualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
      * @param {Pointer<IndexedResourceQualifier>} ppQualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -26270,7 +26782,7 @@ class WindowsAndMessaging {
      * @since windows10.0.10240
      */
     static IndexFilePath(resourceIndexer, filePath, ppResourceUri, pQualifierCount, ppQualifiers) {
-        filePath := filePath is String? StrPtr(filePath) : filePath
+        filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("MrmSupport.dll\IndexFilePath", "ptr", resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, "uint*", pQualifierCount, "ptr", ppQualifiers, "int")
         if(result != 0)
@@ -26281,7 +26793,7 @@ class WindowsAndMessaging {
 
     /**
      * Frees the parameters that the IndexFilePath method returned.
-     * @param {Pointer<Char>} resourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
+     * @param {PWSTR} resourceUri A uniform resource indicator (URI) that uses the ms-resource URI scheme and represents the named resource for the candidate, where the authority of the URI or the resource map is empty. For example, ms-resource:///Resources/String1 or ms-resource:///Files/images/logo.png.
      * @param {Integer} qualifierCount The number of indexed resource qualifiers that the list in the <i>ppQualifiers</i> parameter contains.
      * @param {Pointer<IndexedResourceQualifier>} qualifiers A list of indexed resource qualifiers that declare the context under which the resources are appropriate.
      * @returns {String} Nothing - always returns an empty string
@@ -26289,24 +26801,24 @@ class WindowsAndMessaging {
      * @since windows10.0.10240
      */
     static DestroyIndexedResults(resourceUri, qualifierCount, qualifiers) {
-        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
+        resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
 
         DllCall("MrmSupport.dll\DestroyIndexedResults", "ptr", resourceUri, "uint", qualifierCount, "ptr", qualifiers)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} packageFamilyName 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} packageFamilyName 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
-     * @param {Pointer<Void>} indexer 
+     * @param {PWSTR} defaultQualifiers 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexer(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, indexer) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexer", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", indexer, "int")
         if(result != 0)
@@ -26317,17 +26829,17 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
-     * @param {Pointer<Char>} schemaFile 
-     * @param {Pointer<Void>} indexer 
+     * @param {PWSTR} defaultQualifiers 
+     * @param {PWSTR} schemaFile 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerFromPreviousSchemaFile(projectRoot, platformVersion, defaultQualifiers, schemaFile, indexer) {
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
-        schemaFile := schemaFile is String? StrPtr(schemaFile) : schemaFile
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
+        schemaFile := schemaFile is String ? StrPtr(schemaFile) : schemaFile
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaFile, "ptr", indexer, "int")
         if(result != 0)
@@ -26338,17 +26850,17 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
-     * @param {Pointer<Char>} priFile 
-     * @param {Pointer<Void>} indexer 
+     * @param {PWSTR} defaultQualifiers 
+     * @param {PWSTR} priFile 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerFromPreviousPriFile(projectRoot, platformVersion, defaultQualifiers, priFile, indexer) {
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
-        priFile := priFile is String? StrPtr(priFile) : priFile
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
+        priFile := priFile is String ? StrPtr(priFile) : priFile
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriFile", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priFile, "ptr", indexer, "int")
         if(result != 0)
@@ -26359,17 +26871,17 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
+     * @param {PWSTR} defaultQualifiers 
      * @param {Pointer} schemaXmlData 
      * @param {Integer} schemaXmlSize 
-     * @param {Pointer<Void>} indexer 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerFromPreviousSchemaData(projectRoot, platformVersion, defaultQualifiers, schemaXmlData, schemaXmlSize, indexer) {
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousSchemaData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", schemaXmlData, "uint", schemaXmlSize, "ptr", indexer, "int")
         if(result != 0)
@@ -26380,17 +26892,17 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
+     * @param {PWSTR} defaultQualifiers 
      * @param {Pointer} priData 
      * @param {Integer} priSize 
-     * @param {Pointer<Void>} indexer 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerFromPreviousPriData(projectRoot, platformVersion, defaultQualifiers, priData, priSize, indexer) {
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerFromPreviousPriData", "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "ptr", priData, "uint", priSize, "ptr", indexer, "int")
         if(result != 0)
@@ -26401,18 +26913,18 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} packageFamilyName 
-     * @param {Pointer<Char>} projectRoot 
+     * @param {PWSTR} packageFamilyName 
+     * @param {PWSTR} projectRoot 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
+     * @param {PWSTR} defaultQualifiers 
      * @param {Integer} flags 
-     * @param {Pointer<Void>} indexer 
+     * @param {Pointer<MrmResourceIndexerHandle>} indexer 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceIndexerWithFlags(packageFamilyName, projectRoot, platformVersion, defaultQualifiers, flags, indexer) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        projectRoot := projectRoot is String? StrPtr(projectRoot) : projectRoot
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceIndexerWithFlags", "ptr", packageFamilyName, "ptr", projectRoot, "int", platformVersion, "ptr", defaultQualifiers, "int", flags, "ptr", indexer, "int")
         if(result != 0)
@@ -26423,16 +26935,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
-     * @param {Pointer<Char>} resourceUri 
-     * @param {Pointer<Char>} resourceString 
-     * @param {Pointer<Char>} qualifiers 
+     * @param {MrmResourceIndexerHandle} indexer 
+     * @param {PWSTR} resourceUri 
+     * @param {PWSTR} resourceString 
+     * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
      */
     static MrmIndexString(indexer, resourceUri, resourceString, qualifiers) {
-        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
-        resourceString := resourceString is String? StrPtr(resourceString) : resourceString
-        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+        resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
+        resourceString := resourceString is String ? StrPtr(resourceString) : resourceString
+        qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexString", "ptr", indexer, "ptr", resourceUri, "ptr", resourceString, "ptr", qualifiers, "int")
         if(result != 0)
@@ -26443,16 +26955,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
-     * @param {Pointer<Char>} resourceUri 
+     * @param {MrmResourceIndexerHandle} indexer 
+     * @param {PWSTR} resourceUri 
      * @param {Pointer} embeddedData 
      * @param {Integer} embeddedDataSize 
-     * @param {Pointer<Char>} qualifiers 
+     * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
      */
     static MrmIndexEmbeddedData(indexer, resourceUri, embeddedData, embeddedDataSize, qualifiers) {
-        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
-        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+        resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
+        qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexEmbeddedData", "ptr", indexer, "ptr", resourceUri, "ptr", embeddedData, "uint", embeddedDataSize, "ptr", qualifiers, "int")
         if(result != 0)
@@ -26463,16 +26975,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
-     * @param {Pointer<Char>} resourceUri 
-     * @param {Pointer<Char>} filePath 
-     * @param {Pointer<Char>} qualifiers 
+     * @param {MrmResourceIndexerHandle} indexer 
+     * @param {PWSTR} resourceUri 
+     * @param {PWSTR} filePath 
+     * @param {PWSTR} qualifiers 
      * @returns {HRESULT} 
      */
     static MrmIndexFile(indexer, resourceUri, filePath, qualifiers) {
-        resourceUri := resourceUri is String? StrPtr(resourceUri) : resourceUri
-        filePath := filePath is String? StrPtr(filePath) : filePath
-        qualifiers := qualifiers is String? StrPtr(qualifiers) : qualifiers
+        resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
+        filePath := filePath is String ? StrPtr(filePath) : filePath
+        qualifiers := qualifiers is String ? StrPtr(qualifiers) : qualifiers
 
         result := DllCall("MrmSupport.dll\MrmIndexFile", "ptr", indexer, "ptr", resourceUri, "ptr", filePath, "ptr", qualifiers, "int")
         if(result != 0)
@@ -26483,12 +26995,12 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
-     * @param {Pointer<Char>} filePath 
+     * @param {MrmResourceIndexerHandle} indexer 
+     * @param {PWSTR} filePath 
      * @returns {HRESULT} 
      */
     static MrmIndexFileAutoQualifiers(indexer, filePath) {
-        filePath := filePath is String? StrPtr(filePath) : filePath
+        filePath := filePath is String ? StrPtr(filePath) : filePath
 
         result := DllCall("MrmSupport.dll\MrmIndexFileAutoQualifiers", "ptr", indexer, "ptr", filePath, "int")
         if(result != 0)
@@ -26499,12 +27011,12 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
-     * @param {Pointer<Char>} containerPath 
+     * @param {MrmResourceIndexerHandle} indexer 
+     * @param {PWSTR} containerPath 
      * @returns {HRESULT} 
      */
     static MrmIndexResourceContainerAutoQualifiers(indexer, containerPath) {
-        containerPath := containerPath is String? StrPtr(containerPath) : containerPath
+        containerPath := containerPath is String ? StrPtr(containerPath) : containerPath
 
         result := DllCall("MrmSupport.dll\MrmIndexResourceContainerAutoQualifiers", "ptr", indexer, "ptr", containerPath, "int")
         if(result != 0)
@@ -26515,14 +27027,14 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
+     * @param {MrmResourceIndexerHandle} indexer 
      * @param {Integer} packagingMode 
      * @param {Integer} packagingOptions 
-     * @param {Pointer<Char>} outputDirectory 
+     * @param {PWSTR} outputDirectory 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceFile(indexer, packagingMode, packagingOptions, outputDirectory) {
-        outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
+        outputDirectory := outputDirectory is String ? StrPtr(outputDirectory) : outputDirectory
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceFile", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr", outputDirectory, "int")
         if(result != 0)
@@ -26533,15 +27045,15 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
+     * @param {MrmResourceIndexerHandle} indexer 
      * @param {Integer} packagingMode 
      * @param {Integer} packagingOptions 
      * @param {Integer} checksum 
-     * @param {Pointer<Char>} outputDirectory 
+     * @param {PWSTR} outputDirectory 
      * @returns {HRESULT} 
      */
     static MrmCreateResourceFileWithChecksum(indexer, packagingMode, packagingOptions, checksum, outputDirectory) {
-        outputDirectory := outputDirectory is String? StrPtr(outputDirectory) : outputDirectory
+        outputDirectory := outputDirectory is String ? StrPtr(outputDirectory) : outputDirectory
 
         result := DllCall("MrmSupport.dll\MrmCreateResourceFileWithChecksum", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "uint", checksum, "ptr", outputDirectory, "int")
         if(result != 0)
@@ -26552,7 +27064,7 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
+     * @param {MrmResourceIndexerHandle} indexer 
      * @param {Integer} packagingMode 
      * @param {Integer} packagingOptions 
      * @param {Pointer<Byte>} outputPriData 
@@ -26560,7 +27072,7 @@ class WindowsAndMessaging {
      * @returns {HRESULT} 
      */
     static MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, outputPriData, outputPriSize) {
-        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr", outputPriData, "uint*", outputPriSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "char*", outputPriData, "uint*", outputPriSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26569,7 +27081,7 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} handle 
+     * @param {MrmResourceIndexerHandle} handle 
      * @param {Pointer<MrmResourceIndexerMessage>} messages 
      * @param {Pointer<UInt32>} numMsgs 
      * @returns {HRESULT} 
@@ -26584,7 +27096,7 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Void>} indexer 
+     * @param {MrmResourceIndexerHandle} indexer 
      * @returns {HRESULT} 
      */
     static MrmDestroyIndexerAndMessages(indexer) {
@@ -26610,16 +27122,16 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} indexFileName 
-     * @param {Pointer<Char>} schemaPriFile 
+     * @param {PWSTR} indexFileName 
+     * @param {PWSTR} schemaPriFile 
      * @param {Integer} dumpType 
-     * @param {Pointer<Char>} outputXmlFile 
+     * @param {PWSTR} outputXmlFile 
      * @returns {HRESULT} 
      */
     static MrmDumpPriFile(indexFileName, schemaPriFile, dumpType, outputXmlFile) {
-        indexFileName := indexFileName is String? StrPtr(indexFileName) : indexFileName
-        schemaPriFile := schemaPriFile is String? StrPtr(schemaPriFile) : schemaPriFile
-        outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
+        indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
+        schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
+        outputXmlFile := outputXmlFile is String ? StrPtr(outputXmlFile) : outputXmlFile
 
         result := DllCall("MrmSupport.dll\MrmDumpPriFile", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlFile, "int")
         if(result != 0)
@@ -26630,18 +27142,18 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} indexFileName 
-     * @param {Pointer<Char>} schemaPriFile 
+     * @param {PWSTR} indexFileName 
+     * @param {PWSTR} schemaPriFile 
      * @param {Integer} dumpType 
      * @param {Pointer<Byte>} outputXmlData 
      * @param {Pointer<UInt32>} outputXmlSize 
      * @returns {HRESULT} 
      */
     static MrmDumpPriFileInMemory(indexFileName, schemaPriFile, dumpType, outputXmlData, outputXmlSize) {
-        indexFileName := indexFileName is String? StrPtr(indexFileName) : indexFileName
-        schemaPriFile := schemaPriFile is String? StrPtr(schemaPriFile) : schemaPriFile
+        indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
+        schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "char*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26660,7 +27172,7 @@ class WindowsAndMessaging {
      * @returns {HRESULT} 
      */
     static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, dumpType, outputXmlData, outputXmlSize) {
-        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "char*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26670,13 +27182,13 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
-     * @param {Pointer<Char>} outputXmlFile 
+     * @param {PWSTR} defaultQualifiers 
+     * @param {PWSTR} outputXmlFile 
      * @returns {HRESULT} 
      */
     static MrmCreateConfig(platformVersion, defaultQualifiers, outputXmlFile) {
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
-        outputXmlFile := outputXmlFile is String? StrPtr(outputXmlFile) : outputXmlFile
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
+        outputXmlFile := outputXmlFile is String ? StrPtr(outputXmlFile) : outputXmlFile
 
         result := DllCall("MrmSupport.dll\MrmCreateConfig", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlFile, "int")
         if(result != 0)
@@ -26688,15 +27200,15 @@ class WindowsAndMessaging {
     /**
      * 
      * @param {Integer} platformVersion 
-     * @param {Pointer<Char>} defaultQualifiers 
+     * @param {PWSTR} defaultQualifiers 
      * @param {Pointer<Byte>} outputXmlData 
      * @param {Pointer<UInt32>} outputXmlSize 
      * @returns {HRESULT} 
      */
     static MrmCreateConfigInMemory(platformVersion, defaultQualifiers, outputXmlData, outputXmlSize) {
-        defaultQualifiers := defaultQualifiers is String? StrPtr(defaultQualifiers) : defaultQualifiers
+        defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
-        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "ptr", outputXmlData, "uint*", outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "char*", outputXmlData, "uint*", outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26705,12 +27217,12 @@ class WindowsAndMessaging {
 
     /**
      * 
-     * @param {Pointer<Char>} priFile 
+     * @param {PWSTR} priFile 
      * @param {Pointer<UInt32>} checksum 
      * @returns {HRESULT} 
      */
     static MrmGetPriFileContentChecksum(priFile, checksum) {
-        priFile := priFile is String? StrPtr(priFile) : priFile
+        priFile := priFile is String ? StrPtr(priFile) : priFile
 
         result := DllCall("MrmSupport.dll\MrmGetPriFileContentChecksum", "ptr", priFile, "uint*", checksum, "int")
         if(result != 0)

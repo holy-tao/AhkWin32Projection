@@ -12,11 +12,49 @@ class IPV6_ROUTER_ADVERTISEMENT_FLAGS extends Win32Struct
     static packingSize => 1
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved
+     * - Preference
+     * - HomeAgent
+     * - OtherStatefulConfiguration
+     * - ManagedAddressConfiguration
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Preference {
+        get => (this._bitfield >> 3) & 0x3
+        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    HomeAgent {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OtherStatefulConfiguration {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ManagedAddressConfiguration {
+        get => (this._bitfield >> 7) & 0x1
+        set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
     }
 
     /**

@@ -52,7 +52,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
     LinkId{
         get {
             if(!this.HasProp("__LinkId"))
-                this.__LinkId := LUID(this.ptr + 24)
+                this.__LinkId := LUID(24, this)
             return this.__LinkId
         }
     }
@@ -63,7 +63,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(this.ptr + 36)
+                this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(36, this)
             return this.__u
         }
     }

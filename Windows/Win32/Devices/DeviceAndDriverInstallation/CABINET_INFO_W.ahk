@@ -13,7 +13,7 @@ class CABINET_INFO_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     CabinetPath {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class CABINET_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     CabinetFile {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class CABINET_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DiskName {
         get => NumGet(this, 16, "ptr")

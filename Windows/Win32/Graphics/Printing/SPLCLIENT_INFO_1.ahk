@@ -20,7 +20,7 @@ class SPLCLIENT_INFO_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMachineName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SPLCLIENT_INFO_1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUserName {
         get => NumGet(this, 16, "ptr")

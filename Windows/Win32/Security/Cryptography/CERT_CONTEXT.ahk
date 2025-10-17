@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * Contains both the encoded and decoded representations of a certificate.
@@ -58,10 +59,13 @@ class CERT_CONTEXT extends Win32Struct
 
     /**
      * A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> that contains the certificate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">context</a>.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertStore {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hCertStore{
+        get {
+            if(!this.HasProp("__hCertStore"))
+                this.__hCertStore := HCERTSTORE(32, this)
+            return this.__hCertStore
+        }
     }
 }

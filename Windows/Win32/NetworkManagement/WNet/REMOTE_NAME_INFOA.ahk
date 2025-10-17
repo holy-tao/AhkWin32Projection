@@ -21,7 +21,7 @@ class REMOTE_NAME_INFOA extends Win32Struct
 
     /**
      * Pointer to the universal name if the provider supports universal names. Otherwise, this points to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpUniversalName {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class REMOTE_NAME_INFOA extends Win32Struct
 
     /**
      * Pointer to a string containing the remote name used to make the connection. This string does not have a trailing backslash.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpConnectionName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class REMOTE_NAME_INFOA extends Win32Struct
 
     /**
      * Pointer to the remaining path that must to be concatenated to a drive letter after a connection is established by means of <b>lpConnectionName</b>, to refer to the object specified during the call to <a href="https://docs.microsoft.com/windows/desktop/api/npapi/nf-npapi-npgetuniversalname">NPGetUniversalName</a>. This string has a backslash at the start of the path.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpRemainingPath {
         get => NumGet(this, 16, "ptr")

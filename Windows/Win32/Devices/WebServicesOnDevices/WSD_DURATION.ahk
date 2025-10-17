@@ -20,7 +20,7 @@ class WSD_DURATION extends Win32Struct
 
     /**
      * This parameter is <b>TRUE</b> if the entire duration is positive.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isPositive {
         get => NumGet(this, 0, "int")

@@ -43,7 +43,7 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
     CustomStateId{
         get {
             if(!this.HasProp("__CustomStateId"))
-                this.__CustomStateId := SERVICE_TRIGGER_CUSTOM_STATE_ID(this.ptr + 0)
+                this.__CustomStateId := SERVICE_TRIGGER_CUSTOM_STATE_ID(0, this)
             return this.__CustomStateId
         }
     }
@@ -54,7 +54,7 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := %this.__Class%._s(this.ptr + 0)
+                this.__s := %this.__Class%._s(0, this)
             return this.__s
         }
     }

@@ -21,7 +21,7 @@ class WS_DECIMAL_DESCRIPTION extends Win32Struct
     minValue{
         get {
             if(!this.HasProp("__minValue"))
-                this.__minValue := DECIMAL(this.ptr + 0)
+                this.__minValue := DECIMAL(0, this)
             return this.__minValue
         }
     }
@@ -33,7 +33,7 @@ class WS_DECIMAL_DESCRIPTION extends Win32Struct
     maxValue{
         get {
             if(!this.HasProp("__maxValue"))
-                this.__maxValue := DECIMAL(this.ptr + 16)
+                this.__maxValue := DECIMAL(16, this)
             return this.__maxValue
         }
     }

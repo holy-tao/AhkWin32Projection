@@ -28,7 +28,7 @@ class STORAGE_FAILURE_PREDICTION_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Set {
         get => NumGet(this, 8, "char")
@@ -36,7 +36,7 @@ class STORAGE_FAILURE_PREDICTION_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 9, "char")

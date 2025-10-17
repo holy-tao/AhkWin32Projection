@@ -18,7 +18,7 @@ class KS_FRAMING_RANGE_WEIGHTED extends Win32Struct
     Range{
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := KS_FRAMING_RANGE(this.ptr + 0)
+                this.__Range := KS_FRAMING_RANGE(0, this)
             return this.__Range
         }
     }

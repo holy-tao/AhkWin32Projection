@@ -21,14 +21,14 @@ class VDS_PATH_POLICY extends Win32Struct
     pathId{
         get {
             if(!this.HasProp("__pathId"))
-                this.__pathId := VDS_PATH_ID(this.ptr + 0)
+                this.__pathId := VDS_PATH_ID(0, this)
             return this.__pathId
         }
     }
 
     /**
      * If set, indicates that the path is a primary path for MPIO.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPrimaryPath {
         get => NumGet(this, 16, "int")

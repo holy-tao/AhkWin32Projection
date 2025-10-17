@@ -64,7 +64,7 @@ class LDAPAPIInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the API vendor.  This implementation returns the string ""Microsoft Corporation."".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ldapai_vendor_name {
         get => NumGet(this, 24, "ptr")

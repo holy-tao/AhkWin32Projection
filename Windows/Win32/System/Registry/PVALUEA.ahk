@@ -13,7 +13,7 @@ class PVALUEA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pv_valuename {
         get => NumGet(this, 0, "ptr")

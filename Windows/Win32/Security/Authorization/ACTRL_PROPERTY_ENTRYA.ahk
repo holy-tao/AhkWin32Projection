@@ -32,7 +32,7 @@ class ACTRL_PROPERTY_ENTRYA extends Win32Struct
 
     /**
      * The GUID of a property on an object. Use the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-uuidtostring">UuidToString</a> function to generate a string representation of a property GUID.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpProperty {
         get => NumGet(this, 0, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinSock
@@ -20,7 +21,7 @@ class SERVICE_ASYNC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 8, "ptr")
@@ -28,10 +29,13 @@ class SERVICE_ASYNC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hAsyncTaskHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hAsyncTaskHandle{
+        get {
+            if(!this.HasProp("__hAsyncTaskHandle"))
+                this.__hAsyncTaskHandle := HANDLE(16, this)
+            return this.__hAsyncTaskHandle
+        }
     }
 }

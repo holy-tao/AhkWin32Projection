@@ -22,7 +22,7 @@ class PEERDIST_CLIENT_BASIC_INFO extends Win32Struct
 
     /**
      * Indicates that a "flash crowd" situation has been detected, where many clients in the branch office are simultaneously downloading the same content.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fFlashCrowd {
         get => NumGet(this, 0, "int")

@@ -13,7 +13,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthEnable {
         get => NumGet(this, 0, "int")
@@ -37,7 +37,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     StencilEnable {
         get => NumGet(this, 12, "int")
@@ -50,7 +50,7 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(this.ptr + 16)
+                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC1(16, this)
             return this.__FrontFace
         }
     }
@@ -61,13 +61,13 @@ class D3D12_DEPTH_STENCIL_DESC2 extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(this.ptr + 40)
+                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC1(40, this)
             return this.__BackFace
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthBoundsTestEnable {
         get => NumGet(this, 60, "int")

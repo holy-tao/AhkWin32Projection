@@ -52,7 +52,7 @@ class DDSTEREOMODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSupported {
         get => NumGet(this, 20, "int")

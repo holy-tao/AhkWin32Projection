@@ -48,7 +48,7 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     ExceptionInfo{
         get {
             if(!this.HasProp("__ExceptionInfo"))
-                this.__ExceptionInfo := WHV_VP_EXCEPTION_INFO(this.ptr + 24)
+                this.__ExceptionInfo := WHV_VP_EXCEPTION_INFO(24, this)
             return this.__ExceptionInfo
         }
     }

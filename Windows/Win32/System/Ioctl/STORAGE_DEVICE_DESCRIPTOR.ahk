@@ -66,7 +66,7 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      * Indicates when <b>TRUE</b> that the device's media (if any) is removable. If the device 
      *       has no media, this member should be ignored. When <b>FALSE</b> the device's media is not 
      *       removable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RemovableMedia {
         get => NumGet(this, 10, "char")
@@ -77,7 +77,7 @@ class STORAGE_DEVICE_DESCRIPTOR extends Win32Struct
      * Indicates when <b>TRUE</b> that the device supports multiple outstanding commands (SCSI 
      *       tagged queuing or equivalent). When <b>FALSE</b>, the device does not support SCSI-tagged 
      *       queuing or the equivalent.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CommandQueueing {
         get => NumGet(this, 11, "char")

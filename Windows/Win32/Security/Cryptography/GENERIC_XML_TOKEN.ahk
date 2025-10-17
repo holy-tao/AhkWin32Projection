@@ -18,7 +18,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     createDate{
         get {
             if(!this.HasProp("__createDate"))
-                this.__createDate := FILETIME(this.ptr + 0)
+                this.__createDate := FILETIME(0, this)
             return this.__createDate
         }
     }
@@ -29,13 +29,13 @@ class GENERIC_XML_TOKEN extends Win32Struct
     expiryDate{
         get {
             if(!this.HasProp("__expiryDate"))
-                this.__expiryDate := FILETIME(this.ptr + 8)
+                this.__expiryDate := FILETIME(8, this)
             return this.__expiryDate
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     xmlToken {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     internalTokenReference {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class GENERIC_XML_TOKEN extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     externalTokenReference {
         get => NumGet(this, 32, "ptr")

@@ -23,7 +23,7 @@ class D3D11_FEATURE_DATA_D3D10_X_HARDWARE_OPTIONS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if compute shaders and raw and structured buffers are supported; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ComputeShaders_Plus_RawAndStructuredBuffers_Via_Shader_4_x {
         get => NumGet(this, 0, "int")

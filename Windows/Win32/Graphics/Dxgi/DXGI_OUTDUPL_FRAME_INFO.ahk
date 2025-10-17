@@ -60,7 +60,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
 
     /**
      * Specifies whether the operating system accumulated updates by coalescing dirty regions. Therefore,  the dirty regions might contain unmodified pixels. <b>TRUE</b> if dirty regions were accumulated; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     RectsCoalesced {
         get => NumGet(this, 20, "int")
@@ -69,7 +69,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
 
     /**
      * Specifies whether the desktop image might contain protected content that was already blacked out in the desktop image.  <b>TRUE</b> if protected content was already blacked; otherwise, <b>FALSE</b>. The application can use this information to notify the remote user that some of the desktop content might be protected and therefore not visible.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ProtectedContentMaskedOut {
         get => NumGet(this, 24, "int")
@@ -83,7 +83,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
     PointerPosition{
         get {
             if(!this.HasProp("__PointerPosition"))
-                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(this.ptr + 32)
+                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(32, this)
             return this.__PointerPosition
         }
     }

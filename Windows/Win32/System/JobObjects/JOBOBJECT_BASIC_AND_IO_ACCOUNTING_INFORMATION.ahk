@@ -23,7 +23,7 @@ class JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION extends Win32Struct
     BasicInfo{
         get {
             if(!this.HasProp("__BasicInfo"))
-                this.__BasicInfo := JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(this.ptr + 0)
+                this.__BasicInfo := JOBOBJECT_BASIC_ACCOUNTING_INFORMATION(0, this)
             return this.__BasicInfo
         }
     }
@@ -36,7 +36,7 @@ class JOBOBJECT_BASIC_AND_IO_ACCOUNTING_INFORMATION extends Win32Struct
     IoInfo{
         get {
             if(!this.HasProp("__IoInfo"))
-                this.__IoInfo := IO_COUNTERS(this.ptr + 48)
+                this.__IoInfo := IO_COUNTERS(48, this)
             return this.__IoInfo
         }
     }

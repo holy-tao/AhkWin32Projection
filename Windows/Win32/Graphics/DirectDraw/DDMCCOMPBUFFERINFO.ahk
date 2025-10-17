@@ -59,7 +59,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     ddCompCaps{
         get {
             if(!this.HasProp("__ddCompCaps"))
-                this.__ddCompCaps := DDSCAPS2(this.ptr + 24)
+                this.__ddCompCaps := DDSCAPS2(24, this)
             return this.__ddCompCaps
         }
     }
@@ -70,7 +70,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(this.ptr + 40)
+                this.__ddPixelFormat := DDPIXELFORMAT(40, this)
             return this.__ddPixelFormat
         }
     }

@@ -13,7 +13,7 @@ class PRINTER_ENUM_VALUESW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pValueName {
         get => NumGet(this, 0, "ptr")

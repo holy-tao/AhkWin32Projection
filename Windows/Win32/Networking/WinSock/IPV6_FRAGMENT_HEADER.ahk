@@ -28,11 +28,48 @@ class IPV6_FRAGMENT_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - DontUse1
+     * - MoreFragments
+     * - ReservedBits
+     * - DontUse2
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 2, "ushort")
         set => NumPut("ushort", value, this, 2)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DontUse1 {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MoreFragments {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedBits {
+        get => (this._bitfield >> 9) & 0x3
+        set => this._bitfield := ((value & 0x3) << 9) | (this._bitfield & ~(0x3 << 9))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DontUse2 {
+        get => (this._bitfield >> 11) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 11) | (this._bitfield & ~(0x1F << 11))
     }
 
     /**

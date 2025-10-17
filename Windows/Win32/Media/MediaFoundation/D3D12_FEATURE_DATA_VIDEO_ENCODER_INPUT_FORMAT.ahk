@@ -34,7 +34,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -48,7 +48,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_INPUT_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 28, "int")

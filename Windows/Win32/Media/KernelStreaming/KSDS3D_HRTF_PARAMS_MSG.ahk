@@ -28,7 +28,7 @@ class KSDS3D_HRTF_PARAMS_MSG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SwapChannels {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class KSDS3D_HRTF_PARAMS_MSG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ZeroAzimuth {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class KSDS3D_HRTF_PARAMS_MSG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     CrossFadeOutput {
         get => NumGet(this, 16, "int")

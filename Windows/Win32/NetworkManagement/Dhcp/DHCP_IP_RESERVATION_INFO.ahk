@@ -30,14 +30,14 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
     ReservedForClient{
         get {
             if(!this.HasProp("__ReservedForClient"))
-                this.__ReservedForClient := DHCP_BINARY_DATA(this.ptr + 8)
+                this.__ReservedForClient := DHCP_BINARY_DATA(8, this)
             return this.__ReservedForClient
         }
     }
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCPv4 reserved client machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ReservedClientName {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class DHCP_IP_RESERVATION_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description of the DHCPv4 reserved client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ReservedClientDesc {
         get => NumGet(this, 32, "ptr")

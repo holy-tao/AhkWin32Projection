@@ -34,7 +34,7 @@ class WINBIO_CAPTURE_PARAMETERS extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := WINBIO_REGISTERED_FORMAT(this.ptr + 8)
+                this.__Format := WINBIO_REGISTERED_FORMAT(8, this)
             return this.__Format
         }
     }

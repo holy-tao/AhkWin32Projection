@@ -29,7 +29,7 @@ class MI_UserCredentials extends Win32Struct
     usernamePassword{
         get {
             if(!this.HasProp("__usernamePassword"))
-                this.__usernamePassword := MI_UsernamePasswordCreds(this.ptr + 8)
+                this.__usernamePassword := MI_UsernamePasswordCreds(8, this)
             return this.__usernamePassword
         }
     }

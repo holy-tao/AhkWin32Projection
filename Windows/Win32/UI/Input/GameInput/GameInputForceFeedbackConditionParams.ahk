@@ -18,7 +18,7 @@ class GameInputForceFeedbackConditionParams extends Win32Struct
     magnitude{
         get {
             if(!this.HasProp("__magnitude"))
-                this.__magnitude := GameInputForceFeedbackMagnitude(this.ptr + 0)
+                this.__magnitude := GameInputForceFeedbackMagnitude(0, this)
             return this.__magnitude
         }
     }

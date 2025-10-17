@@ -60,7 +60,7 @@ class KDEXT_HANDLE_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PagedOut {
         get => NumGet(this, 44, "char")

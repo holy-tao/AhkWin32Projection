@@ -34,7 +34,7 @@ class FIND_BY_SID_DATA extends Win32Struct
     Sid{
         get {
             if(!this.HasProp("__Sid"))
-                this.__Sid := SID(this.ptr + 8)
+                this.__Sid := SID(8, this)
             return this.__Sid
         }
     }

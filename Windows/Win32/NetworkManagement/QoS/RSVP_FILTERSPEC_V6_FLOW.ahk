@@ -21,7 +21,7 @@ class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := IN_ADDR_IPV6(this.ptr + 0)
+                this.__Address := IN_ADDR_IPV6(0, this)
             return this.__Address
         }
     }

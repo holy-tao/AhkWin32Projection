@@ -28,7 +28,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRpId {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRpName {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +60,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszUserName {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszUserDisplayName {
         get => NumGet(this, 56, "ptr")

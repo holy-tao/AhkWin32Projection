@@ -13,7 +13,7 @@ class ENDPOINTADDRESS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     serviceUrl {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class ENDPOINTADDRESS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     policyUrl {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class ENDPOINTADDRESS extends Win32Struct
     rawCertificate{
         get {
             if(!this.HasProp("__rawCertificate"))
-                this.__rawCertificate := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__rawCertificate := CRYPT_INTEGER_BLOB(16, this)
             return this.__rawCertificate
         }
     }

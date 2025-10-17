@@ -12,7 +12,7 @@ class CORRELATION_VECTOR extends Win32Struct
     static packingSize => 2
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     Version {
         get => NumGet(this, 0, "char")

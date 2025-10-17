@@ -18,7 +18,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     dot11SSID{
         get {
             if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(this.ptr + 0)
+                this.__dot11SSID := DOT11_SSID(0, this)
             return this.__dot11SSID
         }
     }
@@ -40,7 +40,7 @@ class DOT11EXT_VIRTUAL_STATION_AP_PROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsPassPhrase {
         get => NumGet(this, 44, "int")

@@ -45,7 +45,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
     ImagePathName{
         get {
             if(!this.HasProp("__ImagePathName"))
-                this.__ImagePathName := UNICODE_STRING(this.ptr + 96)
+                this.__ImagePathName := UNICODE_STRING(96, this)
             return this.__ImagePathName
         }
     }
@@ -57,7 +57,7 @@ class RTL_USER_PROCESS_PARAMETERS extends Win32Struct
     CommandLine{
         get {
             if(!this.HasProp("__CommandLine"))
-                this.__CommandLine := UNICODE_STRING(this.ptr + 112)
+                this.__CommandLine := UNICODE_STRING(112, this)
             return this.__CommandLine
         }
     }

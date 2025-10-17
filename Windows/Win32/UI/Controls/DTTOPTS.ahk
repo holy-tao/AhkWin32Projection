@@ -198,7 +198,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the text that will be drawn.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crText {
         get => NumGet(this, 8, "uint")
@@ -209,7 +209,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the outline that will be drawn around the text.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBorder {
         get => NumGet(this, 12, "uint")
@@ -220,7 +220,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the shadow that will be drawn behind the text.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crShadow {
         get => NumGet(this, 16, "uint")
@@ -245,7 +245,7 @@ class DTTOPTS extends Win32Struct
     ptShadowOffset{
         get {
             if(!this.HasProp("__ptShadowOffset"))
-                this.__ptShadowOffset := POINT(this.ptr + 24)
+                this.__ptShadowOffset := POINT(24, this)
             return this.__ptShadowOffset
         }
     }
@@ -298,7 +298,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, text will be drawn on top of the shadow and outline effects. If <b>FALSE</b>, just the shadow and outline effects will be drawn.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fApplyOverlay {
         get => NumGet(this, 48, "int")
@@ -331,7 +331,7 @@ class DTTOPTS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Parameter for callback back function specified by <b>pfnDrawTextCallback</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 64, "ptr")

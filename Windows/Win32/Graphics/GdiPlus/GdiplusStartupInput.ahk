@@ -46,7 +46,7 @@ class GdiplusStartupInput extends Win32Struct
      * Type: **BOOL**
      * 
      * Boolean value that specifies whether to suppress the GDI+ background thread. If you set this member to **TRUE**, then [GdiplusStartup](/windows/win32/api/gdiplusinit/nf-gdiplusinit-gdiplusstartup) returns (in its *output* parameter) a pointer to a hook function, and a pointer to an unhook function. You must call those functions appropriately to replace the background thread. If you don't want to be responsible for calling the hook and unhook functions, then set this member to **FALSE**. The default value is **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SuppressBackgroundThread {
         get => NumGet(this, 16, "int")
@@ -57,7 +57,7 @@ class GdiplusStartupInput extends Win32Struct
      * Type: **BOOL**
      * 
      * Boolean value that specifies whether you want GDI+ to suppress external image codecs. GDI+ version 1.0 doesn't support external image codecs, so this field is ignored. The default value is **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SuppressExternalCodecs {
         get => NumGet(this, 20, "int")

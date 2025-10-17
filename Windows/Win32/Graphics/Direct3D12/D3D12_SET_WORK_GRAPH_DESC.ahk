@@ -20,7 +20,7 @@ class D3D12_SET_WORK_GRAPH_DESC extends Win32Struct
     ProgramIdentifier{
         get {
             if(!this.HasProp("__ProgramIdentifier"))
-                this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(this.ptr + 0)
+                this.__ProgramIdentifier := D3D12_PROGRAM_IDENTIFIER(0, this)
             return this.__ProgramIdentifier
         }
     }
@@ -39,7 +39,7 @@ class D3D12_SET_WORK_GRAPH_DESC extends Win32Struct
     BackingMemory{
         get {
             if(!this.HasProp("__BackingMemory"))
-                this.__BackingMemory := D3D12_GPU_VIRTUAL_ADDRESS_RANGE(this.ptr + 40)
+                this.__BackingMemory := D3D12_GPU_VIRTUAL_ADDRESS_RANGE(40, this)
             return this.__BackingMemory
         }
     }
@@ -50,7 +50,7 @@ class D3D12_SET_WORK_GRAPH_DESC extends Win32Struct
     NodeLocalRootArgumentsTable{
         get {
             if(!this.HasProp("__NodeLocalRootArgumentsTable"))
-                this.__NodeLocalRootArgumentsTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(this.ptr + 56)
+                this.__NodeLocalRootArgumentsTable := D3D12_GPU_VIRTUAL_ADDRESS_RANGE_AND_STRIDE(56, this)
             return this.__NodeLocalRootArgumentsTable
         }
     }

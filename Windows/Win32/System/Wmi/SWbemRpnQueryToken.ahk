@@ -84,7 +84,7 @@ class SWbemRpnQueryToken extends Win32Struct
     m_Const{
         get {
             if(!this.HasProp("__m_Const"))
-                this.__m_Const := SWbemRpnConst(this.ptr + 40)
+                this.__m_Const := SWbemRpnConst(40, this)
             return this.__m_Const
         }
     }
@@ -105,14 +105,14 @@ class SWbemRpnQueryToken extends Win32Struct
     m_Const2{
         get {
             if(!this.HasProp("__m_Const2"))
-                this.__m_Const2 := SWbemRpnConst(this.ptr + 96)
+                this.__m_Const2 := SWbemRpnConst(96, this)
             return this.__m_Const2
         }
     }
 
     /**
      * Specifies a function on the right of the operator in a WHERE clause. If there is no function on the right of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     m_pszRightFunc {
         get => NumGet(this, 144, "ptr")
@@ -121,7 +121,7 @@ class SWbemRpnQueryToken extends Win32Struct
 
     /**
      * Specifies a function on the left of the operator in a WHERE clause. If there is no function on the left of the operator in this token, this field is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     m_pszLeftFunc {
         get => NumGet(this, 152, "ptr")

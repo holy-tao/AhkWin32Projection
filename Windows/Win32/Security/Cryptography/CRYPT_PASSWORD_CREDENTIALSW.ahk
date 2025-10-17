@@ -30,7 +30,7 @@ class CRYPT_PASSWORD_CREDENTIALSW extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the user name credential for the remote session authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUsername {
         get => NumGet(this, 8, "ptr")
@@ -39,19 +39,15 @@ class CRYPT_PASSWORD_CREDENTIALSW extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the password credential for the remote session authentication.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPassword {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

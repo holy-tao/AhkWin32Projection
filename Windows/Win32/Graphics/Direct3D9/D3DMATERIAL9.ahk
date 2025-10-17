@@ -18,7 +18,7 @@ class D3DMATERIAL9 extends Win32Struct
     Diffuse{
         get {
             if(!this.HasProp("__Diffuse"))
-                this.__Diffuse := D3DCOLORVALUE(this.ptr + 0)
+                this.__Diffuse := D3DCOLORVALUE(0, this)
             return this.__Diffuse
         }
     }
@@ -29,7 +29,7 @@ class D3DMATERIAL9 extends Win32Struct
     Ambient{
         get {
             if(!this.HasProp("__Ambient"))
-                this.__Ambient := D3DCOLORVALUE(this.ptr + 16)
+                this.__Ambient := D3DCOLORVALUE(16, this)
             return this.__Ambient
         }
     }
@@ -40,7 +40,7 @@ class D3DMATERIAL9 extends Win32Struct
     Specular{
         get {
             if(!this.HasProp("__Specular"))
-                this.__Specular := D3DCOLORVALUE(this.ptr + 32)
+                this.__Specular := D3DCOLORVALUE(32, this)
             return this.__Specular
         }
     }
@@ -51,7 +51,7 @@ class D3DMATERIAL9 extends Win32Struct
     Emissive{
         get {
             if(!this.HasProp("__Emissive"))
-                this.__Emissive := D3DCOLORVALUE(this.ptr + 48)
+                this.__Emissive := D3DCOLORVALUE(48, this)
             return this.__Emissive
         }
     }

@@ -27,7 +27,7 @@ class ENUMLOGFONTA extends Win32Struct
     elfLogFont{
         get {
             if(!this.HasProp("__elfLogFont"))
-                this.__elfLogFont := LOGFONTA(this.ptr + 0)
+                this.__elfLogFont := LOGFONTA(0, this)
             return this.__elfLogFont
         }
     }

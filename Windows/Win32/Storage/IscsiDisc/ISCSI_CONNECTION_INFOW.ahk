@@ -27,14 +27,14 @@ class ISCSI_CONNECTION_INFOW extends Win32Struct
     ConnectionId{
         get {
             if(!this.HasProp("__ConnectionId"))
-                this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 0)
+                this.__ConnectionId := ISCSI_UNIQUE_SESSION_ID(0, this)
             return this.__ConnectionId
         }
     }
 
     /**
      * A string that represents the IP address of the initiator.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     InitiatorAddress {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class ISCSI_CONNECTION_INFOW extends Win32Struct
 
     /**
      * A string that represents the IP address of the target.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TargetAddress {
         get => NumGet(this, 24, "ptr")

@@ -41,7 +41,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the URL name. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszSourceUrlName {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the local file name. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszLocalFileName {
         get => NumGet(this, 16, "ptr")
@@ -216,7 +216,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastModifiedTime{
         get {
             if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(this.ptr + 48)
+                this.__LastModifiedTime := FILETIME(48, this)
             return this.__LastModifiedTime
         }
     }
@@ -228,7 +228,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     ExpireTime{
         get {
             if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(this.ptr + 56)
+                this.__ExpireTime := FILETIME(56, this)
             return this.__ExpireTime
         }
     }
@@ -240,7 +240,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastAccessTime{
         get {
             if(!this.HasProp("__LastAccessTime"))
-                this.__LastAccessTime := FILETIME(this.ptr + 64)
+                this.__LastAccessTime := FILETIME(64, this)
             return this.__LastAccessTime
         }
     }
@@ -252,14 +252,14 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(this.ptr + 72)
+                this.__LastSyncTime := FILETIME(72, this)
             return this.__LastSyncTime
         }
     }
 
     /**
      * Pointer to a buffer that contains the header information. The buffer occupies the memory at the end of this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpHeaderInfo {
         get => NumGet(this, 80, "ptr")
@@ -278,7 +278,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
 
     /**
      * Pointer to a string that contains the file name extension used to retrieve the data as a file. The string occupies the memory area at the end of this structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszFileExtension {
         get => NumGet(this, 96, "ptr")

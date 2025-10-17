@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DAILY.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
 #Include .\MONTHLYDOW.ahk
@@ -25,11 +26,14 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     /**
      * A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-daily">DAILY</a> structure that specifies the number of days between invocations of a task.
-     * @type {Integer}
+     * @type {DAILY}
      */
-    Daily {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    Daily{
+        get {
+            if(!this.HasProp("__Daily"))
+                this.__Daily := DAILY(0, this)
+            return this.__Daily
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     Weekly{
         get {
             if(!this.HasProp("__Weekly"))
-                this.__Weekly := WEEKLY(this.ptr + 0)
+                this.__Weekly := WEEKLY(0, this)
             return this.__Weekly
         }
     }
@@ -53,7 +57,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     MonthlyDate{
         get {
             if(!this.HasProp("__MonthlyDate"))
-                this.__MonthlyDate := MONTHLYDATE(this.ptr + 0)
+                this.__MonthlyDate := MONTHLYDATE(0, this)
             return this.__MonthlyDate
         }
     }
@@ -66,7 +70,7 @@ class TRIGGER_TYPE_UNION extends Win32Struct
     MonthlyDOW{
         get {
             if(!this.HasProp("__MonthlyDOW"))
-                this.__MonthlyDOW := MONTHLYDOW(this.ptr + 0)
+                this.__MonthlyDOW := MONTHLYDOW(0, this)
             return this.__MonthlyDOW
         }
     }

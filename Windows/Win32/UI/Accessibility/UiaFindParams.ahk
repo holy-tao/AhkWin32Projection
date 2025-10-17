@@ -28,7 +28,7 @@ class UiaFindParams extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> to return only the first matching element; <b>FALSE</b> to return all matching elements.
-     * @type {Integer}
+     * @type {BOOL}
      */
     FindFirst {
         get => NumGet(this, 4, "int")
@@ -39,7 +39,7 @@ class UiaFindParams extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> to exclude the root element; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ExcludeRoot {
         get => NumGet(this, 8, "int")

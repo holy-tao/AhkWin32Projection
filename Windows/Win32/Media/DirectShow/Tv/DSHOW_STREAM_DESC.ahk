@@ -28,7 +28,7 @@ class DSHOW_STREAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Default {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class DSHOW_STREAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Creation {
         get => NumGet(this, 12, "int")

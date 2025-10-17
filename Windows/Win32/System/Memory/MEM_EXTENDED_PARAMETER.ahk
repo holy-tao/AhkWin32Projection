@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents an extended parameter for a function that manages virtual memory.
@@ -14,11 +15,22 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     static packingSize => 8
 
     /**
+     * This bitfield backs the following members:
+     * - Type
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous1 {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Type {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
     }
 
     /**
@@ -46,11 +58,14 @@ class MEM_EXTENDED_PARAMETER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(8, this)
+            return this.__Handle
+        }
     }
 
     /**

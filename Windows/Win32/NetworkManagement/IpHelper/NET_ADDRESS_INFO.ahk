@@ -67,7 +67,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     NamedAddress{
         get {
             if(!this.HasProp("__NamedAddress"))
-                this.__NamedAddress := %this.__Class%._NamedAddress(this.ptr + 8)
+                this.__NamedAddress := %this.__Class%._NamedAddress(8, this)
             return this.__NamedAddress
         }
     }
@@ -78,7 +78,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     Ipv4Address{
         get {
             if(!this.HasProp("__Ipv4Address"))
-                this.__Ipv4Address := SOCKADDR_IN(this.ptr + 8)
+                this.__Ipv4Address := SOCKADDR_IN(8, this)
             return this.__Ipv4Address
         }
     }
@@ -89,7 +89,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     Ipv6Address{
         get {
             if(!this.HasProp("__Ipv6Address"))
-                this.__Ipv6Address := SOCKADDR_IN6(this.ptr + 8)
+                this.__Ipv6Address := SOCKADDR_IN6(8, this)
             return this.__Ipv6Address
         }
     }
@@ -100,7 +100,7 @@ class NET_ADDRESS_INFO extends Win32Struct
     IpAddress{
         get {
             if(!this.HasProp("__IpAddress"))
-                this.__IpAddress := SOCKADDR(this.ptr + 8)
+                this.__IpAddress := SOCKADDR(8, this)
             return this.__IpAddress
         }
     }

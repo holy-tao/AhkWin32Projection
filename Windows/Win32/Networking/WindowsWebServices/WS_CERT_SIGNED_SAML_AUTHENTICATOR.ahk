@@ -22,7 +22,7 @@ class WS_CERT_SIGNED_SAML_AUTHENTICATOR extends Win32Struct
     authenticator{
         get {
             if(!this.HasProp("__authenticator"))
-                this.__authenticator := WS_SAML_AUTHENTICATOR(this.ptr + 0)
+                this.__authenticator := WS_SAML_AUTHENTICATOR(0, this)
             return this.__authenticator
         }
     }

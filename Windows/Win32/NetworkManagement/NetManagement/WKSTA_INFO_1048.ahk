@@ -12,7 +12,7 @@ class WKSTA_INFO_1048 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1048_use_opportunistic_locking {
         get => NumGet(this, 0, "int")

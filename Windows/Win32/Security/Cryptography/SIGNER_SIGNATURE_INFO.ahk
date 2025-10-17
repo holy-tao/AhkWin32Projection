@@ -36,9 +36,9 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<SIGNER_ATTR_AUTHCODE>}
      */
-    Anonymous {
+    pAttrAuthcode {
         get => NumGet(this, 16, "ptr")
         set => NumPut("ptr", value, this, 16)
     }
@@ -59,12 +59,8 @@ class SIGNER_SIGNATURE_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

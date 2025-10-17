@@ -39,7 +39,7 @@ class TS_SELECTION_ANCHOR extends Win32Struct
     style{
         get {
             if(!this.HasProp("__style"))
-                this.__style := TS_SELECTIONSTYLE(this.ptr + 16)
+                this.__style := TS_SELECTIONSTYLE(16, this)
             return this.__style
         }
     }

@@ -141,7 +141,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 64)
+                this.__TimeZone := TIME_ZONE_INFORMATION(64, this)
             return this.__TimeZone
         }
     }
@@ -168,7 +168,7 @@ class MINIDUMP_MISC_INFO_5 extends Win32Struct
     XStateData{
         get {
             if(!this.HasProp("__XStateData"))
-                this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(this.ptr + 848)
+                this.__XStateData := XSTATE_CONFIG_FEATURE_MSC_INFO(848, this)
             return this.__XStateData
         }
     }

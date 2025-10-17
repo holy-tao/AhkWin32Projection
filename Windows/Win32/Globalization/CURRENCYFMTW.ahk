@@ -51,7 +51,7 @@ class CURRENCYFMTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated decimal separator string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDecimalSep {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class CURRENCYFMTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated thousand separator string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpThousandSep {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +87,7 @@ class CURRENCYFMTW extends Win32Struct
 
     /**
      * Pointer to a null-terminated currency symbol string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpCurrencySymbol {
         get => NumGet(this, 40, "ptr")

@@ -68,7 +68,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     SuplNiInfo{
         get {
             if(!this.HasProp("__SuplNiInfo"))
-                this.__SuplNiInfo := GNSS_SUPL_NI_INFO(this.ptr + 24)
+                this.__SuplNiInfo := GNSS_SUPL_NI_INFO(24, this)
             return this.__SuplNiInfo
         }
     }
@@ -79,7 +79,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     CpNiInfo{
         get {
             if(!this.HasProp("__CpNiInfo"))
-                this.__CpNiInfo := GNSS_CP_NI_INFO(this.ptr + 24)
+                this.__CpNiInfo := GNSS_CP_NI_INFO(24, this)
             return this.__CpNiInfo
         }
     }
@@ -90,7 +90,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     V2UplNiInfo{
         get {
             if(!this.HasProp("__V2UplNiInfo"))
-                this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(this.ptr + 24)
+                this.__V2UplNiInfo := GNSS_V2UPL_NI_INFO(24, this)
             return this.__V2UplNiInfo
         }
     }
@@ -104,7 +104,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     EmergencyLocation {
         get => NumGet(this, 1596, "int")

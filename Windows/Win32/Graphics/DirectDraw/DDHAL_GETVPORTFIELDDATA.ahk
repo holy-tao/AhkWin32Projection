@@ -28,7 +28,7 @@ class DDHAL_GETVPORTFIELDDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bField {
         get => NumGet(this, 16, "int")

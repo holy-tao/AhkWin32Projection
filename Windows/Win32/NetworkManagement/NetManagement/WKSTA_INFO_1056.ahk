@@ -12,7 +12,7 @@ class WKSTA_INFO_1056 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1056_use_write_raw_data {
         get => NumGet(this, 0, "int")

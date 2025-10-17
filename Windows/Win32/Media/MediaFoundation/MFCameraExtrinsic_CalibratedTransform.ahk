@@ -41,7 +41,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := MF_FLOAT3(this.ptr + 8)
+                this.__Position := MF_FLOAT3(8, this)
             return this.__Position
         }
     }
@@ -53,7 +53,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
     Orientation{
         get {
             if(!this.HasProp("__Orientation"))
-                this.__Orientation := MF_QUATERNION(this.ptr + 24)
+                this.__Orientation := MF_QUATERNION(24, this)
             return this.__Orientation
         }
     }

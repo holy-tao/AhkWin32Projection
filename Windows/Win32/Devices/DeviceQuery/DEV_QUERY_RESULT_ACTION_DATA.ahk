@@ -30,7 +30,7 @@ class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct
         DeviceObject{
             get {
                 if(!this.HasProp("__DeviceObject"))
-                    this.__DeviceObject := DEV_OBJECT(this.ptr + 0)
+                    this.__DeviceObject := DEV_OBJECT(0, this)
                 return this.__DeviceObject
             }
         }
@@ -51,7 +51,7 @@ class DEV_QUERY_RESULT_ACTION_DATA extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._DEV_QUERY_RESULT_UPDATE_PAYLOAD(this.ptr + 8)
+                this.__Data := %this.__Class%._DEV_QUERY_RESULT_UPDATE_PAYLOAD(8, this)
             return this.__Data
         }
     }

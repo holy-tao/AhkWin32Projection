@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_EXISTING_HEAPS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the adapter can create a heap from existing system memory. Otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Supported {
         get => NumGet(this, 0, "int")

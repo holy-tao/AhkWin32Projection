@@ -20,7 +20,7 @@ class IPSEC_ID0 extends Win32Struct
 
     /**
      * Optional main mode target service principal name (SPN).  This is often the machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     mmTargetName {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class IPSEC_ID0 extends Win32Struct
 
     /**
      * Optional extended mode target SPN.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     emTargetName {
         get => NumGet(this, 8, "ptr")

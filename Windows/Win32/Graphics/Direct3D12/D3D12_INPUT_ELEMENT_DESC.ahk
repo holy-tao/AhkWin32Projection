@@ -20,7 +20,7 @@ class D3D12_INPUT_ELEMENT_DESC extends Win32Struct
 
     /**
      * The HLSL semantic associated with this element in a shader input-signature.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SemanticName {
         get => NumGet(this, 0, "ptr")

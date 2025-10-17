@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D12_DEVICE_REMOVED_EXTENDED_DATA.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk
 #Include .\D3D12_DEVICE_REMOVED_EXTENDED_DATA1.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT1.ahk
 #Include .\D3D12_DEVICE_REMOVED_EXTENDED_DATA2.ahk
 #Include .\D3D12_DRED_PAGE_FAULT_OUTPUT2.ahk
@@ -35,7 +37,7 @@ class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA extends Win32Struct
     Dred_1_0{
         get {
             if(!this.HasProp("__Dred_1_0"))
-                this.__Dred_1_0 := D3D12_DEVICE_REMOVED_EXTENDED_DATA(this.ptr + 8)
+                this.__Dred_1_0 := D3D12_DEVICE_REMOVED_EXTENDED_DATA(8, this)
             return this.__Dred_1_0
         }
     }
@@ -46,7 +48,7 @@ class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA extends Win32Struct
     Dred_1_1{
         get {
             if(!this.HasProp("__Dred_1_1"))
-                this.__Dred_1_1 := D3D12_DEVICE_REMOVED_EXTENDED_DATA1(this.ptr + 8)
+                this.__Dred_1_1 := D3D12_DEVICE_REMOVED_EXTENDED_DATA1(8, this)
             return this.__Dred_1_1
         }
     }
@@ -57,7 +59,7 @@ class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA extends Win32Struct
     Dred_1_2{
         get {
             if(!this.HasProp("__Dred_1_2"))
-                this.__Dred_1_2 := D3D12_DEVICE_REMOVED_EXTENDED_DATA2(this.ptr + 8)
+                this.__Dred_1_2 := D3D12_DEVICE_REMOVED_EXTENDED_DATA2(8, this)
             return this.__Dred_1_2
         }
     }
@@ -68,7 +70,7 @@ class D3D12_VERSIONED_DEVICE_REMOVED_EXTENDED_DATA extends Win32Struct
     Dred_1_3{
         get {
             if(!this.HasProp("__Dred_1_3"))
-                this.__Dred_1_3 := D3D12_DEVICE_REMOVED_EXTENDED_DATA3(this.ptr + 8)
+                this.__Dred_1_3 := D3D12_DEVICE_REMOVED_EXTENDED_DATA3(8, this)
             return this.__Dred_1_3
         }
     }

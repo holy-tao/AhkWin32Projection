@@ -98,7 +98,7 @@ class DXGI_ADAPTER_DESC2 extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(this.ptr + 296)
+                this.__AdapterLuid := LUID(296, this)
             return this.__AdapterLuid
         }
     }

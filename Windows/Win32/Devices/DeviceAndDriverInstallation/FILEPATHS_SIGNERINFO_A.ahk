@@ -13,7 +13,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Target {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Source {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     DigitalSigner {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Version {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class FILEPATHS_SIGNERINFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     CatalogFile {
         get => NumGet(this, 40, "ptr")

@@ -52,7 +52,7 @@ class DDHAL_CREATEPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     is_excl {
         get => NumGet(this, 40, "int")

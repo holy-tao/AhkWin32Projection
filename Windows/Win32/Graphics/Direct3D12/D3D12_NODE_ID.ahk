@@ -12,7 +12,7 @@ class D3D12_NODE_ID extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")

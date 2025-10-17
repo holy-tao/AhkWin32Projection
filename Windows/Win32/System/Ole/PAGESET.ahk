@@ -25,7 +25,7 @@ class PAGESET extends Win32Struct
 
     /**
      * If <b>TRUE</b>, only the odd-numbered pages in the page-set indicated by <b>rgPages</b> are to be printed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOddPages {
         get => NumGet(this, 4, "int")
@@ -34,7 +34,7 @@ class PAGESET extends Win32Struct
 
     /**
      * If <b>TRUE</b>, only the even-numbered pages in the page-set indicated by <b>rgPages</b> are to be printed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEvenPages {
         get => NumGet(this, 8, "int")

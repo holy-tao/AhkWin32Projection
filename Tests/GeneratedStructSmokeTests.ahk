@@ -15,6 +15,8 @@
 #Include ../Windows/Win32/Graphics/DirectDraw/DDMORESURFACECAPS.ahk
 #Include ../Windows/Win32/System/Kernel/SLIST_HEADER.ahk
 #Include ../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk
+#Include ../Windows/Win32/Foundation/Apis.ahk
+#Include ../Windows/Win32/System/Memory/Apis.ahk
 
 /**
  * Tests of generated source code
@@ -151,6 +153,29 @@ class GeneratedStructSmokeTests {
 
             Yunit.Assert((val := NumGet(test, 336, "uint")) == 128, Format("Expected 128 but got {1}", val))
             Yunit.Assert((val := NumGet(test, 344, "uint")) == 9999, Format("Expected 9999 but got {1}", val))
+        }
+
+        EmbeddedStructs_InOwnedStructs_InheritOwnershipFromParent(){
+            test := CONTEXT()
+
+            YUnit.Assert(test._owned)
+            YUnit.Assert(test.Xmm0._owned)
+            YUnit.Assert(test.Xmm1._owned)
+            YUnit.Assert(test.Xmm2._owned)
+            YUnit.Assert(test.Xmm3._owned)
+        }
+
+        EmbeddedStructs_InUnownedStructs_InheritOwnershipFromParent(){
+            test := CONTEXT()
+
+            ;Artifically override the default
+            test.DefineProp("_owned", {value: false})
+            
+            YUnit.Assert(!test._owned)
+            YUnit.Assert(!test.Xmm0._owned)
+            YUnit.Assert(!test.Xmm1._owned)
+            YUnit.Assert(!test.Xmm2._owned)
+            YUnit.Assert(!test.Xmm3._owned)
         }
     }
 

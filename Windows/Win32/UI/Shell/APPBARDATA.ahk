@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -29,11 +30,14 @@ class APPBARDATA extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The handle to the appbar window. Not all messages use this member. See the individual message page to see if you need to provide an <b>hWind</b> value.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(8, this)
+            return this.__hWnd
+        }
     }
 
     /**
@@ -97,7 +101,7 @@ class APPBARDATA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 24)
+                this.__rc := RECT(24, this)
             return this.__rc
         }
     }
@@ -121,19 +125,15 @@ class APPBARDATA extends Win32Struct
      * 
      * 
      * See the individual message pages for details.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

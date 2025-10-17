@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
@@ -21,23 +22,29 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HWND(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
     rgbResult {
         get => NumGet(this, 24, "uint")
@@ -45,7 +52,7 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<COLORREF>}
      */
     lpCustColors {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +68,7 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 48, "ptr")
@@ -77,7 +84,7 @@ class CHOOSECOLORA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpTemplateName {
         get => NumGet(this, 64, "ptr")

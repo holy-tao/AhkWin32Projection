@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
 
 /**
@@ -22,7 +23,7 @@ class D3D11_AUTHENTICATED_QUERY_RESTRICTED_SHARED_RESOURCE_PROCESS_COUNT_OUTPUT 
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }

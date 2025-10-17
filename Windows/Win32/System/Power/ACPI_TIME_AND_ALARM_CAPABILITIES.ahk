@@ -12,7 +12,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AcWakeSupported {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DcWakeSupported {
         get => NumGet(this, 1, "char")
@@ -28,7 +28,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     S4AcWakeSupported {
         get => NumGet(this, 2, "char")
@@ -36,7 +36,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     S4DcWakeSupported {
         get => NumGet(this, 3, "char")
@@ -44,7 +44,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     S5AcWakeSupported {
         get => NumGet(this, 4, "char")
@@ -52,7 +52,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     S5DcWakeSupported {
         get => NumGet(this, 5, "char")
@@ -60,7 +60,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     S4S5WakeStatusSupported {
         get => NumGet(this, 6, "char")
@@ -76,7 +76,7 @@ class ACPI_TIME_AND_ALARM_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RealTimeFeaturesSupported {
         get => NumGet(this, 12, "char")

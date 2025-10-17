@@ -15,7 +15,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether the device is capable of saving any parameters in nonvolatile storage.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ParametersSavable {
         get => NumGet(this, 0, "char")
@@ -24,7 +24,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether the read cache is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReadCacheEnabled {
         get => NumGet(this, 1, "char")
@@ -33,7 +33,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether the write cache is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WriteCacheEnabled {
         get => NumGet(this, 2, "char")
@@ -69,7 +69,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
 
     /**
      * If this member is  <b>TRUE</b>,  the union is a <b>ScalarPrefetch</b> structure. Otherwise, the union is a <b>BlockPrefetch</b> structure.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PrefetchScalar {
         get => NumGet(this, 14, "char")
@@ -134,7 +134,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     ScalarPrefetch{
         get {
             if(!this.HasProp("__ScalarPrefetch"))
-                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(this.ptr + 18)
+                this.__ScalarPrefetch := %this.__Class%._ScalarPrefetch(18, this)
             return this.__ScalarPrefetch
         }
     }
@@ -145,7 +145,7 @@ class DISK_CACHE_INFORMATION extends Win32Struct
     BlockPrefetch{
         get {
             if(!this.HasProp("__BlockPrefetch"))
-                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(this.ptr + 18)
+                this.__BlockPrefetch := %this.__Class%._BlockPrefetch(18, this)
             return this.__BlockPrefetch
         }
     }

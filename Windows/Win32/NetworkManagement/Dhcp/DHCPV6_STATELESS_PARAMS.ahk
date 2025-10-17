@@ -15,7 +15,7 @@ class DHCPV6_STATELESS_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b> the stateless client inventory is maintained by the DHCPv6 server. Otherwise, it is  <b>FALSE</b>. The default value is <b>FALSE</b>, which indicates that the stateless client inventory is disabled and is not maintained the by the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Status {
         get => NumGet(this, 0, "int")

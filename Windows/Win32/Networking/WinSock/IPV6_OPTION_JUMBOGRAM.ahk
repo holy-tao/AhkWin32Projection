@@ -18,7 +18,7 @@ class IPV6_OPTION_JUMBOGRAM extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := IPV6_OPTION_HEADER(this.ptr + 0)
+                this.__Header := IPV6_OPTION_HEADER(0, this)
             return this.__Header
         }
     }

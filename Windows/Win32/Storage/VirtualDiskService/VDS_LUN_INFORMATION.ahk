@@ -61,7 +61,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
      * If <b>TRUE</b>, the LUN supports multiple outstanding commands; otherwise, 
      *       <b>FALSE</b>. The synchronization of the queue is the responsibility of the port 
      *       driver.
-     * @type {Integer}
+     * @type {BOOL}
      */
     m_bCommandQueueing {
         get => NumGet(this, 8, "int")
@@ -144,7 +144,7 @@ class VDS_LUN_INFORMATION extends Win32Struct
     m_deviceIdDescriptor{
         get {
             if(!this.HasProp("__m_deviceIdDescriptor"))
-                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(this.ptr + 56)
+                this.__m_deviceIdDescriptor := VDS_STORAGE_DEVICE_ID_DESCRIPTOR(56, this)
             return this.__m_deviceIdDescriptor
         }
     }

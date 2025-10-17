@@ -22,7 +22,7 @@ class RGNDATA extends Win32Struct
     rdh{
         get {
             if(!this.HasProp("__rdh"))
-                this.__rdh := RGNDATAHEADER(this.ptr + 0)
+                this.__rdh := RGNDATAHEADER(0, this)
             return this.__rdh
         }
     }

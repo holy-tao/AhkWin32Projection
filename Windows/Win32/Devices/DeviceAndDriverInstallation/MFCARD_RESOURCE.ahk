@@ -21,7 +21,7 @@ class MFCARD_RESOURCE extends Win32Struct
     MfCard_Header{
         get {
             if(!this.HasProp("__MfCard_Header"))
-                this.__MfCard_Header := MFCARD_DES(this.ptr + 0)
+                this.__MfCard_Header := MFCARD_DES(0, this)
             return this.__MfCard_Header
         }
     }

@@ -12,7 +12,7 @@ class CAT_MEMBERINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSubjGuid {
         get => NumGet(this, 0, "ptr")

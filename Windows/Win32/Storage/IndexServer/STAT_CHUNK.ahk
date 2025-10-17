@@ -143,7 +143,7 @@ class STAT_CHUNK extends Win32Struct
     attribute{
         get {
             if(!this.HasProp("__attribute"))
-                this.__attribute := FULLPROPSPEC(this.ptr + 16)
+                this.__attribute := FULLPROPSPEC(16, this)
             return this.__attribute
         }
     }

@@ -20,7 +20,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszData {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszDomain {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszPath {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszUrl {
         get => NumGet(this, 56, "ptr")
@@ -76,19 +76,15 @@ class INTERNET_COOKIE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszP3PPolicy {
         get => NumGet(this, 64, "ptr")
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

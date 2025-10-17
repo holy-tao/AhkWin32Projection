@@ -33,7 +33,7 @@ class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
     startPoint{
         get {
             if(!this.HasProp("__startPoint"))
-                this.__startPoint := D2D_POINT_2F(this.ptr + 0)
+                this.__startPoint := D2D_POINT_2F(0, this)
             return this.__startPoint
         }
     }
@@ -47,7 +47,7 @@ class D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
     endPoint{
         get {
             if(!this.HasProp("__endPoint"))
-                this.__endPoint := D2D_POINT_2F(this.ptr + 8)
+                this.__endPoint := D2D_POINT_2F(8, this)
             return this.__endPoint
         }
     }

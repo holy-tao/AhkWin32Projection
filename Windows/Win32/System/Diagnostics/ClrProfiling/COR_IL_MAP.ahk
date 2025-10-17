@@ -28,7 +28,7 @@ class COR_IL_MAP extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAccurate {
         get => NumGet(this, 8, "int")

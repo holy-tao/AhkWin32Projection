@@ -45,7 +45,7 @@ class TRACE_EVENT_INFO extends Win32Struct
     EventDescriptor{
         get {
             if(!this.HasProp("__EventDescriptor"))
-                this.__EventDescriptor := EVENT_DESCRIPTOR(this.ptr + 16)
+                this.__EventDescriptor := EVENT_DESCRIPTOR(16, this)
             return this.__EventDescriptor
         }
     }
@@ -210,11 +210,22 @@ class TRACE_EVENT_INFO extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved
+     * - Tags
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 92, "uint")
         set => NumPut("uint", value, this, 92)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Tags {
+        get => (this._bitfield >> 4) & 0xFFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
     }
 
     /**

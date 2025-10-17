@@ -255,7 +255,7 @@ class EXCEPTION_RECORD extends Win32Struct
      *  
      * 
      * Another exception code is likely to occur when debugging console processes. It does not arise because of a programming error. The <b>DBG_CONTROL_C</b> exception code occurs when CTRL+C is input to a console process that handles CTRL+C signals and is being debugged. This exception code is not meant to be handled by applications. It is raised only for the benefit of the debugger, and is raised only when a debugger is attached to the console process.
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     ExceptionCode {
         get => NumGet(this, 0, "int")

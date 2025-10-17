@@ -96,7 +96,7 @@ class SSTP_CONFIG_PARAMS extends Win32Struct
 
     /**
      * A value that is <b>TRUE</b> if HTTPS is used and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isUseHttps {
         get => NumGet(this, 8, "int")
@@ -136,7 +136,7 @@ class SSTP_CONFIG_PARAMS extends Win32Struct
     sstpCertDetails{
         get {
             if(!this.HasProp("__sstpCertDetails"))
-                this.__sstpCertDetails := SSTP_CERT_INFO(this.ptr + 16)
+                this.__sstpCertDetails := SSTP_CERT_INFO(16, this)
             return this.__sstpCertDetails
         }
     }

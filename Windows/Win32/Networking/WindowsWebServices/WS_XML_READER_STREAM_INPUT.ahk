@@ -21,7 +21,7 @@ class WS_XML_READER_STREAM_INPUT extends Win32Struct
     input{
         get {
             if(!this.HasProp("__input"))
-                this.__input := WS_XML_READER_INPUT(this.ptr + 0)
+                this.__input := WS_XML_READER_INPUT(0, this)
             return this.__input
         }
     }

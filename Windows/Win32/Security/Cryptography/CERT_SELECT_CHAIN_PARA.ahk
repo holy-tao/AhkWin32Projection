@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTCHAINENGINE.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * Contains the parameters used for building and selecting chains.
@@ -26,11 +28,14 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
 
     /**
      * The handle of the chain engine to use to build the chain. If the value of the <i>hChainEngine</i> parameter is <b>NULL</b>, the default chain engine, <b>HCCE_CURRENT_USER</b>, is used.
-     * @type {Pointer<Void>}
+     * @type {HCERTCHAINENGINE}
      */
-    hChainEngine {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hChainEngine{
+        get {
+            if(!this.HasProp("__hChainEngine"))
+                this.__hChainEngine := HCERTCHAINENGINE(0, this)
+            return this.__hChainEngine
+        }
     }
 
     /**
@@ -47,11 +52,14 @@ class CERT_SELECT_CHAIN_PARA extends Win32Struct
 
     /**
      * The handle of any additional store to search for supporting certificates and certificate trust lists (CTLs). This parameter can be <b>NULL</b> if no additional store is to be searched.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hAdditionalStore {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hAdditionalStore{
+        get {
+            if(!this.HasProp("__hAdditionalStore"))
+                this.__hAdditionalStore := HCERTSTORE(16, this)
+            return this.__hAdditionalStore
+        }
     }
 
     /**

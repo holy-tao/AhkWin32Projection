@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
@@ -4633,7 +4634,7 @@ class WinInet {
      * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
-     * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtimea
      * @since windows5.0
@@ -4656,7 +4657,7 @@ class WinInet {
      * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
-     * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtimew
      * @since windows5.0
@@ -4679,7 +4680,7 @@ class WinInet {
      * @param {Pointer} lpszTime Pointer to a string buffer that receives the formatted date and time. The buffer should be of size INTERNET_RFC1123_BUFSIZE.
      * @param {Integer} cbTime Size of the 
      * <i>lpszTime</i> buffer, in bytes.
-     * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimefromsystemtime
      * @since windows5.0
@@ -4696,10 +4697,10 @@ class WinInet {
 
     /**
      * Converts an HTTP time/date string to a SYSTEMTIME structure.
-     * @param {Pointer<Byte>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {PSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
-     * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtimea
      * @since windows5.0
@@ -4707,7 +4708,7 @@ class WinInet {
     static InternetTimeToSystemTimeA(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+        lpszTime := lpszTime is String ? StrPtr(lpszTime) : lpszTime
 
         A_LastError := 0
 
@@ -4720,10 +4721,10 @@ class WinInet {
 
     /**
      * Converts an HTTP time/date string to a SYSTEMTIME structure.
-     * @param {Pointer<Char>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {PWSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
-     * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtimew
      * @since windows5.0
@@ -4731,7 +4732,7 @@ class WinInet {
     static InternetTimeToSystemTimeW(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+        lpszTime := lpszTime is String ? StrPtr(lpszTime) : lpszTime
 
         A_LastError := 0
 
@@ -4744,10 +4745,10 @@ class WinInet {
 
     /**
      * Converts an HTTP time/date string to a SYSTEMTIME structure.
-     * @param {Pointer<Byte>} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
+     * @param {PSTR} lpszTime Pointer to a null-terminated string that specifies the date/time to  be converted.
      * @param {Pointer<SYSTEMTIME>} pst Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
-     * @returns {Integer} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internettimetosystemtime
      * @since windows5.0
@@ -4755,7 +4756,7 @@ class WinInet {
     static InternetTimeToSystemTime(lpszTime, pst) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszTime := lpszTime is String? StrPtr(lpszTime) : lpszTime
+        lpszTime := lpszTime is String ? StrPtr(lpszTime) : lpszTime
 
         A_LastError := 0
 
@@ -4768,20 +4769,20 @@ class WinInet {
 
     /**
      * Cracks a URL into its component parts.
-     * @param {Pointer<Byte>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
+     * @param {PSTR} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
      * <i>lpszUrl</i> is an ASCIIZ string.
      * @param {Integer} dwFlags 
      * @param {Pointer<URL_COMPONENTSA>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcrackurla
      * @since windows5.0
      */
     static InternetCrackUrlA(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -4794,20 +4795,20 @@ class WinInet {
 
     /**
      * Cracks a URL into its component parts.
-     * @param {Pointer<Char>} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
+     * @param {PWSTR} lpszUrl Pointer to a string that contains the canonical URL to be cracked.
      * @param {Integer} dwUrlLength Size of the 
      * <i>lpszUrl</i> string, in <b>TCHARs</b>, or zero if 
      * <i>lpszUrl</i> is an ASCIIZ string.
      * @param {Integer} dwFlags 
      * @param {Pointer<URL_COMPONENTSW>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcrackurlw
      * @since windows5.0
      */
     static InternetCrackUrlW(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -4823,17 +4824,17 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSA>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpszUrl Pointer to a buffer that receives the URL.
+     * @param {PSTR} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<UInt32>} lpdwUrlLength Pointer to a variable that specifies the size of the 
      * URL<i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcreateurla
      * @since windows5.0
      */
     static InternetCreateUrlA(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -4849,17 +4850,17 @@ class WinInet {
      * @param {Pointer<URL_COMPONENTSW>} lpUrlComponents Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that contains the components from which to create the URL.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Char>} lpszUrl Pointer to a buffer that receives the URL.
+     * @param {PWSTR} lpszUrl Pointer to a buffer that receives the URL.
      * @param {Pointer<UInt32>} lpdwUrlLength Pointer to a variable that specifies the size of the 
      * URL<i>lpszUrl</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter receives the size of the URL string, excluding the NULL terminator. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcreateurlw
      * @since windows5.0
      */
     static InternetCreateUrlW(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -4872,14 +4873,14 @@ class WinInet {
 
     /**
      * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences.
-     * @param {Pointer<Byte>} lpszUrl A pointer to the string that contains the URL to canonicalize.
-     * @param {Pointer<Byte>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
+     * @param {PSTR} lpszUrl A pointer to the string that contains the URL to canonicalize.
+     * @param {PSTR} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
      * <i>lpszBuffer</i> buffer. If the function succeeds, this parameter receives the number of characters actually copied to the 
      * <i>lpszBuffer</i> buffer, which does not include the terminating null character. If the function fails, this parameter receives the required size of the 
      * buffer, in characters, which includes the terminating null character.
      * @param {Integer} dwFlags Controls canonicalization. If no flags are specified, the function converts all unsafe characters and meta sequences (such as \.,\ .., and \...) to escape sequences.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
      * 
      * <table>
@@ -4937,8 +4938,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCanonicalizeUrlA(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -4951,14 +4952,14 @@ class WinInet {
 
     /**
      * Canonicalizes a URL, which includes converting unsafe characters and spaces into escape sequences.
-     * @param {Pointer<Char>} lpszUrl A pointer to the string that contains the URL to canonicalize.
-     * @param {Pointer<Char>} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
+     * @param {PWSTR} lpszUrl A pointer to the string that contains the URL to canonicalize.
+     * @param {PWSTR} lpszBuffer A pointer to the buffer that receives the resulting canonicalized URL.
      * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable that contains the size, in characters,  of the 
      * <i>lpszBuffer</i> buffer. If the function succeeds, this parameter receives the number of characters actually copied to the 
      * <i>lpszBuffer</i> buffer, which does not include the terminating null character. If the function fails, this parameter receives the required size of the 
      * buffer, in characters, which includes the terminating null character.
      * @param {Integer} dwFlags Controls canonicalization. If no flags are specified, the function converts all unsafe characters and meta sequences (such as \.,\ .., and \...) to escape sequences.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function. Possible errors include the following.
      * 
      * <table>
@@ -5016,8 +5017,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCanonicalizeUrlW(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -5030,13 +5031,13 @@ class WinInet {
 
     /**
      * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl).
-     * @param {Pointer<Byte>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
-     * @param {Pointer<Byte>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
-     * @param {Pointer<Byte>} lpszBuffer Pointer to a buffer that receives the combined URL.
+     * @param {PSTR} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
+     * @param {PSTR} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
+     * @param {PSTR} lpszBuffer Pointer to a buffer that receives the combined URL.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
      * 
      * <table>
@@ -5094,9 +5095,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCombineUrlA(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
-        lpszBaseUrl := lpszBaseUrl is String? StrPtr(lpszBaseUrl) : lpszBaseUrl
-        lpszRelativeUrl := lpszRelativeUrl is String? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszBaseUrl := lpszBaseUrl is String ? StrPtr(lpszBaseUrl) : lpszBaseUrl
+        lpszRelativeUrl := lpszRelativeUrl is String ? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -5109,13 +5110,13 @@ class WinInet {
 
     /**
      * Combines a base and relative URL into a single URL. The resultant URL is canonicalized (see InternetCanonicalizeUrl).
-     * @param {Pointer<Char>} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
-     * @param {Pointer<Char>} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
-     * @param {Pointer<Char>} lpszBuffer Pointer to a buffer that receives the combined URL.
+     * @param {PWSTR} lpszBaseUrl Pointer to a null-terminated string  that contains the base URL.
+     * @param {PWSTR} lpszRelativeUrl Pointer to a null-terminated string  that contains the relative URL.
+     * @param {PWSTR} lpszBuffer Pointer to a buffer that receives the combined URL.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in characters. If the function succeeds, this parameter receives the size of the combined URL, in characters, not including the null-terminating character. If the function fails, this parameter receives the size of the required buffer, in characters (including the null-terminating character).
      * @param {Integer} dwFlags 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible errors include the following.
      * 
      * <table>
@@ -5173,9 +5174,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetCombineUrlW(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
-        lpszBaseUrl := lpszBaseUrl is String? StrPtr(lpszBaseUrl) : lpszBaseUrl
-        lpszRelativeUrl := lpszRelativeUrl is String? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszBaseUrl := lpszBaseUrl is String ? StrPtr(lpszBaseUrl) : lpszBaseUrl
+        lpszRelativeUrl := lpszRelativeUrl is String ? StrPtr(lpszRelativeUrl) : lpszRelativeUrl
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -5188,9 +5189,9 @@ class WinInet {
 
     /**
      * Initializes an application's use of the WinINet functions.
-     * @param {Pointer<Byte>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
+     * @param {PSTR} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
-     * @param {Pointer<Byte>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
+     * @param {PSTR} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
      * <i>dwAccessType</i> to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy name. The WinINet functions recognize only CERN type proxies (HTTP only) and the TIS FTP gateway (FTP only). If Microsoft Internet Explorer is installed, these functions also support SOCKS proxies. FTP requests can be made through a CERN type proxy either by changing them to an HTTP request or by using 
@@ -5199,7 +5200,7 @@ class WinInet {
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>. For more information about listing proxy servers, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Listing Proxy Servers</a> section of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Enabling Internet Functionality</a>.
-     * @param {Pointer<Byte>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
+     * @param {PSTR} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
      * <i>dwAccessType</i> is set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. The list can contain wildcards. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy bypass list. If this parameter specifies the "&lt;local&gt;" macro, the function bypasses the proxy for any host name that does not contain a period. 
@@ -5219,9 +5220,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenA(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
-        lpszAgent := lpszAgent is String? StrPtr(lpszAgent) : lpszAgent
-        lpszProxy := lpszProxy is String? StrPtr(lpszProxy) : lpszProxy
-        lpszProxyBypass := lpszProxyBypass is String? StrPtr(lpszProxyBypass) : lpszProxyBypass
+        lpszAgent := lpszAgent is String ? StrPtr(lpszAgent) : lpszAgent
+        lpszProxy := lpszProxy is String ? StrPtr(lpszProxy) : lpszProxy
+        lpszProxyBypass := lpszProxyBypass is String ? StrPtr(lpszProxyBypass) : lpszProxyBypass
 
         A_LastError := 0
 
@@ -5234,9 +5235,9 @@ class WinInet {
 
     /**
      * Initializes an application's use of the WinINet functions.
-     * @param {Pointer<Char>} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
+     * @param {PWSTR} lpszAgent Pointer to a <b>null</b>-terminated string  that specifies the name of the application or entity calling the WinINet functions. This name is used as the user agent in the HTTP protocol.
      * @param {Integer} dwAccessType 
-     * @param {Pointer<Char>} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
+     * @param {PWSTR} lpszProxy Pointer to a <b>null</b>-terminated string  that specifies the name of the proxy server(s) to use when proxy access is specified by setting 
      * <i>dwAccessType</i> to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy name. The WinINet functions recognize only CERN type proxies (HTTP only) and the TIS FTP gateway (FTP only). If Microsoft Internet Explorer is installed, these functions also support SOCKS proxies. FTP requests can be made through a CERN type proxy either by changing them to an HTTP request or by using 
@@ -5245,7 +5246,7 @@ class WinInet {
      * <b>INTERNET_OPEN_TYPE_PROXY</b>, this parameter is ignored and should be <b>NULL</b>. For more information about listing proxy servers, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Listing Proxy Servers</a> section of 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/enabling-internet-functionality">Enabling Internet Functionality</a>.
-     * @param {Pointer<Char>} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
+     * @param {PWSTR} lpszProxyBypass Pointer to a <b>null</b>-terminated string  that specifies an optional list of host names or IP addresses, or both, that should not be routed through the proxy when 
      * <i>dwAccessType</i> is set to 
      * <b>INTERNET_OPEN_TYPE_PROXY</b>. The list can contain wildcards. Do not use an empty string, because 
      * <b>InternetOpen</b> will use it as the proxy bypass list. If this parameter specifies the "&lt;local&gt;" macro, the function bypasses the proxy for any host name that does not contain a period. 
@@ -5265,9 +5266,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenW(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
-        lpszAgent := lpszAgent is String? StrPtr(lpszAgent) : lpszAgent
-        lpszProxy := lpszProxy is String? StrPtr(lpszProxy) : lpszProxy
-        lpszProxyBypass := lpszProxyBypass is String? StrPtr(lpszProxyBypass) : lpszProxyBypass
+        lpszAgent := lpszAgent is String ? StrPtr(lpszAgent) : lpszAgent
+        lpszProxy := lpszProxy is String ? StrPtr(lpszProxy) : lpszProxy
+        lpszProxyBypass := lpszProxyBypass is String ? StrPtr(lpszProxyBypass) : lpszProxyBypass
 
         A_LastError := 0
 
@@ -5281,7 +5282,7 @@ class WinInet {
     /**
      * Closes a single Internet handle.
      * @param {Pointer<Void>} hInternet Handle to be closed.
-     * @returns {Integer} Returns <b>TRUE</b> if the handle is successfully closed, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the handle is successfully closed, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetclosehandle
      * @since windows5.0
@@ -5300,10 +5301,10 @@ class WinInet {
      * Opens an File Transfer Protocol (FTP) or HTTP session for a given site.
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<Byte>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
+     * @param {PSTR} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
      * @param {Integer} nServerPort Transmission Control Protocol/Internet Protocol (TCP/IP) port on the server. These flags set only the port that is used. The service is set by the value of
-     * @param {Pointer<Byte>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
-     * @param {Pointer<Byte>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
+     * @param {PSTR} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
+     * @param {PSTR} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
      * <i>lpszPassword</i> and 
      * <i>lpszUsername</i> are <b>NULL</b>, the function uses the default "anonymous" password. In the case of FTP, the default password is the user's email name. If 
      * <i>lpszPassword</i> is <b>NULL</b>, but 
@@ -5320,9 +5321,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConnectA(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
-        lpszServerName := lpszServerName is String? StrPtr(lpszServerName) : lpszServerName
-        lpszUserName := lpszUserName is String? StrPtr(lpszUserName) : lpszUserName
-        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+        lpszServerName := lpszServerName is String ? StrPtr(lpszServerName) : lpszServerName
+        lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
+        lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
         A_LastError := 0
 
@@ -5337,10 +5338,10 @@ class WinInet {
      * Opens an File Transfer Protocol (FTP) or HTTP session for a given site.
      * @param {Pointer<Void>} hInternet Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<Char>} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
+     * @param {PWSTR} lpszServerName Pointer to a <b>null</b>-terminated string that specifies the host name of an Internet server. Alternately, the string can contain the IP number of the site, in ASCII dotted-decimal format (for example, 11.0.1.45).
      * @param {Integer} nServerPort Transmission Control Protocol/Internet Protocol (TCP/IP) port on the server. These flags set only the port that is used. The service is set by the value of
-     * @param {Pointer<Char>} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
-     * @param {Pointer<Char>} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
+     * @param {PWSTR} lpszUserName Pointer to a <b>null</b>-terminated string that specifies the name of the user to log on. If this parameter is <b>NULL</b>, the function uses an appropriate default. For the FTP protocol, the default is "anonymous".
+     * @param {PWSTR} lpszPassword Pointer to a <b>null</b>-terminated string that contains the password to use to log on. If both 
      * <i>lpszPassword</i> and 
      * <i>lpszUsername</i> are <b>NULL</b>, the function uses the default "anonymous" password. In the case of FTP, the default password is the user's email name. If 
      * <i>lpszPassword</i> is <b>NULL</b>, but 
@@ -5357,9 +5358,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConnectW(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
-        lpszServerName := lpszServerName is String? StrPtr(lpszServerName) : lpszServerName
-        lpszUserName := lpszUserName is String? StrPtr(lpszUserName) : lpszUserName
-        lpszPassword := lpszPassword is String? StrPtr(lpszPassword) : lpszPassword
+        lpszServerName := lpszServerName is String ? StrPtr(lpszServerName) : lpszServerName
+        lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
+        lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
         A_LastError := 0
 
@@ -5374,8 +5375,8 @@ class WinInet {
      * Opens a resource specified by a complete FTP or HTTP URL.
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
-     * @param {Pointer<Byte>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
+     * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
+     * @param {PSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
      * <i>lpszHeaders</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> function.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
@@ -5390,8 +5391,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenUrlA(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -5406,8 +5407,8 @@ class WinInet {
      * Opens a resource specified by a complete FTP or HTTP URL.
      * @param {Pointer<Void>} hInternet The handle to the current Internet session. The handle must have been returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopena">InternetOpen</a>.
-     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
-     * @param {Pointer<Char>} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
+     * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string variable that specifies the URL to begin reading. Only URLs beginning with ftp:, http:, or https: are supported.
+     * @param {PWSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that specifies the headers to be sent to the HTTP server. For more information, see the description of the 
      * <i>lpszHeaders</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a> function.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
@@ -5422,8 +5423,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetOpenUrlW(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -5445,7 +5446,7 @@ class WinInet {
      * @param {Integer} dwNumberOfBytesToRead Number of bytes to be read.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesRead Pointer to a variable that receives the number of bytes read. 
      * <b>InternetReadFile</b> sets this value to zero before doing any work or error checking.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfile
@@ -5470,7 +5471,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_buffersa">INTERNET_BUFFERS</a> structure that receives the data downloaded.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A caller supplied context value used for asynchronous operations.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfileexa
@@ -5495,7 +5496,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_buffersa">INTERNET_BUFFERS</a> structure that receives the data downloaded.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext A caller supplied context value used for asynchronous operations.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetreadfileexw
@@ -5563,7 +5564,7 @@ class WinInet {
      * @param {Integer} dwNumberOfBytesToWrite Number of bytes to be written to the file.
      * @param {Pointer<UInt32>} lpdwNumberOfBytesWritten Pointer to a variable that receives the number of bytes written to the file. 
      * <b>InternetWriteFile</b> sets this value to zero before doing any work or error checking.
-     * @returns {Integer} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetwritefile
@@ -5589,7 +5590,7 @@ class WinInet {
      * @param {Pointer<UInt32>} lpdwNumberOfBytesAvailable Pointer to a variable that receives the number of available bytes. May be <b>NULL</b>.
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @param {Pointer} dwContext This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetquerydataavailable
@@ -5617,7 +5618,7 @@ class WinInet {
      * 
      * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b>The Gopher protocol returns a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetfindnextfilea
@@ -5645,7 +5646,7 @@ class WinInet {
      * 
      * <b>Windows XP and Windows Server 2003 R2 and earlier:  </b>The Gopher protocol returns a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure.
-     * @returns {Integer} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetfindnextfilew
@@ -5674,7 +5675,7 @@ class WinInet {
      * <i>lpdwBufferLength</i> specifies the size of the data placed into 
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetqueryoptiona
      * @since windows5.0
@@ -5702,7 +5703,7 @@ class WinInet {
      * <i>lpdwBufferLength</i> specifies the size of the data placed into 
      * <i>lpBuffer</i>. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetqueryoptionw
      * @since windows5.0
@@ -5729,7 +5730,7 @@ class WinInet {
      * the size is in <b>TCHARs</b>.  If 
      * <i>lpBuffer</i> contains anything other than a string, 
      * the size is in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptiona
      * @since windows5.0
@@ -5756,7 +5757,7 @@ class WinInet {
      * the size is in <b>TCHARs</b>.  If 
      * <i>lpBuffer</i> contains anything other than a string, 
      * the size is in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionw
      * @since windows5.0
@@ -5778,7 +5779,7 @@ class WinInet {
      * @param {Pointer<Void>} lpBuffer Unused.
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
-     * @returns {Integer} This function does not return a value.
+     * @returns {BOOL} This function does not return a value.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionexa
      * @since windows5.0
      */
@@ -5794,7 +5795,7 @@ class WinInet {
      * @param {Pointer<Void>} lpBuffer Unused.
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
-     * @returns {Integer} This function does not return a value.
+     * @returns {BOOL} This function does not return a value.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetoptionexw
      * @since windows5.0
      */
@@ -5810,8 +5811,8 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopheropenfilea">GopherOpenFile</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetopenurla">InternetOpenUrl</a> function.
-     * @param {Pointer<Void>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {Pointer<HANDLE>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetlockrequestfile
      * @since windows5.0
@@ -5828,14 +5829,16 @@ class WinInet {
 
     /**
      * Unlocks a file that was locked using InternetLockRequestFile.
-     * @param {Pointer<Void>} hLockRequestInfo Handle to a lock request that was returned by 
+     * @param {HANDLE} hLockRequestInfo Handle to a lock request that was returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetlockrequestfile">InternetLockRequestFile</a>.
-     * @returns {Integer} Returns TRUE if successful, or FALSE otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetunlockrequestfile
      * @since windows5.0
      */
     static InternetUnlockRequestFile(hLockRequestInfo) {
+        hLockRequestInfo := hLockRequestInfo is Win32Handle ? NumGet(hLockRequestInfo, "ptr") : hLockRequestInfo
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetUnlockRequestFile", "ptr", hLockRequestInfo, "int")
@@ -5848,10 +5851,10 @@ class WinInet {
     /**
      * Retrieves the last error description or server response on the thread calling this function.
      * @param {Pointer<UInt32>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
-     * @param {Pointer<Byte>} lpszBuffer Pointer to a buffer that receives the error text.
+     * @param {PSTR} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
-     * @returns {Integer} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
@@ -5859,7 +5862,7 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetLastResponseInfoA(lpdwError, lpszBuffer, lpdwBufferLength) {
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -5873,10 +5876,10 @@ class WinInet {
     /**
      * Retrieves the last error description or server response on the thread calling this function.
      * @param {Pointer<UInt32>} lpdwError Pointer to a variable that receives an error message pertaining to the operation that failed.
-     * @param {Pointer<Char>} lpszBuffer Pointer to a buffer that receives the error text.
+     * @param {PWSTR} lpszBuffer Pointer to a buffer that receives the error text.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the size of the 
      * <i>lpszBuffer</i> buffer, in <b>TCHARs</b>. When the function returns, this parameter contains the size of the string written to the buffer, not including the terminating zero.
-     * @returns {Integer} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if error text was successfully written to the buffer, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
@@ -5884,7 +5887,7 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
-        lpszBuffer := lpszBuffer is String? StrPtr(lpszBuffer) : lpszBuffer
+        lpszBuffer := lpszBuffer is String ? StrPtr(lpszBuffer) : lpszBuffer
 
         A_LastError := 0
 
@@ -5939,7 +5942,7 @@ class WinInet {
      * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure.
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Byte>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
+     * @param {PSTR} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
      * <i>lpszSearchFile</i> is <b>NULL</b> or if it is an empty string, the function  finds the first file in the current directory on the server.
      * @param {Pointer<WIN32_FIND_DATAA>} lpFindFileData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives information about the found file or directory.
@@ -5953,7 +5956,7 @@ class WinInet {
      * @since windows5.0
      */
     static FtpFindFirstFileA(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
-        lpszSearchFile := lpszSearchFile is String? StrPtr(lpszSearchFile) : lpszSearchFile
+        lpszSearchFile := lpszSearchFile is String ? StrPtr(lpszSearchFile) : lpszSearchFile
 
         A_LastError := 0
 
@@ -5968,7 +5971,7 @@ class WinInet {
      * Searches the specified directory of the given FTP session. File and directory entries are returned to the application in the WIN32_FIND_DATA structure.
      * @param {Pointer<Void>} hConnect Handle to an FTP session returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Char>} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
+     * @param {PWSTR} lpszSearchFile Pointer to a <b>null</b>-terminated string that specifies a valid directory path or file name for the FTP server's file system. The string can contain wildcards, but no blank spaces are allowed. If the value of 
      * <i>lpszSearchFile</i> is <b>NULL</b> or if it is an empty string, the function  finds the first file in the current directory on the server.
      * @param {Pointer<WIN32_FIND_DATAW>} lpFindFileData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives information about the found file or directory.
@@ -5982,7 +5985,7 @@ class WinInet {
      * @since windows5.0
      */
     static FtpFindFirstFileW(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
-        lpszSearchFile := lpszSearchFile is String? StrPtr(lpszSearchFile) : lpszSearchFile
+        lpszSearchFile := lpszSearchFile is String ? StrPtr(lpszSearchFile) : lpszSearchFile
 
         A_LastError := 0
 
@@ -5996,9 +5999,9 @@ class WinInet {
     /**
      * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
-     * @param {Pointer<Byte>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
-     * @param {Integer} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
+     * @param {PSTR} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
+     * @param {PSTR} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
+     * @param {BOOL} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
      * <i>fFailIfExists</i> is <b>TRUE</b> and the local file exists, 
      * <b>FtpGetFile</b> fails.
      * @param {Integer} dwFlagsAndAttributes File attributes for the new file. This parameter can be any combination of the FILE_ATTRIBUTE_* flags used by the 
@@ -6123,14 +6126,14 @@ class WinInet {
      * </table>
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetfilea
      * @since windows5.0
      */
     static FtpGetFileA(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
-        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
-        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+        lpszRemoteFile := lpszRemoteFile is String ? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String ? StrPtr(lpszNewFile) : lpszNewFile
 
         A_LastError := 0
 
@@ -6144,9 +6147,9 @@ class WinInet {
     /**
      * Retrieves a file from the FTP server and stores it under the specified file name, creating a new local file in the process.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
-     * @param {Pointer<Char>} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
-     * @param {Integer} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
+     * @param {PWSTR} lpszRemoteFile Pointer to a null-terminated string that contains the name of the file to be retrieved.
+     * @param {PWSTR} lpszNewFile Pointer to a null-terminated string that contains the name of the file to be created on the local system.
+     * @param {BOOL} fFailIfExists Indicates whether the function should proceed if a local file of the specified name already exists. If 
      * <i>fFailIfExists</i> is <b>TRUE</b> and the local file exists, 
      * <b>FtpGetFile</b> fails.
      * @param {Integer} dwFlagsAndAttributes File attributes for the new file. This parameter can be any combination of the FILE_ATTRIBUTE_* flags used by the 
@@ -6271,14 +6274,14 @@ class WinInet {
      * </table>
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetfilew
      * @since windows5.0
      */
     static FtpGetFileW(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
-        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
-        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+        lpszRemoteFile := lpszRemoteFile is String ? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String ? StrPtr(lpszNewFile) : lpszNewFile
 
         A_LastError := 0
 
@@ -6292,19 +6295,19 @@ class WinInet {
     /**
      * Stores a file on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
-     * @param {Pointer<Byte>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
+     * @param {PSTR} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
+     * @param {PSTR} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that control how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpputfilea
      * @since windows5.0
      */
     static FtpPutFileA(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
-        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
-        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+        lpszLocalFile := lpszLocalFile is String ? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String ? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
 
         A_LastError := 0
 
@@ -6318,19 +6321,19 @@ class WinInet {
     /**
      * Stores a file on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
-     * @param {Pointer<Char>} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
+     * @param {PWSTR} lpszLocalFile Pointer to a null-terminated string that contains the name of the file to be sent from the local system.
+     * @param {PWSTR} lpszNewRemoteFile Pointer to a null-terminated string that contains the name of the file to be created on the remote system.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that control how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This parameter is used only if the application has already called 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpputfilew
      * @since windows5.0
      */
     static FtpPutFileW(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
-        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
-        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+        lpszLocalFile := lpszLocalFile is String ? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String ? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
 
         A_LastError := 0
 
@@ -6344,17 +6347,17 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hFtpSession 
-     * @param {Pointer<Byte>} lpszRemoteFile 
-     * @param {Pointer<Char>} lpszNewFile 
-     * @param {Integer} fFailIfExists 
+     * @param {PSTR} lpszRemoteFile 
+     * @param {PWSTR} lpszNewFile 
+     * @param {BOOL} fFailIfExists 
      * @param {Integer} dwFlagsAndAttributes 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FtpGetFileEx(hFtpSession, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
-        lpszRemoteFile := lpszRemoteFile is String? StrPtr(lpszRemoteFile) : lpszRemoteFile
-        lpszNewFile := lpszNewFile is String? StrPtr(lpszNewFile) : lpszNewFile
+        lpszRemoteFile := lpszRemoteFile is String ? StrPtr(lpszRemoteFile) : lpszRemoteFile
+        lpszNewFile := lpszNewFile is String ? StrPtr(lpszNewFile) : lpszNewFile
 
         result := DllCall("WININET.dll\FtpGetFileEx", "ptr", hFtpSession, "ptr", lpszRemoteFile, "ptr", lpszNewFile, "int", fFailIfExists, "uint", dwFlagsAndAttributes, "uint", dwFlags, "ptr", dwContext, "int")
         return result
@@ -6363,15 +6366,15 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hFtpSession 
-     * @param {Pointer<Char>} lpszLocalFile 
-     * @param {Pointer<Byte>} lpszNewRemoteFile 
+     * @param {PWSTR} lpszLocalFile 
+     * @param {PSTR} lpszNewRemoteFile 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FtpPutFileEx(hFtpSession, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
-        lpszLocalFile := lpszLocalFile is String? StrPtr(lpszLocalFile) : lpszLocalFile
-        lpszNewRemoteFile := lpszNewRemoteFile is String? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
+        lpszLocalFile := lpszLocalFile is String ? StrPtr(lpszLocalFile) : lpszLocalFile
+        lpszNewRemoteFile := lpszNewRemoteFile is String ? StrPtr(lpszNewRemoteFile) : lpszNewRemoteFile
 
         result := DllCall("WININET.dll\FtpPutFileEx", "ptr", hFtpSession, "ptr", lpszLocalFile, "ptr", lpszNewRemoteFile, "uint", dwFlags, "ptr", dwContext, "int")
         return result
@@ -6381,14 +6384,14 @@ class WinInet {
      * Deletes a file stored on the FTP server.
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<Byte>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpdeletefilea
      * @since windows5.0
      */
     static FtpDeleteFileA(hConnect, lpszFileName) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -6403,14 +6406,14 @@ class WinInet {
      * Deletes a file stored on the FTP server.
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<Char>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpdeletefilew
      * @since windows5.0
      */
     static FtpDeleteFileW(hConnect, lpszFileName) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -6424,16 +6427,16 @@ class WinInet {
     /**
      * Renames a file stored on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
-     * @param {Pointer<Byte>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
+     * @param {PSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftprenamefilea
      * @since windows5.0
      */
     static FtpRenameFileA(hConnect, lpszExisting, lpszNew) {
-        lpszExisting := lpszExisting is String? StrPtr(lpszExisting) : lpszExisting
-        lpszNew := lpszNew is String? StrPtr(lpszNew) : lpszNew
+        lpszExisting := lpszExisting is String ? StrPtr(lpszExisting) : lpszExisting
+        lpszNew := lpszNew is String ? StrPtr(lpszNew) : lpszNew
 
         A_LastError := 0
 
@@ -6447,16 +6450,16 @@ class WinInet {
     /**
      * Renames a file stored on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
-     * @param {Pointer<Char>} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszExisting Pointer to a null-terminated string that contains the name of the file to be renamed.
+     * @param {PWSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftprenamefilew
      * @since windows5.0
      */
     static FtpRenameFileW(hConnect, lpszExisting, lpszNew) {
-        lpszExisting := lpszExisting is String? StrPtr(lpszExisting) : lpszExisting
-        lpszNew := lpszNew is String? StrPtr(lpszNew) : lpszNew
+        lpszExisting := lpszExisting is String ? StrPtr(lpszExisting) : lpszExisting
+        lpszNew := lpszNew is String ? StrPtr(lpszNew) : lpszNew
 
         A_LastError := 0
 
@@ -6470,7 +6473,7 @@ class WinInet {
     /**
      * Initiates access to a remote file on an FTP server for reading or writing.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
+     * @param {PSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that indicate how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
@@ -6481,7 +6484,7 @@ class WinInet {
      * @since windows5.0
      */
     static FtpOpenFileA(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -6495,7 +6498,7 @@ class WinInet {
     /**
      * Initiates access to a remote file on an FTP server for reading or writing.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
+     * @param {PWSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be accessed.
      * @param {Integer} dwAccess File  access. This parameter can be <b>GENERIC_READ</b> or <b>GENERIC_WRITE</b>, but not both.
      * @param {Integer} dwFlags Conditions under which the transfers occur. The application should select one transfer type and any of the flags that indicate how the caching of the file will be controlled.
      * @param {Pointer} dwContext Pointer to a variable that contains the application-defined value that associates this search with any application data. This is only used if the application has already called 
@@ -6506,7 +6509,7 @@ class WinInet {
      * @since windows5.0
      */
     static FtpOpenFileW(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -6521,15 +6524,15 @@ class WinInet {
      * Creates a new directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcreatedirectorya
      * @since windows5.0
      */
     static FtpCreateDirectoryA(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6544,15 +6547,15 @@ class WinInet {
      * Creates a new directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle returned by a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a> using <b>INTERNET_SERVICE_FTP</b>.
-     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be created. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcreatedirectoryw
      * @since windows5.0
      */
     static FtpCreateDirectoryW(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6566,15 +6569,15 @@ class WinInet {
     /**
      * Removes the specified directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpremovedirectorya
      * @since windows5.0
      */
     static FtpRemoveDirectoryA(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6588,15 +6591,15 @@ class WinInet {
     /**
      * Removes the specified directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to be removed. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpremovedirectoryw
      * @since windows5.0
      */
     static FtpRemoveDirectoryW(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6610,15 +6613,15 @@ class WinInet {
     /**
      * Changes to a different working directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpsetcurrentdirectorya
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryA(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6632,15 +6635,15 @@ class WinInet {
     /**
      * Changes to a different working directory on the FTP server.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszDirectory Pointer to a null-terminated string that contains the name of the directory to become the current working directory. This can be either a fully qualified path or a name relative to the current directory.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpsetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryW(hConnect, lpszDirectory) {
-        lpszDirectory := lpszDirectory is String? StrPtr(lpszDirectory) : lpszDirectory
+        lpszDirectory := lpszDirectory is String ? StrPtr(lpszDirectory) : lpszDirectory
 
         A_LastError := 0
 
@@ -6654,15 +6657,15 @@ class WinInet {
     /**
      * Retrieves the current directory for the specified FTP session.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Byte>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
+     * @param {PSTR} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<UInt32>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetcurrentdirectorya
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryA(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
-        lpszCurrentDirectory := lpszCurrentDirectory is String? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
+        lpszCurrentDirectory := lpszCurrentDirectory is String ? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
 
         A_LastError := 0
 
@@ -6676,15 +6679,15 @@ class WinInet {
     /**
      * Retrieves the current directory for the specified FTP session.
      * @param {Pointer<Void>} hConnect Handle to an FTP session.
-     * @param {Pointer<Char>} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
+     * @param {PWSTR} lpszCurrentDirectory Pointer to a null-terminated string that receives the absolute path of the current directory.
      * @param {Pointer<UInt32>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpgetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryW(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
-        lpszCurrentDirectory := lpszCurrentDirectory is String? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
+        lpszCurrentDirectory := lpszCurrentDirectory is String ? StrPtr(lpszCurrentDirectory) : lpszCurrentDirectory
 
         A_LastError := 0
 
@@ -6699,20 +6702,20 @@ class WinInet {
      * Sends commands directly to an FTP server.
      * @param {Pointer<Void>} hConnect A handle returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Integer} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
+     * @param {BOOL} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
+     * @param {PSTR} lpszCommand A pointer to a string that contains the command to send to the FTP server.
      * @param {Pointer} dwContext A pointer to a variable that contains an application-defined value used to identify the application context in callback operations.
      * @param {Pointer<Void>} phFtpCommand A pointer to a handle that is created if a valid data socket is opened. The 
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
      * <i>phFtpCommand</i> to be filled.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcommanda
      * @since windows5.0
      */
     static FtpCommandA(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
-        lpszCommand := lpszCommand is String? StrPtr(lpszCommand) : lpszCommand
+        lpszCommand := lpszCommand is String ? StrPtr(lpszCommand) : lpszCommand
 
         A_LastError := 0
 
@@ -6727,20 +6730,20 @@ class WinInet {
      * Sends commands directly to an FTP server.
      * @param {Pointer<Void>} hConnect A handle returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Integer} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
+     * @param {BOOL} fExpectResponse A Boolean value that indicates whether the application expects a data connection to be established by the FTP server. This must be set to <b>TRUE</b> if a data connection is expected, or <b>FALSE</b> otherwise.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Char>} lpszCommand A pointer to a string that contains the command to send to the FTP server.
+     * @param {PWSTR} lpszCommand A pointer to a string that contains the command to send to the FTP server.
      * @param {Pointer} dwContext A pointer to a variable that contains an application-defined value used to identify the application context in callback operations.
      * @param {Pointer<Void>} phFtpCommand A pointer to a handle that is created if a valid data socket is opened. The 
      * <i>fExpectResponse</i> parameter must be set to <b>TRUE</b> for 
      * <i>phFtpCommand</i> to be filled.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-ftpcommandw
      * @since windows5.0
      */
     static FtpCommandW(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
-        lpszCommand := lpszCommand is String? StrPtr(lpszCommand) : lpszCommand
+        lpszCommand := lpszCommand is String ? StrPtr(lpszCommand) : lpszCommand
 
         A_LastError := 0
 
@@ -6767,34 +6770,34 @@ class WinInet {
 
     /**
      * Creates a Gopher or Gopher+ locator string from the selector string's component parts.
-     * @param {Pointer<Byte>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
+     * @param {PSTR} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
      * <i>nServerPort</i> is <b>INTERNET_INVALID_PORT_NUMBER</b>, the default Gopher port is used.
-     * @param {Pointer<Byte>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
-     * @param {Pointer<Byte>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
+     * @param {PSTR} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
      * @param {Integer} dwGopherType Determines whether 
      * <i>lpszSelectorString</i> refers to a directory or document, and whether the request is Gopher+ or Gopher. The default value, GOPHER_TYPE_DIRECTORY, is used if the value of 
      * <i>dwGopherType</i> is zero. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @param {Pointer<Byte>} lpszLocator Pointer to a buffer  that receives the locator string. If 
+     * @param {PSTR} lpszLocator Pointer to a buffer  that receives the locator string. If 
      * <i>lpszLocator</i> is <b>NULL</b>, 
      * <i>lpdwBufferLength</i> receives the necessary buffer length, but the function performs no other processing.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the length of the 
      * <i>lpszLocator</i> buffer, in characters. When the function returns, this parameter receives the number of characters written to the 
      * buffer. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter receives the number of characters required.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophercreatelocatora
      * @since windows5.0
      */
     static GopherCreateLocatorA(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
-        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
-        lpszDisplayString := lpszDisplayString is String? StrPtr(lpszDisplayString) : lpszDisplayString
-        lpszSelectorString := lpszSelectorString is String? StrPtr(lpszSelectorString) : lpszSelectorString
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
+        lpszDisplayString := lpszDisplayString is String ? StrPtr(lpszDisplayString) : lpszDisplayString
+        lpszSelectorString := lpszSelectorString is String ? StrPtr(lpszSelectorString) : lpszSelectorString
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
 
         A_LastError := 0
 
@@ -6807,34 +6810,34 @@ class WinInet {
 
     /**
      * Creates a Gopher or Gopher+ locator string from the selector string's component parts.
-     * @param {Pointer<Char>} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
+     * @param {PWSTR} lpszHost Pointer to a <b>null</b>-terminated string that contains the name of the host, or a dotted-decimal IP address (such as 198.105.232.1).
      * @param {Integer} nServerPort Port number on which the Gopher server at 
      * <i>lpszHost</i> lives, in host byte order. If 
      * <i>nServerPort</i> is <b>INTERNET_INVALID_PORT_NUMBER</b>, the default Gopher port is used.
-     * @param {Pointer<Char>} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
-     * @param {Pointer<Char>} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpszDisplayString Pointer to a <b>null</b>-terminated string that contains the Gopher document or directory to be displayed. If this parameter is <b>NULL</b>, the function returns the default directory for the Gopher server.
+     * @param {PWSTR} lpszSelectorString Pointer to the selector string to send to the Gopher server in order to retrieve information. This parameter can be <b>NULL</b>.
      * @param {Integer} dwGopherType Determines whether 
      * <i>lpszSelectorString</i> refers to a directory or document, and whether the request is Gopher+ or Gopher. The default value, GOPHER_TYPE_DIRECTORY, is used if the value of 
      * <i>dwGopherType</i> is zero. This can be one of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @param {Pointer<Char>} lpszLocator Pointer to a buffer  that receives the locator string. If 
+     * @param {PWSTR} lpszLocator Pointer to a buffer  that receives the locator string. If 
      * <i>lpszLocator</i> is <b>NULL</b>, 
      * <i>lpdwBufferLength</i> receives the necessary buffer length, but the function performs no other processing.
      * @param {Pointer<UInt32>} lpdwBufferLength Pointer to a variable that contains the length of the 
      * <i>lpszLocator</i> buffer, in characters. When the function returns, this parameter receives the number of characters written to the 
      * buffer. If 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, this parameter receives the number of characters required.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophercreatelocatorw
      * @since windows5.0
      */
     static GopherCreateLocatorW(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
-        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
-        lpszDisplayString := lpszDisplayString is String? StrPtr(lpszDisplayString) : lpszDisplayString
-        lpszSelectorString := lpszSelectorString is String? StrPtr(lpszSelectorString) : lpszSelectorString
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
+        lpszDisplayString := lpszDisplayString is String ? StrPtr(lpszDisplayString) : lpszDisplayString
+        lpszSelectorString := lpszSelectorString is String ? StrPtr(lpszSelectorString) : lpszSelectorString
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
 
         A_LastError := 0
 
@@ -6847,16 +6850,16 @@ class WinInet {
 
     /**
      * Parses a Gopher locator and determines its attributes.
-     * @param {Pointer<Byte>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
+     * @param {PSTR} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<UInt32>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetlocatortypea
      * @since windows5.0
      */
     static GopherGetLocatorTypeA(lpszLocator, lpdwGopherType) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
 
         A_LastError := 0
 
@@ -6869,16 +6872,16 @@ class WinInet {
 
     /**
      * Parses a Gopher locator and determines its attributes.
-     * @param {Pointer<Char>} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
+     * @param {PWSTR} lpszLocator Pointer to a null-terminated string that specifies the Gopher locator to be parsed.
      * @param {Pointer<UInt32>} lpdwGopherType Pointer to a variable that receives the type of the locator. The type is a bitmask that consists of a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetlocatortypew
      * @since windows5.0
      */
     static GopherGetLocatorTypeW(lpszLocator, lpdwGopherType) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
 
         A_LastError := 0
 
@@ -6893,7 +6896,7 @@ class WinInet {
      * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
+     * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
      * 					
      * 
      * <ul>
@@ -6903,7 +6906,7 @@ class WinInet {
      * <li>Locator created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophercreatelocatora">GopherCreateLocator</a> function.</li>
      * </ul>
-     * @param {Pointer<Byte>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
+     * @param {PSTR} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
      * @param {Pointer<GOPHER_FIND_DATAA>} lpFindData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure that receives the information retrieved by this function.
      * @param {Integer} dwFlags 
@@ -6915,8 +6918,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherFindFirstFileA(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszSearchString := lpszSearchString is String? StrPtr(lpszSearchString) : lpszSearchString
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszSearchString := lpszSearchString is String ? StrPtr(lpszSearchString) : lpszSearchString
 
         A_LastError := 0
 
@@ -6931,7 +6934,7 @@ class WinInet {
      * Uses a Gopher locator and search criteria to create a session with the server and locate the requested documents, binary files, index servers, or directory trees.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
+     * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that contains the name of the item to locate. This can be one of the following: 
      * 					
      * 
      * <ul>
@@ -6941,7 +6944,7 @@ class WinInet {
      * <li>Locator created by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gophercreatelocatora">GopherCreateLocator</a> function.</li>
      * </ul>
-     * @param {Pointer<Char>} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
+     * @param {PWSTR} lpszSearchString Pointer to a buffer that contains the strings to search, if this request is to an index server. Otherwise, this parameter should be <b>NULL</b>.
      * @param {Pointer<GOPHER_FIND_DATAW>} lpFindData Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_find_dataa">GOPHER_FIND_DATA</a> structure that receives the information retrieved by this function.
      * @param {Integer} dwFlags 
@@ -6953,8 +6956,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherFindFirstFileW(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszSearchString := lpszSearchString is String? StrPtr(lpszSearchString) : lpszSearchString
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszSearchString := lpszSearchString is String ? StrPtr(lpszSearchString) : lpszSearchString
 
         A_LastError := 0
 
@@ -6969,10 +6972,10 @@ class WinInet {
      * Begins reading a Gopher data file from a Gopher server.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
+     * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>. Because the Gopher protocol has no concept of a current directory, the locator is always fully qualified.
-     * @param {Pointer<Byte>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
+     * @param {PSTR} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
      * <i>lpszView</i> is <b>NULL</b>, the function uses the default file view.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
@@ -6983,8 +6986,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherOpenFileA(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszView := lpszView is String? StrPtr(lpszView) : lpszView
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszView := lpszView is String ? StrPtr(lpszView) : lpszView
 
         A_LastError := 0
 
@@ -6999,10 +7002,10 @@ class WinInet {
      * Begins reading a Gopher data file from a Gopher server.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
+     * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that specifies the file to be opened. Generally, this locator is returned from a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-gopherfindfirstfilea">GopherFindFirstFile</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetfindnextfilea">InternetFindNextFile</a>. Because the Gopher protocol has no concept of a current directory, the locator is always fully qualified.
-     * @param {Pointer<Char>} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
+     * @param {PWSTR} lpszView Pointer to a <b>null</b>-terminated string that describes the view to open if several views of the file exist on the server. If 
      * <i>lpszView</i> is <b>NULL</b>, the function uses the default file view.
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext Pointer to a variable that contains an application-defined value that associates this operation with any application data.
@@ -7013,8 +7016,8 @@ class WinInet {
      * @since windows5.0
      */
     static GopherOpenFileW(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszView := lpszView is String? StrPtr(lpszView) : lpszView
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszView := lpszView is String ? StrPtr(lpszView) : lpszView
 
         A_LastError := 0
 
@@ -7029,8 +7032,8 @@ class WinInet {
      * Retrieves the specific attribute information from the server.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Byte>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
-     * @param {Pointer<Byte>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
+     * @param {PSTR} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
+     * @param {PSTR} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
      * <i>lpszAttributeName</i> is <b>NULL</b>, 
      * <b>GopherGetAttribute</b> returns information about all attributes.
      * @param {Pointer<Byte>} lpBuffer Pointer to an application-defined buffer from which attribute information is retrieved.
@@ -7047,15 +7050,15 @@ class WinInet {
      * The callback function receives the address of a single 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_attribute_type">GOPHER_ATTRIBUTE_TYPE</a> structure with each call. The enumeration callback function allows the application to avoid having to parse the Gopher attribute information.
      * @param {Pointer} dwContext Application-defined value that associates this operation with any application data.
-     * @returns {Integer} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetattributea
      * @since windows5.0
      */
     static GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszAttributeName := lpszAttributeName is String? StrPtr(lpszAttributeName) : lpszAttributeName
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszAttributeName := lpszAttributeName is String ? StrPtr(lpszAttributeName) : lpszAttributeName
 
         A_LastError := 0
 
@@ -7070,8 +7073,8 @@ class WinInet {
      * Retrieves the specific attribute information from the server.
      * @param {Pointer<Void>} hConnect Handle to a Gopher session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Char>} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
-     * @param {Pointer<Char>} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
+     * @param {PWSTR} lpszLocator Pointer to a <b>null</b>-terminated string that identifies the item at the Gopher server on which to return attribute information.
+     * @param {PWSTR} lpszAttributeName Pointer to a space-delimited string specifying the names of attributes to return. If 
      * <i>lpszAttributeName</i> is <b>NULL</b>, 
      * <b>GopherGetAttribute</b> returns information about all attributes.
      * @param {Pointer<Byte>} lpBuffer Pointer to an application-defined buffer from which attribute information is retrieved.
@@ -7088,15 +7091,15 @@ class WinInet {
      * The callback function receives the address of a single 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-gopher_attribute_type">GOPHER_ATTRIBUTE_TYPE</a> structure with each call. The enumeration callback function allows the application to avoid having to parse the Gopher attribute information.
      * @param {Pointer} dwContext Application-defined value that associates this operation with any application data.
-     * @returns {Integer} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-gophergetattributew
      * @since windows5.0
      */
     static GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
-        lpszLocator := lpszLocator is String? StrPtr(lpszLocator) : lpszLocator
-        lpszAttributeName := lpszAttributeName is String? StrPtr(lpszAttributeName) : lpszAttributeName
+        lpszLocator := lpszLocator is String ? StrPtr(lpszLocator) : lpszLocator
+        lpszAttributeName := lpszAttributeName is String ? StrPtr(lpszAttributeName) : lpszAttributeName
 
         A_LastError := 0
 
@@ -7111,9 +7114,9 @@ class WinInet {
      * Creates an HTTP request handle.
      * @param {Pointer<Void>} hConnect A  handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Byte>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
-     * @param {Pointer<Byte>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
-     * @param {Pointer<Byte>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
+     * @param {PSTR} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
+     * @param {PSTR} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
+     * @param {PSTR} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
      * 
      * If this parameter is <b>NULL</b>, the function uses an HTTP version of 1.1 or 1.0, depending on the value of the Internet Explorer settings. 
      * 
@@ -7143,8 +7146,8 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
-     * @param {Pointer<Byte>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
+     * @param {PSTR} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
+     * @param {Pointer<PSTR>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
      * 
      * <c>PCTSTR rgpszAcceptTypes[] = {_T("text//"), NULL};</c>
      * 
@@ -7159,10 +7162,10 @@ class WinInet {
      * @since windows5.0
      */
     static HttpOpenRequestA(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
-        lpszVerb := lpszVerb is String? StrPtr(lpszVerb) : lpszVerb
-        lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
-        lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
-        lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
+        lpszVerb := lpszVerb is String ? StrPtr(lpszVerb) : lpszVerb
+        lpszObjectName := lpszObjectName is String ? StrPtr(lpszObjectName) : lpszObjectName
+        lpszVersion := lpszVersion is String ? StrPtr(lpszVersion) : lpszVersion
+        lpszReferrer := lpszReferrer is String ? StrPtr(lpszReferrer) : lpszReferrer
 
         A_LastError := 0
 
@@ -7177,9 +7180,9 @@ class WinInet {
      * Creates an HTTP request handle.
      * @param {Pointer<Void>} hConnect A handle to an HTTP session returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetconnecta">InternetConnect</a>.
-     * @param {Pointer<Char>} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
-     * @param {Pointer<Char>} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
-     * @param {Pointer<Char>} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
+     * @param {PWSTR} lpszVerb A pointer to a <b>null</b>-terminated string that contains the HTTP verb to use in the request. If this parameter is <b>NULL</b>, the function uses GET as the HTTP verb.
+     * @param {PWSTR} lpszObjectName A pointer to a <b>null</b>-terminated string that contains the name of the target object of the specified HTTP verb. This is generally a file name, an executable module, or a search specifier.
+     * @param {PWSTR} lpszVersion A pointer to a <b>null</b>-terminated string that contains the HTTP version to use in the request. Settings in Internet Explorer will override the value specified in this parameter. 
      * 
      * If this parameter is <b>NULL</b>, the function uses an HTTP version of 1.1 or 1.0, depending on the value of the Internet Explorer settings. 
      * 
@@ -7209,8 +7212,8 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
-     * @param {Pointer<Char>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
+     * @param {PWSTR} lpszReferrer A pointer to a <b>null</b>-terminated string that specifies the URL of the document from which the URL in the request (<i>lpszObjectName</i>) was obtained. If this parameter is <b>NULL</b>, no referrer is specified.
+     * @param {Pointer<PWSTR>} lplpszAcceptTypes A pointer to a <b>null</b>-terminated array of strings that indicates media types accepted by the client. Here is an example.
      * 
      * <c>PCTSTR rgpszAcceptTypes[] = {_T("text//"), NULL};</c>
      * 
@@ -7225,10 +7228,10 @@ class WinInet {
      * @since windows5.0
      */
     static HttpOpenRequestW(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
-        lpszVerb := lpszVerb is String? StrPtr(lpszVerb) : lpszVerb
-        lpszObjectName := lpszObjectName is String? StrPtr(lpszObjectName) : lpszObjectName
-        lpszVersion := lpszVersion is String? StrPtr(lpszVersion) : lpszVersion
-        lpszReferrer := lpszReferrer is String? StrPtr(lpszReferrer) : lpszReferrer
+        lpszVerb := lpszVerb is String ? StrPtr(lpszVerb) : lpszVerb
+        lpszObjectName := lpszObjectName is String ? StrPtr(lpszObjectName) : lpszObjectName
+        lpszVersion := lpszVersion is String ? StrPtr(lpszVersion) : lpszVersion
+        lpszReferrer := lpszReferrer is String ? StrPtr(lpszReferrer) : lpszReferrer
 
         A_LastError := 0
 
@@ -7243,18 +7246,18 @@ class WinInet {
      * Adds one or more HTTP request headers to the HTTP request handle.
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<Byte>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
+     * @param {PSTR} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
      * @param {Integer} dwHeadersLength The size of 
      * <i>lpszHeaders</i>, in <b>TCHARs</b>. If this parameter is -1L, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
      * @param {Integer} dwModifiers 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpaddrequestheadersa
      * @since windows5.0
      */
     static HttpAddRequestHeadersA(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -7269,18 +7272,18 @@ class WinInet {
      * Adds one or more HTTP request headers to the HTTP request handle.
      * @param {Pointer<Void>} hRequest A handle returned by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<Char>} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
+     * @param {PWSTR} lpszHeaders A pointer to a string variable containing the headers to append to the request. Each header must be terminated by a CR/LF (carriage return/line feed) pair.
      * @param {Integer} dwHeadersLength The size of 
      * <i>lpszHeaders</i>, in <b>TCHARs</b>. If this parameter is -1L, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is computed.
      * @param {Integer} dwModifiers 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpaddrequestheadersw
      * @since windows5.0
      */
     static HttpAddRequestHeadersW(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -7295,19 +7298,19 @@ class WinInet {
      * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx.
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<Byte>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
+     * @param {PSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
      * <i>lpszHeaders</i> is not <b>NULL</b>, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated. See Remarks for specifics.
      * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequesta
      * @since windows5.0
      */
     static HttpSendRequestA(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -7322,19 +7325,19 @@ class WinInet {
      * Sends the specified request to the HTTP server, allowing callers to send extra data beyond what is normally passed to HttpSendRequestEx.
      * @param {Pointer<Void>} hRequest A handle returned by 
      * a call to the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpopenrequesta">HttpOpenRequest</a> function.
-     * @param {Pointer<Char>} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
+     * @param {PWSTR} lpszHeaders A pointer to a <b>null</b>-terminated string  that contains the additional headers to be appended to the request. This parameter can be <b>NULL</b> if there are no additional headers to be appended.
      * @param {Integer} dwHeadersLength The size of the additional headers, in <b>TCHARs</b>. If this parameter is -1L and 
      * <i>lpszHeaders</i> is not <b>NULL</b>, the function assumes that 
      * <i>lpszHeaders</i> is zero-terminated (ASCIIZ), and the length is calculated. See Remarks for specifics.
      * @param {Pointer} lpOptional A pointer to a buffer containing any optional data to be sent immediately after the request headers. This parameter is generally used for POST and PUT operations. The optional data can be the resource or information being posted to the server. This parameter can be <b>NULL</b> if there is no optional data to send.
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpsendrequestw
      * @since windows5.0
      */
     static HttpSendRequestW(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
-        lpszHeaders := lpszHeaders is String? StrPtr(lpszHeaders) : lpszHeaders
+        lpszHeaders := lpszHeaders is String ? StrPtr(lpszHeaders) : lpszHeaders
 
         A_LastError := 0
 
@@ -7355,7 +7358,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSA>} lpBuffersOut Reserved. Must be <b>NULL</b>.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @param {Pointer} dwContext Application-defined context value, if a status callback function has been registered.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -7383,7 +7386,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSW>} lpBuffersOut Reserved. Must be <b>NULL</b>.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @param {Pointer} dwContext Application-defined context value, if a status callback function has been registered.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -7409,7 +7412,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSA>} lpBuffersOut This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} dwFlags This parameter is reserved and must be set to 0.
      * @param {Pointer} dwContext This parameter is reserved and must be set to 0.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -7435,7 +7438,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSW>} lpBuffersOut This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} dwFlags This parameter is reserved and must be set to 0.
      * @param {Pointer} dwContext This parameter is reserved and must be set to 0.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -7468,7 +7471,7 @@ class WinInet {
      * When the function  
      * 					fails with an extended error code of <b>ERROR_INSUFFICIENT_BUFFER</b>, the variable pointed to by <i>lpdwBufferLength</i> contains on exit the size, in bytes, of a buffer large enough to receive the requested information. The calling application can then allocate a buffer of this size or larger, and call the function again.
      * @param {Pointer<UInt32>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpqueryinfoa
      * @since windows5.0
@@ -7498,7 +7501,7 @@ class WinInet {
      * When the function  
      * 					fails with an extended error code of <b>ERROR_INSUFFICIENT_BUFFER</b>, the variable pointed to by <i>lpdwBufferLength</i> contains on exit the size, in bytes, of a buffer large enough to receive the requested information. The calling application can then allocate a buffer of this size or larger, and call the function again.
      * @param {Pointer<UInt32>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-httpqueryinfow
      * @since windows5.0
@@ -7515,18 +7518,18 @@ class WinInet {
 
     /**
      * Creates a cookie associated with the specified URL.
-     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
-     * @param {Pointer<Byte>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
-     * @param {Pointer<Byte>} lpszCookieData Pointer to the actual data to be associated with the URL.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
+     * @param {PSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
+     * @param {PSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookiea
      * @since windows5.0
      */
     static InternetSetCookieA(lpszUrl, lpszCookieName, lpszCookieData) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7539,18 +7542,18 @@ class WinInet {
 
     /**
      * Creates a cookie associated with the specified URL.
-     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
-     * @param {Pointer<Char>} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
-     * @param {Pointer<Char>} lpszCookieData Pointer to the actual data to be associated with the URL.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
+     * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL for which the cookie should be set.
+     * @param {PWSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that specifies the name to be associated with the cookie data. If this parameter is <b>NULL</b>, no name is associated with the cookie.
+     * @param {PWSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookiew
      * @since windows5.0
      */
     static InternetSetCookieW(lpszUrl, lpszCookieName, lpszCookieData) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7563,14 +7566,14 @@ class WinInet {
 
     /**
      * Retrieves the cookie for the specified URL.
-     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
-     * @param {Pointer<Byte>} lpszCookieName Not implemented.
-     * @param {Pointer<Byte>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
+     * @param {PSTR} lpszCookieName Not implemented.
+     * @param {PSTR} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the 
      * <i>lpszCookieData</i> parameter buffer, in TCHARs. If the function succeeds, the buffer receives the amount of data copied to the 
      * <i>lpszCookieData</i> buffer. If 
      * <i>lpszCookieData</i> is <b>NULL</b>, this parameter receives a value that specifies the size of the buffer necessary to copy all the cookie data, expressed as a byte count.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error data, call 
@@ -7626,9 +7629,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetCookieA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7641,14 +7644,14 @@ class WinInet {
 
     /**
      * Retrieves the cookie for the specified URL.
-     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
-     * @param {Pointer<Char>} lpszCookieName Not implemented.
-     * @param {Pointer<Char>} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that specifies the URL for which cookies are to be retrieved.
+     * @param {PWSTR} lpszCookieName Not implemented.
+     * @param {PWSTR} lpszCookieData A pointer to a buffer that receives the cookie data. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the 
      * <i>lpszCookieData</i> parameter buffer, in TCHARs. If the function succeeds, the buffer receives the amount of data copied to the 
      * <i>lpszCookieData</i> buffer. If 
      * <i>lpszCookieData</i> is <b>NULL</b>, this parameter receives a value that specifies the size of the buffer necessary to copy all the cookie data, expressed as a byte count.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error data, call 
@@ -7704,9 +7707,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGetCookieW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7719,12 +7722,12 @@ class WinInet {
 
     /**
      * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies.
-     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
+     * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<Byte>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
+     * @param {PSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
      *       If this pointer is <b>NULL</b>, then no name is associated with the cookie.
-     * @param {Pointer<Byte>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
+     * @param {PSTR} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags Flags that control how the function retrieves cookie data:
@@ -7790,9 +7793,9 @@ class WinInet {
      * @since windows5.1.2600
      */
     static InternetSetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7805,12 +7808,12 @@ class WinInet {
 
     /**
      * The InternetSetCookieEx function creates a cookie with a specified name that is associated with a specified URL. This function differs from the InternetSetCookie function by being able to create third-party cookies.
-     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
+     * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that contains the URL for which the cookie should be set. 
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<Char>} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
+     * @param {PWSTR} lpszCookieName Pointer to a <b>null</b>-terminated string that  contains the name to associate with this cookie.
      *       If this pointer is <b>NULL</b>, then no name is associated with the cookie.
-     * @param {Pointer<Char>} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
+     * @param {PWSTR} lpszCookieData Pointer to a <b>null</b>-terminated string that contains the data to be associated with the new cookie.
      * 
      * If this pointer is <b>NULL</b>, <b>InternetSetCookieEx</b> fails with an <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags Flags that control how the function retrieves cookie data:
@@ -7876,9 +7879,9 @@ class WinInet {
      * @since windows5.1.2600
      */
     static InternetSetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7891,9 +7894,9 @@ class WinInet {
 
     /**
      * Retrieves data stored in cookies associated with a specified URL.
-     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<Byte>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
-     * @param {Pointer<Byte>} lpszCookieData A pointer to a buffer to receive the cookie data.
+     * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
+     * @param {PSTR} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
+     * @param {PSTR} lpszCookieData A pointer to a buffer to receive the cookie data.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a DWORD variable. 
      * 
      * On entry, the variable must contain the size, in TCHARs, of the buffer pointed to by the <i>pchCookieData</i> parameter.
@@ -7902,7 +7905,7 @@ class WinInet {
      * 
      * This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get a specific error value, call 
@@ -7958,9 +7961,9 @@ class WinInet {
     static InternetGetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -7973,9 +7976,9 @@ class WinInet {
 
     /**
      * Retrieves data stored in cookies associated with a specified URL.
-     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
-     * @param {Pointer<Char>} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
-     * @param {Pointer<Char>} lpszCookieData A pointer to a buffer to receive the cookie data.
+     * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the URL with which the cookie to retrieve is associated. This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
+     * @param {PWSTR} lpszCookieName A pointer to a <b>null</b>-terminated string that contains the name of the cookie to retrieve. This name is case-sensitive.
+     * @param {PWSTR} lpszCookieData A pointer to a buffer to receive the cookie data.
      * @param {Pointer<UInt32>} lpdwSize A pointer to a DWORD variable. 
      * 
      * On entry, the variable must contain the size, in TCHARs, of the buffer pointed to by the <i>pchCookieData</i> parameter.
@@ -7984,7 +7987,7 @@ class WinInet {
      * 
      * This parameter cannot be <b>NULL</b> or <b>InternetGetCookieEx</b> fails and returns an  <b>ERROR_INVALID_PARAMETER</b> error.
      * @param {Integer} dwFlags 
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get a specific error value, call 
@@ -8040,9 +8043,9 @@ class WinInet {
     static InternetGetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieName := lpszCookieName is String? StrPtr(lpszCookieName) : lpszCookieName
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieName := lpszCookieName is String ? StrPtr(lpszCookieName) : lpszCookieName
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         A_LastError := 0
 
@@ -8072,8 +8075,8 @@ class WinInet {
 
     /**
      * Retrieves one or more cookies associated with the specified URL.
-     * @param {Pointer<Char>} pcwszUrl The URL for which to retrieve cookies.
-     * @param {Pointer<Char>} pcwszCookieName The name of the cookie to retrieve. May be NULL.
+     * @param {PWSTR} pcwszUrl The URL for which to retrieve cookies.
+     * @param {PWSTR} pcwszCookieName The name of the cookie to retrieve. May be NULL.
      * @param {Integer} dwFlags Flags of the cookie to retrieve. The following flags are available.
      * 
      * | Value | Meaning |
@@ -8088,8 +8091,8 @@ class WinInet {
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetcookieex2
      */
     static InternetGetCookieEx2(pcwszUrl, pcwszCookieName, dwFlags, ppCookies, pdwCookieCount) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
-        pcwszCookieName := pcwszCookieName is String? StrPtr(pcwszCookieName) : pcwszCookieName
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszCookieName := pcwszCookieName is String ? StrPtr(pcwszCookieName) : pcwszCookieName
 
         result := DllCall("WININET.dll\InternetGetCookieEx2", "ptr", pcwszUrl, "ptr", pcwszCookieName, "uint", dwFlags, "ptr", ppCookies, "uint*", pdwCookieCount, "uint")
         return result
@@ -8097,9 +8100,9 @@ class WinInet {
 
     /**
      * Creates a cookie associated with the specified URL.
-     * @param {Pointer<Char>} pcwszUrl The URL for which to set the cookie.
+     * @param {PWSTR} pcwszUrl The URL for which to set the cookie.
      * @param {Pointer<INTERNET_COOKIE2>} pCookie Pointer to an [INTERNET\_COOKIE2](ns-wininet-internet_cookie2.md) structure containing the cookie data.
-     * @param {Pointer<Char>} pcwszP3PPolicy String containing the Platform-for-Privacy-Protection (P3P) policy for the cookie. May be NULL.
+     * @param {PWSTR} pcwszP3PPolicy String containing the Platform-for-Privacy-Protection (P3P) policy for the cookie. May be NULL.
      * @param {Integer} dwFlags Flags for the cookie to be set. The following flags are available.
      * 
      * | Value | Meaning |
@@ -8114,8 +8117,8 @@ class WinInet {
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetcookieex2
      */
     static InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCookieState) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
-        pcwszP3PPolicy := pcwszP3PPolicy is String? StrPtr(pcwszP3PPolicy) : pcwszP3PPolicy
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszP3PPolicy := pcwszP3PPolicy is String ? StrPtr(pcwszP3PPolicy) : pcwszP3PPolicy
 
         result := DllCall("WININET.dll\InternetSetCookieEx2", "ptr", pcwszUrl, "ptr", pCookie, "ptr", pcwszP3PPolicy, "uint", dwFlags, "uint*", pdwCookieState, "uint")
         return result
@@ -8135,7 +8138,7 @@ class WinInet {
 
     /**
      * Allows an application to check if a connection to the Internet can be established.
-     * @param {Pointer<Byte>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
+     * @param {PSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
      * <ul>
@@ -8145,14 +8148,14 @@ class WinInet {
      * <i>lpszUrl</i> is <b>NULL</b> and there is an entry in the internal server database for the nearest server, the host value is extracted from the entry and used to ping that server.</li>
      * </ul>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
+     * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcheckconnectiona
      * @since windows5.0
      */
     static InternetCheckConnectionA(lpszUrl, dwFlags, dwReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -8165,7 +8168,7 @@ class WinInet {
 
     /**
      * Allows an application to check if a connection to the Internet can be established.
-     * @param {Pointer<Char>} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
+     * @param {PWSTR} lpszUrl Pointer to a <b>null</b>-terminated string that specifies the URL to use to check the connection. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags Options. FLAG_ICC_FORCE_CONNECTION is the only flag that is currently available. If this flag is set, it forces a connection. A sockets connection is attempted in the following order:
      * 
      * <ul>
@@ -8175,14 +8178,14 @@ class WinInet {
      * <i>lpszUrl</i> is <b>NULL</b> and there is an entry in the internal server database for the nearest server, the host value is extracted from the entry and used to ping that server.</li>
      * </ul>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
+     * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetcheckconnectionw
      * @since windows5.0
      */
     static InternetCheckConnectionW(lpszUrl, dwFlags, dwReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         A_LastError := 0
 
@@ -8197,7 +8200,7 @@ class WinInet {
      * The ResumeSuspendedDownload function resumes a request that is suspended by a user interface dialog box.
      * @param {Pointer<Void>} hRequest Handle of the request that is suspended by a user interface dialog box.
      * @param {Integer} dwResultCode The error result returned from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>, or zero if a different dialog  is  invoked.
-     * @returns {Integer} Returns <b>TRUE</b> if successful; otherwise  <b>FALSE</b>. Call
+     * @returns {BOOL} Returns <b>TRUE</b> if successful; otherwise  <b>FALSE</b>. Call
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-resumesuspendeddownload
      * @since windows5.0
@@ -8214,7 +8217,7 @@ class WinInet {
 
     /**
      * Displays a dialog box for the error that is passed to InternetErrorDlg, if an appropriate dialog box exists.
-     * @param {Pointer<Void>} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
+     * @param {HWND} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} hRequest Handle to the Internet connection used in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a>.
      * @param {Integer} dwError 
@@ -8278,16 +8281,18 @@ class WinInet {
      * @since windows5.0
      */
     static InternetErrorDlg(hWnd, hRequest, dwError, dwFlags, lppvData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd, "ptr", hRequest, "uint", dwError, "uint", dwFlags, "ptr", lppvData, "uint")
         return result
     }
 
     /**
      * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
-     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<Byte>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<Byte>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
-     * @param {Integer} bPost Not implemented.
+     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {BOOL} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
      * <table>
@@ -8333,8 +8338,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
-        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
-        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+        szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -8342,10 +8348,10 @@ class WinInet {
 
     /**
      * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
-     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<Char>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<Char>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
-     * @param {Integer} bPost Not implemented.
+     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {PWSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {PWSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {BOOL} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
      * <table>
@@ -8391,8 +8397,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
-        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
-        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+        szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -8400,10 +8407,10 @@ class WinInet {
 
     /**
      * Checks for changes between secure and nonsecure URLs. Always inform the user when a change occurs in security between two URLs. Typically, an application should allow the user to acknowledge the change through interaction with a dialog box.
-     * @param {Pointer<Void>} hWnd Handle to the parent window for any required dialog box.
-     * @param {Pointer<Byte>} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
-     * @param {Pointer<Byte>} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
-     * @param {Integer} bPost Not implemented.
+     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
+     * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
+     * @param {BOOL} bPost Not implemented.
      * @returns {Integer} Returns one of the following values.
      * 
      * <table>
@@ -8449,8 +8456,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
-        szUrlPrev := szUrlPrev is String? StrPtr(szUrlPrev) : szUrlPrev
-        szUrlNew := szUrlNew is String? StrPtr(szUrlNew) : szUrlNew
+        szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
+        szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -8458,12 +8466,12 @@ class WinInet {
 
     /**
      * Creates a local file name for saving the cache entry based on the specified URL and the file name extension.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
+     * @param {PSTR} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
-     * @param {Pointer<Byte>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
-     * @param {Pointer<Byte>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
+     * @param {PSTR} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
+     * @param {PSTR} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -8472,9 +8480,9 @@ class WinInet {
      * @since windows5.0
      */
     static CreateUrlCacheEntryA(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
-        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -8487,12 +8495,12 @@ class WinInet {
 
     /**
      * Creates a local file name for saving the cache entry based on the specified URL and the file name extension.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
+     * @param {PWSTR} lpszUrlName Pointer to a string value that contains the name of the URL. The string must contain a value; an empty string will cause <b>CreateUrlCacheEntry</b> to fail. In addition, the string must not contain any escape characters.
      * @param {Integer} dwExpectedFileSize Expected size of the file needed to store the data that corresponds to the source entity, in <b>TCHARs</b>. If the expected size is unknown, set this value to zero.
-     * @param {Pointer<Char>} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
-     * @param {Pointer<Char>} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
+     * @param {PWSTR} lpszFileExtension Pointer to a string value that contains an extension name of the file in the local storage.
+     * @param {PWSTR} lpszFileName Pointer to a buffer that receives the file name. The buffer should be large enough  to store the path of the created file (at least MAX_PATH  characters in length).
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -8501,9 +8509,9 @@ class WinInet {
      * @since windows5.0
      */
     static CreateUrlCacheEntryW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
-        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         A_LastError := 0
 
@@ -8516,11 +8524,11 @@ class WinInet {
 
     /**
      * Stores data in the specified file in the Internet cache and associates it with the specified URL.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
-     * @param {Pointer<Byte>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
+     * @param {PSTR} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
+     * @param {PSTR} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryA</b>.
-     * @param {Pointer} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
-     * @param {Pointer} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
+     * @param {FILETIME} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
+     * @param {FILETIME} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
      * @param {Integer} CacheEntryType A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
      * This parameter can be zero or more of the following property flags, and  cache type flags listed below.
@@ -8625,8 +8633,8 @@ class WinInet {
      * <i>lpHeaderInfo</i> is not <b>NULL</b>, this value is assumed to indicate the size of the buffer that  stores the header information. An application can maintain headers as part of the data and provide 
      * <i>cchHeaderInfo</i> together with a <b>NULL</b> value for 
      * <i>lpHeaderInfo</i>.
-     * @param {Pointer<Byte>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PSTR} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
@@ -8663,10 +8671,10 @@ class WinInet {
     static CommitUrlCacheEntryA(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
         static lpszFileExtension := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
-        lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
-        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
-        lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
+        lpszLocalFileName := lpszLocalFileName is String ? StrPtr(lpszLocalFileName) : lpszLocalFileName
+        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszOriginalUrl := lpszOriginalUrl is String ? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
 
@@ -8679,11 +8687,11 @@ class WinInet {
 
     /**
      * Stores data in the specified file in the Internet cache and associates it with the specified URL.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
-     * @param {Pointer<Char>} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
+     * @param {PWSTR} lpszUrlName Pointer to a string variable that contains the source name of the cache entry. The name string must be unique and should not contain any escape characters.
+     * @param {PWSTR} lpszLocalFileName Pointer to a string variable that contains the name of the local file that is being cached. This should be the same name as that returned by 
      * <b>CreateUrlCacheEntryW</b>.
-     * @param {Pointer} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
-     * @param {Pointer} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
+     * @param {FILETIME} ExpireTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the expire date and time (in Greenwich mean time) of the file that is being cached. If the expire date and time is unknown, set this parameter to zero.
+     * @param {FILETIME} LastModifiedTime <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that contains the last modified date and time (in Greenwich mean time) of the URL that is being cached. If the last modified date and time is unknown, set this parameter to zero.
      * @param {Integer} CacheEntryType A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
      * This parameter can be zero or more of the following property flags, and  cache type flags listed below.
@@ -8782,15 +8790,15 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpszHeaderInfo Pointer to the buffer that contains the header information. If this parameter is not <b>NULL</b>, the header information is treated as extended attributes of the URL that are returned in the 
+     * @param {PWSTR} lpszHeaderInfo Pointer to the buffer that contains the header information. If this parameter is not <b>NULL</b>, the header information is treated as extended attributes of the URL that are returned in the 
      * <b>lpHeaderInfo</b> 
      * member of the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Integer} cchHeaderInfo Size of the header information, in <b>TCHARs</b>. If 
      * <i>lpHeaderInfo</i> is not <b>NULL</b>, this value is assumed to indicate the size of the buffer that  stores the header information. An application can maintain headers as part of the data and provide 
      * <i>cchHeaderInfo</i> together with a <b>NULL</b> value for 
      * <i>lpHeaderInfo</i>.
-     * @param {Pointer<Char>} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PWSTR} lpszOriginalUrl Pointer to a string  that contains the original URL, if redirection has occurred.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
      * 
      * <table>
@@ -8827,11 +8835,11 @@ class WinInet {
     static CommitUrlCacheEntryW(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpszHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
         static lpszFileExtension := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
-        lpszLocalFileName := lpszLocalFileName is String? StrPtr(lpszLocalFileName) : lpszLocalFileName
-        lpszHeaderInfo := lpszHeaderInfo is String? StrPtr(lpszHeaderInfo) : lpszHeaderInfo
-        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
-        lpszOriginalUrl := lpszOriginalUrl is String? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
+        lpszLocalFileName := lpszLocalFileName is String ? StrPtr(lpszLocalFileName) : lpszLocalFileName
+        lpszHeaderInfo := lpszHeaderInfo is String ? StrPtr(lpszHeaderInfo) : lpszHeaderInfo
+        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszOriginalUrl := lpszOriginalUrl is String ? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
 
@@ -8844,12 +8852,12 @@ class WinInet {
 
     /**
      * Locks the cache entry file associated with the specified URL.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {PSTR} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
      * 
      * <table>
@@ -8889,7 +8897,7 @@ class WinInet {
     static RetrieveUrlCacheEntryFileA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -8902,12 +8910,12 @@ class WinInet {
 
     /**
      * Locks the cache entry file associated with the specified URL.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {PWSTR} lpszUrlName Pointer to a string that contains the URL of the resource associated with the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to a cache entry information buffer. If the buffer is not sufficient, this function returns ERROR_INSUFFICIENT_BUFFER and sets 
      * <i>lpdwCacheEntryInfoBufferSize</i> to the number of bytes required.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to an unsigned long integer variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the size, in bytes, of the actual buffer used or the number of bytes required to retrieve the cache entry file. The caller should check the return value in this parameter. If the return size is less than or equal to the size passed in, all the relevant data has been returned.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include:
      * 
      * <table>
@@ -8947,7 +8955,7 @@ class WinInet {
     static RetrieveUrlCacheEntryFileW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -8960,8 +8968,8 @@ class WinInet {
 
     /**
      * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfilea
      * @since windows5.0
@@ -8969,7 +8977,7 @@ class WinInet {
     static UnlockUrlCacheEntryFileA(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -8982,8 +8990,8 @@ class WinInet {
 
     /**
      * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PWSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfilew
      * @since windows5.0
@@ -8991,7 +8999,7 @@ class WinInet {
     static UnlockUrlCacheEntryFileW(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9004,8 +9012,8 @@ class WinInet {
 
     /**
      * Unlocks the cache entry that was locked while the file was retrieved for use from the cache.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentryfile
      * @since windows5.0
@@ -9013,7 +9021,7 @@ class WinInet {
     static UnlockUrlCacheEntryFile(lpszUrlName) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9026,13 +9034,13 @@ class WinInet {
 
     /**
      * Provides the most efficient and implementation-independent way to access the cache data.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {PSTR} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size, in bytes, of the 
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
-     * @param {Integer} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
-     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid handle for use in the 
+     * @param {BOOL} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
+     * @returns {HANDLE} If the function succeeds, the function returns a valid handle for use in the 
      * <a href="/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
      * <a href="/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
@@ -9078,7 +9086,7 @@ class WinInet {
     static RetrieveUrlCacheEntryStreamA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9086,18 +9094,18 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Provides the most efficient and implementation-independent way to access the cache data.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
+     * @param {PWSTR} lpszUrlName Pointer to a null-terminated string that contains the source name of the cache entry. This must be a unique name. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size, in bytes, of the 
      * <i>lpCacheEntryInfo</i> buffer. When the function returns, the variable receives the number of bytes copied to the buffer or the required size, in bytes, of the buffer. Note that this buffer size must accommodate both the <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure and the associated strings that are stored immediately following it.
-     * @param {Integer} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
-     * @returns {Pointer<Void>} If the function succeeds, the function returns a valid handle for use in the 
+     * @param {BOOL} fRandomRead Whether the stream is open for random access. Set the flag to <b>TRUE</b> to open the stream for random access.
+     * @returns {HANDLE} If the function succeeds, the function returns a valid handle for use in the 
      * <a href="/windows/desktop/api/wininet/nf-wininet-readurlcacheentrystream">ReadUrlCacheEntryStream</a> and 
      * <a href="/windows/desktop/api/wininet/nf-wininet-unlockurlcacheentrystream">UnlockUrlCacheEntryStream</a> functions.
      * 
@@ -9143,7 +9151,7 @@ class WinInet {
     static RetrieveUrlCacheEntryStreamW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9151,24 +9159,26 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Reads the cached data from a stream that has been opened using the RetrieveUrlCacheEntryStream function.
-     * @param {Pointer<Void>} hUrlCacheStream Handle that was returned by the 
+     * @param {HANDLE} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @param {Integer} dwLocation Offset to be read from.
      * @param {Pointer} lpBuffer Pointer to a buffer that receives the data.
      * @param {Pointer<UInt32>} lpdwLen Pointer to a  variable that specifies the size of the 
      * <i>lpBuffer</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-readurlcacheentrystream
      * @since windows5.0
      */
     static ReadUrlCacheEntryStream(hUrlCacheStream, dwLocation, lpBuffer, lpdwLen) {
         static Reserved := 0 ;Reserved parameters must always be NULL
+
+        hUrlCacheStream := hUrlCacheStream is Win32Handle ? NumGet(hUrlCacheStream, "ptr") : hUrlCacheStream
 
         A_LastError := 0
 
@@ -9181,28 +9191,32 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hUrlCacheStream 
+     * @param {HANDLE} hUrlCacheStream 
      * @param {Integer} qwLocation 
      * @param {Pointer} lpBuffer 
      * @param {Pointer<UInt32>} lpdwLen 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReadUrlCacheEntryStreamEx(hUrlCacheStream, qwLocation, lpBuffer, lpdwLen) {
+        hUrlCacheStream := hUrlCacheStream is Win32Handle ? NumGet(hUrlCacheStream, "ptr") : hUrlCacheStream
+
         result := DllCall("WININET.dll\ReadUrlCacheEntryStreamEx", "ptr", hUrlCacheStream, "uint", qwLocation, "ptr", lpBuffer, "uint*", lpdwLen, "int")
         return result
     }
 
     /**
      * Closes the stream that has been retrieved using the RetrieveUrlCacheEntryStream function.
-     * @param {Pointer<Void>} hUrlCacheStream Handle that was returned by the 
+     * @param {HANDLE} hUrlCacheStream Handle that was returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-unlockurlcacheentrystream
      * @since windows5.0
      */
     static UnlockUrlCacheEntryStream(hUrlCacheStream) {
         static Reserved := 0 ;Reserved parameters must always be NULL
+
+        hUrlCacheStream := hUrlCacheStream is Win32Handle ? NumGet(hUrlCacheStream, "ptr") : hUrlCacheStream
 
         A_LastError := 0
 
@@ -9215,14 +9229,14 @@ class WinInet {
 
     /**
      * Retrieves information about a cache entry.
-     * @param {Pointer<Byte>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PSTR} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo A pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -9260,7 +9274,7 @@ class WinInet {
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9273,14 +9287,14 @@ class WinInet {
 
     /**
      * Retrieves information about a cache entry.
-     * @param {Pointer<Char>} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PWSTR} lpszUrlName A pointer to a null-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
      * Since the required size of the buffer is not known in advance,  it is best to allocate a buffer adequate to handle the size of most <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> entries. There is no cache entry size limit, so applications that need to enumerate the cache must be prepared to allocate variable-sized buffers.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo A pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -9318,7 +9332,7 @@ class WinInet {
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9334,7 +9348,7 @@ class WinInet {
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
      * @param {Integer} dwFilter 
      * @param {Pointer<Int64>} lpGroupId Pointer to the ID of the first cache group that matches the search criteria.
-     * @returns {Pointer<Void>} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
+     * @returns {HANDLE} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcachegroup
@@ -9349,21 +9363,23 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the next cache group in a cache group enumeration started by FindFirstUrlCacheGroup.
-     * @param {Pointer<Void>} hFind The cache group enumeration handle, which is returned by 
+     * @param {HANDLE} hFind The cache group enumeration handle, which is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcachegroup">FindFirstUrlCacheGroup</a>.
      * @param {Pointer<Int64>} lpGroupId Pointer to a variable that receives the cache group identifier.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcachegroup
      * @since windows5.0
      */
     static FindNextUrlCacheGroup(hFind, lpGroupId) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
+
+        hFind := hFind is Win32Handle ? NumGet(hFind, "ptr") : hFind
 
         A_LastError := 0
 
@@ -9382,7 +9398,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that receives the requested information.
      * @param {Pointer<UInt32>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcachegroupattributea
      * @since windows5.0
@@ -9407,7 +9423,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that receives the requested information.
      * @param {Pointer<UInt32>} lpcbGroupInfo Pointer to a variable that contains the size of the 
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-geturlcachegroupattributew
      * @since windows5.0
@@ -9430,7 +9446,7 @@ class WinInet {
      * @param {Integer} dwAttributes 
      * @param {Pointer<INTERNET_CACHE_GROUP_INFOA>} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcachegroupattributea
      * @since windows5.0
@@ -9453,7 +9469,7 @@ class WinInet {
      * @param {Integer} dwAttributes 
      * @param {Pointer<INTERNET_CACHE_GROUP_INFOW>} lpGroupInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcachegroupattributew
      * @since windows5.0
@@ -9472,7 +9488,7 @@ class WinInet {
 
     /**
      * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function.
-     * @param {Pointer<Byte>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
@@ -9480,7 +9496,7 @@ class WinInet {
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer in bytes.
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
      * 
      * <table>
@@ -9519,8 +9535,8 @@ class WinInet {
     static GetUrlCacheEntryInfoExA(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszRedirectUrl := lpszRedirectUrl is String? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszRedirectUrl := lpszRedirectUrl is String ? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         A_LastError := 0
 
@@ -9533,7 +9549,7 @@ class WinInet {
 
     /**
      * Retrieves information on the cache entry associated with the specified URL, taking into account any redirections that are applied in offline mode by the HttpSendRequest function.
-     * @param {Pointer<Char>} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PWSTR} lpszUrl A pointer to a <b>null</b>-terminated string that contains the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer} lpCacheEntryInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry. A buffer should be allocated for this parameter. 
      * 
@@ -9541,7 +9557,7 @@ class WinInet {
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer in bytes.
      * @param {Integer} dwFlags This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
+     * @returns {BOOL} Returns <b>TRUE</b> if the URL was located, or <b>FALSE</b> otherwise. Call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for specific error information. Possible errors include the following.
      * 
      * <table>
@@ -9580,8 +9596,8 @@ class WinInet {
     static GetUrlCacheEntryInfoExW(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszRedirectUrl := lpszRedirectUrl is String? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszRedirectUrl := lpszRedirectUrl is String ? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         A_LastError := 0
 
@@ -9594,12 +9610,12 @@ class WinInet {
 
     /**
      * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PSTR} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOA>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -9634,7 +9650,7 @@ class WinInet {
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9647,12 +9663,12 @@ class WinInet {
 
     /**
      * Sets the specified members of the INTERNET_CACHE_ENTRY_INFO structure.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
+     * @param {PWSTR} lpszUrlName Pointer to a null-terminated string that specifies the name of the cache entry. The name string should not contain any escape characters.
      * @param {Pointer<INTERNET_CACHE_ENTRY_INFOW>} lpCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure containing the values to be assigned to the cache entry designated by 
      * <i>lpszUrlName</i>.
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -9687,7 +9703,7 @@ class WinInet {
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -9726,7 +9742,7 @@ class WinInet {
      * @param {Integer} dwFlags Controls the cache group deletion. This can be set to 
      * any member of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/cache-group-constants">cache group constants</a>. When this parameter is set to <a href="https://docs.microsoft.com/windows/desktop/WinInet/cache-group-constants">CACHEGROUP_FLAG_FLUSHURL_ONDELETE</a>, it causes 
      * <b>DeleteUrlCacheGroup</b> to delete all of the cache entries associated with this group, unless the entry belongs to another group.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-deleteurlcachegroup
      * @since windows5.0
@@ -9745,17 +9761,17 @@ class WinInet {
 
     /**
      * Adds entries to or removes entries from a cache group.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroupa
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupA(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\SetUrlCacheEntryGroupA", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
@@ -9763,17 +9779,17 @@ class WinInet {
 
     /**
      * Adds entries to or removes entries from a cache group.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {PWSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroupw
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupW(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\SetUrlCacheEntryGroupW", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
@@ -9781,17 +9797,17 @@ class WinInet {
 
     /**
      * Adds entries to or removes entries from a cache group.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
+     * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string value that specifies the URL of the cached resource.
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-seturlcacheentrygroup
      * @since windows5.0
      */
     static SetUrlCacheEntryGroup(lpszUrlName, dwFlags, GroupId) {
         static pbGroupAttributes := 0, cbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\SetUrlCacheEntryGroup", "ptr", lpszUrlName, "uint", dwFlags, "int64", GroupId, "char*", pbGroupAttributes, "uint", cbGroupAttributes, "ptr", lpReserved, "int")
         return result
@@ -9799,7 +9815,7 @@ class WinInet {
 
     /**
      * Starts a filtered enumeration of the Internet cache.
-     * @param {Pointer<Byte>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
+     * @param {PSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
@@ -9904,7 +9920,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure to receive the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
-     * @returns {Pointer<Void>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
+     * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentryexa
@@ -9913,7 +9929,7 @@ class WinInet {
     static FindFirstUrlCacheEntryExA(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String ? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
 
         A_LastError := 0
 
@@ -9921,12 +9937,12 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Starts a filtered enumeration of the Internet cache.
-     * @param {Pointer<Char>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
+     * @param {PWSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or NULL. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is NULL, <b>FindFirstUrlCacheEntryEx</b> returns all content entries in the cache.
      * @param {Integer} dwFlags Controls the enumeration. No flags are currently implemented; this parameter must be set to zero.
      * @param {Integer} dwFilter A bitmask indicating the type of cache entry and its properties. The cache entry types include: history entries (URLHISTORY_CACHE_ENTRY),  cookie entries  (COOKIE_CACHE_ENTRY), and normal cached content (NORMAL_CACHE_ENTRY).
      * 
@@ -10031,7 +10047,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure to receive the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to variable that indicates the size of 
      * the structure referenced by the <i>lpFirstCacheEntryInfo</i> parameter, in bytes.
-     * @returns {Pointer<Void>} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
+     * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findfirsturlcacheentryexw
@@ -10040,7 +10056,7 @@ class WinInet {
     static FindFirstUrlCacheEntryExW(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String ? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
 
         A_LastError := 0
 
@@ -10048,23 +10064,25 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function.
-     * @param {Pointer<Void>} hEnumHandle Handle returned by 
+     * @param {HANDLE} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentryexa
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
 
         A_LastError := 0
 
@@ -10077,18 +10095,20 @@ class WinInet {
 
     /**
      * Finds the next cache entry in a cache enumeration started by the FindFirstUrlCacheEntryEx function.
-     * @param {Pointer<Void>} hEnumHandle Handle returned by 
+     * @param {HANDLE} hEnumHandle Handle returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentryexa">FindFirstUrlCacheEntryEx</a>, which started a cache enumeration.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives the cache entry information.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findnexturlcacheentryexw
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
         static lpGroupAttributes := 0, lpcbGroupAttributes := 0, lpReserved := 0 ;Reserved parameters must always be NULL
+
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
 
         A_LastError := 0
 
@@ -10101,12 +10121,12 @@ class WinInet {
 
     /**
      * Begins the enumeration of the Internet cache.
-     * @param {Pointer<Byte>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
+     * @param {PSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
      * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
-     * @returns {Pointer<Void>} Returns a handle that the application can use in the 
+     * @returns {HANDLE} Returns a handle that the application can use in the 
      * <a href="/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -10118,7 +10138,7 @@ class WinInet {
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryA(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
-        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String ? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
 
         A_LastError := 0
 
@@ -10126,17 +10146,17 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Begins the enumeration of the Internet cache.
-     * @param {Pointer<Char>} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
+     * @param {PWSTR} lpszUrlSearchPattern A pointer to a string that contains the source name pattern to search for. This parameter can only be set to "cookie:", "visited:", or <b>NULL</b>. Set this parameter to "cookie:" to enumerate the cookies or "visited:" to enumerate the URL History entries in the cache. If this parameter is <b>NULL</b>, <b>FindFirstUrlCacheEntry</b> returns all content entries in the cache.
      * @param {Pointer} lpFirstCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpFirstCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size needed to retrieve the cache entry, in bytes.
-     * @returns {Pointer<Void>} Returns a handle that the application can use in the 
+     * @returns {HANDLE} Returns a handle that the application can use in the 
      * <a href="/windows/desktop/api/wininet/nf-wininet-findnexturlcacheentrya">FindNextUrlCacheEntry</a> function to retrieve subsequent entries in the cache. If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
@@ -10148,7 +10168,7 @@ class WinInet {
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryW(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
-        lpszUrlSearchPattern := lpszUrlSearchPattern is String? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
+        lpszUrlSearchPattern := lpszUrlSearchPattern is String ? StrPtr(lpszUrlSearchPattern) : lpszUrlSearchPattern
 
         A_LastError := 0
 
@@ -10156,18 +10176,18 @@ class WinInet {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Retrieves the next entry in the Internet cache.
-     * @param {Pointer<Void>} hEnumHandle Handle to the enumeration obtained from a previous call to 
+     * @param {HANDLE} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -10205,6 +10225,8 @@ class WinInet {
      * @since windows5.0
      */
     static FindNextUrlCacheEntryA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryA", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
@@ -10216,13 +10238,13 @@ class WinInet {
 
     /**
      * Retrieves the next entry in the Internet cache.
-     * @param {Pointer<Void>} hEnumHandle Handle to the enumeration obtained from a previous call to 
+     * @param {HANDLE} hEnumHandle Handle to the enumeration obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a>.
      * @param {Pointer} lpNextCacheEntryInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_entry_infoa">INTERNET_CACHE_ENTRY_INFO</a> structure that receives information about the cache entry.
      * @param {Pointer<UInt32>} lpcbCacheEntryInfo Pointer to a variable that specifies the size of the 
      * <i>lpNextCacheEntryInfo</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the size of the buffer required to retrieve the cache entry, in bytes.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -10260,6 +10282,8 @@ class WinInet {
      * @since windows5.0
      */
     static FindNextUrlCacheEntryW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindNextUrlCacheEntryW", "ptr", hEnumHandle, "ptr", lpNextCacheEntryInfo, "uint*", lpcbCacheEntryInfo, "int")
@@ -10271,14 +10295,16 @@ class WinInet {
 
     /**
      * Closes the specified cache enumeration handle.
-     * @param {Pointer<Void>} hEnumHandle Handle returned by a previous call to the 
+     * @param {HANDLE} hEnumHandle Handle returned by a previous call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a> function.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-findcloseurlcache
      * @since windows5.0
      */
     static FindCloseUrlCache(hEnumHandle) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\FindCloseUrlCache", "ptr", hEnumHandle, "int")
@@ -10290,8 +10316,8 @@ class WinInet {
 
     /**
      * Removes the file associated with the source name from the cache, if the file exists.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -10326,7 +10352,7 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntryA(lpszUrlName) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10339,8 +10365,8 @@ class WinInet {
 
     /**
      * Removes the file associated with the source name from the cache, if the file exists.
-     * @param {Pointer<Char>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PWSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -10375,7 +10401,7 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntryW(lpszUrlName) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10388,8 +10414,8 @@ class WinInet {
 
     /**
      * Removes the file associated with the source name from the cache, if the file exists.
-     * @param {Pointer<Byte>} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @param {PSTR} lpszUrlName Pointer to a string that contains the name of the source that corresponds to the cache entry.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
      * 
      * <table>
@@ -10424,7 +10450,7 @@ class WinInet {
      * @since windows5.0
      */
     static DeleteUrlCacheEntry(lpszUrlName) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         A_LastError := 0
 
@@ -10437,8 +10463,8 @@ class WinInet {
 
     /**
      * Initiates a connection to the Internet using a modem.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
-     * @param {Pointer<Byte>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {HWND} hwndParent Handle to the parent window.
+     * @param {PSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UIntPtr>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
@@ -10488,7 +10514,8 @@ class WinInet {
     static InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetDialA", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -10496,8 +10523,8 @@ class WinInet {
 
     /**
      * Initiates a connection to the Internet using a modem.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
-     * @param {Pointer<Char>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {HWND} hwndParent Handle to the parent window.
+     * @param {PWSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UIntPtr>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise. The error code can be one of the following values.
@@ -10547,7 +10574,8 @@ class WinInet {
     static InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetDialW", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -10555,8 +10583,8 @@ class WinInet {
 
     /**
      * Initiates a connection to the Internet using a modem.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
-     * @param {Pointer<Byte>} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
+     * @param {HWND} hwndParent Handle to the parent window.
+     * @param {PSTR} lpszConnectoid Pointer to a <b>null</b>-terminated string that specifies the name of the dial-up connection to be used. If this parameter contains the empty string (""), the user chooses the connection. If this parameter is <b>NULL</b>, the function connects to the autodial connection.
      * @param {Integer} dwFlags 
      * @param {Pointer<UInt32>} lpdwConnection Pointer to a variable that specifies the connection number. This number is a unique indentifier for the connection that can be used in other functions, such as <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internethangup">InternetHangUp</a>.
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
@@ -10605,7 +10633,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetDial", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "uint*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -10627,8 +10656,8 @@ class WinInet {
 
     /**
      * Prompts the user for permission to initiate connection to a URL.
-     * @param {Pointer<Byte>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {PSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -10647,7 +10676,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
@@ -10677,7 +10706,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnlineA(lpszURL, hwndParent, dwFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -10690,8 +10720,8 @@ class WinInet {
 
     /**
      * Prompts the user for permission to initiate connection to a URL.
-     * @param {Pointer<Char>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {PWSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -10710,7 +10740,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
@@ -10740,7 +10770,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnlineW(lpszURL, hwndParent, dwFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -10753,8 +10784,8 @@ class WinInet {
 
     /**
      * Prompts the user for permission to initiate connection to a URL.
-     * @param {Pointer<Byte>} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
+     * @param {PSTR} lpszURL Pointer to a null-terminated string that specifies the URL of the website for the connection.
+     * @param {HWND} hwndParent Handle to the parent window.
      * @param {Integer} dwFlags This parameter can be zero or the following flag.
      * 
      * <table>
@@ -10773,7 +10804,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
@@ -10803,7 +10834,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetGoOnline(lpszURL, hwndParent, dwFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -10817,8 +10849,8 @@ class WinInet {
     /**
      * Causes the modem to automatically dial the default Internet connection.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} hwndParent Handle to the parent window.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {HWND} hwndParent Handle to the parent window.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
@@ -10826,6 +10858,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetAutodial(dwFlags, hwndParent) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         A_LastError := 0
 
         result := DllCall("WININET.dll\InternetAutodial", "uint", dwFlags, "ptr", hwndParent, "int")
@@ -10837,7 +10871,7 @@ class WinInet {
 
     /**
      * Disconnects an automatic dial-up connection.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
@@ -10859,7 +10893,7 @@ class WinInet {
     /**
      * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the local system.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @returns {Integer} Returns <b>TRUE</b> if there is an active modem or a LAN Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
+     * @returns {BOOL} Returns <b>TRUE</b> if there is an active modem or a LAN Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <b>InternetGetConnectedState</b> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  to retrieve the error code.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstate
@@ -10880,9 +10914,9 @@ class WinInet {
     /**
      * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<Byte>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {PSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
-     * @returns {Integer} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
+     * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateexa
@@ -10891,7 +10925,7 @@ class WinInet {
     static InternetGetConnectedStateExA(lpdwFlags, lpszConnectionName, cchNameLen) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
+        lpszConnectionName := lpszConnectionName is String ? StrPtr(lpszConnectionName) : lpszConnectionName
 
         A_LastError := 0
 
@@ -10905,9 +10939,9 @@ class WinInet {
     /**
      * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<Char>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {PWSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} cchNameLen TBD
-     * @returns {Integer} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
+     * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateexw
@@ -10916,7 +10950,7 @@ class WinInet {
     static InternetGetConnectedStateExW(lpdwFlags, lpszConnectionName, cchNameLen) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
+        lpszConnectionName := lpszConnectionName is String ? StrPtr(lpszConnectionName) : lpszConnectionName
 
         A_LastError := 0
 
@@ -10930,7 +10964,7 @@ class WinInet {
     /**
      * 
      * @param {Integer} param0 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DeleteWpadCacheForNetworks(param0) {
         result := DllCall("WININET.dll\DeleteWpadCacheForNetworks", "int", param0, "int")
@@ -10940,7 +10974,7 @@ class WinInet {
     /**
      * There are two WinINet functions named InternetInitializeAutoProxyDll.
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetinitializeautoproxydll
      * @since windows5.0
@@ -10957,17 +10991,17 @@ class WinInet {
 
     /**
      * Attempts to determine the location of a WPAD autoproxy script.
-     * @param {Pointer<Byte>} pszAutoProxyUrl Pointer to a buffer to receive the URL from which a WPAD autoproxy script can be downloaded.
+     * @param {PSTR} pszAutoProxyUrl Pointer to a buffer to receive the URL from which a WPAD autoproxy script can be downloaded.
      * @param {Integer} cchAutoProxyUrl Size of 
      * the buffer pointed to by <i>lpszAutoProxyUrl</i>, in bytes.
      * @param {Integer} dwDetectFlags 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-detectautoproxyurl
      * @since windows5.0
      */
     static DetectAutoProxyUrl(pszAutoProxyUrl, cchAutoProxyUrl, dwDetectFlags) {
-        pszAutoProxyUrl := pszAutoProxyUrl is String? StrPtr(pszAutoProxyUrl) : pszAutoProxyUrl
+        pszAutoProxyUrl := pszAutoProxyUrl is String ? StrPtr(pszAutoProxyUrl) : pszAutoProxyUrl
 
         A_LastError := 0
 
@@ -10980,18 +11014,18 @@ class WinInet {
 
     /**
      * The CreateMD5SSOHash function obtains the default Microsoft Passport password for a specified account or realm, creates an MD5 hash from it using a specified wide-character challenge string, and returns the result as a string of hexadecimal digit bytes.
-     * @param {Pointer<Char>} pszChallengeInfo Pointer to the wide-character challenge string to use for the MD5 hash.
-     * @param {Pointer<Char>} pwszRealm Pointer to a string that names a realm for which to obtain the password. This parameter is ignored unless <i>pwszTarget</i> is <b>NULL</b>. If both <i>pwszTarget</i> and <i>pwszRealm</i> are <b>NULL</b>, the default realm is used.
-     * @param {Pointer<Char>} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
+     * @param {PWSTR} pszChallengeInfo Pointer to the wide-character challenge string to use for the MD5 hash.
+     * @param {PWSTR} pwszRealm Pointer to a string that names a realm for which to obtain the password. This parameter is ignored unless <i>pwszTarget</i> is <b>NULL</b>. If both <i>pwszTarget</i> and <i>pwszRealm</i> are <b>NULL</b>, the default realm is used.
+     * @param {PWSTR} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
      * @param {Pointer<Byte>} pbHexHash Pointer to an output buffer into which the MD5 hash is returned in hex string format. This buffer must be at least 33 bytes long.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-createmd5ssohash
      * @since windows5.0
      */
     static CreateMD5SSOHash(pszChallengeInfo, pwszRealm, pwszTarget, pbHexHash) {
-        pszChallengeInfo := pszChallengeInfo is String? StrPtr(pszChallengeInfo) : pszChallengeInfo
-        pwszRealm := pwszRealm is String? StrPtr(pwszRealm) : pwszRealm
-        pwszTarget := pwszTarget is String? StrPtr(pwszTarget) : pwszTarget
+        pszChallengeInfo := pszChallengeInfo is String ? StrPtr(pszChallengeInfo) : pszChallengeInfo
+        pwszRealm := pwszRealm is String ? StrPtr(pwszRealm) : pwszRealm
+        pwszTarget := pwszTarget is String ? StrPtr(pwszTarget) : pwszTarget
 
         result := DllCall("WININET.dll\CreateMD5SSOHash", "ptr", pszChallengeInfo, "ptr", pwszRealm, "ptr", pwszTarget, "char*", pbHexHash, "int")
         return result
@@ -11000,18 +11034,18 @@ class WinInet {
     /**
      * Note  Using this API is not recommended, use the INetworkListManager::GetConnectivity method instead. Retrieves the connected state of the specified Internet connection.
      * @param {Pointer<UInt32>} lpdwFlags 
-     * @param {Pointer<Byte>} lpszConnectionName Pointer to a string value that receives the connection name.
+     * @param {PSTR} lpszConnectionName Pointer to a string value that receives the connection name.
      * @param {Integer} dwNameLen Size of the 
      * <i>lpszConnectionName</i> string, in <b>TCHARs</b>.
      * @param {Integer} dwReserved This parameter is reserved and must be <b>NULL</b>.
-     * @returns {Integer} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
+     * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetconnectedstateex
      * @since windows5.0
      */
     static InternetGetConnectedStateEx(lpdwFlags, lpszConnectionName, dwNameLen, dwReserved) {
-        lpszConnectionName := lpszConnectionName is String? StrPtr(lpszConnectionName) : lpszConnectionName
+        lpszConnectionName := lpszConnectionName is String ? StrPtr(lpszConnectionName) : lpszConnectionName
 
         A_LastError := 0
 
@@ -11024,15 +11058,15 @@ class WinInet {
 
     /**
      * Not supported.This function is obsolete. Do not use.
-     * @param {Pointer<Byte>} lpszConnectoid Unused.
+     * @param {PSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
-     * @returns {Integer} This function does not return a value.
+     * @returns {BOOL} This function does not return a value.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstatea
      */
     static InternetSetDialStateA(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetSetDialStateA", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
@@ -11040,15 +11074,15 @@ class WinInet {
 
     /**
      * Not supported.This function is obsolete. Do not use.
-     * @param {Pointer<Char>} lpszConnectoid Unused.
+     * @param {PWSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
-     * @returns {Integer} This function does not return a value.
+     * @returns {BOOL} This function does not return a value.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstatew
      */
     static InternetSetDialStateW(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetSetDialStateW", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
@@ -11056,14 +11090,14 @@ class WinInet {
 
     /**
      * Not supported.This function is obsolete. Do not use.
-     * @param {Pointer<Byte>} lpszConnectoid Unused.
+     * @param {PSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @param {Integer} dwReserved Unused.
-     * @returns {Integer} This function does not return a value.
+     * @returns {BOOL} This function does not return a value.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetdialstate
      */
     static InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
-        lpszConnectoid := lpszConnectoid is String? StrPtr(lpszConnectoid) : lpszConnectoid
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetSetDialState", "ptr", lpszConnectoid, "uint", dwState, "uint", dwReserved, "int")
         return result
@@ -11071,14 +11105,14 @@ class WinInet {
 
     /**
      * Sets a decision on cookies for a given domain.
-     * @param {Pointer<Byte>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
-     * @returns {Integer} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
-        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+        pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
         result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionA", "ptr", pchHostName, "uint", dwDecision, "int")
         return result
@@ -11086,14 +11120,14 @@ class WinInet {
 
     /**
      * Sets a decision on cookies for a given domain.
-     * @param {Pointer<Char>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
-     * @returns {Integer} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetsetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionW(pchHostName, dwDecision) {
-        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+        pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
         result := DllCall("WININET.dll\InternetSetPerSiteCookieDecisionW", "ptr", pchHostName, "uint", dwDecision, "int")
         return result
@@ -11101,14 +11135,14 @@ class WinInet {
 
     /**
      * Retrieves a decision on cookies for a given domain.
-     * @param {Pointer<Byte>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<UInt32>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
-     * @returns {Integer} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionA(pchHostName, pResult) {
-        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+        pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
         result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionA", "ptr", pchHostName, "uint*", pResult, "int")
         return result
@@ -11116,14 +11150,14 @@ class WinInet {
 
     /**
      * Retrieves a decision on cookies for a given domain.
-     * @param {Pointer<Char>} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
+     * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<UInt32>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
-     * @returns {Integer} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetgetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionW(pchHostName, pResult) {
-        pchHostName := pchHostName is String? StrPtr(pchHostName) : pchHostName
+        pchHostName := pchHostName is String ? StrPtr(pchHostName) : pchHostName
 
         result := DllCall("WININET.dll\InternetGetPerSiteCookieDecisionW", "ptr", pchHostName, "uint*", pResult, "int")
         return result
@@ -11131,7 +11165,7 @@ class WinInet {
 
     /**
      * Clears all decisions that were made about cookies on a site by site basis.
-     * @returns {Integer} Returns <b>TRUE</b> if all decisions were cleared and <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns <b>TRUE</b> if all decisions were cleared and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetclearallpersitecookiedecisions
      * @since windows5.0
      */
@@ -11142,16 +11176,16 @@ class WinInet {
 
     /**
      * Retrieves the domains and cookie settings of websites for which site-specific cookie regulations are set.
-     * @param {Pointer<Byte>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
+     * @param {PSTR} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<UInt32>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<UInt32>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
-     * @returns {Integer} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
+     * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetenumpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
-        pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
+        pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
 
         result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionA", "ptr", pszSiteName, "uint*", pcSiteNameSize, "uint*", pdwDecision, "uint", dwIndex, "int")
         return result
@@ -11159,16 +11193,16 @@ class WinInet {
 
     /**
      * Retrieves the domains and cookie settings of websites for which site-specific cookie regulations are set.
-     * @param {Pointer<Char>} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
+     * @param {PWSTR} pszSiteName An <b>LPSTR</b> that receives a string specifying a website domain.
      * @param {Pointer<UInt32>} pcSiteNameSize A pointer to an unsigned long that specifies the size of the <i>pcSiteNameSize</i> parameter provided to the InternetEnumPerSiteCookieDecision function when it is called. When <b>InternetEnumPerSiteCookieDecision</b> returns, <i>pcSiteNameSize</i> receives the actual length of the domain string returned in <i>pszSiteName</i>.
      * @param {Pointer<UInt32>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
-     * @returns {Integer} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
+     * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-internetenumpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
-        pszSiteName := pszSiteName is String? StrPtr(pszSiteName) : pszSiteName
+        pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
 
         result := DllCall("WININET.dll\InternetEnumPerSiteCookieDecisionW", "ptr", pszSiteName, "uint*", pcSiteNameSize, "uint*", pdwDecision, "uint", dwIndex, "int")
         return result
@@ -11179,13 +11213,13 @@ class WinInet {
      * @param {Integer} dwZone Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone?view=visualstudiosdk-2017">URLZONE</a>for which privacy settings are being set.
      * @param {Integer} dwType Value of type <b>DWORD</b> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being set.
      * @param {Integer} dwTemplate Value of type <b>DWORD</b> that specifies which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">privacy templates</a> is to be used to set the privacy settings.
-     * @param {Pointer<Char>} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
+     * @param {PWSTR} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the errors defined in winerr.h is returned.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-privacysetzonepreferencew
      * @since windows5.0
      */
     static PrivacySetZonePreferenceW(dwZone, dwType, dwTemplate, pszPreference) {
-        pszPreference := pszPreference is String? StrPtr(pszPreference) : pszPreference
+        pszPreference := pszPreference is String ? StrPtr(pszPreference) : pszPreference
 
         result := DllCall("WININET.dll\PrivacySetZonePreferenceW", "uint", dwZone, "uint", dwType, "uint", dwTemplate, "ptr", pszPreference, "uint")
         return result
@@ -11196,14 +11230,14 @@ class WinInet {
      * @param {Integer} dwZone A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/dotnet/api/microsoft.visualstudio.ole.interop.urlzone?view=visualstudiosdk-2017">URLZONE</a> for which privacy settings are being retrieved.
      * @param {Integer} dwType A value of type <i>DWORD</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-type">PrivacyType</a> for which privacy settings are being retrieved.
      * @param {Pointer<UInt32>} pdwTemplate An <b>LPDWORD</b> that returns a pointer to a <b>DWORD</b> containing which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">PrivacyTemplates</a> is in use for this <i>dwZone</i> and <i>dwType</i>.
-     * @param {Pointer<Char>} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
+     * @param {PWSTR} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
      * @param {Pointer<UInt32>} pdwBufferLength An <b>LPDWORD</b> that contains the buffer length in characters. If the buffer length is not sufficient, <b>PrivacyGetZonePreferenceW</b> returns with this parameter set to the number of characters required and with a return value of <b>ERROR_MORE_DATA</b>.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the Error Messages defined in winerr.h is returned.
      * @see https://docs.microsoft.com/windows/win32/api//wininet/nf-wininet-privacygetzonepreferencew
      * @since windows5.0
      */
     static PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBufferLength) {
-        pszBuffer := pszBuffer is String? StrPtr(pszBuffer) : pszBuffer
+        pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         result := DllCall("WININET.dll\PrivacyGetZonePreferenceW", "uint", dwZone, "uint", dwType, "uint*", pdwTemplate, "ptr", pszBuffer, "uint*", pdwBufferLength, "uint")
         return result
@@ -11211,28 +11245,28 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pcwszUrl 
-     * @param {Pointer<Int32>} pfIsHsts 
+     * @param {PWSTR} pcwszUrl 
+     * @param {Pointer<BOOL>} pfIsHsts 
      * @returns {Integer} 
      */
     static HttpIsHostHstsEnabled(pcwszUrl, pfIsHsts) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
-        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "int*", pfIsHsts, "uint")
+        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "ptr", pfIsHsts, "uint")
         return result
     }
 
     /**
      * 
      * @param {Integer} ai 
-     * @param {Pointer<Byte>} lpstr 
+     * @param {PSTR} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetAlgIdToStringA(ai, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+        lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetAlgIdToStringA", "uint", ai, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -11241,14 +11275,14 @@ class WinInet {
     /**
      * 
      * @param {Integer} ai 
-     * @param {Pointer<Char>} lpstr 
+     * @param {PWSTR} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetAlgIdToStringW(ai, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+        lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetAlgIdToStringW", "uint", ai, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -11257,14 +11291,14 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<Byte>} lpstr 
+     * @param {PSTR} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetSecurityProtocolToStringA(dwProtocol, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+        lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetSecurityProtocolToStringA", "uint", dwProtocol, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -11273,14 +11307,14 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwProtocol 
-     * @param {Pointer<Char>} lpstr 
+     * @param {PWSTR} lpstr 
      * @param {Pointer<UInt32>} lpdwstrLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetSecurityProtocolToStringW(dwProtocol, lpstr, lpdwstrLength) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpstr := lpstr is String? StrPtr(lpstr) : lpstr
+        lpstr := lpstr is String ? StrPtr(lpstr) : lpstr
 
         result := DllCall("WININET.dll\InternetSecurityProtocolToStringW", "uint", dwProtocol, "ptr", lpstr, "uint*", lpdwstrLength, "uint", dwReserved, "int")
         return result
@@ -11288,13 +11322,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszURL 
+     * @param {PSTR} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetGetSecurityInfoByURLA(lpszURL, ppCertChain, pdwSecureFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURLA", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
@@ -11302,13 +11336,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} lpszURL 
+     * @param {PWSTR} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetGetSecurityInfoByURLW(lpszURL, ppCertChain, pdwSecureFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURLW", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
@@ -11316,13 +11350,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszURL 
+     * @param {PSTR} lpszURL 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChain 
      * @param {Pointer<UInt32>} pdwSecureFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetGetSecurityInfoByURL(lpszURL, ppCertChain, pdwSecureFlags) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
         result := DllCall("WININET.dll\InternetGetSecurityInfoByURL", "ptr", lpszURL, "ptr", ppCertChain, "uint*", pdwSecureFlags, "int")
         return result
@@ -11330,33 +11364,39 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hWndParent 
+     * @param {HWND} hWndParent 
      * @param {Pointer<INTERNET_SECURITY_INFO>} pSecurityInfo 
      * @returns {Integer} 
      */
     static ShowSecurityInfo(hWndParent, pSecurityInfo) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         result := DllCall("WININET.dll\ShowSecurityInfo", "ptr", hWndParent, "ptr", pSecurityInfo, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWndParent 
+     * @param {HWND} hWndParent 
      * @param {Pointer} lpCert 
      * @param {Integer} cbCert 
      * @returns {Integer} 
      */
     static ShowX509EncodedCertificate(hWndParent, lpCert, cbCert) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         result := DllCall("WININET.dll\ShowX509EncodedCertificate", "ptr", hWndParent, "ptr", lpCert, "uint", cbCert, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWndParent 
+     * @param {HWND} hWndParent 
      * @returns {Integer} 
      */
     static ShowClientAuthCerts(hWndParent) {
+        hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
+
         result := DllCall("WININET.dll\ShowClientAuthCerts", "ptr", hWndParent, "uint")
         return result
     }
@@ -11365,12 +11405,12 @@ class WinInet {
      * 
      * @param {Pointer} lpCert 
      * @param {Integer} cbCert 
-     * @param {Pointer<Byte>} lpszListBoxEntry 
+     * @param {PSTR} lpszListBoxEntry 
      * @param {Pointer<UInt32>} lpdwListBoxEntry 
      * @returns {Integer} 
      */
     static ParseX509EncodedCertificateForListBoxEntry(lpCert, cbCert, lpszListBoxEntry, lpdwListBoxEntry) {
-        lpszListBoxEntry := lpszListBoxEntry is String? StrPtr(lpszListBoxEntry) : lpszListBoxEntry
+        lpszListBoxEntry := lpszListBoxEntry is String ? StrPtr(lpszListBoxEntry) : lpszListBoxEntry
 
         result := DllCall("WININET.dll\ParseX509EncodedCertificateForListBoxEntry", "ptr", lpCert, "uint", cbCert, "ptr", lpszListBoxEntry, "uint*", lpdwListBoxEntry, "uint")
         return result
@@ -11378,12 +11418,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszURL 
-     * @param {Pointer<Void>} hwndParent 
-     * @returns {Integer} 
+     * @param {PSTR} lpszURL 
+     * @param {HWND} hwndParent 
+     * @returns {BOOL} 
      */
     static InternetShowSecurityInfoByURLA(lpszURL, hwndParent) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURLA", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
@@ -11391,12 +11432,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} lpszURL 
-     * @param {Pointer<Void>} hwndParent 
-     * @returns {Integer} 
+     * @param {PWSTR} lpszURL 
+     * @param {HWND} hwndParent 
+     * @returns {BOOL} 
      */
     static InternetShowSecurityInfoByURLW(lpszURL, hwndParent) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURLW", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
@@ -11404,12 +11446,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszURL 
-     * @param {Pointer<Void>} hwndParent 
-     * @returns {Integer} 
+     * @param {PSTR} lpszURL 
+     * @param {HWND} hwndParent 
+     * @returns {BOOL} 
      */
     static InternetShowSecurityInfoByURL(lpszURL, hwndParent) {
-        lpszURL := lpszURL is String? StrPtr(lpszURL) : lpszURL
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("WININET.dll\InternetShowSecurityInfoByURL", "ptr", lpszURL, "ptr", hwndParent, "int")
         return result
@@ -11418,11 +11461,13 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwCommand 
-     * @param {Pointer<Void>} hwnd 
-     * @returns {Integer} 
+     * @param {HWND} hwnd 
+     * @returns {BOOL} 
      */
     static InternetFortezzaCommand(dwCommand, hwnd) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
+
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, "ptr", hwnd, "ptr", dwReserved, "int")
         return result
@@ -11431,7 +11476,7 @@ class WinInet {
     /**
      * 
      * @param {Pointer<UInt32>} pdwStatus 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetQueryFortezzaStatus(pdwStatus) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -11446,7 +11491,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSA>} lpBuffersIn 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetWriteFileExA(hFile, lpBuffersIn, dwFlags, dwContext) {
         result := DllCall("WININET.dll\InternetWriteFileExA", "ptr", hFile, "ptr", lpBuffersIn, "uint", dwFlags, "ptr", dwContext, "int")
@@ -11459,7 +11504,7 @@ class WinInet {
      * @param {Pointer<INTERNET_BUFFERSW>} lpBuffersIn 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwContext 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static InternetWriteFileExW(hFile, lpBuffersIn, dwFlags, dwContext) {
         result := DllCall("WININET.dll\InternetWriteFileExW", "ptr", hFile, "ptr", lpBuffersIn, "uint", dwFlags, "ptr", dwContext, "int")
@@ -11468,11 +11513,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszSymbol 
+     * @param {PSTR} pszSymbol 
      * @returns {Integer} 
      */
     static FindP3PPolicySymbol(pszSymbol) {
-        pszSymbol := pszSymbol is String? StrPtr(pszSymbol) : pszSymbol
+        pszSymbol := pszSymbol is String ? StrPtr(pszSymbol) : pszSymbol
 
         result := DllCall("WININET.dll\FindP3PPolicySymbol", "ptr", pszSymbol, "int")
         return result
@@ -11480,13 +11525,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszUrl 
-     * @param {Pointer<Char>} ppwszUserName 
-     * @param {Pointer<Char>} ppwszPassword 
+     * @param {PWSTR} pwszUrl 
+     * @param {Pointer<PWSTR>} ppwszUserName 
+     * @param {Pointer<PWSTR>} ppwszPassword 
      * @returns {Integer} 
      */
     static HttpGetServerCredentials(pwszUrl, ppwszUserName, ppwszPassword) {
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         result := DllCall("WININET.dll\HttpGetServerCredentials", "ptr", pwszUrl, "ptr", ppwszUserName, "ptr", ppwszPassword, "uint")
         return result
@@ -11496,7 +11541,7 @@ class WinInet {
      * 
      * @param {Pointer<Void>} hRequest 
      * @param {Pointer<HTTP_PUSH_TRANSPORT_SETTING>} pTransportSetting 
-     * @param {Pointer<Void>} phWait 
+     * @param {Pointer<HTTP_PUSH_WAIT_HANDLE>} phWait 
      * @returns {Integer} 
      */
     static HttpPushEnable(hRequest, pTransportSetting, phWait) {
@@ -11506,68 +11551,74 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hWait 
+     * @param {HTTP_PUSH_WAIT_HANDLE} hWait 
      * @param {Integer} eType 
      * @param {Pointer<HTTP_PUSH_NOTIFICATION_STATUS>} pNotificationStatus 
      * @returns {Integer} 
      */
     static HttpPushWait(hWait, eType, pNotificationStatus) {
+        hWait := hWait is Win32Handle ? NumGet(hWait, "ptr") : hWait
+
         result := DllCall("WININET.dll\HttpPushWait", "ptr", hWait, "int", eType, "ptr", pNotificationStatus, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hWait 
+     * @param {HTTP_PUSH_WAIT_HANDLE} hWait 
      * @returns {String} Nothing - always returns an empty string
      */
     static HttpPushClose(hWait) {
+        hWait := hWait is Win32Handle ? NumGet(hWait, "ptr") : hWait
+
         DllCall("WININET.dll\HttpPushClose", "ptr", hWait)
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszUrl 
-     * @param {Pointer<Byte>} lpszComplianceToken 
-     * @param {Pointer<Int32>} lpfFound 
-     * @param {Pointer<Void>} hWnd 
+     * @param {PSTR} lpszUrl 
+     * @param {PSTR} lpszComplianceToken 
+     * @param {Pointer<BOOL>} lpfFound 
+     * @param {HWND} hWnd 
      * @param {Pointer<Void>} lpvReserved 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "int*", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} lpszUrl 
-     * @param {Pointer<Char>} lpszComplianceToken 
-     * @param {Pointer<Int32>} lpfFound 
-     * @param {Pointer<Void>} hWnd 
+     * @param {PWSTR} lpszUrl 
+     * @param {PWSTR} lpszComplianceToken 
+     * @param {Pointer<BOOL>} lpfFound 
+     * @param {HWND} hWnd 
      * @param {Pointer<Void>} lpvReserved 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszComplianceToken := lpszComplianceToken is String? StrPtr(lpszComplianceToken) : lpszComplianceToken
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "int*", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, "ptr", lpvReserved, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszUrlName 
+     * @param {PSTR} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsUrlCacheEntryExpiredA(lpszUrlName, dwFlags, pftLastModified) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\IsUrlCacheEntryExpiredA", "ptr", lpszUrlName, "uint", dwFlags, "ptr", pftLastModified, "int")
         return result
@@ -11575,13 +11626,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} lpszUrlName 
+     * @param {PWSTR} lpszUrlName 
      * @param {Integer} dwFlags 
      * @param {Pointer<FILETIME>} pftLastModified 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsUrlCacheEntryExpiredW(lpszUrlName, dwFlags, pftLastModified) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
 
         result := DllCall("WININET.dll\IsUrlCacheEntryExpiredW", "ptr", lpszUrlName, "uint", dwFlags, "ptr", pftLastModified, "int")
         return result
@@ -11589,18 +11640,18 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} lpszUrlName 
+     * @param {PWSTR} lpszUrlName 
      * @param {Integer} dwExpectedFileSize 
-     * @param {Pointer<Char>} lpszFileExtension 
-     * @param {Pointer<Char>} lpszFileName 
+     * @param {PWSTR} lpszFileExtension 
+     * @param {PWSTR} lpszFileName 
      * @param {Integer} dwReserved 
-     * @param {Integer} fPreserveIncomingFileName 
-     * @returns {Integer} 
+     * @param {BOOL} fPreserveIncomingFileName 
+     * @returns {BOOL} 
      */
     static CreateUrlCacheEntryExW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved, fPreserveIncomingFileName) {
-        lpszUrlName := lpszUrlName is String? StrPtr(lpszUrlName) : lpszUrlName
-        lpszFileExtension := lpszFileExtension is String? StrPtr(lpszFileExtension) : lpszFileExtension
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
+        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("WININET.dll\CreateUrlCacheEntryExW", "ptr", lpszUrlName, "uint", dwExpectedFileSize, "ptr", lpszFileExtension, "ptr", lpszFileName, "uint", dwReserved, "int", fPreserveIncomingFileName, "int")
         return result
@@ -11608,7 +11659,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszUrlName 
+     * @param {PWSTR} pwszUrlName 
      * @param {Pointer<UInt32>} dwType 
      * @param {Pointer<FILETIME>} pftExpireTime 
      * @param {Pointer<FILETIME>} pftAccessTime 
@@ -11618,24 +11669,24 @@ class WinInet {
      * @returns {Integer} 
      */
     static GetUrlCacheEntryBinaryBlob(pwszUrlName, dwType, pftExpireTime, pftAccessTime, pftModifiedTime, ppbBlob, pcbBlob) {
-        pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
+        pwszUrlName := pwszUrlName is String ? StrPtr(pwszUrlName) : pwszUrlName
 
-        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint*", dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "ptr", ppbBlob, "uint*", pcbBlob, "uint")
+        result := DllCall("WININET.dll\GetUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint*", dwType, "ptr", pftExpireTime, "ptr", pftAccessTime, "ptr", pftModifiedTime, "char*", ppbBlob, "uint*", pcbBlob, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pwszUrlName 
+     * @param {PWSTR} pwszUrlName 
      * @param {Integer} dwType 
-     * @param {Pointer} ftExpireTime 
-     * @param {Pointer} ftModifiedTime 
+     * @param {FILETIME} ftExpireTime 
+     * @param {FILETIME} ftModifiedTime 
      * @param {Pointer<Byte>} pbBlob 
      * @param {Integer} cbBlob 
      * @returns {Integer} 
      */
     static CommitUrlCacheEntryBinaryBlob(pwszUrlName, dwType, ftExpireTime, ftModifiedTime, pbBlob, cbBlob) {
-        pwszUrlName := pwszUrlName is String? StrPtr(pwszUrlName) : pwszUrlName
+        pwszUrlName := pwszUrlName is String ? StrPtr(pwszUrlName) : pwszUrlName
 
         result := DllCall("WININET.dll\CommitUrlCacheEntryBinaryBlob", "ptr", pwszUrlName, "uint", dwType, "ptr", ftExpireTime, "ptr", ftModifiedTime, "char*", pbBlob, "uint", cbBlob, "uint")
         return result
@@ -11643,13 +11694,13 @@ class WinInet {
 
     /**
      * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type.
-     * @param {Pointer<Byte>} Name The name to give to the cache.
-     * @param {Pointer<Byte>} lpCachePrefix The cache prefix to base the cache on.
-     * @param {Pointer<Byte>} lpszCachePath The cache prefix to create the cache in.
+     * @param {PSTR} Name The name to give to the cache.
+     * @param {PSTR} lpCachePrefix The cache prefix to base the cache on.
+     * @param {PSTR} lpszCachePath The cache prefix to create the cache in.
      * @param {Integer} KBCacheLimit The size limit of the cache in whole kilobytes, or 0 for the default size.
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-createurlcachecontainera
      * @since windows5.0
@@ -11657,9 +11708,9 @@ class WinInet {
     static CreateUrlCacheContainerA(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
         static pvBuffer := 0, cbBuffer := 0 ;Reserved parameters must always be NULL
 
-        Name := Name is String? StrPtr(Name) : Name
-        lpCachePrefix := lpCachePrefix is String? StrPtr(lpCachePrefix) : lpCachePrefix
-        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+        Name := Name is String ? StrPtr(Name) : Name
+        lpCachePrefix := lpCachePrefix is String ? StrPtr(lpCachePrefix) : lpCachePrefix
+        lpszCachePath := lpszCachePath is String ? StrPtr(lpszCachePath) : lpszCachePath
 
         A_LastError := 0
 
@@ -11672,13 +11723,13 @@ class WinInet {
 
     /**
      * Creates a cache container in the specified cache path to hold cache entries based on the specified name, cache prefix, and container type.
-     * @param {Pointer<Char>} Name The name to give to the cache.
-     * @param {Pointer<Char>} lpCachePrefix The cache prefix to base the cache on.
-     * @param {Pointer<Char>} lpszCachePath The cache prefix to create the cache in.
+     * @param {PWSTR} Name The name to give to the cache.
+     * @param {PWSTR} lpCachePrefix The cache prefix to base the cache on.
+     * @param {PWSTR} lpszCachePath The cache prefix to create the cache in.
      * @param {Integer} KBCacheLimit The size limit of the cache in whole kilobytes, or 0 for the default size.
      * @param {Integer} dwContainerType The container type to base the cache on.
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-createurlcachecontainerw
      * @since windows5.0
@@ -11686,9 +11737,9 @@ class WinInet {
     static CreateUrlCacheContainerW(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
         static pvBuffer := 0, cbBuffer := 0 ;Reserved parameters must always be NULL
 
-        Name := Name is String? StrPtr(Name) : Name
-        lpCachePrefix := lpCachePrefix is String? StrPtr(lpCachePrefix) : lpCachePrefix
-        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+        Name := Name is String ? StrPtr(Name) : Name
+        lpCachePrefix := lpCachePrefix is String ? StrPtr(lpCachePrefix) : lpCachePrefix
+        lpszCachePath := lpszCachePath is String ? StrPtr(lpszCachePath) : lpszCachePath
 
         A_LastError := 0
 
@@ -11701,14 +11752,14 @@ class WinInet {
 
     /**
      * Deletes a cache container (which contains cache entries) based on the specified name.
-     * @param {Pointer<Byte>} Name The name of the cache container to be deleted.
+     * @param {PSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-deleteurlcachecontainera
      * @since windows5.0
      */
     static DeleteUrlCacheContainerA(Name, dwOptions) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -11721,14 +11772,14 @@ class WinInet {
 
     /**
      * Deletes a cache container (which contains cache entries) based on the specified name.
-     * @param {Pointer<Char>} Name The name of the cache container to be deleted.
+     * @param {PWSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-deleteurlcachecontainerw
      * @since windows5.0
      */
     static DeleteUrlCacheContainerW(Name, dwOptions) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -11745,11 +11796,11 @@ class WinInet {
      * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @param {Integer} dwOptions 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static FindFirstUrlCacheContainerA(pdwModified, lpContainerInfo, lpcbContainerInfo, dwOptions) {
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerA", "uint*", pdwModified, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -11758,48 +11809,52 @@ class WinInet {
      * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
      * @param {Integer} dwOptions 
-     * @returns {Pointer<Void>} 
+     * @returns {HANDLE} 
      */
     static FindFirstUrlCacheContainerW(pdwModified, lpContainerInfo, lpcbContainerInfo, dwOptions) {
         result := DllCall("WININET.dll\FindFirstUrlCacheContainerW", "uint*", pdwModified, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "uint", dwOptions, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hEnumHandle 
+     * @param {HANDLE} hEnumHandle 
      * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FindNextUrlCacheContainerA(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         result := DllCall("WININET.dll\FindNextUrlCacheContainerA", "ptr", hEnumHandle, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hEnumHandle 
+     * @param {HANDLE} hEnumHandle 
      * @param {Pointer} lpContainerInfo 
      * @param {Pointer<UInt32>} lpcbContainerInfo 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FindNextUrlCacheContainerW(hEnumHandle, lpContainerInfo, lpcbContainerInfo) {
+        hEnumHandle := hEnumHandle is Win32Handle ? NumGet(hEnumHandle, "ptr") : hEnumHandle
+
         result := DllCall("WININET.dll\FindNextUrlCacheContainerW", "ptr", hEnumHandle, "ptr", lpContainerInfo, "uint*", lpcbContainerInfo, "int")
         return result
     }
 
     /**
      * Frees space in the cache.
-     * @param {Pointer<Byte>} lpszCachePath The path for the cache.
+     * @param {PSTR} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-freeurlcachespacea
      * @since windows5.0
      */
     static FreeUrlCacheSpaceA(lpszCachePath, dwSize, dwFilter) {
-        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+        lpszCachePath := lpszCachePath is String ? StrPtr(lpszCachePath) : lpszCachePath
 
         A_LastError := 0
 
@@ -11812,15 +11867,15 @@ class WinInet {
 
     /**
      * Frees space in the cache.
-     * @param {Pointer<Char>} lpszCachePath The path for the cache.
+     * @param {PWSTR} lpszCachePath The path for the cache.
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-freeurlcachespacew
      * @since windows5.0
      */
     static FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
-        lpszCachePath := lpszCachePath is String? StrPtr(lpszCachePath) : lpszCachePath
+        lpszCachePath := lpszCachePath is String ? StrPtr(lpszCachePath) : lpszCachePath
 
         A_LastError := 0
 
@@ -11862,7 +11917,7 @@ class WinInet {
      *        the structure should be initialized to the size of 
      *        <b>INTERNET_CACHE_CONFIG_INFO</b>.
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
      *        extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-geturlcacheconfiginfoa
      * @since windows5.1.2600
@@ -11887,7 +11942,7 @@ class WinInet {
      *        the structure should be initialized to the size of 
      *        <b>INTERNET_CACHE_CONFIG_INFO</b>.
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
+     * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
      *        extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winineti/nf-winineti-geturlcacheconfiginfow
      * @since windows5.1.2600
@@ -11908,7 +11963,7 @@ class WinInet {
      * 
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOA>} lpCacheConfigInfo 
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetUrlCacheConfigInfoA(lpCacheConfigInfo, dwFieldControl) {
         result := DllCall("WININET.dll\SetUrlCacheConfigInfoA", "ptr", lpCacheConfigInfo, "uint", dwFieldControl, "int")
@@ -11919,7 +11974,7 @@ class WinInet {
      * 
      * @param {Pointer<INTERNET_CACHE_CONFIG_INFOW>} lpCacheConfigInfo 
      * @param {Integer} dwFieldControl 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {
         result := DllCall("WININET.dll\SetUrlCacheConfigInfoW", "ptr", lpCacheConfigInfo, "uint", dwFieldControl, "int")
@@ -11928,14 +11983,16 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Void>} hinst 
-     * @param {Pointer<Byte>} lpszCmd 
+     * @param {HWND} hwnd 
+     * @param {HINSTANCE} hinst 
+     * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
     static RunOnceUrlCache(hwnd, hinst, lpszCmd, nCmdShow) {
-        lpszCmd := lpszCmd is String? StrPtr(lpszCmd) : lpszCmd
+        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
         result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
@@ -11943,14 +12000,16 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Void>} hinst 
-     * @param {Pointer<Byte>} lpszCmd 
+     * @param {HWND} hwnd 
+     * @param {HINSTANCE} hinst 
+     * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
     static DeleteIE3Cache(hwnd, hinst, lpszCmd, nCmdShow) {
-        lpszCmd := lpszCmd is String? StrPtr(lpszCmd) : lpszCmd
+        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
         result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
@@ -11958,11 +12017,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} szNewPath 
-     * @returns {Integer} 
+     * @param {PSTR} szNewPath 
+     * @returns {BOOL} 
      */
     static UpdateUrlCacheContentPath(szNewPath) {
-        szNewPath := szNewPath is String? StrPtr(szNewPath) : szNewPath
+        szNewPath := szNewPath is String ? StrPtr(szNewPath) : szNewPath
 
         result := DllCall("WININET.dll\UpdateUrlCacheContentPath", "ptr", szNewPath, "int")
         return result
@@ -11970,14 +12029,16 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hWnd 
+     * @param {HWND} hWnd 
      * @param {Integer} uMsg 
      * @param {Integer} gid 
      * @param {Integer} dwOpsFilter 
      * @param {Integer} dwReserved 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static RegisterUrlCacheNotification(hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("WININET.dll\RegisterUrlCacheNotification", "ptr", hWnd, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, "int")
         return result
     }
@@ -11986,7 +12047,7 @@ class WinInet {
      * 
      * @param {Integer} nIdx 
      * @param {Pointer<UInt32>} lpdwData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetUrlCacheHeaderData(nIdx, lpdwData) {
         result := DllCall("WININET.dll\GetUrlCacheHeaderData", "uint", nIdx, "uint*", lpdwData, "int")
@@ -11997,7 +12058,7 @@ class WinInet {
      * 
      * @param {Integer} nIdx 
      * @param {Integer} dwData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static SetUrlCacheHeaderData(nIdx, dwData) {
         result := DllCall("WININET.dll\SetUrlCacheHeaderData", "uint", nIdx, "uint", dwData, "int")
@@ -12008,7 +12069,7 @@ class WinInet {
      * 
      * @param {Integer} nIdx 
      * @param {Pointer<UInt32>} lpdwData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IncrementUrlCacheHeaderData(nIdx, lpdwData) {
         result := DllCall("WININET.dll\IncrementUrlCacheHeaderData", "uint", nIdx, "uint*", lpdwData, "int")
@@ -12017,7 +12078,7 @@ class WinInet {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static LoadUrlCacheContent() {
         result := DllCall("WININET.dll\LoadUrlCacheContent", "int")
@@ -12026,13 +12087,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszUrl 
+     * @param {PWSTR} pwszUrl 
      * @param {Integer} dwFlags 
      * @param {Pointer<Void>} phAppCache 
      * @returns {Integer} 
      */
     static AppCacheLookup(pwszUrl, dwFlags, phAppCache) {
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         result := DllCall("WININET.dll\AppCacheLookup", "ptr", pwszUrl, "uint", dwFlags, "ptr", phAppCache, "uint")
         return result
@@ -12040,8 +12101,8 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszMasterUrl 
-     * @param {Pointer<Char>} pwszManifestUrl 
+     * @param {PWSTR} pwszMasterUrl 
+     * @param {PWSTR} pwszManifestUrl 
      * @param {Pointer} pbManifestData 
      * @param {Integer} dwManifestDataSize 
      * @param {Pointer} pbManifestResponseHeaders 
@@ -12051,8 +12112,8 @@ class WinInet {
      * @returns {Integer} 
      */
     static AppCacheCheckManifest(pwszMasterUrl, pwszManifestUrl, pbManifestData, dwManifestDataSize, pbManifestResponseHeaders, dwManifestResponseHeadersSize, peState, phNewAppCache) {
-        pwszMasterUrl := pwszMasterUrl is String? StrPtr(pwszMasterUrl) : pwszMasterUrl
-        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+        pwszMasterUrl := pwszMasterUrl is String ? StrPtr(pwszMasterUrl) : pwszMasterUrl
+        pwszManifestUrl := pwszManifestUrl is String ? StrPtr(pwszManifestUrl) : pwszManifestUrl
 
         result := DllCall("WININET.dll\AppCacheCheckManifest", "ptr", pwszMasterUrl, "ptr", pwszManifestUrl, "ptr", pbManifestData, "uint", dwManifestDataSize, "ptr", pbManifestResponseHeaders, "uint", dwManifestResponseHeadersSize, "int*", peState, "ptr", phNewAppCache, "uint")
         return result
@@ -12094,12 +12155,12 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pwszUrl 
-     * @param {Pointer<Char>} ppwszFallbackUrl 
+     * @param {PWSTR} pwszUrl 
+     * @param {Pointer<PWSTR>} ppwszFallbackUrl 
      * @returns {Integer} 
      */
     static AppCacheGetFallbackUrl(hAppCache, pwszUrl, ppwszFallbackUrl) {
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         result := DllCall("WININET.dll\AppCacheGetFallbackUrl", "ptr", hAppCache, "ptr", pwszUrl, "ptr", ppwszFallbackUrl, "uint")
         return result
@@ -12108,7 +12169,7 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} ppwszManifestUrl 
+     * @param {Pointer<PWSTR>} ppwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheGetManifestUrl(hAppCache, ppwszManifestUrl) {
@@ -12168,11 +12229,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszManifestUrl 
+     * @param {PWSTR} pwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheDeleteGroup(pwszManifestUrl) {
-        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+        pwszManifestUrl := pwszManifestUrl is String ? StrPtr(pwszManifestUrl) : pwszManifestUrl
 
         result := DllCall("WININET.dll\AppCacheDeleteGroup", "ptr", pwszManifestUrl, "uint")
         return result
@@ -12180,7 +12241,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer} ftCutOff 
+     * @param {FILETIME} ftCutOff 
      * @returns {Integer} 
      */
     static AppCacheFreeSpace(ftCutOff) {
@@ -12200,11 +12261,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszManifestUrl 
+     * @param {PWSTR} pwszManifestUrl 
      * @returns {Integer} 
      */
     static AppCacheDeleteIEGroup(pwszManifestUrl) {
-        pwszManifestUrl := pwszManifestUrl is String? StrPtr(pwszManifestUrl) : pwszManifestUrl
+        pwszManifestUrl := pwszManifestUrl is String ? StrPtr(pwszManifestUrl) : pwszManifestUrl
 
         result := DllCall("WININET.dll\AppCacheDeleteIEGroup", "ptr", pwszManifestUrl, "uint")
         return result
@@ -12212,7 +12273,7 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer} ftCutOff 
+     * @param {FILETIME} ftCutOff 
      * @returns {Integer} 
      */
     static AppCacheFreeIESpace(ftCutOff) {
@@ -12223,15 +12284,15 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pwszSourceFilePath 
-     * @param {Pointer<Char>} pwszUrl 
+     * @param {PWSTR} pwszSourceFilePath 
+     * @param {PWSTR} pwszUrl 
      * @param {Pointer} pbResponseHeaders 
      * @param {Integer} dwResponseHeadersSize 
      * @returns {Integer} 
      */
     static AppCacheCreateAndCommitFile(hAppCache, pwszSourceFilePath, pwszUrl, pbResponseHeaders, dwResponseHeadersSize) {
-        pwszSourceFilePath := pwszSourceFilePath is String? StrPtr(pwszSourceFilePath) : pwszSourceFilePath
-        pwszUrl := pwszUrl is String? StrPtr(pwszUrl) : pwszUrl
+        pwszSourceFilePath := pwszSourceFilePath is String ? StrPtr(pwszSourceFilePath) : pwszSourceFilePath
+        pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         result := DllCall("WININET.dll\AppCacheCreateAndCommitFile", "ptr", hAppCache, "ptr", pwszSourceFilePath, "ptr", pwszUrl, "ptr", pbResponseHeaders, "uint", dwResponseHeadersSize, "uint")
         return result
@@ -12240,7 +12301,7 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hRequestHandle 
-     * @param {Integer} fBackground 
+     * @param {BOOL} fBackground 
      * @param {Pointer<Void>} phDependencyHandle 
      * @returns {Integer} 
      */
@@ -12291,12 +12352,12 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pcwszUrl 
+     * @param {PWSTR} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {Integer} 
      */
     static UrlCacheGetEntryInfo(hAppCache, pcwszUrl, pCacheEntryInfo) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WININET.dll\UrlCacheGetEntryInfo", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, "uint")
         return result
@@ -12314,13 +12375,13 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pcwszUrl 
+     * @param {PWSTR} pcwszUrl 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @param {Pointer<Void>} phEntryFile 
      * @returns {Integer} 
      */
     static UrlCacheRetrieveEntryFile(hAppCache, pcwszUrl, pCacheEntryInfo, phEntryFile) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WININET.dll\UrlCacheRetrieveEntryFile", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pCacheEntryInfo, "ptr", phEntryFile, "uint")
         return result
@@ -12343,14 +12404,14 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pcwszUrl 
-     * @param {Integer} fRandomRead 
+     * @param {PWSTR} pcwszUrl 
+     * @param {BOOL} fRandomRead 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @param {Pointer<Void>} phEntryStream 
      * @returns {Integer} 
      */
     static UrlCacheRetrieveEntryStream(hAppCache, pcwszUrl, fRandomRead, pCacheEntryInfo, phEntryStream) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WININET.dll\UrlCacheRetrieveEntryStream", "ptr", hAppCache, "ptr", pcwszUrl, "int", fRandomRead, "ptr", pCacheEntryInfo, "ptr", phEntryStream, "uint")
         return result
@@ -12359,13 +12420,13 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hAppCache 
-     * @param {Pointer<Char>} pcwszUrl 
+     * @param {PWSTR} pcwszUrl 
      * @param {Pointer} pbExtraData 
      * @param {Integer} cbExtraData 
      * @returns {Integer} 
      */
     static UrlCacheUpdateEntryExtraData(hAppCache, pcwszUrl, pbExtraData, cbExtraData) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WININET.dll\UrlCacheUpdateEntryExtraData", "ptr", hAppCache, "ptr", pcwszUrl, "ptr", pbExtraData, "uint", cbExtraData, "uint")
         return result
@@ -12373,17 +12434,17 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszName 
-     * @param {Pointer<Char>} pwszPrefix 
-     * @param {Pointer<Char>} pwszDirectory 
+     * @param {PWSTR} pwszName 
+     * @param {PWSTR} pwszPrefix 
+     * @param {PWSTR} pwszDirectory 
      * @param {Integer} ullLimit 
      * @param {Integer} dwOptions 
      * @returns {Integer} 
      */
     static UrlCacheCreateContainer(pwszName, pwszPrefix, pwszDirectory, ullLimit, dwOptions) {
-        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
-        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
-        pwszDirectory := pwszDirectory is String? StrPtr(pwszDirectory) : pwszDirectory
+        pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
+        pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
+        pwszDirectory := pwszDirectory is String ? StrPtr(pwszDirectory) : pwszDirectory
 
         result := DllCall("WININET.dll\UrlCacheCreateContainer", "ptr", pwszName, "ptr", pwszPrefix, "ptr", pwszDirectory, "uint", ullLimit, "uint", dwOptions, "uint")
         return result
@@ -12391,19 +12452,19 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} rgpwszUrls 
+     * @param {Pointer<PWSTR>} rgpwszUrls 
      * @param {Integer} cEntries 
-     * @param {Pointer<Int32>} rgfExist 
+     * @param {Pointer<BOOL>} rgfExist 
      * @returns {Integer} 
      */
     static UrlCacheCheckEntriesExist(rgpwszUrls, cEntries, rgfExist) {
-        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "int*", rgfExist, "uint")
+        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "ptr", rgfExist, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} pppwszDirectories 
+     * @param {Pointer<PWSTR>} pppwszDirectories 
      * @param {Pointer<UInt32>} pcDirectories 
      * @returns {Integer} 
      */
@@ -12445,12 +12506,12 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszPrefix 
+     * @param {PWSTR} pwszPrefix 
      * @param {Integer} dwEntryMaxAge 
      * @returns {Integer} 
      */
     static UrlCacheContainerSetEntryMaximumAge(pwszPrefix, dwEntryMaxAge) {
-        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
+        pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
 
         result := DllCall("WININET.dll\UrlCacheContainerSetEntryMaximumAge", "ptr", pwszPrefix, "uint", dwEntryMaxAge, "uint")
         return result
@@ -12458,16 +12519,16 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszPrefix 
+     * @param {PWSTR} pwszPrefix 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
      * @param {Integer} GroupId 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
-     * @param {Pointer<Void>} phFind 
+     * @param {Pointer<HANDLE>} phFind 
      * @returns {Integer} 
      */
     static UrlCacheFindFirstEntry(pwszPrefix, dwFlags, dwFilter, GroupId, pCacheEntryInfo, phFind) {
-        pwszPrefix := pwszPrefix is String? StrPtr(pwszPrefix) : pwszPrefix
+        pwszPrefix := pwszPrefix is String ? StrPtr(pwszPrefix) : pwszPrefix
 
         result := DllCall("WININET.dll\UrlCacheFindFirstEntry", "ptr", pwszPrefix, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pCacheEntryInfo, "ptr", phFind, "uint")
         return result
@@ -12475,11 +12536,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Void>} hFind 
+     * @param {HANDLE} hFind 
      * @param {Pointer<URLCACHE_ENTRY_INFO>} pCacheEntryInfo 
      * @returns {Integer} 
      */
     static UrlCacheFindNextEntry(hFind, pCacheEntryInfo) {
+        hFind := hFind is Win32Handle ? NumGet(hFind, "ptr") : hFind
+
         result := DllCall("WININET.dll\UrlCacheFindNextEntry", "ptr", hFind, "ptr", pCacheEntryInfo, "uint")
         return result
     }
@@ -12496,12 +12559,12 @@ class WinInet {
     /**
      * 
      * @param {Pointer<UInt32>} pcNetworks 
-     * @param {Pointer<Char>} pppwszNetworkGuids 
-     * @param {Pointer<Char>} pppbstrNetworkNames 
-     * @param {Pointer<Char>} pppwszGWMacs 
+     * @param {Pointer<PWSTR>} pppwszNetworkGuids 
+     * @param {Pointer<BSTR>} pppbstrNetworkNames 
+     * @param {Pointer<PWSTR>} pppwszGWMacs 
      * @param {Pointer<UInt32>} pcGatewayMacs 
      * @param {Pointer<UInt32>} pdwFlags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static ReadGuidsForConnectedNetworks(pcNetworks, pppwszNetworkGuids, pppbstrNetworkNames, pppwszGWMacs, pcGatewayMacs, pdwFlags) {
         result := DllCall("WININET.dll\ReadGuidsForConnectedNetworks", "uint*", pcNetworks, "ptr", pppwszNetworkGuids, "ptr", pppbstrNetworkNames, "ptr", pppwszGWMacs, "uint*", pcGatewayMacs, "uint*", pdwFlags, "int")
@@ -12511,12 +12574,12 @@ class WinInet {
     /**
      * 
      * @param {Integer} tScheme 
-     * @param {Pointer<Byte>} lpszHost 
+     * @param {PSTR} lpszHost 
      * @param {Integer} cchHost 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsHostInProxyBypassList(tScheme, lpszHost, cchHost) {
-        lpszHost := lpszHost is String? StrPtr(lpszHost) : lpszHost
+        lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
 
         result := DllCall("WININET.dll\IsHostInProxyBypassList", "int", tScheme, "ptr", lpszHost, "uint", cchHost, "int")
         return result
@@ -12534,12 +12597,12 @@ class WinInet {
     /**
      * 
      * @param {Pointer<Void>} hInternet 
-     * @param {Pointer<Char>} pcwszUrl 
+     * @param {PWSTR} pcwszUrl 
      * @param {Pointer<WININET_PROXY_INFO_LIST>} pProxyInfoList 
      * @returns {Integer} 
      */
     static InternetGetProxyForUrl(hInternet, pcwszUrl, pProxyInfoList) {
-        pcwszUrl := pcwszUrl is String? StrPtr(pcwszUrl) : pcwszUrl
+        pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
         result := DllCall("WININET.dll\InternetGetProxyForUrl", "ptr", hInternet, "ptr", pcwszUrl, "ptr", pProxyInfoList, "uint")
         return result
@@ -12547,7 +12610,7 @@ class WinInet {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DoConnectoidsExist() {
         result := DllCall("WININET.dll\DoConnectoidsExist", "int")
@@ -12556,14 +12619,14 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszPath 
+     * @param {PSTR} pszPath 
      * @param {Pointer<UInt32>} pdwClusterSize 
      * @param {Pointer<UInt64>} pdlAvail 
      * @param {Pointer<UInt64>} pdlTotal 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetDiskInfoA(pszPath, pdwClusterSize, pdlAvail, pdlTotal) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("WININET.dll\GetDiskInfoA", "ptr", pszPath, "uint*", pdwClusterSize, "uint*", pdlAvail, "uint*", pdlTotal, "int")
         return result
@@ -12571,18 +12634,18 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszUrlSearchPattern 
+     * @param {PSTR} pszUrlSearchPattern 
      * @param {Integer} dwFlags 
      * @param {Integer} dwFilter 
      * @param {Integer} GroupId 
      * @param {Pointer<CACHE_OPERATOR>} op 
      * @param {Pointer<Void>} pOperatorData 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static PerformOperationOverUrlCacheA(pszUrlSearchPattern, dwFlags, dwFilter, GroupId, op, pOperatorData) {
         static pReserved1 := 0, pdwReserved2 := 0, pReserved3 := 0 ;Reserved parameters must always be NULL
 
-        pszUrlSearchPattern := pszUrlSearchPattern is String? StrPtr(pszUrlSearchPattern) : pszUrlSearchPattern
+        pszUrlSearchPattern := pszUrlSearchPattern is String ? StrPtr(pszUrlSearchPattern) : pszUrlSearchPattern
 
         result := DllCall("WININET.dll\PerformOperationOverUrlCacheA", "ptr", pszUrlSearchPattern, "uint", dwFlags, "uint", dwFilter, "int64", GroupId, "ptr", pReserved1, "uint*", pdwReserved2, "ptr", pReserved3, "ptr", op, "ptr", pOperatorData, "int")
         return result
@@ -12590,7 +12653,7 @@ class WinInet {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static IsProfilesEnabled() {
         result := DllCall("WININET.dll\IsProfilesEnabled", "int")
@@ -12599,14 +12662,14 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszUrl 
-     * @param {Pointer<Byte>} lpszCookieData 
+     * @param {PSTR} lpszUrl 
+     * @param {PSTR} lpszCookieData 
      * @param {Pointer<UInt32>} lpdwDataSize 
      * @returns {Integer} 
      */
     static InternalInternetGetCookie(lpszUrl, lpszCookieData, lpdwDataSize) {
-        lpszUrl := lpszUrl is String? StrPtr(lpszUrl) : lpszUrl
-        lpszCookieData := lpszCookieData is String? StrPtr(lpszCookieData) : lpszCookieData
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
+        lpszCookieData := lpszCookieData is String ? StrPtr(lpszCookieData) : lpszCookieData
 
         result := DllCall("WININET.dll\InternalInternetGetCookie", "ptr", lpszUrl, "ptr", lpszCookieData, "uint*", lpdwDataSize, "uint")
         return result
@@ -12614,11 +12677,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} szFilename 
-     * @returns {Integer} 
+     * @param {PSTR} szFilename 
+     * @returns {BOOL} 
      */
     static ImportCookieFileA(szFilename) {
-        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+        szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
 
         result := DllCall("WININET.dll\ImportCookieFileA", "ptr", szFilename, "int")
         return result
@@ -12626,11 +12689,11 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} szFilename 
-     * @returns {Integer} 
+     * @param {PWSTR} szFilename 
+     * @returns {BOOL} 
      */
     static ImportCookieFileW(szFilename) {
-        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+        szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
 
         result := DllCall("WININET.dll\ImportCookieFileW", "ptr", szFilename, "int")
         return result
@@ -12638,12 +12701,12 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} szFilename 
-     * @param {Integer} fAppend 
-     * @returns {Integer} 
+     * @param {PSTR} szFilename 
+     * @param {BOOL} fAppend 
+     * @returns {BOOL} 
      */
     static ExportCookieFileA(szFilename, fAppend) {
-        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+        szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
 
         result := DllCall("WININET.dll\ExportCookieFileA", "ptr", szFilename, "int", fAppend, "int")
         return result
@@ -12651,12 +12714,12 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} szFilename 
-     * @param {Integer} fAppend 
-     * @returns {Integer} 
+     * @param {PWSTR} szFilename 
+     * @param {BOOL} fAppend 
+     * @returns {BOOL} 
      */
     static ExportCookieFileW(szFilename, fAppend) {
-        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
+        szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
 
         result := DllCall("WININET.dll\ExportCookieFileW", "ptr", szFilename, "int", fAppend, "int")
         return result
@@ -12664,13 +12727,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} pchDomain 
-     * @param {Pointer<Byte>} pchFullDomain 
-     * @returns {Integer} 
+     * @param {PSTR} pchDomain 
+     * @param {PSTR} pchFullDomain 
+     * @returns {BOOL} 
      */
     static IsDomainLegalCookieDomainA(pchDomain, pchFullDomain) {
-        pchDomain := pchDomain is String? StrPtr(pchDomain) : pchDomain
-        pchFullDomain := pchFullDomain is String? StrPtr(pchFullDomain) : pchFullDomain
+        pchDomain := pchDomain is String ? StrPtr(pchDomain) : pchDomain
+        pchFullDomain := pchFullDomain is String ? StrPtr(pchFullDomain) : pchFullDomain
 
         result := DllCall("WININET.dll\IsDomainLegalCookieDomainA", "ptr", pchDomain, "ptr", pchFullDomain, "int")
         return result
@@ -12678,13 +12741,13 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Char>} pchDomain 
-     * @param {Pointer<Char>} pchFullDomain 
-     * @returns {Integer} 
+     * @param {PWSTR} pchDomain 
+     * @param {PWSTR} pchFullDomain 
+     * @returns {BOOL} 
      */
     static IsDomainLegalCookieDomainW(pchDomain, pchFullDomain) {
-        pchDomain := pchDomain is String? StrPtr(pchDomain) : pchDomain
-        pchFullDomain := pchFullDomain is String? StrPtr(pchFullDomain) : pchFullDomain
+        pchDomain := pchDomain is String ? StrPtr(pchDomain) : pchDomain
+        pchFullDomain := pchFullDomain is String ? StrPtr(pchFullDomain) : pchFullDomain
 
         result := DllCall("WININET.dll\IsDomainLegalCookieDomainW", "ptr", pchDomain, "ptr", pchFullDomain, "int")
         return result
@@ -12707,7 +12770,7 @@ class WinInet {
      * @param {Integer} BufferType 
      * @param {Pointer} pvBuffer 
      * @param {Integer} dwBufferLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpWebSocketSend(hWebSocket, BufferType, pvBuffer, dwBufferLength) {
         result := DllCall("WININET.dll\HttpWebSocketSend", "ptr", hWebSocket, "int", BufferType, "ptr", pvBuffer, "uint", dwBufferLength, "int")
@@ -12721,7 +12784,7 @@ class WinInet {
      * @param {Integer} dwBufferLength 
      * @param {Pointer<UInt32>} pdwBytesRead 
      * @param {Pointer<Int32>} pBufferType 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpWebSocketReceive(hWebSocket, pvBuffer, dwBufferLength, pdwBytesRead, pBufferType) {
         result := DllCall("WININET.dll\HttpWebSocketReceive", "ptr", hWebSocket, "ptr", pvBuffer, "uint", dwBufferLength, "uint*", pdwBytesRead, "int*", pBufferType, "int")
@@ -12734,7 +12797,7 @@ class WinInet {
      * @param {Integer} usStatus 
      * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpWebSocketClose(hWebSocket, usStatus, pvReason, dwReasonLength) {
         result := DllCall("WININET.dll\HttpWebSocketClose", "ptr", hWebSocket, "ushort", usStatus, "ptr", pvReason, "uint", dwReasonLength, "int")
@@ -12747,7 +12810,7 @@ class WinInet {
      * @param {Integer} usStatus 
      * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpWebSocketShutdown(hWebSocket, usStatus, pvReason, dwReasonLength) {
         result := DllCall("WININET.dll\HttpWebSocketShutdown", "ptr", hWebSocket, "ushort", usStatus, "ptr", pvReason, "uint", dwReasonLength, "int")
@@ -12761,7 +12824,7 @@ class WinInet {
      * @param {Pointer} pvReason 
      * @param {Integer} dwReasonLength 
      * @param {Pointer<UInt32>} pdwReasonLengthConsumed 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static HttpWebSocketQueryCloseStatus(hWebSocket, pusStatus, pvReason, dwReasonLength, pdwReasonLengthConsumed) {
         result := DllCall("WININET.dll\HttpWebSocketQueryCloseStatus", "ptr", hWebSocket, "ushort*", pusStatus, "ptr", pvReason, "uint", dwReasonLength, "uint*", pdwReasonLengthConsumed, "int")
@@ -12770,19 +12833,19 @@ class WinInet {
 
     /**
      * 
-     * @param {Pointer<Byte>} pcszUrl 
+     * @param {PSTR} pcszUrl 
      * @param {Integer} cchUrl 
-     * @param {Pointer<Char>} pcwszBaseUrl 
+     * @param {PWSTR} pcwszBaseUrl 
      * @param {Integer} dwCodePageHost 
      * @param {Integer} dwCodePagePath 
-     * @param {Integer} fEncodePathExtra 
+     * @param {BOOL} fEncodePathExtra 
      * @param {Integer} dwCodePageExtra 
-     * @param {Pointer<Char>} ppwszConvertedUrl 
+     * @param {Pointer<PWSTR>} ppwszConvertedUrl 
      * @returns {Integer} 
      */
     static InternetConvertUrlFromWireToWideChar(pcszUrl, cchUrl, pcwszBaseUrl, dwCodePageHost, dwCodePagePath, fEncodePathExtra, dwCodePageExtra, ppwszConvertedUrl) {
-        pcszUrl := pcszUrl is String? StrPtr(pcszUrl) : pcszUrl
-        pcwszBaseUrl := pcwszBaseUrl is String? StrPtr(pcwszBaseUrl) : pcwszBaseUrl
+        pcszUrl := pcszUrl is String ? StrPtr(pcszUrl) : pcszUrl
+        pcwszBaseUrl := pcwszBaseUrl is String ? StrPtr(pcwszBaseUrl) : pcwszBaseUrl
 
         result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, "int", fEncodePathExtra, "uint", dwCodePageExtra, "ptr", ppwszConvertedUrl, "uint")
         return result

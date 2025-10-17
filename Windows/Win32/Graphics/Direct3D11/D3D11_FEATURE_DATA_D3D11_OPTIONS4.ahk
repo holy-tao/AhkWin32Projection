@@ -22,7 +22,7 @@ class D3D11_FEATURE_DATA_D3D11_OPTIONS4 extends Win32Struct
 
     /**
      * Specifies a BOOL that determines if NV12 textures can be shared across processes and D3D devices.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ExtendedNV12SharedTextureSupported {
         get => NumGet(this, 0, "int")

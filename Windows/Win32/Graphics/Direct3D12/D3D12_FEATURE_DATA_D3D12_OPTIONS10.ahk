@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS10 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     VariableRateShadingSumCombinerSupported {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS10 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MeshShaderPerPrimitiveShadingRateSupported {
         get => NumGet(this, 4, "int")

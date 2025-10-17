@@ -35,7 +35,7 @@ class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct
     adjustedPoint{
         get {
             if(!this.HasProp("__adjustedPoint"))
-                this.__adjustedPoint := POINT(this.ptr + 8)
+                this.__adjustedPoint := POINT(8, this)
             return this.__adjustedPoint
         }
     }

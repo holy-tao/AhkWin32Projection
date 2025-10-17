@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the name to which the file should be renamed.
@@ -14,7 +15,7 @@ class FILE_RENAME_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReplaceIfExists {
         get => NumGet(this, 0, "char")
@@ -31,11 +32,14 @@ class FILE_RENAME_INFO extends Win32Struct
 
     /**
      * A handle to the root directory in which the file to be renamed is located.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    RootDirectory {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    RootDirectory{
+        get {
+            if(!this.HasProp("__RootDirectory"))
+                this.__RootDirectory := HANDLE(8, this)
+            return this.__RootDirectory
+        }
     }
 
     /**

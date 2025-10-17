@@ -12,7 +12,7 @@ class NFC_NDEF_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fIsNdefFormatted {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class NFC_NDEF_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fIsReadOnly {
         get => NumGet(this, 1, "char")

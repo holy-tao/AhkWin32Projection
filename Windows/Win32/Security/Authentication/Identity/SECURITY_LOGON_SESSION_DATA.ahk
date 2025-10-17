@@ -37,7 +37,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -50,7 +50,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__UserName := LSA_UNICODE_STRING(16, this)
             return this.__UserName
         }
     }
@@ -62,7 +62,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     LogonDomain{
         get {
             if(!this.HasProp("__LogonDomain"))
-                this.__LogonDomain := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__LogonDomain := LSA_UNICODE_STRING(32, this)
             return this.__LogonDomain
         }
     }
@@ -74,7 +74,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     AuthenticationPackage{
         get {
             if(!this.HasProp("__AuthenticationPackage"))
-                this.__AuthenticationPackage := LSA_UNICODE_STRING(this.ptr + 48)
+                this.__AuthenticationPackage := LSA_UNICODE_STRING(48, this)
             return this.__AuthenticationPackage
         }
     }
@@ -100,7 +100,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
 
     /**
      * A pointer to the user's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID).
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 72, "ptr")
@@ -123,7 +123,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__LogonServer := LSA_UNICODE_STRING(88, this)
             return this.__LogonServer
         }
     }
@@ -135,7 +135,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     DnsDomainName{
         get {
             if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(this.ptr + 104)
+                this.__DnsDomainName := LSA_UNICODE_STRING(104, this)
             return this.__DnsDomainName
         }
     }
@@ -147,7 +147,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     Upn{
         get {
             if(!this.HasProp("__Upn"))
-                this.__Upn := LSA_UNICODE_STRING(this.ptr + 120)
+                this.__Upn := LSA_UNICODE_STRING(120, this)
             return this.__Upn
         }
     }
@@ -223,7 +223,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     LastLogonInfo{
         get {
             if(!this.HasProp("__LastLogonInfo"))
-                this.__LastLogonInfo := LSA_LAST_INTER_LOGON_INFO(this.ptr + 144)
+                this.__LastLogonInfo := LSA_LAST_INTER_LOGON_INFO(144, this)
             return this.__LastLogonInfo
         }
     }
@@ -237,7 +237,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     LogonScript{
         get {
             if(!this.HasProp("__LogonScript"))
-                this.__LogonScript := LSA_UNICODE_STRING(this.ptr + 168)
+                this.__LogonScript := LSA_UNICODE_STRING(168, this)
             return this.__LogonScript
         }
     }
@@ -251,7 +251,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     ProfilePath{
         get {
             if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := LSA_UNICODE_STRING(this.ptr + 184)
+                this.__ProfilePath := LSA_UNICODE_STRING(184, this)
             return this.__ProfilePath
         }
     }
@@ -265,7 +265,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     HomeDirectory{
         get {
             if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := LSA_UNICODE_STRING(this.ptr + 200)
+                this.__HomeDirectory := LSA_UNICODE_STRING(200, this)
             return this.__HomeDirectory
         }
     }
@@ -279,7 +279,7 @@ class SECURITY_LOGON_SESSION_DATA extends Win32Struct
     HomeDirectoryDrive{
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(this.ptr + 216)
+                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(216, this)
             return this.__HomeDirectoryDrive
         }
     }

@@ -44,7 +44,7 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ai_template {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class ADDRINFO_DNS_SERVER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ai_hostname {
         get => NumGet(this, 32, "ptr")

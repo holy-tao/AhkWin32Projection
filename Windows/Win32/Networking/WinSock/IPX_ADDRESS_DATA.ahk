@@ -54,7 +54,7 @@ class IPX_ADDRESS_DATA extends Win32Struct
 
     /**
      * Specifies whether the adapter is on a wide area network (WAN) link. When <b>TRUE</b>, the adapter is on a WAN link.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     wan {
         get => NumGet(this, 14, "char")
@@ -63,7 +63,7 @@ class IPX_ADDRESS_DATA extends Win32Struct
 
     /**
      * Specifies whether the WAN link is up. <b>FALSE</b> indicates that the WAN link is up or the adapter is not on a WAN. Compare with the <b>wan</b> member to determine the meaning.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     status {
         get => NumGet(this, 15, "char")

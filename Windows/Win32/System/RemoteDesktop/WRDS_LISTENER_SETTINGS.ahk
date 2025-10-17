@@ -31,7 +31,7 @@ class WRDS_LISTENER_SETTINGS extends Win32Struct
     WRdsListenerSetting{
         get {
             if(!this.HasProp("__WRdsListenerSetting"))
-                this.__WRdsListenerSetting := WRDS_LISTENER_SETTING(this.ptr + 8)
+                this.__WRdsListenerSetting := WRDS_LISTENER_SETTING(8, this)
             return this.__WRdsListenerSetting
         }
     }

@@ -53,7 +53,7 @@ class IPX_PATTERN extends Win32Struct
     Src{
         get {
             if(!this.HasProp("__Src"))
-                this.__Src := %this.__Class%._Src(this.ptr + 0)
+                this.__Src := %this.__Class%._Src(0, this)
             return this.__Src
         }
     }
@@ -65,7 +65,7 @@ class IPX_PATTERN extends Win32Struct
     Dest{
         get {
             if(!this.HasProp("__Dest"))
-                this.__Dest := %this.__Class%._Src(this.ptr + 16)
+                this.__Dest := %this.__Class%._Src(16, this)
             return this.__Dest
         }
     }

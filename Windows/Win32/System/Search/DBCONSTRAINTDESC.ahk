@@ -68,7 +68,7 @@ class DBCONSTRAINTDESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszConstraintText {
         get => NumGet(this, 56, "ptr")

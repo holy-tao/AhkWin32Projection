@@ -20,10 +20,29 @@ class PROCESS_MITIGATION_SEHOP_POLICY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - EnableSehop
+     * - ReservedFlags
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EnableSehop {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedFlags {
+        get => (this._bitfield >> 1) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
 }

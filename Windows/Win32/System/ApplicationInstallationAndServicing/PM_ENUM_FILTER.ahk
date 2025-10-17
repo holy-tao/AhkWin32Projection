@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\PM_APPTASKTYPE.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\PM_EXTENSIONCONSUMER.ahk
 #Include .\PM_BSATASKID.ahk
 #Include .\PM_BWTASKID.ahk
@@ -85,7 +86,7 @@ class PM_ENUM_FILTER extends Win32Struct
     AppTaskType{
         get {
             if(!this.HasProp("__AppTaskType"))
-                this.__AppTaskType := PM_APPTASKTYPE(this.ptr + 8)
+                this.__AppTaskType := PM_APPTASKTYPE(8, this)
             return this.__AppTaskType
         }
     }
@@ -96,7 +97,7 @@ class PM_ENUM_FILTER extends Win32Struct
     Consumer{
         get {
             if(!this.HasProp("__Consumer"))
-                this.__Consumer := PM_EXTENSIONCONSUMER(this.ptr + 8)
+                this.__Consumer := PM_EXTENSIONCONSUMER(8, this)
             return this.__Consumer
         }
     }
@@ -107,7 +108,7 @@ class PM_ENUM_FILTER extends Win32Struct
     BSATask{
         get {
             if(!this.HasProp("__BSATask"))
-                this.__BSATask := PM_BSATASKID(this.ptr + 8)
+                this.__BSATask := PM_BSATASKID(8, this)
             return this.__BSATask
         }
     }
@@ -126,33 +127,42 @@ class PM_ENUM_FILTER extends Win32Struct
     BWTask{
         get {
             if(!this.HasProp("__BWTask"))
-                this.__BWTask := PM_BWTASKID(this.ptr + 8)
+                this.__BWTask := PM_BWTASKID(8, this)
             return this.__BWTask
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    ProtocolName {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ProtocolName{
+        get {
+            if(!this.HasProp("__ProtocolName"))
+                this.__ProtocolName := BSTR(8, this)
+            return this.__ProtocolName
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    FileType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    FileType{
+        get {
+            if(!this.HasProp("__FileType"))
+                this.__FileType := BSTR(8, this)
+            return this.__FileType
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    ContentType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ContentType{
+        get {
+            if(!this.HasProp("__ContentType"))
+                this.__ContentType := BSTR(8, this)
+            return this.__ContentType
+        }
     }
 
     /**
@@ -164,10 +174,13 @@ class PM_ENUM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    ShareTargetFileType {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ShareTargetFileType{
+        get {
+            if(!this.HasProp("__ShareTargetFileType"))
+                this.__ShareTargetFileType := BSTR(8, this)
+            return this.__ShareTargetFileType
+        }
     }
 }

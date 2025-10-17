@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 
 /**
  * Used by IImePadApplet::CreateUI to specify applet window style.
@@ -15,11 +16,14 @@ class IMEAPPLETUI extends Win32Struct
 
     /**
      * Window handle created by applet window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(0, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -87,7 +91,7 @@ class IMEAPPLETUI extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lReserved1 {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +100,7 @@ class IMEAPPLETUI extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lReserved2 {
         get => NumGet(this, 48, "ptr")

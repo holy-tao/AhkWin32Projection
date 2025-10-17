@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The PPP_EAP_INPUT structure is used in the interaction between the RAS Connection Manager Service PPP implementation and the EAP.
@@ -160,7 +161,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Specifies whether the authentication protocol is operating on the server or client. A value of <b>TRUE</b> indicates that the authentication protocol is operating on the server as the authenticator. A value of <b>FALSE</b> indicates that the authentication protocol is operating on the client as the process to be authenticated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuthenticator {
         get => NumGet(this, 8, "int")
@@ -174,7 +175,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * 
      * 
      * If the authentication protocol is able to derive the user's identity from an additional source, for example a certificate, it should verify that the derived identity matches the value of <b>pwszIdentity</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIdentity {
         get => NumGet(this, 16, "ptr")
@@ -183,7 +184,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the user's account password. Available only if <b>fAuthenticator</b> is <b>FALSE</b>. This member may be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPassword {
         get => NumGet(this, 24, "ptr")
@@ -213,7 +214,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Specifies a Boolean value that indicates whether the authentication provider has authenticated the user. A value of <b>TRUE</b> indicates authentication completion. Check the <b>dwAuthResultCode</b> member to determine if the authentication was successful. Ignore this member if the authentication protocol is not using an authentication provider.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuthenticationComplete {
         get => NumGet(this, 48, "int")
@@ -231,11 +232,14 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Handle to an impersonation token for the user requesting authentication. This member is valid only on the client side. For more information on impersonation tokens, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access Tokens</a>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTokenImpersonateUser {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hTokenImpersonateUser{
+        get {
+            if(!this.HasProp("__hTokenImpersonateUser"))
+                this.__hTokenImpersonateUser := HANDLE(56, this)
+            return this.__hTokenImpersonateUser
+        }
     }
 
     /**
@@ -244,7 +248,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * The EAP success packet is a non-acknowledged packet. Therefore, it may be lost and not resent by the server. In this situation, the receipt of an NCP packet indicates that authentication was successful, since the server has moved on to the NCP phase of PPP.
      * 
      * Examine this member only on the client side.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSuccessPacketReceived {
         get => NumGet(this, 64, "int")
@@ -253,7 +257,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * Specifies whether information is available from the interactive user interface. Default is <b>FALSE</b>. RAS sets this member to <b>TRUE</b> whenever the user exits from the authentication protocol's interactive user interface.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDataReceivedFromInteractiveUI {
         get => NumGet(this, 68, "int")
@@ -330,11 +334,14 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * This member is reserved.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hReserved {
-        get => NumGet(this, 120, "ptr")
-        set => NumPut("ptr", value, this, 120)
+    hReserved{
+        get {
+            if(!this.HasProp("__hReserved"))
+                this.__hReserved := HANDLE(120, this)
+            return this.__hReserved
+        }
     }
 
     /**
@@ -348,7 +355,7 @@ class PPP_EAP_INPUT extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     isVpn {
         get => NumGet(this, 136, "int")

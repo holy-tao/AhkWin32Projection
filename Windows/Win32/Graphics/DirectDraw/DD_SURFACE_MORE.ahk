@@ -48,7 +48,7 @@ class DD_SURFACE_MORE extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 24)
+                this.__ddsCapsEx := DDSCAPSEX(24, this)
             return this.__ddsCapsEx
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Iis
@@ -12,18 +13,24 @@ class CONFIGURATION_ENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    bstrKey{
+        get {
+            if(!this.HasProp("__bstrKey"))
+                this.__bstrKey := BSTR(0, this)
+            return this.__bstrKey
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrValue{
+        get {
+            if(!this.HasProp("__bstrValue"))
+                this.__bstrValue := BSTR(8, this)
+            return this.__bstrValue
+        }
     }
 }

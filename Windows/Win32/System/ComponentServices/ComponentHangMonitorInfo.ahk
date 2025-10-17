@@ -15,7 +15,7 @@ class ComponentHangMonitorInfo extends Win32Struct
 
     /**
      * Indicates whether the component is configured for hang monitoring.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsMonitored {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class ComponentHangMonitorInfo extends Win32Struct
 
     /**
      * Indicates whether the hang monitoring configuration for the component specifies the process will be terminated on a hang. This member is meaningful only if <b>IsMonitored</b> is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TerminateOnHang {
         get => NumGet(this, 4, "int")

@@ -20,7 +20,7 @@ class HID_COLLECTION_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Polled {
         get => NumGet(this, 4, "char")

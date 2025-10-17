@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -28,11 +29,14 @@ class D3DDEVICE_CREATION_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hFocusWindow {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hFocusWindow{
+        get {
+            if(!this.HasProp("__hFocusWindow"))
+                this.__hFocusWindow := HWND(8, this)
+            return this.__hFocusWindow
+        }
     }
 
     /**

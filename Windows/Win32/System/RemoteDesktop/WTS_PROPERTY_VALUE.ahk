@@ -35,7 +35,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pstrVal {
             get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {PSTR}
          */
         pbVal {
             get => NumGet(this, 8, "ptr")
@@ -80,7 +80,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     strVal{
         get {
             if(!this.HasProp("__strVal"))
-                this.__strVal := %this.__Class%._strVal(this.ptr + 8)
+                this.__strVal := %this.__Class%._strVal(8, this)
             return this.__strVal
         }
     }
@@ -91,7 +91,7 @@ class WTS_PROPERTY_VALUE extends Win32Struct
     bVal{
         get {
             if(!this.HasProp("__bVal"))
-                this.__bVal := %this.__Class%._bVal(this.ptr + 8)
+                this.__bVal := %this.__Class%._bVal(8, this)
             return this.__bVal
         }
     }

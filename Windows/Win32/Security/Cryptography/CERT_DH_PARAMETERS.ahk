@@ -21,7 +21,7 @@ class CERT_DH_PARAMETERS extends Win32Struct
     p{
         get {
             if(!this.HasProp("__p"))
-                this.__p := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__p := CRYPT_INTEGER_BLOB(0, this)
             return this.__p
         }
     }
@@ -33,7 +33,7 @@ class CERT_DH_PARAMETERS extends Win32Struct
     g{
         get {
             if(!this.HasProp("__g"))
-                this.__g := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__g := CRYPT_INTEGER_BLOB(16, this)
             return this.__g
         }
     }

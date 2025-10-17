@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NORMALIZEDRECT.ahk
 
@@ -93,11 +94,14 @@ class VMRALPHABITMAP extends Win32Struct
 
     /**
      * The handle to the device context for the bitmap. Specify <b>NULL</b> if the bitmap is located in a DirectDraw surface.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(8, this)
+            return this.__hdc
+        }
     }
 
     /**
@@ -117,7 +121,7 @@ class VMRALPHABITMAP extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(this.ptr + 24)
+                this.__rSrc := RECT(24, this)
             return this.__rSrc
         }
     }
@@ -129,7 +133,7 @@ class VMRALPHABITMAP extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := NORMALIZEDRECT(this.ptr + 40)
+                this.__rDest := NORMALIZEDRECT(40, this)
             return this.__rDest
         }
     }
@@ -145,7 +149,7 @@ class VMRALPHABITMAP extends Win32Struct
 
     /**
      * Specifies the source color key.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrSrcKey {
         get => NumGet(this, 60, "uint")

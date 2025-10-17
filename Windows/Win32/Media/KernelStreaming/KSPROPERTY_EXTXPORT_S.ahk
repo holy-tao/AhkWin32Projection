@@ -20,7 +20,7 @@ class KSPROPERTY_EXTXPORT_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -118,7 +118,7 @@ class KSPROPERTY_EXTXPORT_S extends Win32Struct
     MediumInfo{
         get {
             if(!this.HasProp("__MediumInfo"))
-                this.__MediumInfo := MEDIUM_INFO(this.ptr + 16)
+                this.__MediumInfo := MEDIUM_INFO(16, this)
             return this.__MediumInfo
         }
     }
@@ -129,7 +129,7 @@ class KSPROPERTY_EXTXPORT_S extends Win32Struct
     XPrtState{
         get {
             if(!this.HasProp("__XPrtState"))
-                this.__XPrtState := TRANSPORT_STATE(this.ptr + 16)
+                this.__XPrtState := TRANSPORT_STATE(16, this)
             return this.__XPrtState
         }
     }
@@ -140,7 +140,7 @@ class KSPROPERTY_EXTXPORT_S extends Win32Struct
     Timecode{
         get {
             if(!this.HasProp("__Timecode"))
-                this.__Timecode := %this.__Class%._Timecode(this.ptr + 16)
+                this.__Timecode := %this.__Class%._Timecode(16, this)
             return this.__Timecode
         }
     }
@@ -167,7 +167,7 @@ class KSPROPERTY_EXTXPORT_S extends Win32Struct
     RawAVC{
         get {
             if(!this.HasProp("__RawAVC"))
-                this.__RawAVC := %this.__Class%._RawAVC(this.ptr + 16)
+                this.__RawAVC := %this.__Class%._RawAVC(16, this)
             return this.__RawAVC
         }
     }

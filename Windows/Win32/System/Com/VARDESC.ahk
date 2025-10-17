@@ -28,7 +28,7 @@ class VARDESC extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrSchema {
         get => NumGet(this, 8, "ptr")
@@ -58,7 +58,7 @@ class VARDESC extends Win32Struct
     elemdescVar{
         get {
             if(!this.HasProp("__elemdescVar"))
-                this.__elemdescVar := ELEMDESC(this.ptr + 24)
+                this.__elemdescVar := ELEMDESC(24, this)
             return this.__elemdescVar
         }
     }

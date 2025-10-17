@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\BCRYPT_KEY_HANDLE.ahk
 
 /**
  * Encapsulates key information data.
@@ -24,7 +25,7 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that specifies the value of the <b>ID</b> attribute of the key information element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszId {
         get => NumGet(this, 8, "ptr")
@@ -51,19 +52,18 @@ class CRYPT_XML_KEY_INFO extends Win32Struct
 
     /**
      * Optional. The handle of data  derived from the first key value.
-     * @type {Pointer<Void>}
+     * @type {BCRYPT_KEY_HANDLE}
      */
-    hVerifyKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hVerifyKey{
+        get {
+            if(!this.HasProp("__hVerifyKey"))
+                this.__hVerifyKey := BCRYPT_KEY_HANDLE(32, this)
+            return this.__hVerifyKey
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

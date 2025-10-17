@@ -11,6 +11,40 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
 
     static packingSize => 8
 
+    class _Attributes extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - MayOverwritten
+         * - Hidden
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        MayOverwritten {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Hidden {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,11 +54,14 @@ class NVME_LBA_RANGET_TYPE_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Attributes}
      */
-    Attributes {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    Attributes{
+        get {
+            if(!this.HasProp("__Attributes"))
+                this.__Attributes := %this.__Class%._Attributes(1, this)
+            return this.__Attributes
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ class WER_REPORT_METADATA_V2 extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__Signature"))
-                this.__Signature := WER_REPORT_SIGNATURE(this.ptr + 0)
+                this.__Signature := WER_REPORT_SIGNATURE(0, this)
             return this.__Signature
         }
     }
@@ -53,7 +53,7 @@ class WER_REPORT_METADATA_V2 extends Win32Struct
     CreationTime{
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(this.ptr + 232)
+                this.__CreationTime := FILETIME(232, this)
             return this.__CreationTime
         }
     }
@@ -114,7 +114,7 @@ class WER_REPORT_METADATA_V2 extends Win32Struct
 
     /**
      * A pointer to hold the names of the files included in the report. It is in the format: FileName001\0FileName002\0\FileName003\0\0.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FileNames {
         get => NumGet(this, 792, "ptr")

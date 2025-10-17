@@ -22,14 +22,14 @@ class HTTP_SERVICE_BINDING_A extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := HTTP_SERVICE_BINDING_BASE(this.ptr + 0)
+                this.__Base := HTTP_SERVICE_BINDING_BASE(0, this)
             return this.__Base
         }
     }
 
     /**
      * A pointer to a buffer that represents the SPN.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\WNODE_HEADER.ahk
 
 /**
@@ -18,7 +19,7 @@ class WNODE_METHOD_ITEM extends Win32Struct
     WnodeHeader{
         get {
             if(!this.HasProp("__WnodeHeader"))
-                this.__WnodeHeader := WNODE_HEADER(this.ptr + 0)
+                this.__WnodeHeader := WNODE_HEADER(0, this)
             return this.__WnodeHeader
         }
     }

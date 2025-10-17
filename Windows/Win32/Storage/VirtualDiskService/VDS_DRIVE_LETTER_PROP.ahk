@@ -47,7 +47,7 @@ class VDS_DRIVE_LETTER_PROP extends Win32Struct
 
     /**
      * If true, the drive letter is already in use; otherwise, the drive letter is available.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bUsed {
         get => NumGet(this, 20, "int")

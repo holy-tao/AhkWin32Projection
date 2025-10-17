@@ -21,7 +21,7 @@ class WS_FAULT_REASON extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := WS_STRING(this.ptr + 0)
+                this.__text := WS_STRING(0, this)
             return this.__text
         }
     }
@@ -37,7 +37,7 @@ class WS_FAULT_REASON extends Win32Struct
     lang{
         get {
             if(!this.HasProp("__lang"))
-                this.__lang := WS_STRING(this.ptr + 16)
+                this.__lang := WS_STRING(16, this)
             return this.__lang
         }
     }

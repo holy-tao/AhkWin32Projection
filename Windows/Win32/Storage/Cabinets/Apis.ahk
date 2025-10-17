@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Cabinets
  * @version v4.0.30319
@@ -198,9 +198,9 @@ class Cabinets {
     /**
      * The FCIAddFile adds a file to the cabinet under construction.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
-     * @param {Pointer<Byte>} pszSourceFile The name of the file to add; this value should include path information.
-     * @param {Pointer<Byte>} pszFileName The name under which to store the file in the cabinet.
-     * @param {Integer} fExecute If set <b>TRUE</b>, the file will be executed when extracted.
+     * @param {PSTR} pszSourceFile The name of the file to add; this value should include path information.
+     * @param {PSTR} pszFileName The name under which to store the file in the cabinet.
+     * @param {BOOL} fExecute If set <b>TRUE</b>, the file will be executed when extracted.
      * @param {Pointer<PFNFCIGETNEXTCABINET>} pfnfcignc Pointer to an application-defined callback function to obtain specifications on the next cabinet to create. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetnextcabinet">FNFCIGETNEXTCABINET</a> macro.
      * @param {Pointer<PFNFCISTATUS>} pfnfcis Pointer to an application-defined callback function to update the progress information available to the user. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcistatus">FNFCISTATUS</a> macro.
      * @param {Pointer<PFNFCIGETOPENINFO>} pfnfcigoi Pointer to an application-defined callback function to open a file and retrieve the file date, time, and attributes. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetopeninfo">FNFCIGETOPENINFO</a> macro.
@@ -236,14 +236,14 @@ class Cabinets {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciaddfile
      */
     static FCIAddFile(hfci, pszSourceFile, pszFileName, fExecute, pfnfcignc, pfnfcis, pfnfcigoi, typeCompress) {
-        pszSourceFile := pszSourceFile is String? StrPtr(pszSourceFile) : pszSourceFile
-        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszSourceFile := pszSourceFile is String ? StrPtr(pszSourceFile) : pszSourceFile
+        pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
         result := DllCall("Cabinet.dll\FCIAddFile", "ptr", hfci, "ptr", pszSourceFile, "ptr", pszFileName, "int", fExecute, "ptr", pfnfcignc, "ptr", pfnfcis, "ptr", pfnfcigoi, "ushort", typeCompress, "CDecl int")
         return result
@@ -252,10 +252,10 @@ class Cabinets {
     /**
      * The FCIFlushCabinet function completes the current cabinet.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the<a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
-     * @param {Integer} fGetNextCab Specifies whether the function pointed to by the supplied <i>GetNextCab</i> parameter will be called.
+     * @param {BOOL} fGetNextCab Specifies whether the function pointed to by the supplied <i>GetNextCab</i> parameter will be called.
      * @param {Pointer<PFNFCIGETNEXTCABINET>} pfnfcignc Pointer to an application-defined callback function to obtain specifications on the next cabinet to create. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetnextcabinet">FNFCIGETNEXTCABINET</a> macro.
      * @param {Pointer<PFNFCISTATUS>} pfnfcis Pointer to an application-defined callback function to update the user. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcistatus">FNFCISTATUS</a> macro.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushcabinet
@@ -270,7 +270,7 @@ class Cabinets {
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
      * @param {Pointer<PFNFCIGETNEXTCABINET>} pfnfcignc Pointer to an application-defined callback function to obtain specifications on the next cabinet to create. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcigetnextcabinet">FNFCIGETNEXTCABINET</a> macro.
      * @param {Pointer<PFNFCISTATUS>} pfnfcis Pointer to an application-defined callback function to update the user. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fnfcistatus">FNFCISTATUS</a> macro.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, FASLE.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, FASLE.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fciflushfolder
@@ -283,7 +283,7 @@ class Cabinets {
     /**
      * The FCIDestroy function deletes an open FCI context, freeing any memory and temporary files associated with the context.
      * @param {Pointer<Void>} hfci A valid FCI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fci/nf-fci-fcicreate">FCICreate</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FCI context.
      * @see https://docs.microsoft.com/windows/win32/api//fci/nf-fci-fcidestroy
@@ -320,7 +320,7 @@ class Cabinets {
      * @param {Pointer<Void>} hfdi A valid FDI context handle returned  by <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a>.
      * @param {Pointer} hf An application-defined value to keep track of the opened file. This value must be of the same type as values used by the File I/O functions passed to <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a>.
      * @param {Pointer<FDICABINETINFO>} pfdici Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/fdi/ns-fdi-fdicabinetinfo">FDICABINETINFO</a> structure that receives the cabinet details, in the event the file is actually a cabinet.
-     * @returns {Integer} If the file is a cabinet, the function returns <b>TRUE</b> ; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the file is a cabinet, the function returns <b>TRUE</b> ; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
      * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdiiscabinet
@@ -334,23 +334,23 @@ class Cabinets {
     /**
      * The FDICopy function extracts files from cabinets.
      * @param {Pointer<Void>} hfdi A valid FDI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a> function.
-     * @param {Pointer<Byte>} pszCabinet The name of the cabinet file, excluding any path information, from which to extract files. If a file is split over multiple cabinets, <b>FDICopy</b>  allows for subsequent cabinets to be opened.
-     * @param {Pointer<Byte>} pszCabPath The pathname of the cabinet file, but not including the name of the file itself. For example, "C:\MyCabs\". 
+     * @param {PSTR} pszCabinet The name of the cabinet file, excluding any path information, from which to extract files. If a file is split over multiple cabinets, <b>FDICopy</b>  allows for subsequent cabinets to be opened.
+     * @param {PSTR} pszCabPath The pathname of the cabinet file, but not including the name of the file itself. For example, "C:\MyCabs\". 
      * 
      * The contents of <i>pszCabinet</i> are appended to <i>pszCabPath</i> to create the full pathname of the cabinet.
      * @param {Integer} flags No flags are currently defined and this parameter should be set to zero.
      * @param {Pointer<PFNFDINOTIFY>} pfnfdin Pointer to an application-defined callback notification function to update the application on the status of the decoder. The function should be declared using the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fnfdinotify">FNFDINOTIFY</a> macro.
      * @param {Pointer<PFNFDIDECRYPT>} pfnfdid Not currently used by FDI. This parameter should be set to <b>NULL</b>.
      * @param {Pointer<Void>} pvUser Pointer to an application-specified value to pass to the notification function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
      * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdicopy
      * @since windows5.0
      */
     static FDICopy(hfdi, pszCabinet, pszCabPath, flags, pfnfdin, pfnfdid, pvUser) {
-        pszCabinet := pszCabinet is String? StrPtr(pszCabinet) : pszCabinet
-        pszCabPath := pszCabPath is String? StrPtr(pszCabPath) : pszCabPath
+        pszCabinet := pszCabinet is String ? StrPtr(pszCabinet) : pszCabinet
+        pszCabPath := pszCabPath is String ? StrPtr(pszCabPath) : pszCabPath
 
         result := DllCall("Cabinet.dll\FDICopy", "ptr", hfdi, "ptr", pszCabinet, "ptr", pszCabPath, "int", flags, "ptr", pfnfdin, "ptr", pfnfdid, "ptr", pvUser, "CDecl int")
         return result
@@ -359,7 +359,7 @@ class Cabinets {
     /**
      * The FDIDestroy function deletes an open FDI context.
      * @param {Pointer<Void>} hfdi A valid FDI context handle returned by  the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
      * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fdidestroy
@@ -373,15 +373,15 @@ class Cabinets {
     /**
      * The FDITruncateCabinet function truncates a cabinet file starting at the specified folder number.
      * @param {Pointer<Void>} hfdi A valid FDI context handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/fdi/nf-fdi-fdicreate">FDICreate</a> function.
-     * @param {Pointer<Byte>} pszCabinetName The full cabinet filename.
+     * @param {PSTR} pszCabinetName The full cabinet filename.
      * @param {Integer} iFolderToDelete The index of the first folder to delete.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>; otherwise, <b>FALSE</b>.
      * 
      * Extended error information is provided in the <a href="/windows/desktop/api/fdi_fci_types/ns-fdi_fci_types-erf">ERF</a> structure used to create the FDI context.
      * @see https://docs.microsoft.com/windows/win32/api//fdi/nf-fdi-fditruncatecabinet
      */
     static FDITruncateCabinet(hfdi, pszCabinetName, iFolderToDelete) {
-        pszCabinetName := pszCabinetName is String? StrPtr(pszCabinetName) : pszCabinetName
+        pszCabinetName := pszCabinetName is String ? StrPtr(pszCabinetName) : pszCabinetName
 
         result := DllCall("Cabinet.dll\FDITruncateCabinet", "ptr", hfdi, "ptr", pszCabinetName, "ushort", iFolderToDelete, "CDecl int")
         return result

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\Controls\NMHDR.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -33,7 +35,7 @@ class IEC_GESTUREINFO extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -65,7 +67,7 @@ class IEC_GESTUREINFO extends Win32Struct
     Gestures{
         get {
             if(!this.HasProp("__Gestures"))
-                this.__Gestures := VARIANT(this.ptr + 40)
+                this.__Gestures := VARIANT(40, this)
             return this.__Gestures
         }
     }

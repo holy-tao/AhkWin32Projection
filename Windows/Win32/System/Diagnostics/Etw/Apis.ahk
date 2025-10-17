@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\PROCESSTRACE_HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
@@ -2493,7 +2494,7 @@ class Etw {
     /**
      * The StartTrace function registers and starts an event tracing session.
      * @param {Pointer<UInt64>} TraceId 
-     * @param {Pointer<Char>} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
+     * @param {PWSTR} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
      *        1,024 characters, is case-insensitive, and must be unique.
      * 
      * <b>Windows 2000:  </b>Session names are case-sensitive. As a result, duplicate session names are allowed. However, to reduce 
@@ -2654,7 +2655,7 @@ class Etw {
      * @since windows5.0
      */
     static StartTraceW(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\StartTraceW", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -2663,7 +2664,7 @@ class Etw {
     /**
      * The StartTrace function registers and starts an event tracing session.
      * @param {Pointer<UInt64>} TraceId 
-     * @param {Pointer<Byte>} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
+     * @param {PSTR} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
      *        1,024 characters, is case-insensitive, and must be unique.
      * 
      * <b>Windows 2000:  </b>Session names are case-sensitive. As a result, duplicate session names are allowed. However, to reduce 
@@ -2824,7 +2825,7 @@ class Etw {
      * @since windows5.0
      */
     static StartTraceA(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\StartTraceA", "uint*", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -2833,7 +2834,7 @@ class Etw {
     /**
      * The StopTrace function stops the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Char>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session that you want to 
+     * @param {PWSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session that you want to 
      *       stop, or <b>NULL</b>. You must specify <i>SessionName</i> if 
      *       <i>SessionHandle</i> is <b>NULL</b>.
      * 
@@ -2910,7 +2911,7 @@ class Etw {
      * @since windows5.0
      */
     static StopTraceW(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\StopTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -2919,7 +2920,7 @@ class Etw {
     /**
      * The StopTrace function stops the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Byte>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session that you want to 
+     * @param {PSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session that you want to 
      *       stop, or <b>NULL</b>. You must specify <i>SessionName</i> if 
      *       <i>SessionHandle</i> is <b>NULL</b>.
      * 
@@ -2996,7 +2997,7 @@ class Etw {
      * @since windows5.0
      */
     static StopTraceA(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\StopTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3005,7 +3006,7 @@ class Etw {
     /**
      * The QueryTrace function retrieves the property settings and session statistics for the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Char>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose properties and statistics you want to query, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PWSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose properties and statistics you want to query, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3092,7 +3093,7 @@ class Etw {
      * @since windows5.0
      */
     static QueryTraceW(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\QueryTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3101,7 +3102,7 @@ class Etw {
     /**
      * The QueryTrace function retrieves the property settings and session statistics for the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Byte>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose properties and statistics you want to query, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose properties and statistics you want to query, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3188,7 +3189,7 @@ class Etw {
      * @since windows5.0
      */
     static QueryTraceA(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\QueryTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3197,7 +3198,7 @@ class Etw {
     /**
      * The UpdateTrace function updates the property setting of the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Char>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session to update, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PWSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session to update, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3266,7 +3267,7 @@ class Etw {
      * @since windows5.0
      */
     static UpdateTraceW(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\UpdateTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3275,7 +3276,7 @@ class Etw {
     /**
      * The UpdateTrace function updates the property setting of the specified event tracing session. The ControlTrace function supersedes this function.
      * @param {Integer} TraceId 
-     * @param {Pointer<Byte>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session to update, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session to update, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3344,7 +3345,7 @@ class Etw {
      * @since windows5.0
      */
     static UpdateTraceA(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\UpdateTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3353,7 +3354,7 @@ class Etw {
     /**
      * The FlushTrace function causes an event tracing session to immediately deliver buffered events for the specified session.
      * @param {Integer} TraceId 
-     * @param {Pointer<Char>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose buffers you want to flush, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PWSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose buffers you want to flush, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3427,7 +3428,7 @@ class Etw {
      * @since windows5.1.2600
      */
     static FlushTraceW(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\FlushTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3436,7 +3437,7 @@ class Etw {
     /**
      * The FlushTrace function causes an event tracing session to immediately deliver buffered events for the specified session.
      * @param {Integer} TraceId 
-     * @param {Pointer<Byte>} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose buffers you want to flush, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
+     * @param {PSTR} InstanceName Pointer to a null-terminated string that specifies the name of the event tracing session whose buffers you want to flush, or <b>NULL</b>. You must specify <i>SessionName</i> if <i>SessionHandle</i> is <b>NULL</b>.
      * 
      * To specify the NT Kernel Logger session, set <i>SessionName</i> to <b>KERNEL_LOGGER_NAME</b>.
      * @param {Pointer<EVENT_TRACE_PROPERTIES>} Properties Pointer to an 
@@ -3510,7 +3511,7 @@ class Etw {
      * @since windows5.1.2600
      */
     static FlushTraceA(TraceId, InstanceName, Properties) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\FlushTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint")
         return result
@@ -3519,7 +3520,7 @@ class Etw {
     /**
      * The ControlTrace function flushes, queries, updates, or stops the specified event tracing session.
      * @param {Integer} TraceId 
-     * @param {Pointer<Char>} InstanceName Name of an event tracing session, or <b>NULL</b>. You must specify 
+     * @param {PWSTR} InstanceName Name of an event tracing session, or <b>NULL</b>. You must specify 
      *       <i>SessionName</i> if <i>SessionHandle</i> is 
      *       <b>NULL</b>. 
      * 
@@ -3699,7 +3700,7 @@ class Etw {
      * @since windows5.0
      */
     static ControlTraceW(TraceId, InstanceName, Properties, ControlCode) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\ControlTraceW", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
@@ -3708,7 +3709,7 @@ class Etw {
     /**
      * The ControlTrace function flushes, queries, updates, or stops the specified event tracing session.
      * @param {Integer} TraceId 
-     * @param {Pointer<Byte>} InstanceName Name of an event tracing session, or <b>NULL</b>. You must specify 
+     * @param {PSTR} InstanceName Name of an event tracing session, or <b>NULL</b>. You must specify 
      *       <i>SessionName</i> if <i>SessionHandle</i> is 
      *       <b>NULL</b>. 
      * 
@@ -3888,7 +3889,7 @@ class Etw {
      * @since windows5.0
      */
     static ControlTraceA(TraceId, InstanceName, Properties, ControlCode) {
-        InstanceName := InstanceName is String? StrPtr(InstanceName) : InstanceName
+        InstanceName := InstanceName is String ? StrPtr(InstanceName) : InstanceName
 
         result := DllCall("ADVAPI32.dll\ControlTraceA", "uint", TraceId, "ptr", InstanceName, "ptr", Properties, "uint", ControlCode, "uint")
         return result
@@ -4788,7 +4789,7 @@ class Etw {
 
     /**
      * The CreateTraceInstanceId function creates a unique transaction identifier and maps it to a class GUID registration handle. You then use the transaction identifier when calling the TraceEventInstance function.
-     * @param {Pointer<Void>} RegHandle Handle to a registered event trace class. The 
+     * @param {HANDLE} RegHandle Handle to a registered event trace class. The 
      * <a href="https://docs.microsoft.com/windows/desktop/ETW/registertraceguids">RegisterTraceGuids</a> function returns this handle in the <b>RegHandle</b> member of the <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-registration">TRACE_GUID_REGISTRATION</a> structure.
      * @param {Pointer<EVENT_INSTANCE_INFO>} InstInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/ETW/event-instance-info">EVENT_INSTANCE_INFO</a> structure. The <b>InstanceId</b> member of this structure contains the transaction identifier.
@@ -4823,6 +4824,8 @@ class Etw {
      * @since windows5.0
      */
     static CreateTraceInstanceId(RegHandle, InstInfo) {
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
         result := DllCall("ADVAPI32.dll\CreateTraceInstanceId", "ptr", RegHandle, "ptr", InstInfo, "uint")
         return result
     }
@@ -5096,10 +5099,10 @@ class Etw {
      * On output, the <b>RegHandle</b> member receives a handle to the event's class GUID registration. If the provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function, use the <b>RegHandle</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-registration">TRACE_GUID_REGISTRATION</a> to set the <b>RegHandle</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-instance-header">EVENT_INSTANCE_HEADER</a>.
      * 
      * This parameter can be <b>NULL</b> if the provider calls only the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceevent">TraceEvent</a> function to log events. If the provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function to log events, this parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} MofImagePath This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
+     * @param {PWSTR} MofImagePath This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the path of the DLL or executable program that contains the resource specified by <i>MofResourceName</i>. This parameter can be <b>NULL</b> if the event provider and consumer use another mechanism to share information about the event trace classes used by the provider.
-     * @param {Pointer<Char>} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
+     * @param {PWSTR} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the string resource of <i>MofImagePath</i>. The string resource contains the name of the binary MOF file that describes the event trace classes supported by the provider.
      * @param {Pointer<UInt64>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
@@ -5143,8 +5146,8 @@ class Etw {
      * @since windows5.0
      */
     static RegisterTraceGuidsW(RequestAddress, RequestContext, ControlGuid, GuidCount, TraceGuidReg, MofImagePath, MofResourceName, RegistrationHandle) {
-        MofImagePath := MofImagePath is String? StrPtr(MofImagePath) : MofImagePath
-        MofResourceName := MofResourceName is String? StrPtr(MofResourceName) : MofResourceName
+        MofImagePath := MofImagePath is String ? StrPtr(MofImagePath) : MofImagePath
+        MofResourceName := MofResourceName is String ? StrPtr(MofResourceName) : MofResourceName
 
         result := DllCall("ADVAPI32.dll\RegisterTraceGuidsW", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "uint*", RegistrationHandle, "uint")
         return result
@@ -5169,10 +5172,10 @@ class Etw {
      * On output, the <b>RegHandle</b> member receives a handle to the event's class GUID registration. If the provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function, use the <b>RegHandle</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-registration">TRACE_GUID_REGISTRATION</a> to set the <b>RegHandle</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-instance-header">EVENT_INSTANCE_HEADER</a>.
      * 
      * This parameter can be <b>NULL</b> if the provider calls only the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceevent">TraceEvent</a> function to log events. If the provider calls the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function to log events, this parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} MofImagePath This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
+     * @param {PSTR} MofImagePath This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the path of the DLL or executable program that contains the resource specified by <i>MofResourceName</i>. This parameter can be <b>NULL</b> if the event provider and consumer use another mechanism to share information about the event trace classes used by the provider.
-     * @param {Pointer<Byte>} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
+     * @param {PSTR} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the string resource of <i>MofImagePath</i>. The string resource contains the name of the binary MOF file that describes the event trace classes supported by the provider.
      * @param {Pointer<UInt64>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
@@ -5216,8 +5219,8 @@ class Etw {
      * @since windows5.0
      */
     static RegisterTraceGuidsA(RequestAddress, RequestContext, ControlGuid, GuidCount, TraceGuidReg, MofImagePath, MofResourceName, RegistrationHandle) {
-        MofImagePath := MofImagePath is String? StrPtr(MofImagePath) : MofImagePath
-        MofResourceName := MofResourceName is String? StrPtr(MofResourceName) : MofResourceName
+        MofImagePath := MofImagePath is String ? StrPtr(MofImagePath) : MofImagePath
+        MofResourceName := MofResourceName is String ? StrPtr(MofResourceName) : MofResourceName
 
         result := DllCall("ADVAPI32.dll\RegisterTraceGuidsA", "ptr", RequestAddress, "ptr", RequestContext, "ptr", ControlGuid, "uint", GuidCount, "ptr", TraceGuidReg, "ptr", MofImagePath, "ptr", MofResourceName, "uint*", RegistrationHandle, "uint")
         return result
@@ -5401,7 +5404,7 @@ class Etw {
      * @param {Pointer<EVENT_TRACE_LOGFILEW>} Logfile Pointer to an <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-logfile">EVENT_TRACE_LOGFILE</a> structure. 
      *       The structure specifies the source from which to consume events (from a log file or the session in real time) 
      *       and specifies the callbacks the consumer wants to use to receive the events.
-     * @returns {Integer} If the function succeeds, it returns a handle to the trace.
+     * @returns {PROCESSTRACE_HANDLE} If the function succeeds, it returns a handle to the trace.
      * 
      * If the function fails, it returns INVALID_PROCESSTRACE_HANDLE.
      * 
@@ -5489,16 +5492,16 @@ class Etw {
     static OpenTraceW(Logfile) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenTraceW", "ptr", Logfile, "uint")
+        result := DllCall("ADVAPI32.dll\OpenTraceW", "ptr", Logfile, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
      * The ProcessTrace function delivers events from one or more event tracing sessions to the consumer.
-     * @param {Pointer<UInt64>} HandleArray Pointer to an array of trace handles obtained from earlier calls to the 
+     * @param {Pointer<PROCESSTRACE_HANDLE>} HandleArray Pointer to an array of trace handles obtained from earlier calls to the 
      *        <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> function. The number of handles that you can 
      *        specify is limited to 64.
      * 
@@ -5620,13 +5623,13 @@ class Etw {
      * @since windows5.0
      */
     static ProcessTrace(HandleArray, HandleCount, StartTime, EndTime) {
-        result := DllCall("ADVAPI32.dll\ProcessTrace", "uint*", HandleArray, "uint", HandleCount, "ptr", StartTime, "ptr", EndTime, "uint")
+        result := DllCall("ADVAPI32.dll\ProcessTrace", "ptr", HandleArray, "uint", HandleCount, "ptr", StartTime, "ptr", EndTime, "uint")
         return result
     }
 
     /**
      * The CloseTrace function closes a trace.
-     * @param {Integer} TraceHandle Handle to the trace to close. The <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> function 
+     * @param {PROCESSTRACE_HANDLE} TraceHandle Handle to the trace to close. The <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> function 
      *       returns this handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5681,7 +5684,9 @@ class Etw {
      * @since windows5.0
      */
     static CloseTrace(TraceHandle) {
-        result := DllCall("ADVAPI32.dll\CloseTrace", "uint", TraceHandle, "uint")
+        TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
+
+        result := DllCall("ADVAPI32.dll\CloseTrace", "ptr", TraceHandle, "uint")
         return result
     }
 
@@ -5690,65 +5695,68 @@ class Etw {
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer<PETW_BUFFER_COMPLETION_CALLBACK>} BufferCompletionCallback 
      * @param {Pointer<Void>} BufferCompletionContext 
-     * @returns {Integer} 
+     * @returns {PROCESSTRACE_HANDLE} 
      */
     static OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
-        result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, "ptr", BufferCompletionContext, "uint")
-        return result
+        result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, "ptr", BufferCompletionContext, "ptr")
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} LoggerName 
+     * @param {PWSTR} LoggerName 
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
-     * @returns {Integer} 
+     * @returns {PROCESSTRACE_HANDLE} 
      */
     static OpenTraceFromRealTimeLogger(LoggerName, Options, LogFileHeader) {
-        LoggerName := LoggerName is String? StrPtr(LoggerName) : LoggerName
+        LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
 
-        result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLogger", "ptr", LoggerName, "ptr", Options, "ptr", LogFileHeader, "uint")
-        return result
+        result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLogger", "ptr", LoggerName, "ptr", Options, "ptr", LogFileHeader, "ptr")
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} LoggerName 
+     * @param {PWSTR} LoggerName 
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer} AllocationSize 
-     * @param {Pointer<Void>} MemoryPartitionHandle 
+     * @param {HANDLE} MemoryPartitionHandle 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
-     * @returns {Integer} 
+     * @returns {PROCESSTRACE_HANDLE} 
      */
     static OpenTraceFromRealTimeLoggerWithAllocationOptions(LoggerName, Options, AllocationSize, MemoryPartitionHandle, LogFileHeader) {
-        LoggerName := LoggerName is String? StrPtr(LoggerName) : LoggerName
+        LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
+        MemoryPartitionHandle := MemoryPartitionHandle is Win32Handle ? NumGet(MemoryPartitionHandle, "ptr") : MemoryPartitionHandle
 
-        result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, "ptr", Options, "ptr", AllocationSize, "ptr", MemoryPartitionHandle, "ptr", LogFileHeader, "uint")
-        return result
+        result := DllCall("ADVAPI32.dll\OpenTraceFromRealTimeLoggerWithAllocationOptions", "ptr", LoggerName, "ptr", Options, "ptr", AllocationSize, "ptr", MemoryPartitionHandle, "ptr", LogFileHeader, "ptr")
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Pointer<Char>} LogFileName 
+     * @param {PWSTR} LogFileName 
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
-     * @returns {Integer} 
+     * @returns {PROCESSTRACE_HANDLE} 
      */
     static OpenTraceFromFile(LogFileName, Options, LogFileHeader) {
-        LogFileName := LogFileName is String? StrPtr(LogFileName) : LogFileName
+        LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
 
-        result := DllCall("ADVAPI32.dll\OpenTraceFromFile", "ptr", LogFileName, "ptr", Options, "ptr", LogFileHeader, "uint")
-        return result
+        result := DllCall("ADVAPI32.dll\OpenTraceFromFile", "ptr", LogFileName, "ptr", Options, "ptr", LogFileHeader, "ptr")
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {Integer} TraceHandle 
+     * @param {PROCESSTRACE_HANDLE} TraceHandle 
      * @param {Pointer<ETW_BUFFER_HEADER>} Buffer 
      * @returns {Integer} 
      */
     static ProcessTraceBufferIncrementReference(TraceHandle, Buffer) {
-        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "uint", TraceHandle, "ptr", Buffer, "uint")
+        TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
+
+        result := DllCall("ADVAPI32.dll\ProcessTraceBufferIncrementReference", "ptr", TraceHandle, "ptr", Buffer, "uint")
         return result
     }
 
@@ -5764,19 +5772,21 @@ class Etw {
 
     /**
      * 
-     * @param {Integer} TraceHandle 
+     * @param {PROCESSTRACE_HANDLE} TraceHandle 
      * @param {Pointer} Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
     static ProcessTraceAddBufferToBufferStream(TraceHandle, Buffer, BufferSize) {
-        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "uint", TraceHandle, "ptr", Buffer, "uint", BufferSize, "uint")
+        TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
+
+        result := DllCall("ADVAPI32.dll\ProcessTraceAddBufferToBufferStream", "ptr", TraceHandle, "ptr", Buffer, "uint", BufferSize, "uint")
         return result
     }
 
     /**
      * Queries the system for the trace processing handle.
-     * @param {Integer} ProcessingHandle A valid handle created with <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> that the data should be queried from.
+     * @param {PROCESSTRACE_HANDLE} ProcessingHandle A valid handle created with <a href="https://docs.microsoft.com/windows/desktop/ETW/opentrace">OpenTrace</a> that the data should be queried from.
      * @param {Integer} InformationClass An <a href="https://docs.microsoft.com/windows/desktop/ETW/etw-process-handle-info-type">ETW_PROCESS_HANDLE_INFO_TYPE</a> value that specifies what kind of operation will be done on the handle.
      * @param {Pointer<Void>} InBuffer Reserved for future use. May be null.
      * @param {Integer} InBufferSize Size in bytes of the <i>InBuffer</i>.
@@ -5792,7 +5802,9 @@ class Etw {
      * @since windows10.0.16299
      */
     static QueryTraceProcessingHandle(ProcessingHandle, InformationClass, InBuffer, InBufferSize, OutBuffer, OutBufferSize, ReturnLength) {
-        result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", "uint", ProcessingHandle, "int", InformationClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", ReturnLength, "uint")
+        ProcessingHandle := ProcessingHandle is Win32Handle ? NumGet(ProcessingHandle, "ptr") : ProcessingHandle
+
+        result := DllCall("ADVAPI32.dll\QueryTraceProcessingHandle", "ptr", ProcessingHandle, "int", InformationClass, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", ReturnLength, "uint")
         return result
     }
 
@@ -5801,7 +5813,7 @@ class Etw {
      * @param {Pointer<EVENT_TRACE_LOGFILEA>} Logfile Pointer to an <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-logfile">EVENT_TRACE_LOGFILE</a> structure. 
      *       The structure specifies the source from which to consume events (from a log file or the session in real time) 
      *       and specifies the callbacks the consumer wants to use to receive the events.
-     * @returns {Integer} If the function succeeds, it returns a handle to the trace.
+     * @returns {PROCESSTRACE_HANDLE} If the function succeeds, it returns a handle to the trace.
      * 
      * If the function fails, it returns INVALID_PROCESSTRACE_HANDLE.
      * 
@@ -5889,11 +5901,11 @@ class Etw {
     static OpenTraceA(Logfile) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\OpenTraceA", "ptr", Logfile, "uint")
+        result := DllCall("ADVAPI32.dll\OpenTraceA", "ptr", Logfile, "ptr")
         if(A_LastError)
             throw OSError()
 
-        return result
+        return PROCESSTRACE_HANDLE({Value: result}, True)
     }
 
     /**
@@ -6205,7 +6217,7 @@ class Etw {
      * `NULL` if no callback is needed.
      * @param {Pointer<Void>} CallbackContext Optional context data that ETW will provide when invoking _EnableCallback_. Use
      * `NULL` if no callback context is needed.
-     * @param {Pointer<Int64>} RegHandle Receives the event provider registration handle. The handle is used in
+     * @param {Pointer<REGHANDLE>} RegHandle Receives the event provider registration handle. The handle is used in
      * subsequent calls to provider APIs such as **EventWrite**,
      * **EventProviderEnabled**, and **EventRegister**.
      * 
@@ -6224,26 +6236,28 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventRegister(ProviderId, EnableCallback, CallbackContext, RegHandle) {
-        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, "ptr", CallbackContext, "int64*", RegHandle, "uint")
+        result := DllCall("ADVAPI32.dll\EventRegister", "ptr", ProviderId, "ptr", EnableCallback, "ptr", CallbackContext, "ptr", RegHandle, "uint")
         return result
     }
 
     /**
      * Unregisters an ETW event provider.
-     * @param {Integer} RegHandle Event provider registration handle returned by
+     * @param {REGHANDLE} RegHandle Event provider registration handle returned by
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful.
      * @see https://docs.microsoft.com/windows/win32/api//evntprov/nf-evntprov-eventunregister
      * @since windows6.0.6000
      */
     static EventUnregister(RegHandle) {
-        result := DllCall("ADVAPI32.dll\EventUnregister", "int64", RegHandle, "uint")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventUnregister", "ptr", RegHandle, "uint")
         return result
     }
 
     /**
      * Configures an ETW event provider.
-     * @param {Integer} RegHandle Event provider registration handle. This is a handle returned by
+     * @param {REGHANDLE} RegHandle Event provider registration handle. This is a handle returned by
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
      * @param {Integer} InformationClass [EVENT_INFO_CLASS](/windows/desktop/api/evntprov/ne-evntprov-event_info_class)
      * value that specifies the configuration operation to be performed on the event
@@ -6272,20 +6286,22 @@ class Etw {
      * @since windows8.0
      */
     static EventSetInformation(RegHandle, InformationClass, EventInformation, InformationLength) {
-        result := DllCall("ADVAPI32.dll\EventSetInformation", "int64", RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "uint")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventSetInformation", "ptr", RegHandle, "int", InformationClass, "ptr", EventInformation, "uint", InformationLength, "uint")
         return result
     }
 
     /**
      * Determines whether an event provider should generate a particular event based on the event's EVENT_DESCRIPTOR.
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
      * 
      * If _RegHandle_ is **NULL**, **EventEnabled** will return **FALSE**.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * that provides information that will be used to determine whether the event is
      * enabled. This includes the event's Level (severity) and Keyword (categories).
-     * @returns {Integer} Returns **FALSE** if the provider should skip generating the event, i.e. returns
+     * @returns {BOOLEAN} Returns **FALSE** if the provider should skip generating the event, i.e. returns
      * **FALSE** if ETW can quickly determine that no event collection session would
      * record an event from the given provider with the specified descriptor. Otherwise
      * returns **TRUE**, indicating that the provider should generate the event.
@@ -6293,7 +6309,9 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventEnabled(RegHandle, EventDescriptor) {
-        result := DllCall("ADVAPI32.dll\EventEnabled", "int64", RegHandle, "ptr", EventDescriptor, "char")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventEnabled", "ptr", RegHandle, "ptr", EventDescriptor, "char")
         return result
     }
 
@@ -6331,7 +6349,7 @@ class Etw {
      * [EventEnabled](/windows/desktop/api/evntprov/nf-evntprov-eventenabled).
      * 
      * 
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister).
      * 
      * If _RegHandle_ is **NULL**, **EventProviderEnabled** will return **FALSE**.
@@ -6342,18 +6360,20 @@ class Etw {
      * categories. See
      * [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
      * for more information about event keyword values.
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      * @see https://docs.microsoft.com/windows/win32/api//evntprov/nf-evntprov-eventproviderenabled
      * @since windows6.0.6000
      */
     static EventProviderEnabled(RegHandle, Level, Keyword) {
-        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "int64", RegHandle, "char", Level, "uint", Keyword, "char")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventProviderEnabled", "ptr", RegHandle, "char", Level, "uint", Keyword, "char")
         return result
     }
 
     /**
      * Writes an ETW event that uses the current thread's activity ID.
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
      * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
@@ -6401,13 +6421,15 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventWrite(RegHandle, EventDescriptor, UserDataCount, UserData) {
-        result := DllCall("ADVAPI32.dll\EventWrite", "int64", RegHandle, "ptr", EventDescriptor, "uint", UserDataCount, "ptr", UserData, "uint")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventWrite", "ptr", RegHandle, "ptr", EventDescriptor, "uint", UserDataCount, "ptr", UserData, "uint")
         return result
     }
 
     /**
      * Writes an ETW event with an activity ID and an optional related activity ID.
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
      * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
@@ -6475,13 +6497,15 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventWriteTransfer(RegHandle, EventDescriptor, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        result := DllCall("ADVAPI32.dll\EventWriteTransfer", "int64", RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventWriteTransfer", "ptr", RegHandle, "ptr", EventDescriptor, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
         return result
     }
 
     /**
      * Writes an ETW event with an activity ID, an optional related activity ID, session filters, and special options.
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
      * generated event will use the ProviderId associated with the handle.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor [EVENT_DESCRIPTOR](/windows/desktop/api/evntprov/ns-evntprov-event_descriptor)
@@ -6566,13 +6590,15 @@ class Etw {
      * @since windows6.1
      */
     static EventWriteEx(RegHandle, EventDescriptor, Filter, Flags, ActivityId, RelatedActivityId, UserDataCount, UserData) {
-        result := DllCall("ADVAPI32.dll\EventWriteEx", "int64", RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+
+        result := DllCall("ADVAPI32.dll\EventWriteEx", "ptr", RegHandle, "ptr", EventDescriptor, "uint", Filter, "uint", Flags, "ptr", ActivityId, "ptr", RelatedActivityId, "uint", UserDataCount, "ptr", UserData, "uint")
         return result
     }
 
     /**
      * Writes an ETW event that contains a string as its data. This function should not be used.
-     * @param {Integer} RegHandle Registration handle of the provider. The handle comes from
+     * @param {REGHANDLE} RegHandle Registration handle of the provider. The handle comes from
      * [EventRegister](/windows/desktop/api/evntprov/nf-evntprov-eventregister). The
      * generated event will use the ProviderId associated with the handle.
      * @param {Integer} Level An 8-bit number used to describe an event's severity or importance.
@@ -6592,7 +6618,7 @@ class Etw {
      * 
      * See [EVENT_DESCRIPTOR](nf-evntprov-eventdatadesccreate.md) for details about the
      * event keyword.
-     * @param {Pointer<Char>} String NUL-terminated string to write as the event data.
+     * @param {PWSTR} String NUL-terminated string to write as the event data.
      * @returns {Integer} Returns **ERROR_SUCCESS** if successful or an error code. Possible error codes
      * include the following:
      * 
@@ -6618,9 +6644,10 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventWriteString(RegHandle, Level, Keyword, String) {
-        String := String is String? StrPtr(String) : String
+        String := String is String ? StrPtr(String) : String
+        RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
 
-        result := DllCall("ADVAPI32.dll\EventWriteString", "int64", RegHandle, "char", Level, "uint", Keyword, "ptr", String, "uint")
+        result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", String, "uint")
         return result
     }
 
@@ -6673,7 +6700,7 @@ class Etw {
      * @param {Integer} Operation Type of operation to perform, for example, add a DACL to the session's GUID or provider's GUID. For 
      *       possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ne-evntcons-eventsecurityoperation">EVENTSECURITYOPERATION</a> 
      *       enumeration.
-     * @param {Pointer<Void>} Sid The security identifier (SID) of the user  or group to whom you want to grant or deny permissions.
+     * @param {PSID} Sid The security identifier (SID) of the user  or group to whom you want to grant or deny permissions.
      * @param {Integer} Rights You can specify one or more of the following permissions:
      * 
      * <table>
@@ -6765,7 +6792,7 @@ class Etw {
      * </td>
      * </tr>
      * </table>
-     * @param {Integer} AllowOrDeny If <b>TRUE</b>, grant the user permissions to the session or provider; otherwise, deny 
+     * @param {BOOLEAN} AllowOrDeny If <b>TRUE</b>, grant the user permissions to the session or provider; otherwise, deny 
      *       permissions. This value is ignored if the value of <i>Operation</i> is EventSecuritySetSACL 
      *       or EventSecurityAddSACL.
      * @returns {Integer} Returns ERROR_SUCCESS if successful.
@@ -6828,7 +6855,7 @@ class Etw {
      * Creates a single filter for a single payload to be used with the EnableTraceEx2 function.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider of the <i>EventDescriptor</i> parameter.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor A pointer to the event descriptor whose payload will be filtered.
-     * @param {Integer} EventMatchANY A Boolean value that indicates how events are handled when multiple conditions are specified.
+     * @param {BOOLEAN} EventMatchANY A Boolean value that indicates how events are handled when multiple conditions are specified.
      * 
      * When this parameter is <b>TRUE</b>, an event will be written to a session if any of
      *         the specified conditions specified in the filter are  <b>TRUE</b>.
@@ -6950,7 +6977,7 @@ class Etw {
      * @param {Integer} PayloadFilterCount The count of payload filters.
      * @param {Pointer<Void>} PayloadFilterPtrs An array of event payload single filters,
      *         each created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a>  function.
-     * @param {Pointer<Byte>} EventMatchALLFlags An array of Boolean values  that correspond to
+     * @param {Pointer<BOOLEAN>} EventMatchALLFlags An array of Boolean values  that correspond to
      *         each payload filter passed in the <i>PayloadFilterPtrs</i> parameter and indicates how events are handled when multiple conditions are specified..  This parameter only affects situations where multiple
      *         payload filters are being specified for the same event.  
      * 
@@ -7004,7 +7031,7 @@ class Etw {
      * @since windows8.1
      */
     static TdhAggregatePayloadFilters(PayloadFilterCount, PayloadFilterPtrs, EventMatchALLFlags, EventFilterDescriptor) {
-        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, "ptr", PayloadFilterPtrs, "char*", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
+        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, "ptr", PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
         return result
     }
 
@@ -7121,7 +7148,7 @@ class Etw {
     /**
      * Retrieves information about the event map contained in the event.
      * @param {Pointer<EVENT_RECORD>} pEvent The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
-     * @param {Pointer<Char>} pMapName Null-terminated Unicode string that contains the name of the map attribute value. The name comes from the <b>MapNameOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure.
+     * @param {PWSTR} pMapName Null-terminated Unicode string that contains the name of the map attribute value. The name comes from the <b>MapNameOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure.
      * @param {Pointer} pBuffer User-allocated buffer to receive the event map. The map could be a value map, bitmap, or pattern map. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_map_info">EVENT_MAP_INFO</a> structure.
      * @param {Pointer<UInt32>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -7191,7 +7218,7 @@ class Etw {
      * @since windows6.0.6000
      */
     static TdhGetEventMapInformation(pEvent, pMapName, pBuffer, pBufferSize) {
-        pMapName := pMapName is String? StrPtr(pMapName) : pMapName
+        pMapName := pMapName is String ? StrPtr(pMapName) : pMapName
 
         result := DllCall("TDH.dll\TdhGetEventMapInformation", "ptr", pEvent, "ptr", pMapName, "ptr", pBuffer, "uint*", pBufferSize, "uint")
         return result
@@ -7635,7 +7662,7 @@ class Etw {
 
     /**
      * Loads the manifest used to decode a log file.
-     * @param {Pointer<Char>} Manifest The full path to the manifest.
+     * @param {PWSTR} Manifest The full path to the manifest.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7681,7 +7708,7 @@ class Etw {
      * @since windows6.1
      */
     static TdhLoadManifest(Manifest) {
-        Manifest := Manifest is String? StrPtr(Manifest) : Manifest
+        Manifest := Manifest is String ? StrPtr(Manifest) : Manifest
 
         result := DllCall("TDH.dll\TdhLoadManifest", "ptr", Manifest, "uint")
         return result
@@ -7700,7 +7727,7 @@ class Etw {
 
     /**
      * Unloads the manifest that was loaded by the TdhLoadManifest function.
-     * @param {Pointer<Char>} Manifest The full path to the loaded manifest.
+     * @param {PWSTR} Manifest The full path to the loaded manifest.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7746,7 +7773,7 @@ class Etw {
      * @since windows6.1
      */
     static TdhUnloadManifest(Manifest) {
-        Manifest := Manifest is String? StrPtr(Manifest) : Manifest
+        Manifest := Manifest is String ? StrPtr(Manifest) : Manifest
 
         result := DllCall("TDH.dll\TdhUnloadManifest", "ptr", Manifest, "uint")
         return result
@@ -7827,7 +7854,7 @@ class Etw {
 
     /**
      * Opens a decoding handle.
-     * @param {Pointer<IntPtr>} Handle Type: <b>PTDH_HANDLE</b>
+     * @param {Pointer<TDH_HANDLE>} Handle Type: <b>PTDH_HANDLE</b>
      * 
      * A valid decoding handle.
      * @returns {Integer} Type: <b>ULONG</b>
@@ -7866,13 +7893,13 @@ class Etw {
      * @since windows8.0
      */
     static TdhOpenDecodingHandle(Handle) {
-        result := DllCall("tdh.dll\TdhOpenDecodingHandle", "ptr*", Handle, "uint")
+        result := DllCall("tdh.dll\TdhOpenDecodingHandle", "ptr", Handle, "uint")
         return result
     }
 
     /**
      * Sets the value of a decoding parameter.
-     * @param {Pointer} Handle Type: <b>TDH_HANDLE</b>
+     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
      * 
      * A valid decoding handle.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
@@ -7914,13 +7941,15 @@ class Etw {
      * @since windows8.0
      */
     static TdhSetDecodingParameter(Handle, TdhContext) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         result := DllCall("tdh.dll\TdhSetDecodingParameter", "ptr", Handle, "ptr", TdhContext, "uint")
         return result
     }
 
     /**
      * Retrieves the value of a decoding parameter.
-     * @param {Pointer} Handle Type: <b>TDH_HANDLE</b>
+     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
      * 
      * A valid decoding handle.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">PTDH_CONTEXT</a></b>
@@ -7962,19 +7991,21 @@ class Etw {
      * @since windows8.0
      */
     static TdhGetDecodingParameter(Handle, TdhContext) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         result := DllCall("tdh.dll\TdhGetDecodingParameter", "ptr", Handle, "ptr", TdhContext, "uint")
         return result
     }
 
     /**
      * Retrieves a specific property associated with a WPP message.
-     * @param {Pointer} Handle Type: <b>TDH_HANDLE</b>
+     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
      * 
      * A valid decoding handle.
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
-     * @param {Pointer<Char>} PropertyName Type: <b>PWSTR</b>
+     * @param {PWSTR} PropertyName Type: <b>PWSTR</b>
      * 
      * The name of the property to retrieve.
      * 
@@ -8032,7 +8063,8 @@ class Etw {
      * @since windows8.0
      */
     static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer) {
-        PropertyName := PropertyName is String? StrPtr(PropertyName) : PropertyName
+        PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
         result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, "uint*", BufferSize, "ptr", Buffer, "uint")
         return result
@@ -8040,7 +8072,7 @@ class Etw {
 
     /**
      * Retrieves the formatted WPP message embedded into an EVENT_RECORD structure.
-     * @param {Pointer} Handle Type: <b>TDH_HANDLE</b>
+     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
      * 
      * A valid decoding handle.
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
@@ -8099,13 +8131,15 @@ class Etw {
      * @since windows8.0
      */
     static TdhGetWppMessage(Handle, EventRecord, BufferSize, Buffer) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         result := DllCall("tdh.dll\TdhGetWppMessage", "ptr", Handle, "ptr", EventRecord, "uint*", BufferSize, "ptr", Buffer, "uint")
         return result
     }
 
     /**
      * Frees any resources associated with the input decoding handle.
-     * @param {Pointer} Handle Type: <b>TDH_HANDLE</b>
+     * @param {TDH_HANDLE} Handle Type: <b>TDH_HANDLE</b>
      * 
      * The decoding handle to be closed.
      * @returns {Integer} Type: <b>ULONG</b>
@@ -8115,13 +8149,15 @@ class Etw {
      * @since windows8.0
      */
     static TdhCloseDecodingHandle(Handle) {
+        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+
         result := DllCall("tdh.dll\TdhCloseDecodingHandle", "ptr", Handle, "uint")
         return result
     }
 
     /**
      * Takes a NULL-terminated path to a binary file that contains metadata resources needed to decode a specific event provider.
-     * @param {Pointer<Char>} BinaryPath Type: <b>PWSTR</b>
+     * @param {PWSTR} BinaryPath Type: <b>PWSTR</b>
      * 
      * Path to the ETW provider binary that contains the metadata resources.
      * @returns {Integer} Type: <b>ULONG</b>
@@ -8182,7 +8218,7 @@ class Etw {
      * @since windows8.0
      */
     static TdhLoadManifestFromBinary(BinaryPath) {
-        BinaryPath := BinaryPath is String? StrPtr(BinaryPath) : BinaryPath
+        BinaryPath := BinaryPath is String ? StrPtr(BinaryPath) : BinaryPath
 
         result := DllCall("tdh.dll\TdhLoadManifestFromBinary", "ptr", BinaryPath, "uint")
         return result
@@ -8343,8 +8379,8 @@ class Etw {
 
     /**
      * A tracing function for publishing events when an attempted security vulnerability exploit is detected in your user-mode application.
-     * @param {Pointer<Char>} CveId A pointer to the CVE ID associated with the vulnerability for which this event is being raised.
-     * @param {Pointer<Char>} AdditionalDetails A pointer to a string giving additional details that the event producer may want to provide to the consumer of this event.
+     * @param {PWSTR} CveId A pointer to the CVE ID associated with the vulnerability for which this event is being raised.
+     * @param {PWSTR} AdditionalDetails A pointer to a string giving additional details that the event producer may want to provide to the consumer of this event.
      * @returns {Integer} Returns ERROR_SUCCESS if successful or one of the following values on error.
      * 
      * <table>
@@ -8415,8 +8451,8 @@ class Etw {
      * @since windows10.0.10240
      */
     static CveEventWrite(CveId, AdditionalDetails) {
-        CveId := CveId is String? StrPtr(CveId) : CveId
-        AdditionalDetails := AdditionalDetails is String? StrPtr(AdditionalDetails) : AdditionalDetails
+        CveId := CveId is String ? StrPtr(CveId) : CveId
+        AdditionalDetails := AdditionalDetails is String ? StrPtr(AdditionalDetails) : AdditionalDetails
 
         result := DllCall("ADVAPI32.dll\CveEventWrite", "ptr", CveId, "ptr", AdditionalDetails, "int")
         return result

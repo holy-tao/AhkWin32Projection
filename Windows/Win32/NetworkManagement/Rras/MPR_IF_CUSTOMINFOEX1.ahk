@@ -20,7 +20,7 @@ class MPR_IF_CUSTOMINFOEX1 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -39,7 +39,7 @@ class MPR_IF_CUSTOMINFOEX1 extends Win32Struct
     customIkev2Config{
         get {
             if(!this.HasProp("__customIkev2Config"))
-                this.__customIkev2Config := ROUTER_IKEv2_IF_CUSTOM_CONFIG1(this.ptr + 8)
+                this.__customIkev2Config := ROUTER_IKEv2_IF_CUSTOM_CONFIG1(8, this)
             return this.__customIkev2Config
         }
     }

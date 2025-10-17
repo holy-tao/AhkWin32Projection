@@ -15,7 +15,7 @@ class DHCP_FILTER_GLOBAL_INFO extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the allow list is enabled; if <b>FALSE</b>, it is disabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnforceAllowList {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class DHCP_FILTER_GLOBAL_INFO extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the deny list is enabled; if <b>FALSE</b>, it is disabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnforceDenyList {
         get => NumGet(this, 4, "int")

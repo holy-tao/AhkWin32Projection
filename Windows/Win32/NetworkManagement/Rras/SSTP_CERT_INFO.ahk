@@ -19,7 +19,7 @@ class SSTP_CERT_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  Default mode is when the administrator has not explicitly configured the device and the SSTP service automatically chooses a valid certificate.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
     isDefault {
         get => NumGet(this, 0, "int")
@@ -35,7 +35,7 @@ class SSTP_CERT_INFO extends Win32Struct
     certBlob{
         get {
             if(!this.HasProp("__certBlob"))
-                this.__certBlob := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__certBlob := CRYPT_INTEGER_BLOB(8, this)
             return this.__certBlob
         }
     }

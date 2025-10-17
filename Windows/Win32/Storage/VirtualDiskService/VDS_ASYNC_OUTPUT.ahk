@@ -164,6 +164,20 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     
     }
 
+    class _sv extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        ullReclaimedBytes {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _cl extends Win32Struct {
         static sizeof => 16
         static packingSize => 8
@@ -226,7 +240,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     cp{
         get {
             if(!this.HasProp("__cp"))
-                this.__cp := %this.__Class%._cp(this.ptr + 8)
+                this.__cp := %this.__Class%._cp(8, this)
             return this.__cp
         }
     }
@@ -237,7 +251,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     cv{
         get {
             if(!this.HasProp("__cv"))
-                this.__cv := %this.__Class%._cv(this.ptr + 8)
+                this.__cv := %this.__Class%._cv(8, this)
             return this.__cv
         }
     }
@@ -248,17 +262,20 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     bvp{
         get {
             if(!this.HasProp("__bvp"))
-                this.__bvp := %this.__Class%._bvp(this.ptr + 8)
+                this.__bvp := %this.__Class%._bvp(8, this)
             return this.__bvp
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_sv}
      */
-    sv {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    sv{
+        get {
+            if(!this.HasProp("__sv"))
+                this.__sv := %this.__Class%._sv(8, this)
+            return this.__sv
+        }
     }
 
     /**
@@ -267,7 +284,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     cl{
         get {
             if(!this.HasProp("__cl"))
-                this.__cl := %this.__Class%._cl(this.ptr + 8)
+                this.__cl := %this.__Class%._cl(8, this)
             return this.__cl
         }
     }
@@ -278,7 +295,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     ct{
         get {
             if(!this.HasProp("__ct"))
-                this.__ct := %this.__Class%._ct(this.ptr + 8)
+                this.__ct := %this.__Class%._ct(8, this)
             return this.__ct
         }
     }
@@ -289,7 +306,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     cpg{
         get {
             if(!this.HasProp("__cpg"))
-                this.__cpg := %this.__Class%._cpg(this.ptr + 8)
+                this.__cpg := %this.__Class%._cpg(8, this)
             return this.__cpg
         }
     }
@@ -300,7 +317,7 @@ class VDS_ASYNC_OUTPUT extends Win32Struct
     cvd{
         get {
             if(!this.HasProp("__cvd"))
-                this.__cvd := %this.__Class%._cvd(this.ptr + 8)
+                this.__cvd := %this.__Class%._cvd(8, this)
             return this.__cvd
         }
     }

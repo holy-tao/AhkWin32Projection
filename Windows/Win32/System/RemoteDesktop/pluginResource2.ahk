@@ -28,7 +28,7 @@ class pluginResource2 extends Win32Struct
     resourceV1{
         get {
             if(!this.HasProp("__resourceV1"))
-                this.__resourceV1 := pluginResource(this.ptr + 0)
+                this.__resourceV1 := pluginResource(0, this)
             return this.__resourceV1
         }
     }
@@ -53,7 +53,7 @@ class pluginResource2 extends Win32Struct
 
     /**
      * A string representation of a security descriptor used to specify the domain users and groups that have access to the resource. For more information about security descriptor strings, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-string-format">Security Descriptor String Format</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     securityDescriptor {
         get => NumGet(this, 2112, "ptr")

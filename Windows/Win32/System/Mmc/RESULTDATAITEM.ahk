@@ -27,7 +27,7 @@ class RESULTDATAITEM extends Win32Struct
 
     /**
      * <b>TRUE</b> if the <b>lParam</b> member refers to a scope item. <b>FALSE</b> if the <b>lParam</b> member refers to a result item.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bScopeItem {
         get => NumGet(this, 4, "int")
@@ -73,7 +73,7 @@ class RESULTDATAITEM extends Win32Struct
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     str {
         get => NumGet(this, 24, "ptr")
@@ -103,7 +103,7 @@ class RESULTDATAITEM extends Win32Struct
     /**
      * A value that specifies a user-supplied 32-bit value to associate with the item. This item, also called a cookie, is the value that is passed as the first parameter to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent-querydataobject">IComponent::QueryDataObject</a>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")

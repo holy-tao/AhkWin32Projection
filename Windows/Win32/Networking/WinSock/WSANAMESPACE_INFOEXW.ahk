@@ -154,7 +154,7 @@ class WSANAMESPACE_INFOEXW extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * If <b>TRUE</b>, indicates that this namespace provider is active. If <b>FALSE</b>, the namespace provider is inactive and is not accessible for queries, even if the query specifically references this namespace provider.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fActive {
         get => NumGet(this, 12, "int")
@@ -176,7 +176,7 @@ class WSANAMESPACE_INFOEXW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A display string that identifies the namespace provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszIdentifier {
         get => NumGet(this, 24, "ptr")
@@ -192,7 +192,7 @@ class WSANAMESPACE_INFOEXW extends Win32Struct
     ProviderSpecific{
         get {
             if(!this.HasProp("__ProviderSpecific"))
-                this.__ProviderSpecific := BLOB(this.ptr + 32)
+                this.__ProviderSpecific := BLOB(32, this)
             return this.__ProviderSpecific
         }
     }

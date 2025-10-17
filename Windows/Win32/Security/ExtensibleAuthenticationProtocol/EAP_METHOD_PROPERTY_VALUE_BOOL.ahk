@@ -24,7 +24,7 @@ class EAP_METHOD_PROPERTY_VALUE_BOOL extends Win32Struct
 
     /**
      * <b>BOOL</b> value of the method property.
-     * @type {Integer}
+     * @type {BOOL}
      */
     value {
         get => NumGet(this, 4, "int")

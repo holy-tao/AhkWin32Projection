@@ -9,16 +9,19 @@
  */
 class ADS_POSTALADDRESS extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 48
 
-    static packingSize => 2
+    static packingSize => 8
 
     /**
      * An array of six null-terminated Unicode strings that represent the postal address.
-     * @type {String}
+     * @type {Array<PWSTR>}
      */
-    PostalAddress {
-        get => StrGet(this.ptr + 0, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 0, 5, "UTF-16")
+    PostalAddress{
+        get {
+            if(!this.HasProp("__PostalAddressProxyArray"))
+                this.__PostalAddressProxyArray := Win32FixedArray(this.ptr + 0, 6, Primitive, "char*")
+            return this.__PostalAddressProxyArray
+        }
     }
 }

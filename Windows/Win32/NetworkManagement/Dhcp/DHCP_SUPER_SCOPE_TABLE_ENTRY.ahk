@@ -42,7 +42,7 @@ class DHCP_SUPER_SCOPE_TABLE_ENTRY extends Win32Struct
 
     /**
      * Unicode string that contains the name assigned to this subnet entry within the superscope.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SuperScopeName {
         get => NumGet(this, 16, "ptr")

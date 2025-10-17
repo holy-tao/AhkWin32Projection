@@ -18,7 +18,7 @@ class JOYRANGE extends Win32Struct
     jpMin{
         get {
             if(!this.HasProp("__jpMin"))
-                this.__jpMin := JOYPOS(this.ptr + 0)
+                this.__jpMin := JOYPOS(0, this)
             return this.__jpMin
         }
     }
@@ -29,7 +29,7 @@ class JOYRANGE extends Win32Struct
     jpMax{
         get {
             if(!this.HasProp("__jpMax"))
-                this.__jpMax := JOYPOS(this.ptr + 24)
+                this.__jpMax := JOYPOS(24, this)
             return this.__jpMax
         }
     }
@@ -40,7 +40,7 @@ class JOYRANGE extends Win32Struct
     jpCenter{
         get {
             if(!this.HasProp("__jpCenter"))
-                this.__jpCenter := JOYPOS(this.ptr + 48)
+                this.__jpCenter := JOYPOS(48, this)
             return this.__jpCenter
         }
     }

@@ -39,7 +39,7 @@ class HistogramGrid extends Win32Struct
     Region{
         get {
             if(!this.HasProp("__Region"))
-                this.__Region := RECT(this.ptr + 8)
+                this.__Region := RECT(8, this)
             return this.__Region
         }
     }

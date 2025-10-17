@@ -36,7 +36,7 @@ class MAPINAMEID extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpwstrName {
         get => NumGet(this, 16, "ptr")

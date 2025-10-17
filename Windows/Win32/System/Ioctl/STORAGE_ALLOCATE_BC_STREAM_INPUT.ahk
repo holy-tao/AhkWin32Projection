@@ -36,7 +36,7 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RetryFailures {
         get => NumGet(this, 12, "char")
@@ -44,7 +44,7 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Discardable {
         get => NumGet(this, 13, "char")
@@ -52,7 +52,7 @@ class STORAGE_ALLOCATE_BC_STREAM_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Array<Byte>}
+     * @type {Array<BOOLEAN>}
      */
     Reserved1{
         get {

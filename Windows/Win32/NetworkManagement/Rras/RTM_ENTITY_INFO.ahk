@@ -39,7 +39,7 @@ class RTM_ENTITY_INFO extends Win32Struct
     EntityId{
         get {
             if(!this.HasProp("__EntityId"))
-                this.__EntityId := RTM_ENTITY_ID(this.ptr + 8)
+                this.__EntityId := RTM_ENTITY_ID(8, this)
             return this.__EntityId
         }
     }

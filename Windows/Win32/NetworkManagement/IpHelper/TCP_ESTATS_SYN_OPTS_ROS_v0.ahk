@@ -77,7 +77,7 @@ class TCP_ESTATS_SYN_OPTS_ROS_v0 extends Win32Struct
      * 
      * If the local connection traversed the SYN-SENT
      *            state, then this member is set to <b>TRUE</b>. Otherwise, this member is set to <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ActiveOpen {
         get => NumGet(this, 0, "char")

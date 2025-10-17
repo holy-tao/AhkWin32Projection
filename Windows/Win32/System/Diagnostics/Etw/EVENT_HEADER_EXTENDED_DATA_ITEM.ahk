@@ -143,11 +143,30 @@ class EVENT_HEADER_EXTENDED_DATA_ITEM extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Linkage
+     * - Reserved2
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "ushort")
         set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Linkage {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved2 {
+        get => (this._bitfield >> 1) & 0x7FFF
+        set => this._bitfield := ((value & 0x7FFF) << 1) | (this._bitfield & ~(0x7FFF << 1))
     }
 
     /**

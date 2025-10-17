@@ -28,7 +28,7 @@ class D3D12_VIDEO_PROCESS_LUMA_KEY extends Win32Struct
 
     /**
      * A boolean value specifying whether luma keying is enabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

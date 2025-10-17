@@ -50,7 +50,7 @@ class HCD_STAT_INFORMATION_1 extends Win32Struct
     Counters{
         get {
             if(!this.HasProp("__Counters"))
-                this.__Counters := HCD_STAT_COUNTERS(this.ptr + 24)
+                this.__Counters := HCD_STAT_COUNTERS(24, this)
             return this.__Counters
         }
     }

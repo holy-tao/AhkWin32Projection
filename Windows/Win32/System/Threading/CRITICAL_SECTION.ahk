@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Threading
@@ -36,19 +37,25 @@ class CRITICAL_SECTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    OwningThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    OwningThread{
+        get {
+            if(!this.HasProp("__OwningThread"))
+                this.__OwningThread := HANDLE(16, this)
+            return this.__OwningThread
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    LockSemaphore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    LockSemaphore{
+        get {
+            if(!this.HasProp("__LockSemaphore"))
+                this.__LockSemaphore := HANDLE(24, this)
+            return this.__LockSemaphore
+        }
     }
 
     /**

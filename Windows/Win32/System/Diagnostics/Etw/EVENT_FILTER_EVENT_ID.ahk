@@ -31,7 +31,7 @@ class EVENT_FILTER_EVENT_ID extends Win32Struct
      * 
      * When this member is **TRUE**, filtering is enabled for the specified event IDs.
      * When this member is **FALSE**, filtering is disabled for the event IDs.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FilterIn {
         get => NumGet(this, 0, "char")

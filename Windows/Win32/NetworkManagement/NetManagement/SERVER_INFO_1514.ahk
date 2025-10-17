@@ -12,7 +12,7 @@ class SERVER_INFO_1514 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1514_enablesoftcompat {
         get => NumGet(this, 0, "int")

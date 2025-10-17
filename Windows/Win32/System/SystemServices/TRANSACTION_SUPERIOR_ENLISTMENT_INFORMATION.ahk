@@ -18,7 +18,7 @@ class TRANSACTION_SUPERIOR_ENLISTMENT_INFORMATION extends Win32Struct
     SuperiorEnlistmentPair{
         get {
             if(!this.HasProp("__SuperiorEnlistmentPair"))
-                this.__SuperiorEnlistmentPair := TRANSACTION_ENLISTMENT_PAIR(this.ptr + 0)
+                this.__SuperiorEnlistmentPair := TRANSACTION_ENLISTMENT_PAIR(0, this)
             return this.__SuperiorEnlistmentPair
         }
     }

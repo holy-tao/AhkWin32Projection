@@ -12,7 +12,7 @@ class D3D11_FEATURE_DATA_DISPLAYABLE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DisplayableTexture {
         get => NumGet(this, 0, "int")

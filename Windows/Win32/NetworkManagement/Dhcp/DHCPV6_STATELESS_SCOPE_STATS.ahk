@@ -21,7 +21,7 @@ class DHCPV6_STATELESS_SCOPE_STATS extends Win32Struct
     SubnetAddress{
         get {
             if(!this.HasProp("__SubnetAddress"))
-                this.__SubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__SubnetAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__SubnetAddress
         }
     }

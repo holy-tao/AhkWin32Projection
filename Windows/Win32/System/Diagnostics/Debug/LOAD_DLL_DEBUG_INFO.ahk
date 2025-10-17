@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a dynamic-link library (DLL) that has just been loaded.
@@ -17,11 +18,14 @@ class LOAD_DLL_DEBUG_INFO extends Win32Struct
      * A handle to the loaded DLL. If this member is <b>NULL</b>, the handle is not valid. Otherwise, the member is opened for reading and read-sharing in the context of the debugger.
      * 
      * When the debugger is finished with this file, it should close the handle using the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(0, this)
+            return this.__hFile
+        }
     }
 
     /**

@@ -36,7 +36,7 @@ class SID extends Win32Struct
     IdentifierAuthority{
         get {
             if(!this.HasProp("__IdentifierAuthority"))
-                this.__IdentifierAuthority := SID_IDENTIFIER_AUTHORITY(this.ptr + 6)
+                this.__IdentifierAuthority := SID_IDENTIFIER_AUTHORITY(6, this)
             return this.__IdentifierAuthority
         }
     }

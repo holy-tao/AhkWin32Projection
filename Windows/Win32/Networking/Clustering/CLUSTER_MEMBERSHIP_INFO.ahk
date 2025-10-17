@@ -15,7 +15,7 @@ class CLUSTER_MEMBERSHIP_INFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if the cluster has a majority quorum; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     HasQuorum {
         get => NumGet(this, 0, "int")

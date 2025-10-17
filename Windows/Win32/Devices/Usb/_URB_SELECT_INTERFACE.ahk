@@ -20,7 +20,7 @@ class _URB_SELECT_INTERFACE extends Win32Struct
     Hdr{
         get {
             if(!this.HasProp("__Hdr"))
-                this.__Hdr := _URB_HEADER(this.ptr + 0)
+                this.__Hdr := _URB_HEADER(0, this)
             return this.__Hdr
         }
     }
@@ -39,7 +39,7 @@ class _URB_SELECT_INTERFACE extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := USBD_INTERFACE_INFORMATION(this.ptr + 32)
+                this.__Interface := USBD_INTERFACE_INFORMATION(32, this)
             return this.__Interface
         }
     }

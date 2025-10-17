@@ -33,7 +33,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
      * <li>Use “5fc860e0-6f6e-4fc2-83cd-46324f25e90b” for remote effective access evaluation that ignores central policy.</li>
      * <li>Use “9a81c2bd-a525-471d-a4ed-49907c0b23da” for remote effective access evaluation that takes central policy into account.</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ObjectUuid {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
      * <ul>
      * <li>“ncacn_ip_tcp”.</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProtSeq {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
 
     /**
      * Null-terminated string representation of a network address. The network-address format is associated with the protocol sequence.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NetworkAddr {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +64,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
 
     /**
      * Null-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <a href="https://docs.microsoft.com/windows/desktop/Midl/ncacn-np">ncacn_np</a> is a pipe name in the format <b>\\</b><i>Pipe</i><b>\\</b><i>PipeName</i>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Endpoint {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +73,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
 
     /**
      * Null-terminated string representation of network options. The option string is associated with the protocol sequence.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Options {
         get => NumGet(this, 40, "ptr")
@@ -82,7 +82,7 @@ class AUTHZ_RPC_INIT_INFO_CLIENT extends Win32Struct
 
     /**
      * Server Principal Name (SPN) of the server. If this member is missing, it is constructed from <b>NetworkAddr</b> assuming "host" service class.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ServerSpn {
         get => NumGet(this, 48, "ptr")

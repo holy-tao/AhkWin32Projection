@@ -69,7 +69,7 @@ class PERUSERSECTIONW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRollback {
         get => NumGet(this, 2800, "int")

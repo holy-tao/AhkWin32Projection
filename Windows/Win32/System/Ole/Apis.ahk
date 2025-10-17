@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
 /**
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
@@ -3747,7 +3750,7 @@ class Ole {
 
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
-     * @param {Pointer<Char>} bstr The BSTR to be converted to a vector.
+     * @param {BSTR} bstr The BSTR to be converted to a vector.
      * @param {Pointer<SAFEARRAY>} ppsa A one-dimensional safearray containing the characters in the BSTR.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -3795,7 +3798,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vectorfrombstr
      */
     static VectorFromBstr(bstr, ppsa) {
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "char*", bstr, "ptr", ppsa, "int")
+        bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
+
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr", ppsa, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3805,7 +3810,7 @@ class Ole {
     /**
      * Returns a BSTR, assigning each element of the vector to a character in the BSTR.
      * @param {Pointer<SAFEARRAY>} psa The vector to be converted to a BSTR.
-     * @param {Pointer<Char>} pbstr A BSTR, each character of which is assigned to an element from the vector.
+     * @param {Pointer<BSTR>} pbstr A BSTR, each character of which is assigned to an element from the vector.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4324,7 +4329,7 @@ class Ole {
 
     /**
      * Converts a currency value to an unsigned char value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Byte>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -4504,7 +4509,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to an unsigned char string.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -4604,7 +4609,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromstr
      */
     static VarUI1FromStr(strIn, lcid, dwFlags, pbOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", pbOut, "int")
         if(result != 0)
@@ -4706,7 +4711,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to an unsigned char value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Byte>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -4796,7 +4801,7 @@ class Ole {
 
     /**
      * Converts a char value to an unsigned char value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Byte>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -5696,7 +5701,7 @@ class Ole {
 
     /**
      * Converts a currency value to a short value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Int16>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -5876,7 +5881,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a short value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -5996,7 +6001,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromstr
      */
     static VarI2FromStr(strIn, lcid, dwFlags, psOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", psOut, "int")
         if(result != 0)
@@ -6098,7 +6103,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a short value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Int16>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -6188,7 +6193,7 @@ class Ole {
 
     /**
      * Converts a char value to a short value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Int16>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -7088,7 +7093,7 @@ class Ole {
 
     /**
      * Converts a currency value to a long value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Int32>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -7268,7 +7273,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a long value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -7388,7 +7393,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromstr
      */
     static VarI4FromStr(strIn, lcid, dwFlags, plOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", plOut, "int")
         if(result != 0)
@@ -7490,7 +7495,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a long value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Int32>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -7580,7 +7585,7 @@ class Ole {
 
     /**
      * Converts a char value to a long value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Int32>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -8390,7 +8395,7 @@ class Ole {
 
     /**
      * Converts a currency value to an 8-byte integer value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Int64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -8570,7 +8575,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to an 8-byte integer value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -8670,7 +8675,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromstr
      */
     static VarI8FromStr(strIn, lcid, dwFlags, pi64Out) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", pi64Out, "int")
         if(result != 0)
@@ -8772,7 +8777,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to an 8-byte integer value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Int64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -8862,7 +8867,7 @@ class Ole {
 
     /**
      * Converts a char value to an 8-byte integer value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Int64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -9762,7 +9767,7 @@ class Ole {
 
     /**
      * Converts a currency value to a float value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Single>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -9942,7 +9947,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a float value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -10062,7 +10067,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromstr
      */
     static VarR4FromStr(strIn, lcid, dwFlags, pfltOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", pfltOut, "int")
         if(result != 0)
@@ -10164,7 +10169,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a float value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Single>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -10254,7 +10259,7 @@ class Ole {
 
     /**
      * Onverts a char value to a float value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Single>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -11154,7 +11159,7 @@ class Ole {
 
     /**
      * Converts a currency value to a double value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Double>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -11334,7 +11339,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a double value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -11454,7 +11459,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromstr
      */
     static VarR8FromStr(strIn, lcid, dwFlags, pdblOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdblOut, "int")
         if(result != 0)
@@ -11556,7 +11561,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a double value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Double>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -11646,7 +11651,7 @@ class Ole {
 
     /**
      * Converts a char value to a double value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Double>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -12636,7 +12641,7 @@ class Ole {
 
     /**
      * Converts a currency value to a date value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<Double>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -12726,7 +12731,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a date value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -12857,7 +12862,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromstr
      */
     static VarDateFromStr(strIn, lcid, dwFlags, pdateOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", pdateOut, "int")
         if(result != 0)
@@ -12959,7 +12964,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a date value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<Double>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -13049,7 +13054,7 @@ class Ole {
 
     /**
      * Converts a char value to a date value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<Double>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -14129,7 +14134,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a currency value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One of more of the following flags.
      * 
@@ -14249,7 +14254,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyfromstr
      */
     static VarCyFromStr(strIn, lcid, dwFlags, pcyOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarCyFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcyOut, "int")
         if(result != 0)
@@ -14351,7 +14356,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a currency value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<CY>} pcyOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -14441,7 +14446,7 @@ class Ole {
 
     /**
      * Converts a char value to a currency value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<CY>} pcyOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -14911,7 +14916,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15003,7 +15008,7 @@ class Ole {
      * @param {Integer} iVal The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15095,7 +15100,7 @@ class Ole {
      * @param {Integer} lIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15187,7 +15192,7 @@ class Ole {
      * @param {Integer} i64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15296,7 +15301,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15405,7 +15410,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15494,7 +15499,7 @@ class Ole {
 
     /**
      * Converts a currency value to a BSTR value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -15524,7 +15529,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15696,7 +15701,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15788,7 +15793,7 @@ class Ole {
      * @param {Pointer<IDispatch>} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15877,7 +15882,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a BSTR value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -15907,7 +15912,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -15996,10 +16001,10 @@ class Ole {
 
     /**
      * Converts a char value to a BSTR value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16108,7 +16113,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16200,7 +16205,7 @@ class Ole {
      * @param {Integer} ulIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16292,7 +16297,7 @@ class Ole {
      * @param {Integer} ui64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16423,7 +16428,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pbstrOut The resulting value.
+     * @param {Pointer<BSTR>} pbstrOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16513,7 +16518,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a Boolean value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16593,7 +16598,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui1
      */
     static VarBoolFromUI1(bIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16603,7 +16608,7 @@ class Ole {
     /**
      * Converts a short value to a Boolean value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16683,7 +16688,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi2
      */
     static VarBoolFromI2(sIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16693,7 +16698,7 @@ class Ole {
     /**
      * Converts a long value to a Boolean value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16773,7 +16778,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi4
      */
     static VarBoolFromI4(lIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16783,7 +16788,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a Boolean value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16863,7 +16868,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi8
      */
     static VarBoolFromI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16873,7 +16878,7 @@ class Ole {
     /**
      * Converts a float value to a Boolean value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -16953,7 +16958,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromr4
      */
     static VarBoolFromR4(fltIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16963,7 +16968,7 @@ class Ole {
     /**
      * Converts a double value to a Boolean value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17043,7 +17048,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromr8
      */
     static VarBoolFromR8(dblIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17053,7 +17058,7 @@ class Ole {
     /**
      * Converts a date value to a Boolean value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17133,7 +17138,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdate
      */
     static VarBoolFromDate(dateIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17142,8 +17147,8 @@ class Ole {
 
     /**
      * Converts a currency value to a Boolean value.
-     * @param {Pointer} cyIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {CY} cyIn The value to convert.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17223,7 +17228,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromcy
      */
     static VarBoolFromCy(cyIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17232,7 +17237,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a Boolean value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -17262,7 +17267,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17342,9 +17347,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromstr
      */
     static VarBoolFromStr(strIn, lcid, dwFlags, pboolOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17355,7 +17360,7 @@ class Ole {
      * Converts the default property of an IDispatch instance to a Boolean value.
      * @param {Pointer<IDispatch>} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17435,7 +17440,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdisp
      */
     static VarBoolFromDisp(pdispIn, lcid, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17444,8 +17449,8 @@ class Ole {
 
     /**
      * Converts a char value to a Boolean value.
-     * @param {Integer} cIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {CHAR} cIn The value to convert.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17525,7 +17530,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi1
      */
     static VarBoolFromI1(cIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17535,7 +17540,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a Boolean value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17615,7 +17620,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui2
      */
     static VarBoolFromUI2(uiIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17625,7 +17630,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a Boolean value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17705,7 +17710,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui4
      */
     static VarBoolFromUI4(ulIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17715,7 +17720,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a Boolean value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17795,7 +17800,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui8
      */
     static VarBoolFromUI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17805,7 +17810,7 @@ class Ole {
     /**
      * Converts a decimal value to a Boolean value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Int16>} pboolOut The resulting value.
+     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17885,7 +17890,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdec
      */
     static VarBoolFromDec(pdecIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "short*", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "ptr", pboolOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17895,7 +17900,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a char value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -17975,7 +17980,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromui1
      */
     static VarI1FromUI1(bIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI1", "char", bIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -17987,7 +17992,7 @@ class Ole {
     /**
      * Converts a short value to a char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18067,7 +18072,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromi2
      */
     static VarI1FromI2(uiIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI2", "short", uiIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18079,7 +18084,7 @@ class Ole {
     /**
      * Converts a long value to a char value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18159,7 +18164,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromi4
      */
     static VarI1FromI4(lIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI4", "int", lIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18171,7 +18176,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a char value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18251,7 +18256,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromi8
      */
     static VarI1FromI8(i64In, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromI8", "int64", i64In, "ptr", pcOut, "int")
         if(result != 0)
@@ -18263,7 +18268,7 @@ class Ole {
     /**
      * Converts a float value to a char value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18343,7 +18348,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromr4
      */
     static VarI1FromR4(fltIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromR4", "float", fltIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18355,7 +18360,7 @@ class Ole {
     /**
      * Converts a double value to a char value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18435,7 +18440,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromr8
      */
     static VarI1FromR8(dblIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromR8", "double", dblIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18447,7 +18452,7 @@ class Ole {
     /**
      * Converts a date value to a char value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18527,7 +18532,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromdate
      */
     static VarI1FromDate(dateIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDate", "double", dateIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18538,8 +18543,8 @@ class Ole {
 
     /**
      * Converts a currency value to a char value.
-     * @param {Pointer} cyIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {CY} cyIn The value to convert.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18619,7 +18624,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromcy
      */
     static VarI1FromCy(cyIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromCy", "ptr", cyIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18630,7 +18635,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a char value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -18650,7 +18655,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18730,8 +18735,8 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromstr
      */
     static VarI1FromStr(strIn, lcid, dwFlags, pcOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        strIn := strIn is String ? StrPtr(strIn) : strIn
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pcOut, "int")
         if(result != 0)
@@ -18744,7 +18749,7 @@ class Ole {
      * Converts the default property of an IDispatch instance to a char value.
      * @param {Pointer<IDispatch>} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18824,7 +18829,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromdisp
      */
     static VarI1FromDisp(pdispIn, lcid, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pcOut, "int")
         if(result != 0)
@@ -18835,8 +18840,8 @@ class Ole {
 
     /**
      * Converts a Boolean value to a char value.
-     * @param {Integer} boolIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -18916,7 +18921,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1frombool
      */
     static VarI1FromBool(boolIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromBool", "short", boolIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -18928,7 +18933,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19008,7 +19013,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromui2
      */
     static VarI1FromUI2(uiIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI2", "ushort", uiIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -19020,7 +19025,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a char value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19100,7 +19105,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromui4
      */
     static VarI1FromUI4(ulIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI4", "uint", ulIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -19112,7 +19117,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a char value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19192,7 +19197,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromui8
      */
     static VarI1FromUI8(i64In, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromUI8", "uint", i64In, "ptr", pcOut, "int")
         if(result != 0)
@@ -19204,7 +19209,7 @@ class Ole {
     /**
      * Converts a decimal value to a char value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Byte>} pcOut The resulting value.
+     * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19284,7 +19289,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari1fromdec
      */
     static VarI1FromDec(pdecIn, pcOut) {
-        pcOut := pcOut is String? StrPtr(pcOut) : pcOut
+        pcOut := pcOut is String ? StrPtr(pcOut) : pcOut
 
         result := DllCall("OLEAUT32.dll\VarI1FromDec", "ptr", pdecIn, "ptr", pcOut, "int")
         if(result != 0)
@@ -19925,7 +19930,7 @@ class Ole {
 
     /**
      * Converts a currency value to an unsigned short value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<UInt16>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -20015,7 +20020,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to an unsigned short value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -20135,7 +20140,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromstr
      */
     static VarUI2FromStr(strIn, lcid, dwFlags, puiOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", puiOut, "int")
         if(result != 0)
@@ -20237,7 +20242,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to an unsigned short value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<UInt16>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -20327,7 +20332,7 @@ class Ole {
 
     /**
      * Converts a char value to an unsigned short value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<UInt16>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -21317,7 +21322,7 @@ class Ole {
 
     /**
      * Converts a currency value to an unsigned long value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<UInt32>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -21407,7 +21412,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to an unsigned long value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -21527,7 +21532,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromstr
      */
     static VarUI4FromStr(strIn, lcid, dwFlags, pulOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pulOut, "int")
         if(result != 0)
@@ -21629,7 +21634,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to an unsigned long value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<UInt32>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -21719,7 +21724,7 @@ class Ole {
 
     /**
      * Converts a char value to an unsigned long value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<UInt32>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -22529,7 +22534,7 @@ class Ole {
 
     /**
      * Converts a currency value to an 8-byte unsigned integer value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<UInt64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -22709,7 +22714,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to an 8-byte unsigned integer value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -22809,7 +22814,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromstr
      */
     static VarUI8FromStr(strIn, lcid, dwFlags, pi64Out) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", pi64Out, "int")
         if(result != 0)
@@ -22911,7 +22916,7 @@ class Ole {
 
     /**
      * Converts a VARIANT_BOOL value to an 8-byte unsigned integer value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<UInt64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -23001,7 +23006,7 @@ class Ole {
 
     /**
      * Converts a char value to an 8-byte unsigned integer value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<UInt64>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -23991,7 +23996,7 @@ class Ole {
 
     /**
      * Converts a currency value to a decimal value.
-     * @param {Pointer} cyIn The value to convert.
+     * @param {CY} cyIn The value to convert.
      * @param {Pointer<DECIMAL>} pdecOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -24081,7 +24086,7 @@ class Ole {
 
     /**
      * Converts an OLECHAR string to a decimal value.
-     * @param {Pointer<Char>} strIn The value to convert.
+     * @param {PWSTR} strIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags One or more of the following flags.
      * 
@@ -24201,7 +24206,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardecfromstr
      */
     static VarDecFromStr(strIn, lcid, dwFlags, pdecOut) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarDecFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pdecOut, "int")
         if(result != 0)
@@ -24303,7 +24308,7 @@ class Ole {
 
     /**
      * Converts a Boolean value to a decimal value.
-     * @param {Integer} boolIn The value to convert.
+     * @param {VARIANT_BOOL} boolIn The value to convert.
      * @param {Pointer<DECIMAL>} pdecOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -24393,7 +24398,7 @@ class Ole {
 
     /**
      * Converts a char value to a decimal value.
-     * @param {Integer} cIn The value to convert.
+     * @param {CHAR} cIn The value to convert.
      * @param {Pointer<DECIMAL>} pdecOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -24753,7 +24758,7 @@ class Ole {
 
     /**
      * Parses a string, and creates a type-independent description of the number it represents.
-     * @param {Pointer<Char>} strIn The input string to convert.
+     * @param {PWSTR} strIn The input string to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Enables the caller to control parsing, therefore defining the acceptable syntax of a number. If this field is set to zero, the input string must contain nothing but decimal digits. Setting each defined flag bit enables parsing of that syntactic feature. Standard Automation parsing (for example, as used by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vari2fromstr">VarI2FromStr</a>) has all flags set (NUMPRS_STD).
      * @param {Pointer<NUMPARSE>} pnumprs The parsed results.
@@ -24816,7 +24821,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varparsenumfromstr
      */
     static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs, rgbDig) {
-        strIn := strIn is String? StrPtr(strIn) : strIn
+        strIn := strIn is String ? StrPtr(strIn) : strIn
 
         result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "char*", rgbDig, "int")
         if(result != 0)
@@ -25607,8 +25612,8 @@ class Ole {
 
     /**
      * Adds two variants of type currency.
-     * @param {Pointer} cyLeft The first variant.
-     * @param {Pointer} cyRight The second variant.
+     * @param {CY} cyLeft The first variant.
+     * @param {CY} cyRight The second variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyadd
@@ -25623,8 +25628,8 @@ class Ole {
 
     /**
      * Multiplies two variants of type currency.
-     * @param {Pointer} cyLeft The first variant
-     * @param {Pointer} cyRight The second variant.
+     * @param {CY} cyLeft The first variant
+     * @param {CY} cyRight The second variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcymul
@@ -25639,7 +25644,7 @@ class Ole {
 
     /**
      * Multiplies a currency value by a 32-bit integer.
-     * @param {Pointer} cyLeft The first variant.
+     * @param {CY} cyLeft The first variant.
      * @param {Integer} lRight The second variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -25655,7 +25660,7 @@ class Ole {
 
     /**
      * Multiplies a currency value by a 64-bit integer.
-     * @param {Pointer} cyLeft The first variant.
+     * @param {CY} cyLeft The first variant.
      * @param {Integer} lRight The second variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -25671,8 +25676,8 @@ class Ole {
 
     /**
      * Subtracts two variants of type currency.
-     * @param {Pointer} cyLeft The first variant.
-     * @param {Pointer} cyRight The second variant.
+     * @param {CY} cyLeft The first variant.
+     * @param {CY} cyRight The second variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcysub
@@ -25687,7 +25692,7 @@ class Ole {
 
     /**
      * Retrieves the absolute value of a variant of type currency.
-     * @param {Pointer} cyIn The currency variant.
+     * @param {CY} cyIn The currency variant.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyabs
@@ -25702,7 +25707,7 @@ class Ole {
 
     /**
      * Retrieves the integer portion of a variant of type currency.
-     * @param {Pointer} cyIn The currency variant.
+     * @param {CY} cyIn The currency variant.
      * @param {Pointer<CY>} pcyResult The resulting variant. If the variant is negative, then the first negative integer greater than or equal to the variant is returned.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyfix
@@ -25717,7 +25722,7 @@ class Ole {
 
     /**
      * Retrieves the integer portion of a variant of type currency.
-     * @param {Pointer} cyIn The currency variant.
+     * @param {CY} cyIn The currency variant.
      * @param {Pointer<CY>} pcyResult The resulting variant. If the variant is negative then the first negative integer less than or equal to the variant is returned.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyint
@@ -25732,7 +25737,7 @@ class Ole {
 
     /**
      * Performs a logical negation on a variant of type currency.
-     * @param {Pointer} cyIn The variant to negate.
+     * @param {CY} cyIn The variant to negate.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varcyneg
@@ -25747,7 +25752,7 @@ class Ole {
 
     /**
      * Rounds a variant of type currency to the specified number of decimal places.
-     * @param {Pointer} cyIn The variant to round.
+     * @param {CY} cyIn The variant to round.
      * @param {Integer} cDecimals The number of currency decimals.
      * @param {Pointer<CY>} pcyResult The resulting variant.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
@@ -25763,8 +25768,8 @@ class Ole {
 
     /**
      * Compares two variants of type currency.
-     * @param {Pointer} cyLeft The first variant.
-     * @param {Pointer} cyRight The second variant.
+     * @param {CY} cyLeft The first variant.
+     * @param {CY} cyRight The second variant.
      * @returns {Integer} This function can return one of these values.
      * 
      * <table>
@@ -25832,7 +25837,7 @@ class Ole {
 
     /**
      * Compares a variant of type currency with a value of type double.
-     * @param {Pointer} cyLeft The first variant.
+     * @param {CY} cyLeft The first variant.
      * @param {Float} dblRight The second variant.
      * @returns {Integer} This function can return one of these values.
      * 
@@ -25901,14 +25906,17 @@ class Ole {
 
     /**
      * Concatenates two variants of type BSTR and returns the resulting BSTR.
-     * @param {Pointer<Char>} bstrLeft The first variant.
-     * @param {Pointer<Char>} bstrRight The second variant.
-     * @param {Pointer<Char>} pbstrResult The result.
+     * @param {BSTR} bstrLeft The first variant.
+     * @param {BSTR} bstrRight The second variant.
+     * @param {Pointer<BSTR>} pbstrResult The result.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrcat
      */
     static VarBstrCat(bstrLeft, bstrRight, pbstrResult) {
-        result := DllCall("OLEAUT32.dll\VarBstrCat", "char*", bstrLeft, "char*", bstrRight, "ptr", pbstrResult, "int")
+        bstrLeft := bstrLeft is Win32Handle ? NumGet(bstrLeft, "ptr") : bstrLeft
+        bstrRight := bstrRight is Win32Handle ? NumGet(bstrRight, "ptr") : bstrRight
+
+        result := DllCall("OLEAUT32.dll\VarBstrCat", "ptr", bstrLeft, "ptr", bstrRight, "ptr", pbstrResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25917,8 +25925,8 @@ class Ole {
 
     /**
      * Compares two variants of type BSTR.
-     * @param {Pointer<Char>} bstrLeft The first variant.
-     * @param {Pointer<Char>} bstrRight The second variant.
+     * @param {BSTR} bstrLeft The first variant.
+     * @param {BSTR} bstrRight The second variant.
      * @param {Integer} lcid The locale identifier of the program to determine whether UNICODE or ANSI strings are being used.
      * @param {Integer} dwFlags The following are compare results flags.
      * 
@@ -26041,7 +26049,10 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrcmp
      */
     static VarBstrCmp(bstrLeft, bstrRight, lcid, dwFlags) {
-        result := DllCall("OLEAUT32.dll\VarBstrCmp", "char*", bstrLeft, "char*", bstrRight, "uint", lcid, "uint", dwFlags, "int")
+        bstrLeft := bstrLeft is Win32Handle ? NumGet(bstrLeft, "ptr") : bstrLeft
+        bstrRight := bstrRight is Win32Handle ? NumGet(bstrRight, "ptr") : bstrRight
+
+        result := DllCall("OLEAUT32.dll\VarBstrCmp", "ptr", bstrLeft, "ptr", bstrRight, "uint", lcid, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26321,7 +26332,7 @@ class Ole {
     /**
      * Retrieves the secondary (alternate) month names.
      * @param {Integer} lcid The locale identifier to be used in retrieving the alternate month names.
-     * @param {Pointer<Char>} prgp An array of pointers to strings containing the alternate month names.
+     * @param {Pointer<PWSTR>} prgp An array of pointers to strings containing the alternate month names.
      * @returns {HRESULT} The function returns TRUE on success and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getaltmonthnames
      */
@@ -26336,7 +26347,7 @@ class Ole {
     /**
      * Formats a variant into string form by parsing a format string.
      * @param {Pointer<VARIANT>} pvarIn The variant.
-     * @param {Pointer<Char>} pstrFormat The format string. For example "mm-dd-yy".
+     * @param {PWSTR} pstrFormat The format string. For example "mm-dd-yy".
      * @param {Integer} iFirstDay First day of the week.
      * 
      * 
@@ -26488,7 +26499,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags Flags that control the formatting process. The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<Char>} pbstrOut The formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -26522,7 +26533,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformat
      */
     static VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags, pbstrOut) {
-        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+        pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
         result := DllCall("OLEAUT32.dll\VarFormat", "ptr", pvarIn, "ptr", pstrFormat, "int", iFirstDay, "int", iFirstWeek, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
@@ -26598,7 +26609,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -26769,7 +26780,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut Points to the formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut Points to the formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -26940,7 +26951,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -27111,7 +27122,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut The formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -27349,7 +27360,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -27407,7 +27418,7 @@ class Ole {
      * @param {Integer} iMonth Represents the month, as a number from 1 to 12.
      * @param {Integer} fAbbrev If zero then the full (non-abbreviated) month name is used. If non-zero, then the abbreviation for the month name is used.
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<Char>} pbstrOut Receives the formatted string that represents the variant.
+     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -27451,10 +27462,10 @@ class Ole {
     /**
      * Takes a tokenized format string and applies it to a variant to produce a formatted output string.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
-     * @param {Pointer<Char>} pstrFormat The original format string.
+     * @param {PWSTR} pstrFormat The original format string.
      * @param {Pointer<Byte>} pbTokCur The tokenized format string from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a>.
      * @param {Integer} dwFlags The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<Char>} pbstrOut The formatted output string.
+     * @param {Pointer<BSTR>} pbstrOut The formatted output string.
      * @param {Integer} lcid The locale to use for the formatted output string.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -27514,7 +27525,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatfromtokens
      */
     static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, pbstrOut, lcid) {
-        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+        pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
         result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, "char*", pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
         if(result != 0)
@@ -27525,7 +27536,7 @@ class Ole {
 
     /**
      * Parses the actual format string into a series of tokens which can be used to format variants using VarFormatFromTokens.
-     * @param {Pointer<Char>} pstrFormat The format string. For example "mm-dd-yy".
+     * @param {PWSTR} pstrFormat The format string. For example "mm-dd-yy".
      * @param {Pointer<Byte>} rgbTok The destination token buffer.
      * @param {Integer} cbTok The size of the destination token buffer.
      * @param {Integer} iFirstDay First day of the week.
@@ -27725,7 +27736,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vartokenizeformatstring
      */
     static VarTokenizeFormatString(pstrFormat, rgbTok, cbTok, iFirstDay, iFirstWeek, lcid, pcbActual) {
-        pstrFormat := pstrFormat is String? StrPtr(pstrFormat) : pstrFormat
+        pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
         result := DllCall("OLEAUT32.dll\VarTokenizeFormatString", "ptr", pstrFormat, "char*", rgbTok, "int", cbTok, "int", iFirstDay, "int", iFirstWeek, "uint", lcid, "int*", pcbActual, "int")
         if(result != 0)
@@ -27738,12 +27749,12 @@ class Ole {
      * Computes a hash value for the specified name.
      * @param {Integer} syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
-     * @param {Pointer<Byte>} szName The string whose hash value is to be computed.
+     * @param {PSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the specified name.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-lhashvalofnamesysa
      */
     static LHashValOfNameSysA(syskind, lcid, szName) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("OLEAUT32.dll\LHashValOfNameSysA", "int", syskind, "uint", lcid, "ptr", szName, "uint")
         return result
@@ -27753,12 +27764,12 @@ class Ole {
      * Computes a hash value for a name.
      * @param {Integer} syskind The SYSKIND of the target operating system.
      * @param {Integer} lcid The LCID for the string.
-     * @param {Pointer<Char>} szName The string whose hash value is to be computed.
+     * @param {PWSTR} szName The string whose hash value is to be computed.
      * @returns {Integer} A hash value that represents the passed-in name.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-lhashvalofnamesys
      */
     static LHashValOfNameSys(syskind, lcid, szName) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("OLEAUT32.dll\LHashValOfNameSys", "int", syskind, "uint", lcid, "ptr", szName, "uint")
         return result
@@ -27766,7 +27777,7 @@ class Ole {
 
     /**
      * Loads and registers a type library.
-     * @param {Pointer<Char>} szFile The name of the file from which the method should attempt to load a type library.
+     * @param {PWSTR} szFile The name of the file from which the method should attempt to load a type library.
      * @param {Pointer<ITypeLib>} pptlib The loaded type library.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -27891,7 +27902,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadtypelib
      */
     static LoadTypeLib(szFile, pptlib) {
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr", pptlib, "int")
         if(result != 0)
@@ -27902,7 +27913,7 @@ class Ole {
 
     /**
      * Loads a type library and (optionally) registers it in the system registry.  .
-     * @param {Pointer<Char>} szFile The type library file.
+     * @param {PWSTR} szFile The type library file.
      * @param {Integer} regkind Identifies the kind of registration to perform for the type library based on the following flags: DEFAULT, REGISTER and NONE. REGKIND_DEFAULT simply calls LoadTypeLib and registration occurs based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-loadtypelib">LoadTypeLib</a> registration rules. REGKIND_NONE calls <b>LoadTypeLib</b> without the registration process enabled. REGKIND_REGISTER calls <b>LoadTypeLib</b> followed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a>, which registers the type library. To unregister the type library, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-unregistertypelib">UnRegisterTypeLib</a>.
      * @param {Pointer<ITypeLib>} pptlib The type library.
      * @returns {HRESULT} This function can return one of these values.
@@ -28002,7 +28013,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadtypelibex
      */
     static LoadTypeLibEx(szFile, regkind, pptlib) {
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr", pptlib, "int")
         if(result != 0)
@@ -28154,7 +28165,7 @@ class Ole {
      * @param {Integer} wMaj The major version number of the library.
      * @param {Integer} wMin The minor version number of the library.
      * @param {Integer} lcid The national language code for the library.
-     * @param {Pointer<Char>} lpbstrPathName The type library name.
+     * @param {Pointer<BSTR>} lpbstrPathName The type library name.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-querypathofregtypelib
      */
@@ -28169,8 +28180,8 @@ class Ole {
     /**
      * Adds information about a type library to the system registry.
      * @param {Pointer<ITypeLib>} ptlib The type library.
-     * @param {Pointer<Char>} szFullPath The fully qualified path specification for the type library.
-     * @param {Pointer<Char>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
+     * @param {PWSTR} szFullPath The fully qualified path specification for the type library.
+     * @param {PWSTR} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -28257,8 +28268,8 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-registertypelib
      */
     static RegisterTypeLib(ptlib, szFullPath, szHelpDir) {
-        szFullPath := szFullPath is String? StrPtr(szFullPath) : szFullPath
-        szHelpDir := szHelpDir is String? StrPtr(szHelpDir) : szHelpDir
+        szFullPath := szFullPath is String ? StrPtr(szFullPath) : szFullPath
+        szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
         result := DllCall("OLEAUT32.dll\RegisterTypeLib", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
         if(result != 0)
@@ -28370,8 +28381,8 @@ class Ole {
     /**
      * Registers a type library for use by the calling user.
      * @param {Pointer<ITypeLib>} ptlib The type library.
-     * @param {Pointer<Char>} szFullPath The fully qualified path specification for the type library.
-     * @param {Pointer<Char>} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
+     * @param {PWSTR} szFullPath The fully qualified path specification for the type library.
+     * @param {PWSTR} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -28458,8 +28469,8 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-registertypelibforuser
      */
     static RegisterTypeLibForUser(ptlib, szFullPath, szHelpDir) {
-        szFullPath := szFullPath is String? StrPtr(szFullPath) : szFullPath
-        szHelpDir := szHelpDir is String? StrPtr(szHelpDir) : szHelpDir
+        szFullPath := szFullPath is String ? StrPtr(szFullPath) : szFullPath
+        szHelpDir := szHelpDir is String ? StrPtr(szHelpDir) : szHelpDir
 
         result := DllCall("OLEAUT32.dll\RegisterTypeLibForUser", "ptr", ptlib, "ptr", szFullPath, "ptr", szHelpDir, "int")
         if(result != 0)
@@ -28571,7 +28582,7 @@ class Ole {
     /**
      * Provides access to a new object instance that supports the ICreateTypeLib interface.
      * @param {Integer} syskind The target operating system for which to create a type library.
-     * @param {Pointer<Char>} szFile The name of the file to create.
+     * @param {PWSTR} szFile The name of the file to create.
      * @param {Pointer<ICreateTypeLib>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @returns {HRESULT} <table>
      * <tr>
@@ -28645,7 +28656,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createtypelib
      */
     static CreateTypeLib(syskind, szFile, ppctlib) {
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
         if(result != 0)
@@ -28657,13 +28668,13 @@ class Ole {
     /**
      * Creates a type library in the current file format.
      * @param {Integer} syskind The target operating system for which to create a type library.
-     * @param {Pointer<Char>} szFile The name of the file to create.
+     * @param {PWSTR} szFile The name of the file to create.
      * @param {Pointer<ICreateTypeLib2>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createtypelib2
      */
     static CreateTypeLib2(syskind, szFile, ppctlib) {
-        szFile := szFile is String? StrPtr(szFile) : szFile
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
         if(result != 0)
@@ -28782,7 +28793,7 @@ class Ole {
     /**
      * Low-level helper for Invoke that provides machine independence for customized Invoke.
      * @param {Pointer<ITypeInfo>} ptinfo The type information for an interface. This type information is specific to one interface and language code, so it is not necessary to pass an interface identifier (IID) or LCID to this function.
-     * @param {Pointer<Char>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
+     * @param {Pointer<PWSTR>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
      * @param {Integer} cNames The number of elements in <i>rgszNames</i>.
      * @param {Pointer<Int32>} rgdispid An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
      * @returns {HRESULT} <table>
@@ -30051,7 +30062,7 @@ class Ole {
 
     /**
      * Creates an object that is linked to a file.
-     * @param {Pointer<Char>} lpszFileName Pointer to a string naming the source file to be linked to.
+     * @param {PWSTR} lpszFileName Pointer to a string naming the source file to be linked to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the following Remarks section.
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
@@ -30092,7 +30103,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         if(result != 0)
@@ -30103,7 +30114,7 @@ class Ole {
 
     /**
      * Extends OleCreateLinkToFile functionality by supporting more efficient instantiation of objects in containers requiring caching of multiple formats of presentations or data, instead of the single format supported by OleCreateLinkToFile.
-     * @param {Pointer<Char>} lpszFileName Pointer to the name of the file to create a link to.
+     * @param {PWSTR} lpszFileName Pointer to the name of the file to create a link to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
@@ -30149,7 +30160,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         if(result != 0)
@@ -30161,7 +30172,7 @@ class Ole {
     /**
      * Creates an embedded object from the contents of a named file.
      * @param {Pointer<Guid>} rclsid This parameter is reserved and must be CLSID_NULL.
-     * @param {Pointer<Char>} lpszFileName Pointer to a string specifying the full path of the file from which the object should be initialized.
+     * @param {PWSTR} lpszFileName Pointer to a string specifying the full path of the file from which the object should be initialized.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface ID of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>lpFormatEtc</i> parameter.
      * @param {Pointer<FORMATETC>} lpFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer also to the <b>OLERENDER</b> enumeration for restrictions.
@@ -30246,7 +30257,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         if(result != 0)
@@ -30258,7 +30269,7 @@ class Ole {
     /**
      * Extends OleCreateFromFile functionality by supporting more efficient instantiation of objects in containers requiring caching of multiple presentation formats or data, instead of the single format supported by OleCreateFromFile.
      * @param {Pointer<Guid>} rclsid This parameter is reserved and must be CLSID_NULL.
-     * @param {Pointer<Char>} lpszFileName Pointer to the name of the file from which the new object should be initialized.
+     * @param {PWSTR} lpszFileName Pointer to the name of the file from which the new object should be initialized.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
@@ -30304,7 +30315,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
         if(result != 0)
@@ -30356,7 +30367,7 @@ class Ole {
      * Saves an object opened in transacted mode into the specified storage object.
      * @param {Pointer<IPersistStorage>} pPS Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststorage">IPersistStorage</a> interface on the object to be saved.
      * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the destination storage object to which the object indicated in <i>pPS</i> is to be saved.
-     * @param {Integer} fSameAsLoad <b>TRUE</b> indicates that <i>pStg</i> is the same storage object from which the object was loaded or created; <b>FALSE</b> indicates that <i>pStg</i> was loaded or created from a different storage object.
+     * @param {BOOL} fSameAsLoad <b>TRUE</b> indicates that <i>pStg</i> is the same storage object from which the object was loaded or created; <b>FALSE</b> indicates that <i>pStg</i> was loaded or created from a different storage object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30489,7 +30500,7 @@ class Ole {
     /**
      * Notifies an object that it is embedded in an OLE container, which ensures that reference counting is done correctly for containers that support links to embedded objects.
      * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object.
-     * @param {Integer} fContained <b>TRUE</b> if the object is an embedded object; <b>FALSE</b> otherwise.
+     * @param {BOOL} fContained <b>TRUE</b> if the object is an embedded object; <b>FALSE</b> otherwise.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30545,7 +30556,7 @@ class Ole {
     /**
      * Increments or decrements an external reference that keeps an object in the running state.
      * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that is to be locked or unlocked.
-     * @param {Integer} fVisible Whether the object is visible. If <b>TRUE</b>, OLE increments the reference count to hold the object visible and alive regardless of external or internal <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> and <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> operations, registrations, or revocation. If <b>FALSE</b>, OLE releases its hold (decrements the reference count) and the object can be closed.
+     * @param {BOOL} fVisible Whether the object is visible. If <b>TRUE</b>, OLE increments the reference count to hold the object visible and alive regardless of external or internal <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> and <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> operations, registrations, or revocation. If <b>FALSE</b>, OLE releases its hold (decrements the reference count) and the object can be closed.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30600,7 +30611,7 @@ class Ole {
 
     /**
      * Registers the specified window as one that can be the target of an OLE drag-and-drop operation and specifies the IDropTarget instance to use for drop operations.
-     * @param {Pointer<Void>} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
+     * @param {HWND} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
      * @param {Pointer<IDropTarget>} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -30651,6 +30662,8 @@ class Ole {
      * @since windows5.0
      */
     static RegisterDragDrop(hwnd, pDropTarget) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("OLE32.dll\RegisterDragDrop", "ptr", hwnd, "ptr", pDropTarget, "int")
         if(result != 0)
             throw OSError(result)
@@ -30660,7 +30673,7 @@ class Ole {
 
     /**
      * Revokes the registration of the specified application window as a potential target for OLE drag-and-drop operations.
-     * @param {Pointer<Void>} hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
+     * @param {HWND} hwnd Handle to a window previously registered as a target for an OLE drag-and-drop operation.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30706,6 +30719,8 @@ class Ole {
      * @since windows5.0
      */
     static RevokeDragDrop(hwnd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("OLE32.dll\RevokeDragDrop", "ptr", hwnd, "int")
         if(result != 0)
             throw OSError(result)
@@ -30884,11 +30899,11 @@ class Ole {
     /**
      * Enables Windows Information Protection enlightened applications to retrieve an IDataObject from the OLE Clipboard accompanied by Windows Information Protection information about the data and the source application.
      * @param {Pointer<IDataObject>} dataObject Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> pointer variable that receives the interface pointer to the clipboard data object.
-     * @param {Pointer<Char>} dataEnterpriseId The enterprise id of the application that set the clipboard data. 
+     * @param {Pointer<PWSTR>} dataEnterpriseId The enterprise id of the application that set the clipboard data. 
      * If the data is personal, this will be an empty string.
-     * @param {Pointer<Char>} sourceDescription The description of the application that set the clipboard.
-     * @param {Pointer<Char>} targetDescription The         description of the caller's application to be used in auditing.
-     * @param {Pointer<Char>} dataDescription The description of the data object to be used in auditing.
+     * @param {Pointer<PWSTR>} sourceDescription The description of the application that set the clipboard.
+     * @param {Pointer<PWSTR>} targetDescription The         description of the caller's application to be used in auditing.
+     * @param {Pointer<PWSTR>} dataDescription The description of the data object to be used in auditing.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31009,13 +31024,15 @@ class Ole {
 
     /**
      * Creates and returns an OLE menu descriptor (that is, an OLE-provided data structure that describes the menus) for OLE to use when dispatching menu messages and commands.
-     * @param {Pointer<Void>} hmenuCombined Handle to the combined menu created by the object.
+     * @param {HMENU} hmenuCombined Handle to the combined menu created by the object.
      * @param {Pointer<OLEMENUGROUPWIDTHS>} lpMenuWidths Pointer to an array of six <b>LONG</b> values giving the number of menus in each group.
      * @returns {Pointer} Returns the handle to the descriptor, or <b>NULL</b> if insufficient memory is available.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatemenudescriptor
      * @since windows5.0
      */
     static OleCreateMenuDescriptor(hmenuCombined, lpMenuWidths) {
+        hmenuCombined := hmenuCombined is Win32Handle ? NumGet(hmenuCombined, "ptr") : hmenuCombined
+
         result := DllCall("OLE32.dll\OleCreateMenuDescriptor", "ptr", hmenuCombined, "ptr", lpMenuWidths, "ptr")
         return result
     }
@@ -31023,8 +31040,8 @@ class Ole {
     /**
      * Installs or removes OLE dispatching code from the container's frame window.
      * @param {Pointer} holemenu Handle to the composite menu descriptor returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatemenudescriptor">OleCreateMenuDescriptor</a> function. If <b>NULL</b>, the dispatching code is unhooked.
-     * @param {Pointer<Void>} hwndFrame Handle to the container's frame window where the in-place composite menu is to be installed.
-     * @param {Pointer<Void>} hwndActiveObject Handle to the object's in-place activation window. OLE dispatches menu messages and commands to this window.
+     * @param {HWND} hwndFrame Handle to the container's frame window where the in-place composite menu is to be installed.
+     * @param {HWND} hwndActiveObject Handle to the object's in-place activation window. OLE dispatches menu messages and commands to this window.
      * @param {Pointer<IOleInPlaceFrame>} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface on the container's frame window.
      * @param {Pointer<IOleInPlaceActiveObject>} lpActiveObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> interface on the active in-place object.
      * @returns {HRESULT} This function returns S_OK on success.
@@ -31032,6 +31049,9 @@ class Ole {
      * @since windows5.0
      */
     static OleSetMenuDescriptor(holemenu, hwndFrame, hwndActiveObject, lpFrame, lpActiveObj) {
+        hwndFrame := hwndFrame is Win32Handle ? NumGet(hwndFrame, "ptr") : hwndFrame
+        hwndActiveObject := hwndActiveObject is Win32Handle ? NumGet(hwndActiveObject, "ptr") : hwndActiveObject
+
         result := DllCall("OLE32.dll\OleSetMenuDescriptor", "ptr", holemenu, "ptr", hwndFrame, "ptr", hwndActiveObject, "ptr", lpFrame, "ptr", lpActiveObj, "int")
         if(result != 0)
             throw OSError(result)
@@ -31092,23 +31112,25 @@ class Ole {
 
     /**
      * Duplicates the data found in the specified handle and returns a handle to the duplicated data. The source data is in a clipboard format. Use this function to help implement some of the data transfer interfaces such as IDataObject.
-     * @param {Pointer<Void>} hSrc Handle of the source data.
+     * @param {HANDLE} hSrc Handle of the source data.
      * @param {Integer} cfFormat Clipboard format of the source data.
      * @param {Integer} uiFlags Flags to be used to allocate global memory for the copied data. These flags are passed to GlobalAlloc. If the value of <i>uiFlags</i> is <b>NULL</b>, GMEM_MOVEABLE is used as a default flag.
-     * @returns {Pointer<Void>} On success the HANDLE to the source data is returned; on failure a  <b>NULL</b> value is returned.
+     * @returns {HANDLE} On success the HANDLE to the source data is returned; on failure a  <b>NULL</b> value is returned.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleduplicatedata
      * @since windows5.0
      */
     static OleDuplicateData(hSrc, cfFormat, uiFlags) {
+        hSrc := hSrc is Win32Handle ? NumGet(hSrc, "ptr") : hSrc
+
         result := DllCall("OLE32.dll\OleDuplicateData", "ptr", hSrc, "ushort", cfFormat, "uint", uiFlags, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Enables drawing objects more easily. You can use it instead of calling IViewObject::Draw directly.
      * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the view object that is to be drawn.
      * @param {Integer} dwAspect How the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
-     * @param {Pointer<Void>} hdcDraw Device context on which to draw. Cannot be a metafile device context.
+     * @param {HDC} hdcDraw Device context on which to draw. Cannot be a metafile device context.
      * @param {Pointer<RECT>} lprcBounds Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure specifying the rectangle in which the object should be drawn. This parameter is converted to a <a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a> structure and passed to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-draw">IViewObject::Draw</a>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -31199,6 +31221,8 @@ class Ole {
      * @since windows5.0
      */
     static OleDraw(pUnknown, dwAspect, hdcDraw, lprcBounds) {
+        hdcDraw := hdcDraw is Win32Handle ? NumGet(hdcDraw, "ptr") : hdcDraw
+
         result := DllCall("OLE32.dll\OleDraw", "ptr", pUnknown, "uint", dwAspect, "ptr", hdcDraw, "ptr", lprcBounds, "int")
         if(result != 0)
             throw OSError(result)
@@ -31242,7 +31266,7 @@ class Ole {
     /**
      * Determines whether a compound document object is currently in the running state.
      * @param {Pointer<IOleObject>} pObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the object of interest.
-     * @returns {Integer} The return value is <b>TRUE</b> if the object is running; otherwise, it is <b>FALSE</b>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the object is running; otherwise, it is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleisrunning
      * @since windows5.0
      */
@@ -31254,8 +31278,8 @@ class Ole {
     /**
      * Locks an already running object into its running state or unlocks it from its running state.
      * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object, which the function uses to query for a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunnableobject">IRunnableObject</a>.
-     * @param {Integer} fLock <b>TRUE</b> locks the object into its running state. <b>FALSE</b> unlocks the object from its running state.
-     * @param {Integer} fLastUnlockCloses <b>TRUE</b> specifies that if the connection being released is the last external lock on the object, the object should close. <b>FALSE</b> specifies that the object should remain open until closed by the user or another process.
+     * @param {BOOL} fLock <b>TRUE</b> locks the object into its running state. <b>FALSE</b> unlocks the object from its running state.
+     * @param {BOOL} fLastUnlockCloses <b>TRUE</b> specifies that if the connection being released is the last external lock on the object, the object should close. <b>FALSE</b> specifies that the object should remain open until closed by the user or another process.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31510,65 +31534,68 @@ class Ole {
 
     /**
      * Determines whether the specified keystroke maps to an accelerator in the specified accelerator table.
-     * @param {Pointer<Void>} hAccel A handle to the accelerator table.
+     * @param {HACCEL} hAccel A handle to the accelerator table.
      * @param {Integer} cAccelEntries The number of entries in the accelerator table.
      * @param {Pointer<MSG>} lpMsg A pointer to the keystroke message to be translated.
      * @param {Pointer<UInt16>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
-     * @returns {Integer} If the message is for the object application, the return value is <b>TRUE</b>. If the message is not for the object and should be forwarded to the container, the return value is <b>FALSE</b>.
+     * @returns {BOOL} If the message is for the object application, the return value is <b>TRUE</b>. If the message is not for the object and should be forwarded to the container, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-isaccelerator
      * @since windows5.0
      */
     static IsAccelerator(hAccel, cAccelEntries, lpMsg, lpwCmd) {
+        hAccel := hAccel is Win32Handle ? NumGet(hAccel, "ptr") : hAccel
+
         result := DllCall("OLE32.dll\IsAccelerator", "ptr", hAccel, "int", cAccelEntries, "ptr", lpMsg, "ushort*", lpwCmd, "int")
         return result
     }
 
     /**
      * Returns a handle to a metafile containing an icon and string label for the specified file name.
-     * @param {Pointer<Char>} lpszPath A pointer to a file for which the icon and string are to be requested.
-     * @param {Integer} fUseFileAsLabel Indicates whether to use the file name as the icon label.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified file. If there is no CLSID in the registration database for the file, then the function returns the string "Document". If <i>lpszPath</i> is <b>NULL</b>, the function returns <b>NULL</b>.
+     * @param {PWSTR} lpszPath A pointer to a file for which the icon and string are to be requested.
+     * @param {BOOL} fUseFileAsLabel Indicates whether to use the file name as the icon label.
+     * @returns {HGLOBAL} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified file. If there is no CLSID in the registration database for the file, then the function returns the string "Document". If <i>lpszPath</i> is <b>NULL</b>, the function returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olegeticonoffile
      * @since windows5.0
      */
     static OleGetIconOfFile(lpszPath, fUseFileAsLabel) {
-        lpszPath := lpszPath is String? StrPtr(lpszPath) : lpszPath
+        lpszPath := lpszPath is String ? StrPtr(lpszPath) : lpszPath
 
         result := DllCall("ole32.dll\OleGetIconOfFile", "ptr", lpszPath, "int", fUseFileAsLabel, "ptr")
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Returns a handle to a metafile containing an icon and a string label for the specified CLSID.
      * @param {Pointer<Guid>} rclsid The CLSID for which the icon and string are to be requested.
-     * @param {Pointer<Char>} lpszLabel A pointer to the label for the icon.
-     * @param {Integer} fUseTypeAsLabel Indicates whether to use the user type string in the CLSID as the icon label.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified CLSID. Otherwise, the function returns <b>NULL</b>.
+     * @param {PWSTR} lpszLabel A pointer to the label for the icon.
+     * @param {BOOL} fUseTypeAsLabel Indicates whether to use the user type string in the CLSID as the icon label.
+     * @returns {HGLOBAL} If the function succeeds, the return value is a handle to a metafile that contains and icon and label for the specified CLSID. Otherwise, the function returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olegeticonofclass
      * @since windows5.0
      */
     static OleGetIconOfClass(rclsid, lpszLabel, fUseTypeAsLabel) {
-        lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
+        lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
 
         result := DllCall("OLE32.dll\OleGetIconOfClass", "ptr", rclsid, "ptr", lpszLabel, "int", fUseTypeAsLabel, "ptr")
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Creates a metafile in which the specified icon and label are drawn.
-     * @param {Pointer<Void>} hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
-     * @param {Pointer<Char>} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
-     * @param {Pointer<Char>} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
+     * @param {HICON} hIcon Handle to the icon that is to be drawn into the metafile. This parameter can be <b>NULL</b>. If <i>hIcon</i> is <b>NULL</b>, this function returns <b>NULL</b> without creating a metafile.
+     * @param {PWSTR} lpszLabel The icon label. This parameter can be <b>NULL</b>. If <i>lpszLabel</i> is <b>NULL</b>, the resulting metafile will not include a label.
+     * @param {PWSTR} lpszSourceFile The path and file name of the icon file. This string can be obtained through the user interface or from the registration database. This parameter can be <b>NULL</b>.
      * @param {Integer} iIconIndex The location of the icon within the file named by <i>lpszSourceFile</i>, expressed as an offset in bytes from the beginning of file.
-     * @returns {Pointer<Void>} A global handle to a <a href="/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure containing the icon and label. The metafile uses the MM_ANISOTROPIC mapping mode.
+     * @returns {HGLOBAL} A global handle to a <a href="/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> structure containing the icon and label. The metafile uses the MM_ANISOTROPIC mapping mode.
      * 
      * If an error occurs, the returned handle is <b>NULL</b>. In this case, the caller can call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain further information.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olemetafilepictfromiconandlabel
      * @since windows5.0
      */
     static OleMetafilePictFromIconAndLabel(hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
-        lpszLabel := lpszLabel is String? StrPtr(lpszLabel) : lpszLabel
-        lpszSourceFile := lpszSourceFile is String? StrPtr(lpszSourceFile) : lpszSourceFile
+        lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
+        lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         A_LastError := 0
 
@@ -31576,14 +31603,14 @@ class Ole {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HGLOBAL({Value: result}, True)
     }
 
     /**
      * Gets the user type of the specified class from the registry.
      * @param {Pointer<Guid>} clsid The CLSID of the class for which the user type is to be requested.
      * @param {Integer} dwFormOfType The form of the user-presentable string. Possible values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-userclasstype">USERCLASSTYPE</a>.
-     * @param {Pointer<Char>} pszUserType A pointer to a string that receives the user type.
+     * @param {Pointer<PWSTR>} pszUserType A pointer to a string that receives the user type.
      * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
@@ -31856,7 +31883,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<TypeHandle>} lpolestream 
+     * @param {Pointer<OLESTREAM>} lpolestream 
      * @param {Pointer<IStorage>} pstg 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
      * @param {Integer} opt 
@@ -32068,7 +32095,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<TypeHandle>} polestm 
+     * @param {Pointer<OLESTREAM>} polestm 
      * @param {Pointer<IStorage>} pstg 
      * @param {Pointer<UInt16>} pcfFormat 
      * @param {Pointer<Int32>} plwWidth 
@@ -32092,7 +32119,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Integer} 
      */
     static HRGN_UserSize(param0, param1, param2) {
@@ -32104,7 +32131,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserMarshal(param0, param1, param2) {
@@ -32116,7 +32143,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserUnmarshal(param0, param1, param2) {
@@ -32127,7 +32154,7 @@ class Ole {
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static HRGN_UserFree(param0, param1) {
@@ -32138,7 +32165,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Integer} 
      */
     static HRGN_UserSize64(param0, param1, param2) {
@@ -32150,7 +32177,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserMarshal64(param0, param1, param2) {
@@ -32162,7 +32189,7 @@ class Ole {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HRGN>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HRGN_UserUnmarshal64(param0, param1, param2) {
@@ -32173,7 +32200,7 @@ class Ole {
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static HRGN_UserFree64(param0, param1) {
@@ -32182,10 +32209,10 @@ class Ole {
 
     /**
      * Invokes a new property frame, that is, a property sheet dialog box, whose parent is hwndOwner, where the dialog is positioned at the point (x,y) in the parent window and has the caption lpszCaption.
-     * @param {Pointer<Void>} hwndOwner Handle to the parent window of the resulting property sheet dialog box.
+     * @param {HWND} hwndOwner Handle to the parent window of the resulting property sheet dialog box.
      * @param {Integer} x Reserved. Horizontal position for the dialog box relative to <i>hwndOwner</i>.
      * @param {Integer} y Reserved. Vertical position for the dialog box relative to <i>hwndOwner</i>.
-     * @param {Pointer<Char>} lpszCaption Pointer to the string used for the caption of the dialog box.
+     * @param {PWSTR} lpszCaption Pointer to the string used for the caption of the dialog box.
      * @param {Integer} cObjects Number of object pointers passed in <i>ppUnk</i>.
      * @param {Pointer<IUnknown>} ppUnk An array of <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointers on the objects for which this property sheet is being invoked. The number of elements in the array is specified by <i>cObjects</i>. These pointers are passed to each property page through <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-setobjects">IPropertyPage::SetObjects</a>.
      * @param {Integer} cPages Number of property pages specified in <i>pPageCIsID</i>.
@@ -32227,7 +32254,8 @@ class Ole {
     static OleCreatePropertyFrame(hwndOwner, x, y, lpszCaption, cObjects, ppUnk, cPages, pPageClsID, lcid) {
         static dwReserved := 0, pvReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszCaption := lpszCaption is String? StrPtr(lpszCaption) : lpszCaption
+        lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
         if(result != 0)
@@ -32283,8 +32311,8 @@ class Ole {
     /**
      * Converts an OLE_COLOR type to a COLORREF.
      * @param {Integer} clr The OLE color to be converted into a <b>COLORREF</b>.
-     * @param {Pointer<Void>} hpal Palette used as a basis for the conversion.
-     * @param {Pointer<UInt32>} lpcolorref Pointer to the caller's variable that receives the converted <b>COLORREF</b> result. This parameter can be <b>NULL</b>, indicating that the caller wants only to verify that a converted color exists.
+     * @param {HPALETTE} hpal Palette used as a basis for the conversion.
+     * @param {Pointer<COLORREF>} lpcolorref Pointer to the caller's variable that receives the converted <b>COLORREF</b> result. This parameter can be <b>NULL</b>, indicating that the caller wants only to verify that a converted color exists.
      * @returns {HRESULT} This function supports the standard return values E_INVALIDARG and E_UNEXPECTED, as well as the following value.
      * 
      * <table>
@@ -32308,7 +32336,9 @@ class Ole {
      * @since windows5.0
      */
     static OleTranslateColor(clr, hpal, lpcolorref) {
-        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "uint*", lpcolorref, "int")
+        hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
+
+        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "ptr", lpcolorref, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32398,7 +32428,7 @@ class Ole {
      * Creates a new picture object initialized according to a PICTDESC structure.
      * @param {Pointer<PICTDESC>} lpPictDesc Pointer to a caller-allocated structure containing the initial state of the picture. The specified structure can be <b>NULL</b> to create an uninitialized object, in the event the picture needs to initialize via <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersiststream-load">IPersistStream::Load</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>lplpvObj</i>.
-     * @param {Integer} fOwn If <b>TRUE</b>, the picture object is to destroy its picture when the object is destroyed. If <b>FALSE</b>, the caller is responsible for destroying the picture.
+     * @param {BOOL} fOwn If <b>TRUE</b>, the picture object is to destroy its picture when the object is destroyed. If <b>FALSE</b>, the caller is responsible for destroying the picture.
      * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created object. If the call is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through this interface pointer when the new object is no longer needed. If the call fails, the value is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -32446,7 +32476,7 @@ class Ole {
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect with NULL as the first parameter, followed by a call to IPersistStream::Load.
      * @param {Pointer<IStream>} lpstream Pointer to the stream that contains the picture's data.
      * @param {Integer} lSize The number of bytes that should be read from the stream, or zero if the entire stream should be read.
-     * @param {Integer} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice-versa.
+     * @param {BOOL} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice-versa.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
      * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
@@ -32495,7 +32525,7 @@ class Ole {
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect with NULL as the first parameter, followed by a call to IPersistStream::Load.
      * @param {Pointer<IStream>} lpstream Pointer to the stream that contains the picture's data.
      * @param {Integer} lSize The number of bytes that should be read from the stream, or zero if the entire stream should be read.
-     * @param {Integer} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice versa.
+     * @param {BOOL} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice versa.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
      * @param {Integer} xSizeDesired Desired width of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} ySizeDesired Desired height of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
@@ -32545,7 +32575,7 @@ class Ole {
 
     /**
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect(NULL, ...) followed by IPersistStream::Load.
-     * @param {Pointer<Char>} szURLorPath The path or URL to the file you want to open.
+     * @param {PWSTR} szURLorPath The path or URL to the file you want to open.
      * @param {Pointer<IUnknown>} punkCaller Points to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> for COM aggregation.
      * @param {Integer} clrReserved The color you want to reserve to be transparent.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in ppvRet.
@@ -32610,7 +32640,7 @@ class Ole {
     static OleLoadPicturePath(szURLorPath, punkCaller, clrReserved, riid, ppvRet) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        szURLorPath := szURLorPath is String? StrPtr(szURLorPath) : szURLorPath
+        szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
         result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr", ppvRet, "int")
         if(result != 0)
@@ -32621,7 +32651,7 @@ class Ole {
 
     /**
      * Creates an IPictureDisp object from a picture file on disk.
-     * @param {Pointer} varFileName The path and name of the picture file to load.
+     * @param {VARIANT} varFileName The path and name of the picture file to load.
      * @param {Pointer<IDispatch>} lplpdispPicture The location that receives a pointer to the <b>IPictureDisp</b> object.
      * @returns {HRESULT} This method returns standard COM error codes in addition to the following values.
      * 
@@ -32668,7 +32698,7 @@ class Ole {
 
     /**
      * Loads a picture from a file.
-     * @param {Pointer} varFileName The path and name of the picture file to load.
+     * @param {VARIANT} varFileName The path and name of the picture file to load.
      * @param {Integer} xSizeDesired The desired length for the picture to be displayed.
      * @param {Integer} ySizeDesired The desired height for the picture to be displayed.
      * @param {Integer} dwFlags The desired color depth for the icon or cursor. Together with the desired size it is used to select the best matching image.
@@ -32770,7 +32800,7 @@ class Ole {
     /**
      * Saves a picture to a file.
      * @param {Pointer<IDispatch>} lpdispPicture Points to the <b>IPictureDisp</b> picture object.
-     * @param {Pointer<Char>} bstrFileName The name of the file to save the picture to.
+     * @param {BSTR} bstrFileName The name of the file to save the picture to.
      * @returns {HRESULT} This method returns standard COM error codes in addition to the following values.
      * 
      * 
@@ -32819,7 +32849,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-olesavepicturefile
      */
     static OleSavePictureFile(lpdispPicture, bstrFileName) {
-        result := DllCall("OLEAUT32.dll\OleSavePictureFile", "ptr", lpdispPicture, "char*", bstrFileName, "int")
+        bstrFileName := bstrFileName is Win32Handle ? NumGet(bstrFileName, "ptr") : bstrFileName
+
+        result := DllCall("OLEAUT32.dll\OleSavePictureFile", "ptr", lpdispPicture, "ptr", bstrFileName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32828,34 +32860,38 @@ class Ole {
 
     /**
      * Converts an icon to a cursor.
-     * @param {Pointer<Void>} hinstExe This parameter is ignored.
-     * @param {Pointer<Void>} hIcon A handle to the icon to be converted.
-     * @returns {Pointer<Void>} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
+     * @param {HINSTANCE} hinstExe This parameter is ignored.
+     * @param {HICON} hIcon A handle to the icon to be converted.
+     * @returns {HCURSOR} The function returns a handle to the new cursor object. The caller is responsible for deleting this cursor with the <a href="/windows/desktop/api/winuser/nf-winuser-destroycursor">DestroyCursor</a> function. If the conversion could not be completed, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleicontocursor
      * @since windows5.0
      */
     static OleIconToCursor(hinstExe, hIcon) {
+        hinstExe := hinstExe is Win32Handle ? NumGet(hinstExe, "ptr") : hinstExe
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         result := DllCall("OLEAUT32.dll\OleIconToCursor", "ptr", hinstExe, "ptr", hIcon, "ptr")
-        return result
+        return HCURSOR({Value: result}, True)
     }
 
     /**
      * Adds the Verb menu for the specified object to the specified menu.
      * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
-     * @param {Pointer<Char>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {Pointer<Void>} hMenu Handle to the menu in which to make modifications.
+     * @param {PWSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
+     * @param {HMENU} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
-     * @param {Integer} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
+     * @param {BOOL} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
      * @param {Integer} idConvert The identifier value to use for the <b>Convert</b> menu item, if <i>bAddConvert</i> is <b>TRUE</b>.
-     * @param {Pointer<Void>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
-     * @returns {Integer} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
+     * @param {Pointer<HMENU>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
+     * @returns {BOOL} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
      * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-oleuiaddverbmenuw
      * @since windows5.0
      */
     static OleUIAddVerbMenuW(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
-        lpszShortType := lpszShortType is String? StrPtr(lpszShortType) : lpszShortType
+        lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("oledlg.dll\OleUIAddVerbMenuW", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
@@ -32864,20 +32900,21 @@ class Ole {
     /**
      * Adds the Verb menu for the specified object to the specified menu.
      * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
-     * @param {Pointer<Byte>} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
-     * @param {Pointer<Void>} hMenu Handle to the menu in which to make modifications.
+     * @param {PSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
+     * @param {HMENU} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
      * @param {Integer} uIDVerbMin The identifier value at which to start the verbs.
      * @param {Integer} uIDVerbMax The maximum identifier value to be used for object verbs. If <i>uIDVerbMax</i> is 0, then no maximum identifier value is used.
-     * @param {Integer} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
+     * @param {BOOL} bAddConvert Indicates whether to add a <b>Convert</b> item to the bottom of the menu (preceded by a separator).
      * @param {Integer} idConvert The identifier value to use for the <b>Convert</b> menu item, if <i>bAddConvert</i> is <b>TRUE</b>.
-     * @param {Pointer<Void>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
-     * @returns {Integer} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
+     * @param {Pointer<HMENU>} lphMenu An <b>HMENU</b> pointer to the cascading verb menu if it's created. If there is only one verb, this will be filled with <b>NULL</b>.
+     * @returns {BOOL} This function returns <b>TRUE</b> if <i>lpOleObj</i> was valid and at least one verb was added to the menu. A <b>FALSE</b> return indicates that <i>lpOleObj</i> was <b>NULL</b> and a disabled default menu item was created.
      * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-oleuiaddverbmenua
      * @since windows5.0
      */
     static OleUIAddVerbMenuA(lpOleObj, lpszShortType, hMenu, uPos, uIDVerbMin, uIDVerbMax, bAddConvert, idConvert, lphMenu) {
-        lpszShortType := lpszShortType is String? StrPtr(lpszShortType) : lpszShortType
+        lpszShortType := lpszShortType is String ? StrPtr(lpszShortType) : lpszShortType
+        hMenu := hMenu is Win32Handle ? NumGet(hMenu, "ptr") : hMenu
 
         result := DllCall("oledlg.dll\OleUIAddVerbMenuA", "ptr", lpOleObj, "ptr", lpszShortType, "ptr", hMenu, "uint", uPos, "uint", uIDVerbMin, "uint", uIDVerbMax, "int", bAddConvert, "uint", idConvert, "ptr", lphMenu, "int")
         return result
@@ -36330,9 +36367,9 @@ class Ole {
     /**
      * Determines if there are any OLE object classes in the registry that can be used to convert or activate the specified CLSID from.
      * @param {Pointer<Guid>} rClsid The CLSID of the class for which the information is required.
-     * @param {Integer} fIsLinkedObject <b>TRUE</b> if the original object is a linked object; <b>FALSE</b> otherwise.
+     * @param {BOOL} fIsLinkedObject <b>TRUE</b> if the original object is a linked object; <b>FALSE</b> otherwise.
      * @param {Integer} wFormat Format of the original class.
-     * @returns {Integer} This function returns <b>TRUE</b> if the specified class can be converted to another class; <b>FALSE</b> otherwise.
+     * @returns {BOOL} This function returns <b>TRUE</b> if the specified class can be converted to another class; <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-oleuicanconvertoractivateas
      * @since windows5.0
      */
@@ -38880,7 +38917,7 @@ class Ole {
     /**
      * Displays a dialog box with the specified template and returns the response (button identifier) from the user. This function is used to display OLE warning messages, for example, Class Not Registered.
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
-     * @param {Pointer<Void>} hwndParent The handle to the parent window of the dialog box.
+     * @param {HWND} hwndParent The handle to the parent window of the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -39176,6 +39213,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIPromptUserW(nTemplate, hwndParent) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("oledlg.dll\OleUIPromptUserW", "int", nTemplate, "ptr", hwndParent, "CDecl int")
         return result
     }
@@ -39183,7 +39222,7 @@ class Ole {
     /**
      * Displays a dialog box with the specified template and returns the response (button identifier) from the user. This function is used to display OLE warning messages, for example, Class Not Registered.
      * @param {Integer} nTemplate The resource number of the dialog box to be displayed. See Remarks.
-     * @param {Pointer<Void>} hwndParent The handle to the parent window of the dialog box.
+     * @param {HWND} hwndParent The handle to the parent window of the dialog box.
      * @returns {Integer} Standard Success/Error Definitions
      * 
      * 
@@ -39479,6 +39518,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIPromptUserA(nTemplate, hwndParent) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("oledlg.dll\OleUIPromptUserA", "int", nTemplate, "ptr", hwndParent, "CDecl int")
         return result
     }
@@ -39486,15 +39527,16 @@ class Ole {
     /**
      * Updates all links in the link container and displays a dialog box that shows the progress of the updating process. The process is stopped if the user presses the Stop button or when all links are processed.
      * @param {Pointer<IOleUILinkContainerW>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
-     * @param {Pointer<Void>} hwndParent Parent window of the dialog box.
-     * @param {Pointer<Char>} lpszTitle Pointer to the title of the dialog box.
+     * @param {HWND} hwndParent Parent window of the dialog box.
+     * @param {PWSTR} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.
-     * @returns {Integer} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-oleuiupdatelinksw
      * @since windows5.0
      */
     static OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result
@@ -39503,15 +39545,16 @@ class Ole {
     /**
      * Updates all links in the link container and displays a dialog box that shows the progress of the updating process. The process is stopped if the user presses the Stop button or when all links are processed.
      * @param {Pointer<IOleUILinkContainerA>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
-     * @param {Pointer<Void>} hwndParent Parent window of the dialog box.
-     * @param {Pointer<Byte>} lpszTitle Pointer to the title of the dialog box.
+     * @param {HWND} hwndParent Parent window of the dialog box.
+     * @param {PSTR} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.
-     * @returns {Integer} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
+     * @returns {BOOL} Returns <b>TRUE</b> if the links were successfully updated; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//oledlg/nf-oledlg-oleuiupdatelinksa
      * @since windows5.0
      */
     static OleUIUpdateLinksA(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String? StrPtr(lpszTitle) : lpszTitle
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result

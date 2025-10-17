@@ -102,7 +102,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     LogonScript{
         get {
             if(!this.HasProp("__LogonScript"))
-                this.__LogonScript := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__LogonScript := LSA_UNICODE_STRING(56, this)
             return this.__LogonScript
         }
     }
@@ -114,7 +114,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     HomeDirectory{
         get {
             if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__HomeDirectory := LSA_UNICODE_STRING(72, this)
             return this.__HomeDirectory
         }
     }
@@ -126,7 +126,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     FullName{
         get {
             if(!this.HasProp("__FullName"))
-                this.__FullName := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__FullName := LSA_UNICODE_STRING(88, this)
             return this.__FullName
         }
     }
@@ -138,7 +138,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     ProfilePath{
         get {
             if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := LSA_UNICODE_STRING(this.ptr + 104)
+                this.__ProfilePath := LSA_UNICODE_STRING(104, this)
             return this.__ProfilePath
         }
     }
@@ -150,7 +150,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     HomeDirectoryDrive{
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(this.ptr + 120)
+                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(120, this)
             return this.__HomeDirectoryDrive
         }
     }
@@ -162,7 +162,7 @@ class KERB_INTERACTIVE_PROFILE extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(this.ptr + 136)
+                this.__LogonServer := LSA_UNICODE_STRING(136, this)
             return this.__LogonServer
         }
     }

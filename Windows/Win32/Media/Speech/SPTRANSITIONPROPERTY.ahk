@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -15,7 +16,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +32,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszValue {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +45,7 @@ class SPTRANSITIONPROPERTY extends Win32Struct
     vValue{
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(this.ptr + 24)
+                this.__vValue := VARIANT(24, this)
             return this.__vValue
         }
     }

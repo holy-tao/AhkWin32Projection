@@ -42,7 +42,7 @@ class CLUSTER_ENUM_ITEM extends Win32Struct
 
     /**
      * The ID of the cluster.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszId {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class CLUSTER_ENUM_ITEM extends Win32Struct
 
     /**
      * The name of the cluster.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszName {
         get => NumGet(this, 32, "ptr")

@@ -11,6 +11,31 @@ class NVME_REGISTERED_CONTROLLER_DATA extends Win32Struct
 
     static packingSize => 8
 
+    class _RCSTS extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - HoldReservation
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        HoldReservation {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -20,11 +45,14 @@ class NVME_REGISTERED_CONTROLLER_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_RCSTS}
      */
-    RCSTS {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    RCSTS{
+        get {
+            if(!this.HasProp("__RCSTS"))
+                this.__RCSTS := %this.__Class%._RCSTS(2, this)
+            return this.__RCSTS
+        }
     }
 
     /**

@@ -19,7 +19,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct
     TransferSyntax{
         get {
             if(!this.HasProp("__TransferSyntax"))
-                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(this.ptr + 0)
+                this.__TransferSyntax := RPC_SYNTAX_IDENTIFIER(0, this)
             return this.__TransferSyntax
         }
     }

@@ -24,7 +24,7 @@ class DRT_SEARCH_INFO extends Win32Struct
 
     /**
      * Indicates whether the search is iterative.  If set to <b>TRUE</b>, the search is iterative.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIterative {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class DRT_SEARCH_INFO extends Win32Struct
 
     /**
      * Indicates whether  search results can contain matches found in the local DRT instance.  If set to <b>TRUE</b>,  the search results are capable of containing matches found in the local DRT instance.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllowCurrentInstanceMatch {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class DRT_SEARCH_INFO extends Win32Struct
 
     /**
      * If set to <b>true</b>,   the search will stop locating the first key falling within the specified range. Otherwise, the search for the closest match to the target key specified by <a href="https://docs.microsoft.com/windows/desktop/api/drt/nf-drt-drtstartsearch">DrtStartSearch</a> will continue.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAnyMatchInRange {
         get => NumGet(this, 12, "int")

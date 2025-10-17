@@ -12,7 +12,7 @@ class HTTP_TRACE_EVENT_ITEM extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class HTTP_TRACE_EVENT_ITEM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDataDescription {
         get => NumGet(this, 32, "ptr")

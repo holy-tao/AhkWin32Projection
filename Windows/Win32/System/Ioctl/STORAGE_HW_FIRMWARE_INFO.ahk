@@ -80,7 +80,7 @@ class STORAGE_HW_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FirmwareShared {
         get => NumGet(this, 12, "char")

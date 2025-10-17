@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 
 /**
  * Contains resource information and an application-defined value for a dialog box supported by a Control Panel application.
@@ -70,11 +71,14 @@ class NEWCPLINFOA extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The identifier of the icon that represents the dialog box. This icon is intended to be displayed by the application that controls the Control Panel application.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(24, this)
+            return this.__hIcon
+        }
     }
 
     /**

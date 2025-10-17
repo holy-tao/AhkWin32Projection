@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDCORECAPS.ahk
 #Include .\DDCOLORKEY.ahk
 #Include .\DDPIXELFORMAT.ahk
@@ -49,7 +50,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddCaps{
         get {
             if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDCORECAPS(this.ptr + 16)
+                this.__ddCaps := DDCORECAPS(16, this)
             return this.__ddCaps
         }
     }
@@ -143,7 +144,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddHELCaps{
         get {
             if(!this.HasProp("__ddHELCaps"))
-                this.__ddHELCaps := DDCORECAPS(this.ptr + 432)
+                this.__ddHELCaps := DDCORECAPS(432, this)
             return this.__ddHELCaps
         }
     }
@@ -165,7 +166,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddckCKDestOverlay{
         get {
             if(!this.HasProp("__ddckCKDestOverlay"))
-                this.__ddckCKDestOverlay := DDCOLORKEY(this.ptr + 952)
+                this.__ddckCKDestOverlay := DDCOLORKEY(952, this)
             return this.__ddckCKDestOverlay
         }
     }
@@ -176,7 +177,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddckCKSrcOverlay{
         get {
             if(!this.HasProp("__ddckCKSrcOverlay"))
-                this.__ddckCKSrcOverlay := DDCOLORKEY(this.ptr + 960)
+                this.__ddckCKSrcOverlay := DDCOLORKEY(960, this)
             return this.__ddckCKSrcOverlay
         }
     }
@@ -187,7 +188,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     vmiData{
         get {
             if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDMEMINFO(this.ptr + 968)
+                this.__vmiData := VIDMEMINFO(968, this)
             return this.__vmiData
         }
     }
@@ -262,7 +263,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     plProcessList{
         get {
             if(!this.HasProp("__plProcessList"))
-                this.__plProcessList := PROCESS_LIST(this.ptr + 1112)
+                this.__plProcessList := PROCESS_LIST(1112, this)
             return this.__plProcessList
         }
     }
@@ -329,7 +330,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     dbnOverlayRoot{
         get {
             if(!this.HasProp("__dbnOverlayRoot"))
-                this.__dbnOverlayRoot := DBLNODE(this.ptr + 1192)
+                this.__dbnOverlayRoot := DBLNODE(1192, this)
             return this.__dbnOverlayRoot
         }
     }
@@ -412,7 +413,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddBothCaps{
         get {
             if(!this.HasProp("__ddBothCaps"))
-                this.__ddBothCaps := DDCORECAPS(this.ptr + 1272)
+                this.__ddBothCaps := DDCORECAPS(1272, this)
             return this.__ddBothCaps
         }
     }
@@ -447,7 +448,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     rectDevice{
         get {
             if(!this.HasProp("__rectDevice"))
-                this.__rectDevice := RECT(this.ptr + 1616)
+                this.__rectDevice := RECT(1616, this)
             return this.__rectDevice
         }
     }
@@ -554,7 +555,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     rectDesktop{
         get {
             if(!this.HasProp("__rectDesktop"))
-                this.__rectDesktop := RECT(this.ptr + 1728)
+                this.__rectDesktop := RECT(1728, this)
             return this.__rectDesktop
         }
     }
@@ -613,7 +614,7 @@ class DDRAWI_DIRECTDRAW_GBL extends Win32Struct
     ddsCapsMore{
         get {
             if(!this.HasProp("__ddsCapsMore"))
-                this.__ddsCapsMore := DDSCAPSEX(this.ptr + 1848)
+                this.__ddsCapsMore := DDSCAPSEX(1848, this)
             return this.__ddsCapsMore
         }
     }

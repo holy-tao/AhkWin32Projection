@@ -48,7 +48,7 @@ class MIB_IFSTATUS extends Win32Struct
 
     /**
      * Specifies whether multicast heartbeat detection is enabled. A value of <b>TRUE</b> indicates that heartbeat detection is enabled. A value of <b>FALSE</b> indicates that heartbeat detection is disabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMHbeatActive {
         get => NumGet(this, 12, "int")
@@ -57,7 +57,7 @@ class MIB_IFSTATUS extends Win32Struct
 
     /**
      * Specifies whether the multicast heartbeat dead interval has been exceeded. A value of <b>FALSE</b> indicates that the interval has been exceeded. A value of <b>TRUE</b> indicates that the interval has not been exceeded.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMHbeatAlive {
         get => NumGet(this, 16, "int")

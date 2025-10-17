@@ -18,7 +18,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     AllocatorPin{
         get {
             if(!this.HasProp("__AllocatorPin"))
-                this.__AllocatorPin := KS_COMPRESSION(this.ptr + 0)
+                this.__AllocatorPin := KS_COMPRESSION(0, this)
             return this.__AllocatorPin
         }
     }
@@ -29,7 +29,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     MaxExpansionPin{
         get {
             if(!this.HasProp("__MaxExpansionPin"))
-                this.__MaxExpansionPin := KS_COMPRESSION(this.ptr + 16)
+                this.__MaxExpansionPin := KS_COMPRESSION(16, this)
             return this.__MaxExpansionPin
         }
     }
@@ -40,7 +40,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     EndPin{
         get {
             if(!this.HasProp("__EndPin"))
-                this.__EndPin := KS_COMPRESSION(this.ptr + 32)
+                this.__EndPin := KS_COMPRESSION(32, this)
             return this.__EndPin
         }
     }

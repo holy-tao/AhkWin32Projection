@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
@@ -43,13 +43,13 @@ class WindowsFirewall {
 
     /**
      * The NcIsValidConnectionName function verifies if the passed in connection name is valid.
-     * @param {Pointer<Char>} pszwName Connection name to check.
-     * @returns {Integer} <b>TRUE</b> if connection name is valid.
+     * @param {PWSTR} pszwName Connection name to check.
+     * @returns {BOOL} <b>TRUE</b> if connection name is valid.
      * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ncisvalidconnectionname
      * @since windows5.1.2600
      */
     static NcIsValidConnectionName(pszwName) {
-        pszwName := pszwName is String? StrPtr(pszwName) : pszwName
+        pszwName := pszwName is String ? StrPtr(pszwName) : pszwName
 
         result := DllCall("Netshell.dll\NcIsValidConnectionName", "ptr", pszwName, "int")
         return result
@@ -57,22 +57,22 @@ class WindowsFirewall {
 
     /**
      * Is used by software installers to provide information about the image paths of applications that are running in an app container.
-     * @param {Pointer<Void>} applicationContainerSid Type: <b>PSID</b>
+     * @param {PSID} applicationContainerSid Type: <b>PSID</b>
      * 
      * The package identifier of the app container.
-     * @param {Pointer<Char>} packageFullName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>LPCWSTR</b>
      * 
      * A string representing the package identity of the app that owns this app container. Contains the 5-part tuple as individual fields (name, version, architecture, resourceid, publisher).
-     * @param {Pointer<Char>} packageFolder Type: <b>LPCWSTR</b>
+     * @param {PWSTR} packageFolder Type: <b>LPCWSTR</b>
      * 
      * The file location of the app that owns this app container.
-     * @param {Pointer<Char>} displayName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} displayName Type: <b>LPCWSTR</b>
      * 
      * The friendly name of the app container.
-     * @param {Integer} bBinariesFullyComputed Type: <b>BOOL</b>
+     * @param {BOOL} bBinariesFullyComputed Type: <b>BOOL</b>
      * 
      * True if the binary files are being provided by the caller; otherwise, false.
-     * @param {Pointer<Char>} binaries Type: <b>LPCWSTR*</b>
+     * @param {Pointer<PWSTR>} binaries Type: <b>LPCWSTR*</b>
      * 
      * An array of paths to the applications running in the app container.
      * @param {Integer} binariesCount Type: <b>DWORD</b>
@@ -87,9 +87,9 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packageFullName, packageFolder, displayName, bBinariesFullyComputed, binaries, binariesCount) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        packageFolder := packageFolder is String? StrPtr(packageFolder) : packageFolder
-        displayName := displayName is String? StrPtr(displayName) : displayName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        packageFolder := packageFolder is String ? StrPtr(packageFolder) : packageFolder
+        displayName := displayName is String ? StrPtr(displayName) : displayName
 
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, "ptr", binaries, "uint", binariesCount, "int")
         if(result != 0)
@@ -160,7 +160,7 @@ class WindowsFirewall {
      * @param {Pointer<Void>} context Type: <b>PVOID</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
-     * @param {Pointer<Void>} registrationObject Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} registrationObject Type: <b>HANDLE*</b>
      * 
      * Handle to the newly created registration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -176,7 +176,7 @@ class WindowsFirewall {
 
     /**
      * Is used to cancel an app container change registration and stop receiving notifications.
-     * @param {Pointer<Void>} registrationObject Type: <b>HANDLE</b>
+     * @param {HANDLE} registrationObject Type: <b>HANDLE</b>
      * 
      * Handle to the previously created registration.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -186,6 +186,8 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationUnregisterForAppContainerChanges(registrationObject) {
+        registrationObject := registrationObject is Win32Handle ? NumGet(registrationObject, "ptr") : registrationObject
+
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationUnregisterForAppContainerChanges", "ptr", registrationObject, "uint")
         return result
     }
@@ -292,7 +294,7 @@ class WindowsFirewall {
 
     /**
      * Gets information about a network isolation connection failure due to a missing capability.
-     * @param {Pointer<Char>} wszServerName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} wszServerName Type: <b>LPCWSTR</b>
      * 
      * Name (or IP address literal string) of the server to which a connection was attempted.
      * @param {Pointer<Int32>} netIsoError Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-netiso_error_type">NETISO_ERROR_TYPE</a>*</b>
@@ -305,7 +307,7 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoError) {
-        wszServerName := wszServerName is String? StrPtr(wszServerName) : wszServerName
+        wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
         result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationDiagnoseConnectFailureAndGetInfo", "ptr", wszServerName, "int*", netIsoError, "uint")
         return result
@@ -313,7 +315,7 @@ class WindowsFirewall {
 
     /**
      * Gets the Enterprise ID based on Network Isolation endpoints in the context of the Windows Information Protection (WIP) or the Windows Defender Application Guard (WDAG) scenarios.
-     * @param {Pointer<Char>} wszServerName The name of the Enterprise Data Protection Server.
+     * @param {PWSTR} wszServerName The name of the Enterprise Data Protection Server.
      * @param {Integer} dwFlags A bitmask value of control flags which specify the context of the API call.  May contain one or more of the following flags.
      * 
      * <table>
@@ -375,13 +377,13 @@ class WindowsFirewall {
      * </table>
      * @param {Pointer<Void>} context Optional context pointer.
      * @param {Pointer<PNETISO_EDP_ID_CALLBACK_FN>} callback Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} hOperation The handle for the Enterprise Data Protection Server endpoints.
+     * @param {Pointer<HANDLE>} hOperation The handle for the Enterprise Data Protection Server endpoints.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-networkisolationgetenterpriseidasync
      * @since windows10.0.10240
      */
     static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context, callback, hOperation) {
-        wszServerName := wszServerName is String? StrPtr(wszServerName) : wszServerName
+        wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
         result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, "ptr", context, "ptr", callback, "ptr", hOperation, "uint")
         return result
@@ -389,13 +391,15 @@ class WindowsFirewall {
 
     /**
      * This API is used for closing the handle returned by NetworkIsolationGetEnterpriseIdAsync as well as for synchronizing the operation.
-     * @param {Pointer<Void>} hOperation The handle to release.
-     * @param {Integer} bWaitForOperation Indicates whether to wait for synchronization.
+     * @param {HANDLE} hOperation The handle to release.
+     * @param {BOOL} bWaitForOperation Indicates whether to wait for synchronization.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-networkisolationgetenterpriseidclose
      * @since windows10.0.10240
      */
     static NetworkIsolationGetEnterpriseIdClose(hOperation, bWaitForOperation) {
+        hOperation := hOperation is Win32Handle ? NumGet(hOperation, "ptr") : hOperation
+
         result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdClose", "ptr", hOperation, "int", bWaitForOperation, "uint")
         return result
     }

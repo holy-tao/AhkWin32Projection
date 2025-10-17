@@ -412,7 +412,7 @@ class WSAPROTOCOL_INFOW extends Win32Struct
     ProtocolChain{
         get {
             if(!this.HasProp("__ProtocolChain"))
-                this.__ProtocolChain := WSAPROTOCOLCHAIN(this.ptr + 40)
+                this.__ProtocolChain := WSAPROTOCOLCHAIN(40, this)
             return this.__ProtocolChain
         }
     }

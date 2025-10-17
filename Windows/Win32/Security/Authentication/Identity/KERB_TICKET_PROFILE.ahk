@@ -23,7 +23,7 @@ class KERB_TICKET_PROFILE extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := KERB_INTERACTIVE_PROFILE(this.ptr + 0)
+                this.__Profile := KERB_INTERACTIVE_PROFILE(0, this)
             return this.__Profile
         }
     }
@@ -35,7 +35,7 @@ class KERB_TICKET_PROFILE extends Win32Struct
     SessionKey{
         get {
             if(!this.HasProp("__SessionKey"))
-                this.__SessionKey := KERB_CRYPTO_KEY(this.ptr + 160)
+                this.__SessionKey := KERB_CRYPTO_KEY(160, this)
             return this.__SessionKey
         }
     }

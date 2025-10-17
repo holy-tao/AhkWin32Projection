@@ -41,7 +41,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__LogonDomainName := LSA_UNICODE_STRING(8, this)
             return this.__LogonDomainName
         }
     }
@@ -53,7 +53,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__UserName := LSA_UNICODE_STRING(24, this)
             return this.__UserName
         }
     }
@@ -65,7 +65,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     Workstation{
         get {
             if(!this.HasProp("__Workstation"))
-                this.__Workstation := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__Workstation := LSA_UNICODE_STRING(40, this)
             return this.__Workstation
         }
     }
@@ -99,7 +99,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     CaseSensitiveChallengeResponse{
         get {
             if(!this.HasProp("__CaseSensitiveChallengeResponse"))
-                this.__CaseSensitiveChallengeResponse := LSA_STRING(this.ptr + 64)
+                this.__CaseSensitiveChallengeResponse := LSA_STRING(64, this)
             return this.__CaseSensitiveChallengeResponse
         }
     }
@@ -116,7 +116,7 @@ class MSV1_0_LM20_LOGON extends Win32Struct
     CaseInsensitiveChallengeResponse{
         get {
             if(!this.HasProp("__CaseInsensitiveChallengeResponse"))
-                this.__CaseInsensitiveChallengeResponse := LSA_STRING(this.ptr + 80)
+                this.__CaseInsensitiveChallengeResponse := LSA_STRING(80, this)
             return this.__CaseInsensitiveChallengeResponse
         }
     }

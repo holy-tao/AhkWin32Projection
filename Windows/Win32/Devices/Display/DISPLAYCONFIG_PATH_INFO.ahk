@@ -24,7 +24,7 @@ class DISPLAYCONFIG_PATH_INFO extends Win32Struct
     sourceInfo{
         get {
             if(!this.HasProp("__sourceInfo"))
-                this.__sourceInfo := DISPLAYCONFIG_PATH_SOURCE_INFO(this.ptr + 0)
+                this.__sourceInfo := DISPLAYCONFIG_PATH_SOURCE_INFO(0, this)
             return this.__sourceInfo
         }
     }
@@ -36,7 +36,7 @@ class DISPLAYCONFIG_PATH_INFO extends Win32Struct
     targetInfo{
         get {
             if(!this.HasProp("__targetInfo"))
-                this.__targetInfo := DISPLAYCONFIG_PATH_TARGET_INFO(this.ptr + 24)
+                this.__targetInfo := DISPLAYCONFIG_PATH_TARGET_INFO(24, this)
             return this.__targetInfo
         }
     }

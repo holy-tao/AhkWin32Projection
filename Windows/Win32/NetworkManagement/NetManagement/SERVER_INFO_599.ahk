@@ -116,7 +116,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enablesoftcompat {
         get => NumGet(this, 52, "int")
@@ -124,7 +124,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enableforcedlogoff {
         get => NumGet(this, 56, "int")
@@ -132,7 +132,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_timesource {
         get => NumGet(this, 60, "int")
@@ -140,7 +140,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_acceptdownlevelapis {
         get => NumGet(this, 64, "int")
@@ -148,7 +148,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_lmannounce {
         get => NumGet(this, 68, "int")
@@ -156,7 +156,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv599_domain {
         get => NumGet(this, 72, "ptr")
@@ -292,7 +292,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enableoplocks {
         get => NumGet(this, 144, "int")
@@ -300,7 +300,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enableoplockforceclose {
         get => NumGet(this, 148, "int")
@@ -308,7 +308,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enablefcbopens {
         get => NumGet(this, 152, "int")
@@ -316,7 +316,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enableraw {
         get => NumGet(this, 156, "int")
@@ -324,7 +324,7 @@ class SERVER_INFO_599 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv599_enablesharednetdrives {
         get => NumGet(this, 160, "int")

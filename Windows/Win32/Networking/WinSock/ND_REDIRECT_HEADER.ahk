@@ -20,7 +20,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     nd_rd_hdr{
         get {
             if(!this.HasProp("__nd_rd_hdr"))
-                this.__nd_rd_hdr := ICMP_MESSAGE(this.ptr + 0)
+                this.__nd_rd_hdr := ICMP_MESSAGE(0, this)
             return this.__nd_rd_hdr
         }
     }
@@ -31,7 +31,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     nd_rd_target{
         get {
             if(!this.HasProp("__nd_rd_target"))
-                this.__nd_rd_target := IN6_ADDR(this.ptr + 8)
+                this.__nd_rd_target := IN6_ADDR(8, this)
             return this.__nd_rd_target
         }
     }
@@ -42,7 +42,7 @@ class ND_REDIRECT_HEADER extends Win32Struct
     nd_rd_dst{
         get {
             if(!this.HasProp("__nd_rd_dst"))
-                this.__nd_rd_dst := IN6_ADDR(this.ptr + 24)
+                this.__nd_rd_dst := IN6_ADDR(24, this)
             return this.__nd_rd_dst
         }
     }

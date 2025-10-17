@@ -82,7 +82,7 @@ class PRINTER_NOTIFY_INFO_DATA extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data(this.ptr + 16)
+                this.__Data := %this.__Class%._Data(16, this)
             return this.__Data
         }
     }

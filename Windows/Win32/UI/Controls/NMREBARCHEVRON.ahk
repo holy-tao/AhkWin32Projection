@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -25,7 +26,7 @@ class NMREBARCHEVRON extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -56,7 +57,7 @@ class NMREBARCHEVRON extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined value associated with the band.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 32, "ptr")
@@ -73,7 +74,7 @@ class NMREBARCHEVRON extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 40)
+                this.__rc := RECT(40, this)
             return this.__rc
         }
     }
@@ -83,7 +84,7 @@ class NMREBARCHEVRON extends Win32Struct
      * 
      * An application-defined value. If the <a href="https://docs.microsoft.com/windows/desktop/Controls/rbn-chevronpushed">RBN_CHEVRONPUSHED</a> notification was sent as a result of an <a href="https://docs.microsoft.com/windows/desktop/Controls/rb-pushchevron">RB_PUSHCHEVRON</a> message, this member contains the message's 
      * 					<i>lAppValue</i> value. Otherwise, it is set to zero.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParamNM {
         get => NumGet(this, 56, "ptr")

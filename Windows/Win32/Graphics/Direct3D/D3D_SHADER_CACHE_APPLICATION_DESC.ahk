@@ -13,7 +13,7 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pExeFilename {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -34,13 +34,13 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := D3D_VERSION_NUMBER(this.ptr + 16)
+                this.__Version := D3D_VERSION_NUMBER(16, this)
             return this.__Version
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pEngineName {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class D3D_SHADER_CACHE_APPLICATION_DESC extends Win32Struct
     EngineVersion{
         get {
             if(!this.HasProp("__EngineVersion"))
-                this.__EngineVersion := D3D_VERSION_NUMBER(this.ptr + 40)
+                this.__EngineVersion := D3D_VERSION_NUMBER(40, this)
             return this.__EngineVersion
         }
     }

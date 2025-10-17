@@ -21,7 +21,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
      * Type: <b>[string] LPWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -40,7 +40,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Boolean {
         get => NumGet(this, 16, "int")
@@ -112,7 +112,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PWStr {
         get => NumGet(this, 16, "ptr")
@@ -133,7 +133,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     LifeTime{
         get {
             if(!this.HasProp("__LifeTime"))
-                this.__LifeTime := LIFE_TIME(this.ptr + 16)
+                this.__LifeTime := LIFE_TIME(16, this)
             return this.__LifeTime
         }
     }
@@ -144,7 +144,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := DIAG_SOCKADDR(this.ptr + 16)
+                this.__Address := DIAG_SOCKADDR(16, this)
             return this.__Address
         }
     }
@@ -155,7 +155,7 @@ class HELPER_ATTRIBUTE extends Win32Struct
     OctetString{
         get {
             if(!this.HasProp("__OctetString"))
-                this.__OctetString := OCTET_STRING(this.ptr + 16)
+                this.__OctetString := OCTET_STRING(16, this)
             return this.__OctetString
         }
     }

@@ -39,7 +39,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     PictureControlCodecData{
         get {
             if(!this.HasProp("__PictureControlCodecData"))
-                this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(this.ptr + 8)
+                this.__PictureControlCodecData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(8, this)
             return this.__PictureControlCodecData
         }
     }
@@ -50,7 +50,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     ReferenceFrames{
         get {
             if(!this.HasProp("__ReferenceFrames"))
-                this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(this.ptr + 24)
+                this.__ReferenceFrames := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(24, this)
             return this.__ReferenceFrames
         }
     }
@@ -61,7 +61,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     MotionVectors{
         get {
             if(!this.HasProp("__MotionVectors"))
-                this.__MotionVectors := D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS(this.ptr + 48)
+                this.__MotionVectors := D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS(48, this)
             return this.__MotionVectors
         }
     }
@@ -72,7 +72,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     DirtyRects{
         get {
             if(!this.HasProp("__DirtyRects"))
-                this.__DirtyRects := D3D12_VIDEO_ENCODER_DIRTY_REGIONS(this.ptr + 64)
+                this.__DirtyRects := D3D12_VIDEO_ENCODER_DIRTY_REGIONS(64, this)
             return this.__DirtyRects
         }
     }
@@ -83,7 +83,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     QuantizationTextureMap{
         get {
             if(!this.HasProp("__QuantizationTextureMap"))
-                this.__QuantizationTextureMap := D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP(this.ptr + 80)
+                this.__QuantizationTextureMap := D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP(80, this)
             return this.__QuantizationTextureMap
         }
     }
@@ -94,7 +94,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC1 extends Win32Struct
     FrameAnalysis{
         get {
             if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS(this.ptr + 88)
+                this.__FrameAnalysis := D3D12_VIDEO_ENCODER_FRAME_ANALYSIS(88, this)
             return this.__FrameAnalysis
         }
     }

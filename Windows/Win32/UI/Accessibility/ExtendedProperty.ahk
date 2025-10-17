@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Contains information about an extended property.
@@ -21,21 +22,27 @@ class ExtendedProperty extends Win32Struct
      * Type: <b>BSTR</b>
      * 
      * A localized string that contains the name of the extended property.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    PropertyName {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    PropertyName{
+        get {
+            if(!this.HasProp("__PropertyName"))
+                this.__PropertyName := BSTR(0, this)
+            return this.__PropertyName
+        }
     }
 
     /**
      * Type: <b>BSTR</b>
      * 
      * A string that represents the value of the extended property.   This string should be localized, if appropriate.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    PropertyValue {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    PropertyValue{
+        get {
+            if(!this.HasProp("__PropertyValue"))
+                this.__PropertyValue := BSTR(8, this)
+            return this.__PropertyValue
+        }
     }
 }

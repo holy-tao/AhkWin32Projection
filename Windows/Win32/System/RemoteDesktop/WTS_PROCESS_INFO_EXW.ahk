@@ -39,7 +39,7 @@ class WTS_PROCESS_INFO_EXW extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the executable file associated with the process.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pProcessName {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class WTS_PROCESS_INFO_EXW extends Win32Struct
      *       information about SIDs and access tokens, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> and 
      *       <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     pUserSid {
         get => NumGet(this, 16, "ptr")

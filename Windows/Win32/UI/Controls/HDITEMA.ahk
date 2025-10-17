@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * Contains information about an item in a header control. This structure supersedes the HD_ITEM structure.
@@ -48,7 +49,7 @@ class HDITEMA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * A pointer to an item string. If the text is being retrieved from the control, this member must be initialized to point to a character buffer. If this member is set to LPSTR_TEXTCALLBACK, the control will request text information for this item by sending an <a href="https://docs.microsoft.com/windows/desktop/Controls/hdn-getdispinfo">HDN_GETDISPINFO</a> notification code. Note that although the header control allows a string of any length to be stored as item text, only the first 260 <b>TCHAR</b><b>s</b> are displayed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszText {
         get => NumGet(this, 8, "ptr")
@@ -59,11 +60,14 @@ class HDITEMA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a></b>
      * 
      * A handle to the item bitmap.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbm {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hbm{
+        get {
+            if(!this.HasProp("__hbm"))
+                this.__hbm := HBITMAP(16, this)
+            return this.__hbm
+        }
     }
 
     /**
@@ -301,7 +305,7 @@ class HDITEMA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined item data.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 32, "ptr")

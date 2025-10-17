@@ -12,6 +12,40 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
 
     static packingSize => 8
 
+    class _ParameterErrorLocation extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - Byte
+         * - Bit
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Byte {
+            get => (this._bitfield >> 0) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Bit {
+            get => (this._bitfield >> 8) & 0x7
+            set => this._bitfield := ((value & 0x7) << 8) | (this._bitfield & ~(0x7 << 8))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -42,17 +76,20 @@ class NVME_ERROR_INFO_LOG extends Win32Struct
     Status{
         get {
             if(!this.HasProp("__Status"))
-                this.__Status := NVME_COMMAND_STATUS(this.ptr + 12)
+                this.__Status := NVME_COMMAND_STATUS(12, this)
             return this.__Status
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ParameterErrorLocation}
      */
-    ParameterErrorLocation {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+    ParameterErrorLocation{
+        get {
+            if(!this.HasProp("__ParameterErrorLocation"))
+                this.__ParameterErrorLocation := %this.__Class%._ParameterErrorLocation(16, this)
+            return this.__ParameterErrorLocation
+        }
     }
 
     /**

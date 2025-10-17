@@ -91,7 +91,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     PhysicalRange{
         get {
             if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(this.ptr + 40)
+                this.__PhysicalRange := KS_FRAMING_RANGE(40, this)
             return this.__PhysicalRange
         }
     }
@@ -102,7 +102,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     FramingRange{
         get {
             if(!this.HasProp("__FramingRange"))
-                this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(this.ptr + 56)
+                this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(56, this)
             return this.__FramingRange
         }
     }

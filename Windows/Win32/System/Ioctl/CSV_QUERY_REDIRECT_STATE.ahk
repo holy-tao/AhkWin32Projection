@@ -43,7 +43,7 @@ class CSV_QUERY_REDIRECT_STATE extends Win32Struct
     /**
      * <b>TRUE</b> if the file has been redirected; otherwise, 
      *       <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FileRedirected {
         get => NumGet(this, 8, "char")

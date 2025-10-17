@@ -22,7 +22,7 @@ class EMRELLIPSE extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRELLIPSE extends Win32Struct
     rclBox{
         get {
             if(!this.HasProp("__rclBox"))
-                this.__rclBox := RECTL(this.ptr + 8)
+                this.__rclBox := RECTL(8, this)
             return this.__rclBox
         }
     }

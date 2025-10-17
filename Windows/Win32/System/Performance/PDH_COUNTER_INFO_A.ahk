@@ -98,7 +98,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
 
     /**
      * <b>Null</b>-terminated string that specifies the full counter path. The string follows this structure in memory.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szFullPath {
         get => NumGet(this, 40, "ptr")
@@ -111,7 +111,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     DataItemPath{
         get {
             if(!this.HasProp("__DataItemPath"))
-                this.__DataItemPath := PDH_DATA_ITEM_PATH_ELEMENTS_A(this.ptr + 48)
+                this.__DataItemPath := PDH_DATA_ITEM_PATH_ELEMENTS_A(48, this)
             return this.__DataItemPath
         }
     }
@@ -122,13 +122,13 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     CounterPath{
         get {
             if(!this.HasProp("__CounterPath"))
-                this.__CounterPath := PDH_COUNTER_PATH_ELEMENTS_A(this.ptr + 48)
+                this.__CounterPath := PDH_COUNTER_PATH_ELEMENTS_A(48, this)
             return this.__CounterPath
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szMachineName {
         get => NumGet(this, 48, "ptr")
@@ -136,7 +136,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szObjectName {
         get => NumGet(this, 56, "ptr")
@@ -144,7 +144,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szInstanceName {
         get => NumGet(this, 64, "ptr")
@@ -152,7 +152,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szParentInstance {
         get => NumGet(this, 72, "ptr")
@@ -168,7 +168,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szCounterName {
         get => NumGet(this, 88, "ptr")
@@ -177,7 +177,7 @@ class PDH_COUNTER_INFO_A extends Win32Struct
 
     /**
      * Help text that describes the counter. Is <b>NULL</b> if the source is a log file.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szExplainText {
         get => NumGet(this, 96, "ptr")

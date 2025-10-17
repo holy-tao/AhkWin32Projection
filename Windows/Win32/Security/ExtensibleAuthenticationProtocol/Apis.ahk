@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
@@ -1243,8 +1243,8 @@ class ExtensibleAuthenticationProtocol {
      * 
      * @param {Integer} dwVersion The version number of the API. Set this parameter to zero.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the EAP authentication session behavior.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the EAP method the supplicant is to use.
-     * @param {Pointer<Void>} hUserImpersonationToken A handle to the user impersonation token to use in this session.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the EAP method the supplicant is to use.
+     * @param {HANDLE} hUserImpersonationToken A handle to the user impersonation token to use in this session.
      * @param {Integer} dwEapConnDataSize The size, in bytes, of the connection data buffer provided in <i>pbEapConnData</i>.
      * @param {Pointer<Byte>} pbEapConnData Connection data used for the EAP method. If set to <b>NULL</b>, the static property of the method, as configured in the registry, is returned.
      * @param {Integer} dwUserDataSize The size, in bytes, of the user data buffer provided in <i>pbUserData</i>.
@@ -1257,15 +1257,17 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.1
      */
     static EapHostPeerGetMethodProperties(dwVersion, dwFlags, eapMethodType, hUserImpersonationToken, dwEapConnDataSize, pbEapConnData, dwUserDataSize, pbUserData, pMethodPropertyArray, ppEapError) {
+        hUserImpersonationToken := hUserImpersonationToken is Win32Handle ? NumGet(hUserImpersonationToken, "ptr") : hUserImpersonationToken
+
         result := DllCall("eappcfg.dll\EapHostPeerGetMethodProperties", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "ptr", hUserImpersonationToken, "uint", dwEapConnDataSize, "char*", pbEapConnData, "uint", dwUserDataSize, "char*", pbUserData, "ptr", pMethodPropertyArray, "ptr", ppEapError, "uint")
         return result
     }
 
     /**
      * Starts the configuration user interface of the specified EAP method.
-     * @param {Pointer<Void>} hwndParent The handle of the parent window under which configuration dialog appears.
+     * @param {HWND} hwndParent The handle of the parent window under which configuration dialog appears.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  EAP authentication session behavior.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the EAP method.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the EAP method.
      * @param {Integer} dwSizeOfConfigIn The size of input configuration. May be set to 0 (zero).
      * @param {Pointer<Byte>} pConfigIn A pointer to a byte buffer that contains configuration elements. The buffer is of size <i>dwSizeOfConfigIn</i>. This parameter can be <b>NULL</b>, if <i>dwSizeOfConfigIn</i> is set to 0 (zero).
      * @param {Pointer<UInt32>} pdwSizeOfConfigOut A pointer to a DWORD that specifies the size of the buffer pointed to by <i>ppConfigOut</i>.
@@ -1276,7 +1278,9 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeConfigUI(hwndParent, dwFlags, eapMethodType, dwSizeOfConfigIn, pConfigIn, pdwSizeOfConfigOut, ppConfigOut, ppEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerInvokeConfigUI", "ptr", hwndParent, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeOfConfigIn, "char*", pConfigIn, "uint*", pdwSizeOfConfigOut, "ptr", ppConfigOut, "ptr", ppEapError, "uint")
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
+        result := DllCall("eappcfg.dll\EapHostPeerInvokeConfigUI", "ptr", hwndParent, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeOfConfigIn, "char*", pConfigIn, "uint*", pdwSizeOfConfigOut, "char*", ppConfigOut, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1291,8 +1295,8 @@ class ExtensibleAuthenticationProtocol {
      * After <b>EapHostPeerQueryCredentialInputFields</b>, EAPHost calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerqueryuserblobfromcredentialinputfields">EapHostPeerQueryUserBlobFromCredentialInputFields</a>.
      * 
      * 
-     * @param {Pointer<Void>} hUserImpersonationToken A handle to the user impersonation token to use in this session.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that identifies the EAP method the supplicant is to use.
+     * @param {HANDLE} hUserImpersonationToken A handle to the user impersonation token to use in this session.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that identifies the EAP method the supplicant is to use.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  EAP authentication session behavior.
      * @param {Integer} dwEapConnDataSize The size, in bytes, of the connection data buffer provided in <i>pbEapConnData.</i>
      * @param {Pointer<Byte>} pbEapConnData Connection data used for the EAP method.
@@ -1304,6 +1308,8 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerQueryCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, ppEapError) {
+        hUserImpersonationToken := hUserImpersonationToken is Win32Handle ? NumGet(hUserImpersonationToken, "ptr") : hUserImpersonationToken
+
         result := DllCall("eappcfg.dll\EapHostPeerQueryCredentialInputFields", "ptr", hUserImpersonationToken, "ptr", eapMethodType, "uint", dwFlags, "uint", dwEapConnDataSize, "char*", pbEapConnData, "ptr", pEapConfigInputFieldArray, "ptr", ppEapError, "uint")
         return result
     }
@@ -1317,8 +1323,8 @@ class ExtensibleAuthenticationProtocol {
      * After <b>EapHostPeerQueryUserBlobFromCredentialInputFields</b>, EAPHost calls <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerbeginsession">EapHostPeerBeginSession</a>. The supplicant  uses the <b>EAP_FLAG_PRE_LOGON</b> flag in <b>EapHostPeerBeginSession</b> to indicate that EAPHost should provide SSO.
      * 
      * 
-     * @param {Pointer<Void>} hUserImpersonationToken A handle to the user impersonation token to use in this session.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
+     * @param {HANDLE} hUserImpersonationToken A handle to the user impersonation token to use in this session.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  EAP authentication session behavior.
      * @param {Integer} dwEapConnDataSize The size, in bytes, of the connection data buffer provided in <i>pConnectionData.</i>
      * @param {Pointer<Byte>} pbEapConnData Connection data used for the EAP method.
@@ -1333,23 +1339,25 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerQueryUserBlobFromCredentialInputFields(hUserImpersonationToken, eapMethodType, dwFlags, dwEapConnDataSize, pbEapConnData, pEapConfigInputFieldArray, pdwUserBlobSize, ppbUserBlob, ppEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerQueryUserBlobFromCredentialInputFields", "ptr", hUserImpersonationToken, "ptr", eapMethodType, "uint", dwFlags, "uint", dwEapConnDataSize, "char*", pbEapConnData, "ptr", pEapConfigInputFieldArray, "uint*", pdwUserBlobSize, "ptr", ppbUserBlob, "ptr", ppEapError, "uint")
+        hUserImpersonationToken := hUserImpersonationToken is Win32Handle ? NumGet(hUserImpersonationToken, "ptr") : hUserImpersonationToken
+
+        result := DllCall("eappcfg.dll\EapHostPeerQueryUserBlobFromCredentialInputFields", "ptr", hUserImpersonationToken, "ptr", eapMethodType, "uint", dwFlags, "uint", dwEapConnDataSize, "char*", pbEapConnData, "ptr", pEapConfigInputFieldArray, "uint*", pdwUserBlobSize, "char*", ppbUserBlob, "ptr", ppEapError, "uint")
         return result
     }
 
     /**
      * This function is called by tunnel methods to invoke the identity UI of the inner methods. This function returns the identity as well as credentials to use in order to start the authentication.
      * @param {Integer} dwVersion The version number of the API. Must be set to zero.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  EAP authentication session behavior.
-     * @param {Pointer<Void>} hwndParent Handle of the parent window under which the configuration dialog will show up.
+     * @param {HWND} hwndParent Handle of the parent window under which the configuration dialog will show up.
      * @param {Integer} dwSizeofConnectionData Size of the buffer indicated by the <i>pConnectionData</i> parameter, in bytes.
      * @param {Pointer<Byte>} pConnectionData Pointer to configuration data that is used for the EAP method.
      * @param {Integer} dwSizeofUserData Size of the buffer indicated by the <i>pUserData</i> parameter, in bytes.
      * @param {Pointer<Byte>} pUserData Pointer to user credential information that pertains to this authentication.
      * @param {Pointer<UInt32>} pdwSizeOfUserDataOut Size of the buffer set to receive the user data returned by the <i>ppUserDataOut</i> parameter, in bytes.
      * @param {Pointer<Byte>} ppUserDataOut A pointer to a pointer to a buffer that contains user data information returned by the method. After use, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>.
-     * @param {Pointer<Char>} ppwszIdentity A pointer to a NULL-terminated user identity string. After use, this memory must be freed by calling  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>.
+     * @param {Pointer<PWSTR>} ppwszIdentity A pointer to a NULL-terminated user identity string. After use, this memory must be freed by calling  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreememory">EapHostPeerFreeMemory</a>.
      * @param {Pointer<EAP_ERROR>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised during the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Void>} ppvReserved Reserved for future use.
      * @returns {Integer} 
@@ -1357,7 +1365,9 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeIdentityUI(dwVersion, eapMethodType, dwFlags, hwndParent, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
-        result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", "uint", dwVersion, "ptr", eapMethodType, "uint", dwFlags, "ptr", hwndParent, "uint", dwSizeofConnectionData, "char*", pConnectionData, "uint", dwSizeofUserData, "char*", pUserData, "uint*", pdwSizeOfUserDataOut, "ptr", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "ptr", ppvReserved, "uint")
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
+        result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", "uint", dwVersion, "ptr", eapMethodType, "uint", dwFlags, "ptr", hwndParent, "uint", dwSizeofConnectionData, "char*", pConnectionData, "uint", dwSizeofUserData, "char*", pUserData, "uint*", pdwSizeOfUserDataOut, "char*", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "ptr", ppvReserved, "uint")
         return result
     }
 
@@ -1372,7 +1382,7 @@ class ExtensibleAuthenticationProtocol {
      *    the supplicant then passes to <b>EapHostPeerInvokeInteractiveUI</b> to raise the UI.
      * 
      * 
-     * @param {Pointer<Void>} hwndParent The handle of the parent window under which configuration dialog appears.
+     * @param {HWND} hwndParent The handle of the parent window under which configuration dialog appears.
      * @param {Integer} dwSizeofUIContextData The size, in bytes, of the buffer pointed to by the <i>pUIContextData</i> parameter.
      * @param {Pointer<Byte>} pUIContextData A pointer to a buffer that contains the supplicant UI context data from EAPHost. The context data is returned by  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeergetuicontext">EapHostPeerGetUIContext</a>. The buffer  is of size <i>dwSizeOfUIContextData</i>.
      * @param {Pointer<UInt32>} pdwSizeOfDataFromInteractiveUI A pointer to a DWORD  that represents the size, in bytes, of the buffer pointed to by the <i>ppDataFromInteractiveUI</i> parameter.
@@ -1383,7 +1393,9 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerInvokeInteractiveUI(hwndParent, dwSizeofUIContextData, pUIContextData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerInvokeInteractiveUI", "ptr", hwndParent, "uint", dwSizeofUIContextData, "char*", pUIContextData, "uint*", pdwSizeOfDataFromInteractiveUI, "ptr", ppDataFromInteractiveUI, "ptr", ppEapError, "uint")
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
+        result := DllCall("eappcfg.dll\EapHostPeerInvokeInteractiveUI", "ptr", hwndParent, "uint", dwSizeofUIContextData, "char*", pUIContextData, "uint*", pdwSizeOfDataFromInteractiveUI, "char*", ppDataFromInteractiveUI, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1472,7 +1484,7 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerQueryUIBlobFromInteractiveUIInputFields(dwVersion, dwFlags, dwSizeofUIContextData, pUIContextData, pEapInteractiveUIData, pdwSizeOfDataFromInteractiveUI, ppDataFromInteractiveUI, ppEapError, ppvReserved) {
-        result := DllCall("eappcfg.dll\EapHostPeerQueryUIBlobFromInteractiveUIInputFields", "uint", dwVersion, "uint", dwFlags, "uint", dwSizeofUIContextData, "char*", pUIContextData, "ptr", pEapInteractiveUIData, "uint*", pdwSizeOfDataFromInteractiveUI, "ptr", ppDataFromInteractiveUI, "ptr", ppEapError, "ptr", ppvReserved, "uint")
+        result := DllCall("eappcfg.dll\EapHostPeerQueryUIBlobFromInteractiveUIInputFields", "uint", dwVersion, "uint", dwFlags, "uint", dwSizeofUIContextData, "char*", pUIContextData, "ptr", pEapInteractiveUIData, "uint*", pdwSizeOfDataFromInteractiveUI, "char*", ppDataFromInteractiveUI, "ptr", ppEapError, "ptr", ppvReserved, "uint")
         return result
     }
 
@@ -1489,7 +1501,7 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerConfigXml2Blob(dwFlags, pConfigDoc, pdwSizeOfConfigOut, ppConfigOut, pEapMethodType, ppEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerConfigXml2Blob", "uint", dwFlags, "ptr", pConfigDoc, "uint*", pdwSizeOfConfigOut, "ptr", ppConfigOut, "ptr", pEapMethodType, "ptr", ppEapError, "uint")
+        result := DllCall("eappcfg.dll\EapHostPeerConfigXml2Blob", "uint", dwFlags, "ptr", pConfigDoc, "uint*", pdwSizeOfConfigOut, "char*", ppConfigOut, "ptr", pEapMethodType, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1526,14 +1538,14 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerCredentialsXml2Blob(dwFlags, pCredentialsDoc, dwSizeOfConfigIn, pConfigIn, pdwSizeOfCredentialsOut, ppCredentialsOut, pEapMethodType, ppEapError) {
-        result := DllCall("eappcfg.dll\EapHostPeerCredentialsXml2Blob", "uint", dwFlags, "ptr", pCredentialsDoc, "uint", dwSizeOfConfigIn, "char*", pConfigIn, "uint*", pdwSizeOfCredentialsOut, "ptr", ppCredentialsOut, "ptr", pEapMethodType, "ptr", ppEapError, "uint")
+        result := DllCall("eappcfg.dll\EapHostPeerCredentialsXml2Blob", "uint", dwFlags, "ptr", pCredentialsDoc, "uint", dwSizeOfConfigIn, "char*", pConfigIn, "uint*", pdwSizeOfCredentialsOut, "char*", ppCredentialsOut, "ptr", pEapMethodType, "ptr", ppEapError, "uint")
         return result
     }
 
     /**
      * Converts the configuration BLOB to XML.
      * @param {Integer} dwFlags Not used. Set to 0.
-     * @param {Pointer} eapMethodType Refers to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that is referred to in the XML document.
+     * @param {EAP_METHOD_TYPE} eapMethodType Refers to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that is referred to in the XML document.
      * @param {Integer} dwSizeOfConfigIn The size, in bytes, of the configuration BLOB.
      * @param {Pointer<Byte>} pConfigIn A pointer to a buffer that  contains the configuration BLOB to convert.  The buffer is of size <i>dwSizeOfConfigIn</i>.
      * @param {Pointer<IXMLDOMDocument2>} ppConfigDoc A pointer to a pointer to an XML document that  contains the converted configuration. If the EAP method does not support
@@ -1631,9 +1643,9 @@ class ExtensibleAuthenticationProtocol {
      * 
      * 
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  new EAP authentication session behavior.
-     * @param {Pointer} eapType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
+     * @param {EAP_METHOD_TYPE} eapType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
      * @param {Pointer<EAP_ATTRIBUTES>} pAttributeArray Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_attributes">EapAttributes</a> structure that specifies the EAP attributes of the entity to authenticate.
-     * @param {Pointer<Void>} hTokenImpersonateUser Handle to the user impersonation token to use in this session.
+     * @param {HANDLE} hTokenImpersonateUser Handle to the user impersonation token to use in this session.
      * @param {Integer} dwSizeofConnectionData The size, in bytes, of the connection data buffer provided in <i>pConnectionData</i>.
      * @param {Pointer<Byte>} pConnectionData Describes the configuration used for authentication. <b>NULL</b> connection data is considered valid. The method should work with the default configuration.
      * @param {Integer} dwSizeofUserData The size, in bytes, of the user data buffer provided in <i>pUserData</i>.
@@ -1661,6 +1673,8 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerBeginSession(dwFlags, eapType, pAttributeArray, hTokenImpersonateUser, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, dwMaxSendPacketSize, pConnectionId, func, pContextData, pSessionId, ppEapError) {
+        hTokenImpersonateUser := hTokenImpersonateUser is Win32Handle ? NumGet(hTokenImpersonateUser, "ptr") : hTokenImpersonateUser
+
         result := DllCall("eappprxy.dll\EapHostPeerBeginSession", "uint", dwFlags, "ptr", eapType, "ptr", pAttributeArray, "ptr", hTokenImpersonateUser, "uint", dwSizeofConnectionData, "char*", pConnectionData, "uint", dwSizeofUserData, "char*", pUserData, "uint", dwMaxSendPacketSize, "ptr", pConnectionId, "ptr", func, "ptr", pContextData, "uint*", pSessionId, "ptr", ppEapError, "uint")
         return result
     }
@@ -1694,7 +1708,7 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerGetSendPacket(sessionHandle, pcbSendPacket, ppSendPacket, ppEapError) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetSendPacket", "uint", sessionHandle, "uint*", pcbSendPacket, "ptr", ppSendPacket, "ptr", ppEapError, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetSendPacket", "uint", sessionHandle, "uint*", pcbSendPacket, "char*", ppSendPacket, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1726,7 +1740,7 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerGetUIContext(sessionHandle, pdwSizeOfUIContextData, ppUIContextData, ppEapError) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetUIContext", "uint", sessionHandle, "uint*", pdwSizeOfUIContextData, "ptr", ppUIContextData, "ptr", ppEapError, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetUIContext", "uint", sessionHandle, "uint*", pdwSizeOfUIContextData, "char*", ppUIContextData, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1850,7 +1864,7 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerGetAuthStatus(sessionHandle, authParam, pcbAuthData, ppAuthData, ppEapError) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetAuthStatus", "uint", sessionHandle, "int", authParam, "uint*", pcbAuthData, "ptr", ppAuthData, "ptr", ppEapError, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetAuthStatus", "uint", sessionHandle, "int", authParam, "uint*", pcbAuthData, "char*", ppAuthData, "ptr", ppEapError, "uint")
         return result
     }
 
@@ -1873,13 +1887,13 @@ class ExtensibleAuthenticationProtocol {
      * @param {Pointer<IntPtr>} phCredentialImpersonationToken Handle to impersonate the user at the time of plumbing credentials. The user can be impersonated by a call to <b>ImpersonateLoggedOnUser</b>.
      * @param {Integer} sessionHandle A pseudo handle to the EAPHost process. This is the  __int3264 value returned to EAPHost when it called <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess">GetCurrentProcess</a>.
      * @param {Pointer<EAP_ERROR>} ppEapError A pointer to an <b>EAP_SESSIONID</b> structure that contains the unique handle for this EAP authentication session on the EAPHost server. This handle is returned in the <i>pSessionId</i> parameter in a previous call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerbeginsession">EapHostPeerBeginSession</a>.
-     * @param {Pointer<Int32>} fSaveToCredMan A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
+     * @param {Pointer<BOOL>} fSaveToCredMan A pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure. The address should be set to <b>NULL</b> before calling this function. If error data is available, a pointer to the address of an <b>EAP_ERROR</b> structure that contains any errors raised during the execution of this function call is received. After using the error data, free this memory by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeeaperror">EapHostPeerFreeEapError</a>.
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//eappapis/nf-eappapis-eaphostpeergetdatatounplumbcredentials
      * @since windows10.0.10240
      */
     static EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds, phCredentialImpersonationToken, sessionHandle, ppEapError, fSaveToCredMan) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetDataToUnplumbCredentials", "ptr", pConnectionIdThatLastSavedCreds, "ptr*", phCredentialImpersonationToken, "uint", sessionHandle, "ptr", ppEapError, "int*", fSaveToCredMan, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetDataToUnplumbCredentials", "ptr", pConnectionIdThatLastSavedCreds, "ptr*", phCredentialImpersonationToken, "uint", sessionHandle, "ptr", ppEapError, "ptr", fSaveToCredMan, "uint")
         return result
     }
 
@@ -1918,16 +1932,16 @@ class ExtensibleAuthenticationProtocol {
      * This function is called by tunnel methods to request identity information from the inner methods. This function returns the identity and user credential information.
      * @param {Integer} dwVersion The version number of the API. Must be set to zero.
      * @param {Integer} dwFlags A combination of [EAP flags](/windows/win32/eaphost/eap-method-flags) that describe the  EAP authentication session behavior.
-     * @param {Pointer} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
+     * @param {EAP_METHOD_TYPE} eapMethodType An <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_method_type">EAP_METHOD_TYPE</a> structure that specifies the type of EAP authentication to use for this session.
      * @param {Integer} dwSizeofConnectionData Size of the buffer indicated by the <i>pConnectionData</i> parameter, in bytes.
      * @param {Pointer<Byte>} pConnectionData Pointer to configuration data that is used for the EAP method.
      * @param {Integer} dwSizeofUserData Size of the buffer indicated by the <i>pUserData</i> parameter, in bytes.
      * @param {Pointer<Byte>} pUserData Pointer to user credential information that pertains to this authentication session.
-     * @param {Pointer<Void>} hTokenImpersonateUser Impersonation token for a logged-on user to collect user-related information.
-     * @param {Pointer<Int32>} pfInvokeUI Returns <b>TRUE</b> if the user identity and user data blob aren't returned successfully, and the method seeks to collect the information from the user through the user interface dialog.
+     * @param {HANDLE} hTokenImpersonateUser Impersonation token for a logged-on user to collect user-related information.
+     * @param {Pointer<BOOL>} pfInvokeUI Returns <b>TRUE</b> if the user identity and user data blob aren't returned successfully, and the method seeks to collect the information from the user through the user interface dialog.
      * @param {Pointer<UInt32>} pdwSizeOfUserDataOut Size of the buffer indicated by the <i>ppUserDataOut</i> parameter, in bytes.
      * @param {Pointer<Byte>} ppUserDataOut User data information returned by the method. After use, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeruntimememory">EapHostPeerFreeRuntimeMemory</a>.
-     * @param {Pointer<Char>} ppwszIdentity A pointer to a NULL-terminated user identity string. After use, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeruntimememory">EapHostPeerFreeRuntimeMemory</a>.
+     * @param {Pointer<PWSTR>} ppwszIdentity A pointer to a NULL-terminated user identity string. After use, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eappapis/nf-eappapis-eaphostpeerfreeruntimememory">EapHostPeerFreeRuntimeMemory</a>.
      * @param {Pointer<EAP_ERROR>} ppEapError A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eaptypes/ns-eaptypes-eap_error">EAP_ERROR</a> structure that contains any errors raised during the execution of this function call. After consuming the error data, this memory must be freed by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/eaphostpeerconfigapis/nf-eaphostpeerconfigapis-eaphostpeerfreeerrormemory">EapHostPeerFreeErrorMemory</a>.
      * @param {Pointer<Byte>} ppvReserved Reserved for future use
      * @returns {Integer} 
@@ -1935,7 +1949,9 @@ class ExtensibleAuthenticationProtocol {
      * @since windows6.0.6000
      */
     static EapHostPeerGetIdentity(dwVersion, dwFlags, eapMethodType, dwSizeofConnectionData, pConnectionData, dwSizeofUserData, pUserData, hTokenImpersonateUser, pfInvokeUI, pdwSizeOfUserDataOut, ppUserDataOut, ppwszIdentity, ppEapError, ppvReserved) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeofConnectionData, "char*", pConnectionData, "uint", dwSizeofUserData, "char*", pUserData, "ptr", hTokenImpersonateUser, "int*", pfInvokeUI, "uint*", pdwSizeOfUserDataOut, "ptr", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "ptr", ppvReserved, "uint")
+        hTokenImpersonateUser := hTokenImpersonateUser is Win32Handle ? NumGet(hTokenImpersonateUser, "ptr") : hTokenImpersonateUser
+
+        result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeofConnectionData, "char*", pConnectionData, "uint", dwSizeofUserData, "char*", pUserData, "ptr", hTokenImpersonateUser, "ptr", pfInvokeUI, "uint*", pdwSizeOfUserDataOut, "char*", ppUserDataOut, "ptr", ppwszIdentity, "ptr", ppEapError, "char*", ppvReserved, "uint")
         return result
     }
 
@@ -1943,7 +1959,7 @@ class ExtensibleAuthenticationProtocol {
      * 
      * @param {Integer} dwSizeofPassword 
      * @param {Pointer} szPassword 
-     * @param {Pointer<Char>} ppszEncPassword 
+     * @param {Pointer<PWSTR>} ppszEncPassword 
      * @returns {Integer} 
      */
     static EapHostPeerGetEncryptedPassword(dwSizeofPassword, szPassword, ppszEncPassword) {

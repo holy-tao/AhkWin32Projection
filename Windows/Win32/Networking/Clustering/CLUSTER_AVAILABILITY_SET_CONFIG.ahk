@@ -36,7 +36,7 @@ class CLUSTER_AVAILABILITY_SET_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bReserveSpareNode {
         get => NumGet(this, 12, "int")

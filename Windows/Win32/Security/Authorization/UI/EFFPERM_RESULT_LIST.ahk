@@ -15,7 +15,7 @@ class EFFPERM_RESULT_LIST extends Win32Struct
 
     /**
      * Indicates if the effective permissions results have been evaluated.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fEvaluated {
         get => NumGet(this, 0, "char")

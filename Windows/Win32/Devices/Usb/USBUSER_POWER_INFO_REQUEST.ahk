@@ -27,7 +27,7 @@ class USBUSER_POWER_INFO_REQUEST extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -39,7 +39,7 @@ class USBUSER_POWER_INFO_REQUEST extends Win32Struct
     PowerInformation{
         get {
             if(!this.HasProp("__PowerInformation"))
-                this.__PowerInformation := USB_POWER_INFO(this.ptr + 16)
+                this.__PowerInformation := USB_POWER_INFO(16, this)
             return this.__PowerInformation
         }
     }

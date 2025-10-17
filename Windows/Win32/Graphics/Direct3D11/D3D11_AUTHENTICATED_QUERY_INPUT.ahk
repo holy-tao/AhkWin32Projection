@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains input data for the ID3D11VideoContext::QueryAuthenticatedChannel method.
@@ -215,11 +216,14 @@ class D3D11_AUTHENTICATED_QUERY_INPUT extends Win32Struct
 
     /**
      * A handle to the authenticated channel. To get the handle, call the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11authenticatedchannel-getchannelhandle">ID3D11AuthenticatedChannel::GetChannelHandle</a> method.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hChannel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hChannel{
+        get {
+            if(!this.HasProp("__hChannel"))
+                this.__hChannel := HANDLE(8, this)
+            return this.__hChannel
+        }
     }
 
     /**

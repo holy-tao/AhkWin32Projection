@@ -15,7 +15,7 @@ class BTH_LE_UUID extends Win32Struct
 
     /**
      * Indicates if the Low Energy (LE) UUID a 16-bit shortened value, or if it is the long 128-bit value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsShortUuid {
         get => NumGet(this, 0, "char")

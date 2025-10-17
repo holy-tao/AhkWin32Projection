@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS4 extends Win32Struct
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * 
      * Indicates whether 64KB-aligned MSAA textures are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     MSAA64KBAlignedTextureSupported {
         get => NumGet(this, 0, "int")
@@ -42,7 +42,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS4 extends Win32Struct
      * Type: **[BOOL](/windows/desktop/winprog/windows-data-types)**
      * 
      * Indicates native 16-bit shader operations are supported. These operations require shader model 6_2. For more information, see the [16-Bit Scalar Types](https://github.com/microsoft/DirectXShaderCompiler/wiki/16-Bit-Scalar-Types) HLSL reference.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Native16BitShaderOpsSupported {
         get => NumGet(this, 8, "int")

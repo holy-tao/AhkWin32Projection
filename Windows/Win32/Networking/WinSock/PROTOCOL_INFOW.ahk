@@ -294,7 +294,7 @@ class PROTOCOL_INFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a zero-terminated string that supplies a name for the protocol; for example, "SPX2."
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpProtocol {
         get => NumGet(this, 32, "ptr")

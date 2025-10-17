@@ -30,7 +30,7 @@ class LDAPSortKeyA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the attribute to use as a sort key. Use multiple <b>LDAPSortKey</b> structures to specify multiple sort keys. Be aware that Active Directory supports only a single sort key.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     sk_attrtype {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +39,7 @@ class LDAPSortKeyA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the object identifier of the matching rule for the sort. Should be set to <b>NULL</b> if you do not want to explicitly specify a matching rule for the sort. Specifying an explicitly set matching rule is supported only by Windows Server 2003.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     sk_matchruleoid {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class LDAPSortKeyA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, specifies that the sort be ordered from lowest to highest. If <b>FALSE</b>, the sort order is from highest to lowest.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     sk_reverseorder {
         get => NumGet(this, 16, "char")

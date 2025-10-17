@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HIMAGELIST.ahk
 
 /**
  * Contains information that describes rebar control characteristics.
@@ -57,19 +58,18 @@ class REBARINFO extends Win32Struct
      * Type: <b>HIMAGELIST</b>
      * 
      * Handle to an image list. The rebar control will use the specified image list to obtain images.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    himl {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    himl{
+        get {
+            if(!this.HasProp("__himl"))
+                this.__himl := HIMAGELIST(8, this)
+            return this.__himl
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 16
     }
 }

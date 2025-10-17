@@ -15,7 +15,7 @@ class SERVER_INFO_1538 extends Win32Struct
 
     /**
      * Specifies whether several MS-DOS File Control Blocks (FCBs) are placed in a single location accessible to the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1538_enablefcbopens {
         get => NumGet(this, 0, "int")

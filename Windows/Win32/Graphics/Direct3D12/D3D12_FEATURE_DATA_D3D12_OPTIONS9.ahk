@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS9 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MeshShaderPipelineStatsSupported {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS9 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MeshShaderSupportsFullRangeRenderTargetArrayIndex {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS9 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AtomicInt64OnTypedResourceSupported {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS9 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AtomicInt64OnGroupSharedSupported {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS9 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DerivativesInMeshAndAmplificationShadersSupported {
         get => NumGet(this, 16, "int")

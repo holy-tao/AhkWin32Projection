@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
 
 /**
@@ -22,7 +23,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -38,7 +39,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, contiguous blocks of video memory may be accessible to the CPU or the bus.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AccessibleInContiguousBlocks {
         get => NumGet(this, 44, "int")
@@ -47,7 +48,7 @@ class D3D11_AUTHENTICATED_QUERY_ACCESSIBILITY_OUTPUT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, non-contiguous blocks of video memory may be accessible to the CPU or the bus.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AccessibleInNonContiguousBlocks {
         get => NumGet(this, 48, "int")

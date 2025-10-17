@@ -26,7 +26,7 @@ class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct
     ReadStats{
         get {
             if(!this.HasProp("__ReadStats"))
-                this.__ReadStats := JOBOBJECT_IO_ATTRIBUTION_STATS(this.ptr + 8)
+                this.__ReadStats := JOBOBJECT_IO_ATTRIBUTION_STATS(8, this)
             return this.__ReadStats
         }
     }
@@ -37,7 +37,7 @@ class JOBOBJECT_IO_ATTRIBUTION_INFORMATION extends Win32Struct
     WriteStats{
         get {
             if(!this.HasProp("__WriteStats"))
-                this.__WriteStats := JOBOBJECT_IO_ATTRIBUTION_STATS(this.ptr + 40)
+                this.__WriteStats := JOBOBJECT_IO_ATTRIBUTION_STATS(40, this)
             return this.__WriteStats
         }
     }

@@ -51,7 +51,7 @@ class STORAGE_TEMPERATURE_INFO extends Win32Struct
 
     /**
      * Indicates if <i>OverThreshold</i> can be changed by using <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_set_temperature_threshold">IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OverThresholdChangable {
         get => NumGet(this, 8, "char")
@@ -60,7 +60,7 @@ class STORAGE_TEMPERATURE_INFO extends Win32Struct
 
     /**
      * Indicates if <i>UnderThreshold</i> can be changed by using <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_storage_set_temperature_threshold">IOCTL_STORAGE_SET_TEMPERATURE_THRESHOLD</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UnderThresholdChangable {
         get => NumGet(this, 9, "char")
@@ -69,7 +69,7 @@ class STORAGE_TEMPERATURE_INFO extends Win32Struct
 
     /**
      * Indicates if a notification will be generated when the current temperature crosses a threshold.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EventGenerated {
         get => NumGet(this, 10, "char")

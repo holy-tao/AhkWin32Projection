@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
@@ -604,7 +604,7 @@ class SystemInformation {
      * Retrieves information about the system's current usage of both physical and virtual memory.
      * @param {Pointer<MEMORYSTATUSEX>} lpBuffer A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/ns-sysinfoapi-memorystatusex">MEMORYSTATUSEX</a> structure that receives information about current memory availability.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -684,7 +684,7 @@ class SystemInformation {
     /**
      * Queries whether user-mode Hardware-enforced Stack Protection is available for the specified environment.
      * @param {Integer} UserCetEnvironment 
-     * @returns {Integer} TRUE if user-mode Hardware-enforced Stack Protection is available for the specified environment, FALSE otherwise.
+     * @returns {BOOL} TRUE if user-mode Hardware-enforced Stack Protection is available for the specified environment, FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-isusercetavailableinenvironment
      */
     static IsUserCetAvailableInEnvironment(UserCetEnvironment) {
@@ -694,12 +694,12 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<Int32>} Enabled 
+     * @param {Pointer<BOOL>} Enabled 
      * @param {Pointer<UInt32>} Flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
-        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "int*", Enabled, "uint*", Flags, "int")
+        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, "uint*", Flags, "int")
         return result
     }
 
@@ -727,7 +727,7 @@ class SystemInformation {
      * 
      * The <b>wDayOfWeek</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure is ignored.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -770,7 +770,7 @@ class SystemInformation {
      * Determines whether the system is applying periodic time adjustments to its time-of-day clock, and obtains the value and period of any such adjustments.
      * @param {Pointer<UInt32>} lpTimeAdjustment A pointer to a variable that the function sets to the number of <i>lpTimeIncrement</i>100-nanosecond units added to the time-of-day clock for every  period of time which actually passes as counted by the system. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
      * @param {Pointer<UInt32>} lpTimeIncrement A pointer to a variable that the function sets to the interval in 100-nanosecond units at which the system will add <i>lpTimeAdjustment</i> to the time-of-day clock. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
-     * @param {Pointer<Int32>} lpTimeAdjustmentDisabled A pointer to a variable that the function sets to indicate whether periodic time adjustment is in effect. 
+     * @param {Pointer<BOOL>} lpTimeAdjustmentDisabled A pointer to a variable that the function sets to indicate whether periodic time adjustment is in effect. 
      * 
      * 
      * 
@@ -778,7 +778,7 @@ class SystemInformation {
      * A value of <b>TRUE</b> indicates that periodic time adjustment is disabled, and the system time-of-day clock advances at the normal rate. In this mode, the system may adjust the time of day using its own internal time synchronization mechanisms. These internal time synchronization mechanisms may cause the time-of-day clock to change during the normal course of the system operation, which can include noticeable jumps in time as deemed necessary by the system.
      * 
      * A value of <b>FALSE</b> indicates that periodic time adjustment is being used to adjust the time-of-day clock. For each <i>lpTimeIncrement</i> period of time that actually passes, <i>lpTimeAdjustment</i> will be added to the time of day.  If the <i>lpTimeAdjustment</i> value is smaller than <i>lpTimeIncrement</i>, the system time-of-day clock will advance at a rate slower than normal. If the <i>lpTimeAdjustment</i> value is larger than <i>lpTimeIncrement</i>, the time-of-day clock will advance at a rate faster than normal. If <i>lpTimeAdjustment</i> equals <i>lpTimeIncrement</i>, the time-of-day clock will advance at its normal speed.  The <i>lpTimeAdjustment</i>  value can be set by calling <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-setsystemtimeadjustment">SetSystemTimeAdjustment</a>. The <i>lpTimeIncrement</i> value is fixed by the system upon start, and does not change during system operation. In this mode, the system will not interfere with the time adjustment scheme, and will not attempt to synchronize time of day on its own via other techniques.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getsystemtimeadjustment
@@ -787,7 +787,7 @@ class SystemInformation {
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "int*", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -798,12 +798,12 @@ class SystemInformation {
      * Determines whether the system is applying periodic, programmed time adjustments to its time-of-day clock, and obtains the value and period of any such adjustments.
      * @param {Pointer<UInt64>} lpTimeAdjustment Returns the adjusted clock update frequency.
      * @param {Pointer<UInt64>} lpTimeIncrement Returns the clock update frequency.
-     * @param {Pointer<Int32>} lpTimeAdjustmentDisabled Returns an indicator which specifies whether the time adjustment is enabled.
+     * @param {Pointer<BOOL>} lpTimeAdjustmentDisabled Returns an indicator which specifies whether the time adjustment is enabled.
      * 
      * A value of <b>TRUE</b> indicates that periodic adjustment is disabled. In this case, the system may attempt to keep the time-of-day clock in sync using its own internal mechanisms. This may cause time-of-day to periodically jump to the "correct time."
      * 
      * A value of <b>FALSE</b> indicates that periodic, programmed time adjustment is being used to serialize time-of-day, and the system will not interfere or attempt to synchronize time-of-day on its own.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getsystemtimeadjustmentprecise
@@ -812,7 +812,7 @@ class SystemInformation {
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "int*", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", "uint*", lpTimeAdjustment, "uint*", lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -821,7 +821,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
+     * @param {PSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path, including the terminating null character.
      * 
@@ -831,7 +831,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemDirectoryA(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -844,7 +844,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory.
-     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
+     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the system directory is the root directory. For example, if the system directory is named Windows\System32 on drive C, the path of the system directory retrieved by this function is C:\Windows\System32.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path, including the terminating null character.
      * 
@@ -854,7 +854,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemDirectoryW(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -867,7 +867,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the Windows directory.
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
      *       backslash unless the Windows directory is the root directory. For example, if the Windows directory is named 
      *       Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system 
      *       was installed in the root directory of drive C, the path retrieved is C:\.
@@ -887,7 +887,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetWindowsDirectoryA(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -900,7 +900,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the Windows directory.
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the path. This path does not end with a 
      *       backslash unless the Windows directory is the root directory. For example, if the Windows directory is named 
      *       Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system 
      *       was installed in the root directory of drive C, the path retrieved is C:\.
@@ -920,7 +920,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetWindowsDirectoryW(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -933,7 +933,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the shared Windows directory on a multi-user system.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
+     * @param {PSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length of the string copied to the buffer, in <b>TCHARs</b>, not including the terminating null character.
      * 
@@ -945,7 +945,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryA(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -958,7 +958,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the shared Windows directory on a multi-user system.
-     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
+     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash unless the Windows directory is the root directory. For example, if the Windows directory is named Windows on drive C, the path of the Windows directory retrieved by this function is C:\Windows. If the system was installed in the root directory of drive C, the path retrieved is C:\.
      * @param {Integer} uSize The maximum size of the buffer specified by the <i>lpBuffer</i> parameter, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length of the string copied to the buffer, in <b>TCHARs</b>, not including the terminating null character.
      * 
@@ -970,7 +970,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetSystemWindowsDirectoryW(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1079,7 +1079,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
+     * @param {PSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
      * 
      * 
      * 
@@ -1093,7 +1093,7 @@ class SystemInformation {
      * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. This parameter receives the size of the buffer required,  including the terminating <b>null</b> character.
      * 
      * If <i>lpBuffer</i> is <b>NULL</b>, this parameter must be zero.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
@@ -1119,7 +1119,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetComputerNameExA(NameType, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1228,7 +1228,7 @@ class SystemInformation {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
+     * @param {PWSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. 
      * 
      * 
      * 
@@ -1242,7 +1242,7 @@ class SystemInformation {
      * If the buffer is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. This parameter receives the size of the buffer required,  including the terminating <b>null</b> character.
      * 
      * If <i>lpBuffer</i> is <b>NULL</b>, this parameter must be zero.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
@@ -1268,7 +1268,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static GetComputerNameExW(NameType, lpBuffer, nSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1282,8 +1282,8 @@ class SystemInformation {
     /**
      * Sets a new NetBIOS or DNS name for the local computer.
      * @param {Integer} NameType 
-     * @param {Pointer<Char>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PWSTR} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1291,7 +1291,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameExW(NameType, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1312,7 +1312,7 @@ class SystemInformation {
      * 
      * The <b>wDayOfWeek</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure is ignored.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1339,7 +1339,7 @@ class SystemInformation {
      * 
      * Before calling the 
      * <b>GetVersionEx</b> function, set the <b>dwOSVersionInfoSize</b> member of the structure as appropriate to indicate which data structure is being passed to this function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The function fails if you specify an invalid value for the <b>dwOSVersionInfoSize</b> member of the 
@@ -1369,7 +1369,7 @@ class SystemInformation {
      * 
      * Before calling the 
      * <b>GetVersionEx</b> function, set the <b>dwOSVersionInfoSize</b> member of the structure as appropriate to indicate which data structure is being passed to this function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The function fails if you specify an invalid value for the <b>dwOSVersionInfoSize</b> member of the 
@@ -1393,7 +1393,7 @@ class SystemInformation {
      * Retrieves information about logical processors and related hardware.
      * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
-     * @returns {Integer} If the function succeeds, the return value is TRUE and at least one <a href="/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
+     * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1488,7 +1488,7 @@ class SystemInformation {
      * </table>
      * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
      * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
-     * @returns {Integer} If the function succeeds, the return value is TRUE and at least one <a href="/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
+     * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1555,7 +1555,7 @@ class SystemInformation {
      * @param {Integer} dwSpMajorVersion The major version number of the operating system service pack. The minimum value is 0.
      * @param {Integer} dwSpMinorVersion The minor version number of the operating system service pack. The minimum value is 0.
      * @param {Pointer<UInt32>} pdwReturnedProductType The product type. This parameter cannot be <b>NULL</b>. If the specified operating system  is less than the current operating system, this information is mapped to the types supported by the specified operating system. If the specified operating system is greater than the highest supported operating system, this information is mapped to the types supported by the current operating system.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. This function fails if one of the input parameters is invalid.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getproductinfo
@@ -1591,7 +1591,7 @@ class SystemInformation {
     /**
      * 
      * @param {Pointer<UInt32>} Flags 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static GetOsSafeBootMode(Flags) {
         result := DllCall("api-ms-win-core-sysinfo-l1-2-0.dll\GetOsSafeBootMode", "uint*", Flags, "int")
@@ -1657,14 +1657,14 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<Char>} Hostname 
-     * @param {Pointer<Char>} ComputerName 
+     * @param {PWSTR} Hostname 
+     * @param {PWSTR} ComputerName 
      * @param {Pointer<UInt32>} nSize 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static DnsHostnameToComputerNameExW(Hostname, ComputerName, nSize) {
-        Hostname := Hostname is String? StrPtr(Hostname) : Hostname
-        ComputerName := ComputerName is String? StrPtr(ComputerName) : ComputerName
+        Hostname := Hostname is String ? StrPtr(Hostname) : Hostname
+        ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
         result := DllCall("KERNEL32.dll\DnsHostnameToComputerNameExW", "ptr", Hostname, "ptr", ComputerName, "uint*", nSize, "int")
         return result
@@ -1674,7 +1674,7 @@ class SystemInformation {
      * Retrieves the amount of RAM that is physically installed on the computer.
      * @param {Pointer<UInt64>} TotalMemoryInKilobytes A pointer to a 
      * variable that receives the amount of physically installed RAM, in kilobytes.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b> and sets the 
+     * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b> and sets the 
      *                    <i>TotalMemoryInKilobytes</i> parameter to a nonzero value.
      * 
      * If the function fails, it returns <b>FALSE</b> and does not modify the 
@@ -1725,11 +1725,11 @@ class SystemInformation {
      * 
      * @param {Integer} NameType 
      * @param {Integer} Flags 
-     * @param {Pointer<Char>} lpBuffer 
-     * @returns {Integer} 
+     * @param {PWSTR} lpBuffer 
+     * @returns {BOOL} 
      */
     static SetComputerNameEx2W(NameType, Flags, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         result := DllCall("KERNEL32.dll\SetComputerNameEx2W", "int", NameType, "uint", Flags, "ptr", lpBuffer, "int")
         return result
@@ -1743,7 +1743,7 @@ class SystemInformation {
      * 
      * </div>
      * <div> </div>
-     * @param {Integer} bTimeAdjustmentDisabled The time adjustment mode that the system is to use. Periodic system time adjustments can be disabled or enabled. 
+     * @param {BOOL} bTimeAdjustmentDisabled The time adjustment mode that the system is to use. Periodic system time adjustments can be disabled or enabled. 
      * 
      * 
      * 
@@ -1751,7 +1751,7 @@ class SystemInformation {
      * A value of <b>TRUE</b> specifies that periodic time adjustment is to be disabled. When disabled, the value of <i>dwTimeAdjustment</i> is ignored, and the system may adjust the time of day using its own internal time synchronization mechanisms. These internal time synchronization mechanisms may cause the time-of-day clock to change during the normal course of the system operation, which can include noticeable jumps in time as deemed necessary by the system.
      * 
      * A value of <b>FALSE</b> specifies that periodic time adjustment is to be enabled, and will be used to adjust the time-of-day clock. The system will not interfere with the time adjustment scheme, and will not attempt to synchronize time of day on its own.
-     * @returns {Integer} If the function succeeds, the return value is non-zero.
+     * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. One way the function can fail is if the caller does not possess the SE_SYSTEMTIME_NAME privilege.
@@ -1771,12 +1771,12 @@ class SystemInformation {
     /**
      * Enables or disables periodic time adjustments to the system's time-of-day clock. When enabled, such time adjustments can be used to synchronize the time of day with some other source of time information.
      * @param {Integer} dwTimeAdjustment Supplies the adjusted clock update frequency.
-     * @param {Integer} bTimeAdjustmentDisabled Supplies a flag which specifies the time adjustment mode that the system is to use.
+     * @param {BOOL} bTimeAdjustmentDisabled Supplies a flag which specifies the time adjustment mode that the system is to use.
      * 
      * A value of <b>TRUE</b> indicates that the system should synchronize time-of-day using its own internal mechanisms. In this case, the value of <i>dwTimeAdjustment</i> is ignored.
      * 
      * A value of <b>FALSE</b> indicates that the application is in control, and that the specified value of <i>dwTimeAdjustment</i> is to be added to the time-of-day clock at each clock update interrupt.
-     * @returns {Integer} If the function succeeds, the return value is non-zero.
+     * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. One way the function can fail is if the caller does not possess the SE_SYSTEMTIME_NAME privilege.
@@ -1798,7 +1798,7 @@ class SystemInformation {
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
      * @param {Pointer} Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
      * @param {Pointer<UInt32>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
      * 
@@ -1818,11 +1818,11 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<Int32>} pbEnabled 
-     * @returns {Integer} 
+     * @param {Pointer<BOOL>} pbEnabled 
+     * @returns {BOOL} 
      */
     static GetOsManufacturingMode(pbEnabled) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "int*", pbEnabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "ptr", pbEnabled, "int")
         return result
     }
 
@@ -1843,14 +1843,14 @@ class SystemInformation {
 
     /**
      * Sets a new NetBIOS name for the local computer. The name is stored in the registry and the name change takes effect the next time the user restarts the computer.
-     * @param {Pointer<Byte>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
+     * @param {PSTR} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
      * 
      * 
      * 
      * 
      * The standard character set includes letters, numbers, and the following symbols: ! @ # $ % ^ &amp; ' ) ( . - _ { } ~ . If this parameter contains one or more characters that are outside the standard character set, 
      * <b>SetComputerName</b> returns ERROR_INVALID_PARAMETER.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1858,7 +1858,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameA(lpComputerName) {
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
         A_LastError := 0
 
@@ -1871,14 +1871,14 @@ class SystemInformation {
 
     /**
      * Sets a new NetBIOS name for the local computer. The name is stored in the registry and the name change takes effect the next time the user restarts the computer.
-     * @param {Pointer<Char>} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
+     * @param {PWSTR} lpComputerName The computer name that will take effect the next time the computer is started. The name must not be longer than MAX_COMPUTERNAME_LENGTH characters. 
      * 
      * 
      * 
      * 
      * The standard character set includes letters, numbers, and the following symbols: ! @ # $ % ^ &amp; ' ) ( . - _ { } ~ . If this parameter contains one or more characters that are outside the standard character set, 
      * <b>SetComputerName</b> returns ERROR_INVALID_PARAMETER.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1886,7 +1886,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameW(lpComputerName) {
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
         A_LastError := 0
 
@@ -1900,8 +1900,8 @@ class SystemInformation {
     /**
      * Sets a new NetBIOS or DNS name for the local computer.
      * @param {Integer} NameType 
-     * @param {Pointer<Byte>} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PSTR} lpBuffer The new name. The name cannot include control characters, leading or trailing spaces, or any of the following characters: " / \ [ ] : | &lt; &gt; + = ; , ?
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1909,7 +1909,7 @@ class SystemInformation {
      * @since windows5.0
      */
     static SetComputerNameExA(NameType, lpBuffer) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1934,12 +1934,14 @@ class SystemInformation {
      * @param {Pointer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
      * @param {Integer} BufferLength The length, in bytes, of the output buffer passed as the Information argument.
      * @param {Pointer<UInt32>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
-     * @param {Pointer<Void>} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
-     * @returns {Integer} If the API succeeds it returns TRUE. If it fails, the error reason is available through **GetLastError**. If the Information buffer was NULL or not large enough, the error code ERROR\_INSUFFICIENT\_BUFFER is returned. This API cannot fail when passed valid parameters and a buffer that is large enough to hold all of the return data.
+     * @param {HANDLE} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
+     * @returns {BOOL} If the API succeeds it returns TRUE. If it fails, the error reason is available through **GetLastError**. If the Information buffer was NULL or not large enough, the error code ERROR\_INSUFFICIENT\_BUFFER is returned. This API cannot fail when passed valid parameters and a buffer that is large enough to hold all of the return data.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getsystemcpusetinformation
      */
     static GetSystemCpuSetInformation(Information, BufferLength, ReturnedLength, Process) {
         static Flags := 0 ;Reserved parameters must always be NULL
+
+        Process := Process is Win32Handle ? NumGet(Process, "ptr") : Process
 
         result := DllCall("KERNEL32.dll\GetSystemCpuSetInformation", "ptr", Information, "uint", BufferLength, "uint*", ReturnedLength, "ptr", Process, "uint", Flags, "int")
         return result
@@ -1947,7 +1949,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory used by WOW64.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {PSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
      * 
@@ -1959,7 +1961,7 @@ class SystemInformation {
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryA(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1972,7 +1974,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory used by WOW64.
-     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
      * 
@@ -1984,7 +1986,7 @@ class SystemInformation {
      * @since windows5.1.2600
      */
     static GetSystemWow64DirectoryW(lpBuffer, uSize) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1997,7 +1999,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory used by WOW64, using the specified image file machine type.
-     * @param {Pointer<Byte>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {PSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
@@ -2008,7 +2010,7 @@ class SystemInformation {
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2A(lpBuffer, uSize, ImageFileMachineType) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -2021,7 +2023,7 @@ class SystemInformation {
 
     /**
      * Retrieves the path of the system directory used by WOW64, using the specified image file machine type.
-     * @param {Pointer<Char>} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
+     * @param {PWSTR} lpBuffer A pointer to the buffer to receive the path. This path does not end with a backslash.
      * @param {Integer} uSize The maximum size of the buffer, in <b>TCHARs</b>.
      * @param {Integer} ImageFileMachineType An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
      * @returns {Integer} If the function succeeds, the return value is the length, in <b>TCHARs</b>, of the string copied to the buffer, not including the terminating null character. If the length is greater than the size of the buffer, the return value is the size of the buffer required to hold the path.
@@ -2032,7 +2034,7 @@ class SystemInformation {
      * @since windows10.0.10586
      */
     static GetSystemWow64Directory2W(lpBuffer, uSize, ImageFileMachineType) {
-        lpBuffer := lpBuffer is String? StrPtr(lpBuffer) : lpBuffer
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -2046,7 +2048,7 @@ class SystemInformation {
     /**
      * Determines which architectures are supported (under WOW64) on the given machine architecture.
      * @param {Integer} WowGuestMachine An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
-     * @param {Pointer<Int32>} MachineIsSupported On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
+     * @param {Pointer<BOOL>} MachineIsSupported On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
      * @returns {HRESULT} On success, returns <b>S_OK</b>; otherwise, returns an error. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wow64apiset/nf-wow64apiset-iswow64guestmachinesupported
      * @since windows10.0.16299
@@ -2054,7 +2056,7 @@ class SystemInformation {
     static IsWow64GuestMachineSupported(WowGuestMachine, MachineIsSupported) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "int*", MachineIsSupported, "int")
+        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "ptr", MachineIsSupported, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2071,7 +2073,7 @@ class SystemInformation {
      * @param {Integer} SpMajorVersion 
      * @param {Integer} SpMinorVersion 
      * @param {Pointer<UInt32>} ReturnedProductType 
-     * @returns {Integer} 
+     * @returns {BOOLEAN} 
      */
     static RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
         result := DllCall("ntdll.dll\RtlGetProductInfo", "uint", OSMajorVersion, "uint", OSMinorVersion, "uint", SpMajorVersion, "uint", SpMinorVersion, "uint*", ReturnedProductType, "char")
@@ -2234,7 +2236,7 @@ class SystemInformation {
     /**
      * Retrieves the firmware type of the local computer.
      * @param {Pointer<Int32>} FirmwareType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-firmware_type">FIRMWARE_TYPE</a> enumeration.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-getfirmwaretype
@@ -2264,7 +2266,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-versetconditionmask">VerSetConditionMask</a> function or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-ver_set_condition">VER_SET_CONDITION</a> macro once for each 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> member being compared.
-     * @returns {Integer} If the currently running operating system satisfies the specified requirements, the return value is a nonzero value.
+     * @returns {BOOL} If the currently running operating system satisfies the specified requirements, the return value is a nonzero value.
      * 
      * If the current system does not satisfy the requirements, the return value is zero and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_OLD_WIN_VERSION.
@@ -2297,7 +2299,7 @@ class SystemInformation {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-versetconditionmask">VerSetConditionMask</a> function or the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-ver_set_condition">VER_SET_CONDITION</a> macro once for each 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-osversioninfoexa">OSVERSIONINFOEX</a> member being compared.
-     * @returns {Integer} If the currently running operating system satisfies the specified requirements, the return value is a nonzero value.
+     * @returns {BOOL} If the currently running operating system satisfies the specified requirements, the return value is a nonzero value.
      * 
      * If the current system does not satisfy the requirements, the return value is zero and 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_OLD_WIN_VERSION.

@@ -28,7 +28,7 @@ class DNS_AAAA_DATA extends Win32Struct
     Ip6Address{
         get {
             if(!this.HasProp("__Ip6Address"))
-                this.__Ip6Address := IP6_ADDRESS(this.ptr + 0)
+                this.__Ip6Address := IP6_ADDRESS(0, this)
             return this.__Ip6Address
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NETRESOURCEA.ahk
 
 /**
@@ -16,11 +17,14 @@ class NOTIFYADD extends Win32Struct
 
     /**
      * A handle to a window which should own any messages or dialog boxes the application receiving the notification might display.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(0, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -31,7 +35,7 @@ class NOTIFYADD extends Win32Struct
     NetResource{
         get {
             if(!this.HasProp("__NetResource"))
-                this.__NetResource := NETRESOURCEA(this.ptr + 8)
+                this.__NetResource := NETRESOURCEA(8, this)
             return this.__NetResource
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Passed to the CopyFile2ProgressRoutine callback function with information about a pending copy operation.
@@ -147,19 +148,25 @@ class COPYFILE2_MESSAGE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hSourceFile {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hSourceFile{
+            get {
+                if(!this.HasProp("__hSourceFile"))
+                    this.__hSourceFile := HANDLE(8, this)
+                return this.__hSourceFile
+            }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hDestinationFile {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        hDestinationFile{
+            get {
+                if(!this.HasProp("__hDestinationFile"))
+                    this.__hDestinationFile := HANDLE(16, this)
+                return this.__hDestinationFile
+            }
         }
     
         /**
@@ -217,19 +224,25 @@ class COPYFILE2_MESSAGE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hSourceFile {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hSourceFile{
+            get {
+                if(!this.HasProp("__hSourceFile"))
+                    this.__hSourceFile := HANDLE(8, this)
+                return this.__hSourceFile
+            }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hDestinationFile {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        hDestinationFile{
+            get {
+                if(!this.HasProp("__hDestinationFile"))
+                    this.__hDestinationFile := HANDLE(16, this)
+                return this.__hDestinationFile
+            }
         }
     
         /**
@@ -303,19 +316,25 @@ class COPYFILE2_MESSAGE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hSourceFile {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hSourceFile{
+            get {
+                if(!this.HasProp("__hSourceFile"))
+                    this.__hSourceFile := HANDLE(8, this)
+                return this.__hSourceFile
+            }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hDestinationFile {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        hDestinationFile{
+            get {
+                if(!this.HasProp("__hDestinationFile"))
+                    this.__hDestinationFile := HANDLE(16, this)
+                return this.__hDestinationFile
+            }
         }
     
         /**
@@ -357,19 +376,25 @@ class COPYFILE2_MESSAGE extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hSourceFile {
-            get => NumGet(this, 8, "ptr")
-            set => NumPut("ptr", value, this, 8)
+        hSourceFile{
+            get {
+                if(!this.HasProp("__hSourceFile"))
+                    this.__hSourceFile := HANDLE(8, this)
+                return this.__hSourceFile
+            }
         }
     
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hDestinationFile {
-            get => NumGet(this, 16, "ptr")
-            set => NumPut("ptr", value, this, 16)
+        hDestinationFile{
+            get {
+                if(!this.HasProp("__hDestinationFile"))
+                    this.__hDestinationFile := HANDLE(16, this)
+                return this.__hDestinationFile
+            }
         }
     
         /**
@@ -402,6 +427,20 @@ class COPYFILE2_MESSAGE extends Win32Struct
         uliTotalBytesTransferred {
             get => NumGet(this, 48, "uint")
             set => NumPut("uint", value, this, 48)
+        }
+    
+    }
+
+    class _PollContinue extends Win32Struct {
+        static sizeof => 72
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        dwReserved {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
         }
     
     }
@@ -490,7 +529,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     ChunkStarted{
         get {
             if(!this.HasProp("__ChunkStarted"))
-                this.__ChunkStarted := %this.__Class%._ChunkStarted(this.ptr + 8)
+                this.__ChunkStarted := %this.__Class%._ChunkStarted(8, this)
             return this.__ChunkStarted
         }
     }
@@ -501,7 +540,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     ChunkFinished{
         get {
             if(!this.HasProp("__ChunkFinished"))
-                this.__ChunkFinished := %this.__Class%._ChunkFinished(this.ptr + 8)
+                this.__ChunkFinished := %this.__Class%._ChunkFinished(8, this)
             return this.__ChunkFinished
         }
     }
@@ -512,7 +551,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     StreamStarted{
         get {
             if(!this.HasProp("__StreamStarted"))
-                this.__StreamStarted := %this.__Class%._StreamStarted(this.ptr + 8)
+                this.__StreamStarted := %this.__Class%._StreamStarted(8, this)
             return this.__StreamStarted
         }
     }
@@ -523,17 +562,20 @@ class COPYFILE2_MESSAGE extends Win32Struct
     StreamFinished{
         get {
             if(!this.HasProp("__StreamFinished"))
-                this.__StreamFinished := %this.__Class%._StreamFinished(this.ptr + 8)
+                this.__StreamFinished := %this.__Class%._StreamFinished(8, this)
             return this.__StreamFinished
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_PollContinue}
      */
-    PollContinue {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    PollContinue{
+        get {
+            if(!this.HasProp("__PollContinue"))
+                this.__PollContinue := %this.__Class%._PollContinue(8, this)
+            return this.__PollContinue
+        }
     }
 
     /**
@@ -542,7 +584,7 @@ class COPYFILE2_MESSAGE extends Win32Struct
     Error{
         get {
             if(!this.HasProp("__Error"))
-                this.__Error := %this.__Class%._Error(this.ptr + 8)
+                this.__Error := %this.__Class%._Error(8, this)
             return this.__Error
         }
     }

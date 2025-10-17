@@ -48,7 +48,7 @@ class VDS_PARTITION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bRewritePartition {
         get => NumGet(this, 28, "char")
@@ -61,7 +61,7 @@ class VDS_PARTITION_INFORMATION_EX extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := VDS_PARTITION_INFO_MBR(this.ptr + 32)
+                this.__Mbr := VDS_PARTITION_INFO_MBR(32, this)
             return this.__Mbr
         }
     }
@@ -72,7 +72,7 @@ class VDS_PARTITION_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := VDS_PARTITION_INFO_GPT(this.ptr + 32)
+                this.__Gpt := VDS_PARTITION_INFO_GPT(32, this)
             return this.__Gpt
         }
     }

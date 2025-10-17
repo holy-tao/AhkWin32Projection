@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Used with the CRYPTUI_WIZ_DIGITAL_SIGN_INFO structure to contain extended information about a signature.
@@ -33,7 +34,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the description of the subject of the signature.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +43,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the location from which to get more information about the file. This information will be displayed when the file is downloaded.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszMoreInfoLocation {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +52,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated ANSI string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the hash algorithm used for the signature. The default value is <b>NULL</b>, which indicates that the SHA-1 hash algorithm is used.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszHashAlg {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +61,7 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the string displayed on the digital signature wizard page. The string should prompt the user to select a certificate for a specific purpose.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSigningCertDisplayString {
         get => NumGet(this, 32, "ptr")
@@ -69,11 +70,14 @@ class CRYPTUI_WIZ_DIGITAL_SIGN_EXTENDED_INFO extends Win32Struct
 
     /**
      * A handle to an additional certificate store that will be added to the signature.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hAdditionalCertStore {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hAdditionalCertStore{
+        get {
+            if(!this.HasProp("__hAdditionalCertStore"))
+                this.__hAdditionalCertStore := HCERTSTORE(40, this)
+            return this.__hAdditionalCertStore
+        }
     }
 
     /**

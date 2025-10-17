@@ -26,7 +26,7 @@ class MMC_LISTPAD_INFO extends Win32Struct
      * Be aware that the <b>szTitle</b> member is not the same as the <i>pszTitle</i> parameter for 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iextendtaskpad-gettitle">IExtendTaskPad::GetTitle</a>. The <b>IExtendTaskPad::GetTitle</b> method returns the title for the entire taskpad that appears at the top of the taskpad and appears on every standard MMC taskpad. The <b>szTitle</b> member of 
      * <b>MMC_LISTPAD_INFO</b> is the label for the list control and appears only on MMC list view taskpads.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szTitle {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +43,7 @@ class MMC_LISTPAD_INFO extends Win32Struct
      * To make the button to appear with no text, set <b>szButtonText</b> to an empty string.
      * 
      * To hide this button to appear on the taskpad, set <b>szButtonText</b> to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szButtonText {
         get => NumGet(this, 8, "ptr")

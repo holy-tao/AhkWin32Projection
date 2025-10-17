@@ -36,7 +36,7 @@ class D3D12_COMPUTE_PIPELINE_STATE_DESC extends Win32Struct
     CS{
         get {
             if(!this.HasProp("__CS"))
-                this.__CS := D3D12_SHADER_BYTECODE(this.ptr + 8)
+                this.__CS := D3D12_SHADER_BYTECODE(8, this)
             return this.__CS
         }
     }
@@ -59,7 +59,7 @@ class D3D12_COMPUTE_PIPELINE_STATE_DESC extends Win32Struct
     CachedPSO{
         get {
             if(!this.HasProp("__CachedPSO"))
-                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(this.ptr + 32)
+                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(32, this)
             return this.__CachedPSO
         }
     }

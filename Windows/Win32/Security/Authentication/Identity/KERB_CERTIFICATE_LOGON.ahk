@@ -37,7 +37,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -49,7 +49,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__UserName := LSA_UNICODE_STRING(24, this)
             return this.__UserName
         }
     }
@@ -63,7 +63,7 @@ class KERB_CERTIFICATE_LOGON extends Win32Struct
     Pin{
         get {
             if(!this.HasProp("__Pin"))
-                this.__Pin := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__Pin := LSA_UNICODE_STRING(40, this)
             return this.__Pin
         }
     }

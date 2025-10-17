@@ -18,7 +18,7 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -80,7 +80,7 @@ class DOT11_WFD_DISCOVER_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bForceScanLegacyNetworks {
         get => NumGet(this, 32, "char")

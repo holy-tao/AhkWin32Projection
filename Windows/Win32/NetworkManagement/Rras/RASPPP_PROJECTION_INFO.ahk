@@ -30,7 +30,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     ipv4Address{
         get {
             if(!this.HasProp("__ipv4Address"))
-                this.__ipv4Address := IN_ADDR(this.ptr + 4)
+                this.__ipv4Address := IN_ADDR(4, this)
             return this.__ipv4Address
         }
     }
@@ -42,7 +42,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
     ipv4ServerAddress{
         get {
             if(!this.HasProp("__ipv4ServerAddress"))
-                this.__ipv4ServerAddress := IN_ADDR(this.ptr + 8)
+                this.__ipv4ServerAddress := IN_ADDR(8, this)
             return this.__ipv4ServerAddress
         }
     }
@@ -134,7 +134,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection is composed of multiple links and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBundled {
         get => NumGet(this, 40, "int")
@@ -143,7 +143,7 @@ class RASPPP_PROJECTION_INFO extends Win32Struct
 
     /**
      * A <b>BOOL</b> that is <b>TRUE</b> if the connection supports multiple links and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMultilink {
         get => NumGet(this, 44, "int")

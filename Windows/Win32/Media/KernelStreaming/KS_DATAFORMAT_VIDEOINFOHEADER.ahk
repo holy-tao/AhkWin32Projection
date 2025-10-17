@@ -21,7 +21,7 @@ class KS_DATAFORMAT_VIDEOINFOHEADER extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -32,7 +32,7 @@ class KS_DATAFORMAT_VIDEOINFOHEADER extends Win32Struct
     VideoInfoHeader{
         get {
             if(!this.HasProp("__VideoInfoHeader"))
-                this.__VideoInfoHeader := KS_VIDEOINFOHEADER(this.ptr + 48)
+                this.__VideoInfoHeader := KS_VIDEOINFOHEADER(48, this)
             return this.__VideoInfoHeader
         }
     }

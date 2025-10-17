@@ -15,7 +15,7 @@ class DMUS_VOICE_STATE extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     bExists {
         get => NumGet(this, 0, "int")

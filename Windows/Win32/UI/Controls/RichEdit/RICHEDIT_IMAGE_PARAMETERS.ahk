@@ -51,7 +51,7 @@ class RICHEDIT_IMAGE_PARAMETERS extends Win32Struct
 
     /**
      * The alternate text for the image.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAlternateText {
         get => NumGet(this, 16, "ptr")

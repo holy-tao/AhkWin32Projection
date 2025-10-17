@@ -12,7 +12,7 @@ class BranchOfficeJobDataPipelineFailed extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDocumentName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class BranchOfficeJobDataPipelineFailed extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class BranchOfficeJobDataPipelineFailed extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pExtraErrorInfo {
         get => NumGet(this, 16, "ptr")

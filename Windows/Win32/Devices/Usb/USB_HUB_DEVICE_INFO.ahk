@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
+#Include .\USB_HUB_CAPABILITIES.ahk
+#Include .\USB_DEVICE_STATE.ahk
 #Include .\USB_HUB_PORT_INFORMATION.ahk
 
 /**
@@ -19,7 +21,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     HubDescriptor{
         get {
             if(!this.HasProp("__HubDescriptor"))
-                this.__HubDescriptor := USB_HUB_DESCRIPTOR(this.ptr + 0)
+                this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
             return this.__HubDescriptor
         }
     }
@@ -41,7 +43,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HubIsSelfPowered {
         get => NumGet(this, 78, "char")
@@ -49,7 +51,7 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HubIsRootHub {
         get => NumGet(this, 79, "char")
@@ -57,11 +59,14 @@ class USB_HUB_DEVICE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_HUB_CAPABILITIES}
      */
-    HubCapabilities {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+    HubCapabilities{
+        get {
+            if(!this.HasProp("__HubCapabilities"))
+                this.__HubCapabilities := USB_HUB_CAPABILITIES(80, this)
+            return this.__HubCapabilities
+        }
     }
 
     /**

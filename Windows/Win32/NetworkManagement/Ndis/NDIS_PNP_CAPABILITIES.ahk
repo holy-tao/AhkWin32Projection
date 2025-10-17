@@ -26,7 +26,7 @@ class NDIS_PNP_CAPABILITIES extends Win32Struct
     WakeUpCapabilities{
         get {
             if(!this.HasProp("__WakeUpCapabilities"))
-                this.__WakeUpCapabilities := NDIS_PM_WAKE_UP_CAPABILITIES(this.ptr + 8)
+                this.__WakeUpCapabilities := NDIS_PM_WAKE_UP_CAPABILITIES(8, this)
             return this.__WakeUpCapabilities
         }
     }

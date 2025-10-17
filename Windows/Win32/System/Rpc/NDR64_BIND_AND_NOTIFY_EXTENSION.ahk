@@ -18,7 +18,7 @@ class NDR64_BIND_AND_NOTIFY_EXTENSION extends Win32Struct
     Binding{
         get {
             if(!this.HasProp("__Binding"))
-                this.__Binding := NDR64_BIND_CONTEXT(this.ptr + 0)
+                this.__Binding := NDR64_BIND_CONTEXT(0, this)
             return this.__Binding
         }
     }

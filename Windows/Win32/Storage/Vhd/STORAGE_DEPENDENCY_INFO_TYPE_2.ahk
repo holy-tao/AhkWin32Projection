@@ -39,7 +39,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
     VirtualStorageType{
         get {
             if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 8)
+                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(8, this)
             return this.__VirtualStorageType
         }
     }
@@ -59,7 +59,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      *       (ISO) then this will be in the form \\.\CDRom<i>N</i>. In either case 
      *       <i>N</i> is an integer that represents a unique identifier for the caller's host 
      *       system.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DependencyDeviceName {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
     /**
      * The host disk volume name in the form \\?\Volume{<i>GUID</i>}\ where 
      *       <i>GUID</i> is the <b>GUID</b> that identifies the volume.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     HostVolumeName {
         get => NumGet(this, 40, "ptr")
@@ -80,7 +80,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
      * The name of the dependent volume, if any, in the form 
      *       \\?\Volume{<i>GUID</i>}\ where <i>GUID</i> is the 
      *       <b>GUID</b> that identifies the volume.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DependentVolumeName {
         get => NumGet(this, 48, "ptr")
@@ -89,7 +89,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_2 extends Win32Struct
 
     /**
      * The relative path to the dependent volume.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DependentVolumeRelativePath {
         get => NumGet(this, 56, "ptr")

@@ -27,7 +27,7 @@ class USBUSER_PASS_THRU_REQUEST extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
@@ -39,7 +39,7 @@ class USBUSER_PASS_THRU_REQUEST extends Win32Struct
     PassThru{
         get {
             if(!this.HasProp("__PassThru"))
-                this.__PassThru := USB_PASS_THRU_PARAMETERS(this.ptr + 16)
+                this.__PassThru := USB_PASS_THRU_PARAMETERS(16, this)
             return this.__PassThru
         }
     }

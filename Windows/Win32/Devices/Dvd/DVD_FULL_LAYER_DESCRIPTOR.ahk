@@ -18,7 +18,7 @@ class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
     commonHeader{
         get {
             if(!this.HasProp("__commonHeader"))
-                this.__commonHeader := DVD_LAYER_DESCRIPTOR(this.ptr + 0)
+                this.__commonHeader := DVD_LAYER_DESCRIPTOR(0, this)
             return this.__commonHeader
         }
     }

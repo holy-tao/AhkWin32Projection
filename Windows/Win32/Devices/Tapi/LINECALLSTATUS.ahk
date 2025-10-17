@@ -207,7 +207,7 @@ class LINECALLSTATUS extends Win32Struct
     tStateEntryTime{
         get {
             if(!this.HasProp("__tStateEntryTime"))
-                this.__tStateEntryTime := SYSTEMTIME(this.ptr + 40)
+                this.__tStateEntryTime := SYSTEMTIME(40, this)
             return this.__tStateEntryTime
         }
     }

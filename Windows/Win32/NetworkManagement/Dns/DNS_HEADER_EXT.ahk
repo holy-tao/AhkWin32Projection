@@ -25,14 +25,6 @@ class DNS_HEADER_EXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 0) & 0x7FFF
-        set => this._bitfield := ((value & 0x7FFF) << 0) | (this._bitfield & ~(0x7FFF << 0))
-    }
-
-    /**
-     * @type {Integer}
-     */
     DnssecOk {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))

@@ -12,7 +12,7 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDeviceRegisteredWithManagement {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUPN {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class MANAGEMENT_REGISTRATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszMDMServiceUri {
         get => NumGet(this, 16, "ptr")

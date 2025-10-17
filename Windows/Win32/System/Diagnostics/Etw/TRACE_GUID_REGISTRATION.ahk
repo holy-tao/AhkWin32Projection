@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The TRACE_GUID_REGISTRATION structure is used to register event trace classes.
@@ -31,10 +32,13 @@ class TRACE_GUID_REGISTRATION extends Win32Struct
      * Handle to the registered event trace class. The <a href="https://docs.microsoft.com/windows/desktop/ETW/registertraceguids">RegisterTraceGuids</a> function generates this value.
      * 
      * Use this handle when you call the <a href="https://docs.microsoft.com/windows/desktop/ETW/createtraceinstanceid">CreateTraceInstanceId</a> function and to set the <b>RegHandle</b> member of <a href="https://docs.microsoft.com/windows/desktop/ETW/event-instance-header">EVENT_INSTANCE_HEADER</a> when calling the <a href="https://docs.microsoft.com/windows/desktop/ETW/traceeventinstance">TraceEventInstance</a> function.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    RegHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    RegHandle{
+        get {
+            if(!this.HasProp("__RegHandle"))
+                this.__RegHandle := HANDLE(8, this)
+            return this.__RegHandle
+        }
     }
 }

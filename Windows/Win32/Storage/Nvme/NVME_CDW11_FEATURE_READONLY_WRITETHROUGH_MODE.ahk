@@ -12,11 +12,30 @@ class NVME_CDW11_FEATURE_READONLY_WRITETHROUGH_MODE extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved0
+     * - EOLBehavior
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 0) & 0x3FFFFFFF
+        set => this._bitfield := ((value & 0x3FFFFFFF) << 0) | (this._bitfield & ~(0x3FFFFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EOLBehavior {
+        get => (this._bitfield >> 30) & 0x3
+        set => this._bitfield := ((value & 0x3) << 30) | (this._bitfield & ~(0x3 << 30))
     }
 
     /**

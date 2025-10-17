@@ -21,7 +21,7 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
     Default{
         get {
             if(!this.HasProp("__Default"))
-                this.__Default := FILETIME(this.ptr + 0)
+                this.__Default := FILETIME(0, this)
             return this.__Default
         }
     }
@@ -33,7 +33,7 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
     Minimum{
         get {
             if(!this.HasProp("__Minimum"))
-                this.__Minimum := FILETIME(this.ptr + 8)
+                this.__Minimum := FILETIME(8, this)
             return this.__Minimum
         }
     }
@@ -45,7 +45,7 @@ class RESUTIL_FILETIME_DATA extends Win32Struct
     Maximum{
         get {
             if(!this.HasProp("__Maximum"))
-                this.__Maximum := FILETIME(this.ptr + 16)
+                this.__Maximum := FILETIME(16, this)
             return this.__Maximum
         }
     }

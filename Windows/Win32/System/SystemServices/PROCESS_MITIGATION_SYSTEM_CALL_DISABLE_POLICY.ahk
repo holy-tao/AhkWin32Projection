@@ -22,10 +22,56 @@ class PROCESS_MITIGATION_SYSTEM_CALL_DISABLE_POLICY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - DisallowWin32kSystemCalls
+     * - AuditDisallowWin32kSystemCalls
+     * - DisallowFsctlSystemCalls
+     * - AuditDisallowFsctlSystemCalls
+     * - ReservedFlags
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DisallowWin32kSystemCalls {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AuditDisallowWin32kSystemCalls {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DisallowFsctlSystemCalls {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AuditDisallowFsctlSystemCalls {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ReservedFlags {
+        get => (this._bitfield >> 4) & 0xFFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
     }
 }

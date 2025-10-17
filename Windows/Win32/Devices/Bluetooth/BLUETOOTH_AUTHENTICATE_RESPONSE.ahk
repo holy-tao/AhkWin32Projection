@@ -3,6 +3,8 @@
 #Include .\BLUETOOTH_ADDRESS.ahk
 #Include .\BLUETOOTH_PIN_INFO.ahk
 #Include .\BLUETOOTH_OOB_DATA_INFO.ahk
+#Include .\BLUETOOTH_NUMERIC_COMPARISON_INFO.ahk
+#Include .\BLUETOOTH_PASSKEY_INFO.ahk
 
 /**
  * BLUETOOTH_AUTHENTICATE_RESPONSE structure contains information passed in response to a BTH_REMOTE_AUTHENTICATE_REQUEST event.
@@ -26,7 +28,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     bthAddressRemote{
         get {
             if(!this.HasProp("__bthAddressRemote"))
-                this.__bthAddressRemote := BLUETOOTH_ADDRESS(this.ptr + 0)
+                this.__bthAddressRemote := BLUETOOTH_ADDRESS(0, this)
             return this.__bthAddressRemote
         }
     }
@@ -49,7 +51,7 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     pinInfo{
         get {
             if(!this.HasProp("__pinInfo"))
-                this.__pinInfo := BLUETOOTH_PIN_INFO(this.ptr + 24)
+                this.__pinInfo := BLUETOOTH_PIN_INFO(24, this)
             return this.__pinInfo
         }
     }
@@ -60,25 +62,31 @@ class BLUETOOTH_AUTHENTICATE_RESPONSE extends Win32Struct
     oobInfo{
         get {
             if(!this.HasProp("__oobInfo"))
-                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(this.ptr + 24)
+                this.__oobInfo := BLUETOOTH_OOB_DATA_INFO(24, this)
             return this.__oobInfo
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BLUETOOTH_NUMERIC_COMPARISON_INFO}
      */
-    numericCompInfo {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    numericCompInfo{
+        get {
+            if(!this.HasProp("__numericCompInfo"))
+                this.__numericCompInfo := BLUETOOTH_NUMERIC_COMPARISON_INFO(24, this)
+            return this.__numericCompInfo
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BLUETOOTH_PASSKEY_INFO}
      */
-    passkeyInfo {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    passkeyInfo{
+        get {
+            if(!this.HasProp("__passkeyInfo"))
+                this.__passkeyInfo := BLUETOOTH_PASSKEY_INFO(24, this)
+            return this.__passkeyInfo
+        }
     }
 
     /**

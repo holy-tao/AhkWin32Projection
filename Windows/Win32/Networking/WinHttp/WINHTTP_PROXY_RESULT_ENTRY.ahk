@@ -20,7 +20,7 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * A <b>BOOL</b> that whether a result is from a proxy. It is set to <b>TRUE</b>   if the result contains a proxy or <b>FALSE</b> if the result does not contain a proxy.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fProxy {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * A BOOL that indicates if the result is bypassing a proxy (on an intranet). It is set to  <b>TRUE</b> if the result is bypassing a proxy or <b>FALSE</b> if all traffic is direct. This parameter applies only if <i>fProxy</i> is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBypass {
         get => NumGet(this, 4, "int")
@@ -47,7 +47,7 @@ class WINHTTP_PROXY_RESULT_ENTRY extends Win32Struct
 
     /**
      * A string that contains the hostname of the proxy.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProxy {
         get => NumGet(this, 16, "ptr")

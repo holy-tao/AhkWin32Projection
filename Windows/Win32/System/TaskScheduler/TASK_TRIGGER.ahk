@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DAILY.ahk
 #Include .\WEEKLY.ahk
 #Include .\MONTHLYDATE.ahk
 #Include .\MONTHLYDOW.ahk
@@ -171,7 +172,7 @@ class TASK_TRIGGER extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := TRIGGER_TYPE_UNION(this.ptr + 40)
+                this.__Type := TRIGGER_TYPE_UNION(40, this)
             return this.__Type
         }
     }

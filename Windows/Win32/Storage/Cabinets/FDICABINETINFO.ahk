@@ -52,7 +52,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fReserve {
         get => NumGet(this, 12, "int")
@@ -60,7 +60,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     hasprev {
         get => NumGet(this, 16, "int")
@@ -68,7 +68,7 @@ class FDICABINETINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     hasnext {
         get => NumGet(this, 20, "int")

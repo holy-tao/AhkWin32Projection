@@ -19,7 +19,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     MotionSearchModeConfiguration{
         get {
             if(!this.HasProp("__MotionSearchModeConfiguration"))
-                this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(this.ptr + 0)
+                this.__MotionSearchModeConfiguration := D3D12_VIDEO_ENCODER_FRAME_MOTION_SEARCH_MODE_CONFIG(0, this)
             return this.__MotionSearchModeConfiguration
         }
     }
@@ -78,7 +78,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS extends Win32Struct
     PictureControlConfiguration{
         get {
             if(!this.HasProp("__PictureControlConfiguration"))
-                this.__PictureControlConfiguration := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(this.ptr + 56)
+                this.__PictureControlConfiguration := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA1(56, this)
             return this.__PictureControlConfiguration
         }
     }

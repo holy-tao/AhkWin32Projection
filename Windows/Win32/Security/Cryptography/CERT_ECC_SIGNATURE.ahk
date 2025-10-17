@@ -25,7 +25,7 @@ class CERT_ECC_SIGNATURE extends Win32Struct
     r{
         get {
             if(!this.HasProp("__r"))
-                this.__r := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__r := CRYPT_INTEGER_BLOB(0, this)
             return this.__r
         }
     }
@@ -37,7 +37,7 @@ class CERT_ECC_SIGNATURE extends Win32Struct
     s{
         get {
             if(!this.HasProp("__s"))
-                this.__s := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__s := CRYPT_INTEGER_BLOB(16, this)
             return this.__s
         }
     }

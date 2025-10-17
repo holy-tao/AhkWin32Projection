@@ -32,7 +32,7 @@ class LSA_TRANSLATED_NAME extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__Name := LSA_UNICODE_STRING(8, this)
             return this.__Name
         }
     }

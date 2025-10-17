@@ -39,7 +39,7 @@ class DL_EUI64 extends Win32Struct
     Oui{
         get {
             if(!this.HasProp("__Oui"))
-                this.__Oui := DL_OUI(this.ptr + 0)
+                this.__Oui := DL_OUI(0, this)
             return this.__Oui
         }
     }
@@ -50,7 +50,7 @@ class DL_EUI64 extends Win32Struct
     Ei64{
         get {
             if(!this.HasProp("__Ei64"))
-                this.__Ei64 := DL_EI64(this.ptr + 6)
+                this.__Ei64 := DL_EI64(6, this)
             return this.__Ei64
         }
     }
@@ -77,7 +77,7 @@ class DL_EUI64 extends Win32Struct
     Ei48{
         get {
             if(!this.HasProp("__Ei48"))
-                this.__Ei48 := DL_EI48(this.ptr + 9)
+                this.__Ei48 := DL_EI48(9, this)
             return this.__Ei48
         }
     }

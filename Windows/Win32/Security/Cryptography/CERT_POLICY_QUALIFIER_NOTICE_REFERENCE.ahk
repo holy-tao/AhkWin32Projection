@@ -12,7 +12,7 @@ class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszOrganization {
         get => NumGet(this, 0, "ptr")

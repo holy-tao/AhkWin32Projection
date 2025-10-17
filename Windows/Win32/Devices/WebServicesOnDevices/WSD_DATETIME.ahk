@@ -15,7 +15,7 @@ class WSD_DATETIME extends Win32Struct
 
     /**
      * <b>TRUE</b> if <i>year</i> value is positive.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isPositive {
         get => NumGet(this, 0, "int")
@@ -87,7 +87,7 @@ class WSD_DATETIME extends Win32Struct
 
     /**
      * <b>TRUE</b> if date and time are based on the local time zone, <b>FALSE</b> if UTC + offset.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TZIsLocal {
         get => NumGet(this, 20, "int")
@@ -96,7 +96,7 @@ class WSD_DATETIME extends Win32Struct
 
     /**
      * <b>TRUE</b> if time zone offset specified by  <i>TZHour</i> and <i>TZMinute</i> is positive relative to UTC, <b>FALSE</b> if offset is negative. Not valid if <i>TZIsLocal</i> is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TZIsPositive {
         get => NumGet(this, 24, "int")

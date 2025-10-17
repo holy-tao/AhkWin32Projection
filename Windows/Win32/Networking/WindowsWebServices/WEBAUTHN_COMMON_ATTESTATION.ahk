@@ -20,7 +20,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAlg {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class WEBAUTHN_COMMON_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszVer {
         get => NumGet(this, 48, "ptr")

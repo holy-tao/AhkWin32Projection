@@ -28,7 +28,7 @@ class MPEG_STREAM_FILTER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCrcEnabled {
         get => NumGet(this, 8, "int")

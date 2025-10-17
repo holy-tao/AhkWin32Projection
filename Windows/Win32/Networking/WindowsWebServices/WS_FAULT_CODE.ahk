@@ -22,7 +22,7 @@ class WS_FAULT_CODE extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := WS_XML_QNAME(this.ptr + 0)
+                this.__value := WS_XML_QNAME(0, this)
             return this.__value
         }
     }

@@ -41,7 +41,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     friendlyName{
         get {
             if(!this.HasProp("__friendlyName"))
-                this.__friendlyName := CountedString(this.ptr + 8)
+                this.__friendlyName := CountedString(8, this)
             return this.__friendlyName
         }
     }
@@ -53,7 +53,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     description{
         get {
             if(!this.HasProp("__description"))
-                this.__description := CountedString(this.ptr + 24)
+                this.__description := CountedString(24, this)
             return this.__description
         }
     }
@@ -65,7 +65,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     version{
         get {
             if(!this.HasProp("__version"))
-                this.__version := CountedString(this.ptr + 40)
+                this.__version := CountedString(40, this)
             return this.__version
         }
     }
@@ -77,7 +77,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     vendorName{
         get {
             if(!this.HasProp("__vendorName"))
-                this.__vendorName := CountedString(this.ptr + 56)
+                this.__vendorName := CountedString(56, this)
             return this.__vendorName
         }
     }
@@ -117,7 +117,7 @@ class NapComponentRegistrationInfo extends Win32Struct
     registrationDate{
         get {
             if(!this.HasProp("__registrationDate"))
-                this.__registrationDate := FILETIME(this.ptr + 88)
+                this.__registrationDate := FILETIME(88, this)
             return this.__registrationDate
         }
     }

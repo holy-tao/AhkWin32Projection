@@ -35,7 +35,7 @@ class DEVICE_TRIM_DESCRIPTOR extends Win32Struct
 
     /**
      * Specifies whether trim is enabled for the device.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     TrimEnabled {
         get => NumGet(this, 8, "char")

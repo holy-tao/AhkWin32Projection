@@ -20,7 +20,7 @@ class DOT11_CURRENT_OPTIONAL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDot11CFPollable {
         get => NumGet(this, 4, "char")
@@ -28,7 +28,7 @@ class DOT11_CURRENT_OPTIONAL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDot11PCF {
         get => NumGet(this, 5, "char")
@@ -36,7 +36,7 @@ class DOT11_CURRENT_OPTIONAL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDot11PCFMPDUTransferToPC {
         get => NumGet(this, 6, "char")
@@ -44,7 +44,7 @@ class DOT11_CURRENT_OPTIONAL_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bStrictlyOrderedServiceClass {
         get => NumGet(this, 7, "char")

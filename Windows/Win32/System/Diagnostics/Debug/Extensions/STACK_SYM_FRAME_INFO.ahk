@@ -19,7 +19,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     StackFrameEx{
         get {
             if(!this.HasProp("__StackFrameEx"))
-                this.__StackFrameEx := DEBUG_STACK_FRAME_EX(this.ptr + 0)
+                this.__StackFrameEx := DEBUG_STACK_FRAME_EX(0, this)
             return this.__StackFrameEx
         }
     }
@@ -30,7 +30,7 @@ class STACK_SYM_FRAME_INFO extends Win32Struct
     SrcInfo{
         get {
             if(!this.HasProp("__SrcInfo"))
-                this.__SrcInfo := STACK_SRC_INFO(this.ptr + 136)
+                this.__SrcInfo := STACK_SRC_INFO(136, this)
             return this.__SrcInfo
         }
     }

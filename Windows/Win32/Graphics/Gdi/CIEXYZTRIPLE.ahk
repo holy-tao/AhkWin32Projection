@@ -18,7 +18,7 @@ class CIEXYZTRIPLE extends Win32Struct
     ciexyzRed{
         get {
             if(!this.HasProp("__ciexyzRed"))
-                this.__ciexyzRed := CIEXYZ(this.ptr + 0)
+                this.__ciexyzRed := CIEXYZ(0, this)
             return this.__ciexyzRed
         }
     }
@@ -29,7 +29,7 @@ class CIEXYZTRIPLE extends Win32Struct
     ciexyzGreen{
         get {
             if(!this.HasProp("__ciexyzGreen"))
-                this.__ciexyzGreen := CIEXYZ(this.ptr + 16)
+                this.__ciexyzGreen := CIEXYZ(16, this)
             return this.__ciexyzGreen
         }
     }
@@ -40,7 +40,7 @@ class CIEXYZTRIPLE extends Win32Struct
     ciexyzBlue{
         get {
             if(!this.HasProp("__ciexyzBlue"))
-                this.__ciexyzBlue := CIEXYZ(this.ptr + 32)
+                this.__ciexyzBlue := CIEXYZ(32, this)
             return this.__ciexyzBlue
         }
     }

@@ -20,7 +20,7 @@ class D3D11_FEATURE_DATA_MARKER_SUPPORT extends Win32Struct
 
     /**
      * Specifies whether the hardware and driver support a GPU profiling technique that can be used with development tools. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support data marking.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Profile {
         get => NumGet(this, 0, "int")

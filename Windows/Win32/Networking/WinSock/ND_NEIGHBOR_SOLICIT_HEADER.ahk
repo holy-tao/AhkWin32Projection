@@ -20,7 +20,7 @@ class ND_NEIGHBOR_SOLICIT_HEADER extends Win32Struct
     nd_ns_hdr{
         get {
             if(!this.HasProp("__nd_ns_hdr"))
-                this.__nd_ns_hdr := ICMP_MESSAGE(this.ptr + 0)
+                this.__nd_ns_hdr := ICMP_MESSAGE(0, this)
             return this.__nd_ns_hdr
         }
     }
@@ -31,7 +31,7 @@ class ND_NEIGHBOR_SOLICIT_HEADER extends Win32Struct
     nd_ns_target{
         get {
             if(!this.HasProp("__nd_ns_target"))
-                this.__nd_ns_target := IN6_ADDR(this.ptr + 8)
+                this.__nd_ns_target := IN6_ADDR(8, this)
             return this.__nd_ns_target
         }
     }

@@ -30,7 +30,7 @@ class SOCKET_PROCESSOR_AFFINITY extends Win32Struct
     Processor{
         get {
             if(!this.HasProp("__Processor"))
-                this.__Processor := PROCESSOR_NUMBER(this.ptr + 0)
+                this.__Processor := PROCESSOR_NUMBER(0, this)
             return this.__Processor
         }
     }

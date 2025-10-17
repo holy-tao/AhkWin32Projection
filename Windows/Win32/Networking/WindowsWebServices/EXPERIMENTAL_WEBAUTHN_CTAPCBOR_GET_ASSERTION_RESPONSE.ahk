@@ -20,7 +20,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
     WebAuthNAssertion{
         get {
             if(!this.HasProp("__WebAuthNAssertion"))
-                this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(this.ptr + 0)
+                this.__WebAuthNAssertion := WEBAUTHN_ASSERTION(0, this)
             return this.__WebAuthNAssertion
         }
     }

@@ -36,7 +36,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(this.ptr + 16)
+                this.__rDest := RECTL(16, this)
             return this.__rDest
         }
     }
@@ -55,7 +55,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(this.ptr + 40)
+                this.__rSrc := RECTL(40, this)
             return this.__rSrc
         }
     }
@@ -82,7 +82,7 @@ class DDHAL_BLTDATA extends Win32Struct
     bltFX{
         get {
             if(!this.HasProp("__bltFX"))
-                this.__bltFX := DDBLTFX(this.ptr + 64)
+                this.__bltFX := DDBLTFX(64, this)
             return this.__bltFX
         }
     }
@@ -104,7 +104,7 @@ class DDHAL_BLTDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsClipped {
         get => NumGet(this, 208, "int")
@@ -117,7 +117,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigDest{
         get {
             if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(this.ptr + 216)
+                this.__rOrigDest := RECTL(216, this)
             return this.__rOrigDest
         }
     }
@@ -128,7 +128,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigSrc{
         get {
             if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(this.ptr + 232)
+                this.__rOrigSrc := RECTL(232, this)
             return this.__rOrigSrc
         }
     }

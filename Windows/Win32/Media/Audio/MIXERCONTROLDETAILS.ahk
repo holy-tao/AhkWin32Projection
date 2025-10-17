@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The MIXERCONTROLDETAILS structure refers to control-detail structures, retrieving or setting state information of an audio mixer control.
@@ -84,11 +85,14 @@ class MIXERCONTROLDETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(16, this)
+            return this.__hwndOwner
+        }
     }
 
     /**

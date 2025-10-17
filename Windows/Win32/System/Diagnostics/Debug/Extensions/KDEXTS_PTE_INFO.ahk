@@ -114,14 +114,6 @@ class KDEXTS_PTE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield1 >> 4) & 0xFFFFFFF
-        set => this._bitfield1 := ((value & 0xFFFFFFF) << 4) | (this._bitfield1 & ~(0xFFFFFFF << 4))
-    }
-
-    /**
      * This bitfield backs the following members:
      * - ReadInProgress
      * - WriteInProgress

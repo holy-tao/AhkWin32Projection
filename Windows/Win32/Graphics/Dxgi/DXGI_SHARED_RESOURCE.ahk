@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a handle to a shared resource.
@@ -22,10 +23,13 @@ class DXGI_SHARED_RESOURCE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a></b>
      * 
      * A handle to a shared resource.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(0, this)
+            return this.__Handle
+        }
     }
 }

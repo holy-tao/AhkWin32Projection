@@ -21,7 +21,7 @@ class CERT_PRIVATE_KEY_VALIDITY extends Win32Struct
     NotBefore{
         get {
             if(!this.HasProp("__NotBefore"))
-                this.__NotBefore := FILETIME(this.ptr + 0)
+                this.__NotBefore := FILETIME(0, this)
             return this.__NotBefore
         }
     }
@@ -33,7 +33,7 @@ class CERT_PRIVATE_KEY_VALIDITY extends Win32Struct
     NotAfter{
         get {
             if(!this.HasProp("__NotAfter"))
-                this.__NotAfter := FILETIME(this.ptr + 8)
+                this.__NotAfter := FILETIME(8, this)
             return this.__NotAfter
         }
     }

@@ -43,7 +43,7 @@ class SOCKADDR_IN6 extends Win32Struct
     sin6_addr{
         get {
             if(!this.HasProp("__sin6_addr"))
-                this.__sin6_addr := IN6_ADDR(this.ptr + 8)
+                this.__sin6_addr := IN6_ADDR(8, this)
             return this.__sin6_addr
         }
     }
@@ -62,7 +62,7 @@ class SOCKADDR_IN6 extends Win32Struct
     sin6_scope_struct{
         get {
             if(!this.HasProp("__sin6_scope_struct"))
-                this.__sin6_scope_struct := SCOPE_ID(this.ptr + 24)
+                this.__sin6_scope_struct := SCOPE_ID(24, this)
             return this.__sin6_scope_struct
         }
     }

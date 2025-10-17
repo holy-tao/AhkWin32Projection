@@ -39,7 +39,7 @@ class FailureCategoryMapping extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  The length of <b>mappingCompliance</b> is defined by <a href="https://docs.microsoft.com/windows/desktop/NAP/nap-type-constants">failureCategoryCount</a>.</div>
      * <div> </div>
-     * @type {Array<Int32>}
+     * @type {Array<BOOL>}
      */
     mappingCompliance{
         get {

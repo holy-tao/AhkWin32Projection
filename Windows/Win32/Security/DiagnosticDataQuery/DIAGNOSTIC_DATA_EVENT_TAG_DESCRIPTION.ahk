@@ -31,7 +31,7 @@ class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The name of this tag.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class DIAGNOSTIC_DATA_EVENT_TAG_DESCRIPTION extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/desktop/winprog/windows-data-types)**
      * The official description for this tag.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     description {
         get => NumGet(this, 16, "ptr")

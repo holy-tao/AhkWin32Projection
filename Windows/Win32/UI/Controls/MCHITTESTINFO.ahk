@@ -40,7 +40,7 @@ class MCHITTESTINFO extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 8)
+                this.__pt := POINT(8, this)
             return this.__pt
         }
     }
@@ -224,7 +224,7 @@ class MCHITTESTINFO extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 24)
+                this.__st := SYSTEMTIME(24, this)
             return this.__st
         }
     }
@@ -238,7 +238,7 @@ class MCHITTESTINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 40)
+                this.__rc := RECT(40, this)
             return this.__rc
         }
     }
@@ -276,12 +276,8 @@ class MCHITTESTINFO extends Win32Struct
         set => NumPut("int", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

@@ -16,7 +16,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * The URI to which the SOAP message is addressed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     To {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * The action encoded by the SOAP message.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Action {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class WSD_SOAP_HEADER extends Win32Struct
 
     /**
      * An identifier that distinguishes the message from others from the same sender.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MessageID {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class WSD_SOAP_HEADER extends Win32Struct
     RelatesTo{
         get {
             if(!this.HasProp("__RelatesTo"))
-                this.__RelatesTo := WSD_HEADER_RELATESTO(this.ptr + 24)
+                this.__RelatesTo := WSD_HEADER_RELATESTO(24, this)
             return this.__RelatesTo
         }
     }

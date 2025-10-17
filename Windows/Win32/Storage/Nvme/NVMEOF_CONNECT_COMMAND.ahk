@@ -61,7 +61,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     SGL1{
         get {
             if(!this.HasProp("__SGL1"))
-                this.__SGL1 := NVME_SGL_DESC(this.ptr + 24)
+                this.__SGL1 := NVME_SGL_DESC(24, this)
             return this.__SGL1
         }
     }
@@ -91,11 +91,40 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - PriorityClass
+     * - SqFlowControlDisable
+     * - IoQueueDeletion
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 46, "char")
         set => NumPut("char", value, this, 46)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PriorityClass {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SqFlowControlDisable {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IoQueueDeletion {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
     }
 
     /**

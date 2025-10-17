@@ -28,7 +28,7 @@ class OutgoingCookieState extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszLocation {
         get => NumGet(this, 8, "ptr")

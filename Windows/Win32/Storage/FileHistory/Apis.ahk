@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.FileHistory
  * @version v4.0.30319
@@ -222,10 +222,10 @@ class FileHistory {
 ;@region Methods
     /**
      * Opens a communication channel to the File History Service.
-     * @param {Integer} StartServiceIfStopped If the File History Service is not started yet and this parameter is <b>TRUE</b>, this function starts the File History Service before opening a communication channel to it.
+     * @param {BOOL} StartServiceIfStopped If the File History Service is not started yet and this parameter is <b>TRUE</b>, this function starts the File History Service before opening a communication channel to it.
      * 
      * If the File History Service is not started yet and this parameter is <b>FALSE</b>, this function fails and returns an unsuccessful <b>HRESULT</b> value.
-     * @param {Pointer<Void>} Pipe On successful return, this parameter contains a non-NULL handle representing a newly opened communication channel to the File History Service.
+     * @param {Pointer<FH_SERVICE_PIPE_HANDLE>} Pipe On successful return, this parameter contains a non-NULL handle representing a newly opened communication channel to the File History Service.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceopenpipe
      * @deprecated
@@ -241,13 +241,15 @@ class FileHistory {
 
     /**
      * Closes a communication channel to the File History Service opened with FhServiceOpenPipe.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceclosepipe
      * @deprecated
      * @since windows8.0
      */
     static FhServiceClosePipe(Pipe) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceClosePipe", "ptr", Pipe, "int")
         if(result != 0)
             throw OSError(result)
@@ -257,8 +259,8 @@ class FileHistory {
 
     /**
      * This function starts an immediate backup for the current user.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
-     * @param {Integer} LowPriorityIo If <b>TRUE</b>, the File History Service is instructed to use low priority I/O for the immediate backup scheduled by this function. Low-priority I/O reduces impact on foreground user activities. It is recommended to set this parameter to <b>TRUE.</b>
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {BOOL} LowPriorityIo If <b>TRUE</b>, the File History Service is instructed to use low priority I/O for the immediate backup scheduled by this function. Low-priority I/O reduces impact on foreground user activities. It is recommended to set this parameter to <b>TRUE.</b>
      * 
      * If <b>FALSE</b>, the File History Service is instructed to use normal priority I/O for the immediate backup scheduled by this function. This results in faster backups but negatively affects the responsiveness and performance of user applications.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
@@ -267,6 +269,8 @@ class FileHistory {
      * @since windows8.0
      */
     static FhServiceStartBackup(Pipe, LowPriorityIo) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceStartBackup", "ptr", Pipe, "int", LowPriorityIo, "int")
         if(result != 0)
             throw OSError(result)
@@ -276,8 +280,8 @@ class FileHistory {
 
     /**
      * This function stops an ongoing backup cycle for the current user.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
-     * @param {Integer} StopTracking If <b>TRUE</b>, this function both stops the ongoing backup cycle (if any) and prevents periodic backup cycles for the current user in the future.
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {BOOL} StopTracking If <b>TRUE</b>, this function both stops the ongoing backup cycle (if any) and prevents periodic backup cycles for the current user in the future.
      * 
      * If <b>FALSE</b>, this function only stops the ongoing backup cycle.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
@@ -286,6 +290,8 @@ class FileHistory {
      * @since windows8.0
      */
     static FhServiceStopBackup(Pipe, StopTracking) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceStopBackup", "ptr", Pipe, "int", StopTracking, "int")
         if(result != 0)
             throw OSError(result)
@@ -295,13 +301,15 @@ class FileHistory {
 
     /**
      * This function causes the File History Service to reload the current user’s File History configuration files.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhservicereloadconfiguration
      * @deprecated
      * @since windows8.0
      */
     static FhServiceReloadConfiguration(Pipe) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceReloadConfiguration", "ptr", Pipe, "int")
         if(result != 0)
             throw OSError(result)
@@ -311,13 +319,15 @@ class FileHistory {
 
     /**
      * This function temporarily blocks backups for the current user.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceblockbackup
      * @deprecated
      * @since windows8.0
      */
     static FhServiceBlockBackup(Pipe) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceBlockBackup", "ptr", Pipe, "int")
         if(result != 0)
             throw OSError(result)
@@ -327,13 +337,15 @@ class FileHistory {
 
     /**
      * This function unblocks backups blocked via FhServiceBlockBackup.
-     * @param {Pointer<Void>} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
+     * @param {FH_SERVICE_PIPE_HANDLE} Pipe The communication channel handle returned by an earlier <a href="https://docs.microsoft.com/windows/desktop/api/fhsvcctl/nf-fhsvcctl-fhserviceopenpipe">FhServiceOpenPipe</a> call.
      * @returns {HRESULT} <b>S_OK</b> on success, or an unsuccessful <b>HRESULT</b> value on failure. Possible unsuccessful <b>HRESULT</b> values include values defined in the FhErrors.h header file.
      * @see https://docs.microsoft.com/windows/win32/api//fhsvcctl/nf-fhsvcctl-fhserviceunblockbackup
      * @deprecated
      * @since windows8.0
      */
     static FhServiceUnblockBackup(Pipe) {
+        Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
+
         result := DllCall("fhsvcctl.dll\FhServiceUnblockBackup", "ptr", Pipe, "int")
         if(result != 0)
             throw OSError(result)

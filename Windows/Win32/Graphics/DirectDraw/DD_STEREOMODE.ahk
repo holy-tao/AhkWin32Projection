@@ -67,7 +67,7 @@ class DD_STEREOMODE extends Win32Struct
 
     /**
      * Driver sets to <b>TRUE</b> if stereo is supported with the specified display mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSupported {
         get => NumGet(this, 20, "int")

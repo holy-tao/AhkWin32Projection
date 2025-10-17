@@ -23,7 +23,7 @@ class Assert {
                 return
             }
 
-            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", errType.Prototype.__Class, Type(thrown)))
+            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}: {3}", errType.Prototype.__Class, Type(thrown), thrown.Message))
         }
 
         throw Error(Format("Expeted {1} to throw a(n) {2}, but nothing was thrown", 
@@ -45,6 +45,12 @@ class Assert {
 
         if(!((val := obj.%propName%) is propType)){
             throw TypeError(Format("{1}.{2} is a(n) {3}, expected a(n) {4}", Type(obj), propName, Type(val), propType.Prototype.__Class))
+        }
+    }
+
+    static IsType(obj, expected){
+        if(!obj is expected){
+            throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", expected.Prototype.__Class, Type(obj)))
         }
     }
 }

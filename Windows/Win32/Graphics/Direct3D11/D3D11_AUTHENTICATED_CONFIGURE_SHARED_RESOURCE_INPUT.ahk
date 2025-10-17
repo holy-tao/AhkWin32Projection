@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_CONFIGURE_INPUT.ahk
 
 /**
@@ -22,7 +23,7 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3D11_AUTHENTICATED_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }
@@ -40,16 +41,19 @@ class D3D11_AUTHENTICATED_CONFIGURE_SHARED_RESOURCE_INPUT extends Win32Struct
 
     /**
      * A process handle. If the <b>ProcessType</b> member equals <b>D3D11_PROCESSIDTYPE_HANDLE</b>, the <b>ProcessHandle</b> member specifies a handle to a process. Otherwise, the value is ignored.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ProcessHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ProcessHandle{
+        get {
+            if(!this.HasProp("__ProcessHandle"))
+                this.__ProcessHandle := HANDLE(48, this)
+            return this.__ProcessHandle
+        }
     }
 
     /**
      * If <b>TRUE</b>, the specified process has access to restricted shared resources.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AllowAccess {
         get => NumGet(this, 56, "int")

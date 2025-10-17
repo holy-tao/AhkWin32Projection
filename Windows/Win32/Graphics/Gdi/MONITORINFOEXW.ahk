@@ -27,7 +27,7 @@ class MONITORINFOEXW extends Win32Struct
     monitorInfo{
         get {
             if(!this.HasProp("__monitorInfo"))
-                this.__monitorInfo := MONITORINFO(this.ptr + 0)
+                this.__monitorInfo := MONITORINFO(0, this)
             return this.__monitorInfo
         }
     }

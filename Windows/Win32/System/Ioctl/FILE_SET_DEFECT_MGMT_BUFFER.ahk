@@ -15,7 +15,7 @@ class FILE_SET_DEFECT_MGMT_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that defect management is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Disable {
         get => NumGet(this, 0, "char")

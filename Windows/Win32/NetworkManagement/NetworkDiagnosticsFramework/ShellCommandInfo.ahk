@@ -12,7 +12,7 @@ class ShellCommandInfo extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszOperation {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class ShellCommandInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFile {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class ShellCommandInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszParameters {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class ShellCommandInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDirectory {
         get => NumGet(this, 24, "ptr")

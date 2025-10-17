@@ -20,7 +20,7 @@ class SPC_SP_AGENCY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPolicyDisplayText {
         get => NumGet(this, 8, "ptr")

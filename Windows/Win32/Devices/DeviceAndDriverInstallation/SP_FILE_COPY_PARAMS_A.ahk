@@ -29,7 +29,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourceRootPath {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourcePath {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourceFilename {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourceDescription {
         get => NumGet(this, 40, "ptr")
@@ -61,7 +61,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SourceTagfile {
         get => NumGet(this, 48, "ptr")
@@ -69,7 +69,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     TargetDirectory {
         get => NumGet(this, 56, "ptr")
@@ -77,7 +77,7 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     TargetFilename {
         get => NumGet(this, 64, "ptr")
@@ -101,19 +101,15 @@ class SP_FILE_COPY_PARAMS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SecurityDescriptor {
         get => NumGet(this, 88, "ptr")
         set => NumPut("ptr", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

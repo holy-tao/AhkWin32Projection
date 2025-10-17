@@ -24,7 +24,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dbh{
         get {
             if(!this.HasProp("__dbh"))
-                this.__dbh := DATABLOCK_HEADER(this.ptr + 0)
+                this.__dbh := DATABLOCK_HEADER(0, this)
             return this.__dbh
         }
     }
@@ -60,7 +60,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwScreenBufferSize{
         get {
             if(!this.HasProp("__dwScreenBufferSize"))
-                this.__dwScreenBufferSize := COORD(this.ptr + 12)
+                this.__dwScreenBufferSize := COORD(12, this)
             return this.__dwScreenBufferSize
         }
     }
@@ -74,7 +74,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwWindowSize{
         get {
             if(!this.HasProp("__dwWindowSize"))
-                this.__dwWindowSize := COORD(this.ptr + 16)
+                this.__dwWindowSize := COORD(16, this)
             return this.__dwWindowSize
         }
     }
@@ -88,7 +88,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwWindowOrigin{
         get {
             if(!this.HasProp("__dwWindowOrigin"))
-                this.__dwWindowOrigin := COORD(this.ptr + 20)
+                this.__dwWindowOrigin := COORD(20, this)
             return this.__dwWindowOrigin
         }
     }
@@ -124,7 +124,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
     dwFontSize{
         get {
             if(!this.HasProp("__dwFontSize"))
-                this.__dwFontSize := COORD(this.ptr + 32)
+                this.__dwFontSize := COORD(32, this)
             return this.__dwFontSize
         }
     }
@@ -177,7 +177,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in full-screen mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFullScreen {
         get => NumGet(this, 112, "int")
@@ -188,7 +188,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in quick-edit mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bQuickEdit {
         get => NumGet(this, 116, "int")
@@ -199,7 +199,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in insert mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInsertMode {
         get => NumGet(this, 120, "int")
@@ -210,7 +210,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if the console is in auto-position mode, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bAutoPosition {
         get => NumGet(this, 124, "int")
@@ -243,7 +243,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A boolean value that is set to <b>TRUE</b> if old duplicate history lists should be discarded, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bHistoryNoDup {
         get => NumGet(this, 136, "int")
@@ -254,7 +254,7 @@ class NT_CONSOLE_PROPS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>[16]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> values with the console's color settings.
-     * @type {Array<UInt32>}
+     * @type {Array<COLORREF>}
      */
     ColorTable{
         get {

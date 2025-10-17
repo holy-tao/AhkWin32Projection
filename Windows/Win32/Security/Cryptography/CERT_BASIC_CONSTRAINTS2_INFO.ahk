@@ -15,7 +15,7 @@ class CERT_BASIC_CONSTRAINTS2_INFO extends Win32Struct
 
     /**
      * Boolean indicating whether the certificate subject can act as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certification authority</a> (CA) or not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCA {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class CERT_BASIC_CONSTRAINTS2_INFO extends Win32Struct
 
     /**
      * Boolean indicating whether the <b>dwPathLenConstraint</b> field limits the maximum length of the certification path. Used only if <b>fCA</b> is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fPathLenConstraint {
         get => NumGet(this, 4, "int")

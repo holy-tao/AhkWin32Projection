@@ -23,7 +23,7 @@ class LOCALGROUP_MEMBERS_INFO_1 extends Win32Struct
      * 
      * A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that contains the security identifier (SID) of an account that is a member of this local group member. The account can be a user account or a global group account.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     lgrmi1_sid {
         get => NumGet(this, 0, "ptr")
@@ -105,7 +105,7 @@ class LOCALGROUP_MEMBERS_INFO_1 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to the account name of the local group member identified by the <b>lgrmi1_sid</b> member. The <b>lgrmi1_name</b> member does not include the domain name. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrmi1_name {
         get => NumGet(this, 16, "ptr")

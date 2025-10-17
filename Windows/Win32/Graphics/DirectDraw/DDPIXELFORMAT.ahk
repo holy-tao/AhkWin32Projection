@@ -223,7 +223,7 @@ class DDPIXELFORMAT extends Win32Struct
     MultiSampleCaps{
         get {
             if(!this.HasProp("__MultiSampleCaps"))
-                this.__MultiSampleCaps := %this.__Class%._MultiSampleCaps(this.ptr + 20)
+                this.__MultiSampleCaps := %this.__Class%._MultiSampleCaps(20, this)
             return this.__MultiSampleCaps
         }
     }

@@ -130,7 +130,7 @@ class LINECALLPARAMS extends Win32Struct
     DialParams{
         get {
             if(!this.HasProp("__DialParams"))
-                this.__DialParams := LINEDIALPARAMS(this.ptr + 32)
+                this.__DialParams := LINEDIALPARAMS(32, this)
             return this.__DialParams
         }
     }

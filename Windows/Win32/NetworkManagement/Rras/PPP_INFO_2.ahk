@@ -27,7 +27,7 @@ class PPP_INFO_2 extends Win32Struct
     nbf{
         get {
             if(!this.HasProp("__nbf"))
-                this.__nbf := PPP_NBFCP_INFO(this.ptr + 0)
+                this.__nbf := PPP_NBFCP_INFO(0, this)
             return this.__nbf
         }
     }
@@ -40,7 +40,7 @@ class PPP_INFO_2 extends Win32Struct
     ip{
         get {
             if(!this.HasProp("__ip"))
-                this.__ip := PPP_IPCP_INFO2(this.ptr + 40)
+                this.__ip := PPP_IPCP_INFO2(40, this)
             return this.__ip
         }
     }
@@ -53,7 +53,7 @@ class PPP_INFO_2 extends Win32Struct
     ipx{
         get {
             if(!this.HasProp("__ipx"))
-                this.__ipx := PPP_IPXCP_INFO(this.ptr + 120)
+                this.__ipx := PPP_IPXCP_INFO(120, this)
             return this.__ipx
         }
     }
@@ -66,7 +66,7 @@ class PPP_INFO_2 extends Win32Struct
     at{
         get {
             if(!this.HasProp("__at"))
-                this.__at := PPP_ATCP_INFO(this.ptr + 176)
+                this.__at := PPP_ATCP_INFO(176, this)
             return this.__at
         }
     }
@@ -79,7 +79,7 @@ class PPP_INFO_2 extends Win32Struct
     ccp{
         get {
             if(!this.HasProp("__ccp"))
-                this.__ccp := PPP_CCP_INFO(this.ptr + 248)
+                this.__ccp := PPP_CCP_INFO(248, this)
             return this.__ccp
         }
     }
@@ -92,7 +92,7 @@ class PPP_INFO_2 extends Win32Struct
     lcp{
         get {
             if(!this.HasProp("__lcp"))
-                this.__lcp := PPP_LCP_INFO(this.ptr + 272)
+                this.__lcp := PPP_LCP_INFO(272, this)
             return this.__lcp
         }
     }

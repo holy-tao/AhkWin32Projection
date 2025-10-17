@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography.UI
@@ -21,19 +23,25 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
@@ -45,7 +53,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szTitle {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +69,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     arrayPurposes {
         get => NumGet(this, 48, "ptr")
@@ -85,7 +93,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreRoots {
         get => NumGet(this, 64, "ptr")
@@ -101,7 +109,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreCAs {
         get => NumGet(this, 80, "ptr")
@@ -117,7 +125,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreTrust {
         get => NumGet(this, 96, "ptr")
@@ -133,7 +141,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 112, "ptr")
@@ -149,7 +157,7 @@ class CERT_VIEWPROPERTIES_STRUCT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szHelpFileName {
         get => NumGet(this, 128, "ptr")

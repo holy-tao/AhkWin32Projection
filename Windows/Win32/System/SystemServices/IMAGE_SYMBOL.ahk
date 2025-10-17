@@ -50,7 +50,7 @@ class IMAGE_SYMBOL extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := %this.__Class%._Name(this.ptr + 0)
+                this.__Name := %this.__Class%._Name(0, this)
             return this.__Name
         }
     }

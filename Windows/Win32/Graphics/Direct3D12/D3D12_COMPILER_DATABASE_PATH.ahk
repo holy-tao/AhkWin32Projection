@@ -20,7 +20,7 @@ class D3D12_COMPILER_DATABASE_PATH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPath {
         get => NumGet(this, 8, "ptr")

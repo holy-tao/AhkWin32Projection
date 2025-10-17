@@ -1,8 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NMCUSTOMDRAW.ahk
+#Include ..\..\Graphics\Gdi\HBRUSH.ahk
+#Include ..\..\Graphics\Gdi\HPEN.ahk
 
 /**
  * Contains information specific to an NM_CUSTOMDRAW notification code sent by a toolbar control.
@@ -27,7 +31,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
     nmcd{
         get {
             if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(this.ptr + 0)
+                this.__nmcd := NMCUSTOMDRAW(0, this)
             return this.__nmcd
         }
     }
@@ -36,33 +40,42 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing the background of marked or dithered items. This member is ignored if TBCDRF_NOMARK is returned from the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw-toolbar">NM_CUSTOMDRAW</a> notification code.
-     * @type {Pointer<Void>}
+     * @type {HBRUSH}
      */
-    hbrMonoDither {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    hbrMonoDither{
+        get {
+            if(!this.HasProp("__hbrMonoDither"))
+                this.__hbrMonoDither := HBRUSH(80, this)
+            return this.__hbrMonoDither
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBRUSH</a></b>
      * 
      * HBRUSH that the control will use when drawing lines on the buttons.
-     * @type {Pointer<Void>}
+     * @type {HBRUSH}
      */
-    hbrLines {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hbrLines{
+        get {
+            if(!this.HasProp("__hbrLines"))
+                this.__hbrLines := HBRUSH(88, this)
+            return this.__hbrLines
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HPEN</a></b>
      * 
      * HPEN that the control will use when drawing lines on the buttons.
-     * @type {Pointer<Void>}
+     * @type {HPEN}
      */
-    hpenLines {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hpenLines{
+        get {
+            if(!this.HasProp("__hpenLines"))
+                this.__hpenLines := HPEN(96, this)
+            return this.__hpenLines
+        }
     }
 
     /**
@@ -70,7 +83,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> that represents the color that the control will use when drawing text on normal items.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrText {
         get => NumGet(this, 104, "uint")
@@ -81,7 +94,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> that represents the background color that the control will use when drawing text on marked items.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrMark {
         get => NumGet(this, 108, "uint")
@@ -92,7 +105,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> that represents the color that the control will use when drawing text on highlighted items.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrTextHighlight {
         get => NumGet(this, 112, "uint")
@@ -103,7 +116,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> that represents the face color that the control will use when drawing buttons.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrBtnFace {
         get => NumGet(this, 116, "uint")
@@ -114,7 +127,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> that represents the face color that the control will use when drawing highlighted items. An item is highlighted if it has the <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-button-states">TBSTATE_MARKED</a> style and is contained in a toolbar that has the <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-control-and-button-styles">TBSTYLE_FLAT</a> style.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrBtnHighlight {
         get => NumGet(this, 120, "uint")
@@ -125,7 +138,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> that represents the background color that the control will use when drawing text on hot tracked items. This member is ignored if TBCDRF_HILITEHOTTRACK is not returned from the <a href="https://docs.microsoft.com/windows/desktop/Controls/nm-customdraw-toolbar">NM_CUSTOMDRAW</a> notification code.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrHighlightHotTrack {
         get => NumGet(this, 124, "uint")
@@ -144,7 +157,7 @@ class NMTBCUSTOMDRAW extends Win32Struct
     rcText{
         get {
             if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(this.ptr + 128)
+                this.__rcText := RECT(128, this)
             return this.__rcText
         }
     }

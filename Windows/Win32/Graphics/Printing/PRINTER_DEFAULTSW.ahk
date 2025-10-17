@@ -13,7 +13,7 @@ class PRINTER_DEFAULTSW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDatatype {
         get => NumGet(this, 0, "ptr")

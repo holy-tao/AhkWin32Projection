@@ -30,7 +30,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := HTTP_LOG_DATA(this.ptr + 0)
+                this.__Base := HTTP_LOG_DATA(0, this)
             return this.__Base
         }
     }
@@ -145,7 +145,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the  user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UserName {
         get => NumGet(this, 32, "ptr")
@@ -154,7 +154,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The URI stem.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UriStem {
         get => NumGet(this, 40, "ptr")
@@ -163,7 +163,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The IP address of the client.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ClientIp {
         get => NumGet(this, 48, "ptr")
@@ -172,7 +172,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ServerName {
         get => NumGet(this, 56, "ptr")
@@ -181,7 +181,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The name of the service.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ServiceName {
         get => NumGet(this, 64, "ptr")
@@ -190,7 +190,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The IP address of the server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ServerIp {
         get => NumGet(this, 72, "ptr")
@@ -199,7 +199,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The HTTP method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Method {
         get => NumGet(this, 80, "ptr")
@@ -208,7 +208,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The URI query.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     UriQuery {
         get => NumGet(this, 88, "ptr")
@@ -217,7 +217,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The host information from the request.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Host {
         get => NumGet(this, 96, "ptr")
@@ -226,7 +226,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The user agent name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     UserAgent {
         get => NumGet(this, 104, "ptr")
@@ -235,7 +235,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The cookie provided by the application.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Cookie {
         get => NumGet(this, 112, "ptr")
@@ -244,7 +244,7 @@ class HTTP_LOG_FIELDS_DATA extends Win32Struct
 
     /**
      * The referrer.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Referrer {
         get => NumGet(this, 120, "ptr")

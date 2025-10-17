@@ -19,7 +19,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     Identifier{
         get {
             if(!this.HasProp("__Identifier"))
-                this.__Identifier := KSIDENTIFIER(this.ptr + 0)
+                this.__Identifier := KSIDENTIFIER(0, this)
             return this.__Identifier
         }
     }
@@ -33,7 +33,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Looped {
         get => NumGet(this, 20, "int")
@@ -49,7 +49,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InROM {
         get => NumGet(this, 28, "int")
@@ -62,7 +62,7 @@ class KSWAVETABLE_WAVE_DESC extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := KSDATAFORMAT(this.ptr + 32)
+                this.__Format := KSDATAFORMAT(32, this)
             return this.__Format
         }
     }

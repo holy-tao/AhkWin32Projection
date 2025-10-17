@@ -22,7 +22,7 @@ class DDHAL_GETDRIVERSTATEDATA extends Win32Struct
     /**
      * @type {Pointer}
      */
-    Anonymous {
+    dwhContext {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Security.WinTrust
@@ -12,18 +13,24 @@ class WINTRUST_DETACHED_SIG_FILE_HANDLES extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hContentFile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hContentFile{
+        get {
+            if(!this.HasProp("__hContentFile"))
+                this.__hContentFile := HANDLE(0, this)
+            return this.__hContentFile
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSignatureFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hSignatureFile{
+        get {
+            if(!this.HasProp("__hSignatureFile"))
+                this.__hSignatureFile := HANDLE(8, this)
+            return this.__hSignatureFile
+        }
     }
 }

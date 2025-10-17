@@ -50,7 +50,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 520)
+                this.__dot11Ssid := DOT11_SSID(520, this)
             return this.__dot11Ssid
         }
     }
@@ -78,7 +78,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSecurityEnabled {
         get => NumGet(this, 568, "int")
@@ -89,7 +89,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * Indicates whether the peer is the first to join the ad hoc network created by the machine. If <b>TRUE</b>, the peer is the first to join.
      * 
      * After the first peer joins the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_ad_hoc_network_formed to wlan_interface_state_connected.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFirstPeer {
         get => NumGet(this, 572, "int")
@@ -98,7 +98,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * Indicates whether the peer is the last to leave the ad hoc network created by the machine. If <b>TRUE</b>, the peer is the last to leave. After the last peer leaves the network, the interface state of the machine that created the ad hoc network changes from wlan_interface_state_connected to wlan_interface_state_ad_hoc_network_formed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bLastPeer {
         get => NumGet(this, 576, "int")

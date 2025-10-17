@@ -21,7 +21,7 @@ class PSAPI_WS_WATCH_INFORMATION_EX extends Win32Struct
     BasicInfo{
         get {
             if(!this.HasProp("__BasicInfo"))
-                this.__BasicInfo := PSAPI_WS_WATCH_INFORMATION(this.ptr + 0)
+                this.__BasicInfo := PSAPI_WS_WATCH_INFORMATION(0, this)
             return this.__BasicInfo
         }
     }

@@ -21,7 +21,7 @@ class SdpQueryUuid extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := SdpQueryUuidUnion(this.ptr + 0)
+                this.__u := SdpQueryUuidUnion(0, this)
             return this.__u
         }
     }

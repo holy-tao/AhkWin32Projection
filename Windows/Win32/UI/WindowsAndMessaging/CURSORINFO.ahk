@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCURSOR.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -38,11 +39,14 @@ class CURSORINFO extends Win32Struct
      * Type: <b>HCURSOR</b>
      * 
      * A handle to the cursor.
-     * @type {Pointer<Void>}
+     * @type {HCURSOR}
      */
-    hCursor {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCursor{
+        get {
+            if(!this.HasProp("__hCursor"))
+                this.__hCursor := HCURSOR(8, this)
+            return this.__hCursor
+        }
     }
 
     /**
@@ -54,17 +58,13 @@ class CURSORINFO extends Win32Struct
     ptScreenPos{
         get {
             if(!this.HasProp("__ptScreenPos"))
-                this.__ptScreenPos := POINT(this.ptr + 16)
+                this.__ptScreenPos := POINT(16, this)
             return this.__ptScreenPos
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 24
     }
 }

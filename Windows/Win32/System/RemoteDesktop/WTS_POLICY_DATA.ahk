@@ -28,7 +28,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable encryption for communication between the client and server.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableEncryption {
         get => NumGet(this, 0, "char")
@@ -37,7 +37,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable automatic reconnect of the client.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableAutoReconnect {
         get => NumGet(this, 1, "char")
@@ -64,7 +64,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable printer mapping.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCpm {
         get => NumGet(this, 9, "char")
@@ -73,7 +73,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable drive mapping.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCdm {
         get => NumGet(this, 10, "char")
@@ -82,7 +82,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable COM communication port mapping.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCcm {
         get => NumGet(this, 11, "char")
@@ -91,7 +91,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable LPT (line print terminal) printer redirection.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableLPT {
         get => NumGet(this, 12, "char")
@@ -100,7 +100,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable clipboard redirection.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableClip {
         get => NumGet(this, 13, "char")
@@ -109,7 +109,7 @@ class WTS_POLICY_DATA extends Win32Struct
 
     /**
      * Specifies whether to disable Plug and Play redirection.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisablePNPRedir {
         get => NumGet(this, 14, "char")

@@ -30,7 +30,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     signature{
         get {
             if(!this.HasProp("__signature"))
-                this.__signature := DIAGNOSTIC_REPORT_SIGNATURE(this.ptr + 0)
+                this.__signature := DIAGNOSTIC_REPORT_SIGNATURE(0, this)
             return this.__signature
         }
     }
@@ -63,7 +63,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     creationTime{
         get {
             if(!this.HasProp("__creationTime"))
-                this.__creationTime := FILETIME(this.ptr + 232)
+                this.__creationTime := FILETIME(232, this)
             return this.__creationTime
         }
     }
@@ -81,7 +81,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The ID for the cab.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     cabId {
         get => NumGet(this, 248, "ptr")
@@ -111,7 +111,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR\*](/windows/win32/winprog/windows-data-types)**
      * A pointer to hold the names of the files included in the report.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     fileNames {
         get => NumGet(this, 272, "ptr")
@@ -131,7 +131,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The display name of the application event.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     friendlyEventName {
         get => NumGet(this, 288, "ptr")
@@ -141,7 +141,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The name of the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     applicationName {
         get => NumGet(this, 296, "ptr")
@@ -151,7 +151,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The file path of the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     applicationPath {
         get => NumGet(this, 304, "ptr")
@@ -161,7 +161,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The description of the problem.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     description {
         get => NumGet(this, 312, "ptr")
@@ -171,7 +171,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The bucket ID as a string (possibly truncated).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     bucketIdString {
         get => NumGet(this, 320, "ptr")
@@ -191,7 +191,7 @@ class DIAGNOSTIC_REPORT_DATA extends Win32Struct
     /**
      * Type: **[LPWSTR](/windows/win32/winprog/windows-data-types)**
      * The report key.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     reportKey {
         get => NumGet(this, 336, "ptr")

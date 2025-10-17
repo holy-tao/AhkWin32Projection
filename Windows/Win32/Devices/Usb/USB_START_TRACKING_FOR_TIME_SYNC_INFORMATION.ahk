@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -12,15 +13,18 @@ class USB_START_TRACKING_FOR_TIME_SYNC_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    TimeTrackingHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    TimeTrackingHandle{
+        get {
+            if(!this.HasProp("__TimeTrackingHandle"))
+                this.__TimeTrackingHandle := HANDLE(0, this)
+            return this.__TimeTrackingHandle
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsStartupDelayTolerable {
         get => NumGet(this, 8, "char")

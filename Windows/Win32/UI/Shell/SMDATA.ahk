@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WindowsAndMessaging\HMENU.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information from a menu band.
@@ -37,22 +39,28 @@ class SMDATA extends Win32Struct
      * Type: <b>HMENU</b>
      * 
      * The static menu portion of the menu band.
-     * @type {Pointer<Void>}
+     * @type {HMENU}
      */
-    hmenu {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hmenu{
+        get {
+            if(!this.HasProp("__hmenu"))
+                this.__hmenu := HMENU(8, this)
+            return this.__hmenu
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * The HWND value of the owner window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(16, this)
+            return this.__hwnd
+        }
     }
 
     /**

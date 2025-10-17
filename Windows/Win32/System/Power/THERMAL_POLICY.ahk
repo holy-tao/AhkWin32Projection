@@ -20,7 +20,7 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WaitForUpdate {
         get => NumGet(this, 4, "char")
@@ -28,7 +28,7 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Hibernate {
         get => NumGet(this, 5, "char")
@@ -36,7 +36,7 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Critical {
         get => NumGet(this, 6, "char")
@@ -44,7 +44,7 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ThermalStandby {
         get => NumGet(this, 7, "char")
@@ -76,7 +76,7 @@ class THERMAL_POLICY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OverThrottled {
         get => NumGet(this, 20, "char")

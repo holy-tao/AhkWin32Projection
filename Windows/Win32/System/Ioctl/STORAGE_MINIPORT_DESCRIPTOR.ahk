@@ -85,7 +85,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     /**
      * Indicates whether a LUN reset is supported.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     LUNResetSupported {
         get => NumGet(this, 12, "char")
@@ -94,7 +94,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     /**
      * Indicates whether a target reset is supported.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     TargetResetSupported {
         get => NumGet(this, 13, "char")
@@ -112,7 +112,7 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ExtraIoInfoSupported {
         get => NumGet(this, 16, "char")
@@ -120,11 +120,31 @@ class STORAGE_MINIPORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - LogicalPoFxForDisk
+     * - ForwardIo
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 17, "char")
         set => NumPut("char", value, this, 17)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LogicalPoFxForDisk {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ForwardIo {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

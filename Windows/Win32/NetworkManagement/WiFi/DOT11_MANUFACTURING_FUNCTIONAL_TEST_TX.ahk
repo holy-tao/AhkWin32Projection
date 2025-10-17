@@ -12,7 +12,7 @@ class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bEnable {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class DOT11_MANUFACTURING_FUNCTIONAL_TEST_TX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bOpenLoop {
         get => NumGet(this, 1, "char")

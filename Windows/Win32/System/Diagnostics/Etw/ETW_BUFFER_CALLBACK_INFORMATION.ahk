@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\PROCESSTRACE_HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
@@ -12,11 +13,14 @@ class ETW_BUFFER_CALLBACK_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {PROCESSTRACE_HANDLE}
      */
-    TraceHandle {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    TraceHandle{
+        get {
+            if(!this.HasProp("__TraceHandle"))
+                this.__TraceHandle := PROCESSTRACE_HANDLE(0, this)
+            return this.__TraceHandle
+        }
     }
 
     /**

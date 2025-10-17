@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the information needed by SHCreateProcessAsUserW to create a process.
@@ -52,11 +54,14 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A parent window handle.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -66,7 +71,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>   If the path is not included with the file name, the current directory is assumed.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszFile {
         get => NumGet(this, 16, "ptr")
@@ -77,7 +82,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string containing the application parameters. The parameters must be separated by spaces.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszParameters {
         get => NumGet(this, 24, "ptr")
@@ -88,7 +93,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>LPCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the current directory.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCurrentDirectory {
         get => NumGet(this, 32, "ptr")
@@ -99,11 +104,14 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">Access token</a> that can be used to represent a particular user. It is needed when there are multiple users for those folders that are treated as belonging to a single user. The calling application must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. For further discussion of access control issues, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hUserToken {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hUserToken{
+        get {
+            if(!this.HasProp("__hUserToken"))
+                this.__hUserToken := HANDLE(40, this)
+            return this.__hUserToken
+        }
     }
 
     /**
@@ -136,7 +144,7 @@ class SHCREATEPROCESSINFOW extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * An indicator for whether the new process inherits handles from the calling process. If set to <b>TRUE</b>, each inheritable open handle in the calling process is inherited by the new process. Inherited handles have the same value and access privileges as the original handles.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInheritHandles {
         get => NumGet(this, 64, "int")
@@ -176,12 +184,8 @@ class SHCREATEPROCESSINFOW extends Win32Struct
         set => NumPut("ptr", value, this, 80)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 88
     }
 }

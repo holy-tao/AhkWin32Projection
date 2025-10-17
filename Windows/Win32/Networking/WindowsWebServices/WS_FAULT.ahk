@@ -82,7 +82,7 @@ class WS_FAULT extends Win32Struct
     actor{
         get {
             if(!this.HasProp("__actor"))
-                this.__actor := WS_STRING(this.ptr + 24)
+                this.__actor := WS_STRING(24, this)
             return this.__actor
         }
     }
@@ -98,7 +98,7 @@ class WS_FAULT extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_STRING(this.ptr + 40)
+                this.__node := WS_STRING(40, this)
             return this.__node
         }
     }
@@ -118,7 +118,7 @@ class WS_FAULT extends Win32Struct
      *                     fault-specific XML content is contained within the detail element.
      *                     The local name and namespace of the element are ignored; they are replaced with
      *                     the appropriate element name according to the <a href="https://docs.microsoft.com/windows/desktop/api/webservices/ne-webservices-ws_envelope_version">WS_ENVELOPE_VERSION</a>when the detail element is written.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_XML_BUFFER>}
      */
     detail {
         get => NumGet(this, 56, "ptr")

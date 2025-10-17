@@ -20,7 +20,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means the picture can be shown as pan-scan if the display aspect ratio is 4 x 3.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fPanscanPermitted {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means the picture can be shown as letterbox if the display aspect ratio is 4 x 3.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLetterboxPermitted {
         get => NumGet(this, 4, "int")
@@ -83,7 +83,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means there is user data in line 21, field 1.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLine21Field1InGOP {
         get => NumGet(this, 28, "int")
@@ -92,7 +92,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means there is user data in line 21, field 2.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLine21Field2InGOP {
         get => NumGet(this, 32, "int")
@@ -119,7 +119,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * <b>TRUE</b> means the source video is in letterbox format. Subpictures and menu buttons can only be displayed in the active video area.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsSourceLetterboxed {
         get => NumGet(this, 44, "int")
@@ -128,7 +128,7 @@ class DVD_VideoAttributes extends Win32Struct
 
     /**
      * For 625/50 Hz systems, <b>TRUE</b> means "film mode" and <b>FALSE</b> means "camera mode."
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsFilmMode {
         get => NumGet(this, 48, "int")

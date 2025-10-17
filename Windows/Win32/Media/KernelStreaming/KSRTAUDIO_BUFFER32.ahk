@@ -28,7 +28,7 @@ class KSRTAUDIO_BUFFER32 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     CallMemoryBarrier {
         get => NumGet(this, 8, "int")

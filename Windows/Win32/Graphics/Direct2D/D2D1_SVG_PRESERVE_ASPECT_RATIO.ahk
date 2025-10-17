@@ -16,7 +16,7 @@ class D2D1_SVG_PRESERVE_ASPECT_RATIO extends Win32Struct
     /**
      * Sets the 'defer' portion of the preserveAspectRatio settings. This field only has an effect on an 'image' element that references another SVG document. As
      *           this is not currently supported, the field has no impact on rendering.
-     * @type {Integer}
+     * @type {BOOL}
      */
     defer {
         get => NumGet(this, 0, "int")

@@ -34,7 +34,7 @@ class CRYPT_PSOURCE_ALGORITHM extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -48,7 +48,7 @@ class CRYPT_PSOURCE_ALGORITHM extends Win32Struct
     EncodingParameters{
         get {
             if(!this.HasProp("__EncodingParameters"))
-                this.__EncodingParameters := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__EncodingParameters := CRYPT_INTEGER_BLOB(8, this)
             return this.__EncodingParameters
         }
     }

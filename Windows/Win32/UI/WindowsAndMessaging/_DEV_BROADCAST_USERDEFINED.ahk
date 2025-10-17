@@ -31,7 +31,7 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
     dbud_dbh{
         get {
             if(!this.HasProp("__dbud_dbh"))
-                this.__dbud_dbh := DEV_BROADCAST_HDR(this.ptr + 0)
+                this.__dbud_dbh := DEV_BROADCAST_HDR(0, this)
             return this.__dbud_dbh
         }
     }

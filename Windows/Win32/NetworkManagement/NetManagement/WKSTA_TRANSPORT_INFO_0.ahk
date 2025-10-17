@@ -33,7 +33,7 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
 
     /**
      * Specifies the device name of the transport protocol.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkti0_transport_name {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * Specifies the address of the server on this transport protocol.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkti0_transport_address {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class WKSTA_TRANSPORT_INFO_0 extends Win32Struct
      * 
      * Certain legacy networking protocols, including NetBEUI, will no longer be supported. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/WinSock/network-protocol-support-in-windows">Network Protocol Support in Windows</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wkti0_wan_ish {
         get => NumGet(this, 24, "int")

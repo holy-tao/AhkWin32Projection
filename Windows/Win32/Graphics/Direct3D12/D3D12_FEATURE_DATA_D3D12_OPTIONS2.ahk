@@ -24,7 +24,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS2 extends Win32Struct
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes?view=vs-2015">SAL</a>: <c>_Out_</c>
      * 
      * On return, contains true if depth-bounds tests are supported; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthBoundsTestSupported {
         get => NumGet(this, 0, "int")

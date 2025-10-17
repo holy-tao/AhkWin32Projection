@@ -13,7 +13,7 @@ class PRINTER_INFO_5W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class PRINTER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPortName {
         get => NumGet(this, 8, "ptr")

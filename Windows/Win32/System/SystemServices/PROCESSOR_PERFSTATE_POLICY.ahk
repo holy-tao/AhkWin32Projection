@@ -60,11 +60,40 @@ class PROCESSOR_PERFSTATE_POLICY extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - NoDomainAccounting
+     * - IncreasePolicy
+     * - DecreasePolicy
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 7, "char")
         set => NumPut("char", value, this, 7)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NoDomainAccounting {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IncreasePolicy {
+        get => (this._bitfield >> 1) & 0x3
+        set => this._bitfield := ((value & 0x3) << 1) | (this._bitfield & ~(0x3 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DecreasePolicy {
+        get => (this._bitfield >> 3) & 0x3
+        set => this._bitfield := ((value & 0x3) << 3) | (this._bitfield & ~(0x3 << 3))
     }
 
     /**

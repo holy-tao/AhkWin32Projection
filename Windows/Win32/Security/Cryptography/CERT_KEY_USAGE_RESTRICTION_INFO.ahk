@@ -58,7 +58,7 @@ class CERT_KEY_USAGE_RESTRICTION_INFO extends Win32Struct
     RestrictedKeyUsage{
         get {
             if(!this.HasProp("__RestrictedKeyUsage"))
-                this.__RestrictedKeyUsage := CRYPT_BIT_BLOB(this.ptr + 16)
+                this.__RestrictedKeyUsage := CRYPT_BIT_BLOB(16, this)
             return this.__RestrictedKeyUsage
         }
     }

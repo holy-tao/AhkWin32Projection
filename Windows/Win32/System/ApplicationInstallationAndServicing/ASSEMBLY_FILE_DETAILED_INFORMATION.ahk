@@ -119,7 +119,7 @@ class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Null-terminated string that specifies the name of the file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpFileName {
         get => NumGet(this, 16, "ptr")
@@ -128,7 +128,7 @@ class ASSEMBLY_FILE_DETAILED_INFORMATION extends Win32Struct
 
     /**
      * Null-terminated string that specifies the path to the file named in <b>lpFileName</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpFilePath {
         get => NumGet(this, 24, "ptr")

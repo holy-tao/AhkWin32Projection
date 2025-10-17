@@ -33,7 +33,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * Indicates whether all ActiveX permissions were requested.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllActiveXPermissions {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * Indicates whether all Java permissions were requested.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllPermissions {
         get => NumGet(this, 12, "int")
@@ -96,7 +96,7 @@ class JAVA_TRUST extends Win32Struct
 
     /**
      * The zone index.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszZone {
         get => NumGet(this, 56, "ptr")
@@ -121,12 +121,8 @@ class JAVA_TRUST extends Win32Struct
         set => NumPut("int", value, this, 72)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

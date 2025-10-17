@@ -17,7 +17,7 @@ class PDH_FMT_COUNTERVALUE_ITEM_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the instance name of the counter. The string is appended to the end of this structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szName {
         get => NumGet(this, 0, "ptr")
@@ -31,7 +31,7 @@ class PDH_FMT_COUNTERVALUE_ITEM_W extends Win32Struct
     FmtValue{
         get {
             if(!this.HasProp("__FmtValue"))
-                this.__FmtValue := PDH_FMT_COUNTERVALUE(this.ptr + 8)
+                this.__FmtValue := PDH_FMT_COUNTERVALUE(8, this)
             return this.__FmtValue
         }
     }

@@ -22,7 +22,7 @@ class CTL_ANY_SUBJECT_INFO extends Win32Struct
     SubjectAlgorithm{
         get {
             if(!this.HasProp("__SubjectAlgorithm"))
-                this.__SubjectAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__SubjectAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__SubjectAlgorithm
         }
     }
@@ -34,7 +34,7 @@ class CTL_ANY_SUBJECT_INFO extends Win32Struct
     SubjectIdentifier{
         get {
             if(!this.HasProp("__SubjectIdentifier"))
-                this.__SubjectIdentifier := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__SubjectIdentifier := CRYPT_INTEGER_BLOB(24, this)
             return this.__SubjectIdentifier
         }
     }

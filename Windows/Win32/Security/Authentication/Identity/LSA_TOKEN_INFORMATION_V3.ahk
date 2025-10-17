@@ -2,6 +2,11 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\SID_AND_ATTRIBUTES.ahk
 #Include ..\..\TOKEN_USER.ahk
+#Include ..\..\TOKEN_PRIMARY_GROUP.ahk
+#Include ..\..\TOKEN_OWNER.ahk
+#Include ..\..\TOKEN_DEFAULT_DACL.ahk
+#Include ..\..\TOKEN_USER_CLAIMS.ahk
+#Include ..\..\TOKEN_DEVICE_CLAIMS.ahk
 
 /**
  * Adds claim support to the LSA token and contains information an authentication package can place in a Version 3 Windows token object and has superceded LSA_TOKEN_INFORMATION_V1.
@@ -31,7 +36,7 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
     User{
         get {
             if(!this.HasProp("__User"))
-                this.__User := TOKEN_USER(this.ptr + 8)
+                this.__User := TOKEN_USER(8, this)
             return this.__User
         }
     }
@@ -59,11 +64,14 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * The SID pointed to by this structure is expected to be in a separately allocated block of memory.
      * 
      * This member is mandatory and must be filled in.
-     * @type {Pointer<Void>}
+     * @type {TOKEN_PRIMARY_GROUP}
      */
-    PrimaryGroup {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    PrimaryGroup{
+        get {
+            if(!this.HasProp("__PrimaryGroup"))
+                this.__PrimaryGroup := TOKEN_PRIMARY_GROUP(32, this)
+            return this.__PrimaryGroup
+        }
     }
 
     /**
@@ -89,11 +97,14 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * 
      * 
      * The <b>Owner.Sid</b> member may be set to <b>NULL</b> to indicate there is no alternate default owner value.
-     * @type {Pointer<Void>}
+     * @type {TOKEN_OWNER}
      */
-    Owner {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    Owner{
+        get {
+            if(!this.HasProp("__Owner"))
+                this.__Owner := TOKEN_OWNER(48, this)
+            return this.__Owner
+        }
     }
 
     /**
@@ -103,29 +114,38 @@ class LSA_TOKEN_INFORMATION_V3 extends Win32Struct
      * 
      * 
      * The <b>DefaultDacl.DefaultDacl</b> member may be set to <b>NULL</b> to indicate there is no default protection.
-     * @type {Pointer<TypeHandle>}
+     * @type {TOKEN_DEFAULT_DACL}
      */
-    DefaultDacl {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    DefaultDacl{
+        get {
+            if(!this.HasProp("__DefaultDacl"))
+                this.__DefaultDacl := TOKEN_DEFAULT_DACL(56, this)
+            return this.__DefaultDacl
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_user_claims">TOKEN_USER_CLAIMS</a> structure. This member stores the opaque user claims BLOB for the token. The <b>UserClaims</b> member may be set to <b>NULL</b> to indicate there are no additional user claims in the token. Claims are allow-only entities so omitting claims may restrict access.
-     * @type {Pointer<Void>}
+     * @type {TOKEN_USER_CLAIMS}
      */
-    UserClaims {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    UserClaims{
+        get {
+            if(!this.HasProp("__UserClaims"))
+                this.__UserClaims := TOKEN_USER_CLAIMS(64, this)
+            return this.__UserClaims
+        }
     }
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_device_claims">TOKEN_DEVICE_CLAIMS</a> structure. This member stores the opaque device claims BLOB for the token. The <b>DeviceClaims</b> member may be set to <b>NULL</b> to indicate there are no additional device claims in the token. Claims are allow-only entities so omitting claims may restrict access.
-     * @type {Pointer<Void>}
+     * @type {TOKEN_DEVICE_CLAIMS}
      */
-    DeviceClaims {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    DeviceClaims{
+        get {
+            if(!this.HasProp("__DeviceClaims"))
+                this.__DeviceClaims := TOKEN_DEVICE_CLAIMS(72, this)
+            return this.__DeviceClaims
+        }
     }
 
     /**

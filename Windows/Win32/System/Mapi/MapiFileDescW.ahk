@@ -110,7 +110,7 @@ class MapiFileDescW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * Pointer to the fully qualified path of the attached file. This path should include the disk drive letter and directory name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszPathName {
         get => NumGet(this, 16, "ptr")
@@ -123,7 +123,7 @@ class MapiFileDescW extends Win32Struct
      * Pointer to the filename of the attachment as seen by the recipient. The filename that is seen by the recipient may differ from the filename in the <b>lpszPathName</b> member if temporary files are being used.
      * 
      * If the <b>lpszFileName</b> member is empty or <b>NULL</b>, the filename from <b>lpszPathName</b> is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszFileName {
         get => NumGet(this, 24, "ptr")

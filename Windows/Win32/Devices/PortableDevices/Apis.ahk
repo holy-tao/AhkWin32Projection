@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
@@ -3207,14 +3207,14 @@ class PortableDevices {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Char>} pszXmlIn 
-     * @param {Pointer<Char>} rgszAllowedCspNodes 
+     * @param {PWSTR} pszXmlIn 
+     * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
      * @param {Integer} dwNumAllowedCspNodes 
-     * @param {Pointer<Char>} pbstrXmlOut 
+     * @param {Pointer<BSTR>} pbstrXmlOut 
      * @returns {HRESULT} 
      */
     static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes, pbstrXmlOut) {
-        pszXmlIn := pszXmlIn is String? StrPtr(pszXmlIn) : pszXmlIn
+        pszXmlIn := pszXmlIn is String ? StrPtr(pszXmlIn) : pszXmlIn
 
         result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, "ptr", rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
         if(result != 0)

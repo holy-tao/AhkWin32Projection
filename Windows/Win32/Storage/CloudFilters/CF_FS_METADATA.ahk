@@ -21,7 +21,7 @@ class CF_FS_METADATA extends Win32Struct
     BasicInfo{
         get {
             if(!this.HasProp("__BasicInfo"))
-                this.__BasicInfo := FILE_BASIC_INFO(this.ptr + 0)
+                this.__BasicInfo := FILE_BASIC_INFO(0, this)
             return this.__BasicInfo
         }
     }

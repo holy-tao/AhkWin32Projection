@@ -26,7 +26,7 @@ class D3D11_VIDEO_COLOR extends Win32Struct
     YCbCr{
         get {
             if(!this.HasProp("__YCbCr"))
-                this.__YCbCr := D3D11_VIDEO_COLOR_YCbCrA(this.ptr + 0)
+                this.__YCbCr := D3D11_VIDEO_COLOR_YCbCrA(0, this)
             return this.__YCbCr
         }
     }
@@ -37,7 +37,7 @@ class D3D11_VIDEO_COLOR extends Win32Struct
     RGBA{
         get {
             if(!this.HasProp("__RGBA"))
-                this.__RGBA := D3D11_VIDEO_COLOR_RGBA(this.ptr + 0)
+                this.__RGBA := D3D11_VIDEO_COLOR_RGBA(0, this)
             return this.__RGBA
         }
     }

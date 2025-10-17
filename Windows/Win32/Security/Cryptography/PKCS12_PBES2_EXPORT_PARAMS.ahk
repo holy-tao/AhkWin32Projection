@@ -28,7 +28,7 @@ class PKCS12_PBES2_EXPORT_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPbes2Alg {
         get => NumGet(this, 16, "ptr")

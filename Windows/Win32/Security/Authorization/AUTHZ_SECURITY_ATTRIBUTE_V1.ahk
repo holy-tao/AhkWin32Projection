@@ -15,7 +15,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
 
     /**
      * A pointer to a name of a security attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 0, "ptr")
@@ -174,7 +174,7 @@ class AUTHZ_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppString {
         get => NumGet(this, 24, "ptr")

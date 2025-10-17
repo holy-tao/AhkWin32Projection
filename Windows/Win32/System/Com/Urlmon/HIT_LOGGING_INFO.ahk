@@ -21,7 +21,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszLoggedUrlName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class HIT_LOGGING_INFO extends Win32Struct
     StartTime{
         get {
             if(!this.HasProp("__StartTime"))
-                this.__StartTime := SYSTEMTIME(this.ptr + 16)
+                this.__StartTime := SYSTEMTIME(16, this)
             return this.__StartTime
         }
     }
@@ -45,13 +45,13 @@ class HIT_LOGGING_INFO extends Win32Struct
     EndTime{
         get {
             if(!this.HasProp("__EndTime"))
-                this.__EndTime := SYSTEMTIME(this.ptr + 32)
+                this.__EndTime := SYSTEMTIME(32, this)
             return this.__EndTime
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszExtendedInfo {
         get => NumGet(this, 48, "ptr")

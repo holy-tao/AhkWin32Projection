@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\RPC_ASYNC_NOTIFICATION_INFO.ahk
 
 /**
@@ -208,7 +210,7 @@ class RPC_ASYNC_STATE extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := RPC_ASYNC_NOTIFICATION_INFO(this.ptr + 48)
+                this.__u := RPC_ASYNC_NOTIFICATION_INFO(48, this)
             return this.__u
         }
     }

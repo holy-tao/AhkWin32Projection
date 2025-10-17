@@ -66,7 +66,7 @@ class VMR9VideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := VMR9Frequency(this.ptr + 24)
+                this.__InputSampleFreq := VMR9Frequency(24, this)
             return this.__InputSampleFreq
         }
     }
@@ -78,7 +78,7 @@ class VMR9VideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := VMR9Frequency(this.ptr + 32)
+                this.__OutputFrameFreq := VMR9Frequency(32, this)
             return this.__OutputFrameFreq
         }
     }

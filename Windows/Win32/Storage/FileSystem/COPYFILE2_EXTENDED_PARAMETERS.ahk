@@ -165,7 +165,7 @@ class COPYFILE2_EXTENDED_PARAMETERS extends Win32Struct
     /**
      * If this flag is set to <b>TRUE</b> during the copy operation then the copy operation is 
      *       canceled.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     pfCancel {
         get => NumGet(this, 8, "ptr")

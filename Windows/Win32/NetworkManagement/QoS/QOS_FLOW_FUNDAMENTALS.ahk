@@ -15,7 +15,7 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * This Boolean value is set to <b>TRUE</b> if the <b>BottleneckBandwidth</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     BottleneckBandwidthSet {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * Set to <b>TRUE</b> if the <b>AvailableBandwidth</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AvailableBandwidthSet {
         get => NumGet(this, 16, "int")
@@ -51,7 +51,7 @@ class QOS_FLOW_FUNDAMENTALS extends Win32Struct
 
     /**
      * Set to <b>TRUE</b> if the <b>RTT</b> field contains a value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     RTTSet {
         get => NumGet(this, 32, "int")

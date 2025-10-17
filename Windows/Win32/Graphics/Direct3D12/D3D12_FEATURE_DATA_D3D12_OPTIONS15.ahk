@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS15 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     TriangleFanSupported {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS15 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DynamicIndexBufferStripCutSupported {
         get => NumGet(this, 4, "int")

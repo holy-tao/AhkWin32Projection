@@ -39,7 +39,7 @@ class FWPM_NET_EVENT_CAPABILITY_DROP0 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * True if the packet originated from (or was heading to) the loopback adapter; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isLoopback {
         get => NumGet(this, 16, "int")

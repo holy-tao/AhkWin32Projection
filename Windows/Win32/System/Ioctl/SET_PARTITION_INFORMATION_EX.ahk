@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SET_PARTITION_INFORMATION.ahk
 #Include .\PARTITION_INFORMATION_GPT.ahk
 
 /**
@@ -21,11 +22,14 @@ class SET_PARTITION_INFORMATION_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {SET_PARTITION_INFORMATION}
      */
-    Mbr {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+    Mbr{
+        get {
+            if(!this.HasProp("__Mbr"))
+                this.__Mbr := SET_PARTITION_INFORMATION(8, this)
+            return this.__Mbr
+        }
     }
 
     /**
@@ -34,7 +38,7 @@ class SET_PARTITION_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := PARTITION_INFORMATION_GPT(this.ptr + 8)
+                this.__Gpt := PARTITION_INFORMATION_GPT(8, this)
             return this.__Gpt
         }
     }

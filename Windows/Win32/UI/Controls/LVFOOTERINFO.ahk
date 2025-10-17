@@ -34,7 +34,7 @@ class LVFOOTERINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Not supported. Must be set to zero.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszText {
         get => NumGet(this, 8, "ptr")

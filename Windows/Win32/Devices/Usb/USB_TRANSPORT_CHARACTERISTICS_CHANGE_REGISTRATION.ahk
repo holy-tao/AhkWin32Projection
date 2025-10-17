@@ -21,7 +21,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {USB_CHANGE_REGISTRATION_HANDLE}
      */
     Handle {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class USB_TRANSPORT_CHARACTERISTICS_CHANGE_REGISTRATION extends Win32Struct
     UsbTransportCharacteristics{
         get {
             if(!this.HasProp("__UsbTransportCharacteristics"))
-                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(this.ptr + 16)
+                this.__UsbTransportCharacteristics := USB_TRANSPORT_CHARACTERISTICS(16, this)
             return this.__UsbTransportCharacteristics
         }
     }

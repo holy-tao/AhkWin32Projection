@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_SECURITY_KEY_HANDLE.ahk
+#Include ..\..\Security\Cryptography\NCRYPT_KEY_HANDLE.ahk
 
 /**
  * The type for specifying asymmetric cryptographic keys as a CryptoNG NCRYPT_KEY_HANDLE.
@@ -21,17 +22,20 @@ class WS_NCRYPT_ASYMMETRIC_SECURITY_KEY_HANDLE extends Win32Struct
     keyHandle{
         get {
             if(!this.HasProp("__keyHandle"))
-                this.__keyHandle := WS_SECURITY_KEY_HANDLE(this.ptr + 0)
+                this.__keyHandle := WS_SECURITY_KEY_HANDLE(0, this)
             return this.__keyHandle
         }
     }
 
     /**
      * The CryptoNG asymmetric cryptographic key.
-     * @type {Pointer}
+     * @type {NCRYPT_KEY_HANDLE}
      */
-    asymmetricKey {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    asymmetricKey{
+        get {
+            if(!this.HasProp("__asymmetricKey"))
+                this.__asymmetricKey := NCRYPT_KEY_HANDLE(8, this)
+            return this.__asymmetricKey
+        }
     }
 }

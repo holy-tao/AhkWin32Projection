@@ -13,7 +13,7 @@ class DOC_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDocName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class DOC_INFO_1A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pOutputFile {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DOC_INFO_1A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDatatype {
         get => NumGet(this, 16, "ptr")

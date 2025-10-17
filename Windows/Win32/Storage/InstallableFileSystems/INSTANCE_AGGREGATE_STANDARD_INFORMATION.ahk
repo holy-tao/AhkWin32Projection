@@ -205,7 +205,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
     MiniFilter{
         get {
             if(!this.HasProp("__MiniFilter"))
-                this.__MiniFilter := %this.__Class%._MiniFilter(this.ptr + 8)
+                this.__MiniFilter := %this.__Class%._MiniFilter(8, this)
             return this.__MiniFilter
         }
     }
@@ -216,7 +216,7 @@ class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
     LegacyFilter{
         get {
             if(!this.HasProp("__LegacyFilter"))
-                this.__LegacyFilter := %this.__Class%._LegacyFilter(this.ptr + 8)
+                this.__LegacyFilter := %this.__Class%._LegacyFilter(8, this)
             return this.__LegacyFilter
         }
     }

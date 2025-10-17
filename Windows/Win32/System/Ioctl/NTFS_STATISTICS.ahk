@@ -314,7 +314,7 @@ class NTFS_STATISTICS extends Win32Struct
     MftWritesUserLevel{
         get {
             if(!this.HasProp("__MftWritesUserLevel"))
-                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(this.ptr + 24)
+                this.__MftWritesUserLevel := %this.__Class%._MftWritesUserLevel(24, this)
             return this.__MftWritesUserLevel
         }
     }
@@ -371,7 +371,7 @@ class NTFS_STATISTICS extends Win32Struct
     Mft2WritesUserLevel{
         get {
             if(!this.HasProp("__Mft2WritesUserLevel"))
-                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(this.ptr + 48)
+                this.__Mft2WritesUserLevel := %this.__Class%._Mft2WritesUserLevel(48, this)
             return this.__Mft2WritesUserLevel
         }
     }
@@ -509,7 +509,7 @@ class NTFS_STATISTICS extends Win32Struct
     BitmapWritesUserLevel{
         get {
             if(!this.HasProp("__BitmapWritesUserLevel"))
-                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(this.ptr + 102)
+                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(102, this)
             return this.__BitmapWritesUserLevel
         }
     }
@@ -584,7 +584,7 @@ class NTFS_STATISTICS extends Win32Struct
     MftBitmapWritesUserLevel{
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(this.ptr + 136)
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(136, this)
             return this.__MftBitmapWritesUserLevel
         }
     }
@@ -668,7 +668,7 @@ class NTFS_STATISTICS extends Win32Struct
     Allocate{
         get {
             if(!this.HasProp("__Allocate"))
-                this.__Allocate := %this.__Class%._Allocate(this.ptr + 176)
+                this.__Allocate := %this.__Class%._Allocate(176, this)
             return this.__Allocate
         }
     }

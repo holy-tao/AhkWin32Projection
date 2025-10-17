@@ -51,7 +51,7 @@ class GNSS_GEOFENCE_CREATE_PARAM extends Win32Struct
     Boundary{
         get {
             if(!this.HasProp("__Boundary"))
-                this.__Boundary := GNSS_GEOREGION(this.ptr + 16)
+                this.__Boundary := GNSS_GEOREGION(16, this)
             return this.__Boundary
         }
     }

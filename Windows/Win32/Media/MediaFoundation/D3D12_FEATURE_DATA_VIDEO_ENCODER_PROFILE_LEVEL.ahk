@@ -35,13 +35,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 24, "int")
@@ -54,7 +54,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     MinSupportedLevel{
         get {
             if(!this.HasProp("__MinSupportedLevel"))
-                this.__MinSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 32)
+                this.__MinSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(32, this)
             return this.__MinSupportedLevel
         }
     }
@@ -65,7 +65,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_PROFILE_LEVEL extends Win32Struct
     MaxSupportedLevel{
         get {
             if(!this.HasProp("__MaxSupportedLevel"))
-                this.__MaxSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 48)
+                this.__MaxSupportedLevel := D3D12_VIDEO_ENCODER_LEVEL_SETTING(48, this)
             return this.__MaxSupportedLevel
         }
     }

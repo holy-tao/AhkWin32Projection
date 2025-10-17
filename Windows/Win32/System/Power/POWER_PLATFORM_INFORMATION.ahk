@@ -12,7 +12,7 @@ class POWER_PLATFORM_INFORMATION extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AoAc {
         get => NumGet(this, 0, "char")

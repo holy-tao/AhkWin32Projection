@@ -22,7 +22,7 @@ class EMREXTCREATEPEN extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -79,7 +79,7 @@ class EMREXTCREATEPEN extends Win32Struct
     elp{
         get {
             if(!this.HasProp("__elp"))
-                this.__elp := EXTLOGPEN32(this.ptr + 32)
+                this.__elp := EXTLOGPEN32(32, this)
             return this.__elp
         }
     }

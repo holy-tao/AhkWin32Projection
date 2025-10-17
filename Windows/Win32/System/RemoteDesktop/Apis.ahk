@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
@@ -1273,7 +1274,7 @@ class RemoteDesktop {
     /**
      * Stops a remote control session.
      * @param {Integer} LogonId The logon ID of the session that you want to stop the remote control of.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1292,13 +1293,13 @@ class RemoteDesktop {
 
     /**
      * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session.
-     * @param {Pointer<Char>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
+     * @param {PWSTR} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
      * @param {Integer} HotkeyModifiers The virtual modifier that represents the key to press to stop remote control of the session. The virtual modifier is used with the <i>HotkeyVk</i> parameter.
      * 
      * For example, if the <b>WTSStartRemoteControlSession</b> function is called with <i>HotkeyVk</i> set to <b>VK_MULTIPLY</b> and <i>HotkeyModifiers</i> set to <b>REMOTECONTROL_KBDCTRL_HOTKEY</b>, the user who has remote control of the target session can press CTRL + * to stop remote control of the session and return to their own session.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1306,7 +1307,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionW(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
-        pTargetServerName := pTargetServerName is String? StrPtr(pTargetServerName) : pTargetServerName
+        pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName
 
         A_LastError := 0
 
@@ -1319,13 +1320,13 @@ class RemoteDesktop {
 
     /**
      * Starts the remote control of another Remote Desktop Services session. You must call this function from a remote session.
-     * @param {Pointer<Byte>} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
+     * @param {PSTR} pTargetServerName A pointer to the name of the server where the session that you want remote control of exists.
      * @param {Integer} TargetLogonId The logon ID of the session that you want remote control of.
      * @param {Integer} HotkeyVk The virtual-key code that represents the key to press to stop remote control of the session. The key that is defined in this parameter is used with the  <i>HotkeyModifiers</i> parameter.
      * @param {Integer} HotkeyModifiers The virtual modifier that represents the key to press to stop remote control of the session. The virtual modifier is used with the <i>HotkeyVk</i> parameter.
      * 
      * For example, if the <b>WTSStartRemoteControlSession</b> function is called with <i>HotkeyVk</i> set to <b>VK_MULTIPLY</b> and <i>HotkeyModifiers</i> set to <b>REMOTECONTROL_KBDCTRL_HOTKEY</b>, the user who has remote control of the target session can press CTRL + * to stop remote control of the session and return to their own session.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1333,7 +1334,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSStartRemoteControlSessionA(pTargetServerName, TargetLogonId, HotkeyVk, HotkeyModifiers) {
-        pTargetServerName := pTargetServerName is String? StrPtr(pTargetServerName) : pTargetServerName
+        pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName
 
         A_LastError := 0
 
@@ -1352,9 +1353,9 @@ class RemoteDesktop {
      * @param {Integer} TargetLogonId The logon ID of the session to receive the output of the session represented by the <i>LogonId</i> parameter. The output of the session identified by the <i>LogonId</i> parameter will be routed to this session.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
-     * @param {Pointer<Byte>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
-     * @param {Integer} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PSTR} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
+     * @param {BOOL} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1362,7 +1363,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSConnectSessionA(LogonId, TargetLogonId, pPassword, bWait) {
-        pPassword := pPassword is String? StrPtr(pPassword) : pPassword
+        pPassword := pPassword is String ? StrPtr(pPassword) : pPassword
 
         A_LastError := 0
 
@@ -1381,9 +1382,9 @@ class RemoteDesktop {
      * @param {Integer} TargetLogonId The logon ID of the session to receive the output of the session represented by the <i>LogonId</i> parameter. The output of the session identified by the <i>LogonId</i> parameter will be routed to this session.
      * 
      * This can be <b>LOGONID_CURRENT</b> to use the current session.
-     * @param {Pointer<Char>} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
-     * @param {Integer} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PWSTR} pPassword A pointer to the password for the user account that is specified in the <i>LogonId</i> parameter. The value of <i>pPassword</i> can be an empty string if the caller is logged on using the same domain name and user name as the logon ID. The value of <i>pPassword</i> cannot be <b>NULL</b>.
+     * @param {BOOL} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1391,7 +1392,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSConnectSessionW(LogonId, TargetLogonId, pPassword, bWait) {
-        pPassword := pPassword is String? StrPtr(pPassword) : pPassword
+        pPassword := pPassword is String ? StrPtr(pPassword) : pPassword
 
         A_LastError := 0
 
@@ -1404,17 +1405,17 @@ class RemoteDesktop {
 
     /**
      * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain.
-     * @param {Pointer<Char>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
+     * @param {PWSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<Char>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<WTS_SERVER_INFOW>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> structures returned in the 
      *       <i>ppServerInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1422,7 +1423,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateServersW(pDomainName, Reserved, Version, ppServerInfo, pCount) {
-        pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
+        pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         A_LastError := 0
 
@@ -1435,17 +1436,17 @@ class RemoteDesktop {
 
     /**
      * Returns a list of all Remote Desktop Session Host (RD Session Host) servers within the specified domain.
-     * @param {Pointer<Byte>} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
+     * @param {PSTR} pDomainName Pointer to the name of the domain to be queried. If the value of this parameter is 
      *       <b>NULL</b>, the specified domain is the current domain.
      * @param {Integer} Reserved Reserved. The value of this parameter must be 0.
      * @param {Integer} Version Version of the enumeration request. The value of the parameter must be 1.
-     * @param {Pointer<Byte>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
+     * @param {Pointer<WTS_SERVER_INFOA>} ppServerInfo Points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> 
      *       structures, which contains the returned results of the enumeration. After use, the memory used by this buffer 
      *       should be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a>.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_server_infoa">WTS_SERVER_INFO</a> structures returned in the 
      *       <i>ppServerInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      *  If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1453,7 +1454,7 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateServersA(pDomainName, Reserved, Version, ppServerInfo, pCount) {
-        pDomainName := pDomainName is String? StrPtr(pDomainName) : pDomainName
+        pDomainName := pDomainName is String ? StrPtr(pDomainName) : pDomainName
 
         A_LastError := 0
 
@@ -1466,66 +1467,66 @@ class RemoteDesktop {
 
     /**
      * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {PWSTR} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverw
      * @since windows6.0.6000
      */
     static WTSOpenServerW(pServerName) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerW", "ptr", pServerName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {PSTR} pServerName Pointer to a null-terminated string specifying the NetBIOS name of the RD Session Host server.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns a handle that is not valid. You can test the validity of the handle by using it in another function call.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenservera
      * @since windows6.0.6000
      */
     static WTSOpenServerA(pServerName) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerA", "ptr", pServerName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Char>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {PWSTR} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverexw
      * @since windows6.1
      */
     static WTSOpenServerExW(pServerName) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerExW", "ptr", pServerName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Opens a handle to the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Byte>} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified server.
+     * @param {PSTR} pServerName A pointer to a null-terminated string that contains the NetBIOS name of the server.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified server.
      * 
      * If the function fails, it returns an invalid handle. You can test the validity of the handle by using it in another function call.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsopenserverexa
      * @since windows6.1
      */
     static WTSOpenServerExA(pServerName) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
 
         result := DllCall("WTSAPI32.dll\WTSOpenServerExA", "ptr", pServerName, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -1538,7 +1539,7 @@ class RemoteDesktop {
      * After the handle has been closed, it cannot be used with any other WTS APIs.
      * 
      * 
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server opened by a call to the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server opened by a call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function.
      * 
      * Do not pass <b>WTS_CURRENT_SERVER_HANDLE</b> for this parameter.
@@ -1547,12 +1548,14 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSCloseServer(hServer) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         DllCall("WTSAPI32.dll\WTSCloseServer", "ptr", hServer)
     }
 
     /**
      * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer A handle to the RD Session Host server.
+     * @param {HANDLE} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
@@ -1570,7 +1573,7 @@ class RemoteDesktop {
      * </ul>
      * @param {Pointer<UInt32>} pCount A pointer to the number of 
      * <b>WTS_SESSION_INFO</b> structures returned in the <i>ppSessionInfo</i> parameter.
-     * @returns {Integer} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
+     * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
      * To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1578,6 +1581,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateSessionsW(hServer, Reserved, Version, ppSessionInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
@@ -1589,7 +1594,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves a list of sessions on a Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer A handle to the RD Session Host server.
+     * @param {HANDLE} hServer A handle to the RD Session Host server.
      * 
      * <div class="alert"><b>Note</b>  You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> functions to retrieve a handle to a specific server, or  <b>WTS_CURRENT_SERVER_HANDLE</b> to use the RD Session Host server that hosts your application.</div>
@@ -1607,7 +1612,7 @@ class RemoteDesktop {
      * </ul>
      * @param {Pointer<UInt32>} pCount A pointer to the number of 
      * <b>WTS_SESSION_INFO</b> structures returned in the <i>ppSessionInfo</i> parameter.
-     * @returns {Integer} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
+     * @returns {BOOL} Returns zero if this function fails. If this function succeeds, a nonzero value is returned.
      * 
      * To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1615,6 +1620,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateSessionsA(hServer, Reserved, Version, ppSessionInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppSessionInfo, "uint*", pCount, "int")
@@ -1626,7 +1633,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Void>} hServer A handle to the target server. Specify a handle returned by the 
+     * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
@@ -1634,7 +1641,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures. Each structure in the array contains information about a session on the specified RD Session Host server. If you obtained a handle to an RD Virtualization Host server by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, the array contains information about sessions on virtual machines on the server. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures returned in the <i>ppSessionInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1642,6 +1649,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateSessionsExW(hServer, pLevel, Filter, ppSessionInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
@@ -1653,7 +1662,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves a list of sessions on a specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Void>} hServer A handle to the target server. Specify a handle returned by the 
+     * @param {HANDLE} hServer A handle to the target server. Specify a handle returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function. To enumerate sessions on  the RD Session Host server on which the application is running, specify <b>WTS_CURRENT_SERVER_HANDLE</b>.
      * @param {Pointer<UInt32>} pLevel This parameter is reserved. Always set this parameter to one. On output, <b>WTSEnumerateSessionsEx</b> does not change the value of this parameter.
      * @param {Integer} Filter This parameter is reserved. Always set this parameter to zero.
@@ -1661,7 +1670,7 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures. Each structure in the array contains information about a session on the specified RD Session Host server. If you obtained a handle to an RD Virtualization Host server by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, the array contains information about sessions on virtual machines on the server. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a <b>DWORD</b> variable that receives the number of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_session_info_1a">WTS_SESSION_INFO_1</a> structures returned in the <i>ppSessionInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -1669,6 +1678,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateSessionsExA(hServer, pLevel, Filter, ppSessionInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, "uint*", pLevel, "uint", Filter, "ptr", ppSessionInfo, "uint*", pCount, "int")
@@ -1680,7 +1691,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
@@ -1692,7 +1703,7 @@ class RemoteDesktop {
      *       buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
      *       structures returned in the <i>ppProcessInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1700,6 +1711,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateProcessesW(hServer, Reserved, Version, ppProcessInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
@@ -1711,7 +1724,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves information about the active processes on a specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is 
      *       running.
@@ -1723,7 +1736,7 @@ class RemoteDesktop {
      *       buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pCount Pointer to a variable that receives the number of <b>WTS_PROCESS_INFO</b> 
      *       structures returned in the <i>ppProcessInfo</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1731,6 +1744,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSEnumerateProcessesA(hServer, Reserved, Version, ppProcessInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, "ptr", ppProcessInfo, "uint*", pCount, "int")
@@ -1742,11 +1757,11 @@ class RemoteDesktop {
 
     /**
      * Terminates the specified process on the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
      * @param {Integer} ProcessId Specifies the process identifier of the process to terminate.
      * @param {Integer} ExitCode Specifies the exit code for the terminated process.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1754,6 +1769,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSTerminateProcess(hServer, ProcessId, ExitCode) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSTerminateProcess", "ptr", hServer, "uint", ProcessId, "uint", ExitCode, "int")
@@ -1765,7 +1782,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *       is running.
@@ -1785,13 +1802,13 @@ class RemoteDesktop {
      * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
-     * @param {Pointer<Char>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
+     * @param {Pointer<PWSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
      * @param {Pointer<UInt32>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
      *       <i>ppBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1799,6 +1816,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationW(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
@@ -1810,7 +1829,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves session information for the specified session on the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *       is running.
@@ -1830,13 +1849,13 @@ class RemoteDesktop {
      * @param {Integer} WTSInfoClass A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_info_class">WTS_INFO_CLASS</a> enumeration that indicates the type of 
      *     session information to retrieve in a call to the 
      *     <b>WTSQuerySessionInformation</b> function.
-     * @param {Pointer<Byte>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
+     * @param {Pointer<PSTR>} ppBuffer A pointer to a variable that receives a pointer to the requested information. The format and contents of the 
      *       data depend on the information class specified in the <i>WTSInfoClass</i> parameter. To free 
      *       the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> 
      *       function.
      * @param {Pointer<UInt32>} pBytesReturned A pointer to a variable that receives the size, in bytes, of the data returned in 
      *       <i>ppBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1844,6 +1863,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQuerySessionInformationA(hServer, SessionId, WTSInfoClass, ppBuffer, pBytesReturned) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
@@ -1855,17 +1876,17 @@ class RemoteDesktop {
 
     /**
      * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
-     * @param {Pointer<Char>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
+     * @param {PWSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
+     * @param {PWSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
      * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<Char>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
+     * @param {Pointer<PWSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1873,8 +1894,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigW(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
-        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
         A_LastError := 0
 
@@ -1887,17 +1908,17 @@ class RemoteDesktop {
 
     /**
      * Retrieves configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
-     * @param {Pointer<Byte>} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
+     * @param {PSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or an RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the RD Session Host server on which your application is running.
+     * @param {PSTR} pUserName Pointer to a null-terminated string containing the user name to query. To retrieve the default user settings for the RD Session Host server, set this parameter to <b>NULL</b>.
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Setting this parameter to <b>NULL</b> returns an error.
      * @param {Integer} WTSConfigClass Specifies the type of information to retrieve. This parameter can be one of the values from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The documentation for 
      * <b>WTS_CONFIG_CLASS</b> describes the format of the data returned in <i>ppBuffer</i> for each of the information types.
-     * @param {Pointer<Byte>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
+     * @param {Pointer<PSTR>} ppBuffer Pointer to a variable that receives a pointer to the requested information. The format and contents of the data depend on the information class specified in the <i>WTSConfigClass</i> parameter. To free the returned buffer, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function.
      * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the size, in bytes, of the data returned in <i>ppBuffer</i>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1905,8 +1926,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSQueryUserConfigA(pServerName, pUserName, WTSConfigClass, ppBuffer, pBytesReturned) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
-        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
         A_LastError := 0
 
@@ -1919,17 +1940,17 @@ class RemoteDesktop {
 
     /**
      * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Char>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
+     * @param {PWSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
-     * @param {Pointer<Char>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
+     * @param {PWSTR} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
      * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1937,8 +1958,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSetUserConfigW(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
-        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
         A_LastError := 0
 
@@ -1951,17 +1972,17 @@ class RemoteDesktop {
 
     /**
      * Modifies configuration information for the specified user on the specified domain controller or Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Byte>} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
+     * @param {PSTR} pServerName Pointer to a null-terminated string containing the name of a domain controller or 
      *       RD Session Host server. Specify <b>WTS_CURRENT_SERVER_NAME</b> to indicate the 
      *       RD Session Host server on which your application is running.
-     * @param {Pointer<Byte>} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
+     * @param {PSTR} pUserName Pointer to a null-terminated string containing the name of the user whose configuration is being set.
      * @param {Integer} WTSConfigClass Specifies the type of information to set for the user. This parameter can be one of the values from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ne-wtsapi32-wts_config_class">WTS_CONFIG_CLASS</a> enumeration type. The 
      *       documentation for <b>WTS_CONFIG_CLASS</b> describes 
      *       the format of the data specified in <i>ppBuffer</i> for each of the information types.
      * @param {Pointer} pBuffer Pointer to the data used to modify the specified user's configuration.
      * @param {Integer} DataLength Size, in <b>TCHARs</b>, of the <i>pBuffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -1969,8 +1990,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSetUserConfigA(pServerName, pUserName, WTSConfigClass, pBuffer, DataLength) {
-        pServerName := pServerName is String? StrPtr(pServerName) : pServerName
-        pUserName := pUserName is String? StrPtr(pUserName) : pUserName
+        pServerName := pServerName is String ? StrPtr(pServerName) : pServerName
+        pUserName := pUserName is String ? StrPtr(pUserName) : pUserName
 
         A_LastError := 0
 
@@ -1983,7 +2004,7 @@ class RemoteDesktop {
 
     /**
      * Displays a message box on the client desktop of a specified Remote Desktop Services session.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *        is running.
@@ -2009,7 +2030,7 @@ class RemoteDesktop {
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
      * @param {Pointer<Int32>} pResponse 
-     * @param {Integer} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
+     * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
      * 
@@ -2017,7 +2038,7 @@ class RemoteDesktop {
      *        <i>pResponse</i> parameter returns <b>IDASYNC</b>. Use this method for 
      *        simple information messages (such as print job–notification messages) that do not need to return the 
      *        user's response to the calling program.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2025,6 +2046,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageW(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageW", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "int*", pResponse, "int", bWait, "int")
@@ -2036,7 +2059,7 @@ class RemoteDesktop {
 
     /**
      * Displays a message box on the client desktop of a specified Remote Desktop Services session.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *        <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application 
      *        is running.
@@ -2062,7 +2085,7 @@ class RemoteDesktop {
      *       <i>Timeout</i> parameter is zero, <b>WTSSendMessage</b> waits 
      *       indefinitely for the user to respond.
      * @param {Pointer<Int32>} pResponse 
-     * @param {Integer} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
+     * @param {BOOL} bWait If <b>TRUE</b>, <b>WTSSendMessage</b> does not return until 
      *       the user responds or the time-out interval elapses. If the <i>Timeout</i> parameter is zero, 
      *       the function does not return until the user responds.
      * 
@@ -2070,7 +2093,7 @@ class RemoteDesktop {
      *        <i>pResponse</i> parameter returns <b>IDASYNC</b>. Use this method for 
      *        simple information messages (such as print job–notification messages) that do not need to return the 
      *        user's response to the calling program.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2078,6 +2101,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSSendMessageA(hServer, SessionId, pTitle, TitleLength, pMessage, MessageLength, Style, Timeout, pResponse, bWait) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageA", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, "int*", pResponse, "int", bWait, "int")
@@ -2089,7 +2114,7 @@ class RemoteDesktop {
 
     /**
      * Disconnects the logged-on user from the specified Remote Desktop Services session without closing the session.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. To indicate the current session, specify <b>WTS_CURRENT_SESSION</b>. To retrieve the identifiers of all sessions on a specified RD Session Host server, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function.
@@ -2098,8 +2123,8 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
      * 
      * To disconnect sessions running on a virtual machine hosted on a RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.
-     * @param {Integer} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {BOOL} bWait Indicates whether the operation is synchronous. Specify <b>TRUE</b> to wait for the operation to complete, or <b>FALSE</b> to return immediately.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2107,6 +2132,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSDisconnectSession(hServer, SessionId, bWait) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSDisconnectSession", "ptr", hServer, "uint", SessionId, "int", bWait, "int")
@@ -2118,7 +2145,7 @@ class RemoteDesktop {
 
     /**
      * Logs off a specified Remote Desktop Services session.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenserverexa">WTSOpenServerEx</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} SessionId A Remote Desktop Services session identifier. To indicate the current session, specify <b>WTS_CURRENT_SESSION</b>. You can use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsenumeratesessionsa">WTSEnumerateSessions</a> function to retrieve the identifiers of all sessions on a specified RD Session Host server.
@@ -2127,14 +2154,14 @@ class RemoteDesktop {
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
      * 
      * To log off sessions running on a virtual machine hosted on a RD Virtualization Host server, you must be a member of the Administrators group on the RD Virtualization Host server.
-     * @param {Integer} bWait Indicates whether the operation is synchronous.
+     * @param {BOOL} bWait Indicates whether the operation is synchronous.
      * 
      * If <i>bWait</i> is <b>TRUE</b>, the function returns when the session is logged off.
      * 
      * If <i>bWait</i> is <b>FALSE</b>, the function returns immediately. To verify that the session has been logged off, specify the session identifier in a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsquerysessioninformationa">WTSQuerySessionInformation</a> function. 
      * <b>WTSQuerySessionInformation</b> returns zero if the session is logged off.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2142,6 +2169,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSLogoffSession(hServer, SessionId, bWait) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSLogoffSession", "ptr", hServer, "uint", SessionId, "int", bWait, "int")
@@ -2153,10 +2182,10 @@ class RemoteDesktop {
 
     /**
      * Shuts down (and optionally restarts) the specified Remote Desktop Session Host (RD Session Host) server.
-     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the RD Session Host server on which your application is running.
      * @param {Integer} ShutdownFlag 
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2164,6 +2193,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSShutdownSystem(hServer, ShutdownFlag) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSShutdownSystem", "ptr", hServer, "uint", ShutdownFlag, "int")
@@ -2175,14 +2206,14 @@ class RemoteDesktop {
 
     /**
      * Waits for a Remote Desktop Services event before returning to the caller.
-     * @param {Pointer<Void>} hServer Handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer Handle to an RD Session Host server. Specify a handle opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify WTS_CURRENT_SERVER_HANDLE to indicate the RD Session Host server on which your application is running.
      * @param {Integer} EventMask Bitmask that specifies the set of events to wait for. This mask can be WTS_EVENT_FLUSH to cause all pending
      * @param {Pointer<UInt32>} pEventFlags Pointer to a variable that receives a bitmask of the event or events that occurred. The returned mask can 
      *       be a combination of the values from the previous list, or it can be <b>WTS_EVENT_NONE</b> if 
      *       the wait terminated because of a <b>WTSWaitSystemEvent</b> call with 
      *       <b>WTS_EVENT_FLUSH</b>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2190,6 +2221,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSWaitSystemEvent(hServer, EventMask, pEventFlags) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, "uint*", pEventFlags, "int")
@@ -2206,8 +2239,8 @@ class RemoteDesktop {
      * 
      * To open a virtual channel on another user's session, you need to have permission from the Virtual Channel. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
-     * @param {Pointer<Byte>} pVirtualName A pointer to a <b>null</b>-terminated string containing the virtual channel name. Note that this is an ANSI string even when UNICODE is defined. The virtual channel name consists of one to CHANNEL_NAME_LEN characters, not including the terminating <b>null</b>.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to the specified virtual channel.
+     * @param {PSTR} pVirtualName A pointer to a <b>null</b>-terminated string containing the virtual channel name. Note that this is an ANSI string even when UNICODE is defined. The virtual channel name consists of one to CHANNEL_NAME_LEN characters, not including the terminating <b>null</b>.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to the specified virtual channel.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2217,7 +2250,8 @@ class RemoteDesktop {
     static WTSVirtualChannelOpen(SessionId, pVirtualName) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pVirtualName := pVirtualName is String? StrPtr(pVirtualName) : pVirtualName
+        pVirtualName := pVirtualName is String ? StrPtr(pVirtualName) : pVirtualName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         A_LastError := 0
 
@@ -2225,7 +2259,7 @@ class RemoteDesktop {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2239,7 +2273,7 @@ class RemoteDesktop {
      *        permission. For more information, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services Permissions</a>. 
      *        To modify permissions on a session, use the Remote Desktop Services Configuration administrative tool.
-     * @param {Pointer<Byte>} pVirtualName In the case of an SVC, points to a null-terminated string that contains the virtual channel name. The length 
+     * @param {PSTR} pVirtualName In the case of an SVC, points to a null-terminated string that contains the virtual channel name. The length 
      *        of an SVC name is limited to <b>CHANNEL_NAME_LEN</b> characters, not including the 
      *        terminating null.
      * 
@@ -2251,13 +2285,13 @@ class RemoteDesktop {
      * When opening a DVC, you can specify a priority setting for the data that is being transferred by specifying 
      *        one of the <b>WTS_CHANNEL_OPTION_DYNAMIC_PRI_<i>XXX</i></b> values in 
      *        combination with the <b>WTS_CHANNEL_OPTION_DYNAMIC</b> value.
-     * @returns {Pointer<Void>} <b>NULL</b> on error with 
+     * @returns {HANDLE} <b>NULL</b> on error with 
      *       <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> set.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsvirtualchannelopenex
      * @since windows6.0.6000
      */
     static WTSVirtualChannelOpenEx(SessionId, pVirtualName, flags) {
-        pVirtualName := pVirtualName is String? StrPtr(pVirtualName) : pVirtualName
+        pVirtualName := pVirtualName is String ? StrPtr(pVirtualName) : pVirtualName
 
         A_LastError := 0
 
@@ -2265,14 +2299,14 @@ class RemoteDesktop {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Closes an open virtual channel handle.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2280,6 +2314,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelClose(hChannelHandle) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelClose", "ptr", hChannelHandle, "int")
@@ -2291,7 +2327,7 @@ class RemoteDesktop {
 
     /**
      * Reads data from the server end of a virtual channel.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} TimeOut Specifies the time-out, in milliseconds. If <i>TimeOut</i> is zero, 
      *       <b>WTSVirtualChannelRead</b> returns immediately 
@@ -2315,7 +2351,7 @@ class RemoteDesktop {
      * @param {Integer} BufferSize Specifies the size, in bytes, of <i>Buffer</i>. If the chunk of data in <i>Buffer</i> will be preceded by a <b>CHANNEL_PDU_HEADER</b> structure, the value of this parameter should be at least 
      *       <b>CHANNEL_PDU_LENGTH</b>. Otherwise, the value of this parameter should be at least <b>CHANNEL_CHUNK_LENGTH</b>.
      * @param {Pointer<UInt32>} pBytesRead Pointer to a variable that receives the number of bytes read.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2323,6 +2359,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelRead(hChannelHandle, TimeOut, Buffer, BufferSize, pBytesRead) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer, "uint", BufferSize, "uint*", pBytesRead, "int")
@@ -2334,12 +2372,12 @@ class RemoteDesktop {
 
     /**
      * Writes data to the server end of a virtual channel.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Pointer} Buffer Pointer to a buffer containing the data to write to the virtual channel.
      * @param {Integer} Length Specifies the size, in bytes, of the data to write.
      * @param {Pointer<UInt32>} pBytesWritten Pointer to a variable that receives the number of bytes written.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2347,6 +2385,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelWrite(hChannelHandle, Buffer, Length, pBytesWritten) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer, "uint", Length, "uint*", pBytesWritten, "int")
@@ -2358,9 +2398,9 @@ class RemoteDesktop {
 
     /**
      * Deletes all queued input data sent from the client to the server on a specified virtual channel.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2368,6 +2408,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeInput(hChannelHandle) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelPurgeInput", "ptr", hChannelHandle, "int")
@@ -2379,9 +2421,9 @@ class RemoteDesktop {
 
     /**
      * Deletes all queued output data sent from the server to the client on a specified virtual channel.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2389,6 +2431,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelPurgeOutput(hChannelHandle) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelPurgeOutput", "ptr", hChannelHandle, "int")
@@ -2400,13 +2444,13 @@ class RemoteDesktop {
 
     /**
      * Returns information about a specified virtual channel.
-     * @param {Pointer<Void>} hChannelHandle Handle to a virtual channel opened by the 
+     * @param {HANDLE} hChannelHandle Handle to a virtual channel opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsvirtualchannelopen">WTSVirtualChannelOpen</a> function.
      * @param {Integer} param1 
      * @param {Pointer<Void>} ppBuffer Pointer to a buffer that receives the requested information.
      * @param {Pointer<UInt32>} pBytesReturned Pointer to a variable that receives the number of bytes returned in the <i>ppBuffer</i> 
      *       parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value. Call the 
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value. Call the 
      *        <a href="/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememory">WTSFreeMemory</a> function with the value returned in 
      *        the <i>ppBuffer</i> parameter to free the temporary memory allocated by 
      *        <b>WTSVirtualChannelQuery</b>.
@@ -2418,6 +2462,8 @@ class RemoteDesktop {
      * @since windows6.0.6000
      */
     static WTSVirtualChannelQuery(hChannelHandle, param1, ppBuffer, pBytesReturned) {
+        hChannelHandle := hChannelHandle is Win32Handle ? NumGet(hChannelHandle, "ptr") : hChannelHandle
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, "ptr", ppBuffer, "uint*", pBytesReturned, "int")
@@ -2446,16 +2492,18 @@ class RemoteDesktop {
 
     /**
      * Registers the specified window to receive session change notifications.
-     * @param {Pointer<Void>} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can be one of the following 
      *       values.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsregistersessionnotification
      * @since windows6.0.6000
      */
     static WTSRegisterSessionNotification(hWnd, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", hWnd, "uint", dwFlags, "int")
@@ -2467,13 +2515,15 @@ class RemoteDesktop {
 
     /**
      * Unregisters the specified window so that it receives no further session change notifications.
-     * @param {Pointer<Void>} hWnd Handle of the window to be unregistered from receiving session notifications.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
+     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsunregistersessionnotification
      * @since windows6.0.6000
      */
     static WTSUnRegisterSessionNotification(hWnd) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", hWnd, "int")
@@ -2485,19 +2535,22 @@ class RemoteDesktop {
 
     /**
      * Registers the specified window to receive session change notifications.
-     * @param {Pointer<Void>} hServer Handle of the server returned from 
+     * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {Pointer<Void>} hWnd Handle of the window to receive session change notifications.
+     * @param {HWND} hWnd Handle of the window to receive session change notifications.
      * @param {Integer} dwFlags Specifies which session notifications are to be received. This parameter can only be 
      *       <b>NOTIFY_FOR_THIS_SESSION</b> if <i>hServer</i> is a remote server.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is 
      *        <b>FALSE</b>. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsregistersessionnotificationex
      * @since windows6.0.6000
      */
     static WTSRegisterSessionNotificationEx(hServer, hWnd, dwFlags) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "uint", dwFlags, "int")
@@ -2509,16 +2562,19 @@ class RemoteDesktop {
 
     /**
      * Unregisters the specified window so that it receives no further session change notifications.
-     * @param {Pointer<Void>} hServer Handle of the server returned from 
+     * @param {HANDLE} hServer Handle of the server returned from 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> or 
      *       <b>WTS_CURRENT_SERVER</b>.
-     * @param {Pointer<Void>} hWnd Handle of the window to be unregistered from receiving session notifications.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
+     * @param {HWND} hWnd Handle of the window to be unregistered from receiving session notifications.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>. To get extended error 
      *        information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsunregistersessionnotificationex
      * @since windows6.0.6000
      */
     static WTSUnRegisterSessionNotificationEx(hServer, hWnd) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "int")
@@ -2540,10 +2596,10 @@ class RemoteDesktop {
      *        <a href="https://docs.microsoft.com/windows/desktop/TermServ/terminal-services-permissions">Remote Desktop Services 
      *        Permissions</a>. To modify permissions on a session, use the Remote Desktop Services Configuration 
      *        administrative tool.
-     * @param {Pointer<Void>} phToken If the function succeeds, receives a pointer to the token handle for the logged-on user. Note that you must 
+     * @param {Pointer<HANDLE>} phToken If the function succeeds, receives a pointer to the token handle for the logged-on user. Note that you must 
      *       call the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function to close this 
      *       handle.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value, and the <i>phToken</i> 
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value, and the <i>phToken</i> 
      *        parameter points to the primary token of the user.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2570,7 +2626,7 @@ class RemoteDesktop {
      *       <i>pMemory</i> parameter.
      * @param {Pointer<Void>} pMemory A pointer to the buffer to free.
      * @param {Integer} NumberOfEntries The number of elements in the buffer referenced by the <i>pMemory</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2594,7 +2650,7 @@ class RemoteDesktop {
      *       <i>pMemory</i> parameter.
      * @param {Pointer<Void>} pMemory A pointer to the buffer to free.
      * @param {Integer} NumberOfEntries The number of elements in the buffer referenced by the <i>pMemory</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2613,7 +2669,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
@@ -2621,12 +2677,12 @@ class RemoteDesktop {
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
-     * @param {Pointer<Char>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<PWSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
      *       structures returned in the buffer referenced by the <i>ppProcessInfo</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2634,6 +2690,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExW(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", "ptr", hServer, "uint*", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "uint*", pCount, "int")
@@ -2645,7 +2703,7 @@ class RemoteDesktop {
 
     /**
      * Retrieves information about the active processes on the specified Remote Desktop Session Host (RD Session Host) server or Remote Desktop Virtualization Host (RD Virtualization Host) server.
-     * @param {Pointer<Void>} hServer A handle to an RD Session Host server. Specify a handle opened by the 
+     * @param {HANDLE} hServer A handle to an RD Session Host server. Specify a handle opened by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsopenservera">WTSOpenServer</a> function, or specify 
      *       <b>WTS_CURRENT_SERVER_HANDLE</b> to indicate the server on which your application is 
      *       running.
@@ -2653,12 +2711,12 @@ class RemoteDesktop {
      * 
      * If you do not specify a valid value for this parameter, on output, <b>WTSEnumerateProcessesEx</b> sets this parameter to one and returns an error. Otherwise, on output, <b>WTSEnumerateProcessesEx</b> does not change the value of this parameter.
      * @param {Integer} SessionId The session  for which to enumerate processes. To enumerate processes for all sessions on the server,  specify <b>WTS_ANY_SESSION</b>.
-     * @param {Pointer<Byte>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<PSTR>} ppProcessInfo A pointer to a variable that receives a pointer to an array of 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_infoa">WTS_PROCESS_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wts_process_info_exa">WTS_PROCESS_INFO_EX</a> structures. The type of structure is determined by the value passed to the <i>pLevel</i> parameter. Each structure 
      *       in the array contains information about an active process. When you have finished using the array, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/nf-wtsapi32-wtsfreememoryexa">WTSFreeMemoryEx</a> function. You should also set the pointer to <b>NULL</b>.
      * @param {Pointer<UInt32>} pCount A pointer to a variable that receives the number of  
      *       structures returned in the buffer referenced by the <i>ppProcessInfo</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2666,6 +2724,8 @@ class RemoteDesktop {
      * @since windows6.1
      */
     static WTSEnumerateProcessesExA(hServer, pLevel, SessionId, ppProcessInfo, pCount) {
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", "ptr", hServer, "uint*", pLevel, "uint", SessionId, "ptr", ppProcessInfo, "uint*", pCount, "int")
@@ -2686,7 +2746,7 @@ class RemoteDesktop {
      *       unknown, pass <i>pListeners</i> as <b>NULL</b>. The function will return 
      *       the number of  <b>WTSLISTENERNAME</b> variables necessary to allocate for the array 
      *       pointed to by the <i>pListeners</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2696,9 +2756,11 @@ class RemoteDesktop {
     static WTSEnumerateListenersW(pReserved, Reserved, pListeners, pCount) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ushort*", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2716,7 +2778,7 @@ class RemoteDesktop {
      *       unknown, pass <i>pListeners</i> as <b>NULL</b>. The function will return 
      *       the number of  <b>WTSLISTENERNAME</b> variables necessary to allocate for the array 
      *       pointed to by the <i>pListeners</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2726,9 +2788,11 @@ class RemoteDesktop {
     static WTSEnumerateListenersA(pReserved, Reserved, pListeners, pCount) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+
         A_LastError := 0
 
-        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "ptr", pListeners, "uint*", pCount, "int")
+        result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, "ptr", pReserved, "uint", Reserved, "char*", pListeners, "uint*", pCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2739,9 +2803,9 @@ class RemoteDesktop {
      * Retrieves configuration information for a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
+     * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
      * @param {Pointer<WTSLISTENERCONFIGW>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that receives the  retrieved listener configuration information.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2751,7 +2815,8 @@ class RemoteDesktop {
     static WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         A_LastError := 0
 
@@ -2766,9 +2831,9 @@ class RemoteDesktop {
      * Retrieves configuration information for a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
+     * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to query.
      * @param {Pointer<WTSLISTENERCONFIGA>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that receives the  retrieved listener configuration information.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2778,7 +2843,8 @@ class RemoteDesktop {
     static WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         A_LastError := 0
 
@@ -2793,10 +2859,10 @@ class RemoteDesktop {
      * Creates a new Remote Desktop Services listener or configures an existing listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
+     * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
      * @param {Pointer<WTSLISTENERCONFIGW>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that contains configuration information for the listener.
      * @param {Integer} flag 
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2806,7 +2872,8 @@ class RemoteDesktop {
     static WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         A_LastError := 0
 
@@ -2821,10 +2888,10 @@ class RemoteDesktop {
      * Creates a new Remote Desktop Services listener or configures an existing listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
+     * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener to create or configure.
      * @param {Pointer<WTSLISTENERCONFIGA>} pBuffer A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsapi32/ns-wtsapi32-wtslistenerconfiga">WTSLISTENERCONFIG</a> structure that contains configuration information for the listener.
      * @param {Integer} flag 
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2834,7 +2901,8 @@ class RemoteDesktop {
     static WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
 
         A_LastError := 0
 
@@ -2849,12 +2917,12 @@ class RemoteDesktop {
      * Configures the security descriptor of a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2864,7 +2932,9 @@ class RemoteDesktop {
     static WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
 
@@ -2879,12 +2949,12 @@ class RemoteDesktop {
      * Configures the security descriptor of a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to set. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the security information associated with the listener. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>. For information about <b>STANDARD_RIGHTS_REQUIRED</b>, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2894,7 +2964,9 @@ class RemoteDesktop {
     static WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
 
@@ -2909,14 +2981,14 @@ class RemoteDesktop {
      * Retrieves the security descriptor of a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Char>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {PWSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2926,7 +2998,9 @@ class RemoteDesktop {
     static WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
 
@@ -2941,14 +3015,14 @@ class RemoteDesktop {
      * Retrieves the security descriptor of a Remote Desktop Services listener.
      * @param {Pointer<Void>} pReserved This parameter is reserved. Always set this parameter to <b>NULL</b>.
      * @param {Integer} Reserved This parameter is reserved. Always set this parameter to zero.
-     * @param {Pointer<Byte>} pListenerName A pointer to a null-terminated string that contains the name of the listener.
+     * @param {PSTR} pListenerName A pointer to a null-terminated string that contains the name of the listener.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information  to retrieve. Always enable the  <b>DACL_SECURITY_INFORMATION</b> and <b>SACL_SECURITY_INFORMATION</b> flags.
      * 
      * For more information about possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that receives the security information associated with  the listener referenced by the <i>pListenerName</i> parameter. The <b>SECURITY_DESCRIPTOR</b> structure is returned in self-relative format. For more information about possible values, see <b>SECURITY_DESCRIPTOR</b>.
      * @param {Integer} nLength The size, in bytes, of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter.
      * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required to store the complete security descriptor. If this number is less than or equal to the value of the <i>nLength</i> parameter, the security descriptor is copied to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure referenced by the <i>pSecurityDescriptor</i> parameter; otherwise, no action is taken.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -2958,7 +3032,9 @@ class RemoteDesktop {
     static WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String? StrPtr(pListenerName) : pListenerName
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
+        hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
 
@@ -2971,8 +3047,8 @@ class RemoteDesktop {
 
     /**
      * Enables or disables Child Sessions.
-     * @param {Integer} bEnable Indicates whether to enable or disable child sessions. Pass <b>TRUE</b> if child sessions are to be enabled or <b>FALSE</b> otherwise.
-     * @returns {Integer} Returns nonzero if the function succeeds or zero otherwise.
+     * @param {BOOL} bEnable Indicates whether to enable or disable child sessions. Pass <b>TRUE</b> if child sessions are to be enabled or <b>FALSE</b> otherwise.
+     * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsenablechildsessions
      * @since windows8.0
      */
@@ -2983,20 +3059,20 @@ class RemoteDesktop {
 
     /**
      * Determines whether child sessions are enabled.
-     * @param {Pointer<Int32>} pbEnabled The address of a <b>BOOL</b> variable that receives a nonzero value if child sessions are enabled or zero otherwise.
-     * @returns {Integer} Returns nonzero if the function succeeds or zero otherwise.
+     * @param {Pointer<BOOL>} pbEnabled The address of a <b>BOOL</b> variable that receives a nonzero value if child sessions are enabled or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsischildsessionsenabled
      * @since windows8.0
      */
     static WTSIsChildSessionsEnabled(pbEnabled) {
-        result := DllCall("WTSAPI32.dll\WTSIsChildSessionsEnabled", "int*", pbEnabled, "int")
+        result := DllCall("WTSAPI32.dll\WTSIsChildSessionsEnabled", "ptr", pbEnabled, "int")
         return result
     }
 
     /**
      * Retrieves the child session identifier, if present.
      * @param {Pointer<UInt32>} pSessionId The address of a <b>ULONG</b> variable that receives the child session identifier. This will be (<b>ULONG</b>)–1 if there is no child session for the current session.
-     * @returns {Integer} Returns nonzero if the function succeeds or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the function succeeds or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wtsapi32/nf-wtsapi32-wtsgetchildsessionid
      * @since windows8.0
      */
@@ -3010,7 +3086,7 @@ class RemoteDesktop {
      * @param {Pointer<UInt64>} pRenderHintID The address of a value that identifies the rendering hint affected by this call. If a new hint is being 
      *       created, this value must contain zero. This function will return a unique rendering hint identifier which is 
      *       used for subsequent calls, such as clearing the hint.
-     * @param {Pointer<Void>} hwndOwner The handle of window linked to lifetime of the rendering hint. This window is used in situations where a 
+     * @param {HWND} hwndOwner The handle of window linked to lifetime of the rendering hint. This window is used in situations where a 
      *       hint target is removed without the hint being explicitly cleared.
      * @param {Integer} renderHintType Specifies the type of hint represented by this call.
      * @param {Integer} cbHintDataLength The size, in <b>BYTE</b>s, of the <i>pHintData</i> buffer.
@@ -3023,6 +3099,8 @@ class RemoteDesktop {
      * @since windows8.0
      */
     static WTSSetRenderHint(pRenderHintID, hwndOwner, renderHintType, cbHintDataLength, pHintData) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+
         result := DllCall("WTSAPI32.dll\WTSSetRenderHint", "uint*", pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "int")
         if(result != 0)
             throw OSError(result)
@@ -3039,7 +3117,7 @@ class RemoteDesktop {
      *       specified process is running. To retrieve the identifier of the session currently attached to the console, use 
      *   the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-wtsgetactiveconsolesessionid">WTSGetActiveConsoleSessionId</a> 
      *   function.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.

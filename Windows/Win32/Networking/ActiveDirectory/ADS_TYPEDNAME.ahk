@@ -15,7 +15,7 @@ class ADS_TYPEDNAME extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains an object name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ObjectName {
         get => NumGet(this, 0, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Dvd
@@ -36,11 +37,14 @@ class AACS_READ_BINDING_NONCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(16, this)
+            return this.__Handle
+        }
     }
 
     /**

@@ -20,7 +20,7 @@ class ELEMDESC extends Win32Struct
     tdesc{
         get {
             if(!this.HasProp("__tdesc"))
-                this.__tdesc := TYPEDESC(this.ptr + 0)
+                this.__tdesc := TYPEDESC(0, this)
             return this.__tdesc
         }
     }
@@ -31,7 +31,7 @@ class ELEMDESC extends Win32Struct
     idldesc{
         get {
             if(!this.HasProp("__idldesc"))
-                this.__idldesc := IDLDESC(this.ptr + 16)
+                this.__idldesc := IDLDESC(16, this)
             return this.__idldesc
         }
     }
@@ -42,7 +42,7 @@ class ELEMDESC extends Win32Struct
     paramdesc{
         get {
             if(!this.HasProp("__paramdesc"))
-                this.__paramdesc := PARAMDESC(this.ptr + 16)
+                this.__paramdesc := PARAMDESC(16, this)
             return this.__paramdesc
         }
     }

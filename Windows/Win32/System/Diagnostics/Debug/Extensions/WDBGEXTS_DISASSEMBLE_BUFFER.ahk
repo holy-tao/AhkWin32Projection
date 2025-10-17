@@ -68,7 +68,7 @@ class WDBGEXTS_DISASSEMBLE_BUFFER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DisasmBuffer {
         get => NumGet(this, 40, "ptr")

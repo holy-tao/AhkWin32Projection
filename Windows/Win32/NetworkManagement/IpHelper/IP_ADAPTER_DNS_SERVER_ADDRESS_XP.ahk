@@ -50,7 +50,7 @@ class IP_ADAPTER_DNS_SERVER_ADDRESS_XP extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := SOCKET_ADDRESS(this.ptr + 16)
+                this.__Address := SOCKET_ADDRESS(16, this)
             return this.__Address
         }
     }

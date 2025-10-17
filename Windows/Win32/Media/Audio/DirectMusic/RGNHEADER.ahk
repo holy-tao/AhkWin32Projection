@@ -18,7 +18,7 @@ class RGNHEADER extends Win32Struct
     RangeKey{
         get {
             if(!this.HasProp("__RangeKey"))
-                this.__RangeKey := RGNRANGE(this.ptr + 0)
+                this.__RangeKey := RGNRANGE(0, this)
             return this.__RangeKey
         }
     }
@@ -29,7 +29,7 @@ class RGNHEADER extends Win32Struct
     RangeVelocity{
         get {
             if(!this.HasProp("__RangeVelocity"))
-                this.__RangeVelocity := RGNRANGE(this.ptr + 4)
+                this.__RangeVelocity := RGNRANGE(4, this)
             return this.__RangeVelocity
         }
     }

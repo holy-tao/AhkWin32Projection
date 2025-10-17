@@ -29,7 +29,7 @@ class IKE_AUTHENTICATION_INFORMATION extends Win32Struct
     PsKey{
         get {
             if(!this.HasProp("__PsKey"))
-                this.__PsKey := IKE_AUTHENTICATION_PRESHARED_KEY(this.ptr + 8)
+                this.__PsKey := IKE_AUTHENTICATION_PRESHARED_KEY(8, this)
             return this.__PsKey
         }
     }

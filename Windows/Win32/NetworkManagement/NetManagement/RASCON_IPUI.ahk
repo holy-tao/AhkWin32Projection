@@ -20,7 +20,7 @@ class RASCON_IPUI extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIPv6Cfg {
         get => NumGet(this, 8, "int")

@@ -15,7 +15,7 @@ class SERVER_INFO_1518 extends Win32Struct
 
     /**
      * Specifies whether the server is visible to LAN Manager 2.<i>x</i> clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1518_lmannounce {
         get => NumGet(this, 0, "int")

@@ -28,7 +28,7 @@ class DML_CONSTANT_DATA_GRAPH_NODE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Name {
         get => NumGet(this, 16, "ptr")

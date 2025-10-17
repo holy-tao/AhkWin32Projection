@@ -18,13 +18,13 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bServiceDiscoveryEnabled {
         get => NumGet(this, 4, "char")
@@ -32,7 +32,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bClientDiscoverabilityEnabled {
         get => NumGet(this, 5, "char")
@@ -40,7 +40,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bConcurrentOperationSupported {
         get => NumGet(this, 6, "char")
@@ -48,7 +48,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bInfrastructureManagementEnabled {
         get => NumGet(this, 7, "char")
@@ -56,7 +56,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDeviceLimitReached {
         get => NumGet(this, 8, "char")
@@ -64,7 +64,7 @@ class DOT11_WFD_DEVICE_CAPABILITY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bInvitationProcedureEnabled {
         get => NumGet(this, 9, "char")

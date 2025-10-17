@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains the authentication status of the request with a handle to the client token that the receiving process can use to impersonate the authenticated client.
@@ -93,11 +94,14 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
      * A  handle to the client token that the receiving process can use to impersonate the authenticated client.
      * 
      * The handle to the token should be closed by calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> when it is no longer required. This token is valid only for the lifetime of the request. Applications can regenerate the initial 401 challenge to reauthenticate when the token expires.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    AccessToken {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    AccessToken{
+        get {
+            if(!this.HasProp("__AccessToken"))
+                this.__AccessToken := HANDLE(16, this)
+            return this.__AccessToken
+        }
     }
 
     /**
@@ -151,7 +155,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * The Base64 encoded mutual authentication data used in  the WWW-Authenticate header.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pMutualAuthData {
         get => NumGet(this, 56, "ptr")
@@ -169,7 +173,7 @@ class HTTP_REQUEST_AUTH_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPackageName {
         get => NumGet(this, 72, "ptr")

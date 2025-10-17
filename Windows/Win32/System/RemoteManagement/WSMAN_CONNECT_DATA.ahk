@@ -20,7 +20,7 @@ class WSMAN_CONNECT_DATA extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := WSMAN_DATA(this.ptr + 0)
+                this.__data := WSMAN_DATA(0, this)
             return this.__data
         }
     }

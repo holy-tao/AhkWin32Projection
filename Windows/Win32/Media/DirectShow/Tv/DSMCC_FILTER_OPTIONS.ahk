@@ -15,7 +15,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the protocolDiscriminator field in the header must match the value of the <b>Protocol</b> structure member. Otherwise, the protocolDiscriminator field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyProtocol {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this field is <b>TRUE</b>, the dsmccType field in the header must match the value of the <b>Type</b> structure member. Otherwise, the dsmccType field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyType {
         get => NumGet(this, 8, "int")
@@ -51,7 +51,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the messageId field in the header must match the value of the <b>MessageId</b> structure member. Otherwise, the messageId field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyMessageId {
         get => NumGet(this, 16, "int")
@@ -69,7 +69,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the transactionId (or downloadId) field in the header must match the value of the <b>TransactionId</b> structure member. Otherwise, the transactionId/downloadId field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyTransactionId {
         get => NumGet(this, 24, "int")
@@ -94,7 +94,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
      * and countries.)
      * 
      * This flag is ignored if <b>fSpecifyTransactionId</b> is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUseTrxIdMessageIdMask {
         get => NumGet(this, 28, "int")
@@ -112,7 +112,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the moduleVersion field in the header must match the value of the <b>ModuleVersion</b> structure member. Otherwise, the moduleVersion field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyModuleVersion {
         get => NumGet(this, 36, "int")
@@ -130,7 +130,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the blockNumber field in the header must match the value of the BlockNumber structure member. Otherwise, the moduleVersion field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyBlockNumber {
         get => NumGet(this, 44, "int")
@@ -148,7 +148,7 @@ class DSMCC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the <b>NumberOfBlocksInModule</b> structure member specifies the number of blocks in the module. Applies only to download data block (DDB) messages.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fGetModuleCall {
         get => NumGet(this, 52, "int")

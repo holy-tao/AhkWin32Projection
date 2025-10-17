@@ -33,7 +33,7 @@ class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
     center{
         get {
             if(!this.HasProp("__center"))
-                this.__center := D2D_POINT_2F(this.ptr + 0)
+                this.__center := D2D_POINT_2F(0, this)
             return this.__center
         }
     }
@@ -47,7 +47,7 @@ class D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES extends Win32Struct
     gradientOriginOffset{
         get {
             if(!this.HasProp("__gradientOriginOffset"))
-                this.__gradientOriginOffset := D2D_POINT_2F(this.ptr + 8)
+                this.__gradientOriginOffset := D2D_POINT_2F(8, this)
             return this.__gradientOriginOffset
         }
     }

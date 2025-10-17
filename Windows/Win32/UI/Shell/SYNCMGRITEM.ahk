@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
 #Include ..\..\Foundation\FILETIME.ahk
 
 /**
@@ -60,11 +61,14 @@ class SYNCMGRITEM extends Win32Struct
      * Type: <b>HICON</b>
      * 
      * The icon for this item.
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(24, this)
+            return this.__hIcon
+        }
     }
 
     /**
@@ -87,17 +91,13 @@ class SYNCMGRITEM extends Win32Struct
     ftLastUpdate{
         get {
             if(!this.HasProp("__ftLastUpdate"))
-                this.__ftLastUpdate := FILETIME(this.ptr + 288)
+                this.__ftLastUpdate := FILETIME(288, this)
             return this.__ftLastUpdate
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 296
     }
 }

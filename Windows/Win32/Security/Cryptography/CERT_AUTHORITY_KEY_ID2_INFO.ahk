@@ -22,7 +22,7 @@ class CERT_AUTHORITY_KEY_ID2_INFO extends Win32Struct
     KeyId{
         get {
             if(!this.HasProp("__KeyId"))
-                this.__KeyId := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__KeyId := CRYPT_INTEGER_BLOB(0, this)
             return this.__KeyId
         }
     }
@@ -34,7 +34,7 @@ class CERT_AUTHORITY_KEY_ID2_INFO extends Win32Struct
     AuthorityCertIssuer{
         get {
             if(!this.HasProp("__AuthorityCertIssuer"))
-                this.__AuthorityCertIssuer := CERT_ALT_NAME_INFO(this.ptr + 16)
+                this.__AuthorityCertIssuer := CERT_ALT_NAME_INFO(16, this)
             return this.__AuthorityCertIssuer
         }
     }
@@ -47,7 +47,7 @@ class CERT_AUTHORITY_KEY_ID2_INFO extends Win32Struct
     AuthorityCertSerialNumber{
         get {
             if(!this.HasProp("__AuthorityCertSerialNumber"))
-                this.__AuthorityCertSerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__AuthorityCertSerialNumber := CRYPT_INTEGER_BLOB(32, this)
             return this.__AuthorityCertSerialNumber
         }
     }

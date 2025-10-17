@@ -43,7 +43,7 @@ class DXVAHD_STREAM_STATE_PRIVATE_IVTC_DATA extends Win32Struct
 
     /**
      * Specifies whether IVTC statistics are enabled. The default state value is <b>FALSE</b>. Setting the value to <b>TRUE</b> enables IVTC statistics, and resets all of the IVTC statistical data to zero.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

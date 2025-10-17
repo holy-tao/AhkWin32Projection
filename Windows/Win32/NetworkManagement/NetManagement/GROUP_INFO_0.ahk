@@ -26,7 +26,7 @@ class GROUP_INFO_0 extends Win32Struct
      * 
      * When you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netgroupsetinfo">NetGroupSetInfo</a> function this member specifies the new name of the global group.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     grpi0_name {
         get => NumGet(this, 0, "ptr")

@@ -12,7 +12,7 @@ class SYSTEM_POOL_ZEROING_INFORMATION extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PoolZeroingSupportPresent {
         get => NumGet(this, 0, "char")

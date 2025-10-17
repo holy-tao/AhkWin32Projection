@@ -18,7 +18,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -104,7 +104,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bStrictlyOrderedServiceClassImplemented {
         get => NumGet(this, 44, "char")
@@ -120,7 +120,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bSafeModeImplemented {
         get => NumGet(this, 46, "char")
@@ -208,7 +208,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bAutoPowerSaveMode {
         get => NumGet(this, 128, "char")
@@ -224,7 +224,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bMFPCapable {
         get => NumGet(this, 136, "char")
@@ -248,7 +248,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bNeighborReportSupported {
         get => NumGet(this, 152, "char")
@@ -256,7 +256,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bAPChannelReportSupported {
         get => NumGet(this, 153, "char")
@@ -264,7 +264,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bActionFramesSupported {
         get => NumGet(this, 154, "char")
@@ -272,7 +272,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bANQPQueryOffloadSupported {
         get => NumGet(this, 155, "char")
@@ -280,7 +280,7 @@ class DOT11_EXTSTA_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bHESSIDConnectionSupported {
         get => NumGet(this, 156, "char")

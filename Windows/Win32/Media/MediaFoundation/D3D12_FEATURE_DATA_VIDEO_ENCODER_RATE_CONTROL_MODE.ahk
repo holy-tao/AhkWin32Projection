@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 12, "int")

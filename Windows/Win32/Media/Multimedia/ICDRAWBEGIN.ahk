@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * The ICDRAWBEGIN structure contains decompression parameters used with the ICM_DRAW_BEGIN message.
@@ -130,29 +133,38 @@ class ICDRAWBEGIN extends Win32Struct
 
     /**
      * Handle to the palette used for drawing.
-     * @type {Pointer<Void>}
+     * @type {HPALETTE}
      */
-    hpal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hpal{
+        get {
+            if(!this.HasProp("__hpal"))
+                this.__hpal := HPALETTE(8, this)
+            return this.__hpal
+        }
     }
 
     /**
      * Handle to the window used for drawing.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(16, this)
+            return this.__hwnd
+        }
     }
 
     /**
      * Handle to the DC used for drawing. Specify <b>NULL</b> to use a DC associated with the specified window.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(24, this)
+            return this.__hdc
+        }
     }
 
     /**

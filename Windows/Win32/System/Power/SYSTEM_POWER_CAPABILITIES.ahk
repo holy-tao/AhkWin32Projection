@@ -16,7 +16,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, there is a system power button.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PowerButtonPresent {
         get => NumGet(this, 0, "char")
@@ -25,7 +25,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, there is a system sleep button.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SleepButtonPresent {
         get => NumGet(this, 1, "char")
@@ -34,7 +34,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, there is a lid switch.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     LidPresent {
         get => NumGet(this, 2, "char")
@@ -43,7 +43,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S1</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemS1 {
         get => NumGet(this, 3, "char")
@@ -52,7 +52,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S2</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemS2 {
         get => NumGet(this, 4, "char")
@@ -61,7 +61,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S3</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemS3 {
         get => NumGet(this, 5, "char")
@@ -70,7 +70,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">sleep state S4</a> (hibernation).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemS4 {
         get => NumGet(this, 6, "char")
@@ -79,7 +79,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the operating system supports <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">power off state S5</a> (soft off).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemS5 {
         get => NumGet(this, 7, "char")
@@ -88,7 +88,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system hibernation file is present.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HiberFilePresent {
         get => NumGet(this, 8, "char")
@@ -97,7 +97,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system supports wake capabilities.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FullWake {
         get => NumGet(this, 9, "char")
@@ -107,7 +107,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the system supports video display dimming 
      *       capabilities.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     VideoDimPresent {
         get => NumGet(this, 10, "char")
@@ -117,7 +117,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the system supports APM BIOS power management 
      *       features.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ApmPresent {
         get => NumGet(this, 11, "char")
@@ -127,7 +127,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, there is an uninterruptible power supply 
      *       (UPS).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UpsPresent {
         get => NumGet(this, 12, "char")
@@ -136,7 +136,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system supports thermal zones.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ThermalControl {
         get => NumGet(this, 13, "char")
@@ -145,7 +145,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system supports processor throttling.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ProcessorThrottle {
         get => NumGet(this, 14, "char")
@@ -172,7 +172,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system supports the <a href="https://docs.microsoft.com/windows/desktop/Power/system-power-states">hybrid sleep state</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FastSystemS4 {
         get => NumGet(this, 17, "char")
@@ -181,7 +181,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Hiberboot {
         get => NumGet(this, 18, "char")
@@ -190,7 +190,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the platform has support for ACPI wake alarm devices.  For more details on wake alarm devices, please see the ACPI specification section 9.18.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WakeAlarmPresent {
         get => NumGet(this, 19, "char")
@@ -199,7 +199,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system supports the S0 low power idle model.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AoAc {
         get => NumGet(this, 20, "char")
@@ -209,7 +209,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the system supports allowing the removal of power to 
      *       fixed disk devices.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DiskSpinDown {
         get => NumGet(this, 21, "char")
@@ -227,7 +227,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AoAcConnectivitySupported {
         get => NumGet(this, 23, "char")
@@ -248,7 +248,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, there are one or more batteries in the system.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SystemBatteriesPresent {
         get => NumGet(this, 30, "char")
@@ -258,7 +258,7 @@ class SYSTEM_POWER_CAPABILITIES extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the system batteries are short-term. Short-term batteries 
      *       are used in uninterruptible power supplies (UPS).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BatteriesAreShortTerm {
         get => NumGet(this, 31, "char")

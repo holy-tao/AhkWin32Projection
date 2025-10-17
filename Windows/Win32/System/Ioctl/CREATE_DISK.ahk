@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CREATE_DISK_MBR.ahk
 #Include .\CREATE_DISK_GPT.ahk
 
 /**
@@ -27,11 +28,14 @@ class CREATE_DISK extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CREATE_DISK_MBR}
      */
-    Mbr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Mbr{
+        get {
+            if(!this.HasProp("__Mbr"))
+                this.__Mbr := CREATE_DISK_MBR(8, this)
+            return this.__Mbr
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ class CREATE_DISK extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := CREATE_DISK_GPT(this.ptr + 8)
+                this.__Gpt := CREATE_DISK_GPT(8, this)
             return this.__Gpt
         }
     }

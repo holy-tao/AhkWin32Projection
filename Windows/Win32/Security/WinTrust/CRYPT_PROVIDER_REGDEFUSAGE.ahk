@@ -33,7 +33,7 @@ class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct
 
     /**
      * Pointer to the name of the provider DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDllName {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct
 
     /**
      * Pointer to the name of the function that loads the callback data to be returned when the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wintrustgetdefaultforusage">WintrustGetDefaultForUsage</a> function is called with the <i>dwAction</i> parameter set to <b>DWACTION_ALLOCANDFILL</b>. This information also exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pwszLoadCallbackDataFunctionName {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class CRYPT_PROVIDER_REGDEFUSAGE extends Win32Struct
 
     /**
      * Pointer to the name of the function that frees allocated memory when the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-wintrustgetdefaultforusage">WintrustGetDefaultForUsage</a> function is called with the <i>dwAction</i> parameter set to <b>DWACTION_FREE</b>. This information also exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pwszFreeCallbackDataFunctionName {
         get => NumGet(this, 32, "ptr")

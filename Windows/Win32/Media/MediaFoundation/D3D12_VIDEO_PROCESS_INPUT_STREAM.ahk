@@ -42,7 +42,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM extends Win32Struct
     ReferenceSet{
         get {
             if(!this.HasProp("__ReferenceSet"))
-                this.__ReferenceSet := D3D12_VIDEO_PROCESS_REFERENCE_SET(this.ptr + 16)
+                this.__ReferenceSet := D3D12_VIDEO_PROCESS_REFERENCE_SET(16, this)
             return this.__ReferenceSet
         }
     }

@@ -15,7 +15,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The user-friendly name of the application.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPackageName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The name of the application's publisher.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPublisher {
         get => NumGet(this, 8, "ptr")
@@ -69,7 +69,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * The user-friendly name for the GPO from which this application is deployed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPolicyName {
         get => NumGet(this, 40, "ptr")
@@ -96,7 +96,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOwner {
         get => NumGet(this, 64, "ptr")
@@ -105,7 +105,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCompany {
         get => NumGet(this, 72, "ptr")
@@ -114,7 +114,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszComments {
         get => NumGet(this, 80, "ptr")
@@ -123,7 +123,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszContact {
         get => NumGet(this, 88, "ptr")
@@ -132,7 +132,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This member is unused.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSupportUrl {
         get => NumGet(this, 96, "ptr")
@@ -150,7 +150,7 @@ class MANAGEDAPPLICATION extends Win32Struct
 
     /**
      * This parameter is <b>TRUE</b> if the application is currently installed and  is <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInstalled {
         get => NumGet(this, 108, "int")

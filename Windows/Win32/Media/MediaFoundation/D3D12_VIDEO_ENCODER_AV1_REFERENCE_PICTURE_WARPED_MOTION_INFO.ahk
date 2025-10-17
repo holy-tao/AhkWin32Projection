@@ -31,7 +31,7 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO extends Win32
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InvalidAffineSet {
         get => NumGet(this, 36, "int")

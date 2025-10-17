@@ -12,7 +12,7 @@ class IsolatedAppLauncherTelemetryParameters extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnableForLaunch {
         get => NumGet(this, 0, "int")

@@ -40,7 +40,7 @@ class MIB_UDP6ROW extends Win32Struct
     dwLocalAddr{
         get {
             if(!this.HasProp("__dwLocalAddr"))
-                this.__dwLocalAddr := IN6_ADDR(this.ptr + 0)
+                this.__dwLocalAddr := IN6_ADDR(0, this)
             return this.__dwLocalAddr
         }
     }

@@ -68,7 +68,7 @@ class GameInputDeviceInfo extends Win32Struct
     usage{
         get {
             if(!this.HasProp("__usage"))
-                this.__usage := GameInputUsage(this.ptr + 12)
+                this.__usage := GameInputUsage(12, this)
             return this.__usage
         }
     }
@@ -79,7 +79,7 @@ class GameInputDeviceInfo extends Win32Struct
     hardwareVersion{
         get {
             if(!this.HasProp("__hardwareVersion"))
-                this.__hardwareVersion := GameInputVersion(this.ptr + 16)
+                this.__hardwareVersion := GameInputVersion(16, this)
             return this.__hardwareVersion
         }
     }
@@ -90,7 +90,7 @@ class GameInputDeviceInfo extends Win32Struct
     firmwareVersion{
         get {
             if(!this.HasProp("__firmwareVersion"))
-                this.__firmwareVersion := GameInputVersion(this.ptr + 24)
+                this.__firmwareVersion := GameInputVersion(24, this)
             return this.__firmwareVersion
         }
     }
@@ -101,7 +101,7 @@ class GameInputDeviceInfo extends Win32Struct
     deviceId{
         get {
             if(!this.HasProp("__deviceId"))
-                this.__deviceId := APP_LOCAL_DEVICE_ID(this.ptr + 32)
+                this.__deviceId := APP_LOCAL_DEVICE_ID(32, this)
             return this.__deviceId
         }
     }
@@ -112,7 +112,7 @@ class GameInputDeviceInfo extends Win32Struct
     deviceRootId{
         get {
             if(!this.HasProp("__deviceRootId"))
-                this.__deviceRootId := APP_LOCAL_DEVICE_ID(this.ptr + 64)
+                this.__deviceRootId := APP_LOCAL_DEVICE_ID(64, this)
             return this.__deviceRootId
         }
     }

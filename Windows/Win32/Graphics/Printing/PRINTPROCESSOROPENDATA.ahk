@@ -20,7 +20,7 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDatatype {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pParameters {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDocumentName {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pOutputFile {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class PRINTPROCESSOROPENDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 48, "ptr")

@@ -26,7 +26,7 @@ class SENDCMDOUTPARAMS extends Win32Struct
     DriverStatus{
         get {
             if(!this.HasProp("__DriverStatus"))
-                this.__DriverStatus := DRIVERSTATUS(this.ptr + 8)
+                this.__DriverStatus := DRIVERSTATUS(8, this)
             return this.__DriverStatus
         }
     }

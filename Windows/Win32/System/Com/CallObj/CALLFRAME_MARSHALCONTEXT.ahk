@@ -15,7 +15,7 @@ class CALLFRAME_MARSHALCONTEXT extends Win32Struct
 
     /**
      * <b>TRUE</b> if the in parameter values are to be marshaled and <b>FALSE</b> if the out parameter values are to be marshaled. The in parameter values are marshaled on the client side and the out parameter values are marshaled on the server side.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fIn {
         get => NumGet(this, 0, "char")

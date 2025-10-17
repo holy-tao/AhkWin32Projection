@@ -32,7 +32,7 @@ class CMSG_MAIL_LIST_RECIPIENT_INFO extends Win32Struct
     KeyId{
         get {
             if(!this.HasProp("__KeyId"))
-                this.__KeyId := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__KeyId := CRYPT_INTEGER_BLOB(8, this)
             return this.__KeyId
         }
     }
@@ -44,7 +44,7 @@ class CMSG_MAIL_LIST_RECIPIENT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 24)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(24, this)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -56,7 +56,7 @@ class CMSG_MAIL_LIST_RECIPIENT_INFO extends Win32Struct
     EncryptedKey{
         get {
             if(!this.HasProp("__EncryptedKey"))
-                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 48)
+                this.__EncryptedKey := CRYPT_INTEGER_BLOB(48, this)
             return this.__EncryptedKey
         }
     }
@@ -68,7 +68,7 @@ class CMSG_MAIL_LIST_RECIPIENT_INFO extends Win32Struct
     Date{
         get {
             if(!this.HasProp("__Date"))
-                this.__Date := FILETIME(this.ptr + 64)
+                this.__Date := FILETIME(64, this)
             return this.__Date
         }
     }

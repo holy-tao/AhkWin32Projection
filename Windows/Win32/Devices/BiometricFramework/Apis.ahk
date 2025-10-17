@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
@@ -825,13 +825,13 @@ class BiometricFramework {
     /**
      * Opens a handle to the biometric framework. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} NotificationMethod 
-     * @param {Pointer<Void>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
+     * @param {HWND} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-app">WM_APP</a> (0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of the callback routine to be invoked for  completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
      * @param {Pointer<Void>} UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
-     * @param {Integer} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
+     * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
@@ -888,6 +888,8 @@ class BiometricFramework {
      * @since windows8.0
      */
     static WinBioAsyncOpenFramework(NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, FrameworkHandle) {
+        TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
+
         result := DllCall("winbio.dll\WinBioAsyncOpenFramework", "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", FrameworkHandle, "int")
         if(result != 0)
             throw OSError(result)
@@ -1528,13 +1530,13 @@ class BiometricFramework {
      * </tr>
      * </table>
      * @param {Integer} NotificationMethod 
-     * @param {Pointer<Void>} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
+     * @param {HWND} TargetWindow Handle  of the window that will receive the completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>.
      * @param {Integer} MessageCode Window message code the framework must send to signify completion notices. This value is ignored unless the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>. The value must be within the range WM_APP(0x8000) to 0xBFFF.
      * 
      * The Windows Biometric Framework sets the <b>LPARAM</b> value of the message to the address of the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure that contains the results of the operation. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the structure after you have finished using it.
      * @param {Pointer<PWINBIO_ASYNC_COMPLETION_CALLBACK>} CallbackRoutine Address of callback routine to be invoked when the operation started by using the session handle completes. This value is ignored unless the  <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>.
      * @param {Pointer<Void>} UserData Address of a buffer supplied by the caller. The buffer is not modified by the framework or the biometric unit. It is returned in the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure. Your application can use the data to help it determine what actions to perform upon receipt of the completion notice or to maintain additional information about the requested operation.
-     * @param {Integer} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
+     * @param {BOOL} AsynchronousOpen Specifies whether to block until the framework session has been opened. Specifying <b>FALSE</b> causes the process to block. Specifying <b>TRUE</b> causes the session to be opened asynchronously.
      * 
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
@@ -1646,6 +1648,8 @@ class BiometricFramework {
      * @since windows8.0
      */
     static WinBioAsyncOpenSession(Factor, PoolType, Flags, UnitArray, UnitCount, DatabaseId, NotificationMethod, TargetWindow, MessageCode, CallbackRoutine, UserData, AsynchronousOpen, SessionHandle) {
+        TargetWindow := TargetWindow is Win32Handle ? NumGet(TargetWindow, "ptr") : TargetWindow
+
         result := DllCall("winbio.dll\WinBioAsyncOpenSession", "uint", Factor, "uint", PoolType, "uint", Flags, "uint*", UnitArray, "ptr", UnitCount, "ptr", DatabaseId, "int", NotificationMethod, "ptr", TargetWindow, "uint", MessageCode, "ptr", CallbackRoutine, "ptr", UserData, "int", AsynchronousOpen, "uint*", SessionHandle, "int")
         if(result != 0)
             throw OSError(result)
@@ -2679,7 +2683,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
-        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr", SubFactorArray, "ptr*", SubFactorCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "char*", SubFactorArray, "ptr*", SubFactorCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3963,7 +3967,7 @@ class BiometricFramework {
 
     /**
      * Deletes a biometric logon credential for a specified user. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
-     * @param {Pointer} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the logon credential will be removed.
+     * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the logon credential will be removed.
      * @param {Integer} Type 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
@@ -4036,7 +4040,7 @@ class BiometricFramework {
 
     /**
      * Retrieves a value that specifies whether credentials have been set for the specified user. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
-     * @param {Pointer} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
+     * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
      * @param {Integer} Type 
      * @param {Pointer<Int32>} CredentialState 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

@@ -31,7 +31,7 @@ class USER_POWER_POLICY extends Win32Struct
     IdleAc{
         get {
             if(!this.HasProp("__IdleAc"))
-                this.__IdleAc := POWER_ACTION_POLICY(this.ptr + 8)
+                this.__IdleAc := POWER_ACTION_POLICY(8, this)
             return this.__IdleAc
         }
     }
@@ -44,7 +44,7 @@ class USER_POWER_POLICY extends Win32Struct
     IdleDc{
         get {
             if(!this.HasProp("__IdleDc"))
-                this.__IdleDc := POWER_ACTION_POLICY(this.ptr + 24)
+                this.__IdleDc := POWER_ACTION_POLICY(24, this)
             return this.__IdleDc
         }
     }
@@ -177,7 +177,7 @@ class USER_POWER_POLICY extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified and the system is running on AC (utility) power. This causes the operating system to be biased toward using the fan and running the processor at full speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OptimizeForPowerAc {
         get => NumGet(this, 80, "char")
@@ -186,7 +186,7 @@ class USER_POWER_POLICY extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the system will turn on cooling fans and run the processor at full speed when passive cooling is specified and the system is running on battery power. This causes the operating system to be biased toward using the fan and running the processor at full speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OptimizeForPowerDc {
         get => NumGet(this, 81, "char")

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DDEML_MSG_HOOK_DATA.ahk
 
 /**
@@ -29,11 +31,14 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the window that receives the DDE message.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndTo {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndTo{
+        get {
+            if(!this.HasProp("__hwndTo"))
+                this.__hwndTo := HWND(8, this)
+            return this.__hwndTo
+        }
     }
 
     /**
@@ -51,11 +56,14 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the task (application instance) containing the window that receives the DDE message.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hTask {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hTask{
+        get {
+            if(!this.HasProp("__hTask"))
+                this.__hTask := HANDLE(24, this)
+            return this.__hTask
+        }
     }
 
     /**
@@ -73,7 +81,7 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>WPARAM</b>
      * 
      * The <b>wParam</b> parameter of the DDE message.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 40, "ptr")
@@ -84,7 +92,7 @@ class MONMSGSTRUCT extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * The <b>lParam</b> parameter of the DDE message.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")
@@ -100,7 +108,7 @@ class MONMSGSTRUCT extends Win32Struct
     dmhd{
         get {
             if(!this.HasProp("__dmhd"))
-                this.__dmhd := DDEML_MSG_HOOK_DATA(this.ptr + 56)
+                this.__dmhd := DDEML_MSG_HOOK_DATA(56, this)
             return this.__dmhd
         }
     }

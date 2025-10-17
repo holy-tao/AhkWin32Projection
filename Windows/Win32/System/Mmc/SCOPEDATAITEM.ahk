@@ -40,7 +40,7 @@ class SCOPEDATAITEM extends Win32Struct
      * Be aware that the snap-in can use <b>MMC_TEXTCALLBACK</b> instead of <b>MMC_CALLBACK</b>. The <b>MMC_TEXTCALLBACK</b> value is a type-correct (no casting necessary) version of <b>MMC_CALLBACK</b>.
      * 
      * <b>MMC_TEXTCALLBACK</b> is introduced in MMC version 1.2.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     displayname {
         get => NumGet(this, 8, "ptr")
@@ -109,7 +109,7 @@ class SCOPEDATAITEM extends Win32Struct
     /**
      * A value that specifies a user-supplied 32-bit value to associate with the item. This item, also called a cookie, is the value that is passed as the first parameter to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponentdata-querydataobject">IComponentData::QueryDataObject</a>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 32, "ptr")

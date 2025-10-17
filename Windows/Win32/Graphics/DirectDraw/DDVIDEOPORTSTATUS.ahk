@@ -21,7 +21,7 @@ class DDVIDEOPORTSTATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInUse {
         get => NumGet(this, 4, "int")
@@ -50,7 +50,7 @@ class DDVIDEOPORTSTATUS extends Win32Struct
     VideoPortType{
         get {
             if(!this.HasProp("__VideoPortType"))
-                this.__VideoPortType := DDVIDEOPORTCONNECT(this.ptr + 16)
+                this.__VideoPortType := DDVIDEOPORTCONNECT(16, this)
             return this.__VideoPortType
         }
     }

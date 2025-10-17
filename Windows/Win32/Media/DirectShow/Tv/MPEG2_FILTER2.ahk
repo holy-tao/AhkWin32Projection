@@ -33,7 +33,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUseRawFilteringBits {
         get => NumGet(this, 4, "int")
@@ -63,7 +63,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyTableIdExtension {
         get => NumGet(this, 40, "int")
@@ -79,7 +79,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyVersion {
         get => NumGet(this, 48, "int")
@@ -95,7 +95,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifySectionNumber {
         get => NumGet(this, 56, "int")
@@ -111,7 +111,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyCurrentNext {
         get => NumGet(this, 64, "int")
@@ -119,7 +119,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNext {
         get => NumGet(this, 68, "int")
@@ -127,7 +127,7 @@ class MPEG2_FILTER2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyDsmccOptions {
         get => NumGet(this, 72, "int")
@@ -140,13 +140,13 @@ class MPEG2_FILTER2 extends Win32Struct
     Dsmcc{
         get {
             if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(this.ptr + 80)
+                this.__Dsmcc := DSMCC_FILTER_OPTIONS(80, this)
             return this.__Dsmcc
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyAtscOptions {
         get => NumGet(this, 140, "int")
@@ -159,7 +159,7 @@ class MPEG2_FILTER2 extends Win32Struct
     Atsc{
         get {
             if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(this.ptr + 144)
+                this.__Atsc := ATSC_FILTER_OPTIONS(144, this)
             return this.__Atsc
         }
     }
@@ -178,7 +178,7 @@ class MPEG2_FILTER2 extends Win32Struct
     /**
      * If <b>TRUE</b>, the <b>Dvb_Eit</b> member contains additional filtering criteria. Otherwise, the <b>Dvb_Eit</b> member is ignored. <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
      * <div> </div>
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyDvbEitOptions {
         get => NumGet(this, 156, "int")
@@ -199,7 +199,7 @@ class MPEG2_FILTER2 extends Win32Struct
     DvbEit{
         get {
             if(!this.HasProp("__DvbEit"))
-                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(this.ptr + 160)
+                this.__DvbEit := DVB_EIT_FILTER_OPTIONS(160, this)
             return this.__DvbEit
         }
     }

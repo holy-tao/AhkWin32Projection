@@ -237,7 +237,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_log_election_packets {
         get => NumGet(this, 80, "int")
@@ -248,7 +248,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_opportunistic_locking {
         get => NumGet(this, 84, "int")
@@ -259,7 +259,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_unlock_behind {
         get => NumGet(this, 88, "int")
@@ -270,7 +270,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_close_behind {
         get => NumGet(this, 92, "int")
@@ -281,7 +281,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_buf_named_pipes {
         get => NumGet(this, 96, "int")
@@ -292,7 +292,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_lock_read_unlock {
         get => NumGet(this, 100, "int")
@@ -303,7 +303,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_utilize_nt_caching {
         get => NumGet(this, 104, "int")
@@ -314,7 +314,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_raw_read {
         get => NumGet(this, 108, "int")
@@ -325,7 +325,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_raw_write {
         get => NumGet(this, 112, "int")
@@ -336,7 +336,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_write_raw_data {
         get => NumGet(this, 116, "int")
@@ -347,7 +347,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_encryption {
         get => NumGet(this, 120, "int")
@@ -358,7 +358,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_buf_files_deny_write {
         get => NumGet(this, 124, "int")
@@ -369,7 +369,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_buf_read_only_files {
         get => NumGet(this, 128, "int")
@@ -380,7 +380,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_force_core_create_mode {
         get => NumGet(this, 132, "int")
@@ -391,7 +391,7 @@ class WKSTA_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Reserved.
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki502_use_512_byte_max_transfer {
         get => NumGet(this, 136, "int")

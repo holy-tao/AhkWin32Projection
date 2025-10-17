@@ -289,7 +289,7 @@ class LAYERPLANEDESCRIPTOR extends Win32Struct
 
     /**
      * When the LPD_TRANSPARENT flag is set, specifies the transparent color or index value. Typically the value is zero.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crTransparent {
         get => NumGet(this, 28, "uint")

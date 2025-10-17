@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains a set of function pointers assigned by the CryptSIPLoad function that your application uses to perform subject interface package (SIP) operations.
@@ -29,11 +30,14 @@ class SIP_DISPATCH_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSIP {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hSIP{
+        get {
+            if(!this.HasProp("__hSIP"))
+                this.__hSIP := HANDLE(8, this)
+            return this.__hSIP
+        }
     }
 
     /**
@@ -81,12 +85,8 @@ class SIP_DISPATCH_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

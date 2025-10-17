@@ -38,7 +38,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szLogFileCaption {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szDefaultDir {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +54,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szBaseFileName {
         get => NumGet(this, 32, "ptr")
@@ -94,7 +94,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PdlCommandFilename {
         get => NumGet(this, 56, "ptr")
@@ -102,7 +102,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PdlCounterList {
         get => NumGet(this, 64, "ptr")
@@ -131,7 +131,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     PdlLogStartTime{
         get {
             if(!this.HasProp("__PdlLogStartTime"))
-                this.__PdlLogStartTime := FILETIME(this.ptr + 80)
+                this.__PdlLogStartTime := FILETIME(80, this)
             return this.__PdlLogStartTime
         }
     }
@@ -142,7 +142,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     PdlLogEndTime{
         get {
             if(!this.HasProp("__PdlLogEndTime"))
-                this.__PdlLogEndTime := FILETIME(this.ptr + 88)
+                this.__PdlLogEndTime := FILETIME(88, this)
             return this.__PdlLogEndTime
         }
     }
@@ -220,7 +220,7 @@ class PDH_LOG_SERVICE_QUERY_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TlLogFileName {
         get => NumGet(this, 88, "ptr")

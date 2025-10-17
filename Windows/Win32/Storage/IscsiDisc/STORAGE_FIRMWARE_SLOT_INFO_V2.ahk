@@ -20,7 +20,7 @@ class STORAGE_FIRMWARE_SLOT_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReadOnly {
         get => NumGet(this, 1, "char")

@@ -19,7 +19,7 @@ class DEVPRIVATE_RESOURCE extends Win32Struct
     PRV_Header{
         get {
             if(!this.HasProp("__PRV_Header"))
-                this.__PRV_Header := DEVPRIVATE_DES(this.ptr + 0)
+                this.__PRV_Header := DEVPRIVATE_DES(0, this)
             return this.__PRV_Header
         }
     }

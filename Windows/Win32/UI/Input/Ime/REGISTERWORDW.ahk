@@ -28,7 +28,7 @@ class REGISTERWORDW extends Win32Struct
 
     /**
      * Pointer to the reading information for the word to register. If the reading information is not needed, the member can be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpReading {
         get => NumGet(this, 0, "ptr")
@@ -37,7 +37,7 @@ class REGISTERWORDW extends Win32Struct
 
     /**
      * Pointer to the word to register. If a word is not needed, the member can be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpWord {
         get => NumGet(this, 8, "ptr")

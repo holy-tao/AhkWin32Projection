@@ -22,7 +22,7 @@ class MEM_RESOURCE extends Win32Struct
     MEM_Header{
         get {
             if(!this.HasProp("__MEM_Header"))
-                this.__MEM_Header := MEM_DES(this.ptr + 0)
+                this.__MEM_Header := MEM_DES(0, this)
             return this.__MEM_Header
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.SystemServices
@@ -12,11 +13,14 @@ class RESOURCEMANAGER_COMPLETION_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    IoCompletionPortHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    IoCompletionPortHandle{
+        get {
+            if(!this.HasProp("__IoCompletionPortHandle"))
+                this.__IoCompletionPortHandle := HANDLE(0, this)
+            return this.__IoCompletionPortHandle
+        }
     }
 
     /**

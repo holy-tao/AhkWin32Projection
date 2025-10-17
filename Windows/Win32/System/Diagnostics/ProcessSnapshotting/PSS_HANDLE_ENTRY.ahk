@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\Foundation\FILETIME.ahk
 
 /**
@@ -21,11 +22,14 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The handle value.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    Handle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    Handle{
+        get {
+            if(!this.HasProp("__Handle"))
+                this.__Handle := HANDLE(0, this)
+            return this.__Handle
+        }
     }
 
     /**
@@ -53,7 +57,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     CaptureTime{
         get {
             if(!this.HasProp("__CaptureTime"))
-                this.__CaptureTime := FILETIME(this.ptr + 16)
+                this.__CaptureTime := FILETIME(16, this)
             return this.__CaptureTime
         }
     }
@@ -119,7 +123,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     CreationTime{
         get {
             if(!this.HasProp("__CreationTime"))
-                this.__CreationTime := FILETIME(this.ptr + 48)
+                this.__CreationTime := FILETIME(48, this)
             return this.__CreationTime
         }
     }
@@ -135,7 +139,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * The type name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TypeName {
         get => NumGet(this, 64, "ptr")
@@ -153,7 +157,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
 
     /**
      * Specifies the name of the object referenced by this handle. The buffer may not terminated by a <b>NULL</b> character. The pointer is valid for the lifetime of the walk marker passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/processsnapshot/nf-processsnapshot-psswalksnapshot">PssWalkSnapshot</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ObjectName {
         get => NumGet(this, 80, "ptr")
@@ -305,7 +309,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         Abandoned {
             get => NumGet(this, 4, "int")
@@ -335,7 +339,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         ManualReset {
             get => NumGet(this, 0, "int")
@@ -343,7 +347,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         Signaled {
             get => NumGet(this, 4, "int")
@@ -410,7 +414,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Process{
         get {
             if(!this.HasProp("__Process"))
-                this.__Process := %this.__Class%._Process(this.ptr + 88)
+                this.__Process := %this.__Class%._Process(88, this)
             return this.__Process
         }
     }
@@ -421,7 +425,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Thread{
         get {
             if(!this.HasProp("__Thread"))
-                this.__Thread := %this.__Class%._Thread(this.ptr + 88)
+                this.__Thread := %this.__Class%._Thread(88, this)
             return this.__Thread
         }
     }
@@ -432,7 +436,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Mutant{
         get {
             if(!this.HasProp("__Mutant"))
-                this.__Mutant := %this.__Class%._Mutant(this.ptr + 88)
+                this.__Mutant := %this.__Class%._Mutant(88, this)
             return this.__Mutant
         }
     }
@@ -443,7 +447,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(this.ptr + 88)
+                this.__Event := %this.__Class%._Event(88, this)
             return this.__Event
         }
     }
@@ -454,7 +458,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Section{
         get {
             if(!this.HasProp("__Section"))
-                this.__Section := %this.__Class%._Section(this.ptr + 88)
+                this.__Section := %this.__Class%._Section(88, this)
             return this.__Section
         }
     }
@@ -465,7 +469,7 @@ class PSS_HANDLE_ENTRY extends Win32Struct
     Semaphore{
         get {
             if(!this.HasProp("__Semaphore"))
-                this.__Semaphore := %this.__Class%._Semaphore(this.ptr + 88)
+                this.__Semaphore := %this.__Class%._Semaphore(88, this)
             return this.__Semaphore
         }
     }

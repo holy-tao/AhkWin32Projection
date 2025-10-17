@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
 
 /**
@@ -22,27 +23,33 @@ class D3D11_AUTHENTICATED_QUERY_OUTPUT_ID_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
 
     /**
      * A handle to the device.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    DeviceHandle {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    DeviceHandle{
+        get {
+            if(!this.HasProp("__DeviceHandle"))
+                this.__DeviceHandle := HANDLE(40, this)
+            return this.__DeviceHandle
+        }
     }
 
     /**
      * A handle to the cryptographic session.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    CryptoSessionHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    CryptoSessionHandle{
+        get {
+            if(!this.HasProp("__CryptoSessionHandle"))
+                this.__CryptoSessionHandle := HANDLE(48, this)
+            return this.__CryptoSessionHandle
+        }
     }
 
     /**

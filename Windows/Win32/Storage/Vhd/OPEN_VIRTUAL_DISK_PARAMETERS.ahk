@@ -54,12 +54,26 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
-    class _Version2 extends Win32Struct {
+    class _Version1 extends Win32Struct {
         static sizeof => 24
         static packingSize => 8
 
         /**
          * @type {Integer}
+         */
+        RWDepth {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _Version2 extends Win32Struct {
+        static sizeof => 24
+        static packingSize => 8
+
+        /**
+         * @type {BOOL}
          */
         GetInfoOnly {
             get => NumGet(this, 0, "int")
@@ -67,7 +81,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         ReadOnly {
             get => NumGet(this, 4, "int")
@@ -89,7 +103,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         GetInfoOnly {
             get => NumGet(this, 0, "int")
@@ -97,7 +111,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         ReadOnly {
             get => NumGet(this, 4, "int")
@@ -123,11 +137,14 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Version1}
      */
-    Version1 {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    Version1{
+        get {
+            if(!this.HasProp("__Version1"))
+                this.__Version1 := %this.__Class%._Version1(8, this)
+            return this.__Version1
+        }
     }
 
     /**
@@ -136,7 +153,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(this.ptr + 8)
+                this.__Version2 := %this.__Class%._Version2(8, this)
             return this.__Version2
         }
     }
@@ -147,7 +164,7 @@ class OPEN_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version3{
         get {
             if(!this.HasProp("__Version3"))
-                this.__Version3 := %this.__Class%._Version3(this.ptr + 8)
+                this.__Version3 := %this.__Class%._Version3(8, this)
             return this.__Version3
         }
     }

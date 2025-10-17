@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Foundation\POINT.ahk
 #Include .\POINTER_INFO.ahk
 
@@ -29,7 +31,7 @@ class POINTER_PEN_INFO extends Win32Struct
     pointerInfo{
         get {
             if(!this.HasProp("__pointerInfo"))
-                this.__pointerInfo := POINTER_INFO(this.ptr + 0)
+                this.__pointerInfo := POINTER_INFO(0, this)
             return this.__pointerInfo
         }
     }

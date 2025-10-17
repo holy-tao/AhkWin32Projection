@@ -21,7 +21,7 @@ class CTL_ENTRY extends Win32Struct
     SubjectIdentifier{
         get {
             if(!this.HasProp("__SubjectIdentifier"))
-                this.__SubjectIdentifier := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__SubjectIdentifier := CRYPT_INTEGER_BLOB(0, this)
             return this.__SubjectIdentifier
         }
     }

@@ -22,7 +22,7 @@ class MCI_OVLY_SAVE_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpfilename {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class MCI_OVLY_SAVE_PARMSA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

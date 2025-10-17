@@ -26,7 +26,7 @@ class WHV_SRIOV_RESOURCE_DESCRIPTOR extends Win32Struct
     VirtualFunctionId{
         get {
             if(!this.HasProp("__VirtualFunctionId"))
-                this.__VirtualFunctionId := LUID(this.ptr + 400)
+                this.__VirtualFunctionId := LUID(400, this)
             return this.__VirtualFunctionId
         }
     }

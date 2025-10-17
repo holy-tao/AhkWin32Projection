@@ -41,14 +41,14 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
     ClientHardwareAddress{
         get {
             if(!this.HasProp("__ClientHardwareAddress"))
-                this.__ClientHardwareAddress := DHCP_BINARY_DATA(this.ptr + 8)
+                this.__ClientHardwareAddress := DHCP_BINARY_DATA(8, this)
             return this.__ClientHardwareAddress
         }
     }
 
     /**
      * Ppointer to a null-terminated Unicode string that represents the DHCPv4 client's machine name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClientName {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the description given to the DHCPv4 client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClientComment {
         get => NumGet(this, 32, "ptr")
@@ -71,7 +71,7 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
     ClientLeaseExpires{
         get {
             if(!this.HasProp("__ClientLeaseExpires"))
-                this.__ClientLeaseExpires := DATE_TIME(this.ptr + 40)
+                this.__ClientLeaseExpires := DATE_TIME(40, this)
             return this.__ClientLeaseExpires
         }
     }
@@ -83,7 +83,7 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
     OwnerHost{
         get {
             if(!this.HasProp("__OwnerHost"))
-                this.__OwnerHost := DHCP_HOST_INFO(this.ptr + 48)
+                this.__OwnerHost := DHCP_HOST_INFO(48, this)
             return this.__OwnerHost
         }
     }
@@ -246,14 +246,14 @@ class DHCP_CLIENT_FILTER_STATUS_INFO extends Win32Struct
     ProbationEnds{
         get {
             if(!this.HasProp("__ProbationEnds"))
-                this.__ProbationEnds := DATE_TIME(this.ptr + 80)
+                this.__ProbationEnds := DATE_TIME(80, this)
             return this.__ProbationEnds
         }
     }
 
     /**
      * If <b>TRUE</b>, the DHCPv4 client is quarantine-enabled; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     QuarantineCapable {
         get => NumGet(this, 88, "int")

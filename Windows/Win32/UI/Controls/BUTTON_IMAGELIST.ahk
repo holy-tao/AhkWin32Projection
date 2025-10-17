@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HIMAGELIST.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -18,11 +19,14 @@ class BUTTON_IMAGELIST extends Win32Struct
      * Type: <b>HIMAGELIST</b>
      * 
      * A handle to the image list. The provider retains ownership of the image list and is ultimately responsible for its disposal. Under Windows Vista, you can pass BCCL_NOGLYPH in this parameter to indicate that no glyph should be displayed.
-     * @type {Pointer}
+     * @type {HIMAGELIST}
      */
-    himl {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    himl{
+        get {
+            if(!this.HasProp("__himl"))
+                this.__himl := HIMAGELIST(0, this)
+            return this.__himl
+        }
     }
 
     /**
@@ -34,7 +38,7 @@ class BUTTON_IMAGELIST extends Win32Struct
     margin{
         get {
             if(!this.HasProp("__margin"))
-                this.__margin := RECT(this.ptr + 8)
+                this.__margin := RECT(8, this)
             return this.__margin
         }
     }

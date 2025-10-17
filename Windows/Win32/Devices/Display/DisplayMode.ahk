@@ -31,7 +31,7 @@ class DisplayMode extends Win32Struct
     devMode{
         get {
             if(!this.HasProp("__devMode"))
-                this.__devMode := DEVMODEW(this.ptr + 64)
+                this.__devMode := DEVMODEW(64, this)
             return this.__devMode
         }
     }

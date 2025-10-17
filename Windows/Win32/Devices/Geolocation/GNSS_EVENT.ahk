@@ -77,7 +77,7 @@ class GNSS_EVENT extends Win32Struct
     FixData{
         get {
             if(!this.HasProp("__FixData"))
-                this.__FixData := GNSS_FIXDATA(this.ptr + 528)
+                this.__FixData := GNSS_FIXDATA(528, this)
             return this.__FixData
         }
     }
@@ -88,7 +88,7 @@ class GNSS_EVENT extends Win32Struct
     AgnssRequest{
         get {
             if(!this.HasProp("__AgnssRequest"))
-                this.__AgnssRequest := GNSS_AGNSS_REQUEST_PARAM(this.ptr + 528)
+                this.__AgnssRequest := GNSS_AGNSS_REQUEST_PARAM(528, this)
             return this.__AgnssRequest
         }
     }
@@ -99,7 +99,7 @@ class GNSS_EVENT extends Win32Struct
     NiRequest{
         get {
             if(!this.HasProp("__NiRequest"))
-                this.__NiRequest := GNSS_NI_REQUEST_PARAM(this.ptr + 528)
+                this.__NiRequest := GNSS_NI_REQUEST_PARAM(528, this)
             return this.__NiRequest
         }
     }
@@ -110,7 +110,7 @@ class GNSS_EVENT extends Win32Struct
     ErrorInformation{
         get {
             if(!this.HasProp("__ErrorInformation"))
-                this.__ErrorInformation := GNSS_ERRORINFO(this.ptr + 528)
+                this.__ErrorInformation := GNSS_ERRORINFO(528, this)
             return this.__ErrorInformation
         }
     }
@@ -121,7 +121,7 @@ class GNSS_EVENT extends Win32Struct
     NmeaData{
         get {
             if(!this.HasProp("__NmeaData"))
-                this.__NmeaData := GNSS_NMEA_DATA(this.ptr + 528)
+                this.__NmeaData := GNSS_NMEA_DATA(528, this)
             return this.__NmeaData
         }
     }
@@ -132,7 +132,7 @@ class GNSS_EVENT extends Win32Struct
     GeofenceAlertData{
         get {
             if(!this.HasProp("__GeofenceAlertData"))
-                this.__GeofenceAlertData := GNSS_GEOFENCE_ALERT_DATA(this.ptr + 528)
+                this.__GeofenceAlertData := GNSS_GEOFENCE_ALERT_DATA(528, this)
             return this.__GeofenceAlertData
         }
     }
@@ -143,7 +143,7 @@ class GNSS_EVENT extends Win32Struct
     BreadcrumbAlertData{
         get {
             if(!this.HasProp("__BreadcrumbAlertData"))
-                this.__BreadcrumbAlertData := GNSS_BREADCRUMBING_ALERT_DATA(this.ptr + 528)
+                this.__BreadcrumbAlertData := GNSS_BREADCRUMBING_ALERT_DATA(528, this)
             return this.__BreadcrumbAlertData
         }
     }
@@ -154,7 +154,7 @@ class GNSS_EVENT extends Win32Struct
     GeofencesTrackingStatus{
         get {
             if(!this.HasProp("__GeofencesTrackingStatus"))
-                this.__GeofencesTrackingStatus := GNSS_GEOFENCES_TRACKINGSTATUS_DATA(this.ptr + 528)
+                this.__GeofencesTrackingStatus := GNSS_GEOFENCES_TRACKINGSTATUS_DATA(528, this)
             return this.__GeofencesTrackingStatus
         }
     }
@@ -165,7 +165,7 @@ class GNSS_EVENT extends Win32Struct
     DriverRequestData{
         get {
             if(!this.HasProp("__DriverRequestData"))
-                this.__DriverRequestData := GNSS_DRIVER_REQUEST_DATA(this.ptr + 528)
+                this.__DriverRequestData := GNSS_DRIVER_REQUEST_DATA(528, this)
             return this.__DriverRequestData
         }
     }

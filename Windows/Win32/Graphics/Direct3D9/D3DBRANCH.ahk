@@ -28,7 +28,7 @@ class D3DBRANCH extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNegate {
         get => NumGet(this, 8, "int")

@@ -22,7 +22,7 @@ class ENCRYPTED_CREDENTIALW extends Win32Struct
     Cred{
         get {
             if(!this.HasProp("__Cred"))
-                this.__Cred := CREDENTIALW(this.ptr + 0)
+                this.__Cred := CREDENTIALW(0, this)
             return this.__Cred
         }
     }

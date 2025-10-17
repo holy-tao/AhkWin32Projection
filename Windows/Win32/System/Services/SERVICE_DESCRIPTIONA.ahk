@@ -41,7 +41,7 @@ class SERVICE_DESCRIPTIONA extends Win32Struct
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadmuistringa">RegLoadMUIString</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>Localized strings are not supported until Windows Vista.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDescription {
         get => NumGet(this, 0, "ptr")

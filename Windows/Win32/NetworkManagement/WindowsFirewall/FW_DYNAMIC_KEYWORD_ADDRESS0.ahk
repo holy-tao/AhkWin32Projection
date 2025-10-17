@@ -20,7 +20,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     keyword {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class FW_DYNAMIC_KEYWORD_ADDRESS0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     addresses {
         get => NumGet(this, 24, "ptr")

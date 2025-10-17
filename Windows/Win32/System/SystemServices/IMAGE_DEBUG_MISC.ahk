@@ -28,7 +28,7 @@ class IMAGE_DEBUG_MISC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Unicode {
         get => NumGet(this, 8, "char")

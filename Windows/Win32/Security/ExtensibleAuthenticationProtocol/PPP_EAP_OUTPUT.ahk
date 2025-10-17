@@ -85,7 +85,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
     /**
      * Specifies whether RAS should invoke the authentication protocol's interactive UI. If the authentication protocol sets this member to <b>TRUE</b>, RAS invokes the interactive UI, by calling the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapinvokeinteractiveui">RasEapInvokeInteractiveUI</a> function provided by the authentication protocol.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInvokeInteractiveUI {
         get => NumGet(this, 24, "int")
@@ -115,7 +115,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * Specifies whether RAS should save the information pointed to by the <b>pConnectionData</b> member. If <b>fSaveConnectionData</b> is <b>TRUE</b>, RAS will save the data in the phone book. Only valid for the process that is being authenticated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSaveConnectionData {
         get => NumGet(this, 44, "int")
@@ -143,7 +143,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * Specifies whether RAS should save the user data pointed to by the <b>pUserData</b> member. If this parameter is <b>TRUE</b>, RAS saves the user-specific data in the registry under <b>HKEY_CURRENT_USER</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSaveUserData {
         get => NumGet(this, 60, "int")
@@ -180,7 +180,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSaveToCredMan {
         get => NumGet(this, 88, "int")

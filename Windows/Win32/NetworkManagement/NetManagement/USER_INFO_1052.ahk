@@ -16,7 +16,7 @@ class USER_INFO_1052 extends Win32Struct
     /**
      * Specifies a Unicode string that contains the path to the user's profile. The user is specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. This value can be a null string, a local absolute path, or a UNC path.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1052_profile {
         get => NumGet(this, 0, "ptr")

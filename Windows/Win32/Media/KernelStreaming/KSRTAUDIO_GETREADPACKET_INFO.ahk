@@ -36,7 +36,7 @@ class KSRTAUDIO_GETREADPACKET_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MoreData {
         get => NumGet(this, 16, "int")

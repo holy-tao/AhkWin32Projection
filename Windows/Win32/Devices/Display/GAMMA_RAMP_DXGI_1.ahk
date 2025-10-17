@@ -18,7 +18,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     Scale{
         get {
             if(!this.HasProp("__Scale"))
-                this.__Scale := GAMMA_RAMP_RGB(this.ptr + 0)
+                this.__Scale := GAMMA_RAMP_RGB(0, this)
             return this.__Scale
         }
     }
@@ -29,7 +29,7 @@ class GAMMA_RAMP_DXGI_1 extends Win32Struct
     Offset{
         get {
             if(!this.HasProp("__Offset"))
-                this.__Offset := GAMMA_RAMP_RGB(this.ptr + 16)
+                this.__Offset := GAMMA_RAMP_RGB(16, this)
             return this.__Offset
         }
     }

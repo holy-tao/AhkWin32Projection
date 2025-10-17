@@ -21,7 +21,7 @@ class LINE_SEGMENT extends Win32Struct
     PtA{
         get {
             if(!this.HasProp("__PtA"))
-                this.__PtA := POINT(this.ptr + 0)
+                this.__PtA := POINT(0, this)
             return this.__PtA
         }
     }
@@ -33,7 +33,7 @@ class LINE_SEGMENT extends Win32Struct
     PtB{
         get {
             if(!this.HasProp("__PtB"))
-                this.__PtB := POINT(this.ptr + 8)
+                this.__PtB := POINT(8, this)
             return this.__PtB
         }
     }

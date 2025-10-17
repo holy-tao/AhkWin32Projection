@@ -82,7 +82,7 @@ class IPSEC_TUNNEL_ENDPOINTS2 extends Win32Struct
      * Type: <b>wchar_t*</b>
      * 
      * Configuration of multiple remote addresses and fully qualified domain names  for asymmetric tunneling support.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     remoteFqdn {
         get => NumGet(this, 48, "ptr")

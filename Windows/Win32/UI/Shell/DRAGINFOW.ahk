@@ -27,13 +27,13 @@ class DRAGINFOW extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 8)
+                this.__pt := POINT(8, this)
             return this.__pt
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNC {
         get => NumGet(this, 16, "int")
@@ -41,7 +41,7 @@ class DRAGINFOW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpFileList {
         get => NumGet(this, 24, "ptr")

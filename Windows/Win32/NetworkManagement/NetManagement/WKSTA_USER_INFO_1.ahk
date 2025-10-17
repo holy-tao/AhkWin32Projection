@@ -17,7 +17,7 @@ class WKSTA_USER_INFO_1 extends Win32Struct
      * Specifies the name of the user currently logged on to the workstation.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui1_username {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class WKSTA_USER_INFO_1 extends Win32Struct
      * Specifies the name of the domain in which the user is currently logged on.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui1_logon_domain {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class WKSTA_USER_INFO_1 extends Win32Struct
      * Specifies the list of operating system domains browsed by the workstation. The domain names are separated by blanks.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui1_oth_domains {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class WKSTA_USER_INFO_1 extends Win32Struct
      * Specifies the name of the server that authenticated the user.
      * 
      * This string is Unicode if  <b>_WIN32_WINNT</b> or <b>FORCE_UNICODE</b> are defined.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wkui1_logon_server {
         get => NumGet(this, 24, "ptr")

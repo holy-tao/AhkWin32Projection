@@ -27,7 +27,7 @@ class FaceRectInfo extends Win32Struct
     Region{
         get {
             if(!this.HasProp("__Region"))
-                this.__Region := RECT(this.ptr + 0)
+                this.__Region := RECT(0, this)
             return this.__Region
         }
     }

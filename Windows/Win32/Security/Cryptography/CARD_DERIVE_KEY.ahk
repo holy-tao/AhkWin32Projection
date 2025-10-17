@@ -28,7 +28,7 @@ class CARD_DERIVE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszKDF {
         get => NumGet(this, 8, "ptr")
@@ -68,7 +68,7 @@ class CARD_DERIVE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAlgId {
         get => NumGet(this, 48, "ptr")

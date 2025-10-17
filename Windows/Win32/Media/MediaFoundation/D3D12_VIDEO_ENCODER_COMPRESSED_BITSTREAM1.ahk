@@ -27,7 +27,7 @@ class D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 extends Win32Struct
     FrameOutputBuffer{
         get {
             if(!this.HasProp("__FrameOutputBuffer"))
-                this.__FrameOutputBuffer := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM(this.ptr + 8)
+                this.__FrameOutputBuffer := D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM(8, this)
             return this.__FrameOutputBuffer
         }
     }
@@ -38,7 +38,7 @@ class D3D12_VIDEO_ENCODER_COMPRESSED_BITSTREAM1 extends Win32Struct
     SubregionOutputBuffers{
         get {
             if(!this.HasProp("__SubregionOutputBuffers"))
-                this.__SubregionOutputBuffers := D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM(this.ptr + 8)
+                this.__SubregionOutputBuffers := D3D12_VIDEO_ENCODER_SUBREGION_COMPRESSED_BITSTREAM(8, this)
             return this.__SubregionOutputBuffers
         }
     }

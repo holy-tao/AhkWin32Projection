@@ -42,7 +42,7 @@ class D2D1_BRUSH_PROPERTIES extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transform"))
-                this.__transform := D2D_MATRIX_3X2_F(this.ptr + 8)
+                this.__transform := D2D_MATRIX_3X2_F(8, this)
             return this.__transform
         }
     }

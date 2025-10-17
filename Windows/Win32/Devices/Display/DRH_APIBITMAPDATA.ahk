@@ -20,7 +20,7 @@ class DRH_APIBITMAPDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     b {
         get => NumGet(this, 8, "int")

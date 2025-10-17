@@ -42,7 +42,7 @@ class HTML_PAINTER_INFO extends Win32Struct
     rcExpand{
         get {
             if(!this.HasProp("__rcExpand"))
-                this.__rcExpand := RECT(this.ptr + 16)
+                this.__rcExpand := RECT(16, this)
             return this.__rcExpand
         }
     }

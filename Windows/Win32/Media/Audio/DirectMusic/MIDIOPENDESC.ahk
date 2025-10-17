@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\HMIDI.ahk
 #Include ..\..\Multimedia\MIDIOPENSTRMID.ahk
 
 /**
@@ -16,11 +17,14 @@ class MIDIOPENDESC extends Win32Struct
 
     /**
      * Specifies the handle that the client uses to reference the device. This handle is assigned by WINMM. Use this handle when you notify the client with the <a href="https://docs.microsoft.com/previous-versions//ms708182(v=vs.85)">DriverCallback</a> function.
-     * @type {Pointer<Void>}
+     * @type {HMIDI}
      */
-    hMidi {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hMidi{
+        get {
+            if(!this.HasProp("__hMidi"))
+                this.__hMidi := HMIDI(0, this)
+            return this.__hMidi
+        }
     }
 
     /**

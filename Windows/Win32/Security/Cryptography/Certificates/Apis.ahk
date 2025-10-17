@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
@@ -4987,16 +4987,16 @@ class Certificates {
 ;@region Methods
     /**
      * Determines if a Certificate Services server is online; if the Certificate Services server is not online, backup operations will not be successful.
-     * @param {Pointer<Char>} pwszServerName A pointer to the NetBIOS or DNS machine name of the server to check for online status.
-     * @param {Pointer<Int32>} pfServerOnline A pointer to Boolean value which will be <b>TRUE</b> if the Certificate Services server is online and <b>FALSE</b> if it is not online.
+     * @param {PWSTR} pwszServerName A pointer to the NetBIOS or DNS machine name of the server to check for online status.
+     * @param {Pointer<BOOL>} pfServerOnline A pointer to Boolean value which will be <b>TRUE</b> if the Certificate Services server is online and <b>FALSE</b> if it is not online.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. This function will fail if Certificate Services is not running. If Certificate Services is running and ready to accept requests, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>TRUE</b>. If Certificate Services is running in suspended (or paused) mode, this function will return S_OK, and *<i>pfServerOnline</i> will point to a value of <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvisserveronlinew
      * @since windowsserver2003
      */
     static CertSrvIsServerOnlineW(pwszServerName, pfServerOnline) {
-        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvIsServerOnlineW", "ptr", pwszServerName, "int*", pfServerOnline, "int")
+        result := DllCall("certadm.dll\CertSrvIsServerOnlineW", "ptr", pwszServerName, "ptr", pfServerOnline, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5006,7 +5006,7 @@ class Certificates {
     /**
      * Retrieves the list of Certificate Services dynamic file names that need to be backed up for the given backup context.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @param {Pointer<Char>} ppwszzFileList A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated dynamic file names used by Certificate Services. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "&#92;&#92;<i>Server</i>&#92;<i>SharePoint</i>\…<i>Path</i>…&#92;<i>FileName</i>.ext". When you have finished using this allocated memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a> function.
+     * @param {Pointer<PWSTR>} ppwszzFileList A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated dynamic file names used by Certificate Services. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "&#92;&#92;<i>Server</i>&#92;<i>SharePoint</i>\…<i>Path</i>…&#92;<i>FileName</i>.ext". When you have finished using this allocated memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupfree">CertSrvBackupFree</a> function.
      * 
      * Before calling this function, setting *<i>ppwszzFileList</i> to <b>NULL</b> is optional.
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzFileList</i>.
@@ -5024,7 +5024,7 @@ class Certificates {
 
     /**
      * Used to prepare a Certificate Services server for backup operations.
-     * @param {Pointer<Char>} pwszServerName A pointer to the machine name of the server to prepare for online backup. This name can be the NetBIOS name or the DNS name.
+     * @param {PWSTR} pwszServerName A pointer to the machine name of the server to prepare for online backup. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} grbitJet Value used by the database engine; this value should be set to zero.
      * @param {Integer} dwBackupFlags 
      * @param {Pointer<Void>} phbc A pointer to a Certificate Services backup context handle (<b>HCSBC</b>).
@@ -5033,7 +5033,7 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
-        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr", phbc, "int")
         if(result != 0)
@@ -5045,7 +5045,7 @@ class Certificates {
     /**
      * Retrieves the list of Certificate Services database file names that need to be backed up for the given backup context.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @param {Pointer<Char>} ppwszzAttachmentInformation A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated database file names. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "## \\\\<i>Server</i>\\<i>SharePoint</i>\…<i>Path</i>…\\<i>FileName</i>.ext". The directory names will have the same form but without the trailing "\\<i>FileName</i>.ext". The text "##" denotes a Certificate Services Backup file type (CSBFT_*) and is stored as a single non-null <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character prefixed onto each UNC path. The type tag is defined in Certbcli.h and can be the following value for this function. 
+     * @param {Pointer<PWSTR>} ppwszzAttachmentInformation A pointer to a <b>WCHAR</b> pointer that will receive the list of null-terminated database file names. There is a null character after every file name and an extra null character at the end of the list. The file name will be in the UNC form "## \\\\<i>Server</i>\\<i>SharePoint</i>\…<i>Path</i>…\\<i>FileName</i>.ext". The directory names will have the same form but without the trailing "\\<i>FileName</i>.ext". The text "##" denotes a Certificate Services Backup file type (CSBFT_*) and is stored as a single non-null <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> character prefixed onto each UNC path. The type tag is defined in Certbcli.h and can be the following value for this function. 
      * 
      * 
      * 
@@ -5087,7 +5087,7 @@ class Certificates {
     /**
      * Opens a file for backup.
      * @param {Pointer<Void>} hbc A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Certificate Services</a> backup context.
-     * @param {Pointer<Char>} pwszAttachmentName File name to open for backup purposes. This file name would be parsed from a list produced by means of 
+     * @param {PWSTR} pwszAttachmentName File name to open for backup purposes. This file name would be parsed from a list produced by means of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetbackuplogsw">CertSrvBackupGetBackupLogs</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvbackupgetdatabasenamesw">CertSrvBackupGetDatabaseNames</a>. Note that the names returned by <b>CertSrvBackupGetBackupLogs</b> and <b>CertSrvBackupGetDatabaseNames</b> must have the single-WCHAR CSBFT_* prefix stripped before <b>CertSrvBackupOpenFile</b> is called.
      * @param {Integer} cbReadHintSize Number of bytes used as a hint when the file is read by 
@@ -5100,7 +5100,7 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvBackupOpenFileW(hbc, pwszAttachmentName, cbReadHintSize, pliFileSize) {
-        pwszAttachmentName := pwszAttachmentName is String? StrPtr(pwszAttachmentName) : pwszAttachmentName
+        pwszAttachmentName := pwszAttachmentName is String ? StrPtr(pwszAttachmentName) : pwszAttachmentName
 
         result := DllCall("certadm.dll\CertSrvBackupOpenFileW", "ptr", hbc, "ptr", pwszAttachmentName, "uint", cbReadHintSize, "int64*", pliFileSize, "int")
         if(result != 0)
@@ -5145,7 +5145,7 @@ class Certificates {
     /**
      * Retrieves the list of Certificate Services log file names that need to be backed up for the given backup context.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup context.
-     * @param {Pointer<Char>} ppwszzBackupLogFiles 
+     * @param {Pointer<PWSTR>} ppwszzBackupLogFiles 
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzBackupLogFiles</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvbackupgetbackuplogsw
@@ -5203,7 +5203,7 @@ class Certificates {
     /**
      * Used both in backup and restore scenarios and retrieves the list of Certificate Services database location names for all the files being backed up or restored.
      * @param {Pointer<Void>} hbc A handle to a Certificate Services backup or restore context.
-     * @param {Pointer<Char>} ppwszzDatabaseLocationList 
+     * @param {Pointer<PWSTR>} ppwszzDatabaseLocationList 
      * @param {Pointer<UInt32>} pcbSize A pointer to the <b>DWORD</b> value that specifies the number of bytes in <i>ppwszzDatabaseLocationList</i>.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success.
      * @see https://docs.microsoft.com/windows/win32/api//certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw
@@ -5219,7 +5219,7 @@ class Certificates {
 
     /**
      * Prepares a Certificate Services instance for restore operations.
-     * @param {Pointer<Char>} pwszServerName A pointer to the computer name of the server to prepare for restore operations. This name can be the NetBIOS name or the DNS name.
+     * @param {PWSTR} pwszServerName A pointer to the computer name of the server to prepare for restore operations. This name can be the NetBIOS name or the DNS name.
      * @param {Integer} dwRestoreFlags A bitfield that represents the combination of values in the following table.
      * 
      * <table>
@@ -5244,7 +5244,7 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
-        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
         result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr", phbc, "int")
         if(result != 0)
@@ -5257,14 +5257,14 @@ class Certificates {
      * Registers a Certificate Services restore.
      * @param {Pointer<Void>} hbc A handle to the Certificate Services restore context. This handle is obtained by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestorepreparew">CertSrvRestorePrepare</a> function.
-     * @param {Pointer<Char>} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
-     * @param {Pointer<Char>} pwszLogPath A pointer to a null-terminated Unicode string that contains the current log file directory. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszLogPath A pointer to a null-terminated Unicode string that contains the current log file directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Pointer<CSEDB_RSTMAPW>} rgrstmap An array of <b>CSEDB_RSTMAP</b> structures that contains the restore map. If you are performing a full database restoration, this parameter specifies the name of the backup database, as well as a new name for the database after it is restored. The backup database name is referenced by the <b>pwszDatabaseName</b> member, and the new database name is referenced by the <b>pwszNewDatabaseName</b> member. If the intent is to maintain the same name for both the backup database and the restored database, set both the <b>pwszNewDatabaseName</b> and the <b>pwszDatabaseName</b> members to the same name. The backup database name is constructed from the path returned by the backup client's call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw">CertSrvRestoreGetDatabaseLocations</a> function. <b>CertSrvRestoreGetDatabaseLocations</b> would have been called during a full backup, and the backup client would have saved the returned path.
      * 
      * If you are performing an incremental restoration, pass <b>NULL</b> for this parameter.
      * @param {Integer} crstmap The number of elements in the <i>rgrstmap</i> array. Pass zero for this parameter if you are performing an incremental restoration.
-     * @param {Pointer<Char>} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
@@ -5272,9 +5272,9 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterW(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
-        pwszCheckPointFilePath := pwszCheckPointFilePath is String? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
-        pwszLogPath := pwszLogPath is String? StrPtr(pwszLogPath) : pwszLogPath
-        pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
+        pwszCheckPointFilePath := pwszCheckPointFilePath is String ? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
+        pwszLogPath := pwszLogPath is String ? StrPtr(pwszLogPath) : pwszLogPath
+        pwszBackupLogPath := pwszBackupLogPath is String ? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
         result := DllCall("certadm.dll\CertSrvRestoreRegisterW", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
         if(result != 0)
@@ -5287,14 +5287,14 @@ class Certificates {
      * Registers a Certificate Services restore.
      * @param {Pointer<Void>} hbc A handle to the Certificate Services restore context. This handle is obtained by calling 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestorepreparew">CertSrvRestorePrepare</a> function.
-     * @param {Pointer<Char>} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
-     * @param {Pointer<Char>} pwszLogPath A pointer to a null-terminated Unicode string that contains the current log file directory. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszCheckPointFilePath A pointer to a null-terminated Unicode string that contains the restore path for the check point file. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszLogPath A pointer to a null-terminated Unicode string that contains the current log file directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Pointer<CSEDB_RSTMAPW>} rgrstmap An array of <b>CSEDB_RSTMAP</b> structures that contains the restore map. If you are performing a full database restoration, this parameter specifies the name of the backup database, as well as a new name for the database after it is restored. The backup database name is referenced by the <b>pwszDatabaseName</b> member, and the new database name is referenced by the <b>pwszNewDatabaseName</b> member. If the intent is to maintain the same name for both the backup database and the restored database, set both the <b>pwszNewDatabaseName</b> and the <b>pwszDatabaseName</b> members to the same name. The backup database name is constructed from the path returned by the backup client's call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/certbcli/nf-certbcli-certsrvrestoregetdatabaselocationsw">CertSrvRestoreGetDatabaseLocations</a> function. <b>CertSrvRestoreGetDatabaseLocations</b> would have been called during a full backup, and the backup client would have saved the returned path.
      * 
      * If you are performing an incremental restoration, set this parameter to <b>NULL</b>.
      * @param {Integer} crstmap The number of elements in the <i>rgrstmap</i> array. Set this value to one if a you are performing a full restoration, or zero if you are performing an incremental restoration.
-     * @param {Pointer<Char>} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
+     * @param {PWSTR} pwszBackupLogPath A pointer to a null-terminated Unicode string that contains the path for the backup log directory. Pass <b>NULL</b> for this parameter if it is not needed.
      * @param {Integer} genLow The lowest log number that was restored in this restore session. Log files are in the form of edbXXXXX.log, where XXXXX is a five hexadecimal digit value. For example, edb00001.log is the first log file created by the internal database. For purposes of this function, a value of one in <i>genLow</i> corresponds to the log file edb00001.log.
      * @param {Integer} genHigh The highest log number that was restored in this restore session.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates success.
@@ -5302,9 +5302,9 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvRestoreRegisterThroughFile(hbc, pwszCheckPointFilePath, pwszLogPath, rgrstmap, crstmap, pwszBackupLogPath, genLow, genHigh) {
-        pwszCheckPointFilePath := pwszCheckPointFilePath is String? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
-        pwszLogPath := pwszLogPath is String? StrPtr(pwszLogPath) : pwszLogPath
-        pwszBackupLogPath := pwszBackupLogPath is String? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
+        pwszCheckPointFilePath := pwszCheckPointFilePath is String ? StrPtr(pwszCheckPointFilePath) : pwszCheckPointFilePath
+        pwszLogPath := pwszLogPath is String ? StrPtr(pwszLogPath) : pwszLogPath
+        pwszBackupLogPath := pwszBackupLogPath is String ? StrPtr(pwszBackupLogPath) : pwszBackupLogPath
 
         result := DllCall("certadm.dll\CertSrvRestoreRegisterThroughFile", "ptr", hbc, "ptr", pwszCheckPointFilePath, "ptr", pwszLogPath, "ptr", rgrstmap, "int", crstmap, "ptr", pwszBackupLogPath, "uint", genLow, "uint", genHigh, "int")
         if(result != 0)
@@ -5347,7 +5347,7 @@ class Certificates {
 
     /**
      * Issues a service control command to programmatically stop Certificate Services.
-     * @param {Pointer<Char>} pwszServerName A pointer to a name or a configuration string of the server to be issued the control command.
+     * @param {PWSTR} pwszServerName A pointer to a name or a configuration string of the server to be issued the control command.
      * @param {Integer} dwControlFlags Value representing the control command being issued to the Certificate Services server specified by <i>pwszServerName</i>. The following value is supported for <i>dwControlFlags</i>.
      * 
      * <table>
@@ -5373,9 +5373,9 @@ class Certificates {
      * @since windowsserver2003
      */
     static CertSrvServerControlW(pwszServerName, dwControlFlags, pcbOut, ppbOut) {
-        pwszServerName := pwszServerName is String? StrPtr(pwszServerName) : pwszServerName
+        pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "uint*", pcbOut, "ptr", ppbOut, "int")
+        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, "uint*", pcbOut, "char*", ppbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5388,7 +5388,7 @@ class Certificates {
      * @param {Integer} cCriteria The number of elements in the <i>rgpCriteria</i> array.
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria A constant pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_criteria">CERT_SELECT_CRITERIA</a> structures that specify the criteria used to select certificate chains.
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} ppTrustedIssuers A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-secpkgcontext_issuerlistinfoex">SecPkgContext_IssuerListInfoEx</a> structures that receive the CAs trusted by the server specified by the <i>pTargetName</i> parameter.
-     * @returns {Integer} If the function succeeds, return STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, return STATUS_SUCCESS.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgettrustanchors
@@ -5406,7 +5406,7 @@ class Certificates {
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria 
      * @param {Pointer<CERT_CONTEXT>} pCertContext 
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} ppTrustedIssuers 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
         result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr", ppTrustedIssuers, "int")
@@ -5418,7 +5418,7 @@ class Certificates {
      * @param {Pointer<CERT_CONTEXT>} pCert 
      * @param {Pointer<SecPkgContext_IssuerListInfoEx>} pTrustedIssuers 
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChainContext 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
         result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr", ppCertChainContext, "int")
@@ -5430,10 +5430,10 @@ class Certificates {
      * @param {Pointer<UNICODE_STRING>} pTargetName The name of the server to check.
      * @param {Integer} cCriteria The number of elements in the <i>rgpCriteria</i> array.
      * @param {Pointer<CERT_SELECT_CRITERIA>} rgpCriteria A constant pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_select_criteria">CERT_SELECT_CRITERIA</a> structures that specify the criteria used to select certificate chains.
-     * @param {Integer} bIsClient <b>TRUE</b> if the caller is the client; otherwise, <b>FALSE</b>.
+     * @param {BOOL} bIsClient <b>TRUE</b> if the caller is the client; otherwise, <b>FALSE</b>.
      * @param {Pointer<UInt32>} pdwCertChainContextCount The number of elements in the <i>ppCertChainContexts</i> array.
      * @param {Pointer<CERT_CHAIN_CONTEXT>} ppCertChainContexts The address of a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_chain_context">CERT_CHAIN_CONTEXT</a> structures that specifies the certificate chains of certificates that can be used to authenticate a user on the server specified by the <i>pTargetName</i> parameter.
-     * @returns {Integer} If the function succeeds, return <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgetcertificates
@@ -5447,7 +5447,7 @@ class Certificates {
     /**
      * Associates the caller's private key with the specified certificate.
      * @param {Pointer<CERT_CONTEXT>} pCert The certificate with which to associate the private key.
-     * @returns {Integer} If the function succeeds, return <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstacquireprivatekey
@@ -5461,12 +5461,12 @@ class Certificates {
     /**
      * Validates the specified certificate.
      * @param {Pointer<UNICODE_STRING>} pTargetName The name of the server. If the caller is not the client, this parameter is <b>NULL</b>.
-     * @param {Integer} bIsClient <b>TRUE</b> if the caller is the client; otherwise, <b>FALSE</b>.
+     * @param {BOOL} bIsClient <b>TRUE</b> if the caller is the client; otherwise, <b>FALSE</b>.
      * @param {Pointer<CERT_USAGE_MATCH>} pRequestedIssuancePolicy A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_usage_match">CERT_USAGE_MATCH</a> structure that specifies identifiers that the certificate must match to be validated.
-     * @param {Pointer<Void>} phAdditionalCertStore A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> that contains additional certificates used for the authentication.
+     * @param {Pointer<HCERTSTORE>} phAdditionalCertStore A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> that contains additional certificates used for the authentication.
      * @param {Pointer<CERT_CONTEXT>} pCert A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that specifies the certificate to validate.
      * @param {Pointer<Guid>} pProvGUID A pointer to  a <b>GUID</b> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security support provider</a> (SSP) used for the authentication.
-     * @returns {Integer} If the function succeeds, return <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstvalidate
@@ -5482,7 +5482,7 @@ class Certificates {
      * @param {Pointer<CERT_CONTEXT>} pCert A constant pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that specifies the certificate for which to obtain token information.
      * @param {Pointer<Int32>} pTokenInformationType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecpkg/ne-ntsecpkg-lsa_token_information_type">LSA_TOKEN_INFORMATION_TYPE</a> enumeration that indicates the type of structure pointed to by the <i>ppTokenInformation</i> parameter.
      * @param {Pointer<Void>} ppTokenInformation The address of a pointer to a structure that specifies information that can be used to create a user token.
-     * @returns {Integer} If the function succeeds, return <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstmapcertificate
@@ -5497,7 +5497,7 @@ class Certificates {
      * Retrieves the user name associated with the specified certificate.
      * @param {Pointer<CERT_CONTEXT>} pCertContext A constant pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that specifies the certificate for which to obtain the user name.
      * @param {Pointer<UNICODE_STRING>} UserName The user name associated with the certificate specified by the <i>pCertContext</i> parameter.
-     * @returns {Integer} If the function succeeds, return <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, return <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, return an <b>NTSTATUS</b> code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//certpoleng/nf-certpoleng-pstgetusernameforcertificate

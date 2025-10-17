@@ -21,7 +21,7 @@ class FWPM_NET_EVENT5 extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := FWPM_NET_EVENT_HEADER3(this.ptr + 0)
+                this.__header := FWPM_NET_EVENT_HEADER3(0, this)
             return this.__header
         }
     }
@@ -115,7 +115,7 @@ class FWPM_NET_EVENT5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<FWPM_NET_EVENT_LPM_PACKET_ARRIVAL0>}
      */
     lpmPacketArrival {
         get => NumGet(this, 144, "ptr")

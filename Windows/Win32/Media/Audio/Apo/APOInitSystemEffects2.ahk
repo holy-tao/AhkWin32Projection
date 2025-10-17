@@ -21,7 +21,7 @@ class APOInitSystemEffects2 extends Win32Struct
     APOInit{
         get {
             if(!this.HasProp("__APOInit"))
-                this.__APOInit := APOInitBaseStruct(this.ptr + 0)
+                this.__APOInit := APOInitBaseStruct(0, this)
             return this.__APOInit
         }
     }
@@ -91,7 +91,7 @@ class APOInitSystemEffects2 extends Win32Struct
 
     /**
      * Indicates whether the audio system is initializing the APO for effects discovery only.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InitializeForDiscoveryOnly {
         get => NumGet(this, 64, "int")

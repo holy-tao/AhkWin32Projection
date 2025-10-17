@@ -34,7 +34,7 @@ class CMS_DH_KEY_INFO extends Win32Struct
 
     /**
      * The address of a null-terminated ANSI string that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of the content encryption algorithm.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszContentEncObjId {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class CMS_DH_KEY_INFO extends Win32Struct
     PubInfo{
         get {
             if(!this.HasProp("__PubInfo"))
-                this.__PubInfo := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__PubInfo := CRYPT_INTEGER_BLOB(16, this)
             return this.__PubInfo
         }
     }

@@ -24,7 +24,7 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
 
     /**
      * A null-terminated, human-readable string that is the iSCSI name of the target.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIscsiName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
     /**
      * A null-terminated, human-readable string that is the friendly name of the target. This corresponds to the 
      *      iSCSI alias.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFriendlyName {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class VDS_ISCSI_TARGET_PROP extends Win32Struct
 
     /**
      * If <b>TRUE</b>, a CHAP shared secret is required to login to this target.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bChapEnabled {
         get => NumGet(this, 24, "int")

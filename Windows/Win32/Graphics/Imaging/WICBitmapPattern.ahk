@@ -61,7 +61,7 @@ class WICBitmapPattern extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * The end of the stream.
-     * @type {Integer}
+     * @type {BOOL}
      */
     EndOfStream {
         get => NumGet(this, 32, "int")

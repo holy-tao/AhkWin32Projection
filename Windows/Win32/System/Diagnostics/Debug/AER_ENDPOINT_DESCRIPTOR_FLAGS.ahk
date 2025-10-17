@@ -12,11 +12,49 @@ class AER_ENDPOINT_DESCRIPTOR_FLAGS extends Win32Struct
     static packingSize => 1
 
     /**
+     * This bitfield backs the following members:
+     * - UncorrectableErrorMaskRW
+     * - UncorrectableErrorSeverityRW
+     * - CorrectableErrorMaskRW
+     * - AdvancedCapsAndControlRW
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UncorrectableErrorMaskRW {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UncorrectableErrorSeverityRW {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CorrectableErrorMaskRW {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AdvancedCapsAndControlRW {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
     }
 
     /**

@@ -42,7 +42,7 @@ class D3D12_QUERY_DATA_VIDEO_DECODE_STATISTICS extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 16)
+                this.__FrameRate := DXGI_RATIONAL(16, this)
             return this.__FrameRate
         }
     }

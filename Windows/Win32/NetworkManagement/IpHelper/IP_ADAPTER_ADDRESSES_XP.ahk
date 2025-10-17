@@ -44,7 +44,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     AdapterName {
         get => NumGet(this, 16, "ptr")
@@ -84,7 +84,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DnsSuffix {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Description {
         get => NumGet(this, 64, "ptr")
@@ -100,7 +100,7 @@ class IP_ADAPTER_ADDRESSES_XP extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FriendlyName {
         get => NumGet(this, 72, "ptr")

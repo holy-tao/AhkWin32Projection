@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 
 /**
  * The MCI_DGV_UPDATE_PARMS structure contains parameters for the MCI_UPDATE command.
@@ -35,17 +36,20 @@ class MCI_DGV_UPDATE_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 8)
+                this.__rc := RECT(8, this)
             return this.__rc
         }
     }
 
     /**
      * Handle to display context.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hDC {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hDC{
+        get {
+            if(!this.HasProp("__hDC"))
+                this.__hDC := HDC(24, this)
+            return this.__hDC
+        }
     }
 }

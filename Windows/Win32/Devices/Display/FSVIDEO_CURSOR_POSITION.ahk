@@ -18,7 +18,7 @@ class FSVIDEO_CURSOR_POSITION extends Win32Struct
     Coord{
         get {
             if(!this.HasProp("__Coord"))
-                this.__Coord := VIDEO_CURSOR_POSITION(this.ptr + 0)
+                this.__Coord := VIDEO_CURSOR_POSITION(0, this)
             return this.__Coord
         }
     }

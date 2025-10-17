@@ -34,7 +34,7 @@ class KSPROPERTY_STEPPING_LONG extends Win32Struct
     Bounds{
         get {
             if(!this.HasProp("__Bounds"))
-                this.__Bounds := KSPROPERTY_BOUNDS_LONG(this.ptr + 8)
+                this.__Bounds := KSPROPERTY_BOUNDS_LONG(8, this)
             return this.__Bounds
         }
     }

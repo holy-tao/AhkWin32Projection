@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -25,7 +26,7 @@ class NMSELCHANGE extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -40,7 +41,7 @@ class NMSELCHANGE extends Win32Struct
     stSelStart{
         get {
             if(!this.HasProp("__stSelStart"))
-                this.__stSelStart := SYSTEMTIME(this.ptr + 24)
+                this.__stSelStart := SYSTEMTIME(24, this)
             return this.__stSelStart
         }
     }
@@ -55,7 +56,7 @@ class NMSELCHANGE extends Win32Struct
     stSelEnd{
         get {
             if(!this.HasProp("__stSelEnd"))
-                this.__stSelEnd := SYSTEMTIME(this.ptr + 40)
+                this.__stSelEnd := SYSTEMTIME(40, this)
             return this.__stSelEnd
         }
     }

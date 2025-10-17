@@ -15,10 +15,13 @@
 #Include .\WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT.ahk
 #Include .\WHV_X64_UNSUPPORTED_FEATURE_CONTEXT.ahk
 #Include .\WHV_RUN_VP_CANCELED_CONTEXT.ahk
+#Include .\WHV_X64_APIC_EOI_CONTEXT.ahk
 #Include .\WHV_X64_RDTSC_INFO.ahk
 #Include .\WHV_X64_RDTSC_CONTEXT.ahk
+#Include .\WHV_X64_APIC_SMI_CONTEXT.ahk
 #Include .\WHV_UINT128.ahk
 #Include .\WHV_HYPERCALL_CONTEXT.ahk
+#Include .\WHV_X64_APIC_INIT_SIPI_CONTEXT.ahk
 #Include .\WHV_X64_APIC_WRITE_CONTEXT.ahk
 #Include .\WHV_SYNIC_SINT_DELIVERABLE_CONTEXT.ahk
 
@@ -54,7 +57,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     VpContext{
         get {
             if(!this.HasProp("__VpContext"))
-                this.__VpContext := WHV_VP_EXIT_CONTEXT(this.ptr + 8)
+                this.__VpContext := WHV_VP_EXIT_CONTEXT(8, this)
             return this.__VpContext
         }
     }
@@ -65,7 +68,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     MemoryAccess{
         get {
             if(!this.HasProp("__MemoryAccess"))
-                this.__MemoryAccess := WHV_MEMORY_ACCESS_CONTEXT(this.ptr + 56)
+                this.__MemoryAccess := WHV_MEMORY_ACCESS_CONTEXT(56, this)
             return this.__MemoryAccess
         }
     }
@@ -76,7 +79,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     IoPortAccess{
         get {
             if(!this.HasProp("__IoPortAccess"))
-                this.__IoPortAccess := WHV_X64_IO_PORT_ACCESS_CONTEXT(this.ptr + 56)
+                this.__IoPortAccess := WHV_X64_IO_PORT_ACCESS_CONTEXT(56, this)
             return this.__IoPortAccess
         }
     }
@@ -87,7 +90,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     MsrAccess{
         get {
             if(!this.HasProp("__MsrAccess"))
-                this.__MsrAccess := WHV_X64_MSR_ACCESS_CONTEXT(this.ptr + 56)
+                this.__MsrAccess := WHV_X64_MSR_ACCESS_CONTEXT(56, this)
             return this.__MsrAccess
         }
     }
@@ -98,7 +101,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     CpuidAccess{
         get {
             if(!this.HasProp("__CpuidAccess"))
-                this.__CpuidAccess := WHV_X64_CPUID_ACCESS_CONTEXT(this.ptr + 56)
+                this.__CpuidAccess := WHV_X64_CPUID_ACCESS_CONTEXT(56, this)
             return this.__CpuidAccess
         }
     }
@@ -109,7 +112,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     VpException{
         get {
             if(!this.HasProp("__VpException"))
-                this.__VpException := WHV_VP_EXCEPTION_CONTEXT(this.ptr + 56)
+                this.__VpException := WHV_VP_EXCEPTION_CONTEXT(56, this)
             return this.__VpException
         }
     }
@@ -120,7 +123,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     InterruptWindow{
         get {
             if(!this.HasProp("__InterruptWindow"))
-                this.__InterruptWindow := WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(this.ptr + 56)
+                this.__InterruptWindow := WHV_X64_INTERRUPTION_DELIVERABLE_CONTEXT(56, this)
             return this.__InterruptWindow
         }
     }
@@ -131,7 +134,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     UnsupportedFeature{
         get {
             if(!this.HasProp("__UnsupportedFeature"))
-                this.__UnsupportedFeature := WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(this.ptr + 56)
+                this.__UnsupportedFeature := WHV_X64_UNSUPPORTED_FEATURE_CONTEXT(56, this)
             return this.__UnsupportedFeature
         }
     }
@@ -142,17 +145,20 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     CancelReason{
         get {
             if(!this.HasProp("__CancelReason"))
-                this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(this.ptr + 56)
+                this.__CancelReason := WHV_RUN_VP_CANCELED_CONTEXT(56, this)
             return this.__CancelReason
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_EOI_CONTEXT}
      */
-    ApicEoi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicEoi{
+        get {
+            if(!this.HasProp("__ApicEoi"))
+                this.__ApicEoi := WHV_X64_APIC_EOI_CONTEXT(56, this)
+            return this.__ApicEoi
+        }
     }
 
     /**
@@ -161,17 +167,20 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     ReadTsc{
         get {
             if(!this.HasProp("__ReadTsc"))
-                this.__ReadTsc := WHV_X64_RDTSC_CONTEXT(this.ptr + 56)
+                this.__ReadTsc := WHV_X64_RDTSC_CONTEXT(56, this)
             return this.__ReadTsc
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_SMI_CONTEXT}
      */
-    ApicSmi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicSmi{
+        get {
+            if(!this.HasProp("__ApicSmi"))
+                this.__ApicSmi := WHV_X64_APIC_SMI_CONTEXT(56, this)
+            return this.__ApicSmi
+        }
     }
 
     /**
@@ -180,17 +189,20 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     Hypercall{
         get {
             if(!this.HasProp("__Hypercall"))
-                this.__Hypercall := WHV_HYPERCALL_CONTEXT(this.ptr + 56)
+                this.__Hypercall := WHV_HYPERCALL_CONTEXT(56, this)
             return this.__Hypercall
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {WHV_X64_APIC_INIT_SIPI_CONTEXT}
      */
-    ApicInitSipi {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+    ApicInitSipi{
+        get {
+            if(!this.HasProp("__ApicInitSipi"))
+                this.__ApicInitSipi := WHV_X64_APIC_INIT_SIPI_CONTEXT(56, this)
+            return this.__ApicInitSipi
+        }
     }
 
     /**
@@ -199,7 +211,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     ApicWrite{
         get {
             if(!this.HasProp("__ApicWrite"))
-                this.__ApicWrite := WHV_X64_APIC_WRITE_CONTEXT(this.ptr + 56)
+                this.__ApicWrite := WHV_X64_APIC_WRITE_CONTEXT(56, this)
             return this.__ApicWrite
         }
     }
@@ -210,7 +222,7 @@ class WHV_RUN_VP_EXIT_CONTEXT extends Win32Struct
     SynicSintDeliverable{
         get {
             if(!this.HasProp("__SynicSintDeliverable"))
-                this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(this.ptr + 56)
+                this.__SynicSintDeliverable := WHV_SYNIC_SINT_DELIVERABLE_CONTEXT(56, this)
             return this.__SynicSintDeliverable
         }
     }

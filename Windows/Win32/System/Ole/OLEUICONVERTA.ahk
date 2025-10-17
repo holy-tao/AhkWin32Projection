@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Convert dialog box, and space for the library to return information when the dialog box is dismissed.
@@ -145,16 +149,19 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWndOwner{
+        get {
+            if(!this.HasProp("__hWndOwner"))
+                this.__hWndOwner := HWND(8, this)
+            return this.__hWndOwner
+        }
     }
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Convert</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -172,7 +179,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUICONVERT</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 32, "ptr")
@@ -181,16 +188,19 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpszTemplate</b> member. This member is ignored if the <b>lpszTemplate</b> member is <b>NULL</b> or invalid.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(40, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Convert</b> dialog box template.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -199,11 +209,14 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * Resource handle for a custom dialog box. If this member is <b>NULL</b>, then the library uses the standard <b>Convert</b> dialog box template, or if it is valid, the template named by the <b>lpszTemplate</b> member.
-     * @type {Pointer<Void>}
+     * @type {HRSRC}
      */
-    hResource {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hResource{
+        get {
+            if(!this.HasProp("__hResource"))
+                this.__hResource := HRSRC(56, this)
+            return this.__hResource
+        }
     }
 
     /**
@@ -262,7 +275,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * <b>TRUE</b> if the object is linked. This member is set on input.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsLinkedObject {
         get => NumGet(this, 104, "int")
@@ -271,16 +284,19 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-metafilepict">METAFILEPICT</a> containing the iconic aspect. This member is set on input and output.
-     * @type {Pointer<Void>}
+     * @type {HGLOBAL}
      */
-    hMetaPict {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+    hMetaPict{
+        get {
+            if(!this.HasProp("__hMetaPict"))
+                this.__hMetaPict := HGLOBAL(112, this)
+            return this.__hMetaPict
+        }
     }
 
     /**
      * Pointer to the User Type name of the object to be converted or activated. If this value is <b>NULL</b>, then the dialog box will retrieve the User Type name from the registry. This string is freed on exit.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszUserType {
         get => NumGet(this, 120, "ptr")
@@ -289,7 +305,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * <b>TRUE</b> if the object's icon changed. (that is, if <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nf-oledlg-oleuichangeicona">OleUIChangeIcon</a> was called and not canceled.). This member is set on output.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fObjectsIconChanged {
         get => NumGet(this, 128, "int")
@@ -298,7 +314,7 @@ class OLEUICONVERTA extends Win32Struct
 
     /**
      * Pointer to the default label to use for the icon. If <b>NULL</b>, the short user type name will be used. If the object is a link, the caller should pass the display name of the link source. This is freed on exit.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszDefLabel {
         get => NumGet(this, 136, "ptr")

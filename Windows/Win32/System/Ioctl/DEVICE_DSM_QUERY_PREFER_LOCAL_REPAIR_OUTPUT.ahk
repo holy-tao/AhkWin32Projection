@@ -20,7 +20,7 @@ class DEVICE_DSM_QUERY_PREFER_LOCAL_REPAIR_OUTPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PreferLocalRepair {
         get => NumGet(this, 4, "char")

@@ -18,7 +18,7 @@ class RESTOREPOINTINFOEX extends Win32Struct
     ftCreation{
         get {
             if(!this.HasProp("__ftCreation"))
-                this.__ftCreation := FILETIME(this.ptr + 0)
+                this.__ftCreation := FILETIME(0, this)
             return this.__ftCreation
         }
     }

@@ -72,7 +72,7 @@ class D3D12_RENDER_PASS_ENDING_ACCESS_RESOLVE_PARAMETERS extends Win32Struct
 
     /**
      * A <b>BOOL</b>. <b>TRUE</b> to preserve the resolve source, otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PreserveResolveSource {
         get => NumGet(this, 40, "int")

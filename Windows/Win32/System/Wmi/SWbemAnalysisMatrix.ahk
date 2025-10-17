@@ -28,7 +28,7 @@ class SWbemAnalysisMatrix extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     m_pszProperty {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class SWbemAnalysisMatrix extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     m_pbTruthTable {
         get => NumGet(this, 32, "ptr")

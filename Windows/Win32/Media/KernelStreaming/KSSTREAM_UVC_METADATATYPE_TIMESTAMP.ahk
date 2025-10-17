@@ -28,11 +28,22 @@ class KSSTREAM_UVC_METADATATYPE_TIMESTAMP extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Counter
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 8, "ushort")
         set => NumPut("ushort", value, this, 8)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Counter {
+        get => (this._bitfield >> 0) & 0x7FF
+        set => this._bitfield := ((value & 0x7FF) << 0) | (this._bitfield & ~(0x7FF << 0))
     }
 
     /**

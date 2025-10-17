@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\Controls\NMHDR.ahk
 
 /**
@@ -21,14 +22,14 @@ class HHNTRACK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
 
     /**
      * A multi-byte, zero-terminated string that specifies the current topic (before the action is taken).
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCurUrl {
         get => NumGet(this, 24, "ptr")

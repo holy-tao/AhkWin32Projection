@@ -37,7 +37,7 @@ class MCI_DGV_INFO_PARMSW extends Win32Struct
 
     /**
      * Pointer to buffer for return string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrReturn {
         get => NumGet(this, 8, "ptr")

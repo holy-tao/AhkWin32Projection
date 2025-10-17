@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_CPU_DESCRIPTOR_HANDLE.ahk
 #Include .\D3D12_DEPTH_STENCIL_VALUE.ahk
 #Include .\D3D12_CLEAR_VALUE.ahk
 #Include .\D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS.ahk
@@ -23,11 +24,14 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_cpu_descriptor_handle">D3D12_CPU_DESCRIPTOR_HANDLE</a>. The CPU descriptor handle corresponding to the depth stencil view (DSV).
-     * @type {Pointer}
+     * @type {D3D12_CPU_DESCRIPTOR_HANDLE}
      */
-    cpuDescriptor {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    cpuDescriptor{
+        get {
+            if(!this.HasProp("__cpuDescriptor"))
+                this.__cpuDescriptor := D3D12_CPU_DESCRIPTOR_HANDLE(0, this)
+            return this.__cpuDescriptor
+        }
     }
 
     /**
@@ -37,7 +41,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     DepthBeginningAccess{
         get {
             if(!this.HasProp("__DepthBeginningAccess"))
-                this.__DepthBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(this.ptr + 8)
+                this.__DepthBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(8, this)
             return this.__DepthBeginningAccess
         }
     }
@@ -49,7 +53,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     StencilBeginningAccess{
         get {
             if(!this.HasProp("__StencilBeginningAccess"))
-                this.__StencilBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(this.ptr + 40)
+                this.__StencilBeginningAccess := D3D12_RENDER_PASS_BEGINNING_ACCESS(40, this)
             return this.__StencilBeginningAccess
         }
     }
@@ -61,7 +65,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     DepthEndingAccess{
         get {
             if(!this.HasProp("__DepthEndingAccess"))
-                this.__DepthEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 72)
+                this.__DepthEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(72, this)
             return this.__DepthEndingAccess
         }
     }
@@ -73,7 +77,7 @@ class D3D12_RENDER_PASS_DEPTH_STENCIL_DESC extends Win32Struct
     StencilEndingAccess{
         get {
             if(!this.HasProp("__StencilEndingAccess"))
-                this.__StencilEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(this.ptr + 128)
+                this.__StencilEndingAccess := D3D12_RENDER_PASS_ENDING_ACCESS(128, this)
             return this.__StencilEndingAccess
         }
     }

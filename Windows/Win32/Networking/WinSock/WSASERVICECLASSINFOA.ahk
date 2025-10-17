@@ -31,7 +31,7 @@ class WSASERVICECLASSINFOA extends Win32Struct
 
     /**
      * Well known name associated with the service class.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszServiceClassName {
         get => NumGet(this, 8, "ptr")

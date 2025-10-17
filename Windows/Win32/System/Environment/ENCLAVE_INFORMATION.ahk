@@ -86,7 +86,7 @@ class ENCLAVE_INFORMATION extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := ENCLAVE_IDENTITY(this.ptr + 24)
+                this.__Identity := ENCLAVE_IDENTITY(24, this)
             return this.__Identity
         }
     }

@@ -20,7 +20,7 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     rp0_exportpath {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     rp0_exportlist {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     rp0_importpath {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     rp0_importlist {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class REPL_INFO_0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     rp0_logonusername {
         get => NumGet(this, 40, "ptr")

@@ -13,11 +13,30 @@ class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct
     static packingSize => 8
 
     /**
+     * This bitfield backs the following members:
+     * - MatrixSizeX
+     * - MatrixSizeY
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MatrixSizeX {
+        get => (this._bitfield >> 0) & 0x3FF
+        set => this._bitfield := ((value & 0x3FF) << 0) | (this._bitfield & ~(0x3FF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MatrixSizeY {
+        get => (this._bitfield >> 10) & 0x3FF
+        set => this._bitfield := ((value & 0x3FF) << 10) | (this._bitfield & ~(0x3FF << 10))
     }
 
     /**
@@ -34,7 +53,7 @@ class COLORSPACE_TRANSFORM_MATRIX_CAP extends Win32Struct
     DataCap{
         get {
             if(!this.HasProp("__DataCap"))
-                this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(this.ptr + 8)
+                this.__DataCap := COLORSPACE_TRANSFORM_DATA_CAP(8, this)
             return this.__DataCap
         }
     }

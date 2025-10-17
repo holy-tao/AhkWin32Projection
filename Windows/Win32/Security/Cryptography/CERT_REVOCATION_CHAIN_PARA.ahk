@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTCHAINENGINE.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * Contains parameters used for building a chain for an independent online certificate status protocol (OCSP) response signer certificate.
@@ -24,20 +26,26 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
 
     /**
      * A handle to the chain engine used by the caller.
-     * @type {Pointer<Void>}
+     * @type {HCERTCHAINENGINE}
      */
-    hChainEngine {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hChainEngine{
+        get {
+            if(!this.HasProp("__hChainEngine"))
+                this.__hChainEngine := HCERTCHAINENGINE(8, this)
+            return this.__hChainEngine
+        }
     }
 
     /**
      * A handle to a store that contains the certificates used to build the original chain. The handle can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hAdditionalStore {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hAdditionalStore{
+        get {
+            if(!this.HasProp("__hAdditionalStore"))
+                this.__hAdditionalStore := HCERTSTORE(16, this)
+            return this.__hAdditionalStore
+        }
     }
 
     /**
@@ -109,12 +117,8 @@ class CERT_REVOCATION_CHAIN_PARA extends Win32Struct
         set => NumPut("uint", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

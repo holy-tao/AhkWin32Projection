@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_POINTER_REPEAT_FLAGS.ahk
 #Include .\NDR64_REPEAT_FORMAT.ahk
 
 /**
@@ -18,7 +19,7 @@ class NDR64_FIXED_REPEAT_FORMAT extends Win32Struct
     RepeatFormat{
         get {
             if(!this.HasProp("__RepeatFormat"))
-                this.__RepeatFormat := NDR64_REPEAT_FORMAT(this.ptr + 0)
+                this.__RepeatFormat := NDR64_REPEAT_FORMAT(0, this)
             return this.__RepeatFormat
         }
     }

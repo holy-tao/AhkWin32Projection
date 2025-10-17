@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\Gdi\HRGN.ahk
 
 /**
  * Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.
@@ -24,7 +25,7 @@ class DWM_BLURBEHIND extends Win32Struct
 
     /**
      * <b>TRUE</b> to register the window handle to DWM blur behind; <b>FALSE</b> to unregister the window handle from DWM blur behind.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEnable {
         get => NumGet(this, 4, "int")
@@ -33,16 +34,19 @@ class DWM_BLURBEHIND extends Win32Struct
 
     /**
      * The region within the client area where the blur behind will be applied. A <b>NULL</b> value will apply the blur behind the entire client area.
-     * @type {Pointer<Void>}
+     * @type {HRGN}
      */
-    hRgnBlur {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hRgnBlur{
+        get {
+            if(!this.HasProp("__hRgnBlur"))
+                this.__hRgnBlur := HRGN(8, this)
+            return this.__hRgnBlur
+        }
     }
 
     /**
      * <b>TRUE</b> if the window's colorization should transition to match the maximized windows; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fTransitionOnMaximized {
         get => NumGet(this, 16, "int")

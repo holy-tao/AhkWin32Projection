@@ -20,13 +20,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_HEAP_SIZE extends Win32Struct
     HeapDesc{
         get {
             if(!this.HasProp("__HeapDesc"))
-                this.__HeapDesc := D3D12_VIDEO_ENCODER_HEAP_DESC(this.ptr + 0)
+                this.__HeapDesc := D3D12_VIDEO_ENCODER_HEAP_DESC(0, this)
             return this.__HeapDesc
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 64, "int")

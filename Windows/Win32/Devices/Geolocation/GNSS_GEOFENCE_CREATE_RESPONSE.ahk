@@ -28,7 +28,7 @@ class GNSS_GEOFENCE_CREATE_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     CreationStatus {
         get => NumGet(this, 8, "int")

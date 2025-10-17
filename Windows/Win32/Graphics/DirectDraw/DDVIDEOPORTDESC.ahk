@@ -93,7 +93,7 @@ class DDVIDEOPORTDESC extends Win32Struct
     VideoPortType{
         get {
             if(!this.HasProp("__VideoPortType"))
-                this.__VideoPortType := DDVIDEOPORTCONNECT(this.ptr + 32)
+                this.__VideoPortType := DDVIDEOPORTCONNECT(32, this)
             return this.__VideoPortType
         }
     }

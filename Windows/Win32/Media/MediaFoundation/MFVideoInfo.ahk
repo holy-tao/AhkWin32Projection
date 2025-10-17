@@ -136,7 +136,7 @@ class MFVideoInfo extends Win32Struct
     PixelAspectRatio{
         get {
             if(!this.HasProp("__PixelAspectRatio"))
-                this.__PixelAspectRatio := MFRatio(this.ptr + 8)
+                this.__PixelAspectRatio := MFRatio(8, this)
             return this.__PixelAspectRatio
         }
     }
@@ -202,7 +202,7 @@ class MFVideoInfo extends Win32Struct
     FramesPerSecond{
         get {
             if(!this.HasProp("__FramesPerSecond"))
-                this.__FramesPerSecond := MFRatio(this.ptr + 40)
+                this.__FramesPerSecond := MFRatio(40, this)
             return this.__FramesPerSecond
         }
     }
@@ -223,7 +223,7 @@ class MFVideoInfo extends Win32Struct
     GeometricAperture{
         get {
             if(!this.HasProp("__GeometricAperture"))
-                this.__GeometricAperture := MFVideoArea(this.ptr + 56)
+                this.__GeometricAperture := MFVideoArea(56, this)
             return this.__GeometricAperture
         }
     }
@@ -235,7 +235,7 @@ class MFVideoInfo extends Win32Struct
     MinimumDisplayAperture{
         get {
             if(!this.HasProp("__MinimumDisplayAperture"))
-                this.__MinimumDisplayAperture := MFVideoArea(this.ptr + 72)
+                this.__MinimumDisplayAperture := MFVideoArea(72, this)
             return this.__MinimumDisplayAperture
         }
     }
@@ -247,7 +247,7 @@ class MFVideoInfo extends Win32Struct
     PanScanAperture{
         get {
             if(!this.HasProp("__PanScanAperture"))
-                this.__PanScanAperture := MFVideoArea(this.ptr + 88)
+                this.__PanScanAperture := MFVideoArea(88, this)
             return this.__PanScanAperture
         }
     }

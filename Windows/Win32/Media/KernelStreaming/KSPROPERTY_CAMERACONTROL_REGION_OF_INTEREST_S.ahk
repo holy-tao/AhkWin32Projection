@@ -18,13 +18,13 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     FocusRect{
         get {
             if(!this.HasProp("__FocusRect"))
-                this.__FocusRect := RECT(this.ptr + 0)
+                this.__FocusRect := RECT(0, this)
             return this.__FocusRect
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AutoFocusLock {
         get => NumGet(this, 16, "int")
@@ -32,7 +32,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AutoExposureLock {
         get => NumGet(this, 20, "int")
@@ -40,7 +40,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AutoWhitebalanceLock {
         get => NumGet(this, 24, "int")

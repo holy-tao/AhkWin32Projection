@@ -43,7 +43,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOW extends Win32Struct
      * A management application can still access targets not enumerated by the system via the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsiinquiry">SendScsiInquiry</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireportluns">SendScsiReportLuns</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/iscsidsc/nf-iscsidsc-sendscsireadcapacity">SendScsiReadCapcity</a> functions.
      * 
      * If set <b>FALSE</b>, the LUNs on the target are reported to the Plug and Play manager for enumeration.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsInformationalSession {
         get => NumGet(this, 448, "char")
@@ -75,7 +75,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOW extends Win32Struct
     TargetPortal{
         get {
             if(!this.HasProp("__TargetPortal"))
-                this.__TargetPortal := ISCSI_TARGET_PORTALW(this.ptr + 968)
+                this.__TargetPortal := ISCSI_TARGET_PORTALW(968, this)
             return this.__TargetPortal
         }
     }
@@ -182,7 +182,7 @@ class PERSISTENT_ISCSI_LOGIN_INFOW extends Win32Struct
     LoginOptions{
         get {
             if(!this.HasProp("__LoginOptions"))
-                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(this.ptr + 2016)
+                this.__LoginOptions := ISCSI_LOGIN_OPTIONS(2016, this)
             return this.__LoginOptions
         }
     }

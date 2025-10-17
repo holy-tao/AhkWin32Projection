@@ -13,7 +13,7 @@ class ADDJOB_INFO_1W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Path {
         get => NumGet(this, 0, "ptr")

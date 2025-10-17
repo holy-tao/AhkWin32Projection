@@ -31,7 +31,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
     ftExpiry{
         get {
             if(!this.HasProp("__ftExpiry"))
-                this.__ftExpiry := FILETIME(this.ptr + 0)
+                this.__ftExpiry := FILETIME(0, this)
             return this.__ftExpiry
         }
     }
@@ -43,7 +43,7 @@ class INTERNET_CERTIFICATE_INFO extends Win32Struct
     ftStart{
         get {
             if(!this.HasProp("__ftStart"))
-                this.__ftStart := FILETIME(this.ptr + 8)
+                this.__ftStart := FILETIME(8, this)
             return this.__ftStart
         }
     }

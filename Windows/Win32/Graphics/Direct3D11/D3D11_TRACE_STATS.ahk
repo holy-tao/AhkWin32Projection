@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D11_VERTEX_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_HULL_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_DOMAIN_SHADER_TRACE_DESC.ahk
+#Include .\D3D11_GEOMETRY_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_PIXEL_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_COMPUTE_SHADER_TRACE_DESC.ahk
 #Include .\D3D11_SHADER_TRACE_DESC.ahk
@@ -28,7 +32,7 @@ class D3D11_TRACE_STATS extends Win32Struct
     TraceDesc{
         get {
             if(!this.HasProp("__TraceDesc"))
-                this.__TraceDesc := D3D11_SHADER_TRACE_DESC(this.ptr + 0)
+                this.__TraceDesc := D3D11_SHADER_TRACE_DESC(0, this)
             return this.__TraceDesc
         }
     }
@@ -226,7 +230,7 @@ class D3D11_TRACE_STATS extends Win32Struct
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oDepth register. TRUE indicates that the pixel shader outputs the oDepth register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PSOutputsDepth {
         get => NumGet(this, 8536, "int")
@@ -235,7 +239,7 @@ class D3D11_TRACE_STATS extends Win32Struct
 
     /**
      * A value that specifies whether this trace is for a pixel shader that outputs the oMask register. TRUE indicates that the pixel shader outputs the oMask register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PSOutputsMask {
         get => NumGet(this, 8540, "int")
@@ -253,7 +257,7 @@ class D3D11_TRACE_STATS extends Win32Struct
 
     /**
      * A value that specifies whether this trace is for a geometry shader that inputs the PrimitiveID register. TRUE indicates that the geometry shader inputs the PrimitiveID register; otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     GSInputsPrimitiveID {
         get => NumGet(this, 8548, "int")

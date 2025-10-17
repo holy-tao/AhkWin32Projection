@@ -104,7 +104,7 @@ class DML_AVERAGE_POOLING_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether to include the padding elements around the spatial edges when calculating the average value across all elements within the sliding window. When the value is set to **FALSE**, the padding elements are not counted as part of the divisor value of the averaging calculation.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IncludePadding {
         get => NumGet(this, 56, "int")

@@ -35,7 +35,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL extends Win32Struct
     ConfigParams{
         get {
             if(!this.HasProp("__ConfigParams"))
-                this.__ConfigParams := D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(this.ptr + 8)
+                this.__ConfigParams := D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS(8, this)
             return this.__ConfigParams
         }
     }
@@ -46,7 +46,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL extends Win32Struct
     TargetFrameRate{
         get {
             if(!this.HasProp("__TargetFrameRate"))
-                this.__TargetFrameRate := DXGI_RATIONAL(this.ptr + 24)
+                this.__TargetFrameRate := DXGI_RATIONAL(24, this)
             return this.__TargetFrameRate
         }
     }

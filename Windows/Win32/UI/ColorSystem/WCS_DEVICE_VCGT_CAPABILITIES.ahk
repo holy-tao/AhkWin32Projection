@@ -20,7 +20,7 @@ class WCS_DEVICE_VCGT_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportsVcgt {
         get => NumGet(this, 4, "int")

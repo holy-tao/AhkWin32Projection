@@ -30,7 +30,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
     TrustStatus{
         get {
             if(!this.HasProp("__TrustStatus"))
-                this.__TrustStatus := CERT_TRUST_STATUS(this.ptr + 8)
+                this.__TrustStatus := CERT_TRUST_STATUS(8, this)
             return this.__TrustStatus
         }
     }
@@ -64,7 +64,7 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
 
     /**
      * BOOL. If <b>TRUE</b>, <b>dwRevocationFreshnessTime</b> has been calculated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fHasRevocationFreshnessTime {
         get => NumGet(this, 40, "int")
@@ -81,12 +81,8 @@ class CERT_SIMPLE_CHAIN extends Win32Struct
         set => NumPut("uint", value, this, 44)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

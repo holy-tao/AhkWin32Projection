@@ -148,7 +148,7 @@ class MI_Value extends Win32Struct
     datetime{
         get {
             if(!this.HasProp("__datetime"))
-                this.__datetime := MI_Datetime(this.ptr + 0)
+                this.__datetime := MI_Datetime(0, this)
             return this.__datetime
         }
     }
@@ -187,7 +187,7 @@ class MI_Value extends Win32Struct
     booleana{
         get {
             if(!this.HasProp("__booleana"))
-                this.__booleana := MI_BooleanA(this.ptr + 0)
+                this.__booleana := MI_BooleanA(0, this)
             return this.__booleana
         }
     }
@@ -199,7 +199,7 @@ class MI_Value extends Win32Struct
     uint8a{
         get {
             if(!this.HasProp("__uint8a"))
-                this.__uint8a := MI_Uint8A(this.ptr + 0)
+                this.__uint8a := MI_Uint8A(0, this)
             return this.__uint8a
         }
     }
@@ -211,7 +211,7 @@ class MI_Value extends Win32Struct
     sint8a{
         get {
             if(!this.HasProp("__sint8a"))
-                this.__sint8a := MI_Sint8A(this.ptr + 0)
+                this.__sint8a := MI_Sint8A(0, this)
             return this.__sint8a
         }
     }
@@ -223,7 +223,7 @@ class MI_Value extends Win32Struct
     uint16a{
         get {
             if(!this.HasProp("__uint16a"))
-                this.__uint16a := MI_Uint16A(this.ptr + 0)
+                this.__uint16a := MI_Uint16A(0, this)
             return this.__uint16a
         }
     }
@@ -235,7 +235,7 @@ class MI_Value extends Win32Struct
     sint16a{
         get {
             if(!this.HasProp("__sint16a"))
-                this.__sint16a := MI_Sint16A(this.ptr + 0)
+                this.__sint16a := MI_Sint16A(0, this)
             return this.__sint16a
         }
     }
@@ -247,7 +247,7 @@ class MI_Value extends Win32Struct
     uint32a{
         get {
             if(!this.HasProp("__uint32a"))
-                this.__uint32a := MI_Uint32A(this.ptr + 0)
+                this.__uint32a := MI_Uint32A(0, this)
             return this.__uint32a
         }
     }
@@ -259,7 +259,7 @@ class MI_Value extends Win32Struct
     sint32a{
         get {
             if(!this.HasProp("__sint32a"))
-                this.__sint32a := MI_Sint32A(this.ptr + 0)
+                this.__sint32a := MI_Sint32A(0, this)
             return this.__sint32a
         }
     }
@@ -271,7 +271,7 @@ class MI_Value extends Win32Struct
     uint64a{
         get {
             if(!this.HasProp("__uint64a"))
-                this.__uint64a := MI_Uint64A(this.ptr + 0)
+                this.__uint64a := MI_Uint64A(0, this)
             return this.__uint64a
         }
     }
@@ -283,7 +283,7 @@ class MI_Value extends Win32Struct
     sint64a{
         get {
             if(!this.HasProp("__sint64a"))
-                this.__sint64a := MI_Sint64A(this.ptr + 0)
+                this.__sint64a := MI_Sint64A(0, this)
             return this.__sint64a
         }
     }
@@ -295,7 +295,7 @@ class MI_Value extends Win32Struct
     real32a{
         get {
             if(!this.HasProp("__real32a"))
-                this.__real32a := MI_Real32A(this.ptr + 0)
+                this.__real32a := MI_Real32A(0, this)
             return this.__real32a
         }
     }
@@ -307,7 +307,7 @@ class MI_Value extends Win32Struct
     real64a{
         get {
             if(!this.HasProp("__real64a"))
-                this.__real64a := MI_Real64A(this.ptr + 0)
+                this.__real64a := MI_Real64A(0, this)
             return this.__real64a
         }
     }
@@ -319,7 +319,7 @@ class MI_Value extends Win32Struct
     char16a{
         get {
             if(!this.HasProp("__char16a"))
-                this.__char16a := MI_Char16A(this.ptr + 0)
+                this.__char16a := MI_Char16A(0, this)
             return this.__char16a
         }
     }
@@ -331,7 +331,7 @@ class MI_Value extends Win32Struct
     datetimea{
         get {
             if(!this.HasProp("__datetimea"))
-                this.__datetimea := MI_DatetimeA(this.ptr + 0)
+                this.__datetimea := MI_DatetimeA(0, this)
             return this.__datetimea
         }
     }
@@ -343,7 +343,7 @@ class MI_Value extends Win32Struct
     stringa{
         get {
             if(!this.HasProp("__stringa"))
-                this.__stringa := MI_StringA(this.ptr + 0)
+                this.__stringa := MI_StringA(0, this)
             return this.__stringa
         }
     }
@@ -355,7 +355,7 @@ class MI_Value extends Win32Struct
     referencea{
         get {
             if(!this.HasProp("__referencea"))
-                this.__referencea := MI_ReferenceA(this.ptr + 0)
+                this.__referencea := MI_ReferenceA(0, this)
             return this.__referencea
         }
     }
@@ -367,7 +367,7 @@ class MI_Value extends Win32Struct
     instancea{
         get {
             if(!this.HasProp("__instancea"))
-                this.__instancea := MI_InstanceA(this.ptr + 0)
+                this.__instancea := MI_InstanceA(0, this)
             return this.__instancea
         }
     }
@@ -379,7 +379,7 @@ class MI_Value extends Win32Struct
     array{
         get {
             if(!this.HasProp("__array"))
-                this.__array := MI_Array(this.ptr + 0)
+                this.__array := MI_Array(0, this)
             return this.__array
         }
     }

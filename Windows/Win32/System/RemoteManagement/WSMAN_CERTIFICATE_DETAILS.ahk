@@ -15,7 +15,7 @@ class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
 
     /**
      * Specifies the subject that is identified by the certificate.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     subject {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
 
     /**
      * Specifies the name of the issuer of the certificate.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     issuerName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
 
     /**
      * Specifies the thumbprint of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     issuerThumbprint {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WSMAN_CERTIFICATE_DETAILS extends Win32Struct
 
     /**
      * Specifies the subject name of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     subjectName {
         get => NumGet(this, 24, "ptr")

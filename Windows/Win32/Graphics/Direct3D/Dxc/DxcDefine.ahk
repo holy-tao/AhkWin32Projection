@@ -12,7 +12,7 @@ class DxcDefine extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DxcDefine extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Value {
         get => NumGet(this, 8, "ptr")

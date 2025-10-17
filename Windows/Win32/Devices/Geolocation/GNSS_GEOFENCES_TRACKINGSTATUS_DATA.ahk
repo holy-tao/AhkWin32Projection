@@ -29,7 +29,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     Status {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class GNSS_GEOFENCES_TRACKINGSTATUS_DATA extends Win32Struct
     StatusTimeStamp{
         get {
             if(!this.HasProp("__StatusTimeStamp"))
-                this.__StatusTimeStamp := FILETIME(this.ptr + 16)
+                this.__StatusTimeStamp := FILETIME(16, this)
             return this.__StatusTimeStamp
         }
     }

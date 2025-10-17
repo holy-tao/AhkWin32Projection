@@ -19,13 +19,13 @@ class WLAN_QOS_INFO extends Win32Struct
     interfaceCapabilities{
         get {
             if(!this.HasProp("__interfaceCapabilities"))
-                this.__interfaceCapabilities := WLAN_QOS_CAPABILITIES(this.ptr + 0)
+                this.__interfaceCapabilities := WLAN_QOS_CAPABILITIES(0, this)
             return this.__interfaceCapabilities
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bConnected {
         get => NumGet(this, 16, "int")
@@ -38,7 +38,7 @@ class WLAN_QOS_INFO extends Win32Struct
     connectionQoSInfo{
         get {
             if(!this.HasProp("__connectionQoSInfo"))
-                this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(this.ptr + 24)
+                this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(24, this)
             return this.__connectionQoSInfo
         }
     }

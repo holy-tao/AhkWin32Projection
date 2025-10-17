@@ -12,7 +12,7 @@ class SERVER_INFO_1537 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1537_enableoplockforceclose {
         get => NumGet(this, 0, "int")

@@ -113,7 +113,7 @@ class TBBUTTONINFOA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Address of a character buffer that contains or receives the button text.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszText {
         get => NumGet(this, 32, "ptr")
@@ -131,12 +131,8 @@ class TBBUTTONINFOA extends Win32Struct
         set => NumPut("int", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

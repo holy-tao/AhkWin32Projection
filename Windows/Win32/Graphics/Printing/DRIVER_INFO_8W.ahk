@@ -22,7 +22,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -30,7 +30,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +38,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -54,7 +54,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")
@@ -62,7 +62,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pHelpFile {
         get => NumGet(this, 48, "ptr")
@@ -70,7 +70,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDependentFiles {
         get => NumGet(this, 56, "ptr")
@@ -78,7 +78,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMonitorName {
         get => NumGet(this, 64, "ptr")
@@ -86,7 +86,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDefaultDataType {
         get => NumGet(this, 72, "ptr")
@@ -94,7 +94,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszzPreviousNames {
         get => NumGet(this, 80, "ptr")
@@ -107,7 +107,7 @@ class DRIVER_INFO_8W extends Win32Struct
     ftDriverDate{
         get {
             if(!this.HasProp("__ftDriverDate"))
-                this.__ftDriverDate := FILETIME(this.ptr + 88)
+                this.__ftDriverDate := FILETIME(88, this)
             return this.__ftDriverDate
         }
     }
@@ -121,7 +121,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszMfgName {
         get => NumGet(this, 104, "ptr")
@@ -129,7 +129,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOEMUrl {
         get => NumGet(this, 112, "ptr")
@@ -137,7 +137,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHardwareID {
         get => NumGet(this, 120, "ptr")
@@ -145,7 +145,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProvider {
         get => NumGet(this, 128, "ptr")
@@ -153,7 +153,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPrintProcessor {
         get => NumGet(this, 136, "ptr")
@@ -161,7 +161,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszVendorSetup {
         get => NumGet(this, 144, "ptr")
@@ -169,7 +169,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszzColorProfiles {
         get => NumGet(this, 152, "ptr")
@@ -177,7 +177,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInfPath {
         get => NumGet(this, 160, "ptr")
@@ -193,7 +193,7 @@ class DRIVER_INFO_8W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszzCoreDriverDependencies {
         get => NumGet(this, 176, "ptr")
@@ -206,7 +206,7 @@ class DRIVER_INFO_8W extends Win32Struct
     ftMinInboxDriverVerDate{
         get {
             if(!this.HasProp("__ftMinInboxDriverVerDate"))
-                this.__ftMinInboxDriverVerDate := FILETIME(this.ptr + 184)
+                this.__ftMinInboxDriverVerDate := FILETIME(184, this)
             return this.__ftMinInboxDriverVerDate
         }
     }

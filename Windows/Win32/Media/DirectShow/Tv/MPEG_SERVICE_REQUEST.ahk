@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\MPEG_BCS_DEMUX.ahk
+#Include .\MPEG_WINSOCK.ahk
 #Include .\MPEG_CONTEXT.ahk
 #Include .\DSMCC_FILTER_OPTIONS.ahk
 #Include .\ATSC_FILTER_OPTIONS.ahk
@@ -29,7 +31,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := MPEG_CONTEXT(this.ptr + 8)
+                this.__Context := MPEG_CONTEXT(8, this)
             return this.__Context
         }
     }
@@ -56,7 +58,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     Filter{
         get {
             if(!this.HasProp("__Filter"))
-                this.__Filter := MPEG2_FILTER(this.ptr + 24)
+                this.__Filter := MPEG2_FILTER(24, this)
             return this.__Filter
         }
     }

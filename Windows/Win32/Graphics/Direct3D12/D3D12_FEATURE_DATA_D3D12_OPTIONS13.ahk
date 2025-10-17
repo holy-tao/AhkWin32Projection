@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     UnrestrictedBufferTextureCopyPitchSupported {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     UnrestrictedVertexElementAlignmentSupported {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InvertedViewportHeightFlipsYSupported {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InvertedViewportDepthFlipsZSupported {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     TextureCopyBetweenDimensionsSupported {
         get => NumGet(this, 16, "int")
@@ -52,7 +52,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS13 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AlphaBlendFactorSupported {
         get => NumGet(this, 20, "int")

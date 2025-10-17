@@ -26,7 +26,7 @@ class WINBIO_UPDATE_FIRMWARE extends Win32Struct
     FirmwareData{
         get {
             if(!this.HasProp("__FirmwareData"))
-                this.__FirmwareData := WINBIO_DATA(this.ptr + 8)
+                this.__FirmwareData := WINBIO_DATA(8, this)
             return this.__FirmwareData
         }
     }

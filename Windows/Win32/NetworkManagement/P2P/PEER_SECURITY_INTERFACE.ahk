@@ -29,7 +29,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Specifies the full path and file name of a .DLL that  implements the SSP interface. See the <a href="https://docs.microsoft.com/windows/desktop/P2PSdk/graphing-reference-links">SSPI documentation</a> for further information on the SSP interface.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzSspFilename {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class PEER_SECURITY_INTERFACE extends Win32Struct
 
     /**
      * Specifies the ID of the security module in the SSP to use.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzPackageName {
         get => NumGet(this, 16, "ptr")

@@ -52,7 +52,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 520)
+                this.__dot11Ssid := DOT11_SSID(520, this)
             return this.__dot11Ssid
         }
     }
@@ -68,7 +68,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
 
     /**
      * Indicates whether security is enabled for this connection.  If <b>TRUE</b>, security is enabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSecurityEnabled {
         get => NumGet(this, 560, "int")

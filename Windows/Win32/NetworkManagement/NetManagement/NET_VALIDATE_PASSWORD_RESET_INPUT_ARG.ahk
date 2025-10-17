@@ -23,14 +23,14 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
     InputPersistedFields{
         get {
             if(!this.HasProp("__InputPersistedFields"))
-                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__InputPersistedFields
         }
     }
 
     /**
      * Pointer to a Unicode string specifying the new password, in plaintext format.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClearPassword {
         get => NumGet(this, 48, "ptr")
@@ -39,7 +39,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the name of the user account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UserAccountName {
         get => NumGet(this, 56, "ptr")
@@ -53,14 +53,14 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
     HashedPassword{
         get {
             if(!this.HasProp("__HashedPassword"))
-                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(this.ptr + 64)
+                this.__HashedPassword := NET_VALIDATE_PASSWORD_HASH(64, this)
             return this.__HashedPassword
         }
     }
 
     /**
      * BOOLEAN value that indicates whether the user must change his or her password at the next logon. If this parameter is <b>TRUE</b>, the user must change the password at the next logon.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PasswordMustChangeAtNextLogon {
         get => NumGet(this, 80, "char")
@@ -69,7 +69,7 @@ class NET_VALIDATE_PASSWORD_RESET_INPUT_ARG extends Win32Struct
 
     /**
      * BOOLEAN value that can reset the "lockout state" of the user account. If this member is <b>TRUE</b>,  the account will no longer be locked out.  Note that an application cannot directly lock out an account.  An account can be locked out only as a result of exceeding the maximum number of invalid password authentications allowed for the account.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ClearLockout {
         get => NumGet(this, 81, "char")

@@ -47,7 +47,7 @@ class TAPE_SET_POSITION extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, return as soon as the operation begins. Otherwise, return after the operation has completed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Immediate {
         get => NumGet(this, 16, "char")

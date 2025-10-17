@@ -17,7 +17,7 @@ class COMPCOLOR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color of text. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crText {
         get => NumGet(this, 0, "uint")
@@ -28,7 +28,7 @@ class COMPCOLOR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Color of background. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBackground {
         get => NumGet(this, 4, "uint")

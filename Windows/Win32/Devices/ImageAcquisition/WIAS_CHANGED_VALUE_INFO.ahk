@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -12,7 +13,7 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bChanged {
         get => NumGet(this, 0, "int")
@@ -44,11 +45,14 @@ class WIAS_CHANGED_VALUE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrVal{
+        get {
+            if(!this.HasProp("__bstrVal"))
+                this.__bstrVal := BSTR(8, this)
+            return this.__bstrVal
+        }
     }
 
     /**

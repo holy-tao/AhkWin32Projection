@@ -26,7 +26,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin. (Obsolete.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     strName {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the filter renders the input from this pin. (Applies only to input pins. For output pins, the value is always <b>FALSE</b>.)
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRendered {
         get => NumGet(this, 8, "int")
@@ -44,7 +44,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, this pin is an output pin. Otherwise, the pin is an input pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bOutput {
         get => NumGet(this, 12, "int")
@@ -53,7 +53,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the filter can have zero instances of this pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bZero {
         get => NumGet(this, 16, "int")
@@ -62,7 +62,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the filter can create more than one instance of this type of pin.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMany {
         get => NumGet(this, 20, "int")
@@ -80,7 +80,7 @@ class REGFILTERPINS extends Win32Struct
 
     /**
      * Name of the pin to which this pin connects. (Obsolete.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     strConnectsToPin {
         get => NumGet(this, 32, "ptr")

@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SampleCmpGradientAndBiasSupported {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS21 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ExtendedCommandInfoSupported {
         get => NumGet(this, 12, "int")

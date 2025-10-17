@@ -35,7 +35,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * True if device attention is supported. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeviceAttentionSupported {
         get => NumGet(this, 8, "char")
@@ -45,7 +45,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
     /**
      * True if the device supports asynchronous notifications, delivered via 
      *       <b>IOCTL_STORAGE_EVENT_NOTIFICATION</b>. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AsynchronousNotificationSupported {
         get => NumGet(this, 9, "char")
@@ -54,7 +54,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * True if the device has been registered for runtime idle power management. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IdlePowerManagementEnabled {
         get => NumGet(this, 10, "char")
@@ -63,7 +63,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * True if the device will be powered off when put into D3 power state. Otherwise, false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     D3ColdEnabled {
         get => NumGet(this, 11, "char")
@@ -73,7 +73,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
     /**
      * True if the platform supports <b>D3ColdEnabled</b> for this device. Otherwise, 
      *       false.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     D3ColdSupported {
         get => NumGet(this, 12, "char")
@@ -82,7 +82,7 @@ class DEVICE_POWER_DESCRIPTOR extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     NoVerifyDuringIdlePower {
         get => NumGet(this, 13, "char")

@@ -26,7 +26,7 @@ class D3D11_VIDEO_PROCESSOR_CUSTOM_RATE extends Win32Struct
     CustomRate{
         get {
             if(!this.HasProp("__CustomRate"))
-                this.__CustomRate := DXGI_RATIONAL(this.ptr + 0)
+                this.__CustomRate := DXGI_RATIONAL(0, this)
             return this.__CustomRate
         }
     }
@@ -42,7 +42,7 @@ class D3D11_VIDEO_PROCESSOR_CUSTOM_RATE extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the input stream must be interlaced. Otherwise, the input stream must be progressive.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InputInterlaced {
         get => NumGet(this, 12, "int")

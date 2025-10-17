@@ -21,7 +21,7 @@ class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct
     PackageName{
         get {
             if(!this.HasProp("__PackageName"))
-                this.__PackageName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__PackageName := LSA_UNICODE_STRING(0, this)
             return this.__PackageName
         }
     }

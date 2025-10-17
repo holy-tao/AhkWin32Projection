@@ -20,7 +20,7 @@ class KERB_CHANGEMACHINEPASSWORD_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ForcePasswordChange {
         get => NumGet(this, 4, "char")

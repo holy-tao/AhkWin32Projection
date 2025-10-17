@@ -22,7 +22,7 @@ class DISPLAYCONFIG_ADAPTER_NAME extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(this.ptr + 0)
+                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
             return this.__header
         }
     }

@@ -12,7 +12,7 @@ class PWM_PIN_IS_STARTED_OUTPUT extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsStarted {
         get => NumGet(this, 0, "char")

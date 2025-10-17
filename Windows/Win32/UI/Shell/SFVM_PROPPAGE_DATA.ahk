@@ -37,7 +37,7 @@ class SFVM_PROPPAGE_DATA extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * The details of the property sheet to be added. When this function is used by Windows Explorer, it provides <b>lParam</b> through the system folder view object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-addpropertysheetpages">IShellView::AddPropertySheetPages</a> method. The callback function can then pass the information to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages">IShellPropSheetExt::AddPages</a>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 16, "ptr")

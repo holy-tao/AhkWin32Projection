@@ -93,7 +93,7 @@ class SERVER_INFO_100 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv100_name {
         get => NumGet(this, 8, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\MBN_PROVIDER.ahk
 
 /**
@@ -21,7 +22,7 @@ class MBN_PROVIDER2 extends Win32Struct
     provider{
         get {
             if(!this.HasProp("__provider"))
-                this.__provider := MBN_PROVIDER(this.ptr + 0)
+                this.__provider := MBN_PROVIDER(0, this)
             return this.__provider
         }
     }

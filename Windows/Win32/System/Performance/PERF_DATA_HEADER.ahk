@@ -79,7 +79,7 @@ class PERF_DATA_HEADER extends Win32Struct
     SystemTime{
         get {
             if(!this.HasProp("__SystemTime"))
-                this.__SystemTime := SYSTEMTIME(this.ptr + 32)
+                this.__SystemTime := SYSTEMTIME(32, this)
             return this.__SystemTime
         }
     }

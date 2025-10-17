@@ -18,13 +18,13 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     SessionId{
         get {
             if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 0)
+                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
             return this.__SessionId
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     InitialR2t {
         get => NumGet(this, 16, "char")
@@ -32,7 +32,7 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ImmediateData {
         get => NumGet(this, 17, "char")
@@ -48,7 +48,7 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DataSequenceInOrder {
         get => NumGet(this, 19, "char")
@@ -56,7 +56,7 @@ class ISCSI_SESSION_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DataPduInOrder {
         get => NumGet(this, 20, "char")

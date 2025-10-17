@@ -13,7 +13,7 @@ class DOC_INFO_1W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDocName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class DOC_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pOutputFile {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DOC_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDatatype {
         get => NumGet(this, 16, "ptr")

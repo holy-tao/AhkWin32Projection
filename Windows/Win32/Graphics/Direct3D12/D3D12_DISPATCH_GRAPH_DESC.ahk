@@ -27,7 +27,7 @@ class D3D12_DISPATCH_GRAPH_DESC extends Win32Struct
     NodeCPUInput{
         get {
             if(!this.HasProp("__NodeCPUInput"))
-                this.__NodeCPUInput := D3D12_NODE_CPU_INPUT(this.ptr + 8)
+                this.__NodeCPUInput := D3D12_NODE_CPU_INPUT(8, this)
             return this.__NodeCPUInput
         }
     }
@@ -46,7 +46,7 @@ class D3D12_DISPATCH_GRAPH_DESC extends Win32Struct
     MultiNodeCPUInput{
         get {
             if(!this.HasProp("__MultiNodeCPUInput"))
-                this.__MultiNodeCPUInput := D3D12_MULTI_NODE_CPU_INPUT(this.ptr + 8)
+                this.__MultiNodeCPUInput := D3D12_MULTI_NODE_CPU_INPUT(8, this)
             return this.__MultiNodeCPUInput
         }
     }

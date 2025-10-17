@@ -24,7 +24,7 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enabled {
         get => NumGet(this, 2, "char")
@@ -53,7 +53,7 @@ class WHEA_XPF_CMC_DESCRIPTOR extends Win32Struct
     Notify{
         get {
             if(!this.HasProp("__Notify"))
-                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(this.ptr + 8)
+                this.__Notify := WHEA_NOTIFICATION_DESCRIPTOR(8, this)
             return this.__Notify
         }
     }

@@ -30,7 +30,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
     rcDestination{
         get {
             if(!this.HasProp("__rcDestination"))
-                this.__rcDestination := RECT(this.ptr + 8)
+                this.__rcDestination := RECT(8, this)
             return this.__rcDestination
         }
     }
@@ -42,7 +42,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
     rcSource{
         get {
             if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(this.ptr + 24)
+                this.__rcSource := RECT(24, this)
             return this.__rcSource
         }
     }
@@ -58,7 +58,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
 
     /**
      * <b>TRUE</b> to make the thumbnail visible; otherwise, <b>FALSE</b>. The default is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fVisible {
         get => NumGet(this, 44, "int")
@@ -67,7 +67,7 @@ class DWM_THUMBNAIL_PROPERTIES extends Win32Struct
 
     /**
      * <b>TRUE</b> to use only the thumbnail source's client area; otherwise, <b>FALSE</b>. The default is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSourceClientAreaOnly {
         get => NumGet(this, 48, "int")

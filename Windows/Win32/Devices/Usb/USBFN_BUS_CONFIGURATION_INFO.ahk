@@ -20,7 +20,7 @@ class USBFN_BUS_CONFIGURATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsCurrent {
         get => NumGet(this, 80, "char")
@@ -28,7 +28,7 @@ class USBFN_BUS_CONFIGURATION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsActive {
         get => NumGet(this, 81, "char")

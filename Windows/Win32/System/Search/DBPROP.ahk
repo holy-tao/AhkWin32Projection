@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Storage\IndexServer\DBID.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -45,7 +46,7 @@ class DBPROP extends Win32Struct
     colid{
         get {
             if(!this.HasProp("__colid"))
-                this.__colid := DBID(this.ptr + 16)
+                this.__colid := DBID(16, this)
             return this.__colid
         }
     }
@@ -56,7 +57,7 @@ class DBPROP extends Win32Struct
     vValue{
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := VARIANT(this.ptr + 48)
+                this.__vValue := VARIANT(48, this)
             return this.__vValue
         }
     }

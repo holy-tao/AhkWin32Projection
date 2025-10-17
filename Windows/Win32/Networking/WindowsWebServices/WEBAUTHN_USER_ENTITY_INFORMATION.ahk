@@ -36,7 +36,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIcon {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class WEBAUTHN_USER_ENTITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDisplayName {
         get => NumGet(this, 32, "ptr")

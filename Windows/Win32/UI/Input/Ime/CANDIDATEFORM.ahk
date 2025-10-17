@@ -40,7 +40,7 @@ class CANDIDATEFORM extends Win32Struct
     ptCurrentPos{
         get {
             if(!this.HasProp("__ptCurrentPos"))
-                this.__ptCurrentPos := POINT(this.ptr + 8)
+                this.__ptCurrentPos := POINT(8, this)
             return this.__ptCurrentPos
         }
     }
@@ -52,7 +52,7 @@ class CANDIDATEFORM extends Win32Struct
     rcArea{
         get {
             if(!this.HasProp("__rcArea"))
-                this.__rcArea := RECT(this.ptr + 16)
+                this.__rcArea := RECT(16, this)
             return this.__rcArea
         }
     }

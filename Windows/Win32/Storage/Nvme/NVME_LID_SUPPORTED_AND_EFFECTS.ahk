@@ -43,14 +43,6 @@ class NVME_LID_SUPPORTED_AND_EFFECTS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3FFF
-        set => this._bitfield := ((value & 0x3FFF) << 2) | (this._bitfield & ~(0x3FFF << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     LIDSpecific {
         get => (this._bitfield >> 16) & 0xFFFF
         set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))

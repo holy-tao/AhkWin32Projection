@@ -68,11 +68,76 @@ class DEBUG_POOL_DATA extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Free
+     * - LargePool
+     * - SpecialPool
+     * - Pageable
+     * - Protected
+     * - Allocated
+     * - Session
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Free {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LargePool {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SpecialPool {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Pageable {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Protected {
+        get => (this._bitfield >> 4) & 0x1
+        set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Allocated {
+        get => (this._bitfield >> 5) & 0x1
+        set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Session {
+        get => (this._bitfield >> 6) & 0x1
+        set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
     }
 
     /**

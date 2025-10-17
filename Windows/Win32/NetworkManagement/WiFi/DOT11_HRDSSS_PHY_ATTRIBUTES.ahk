@@ -12,7 +12,7 @@ class DOT11_HRDSSS_PHY_ATTRIBUTES extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bShortPreambleOptionImplemented {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class DOT11_HRDSSS_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bPBCCOptionImplemented {
         get => NumGet(this, 1, "char")
@@ -28,7 +28,7 @@ class DOT11_HRDSSS_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bChannelAgilityPresent {
         get => NumGet(this, 2, "char")

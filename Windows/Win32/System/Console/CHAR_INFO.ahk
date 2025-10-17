@@ -20,7 +20,7 @@ class CHAR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     AsciiChar {
         get => NumGet(this, 0, "char")

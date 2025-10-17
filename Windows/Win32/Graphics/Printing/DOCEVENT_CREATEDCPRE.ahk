@@ -12,7 +12,7 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDriver {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDevice {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DOCEVENT_CREATEDCPRE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIC {
         get => NumGet(this, 24, "int")

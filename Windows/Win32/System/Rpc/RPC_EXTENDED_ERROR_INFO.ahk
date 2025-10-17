@@ -37,7 +37,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 
     /**
      * Non-qualified DNS name, expressed in Unicode.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ComputerName {
         get => NumGet(this, 8, "ptr")
@@ -59,7 +59,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     SystemTime{
         get {
             if(!this.HasProp("__SystemTime"))
-                this.__SystemTime := SYSTEMTIME(this.ptr + 24)
+                this.__SystemTime := SYSTEMTIME(24, this)
             return this.__SystemTime
         }
     }
@@ -70,7 +70,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     FileTime{
         get {
             if(!this.HasProp("__FileTime"))
-                this.__FileTime := FILETIME(this.ptr + 24)
+                this.__FileTime := FILETIME(24, this)
             return this.__FileTime
         }
     }

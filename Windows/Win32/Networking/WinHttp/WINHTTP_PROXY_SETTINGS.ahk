@@ -37,7 +37,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszConnectionName {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProxy {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +53,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProxyBypass {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAutoconfigUrl {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAutoconfigSecondaryUrl {
         get => NumGet(this, 48, "ptr")
@@ -85,7 +85,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszLastKnownGoodAutoConfigUrl {
         get => NumGet(this, 64, "ptr")
@@ -106,7 +106,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     ftLastKnownDetectTime{
         get {
             if(!this.HasProp("__ftLastKnownDetectTime"))
-                this.__ftLastKnownDetectTime := FILETIME(this.ptr + 80)
+                this.__ftLastKnownDetectTime := FILETIME(80, this)
             return this.__ftLastKnownDetectTime
         }
     }

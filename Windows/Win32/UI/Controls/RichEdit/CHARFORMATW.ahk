@@ -81,7 +81,7 @@ class CHARFORMATW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Text color. This member is ignored if the CFE_AUTOCOLOR character effect is specified. To generate a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a>, use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-rgb">RGB</a> macro.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crTextColor {
         get => NumGet(this, 20, "uint")
@@ -121,12 +121,8 @@ class CHARFORMATW extends Win32Struct
         set => StrPut(value, this.ptr + 26, 31, "UTF-16")
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 92
     }
 }

@@ -20,7 +20,7 @@ class KS_DATARANGE_ANALOGVIDEO extends Win32Struct
     DataRange{
         get {
             if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(this.ptr + 0)
+                this.__DataRange := KSDATAFORMAT(0, this)
             return this.__DataRange
         }
     }
@@ -31,7 +31,7 @@ class KS_DATARANGE_ANALOGVIDEO extends Win32Struct
     AnalogVideoInfo{
         get {
             if(!this.HasProp("__AnalogVideoInfo"))
-                this.__AnalogVideoInfo := KS_ANALOGVIDEOINFO(this.ptr + 48)
+                this.__AnalogVideoInfo := KS_ANALOGVIDEOINFO(48, this)
             return this.__AnalogVideoInfo
         }
     }

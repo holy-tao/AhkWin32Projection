@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information used by Shell_NotifyIconGetRect to identify the icon for which to retrieve the bounding rectangle.
@@ -40,11 +41,14 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the parent window used by the notification's callback function. For more information, see the <i>hWnd</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWnd{
+        get {
+            if(!this.HasProp("__hWnd"))
+                this.__hWnd := HWND(8, this)
+            return this.__hWnd
+        }
     }
 
     /**
@@ -69,12 +73,8 @@ class NOTIFYICONIDENTIFIER extends Win32Struct
         set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

@@ -34,7 +34,7 @@ class STORAGE_DEVICE_LOCATION_DESCRIPTOR extends Win32Struct
     Location{
         get {
             if(!this.HasProp("__Location"))
-                this.__Location := DEVICE_LOCATION(this.ptr + 8)
+                this.__Location := DEVICE_LOCATION(8, this)
             return this.__Location
         }
     }

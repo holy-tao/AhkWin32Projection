@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\Apis.ahk
 #Include ..\..\System\LibraryLoader\Apis.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HPSXA.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 /**
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -8034,8 +8040,8 @@ class Shell {
 ;@region Methods
     /**
      * 
-     * @param {Integer} fRestoreCache 
-     * @returns {Integer} 
+     * @param {BOOL} fRestoreCache 
+     * @returns {BOOL} 
      */
     static FileIconInit(fRestoreCache) {
         ; This method's EntryPoint is an ordinal, so we need to load the dll manually
@@ -8051,13 +8057,13 @@ class Shell {
 
     /**
      * Loads the specified user's profile. The profile can be a local user profile or a roaming user profile.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, which is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have <b>TOKEN_QUERY</b>, <b>TOKEN_IMPERSONATE</b>, and <b>TOKEN_DUPLICATE</b> access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * @param {Pointer<PROFILEINFOA>} lpProfileInfo Type: <b>LPPROFILEINFO</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/profinfo/ns-profinfo-profileinfoa">PROFILEINFO</a> structure. <b>LoadUserProfile</b> fails and returns <b>ERROR_INVALID_PARAMETER</b> if the <b>dwSize</b> member of the structure is not set to <c>sizeof(PROFILEINFO)</c> or if the <b>lpUserName</b> member is <b>NULL</b>. For more information, see Remarks.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      *                 
@@ -8068,6 +8074,8 @@ class Shell {
      * @since windows5.0
      */
     static LoadUserProfileA(hToken, lpProfileInfo) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileA", "ptr", hToken, "ptr", lpProfileInfo, "int")
@@ -8079,13 +8087,13 @@ class Shell {
 
     /**
      * Loads the specified user's profile. The profile can be a local user profile or a roaming user profile.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, which is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have <b>TOKEN_QUERY</b>, <b>TOKEN_IMPERSONATE</b>, and <b>TOKEN_DUPLICATE</b> access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * @param {Pointer<PROFILEINFOW>} lpProfileInfo Type: <b>LPPROFILEINFO</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/profinfo/ns-profinfo-profileinfoa">PROFILEINFO</a> structure. <b>LoadUserProfile</b> fails and returns <b>ERROR_INVALID_PARAMETER</b> if the <b>dwSize</b> member of the structure is not set to <c>sizeof(PROFILEINFO)</c> or if the <b>lpUserName</b> member is <b>NULL</b>. For more information, see Remarks.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      *                 
@@ -8096,6 +8104,8 @@ class Shell {
      * @since windows5.0
      */
     static LoadUserProfileW(hToken, lpProfileInfo) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LoadUserProfileW", "ptr", hToken, "ptr", lpProfileInfo, "int")
@@ -8107,19 +8117,22 @@ class Shell {
 
     /**
      * Unloads a user's profile that was loaded by the LoadUserProfile function. The caller must have administrative privileges on the computer. For more information, see the Remarks section of the LoadUserProfile function.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * Token for the user, returned from the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have <b>TOKEN_IMPERSONATE</b> and <b>TOKEN_DUPLICATE</b> access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
-     * @param {Pointer<Void>} hProfile Type: <b>HANDLE</b>
+     * @param {HANDLE} hProfile Type: <b>HANDLE</b>
      * 
      * Handle to the registry key. This value is the <b>hProfile</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/profinfo/ns-profinfo-profileinfoa">PROFILEINFO</a> structure. For more information see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-loaduserprofilea">LoadUserProfile</a> and <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-unloaduserprofile
      * @since windows5.0
      */
     static UnloadUserProfile(hToken, hProfile) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        hProfile := hProfile is Win32Handle ? NumGet(hProfile, "ptr") : hProfile
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnloadUserProfile", "ptr", hToken, "ptr", hProfile, "int")
@@ -8131,7 +8144,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root directory where user profiles are stored.
-     * @param {Pointer<Byte>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the profiles directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8141,14 +8154,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfilesDir</i> is not large enough or <i>lpProfilesDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getprofilesdirectorya
      * @since windows5.0
      */
     static GetProfilesDirectoryA(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8161,7 +8174,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root directory where user profiles are stored.
-     * @param {Pointer<Char>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the profiles directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8171,14 +8184,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfilesDir</i> is not large enough or <i>lpProfilesDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getprofilesdirectoryw
      * @since windows5.0
      */
     static GetProfilesDirectoryW(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8192,7 +8205,7 @@ class Shell {
     /**
      * Retrieves the type of profile loaded for the current user.
      * @param {Pointer<UInt32>} dwFlags Type: <b>DWORD*</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getprofiletype
@@ -8210,14 +8223,14 @@ class Shell {
 
     /**
      * Deletes the user profile and all user-related settings from the specified computer. The caller must have administrative privileges to delete a user's profile.
-     * @param {Pointer<Byte>} lpSidString Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpSidString Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the user 
      *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">SID</a>.
-     * @param {Pointer<Byte>} lpProfilePath Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpProfilePath Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the profile path. If this parameter is <b>NULL</b>, the function obtains the path from the registry.
-     * @param {Pointer<Byte>} lpComputerName Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpComputerName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the name of the computer from which the profile is to be deleted. If this parameter is <b>NULL</b>, the local computer name is used.
      *     
@@ -8225,16 +8238,16 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  As of Windows Vista, this parameter must be <b>NULL</b>. If it is not, this function fails with the error code ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deleteprofilea
      * @since windows5.0
      */
     static DeleteProfileA(lpSidString, lpProfilePath, lpComputerName) {
-        lpSidString := lpSidString is String? StrPtr(lpSidString) : lpSidString
-        lpProfilePath := lpProfilePath is String? StrPtr(lpProfilePath) : lpProfilePath
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpSidString := lpSidString is String ? StrPtr(lpSidString) : lpSidString
+        lpProfilePath := lpProfilePath is String ? StrPtr(lpProfilePath) : lpProfilePath
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
         A_LastError := 0
 
@@ -8247,14 +8260,14 @@ class Shell {
 
     /**
      * Deletes the user profile and all user-related settings from the specified computer. The caller must have administrative privileges to delete a user's profile.
-     * @param {Pointer<Char>} lpSidString Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpSidString Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the user 
      *     <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">SID</a>.
-     * @param {Pointer<Char>} lpProfilePath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpProfilePath Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the profile path. If this parameter is <b>NULL</b>, the function obtains the path from the registry.
-     * @param {Pointer<Char>} lpComputerName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpComputerName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a string that specifies the name of the computer from which the profile is to be deleted. If this parameter is <b>NULL</b>, the local computer name is used.
      *     
@@ -8262,16 +8275,16 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  As of Windows Vista, this parameter must be <b>NULL</b>. If it is not, this function fails with the error code ERROR_INVALID_PARAMETER.</div>
      * <div> </div>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deleteprofilew
      * @since windows5.0
      */
     static DeleteProfileW(lpSidString, lpProfilePath, lpComputerName) {
-        lpSidString := lpSidString is String? StrPtr(lpSidString) : lpSidString
-        lpProfilePath := lpProfilePath is String? StrPtr(lpProfilePath) : lpProfilePath
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpSidString := lpSidString is String ? StrPtr(lpSidString) : lpSidString
+        lpProfilePath := lpProfilePath is String ? StrPtr(lpProfilePath) : lpProfilePath
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
         A_LastError := 0
 
@@ -8284,13 +8297,13 @@ class Shell {
 
     /**
      * Creates a new user profile.
-     * @param {Pointer<Char>} pszUserSid Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszUserSid Type: <b>LPCWSTR</b>
      * 
      * Pointer to the SID of the user as a string.
-     * @param {Pointer<Char>} pszUserName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszUserName Type: <b>LPCWSTR</b>
      * 
      * The user name of the new user. This name is used as the base name for the profile directory.
-     * @param {Pointer<Char>} pszProfilePath Type: <b>LPWSTR</b>
+     * @param {PWSTR} pszProfilePath Type: <b>LPWSTR</b>
      * 
      * When this function returns, contains a pointer to the full path of the profile.
      * @param {Integer} cchProfilePath Type: <b>DWORD</b>
@@ -8332,9 +8345,9 @@ class Shell {
      * @since windows6.0.6000
      */
     static CreateProfile(pszUserSid, pszUserName, pszProfilePath, cchProfilePath) {
-        pszUserSid := pszUserSid is String? StrPtr(pszUserSid) : pszUserSid
-        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
-        pszProfilePath := pszProfilePath is String? StrPtr(pszProfilePath) : pszProfilePath
+        pszUserSid := pszUserSid is String ? StrPtr(pszUserSid) : pszUserSid
+        pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
+        pszProfilePath := pszProfilePath is String ? StrPtr(pszProfilePath) : pszProfilePath
 
         result := DllCall("USERENV.dll\CreateProfile", "ptr", pszUserSid, "ptr", pszUserName, "ptr", pszProfilePath, "uint", cchProfilePath, "int")
         if(result != 0)
@@ -8345,7 +8358,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root of the default user's profile.
-     * @param {Pointer<Byte>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the default user's profile directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8355,14 +8368,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getdefaultuserprofiledirectorya
      * @since windows5.0
      */
     static GetDefaultUserProfileDirectoryA(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8375,7 +8388,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root of the default user's profile.
-     * @param {Pointer<Char>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the default user's profile directory. Set this value to <b>NULL</b> to determine the required size of the buffer.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8385,14 +8398,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getdefaultuserprofiledirectoryw
      * @since windows5.0
      */
     static GetDefaultUserProfileDirectoryW(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8405,7 +8418,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root of the directory that contains program data shared by all users.
-     * @param {Pointer<Byte>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path. Set this value to <b>NULL</b> to determine the required size of the buffer, including the terminating null character.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8415,14 +8428,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getallusersprofiledirectorya
      * @since windows5.0
      */
     static GetAllUsersProfileDirectoryA(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8435,7 +8448,7 @@ class Shell {
 
     /**
      * Retrieves the path to the root of the directory that contains program data shared by all users.
-     * @param {Pointer<Char>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path. Set this value to <b>NULL</b> to determine the required size of the buffer, including the terminating null character.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8445,14 +8458,14 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getallusersprofiledirectoryw
      * @since windows5.0
      */
     static GetAllUsersProfileDirectoryW(lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8465,10 +8478,10 @@ class Shell {
 
     /**
      * Retrieves the path to the root directory of the specified user's profile.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * A token for the user, which is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_QUERY access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
-     * @param {Pointer<Byte>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the specified user's profile directory.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8478,14 +8491,15 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getuserprofiledirectorya
      * @since windows5.0
      */
     static GetUserProfileDirectoryA(hToken, lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -8498,10 +8512,10 @@ class Shell {
 
     /**
      * Retrieves the path to the root directory of the specified user's profile.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * A token for the user, which is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocesstoken">OpenProcessToken</a>, or  <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthreadtoken">OpenThreadToken</a> function. The token must have TOKEN_QUERY access. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
-     * @param {Pointer<Char>} lpProfileDir Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpProfileDir Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the path to the specified user's profile directory.
      * @param {Pointer<UInt32>} lpcchSize Type: <b>LPDWORD</b>
@@ -8511,14 +8525,15 @@ class Shell {
      *                         
      * 
      * If the buffer specified by <i>lpProfileDir</i> is not large enough or <i>lpProfileDir</i> is <b>NULL</b>, the function fails and this parameter receives the necessary buffer size, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getuserprofiledirectoryw
      * @since windows5.0
      */
     static GetUserProfileDirectoryW(hToken, lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String? StrPtr(lpProfileDir) : lpProfileDir
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -8625,7 +8640,7 @@ class Shell {
 
     /**
      * Installs or updates a window subclass callback.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -8637,20 +8652,22 @@ class Shell {
      * @param {Pointer} dwRefData Type: <b>DWORD_PTR</b>
      * 
      * <b>DWORD_PTR</b> to reference data. The meaning of this value is determined by the calling application. This value is passed to the subclass procedure in the dwRefData parameter. A different dwRefData is associated with each combination of window handle, subclass procedure and uIdSubclass.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the subclass callback was successfully installed; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-setwindowsubclass
      * @since windows5.1.2600
      */
     static SetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, dwRefData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("COMCTL32.dll\SetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr", dwRefData, "int")
         return result
     }
 
     /**
      * Retrieves the reference data for the specified window subclass callback.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -8662,7 +8679,7 @@ class Shell {
      * @param {Pointer<UIntPtr>} pdwRefData Type: <b>DWORD_PTR*</b>
      * 
      * A pointer to a <b>DWORD</b> which will return the reference data. Note: On 64-bit versions of Windows, pointers are 64-bit values.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <table>
      * <tr>
@@ -8696,13 +8713,15 @@ class Shell {
      * @since windows5.1.2600
      */
     static GetWindowSubclass(hWnd, pfnSubclass, uIdSubclass, pdwRefData) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("COMCTL32.dll\GetWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "ptr*", pdwRefData, "int")
         return result
     }
 
     /**
      * Removes a subclass callback from a window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * The handle of the window being subclassed.
      * @param {Pointer<SUBCLASSPROC>} pfnSubclass Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nc-commctrl-subclassproc">SUBCLASSPROC</a></b>
@@ -8711,47 +8730,51 @@ class Shell {
      * @param {Pointer} uIdSubclass Type: <b>UINT_PTR</b>
      * 
      * The <b>UINT_PTR</b> subclass ID. This ID and the callback pointer uniquely identify this subclass callback. Note: On 64-bit versions of Windows this is a 64-bit value.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the subclass callback was successfully removed; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-removewindowsubclass
      * @since windows5.1.2600
      */
     static RemoveWindowSubclass(hWnd, pfnSubclass, uIdSubclass) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("COMCTL32.dll\RemoveWindowSubclass", "ptr", hWnd, "ptr", pfnSubclass, "ptr", uIdSubclass, "int")
         return result
     }
 
     /**
      * Calls the next handler in a window's subclass chain. The last handler in the subclass chain calls the original window procedure for the window.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the window being subclassed.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * A value of type unsigned <b>int</b> that specifies a window message.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Specifies additional message information. The contents of this parameter depend on the value of the window message.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Specifies additional message information. The contents of this parameter depend on the value of the window message. Note: On 64-bit versions of Windows LPARAM is a 64-bit value.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The returned value is specific to the message sent. This value should be ignored.
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-defsubclassproc
      * @since windows5.1.2600
      */
     static DefSubclassProc(hWnd, uMsg, wParam, lParam) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         result := DllCall("COMCTL32.dll\DefSubclassProc", "ptr", hWnd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr")
         return result
     }
 
     /**
      * Associates a Help context identifier with the specified window.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @param {Integer} param1 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * 
@@ -8760,6 +8783,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SetWindowContextHelpId(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetWindowContextHelpId", "ptr", param0, "uint", param1, "int")
@@ -8771,7 +8796,7 @@ class Shell {
 
     /**
      * Retrieves the Help context identifier, if any, associated with the specified window.
-     * @param {Pointer<Void>} param0 
+     * @param {HWND} param0 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the window has one, or zero otherwise.
@@ -8779,15 +8804,17 @@ class Shell {
      * @since windows5.1.2600
      */
     static GetWindowContextHelpId(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("USER32.dll\GetWindowContextHelpId", "ptr", param0, "uint")
         return result
     }
 
     /**
      * Associates a Help context identifier with a menu.
-     * @param {Pointer<Void>} param0 
+     * @param {HMENU} param0 
      * @param {Integer} param1 
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * 
@@ -8796,6 +8823,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SetMenuContextHelpId(param0, param1) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetMenuContextHelpId", "ptr", param0, "uint", param1, "int")
@@ -8807,7 +8836,7 @@ class Shell {
 
     /**
      * Retrieves the Help context identifier associated with the specified menu.
-     * @param {Pointer<Void>} param0 
+     * @param {HMENU} param0 
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the Help context identifier if the menu has one, or zero otherwise.
@@ -8815,16 +8844,18 @@ class Shell {
      * @since windows5.1.2600
      */
     static GetMenuContextHelpId(param0) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+
         result := DllCall("USER32.dll\GetMenuContextHelpId", "ptr", param0, "uint")
         return result
     }
 
     /**
      * Launches Windows Help (Winhelp.exe) and passes additional data that indicates the nature of the help requested by the application.
-     * @param {Pointer<Void>} hWndMain Type: <b>HWND</b>
+     * @param {HWND} hWndMain Type: <b>HWND</b>
      * 
      * A handle to the window requesting help. The <b>WinHelp</b> function uses this handle to keep track of which applications have requested help. If the <i>uCommand</i> parameter specifies <b>HELP_CONTEXTMENU</b> or <b>HELP_WM_HELP</b>, <i>hWndMain</i> identifies the control requesting help.
-     * @param {Pointer<Byte>} lpszHelp Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszHelp Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string containing the path, if necessary, and the name of the Help file that <b>WinHelp</b> is to display.
      * 	
@@ -8837,14 +8868,15 @@ class Shell {
      * @param {Pointer} dwData Type: <b>ULONG_PTR</b>
      * 
      * Additional data. The value used depends on the value of the <i>uCommand</i> parameter. For a list of possible <i>dwData</i> values, see the Remarks section.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-winhelpa
      * @since windows5.1.2600
      */
     static WinHelpA(hWndMain, lpszHelp, uCommand, dwData) {
-        lpszHelp := lpszHelp is String? StrPtr(lpszHelp) : lpszHelp
+        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
+        hWndMain := hWndMain is Win32Handle ? NumGet(hWndMain, "ptr") : hWndMain
 
         A_LastError := 0
 
@@ -8857,10 +8889,10 @@ class Shell {
 
     /**
      * Launches Windows Help (Winhelp.exe) and passes additional data that indicates the nature of the help requested by the application.
-     * @param {Pointer<Void>} hWndMain Type: <b>HWND</b>
+     * @param {HWND} hWndMain Type: <b>HWND</b>
      * 
      * A handle to the window requesting help. The <b>WinHelp</b> function uses this handle to keep track of which applications have requested help. If the <i>uCommand</i> parameter specifies <b>HELP_CONTEXTMENU</b> or <b>HELP_WM_HELP</b>, <i>hWndMain</i> identifies the control requesting help.
-     * @param {Pointer<Char>} lpszHelp Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszHelp Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string containing the path, if necessary, and the name of the Help file that <b>WinHelp</b> is to display.
      * 	
@@ -8873,14 +8905,15 @@ class Shell {
      * @param {Pointer} dwData Type: <b>ULONG_PTR</b>
      * 
      * Additional data. The value used depends on the value of the <i>uCommand</i> parameter. For a list of possible <i>dwData</i> values, see the Remarks section.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-winhelpw
      * @since windows5.1.2600
      */
     static WinHelpW(hWndMain, lpszHelp, uCommand, dwData) {
-        lpszHelp := lpszHelp is String? StrPtr(lpszHelp) : lpszHelp
+        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
+        hWndMain := hWndMain is Win32Handle ? NumGet(hWndMain, "ptr") : hWndMain
 
         A_LastError := 0
 
@@ -8893,7 +8926,7 @@ class Shell {
 
     /**
      * Deprecated. Returns a pointer to an ITEMIDLIST structure when passed a path.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to be converted to a PIDL.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
@@ -8903,7 +8936,7 @@ class Shell {
      * @since windows5.0
      */
     static SHSimpleIDListFromPath(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSimpleIDListFromPath", "ptr", pszPath, "ptr")
         return result
@@ -8937,7 +8970,7 @@ class Shell {
 
     /**
      * Creates and initializes a Shell item object from a parsing name.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a display name.
      * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
@@ -8963,7 +8996,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemFromParsingName(pszPath, pbc, riid, ppv) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -9009,7 +9042,7 @@ class Shell {
      * @param {Pointer<IShellItem>} psiParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the parent Shell item.
-     * @param {Pointer<Char>} pszName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszName Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies a display name that is relative to the <i>psiParent</i>.
      * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
@@ -9029,7 +9062,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid, ppv) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -9046,7 +9079,7 @@ class Shell {
      * @param {Integer} dwKFFlags Type: <b>DWORD</b>
      * 
      * Flags that specify special options in the object retrieval. This value can be 0; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
-     * @param {Pointer<Char>} pszItem Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszItem Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the file name of the new item as a Unicode string. This parameter can also be <b>NULL</b>. In this case, an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the known folder itself is created.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -9062,7 +9095,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid, ppv) {
-        pszItem := pszItem is String? StrPtr(pszItem) : pszItem
+        pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
         result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -9126,7 +9159,7 @@ class Shell {
      * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> enumeration that specifies the type of display name to retrieve.
-     * @param {Pointer<Char>} ppszName Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszName Type: <b>PWSTR*</b>
      * 
      * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9323,7 +9356,7 @@ class Shell {
 
     /**
      * Specifies a unique application-defined Application User Model ID (AppUserModelID) that identifies the current process to the taskbar. This identifier allows an application to group its associated processes and windows under a single taskbar button.
-     * @param {Pointer<Char>} AppID Type: <b>PCWSTR</b>
+     * @param {PWSTR} AppID Type: <b>PCWSTR</b>
      * 
      * Pointer to the AppUserModelID to assign to the current process.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9333,7 +9366,7 @@ class Shell {
      * @since windows6.1
      */
     static SetCurrentProcessExplicitAppUserModelID(AppID) {
-        AppID := AppID is String? StrPtr(AppID) : AppID
+        AppID := AppID is String ? StrPtr(AppID) : AppID
 
         result := DllCall("SHELL32.dll\SetCurrentProcessExplicitAppUserModelID", "ptr", AppID, "int")
         if(result != 0)
@@ -9344,7 +9377,7 @@ class Shell {
 
     /**
      * Retrieves the application-defined, explicit Application User Model ID (AppUserModelID) for the current process.
-     * @param {Pointer<Char>} AppID Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} AppID Type: <b>PWSTR*</b>
      * 
      * A pointer that receives the address of the AppUserModelID assigned to the process. The caller is responsible for freeing this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -9416,13 +9449,13 @@ class Shell {
      * @param {Pointer<IShellItem>} psiLibrary Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object that represents the library that is to be managed.
-     * @param {Pointer<Void>} hwndOwner Type: <b>HWND</b>
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * The handle for the window that owns the library management dialog box. The value of this parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszTitle Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszTitle Type: <b>LPCWSTR</b>
      * 
      * A pointer to the title for the library management dialog. To display the generic title string, set the value of this parameter to <b>NULL</b>.
-     * @param {Pointer<Char>} pszInstruction Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszInstruction Type: <b>LPCWSTR</b>
      * 
      * A pointer to a help string to display below the title string in the library management dialog box. To display the generic help string, set the value of this parameter to <b>NULL</b>.
      * @param {Integer} lmdOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-librarymanagedialogoptions">LIBRARYMANAGEDIALOGOPTIONS</a></b>
@@ -9435,8 +9468,9 @@ class Shell {
      * @since windows6.1
      */
     static SHShowManageLibraryUI(psiLibrary, hwndOwner, pszTitle, pszInstruction, lmdOptions) {
-        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
-        pszInstruction := pszInstruction is String? StrPtr(pszInstruction) : pszInstruction
+        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+        pszInstruction := pszInstruction is String ? StrPtr(pszInstruction) : pszInstruction
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, "ptr", hwndOwner, "ptr", pszTitle, "ptr", pszInstruction, "int", lmdOptions, "int")
         if(result != 0)
@@ -9466,7 +9500,7 @@ class Shell {
 
     /**
      * Returns an enumeration object for a specified set of file name extension handlers.
-     * @param {Pointer<Char>} pszExtra Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszExtra Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains a single file type extension, for instance ".jpg". Only handlers associated with the given extension are enumerated. This parameter may not be **NULL**.
      * @param {Integer} afFilter Type: <b>ASSOC_FILTER</b>
@@ -9480,7 +9514,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHAssocEnumHandlers(pszExtra, afFilter, ppEnumHandler) {
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr", ppEnumHandler, "int")
         if(result != 0)
@@ -9491,7 +9525,7 @@ class Shell {
 
     /**
      * Gets an enumeration interface that provides access to handlers associated with a given protocol.
-     * @param {Pointer<Char>} protocol Type: <b>PCWSTR</b>
+     * @param {PWSTR} protocol Type: <b>PCWSTR</b>
      * 
      * Pointer to a string that specifies the protocol.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -9507,7 +9541,7 @@ class Shell {
      * @since windows6.1
      */
     static SHAssocEnumHandlersForProtocolByApplication(protocol, riid, enumHandlers) {
-        protocol := protocol is String? StrPtr(protocol) : protocol
+        protocol := protocol is String ? StrPtr(protocol) : protocol
 
         result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr", enumHandlers, "int")
         if(result != 0)
@@ -9520,7 +9554,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Integer} 
      */
     static HMONITOR_UserSize(param0, param1, param2) {
@@ -9532,7 +9566,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HMONITOR_UserMarshal(param0, param1, param2) {
@@ -9544,7 +9578,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HMONITOR_UserUnmarshal(param0, param1, param2) {
@@ -9555,7 +9589,7 @@ class Shell {
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static HMONITOR_UserFree(param0, param1) {
@@ -9566,7 +9600,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Integer} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Integer} 
      */
     static HMONITOR_UserSize64(param0, param1, param2) {
@@ -9578,7 +9612,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HMONITOR_UserMarshal64(param0, param1, param2) {
@@ -9590,7 +9624,7 @@ class Shell {
      * 
      * @param {Pointer<UInt32>} param0 
      * @param {Pointer<Byte>} param1 
-     * @param {Pointer<Void>} param2 
+     * @param {Pointer<HMONITOR>} param2 
      * @returns {Pointer<Byte>} 
      */
     static HMONITOR_UserUnmarshal64(param0, param1, param2) {
@@ -9601,7 +9635,7 @@ class Shell {
     /**
      * 
      * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Void>} param1 
+     * @param {Pointer<HMONITOR>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
     static HMONITOR_UserFree64(param0, param1) {
@@ -9632,7 +9666,7 @@ class Shell {
 
     /**
      * Applies the default set of properties on a Shell item.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the item's parent window, which receives error notifications. This value can be <b>NULL</b>.
      * @param {Pointer<IShellItem>} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
@@ -9651,6 +9685,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHSetDefaultProperties(hwnd, psi, dwFileOpFlags, pfops) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHSetDefaultProperties", "ptr", hwnd, "ptr", psi, "uint", dwFileOpFlags, "ptr", pfops, "int")
         if(result != 0)
             throw OSError(result)
@@ -9708,7 +9744,7 @@ class Shell {
 
     /**
      * Returns the index of the overlay icon in the system image list.
-     * @param {Pointer<Byte>} pszIconPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszIconPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length <b>MAX_PATH</b> that contains the fully qualified path of the file that contains the icon.
      * @param {Integer} iIconIndex Type: <b>int</b>
@@ -9721,7 +9757,7 @@ class Shell {
      * @since windows5.0
      */
     static SHGetIconOverlayIndexA(pszIconPath, iIconIndex) {
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\SHGetIconOverlayIndexA", "ptr", pszIconPath, "int", iIconIndex, "int")
         return result
@@ -9729,7 +9765,7 @@ class Shell {
 
     /**
      * Returns the index of the overlay icon in the system image list.
-     * @param {Pointer<Char>} pszIconPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszIconPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length <b>MAX_PATH</b> that contains the fully qualified path of the file that contains the icon.
      * @param {Integer} iIconIndex Type: <b>int</b>
@@ -9742,7 +9778,7 @@ class Shell {
      * @since windows5.0
      */
     static SHGetIconOverlayIndexW(pszIconPath, iIconIndex) {
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\SHGetIconOverlayIndexW", "ptr", pszIconPath, "int", iIconIndex, "int")
         return result
@@ -9895,7 +9931,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PUIDLIST_RELATIVE</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure to be shortened. When the function returns, this variable points to the shortened structure.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ilremovelastid
@@ -9914,7 +9950,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl2 Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The second <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the two structures are equal, <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ilisequal
@@ -9933,10 +9969,10 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl2 Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> (PIDL) structure that specifies the child. This must be an absolute PIDL.
-     * @param {Integer} fImmediate Type: <b>BOOL</b>
+     * @param {BOOL} fImmediate Type: <b>BOOL</b>
      * 
      * A Boolean value that is set to <b>TRUE</b> to test for immediate parents of <i>pidl2</i>, or <b>FALSE</b> to test for any parents of <i>pidl2</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pidl1</i> is a parent of <i>pidl2</i>. If <i>fImmediate</i> is set to <b>TRUE</b>, the function only returns <b>TRUE</b> if <i>pidl1</i> is the immediate parent of <i>pidl2</i>. Otherwise, the function returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ilisparent
@@ -9996,7 +10032,7 @@ class Shell {
 
     /**
      * Returns the ITEMIDLIST structure associated with a specified file path.
-     * @param {Pointer<Byte>} pszPath Type: <b>PCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the path. This string should be no more than MAX_PATH characters in length, including the terminating null character.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
@@ -10006,7 +10042,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILCreateFromPathA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\ILCreateFromPathA", "ptr", pszPath, "ptr")
         return result
@@ -10014,7 +10050,7 @@ class Shell {
 
     /**
      * Returns the ITEMIDLIST structure associated with a specified file path.
-     * @param {Pointer<Char>} pszPath Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the path. This string should be no more than MAX_PATH characters in length, including the terminating null character.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
@@ -10024,7 +10060,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ILCreateFromPathW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\ILCreateFromPathW", "ptr", pszPath, "ptr")
         return result
@@ -10032,7 +10068,7 @@ class Shell {
 
     /**
      * SHILCreateFromPath may be altered or unavailable.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH containing the path to be converted.
      * @param {Pointer<ITEMIDLIST>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
@@ -10048,7 +10084,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHILCreateFromPath(pszPath, ppidl, rgfInOut) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr", ppidl, "uint*", rgfInOut, "int")
         if(result != 0)
@@ -10065,7 +10101,7 @@ class Shell {
      * @param {Pointer<SHITEMID>} pmkid Type: <b>LPSHITEMID</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-shitemid">SHITEMID</a> structure to be appended or prepended to <i>pidl</i>.
-     * @param {Integer} fAppend Type: <b>BOOL</b>
+     * @param {BOOL} fAppend Type: <b>BOOL</b>
      * 
      * Value that is set to <b>TRUE</b> to append <i>pmkid</i> to <i>pidl</i>. Set this value to <b>FALSE</b> to prepend <i>pmkid</i> to <i>pidl</i>.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE</b>
@@ -10084,7 +10120,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A pointer to an item identifier list that specifies a file or directory location relative to the root of the namespace (the desktop).
-     * @param {Pointer<Char>} pszPath Type: <b>PWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PWSTR</b>
      * 
      * When this function is called it is passed a null-terminated, Unicode buffer to receive the file system path. This buffer is of size <i>cchPath</i>. 
      *                         
@@ -10097,14 +10133,14 @@ class Shell {
      * @param {Integer} uOpts Type: <b>GPFIDL_FLAGS</b>
      * 
      * These flags determine the type of path returned.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetpathfromidlistex
      * @since windows6.0.6000
      */
     static SHGetPathFromIDListEx(pidl, pszPath, cchPath, uOpts) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetPathFromIDListEx", "ptr", pidl, "ptr", pszPath, "uint", cchPath, "uint", uOpts, "int")
         return result
@@ -10115,17 +10151,17 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The address of an item identifier list that specifies a file or directory location relative to the root of the namespace (the desktop).
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * The address of a buffer to receive the file system path. This buffer must be at least MAX_PATH characters in size.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetpathfromidlista
      * @since windows5.1.2600
      */
     static SHGetPathFromIDListA(pidl, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetPathFromIDListA", "ptr", pidl, "ptr", pszPath, "int")
         return result
@@ -10136,17 +10172,17 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * The address of an item identifier list that specifies a file or directory location relative to the root of the namespace (the desktop).
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * The address of a buffer to receive the file system path. This buffer must be at least MAX_PATH characters in size.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetpathfromidlistw
      * @since windows5.1.2600
      */
     static SHGetPathFromIDListW(pidl, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetPathFromIDListW", "ptr", pidl, "ptr", pszPath, "int")
         return result
@@ -10154,10 +10190,10 @@ class Shell {
 
     /**
      * Creates a new file system folder.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface is displayed.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the fully qualified path of the directory. This string should have no more than MAX_PATH characters, including the terminating null character.
      * @returns {Integer} Type: <b>int</b>
@@ -10229,7 +10265,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateDirectory(hwnd, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath, "int")
         return result
@@ -10237,10 +10274,10 @@ class Shell {
 
     /**
      * Creates a new file system folder, with optional security attributes.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
      * @param {Pointer<SECURITY_ATTRIBUTES>} psa Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
@@ -10326,7 +10363,8 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateDirectoryExA(hwnd, pszPath, psa) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
@@ -10334,10 +10372,10 @@ class Shell {
 
     /**
      * Creates a new file system folder, with optional security attributes.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a parent window. This parameter can be set to <b>NULL</b> if no user interface will be displayed.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string specifying the fully qualified path of the directory. This string is of maximum length of 248 characters, including the terminating null character.
      * @param {Pointer<SECURITY_ATTRIBUTES>} psa Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
@@ -10423,7 +10461,8 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateDirectoryExW(hwnd, pszPath, psa) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
@@ -10502,6 +10541,8 @@ class Shell {
     static SHGetSpecialFolderLocation(csidl, ppidl) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr", ppidl, "int")
         if(result != 0)
             throw OSError(result)
@@ -10514,7 +10555,7 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder of interest.
-     * @param {Integer} fCreate Type: <b>BOOL</b>
+     * @param {BOOL} fCreate Type: <b>BOOL</b>
      * 
      * A value of type <b>BOOL</b> that indicates if the folder should be created if it does not already exist. If  <i>fCreate</i> is <b>TRUE</b>, the folder is created. If it is <b>FALSE</b>, the folder is not created.
      * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE</b>
@@ -10526,22 +10567,24 @@ class Shell {
     static SHCloneSpecialIDList(csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "int", fCreate, "ptr")
         return result
     }
 
     /**
      * SHGetSpecialFolderPath is not supported. Instead, use ShGetFolderPath.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that receives the drive and path of the specified folder. This buffer must be at least MAX_PATH characters in size.
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> that identifies the folder of interest. If a virtual folder is specified, this function will fail.
-     * @param {Integer} fCreate Type: <b>BOOL</b>
+     * @param {BOOL} fCreate Type: <b>BOOL</b>
      * 
      * Indicates whether the folder should be created if it does not already exist. If this value is nonzero, the folder is created. If this value is zero, the folder is not created.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetspecialfolderpatha
@@ -10550,7 +10593,8 @@ class Shell {
     static SHGetSpecialFolderPathA(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
@@ -10558,16 +10602,16 @@ class Shell {
 
     /**
      * SHGetSpecialFolderPath is not supported. Instead, use ShGetFolderPath.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that receives the drive and path of the specified folder. This buffer must be at least MAX_PATH characters in size.
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> that identifies the folder of interest. If a virtual folder is specified, this function will fail.
-     * @param {Integer} fCreate Type: <b>BOOL</b>
+     * @param {BOOL} fCreate Type: <b>BOOL</b>
      * 
      * Indicates whether the folder should be created if it does not already exist. If this value is nonzero, the folder is created. If this value is zero, the folder is not created.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetspecialfolderpathw
@@ -10576,7 +10620,8 @@ class Shell {
     static SHGetSpecialFolderPathW(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
@@ -10606,7 +10651,7 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be retrieved. Only real folders are valid. If a virtual folder is specified, this function fails. You can force creation of a folder by combining the folder's <b>CSIDL</b> with <b>CSIDL_FLAG_CREATE</b>.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that can be used to represent a particular user. 
      *     
@@ -10630,7 +10675,7 @@ class Shell {
      * The default value of the folder, which is the location of the folder if a user or administrator had not redirected it elsewhere, is retrieved by specifying the SHGFP_TYPE_DEFAULT flag. This value can be used to implement a "restore defaults" feature for a known folder.
      * 
      * For example, the default value (SHGFP_TYPE_DEFAULT) for <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Music</a> (<a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_MYMUSIC</a>) is "C:\Users&#92;<b>user name</b>\Music". If the folder was redirected, the current value (SHGFP_TYPE_CURRENT) might be "D:\Music". If the folder has not been redirected, then SHGFP_TYPE_DEFAULT and SHGFP_TYPE_CURRENT retrieve the same path.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of length MAX_PATH which will receive the path. If an error occurs or S_FALSE is returned, this string will be empty. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10642,7 +10687,9 @@ class Shell {
     static SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10656,7 +10703,7 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be retrieved. Only real folders are valid. If a virtual folder is specified, this function fails. You can force creation of a folder by combining the folder's <b>CSIDL</b> with <b>CSIDL_FLAG_CREATE</b>.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that can be used to represent a particular user. 
      *     
@@ -10680,7 +10727,7 @@ class Shell {
      * The default value of the folder, which is the location of the folder if a user or administrator had not redirected it elsewhere, is retrieved by specifying the SHGFP_TYPE_DEFAULT flag. This value can be used to implement a "restore defaults" feature for a known folder.
      * 
      * For example, the default value (SHGFP_TYPE_DEFAULT) for <a href="https://docs.microsoft.com/windows/desktop/shell/knownfolderid">FOLDERID_Music</a> (<a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_MYMUSIC</a>) is "C:\Users&#92;<b>user name</b>\Music". If the folder was redirected, the current value (SHGFP_TYPE_CURRENT) might be "D:\Music". If the folder has not been redirected, then SHGFP_TYPE_DEFAULT and SHGFP_TYPE_CURRENT retrieve the same path.
-     * @param {Pointer<Char>} pszPath Type: <b>LPWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of length MAX_PATH which will receive the path. If an error occurs or S_FALSE is returned, this string will be empty. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10692,7 +10739,9 @@ class Shell {
     static SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10706,7 +10755,7 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder to be located. The folders associated with the CSIDLs might not exist on a particular system.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that can be used to represent a particular user. It is usually set to <b>NULL</b>, but it may be needed when there are multiple users for those folders that are treated as belonging to a single user. The most commonly used folder of this type is <b>My Documents</b>. The calling application is responsible for correct impersonation when <i>hToken</i> is non-<b>NULL</b>. It must have appropriate security privileges for the particular user, and the user's registry hive must be currently mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      *     
@@ -10755,6 +10804,9 @@ class Shell {
     static SHGetFolderLocation(csidl, hToken, dwFlags, ppidl) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", ppidl, "int")
         if(result != 0)
             throw OSError(result)
@@ -10769,7 +10821,7 @@ class Shell {
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be set. Only physical folders are valid. If a virtual folder is specified, this function fails.
      * 
      * Add the <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_FLAG_DONT_UNEXPAND</a> value to the CSIDL to ensure that the string is written to the registry exactly as provided. If the <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_FLAG_DONT_UNEXPAND</a> flag is not included, portions of the path may be replaced by environment strings, such as %USERPROFILE%.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that can be used to represent a particular user. This parameter is usually set to <b>NULL</b>, in which case the function tries to access the current user's instance of the folder. However, you may need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <b>Documents</b>.
      * 
@@ -10777,7 +10829,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Must be set to 0.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the folder's new path. This value cannot be <b>NULL</b>, and the string cannot be of zero length.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10825,7 +10877,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetFolderPathA(csidl, hToken, dwFlags, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHSetFolderPathA", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10841,7 +10894,7 @@ class Shell {
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be set. Only physical folders are valid. If a virtual folder is specified, this function fails.
      * 
      * Add the <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_FLAG_DONT_UNEXPAND</a> value to the CSIDL to ensure that the string is written to the registry exactly as provided. If the <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL_FLAG_DONT_UNEXPAND</a> flag is not included, portions of the path may be replaced by environment strings, such as %USERPROFILE%.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that can be used to represent a particular user. This parameter is usually set to <b>NULL</b>, in which case the function tries to access the current user's instance of the folder. However, you may need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <b>Documents</b>.
      * 
@@ -10849,7 +10902,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved. Must be set to 0.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the folder's new path. This value cannot be <b>NULL</b>, and the string cannot be of zero length.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10897,7 +10950,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetFolderPathW(csidl, hToken, dwFlags, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHSetFolderPathW", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10911,16 +10965,16 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be retrieved. Only real folders are valid. If a virtual folder is specified, this function fails. You can force creation of a folder with <b>SHGetFolderPathAndSubDir</b> by combining the folder's <b>CSIDL</b> with CSIDL_FLAG_CREATE.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that represents a particular user. For systems earlier than Windows 2000, set this value to <b>NULL</b>. For later systems, <i>hToken</i> is usually, but not always, set to <b>NULL</b>. You might need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <a href="https://docs.microsoft.com/windows/desktop/shell/manage">My Documents</a>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Specifies whether the path to be returned is the actual path of the folder or the default path. This value is used in cases where the folder associated with a <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value may be moved or renamed by the user.
-     * @param {Pointer<Byte>} pszSubDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to the subpath to be appended to the folder's path. This is a <b>null</b>-terminated string of length MAX_PATH. If you are not creating a new directory, this must be an existing subdirectory or the function returns an error. This value can be <b>NULL</b> if no subpath is to be appended.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * When this function returns, this value points to the directory path and appended subpath. This is a <b>null</b>-terminated string of length MAX_PATH. This string is empty when the function returns an error code.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10932,8 +10986,10 @@ class Shell {
     static SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszSubDir := pszSubDir is String? StrPtr(pszSubDir) : pszSubDir
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0)
@@ -10947,16 +11003,16 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder whose path is to be retrieved. Only real folders are valid. If a virtual folder is specified, this function fails. You can force creation of a folder with <b>SHGetFolderPathAndSubDir</b> by combining the folder's <b>CSIDL</b> with CSIDL_FLAG_CREATE.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that represents a particular user. For systems earlier than Windows 2000, set this value to <b>NULL</b>. For later systems, <i>hToken</i> is usually, but not always, set to <b>NULL</b>. You might need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <a href="https://docs.microsoft.com/windows/desktop/shell/manage">My Documents</a>.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Specifies whether the path to be returned is the actual path of the folder or the default path. This value is used in cases where the folder associated with a <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value may be moved or renamed by the user.
-     * @param {Pointer<Char>} pszSubDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to the subpath to be appended to the folder's path. This is a <b>null</b>-terminated string of length MAX_PATH. If you are not creating a new directory, this must be an existing subdirectory or the function returns an error. This value can be <b>NULL</b> if no subpath is to be appended.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * When this function returns, this value points to the directory path and appended subpath. This is a <b>null</b>-terminated string of length MAX_PATH. This string is empty when the function returns an error code.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -10968,8 +11024,10 @@ class Shell {
     static SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszSubDir := pszSubDir is String? StrPtr(pszSubDir) : pszSubDir
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0)
@@ -10986,7 +11044,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify special retrieval options. This value can be 0; otherwise, it is one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> used to represent a particular user. This parameter is usually set to <b>NULL</b>, in which case the function tries to access the current user's instance of the folder. However, you may need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <b>Documents</b>.
      * 
@@ -11021,6 +11079,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetKnownFolderIDList(rfid, dwFlags, hToken, ppidl) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppidl, "int")
         if(result != 0)
             throw OSError(result)
@@ -11036,7 +11096,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Either 0 or the following value.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> used to represent a particular user. This parameter is usually set to <b>NULL</b>, in which case the function tries to access the current user's instance of the folder. However, you may need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <b>Documents</b>.
      * 			
@@ -11045,7 +11105,7 @@ class Shell {
      * The calling application is responsible for correct impersonation when <i>hToken</i> is non-null. It must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHSetKnownFolderPath</b> to set folder locations (such as the <b>Desktop</b> folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account. Note that access to the Default User folders requires administrator privileges.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to the folder's new path. This is a null-terminated Unicode string of length MAX_PATH. This path cannot be of zero length.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11073,7 +11133,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHSetKnownFolderPath(rfid, dwFlags, hToken, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("SHELL32.dll\SHSetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", pszPath, "int")
         if(result != 0)
@@ -11090,7 +11151,7 @@ class Shell {
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Flags that specify special retrieval options. This value can be 0; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> that represents a particular user. If this parameter is <b>NULL</b>, which is the most common usage, the function requests the known folder for the current user. 
      *     
@@ -11099,7 +11160,7 @@ class Shell {
      * Request a specific user's folder by passing the <i>hToken</i> of that user. This is typically done in the context of a service that has sufficient privileges to retrieve the token of a given user. That token must be opened with <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_QUERY</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_IMPERSONATE</a> rights. In some cases, you also need to include <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_DUPLICATE</a>. In addition to passing the user's <i>hToken</i>, the registry hive of that specific user must be mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetKnownFolderPath</b> to find folder locations (such as the <b>Desktop</b> folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account. Note that access to the Default User folders requires administrator privileges.
-     * @param {Pointer<Char>} ppszPath Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszPath Type: <b>PWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the path of the known folder. The calling process is responsible for freeing this resource once it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>, whether <b>SHGetKnownFolderPath</b> succeeds or not. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -11138,6 +11199,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetKnownFolderPath(rfid, dwFlags, hToken, ppszPath) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppszPath, "int")
         if(result != 0)
             throw OSError(result)
@@ -11153,7 +11216,7 @@ class Shell {
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a></b>
      * 
      * Flags that specify special options used in the retrieval of the known folder <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>. This value can be <b>KF_FLAG_DEFAULT</b>; otherwise, one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-known_folder_flag">KNOWN_FOLDER_FLAG</a> values.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-tokens">access token</a> used to represent a particular user. This parameter is usually set to <b>NULL</b>, in which case the function tries to access the current user's instance of the folder. However, you may need to assign a value to <i>hToken</i> for those folders that can have multiple users but are treated as belonging to a single user. The most commonly used folder of this type is <b>Documents</b>.
      * 
@@ -11193,6 +11256,8 @@ class Shell {
      * @since windows6.1
      */
     static SHGetKnownFolderItem(rfid, flags, hToken, riid, ppv) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
             throw OSError(result)
@@ -11205,7 +11270,7 @@ class Shell {
      * @param {Pointer<SHFOLDERCUSTOMSETTINGS>} pfcs Type: <b>LPSHFOLDERCUSTOMSETTINGS</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shfoldercustomsettings">SHFOLDERCUSTOMSETTINGS</a> structure that provides or receives the custom folder settings.
-     * @param {Pointer<Char>} pszPath Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that contains the path to the folder. The length of  <b>pszPath</b> must be MAX_PATH or less, including the terminating null character.
      * @param {Integer} dwReadWrite Type: <b>DWORD</b>
@@ -11216,7 +11281,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetSetFolderCustomSettings(pfcs, pszPath, dwReadWrite) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSetFolderCustomSettings", "ptr", pfcs, "ptr", pszPath, "uint", dwReadWrite, "int")
         if(result != 0)
@@ -11483,7 +11548,7 @@ class Shell {
      * > The shlobj_core.h header defines SHUpdateImage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Byte>} pszHashItem Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszHashItem Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string value that specifies the fully qualified path of the file that contains the icon. Use the path that is returned in the buffer pointed to by the <i>szIconFile</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation">IExtractIcon::GetIconLocation</a>.
      * @param {Integer} iIndex Type: <b>int</b>
@@ -11500,7 +11565,7 @@ class Shell {
      * @since windows5.0
      */
     static SHUpdateImageA(pszHashItem, iIndex, uFlags, iImageIndex) {
-        pszHashItem := pszHashItem is String? StrPtr(pszHashItem) : pszHashItem
+        pszHashItem := pszHashItem is String ? StrPtr(pszHashItem) : pszHashItem
 
         DllCall("SHELL32.dll\SHUpdateImageA", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
     }
@@ -11521,7 +11586,7 @@ class Shell {
      * > The shlobj_core.h header defines SHUpdateImage as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Char>} pszHashItem Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszHashItem Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string value that specifies the fully qualified path of the file that contains the icon. Use the path that is returned in the buffer pointed to by the <i>szIconFile</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation">IExtractIcon::GetIconLocation</a>.
      * @param {Integer} iIndex Type: <b>int</b>
@@ -11538,14 +11603,14 @@ class Shell {
      * @since windows5.0
      */
     static SHUpdateImageW(pszHashItem, iIndex, uFlags, iImageIndex) {
-        pszHashItem := pszHashItem is String? StrPtr(pszHashItem) : pszHashItem
+        pszHashItem := pszHashItem is String ? StrPtr(pszHashItem) : pszHashItem
 
         DllCall("SHELL32.dll\SHUpdateImageW", "ptr", pszHashItem, "int", iIndex, "uint", uFlags, "int", iImageIndex)
     }
 
     /**
      * Registers a window to receive notifications from the file system or Shell, if the file system supports notifications.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window that receives the change or notification messages.
      * @param {Integer} fSources Type: <b>int</b>
@@ -11568,6 +11633,8 @@ class Shell {
      * @since windows5.0
      */
     static SHChangeNotifyRegister(hwnd, fSources, fEvents, wMsg, cEntries, pshcne) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHChangeNotifyRegister", "ptr", hwnd, "int", fSources, "int", fEvents, "uint", wMsg, "int", cEntries, "ptr", pshcne, "uint")
         return result
     }
@@ -11577,7 +11644,7 @@ class Shell {
      * @param {Integer} ulID Type: <b>ULONG</b>
      * 
      * A value of type <b>ULONG</b> that specifies the registration ID returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotifyregister">SHChangeNotifyRegister</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified client was found and removed; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shchangenotifyderegister
@@ -11590,7 +11657,7 @@ class Shell {
 
     /**
      * Locks the shared memory associated with a Shell change notification event.
-     * @param {Pointer<Void>} hChange Type: <b>HANDLE</b>
+     * @param {HANDLE} hChange Type: <b>HANDLE</b>
      * 
      * A handle to a window received as a <i>wParam</i> in the specified Shell change notification message.
      * @param {Integer} dwProcId Type: <b>DWORD</b>
@@ -11602,29 +11669,33 @@ class Shell {
      * @param {Pointer<Int32>} plEvent Type: <b>LONG*</b>
      * 
      * A pointer to a LONG value that, when this function returns successfully, receives the Shell change notification ID of the event that took place.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle (HLOCK) to the locked memory. Pass this value to <a href="/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotification_unlock">SHChangeNotification_Unlock</a> when finished.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shchangenotification_lock
      * @since windows5.0
      */
     static SHChangeNotification_Lock(hChange, dwProcId, pppidl, plEvent) {
+        hChange := hChange is Win32Handle ? NumGet(hChange, "ptr") : hChange
+
         result := DllCall("SHELL32.dll\SHChangeNotification_Lock", "ptr", hChange, "uint", dwProcId, "ptr", pppidl, "int*", plEvent, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Unlocks shared memory for a change notification.
-     * @param {Pointer<Void>} hLock Type: <b>HANDLE</b>
+     * @param {HANDLE} hLock Type: <b>HANDLE</b>
      * 
      * A handle to the memory lock. This is the handle returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shchangenotification_lock">SHChangeNotification_Lock</a> when it locked the memory.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shchangenotification_unlock
      * @since windows5.0
      */
     static SHChangeNotification_Unlock(hLock) {
+        hLock := hLock is Win32Handle ? NumGet(hLock, "ptr") : hLock
+
         result := DllCall("SHELL32.dll\SHChangeNotification_Unlock", "ptr", hLock, "int")
         return result
     }
@@ -11737,10 +11808,10 @@ class Shell {
 
     /**
      * Displays a dialog box that prompts the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer<Char>} pszPrompt Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the text that displays in the dialog box which prompts the user.
      * @param {Integer} dwReturn Type: <b>DWORD</b>
@@ -11753,7 +11824,8 @@ class Shell {
      * @since windows5.0
      */
     static RestartDialog(hwnd, pszPrompt, dwReturn) {
-        pszPrompt := pszPrompt is String? StrPtr(pszPrompt) : pszPrompt
+        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
         return result
@@ -11761,10 +11833,10 @@ class Shell {
 
     /**
      * Displays a dialog box that asks the user to restart Windows. When the user clicks the button, the function calls ExitWindowsEx to attempt to restart Windows.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer<Char>} pszPrompt Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPrompt Type: <b>PCWSTR</b>
      * 
      * A null-terminated string that contains the text that displays in the dialog box to prompt the user.
      * @param {Integer} dwReturn Type: <b>DWORD</b>
@@ -11784,7 +11856,8 @@ class Shell {
      * @since windows5.0
      */
     static RestartDialogEx(hwnd, pszPrompt, dwReturn, dwReasonCode) {
-        pszPrompt := pszPrompt is String? StrPtr(pszPrompt) : pszPrompt
+        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
         return result
@@ -11792,7 +11865,7 @@ class Shell {
 
     /**
      * SHCoCreateInstance may be altered or unavailable. Instead, use CoCreateInstance.
-     * @param {Pointer<Char>} pszCLSID Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszCLSID Type: <b>PCWSTR</b>
      * 
      * A pointer to a string to convert to a CLSID. If <b>NULL</b>, <i>pclsid</i> is used as the CLSID.
      * @param {Pointer<Guid>} pclsid Type: <b>const CLSID*</b>
@@ -11814,7 +11887,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid, ppv) {
-        pszCLSID := pszCLSID is String? StrPtr(pszCLSID) : pszCLSID
+        pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
         result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -11912,7 +11985,7 @@ class Shell {
 
     /**
      * Executes a drag-and-drop operation. Supports drag source creation on demand, as well as drag images.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the window used to obtain the drag image. This value can be <b>NULL</b>. See Remarks for more details.
      * @param {Pointer<IDataObject>} pdata Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
@@ -11978,6 +12051,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect, pdwEffect) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", pdwEffect, "int")
         if(result != 0)
             throw OSError(result)
@@ -11987,70 +12062,76 @@ class Shell {
 
     /**
      * Sets the drag image.
-     * @param {Pointer} him Type: <b>HIMAGELIST</b>
+     * @param {HIMAGELIST} him Type: <b>HIMAGELIST</b>
      * 
      * A handle to an image list. This parameter uses the zero index in the ImageList.
      * @param {Pointer<POINT>} pptOffset Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * A pointer to the coordinates used as the hot spot for dragging the image. The coordinates are relative to upper-left corner of the image.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_setdragimage
      * @since windows5.0
      */
     static DAD_SetDragImage(him, pptOffset) {
+        him := him is Win32Handle ? NumGet(him, "ptr") : him
+
         result := DllCall("SHELL32.dll\DAD_SetDragImage", "ptr", him, "ptr", pptOffset, "int")
         return result
     }
 
     /**
      * Locks updates to the specified window during a drag operation and displays the drag image at the specified position within the window.
-     * @param {Pointer<Void>} hwndTarget Type: <b>HWND</b>
+     * @param {HWND} hwndTarget Type: <b>HWND</b>
      * 
      * A handle to the window that owns the drag image.
-     * @param {Pointer} ptStart Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} ptStart Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The coordinates at which to begin displaying the drag image. The coordinates are relative to the upper-left corner of the window, not the client area.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_dragenterex
      * @since windows5.0
      */
     static DAD_DragEnterEx(hwndTarget, ptStart) {
+        hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
+
         result := DllCall("SHELL32.dll\DAD_DragEnterEx", "ptr", hwndTarget, "ptr", ptStart, "int")
         return result
     }
 
     /**
      * Locks updates to the specified window during a drag-and-drop operation and displays the drag image at the specified position within the window.
-     * @param {Pointer<Void>} hwndTarget Type: <b>HWND</b>
+     * @param {HWND} hwndTarget Type: <b>HWND</b>
      * 
      * A handle to the window that owns the drag image.
-     * @param {Pointer} ptStart Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} ptStart Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * Specifies the coordinates at which to begin displaying the drag image. The coordinates are relative to the upper-left corner of the window, not the client area.
      * @param {Pointer<IDataObject>} pdtObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object. This data object contains the data being transferred in the drag-and-drop operation. If the drop occurs, this data object will be incorporated into the target. This parameter may be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_dragenterex2
      * @since windows5.0
      */
     static DAD_DragEnterEx2(hwndTarget, ptStart, pdtObject) {
+        hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
+
         result := DllCall("SHELL32.dll\DAD_DragEnterEx2", "ptr", hwndTarget, "ptr", ptStart, "ptr", pdtObject, "int")
         return result
     }
 
     /**
      * Shows or hides the image being dragged.
-     * @param {Integer} fShow Type: <b>BOOL</b>
+     * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
      * A value that specifies whether to show or hide the image being dragged.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_showdragimage
@@ -12063,10 +12144,10 @@ class Shell {
 
     /**
      * Moves the image that is being dragged during a drag-and-drop operation.
-     * @param {Pointer} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
      * The coordinates at which to display the drag image. The coordinates are relative to the upper-left corner of the window, not the client area.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_dragmove
@@ -12079,7 +12160,7 @@ class Shell {
 
     /**
      * Unlocks the window locked by the DAD_DragEnterEx function.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>SUCCEEDED</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_dragleave
@@ -12092,7 +12173,7 @@ class Shell {
 
     /**
      * Scrolls the window while an image is being dragged.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window being scrolled.
      * @param {Pointer<AUTO_SCROLL_DATA>} pad Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-auto_scroll_data">AUTO_SCROLL_DATA</a>*</b>
@@ -12101,13 +12182,15 @@ class Shell {
      * @param {Pointer<POINT>} pptNow Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * A pointer to the current scroll coordinates.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-dad_autoscroll
      * @since windows5.0
      */
     static DAD_AutoScroll(hwnd, pad, pptNow) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\DAD_AutoScroll", "ptr", hwnd, "ptr", pad, "ptr", pptNow, "int")
         return result
     }
@@ -12120,7 +12203,7 @@ class Shell {
      * @param {Integer} cLength Type: <b>int</b>
      * 
      * The size of the structure pointed to by <i>pcs</i>, in bytes.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the returned structure contains information from the registry. Returns <b>FALSE</b> if the structure contains default information.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-readcabinetstate
@@ -12136,7 +12219,7 @@ class Shell {
      * @param {Pointer<CABINETSTATE>} pcs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-cabinetstate">CABINETSTATE</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-cabinetstate">CABINETSTATE</a> structure that holds the values to be set.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-writecabinetstate
@@ -12149,32 +12232,32 @@ class Shell {
 
     /**
      * Creates a unique path name from a template.
-     * @param {Pointer<Char>} pszUniqueName Type: <b>PWSTR</b>
+     * @param {PWSTR} pszUniqueName Type: <b>PWSTR</b>
      * 
      * A buffer that receives a null-terminated Unicode string that contains the unique path name. It should be at least MAX_PATH characters in length.
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The number of characters in the buffer pointed to by <i>pszUniqueName</i>.
-     * @param {Pointer<Char>} pszTemplate Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszTemplate Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains a template that is used to construct the unique name. This template is used for drives that require file names with the 8.3 format. This string should be no more than MAX_PATH characters in length, including the terminating null character.
-     * @param {Pointer<Char>} pszLongPlate Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszLongPlate Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains a template that is used to construct the unique name. This template is used for drives that support long file names. This string should be no more than MAX_PATH characters in length, including the terminating null character.
-     * @param {Pointer<Char>} pszDir Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszDir Type: <b>PCWSTR</b>
      * 
      * A null-terminated string that contains the directory in which the new file resides. This string should be no more than MAX_PATH characters in length, including the terminating null character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-pathmakeuniquename
      * @since windows5.0
      */
     static PathMakeUniqueName(pszUniqueName, cchMax, pszTemplate, pszLongPlate, pszDir) {
-        pszUniqueName := pszUniqueName is String? StrPtr(pszUniqueName) : pszUniqueName
-        pszTemplate := pszTemplate is String? StrPtr(pszTemplate) : pszTemplate
-        pszLongPlate := pszLongPlate is String? StrPtr(pszLongPlate) : pszLongPlate
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
+        pszUniqueName := pszUniqueName is String ? StrPtr(pszUniqueName) : pszUniqueName
+        pszTemplate := pszTemplate is String ? StrPtr(pszTemplate) : pszTemplate
+        pszLongPlate := pszLongPlate is String ? StrPtr(pszLongPlate) : pszLongPlate
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
 
         result := DllCall("SHELL32.dll\PathMakeUniqueName", "ptr", pszUniqueName, "uint", cchMax, "ptr", pszTemplate, "ptr", pszLongPlate, "ptr", pszDir, "int")
         return result
@@ -12182,17 +12265,17 @@ class Shell {
 
     /**
      * PathIsExe may be altered or unavailable.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that contains the file path, which includes the name of the file.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the file name extension is .cmd, .bat, .pif, .scf, .exe, .com, or .scr; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-pathisexe
      * @since windows5.1.2600
      */
     static PathIsExe(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\PathIsExe", "ptr", pszPath, "int")
         return result
@@ -12200,14 +12283,14 @@ class Shell {
 
     /**
      * PathCleanupSpec may be altered or unavailable.
-     * @param {Pointer<Char>} pszDir Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszDir Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the fully qualified path of the directory that will contain the file or directory named at <i>pszSpec</i>. The path must not exceed MAX_PATH characters in length, including the terminating null character. This path is not altered.
      *                         
      *                         
      * 
      * This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszSpec Type: <b>PWSTR</b>
+     * @param {PWSTR} pszSpec Type: <b>PWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the file or directory name to be cleaned. In the case of a file, include the file's extension. Note that because '\' is considered an invalid character and will be removed, this buffer cannot contain a path more than one directory deep.
      *                     
@@ -12285,8 +12368,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static PathCleanupSpec(pszDir, pszSpec) {
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
-        pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+        pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHELL32.dll\PathCleanupSpec", "ptr", pszDir, "ptr", pszSpec, "int")
         return result
@@ -12294,7 +12377,7 @@ class Shell {
 
     /**
      * PathResolve may be altered or unavailable.
-     * @param {Pointer<Char>} pszPath Type: <b>PWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PWSTR</b>
      * 
      * A null-terminated Unicode string that contains the path to resolve. When the function returns, the string contains the corresponding fully qualified path. This buffer should be at least MAX_PATH characters long.
      * @param {Pointer<UInt16>} dirs Type: <b>PZPCWSTR</b>
@@ -12310,11 +12393,11 @@ class Shell {
      * @since windows5.1.2600
      */
     static PathResolve(pszPath, dirs, fFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         A_LastError := 0
 
-        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ptr", dirs, "uint", fFlags, "int")
+        result := DllCall("SHELL32.dll\PathResolve", "ptr", pszPath, "ushort*", dirs, "uint", fFlags, "int")
         if(A_LastError)
             throw OSError()
 
@@ -12323,39 +12406,40 @@ class Shell {
 
     /**
      * Creates an Open dialog box so that the user can specify the drive, directory, and name of a file to open.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window that owns the dialog box. This member can be any valid window handle, or it can be <b>NULL</b> if the dialog box has no owner.
-     * @param {Pointer<Char>} pszFilePath Type: <b>PWSTR</b>
+     * @param {PWSTR} pszFilePath Type: <b>PWSTR</b>
      * 
      * A null-terminated Unicode string that contains a file name used to initialize the File Name edit control. This string corresponds to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure's <b>lpstrFile</b> member and is used in exactly the same way.
      * @param {Integer} cchFilePath Type: <b>UINT</b>
      * 
      * The number of characters in <i>pszFilePath</i>, including the terminating null character.
-     * @param {Pointer<Char>} pszWorkingDir Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszWorkingDir Type: <b>PCWSTR</b>
      * 
      * The fully qualified file path of the initial directory. This string corresponds to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure's <b>lpstrInitialDir</b> member and is used in exactly the same way.
-     * @param {Pointer<Char>} pszDefExt Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszDefExt Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the default file name extension. This extension is added to <i>pszFilePath</i> if the user does not specify an extension. The string should not contain any '.' characters. If this string is <b>NULL</b> and the user fails to type an extension, no extension is appended.
-     * @param {Pointer<Char>} pszFilters Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszFilters Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that defines the filter. This string corresponds to the <a href="https://docs.microsoft.com/windows/win32/api/commdlg/ns-commdlg-openfilenamea">OPENFILENAME</a> structure's <b>lpstrFilter</b> member and is used in exactly the same way.
-     * @param {Pointer<Char>} pszTitle Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszTitle Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that is placed in the title bar of the dialog box. If this value is <b>NULL</b>, the system uses the default title.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the user specifies a file name and clicks <b>OK</b>, the return value is <b>TRUE</b>. The buffer that <i>pszFilePath</i> points to contains the full path and file name that the user specifies. If the user cancels or closes the <b>Open</b> dialog box or an error occurs, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-getfilenamefrombrowse
      * @since windows5.0
      */
     static GetFileNameFromBrowse(hwnd, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
-        pszFilePath := pszFilePath is String? StrPtr(pszFilePath) : pszFilePath
-        pszWorkingDir := pszWorkingDir is String? StrPtr(pszWorkingDir) : pszWorkingDir
-        pszDefExt := pszDefExt is String? StrPtr(pszDefExt) : pszDefExt
-        pszFilters := pszFilters is String? StrPtr(pszFilters) : pszFilters
-        pszTitle := pszTitle is String? StrPtr(pszTitle) : pszTitle
+        pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
+        pszWorkingDir := pszWorkingDir is String ? StrPtr(pszWorkingDir) : pszWorkingDir
+        pszDefExt := pszDefExt is String ? StrPtr(pszDefExt) : pszDefExt
+        pszFilters := pszFilters is String ? StrPtr(pszFilters) : pszFilters
+        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
         return result
@@ -12466,7 +12550,7 @@ class Shell {
      * @param {Integer} iDrive Type: <b>int</b>
      * 
      * The number of the drive that you want to test. "A:" corresponds to 0, "B:" to 1, and so on.
-     * @param {Integer} fOKToHitNet Type: <b>BOOL</b>
+     * @param {BOOL} fOKToHitNet Type: <b>BOOL</b>
      * 
      * Reserved. Must be set to 0.
      * @returns {Integer} Type: <b>int</b>
@@ -12622,10 +12706,10 @@ class Shell {
 
     /**
      * Shell_MergeMenus may be altered or unavailable.
-     * @param {Pointer<Void>} hmDst Type: <b>HMENU</b>
+     * @param {HMENU} hmDst Type: <b>HMENU</b>
      * 
      * The destination menu to which <i>hmSrc</i> is added.
-     * @param {Pointer<Void>} hmSrc Type: <b>HMENU</b>
+     * @param {HMENU} hmSrc Type: <b>HMENU</b>
      * 
      * The source menu which is added to <i>hmDst</i>.
      * @param {Integer} uInsert Type: <b>UINT</b>
@@ -12647,33 +12731,37 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_MergeMenus(hmDst, hmSrc, uInsert, uIDAdjust, uIDAdjustMax, uFlags) {
+        hmDst := hmDst is Win32Handle ? NumGet(hmDst, "ptr") : hmDst
+        hmSrc := hmSrc is Win32Handle ? NumGet(hmSrc, "ptr") : hmSrc
+
         result := DllCall("SHELL32.dll\Shell_MergeMenus", "ptr", hmDst, "ptr", hmSrc, "uint", uInsert, "uint", uIDAdjust, "uint", uIDAdjustMax, "uint", uFlags, "uint")
         return result
     }
 
     /**
      * SHObjectProperties may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the parent window of the dialog box. This value can be <b>NULL</b>.
      * @param {Integer} shopObjectType Type: <b>DWORD</b>
      * 
      * A flag value that specifies the type of object.
-     * @param {Pointer<Char>} pszObjectName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszObjectName Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the object name. The contents of the string are determined by the flag set in <i>shopObjectType</i>.
-     * @param {Pointer<Char>} pszPropertyPage Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPropertyPage Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the name of the property sheet page to be opened initially. Set this parameter to <b>NULL</b> to specify the default page.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the command is successfully invoked; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shobjectproperties
      * @since windows5.1.2600
      */
     static SHObjectProperties(hwnd, shopObjectType, pszObjectName, pszPropertyPage) {
-        pszObjectName := pszObjectName is String? StrPtr(pszObjectName) : pszObjectName
-        pszPropertyPage := pszPropertyPage is String? StrPtr(pszPropertyPage) : pszPropertyPage
+        pszObjectName := pszObjectName is String ? StrPtr(pszObjectName) : pszObjectName
+        pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
         return result
@@ -12681,7 +12769,7 @@ class Shell {
 
     /**
      * SHFormatDrive may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the parent window of the dialog box. The <b>Format</b> dialog box must have a parent window; therefore, this parameter cannot be <b>NULL</b>.
      * @param {Integer} drive Type: <b>UINT</b>
@@ -12738,13 +12826,15 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFormatDrive(hwnd, drive, fmtID, options) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHFormatDrive", "ptr", hwnd, "uint", drive, "uint", fmtID, "uint", options, "uint")
         return result
     }
 
     /**
      * Frees property sheet handlers that are pointed to an array created by SHCreatePropSheetExtArray.
-     * @param {Pointer<Void>} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
      * 
      * The handle of the array that contains pointers to the property sheet handlers to destroy.
      * @returns {String} Nothing - always returns an empty string
@@ -12752,18 +12842,20 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHDestroyPropSheetExtArray(hpsxa) {
+        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+
         DllCall("SHELL32.dll\SHDestroyPropSheetExtArray", "ptr", hpsxa)
     }
 
     /**
      * Adds pages to a property sheet extension array created by SHCreatePropSheetExtArray.
-     * @param {Pointer<Void>} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
      * 
      * The array of property sheet handlers returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> callback function. It is called once for each property sheet handler. The callback function then returns the information needed to add a page to the handler's property sheet.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * A pointer to application-defined data. This data is passed to the callback function specified by <i>lpfnAddPage</i>.
      * @returns {Integer} Type: <b>UINT</b>
@@ -12773,13 +12865,15 @@ class Shell {
      * @since windows5.0
      */
     static SHAddFromPropSheetExtArray(hpsxa, lpfnAddPage, lParam) {
+        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+
         result := DllCall("SHELL32.dll\SHAddFromPropSheetExtArray", "ptr", hpsxa, "ptr", lpfnAddPage, "ptr", lParam, "uint")
         return result
     }
 
     /**
      * Requests each property sheet in a property sheet extension array to replace pages. Each page is allowed up to one replacement.
-     * @param {Pointer<Void>} hpsxa Type: <b>HPSXA</b>
+     * @param {HPSXA} hpsxa Type: <b>HPSXA</b>
      * 
      * A property sheet array handle (HPSXA) returned from a call to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nf-shlobj-shcreatepropsheetextarray">SHCreatePropSheetExtArray</a>.
      * @param {Integer} uPageID Type: <b>UINT</b>
@@ -12788,7 +12882,7 @@ class Shell {
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} lpfnReplaceWith Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nc-prsht-lpfnaddpropsheetpage">AddPropSheetPageProc</a> function used by the property sheet extension to add a page to a property sheet.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * An application-defined value.
      * @returns {Integer} Type: <b>UINT</b>
@@ -12798,19 +12892,21 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHReplaceFromPropSheetExtArray(hpsxa, uPageID, lpfnReplaceWith, lParam) {
+        hpsxa := hpsxa is Win32Handle ? NumGet(hpsxa, "ptr") : hpsxa
+
         result := DllCall("SHELL32.dll\SHReplaceFromPropSheetExtArray", "ptr", hpsxa, "uint", uPageID, "ptr", lpfnReplaceWith, "ptr", lParam, "uint")
         return result
     }
 
     /**
      * OpenRegStream may be altered or unavailable. Instead, use SHOpenRegStream2 or SHOpenRegStream.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the key that is currently open.
-     * @param {Pointer<Char>} pszSubkey Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSubkey Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that specifies the name of the subkey.
-     * @param {Pointer<Char>} pszValue Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszValue Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that specifies the value to be accessed.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -12821,8 +12917,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static OpenRegStream(hkey, pszSubkey, pszValue, grfMode) {
-        pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -12838,7 +12935,7 @@ class Shell {
      * This parameter is not used and must be set to <b>NULL</b>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>A saved search file (.fnd) to load. You can save search parameters to a .fnd file after the search is begun. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful in displaying the <b>Search</b> window; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shfindfiles
@@ -12851,7 +12948,7 @@ class Shell {
 
     /**
      * PathGetShortPath may be altered or unavailable.
-     * @param {Pointer<Char>} pszLongPath Type: <b>PWSTR</b>
+     * @param {PWSTR} pszLongPath Type: <b>PWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that contains the long path. When the function returns, it contains the equivalent short path.
      * @returns {String} Nothing - always returns an empty string
@@ -12859,36 +12956,36 @@ class Shell {
      * @since windows5.1.2600
      */
     static PathGetShortPath(pszLongPath) {
-        pszLongPath := pszLongPath is String? StrPtr(pszLongPath) : pszLongPath
+        pszLongPath := pszLongPath is String ? StrPtr(pszLongPath) : pszLongPath
 
         DllCall("SHELL32.dll\PathGetShortPath", "ptr", pszLongPath)
     }
 
     /**
      * Creates a unique filename based on an existing filename.
-     * @param {Pointer<Char>} pszUniqueName Type: <b>PWSTR</b>
+     * @param {PWSTR} pszUniqueName Type: <b>PWSTR</b>
      * 
      * A string buffer that receives a null-terminated Unicode string that contains the fully qualified path of the unique file name. This buffer should be at least MAX_PATH characters long to avoid causing a buffer overrun.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the fully qualified path of folder that will contain the new file. If <i>pszShort</i> is set to <b>NULL</b>, this string must contain a full destination path, ending with the long file name that the new file name will be base on.
-     * @param {Pointer<Char>} pszShort Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszShort Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the short file name that the unique name will be based on. Set this value to <b>NULL</b> to create a name based on the long file name.
-     * @param {Pointer<Char>} pszFileSpec Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszFileSpec Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the long file name that the unique name will be based on.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a unique name was successfully created; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-pathyetanothermakeuniquename
      * @since windows5.0
      */
     static PathYetAnotherMakeUniqueName(pszUniqueName, pszPath, pszShort, pszFileSpec) {
-        pszUniqueName := pszUniqueName is String? StrPtr(pszUniqueName) : pszUniqueName
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszShort := pszShort is String? StrPtr(pszShort) : pszShort
-        pszFileSpec := pszFileSpec is String? StrPtr(pszFileSpec) : pszFileSpec
+        pszUniqueName := pszUniqueName is String ? StrPtr(pszUniqueName) : pszUniqueName
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszShort := pszShort is String ? StrPtr(pszShort) : pszShort
+        pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
         result := DllCall("SHELL32.dll\PathYetAnotherMakeUniqueName", "ptr", pszUniqueName, "ptr", pszPath, "ptr", pszShort, "ptr", pszFileSpec, "int")
         return result
@@ -12896,17 +12993,17 @@ class Shell {
 
     /**
      * Win32DeleteFile may be altered or unavailable.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the full name of the file to delete.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file was successfully deleted; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-win32deletefile
      * @since windows5.1.2600
      */
     static Win32DeleteFile(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\Win32DeleteFile", "ptr", pszPath, "int")
         return result
@@ -12933,7 +13030,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL that specifies the file.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-signalfileopen
@@ -12958,7 +13055,7 @@ class Shell {
      * @param {Pointer<VARIANT>} pv Type: <b>VARIANT*</b>
      * 
      * When this function returns, contains the details of the given property key.
-     * @param {Pointer<Int32>} pfFoundPropKey Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} pfFoundPropKey Type: <b>BOOL*</b>
      * 
      * When this function returns, contains a flag that is <b>TRUE</b> if the property key was found, otherwise <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -12968,7 +13065,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv, pfFoundPropKey) {
-        result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "int*", pfFoundPropKey, "int")
+        result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "ptr", pfFoundPropKey, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12977,10 +13074,10 @@ class Shell {
 
     /**
      * SHStartNetConnectionDialog may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer<Char>} pszRemoteName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszRemoteName Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated character string that specifies the remote network name. This value can be set to <b>NULL</b>.
      * @param {Integer} dwType Type: <b>DWORD</b>
@@ -12991,7 +13088,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHStartNetConnectionDialogW(hwnd, pszRemoteName, dwType) {
-        pszRemoteName := pszRemoteName is String? StrPtr(pszRemoteName) : pszRemoteName
+        pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "int")
         if(result != 0)
@@ -13002,7 +13100,7 @@ class Shell {
 
     /**
      * Provides a default handler to extract an icon from a file.
-     * @param {Pointer<Byte>} pszIconFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszIconFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the path and name of the file from which the icon is extracted.
      * @param {Integer} iIndex Type: <b>int</b>
@@ -13011,10 +13109,10 @@ class Shell {
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * A flag that controls the icon extraction.
-     * @param {Pointer<Void>} phiconLarge Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconLarge Type: <b>HICON*</b>
      * 
      * A pointer to an HICON that, when this function returns successfully, receives the handle of the large version of the icon specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> of <i>nIconSize</i>. This value can be <b>NULL</b>.
-     * @param {Pointer<Void>} phiconSmall Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconSmall Type: <b>HICON*</b>
      * 
      * A pointer to an HICON that, when this function returns successfully, receives the handle of the small version of the icon specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a> of <i>nIconSize</i>.
      * @param {Integer} nIconSize Type: <b>UINT</b>
@@ -13067,7 +13165,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHDefExtractIconA(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
-        pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
+        pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconA", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
         if(result != 0)
@@ -13078,7 +13176,7 @@ class Shell {
 
     /**
      * Provides a default handler to extract an icon from a file.
-     * @param {Pointer<Char>} pszIconFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszIconFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the path and name of the file from which the icon is extracted.
      * @param {Integer} iIndex Type: <b>int</b>
@@ -13087,10 +13185,10 @@ class Shell {
      * @param {Integer} uFlags Type: <b>UINT</b>
      * 
      * A flag that controls the icon extraction.
-     * @param {Pointer<Void>} phiconLarge Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconLarge Type: <b>HICON*</b>
      * 
      * A pointer to an HICON that, when this function returns successfully, receives the handle of the large version of the icon specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632659(v=vs.85)">LOWORD</a> of <i>nIconSize</i>. This value can be <b>NULL</b>.
-     * @param {Pointer<Void>} phiconSmall Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconSmall Type: <b>HICON*</b>
      * 
      * A pointer to an HICON that, when this function returns successfully, receives the handle of the small version of the icon specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms632657(v=vs.85)">HIWORD</a> of <i>nIconSize</i>.
      * @param {Integer} nIconSize Type: <b>UINT</b>
@@ -13143,7 +13241,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHDefExtractIconW(pszIconFile, iIndex, uFlags, phiconLarge, phiconSmall, nIconSize) {
-        pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
+        pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHELL32.dll\SHDefExtractIconW", "ptr", pszIconFile, "int", iIndex, "uint", uFlags, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "int")
         if(result != 0)
@@ -13154,7 +13252,7 @@ class Shell {
 
     /**
      * Displays the Open With dialog box.
-     * @param {Pointer<Void>} hwndParent Type: <b>HWND</b>
+     * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
      * The handle of the parent window. This value can be <b>NULL</b>.
      * @param {Pointer<OPENASINFO>} poainfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-openasinfo">OPENASINFO</a>*</b>
@@ -13167,6 +13265,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHOpenWithDialog(hwndParent, poainfo) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("SHELL32.dll\SHOpenWithDialog", "ptr", hwndParent, "ptr", poainfo, "int")
         if(result != 0)
             throw OSError(result)
@@ -13176,26 +13276,26 @@ class Shell {
 
     /**
      * Retrieves system image lists for large and small icons.
-     * @param {Pointer<IntPtr>} phiml Type: <b>HIMAGELIST*</b>
+     * @param {Pointer<HIMAGELIST>} phiml Type: <b>HIMAGELIST*</b>
      * 
      * A pointer to the handle of an image list which, on success, receives the system image list for large (32 x 32) icons.
-     * @param {Pointer<IntPtr>} phimlSmall Type: <b>HIMAGELIST*</b>
+     * @param {Pointer<HIMAGELIST>} phimlSmall Type: <b>HIMAGELIST*</b>
      * 
      * A pointer to the handle of an image list which, on success, receives the system image list for small (16 x 16) icons.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success. On failure, returns <b>FALSE</b> and the image lists pointed to by <i>phiml</i> and <i>phimlSmall</i> are unchanged.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shell_getimagelists
      * @since windows5.1.2600
      */
     static Shell_GetImageLists(phiml, phimlSmall) {
-        result := DllCall("SHELL32.dll\Shell_GetImageLists", "ptr*", phiml, "ptr*", phimlSmall, "int")
+        result := DllCall("SHELL32.dll\Shell_GetImageLists", "ptr", phiml, "ptr", phimlSmall, "int")
         return result
     }
 
     /**
      * Shell_GetCachedImageIndex may be altered or unavailable.
-     * @param {Pointer<Char>} pwszIconPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszIconPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the path to the image file.
      * @param {Integer} iIconIndex Type: <b>int</b>
@@ -13211,7 +13311,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndex(pwszIconPath, iIconIndex, uIconFlags) {
-        pwszIconPath := pwszIconPath is String? StrPtr(pwszIconPath) : pwszIconPath
+        pwszIconPath := pwszIconPath is String ? StrPtr(pwszIconPath) : pwszIconPath
 
         result := DllCall("SHELL32.dll\Shell_GetCachedImageIndex", "ptr", pwszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
@@ -13219,7 +13319,7 @@ class Shell {
 
     /**
      * Shell_GetCachedImageIndex may be altered or unavailable.
-     * @param {Pointer<Byte>} pszIconPath TBD
+     * @param {PSTR} pszIconPath TBD
      * @param {Integer} iIconIndex Type: <b>int</b>
      * 
      * The index of the image within the file named at <i>pwszIconPath</i>.
@@ -13233,7 +13333,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndexA(pszIconPath, iIconIndex, uIconFlags) {
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexA", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
@@ -13241,7 +13341,7 @@ class Shell {
 
     /**
      * Shell_GetCachedImageIndex may be altered or unavailable.
-     * @param {Pointer<Char>} pszIconPath TBD
+     * @param {PWSTR} pszIconPath TBD
      * @param {Integer} iIconIndex Type: <b>int</b>
      * 
      * The index of the image within the file named at <i>pwszIconPath</i>.
@@ -13255,7 +13355,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static Shell_GetCachedImageIndexW(pszIconPath, iIconIndex, uIconFlags) {
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\Shell_GetCachedImageIndexW", "ptr", pszIconPath, "int", iIconIndex, "uint", uIconFlags, "int")
         return result
@@ -13263,21 +13363,22 @@ class Shell {
 
     /**
      * SHValidateUNC may be altered or unavailable.
-     * @param {Pointer<Void>} hwndOwner Type: <b>HWND</b>
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * Handle of the parent window, used to display UI. If this is not needed, this value can be set to <b>NULL</b>.
-     * @param {Pointer<Char>} pszFile Type: <b>PWSTR</b>
+     * @param {PWSTR} pszFile Type: <b>PWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that specifies the UNC path to validate. Note: This string must not be a constant string.
      * @param {Integer} fConnect Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the UNC path exists; <b>FALSE</b> if the UNC path does not exist or if some other failure occurred.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shvalidateunc
      * @since windows5.1.2600
      */
     static SHValidateUNC(hwndOwner, pszFile, fConnect) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("SHELL32.dll\SHValidateUNC", "ptr", hwndOwner, "ptr", pszFile, "uint", fConnect, "int")
         return result
@@ -13311,7 +13412,7 @@ class Shell {
 
     /**
      * IsUserAnAdmin may be altered or unavailable.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the user is a member of the Administrator's group; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-isuseranadmin
@@ -13324,7 +13425,7 @@ class Shell {
 
     /**
      * SHShellFolderView_Message may be altered or unavailable.
-     * @param {Pointer<Void>} hwndMain Type: <b>HWND</b>
+     * @param {HWND} hwndMain Type: <b>HWND</b>
      * 
      * A handle to the window that receives the message.
      * @param {Integer} uMsg Type: <b>UINT</b>
@@ -13387,16 +13488,18 @@ class Shell {
      * <td>Updates an object by passing a pointer to an array of two PIDLs.</td>
      * </tr>
      * </table>
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Contents of this value depend on the message passed in <i>uMsg</i>. See individual message topics for more information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value depends on the message passed in <i>uMsg</i>. See individual message topics for more information.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shshellfolderview_message
      * @since windows5.1.2600
      */
     static SHShellFolderView_Message(hwndMain, uMsg, lParam) {
+        hwndMain := hwndMain is Win32Handle ? NumGet(hwndMain, "ptr") : hwndMain
+
         result := DllCall("SHELL32.dll\SHShellFolderView_Message", "ptr", hwndMain, "uint", uMsg, "ptr", lParam, "ptr")
         return result
     }
@@ -13428,7 +13531,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure for the parent folder. This value can be <b>NULL</b>.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window. This value can be <b>NULL</b>.
      * @param {Integer} cidl Type: <b>UINT</b>
@@ -13451,7 +13554,7 @@ class Shell {
      * 
      * <div class="alert"><b>Note</b>  The maximum number of registry keys is 16. Callers must enforce this limit as the API does not. Failing to do so can result in memory corruption.</div>
      * <div> </div>
-     * @param {Pointer<Void>} ahkeys Type: <b>const HKEY*</b>
+     * @param {Pointer<HKEY>} ahkeys Type: <b>const HKEY*</b>
      * 
      * A pointer to an array of registry keys that specify the context menu handlers used with the menu's entries. For more information on context menu handlers, see <a href="https://docs.microsoft.com/windows/desktop/shell/context-menu-handlers">Creating Context Menu Handlers</a>. This array can contain a maximum of 16 registry keys.
      * @param {Pointer<IContextMenu>} ppcm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>**</b>
@@ -13464,6 +13567,8 @@ class Shell {
      * @since windows5.0
      */
     static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys, ppcm) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, "ptr", apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr", ppcm, "int")
         if(result != 0)
             throw OSError(result)
@@ -13498,10 +13603,10 @@ class Shell {
 
     /**
      * SHFind_InitMenuPopup may be altered or unavailable.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * The handle of the popup menu.
-     * @param {Pointer<Void>} hwndOwner Type: <b>HWND</b>
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
      * The handle of the popup menu's owner window. This value can be <b>NULL</b>.
      * @param {Integer} idCmdFirst Type: <b>UINT</b>
@@ -13517,6 +13622,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFind_InitMenuPopup(hmenu, hwndOwner, idCmdFirst, idCmdLast) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+
         result := DllCall("SHELL32.dll\SHFind_InitMenuPopup", "ptr", hmenu, "ptr", hwndOwner, "uint", idCmdFirst, "uint", idCmdLast, "ptr")
         return result
     }
@@ -13551,7 +13659,7 @@ class Shell {
      * @param {Integer} dwMask Type: <b>DWORD</b>
      * 
      * One or more of the <a href="https://docs.microsoft.com/windows/desktop/shell/ssf-constants">SSF</a> flags that indicate which settings should be set or retrieved.
-     * @param {Integer} bSet Type: <b>BOOL</b>
+     * @param {BOOL} bSet Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to indicate that the contents of <i>lpss</i> should be used to set the Shell settings, <b>FALSE</b> to indicate that the Shell settings should be retrieved to <i>lpss</i>.
      * @returns {String} Nothing - always returns an empty string
@@ -13564,7 +13672,7 @@ class Shell {
 
     /**
      * Retrieves the current Shell option settings.
-     * @param {Pointer<Int32>} psfs Type: <b>LPSHELLFLAGSTATE</b>
+     * @param {Pointer<SHELLFLAGSTATE>} psfs Type: <b>LPSHELLFLAGSTATE</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-shellflagstate">SHELLFLAGSTATE</a> structure that receives the Shell option settings.
      * @param {Integer} dwMask Type: <b>DWORD</b>
@@ -13573,7 +13681,7 @@ class Shell {
      * @since windows5.0
      */
     static SHGetSettings(psfs, dwMask) {
-        DllCall("SHELL32.dll\SHGetSettings", "int*", psfs, "uint", dwMask)
+        DllCall("SHELL32.dll\SHGetSettings", "ptr", psfs, "uint", dwMask)
     }
 
     /**
@@ -13708,7 +13816,7 @@ class Shell {
 
     /**
      * Translates a Shell namespace object's display name into an item identifier list and returns the attributes of the object. This function is the preferred method to convert a string to a pointer to an item identifier list (PIDL).
-     * @param {Pointer<Char>} pszName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a zero-terminated wide string that contains the display name to parse.
      * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
@@ -13730,7 +13838,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHParseDisplayName(pszName, pbc, ppidl, sfgaoIn, psfgaoOut) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHELL32.dll\SHParseDisplayName", "ptr", pszName, "ptr", pbc, "ptr", ppidl, "uint", sfgaoIn, "uint*", psfgaoOut, "int")
         if(result != 0)
@@ -13741,13 +13849,13 @@ class Shell {
 
     /**
      * Checks to see if the path exists.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {Pointer<IUnknown>} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that specifies the path to be verified as valid for writing. This can be a UNC or file drive path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -13758,7 +13866,8 @@ class Shell {
      * @since windows5.0
      */
     static SHPathPrepareForWriteA(hwnd, punkEnableModless, pszPath, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -13769,13 +13878,13 @@ class Shell {
 
     /**
      * Checks to see if the path exists.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to a window that specifies the parent window to be used for any user interface windows that must be created. If set to <b>NULL</b>, user interface windows are not created.
      * @param {Pointer<IUnknown>} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellview-enablemodeless">EnableModeless</a> method.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that specifies the path to be verified as valid for writing. This can be a UNC or file drive path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -13786,7 +13895,8 @@ class Shell {
      * @since windows5.0
      */
     static SHPathPrepareForWriteW(hwnd, punkEnableModless, pszPath, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -13797,7 +13907,7 @@ class Shell {
 
     /**
      * SHCreateFileExtractIcon may be altered or unavailable.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file system object. The buffer must not exceed MAX_PATH characters in length.
      * @param {Integer} dwFileAttributes Type: <b>DWORD</b>
@@ -13816,7 +13926,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid, ppv) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -13827,7 +13937,7 @@ class Shell {
 
     /**
      * Sets limits on valid characters for an edit control.
-     * @param {Pointer<Void>} hwndEdit Type: <b>HWND</b>
+     * @param {HWND} hwndEdit Type: <b>HWND</b>
      * 
      * The handle of the edit control.
      * @param {Pointer<IShellFolder>} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
@@ -13840,6 +13950,8 @@ class Shell {
      * @since windows5.0
      */
     static SHLimitInputEdit(hwndEdit, psf) {
+        hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
+
         result := DllCall("SHELL32.dll\SHLimitInputEdit", "ptr", hwndEdit, "ptr", psf, "int")
         if(result != 0)
             throw OSError(result)
@@ -13928,7 +14040,7 @@ class Shell {
 
     /**
      * Takes the string form of a class identifier (CLSID) and creates the corresponding CLSID.
-     * @param {Pointer<Char>} psz Type: <b>PCWSTR</b>
+     * @param {PWSTR} psz Type: <b>PCWSTR</b>
      * 
      * A Unicode string that contains the CLSID in the format, <c>{xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx}</c>.
      * @param {Pointer<Guid>} pclsid Type: <b>CLSID*</b>
@@ -13941,7 +14053,7 @@ class Shell {
      * @since windows5.0
      */
     static SHCLSIDFromString(psz, pclsid) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHELL32.dll\SHCLSIDFromString", "ptr", psz, "ptr", pclsid, "int")
         if(result != 0)
@@ -13952,10 +14064,10 @@ class Shell {
 
     /**
      * PickIconDlg may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the parent window. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszIconPath Type: <b>PWSTR</b>
+     * @param {PWSTR} pszIconPath Type: <b>PWSTR</b>
      * 
      * A pointer to a string that contains the null-terminated, fully qualified path of the default resource that contains the icons. If the user chooses a different resource in the dialog, this buffer contains the path of that file when the function returns. This buffer should be at least MAX_PATH characters in length, or the returned path may be truncated. You should verify that the path is valid before using it.
      * @param {Integer} cchIconPath Type: <b>UINT</b>
@@ -13971,7 +14083,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static PickIconDlg(hwnd, pszIconPath, cchIconPath, piIconIndex) {
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, "int*", piIconIndex, "int")
         return result
@@ -13982,7 +14095,7 @@ class Shell {
      * @param {Pointer<IStorage>} pstgParent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> object.
-     * @param {Pointer<Char>} pszFileSpec Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszFileSpec Type: <b>PCWSTR</b>
      * 
      * The format or template for the name of the stream or storage object.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -14001,7 +14114,7 @@ class Shell {
      * @since windows6.1
      */
     static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid, ppv) {
-        pszFileSpec := pszFileSpec is String? StrPtr(pszFileSpec) : pszFileSpec
+        pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
         result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -14025,31 +14138,31 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} psz 
+     * @param {PWSTR} psz 
      * @returns {String} Nothing - always returns an empty string
      */
     static PathQualify(psz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         DllCall("SHELL32.dll\PathQualify", "ptr", psz)
     }
 
     /**
      * PathIsSlow may be altered or unavailable.
-     * @param {Pointer<Byte>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the fully qualified path of the file.
      * @param {Integer} dwAttr Type: <b>DWORD</b>
      * 
      * The file attributes, if known; otherwise, pass –1 and this function gets the attributes by calling <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>. See <b>GetFileAttributes</b> for a list of file attributes.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the connection is high-latency; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-pathisslowa
      * @since windows5.1.2600
      */
     static PathIsSlowA(pszFile, dwAttr) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\PathIsSlowA", "ptr", pszFile, "uint", dwAttr, "int")
         return result
@@ -14057,20 +14170,20 @@ class Shell {
 
     /**
      * PathIsSlow may be altered or unavailable.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the fully qualified path of the file.
      * @param {Integer} dwAttr Type: <b>DWORD</b>
      * 
      * The file attributes, if known; otherwise, pass –1 and this function gets the attributes by calling <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>. See <b>GetFileAttributes</b> for a list of file attributes.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the connection is high-latency; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-pathissloww
      * @since windows5.1.2600
      */
     static PathIsSlowW(pszFile, dwAttr) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\PathIsSlowW", "ptr", pszFile, "uint", dwAttr, "int")
         return result
@@ -14078,10 +14191,10 @@ class Shell {
 
     /**
      * SHCreatePropSheetExtArray may be altered or unavailable.
-     * @param {Pointer<Void>} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey Type: <b>HKEY</b>
      * 
      * The registry root key that contains the subkey with the property sheet extension handlers. For instance, <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Pointer<Char>} pszSubKey Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string specifying the name of the subkey that contains <b>shellex</b>&#92;<b>PropertySheetHandlers</b>.
      * 
@@ -14100,25 +14213,26 @@ class Shell {
      * @param {Integer} max_iface Type: <b>UINT</b>
      * 
      * The maximum number of property sheet handlers to be returned.
-     * @returns {Pointer<Void>} Type: <b>HPSXA</b>
+     * @returns {HPSXA} Type: <b>HPSXA</b>
      * 
      * Returns a handle to an array of property sheet handlers. Pass this value to <a href="/windows/desktop/api/shlobj_core/nf-shlobj_core-shaddfrompropsheetextarray">SHAddFromPropSheetExtArray</a>. You do not access this value directly.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-shcreatepropsheetextarray
      * @since windows5.1.2600
      */
     static SHCreatePropSheetExtArray(hKey, pszSubKey, max_iface) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
-        return result
+        return HPSXA({Value: result}, True)
     }
 
     /**
      * SHOpenPropSheet may be altered or unavailable.
-     * @param {Pointer<Char>} pszCaption Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszCaption Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string that contains the caption for the property sheet. This value can be <b>NULL</b> if no caption is needed.
-     * @param {Pointer<Void>} ahkeys Type: <b>HKEY[]</b>
+     * @param {Pointer<HKEY>} ahkeys Type: <b>HKEY[]</b>
      * 
      * An array of registry keys that represent the <b>CLSID</b>s of the individual property sheets.
      * @param {Integer} ckeys Type: <b>UINT</b>
@@ -14133,18 +14247,18 @@ class Shell {
      * @param {Pointer<IShellBrowser>} psb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
      * 
      * Not used.
-     * @param {Pointer<Char>} pStartPage Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pStartPage Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string that specifies the start page. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the property sheet was successfully created; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-shopenpropsheetw
      * @since windows5.1.2600
      */
     static SHOpenPropSheetW(pszCaption, ahkeys, ckeys, pclsidDefault, pdtobj, psb, pStartPage) {
-        pszCaption := pszCaption is String? StrPtr(pszCaption) : pszCaption
-        pStartPage := pStartPage is String? StrPtr(pStartPage) : pStartPage
+        pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
+        pStartPage := pStartPage is String ? StrPtr(pStartPage) : pStartPage
 
         result := DllCall("SHELL32.dll\SHOpenPropSheetW", "ptr", pszCaption, "ptr", ahkeys, "uint", ckeys, "ptr", pclsidDefault, "ptr", pdtobj, "ptr", psb, "ptr", pStartPage, "int")
         return result
@@ -14152,10 +14266,10 @@ class Shell {
 
     /**
      * Displays a standard message box that can be used to notify a user that an application has been updated.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the parent window.
-     * @param {Pointer<Char>} pszDistUnit Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszDistUnit Type: <b>PCWSTR</b>
      * 
      * The string value containing the identifier for the code distribution unit. For ActiveX controls, <i>pszDistUnit</i> is typically a GUID.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -14222,7 +14336,8 @@ class Shell {
      * @since windows5.0
      */
     static SoftwareUpdateMessageBox(hWnd, pszDistUnit, dwFlags, psdi) {
-        pszDistUnit := pszDistUnit is String? StrPtr(pszDistUnit) : pszDistUnit
+        pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", hWnd, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
         return result
@@ -14271,15 +14386,15 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pszFilename 
-     * @param {Pointer<Int32>} pfParsePrivacyPreferences 
-     * @param {Pointer<Int32>} pfParsePerSiteRules 
-     * @returns {Integer} 
+     * @param {PWSTR} pszFilename 
+     * @param {Pointer<BOOL>} pfParsePrivacyPreferences 
+     * @param {Pointer<BOOL>} pfParsePerSiteRules 
+     * @returns {BOOL} 
      */
     static ImportPrivacySettings(pszFilename, pfParsePrivacyPreferences, pfParsePerSiteRules) {
-        pszFilename := pszFilename is String? StrPtr(pszFilename) : pszFilename
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, "int*", pfParsePrivacyPreferences, "int*", pfParsePerSiteRules, "int")
+        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, "ptr", pfParsePrivacyPreferences, "ptr", pfParsePerSiteRules, "int")
         return result
     }
 
@@ -14347,7 +14462,7 @@ class Shell {
      * @param {Integer} displayDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/ne-shellscalingapi-display_device_type">DISPLAY_DEVICE_TYPE</a></b>
      * 
      * The enum value that indicates which display device to receive notifications about.
-     * @param {Pointer<Void>} hwndNotify Type: <b>HWND</b>
+     * @param {HWND} hwndNotify Type: <b>HWND</b>
      * 
      * The handle of the window that will receive the notifications.
      * @param {Integer} uMsgNotify Type: <b>UINT</b>
@@ -14363,6 +14478,8 @@ class Shell {
      * @since windows8.0
      */
     static RegisterScaleChangeNotifications(displayDevice, hwndNotify, uMsgNotify, pdwCookie) {
+        hwndNotify := hwndNotify is Win32Handle ? NumGet(hwndNotify, "ptr") : hwndNotify
+
         result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RegisterScaleChangeNotifications", "int", displayDevice, "ptr", hwndNotify, "uint", uMsgNotify, "uint*", pdwCookie, "int")
         if(result != 0)
             throw OSError(result)
@@ -14394,7 +14511,7 @@ class Shell {
 
     /**
      * Gets the scale factor of a specific monitor. This function replaces GetScaleFactorForDevice.
-     * @param {Pointer<Void>} hMon The monitor's handle.
+     * @param {HMONITOR} hMon The monitor's handle.
      * @param {Pointer<Int32>} pScale When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
      *                         
      * 
@@ -14404,6 +14521,8 @@ class Shell {
      * @since windows8.1
      */
     static GetScaleFactorForMonitor(hMon, pScale) {
+        hMon := hMon is Win32Handle ? NumGet(hMon, "ptr") : hMon
+
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetScaleFactorForMonitor", "ptr", hMon, "int*", pScale, "int")
         if(result != 0)
             throw OSError(result)
@@ -14413,13 +14532,15 @@ class Shell {
 
     /**
      * Registers for an event that is triggered when the scale has possibly changed. This function replaces RegisterScaleChangeNotifications.
-     * @param {Pointer<Void>} hEvent Handle of the event to register for scale change notifications.
+     * @param {HANDLE} hEvent Handle of the event to register for scale change notifications.
      * @param {Pointer<UIntPtr>} pdwCookie When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-registerscalechangeevent
      * @since windows8.1
      */
     static RegisterScaleChangeEvent(hEvent, pdwCookie) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\RegisterScaleChangeEvent", "ptr", hEvent, "ptr*", pdwCookie, "int")
         if(result != 0)
             throw OSError(result)
@@ -14455,13 +14576,13 @@ class Shell {
 
     /**
      * Parses a Unicode command line string and returns an array of pointers to the command line arguments, along with a count of such arguments, in a way that is similar to the standard C run-time argv and argc values.
-     * @param {Pointer<Char>} lpCmdLine Type: <b>LPCWSTR</b>
+     * @param {PWSTR} lpCmdLine Type: <b>LPCWSTR</b>
      * 
      * Pointer to a <b>null</b>-terminated Unicode string that contains the full command line. If this parameter is an empty string the function returns the path to the current executable file.
      * @param {Pointer<Int32>} pNumArgs Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the number of array elements returned, similar to <i>argc</i>.
-     * @returns {Pointer<Char>} Type: <b>LPWSTR*</b>
+     * @returns {Pointer<PWSTR>} Type: <b>LPWSTR*</b>
      * 
      * A pointer to an array of <b>LPWSTR</b> values, similar to <i>argv</i>.
      * 
@@ -14472,7 +14593,7 @@ class Shell {
      * @since windows5.0
      */
     static CommandLineToArgvW(lpCmdLine, pNumArgs) {
-        lpCmdLine := lpCmdLine is String? StrPtr(lpCmdLine) : lpCmdLine
+        lpCmdLine := lpCmdLine is String ? StrPtr(lpCmdLine) : lpCmdLine
 
         A_LastError := 0
 
@@ -14485,13 +14606,13 @@ class Shell {
 
     /**
      * Retrieves the names of dropped files that result from a successful drag-and-drop operation.
-     * @param {Pointer<Void>} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop Type: <b>HDROP</b>
      * 
      * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
-     * @param {Pointer<Byte>} lpszFile Type: <b>LPTSTR</b>
+     * @param {PSTR} lpszFile Type: <b>LPTSTR</b>
      * 
      * The address of a buffer that receives the file name of a dropped file when the function returns. This file name is a null-terminated string. If this parameter is <b>NULL</b>, <b>DragQueryFile</b> returns the required size, in characters, of this buffer.
      * @param {Integer} cch Type: <b>UINT</b>
@@ -14510,7 +14631,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragQueryFileA(hDrop, iFile, lpszFile, cch) {
-        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
+        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
 
         result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
@@ -14518,13 +14640,13 @@ class Shell {
 
     /**
      * Retrieves the names of dropped files that result from a successful drag-and-drop operation.
-     * @param {Pointer<Void>} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop Type: <b>HDROP</b>
      * 
      * Identifier of the structure that contains the file names of the dropped files.
      * @param {Integer} iFile Type: <b>UINT</b>
      * 
      * Index of the file to query. If the value of this parameter is 0xFFFFFFFF, <b>DragQueryFile</b> returns a count of the files dropped. If the value of this parameter is between zero and the total number of files dropped, <b>DragQueryFile</b> copies the file name with the corresponding value to the buffer pointed to by the <i>lpszFile</i> parameter.
-     * @param {Pointer<Char>} lpszFile Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpszFile Type: <b>LPTSTR</b>
      * 
      * The address of a buffer that receives the file name of a dropped file when the function returns. This file name is a null-terminated string. If this parameter is <b>NULL</b>, <b>DragQueryFile</b> returns the required size, in characters, of this buffer.
      * @param {Integer} cch Type: <b>UINT</b>
@@ -14543,7 +14665,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragQueryFileW(hDrop, iFile, lpszFile, cch) {
-        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
+        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
 
         result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
@@ -14551,26 +14674,28 @@ class Shell {
 
     /**
      * Retrieves the position of the mouse pointer at the time a file was dropped during a drag-and-drop operation.
-     * @param {Pointer<Void>} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop Type: <b>HDROP</b>
      * 
      * Handle of the drop structure that describes the dropped file.
      * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that, when this function returns successfully, receives the coordinates of the mouse pointer at the time the file was dropped.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the drop occurred in the client area of the window; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-dragquerypoint
      * @since windows5.1.2600
      */
     static DragQueryPoint(hDrop, ppt) {
+        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+
         result := DllCall("SHELL32.dll\DragQueryPoint", "ptr", hDrop, "ptr", ppt, "int")
         return result
     }
 
     /**
      * Releases memory that the system allocated for use in transferring file names to the application.
-     * @param {Pointer<Void>} hDrop Type: <b>HDROP</b>
+     * @param {HDROP} hDrop Type: <b>HDROP</b>
      * 
      * Identifier of the structure that describes dropped files. This handle is retrieved from the <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message.
      * @returns {String} Nothing - always returns an empty string
@@ -14578,6 +14703,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragFinish(hDrop) {
+        hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+
         DllCall("SHELL32.dll\DragFinish", "ptr", hDrop)
     }
 
@@ -14587,10 +14714,10 @@ class Shell {
      * 
      * An application that calls <b>DragAcceptFiles</b> with the <i>fAccept</i> parameter set to <b>TRUE</b> has identified itself as able to process the <a href="https://docs.microsoft.com/windows/desktop/shell/wm-dropfiles">WM_DROPFILES</a> message from File Manager.
      * 
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * The identifier of the window that is registering whether it will accept dropped files.
-     * @param {Integer} fAccept Type: <b>BOOL</b>
+     * @param {BOOL} fAccept Type: <b>BOOL</b>
      * 
      * A value that indicates if the window identified by the <i>hWnd</i> parameter accepts dropped files. This value is <b>TRUE</b> to accept dropped files or <b>FALSE</b> to discontinue accepting dropped files.
      * @returns {String} Nothing - always returns an empty string
@@ -14598,30 +14725,32 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragAcceptFiles(hWnd, fAccept) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+
         DllCall("SHELL32.dll\DragAcceptFiles", "ptr", hWnd, "int", fAccept)
     }
 
     /**
      * Performs an operation on a specified file.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
-     * @param {Pointer<Byte>} lpOperation Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
-     * @param {Pointer<Byte>} lpFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the file or object on which to execute the specified verb. To specify a Shell namespace object, pass the fully qualified parse name. Note that not all verbs are supported on all objects. For example, not all document types support the "print" verb. If a relative path is used for the <i>lpDirectory</i> parameter do not use a relative path for <i>lpFile</i>.
-     * @param {Pointer<Byte>} lpParameters Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpParameters Type: <b>LPCTSTR</b>
      * 
      * If <i>lpFile</i> specifies an executable file, this parameter is a pointer to a <b>null</b>-terminated string that specifies the parameters to be passed to the application. The format of this string is determined by the verb that is to be invoked. If <i>lpFile</i> specifies a document file, <i>lpParameters</i> should be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpDirectory Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the default (working) directory for the action. If this value is <b>NULL</b>, the current working directory is used. If a relative path is provided at <i>lpFile</i>, do not use a relative path for <i>lpDirectory</i>.
      * @param {Integer} nShowCmd Type: <b>INT</b>
      * 
      * The flags that specify how an application is to be displayed when it is opened. If <i>lpFile</i> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @returns {Pointer<Void>} Type: <b>HINSTANCE</b>
+     * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
      * 
      * If the function succeeds, it returns a value greater than 32. If the function fails, it returns an error value that indicates the cause of the failure. The return value is cast as an HINSTANCE for backward compatibility with 16-bit Windows applications. It is not a true HINSTANCE, however. It can be cast only to an <b>int</b> and compared to either 32 or the following error codes below.
      * 
@@ -14800,36 +14929,37 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        lpOperation := lpOperation is String? StrPtr(lpOperation) : lpOperation
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
-        lpParameters := lpParameters is String? StrPtr(lpParameters) : lpParameters
-        lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
+        lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
+        lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
-        return result
+        return HINSTANCE({Value: result}, False)
     }
 
     /**
      * Performs an operation on a specified file.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window used for displaying a UI or error messages. This value can be <b>NULL</b> if the operation is not associated with a window.
-     * @param {Pointer<Char>} lpOperation Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpOperation Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string, referred to in this case as a <i>verb</i>, that specifies the action to be performed. The set of available verbs depends on the particular file or folder. Generally, the actions available from an object's shortcut menu are available verbs. The following verbs are commonly used:
-     * @param {Pointer<Char>} lpFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the file or object on which to execute the specified verb. To specify a Shell namespace object, pass the fully qualified parse name. Note that not all verbs are supported on all objects. For example, not all document types support the "print" verb. If a relative path is used for the <i>lpDirectory</i> parameter do not use a relative path for <i>lpFile</i>.
-     * @param {Pointer<Char>} lpParameters Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpParameters Type: <b>LPCTSTR</b>
      * 
      * If <i>lpFile</i> specifies an executable file, this parameter is a pointer to a <b>null</b>-terminated string that specifies the parameters to be passed to the application. The format of this string is determined by the verb that is to be invoked. If <i>lpFile</i> specifies a document file, <i>lpParameters</i> should be <b>NULL</b>.
-     * @param {Pointer<Char>} lpDirectory Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the default (working) directory for the action. If this value is <b>NULL</b>, the current working directory is used. If a relative path is provided at <i>lpFile</i>, do not use a relative path for <i>lpDirectory</i>.
      * @param {Integer} nShowCmd Type: <b>INT</b>
      * 
      * The flags that specify how an application is to be displayed when it is opened. If <i>lpFile</i> specifies a document file, the flag is simply passed to the associated application. It is up to the application to decide how to handle it. It can be any of the values that can be specified in the <i>nCmdShow</i> parameter for the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-showwindow">ShowWindow</a> function.
-     * @returns {Pointer<Void>} Type: <b>HINSTANCE</b>
+     * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
      * 
      * If the function succeeds, it returns a value greater than 32. If the function fails, it returns an error value that indicates the cause of the failure. The return value is cast as an HINSTANCE for backward compatibility with 16-bit Windows applications. It is not a true HINSTANCE, however. It can be cast only to an <b>int</b> and compared to either 32 or the following error codes below.
      * 
@@ -15008,27 +15138,28 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
-        lpOperation := lpOperation is String? StrPtr(lpOperation) : lpOperation
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
-        lpParameters := lpParameters is String? StrPtr(lpParameters) : lpParameters
-        lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
+        lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
+        lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
-        return result
+        return HINSTANCE({Value: result}, False)
     }
 
     /**
      * Retrieves the name of and handle to the executable (.exe) file associated with a specific document file.
-     * @param {Pointer<Byte>} lpFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpFile Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string that specifies a file name. This file should be a document.
-     * @param {Pointer<Byte>} lpDirectory Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string that specifies the default directory. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpResult Type: <b>LPTSTR</b>
+     * @param {PSTR} lpResult Type: <b>LPTSTR</b>
      * 
      * The address of a buffer that receives the file name of the associated executable file. This file name is a <b>null</b>-terminated string that specifies the executable file started when an "open" by association is run on the file specified in the <i>lpFile</i> parameter. Put simply, this is the application that is launched when the document file is directly double-clicked or when <b>Open</b> is chosen from the file's shortcut menu. This parameter must contain a valid non-<b>null</b> value and is assumed to be of length MAX_PATH. Responsibility for validating the value is left to the programmer.
-     * @returns {Pointer<Void>} Type: <b>HINSTANCE</b>
+     * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
      * 
      * Returns a value greater than 32 if successful, or a value less than or equal to 32 representing an error.
      * 					
@@ -15106,26 +15237,26 @@ class Shell {
      * @since windows5.1.2600
      */
     static FindExecutableA(lpFile, lpDirectory, lpResult) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
-        lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
-        lpResult := lpResult is String? StrPtr(lpResult) : lpResult
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
+        lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
         result := DllCall("SHELL32.dll\FindExecutableA", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
-        return result
+        return HINSTANCE({Value: result}, True)
     }
 
     /**
      * Retrieves the name of and handle to the executable (.exe) file associated with a specific document file.
-     * @param {Pointer<Char>} lpFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpFile Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string that specifies a file name. This file should be a document.
-     * @param {Pointer<Char>} lpDirectory Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpDirectory Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string that specifies the default directory. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} lpResult Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpResult Type: <b>LPTSTR</b>
      * 
      * The address of a buffer that receives the file name of the associated executable file. This file name is a <b>null</b>-terminated string that specifies the executable file started when an "open" by association is run on the file specified in the <i>lpFile</i> parameter. Put simply, this is the application that is launched when the document file is directly double-clicked or when <b>Open</b> is chosen from the file's shortcut menu. This parameter must contain a valid non-<b>null</b> value and is assumed to be of length MAX_PATH. Responsibility for validating the value is left to the programmer.
-     * @returns {Pointer<Void>} Type: <b>HINSTANCE</b>
+     * @returns {HINSTANCE} Type: <b>HINSTANCE</b>
      * 
      * Returns a value greater than 32 if successful, or a value less than or equal to 32 representing an error.
      * 					
@@ -15203,20 +15334,20 @@ class Shell {
      * @since windows5.1.2600
      */
     static FindExecutableW(lpFile, lpDirectory, lpResult) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
-        lpDirectory := lpDirectory is String? StrPtr(lpDirectory) : lpDirectory
-        lpResult := lpResult is String? StrPtr(lpResult) : lpResult
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
+        lpResult := lpResult is String ? StrPtr(lpResult) : lpResult
 
         result := DllCall("SHELL32.dll\FindExecutableW", "ptr", lpFile, "ptr", lpDirectory, "ptr", lpResult, "ptr")
-        return result
+        return HINSTANCE({Value: result}, True)
     }
 
     /**
      * Displays a ShellAbout dialog box.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A window handle to a parent window. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Byte>} szApp Type: <b>LPCTSTR</b>
+     * @param {PSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
      * 
@@ -15225,10 +15356,10 @@ class Shell {
      * <b>Windows 2000, Windows XP, Windows Server 2003</b>: If the string pointed to by this parameter contains a separator (#), then the string must be writeable.
      * 
      * <b>Windows Vista, Windows Server 2008</b>: This string cannot exceed 200 characters in length.
-     * @param {Pointer<Byte>} szOtherStuff Type: <b>LPCTSTR</b>
+     * @param {PSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
@@ -15238,8 +15369,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellAboutA(hWnd, szApp, szOtherStuff, hIcon) {
-        szApp := szApp is String? StrPtr(szApp) : szApp
-        szOtherStuff := szOtherStuff is String? StrPtr(szOtherStuff) : szOtherStuff
+        szApp := szApp is String ? StrPtr(szApp) : szApp
+        szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
         return result
@@ -15247,10 +15380,10 @@ class Shell {
 
     /**
      * Displays a ShellAbout dialog box.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A window handle to a parent window. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} szApp Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szApp Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the title bar of the <b>ShellAbout</b> dialog box and on the first line of the dialog box after the text "Microsoft". If the text contains a separator (#) that divides it into two parts, the function displays the first part in the title bar and the second part on the first line after the text "Microsoft".
      * 
@@ -15259,10 +15392,10 @@ class Shell {
      * <b>Windows 2000, Windows XP, Windows Server 2003</b>: If the string pointed to by this parameter contains a separator (#), then the string must be writeable.
      * 
      * <b>Windows Vista, Windows Server 2008</b>: This string cannot exceed 200 characters in length.
-     * @param {Pointer<Char>} szOtherStuff Type: <b>LPCTSTR</b>
+     * @param {PWSTR} szOtherStuff Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains text to be displayed in the dialog box after the version and copyright information. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * The handle of an icon that the function displays in the dialog box. This parameter can be <b>NULL</b>, in which case the function displays the Windows icon.
      * @returns {Integer} Type: <b>int</b>
@@ -15272,8 +15405,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellAboutW(hWnd, szApp, szOtherStuff, hIcon) {
-        szApp := szApp is String? StrPtr(szApp) : szApp
-        szOtherStuff := szOtherStuff is String? StrPtr(szOtherStuff) : szOtherStuff
+        szApp := szApp is String ? StrPtr(szApp) : szApp
+        szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
         return result
@@ -15281,10 +15416,10 @@ class Shell {
 
     /**
      * Creates a duplicate of a specified icon.
-     * @param {Pointer<Void>} hIcon Type: <b>HICON</b>
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
      * Handle to the icon to be duplicated.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If successful, the function returns the handle to the new icon that was created; otherwise, <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-duplicateicon
@@ -15293,13 +15428,16 @@ class Shell {
     static DuplicateIcon(hIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+
         result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Gets a handle to an icon stored as a resource in a file or an icon stored in a file's associated executable file.
-     * @param {Pointer<Byte>} pszIconPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszIconPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a string that, on entry, specifies the full path and file name of the file that contains the icon. The function extracts the icon handle from that file, or from an executable file associated with that file. 
      * 
@@ -15313,7 +15451,7 @@ class Shell {
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's index in that file.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is an icon handle. If the icon is extracted from an associated executable file, the function stores the full path and file name of the executable file in the string pointed to by <i>lpIconPath</i>, and stores the icon's identifier in the <b>WORD</b> pointed to by <i>lpiIcon</i>.
      * 
@@ -15326,15 +15464,16 @@ class Shell {
     static ExtractAssociatedIconA(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Gets a handle to an icon stored as a resource in a file or an icon stored in a file's associated executable file.
-     * @param {Pointer<Char>} pszIconPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszIconPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a string that, on entry, specifies the full path and file name of the file that contains the icon. The function extracts the icon handle from that file, or from an executable file associated with that file. 
      * 
@@ -15348,7 +15487,7 @@ class Shell {
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's index in that file.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * If the function succeeds, the return value is an icon handle. If the icon is extracted from an associated executable file, the function stores the full path and file name of the executable file in the string pointed to by <i>lpIconPath</i>, and stores the icon's identifier in the <b>WORD</b> pointed to by <i>lpiIcon</i>.
      * 
@@ -15361,15 +15500,16 @@ class Shell {
     static ExtractAssociatedIconW(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * ExtractAssociatedIconEx may be altered or unavailable.
-     * @param {Pointer<Byte>} pszIconPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszIconPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a string that, on entry, specifies the full path and file name of the file that contains the icon. The function extracts the icon handle from that file, or from an executable file associated with that file. 
      * 
@@ -15390,7 +15530,7 @@ class Shell {
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's ID within that file.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * Returns the icon's handle if successful, otherwise <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-extractassociatediconexa
@@ -15399,15 +15539,16 @@ class Shell {
     static ExtractAssociatedIconExA(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * ExtractAssociatedIconEx may be altered or unavailable.
-     * @param {Pointer<Char>} pszIconPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszIconPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a string that, on entry, specifies the full path and file name of the file that contains the icon. The function extracts the icon handle from that file, or from an executable file associated with that file. 
      * 
@@ -15428,7 +15569,7 @@ class Shell {
      *                     
      * 
      * When the function returns, if the icon handle was obtained from an executable file (either an executable file pointed to by <i>lpIconPath</i> or an associated executable file), this value points to the icon's ID within that file.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * Returns the icon's handle if successful, otherwise <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-extractassociatediconexw
@@ -15437,15 +15578,16 @@ class Shell {
     static ExtractAssociatedIconExW(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String? StrPtr(pszIconPath) : pszIconPath
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Gets a handle to an icon from the specified executable file, DLL, or icon file. To retrieve an array of handles to large or small icons, use the ExtractIconEx function.
-     * @param {Pointer<Byte>} pszExeFileName Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExeFileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the name of an executable file, DLL, or icon file.
      * @param {Integer} nIconIndex Type: <b>UINT</b>
@@ -15457,7 +15599,7 @@ class Shell {
      * If this value is -1, the function returns the total number of icons in the specified file. If the file is an executable file or DLL, the return value is the number of RT_GROUP_ICON resources. If the file is an .ICO file, the return value is 1.
      * 
      * If this value is a negative number not equal to –1, the function returns a handle to the icon in the specified file whose resource identifier is equal to the absolute value of <i>nIconIndex</i>. For example, you should use –3 to extract the icon whose resource identifier is 3. To extract the icon whose resource identifier is 1, use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-extracticonexa">ExtractIconEx</a> function.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * The return value is a handle to an icon. If the file specified was not an executable file, DLL, or icon file, the return is 1. If no icons were found in the file, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-extracticona
@@ -15466,15 +15608,16 @@ class Shell {
     static ExtractIconA(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszExeFileName := pszExeFileName is String? StrPtr(pszExeFileName) : pszExeFileName
+        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
      * Gets a handle to an icon from the specified executable file, DLL, or icon file. To retrieve an array of handles to large or small icons, use the ExtractIconEx function.
-     * @param {Pointer<Char>} pszExeFileName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExeFileName Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the name of an executable file, DLL, or icon file.
      * @param {Integer} nIconIndex Type: <b>UINT</b>
@@ -15486,7 +15629,7 @@ class Shell {
      * If this value is -1, the function returns the total number of icons in the specified file. If the file is an executable file or DLL, the return value is the number of RT_GROUP_ICON resources. If the file is an .ICO file, the return value is 1.
      * 
      * If this value is a negative number not equal to –1, the function returns a handle to the icon in the specified file whose resource identifier is equal to the absolute value of <i>nIconIndex</i>. For example, you should use –3 to extract the icon whose resource identifier is 3. To extract the icon whose resource identifier is 1, use the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-extracticonexa">ExtractIconEx</a> function.
-     * @returns {Pointer<Void>} Type: <b>HICON</b>
+     * @returns {HICON} Type: <b>HICON</b>
      * 
      * The return value is a handle to an icon. If the file specified was not an executable file, DLL, or icon file, the return is 1. If no icons were found in the file, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-extracticonw
@@ -15495,10 +15638,11 @@ class Shell {
     static ExtractIconW(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszExeFileName := pszExeFileName is String? StrPtr(pszExeFileName) : pszExeFileName
+        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
-        return result
+        return HICON({Value: result}, True)
     }
 
     /**
@@ -15520,7 +15664,7 @@ class Shell {
 
     /**
      * Parses an input string that contains references to one or more environment variables and replaces them with their fully expanded values.
-     * @param {Pointer<Byte>} pszSrc Type: <b>LPTSTR</b>
+     * @param {PSTR} pszSrc Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that contains references to one or more environment variables, each in the following form. Case is ignored. 
      *     					
@@ -15546,7 +15690,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static DoEnvironmentSubstA(pszSrc, cchSrc) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHELL32.dll\DoEnvironmentSubstA", "ptr", pszSrc, "uint", cchSrc, "uint")
         return result
@@ -15554,7 +15698,7 @@ class Shell {
 
     /**
      * Parses an input string that contains references to one or more environment variables and replaces them with their fully expanded values.
-     * @param {Pointer<Char>} pszSrc Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that contains references to one or more environment variables, each in the following form. Case is ignored. 
      *     					
@@ -15580,7 +15724,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static DoEnvironmentSubstW(pszSrc, cchSrc) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHELL32.dll\DoEnvironmentSubstW", "ptr", pszSrc, "uint", cchSrc, "uint")
         return result
@@ -15588,7 +15732,7 @@ class Shell {
 
     /**
      * The ExtractIconEx function creates an array of handles to large or small icons extracted from the specified executable file, DLL, or icon file.
-     * @param {Pointer<Byte>} lpszFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpszFile Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the name of an executable file, DLL, or icon file from which icons will be extracted.
      * @param {Integer} nIconIndex Type: <b>int</b>
@@ -15600,10 +15744,10 @@ class Shell {
      * If this value is –1 and <i>phiconLarge</i> and <i>phiconSmall</i> are both <b>NULL</b>, the function returns the total number of icons in the specified file. If the file is an executable file or DLL, the return value is the number of RT_GROUP_ICON resources. If the file is an .ico file, the return value is 1.
      * 
      *  If this value is a negative number and either <i>phiconLarge</i> or <i>phiconSmall</i> is not <b>NULL</b>, the function begins by extracting the icon whose resource identifier is equal to the absolute value of <i>nIconIndex</i>. For example, use -3 to extract the icon whose resource identifier is 3.
-     * @param {Pointer<Void>} phiconLarge Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconLarge Type: <b>HICON*</b>
      * 
      * Pointer to an array of icon handles that receives handles to the large icons extracted from the file. If this parameter is <b>NULL</b>, no large icons are extracted from the file.
-     * @param {Pointer<Void>} phiconSmall Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconSmall Type: <b>HICON*</b>
      * 
      * Pointer to an array of icon handles that receives handles to the small icons extracted from the file. If this parameter is <b>NULL</b>, no small icons are extracted from the file.
      * @param {Integer} nIcons Type: <b>UINT</b>
@@ -15621,7 +15765,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ExtractIconExA(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
-        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
         A_LastError := 0
 
@@ -15634,7 +15778,7 @@ class Shell {
 
     /**
      * The ExtractIconEx function creates an array of handles to large or small icons extracted from the specified executable file, DLL, or icon file.
-     * @param {Pointer<Char>} lpszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpszFile Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the name of an executable file, DLL, or icon file from which icons will be extracted.
      * @param {Integer} nIconIndex Type: <b>int</b>
@@ -15646,10 +15790,10 @@ class Shell {
      * If this value is –1 and <i>phiconLarge</i> and <i>phiconSmall</i> are both <b>NULL</b>, the function returns the total number of icons in the specified file. If the file is an executable file or DLL, the return value is the number of RT_GROUP_ICON resources. If the file is an .ico file, the return value is 1.
      * 
      *  If this value is a negative number and either <i>phiconLarge</i> or <i>phiconSmall</i> is not <b>NULL</b>, the function begins by extracting the icon whose resource identifier is equal to the absolute value of <i>nIconIndex</i>. For example, use -3 to extract the icon whose resource identifier is 3.
-     * @param {Pointer<Void>} phiconLarge Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconLarge Type: <b>HICON*</b>
      * 
      * Pointer to an array of icon handles that receives handles to the large icons extracted from the file. If this parameter is <b>NULL</b>, no large icons are extracted from the file.
-     * @param {Pointer<Void>} phiconSmall Type: <b>HICON*</b>
+     * @param {Pointer<HICON>} phiconSmall Type: <b>HICON*</b>
      * 
      * Pointer to an array of icon handles that receives handles to the small icons extracted from the file. If this parameter is <b>NULL</b>, no small icons are extracted from the file.
      * @param {Integer} nIcons Type: <b>UINT</b>
@@ -15667,7 +15811,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static ExtractIconExW(lpszFile, nIconIndex, phiconLarge, phiconSmall, nIcons) {
-        lpszFile := lpszFile is String? StrPtr(lpszFile) : lpszFile
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
         A_LastError := 0
 
@@ -16018,7 +16162,7 @@ class Shell {
 
     /**
      * Frees a file name mapping object that was retrieved by the SHFileOperation function.
-     * @param {Pointer<Void>} hNameMappings Type: <b>HANDLE</b>
+     * @param {HANDLE} hNameMappings Type: <b>HANDLE</b>
      * 
      * A handle to the file name mapping object to be freed.
      * @returns {String} Nothing - always returns an empty string
@@ -16026,6 +16170,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFreeNameMappings(hNameMappings) {
+        hNameMappings := hNameMappings is Win32Handle ? NumGet(hNameMappings, "ptr") : hNameMappings
+
         DllCall("SHELL32.dll\SHFreeNameMappings", "ptr", hNameMappings)
     }
 
@@ -16034,7 +16180,7 @@ class Shell {
      * @param {Pointer<SHELLEXECUTEINFOA>} pExecInfo Type: <b>SHELLEXECUTEINFO*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shellexecuteinfoa">SHELLEXECUTEINFO</a> structure that contains and receives information about the application being executed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shellexecuteexa
@@ -16055,7 +16201,7 @@ class Shell {
      * @param {Pointer<SHELLEXECUTEINFOW>} pExecInfo Type: <b>SHELLEXECUTEINFO*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shellexecuteinfoa">SHELLEXECUTEINFO</a> structure that contains and receives information about the application being executed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shellexecuteexw
@@ -16076,7 +16222,7 @@ class Shell {
      * @param {Pointer<SHCREATEPROCESSINFOW>} pscpi Type: <b>PSHCREATEPROCESSINFOW</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-shcreateprocessinfow">SHCREATEPROCESSINFOW</a> structure with information on how to create the process.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> if not. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shcreateprocessasuserw
@@ -16094,20 +16240,20 @@ class Shell {
 
     /**
      * Enforces strict validation of parameters used in a call to CreateProcess or ShellExecute.
-     * @param {Pointer<Char>} pszCmdTemplate Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszCmdTemplate Type: <b>PCWSTR</b>
      * 
      * A command line, which may or may not include parameters. If the parameters are substitution parameters, then <b>SHEvaluateSystemCommandTemplate</b> should be called before parameters have been replaced.
-     * @param {Pointer<Char>} ppszApplication Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszApplication Type: <b>PWSTR*</b>
      * 
      * A pointer to the verified path to the application. This value should be passed as the <i>lpApplication</i> parameter in a call to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a> or as the <i>lpFile</i> parameter in a call to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a>. This resource is allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and it is the responsibility of the caller to free the resource when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @param {Pointer<Char>} ppszCommandLine Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszCommandLine Type: <b>PWSTR*</b>
      * 
      * A pointer to a command-line string template to be used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>. Command-line parameters should be specified based on this template, and then passed as the <i>lpCommandLine</i> parameter to <b>CreateProcess</b>. It is guaranteed to be of a form that <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathgetargsa">PathGetArgs</a> can always read correctly. This resource is allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and it is the responsibility of the caller to free the resource when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. 
      * 
      *                     
      * 
      * This parameter can be <b>NULL</b> if this function is not being used in association with a call to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
-     * @param {Pointer<Char>} ppszParameters Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszParameters Type: <b>PWSTR*</b>
      * 
      * A pointer to a command-line string template to be used in a call to <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shellexecutea">ShellExecute</a>. Command-line parameters should be specified based on this template, and then passed as the <i>lpParameters</i> parameter to <b>ShellExecute</b>. This parameter is identical to calling <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathgetargsa">PathGetArgs</a>. This resource is allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, and it is the responsibility of the caller to free the resource when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. 
      * 
@@ -16121,7 +16267,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHEvaluateSystemCommandTemplate(pszCmdTemplate, ppszApplication, ppszCommandLine, ppszParameters) {
-        pszCmdTemplate := pszCmdTemplate is String? StrPtr(pszCmdTemplate) : pszCmdTemplate
+        pszCmdTemplate := pszCmdTemplate is String ? StrPtr(pszCmdTemplate) : pszCmdTemplate
 
         result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, "ptr", ppszApplication, "ptr", ppszCommandLine, "ptr", ppszParameters, "int")
         if(result != 0)
@@ -16160,7 +16306,7 @@ class Shell {
 
     /**
      * Retrieves the size of the Recycle Bin and the number of items in it, for a specified drive.
-     * @param {Pointer<Byte>} pszRootPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string of maximum length MAX_PATH to contain the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names (C:\Windows\System...).
      * @param {Pointer<SHQUERYRBINFO>} pSHQueryRBInfo Type: <b>LPSHQUERYRBINFO</b>
@@ -16173,7 +16319,7 @@ class Shell {
      * @since windows5.0
      */
     static SHQueryRecycleBinA(pszRootPath, pSHQueryRBInfo) {
-        pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinA", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
         if(result != 0)
@@ -16184,7 +16330,7 @@ class Shell {
 
     /**
      * Retrieves the size of the Recycle Bin and the number of items in it, for a specified drive.
-     * @param {Pointer<Char>} pszRootPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a <b>null</b>-terminated string of maximum length MAX_PATH to contain the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names (C:\Windows\System...).
      * @param {Pointer<SHQUERYRBINFO>} pSHQueryRBInfo Type: <b>LPSHQUERYRBINFO</b>
@@ -16197,7 +16343,7 @@ class Shell {
      * @since windows5.0
      */
     static SHQueryRecycleBinW(pszRootPath, pSHQueryRBInfo) {
-        pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHQueryRecycleBinW", "ptr", pszRootPath, "ptr", pSHQueryRBInfo, "int")
         if(result != 0)
@@ -16208,10 +16354,10 @@ class Shell {
 
     /**
      * Empties the Recycle Bin on the specified drive.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszRootPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -16222,7 +16368,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEmptyRecycleBinA(hwnd, pszRootPath, dwFlags) {
-        pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -16233,10 +16380,10 @@ class Shell {
 
     /**
      * Empties the Recycle Bin on the specified drive.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the parent window of any dialog boxes that might be displayed during the operation. This parameter can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszRootPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszRootPath Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string of maximum length MAX_PATH that contains the path of the root drive on which the Recycle Bin is located. This parameter can contain the address of a string formatted with the drive, folder, and subfolder names, for example c:\windows\system\. It can also contain an empty string or <b>NULL</b>. If this value is an empty string or <b>NULL</b>, all Recycle Bins on all drives will be emptied.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -16247,7 +16394,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEmptyRecycleBinW(hwnd, pszRootPath, dwFlags) {
-        pszRootPath := pszRootPath is String? StrPtr(pszRootPath) : pszRootPath
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -16281,7 +16429,7 @@ class Shell {
      * @param {Pointer<NOTIFYICONDATAA>} lpData Type: <b>PNOTIFYICONDATA</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure. The content of the structure depends on the value of <i>dwMessage</i>. It can define an icon to add to the notification area, cause that icon to display a notification, or identify an icon to modify or delete.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. If <i>dwMessage</i> is set to NIM_SETVERSION, the function returns <b>TRUE</b> if the version was successfully changed, or <b>FALSE</b> if the requested version is not supported.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shell_notifyicona
@@ -16298,7 +16446,7 @@ class Shell {
      * @param {Pointer<NOTIFYICONDATAW>} lpData Type: <b>PNOTIFYICONDATA</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ns-shellapi-notifyicondataa">NOTIFYICONDATA</a> structure. The content of the structure depends on the value of <i>dwMessage</i>. It can define an icon to add to the notification area, cause that icon to display a notification, or identify an icon to modify or delete.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. If <i>dwMessage</i> is set to NIM_SETVERSION, the function returns <b>TRUE</b> if the version was successfully changed, or <b>FALSE</b> if the requested version is not supported.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shell_notifyiconw
@@ -16333,7 +16481,7 @@ class Shell {
 
     /**
      * Retrieves information about an object in the file system, such as a file, folder, directory, or drive root.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of maximum length MAX_PATH that contains the path and file name. Both absolute and relative paths are valid.
      *     
@@ -16418,7 +16566,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetFileInfoA(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFileInfoA", "ptr", pszPath, "uint", dwFileAttributes, "ptr", psfi, "uint", cbFileInfo, "uint", uFlags, "ptr")
         return result
@@ -16426,7 +16574,7 @@ class Shell {
 
     /**
      * Retrieves information about an object in the file system, such as a file, folder, directory, or drive root.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string of maximum length MAX_PATH that contains the path and file name. Both absolute and relative paths are valid.
      *     
@@ -16511,7 +16659,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetFileInfoW(pszPath, dwFileAttributes, psfi, cbFileInfo, uFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFileInfoW", "ptr", pszPath, "uint", dwFileAttributes, "ptr", psfi, "uint", cbFileInfo, "uint", uFlags, "ptr")
         return result
@@ -16544,7 +16692,7 @@ class Shell {
 
     /**
      * Retrieves disk space information for a disk volume.
-     * @param {Pointer<Byte>} pszDirectoryName Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszDirectoryName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string that specifies the volume for which size information is retrieved. This can be a drive letter, UNC name, or the path of a folder. You cannot use <b>NULL</b> to represent the current drive.
      * @param {Pointer<UInt64>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
@@ -16556,14 +16704,14 @@ class Shell {
      * @param {Pointer<UInt64>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes of free space on the volume.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetdiskfreespaceexa
      * @since windows5.0
      */
     static SHGetDiskFreeSpaceExA(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
-        pszDirectoryName := pszDirectoryName is String? StrPtr(pszDirectoryName) : pszDirectoryName
+        pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
         result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExA", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "int")
         return result
@@ -16571,7 +16719,7 @@ class Shell {
 
     /**
      * Retrieves disk space information for a disk volume.
-     * @param {Pointer<Char>} pszDirectoryName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszDirectoryName Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string that specifies the volume for which size information is retrieved. This can be a drive letter, UNC name, or the path of a folder. You cannot use <b>NULL</b> to represent the current drive.
      * @param {Pointer<UInt64>} pulFreeBytesAvailableToCaller Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
@@ -16583,14 +16731,14 @@ class Shell {
      * @param {Pointer<UInt64>} pulTotalNumberOfFreeBytes Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * Pointer to a value that receives the number of bytes of free space on the volume.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetdiskfreespaceexw
      * @since windows5.0
      */
     static SHGetDiskFreeSpaceExW(pszDirectoryName, pulFreeBytesAvailableToCaller, pulTotalNumberOfBytes, pulTotalNumberOfFreeBytes) {
-        pszDirectoryName := pszDirectoryName is String? StrPtr(pszDirectoryName) : pszDirectoryName
+        pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
 
         result := DllCall("SHELL32.dll\SHGetDiskFreeSpaceExW", "ptr", pszDirectoryName, "uint*", pulFreeBytesAvailableToCaller, "uint*", pulTotalNumberOfBytes, "uint*", pulTotalNumberOfFreeBytes, "int")
         return result
@@ -16598,88 +16746,89 @@ class Shell {
 
     /**
      * Creates a name for a new shortcut based on the shortcut's proposed target. This function does not create the shortcut, just the name.
-     * @param {Pointer<Byte>} pszLinkTo Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszLinkTo Type: <b>LPCTSTR</b>
      * 
      * A pointer to the path and file name of the shortcut's target. If <i>uFlags</i> does not contain the <b>SHGNLI_PIDL</b> value, this parameter is the address of a null-terminated string that contains the target. If <i>uFlags</i> contains the <b>SHGNLI_PIDL</b> value, this parameter is a PIDL that represents the target.
-     * @param {Pointer<Byte>} pszDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path of the folder in which the shortcut would be created.
-     * @param {Pointer<Byte>} pszName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the null-terminated path and file name for the shortcut. This buffer is assumed to be at least MAX_PATH characters in size.
-     * @param {Pointer<Int32>} pfMustCopy Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} pfMustCopy Type: <b>BOOL*</b>
      * 
      * The address of a <b>BOOL</b> value that receives a flag indicating whether the shortcut would be copied. When a shortcut to another shortcut is created, the Shell simply copies the target shortcut and modifies that copied shortcut appropriately. This parameter receives a nonzero value if the target specified in <i>pszLinkTo</i> specifies a shortcut that will cause the target shortcut to be copied. This parameter receives zero if the target does not specify a shortcut that would be copied.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetnewlinkinfoa
      * @since windows5.0
      */
     static SHGetNewLinkInfoA(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
-        pszLinkTo := pszLinkTo is String? StrPtr(pszLinkTo) : pszLinkTo
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszLinkTo := pszLinkTo is String ? StrPtr(pszLinkTo) : pszLinkTo
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "int*", pfMustCopy, "uint", uFlags, "int")
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
     /**
      * Creates a name for a new shortcut based on the shortcut's proposed target. This function does not create the shortcut, just the name.
-     * @param {Pointer<Char>} pszLinkTo Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszLinkTo Type: <b>LPCTSTR</b>
      * 
      * A pointer to the path and file name of the shortcut's target. If <i>uFlags</i> does not contain the <b>SHGNLI_PIDL</b> value, this parameter is the address of a null-terminated string that contains the target. If <i>uFlags</i> contains the <b>SHGNLI_PIDL</b> value, this parameter is a PIDL that represents the target.
-     * @param {Pointer<Char>} pszDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path of the folder in which the shortcut would be created.
-     * @param {Pointer<Char>} pszName Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszName Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the null-terminated path and file name for the shortcut. This buffer is assumed to be at least MAX_PATH characters in size.
-     * @param {Pointer<Int32>} pfMustCopy Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} pfMustCopy Type: <b>BOOL*</b>
      * 
      * The address of a <b>BOOL</b> value that receives a flag indicating whether the shortcut would be copied. When a shortcut to another shortcut is created, the Shell simply copies the target shortcut and modifies that copied shortcut appropriately. This parameter receives a nonzero value if the target specified in <i>pszLinkTo</i> specifies a shortcut that will cause the target shortcut to be copied. This parameter receives zero if the target does not specify a shortcut that would be copied.
      * @param {Integer} uFlags Type: <b>UINT</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetnewlinkinfow
      * @since windows5.0
      */
     static SHGetNewLinkInfoW(pszLinkTo, pszDir, pszName, pfMustCopy, uFlags) {
-        pszLinkTo := pszLinkTo is String? StrPtr(pszLinkTo) : pszLinkTo
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszLinkTo := pszLinkTo is String ? StrPtr(pszLinkTo) : pszLinkTo
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "int*", pfMustCopy, "uint", uFlags, "int")
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
     /**
      * Executes a command on a printer object.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
-     * @param {Pointer<Byte>} lpBuf1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that contains additional information for the printer command. The information contained in this parameter depends upon the value of <i>uAction</i>.
-     * @param {Pointer<Byte>} lpBuf2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpBuf2 Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that contains additional information for the printer command. The information contained in this parameter depends upon the value of <i>uAction</i>.
-     * @param {Integer} fModal Type: <b>BOOL</b>
+     * @param {BOOL} fModal Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to specify that <b>SHInvokePrinterCommand</b> should not return until the command is completed; <b>FALSE</b> if the function should return as soon as the command is initialized.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shinvokeprintercommanda
      * @since windows5.0
      */
     static SHInvokePrinterCommandA(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        lpBuf1 := lpBuf1 is String? StrPtr(lpBuf1) : lpBuf1
-        lpBuf2 := lpBuf2 is String? StrPtr(lpBuf2) : lpBuf2
+        lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
+        lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
@@ -16687,28 +16836,29 @@ class Shell {
 
     /**
      * Executes a command on a printer object.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The handle of the parent window of any windows or dialog boxes that are created during the operation.
      * @param {Integer} uAction Type: <b>UINT</b>
-     * @param {Pointer<Char>} lpBuf1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpBuf1 Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that contains additional information for the printer command. The information contained in this parameter depends upon the value of <i>uAction</i>.
-     * @param {Pointer<Char>} lpBuf2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpBuf2 Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that contains additional information for the printer command. The information contained in this parameter depends upon the value of <i>uAction</i>.
-     * @param {Integer} fModal Type: <b>BOOL</b>
+     * @param {BOOL} fModal Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to specify that <b>SHInvokePrinterCommand</b> should not return until the command is completed; <b>FALSE</b> if the function should return as soon as the command is initialized.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shinvokeprintercommandw
      * @since windows5.0
      */
     static SHInvokePrinterCommandW(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
-        lpBuf1 := lpBuf1 is String? StrPtr(lpBuf1) : lpBuf1
-        lpBuf2 := lpBuf2 is String? StrPtr(lpBuf2) : lpBuf2
+        lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
+        lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
@@ -16732,7 +16882,7 @@ class Shell {
 
     /**
      * Determines whether a file or folder is available for offline use. This function also determines whether the file would be opened from the network, from the local Offline Files cache, or from both locations.
-     * @param {Pointer<Char>} pwszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a string value that specifies the full path to a network file or directory. This path does not need to be in UNC form. If <i>pszPath</i> is not a network path, the function returns E_INVALIDARG.
      * @param {Pointer<UInt32>} pdwStatus Type: <b>LPDWORD</b>
@@ -16785,7 +16935,7 @@ class Shell {
      * @since windows5.0
      */
     static SHIsFileAvailableOffline(pwszPath, pdwStatus) {
-        pwszPath := pwszPath is String? StrPtr(pwszPath) : pwszPath
+        pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
         result := DllCall("SHELL32.dll\SHIsFileAvailableOffline", "ptr", pwszPath, "uint*", pdwStatus, "int")
         if(result != 0)
@@ -16796,10 +16946,10 @@ class Shell {
 
     /**
      * Sets the localized name of a file in a Shell folder.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a string that specifies the fully qualified path of the target file.
-     * @param {Pointer<Char>} pszResModule Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszResModule Type: <b>PCWSTR</b>
      * 
      * A pointer to a string resource that specifies the localized version of the file name.
      * @param {Integer} idsRes Type: <b>int</b>
@@ -16812,8 +16962,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetLocalizedName(pszPath, pszResModule, idsRes) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszResModule := pszResModule is String? StrPtr(pszResModule) : pszResModule
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszResModule := pszResModule is String ? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHSetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "int", idsRes, "int")
         if(result != 0)
@@ -16824,7 +16974,7 @@ class Shell {
 
     /**
      * Removes the localized name of a file in a Shell folder.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies the fully qualified path of the target file.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -16834,7 +16984,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHRemoveLocalizedName(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHRemoveLocalizedName", "ptr", pszPath, "int")
         if(result != 0)
@@ -16845,10 +16995,10 @@ class Shell {
 
     /**
      * Retrieves the localized name of a file in a Shell folder.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a string that specifies the fully qualified path of the file.
-     * @param {Pointer<Char>} pszResModule Type: <b>PWSTR</b>
+     * @param {PWSTR} pszResModule Type: <b>PWSTR</b>
      * 
      * When this function returns, contains a pointer to a string resource that specifies the localized version of the file name.
      * @param {Integer} cch Type: <b>UINT</b>
@@ -16864,8 +17014,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetLocalizedName(pszPath, pszResModule, cch, pidsRes) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszResModule := pszResModule is String? StrPtr(pszResModule) : pszResModule
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszResModule := pszResModule is String ? StrPtr(pszResModule) : pszResModule
 
         result := DllCall("SHELL32.dll\SHGetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "uint", cch, "int*", pidsRes, "int")
         if(result != 0)
@@ -16876,16 +17026,16 @@ class Shell {
 
     /**
      * ShellMessageBox may be altered or unavailable.
-     * @param {Pointer<Void>} hAppInst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
-     * @param {Pointer<Byte>} lpcText Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
-     * @param {Pointer<Byte>} lpcTitle Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpcTitle Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the dialog box title or a resource ID specifying where the title is to be retrieved. If both this parameter and <i>hWnd</i> are <b>NULL</b>, no title is displayed. If this parameter points to a loadable resource formed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro, it overrides <i>hWnd</i> as the title.
      * @param {Integer} fuStyle Type: <b>UINT</b>
@@ -16902,8 +17052,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellMessageBoxA(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
-        lpcText := lpcText is String? StrPtr(lpcText) : lpcText
-        lpcTitle := lpcTitle is String? StrPtr(lpcTitle) : lpcTitle
+        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
+        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
+        hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -16916,16 +17068,16 @@ class Shell {
 
     /**
      * ShellMessageBox may be altered or unavailable.
-     * @param {Pointer<Void>} hAppInst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hAppInst Type: <b>HINSTANCE</b>
      * 
      * The handle of the module from which to load a string resource named in <i>pszTitle</i>. If <i>pszTitle</i> does not name a string resource, this parameter is ignored. This value must be valid if <i>pszMsg</i> or <i>pszTitle</i> is a resource ID.
-     * @param {Pointer<Void>} hWnd Type: <b>HWND</b>
+     * @param {HWND} hWnd Type: <b>HWND</b>
      * 
      * A handle to the owner window of the message box to be created. If this variable is not <b>NULL</b>, the title of the owner window is used as the title of the message box.
-     * @param {Pointer<Char>} lpcText Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpcText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains either the message to be displayed or a resource ID specifying where the message is to be retrieved from.
-     * @param {Pointer<Char>} lpcTitle Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpcTitle Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the dialog box title or a resource ID specifying where the title is to be retrieved. If both this parameter and <i>hWnd</i> are <b>NULL</b>, no title is displayed. If this parameter points to a loadable resource formed with the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro, it overrides <i>hWnd</i> as the title.
      * @param {Integer} fuStyle Type: <b>UINT</b>
@@ -16942,8 +17094,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellMessageBoxW(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
-        lpcText := lpcText is String? StrPtr(lpcText) : lpcText
-        lpcTitle := lpcTitle is String? StrPtr(lpcTitle) : lpcTitle
+        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
+        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
+        hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -16956,11 +17110,11 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Byte>} pszPath 
-     * @returns {Integer} 
+     * @param {PSTR} pszPath 
+     * @returns {BOOL} 
      */
     static IsLFNDriveA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\IsLFNDriveA", "ptr", pszPath, "int")
         return result
@@ -16968,11 +17122,11 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pszPath 
-     * @returns {Integer} 
+     * @param {PWSTR} pszPath 
+     * @returns {BOOL} 
      */
     static IsLFNDriveW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\IsLFNDriveW", "ptr", pszPath, "int")
         return result
@@ -16980,13 +17134,13 @@ class Shell {
 
     /**
      * Enumerates the user accounts that have unread email.
-     * @param {Pointer<Void>} hKeyUser Type: <b>HKEY</b>
+     * @param {HKEY} hKeyUser Type: <b>HKEY</b>
      * 
      * A valid HKEY for a given user.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the user account.
-     * @param {Pointer<Char>} pszMailAddress Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszMailAddress Type: <b>LPTSTR</b>
      * 
      * A pointer to a Unicode string that specifies the email address of an account belonging to the specified user.
      * @param {Integer} cchMailAddress Type: <b>int</b>
@@ -16999,7 +17153,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHEnumerateUnreadMailAccountsW(hKeyUser, dwIndex, pszMailAddress, cchMailAddress) {
-        pszMailAddress := pszMailAddress is String? StrPtr(pszMailAddress) : pszMailAddress
+        pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
+        hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
 
         result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", "ptr", hKeyUser, "uint", dwIndex, "ptr", pszMailAddress, "int", cchMailAddress, "int")
         if(result != 0)
@@ -17010,10 +17165,10 @@ class Shell {
 
     /**
      * Retrieves a specified user's unread message count for any or all email accounts.
-     * @param {Pointer<Void>} hKeyUser Type: <b>HKEY</b>
+     * @param {HKEY} hKeyUser Type: <b>HKEY</b>
      * 
      * A valid HKEY for a given user. This parameter should be <b>NULL</b> if the function is called in a user's environment, in which case <b>HKEY_CURRENT_USER</b> is used. This parameter should be <b>NULL</b> if the function is called from the SYSTEM context, in which case <b>HKEY_USERS</b>&#92;<i>{SID}</i> is used.
-     * @param {Pointer<Char>} pszMailAddress Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszMailAddress Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that specifies the email address of an account belonging to the specified user. When this parameter is <b>NULL</b>, <i>pdwCount</i> returns the total count of unread messages for all accounts owned by the designated user.
      * @param {Pointer<UInt32>} pdwCount Type: <b>DWORD*</b>
@@ -17022,7 +17177,7 @@ class Shell {
      * @param {Pointer<FILETIME>} pFileTime Type: <b>FILETIME*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.  The use of this parameter is determined by whether <i>pszMailAddress</i> is <b>NULL</b>. If <i>pszMailAddress</i> is <b>NULL</b>, then this parameter is treated as an [in] parameter, which specifies a filter, so that only unread mail newer than the specified time appears. If <i>pszMailAddress</i> is not <b>NULL</b>, then this parameter is treated as an [out] parameter, which points to a <b>FILETIME</b> structure into which the function places the <b>timestamp</b> of the last <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shsetunreadmailcountw">SHSetUnreadMailCount</a> call for the specified user and email account.
-     * @param {Pointer<Char>} pszShellExecuteCommand Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszShellExecuteCommand Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string that returns the ShellExecute command statement passed into the last <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shsetunreadmailcountw">SHSetUnreadMailCount</a> call for the specified user and email account. This command string starts the email application that owns the account referenced by <i>pszMailAddress</i>. If the ShellExecute command is not required, this parameter can be <b>NULL</b>. If <i>pszMailAddress</i> is <b>NULL</b>, this parameter is ignored and must be <b>NULL</b>.
      * @param {Integer} cchShellExecuteCommand Type: <b>int</b>
@@ -17035,8 +17190,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pdwCount, pFileTime, pszShellExecuteCommand, cchShellExecuteCommand) {
-        pszMailAddress := pszMailAddress is String? StrPtr(pszMailAddress) : pszMailAddress
-        pszShellExecuteCommand := pszShellExecuteCommand is String? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
+        pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
+        pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
+        hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
 
         result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, "uint*", pdwCount, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
         if(result != 0)
@@ -17047,13 +17203,13 @@ class Shell {
 
     /**
      * Stores the current user's unread message count for a specified email account in the registry.
-     * @param {Pointer<Char>} pszMailAddress Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszMailAddress Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that contains the current user's full email address.
      * @param {Integer} dwCount Type: <b>DWORD</b>
      * 
      * The number of unread messages.
-     * @param {Pointer<Char>} pszShellExecuteCommand Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszShellExecuteCommand Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that contains the full text of a command that can be passed to ShellExecute. This command should start the email application that owns the account referenced by <i>pszMailAddress</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -17103,8 +17259,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetUnreadMailCountW(pszMailAddress, dwCount, pszShellExecuteCommand) {
-        pszMailAddress := pszMailAddress is String? StrPtr(pszMailAddress) : pszMailAddress
-        pszShellExecuteCommand := pszShellExecuteCommand is String? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
+        pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
+        pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
         result := DllCall("SHELL32.dll\SHSetUnreadMailCountW", "ptr", pszMailAddress, "uint", dwCount, "ptr", pszShellExecuteCommand, "int")
         if(result != 0)
@@ -17115,19 +17271,21 @@ class Shell {
 
     /**
      * Uses CheckTokenMembership to test whether the given token is a member of the local group with the specified RID.
-     * @param {Pointer<Void>} hToken Type: <b>HANDLE</b>
+     * @param {HANDLE} hToken Type: <b>HANDLE</b>
      * 
      * A handle to the token. This value can be <b>NULL</b>.
      * @param {Integer} ulRID Type: <b>ULONG</b>
      * 
      * The RID of the local group for which membership is tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> on success, <b>FALSE</b> on failure.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shtesttokenmembership
      * @since windows5.1.2600
      */
     static SHTestTokenMembership(hToken, ulRID) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("SHELL32.dll\SHTestTokenMembership", "ptr", hToken, "uint", ulRID, "int")
         return result
     }
@@ -17157,7 +17315,7 @@ class Shell {
 
     /**
      * Initializes the network address control window class.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the initialization succeeded; or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-initnetworkaddresscontrol
@@ -17170,7 +17328,7 @@ class Shell {
 
     /**
      * Returns the type of media that is in the given drive.
-     * @param {Pointer<Char>} pszDrive Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszDrive Type: <b>PCWSTR</b>
      * 
      * The drive in which to check the media type.
      * @param {Pointer<UInt32>} pdwMediaContent Type: <b>DWORD*</b>
@@ -17183,7 +17341,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHGetDriveMedia(pszDrive, pdwMediaContent) {
-        pszDrive := pszDrive is String? StrPtr(pszDrive) : pszDrive
+        pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
 
         result := DllCall("SHELL32.dll\SHGetDriveMedia", "ptr", pszDrive, "uint*", pdwMediaContent, "int")
         if(result != 0)
@@ -17194,20 +17352,20 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character that matches the specified character. The comparison is case-sensitive.
-     * @param {Pointer<Byte>} pszStart Type: <b>PTSTR</b>
+     * @param {PSTR} pszStart Type: <b>PTSTR</b>
      * 
      * The address of the string to be searched.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to be used for comparison.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchra
      * @since windows5.0
      */
     static StrChrA(pszStart, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrA", "ptr", pszStart, "ushort", wMatch, "char*")
         return result
@@ -17215,20 +17373,20 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character that matches the specified character. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PTSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PTSTR</b>
      * 
      * The address of the string to be searched.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to be used for comparison.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchrw
      * @since windows5.0
      */
     static StrChrW(pszStart, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrW", "ptr", pszStart, "char", wMatch, "char*")
         return result
@@ -17236,20 +17394,20 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character that matches the specified character. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszStart Type: <b>PTSTR</b>
+     * @param {PSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the string to be searched.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to be used for comparison.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchria
      * @since windows5.0
      */
     static StrChrIA(pszStart, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrIA", "ptr", pszStart, "ushort", wMatch, "char*")
         return result
@@ -17257,20 +17415,20 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character that matches the specified character. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PTSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the string to be searched.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to be used for comparison.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchriw
      * @since windows5.0
      */
     static StrChrIW(pszStart, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrIW", "ptr", pszStart, "char", wMatch, "char*")
         return result
@@ -17278,7 +17436,7 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a specified character. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PWSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PWSTR</b>
      * 
      * A pointer to the string to be searched.
      * @param {Integer} wMatch Type: <b>WCHAR</b>
@@ -17287,14 +17445,14 @@ class Shell {
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters to search.
-     * @returns {Pointer<Char>} Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchrnw
      * @since windows5.1.2600
      */
     static StrChrNW(pszStart, wMatch, cchMax) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrNW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
         return result
@@ -17302,7 +17460,7 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a specified character. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PCWSTR</b>
      * 
      * A pointer to the string to be searched.
      * @param {Integer} wMatch Type: <b>WCHAR</b>
@@ -17311,14 +17469,14 @@ class Shell {
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters to search.
-     * @returns {Pointer<Char>} Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the character in the string if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strchrniw
      * @since windows6.0.6000
      */
     static StrChrNIW(pszStart, wMatch, cchMax) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
         result := DllCall("SHLWAPI.dll\StrChrNIW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
         return result
@@ -17326,10 +17484,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are the same. The comparison is case-sensitive. The StrNCmp macro differs from this function in name only.
-     * @param {Pointer<Byte>} psz1 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} psz2 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -17342,8 +17500,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNA(psz1, psz2, nChar) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpNA", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
@@ -17351,10 +17509,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are the same. The comparison is case-sensitive. The StrNCmp macro differs from this function in name only.
-     * @param {Pointer<Char>} psz1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -17367,8 +17525,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNW(psz1, psz2, nChar) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpNW", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
@@ -17376,10 +17534,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are the same. The comparison is not case-sensitive. The StrNCmpI macro differs from this function in name only.
-     * @param {Pointer<Byte>} psz1 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} psz2 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -17392,8 +17550,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNIA(psz1, psz2, nChar) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpNIA", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
@@ -17401,10 +17559,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are the same. The comparison is not case-sensitive. The StrNCmpI macro differs from this function in name only.
-     * @param {Pointer<Char>} psz1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -17417,8 +17575,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNIW(psz1, psz2, nChar) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpNIW", "ptr", psz1, "ptr", psz2, "int", nChar, "int")
         return result
@@ -17426,10 +17584,10 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of any of a group of characters. The search method is case-sensitive, and the terminating NULL character is included within the search pattern match.
-     * @param {Pointer<Byte>} pszStr Type: <b>PCTSTR</b>
+     * @param {PSTR} pszStr Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to search for.
      * @returns {Integer} Type: <b>int</b>
@@ -17439,8 +17597,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCSpnA(pszStr, pszSet) {
-        pszStr := pszStr is String? StrPtr(pszStr) : pszStr
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrCSpnA", "ptr", pszStr, "ptr", pszSet, "int")
         return result
@@ -17448,10 +17606,10 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of any of a group of characters. The search method is case-sensitive, and the terminating NULL character is included within the search pattern match.
-     * @param {Pointer<Char>} pszStr Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszStr Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to search for.
      * @returns {Integer} Type: <b>int</b>
@@ -17461,8 +17619,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCSpnW(pszStr, pszSet) {
-        pszStr := pszStr is String? StrPtr(pszStr) : pszStr
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrCSpnW", "ptr", pszStr, "ptr", pszSet, "int")
         return result
@@ -17470,10 +17628,10 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of any of a group of characters. The search method is not case-sensitive, and the terminating NULL character is included within the search pattern match.
-     * @param {Pointer<Byte>} pszStr Type: <b>PCTSTR</b>
+     * @param {PSTR} pszStr Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the characters to search for.
      * @returns {Integer} Type: <b>int</b>
@@ -17483,8 +17641,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCSpnIA(pszStr, pszSet) {
-        pszStr := pszStr is String? StrPtr(pszStr) : pszStr
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrCSpnIA", "ptr", pszStr, "ptr", pszSet, "int")
         return result
@@ -17492,10 +17650,10 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of any of a group of characters. The search method is not case-sensitive, and the terminating NULL character is included within the search pattern match.
-     * @param {Pointer<Char>} pszStr Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszStr Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the characters to search for.
      * @returns {Integer} Type: <b>int</b>
@@ -17505,8 +17663,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCSpnIW(pszStr, pszSet) {
-        pszStr := pszStr is String? StrPtr(pszStr) : pszStr
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrCSpnIW", "ptr", pszStr, "ptr", pszSet, "int")
         return result
@@ -17514,17 +17672,17 @@ class Shell {
 
     /**
      * Duplicates a string.
-     * @param {Pointer<Byte>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to a constant <b>null</b>-terminated character string.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the string that was copied, or <b>NULL</b> if the string cannot be copied.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strdupa
      * @since windows5.0
      */
     static StrDupA(pszSrch) {
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrDupA", "ptr", pszSrch, "char*")
         return result
@@ -17532,17 +17690,17 @@ class Shell {
 
     /**
      * Duplicates a string.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to a constant <b>null</b>-terminated character string.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the string that was copied, or <b>NULL</b> if the string cannot be copied.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strdupw
      * @since windows5.0
      */
     static StrDupW(pszSrch) {
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrDupW", "ptr", pszSrch, "char*")
         return result
@@ -17556,7 +17714,7 @@ class Shell {
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-tagsfbs_flags">SFBS_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-tagsfbs_flags">SFBS_FLAGS</a> enumeration values that specifies whether to round or truncate undisplayed digits. This value cannot be NULL.
-     * @param {Pointer<Char>} pszBuf Type: <b>PWSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that receives the converted string.
      * @param {Integer} cchBuf Type: <b>UINT</b>
@@ -17569,7 +17727,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static StrFormatByteSizeEx(ull, flags, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSizeEx", "uint", ull, "int", flags, "ptr", pszBuf, "uint", cchBuf, "int")
         if(result != 0)
@@ -17583,20 +17741,20 @@ class Shell {
      * @param {Integer} dw Type: <b>DWORD</b>
      * 
      * The numeric value to be converted.
-     * @param {Pointer<Byte>} pszBuf Type: <b>PSTR</b>
+     * @param {PSTR} pszBuf Type: <b>PSTR</b>
      * 
      * A pointer to a buffer that receives the converted string.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszBuf</i>, in characters.
-     * @returns {Pointer<Byte>} Type: <b>PSTR</b>
+     * @returns {PSTR} Type: <b>PSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strformatbytesizea
      * @since windows5.0
      */
     static StrFormatByteSizeA(dw, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSizeA", "uint", dw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
@@ -17607,20 +17765,20 @@ class Shell {
      * @param {Integer} qdw Type: <b>LONGLONG</b>
      * 
      * The numeric value to be converted.
-     * @param {Pointer<Byte>} pszBuf Type: <b>PSTR</b>
+     * @param {PSTR} pszBuf Type: <b>PSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszBuf</i>, in characters.
-     * @returns {Pointer<Byte>} Type: <b>PSTR</b>
+     * @returns {PSTR} Type: <b>PSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strformatbytesize64a
      * @since windows5.0
      */
     static StrFormatByteSize64A(qdw, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSize64A", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
@@ -17631,20 +17789,20 @@ class Shell {
      * @param {Integer} qdw Type: <b>LONGLONG</b>
      * 
      * The numeric value to be converted.
-     * @param {Pointer<Char>} pszBuf Type: <b>PWSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszBuf</i>, in characters.
-     * @returns {Pointer<Char>} Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strformatbytesizew
      * @since windows5.0
      */
     static StrFormatByteSizeW(qdw, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatByteSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
@@ -17655,20 +17813,20 @@ class Shell {
      * @param {Integer} qdw Type: <b>LONGLONG</b>
      * 
      * The numeric value to be converted.
-     * @param {Pointer<Char>} pszBuf Type: <b>PTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of <i>pszBuf</i>, in characters.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strformatkbsizew
      * @since windows5.0
      */
     static StrFormatKBSizeW(qdw, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatKBSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
@@ -17679,20 +17837,20 @@ class Shell {
      * @param {Integer} qdw Type: <b>LONGLONG</b>
      * 
      * The numeric value to be converted.
-     * @param {Pointer<Byte>} pszBuf Type: <b>PTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of <i>pszBuf</i>, in characters.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the converted string, or <b>NULL</b> if the conversion fails.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strformatkbsizea
      * @since windows5.0
      */
     static StrFormatKBSizeA(qdw, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrFormatKBSizeA", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
         return result
@@ -17700,7 +17858,7 @@ class Shell {
 
     /**
      * Converts a time interval, specified in milliseconds, to a string.
-     * @param {Pointer<Byte>} pszOut Type: <b>PTSTR</b>
+     * @param {PSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchMax Type: <b>UINT</b>
@@ -17760,7 +17918,7 @@ class Shell {
      * @since windows5.0
      */
     static StrFromTimeIntervalA(pszOut, cchMax, dwTimeMS, digits) {
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\StrFromTimeIntervalA", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits, "int")
         return result
@@ -17768,7 +17926,7 @@ class Shell {
 
     /**
      * Converts a time interval, specified in milliseconds, to a string.
-     * @param {Pointer<Char>} pszOut Type: <b>PTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted number.
      * @param {Integer} cchMax Type: <b>UINT</b>
@@ -17828,7 +17986,7 @@ class Shell {
      * @since windows5.0
      */
     static StrFromTimeIntervalW(pszOut, cchMax, dwTimeMS, digits) {
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\StrFromTimeIntervalW", "ptr", pszOut, "uint", cchMax, "uint", dwTimeMS, "int", digits, "int")
         return result
@@ -17836,27 +17994,27 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are equal.
-     * @param {Integer} fCaseSens Type: <b>BOOL</b>
+     * @param {BOOL} fCaseSens Type: <b>BOOL</b>
      * 
      * The case sensitivity of the comparison. If this value is nonzero, the comparison is case-sensitive. If this value is zero, the comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszString1 Type: <b>PCTSTR</b>
+     * @param {PSTR} pszString1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} pszString2 Type: <b>PCTSTR</b>
+     * @param {PSTR} pszString2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the first <i>nChar</i> characters from the two strings are equal; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strisintlequala
      * @since windows5.0
      */
     static StrIsIntlEqualA(fCaseSens, pszString1, pszString2, nChar) {
-        pszString1 := pszString1 is String? StrPtr(pszString1) : pszString1
-        pszString2 := pszString2 is String? StrPtr(pszString2) : pszString2
+        pszString1 := pszString1 is String ? StrPtr(pszString1) : pszString1
+        pszString2 := pszString2 is String ? StrPtr(pszString2) : pszString2
 
         result := DllCall("SHLWAPI.dll\StrIsIntlEqualA", "int", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "int")
         return result
@@ -17864,27 +18022,27 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings to determine if they are equal.
-     * @param {Integer} fCaseSens Type: <b>BOOL</b>
+     * @param {BOOL} fCaseSens Type: <b>BOOL</b>
      * 
      * The case sensitivity of the comparison. If this value is nonzero, the comparison is case-sensitive. If this value is zero, the comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszString1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszString1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} pszString2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszString2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters from the beginning of each string to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the first <i>nChar</i> characters from the two strings are equal; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strisintlequalw
      * @since windows5.0
      */
     static StrIsIntlEqualW(fCaseSens, pszString1, pszString2, nChar) {
-        pszString1 := pszString1 is String? StrPtr(pszString1) : pszString1
-        pszString2 := pszString2 is String? StrPtr(pszString2) : pszString2
+        pszString1 := pszString1 is String ? StrPtr(pszString1) : pszString1
+        pszString2 := pszString2 is String ? StrPtr(pszString2) : pszString2
 
         result := DllCall("SHLWAPI.dll\StrIsIntlEqualW", "int", fCaseSens, "ptr", pszString1, "ptr", pszString2, "int", nChar, "int")
         return result
@@ -17892,24 +18050,24 @@ class Shell {
 
     /**
      * Appends a specified number of characters from the beginning of one string to the end of another.
-     * @param {Pointer<Byte>} psz1 Type: <b>PTSTR</b>
+     * @param {PSTR} psz1 Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string to which the function appends the characters from <i>psz2</i>. It must be large enough to hold the combined strings plus the terminating null character.
-     * @param {Pointer<Byte>} psz2 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be appended.
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The number of characters to be appended to <i>psz1</i> from the beginning of <i>psz2</i>.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strncata
      * @since windows5.0
      */
     static StrNCatA(psz1, psz2, cchMax) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrNCatA", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
         return result
@@ -17917,24 +18075,24 @@ class Shell {
 
     /**
      * Appends a specified number of characters from the beginning of one string to the end of another.
-     * @param {Pointer<Char>} psz1 Type: <b>PTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string to which the function appends the characters from <i>psz2</i>. It must be large enough to hold the combined strings plus the terminating null character.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be appended.
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The number of characters to be appended to <i>psz1</i> from the beginning of <i>psz2</i>.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strncatw
      * @since windows5.0
      */
     static StrNCatW(psz1, psz2, cchMax) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrNCatW", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
         return result
@@ -17942,21 +18100,21 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character contained in a specified buffer. This search does not include the terminating null character.
-     * @param {Pointer<Byte>} psz Type: <b>PTSTR</b>
+     * @param {PSTR} psz Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the characters for which to search.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address in <i>psz</i> of the first occurrence of a character contained in the buffer at <i>pszSet</i>, or <b>NULL</b> if no match is found.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strpbrka
      * @since windows5.0
      */
     static StrPBrkA(psz, pszSet) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        psz := psz is String ? StrPtr(psz) : psz
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrPBrkA", "ptr", psz, "ptr", pszSet, "char*")
         return result
@@ -17964,21 +18122,21 @@ class Shell {
 
     /**
      * Searches a string for the first occurrence of a character contained in a specified buffer. This search does not include the terminating null character.
-     * @param {Pointer<Char>} psz Type: <b>PTSTR</b>
+     * @param {PWSTR} psz Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the characters for which to search.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address in <i>psz</i> of the first occurrence of a character contained in the buffer at <i>pszSet</i>, or <b>NULL</b> if no match is found.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strpbrkw
      * @since windows5.0
      */
     static StrPBrkW(psz, pszSet) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        psz := psz is String ? StrPtr(psz) : psz
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrPBrkW", "ptr", psz, "ptr", pszSet, "char*")
         return result
@@ -17986,24 +18144,24 @@ class Shell {
 
     /**
      * Searches a string for the last occurrence of a specified character. The comparison is case-sensitive.
-     * @param {Pointer<Byte>} pszStart Type: <b>PTSTR</b>
+     * @param {PSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Byte>} pszEnd Type: <b>PCTSTR</b>
+     * @param {PSTR} pszEnd Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszEnd</i> to point to a character in the string and the search will stop with the preceding character. Set <i>pszEnd</i> to <b>NULL</b> to search the entire string.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to search for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrchra
      * @since windows5.0
      */
     static StrRChrA(pszStart, pszEnd, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
-        pszEnd := pszEnd is String? StrPtr(pszEnd) : pszEnd
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
+        pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
         result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
         return result
@@ -18011,24 +18169,24 @@ class Shell {
 
     /**
      * Searches a string for the last occurrence of a specified character. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PTSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Char>} pszEnd Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszEnd Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszEnd</i> to point to a character in the string and the search will stop with the preceding character. Set <i>pszEnd</i> to <b>NULL</b> to search the entire string.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to search for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrchrw
      * @since windows5.0
      */
     static StrRChrW(pszStart, pszEnd, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
-        pszEnd := pszEnd is String? StrPtr(pszEnd) : pszEnd
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
+        pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
         result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
         return result
@@ -18036,24 +18194,24 @@ class Shell {
 
     /**
      * Searches a string for the last occurrence of a specified character. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszStart Type: <b>PTSTR</b>
+     * @param {PSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Byte>} pszEnd Type: <b>PCTSTR</b>
+     * @param {PSTR} pszEnd Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszEnd</i> to point to a character in the string and the search will stop with the preceding character. Set <i>pszEnd</i> to <b>NULL</b> to search the entire string.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to search for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrchria
      * @since windows5.0
      */
     static StrRChrIA(pszStart, pszEnd, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
-        pszEnd := pszEnd is String? StrPtr(pszEnd) : pszEnd
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
+        pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
         result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
         return result
@@ -18061,24 +18219,24 @@ class Shell {
 
     /**
      * Searches a string for the last occurrence of a specified character. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszStart Type: <b>PTSTR</b>
+     * @param {PWSTR} pszStart Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be searched.
-     * @param {Pointer<Char>} pszEnd Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszEnd Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszEnd</i> to point to a character in the string and the search will stop with the preceding character. Set <i>pszEnd</i> to <b>NULL</b> to search the entire string.
      * @param {Integer} wMatch Type: <b>TCHAR</b>
      * 
      * The character to search for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the last occurrence of the character in the string, if successful, or <b>NULL</b> if not.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrchriw
      * @since windows5.0
      */
     static StrRChrIW(pszStart, pszEnd, wMatch) {
-        pszStart := pszStart is String? StrPtr(pszStart) : pszStart
-        pszEnd := pszEnd is String? StrPtr(pszEnd) : pszEnd
+        pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
+        pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
         result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
         return result
@@ -18086,25 +18244,25 @@ class Shell {
 
     /**
      * Searches for the last occurrence of a specified substring within a string. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszSource Type: <b>PTSTR</b>
+     * @param {PSTR} pszSource Type: <b>PTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated source string.
-     * @param {Pointer<Byte>} pszLast Type: <b>PCTSTR</b>
+     * @param {PSTR} pszLast Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszLast</i> to point to a character in the source string, and the search will stop with the preceding character. Set <i>pszLast</i> to <b>NULL</b> to search the entire source string.
-     * @param {Pointer<Byte>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the last occurrence of the substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrstria
      * @since windows5.0
      */
     static StrRStrIA(pszSource, pszLast, pszSrch) {
-        pszSource := pszSource is String? StrPtr(pszSource) : pszSource
-        pszLast := pszLast is String? StrPtr(pszLast) : pszLast
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszSource := pszSource is String ? StrPtr(pszSource) : pszSource
+        pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
         return result
@@ -18112,25 +18270,25 @@ class Shell {
 
     /**
      * Searches for the last occurrence of a specified substring within a string. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszSource Type: <b>PTSTR</b>
+     * @param {PWSTR} pszSource Type: <b>PTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated source string.
-     * @param {Pointer<Char>} pszLast Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszLast Type: <b>PCTSTR</b>
      * 
      * A pointer into the source string that defines the range of the search. Set <i>pszLast</i> to point to a character in the source string, and the search will stop with the preceding character. Set <i>pszLast</i> to <b>NULL</b> to search the entire source string.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the last occurrence of the substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrstriw
      * @since windows5.0
      */
     static StrRStrIW(pszSource, pszLast, pszSrch) {
-        pszSource := pszSource is String? StrPtr(pszSource) : pszSource
-        pszLast := pszLast is String? StrPtr(pszLast) : pszLast
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszSource := pszSource is String ? StrPtr(pszSource) : pszSource
+        pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
         return result
@@ -18138,10 +18296,10 @@ class Shell {
 
     /**
      * Obtains the length of a substring within a string that consists entirely of characters contained in a specified buffer.
-     * @param {Pointer<Byte>} psz Type: <b>PCTSTR</b>
+     * @param {PSTR} psz Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string that is to be searched.
-     * @param {Pointer<Byte>} pszSet Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the set of characters for which to search.
      * @returns {Integer} Type: <b>int</b>
@@ -18151,8 +18309,8 @@ class Shell {
      * @since windows5.0
      */
     static StrSpnA(psz, pszSet) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        psz := psz is String ? StrPtr(psz) : psz
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrSpnA", "ptr", psz, "ptr", pszSet, "int")
         return result
@@ -18160,10 +18318,10 @@ class Shell {
 
     /**
      * Obtains the length of a substring within a string that consists entirely of characters contained in a specified buffer.
-     * @param {Pointer<Char>} psz Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string that is to be searched.
-     * @param {Pointer<Char>} pszSet Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSet Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated character buffer that contains the set of characters for which to search.
      * @returns {Integer} Type: <b>int</b>
@@ -18173,8 +18331,8 @@ class Shell {
      * @since windows5.0
      */
     static StrSpnW(psz, pszSet) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszSet := pszSet is String? StrPtr(pszSet) : pszSet
+        psz := psz is String ? StrPtr(psz) : psz
+        pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
         result := DllCall("SHLWAPI.dll\StrSpnW", "ptr", psz, "ptr", pszSet, "int")
         return result
@@ -18182,21 +18340,21 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is case-sensitive.
-     * @param {Pointer<Byte>} pszFirst Type: <b>PTSTR</b>
+     * @param {PSTR} pszFirst Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to search.
-     * @param {Pointer<Byte>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstra
      * @since windows5.0
      */
     static StrStrA(pszFirst, pszSrch) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrA", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
@@ -18204,21 +18362,21 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszFirst Type: <b>PTSTR</b>
+     * @param {PWSTR} pszFirst Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to search.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstrw
      * @since windows5.0
      */
     static StrStrW(pszFirst, pszSrch) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrW", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
@@ -18226,21 +18384,21 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszFirst Type: <b>PTSTR</b>
+     * @param {PSTR} pszFirst Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string being searched.
-     * @param {Pointer<Byte>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstria
      * @since windows5.0
      */
     static StrStrIA(pszFirst, pszSrch) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrIA", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
@@ -18248,21 +18406,21 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszFirst Type: <b>PTSTR</b>
+     * @param {PWSTR} pszFirst Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string being searched.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCTSTR</b>
      * 
      * A pointer to the substring to search for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstriw
      * @since windows5.0
      */
     static StrStrIW(pszFirst, pszSrch) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrIW", "ptr", pszFirst, "ptr", pszSrch, "char*")
         return result
@@ -18270,24 +18428,24 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszFirst Type: <b>PWSTR</b>
+     * @param {PWSTR} pszFirst Type: <b>PWSTR</b>
      * 
      * A pointer to the null-terminated, Unicode string that is being searched.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCWSTR</b>
      * 
      * A pointer to the null-terminated, Unicode substring that is being searched for.
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters from the beginning of the searched string in which to search for the substring.
-     * @returns {Pointer<Char>} Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstrnw
      * @since windows6.0.6000
      */
     static StrStrNW(pszFirst, pszSrch, cchMax) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrNW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
         return result
@@ -18295,24 +18453,24 @@ class Shell {
 
     /**
      * Finds the first occurrence of a substring within a string. The comparison is case-insensitive.
-     * @param {Pointer<Char>} pszFirst Type: <b>PWSTR</b>
+     * @param {PWSTR} pszFirst Type: <b>PWSTR</b>
      * 
      * A pointer to the null-terminated, Unicode string that is being searched.
-     * @param {Pointer<Char>} pszSrch Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSrch Type: <b>PCWSTR</b>
      * 
      * A pointer to the null-terminated, Unicode substring that is being searched for.
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters from the beginning of the searched string in which to search for the substring.
-     * @returns {Pointer<Char>} Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * Returns the address of the first occurrence of the matching substring if successful, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strstrniw
      * @since windows6.0.6000
      */
     static StrStrNIW(pszFirst, pszSrch, cchMax) {
-        pszFirst := pszFirst is String? StrPtr(pszFirst) : pszFirst
-        pszSrch := pszSrch is String? StrPtr(pszSrch) : pszSrch
+        pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
+        pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
         result := DllCall("SHLWAPI.dll\StrStrNIW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
         return result
@@ -18320,7 +18478,7 @@ class Shell {
 
     /**
      * Converts a string that represents a decimal value to an integer. The StrToLong macro is identical to this function.
-     * @param {Pointer<Byte>} pszSrc Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrc Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be converted. A valid string representing a decimal value contains only the characters 0-9 and must have the following form to be parsed successfully.
      *                     
@@ -18335,7 +18493,7 @@ class Shell {
      * @since windows5.0
      */
     static StrToIntA(pszSrc) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrToIntA", "ptr", pszSrc, "int")
         return result
@@ -18343,7 +18501,7 @@ class Shell {
 
     /**
      * Converts a string that represents a decimal value to an integer. The StrToLong macro is identical to this function.
-     * @param {Pointer<Char>} pszSrc Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be converted. A valid string representing a decimal value contains only the characters 0-9 and must have the following form to be parsed successfully.
      *                     
@@ -18358,7 +18516,7 @@ class Shell {
      * @since windows5.0
      */
     static StrToIntW(pszSrc) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrToIntW", "ptr", pszSrc, "int")
         return result
@@ -18366,7 +18524,7 @@ class Shell {
 
     /**
      * Converts a string representing a decimal or hexadecimal number to an integer.
-     * @param {Pointer<Byte>} pszString Type: <b>PCTSTR</b>
+     * @param {PSTR} pszString Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
@@ -18379,14 +18537,14 @@ class Shell {
      * If this function returns <b>FALSE</b>, this value is undefined.
      * 
      * If the value returned is too large to be contained in a variable of type <b>int</b>, this parameter contains the 32 low-order bits of the value. Any high-order bits beyond that are lost.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtointexa
      * @since windows5.0
      */
     static StrToIntExA(pszString, dwFlags, piRet) {
-        pszString := pszString is String? StrPtr(pszString) : pszString
+        pszString := pszString is String ? StrPtr(pszString) : pszString
 
         result := DllCall("SHLWAPI.dll\StrToIntExA", "ptr", pszString, "int", dwFlags, "int*", piRet, "int")
         return result
@@ -18394,7 +18552,7 @@ class Shell {
 
     /**
      * Converts a string representing a decimal or hexadecimal number to an integer.
-     * @param {Pointer<Char>} pszString Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszString Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
@@ -18407,14 +18565,14 @@ class Shell {
      * If this function returns <b>FALSE</b>, this value is undefined.
      * 
      * If the value returned is too large to be contained in a variable of type <b>int</b>, this parameter contains the 32 low-order bits of the value. Any high-order bits beyond that are lost.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtointexw
      * @since windows5.0
      */
     static StrToIntExW(pszString, dwFlags, piRet) {
-        pszString := pszString is String? StrPtr(pszString) : pszString
+        pszString := pszString is String ? StrPtr(pszString) : pszString
 
         result := DllCall("SHLWAPI.dll\StrToIntExW", "ptr", pszString, "int", dwFlags, "int*", piRet, "int")
         return result
@@ -18422,7 +18580,7 @@ class Shell {
 
     /**
      * Converts a string representing a decimal or hexadecimal value to a 64-bit integer.
-     * @param {Pointer<Byte>} pszString Type: <b>PCTSTR</b>
+     * @param {PSTR} pszString Type: <b>PCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
@@ -18435,14 +18593,14 @@ class Shell {
      * If this function returns <b>FALSE</b>, this value is undefined.
      * 
      * If the value returned is too large to be contained in a variable of type <b>LONGLONG</b>, this parameter contains the 64 low-order bits of the value. Any high-order bits beyond that are lost.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtoint64exa
      * @since windows5.0
      */
     static StrToInt64ExA(pszString, dwFlags, pllRet) {
-        pszString := pszString is String? StrPtr(pszString) : pszString
+        pszString := pszString is String ? StrPtr(pszString) : pszString
 
         result := DllCall("SHLWAPI.dll\StrToInt64ExA", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "int")
         return result
@@ -18450,7 +18608,7 @@ class Shell {
 
     /**
      * Converts a string representing a decimal or hexadecimal value to a 64-bit integer.
-     * @param {Pointer<Char>} pszString Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszString Type: <b>PCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string to be converted. For further details concerning the valid forms of the string, see the Remarks section.
      * @param {Integer} dwFlags Type: <b>STIF_FLAGS</b>
@@ -18463,14 +18621,14 @@ class Shell {
      * If this function returns <b>FALSE</b>, this value is undefined.
      * 
      * If the value returned is too large to be contained in a variable of type <b>LONGLONG</b>, this parameter contains the 64 low-order bits of the value. Any high-order bits beyond that are lost.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is converted; otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtoint64exw
      * @since windows5.0
      */
     static StrToInt64ExW(pszString, dwFlags, pllRet) {
-        pszString := pszString is String? StrPtr(pszString) : pszString
+        pszString := pszString is String ? StrPtr(pszString) : pszString
 
         result := DllCall("SHLWAPI.dll\StrToInt64ExW", "ptr", pszString, "int", dwFlags, "int64*", pllRet, "int")
         return result
@@ -18478,21 +18636,21 @@ class Shell {
 
     /**
      * Removes specified leading and trailing characters from a string.
-     * @param {Pointer<Byte>} psz Type: <b>PTSTR</b>
+     * @param {PSTR} psz Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be trimmed. When this function returns successfully, <i>psz</i> receives the trimmed string.
-     * @param {Pointer<Byte>} pszTrimChars Type: <b>PCTSTR</b>
+     * @param {PSTR} pszTrimChars Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to trim from <i>psz</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if any characters were removed; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtrima
      * @since windows5.0
      */
     static StrTrimA(psz, pszTrimChars) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszTrimChars := pszTrimChars is String? StrPtr(pszTrimChars) : pszTrimChars
+        psz := psz is String ? StrPtr(psz) : psz
+        pszTrimChars := pszTrimChars is String ? StrPtr(pszTrimChars) : pszTrimChars
 
         result := DllCall("SHLWAPI.dll\StrTrimA", "ptr", psz, "ptr", pszTrimChars, "int")
         return result
@@ -18500,21 +18658,21 @@ class Shell {
 
     /**
      * Removes specified leading and trailing characters from a string.
-     * @param {Pointer<Char>} psz Type: <b>PTSTR</b>
+     * @param {PWSTR} psz Type: <b>PTSTR</b>
      * 
      * A pointer to the null-terminated string to be trimmed. When this function returns successfully, <i>psz</i> receives the trimmed string.
-     * @param {Pointer<Char>} pszTrimChars Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszTrimChars Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the characters to trim from <i>psz</i>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if any characters were removed; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strtrimw
      * @since windows5.0
      */
     static StrTrimW(psz, pszTrimChars) {
-        psz := psz is String? StrPtr(psz) : psz
-        pszTrimChars := pszTrimChars is String? StrPtr(pszTrimChars) : pszTrimChars
+        psz := psz is String ? StrPtr(psz) : psz
+        pszTrimChars := pszTrimChars is String ? StrPtr(pszTrimChars) : pszTrimChars
 
         result := DllCall("SHLWAPI.dll\StrTrimW", "ptr", psz, "ptr", pszTrimChars, "int")
         return result
@@ -18522,21 +18680,21 @@ class Shell {
 
     /**
      * Appends one string to another.
-     * @param {Pointer<Char>} psz1 Type: <b>PTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string. When this function returns successfully, this string contains its original content with the string <i>psz2</i> appended. This buffer must be large enough to hold both strings and the terminating null character.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string to be appended to <i>psz1</i>.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>, which holds the combined strings.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strcatw
      * @since windows5.0
      */
     static StrCatW(psz1, psz2) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCatW", "ptr", psz1, "ptr", psz2, "char*")
         return result
@@ -18544,10 +18702,10 @@ class Shell {
 
     /**
      * Compares two strings to determine if they are the same. The comparison is case-sensitive.
-     * @param {Pointer<Char>} psz1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -18557,8 +18715,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpW(psz1, psz2) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpW", "ptr", psz1, "ptr", psz2, "int")
         return result
@@ -18566,10 +18724,10 @@ class Shell {
 
     /**
      * Compares two strings to determine if they are the same. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} psz1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -18579,8 +18737,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpIW(psz1, psz2) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpIW", "ptr", psz1, "ptr", psz2, "int")
         return result
@@ -18588,21 +18746,21 @@ class Shell {
 
     /**
      * Copies one string to another.
-     * @param {Pointer<Char>} psz1 Type: <b>PTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the copied string. This string is not guaranteed to be null-terminated.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated source string.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>psz1</i>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strcpyw
      * @since windows5.0
      */
     static StrCpyW(psz1, psz2) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCpyW", "ptr", psz1, "ptr", psz2, "char*")
         return result
@@ -18610,24 +18768,24 @@ class Shell {
 
     /**
      * Copies a specified number of characters from the beginning of one string to another.Note  Do not use this function or the StrNCpy macro.
-     * @param {Pointer<Char>} pszDst Type: <b>PTSTR</b>
+     * @param {PWSTR} pszDst Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the copied string. This buffer must be of sufficient size to hold the copied characters. This string is not guaranteed to be null-terminated.
-     * @param {Pointer<Char>} pszSrc Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>PCTSTR</b>
      * 
      * A pointer to the null-terminated source string.
      * @param {Integer} cchMax Type: <b>int</b>
      * 
      * The number of characters to be copied, including the terminating null character.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to <i>pszDst</i>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strcpynw
      * @since windows5.0
      */
     static StrCpyNW(pszDst, pszSrc, cchMax) {
-        pszDst := pszDst is String? StrPtr(pszDst) : pszDst
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrCpyNW", "ptr", pszDst, "ptr", pszSrc, "int", cchMax, "char*")
         return result
@@ -18635,24 +18793,24 @@ class Shell {
 
     /**
      * Copies and appends characters from one string to the end of another.
-     * @param {Pointer<Char>} pszDest Type: <b>PTSTR</b>
+     * @param {PWSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string. When this function returns successfully, this string contains its original content with the string <i>pszSrc</i> appended.
-     * @param {Pointer<Char>} pszSrc Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>PCTSTR</b>
      * 
      * A pointer to the string to be appended to <i>pszDest</i>.
      * @param {Integer} cchDestBuffSize Type: <b>int</b>
      * 
      * The size of the buffer, in characters, pointed to by <i>pszDest</i>. This value must be at least the length of the combined string plus the terminating null character. If the buffer is too small to fit the entire string, the string will be truncated.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the destination string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strcatbuffw
      * @since windows5.0
      */
     static StrCatBuffW(pszDest, pszSrc, cchDestBuffSize) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrCatBuffW", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
         return result
@@ -18660,24 +18818,24 @@ class Shell {
 
     /**
      * Copies and appends characters from one string to the end of another.
-     * @param {Pointer<Byte>} pszDest Type: <b>PTSTR</b>
+     * @param {PSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string. When this function returns successfully, this string contains its original content with the string <i>pszSrc</i> appended.
-     * @param {Pointer<Byte>} pszSrc Type: <b>PCTSTR</b>
+     * @param {PSTR} pszSrc Type: <b>PCTSTR</b>
      * 
      * A pointer to the string to be appended to <i>pszDest</i>.
      * @param {Integer} cchDestBuffSize Type: <b>int</b>
      * 
      * The size of the buffer, in characters, pointed to by <i>pszDest</i>. This value must be at least the length of the combined string plus the terminating null character. If the buffer is too small to fit the entire string, the string will be truncated.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the destination string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strcatbuffa
      * @since windows5.0
      */
     static StrCatBuffA(pszDest, pszSrc, cchDestBuffSize) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrCatBuffA", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
         return result
@@ -18691,7 +18849,7 @@ class Shell {
      * @param {Integer} w2 Type: <b>TCHAR</b>
      * 
      * The second character to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns zero if the two characters are the same, or nonzero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-chrcmpia
@@ -18710,7 +18868,7 @@ class Shell {
      * @param {Integer} w2 Type: <b>TCHAR</b>
      * 
      * The second character to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns zero if the two characters are the same, or nonzero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-chrcmpiw
@@ -18723,13 +18881,13 @@ class Shell {
 
     /**
      * Takes a list of arguments and returns the values of the arguments as a printf-style formatted string.
-     * @param {Pointer<Byte>} pszDest Type: <b>PTSTR</b>
+     * @param {PSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the output string.
      * @param {Integer} cchDest Type: <b>int</b>
      * 
      * The maximum number of characters allowed in <i>pszDest</i>.
-     * @param {Pointer<Byte>} pszFmt Type: <b>PCTSTR</b>
+     * @param {PSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
@@ -18742,8 +18900,8 @@ class Shell {
      * @since windows5.0
      */
     static wvnsprintfA(pszDest, cchDest, pszFmt, arglist) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
         result := DllCall("SHLWAPI.dll\wvnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist, "int")
         return result
@@ -18751,13 +18909,13 @@ class Shell {
 
     /**
      * Takes a list of arguments and returns the values of the arguments as a printf-style formatted string.
-     * @param {Pointer<Char>} pszDest Type: <b>PTSTR</b>
+     * @param {PWSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the output string.
      * @param {Integer} cchDest Type: <b>int</b>
      * 
      * The maximum number of characters allowed in <i>pszDest</i>.
-     * @param {Pointer<Char>} pszFmt Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
      * @param {Pointer<SByte>} arglist Type: <b>va_list</b>
@@ -18770,8 +18928,8 @@ class Shell {
      * @since windows5.0
      */
     static wvnsprintfW(pszDest, cchDest, pszFmt, arglist) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
         result := DllCall("SHLWAPI.dll\wvnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "char*", arglist, "int")
         return result
@@ -18779,13 +18937,13 @@ class Shell {
 
     /**
      * Takes a variable-length argument list and returns the values of the arguments as a printf-style formatted string.
-     * @param {Pointer<Byte>} pszDest Type: <b>PTSTR</b>
+     * @param {PSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the output string.
      * @param {Integer} cchDest Type: <b>int</b>
      * 
      * The maximum number of characters allowed in <i>pszDest</i>.
-     * @param {Pointer<Byte>} pszFmt Type: <b>PCTSTR</b>
+     * @param {PSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
      * @returns {Integer} Type: <b>int</b>
@@ -18795,8 +18953,8 @@ class Shell {
      * @since windows5.0
      */
     static wnsprintfA(pszDest, cchDest, pszFmt) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
         result := DllCall("SHLWAPI.dll\wnsprintfA", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
         return result
@@ -18804,13 +18962,13 @@ class Shell {
 
     /**
      * Takes a variable-length argument list and returns the values of the arguments as a printf-style formatted string.
-     * @param {Pointer<Char>} pszDest Type: <b>PTSTR</b>
+     * @param {PWSTR} pszDest Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the output string.
      * @param {Integer} cchDest Type: <b>int</b>
      * 
      * The maximum number of characters allowed in <i>pszDest</i>.
-     * @param {Pointer<Char>} pszFmt Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszFmt Type: <b>PCTSTR</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/printf">printf</a>-style format string. The %s format identifier should never be used in an unbounded form. To avoid potential buffer overruns, always specify a size; for instance "%32s".
      * @returns {Integer} Type: <b>int</b>
@@ -18820,8 +18978,8 @@ class Shell {
      * @since windows5.0
      */
     static wnsprintfW(pszDest, cchDest, pszFmt) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszFmt := pszFmt is String? StrPtr(pszFmt) : pszFmt
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszFmt := pszFmt is String ? StrPtr(pszFmt) : pszFmt
 
         result := DllCall("SHLWAPI.dll\wnsprintfW", "ptr", pszDest, "int", cchDest, "ptr", pszFmt, "CDecl int")
         return result
@@ -18835,7 +18993,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} ppsz Type: <b>LPTSTR*</b>
+     * @param {Pointer<PSTR>} ppsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -18860,7 +19018,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} ppsz Type: <b>LPTSTR*</b>
+     * @param {Pointer<PWSTR>} ppsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -18885,7 +19043,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
-     * @param {Pointer<Byte>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A buffer to hold the display name. It will be returned as a null-terminated string. If <i>cchBuf</i> is too small, the name will be truncated to fit.
      * @param {Integer} cchBuf Type: <b>UINT</b>
@@ -18898,7 +19056,7 @@ class Shell {
      * @since windows5.0
      */
     static StrRetToBufA(pstr, pidl, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufA", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
         if(result != 0)
@@ -18915,7 +19073,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure.
-     * @param {Pointer<Char>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A buffer to hold the display name. It will be returned as a null-terminated string. If <i>cchBuf</i> is too small, the name will be truncated to fit.
      * @param {Integer} cchBuf Type: <b>UINT</b>
@@ -18928,7 +19086,7 @@ class Shell {
      * @since windows5.0
      */
     static StrRetToBufW(pstr, pidl, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\StrRetToBufW", "ptr", pstr, "ptr", pidl, "ptr", pszBuf, "uint", cchBuf, "int")
         if(result != 0)
@@ -18939,10 +19097,10 @@ class Shell {
 
     /**
      * Makes a copy of a string in newly allocated memory.
-     * @param {Pointer<Byte>} psz Type: <b>LPCTSTR</b>
+     * @param {PSTR} psz Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string to be copied.
-     * @param {Pointer<Char>} ppwsz Type: <b>LPTSTR*</b>
+     * @param {Pointer<PWSTR>} ppwsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated Unicode string that contains the result. <b>SHStrDup</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * 
@@ -18956,7 +19114,7 @@ class Shell {
      * @since windows5.0
      */
     static SHStrDupA(psz, ppwsz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupA", "ptr", psz, "ptr", ppwsz, "int")
         if(result != 0)
@@ -18967,10 +19125,10 @@ class Shell {
 
     /**
      * Makes a copy of a string in newly allocated memory.
-     * @param {Pointer<Char>} psz Type: <b>LPCTSTR</b>
+     * @param {PWSTR} psz Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string to be copied.
-     * @param {Pointer<Char>} ppwsz Type: <b>LPTSTR*</b>
+     * @param {Pointer<PWSTR>} ppwsz Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated Unicode string that contains the result. <b>SHStrDup</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * 
@@ -18984,7 +19142,7 @@ class Shell {
      * @since windows5.0
      */
     static SHStrDupW(psz, ppwsz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\SHStrDupW", "ptr", psz, "ptr", ppwsz, "int")
         if(result != 0)
@@ -18995,10 +19153,10 @@ class Shell {
 
     /**
      * Compares two Unicode strings. Digits in the strings are considered as numerical content rather than text. This test is not case-sensitive.
-     * @param {Pointer<Char>} psz1 Type: <b>PCWSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCWSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} psz2 Type: <b>PCWSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCWSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -19012,8 +19170,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static StrCmpLogicalW(psz1, psz2) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\StrCmpLogicalW", "ptr", psz1, "ptr", psz2, "int")
         return result
@@ -19021,7 +19179,7 @@ class Shell {
 
     /**
      * Concatenates two Unicode strings. Used when repeated concatenations to the same buffer are required.
-     * @param {Pointer<Char>} pszDst Type: <b>PWSTR</b>
+     * @param {PWSTR} pszDst Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the null-terminated, Unicode string.
      * @param {Integer} cchDst Type: <b>DWORD</b>
@@ -19030,7 +19188,7 @@ class Shell {
      * @param {Integer} ichAt Type: <b>DWORD</b>
      * 
      * The offset into the destination buffer at which to begin the append action. If the string is not empty, set this value to -1 to have the current number of filled characters (not including the terminating null character) calculated for you.
-     * @param {Pointer<Char>} pszSrc Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>PCWSTR</b>
      * 
      * A pointer to the null-terminated Unicode source string.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -19040,8 +19198,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static StrCatChainW(pszDst, cchDst, ichAt, pszSrc) {
-        pszDst := pszDst is String? StrPtr(pszDst) : pszDst
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\StrCatChainW", "ptr", pszDst, "uint", cchDst, "uint", ichAt, "ptr", pszSrc, "uint")
         return result
@@ -19055,7 +19213,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that uniquely identifies a file object or subfolder relative to the parent folder. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pbstr Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @param {Pointer<BSTR>} pbstr Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * A pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that receives the converted string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -19074,10 +19232,10 @@ class Shell {
 
     /**
      * Extracts a specified text resource when given that resource in the form of an indirect string (a string that begins with the '@' symbol).
-     * @param {Pointer<Char>} pszSource Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszSource Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the indirect string from which the resource will be retrieved. This string should begin with the '@' symbol and use one of the forms discussed in the Remarks section. This function will successfully accept a string that does not begin with an '@' symbol, but the string will be simply passed unchanged to <i>pszOutBuf</i>.
-     * @param {Pointer<Char>} pszOutBuf Type: <b>PWSTR</b>
+     * @param {PWSTR} pszOutBuf Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the text resource. Both <i>pszOutBuf</i> and <i>pszSource</i> can point to the same buffer, in which case the original string will be overwritten.
      * @param {Integer} cchOutBuf Type: <b>UINT</b>
@@ -19092,8 +19250,8 @@ class Shell {
     static SHLoadIndirectString(pszSource, pszOutBuf, cchOutBuf) {
         static ppvReserved := 0 ;Reserved parameters must always be NULL
 
-        pszSource := pszSource is String? StrPtr(pszSource) : pszSource
-        pszOutBuf := pszOutBuf is String? StrPtr(pszOutBuf) : pszOutBuf
+        pszSource := pszSource is String ? StrPtr(pszSource) : pszSource
+        pszOutBuf := pszOutBuf is String ? StrPtr(pszOutBuf) : pszOutBuf
 
         result := DllCall("SHLWAPI.dll\SHLoadIndirectString", "ptr", pszSource, "ptr", pszOutBuf, "uint", cchOutBuf, "ptr", ppvReserved, "int")
         if(result != 0)
@@ -19104,10 +19262,10 @@ class Shell {
 
     /**
      * Determines whether a character represents a space.
-     * @param {Integer} wch Type: <b>TCHAR</b>
+     * @param {CHAR} wch Type: <b>TCHAR</b>
      * 
      * A single character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the character is a space; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-ischarspacea
@@ -19123,7 +19281,7 @@ class Shell {
      * @param {Integer} wch Type: <b>TCHAR</b>
      * 
      * A single character.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the character is a space; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-ischarspacew
@@ -19136,10 +19294,10 @@ class Shell {
 
     /**
      * Compares strings using C run-time (ASCII) collation rules. The comparison is case-sensitive.
-     * @param {Pointer<Byte>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -19149,8 +19307,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpCA(pszStr1, pszStr2) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpCA", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
@@ -19158,10 +19316,10 @@ class Shell {
 
     /**
      * Compares strings using C run-time (ASCII) collation rules. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -19171,8 +19329,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpCW(pszStr1, pszStr2) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpCW", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
@@ -19180,10 +19338,10 @@ class Shell {
 
     /**
      * Compares two strings using C run-time (ASCII) collation rules. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -19193,8 +19351,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpICA(pszStr1, pszStr2) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpICA", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
@@ -19202,10 +19360,10 @@ class Shell {
 
     /**
      * Compares two strings using C run-time (ASCII) collation rules. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @returns {Integer} Type: <b>int</b>
@@ -19215,8 +19373,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpICW(pszStr1, pszStr2) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpICW", "ptr", pszStr1, "ptr", pszStr2, "int")
         return result
@@ -19224,10 +19382,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings using C run-time (ASCII) collation rules. The comparison is case-sensitive.
-     * @param {Pointer<Byte>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -19240,8 +19398,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNCA(pszStr1, pszStr2, nChar) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpNCA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
@@ -19249,10 +19407,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings using C run-time (ASCII) collation rules. The comparison is case-sensitive.
-     * @param {Pointer<Char>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -19265,8 +19423,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNCW(pszStr1, pszStr2, nChar) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpNCW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
@@ -19274,10 +19432,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings using C run-time (ASCII) collation rules. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Byte>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -19290,8 +19448,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNICA(pszStr1, pszStr2, nChar) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpNICA", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
@@ -19299,10 +19457,10 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two strings using C run-time (ASCII) collation rules. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszStr1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the first null-terminated string to be compared.
-     * @param {Pointer<Char>} pszStr2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszStr2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to the second null-terminated string to be compared.
      * @param {Integer} nChar Type: <b>int</b>
@@ -19315,8 +19473,8 @@ class Shell {
      * @since windows5.0
      */
     static StrCmpNICW(pszStr1, pszStr2, nChar) {
-        pszStr1 := pszStr1 is String? StrPtr(pszStr1) : pszStr1
-        pszStr2 := pszStr2 is String? StrPtr(pszStr2) : pszStr2
+        pszStr1 := pszStr1 is String ? StrPtr(pszStr1) : pszStr1
+        pszStr2 := pszStr2 is String ? StrPtr(pszStr2) : pszStr2
 
         result := DllCall("SHLWAPI.dll\StrCmpNICW", "ptr", pszStr1, "ptr", pszStr2, "int", nChar, "int")
         return result
@@ -19324,27 +19482,27 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two localized strings.
-     * @param {Integer} fCaseSens Type: <b>BOOL</b>
+     * @param {BOOL} fCaseSens Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> for a case-sensitive comparison, or to <b>FALSE</b> for a case-insensitive comparison.
-     * @param {Pointer<Byte>} lpString1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string.
-     * @param {Pointer<Byte>} lpString2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} lpString2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string.
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters to be compared, starting from the beginning of the strings.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the first <i>nChar</i> characters are identical, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-intlstreqworkera
      * @since windows5.0
      */
     static IntlStrEqWorkerA(fCaseSens, lpString1, lpString2, nChar) {
-        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
-        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+        lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
         result := DllCall("SHLWAPI.dll\IntlStrEqWorkerA", "int", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "int")
         return result
@@ -19352,27 +19510,27 @@ class Shell {
 
     /**
      * Compares a specified number of characters from the beginning of two localized strings.
-     * @param {Integer} fCaseSens Type: <b>BOOL</b>
+     * @param {BOOL} fCaseSens Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> for a case-sensitive comparison, or to <b>FALSE</b> for a case-insensitive comparison.
-     * @param {Pointer<Char>} lpString1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string.
-     * @param {Pointer<Char>} lpString2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} lpString2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string.
      * @param {Integer} nChar Type: <b>int</b>
      * 
      * The number of characters to be compared, starting from the beginning of the strings.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the first <i>nChar</i> characters are identical, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-intlstreqworkerw
      * @since windows5.0
      */
     static IntlStrEqWorkerW(fCaseSens, lpString1, lpString2, nChar) {
-        lpString1 := lpString1 is String? StrPtr(lpString1) : lpString1
-        lpString2 := lpString2 is String? StrPtr(lpString2) : lpString2
+        lpString1 := lpString1 is String ? StrPtr(lpString1) : lpString1
+        lpString2 := lpString2 is String ? StrPtr(lpString2) : lpString2
 
         result := DllCall("SHLWAPI.dll\IntlStrEqWorkerW", "int", fCaseSens, "ptr", lpString1, "ptr", lpString2, "int", nChar, "int")
         return result
@@ -19380,17 +19538,17 @@ class Shell {
 
     /**
      * Adds a backslash to the end of a string to create the correct syntax for a path.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer with a string that represents a path. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the new string's terminating null character. If the backslash could not be appended due to inadequate buffer size, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathaddbackslasha
      * @since windows5.0
      */
     static PathAddBackslashA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathAddBackslashA", "ptr", pszPath, "char*")
         return result
@@ -19398,17 +19556,17 @@ class Shell {
 
     /**
      * Adds a backslash to the end of a string to create the correct syntax for a path.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer with a string that represents a path. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the new string's terminating null character. If the backslash could not be appended due to inadequate buffer size, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathaddbackslashw
      * @since windows5.0
      */
     static PathAddBackslashW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathAddBackslashW", "ptr", pszPath, "char*")
         return result
@@ -19416,21 +19574,21 @@ class Shell {
 
     /**
      * Adds a file name extension to a path string.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer with the null-terminated string to which the file name extension will be appended. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Byte>} pszExt Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExt Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file name extension. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if an extension was added, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathaddextensiona
      * @since windows5.0
      */
     static PathAddExtensionA(pszPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\PathAddExtensionA", "ptr", pszPath, "ptr", pszExt, "int")
         return result
@@ -19438,21 +19596,21 @@ class Shell {
 
     /**
      * Adds a file name extension to a path string.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer with the null-terminated string to which the file name extension will be appended. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Char>} pszExt Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExt Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file name extension. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if an extension was added, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathaddextensionw
      * @since windows5.0
      */
     static PathAddExtensionW(pszPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\PathAddExtensionW", "ptr", pszPath, "ptr", pszExt, "int")
         return result
@@ -19460,21 +19618,21 @@ class Shell {
 
     /**
      * Appends one path to the end of another.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string to which the path specified in <i>pszMore</i> is appended. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Byte>} pszMore Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszMore Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be appended.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathappenda
      * @since windows5.0
      */
     static PathAppendA(pszPath, pszMore) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("SHLWAPI.dll\PathAppendA", "ptr", pszPath, "ptr", pszMore, "int")
         return result
@@ -19482,21 +19640,21 @@ class Shell {
 
     /**
      * Appends one path to the end of another.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string to which the path specified in <i>pszMore</i> is appended. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Char>} pszMore Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszMore Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be appended.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathappendw
      * @since windows5.0
      */
     static PathAppendW(pszPath, pszMore) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("SHLWAPI.dll\PathAppendW", "ptr", pszPath, "ptr", pszMore, "int")
         return result
@@ -19504,20 +19662,20 @@ class Shell {
 
     /**
      * Creates a root path from a given drive number.
-     * @param {Pointer<Byte>} pszRoot Type: <b>LPTSTR</b>
+     * @param {PSTR} pszRoot Type: <b>LPTSTR</b>
      * 
      * A pointer to the string that receives the constructed root path. This buffer must be at least four characters in size.
      * @param {Integer} iDrive Type: <b>int</b>
      * 
      * A variable of type <b>int</b> that indicates the desired drive number. It should be between 0 and 25.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * Returns the address of the constructed root path. If the call fails for any reason (for example, an invalid drive number), <i>szRoot</i> is returned unchanged.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathbuildroota
      * @since windows5.0
      */
     static PathBuildRootA(pszRoot, iDrive) {
-        pszRoot := pszRoot is String? StrPtr(pszRoot) : pszRoot
+        pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
         result := DllCall("SHLWAPI.dll\PathBuildRootA", "ptr", pszRoot, "int", iDrive, "char*")
         return result
@@ -19525,20 +19683,20 @@ class Shell {
 
     /**
      * Creates a root path from a given drive number.
-     * @param {Pointer<Char>} pszRoot Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszRoot Type: <b>LPTSTR</b>
      * 
      * A pointer to the string that receives the constructed root path. This buffer must be at least four characters in size.
      * @param {Integer} iDrive Type: <b>int</b>
      * 
      * A variable of type <b>int</b> that indicates the desired drive number. It should be between 0 and 25.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * Returns the address of the constructed root path. If the call fails for any reason (for example, an invalid drive number), <i>szRoot</i> is returned unchanged.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathbuildrootw
      * @since windows5.0
      */
     static PathBuildRootW(pszRoot, iDrive) {
-        pszRoot := pszRoot is String? StrPtr(pszRoot) : pszRoot
+        pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
         result := DllCall("SHLWAPI.dll\PathBuildRootW", "ptr", pszRoot, "int", iDrive, "char*")
         return result
@@ -19546,21 +19704,21 @@ class Shell {
 
     /**
      * Simplifies a path by removing navigation elements such as &quot;.&quot; and &quot;..&quot; to produce a direct, well-formed path.
-     * @param {Pointer<Byte>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the canonicalized path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be canonicalized.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a result has been computed and the content of the <i>lpszDst</i> output buffer is valid. Returns <b>FALSE</b> otherwise, and the contents of the buffer pointed to by <i>lpszDst</i> are invalid. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcanonicalizea
      * @since windows5.0
      */
     static PathCanonicalizeA(pszBuf, pszPath) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         A_LastError := 0
 
@@ -19573,21 +19731,21 @@ class Shell {
 
     /**
      * Simplifies a path by removing navigation elements such as &quot;.&quot; and &quot;..&quot; to produce a direct, well-formed path.
-     * @param {Pointer<Char>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the canonicalized path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be canonicalized.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a result has been computed and the content of the <i>lpszDst</i> output buffer is valid. Returns <b>FALSE</b> otherwise, and the contents of the buffer pointed to by <i>lpszDst</i> are invalid. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcanonicalizew
      * @since windows5.0
      */
     static PathCanonicalizeW(pszBuf, pszPath) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         A_LastError := 0
 
@@ -19600,25 +19758,25 @@ class Shell {
 
     /**
      * Concatenates two strings that represent properly formed paths into one path; also concatenates any relative path elements.
-     * @param {Pointer<Byte>} pszDest Type: <b>LPTSTR</b>
+     * @param {PSTR} pszDest Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the combined path string. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Byte>} pszDir Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the first path. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the second path. This value can be <b>NULL</b>.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the concatenated path string. This is the same string pointed to by <i>pszPathOut</i>. If this function does not return successfully, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcombinea
      * @since windows5.0
      */
     static PathCombineA(pszDest, pszDir, pszFile) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
         return result
@@ -19626,25 +19784,25 @@ class Shell {
 
     /**
      * Concatenates two strings that represent properly formed paths into one path; also concatenates any relative path elements.
-     * @param {Pointer<Char>} pszDest Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszDest Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the combined path string. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @param {Pointer<Char>} pszDir Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszDir Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the first path. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the second path. This value can be <b>NULL</b>.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the concatenated path string. This is the same string pointed to by <i>pszPathOut</i>. If this function does not return successfully, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcombinew
      * @since windows5.0
      */
     static PathCombineW(pszDest, pszDir, pszFile) {
-        pszDest := pszDest is String? StrPtr(pszDest) : pszDest
-        pszDir := pszDir is String? StrPtr(pszDir) : pszDir
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
+        pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
         return result
@@ -19652,23 +19810,24 @@ class Shell {
 
     /**
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses.
-     * @param {Pointer<Void>} hDC Type: <b>HDC</b>
+     * @param {HDC} hDC Type: <b>HDC</b>
      * 
      * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
      * @param {Integer} dx Type: <b>UINT</b>
      * 
      * The width, in pixels, in which the string must fit.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path was successfully compacted to the specified width. Returns <b>FALSE</b> on failure, or if the base portion of the path would not fit the specified width.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcompactpatha
      * @since windows5.0
      */
     static PathCompactPathA(hDC, pszPath, dx) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
         result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
@@ -19676,23 +19835,24 @@ class Shell {
 
     /**
      * Truncates a file path to fit within a given pixel width by replacing path components with ellipses.
-     * @param {Pointer<Void>} hDC Type: <b>HDC</b>
+     * @param {HDC} hDC Type: <b>HDC</b>
      * 
      * A handle to the device context used for font metrics. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be modified. On return, this buffer will contain the modified string.
      * @param {Integer} dx Type: <b>UINT</b>
      * 
      * The width, in pixels, in which the string must fit.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path was successfully compacted to the specified width. Returns <b>FALSE</b> on failure, or if the base portion of the path would not fit the specified width.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcompactpathw
      * @since windows5.0
      */
     static PathCompactPathW(hDC, pszPath, dx) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
         result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
@@ -19700,25 +19860,25 @@ class Shell {
 
     /**
      * Truncates a path to fit within a certain number of characters by replacing path components with ellipses.
-     * @param {Pointer<Byte>} pszOut Type: <b>LPTSTR</b>
+     * @param {PSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * The address of the string that has been altered.
-     * @param {Pointer<Byte>} pszSrc Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSrc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be altered.
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters to be contained in the new string, including the terminating null character. For example, if <i>cchMax</i> = 8, the resulting string can contain a maximum of 7 characters plus the terminating null character.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcompactpathexa
      * @since windows5.0
      */
     static PathCompactPathExA(pszOut, pszSrc, cchMax, dwFlags) {
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\PathCompactPathExA", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "int")
         return result
@@ -19726,25 +19886,25 @@ class Shell {
 
     /**
      * Truncates a path to fit within a certain number of characters by replacing path components with ellipses.
-     * @param {Pointer<Char>} pszOut Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * The address of the string that has been altered.
-     * @param {Pointer<Char>} pszSrc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSrc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be altered.
      * @param {Integer} cchMax Type: <b>UINT</b>
      * 
      * The maximum number of characters to be contained in the new string, including the terminating null character. For example, if <i>cchMax</i> = 8, the resulting string can contain a maximum of 7 characters plus the terminating null character.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcompactpathexw
      * @since windows5.0
      */
     static PathCompactPathExW(pszOut, pszSrc, cchMax, dwFlags) {
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
         result := DllCall("SHLWAPI.dll\PathCompactPathExW", "ptr", pszOut, "ptr", pszSrc, "uint", cchMax, "uint", dwFlags, "int")
         return result
@@ -19752,13 +19912,13 @@ class Shell {
 
     /**
      * Compares two paths to determine if they share a common prefix. A prefix is one of these types:\_&quot;C:\\&quot;, &quot;.&quot;, &quot;..&quot;, &quot;..\\&quot;.
-     * @param {Pointer<Byte>} pszFile1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the first path name.
-     * @param {Pointer<Byte>} pszFile2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the second path name.
-     * @param {Pointer<Byte>} achPath Type: <b>LPTSTR</b>
+     * @param {PSTR} achPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the common prefix. This buffer must be at least MAX_PATH characters in size. If there is no common prefix, it is set to <b>NULL</b>.
      * @returns {Integer} Type: <b>int</b>
@@ -19768,9 +19928,9 @@ class Shell {
      * @since windows5.0
      */
     static PathCommonPrefixA(pszFile1, pszFile2, achPath) {
-        pszFile1 := pszFile1 is String? StrPtr(pszFile1) : pszFile1
-        pszFile2 := pszFile2 is String? StrPtr(pszFile2) : pszFile2
-        achPath := achPath is String? StrPtr(achPath) : achPath
+        pszFile1 := pszFile1 is String ? StrPtr(pszFile1) : pszFile1
+        pszFile2 := pszFile2 is String ? StrPtr(pszFile2) : pszFile2
+        achPath := achPath is String ? StrPtr(achPath) : achPath
 
         result := DllCall("SHLWAPI.dll\PathCommonPrefixA", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, "int")
         return result
@@ -19778,13 +19938,13 @@ class Shell {
 
     /**
      * Compares two paths to determine if they share a common prefix. A prefix is one of these types:\_&quot;C:\\&quot;, &quot;.&quot;, &quot;..&quot;, &quot;..\\&quot;.
-     * @param {Pointer<Char>} pszFile1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the first path name.
-     * @param {Pointer<Char>} pszFile2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the second path name.
-     * @param {Pointer<Char>} achPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} achPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the common prefix. This buffer must be at least MAX_PATH characters in size. If there is no common prefix, it is set to <b>NULL</b>.
      * @returns {Integer} Type: <b>int</b>
@@ -19794,9 +19954,9 @@ class Shell {
      * @since windows5.0
      */
     static PathCommonPrefixW(pszFile1, pszFile2, achPath) {
-        pszFile1 := pszFile1 is String? StrPtr(pszFile1) : pszFile1
-        pszFile2 := pszFile2 is String? StrPtr(pszFile2) : pszFile2
-        achPath := achPath is String? StrPtr(achPath) : achPath
+        pszFile1 := pszFile1 is String ? StrPtr(pszFile1) : pszFile1
+        pszFile2 := pszFile2 is String ? StrPtr(pszFile2) : pszFile2
+        achPath := achPath is String ? StrPtr(achPath) : achPath
 
         result := DllCall("SHLWAPI.dll\PathCommonPrefixW", "ptr", pszFile1, "ptr", pszFile2, "ptr", achPath, "int")
         return result
@@ -19804,17 +19964,17 @@ class Shell {
 
     /**
      * Determines whether a path to a file system object such as a file or folder is valid.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the full path of the object to verify.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file exists; otherwise, <b>FALSE</b>. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfileexistsa
      * @since windows5.0
      */
     static PathFileExistsA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         A_LastError := 0
 
@@ -19827,17 +19987,17 @@ class Shell {
 
     /**
      * Determines whether a path to a file system object such as a file or folder is valid.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the full path of the object to verify.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the file exists; otherwise, <b>FALSE</b>. Call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information. If the file does not exist, <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return <a href="/windows/win32/debug/system-error-codes--0-499-">ERROR_FILE_NOT_FOUND</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfileexistsw
      * @since windows5.0
      */
     static PathFileExistsW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         A_LastError := 0
 
@@ -19850,17 +20010,17 @@ class Shell {
 
     /**
      * Searches a path for an extension.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search, including the extension being searched for.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the "." that precedes the extension within <i>pszPath</i> if an extension is found, or the address of the terminating null character otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindextensiona
      * @since windows5.0
      */
     static PathFindExtensionA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindExtensionA", "ptr", pszPath, "char*")
         return result
@@ -19868,17 +20028,17 @@ class Shell {
 
     /**
      * Searches a path for an extension.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search, including the extension being searched for.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns the address of the "." that precedes the extension within <i>pszPath</i> if an extension is found, or the address of the terminating null character otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindextensionw
      * @since windows5.0
      */
     static PathFindExtensionW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindExtensionW", "ptr", pszPath, "char*")
         return result
@@ -19886,17 +20046,17 @@ class Shell {
 
     /**
      * Searches a path for a file name.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the address of the string if successful, or a pointer to the beginning of the path otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindfilenamea
      * @since windows5.0
      */
     static PathFindFileNameA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindFileNameA", "ptr", pszPath, "char*")
         return result
@@ -19904,17 +20064,17 @@ class Shell {
 
     /**
      * Searches a path for a file name.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to the address of the string if successful, or a pointer to the beginning of the path otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindfilenamew
      * @since windows5.0
      */
     static PathFindFileNameW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindFileNameW", "ptr", pszPath, "char*")
         return result
@@ -19922,10 +20082,10 @@ class Shell {
 
     /**
      * Parses a path and returns the portion of that path that follows the first backslash.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to parse. This string must not be longer than MAX_PATH characters, plus the terminating null character. Path components are delimited by backslashes. For instance, the path "c:\path1\path2\file.txt" has four components: c:, path1, path2, and file.txt.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to a null-terminated string that contains the truncated path.
      * 
@@ -19936,7 +20096,7 @@ class Shell {
      * @since windows5.0
      */
     static PathFindNextComponentA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindNextComponentA", "ptr", pszPath, "char*")
         return result
@@ -19944,10 +20104,10 @@ class Shell {
 
     /**
      * Parses a path and returns the portion of that path that follows the first backslash.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to parse. This string must not be longer than MAX_PATH characters, plus the terminating null character. Path components are delimited by backslashes. For instance, the path "c:\path1\path2\file.txt" has four components: c:, path1, path2, and file.txt.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to a null-terminated string that contains the truncated path.
      * 
@@ -19958,7 +20118,7 @@ class Shell {
      * @since windows5.0
      */
     static PathFindNextComponentW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindNextComponentW", "ptr", pszPath, "char*")
         return result
@@ -19966,65 +20126,65 @@ class Shell {
 
     /**
      * Searches for a file.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the file name for which to search. If the search is successful, this parameter is used to return the fully qualified path name.
      * @param {Pointer<SByte>} ppszOtherDirs Type: <b>LPCTSTR*</b>
      * 
      * An optional, null-terminated array of directories to be searched first. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindonpatha
      * @since windows5.0
      */
     static PathFindOnPathA(pszPath, ppszOtherDirs) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "ptr", ppszOtherDirs, "int")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathA", "ptr", pszPath, "char*", ppszOtherDirs, "int")
         return result
     }
 
     /**
      * Searches for a file.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the file name for which to search. If the search is successful, this parameter is used to return the fully qualified path name.
      * @param {Pointer<UInt16>} ppszOtherDirs Type: <b>LPCTSTR*</b>
      * 
      * An optional, null-terminated array of directories to be searched first. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindonpathw
      * @since windows5.0
      */
     static PathFindOnPathW(pszPath, ppszOtherDirs) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ptr", ppszOtherDirs, "int")
+        result := DllCall("SHLWAPI.dll\PathFindOnPathW", "ptr", pszPath, "ushort*", ppszOtherDirs, "int")
         return result
     }
 
     /**
      * Determines whether a given file name has one of a list of suffixes.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file name to be tested. A full path can be used.
-     * @param {Pointer<Byte>} apszSuffix Type: <b>const LPCTSTR*</b>
+     * @param {Pointer<PSTR>} apszSuffix Type: <b>const LPCTSTR*</b>
      * 
      * An array of <i>iArraySize</i> string pointers. Each string pointed to is null-terminated and contains one suffix. The strings can be of variable lengths.
      * @param {Integer} iArraySize Type: <b>int</b>
      * 
      * The number of elements in the array pointed to by <i>apszSuffix</i>.
-     * @returns {Pointer<Byte>} Type: <b>LPCTSTR</b>
+     * @returns {PSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a string with the matching suffix if successful, or <b>NULL</b> if <i>pszPath</i> does not end with one of the specified suffixes.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindsuffixarraya
      * @since windows5.0
      */
     static PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
         return result
@@ -20032,23 +20192,23 @@ class Shell {
 
     /**
      * Determines whether a given file name has one of a list of suffixes.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file name to be tested. A full path can be used.
-     * @param {Pointer<Char>} apszSuffix Type: <b>const LPCTSTR*</b>
+     * @param {Pointer<PWSTR>} apszSuffix Type: <b>const LPCTSTR*</b>
      * 
      * An array of <i>iArraySize</i> string pointers. Each string pointed to is null-terminated and contains one suffix. The strings can be of variable lengths.
      * @param {Integer} iArraySize Type: <b>int</b>
      * 
      * The number of elements in the array pointed to by <i>apszSuffix</i>.
-     * @returns {Pointer<Char>} Type: <b>LPCTSTR</b>
+     * @returns {PWSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a string with the matching suffix if successful, or <b>NULL</b> if <i>pszPath</i> does not end with one of the specified suffixes.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathfindsuffixarrayw
      * @since windows5.0
      */
     static PathFindSuffixArrayW(pszPath, apszSuffix, iArraySize) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
         return result
@@ -20056,10 +20216,10 @@ class Shell {
 
     /**
      * Finds the command line arguments within a given path.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * Pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to a null-terminated string that contains the arguments portion of the path if successful. 
      * 
@@ -20072,7 +20232,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetArgsA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathGetArgsA", "ptr", pszPath, "char*")
         return result
@@ -20080,10 +20240,10 @@ class Shell {
 
     /**
      * Finds the command line arguments within a given path.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * Pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * Returns a pointer to a null-terminated string that contains the arguments portion of the path if successful. 
      * 
@@ -20096,7 +20256,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetArgsW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathGetArgsW", "ptr", pszPath, "char*")
         return result
@@ -20104,17 +20264,17 @@ class Shell {
 
     /**
      * Determines whether a file name is in long format.
-     * @param {Pointer<Byte>} pszName Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszName Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file name to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszName</i> exceeds the number of characters allowed by the 8.3 format, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathislfnfilespeca
      * @since windows5.0
      */
     static PathIsLFNFileSpecA(pszName) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecA", "ptr", pszName, "int")
         return result
@@ -20122,17 +20282,17 @@ class Shell {
 
     /**
      * Determines whether a file name is in long format.
-     * @param {Pointer<Char>} pszName Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszName Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file name to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszName</i> exceeds the number of characters allowed by the 8.3 format, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathislfnfilespecw
      * @since windows5.0
      */
     static PathIsLFNFileSpecW(pszName) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHLWAPI.dll\PathIsLFNFileSpecW", "ptr", pszName, "int")
         return result
@@ -20296,7 +20456,7 @@ class Shell {
 
     /**
      * Searches a path for a drive letter within the range of 'A' to 'Z' and returns the corresponding drive number.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
      * @returns {Integer} Type: <b>int</b>
@@ -20306,7 +20466,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetDriveNumberA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathGetDriveNumberA", "ptr", pszPath, "int")
         return result
@@ -20314,7 +20474,7 @@ class Shell {
 
     /**
      * Searches a path for a drive letter within the range of 'A' to 'Z' and returns the corresponding drive number.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
      * @returns {Integer} Type: <b>int</b>
@@ -20324,7 +20484,7 @@ class Shell {
      * @since windows5.0
      */
     static PathGetDriveNumberW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathGetDriveNumberW", "ptr", pszPath, "int")
         return result
@@ -20332,17 +20492,17 @@ class Shell {
 
     /**
      * Verifies that a path is a valid directory.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to verify.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns (BOOL)FILE_ATTRIBUTE_DIRECTORY if the path is a valid directory; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisdirectorya
      * @since windows5.0
      */
     static PathIsDirectoryA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsDirectoryA", "ptr", pszPath, "int")
         return result
@@ -20350,17 +20510,17 @@ class Shell {
 
     /**
      * Verifies that a path is a valid directory.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to verify.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns (BOOL)FILE_ATTRIBUTE_DIRECTORY if the path is a valid directory; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisdirectoryw
      * @since windows5.0
      */
     static PathIsDirectoryW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsDirectoryW", "ptr", pszPath, "int")
         return result
@@ -20368,17 +20528,17 @@ class Shell {
 
     /**
      * Determines whether a specified path is an empty directory.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> is an empty directory. Returns <b>FALSE</b> if <i>pszPath</i> is not a directory, or if it contains at least one file other than "." or "..".
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisdirectoryemptya
      * @since windows5.0
      */
     static PathIsDirectoryEmptyA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyA", "ptr", pszPath, "int")
         return result
@@ -20386,17 +20546,17 @@ class Shell {
 
     /**
      * Determines whether a specified path is an empty directory.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be tested.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> is an empty directory. Returns <b>FALSE</b> if <i>pszPath</i> is not a directory, or if it contains at least one file other than "." or "..".
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisdirectoryemptyw
      * @since windows5.0
      */
     static PathIsDirectoryEmptyW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsDirectoryEmptyW", "ptr", pszPath, "int")
         return result
@@ -20404,17 +20564,17 @@ class Shell {
 
     /**
      * Searches a path for any path-delimiting characters (for example, ':' or '\' ). If there are no path-delimiting characters present, the path is considered to be a File Spec path.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if there are no path-delimiting characters within the path, or <b>FALSE</b> if there are path-delimiting characters.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisfilespeca
      * @since windows5.0
      */
     static PathIsFileSpecA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsFileSpecA", "ptr", pszPath, "int")
         return result
@@ -20422,17 +20582,17 @@ class Shell {
 
     /**
      * Searches a path for any path-delimiting characters (for example, ':' or '\' ). If there are no path-delimiting characters present, the path is considered to be a File Spec path.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if there are no path-delimiting characters within the path, or <b>FALSE</b> if there are path-delimiting characters.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisfilespecw
      * @since windows5.0
      */
     static PathIsFileSpecW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsFileSpecW", "ptr", pszPath, "int")
         return result
@@ -20440,21 +20600,21 @@ class Shell {
 
     /**
      * Searches a path to determine if it contains a valid prefix of the type passed by pszPrefix. A prefix is one of these types:\_&quot;C:\\&quot;, &quot;.&quot;, &quot;..&quot;, &quot;..\\&quot;.
-     * @param {Pointer<Byte>} pszPrefix Type: <b>IN LPCTSTR</b>
+     * @param {PSTR} pszPrefix Type: <b>IN LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the prefix for which to search.
-     * @param {Pointer<Byte>} pszPath Type: <b>IN LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>IN LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the compared path is the full prefix for the path, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisprefixa
      * @since windows5.0
      */
     static PathIsPrefixA(pszPrefix, pszPath) {
-        pszPrefix := pszPrefix is String? StrPtr(pszPrefix) : pszPrefix
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPrefix := pszPrefix is String ? StrPtr(pszPrefix) : pszPrefix
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsPrefixA", "ptr", pszPrefix, "ptr", pszPath, "int")
         return result
@@ -20462,21 +20622,21 @@ class Shell {
 
     /**
      * Searches a path to determine if it contains a valid prefix of the type passed by pszPrefix. A prefix is one of these types:\_&quot;C:\\&quot;, &quot;.&quot;, &quot;..&quot;, &quot;..\\&quot;.
-     * @param {Pointer<Char>} pszPrefix Type: <b>IN LPCTSTR</b>
+     * @param {PWSTR} pszPrefix Type: <b>IN LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the prefix for which to search.
-     * @param {Pointer<Char>} pszPath Type: <b>IN LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>IN LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be searched.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the compared path is the full prefix for the path, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisprefixw
      * @since windows5.0
      */
     static PathIsPrefixW(pszPrefix, pszPath) {
-        pszPrefix := pszPrefix is String? StrPtr(pszPrefix) : pszPrefix
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPrefix := pszPrefix is String ? StrPtr(pszPrefix) : pszPrefix
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsPrefixW", "ptr", pszPrefix, "ptr", pszPath, "int")
         return result
@@ -20484,17 +20644,17 @@ class Shell {
 
     /**
      * Searches a path and determines if it is relative.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is relative, or <b>FALSE</b> if it is absolute.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisrelativea
      * @since windows5.0
      */
     static PathIsRelativeA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsRelativeA", "ptr", pszPath, "int")
         return result
@@ -20502,17 +20662,17 @@ class Shell {
 
     /**
      * Searches a path and determines if it is relative.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is relative, or <b>FALSE</b> if it is absolute.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisrelativew
      * @since windows5.0
      */
     static PathIsRelativeW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsRelativeW", "ptr", pszPath, "int")
         return result
@@ -20520,17 +20680,17 @@ class Shell {
 
     /**
      * Determines whether a path string refers to the root of a volume.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be validated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisroota
      * @since windows5.0
      */
     static PathIsRootA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsRootA", "ptr", pszPath, "int")
         return result
@@ -20538,17 +20698,17 @@ class Shell {
 
     /**
      * Determines whether a path string refers to the root of a volume.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be validated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisrootw
      * @since windows5.0
      */
     static PathIsRootW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsRootW", "ptr", pszPath, "int")
         return result
@@ -20556,21 +20716,21 @@ class Shell {
 
     /**
      * Compares two paths to determine if they have a common root component.
-     * @param {Pointer<Byte>} pszPath1 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the first path to be compared.
-     * @param {Pointer<Byte>} pszPath2 Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the second path to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if both strings have the same root component, or <b>FALSE</b> otherwise. If <i>pszPath1</i> contains only the server and share, this function also returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathissameroota
      * @since windows5.0
      */
     static PathIsSameRootA(pszPath1, pszPath2) {
-        pszPath1 := pszPath1 is String? StrPtr(pszPath1) : pszPath1
-        pszPath2 := pszPath2 is String? StrPtr(pszPath2) : pszPath2
+        pszPath1 := pszPath1 is String ? StrPtr(pszPath1) : pszPath1
+        pszPath2 := pszPath2 is String ? StrPtr(pszPath2) : pszPath2
 
         result := DllCall("SHLWAPI.dll\PathIsSameRootA", "ptr", pszPath1, "ptr", pszPath2, "int")
         return result
@@ -20578,21 +20738,21 @@ class Shell {
 
     /**
      * Compares two paths to determine if they have a common root component.
-     * @param {Pointer<Char>} pszPath1 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath1 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the first path to be compared.
-     * @param {Pointer<Char>} pszPath2 Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath2 Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the second path to be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if both strings have the same root component, or <b>FALSE</b> otherwise. If <i>pszPath1</i> contains only the server and share, this function also returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathissamerootw
      * @since windows5.0
      */
     static PathIsSameRootW(pszPath1, pszPath2) {
-        pszPath1 := pszPath1 is String? StrPtr(pszPath1) : pszPath1
-        pszPath2 := pszPath2 is String? StrPtr(pszPath2) : pszPath2
+        pszPath1 := pszPath1 is String ? StrPtr(pszPath1) : pszPath1
+        pszPath2 := pszPath2 is String ? StrPtr(pszPath2) : pszPath2
 
         result := DllCall("SHLWAPI.dll\PathIsSameRootW", "ptr", pszPath1, "ptr", pszPath2, "int")
         return result
@@ -20600,17 +20760,17 @@ class Shell {
 
     /**
      * Determines if a path string is a valid Universal Naming Convention (UNC) path, as opposed to a path based on a drive letter.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisunca
      * @since windows5.0
      */
     static PathIsUNCA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCA", "ptr", pszPath, "int")
         return result
@@ -20618,17 +20778,17 @@ class Shell {
 
     /**
      * Determines if a path string is a valid Universal Naming Convention (UNC) path, as opposed to a path based on a drive letter.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisuncw
      * @since windows5.0
      */
     static PathIsUNCW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCW", "ptr", pszPath, "int")
         return result
@@ -20636,17 +20796,17 @@ class Shell {
 
     /**
      * Determines whether a path string represents a network resource.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string represents a network resource, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisnetworkpatha
      * @since windows5.0
      */
     static PathIsNetworkPathA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsNetworkPathA", "ptr", pszPath, "int")
         return result
@@ -20654,17 +20814,17 @@ class Shell {
 
     /**
      * Determines whether a path string represents a network resource.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string represents a network resource, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisnetworkpathw
      * @since windows5.0
      */
     static PathIsNetworkPathW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsNetworkPathW", "ptr", pszPath, "int")
         return result
@@ -20672,17 +20832,17 @@ class Shell {
 
     /**
      * Determines if a string is a valid Universal Naming Convention (UNC) for a server path only.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path for a server only (no share name), or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisuncservera
      * @since windows5.0
      */
     static PathIsUNCServerA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCServerA", "ptr", pszPath, "int")
         return result
@@ -20690,17 +20850,17 @@ class Shell {
 
     /**
      * Determines if a string is a valid Universal Naming Convention (UNC) for a server path only.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is a valid UNC path for a server only (no share name), or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisuncserverw
      * @since windows5.0
      */
     static PathIsUNCServerW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCServerW", "ptr", pszPath, "int")
         return result
@@ -20708,17 +20868,17 @@ class Shell {
 
     /**
      * Determines if a string is a valid Universal Naming Convention (UNC) share path, \\server\share.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be validated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is in the form &#92;&#92;<i>server</i>&#92;<i>share</i>, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisuncserversharea
      * @since windows5.0
      */
     static PathIsUNCServerShareA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCServerShareA", "ptr", pszPath, "int")
         return result
@@ -20726,17 +20886,17 @@ class Shell {
 
     /**
      * Determines if a string is a valid Universal Naming Convention (UNC) share path, \\server\share.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be validated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string is in the form &#92;&#92;<i>server</i>&#92;<i>share</i>, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisuncserversharew
      * @since windows5.0
      */
     static PathIsUNCServerShareW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsUNCServerShareW", "ptr", pszPath, "int")
         return result
@@ -20744,21 +20904,21 @@ class Shell {
 
     /**
      * Determines if a file's registered content type matches the specified content type. This function obtains the content type for the specified file type and compares that string with the pszContentType. The comparison is not case-sensitive.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file whose content type will be compared.
-     * @param {Pointer<Byte>} pszContentType Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszContentType Type: <b>LPCTSTR</b>
      * 
      * The address of a character buffer that contains the null-terminated content type string to which the file's registered content type will be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the file's registered content type matches <i>pszContentType</i>, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathiscontenttypea
      * @since windows5.0
      */
     static PathIsContentTypeA(pszPath, pszContentType) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszContentType := pszContentType is String? StrPtr(pszContentType) : pszContentType
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
         result := DllCall("SHLWAPI.dll\PathIsContentTypeA", "ptr", pszPath, "ptr", pszContentType, "int")
         return result
@@ -20766,21 +20926,21 @@ class Shell {
 
     /**
      * Determines if a file's registered content type matches the specified content type. This function obtains the content type for the specified file type and compares that string with the pszContentType. The comparison is not case-sensitive.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the file whose content type will be compared.
-     * @param {Pointer<Char>} pszContentType Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszContentType Type: <b>LPCTSTR</b>
      * 
      * The address of a character buffer that contains the null-terminated content type string to which the file's registered content type will be compared.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the file's registered content type matches <i>pszContentType</i>, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathiscontenttypew
      * @since windows5.0
      */
     static PathIsContentTypeW(pszPath, pszContentType) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszContentType := pszContentType is String? StrPtr(pszContentType) : pszContentType
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszContentType := pszContentType is String ? StrPtr(pszContentType) : pszContentType
 
         result := DllCall("SHLWAPI.dll\PathIsContentTypeW", "ptr", pszPath, "ptr", pszContentType, "int")
         return result
@@ -20788,17 +20948,17 @@ class Shell {
 
     /**
      * Tests a given string to determine if it conforms to a valid URL format.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the URL path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> has a valid URL format, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisurla
      * @since windows5.0
      */
     static PathIsURLA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsURLA", "ptr", pszPath, "int")
         return result
@@ -20806,17 +20966,17 @@ class Shell {
 
     /**
      * Tests a given string to determine if it conforms to a valid URL format.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the URL path to validate.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if <i>pszPath</i> has a valid URL format, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathisurlw
      * @since windows5.0
      */
     static PathIsURLW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsURLW", "ptr", pszPath, "int")
         return result
@@ -20824,17 +20984,17 @@ class Shell {
 
     /**
      * Converts an all-uppercase path to all lowercase characters to give the path a consistent appearance.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be converted.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path has been converted, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmakeprettya
      * @since windows5.0
      */
     static PathMakePrettyA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathMakePrettyA", "ptr", pszPath, "int")
         return result
@@ -20842,17 +21002,17 @@ class Shell {
 
     /**
      * Converts an all-uppercase path to all lowercase characters to give the path a consistent appearance.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be converted.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path has been converted, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmakeprettyw
      * @since windows5.0
      */
     static PathMakePrettyW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathMakePrettyW", "ptr", pszPath, "int")
         return result
@@ -20860,21 +21020,21 @@ class Shell {
 
     /**
      * Searches a string using a Microsoft MS-DOS wildcard match type.
-     * @param {Pointer<Byte>} pszFile Type: <b>LPCSTR</b>
+     * @param {PSTR} pszFile Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to be searched.
-     * @param {Pointer<Byte>} pszSpec Type: <b>LPCSTR</b>
+     * @param {PSTR} pszSpec Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file type for which to search. For example, to test whether <i>pszFile</i> is a .doc file, <i>pszSpec</i> should be set to "*.doc".
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string matches, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmatchspeca
      * @since windows5.0
      */
     static PathMatchSpecA(pszFile, pszSpec) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
-        pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecA", "ptr", pszFile, "ptr", pszSpec, "int")
         return result
@@ -20882,21 +21042,21 @@ class Shell {
 
     /**
      * Searches a string using a Microsoft MS-DOS wildcard match type.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to be searched.
-     * @param {Pointer<Char>} pszSpec Type: <b>LPCSTR</b>
+     * @param {PWSTR} pszSpec Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file type for which to search. For example, to test whether <i>pszFile</i> is a .doc file, <i>pszSpec</i> should be set to "*.doc".
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the string matches, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmatchspecw
      * @since windows5.0
      */
     static PathMatchSpecW(pszFile, pszSpec) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
-        pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecW", "ptr", pszFile, "ptr", pszSpec, "int")
         return result
@@ -20904,10 +21064,10 @@ class Shell {
 
     /**
      * Matches a file name from a path against one or more file name patterns.
-     * @param {Pointer<Byte>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path from which the file name to be matched is taken.
-     * @param {Pointer<Byte>} pszSpec Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSpec Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file name pattern for which to search. This can be the exact name, or it can contain wildcard characters. If exactly one pattern is specified, set the <b>PMSF_NORMAL</b> flag in <i>dwFlags</i>. If more than one pattern is specified, separate them with semicolons and set the <b>PMSF_MULTIPLE</b> flag.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -20949,8 +21109,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static PathMatchSpecExA(pszFile, pszSpec, dwFlags) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
-        pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExA", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
         if(result != 0)
@@ -20961,10 +21121,10 @@ class Shell {
 
     /**
      * Matches a file name from a path against one or more file name patterns.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path from which the file name to be matched is taken.
-     * @param {Pointer<Char>} pszSpec Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSpec Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the file name pattern for which to search. This can be the exact name, or it can contain wildcard characters. If exactly one pattern is specified, set the <b>PMSF_NORMAL</b> flag in <i>dwFlags</i>. If more than one pattern is specified, separate them with semicolons and set the <b>PMSF_MULTIPLE</b> flag.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -21006,8 +21166,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static PathMatchSpecExW(pszFile, pszSpec, dwFlags) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
-        pszSpec := pszSpec is String? StrPtr(pszSpec) : pszSpec
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+        pszSpec := pszSpec is String ? StrPtr(pszSpec) : pszSpec
 
         result := DllCall("SHLWAPI.dll\PathMatchSpecExW", "ptr", pszFile, "ptr", pszSpec, "uint", dwFlags, "int")
         if(result != 0)
@@ -21018,7 +21178,7 @@ class Shell {
 
     /**
      * Parses a file location string that contains a file location and icon index, and returns separate values.
-     * @param {Pointer<Byte>} pszIconFile Type: <b>LPTSTR</b>
+     * @param {PSTR} pszIconFile Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains a file location string. It should be in the form "<i>path</i>,<i>iconindex</i>". When the function returns, <i>pszIconFile</i> will point to the file's path.
      * @returns {Integer} Type: <b>int</b>
@@ -21028,7 +21188,7 @@ class Shell {
      * @since windows5.0
      */
     static PathParseIconLocationA(pszIconFile) {
-        pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
+        pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHLWAPI.dll\PathParseIconLocationA", "ptr", pszIconFile, "int")
         return result
@@ -21036,7 +21196,7 @@ class Shell {
 
     /**
      * Parses a file location string that contains a file location and icon index, and returns separate values.
-     * @param {Pointer<Char>} pszIconFile Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszIconFile Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains a file location string. It should be in the form "<i>path</i>,<i>iconindex</i>". When the function returns, <i>pszIconFile</i> will point to the file's path.
      * @returns {Integer} Type: <b>int</b>
@@ -21046,7 +21206,7 @@ class Shell {
      * @since windows5.0
      */
     static PathParseIconLocationW(pszIconFile) {
-        pszIconFile := pszIconFile is String? StrPtr(pszIconFile) : pszIconFile
+        pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
 
         result := DllCall("SHLWAPI.dll\PathParseIconLocationW", "ptr", pszIconFile, "int")
         return result
@@ -21054,17 +21214,17 @@ class Shell {
 
     /**
      * Searches a path for spaces. If spaces are found, the entire path is enclosed in quotation marks.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to search. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if spaces were found; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathquotespacesa
      * @since windows5.0
      */
     static PathQuoteSpacesA(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("SHLWAPI.dll\PathQuoteSpacesA", "ptr", lpsz, "int")
         return result
@@ -21072,17 +21232,17 @@ class Shell {
 
     /**
      * Searches a path for spaces. If spaces are found, the entire path is enclosed in quotation marks.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the path to search. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if spaces were found; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathquotespacesw
      * @since windows5.0
      */
     static PathQuoteSpacesW(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("SHLWAPI.dll\PathQuoteSpacesW", "ptr", lpsz, "int")
         return result
@@ -21090,31 +21250,31 @@ class Shell {
 
     /**
      * Creates a relative path from one file or folder to another.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the relative path. This buffer must be at least MAX_PATH characters in size.
-     * @param {Pointer<Byte>} pszFrom Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFrom Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path that defines the start of the relative path.
      * @param {Integer} dwAttrFrom Type: <b>DWORD</b>
      * 
      * The file attributes of <i>pszFrom</i>. If this value contains FILE_ATTRIBUTE_DIRECTORY, <i>pszFrom</i> is assumed to be a directory; otherwise, <i>pszFrom</i> is assumed to be a file.
-     * @param {Pointer<Byte>} pszTo Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszTo Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path that defines the endpoint of the relative path.
      * @param {Integer} dwAttrTo Type: <b>DWORD</b>
      * 
      * The file attributes of <i>pszTo</i>. If this value contains FILE_ATTRIBUTE_DIRECTORY, <i>pszTo</i> is assumed to be directory; otherwise, <i>pszTo</i> is assumed to be a file.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathrelativepathtoa
      * @since windows5.0
      */
     static PathRelativePathToA(pszPath, pszFrom, dwAttrFrom, pszTo, dwAttrTo) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszFrom := pszFrom is String? StrPtr(pszFrom) : pszFrom
-        pszTo := pszTo is String? StrPtr(pszTo) : pszTo
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszFrom := pszFrom is String ? StrPtr(pszFrom) : pszFrom
+        pszTo := pszTo is String ? StrPtr(pszTo) : pszTo
 
         result := DllCall("SHLWAPI.dll\PathRelativePathToA", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "int")
         return result
@@ -21122,31 +21282,31 @@ class Shell {
 
     /**
      * Creates a relative path from one file or folder to another.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that receives the relative path. This buffer must be at least MAX_PATH characters in size.
-     * @param {Pointer<Char>} pszFrom Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFrom Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path that defines the start of the relative path.
      * @param {Integer} dwAttrFrom Type: <b>DWORD</b>
      * 
      * The file attributes of <i>pszFrom</i>. If this value contains FILE_ATTRIBUTE_DIRECTORY, <i>pszFrom</i> is assumed to be a directory; otherwise, <i>pszFrom</i> is assumed to be a file.
-     * @param {Pointer<Char>} pszTo Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszTo Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path that defines the endpoint of the relative path.
      * @param {Integer} dwAttrTo Type: <b>DWORD</b>
      * 
      * The file attributes of <i>pszTo</i>. If this value contains FILE_ATTRIBUTE_DIRECTORY, <i>pszTo</i> is assumed to be directory; otherwise, <i>pszTo</i> is assumed to be a file.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathrelativepathtow
      * @since windows5.0
      */
     static PathRelativePathToW(pszPath, pszFrom, dwAttrFrom, pszTo, dwAttrTo) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszFrom := pszFrom is String? StrPtr(pszFrom) : pszFrom
-        pszTo := pszTo is String? StrPtr(pszTo) : pszTo
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszFrom := pszFrom is String ? StrPtr(pszFrom) : pszFrom
+        pszTo := pszTo is String ? StrPtr(pszTo) : pszTo
 
         result := DllCall("SHLWAPI.dll\PathRelativePathToW", "ptr", pszPath, "ptr", pszFrom, "uint", dwAttrFrom, "ptr", pszTo, "uint", dwAttrTo, "int")
         return result
@@ -21160,7 +21320,7 @@ class Shell {
      * 
      * 
      * 
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
      * @returns {String} Nothing - always returns an empty string
@@ -21168,7 +21328,7 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveArgsA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveArgsA", "ptr", pszPath)
     }
@@ -21181,7 +21341,7 @@ class Shell {
      * 
      * 
      * 
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove arguments.
      * @returns {String} Nothing - always returns an empty string
@@ -21189,24 +21349,24 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveArgsW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveArgsW", "ptr", pszPath)
     }
 
     /**
      * Removes the trailing backslash from a given path.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove the backslash.
-     * @returns {Pointer<Byte>} Type: <b>LPTSTR</b>
+     * @returns {PSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully and if a backslash has been removed, points to the terminating null character that has replaced the backslash at the end of the string. If the path did not include a trailing backslash, this value will point to the final character in the string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathremovebackslasha
      * @since windows5.0
      */
     static PathRemoveBackslashA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathRemoveBackslashA", "ptr", pszPath, "char*")
         return result
@@ -21214,17 +21374,17 @@ class Shell {
 
     /**
      * Removes the trailing backslash from a given path.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove the backslash.
-     * @returns {Pointer<Char>} Type: <b>LPTSTR</b>
+     * @returns {PWSTR} Type: <b>LPTSTR</b>
      * 
      * A pointer that, when this function returns successfully and if a backslash has been removed, points to the terminating null character that has replaced the backslash at the end of the string. If the path did not include a trailing backslash, this value will point to the final character in the string.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathremovebackslashw
      * @since windows5.0
      */
     static PathRemoveBackslashW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathRemoveBackslashW", "ptr", pszPath, "char*")
         return result
@@ -21238,7 +21398,7 @@ class Shell {
      * > The shlwapi.h header defines PathRemoveBlanks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
      * @returns {String} Nothing - always returns an empty string
@@ -21246,7 +21406,7 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveBlanksA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveBlanksA", "ptr", pszPath)
     }
@@ -21259,7 +21419,7 @@ class Shell {
      * > The shlwapi.h header defines PathRemoveBlanks as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to strip all leading and trailing spaces.
      * @returns {String} Nothing - always returns an empty string
@@ -21267,7 +21427,7 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveBlanksW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveBlanksW", "ptr", pszPath)
     }
@@ -21279,7 +21439,7 @@ class Shell {
      * > [!NOTE]
      * > The shlwapi.h header defines PathRemoveExtension as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
      * @returns {String} Nothing - always returns an empty string
@@ -21287,7 +21447,7 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveExtensionA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveExtensionA", "ptr", pszPath)
     }
@@ -21299,7 +21459,7 @@ class Shell {
      * > [!NOTE]
      * > The shlwapi.h header defines PathRemoveExtension as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH from which to remove the extension.
      * @returns {String} Nothing - always returns an empty string
@@ -21307,24 +21467,24 @@ class Shell {
      * @since windows5.0
      */
     static PathRemoveExtensionW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathRemoveExtensionW", "ptr", pszPath)
     }
 
     /**
      * Removes the trailing file name and backslash from a path, if they are present.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove the file name.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if something was removed, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathremovefilespeca
      * @since windows5.0
      */
     static PathRemoveFileSpecA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathRemoveFileSpecA", "ptr", pszPath, "int")
         return result
@@ -21332,17 +21492,17 @@ class Shell {
 
     /**
      * Removes the trailing file name and backslash from a path, if they are present.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path from which to remove the file name.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if something was removed, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathremovefilespecw
      * @since windows5.0
      */
     static PathRemoveFileSpecW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathRemoveFileSpecW", "ptr", pszPath, "int")
         return result
@@ -21350,21 +21510,21 @@ class Shell {
 
     /**
      * Replaces the extension of a file name with a new extension. If the file name does not contain an extension, the extension will be attached to the end of the string.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH in which to replace the extension.
-     * @param {Pointer<Byte>} pszExt Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExt Type: <b>LPCTSTR</b>
      * 
      * Pointer to a character buffer that contains a '.' character followed by the new extension.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero if the new path and extension would exceed MAX_PATH characters.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathrenameextensiona
      * @since windows5.0
      */
     static PathRenameExtensionA(pszPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\PathRenameExtensionA", "ptr", pszPath, "ptr", pszExt, "int")
         return result
@@ -21372,21 +21532,21 @@ class Shell {
 
     /**
      * Replaces the extension of a file name with a new extension. If the file name does not contain an extension, the extension will be attached to the end of the string.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string of length MAX_PATH in which to replace the extension.
-     * @param {Pointer<Char>} pszExt Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExt Type: <b>LPCTSTR</b>
      * 
      * Pointer to a character buffer that contains a '.' character followed by the new extension.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero if the new path and extension would exceed MAX_PATH characters.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathrenameextensionw
      * @since windows5.0
      */
     static PathRenameExtensionW(pszPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\PathRenameExtensionW", "ptr", pszPath, "ptr", pszExt, "int")
         return result
@@ -21394,24 +21554,24 @@ class Shell {
 
     /**
      * Determines if a given path is correctly formatted and fully qualified.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @param {Pointer<Byte>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be referenced.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszFullyQualifiedPath</i>, in characters.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is qualified, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathsearchandqualifya
      * @since windows5.0
      */
     static PathSearchAndQualifyA(pszPath, pszBuf, cchBuf) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\PathSearchAndQualifyA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -21419,24 +21579,24 @@ class Shell {
 
     /**
      * Determines if a given path is correctly formatted and fully qualified.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to search.
-     * @param {Pointer<Char>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be referenced.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size of the buffer pointed to by <i>pszFullyQualifiedPath</i>, in characters.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the path is qualified, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathsearchandqualifyw
      * @since windows5.0
      */
     static PathSearchAndQualifyW(pszPath, pszBuf, cchBuf) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\PathSearchAndQualifyW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -21449,13 +21609,13 @@ class Shell {
      * > [!NOTE]
      * > The shlwapi.h header defines PathSetDlgItemPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box or window.
      * @param {Integer} id Type: <b>int</b>
      * 
      * The identifier of the control.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
      * @returns {String} Nothing - always returns an empty string
@@ -21463,7 +21623,8 @@ class Shell {
      * @since windows5.0
      */
     static PathSetDlgItemPathA(hDlg, id, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         DllCall("SHLWAPI.dll\PathSetDlgItemPathA", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
@@ -21475,13 +21636,13 @@ class Shell {
      * > [!NOTE]
      * > The shlwapi.h header defines PathSetDlgItemPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
-     * @param {Pointer<Void>} hDlg Type: <b>HWND</b>
+     * @param {HWND} hDlg Type: <b>HWND</b>
      * 
      * A handle to the dialog box or window.
      * @param {Integer} id Type: <b>int</b>
      * 
      * The identifier of the control.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to set in the control.
      * @returns {String} Nothing - always returns an empty string
@@ -21489,24 +21650,25 @@ class Shell {
      * @since windows5.0
      */
     static PathSetDlgItemPathW(hDlg, id, pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         DllCall("SHLWAPI.dll\PathSetDlgItemPathW", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
 
     /**
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to parse.
-     * @returns {Pointer<Byte>} Type: <b>PTSTR</b>
+     * @returns {PSTR} Type: <b>PTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the beginning of the subpath that follows the root (drive letter or UNC server/share). If the function encounters an error, this value will be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathskiproota
      * @since windows5.0
      */
     static PathSkipRootA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathSkipRootA", "ptr", pszPath, "char*")
         return result
@@ -21514,17 +21676,17 @@ class Shell {
 
     /**
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to parse.
-     * @returns {Pointer<Char>} Type: <b>PTSTR</b>
+     * @returns {PWSTR} Type: <b>PTSTR</b>
      * 
      * A pointer that, when this function returns successfully, points to the beginning of the subpath that follows the root (drive letter or UNC server/share). If the function encounters an error, this value will be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathskiprootw
      * @since windows5.0
      */
     static PathSkipRootW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathSkipRootW", "ptr", pszPath, "char*")
         return result
@@ -21538,7 +21700,7 @@ class Shell {
      * > The shlwapi.h header defines PathStripPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
      * @returns {String} Nothing - always returns an empty string
@@ -21546,7 +21708,7 @@ class Shell {
      * @since windows5.0
      */
     static PathStripPathA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathStripPathA", "ptr", pszPath)
     }
@@ -21559,7 +21721,7 @@ class Shell {
      * > The shlwapi.h header defines PathStripPath as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * 
      * 
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path and file name. When this function returns successfully, the string contains only the file name, with the path removed.
      * @returns {String} Nothing - always returns an empty string
@@ -21567,24 +21729,24 @@ class Shell {
      * @since windows5.0
      */
     static PathStripPathW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathStripPathW", "ptr", pszPath)
     }
 
     /**
      * Removes all file and directory elements in a path except for the root information.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be converted. When this function returns successfully, this string contains only the root information taken from that path.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a valid drive letter was found in the path, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathstriptoroota
      * @since windows5.0
      */
     static PathStripToRootA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathStripToRootA", "ptr", pszPath, "int")
         return result
@@ -21592,17 +21754,17 @@ class Shell {
 
     /**
      * Removes all file and directory elements in a path except for the root information.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path to be converted. When this function returns successfully, this string contains only the root information taken from that path.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if a valid drive letter was found in the path, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathstriptorootw
      * @since windows5.0
      */
     static PathStripToRootW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathStripToRootW", "ptr", pszPath, "int")
         return result
@@ -21610,15 +21772,15 @@ class Shell {
 
     /**
      * Removes quotes from the beginning and end of a path.
-     * @param {Pointer<Byte>} lpsz Type: <b>LPTSTR</b>
+     * @param {PSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path. When the function returns successfully, points to the string with beginning and ending quotation marks removed.
-     * @returns {Integer} No return value.
+     * @returns {BOOL} No return value.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunquotespacesa
      * @since windows5.0
      */
     static PathUnquoteSpacesA(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("SHLWAPI.dll\PathUnquoteSpacesA", "ptr", lpsz, "int")
         return result
@@ -21626,15 +21788,15 @@ class Shell {
 
     /**
      * Removes quotes from the beginning and end of a path.
-     * @param {Pointer<Char>} lpsz Type: <b>LPTSTR</b>
+     * @param {PWSTR} lpsz Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the path. When the function returns successfully, points to the string with beginning and ending quotation marks removed.
-     * @returns {Integer} No return value.
+     * @returns {BOOL} No return value.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunquotespacesw
      * @since windows5.0
      */
     static PathUnquoteSpacesW(lpsz) {
-        lpsz := lpsz is String? StrPtr(lpsz) : lpsz
+        lpsz := lpsz is String ? StrPtr(lpsz) : lpsz
 
         result := DllCall("SHLWAPI.dll\PathUnquoteSpacesW", "ptr", lpsz, "int")
         return result
@@ -21642,17 +21804,17 @@ class Shell {
 
     /**
      * Gives an existing folder the proper attributes to become a system folder.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the name of an existing folder that will be made into a system folder.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmakesystemfoldera
      * @since windows5.0
      */
     static PathMakeSystemFolderA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathMakeSystemFolderA", "ptr", pszPath, "int")
         return result
@@ -21660,17 +21822,17 @@ class Shell {
 
     /**
      * Gives an existing folder the proper attributes to become a system folder.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of length MAX_PATH that contains the name of an existing folder that will be made into a system folder.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathmakesystemfolderw
      * @since windows5.0
      */
     static PathMakeSystemFolderW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathMakeSystemFolderW", "ptr", pszPath, "int")
         return result
@@ -21678,17 +21840,17 @@ class Shell {
 
     /**
      * Removes the attributes from a folder that make it a system folder. This folder must actually exist in the file system.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the name of an existing folder that will have the system folder attributes removed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunmakesystemfoldera
      * @since windows5.0
      */
     static PathUnmakeSystemFolderA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderA", "ptr", pszPath, "int")
         return result
@@ -21696,17 +21858,17 @@ class Shell {
 
     /**
      * Removes the attributes from a folder that make it a system folder. This folder must actually exist in the file system.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the name of an existing folder that will have the system folder attributes removed.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if successful, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunmakesystemfolderw
      * @since windows5.0
      */
     static PathUnmakeSystemFolderW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathUnmakeSystemFolderW", "ptr", pszPath, "int")
         return result
@@ -21714,20 +21876,20 @@ class Shell {
 
     /**
      * Determines if an existing folder contains the attributes that make it a system folder. Alternately, this function indicates if certain attributes qualify a folder to be a system folder.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the name of an existing folder. The attributes for this folder will be retrieved and compared with those that define a system folder. If this folder contains the attributes to make it a system folder, the function returns nonzero. If this value is <b>NULL</b>, this function determines if the attributes passed in <i>dwAttrb</i> qualify it to be a system folder.
      * @param {Integer} dwAttrb Type: <b>DWORD</b>
      * 
      * The file attributes to be compared. Used only if <i>pszPath</i> is <b>NULL</b>. In that case, the attributes passed in this value are compared with those that qualify a folder as a system folder. If the attributes are sufficient to make this a system folder, this function returns nonzero. These attributes are the attributes that are returned from <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the <i>pszPath</i> or <i>dwAttrb</i> represent a system folder, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathissystemfoldera
      * @since windows5.0
      */
     static PathIsSystemFolderA(pszPath, dwAttrb) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsSystemFolderA", "ptr", pszPath, "uint", dwAttrb, "int")
         return result
@@ -21735,20 +21897,20 @@ class Shell {
 
     /**
      * Determines if an existing folder contains the attributes that make it a system folder. Alternately, this function indicates if certain attributes qualify a folder to be a system folder.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the name of an existing folder. The attributes for this folder will be retrieved and compared with those that define a system folder. If this folder contains the attributes to make it a system folder, the function returns nonzero. If this value is <b>NULL</b>, this function determines if the attributes passed in <i>dwAttrb</i> qualify it to be a system folder.
      * @param {Integer} dwAttrb Type: <b>DWORD</b>
      * 
      * The file attributes to be compared. Used only if <i>pszPath</i> is <b>NULL</b>. In that case, the attributes passed in this value are compared with those that qualify a folder as a system folder. If the attributes are sufficient to make this a system folder, this function returns nonzero. These attributes are the attributes that are returned from <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns nonzero if the <i>pszPath</i> or <i>dwAttrb</i> represent a system folder, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathissystemfolderw
      * @since windows5.0
      */
     static PathIsSystemFolderW(pszPath, dwAttrb) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathIsSystemFolderW", "ptr", pszPath, "uint", dwAttrb, "int")
         return result
@@ -21762,7 +21924,7 @@ class Shell {
      * 
      * 
      * 
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
      * @returns {String} Nothing - always returns an empty string
@@ -21770,7 +21932,7 @@ class Shell {
      * @since windows5.0
      */
     static PathUndecorateA(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathUndecorateA", "ptr", pszPath)
     }
@@ -21783,7 +21945,7 @@ class Shell {
      * 
      * 
      * 
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A null-terminated string of length MAX_PATH that contains the path. When the function returns, <i>pszPath</i> points to the undecorated string.
      * @returns {String} Nothing - always returns an empty string
@@ -21791,31 +21953,31 @@ class Shell {
      * @since windows5.0
      */
     static PathUndecorateW(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathUndecorateW", "ptr", pszPath)
     }
 
     /**
      * Replaces certain folder names in a fully qualified path with their associated environment string.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be unexpanded.
-     * @param {Pointer<Byte>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this method returns successfully, receives the unexpanded string. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size, in characters, in the <i>pszBuf</i> buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunexpandenvstringsa
      * @since windows5.0
      */
     static PathUnExpandEnvStringsA(pszPath, pszBuf, cchBuf) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsA", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -21823,24 +21985,24 @@ class Shell {
 
     /**
      * Replaces certain folder names in a fully qualified path with their associated environment string.
-     * @param {Pointer<Char>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH that contains the path to be unexpanded.
-     * @param {Pointer<Char>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that, when this method returns successfully, receives the unexpanded string. The size of this buffer must be set to MAX_PATH to ensure that it is large enough to hold the returned string.
      * @param {Integer} cchBuf Type: <b>UINT</b>
      * 
      * The size, in characters, in the <i>pszBuf</i> buffer.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathunexpandenvstringsw
      * @since windows5.0
      */
     static PathUnExpandEnvStringsW(pszPath, pszBuf, cchBuf) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\PathUnExpandEnvStringsW", "ptr", pszPath, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -21848,13 +22010,13 @@ class Shell {
 
     /**
      * Makes a case-sensitive comparison of two URL strings.
-     * @param {Pointer<Byte>} psz1 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the first URL.
-     * @param {Pointer<Byte>} psz2 Type: <b>PCTSTR</b>
+     * @param {PSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the second URL.
-     * @param {Integer} fIgnoreSlash Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreSlash Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> to have <b>UrlCompare</b> ignore a trailing '/' character on either or both URLs.
      * @returns {Integer} Type: <b>int</b>
@@ -21864,8 +22026,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCompareA(psz1, psz2, fIgnoreSlash) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\UrlCompareA", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
@@ -21873,13 +22035,13 @@ class Shell {
 
     /**
      * Makes a case-sensitive comparison of two URL strings.
-     * @param {Pointer<Char>} psz1 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz1 Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the first URL.
-     * @param {Pointer<Char>} psz2 Type: <b>PCTSTR</b>
+     * @param {PWSTR} psz2 Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the second URL.
-     * @param {Integer} fIgnoreSlash Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreSlash Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> to have <b>UrlCompare</b> ignore a trailing '/' character on either or both URLs.
      * @returns {Integer} Type: <b>int</b>
@@ -21889,8 +22051,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCompareW(psz1, psz2, fIgnoreSlash) {
-        psz1 := psz1 is String? StrPtr(psz1) : psz1
-        psz2 := psz2 is String? StrPtr(psz2) : psz2
+        psz1 := psz1 is String ? StrPtr(psz1) : psz1
+        psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
         result := DllCall("SHLWAPI.dll\UrlCompareW", "ptr", psz1, "ptr", psz2, "int", fIgnoreSlash, "int")
         return result
@@ -21898,13 +22060,13 @@ class Shell {
 
     /**
      * When provided with a relative URL and its base, returns a URL in canonical form.
-     * @param {Pointer<Byte>} pszBase Type: <b>PCTSTR</b>
+     * @param {PSTR} pszBase Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the base URL.
-     * @param {Pointer<Byte>} pszRelative Type: <b>PCTSTR</b>
+     * @param {PSTR} pszRelative Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the relative URL.
-     * @param {Pointer<Byte>} pszCombined Type: <b>PTSTR</b>
+     * @param {PSTR} pszCombined Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string that contains the combined URL.
      * @param {Pointer<UInt32>} pcchCombined Type: <b>DWORD*</b>
@@ -21949,9 +22111,9 @@ class Shell {
      * @since windows5.0
      */
     static UrlCombineA(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
-        pszBase := pszBase is String? StrPtr(pszBase) : pszBase
-        pszRelative := pszRelative is String? StrPtr(pszRelative) : pszRelative
-        pszCombined := pszCombined is String? StrPtr(pszCombined) : pszCombined
+        pszBase := pszBase is String ? StrPtr(pszBase) : pszBase
+        pszRelative := pszRelative is String ? StrPtr(pszRelative) : pszRelative
+        pszCombined := pszCombined is String ? StrPtr(pszCombined) : pszCombined
 
         result := DllCall("SHLWAPI.dll\UrlCombineA", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, "uint*", pcchCombined, "uint", dwFlags, "int")
         if(result != 0)
@@ -21962,13 +22124,13 @@ class Shell {
 
     /**
      * When provided with a relative URL and its base, returns a URL in canonical form.
-     * @param {Pointer<Char>} pszBase Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszBase Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the base URL.
-     * @param {Pointer<Char>} pszRelative Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszRelative Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the relative URL.
-     * @param {Pointer<Char>} pszCombined Type: <b>PTSTR</b>
+     * @param {PWSTR} pszCombined Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string that contains the combined URL.
      * @param {Pointer<UInt32>} pcchCombined Type: <b>DWORD*</b>
@@ -22013,9 +22175,9 @@ class Shell {
      * @since windows5.0
      */
     static UrlCombineW(pszBase, pszRelative, pszCombined, pcchCombined, dwFlags) {
-        pszBase := pszBase is String? StrPtr(pszBase) : pszBase
-        pszRelative := pszRelative is String? StrPtr(pszRelative) : pszRelative
-        pszCombined := pszCombined is String? StrPtr(pszCombined) : pszCombined
+        pszBase := pszBase is String ? StrPtr(pszBase) : pszBase
+        pszRelative := pszRelative is String ? StrPtr(pszRelative) : pszRelative
+        pszCombined := pszCombined is String ? StrPtr(pszCombined) : pszCombined
 
         result := DllCall("SHLWAPI.dll\UrlCombineW", "ptr", pszBase, "ptr", pszRelative, "ptr", pszCombined, "uint*", pcchCombined, "uint", dwFlags, "int")
         if(result != 0)
@@ -22026,10 +22188,10 @@ class Shell {
 
     /**
      * Converts a URL string into canonical form.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains a URL string. If the string does not refer to a file, it must include a valid scheme such as "http://".
-     * @param {Pointer<Byte>} pszCanonicalized Type: <b>PTSTR</b>
+     * @param {PSTR} pszCanonicalized Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted URL as a null-terminated string.
      * @param {Pointer<UInt32>} pcchCanonicalized Type: <b>DWORD*</b>
@@ -22045,8 +22207,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCanonicalizeA(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszCanonicalized := pszCanonicalized is String? StrPtr(pszCanonicalized) : pszCanonicalized
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszCanonicalized := pszCanonicalized is String ? StrPtr(pszCanonicalized) : pszCanonicalized
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeA", "ptr", pszUrl, "ptr", pszCanonicalized, "uint*", pcchCanonicalized, "uint", dwFlags, "int")
         if(result != 0)
@@ -22057,10 +22219,10 @@ class Shell {
 
     /**
      * Converts a URL string into canonical form.
-     * @param {Pointer<Char>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains a URL string. If the string does not refer to a file, it must include a valid scheme such as "http://".
-     * @param {Pointer<Char>} pszCanonicalized Type: <b>PTSTR</b>
+     * @param {PWSTR} pszCanonicalized Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted URL as a null-terminated string.
      * @param {Pointer<UInt32>} pcchCanonicalized Type: <b>DWORD*</b>
@@ -22076,8 +22238,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCanonicalizeW(pszUrl, pszCanonicalized, pcchCanonicalized, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszCanonicalized := pszCanonicalized is String? StrPtr(pszCanonicalized) : pszCanonicalized
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszCanonicalized := pszCanonicalized is String ? StrPtr(pszCanonicalized) : pszCanonicalized
 
         result := DllCall("SHLWAPI.dll\UrlCanonicalizeW", "ptr", pszUrl, "ptr", pszCanonicalized, "uint*", pcchCanonicalized, "uint", dwFlags, "int")
         if(result != 0)
@@ -22088,17 +22250,17 @@ class Shell {
 
     /**
      * Returns whether a URL is opaque.
-     * @param {Pointer<Byte>} pszURL Type: <b>PCTSTR</b>
+     * @param {PSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is opaque, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlisopaquea
      * @since windows5.0
      */
     static UrlIsOpaqueA(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlIsOpaqueA", "ptr", pszURL, "int")
         return result
@@ -22106,17 +22268,17 @@ class Shell {
 
     /**
      * Returns whether a URL is opaque.
-     * @param {Pointer<Char>} pszURL Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is opaque, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlisopaquew
      * @since windows5.0
      */
     static UrlIsOpaqueW(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlIsOpaqueW", "ptr", pszURL, "int")
         return result
@@ -22124,17 +22286,17 @@ class Shell {
 
     /**
      * Returns whether a URL is a URL that browsers typically do not include in navigation history.
-     * @param {Pointer<Byte>} pszURL Type: <b>PCTSTR</b>
+     * @param {PSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is a URL that is not included in navigation history, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlisnohistorya
      * @since windows5.0
      */
     static UrlIsNoHistoryA(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlIsNoHistoryA", "ptr", pszURL, "int")
         return result
@@ -22142,17 +22304,17 @@ class Shell {
 
     /**
      * Returns whether a URL is a URL that browsers typically do not include in navigation history.
-     * @param {Pointer<Char>} pszURL Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the URL is a URL that is not included in navigation history, or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlisnohistoryw
      * @since windows5.0
      */
     static UrlIsNoHistoryW(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlIsNoHistoryW", "ptr", pszURL, "int")
         return result
@@ -22160,11 +22322,11 @@ class Shell {
 
     /**
      * Tests whether a URL is a specified type.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
      * @param {Integer} UrlIs Type: <b>URLIS</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
      * 
@@ -22175,7 +22337,7 @@ class Shell {
      * @since windows5.0
      */
     static UrlIsA(pszUrl, UrlIs) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlIsA", "ptr", pszUrl, "int", UrlIs, "int")
         return result
@@ -22183,11 +22345,11 @@ class Shell {
 
     /**
      * Tests whether a URL is a specified type.
-     * @param {Pointer<Char>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
      * @param {Integer} UrlIs Type: <b>URLIS</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * For all but one of the URL types, <b>UrlIs</b> returns <b>TRUE</b> if the URL is the specified type, or <b>FALSE</b> if not. 
      * 
@@ -22198,7 +22360,7 @@ class Shell {
      * @since windows5.0
      */
     static UrlIsW(pszUrl, UrlIs) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlIsW", "ptr", pszUrl, "int", UrlIs, "int")
         return result
@@ -22206,17 +22368,17 @@ class Shell {
 
     /**
      * Retrieves the location from a URL.
-     * @param {Pointer<Byte>} pszURL Type: <b>PCTSTR</b>
+     * @param {PSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the location.
-     * @returns {Pointer<Byte>} Type: <b>LPCTSTR</b>
+     * @returns {PSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a null-terminated string with the location, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlgetlocationa
      * @since windows5.0
      */
     static UrlGetLocationA(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlGetLocationA", "ptr", pszURL, "char*")
         return result
@@ -22224,17 +22386,17 @@ class Shell {
 
     /**
      * Retrieves the location from a URL.
-     * @param {Pointer<Char>} pszURL Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszURL Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the location.
-     * @returns {Pointer<Char>} Type: <b>LPCTSTR</b>
+     * @returns {PWSTR} Type: <b>LPCTSTR</b>
      * 
      * Returns a pointer to a null-terminated string with the location, or <b>NULL</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-urlgetlocationw
      * @since windows5.0
      */
     static UrlGetLocationW(pszURL) {
-        pszURL := pszURL is String? StrPtr(pszURL) : pszURL
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
         result := DllCall("SHLWAPI.dll\UrlGetLocationW", "ptr", pszURL, "char*")
         return result
@@ -22242,10 +22404,10 @@ class Shell {
 
     /**
      * Converts escape sequences back into ordinary characters.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string with the URL. If <i>dwFlags</i> is set to <b>URL_UNESCAPE_INPLACE</b>, the converted string is returned through this parameter.
-     * @param {Pointer<Byte>} pszUnescaped Type: <b>PTSTR</b>
+     * @param {PSTR} pszUnescaped Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that will receive a null-terminated string that contains the unescaped version of <i>pszURL</i>. If <b>URL_UNESCAPE_INPLACE</b> is set in <i>dwFlags</i>, this parameter is ignored.
      * @param {Pointer<UInt32>} pcchUnescaped Type: <b>DWORD*</b>
@@ -22261,8 +22423,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlUnescapeA(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszUnescaped := pszUnescaped is String? StrPtr(pszUnescaped) : pszUnescaped
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszUnescaped := pszUnescaped is String ? StrPtr(pszUnescaped) : pszUnescaped
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeA", "ptr", pszUrl, "ptr", pszUnescaped, "uint*", pcchUnescaped, "uint", dwFlags, "int")
         if(result != 0)
@@ -22273,10 +22435,10 @@ class Shell {
 
     /**
      * Converts escape sequences back into ordinary characters.
-     * @param {Pointer<Char>} pszUrl Type: <b>PTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a null-terminated string with the URL. If <i>dwFlags</i> is set to <b>URL_UNESCAPE_INPLACE</b>, the converted string is returned through this parameter.
-     * @param {Pointer<Char>} pszUnescaped Type: <b>PTSTR</b>
+     * @param {PWSTR} pszUnescaped Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that will receive a null-terminated string that contains the unescaped version of <i>pszURL</i>. If <b>URL_UNESCAPE_INPLACE</b> is set in <i>dwFlags</i>, this parameter is ignored.
      * @param {Pointer<UInt32>} pcchUnescaped Type: <b>DWORD*</b>
@@ -22292,8 +22454,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlUnescapeW(pszUrl, pszUnescaped, pcchUnescaped, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszUnescaped := pszUnescaped is String? StrPtr(pszUnescaped) : pszUnescaped
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszUnescaped := pszUnescaped is String ? StrPtr(pszUnescaped) : pszUnescaped
 
         result := DllCall("SHLWAPI.dll\UrlUnescapeW", "ptr", pszUrl, "ptr", pszUnescaped, "uint*", pcchUnescaped, "uint", dwFlags, "int")
         if(result != 0)
@@ -22304,10 +22466,10 @@ class Shell {
 
     /**
      * Converts characters or surrogate pairs in a URL that might be altered during transport across the Internet (&quot;unsafe&quot; characters) into their corresponding escape sequences.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length <b>INTERNET_MAX_URL_LENGTH</b> that contains a full or partial URL, as appropriate for the value in <i>dwFlags</i>.
-     * @param {Pointer<Byte>} pszEscaped Type: <b>PTSTR</b>
+     * @param {PSTR} pszEscaped Type: <b>PTSTR</b>
      * 
      * The buffer that receives the converted string, with the unsafe characters converted to their escape sequences.
      * @param {Pointer<UInt32>} pcchEscaped Type: <b>DWORD*</b>
@@ -22327,8 +22489,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlEscapeA(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszEscaped := pszEscaped is String? StrPtr(pszEscaped) : pszEscaped
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszEscaped := pszEscaped is String ? StrPtr(pszEscaped) : pszEscaped
 
         result := DllCall("SHLWAPI.dll\UrlEscapeA", "ptr", pszUrl, "ptr", pszEscaped, "uint*", pcchEscaped, "uint", dwFlags, "int")
         if(result != 0)
@@ -22339,10 +22501,10 @@ class Shell {
 
     /**
      * Converts characters or surrogate pairs in a URL that might be altered during transport across the Internet (&quot;unsafe&quot; characters) into their corresponding escape sequences.
-     * @param {Pointer<Char>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length <b>INTERNET_MAX_URL_LENGTH</b> that contains a full or partial URL, as appropriate for the value in <i>dwFlags</i>.
-     * @param {Pointer<Char>} pszEscaped Type: <b>PTSTR</b>
+     * @param {PWSTR} pszEscaped Type: <b>PTSTR</b>
      * 
      * The buffer that receives the converted string, with the unsafe characters converted to their escape sequences.
      * @param {Pointer<UInt32>} pcchEscaped Type: <b>DWORD*</b>
@@ -22362,8 +22524,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlEscapeW(pszUrl, pszEscaped, pcchEscaped, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszEscaped := pszEscaped is String? StrPtr(pszEscaped) : pszEscaped
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszEscaped := pszEscaped is String ? StrPtr(pszEscaped) : pszEscaped
 
         result := DllCall("SHLWAPI.dll\UrlEscapeW", "ptr", pszUrl, "ptr", pszEscaped, "uint*", pcchEscaped, "uint", dwFlags, "int")
         if(result != 0)
@@ -22374,10 +22536,10 @@ class Shell {
 
     /**
      * Converts a Microsoft MS-DOS path to a canonicalized URL.
-     * @param {Pointer<Byte>} pszPath Type: <b>PCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the MS-DOS path.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the URL.
      * @param {Pointer<UInt32>} pcchUrl Type: <b>DWORD*</b>
@@ -22393,8 +22555,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCreateFromPathA(pszPath, pszUrl, pcchUrl, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathA", "ptr", pszPath, "ptr", pszUrl, "uint*", pcchUrl, "uint", dwFlags, "int")
         if(result != 0)
@@ -22405,10 +22567,10 @@ class Shell {
 
     /**
      * Converts a Microsoft MS-DOS path to a canonicalized URL.
-     * @param {Pointer<Char>} pszPath Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the MS-DOS path.
-     * @param {Pointer<Char>} pszUrl Type: <b>PTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the URL.
      * @param {Pointer<UInt32>} pcchUrl Type: <b>DWORD*</b>
@@ -22424,8 +22586,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlCreateFromPathW(pszPath, pszUrl, pcchUrl, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlCreateFromPathW", "ptr", pszPath, "ptr", pszUrl, "uint*", pcchUrl, "uint", dwFlags, "int")
         if(result != 0)
@@ -22436,10 +22598,10 @@ class Shell {
 
     /**
      * Converts a file URL to a Microsoft MS-DOS path.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer<Byte>} pszPath Type: <b>PTSTR</b>
+     * @param {PSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the MS-DOS path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
      * @param {Pointer<UInt32>} pcchPath Type: <b>DWORD*</b>
@@ -22455,8 +22617,8 @@ class Shell {
      * @since windows5.0
      */
     static PathCreateFromUrlA(pszUrl, pszPath, pcchPath, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlA", "ptr", pszUrl, "ptr", pszPath, "uint*", pcchPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -22467,10 +22629,10 @@ class Shell {
 
     /**
      * Converts a file URL to a Microsoft MS-DOS path.
-     * @param {Pointer<Char>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer<Char>} pszPath Type: <b>PTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the MS-DOS path. You must set the size of this buffer to MAX_PATH to ensure that it is large enough to hold the returned string.
      * @param {Pointer<UInt32>} pcchPath Type: <b>DWORD*</b>
@@ -22486,8 +22648,8 @@ class Shell {
      * @since windows5.0
      */
     static PathCreateFromUrlW(pszUrl, pszPath, pcchPath, dwFlags) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlW", "ptr", pszUrl, "ptr", pszPath, "uint*", pcchPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -22498,10 +22660,10 @@ class Shell {
 
     /**
      * Creates a path from a file URL.
-     * @param {Pointer<Char>} pszIn Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszIn Type: <b>PCWSTR</b>
      * 
      * A pointer to the URL of a file, represented as a null-terminated, Unicode string.
-     * @param {Pointer<Char>} ppszOut Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszOut Type: <b>PWSTR*</b>
      * 
      * The address of a pointer to a buffer of length MAX_PATH that, when this function returns successfully, receives the file path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -22514,7 +22676,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static PathCreateFromUrlAlloc(pszIn, ppszOut, dwFlags) {
-        pszIn := pszIn is String? StrPtr(pszIn) : pszIn
+        pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
 
         result := DllCall("SHLWAPI.dll\PathCreateFromUrlAlloc", "ptr", pszIn, "ptr", ppszOut, "uint", dwFlags, "int")
         if(result != 0)
@@ -22525,7 +22687,7 @@ class Shell {
 
     /**
      * Hashes a URL string.
-     * @param {Pointer<Byte>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
      * @param {Pointer} pbHash Type: <b>BYTE*</b>
@@ -22541,7 +22703,7 @@ class Shell {
      * @since windows5.0
      */
     static UrlHashA(pszUrl, pbHash, cbHash) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashA", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
         if(result != 0)
@@ -22552,7 +22714,7 @@ class Shell {
 
     /**
      * Hashes a URL string.
-     * @param {Pointer<Char>} pszUrl Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszUrl Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
      * @param {Pointer} pbHash Type: <b>BYTE*</b>
@@ -22568,7 +22730,7 @@ class Shell {
      * @since windows5.0
      */
     static UrlHashW(pszUrl, pbHash, cbHash) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHLWAPI.dll\UrlHashW", "ptr", pszUrl, "ptr", pbHash, "uint", cbHash, "int")
         if(result != 0)
@@ -22579,10 +22741,10 @@ class Shell {
 
     /**
      * Accepts a URL string and returns a specified part of that URL.
-     * @param {Pointer<Char>} pszIn Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszIn Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer<Char>} pszOut Type: <b>PTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string with the specified part of the URL.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -22599,8 +22761,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlGetPartW(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
-        pszIn := pszIn is String? StrPtr(pszIn) : pszIn
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlGetPartW", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwPart, "uint", dwFlags, "int")
         if(result != 0)
@@ -22611,10 +22773,10 @@ class Shell {
 
     /**
      * Accepts a URL string and returns a specified part of that URL.
-     * @param {Pointer<Byte>} pszIn Type: <b>PCTSTR</b>
+     * @param {PSTR} pszIn Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains the URL.
-     * @param {Pointer<Byte>} pszOut Type: <b>PTSTR</b>
+     * @param {PSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string with the specified part of the URL.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -22631,8 +22793,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlGetPartA(pszIn, pszOut, pcchOut, dwPart, dwFlags) {
-        pszIn := pszIn is String? StrPtr(pszIn) : pszIn
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlGetPartA", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwPart, "uint", dwFlags, "int")
         if(result != 0)
@@ -22643,10 +22805,10 @@ class Shell {
 
     /**
      * Determines a scheme for a specified URL string, and returns a string with an appropriate prefix.
-     * @param {Pointer<Byte>} pszIn Type: <b>PCTSTR</b>
+     * @param {PSTR} pszIn Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains a URL.
-     * @param {Pointer<Byte>} pszOut Type: <b>PTSTR</b>
+     * @param {PSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string set to the URL specified by <i>pszIn</i> and converted to the standard <i>scheme</i>://<i>URL_string</i> format.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -22702,8 +22864,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlApplySchemeA(pszIn, pszOut, pcchOut, dwFlags) {
-        pszIn := pszIn is String? StrPtr(pszIn) : pszIn
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeA", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwFlags, "int")
         if(result != 0)
@@ -22714,10 +22876,10 @@ class Shell {
 
     /**
      * Determines a scheme for a specified URL string, and returns a string with an appropriate prefix.
-     * @param {Pointer<Char>} pszIn Type: <b>PCTSTR</b>
+     * @param {PWSTR} pszIn Type: <b>PCTSTR</b>
      * 
      * A null-terminated string of maximum length INTERNET_MAX_URL_LENGTH that contains a URL.
-     * @param {Pointer<Char>} pszOut Type: <b>PTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>PTSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives a null-terminated string set to the URL specified by <i>pszIn</i> and converted to the standard <i>scheme</i>://<i>URL_string</i> format.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -22773,8 +22935,8 @@ class Shell {
      * @since windows5.0
      */
     static UrlApplySchemeW(pszIn, pszOut, pcchOut, dwFlags) {
-        pszIn := pszIn is String? StrPtr(pszIn) : pszIn
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\UrlApplySchemeW", "ptr", pszIn, "ptr", pszOut, "uint*", pcchOut, "uint", dwFlags, "int")
         if(result != 0)
@@ -22813,10 +22975,10 @@ class Shell {
 
     /**
      * UrlFixupW may be altered or unavailable.
-     * @param {Pointer<Char>} pcszUrl Type: <b>PCWSTR</b>
+     * @param {PWSTR} pcszUrl Type: <b>PCWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that contains the URL to be corrected. This string must not exceed INTERNET_MAX_PATH_LENGTH characters in length, including the terminating <b>NULL</b> character.
-     * @param {Pointer<Char>} pszTranslatedUrl Type: <b>PWSTR</b>
+     * @param {PWSTR} pszTranslatedUrl Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the copied characters. The buffer must be large enough to contain the number of WCHAR characters specified by the <i>cchMax</i> parameter, including the terminating <b>NULL</b> character. This parameter can be equal to the <i>pcszUrl</i> parameter to correct a URL in place. If <i>pszTranslatedUrl</i> is not equal to <i>pcszUrl</i>, the buffer pointed to by <i>pszTranslatedUrl</i> must not overlap the buffer pointed to by <i>pcszUrl</i>.
      * @param {Integer} cchMax Type: <b>DWORD</b>
@@ -22829,8 +22991,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static UrlFixupW(pcszUrl, pszTranslatedUrl, cchMax) {
-        pcszUrl := pcszUrl is String? StrPtr(pcszUrl) : pcszUrl
-        pszTranslatedUrl := pszTranslatedUrl is String? StrPtr(pszTranslatedUrl) : pszTranslatedUrl
+        pcszUrl := pcszUrl is String ? StrPtr(pcszUrl) : pcszUrl
+        pszTranslatedUrl := pszTranslatedUrl is String ? StrPtr(pszTranslatedUrl) : pszTranslatedUrl
 
         result := DllCall("SHLWAPI.dll\UrlFixupW", "ptr", pcszUrl, "ptr", pszTranslatedUrl, "uint", cchMax, "int")
         if(result != 0)
@@ -22841,7 +23003,7 @@ class Shell {
 
     /**
      * Performs rudimentary parsing of a URL.
-     * @param {Pointer<Byte>} pcszURL Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszURL Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the URL to be parsed.
      * @param {Pointer<PARSEDURLA>} ppu Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a>*</b>
@@ -22854,7 +23016,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static ParseURLA(pcszURL, ppu) {
-        pcszURL := pcszURL is String? StrPtr(pcszURL) : pcszURL
+        pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLA", "ptr", pcszURL, "ptr", ppu, "int")
         if(result != 0)
@@ -22865,7 +23027,7 @@ class Shell {
 
     /**
      * Performs rudimentary parsing of a URL.
-     * @param {Pointer<Char>} pcszURL Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszURL Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the URL to be parsed.
      * @param {Pointer<PARSEDURLW>} ppu Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ns-shlwapi-parsedurla">PARSEDURL</a>*</b>
@@ -22878,7 +23040,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static ParseURLW(pcszURL, ppu) {
-        pcszURL := pcszURL is String? StrPtr(pcszURL) : pcszURL
+        pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
 
         result := DllCall("SHLWAPI.dll\ParseURLW", "ptr", pcszURL, "ptr", ppu, "int")
         if(result != 0)
@@ -22889,13 +23051,13 @@ class Shell {
 
     /**
      * Deletes an empty key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -22905,7 +23067,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteEmptyKeyA(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -22913,13 +23076,13 @@ class Shell {
 
     /**
      * Deletes an empty key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -22929,7 +23092,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteEmptyKeyW(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -22937,13 +23101,13 @@ class Shell {
 
     /**
      * Deletes a subkey and all its descendants. This function removes the key and all the key's values from the registry.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -22953,7 +23117,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteKeyA(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -22961,13 +23126,13 @@ class Shell {
 
     /**
      * Deletes a subkey and all its descendants. This function removes the key and all the key's values from the registry.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to an open registry key, or one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the key to delete.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -22977,7 +23142,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteKeyW(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -22985,29 +23151,31 @@ class Shell {
 
     /**
      * Duplicates a registry key's HKEY handle.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * The HKEY handle to be duplicated.
-     * @returns {Pointer<Void>} Type: <b>HKEY</b>
+     * @returns {HKEY} Type: <b>HKEY</b>
      * 
      * Returns a duplicate of the handle specified in <i>hkey</i>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shregduplicatehkey
      * @since windows5.0
      */
     static SHRegDuplicateHKey(hkey) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+
         result := DllCall("SHLWAPI.dll\SHRegDuplicateHKey", "ptr", hkey, "ptr")
-        return result
+        return HKEY({Value: result}, True)
     }
 
     /**
      * Deletes a named value from the specified registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value to be deleted.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23017,8 +23185,9 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteValueA(hkey, pszSubKey, pszValue) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
@@ -23026,13 +23195,13 @@ class Shell {
 
     /**
      * Deletes a named value from the specified registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string specifying the name of the subkey for which to change the value.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value to be deleted.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23042,8 +23211,9 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteValueW(hkey, pszSubKey, pszValue) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
@@ -23051,13 +23221,13 @@ class Shell {
 
     /**
      * Retrieves a registry value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
@@ -23076,8 +23246,9 @@ class Shell {
      * @since windows5.0
      */
     static SHGetValueA(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23085,13 +23256,13 @@ class Shell {
 
     /**
      * Retrieves a registry value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey from which to retrieve the value.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the value.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
@@ -23110,8 +23281,9 @@ class Shell {
      * @since windows5.0
      */
     static SHGetValueW(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23119,13 +23291,13 @@ class Shell {
 
     /**
      * Sets the value of a registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the value. This value can be <b>NULL</b>.
      * @param {Integer} dwType Type: <b>DWORD</b>
@@ -23144,8 +23316,9 @@ class Shell {
      * @since windows5.0
      */
     static SHSetValueA(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
@@ -23153,13 +23326,13 @@ class Shell {
 
     /**
      * Sets the value of a registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the name of the subkey with which a value is associated. This can be <b>NULL</b> or a pointer to an empty string. In this case, the value is added to the key identified by the <i>hkey</i> parameter.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of a null-terminated string that specifies the value. This value can be <b>NULL</b>.
      * @param {Integer} dwType Type: <b>DWORD</b>
@@ -23178,8 +23351,9 @@ class Shell {
      * @since windows5.0
      */
     static SHSetValueW(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
@@ -23187,16 +23361,16 @@ class Shell {
 
     /**
      * Retrieves a registry value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that contains the name of the value. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the Default value.
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
@@ -23242,8 +23416,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHRegGetValueA(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23251,16 +23426,16 @@ class Shell {
 
     /**
      * Retrieves a registry value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * 
      * <a id="HKEY_CLASSES_ROOT"></a>
      * <a id="hkey_classes_root"></a>
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that specifies the relative path from <i>hkey</i> to the subkey to retrieve the value from. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the <i>hkey</i> location.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated string that contains the name of the value. This parameter can be <b>NULL</b> or an empty string, in which case the data is retrieved from the Default value.
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
@@ -23306,8 +23481,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHRegGetValueW(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23315,10 +23491,10 @@ class Shell {
 
     /**
      * Obtains specified information from the registry.
-     * @param {Pointer<Char>} pwszKey Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszKey Type: <b>PCWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated Unicode string that specifies the path to the registry key.
-     * @param {Pointer<Char>} pwszValue Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValue Type: <b>PCWSTR</b>
      * 
      * A pointer to a <b>null</b>-terminated Unicode string that specifies the key value. This value can be <b>NULL</b>, in which case data is retrieved from the Default value.
      * @param {Integer} srrfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/srrf">SRRF</a></b>
@@ -23340,8 +23516,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHRegGetValueFromHKCUHKLM(pwszKey, pwszValue, srrfFlags, pdwType, pvData, pcbData) {
-        pwszKey := pwszKey is String? StrPtr(pwszKey) : pwszKey
-        pwszValue := pwszValue is String? StrPtr(pwszValue) : pwszValue
+        pwszKey := pwszKey is String ? StrPtr(pwszKey) : pwszKey
+        pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
 
         result := DllCall("SHLWAPI.dll\SHRegGetValueFromHKCUHKLM", "ptr", pwszKey, "ptr", pwszValue, "int", srrfFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23349,10 +23525,10 @@ class Shell {
 
     /**
      * Opens a registry key and queries it for a specific value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
@@ -23373,7 +23549,8 @@ class Shell {
     static SHQueryValueExA(hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23381,10 +23558,10 @@ class Shell {
 
     /**
      * Opens a registry key and queries it for a specific value.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * The address of the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD</b>
@@ -23405,7 +23582,8 @@ class Shell {
     static SHQueryValueExW(hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23413,13 +23591,13 @@ class Shell {
 
     /**
      * Enumerates the subkeys of the specified open registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Byte>} pszName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated key name.
      * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
@@ -23432,7 +23610,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumKeyExA(hkey, dwIndex, pszName, pcchName) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", hkey, "uint", dwIndex, "ptr", pszName, "uint*", pcchName, "uint")
         return result
@@ -23440,13 +23619,13 @@ class Shell {
 
     /**
      * Enumerates the subkeys of the specified open registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Char>} pszName Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated key name.
      * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
@@ -23459,7 +23638,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumKeyExW(hkey, dwIndex, pszName, pcchName) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", hkey, "uint", dwIndex, "ptr", pszName, "uint*", pcchName, "uint")
         return result
@@ -23467,13 +23647,13 @@ class Shell {
 
     /**
      * Enumerates the values of the specified open registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Byte>} pszValueName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueName</i>.
      * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
@@ -23495,7 +23675,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumValueA(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23503,13 +23684,13 @@ class Shell {
 
     /**
      * Enumerates the values of the specified open registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Char>} pszValueName Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueName</i>.
      * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
@@ -23531,7 +23712,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumValueW(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23539,7 +23721,7 @@ class Shell {
 
     /**
      * Retrieves information about a specified registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
@@ -23561,13 +23743,15 @@ class Shell {
      * @since windows5.0
      */
     static SHQueryInfoKeyA(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+
         result := DllCall("SHLWAPI.dll\SHQueryInfoKeyA", "ptr", hkey, "uint*", pcSubKeys, "uint*", pcchMaxSubKeyLen, "uint*", pcValues, "uint*", pcchMaxValueNameLen, "uint")
         return result
     }
 
     /**
      * Retrieves information about a specified registry key.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * A handle to the currently open key, or any of the following predefined values.
      * @param {Pointer<UInt32>} pcSubKeys Type: <b>LPDWORD</b>
@@ -23589,19 +23773,21 @@ class Shell {
      * @since windows5.0
      */
     static SHQueryInfoKeyW(hkey, pcSubKeys, pcchMaxSubKeyLen, pcValues, pcchMaxValueNameLen) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+
         result := DllCall("SHLWAPI.dll\SHQueryInfoKeyW", "ptr", hkey, "uint*", pcSubKeys, "uint*", pcchMaxSubKeyLen, "uint*", pcValues, "uint*", pcchMaxValueNameLen, "uint")
         return result
     }
 
     /**
      * Recursively copies the subkeys and values of the source subkey to the destination key. SHCopyKey does not copy the security attributes of the keys.
-     * @param {Pointer<Void>} hkeySrc Type: <b>HKEY</b>
+     * @param {HKEY} hkeySrc Type: <b>HKEY</b>
      * 
      * A handle to the source key (for example, <b>HKEY_CURRENT_USER</b>).
-     * @param {Pointer<Byte>} pszSrcSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSrcSubKey Type: <b>LPCTSTR</b>
      * 
      * The subkey whose subkeys and values are to be copied.
-     * @param {Pointer<Void>} hkeyDest Type: <b>HKEY</b>
+     * @param {HKEY} hkeyDest Type: <b>HKEY</b>
      * 
      * The destination key.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23613,7 +23799,9 @@ class Shell {
     static SHCopyKeyA(hkeySrc, pszSrcSubKey, hkeyDest) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        pszSrcSubKey := pszSrcSubKey is String? StrPtr(pszSrcSubKey) : pszSrcSubKey
+        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
+        hkeySrc := hkeySrc is Win32Handle ? NumGet(hkeySrc, "ptr") : hkeySrc
+        hkeyDest := hkeyDest is Win32Handle ? NumGet(hkeyDest, "ptr") : hkeyDest
 
         result := DllCall("SHLWAPI.dll\SHCopyKeyA", "ptr", hkeySrc, "ptr", pszSrcSubKey, "ptr", hkeyDest, "uint", fReserved, "uint")
         return result
@@ -23621,13 +23809,13 @@ class Shell {
 
     /**
      * Recursively copies the subkeys and values of the source subkey to the destination key. SHCopyKey does not copy the security attributes of the keys.
-     * @param {Pointer<Void>} hkeySrc Type: <b>HKEY</b>
+     * @param {HKEY} hkeySrc Type: <b>HKEY</b>
      * 
      * A handle to the source key (for example, <b>HKEY_CURRENT_USER</b>).
-     * @param {Pointer<Char>} pszSrcSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSrcSubKey Type: <b>LPCTSTR</b>
      * 
      * The subkey whose subkeys and values are to be copied.
-     * @param {Pointer<Void>} hkeyDest Type: <b>HKEY</b>
+     * @param {HKEY} hkeyDest Type: <b>HKEY</b>
      * 
      * The destination key.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23639,7 +23827,9 @@ class Shell {
     static SHCopyKeyW(hkeySrc, pszSrcSubKey, hkeyDest) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        pszSrcSubKey := pszSrcSubKey is String? StrPtr(pszSrcSubKey) : pszSrcSubKey
+        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
+        hkeySrc := hkeySrc is Win32Handle ? NumGet(hkeySrc, "ptr") : hkeySrc
+        hkeyDest := hkeyDest is Win32Handle ? NumGet(hkeyDest, "ptr") : hkeyDest
 
         result := DllCall("SHLWAPI.dll\SHCopyKeyW", "ptr", hkeySrc, "ptr", pszSrcSubKey, "ptr", hkeyDest, "uint", fReserved, "uint")
         return result
@@ -23647,16 +23837,16 @@ class Shell {
 
     /**
      * Retrieves a file path from the registry, expanding environment variables as needed.
-     * @param {Pointer<Void>} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
-     * @param {Pointer<Byte>} pcszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
-     * @param {Pointer<Byte>} pcszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the value that holds the unexpanded path string.
-     * @param {Pointer<Byte>} pszPath Type: <b>LPTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A buffer to hold the expanded path. You should set the size of this buffer to <b>MAX_PATH</b> to ensure that it is large enough to hold the returned string.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -23669,9 +23859,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetPathA(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValue := pcszValue is String? StrPtr(pcszValue) : pcszValue
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
@@ -23679,16 +23870,16 @@ class Shell {
 
     /**
      * Retrieves a file path from the registry, expanding environment variables as needed.
-     * @param {Pointer<Void>} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
-     * @param {Pointer<Char>} pcszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the subkey.
-     * @param {Pointer<Char>} pcszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the name of the value that holds the unexpanded path string.
-     * @param {Pointer<Char>} pszPath Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszPath Type: <b>LPTSTR</b>
      * 
      * A buffer to hold the expanded path. You should set the size of this buffer to <b>MAX_PATH</b> to ensure that it is large enough to hold the returned string.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -23701,9 +23892,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetPathW(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
-        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValue := pcszValue is String? StrPtr(pcszValue) : pcszValue
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
@@ -23711,16 +23903,16 @@ class Shell {
 
     /**
      * Takes a file path, replaces folder names with environment strings, and places the resulting string in the registry.
-     * @param {Pointer<Void>} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
-     * @param {Pointer<Byte>} pcszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
-     * @param {Pointer<Byte>} pcszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value to hold the path string.
-     * @param {Pointer<Byte>} pcszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pcszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with a fully qualified file path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -23733,9 +23925,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetPathA(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValue := pcszValue is String? StrPtr(pcszValue) : pcszValue
-        pcszPath := pcszPath is String? StrPtr(pcszPath) : pcszPath
+        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
+        pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
@@ -23743,16 +23936,16 @@ class Shell {
 
     /**
      * Takes a file path, replaces folder names with environment strings, and places the resulting string in the registry.
-     * @param {Pointer<Void>} hKey Type: <b>HKEY</b>
+     * @param {HKEY} hKey Type: <b>HKEY</b>
      * 
      * A handle to a key that is currently open, or a registry root key.
-     * @param {Pointer<Char>} pcszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string containing the name of an existing subkey. If the subkey does not exist, <b>SHRegSetPath</b> will fail.
-     * @param {Pointer<Char>} pcszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value to hold the path string.
-     * @param {Pointer<Char>} pcszPath Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pcszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with a fully qualified file path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -23765,9 +23958,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetPathW(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
-        pcszSubKey := pcszSubKey is String? StrPtr(pcszSubKey) : pcszSubKey
-        pcszValue := pcszValue is String? StrPtr(pcszValue) : pcszValue
-        pcszPath := pcszPath is String? StrPtr(pcszPath) : pcszPath
+        pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
+        pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
+        pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
@@ -23775,7 +23969,7 @@ class Shell {
 
     /**
      * Creates or opens a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the subkey to be created or opened. If a value with this name is already present in the subkey, it will be opened.
      * @param {Integer} samDesired Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
@@ -23795,7 +23989,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegCreateUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyA", "ptr", pszPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "uint", dwFlags, "uint")
         return result
@@ -23803,7 +23997,7 @@ class Shell {
 
     /**
      * Creates or opens a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Char>} pwzPath TBD
+     * @param {PWSTR} pwzPath TBD
      * @param {Integer} samDesired Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired security access. For more information on security access, see <a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a>.
@@ -23821,7 +24015,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegCreateUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, dwFlags) {
-        pwzPath := pwzPath is String? StrPtr(pwzPath) : pwzPath
+        pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
         result := DllCall("SHLWAPI.dll\SHRegCreateUSKeyW", "ptr", pwzPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "uint", dwFlags, "uint")
         return result
@@ -23829,7 +24023,7 @@ class Shell {
 
     /**
      * Opens a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Byte>} pszPath Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszPath Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey.
      * @param {Integer} samDesired Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
@@ -23841,7 +24035,7 @@ class Shell {
      * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to the handle of the opened key.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegOpenUSKey</b> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23851,7 +24045,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegOpenUSKeyA(pszPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyA", "ptr", pszPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "int", fIgnoreHKCU, "uint")
         return result
@@ -23859,7 +24053,7 @@ class Shell {
 
     /**
      * Opens a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Char>} pwzPath TBD
+     * @param {PWSTR} pwzPath TBD
      * @param {Integer} samDesired Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired security access. For more information on security access, see <a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a>.
@@ -23869,7 +24063,7 @@ class Shell {
      * @param {Pointer<IntPtr>} phNewUSKey Type: <b>PHUSKEY</b>
      * 
      * A pointer to the handle of the opened key.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegOpenUSKey</b> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
      * @returns {Integer} Type: <b>LSTATUS</b>
@@ -23879,7 +24073,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegOpenUSKeyW(pwzPath, samDesired, hRelativeUSKey, phNewUSKey, fIgnoreHKCU) {
-        pwzPath := pwzPath is String? StrPtr(pwzPath) : pwzPath
+        pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
         result := DllCall("SHLWAPI.dll\SHRegOpenUSKeyW", "ptr", pwzPath, "uint", samDesired, "ptr", hRelativeUSKey, "ptr*", phNewUSKey, "int", fIgnoreHKCU, "uint")
         return result
@@ -23894,7 +24088,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD*</b>
@@ -23906,7 +24100,7 @@ class Shell {
      * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD*</b>
      * 
      * A pointer to  the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegQueryUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
      * @param {Pointer} pvDefaultData Type: <b>LPVOID*</b>
@@ -23922,7 +24116,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegQueryUSValueA(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegQueryUSValueA", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
@@ -23937,7 +24131,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the <b>null</b>-terminated string that contains the name of the value to be queried.
      * @param {Pointer<UInt32>} pdwType Type: <b>LPDWORD*</b>
@@ -23949,7 +24143,7 @@ class Shell {
      * @param {Pointer<UInt32>} pcbData Type: <b>LPDWORD*</b>
      * 
      * A pointer to  the variable that specifies the size, in bytes, of the buffer pointed to by the <i>pvData</i> parameter. When the function returns, this variable contains the size of the data copied to <i>pvData</i>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * The variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegQueryUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
      * @param {Pointer} pvDefaultData Type: <b>LPVOID*</b>
@@ -23965,7 +24159,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegQueryUSValueW(hUSKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegQueryUSValueW", "ptr", hUSKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
@@ -23980,7 +24174,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the name of the value. This value is an entry in the subkey specified by <i>hUSKey</i>. If a value with this name is not already present in the subkey, it will be added.
      * 
@@ -24004,7 +24198,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegWriteUSValueA(hUSKey, pszValue, dwType, pvData, cbData, dwFlags) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegWriteUSValueA", "ptr", hUSKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "uint", dwFlags, "uint")
         return result
@@ -24019,7 +24213,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Char>} pwzValue TBD
+     * @param {PWSTR} pwzValue TBD
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * The type of the data to be stored in the value specified by <i>pszValue</i>. One of the following registry value types defined in Winnt.h and Wdm.h.
@@ -24037,7 +24231,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegWriteUSValueW(hUSKey, pwzValue, dwType, pvData, cbData, dwFlags) {
-        pwzValue := pwzValue is String? StrPtr(pwzValue) : pwzValue
+        pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("SHLWAPI.dll\SHRegWriteUSValueW", "ptr", hUSKey, "ptr", pwzValue, "uint", dwType, "ptr", pvData, "uint", cbData, "uint", dwFlags, "uint")
         return result
@@ -24052,7 +24246,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string that names the value to remove.
      * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
@@ -24065,7 +24259,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegDeleteUSValueA(hUSKey, pszValue, delRegFlags) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegDeleteUSValueA", "ptr", hUSKey, "ptr", pszValue, "int", delRegFlags, "uint")
         return result
@@ -24080,7 +24274,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Char>} pwzValue TBD
+     * @param {PWSTR} pwzValue TBD
      * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the value will be deleted.
@@ -24091,7 +24285,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegDeleteUSValueW(hUSKey, pwzValue, delRegFlags) {
-        pwzValue := pwzValue is String? StrPtr(pwzValue) : pwzValue
+        pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("SHLWAPI.dll\SHRegDeleteUSValueW", "ptr", hUSKey, "ptr", pwzValue, "int", delRegFlags, "uint")
         return result
@@ -24106,7 +24300,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Char>} pwzSubKey TBD
+     * @param {PWSTR} pwzSubKey TBD
      * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
      * 
      * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a> that specifies from which base key the subkey will be deleted.
@@ -24117,7 +24311,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegDeleteEmptyUSKeyW(hUSKey, pwzSubKey, delRegFlags) {
-        pwzSubKey := pwzSubKey is String? StrPtr(pwzSubKey) : pwzSubKey
+        pwzSubKey := pwzSubKey is String ? StrPtr(pwzSubKey) : pwzSubKey
 
         result := DllCall("SHLWAPI.dll\SHRegDeleteEmptyUSKeyW", "ptr", hUSKey, "ptr", pwzSubKey, "int", delRegFlags, "uint")
         return result
@@ -24132,7 +24326,7 @@ class Shell {
      *                         
      * 
      * This handle can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shregopenuskeya">SHRegOpenUSKey</a> function.
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCSTR</b>
      * 
      * A pointer to  the null-terminated string that specifies the empty user-defined registry subkey to be deleted.
      * @param {Integer} delRegFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-shregdel_flags">SHREGDEL_FLAGS</a></b>
@@ -24145,7 +24339,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegDeleteEmptyUSKeyA(hUSKey, pszSubKey, delRegFlags) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHLWAPI.dll\SHRegDeleteEmptyUSKeyA", "ptr", hUSKey, "ptr", pszSubKey, "int", delRegFlags, "uint")
         return result
@@ -24163,7 +24357,7 @@ class Shell {
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Byte>} pszName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated key name.
      * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
@@ -24179,7 +24373,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegEnumUSKeyA(hUSKey, dwIndex, pszName, pcchName, enumRegFlags) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHLWAPI.dll\SHRegEnumUSKeyA", "ptr", hUSKey, "uint", dwIndex, "ptr", pszName, "uint*", pcchName, "int", enumRegFlags, "uint")
         return result
@@ -24197,7 +24391,7 @@ class Shell {
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the subkey to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Char>} pwzName TBD
+     * @param {PWSTR} pwzName TBD
      * @param {Pointer<UInt32>} pcchName Type: <b>LPDWORD</b>
      * 
      * A pointer to  a DWORD that, on entry, contains the size of the buffer at <i>pszName</i>, in characters. On exit, this contains the number of characters that were copied to <i>pszName</i>.
@@ -24211,7 +24405,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegEnumUSKeyW(hUSKey, dwIndex, pwzName, pcchName, enumRegFlags) {
-        pwzName := pwzName is String? StrPtr(pwzName) : pwzName
+        pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
         result := DllCall("SHLWAPI.dll\SHRegEnumUSKeyW", "ptr", hUSKey, "uint", dwIndex, "ptr", pwzName, "uint*", pcchName, "int", enumRegFlags, "uint")
         return result
@@ -24229,7 +24423,7 @@ class Shell {
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Byte>} pszValueName Type: <b>LPTSTR</b>
+     * @param {PSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueNameLen</i>.
      * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
@@ -24254,7 +24448,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegEnumUSValueA(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
-        pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("SHLWAPI.dll\SHRegEnumUSValueA", "ptr", hUSkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", enumRegFlags, "uint")
         return result
@@ -24272,7 +24466,7 @@ class Shell {
      * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
      * The index of the value to retrieve. This parameter should be zero for the first call and incremented for subsequent calls.
-     * @param {Pointer<Char>} pszValueName Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszValueName Type: <b>LPTSTR</b>
      * 
      * A pointer to a character buffer that receives the enumerated value name. The size of this buffer is specified in <i>pcchValueNameLen</i>.
      * @param {Pointer<UInt32>} pcchValueName Type: <b>LPDWORD</b>
@@ -24297,7 +24491,7 @@ class Shell {
      * @since windows5.0
      */
     static SHRegEnumUSValueW(hUSkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData, enumRegFlags) {
-        pszValueName := pszValueName is String? StrPtr(pszValueName) : pszValueName
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("SHLWAPI.dll\SHRegEnumUSValueW", "ptr", hUSkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", enumRegFlags, "uint")
         return result
@@ -24395,10 +24589,10 @@ class Shell {
 
     /**
      * Retrieves a value from a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey relative to <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_CURRENT_USER</b>. For example: "Software\MyCompany\MyProduct".
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value. This value can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwType Type: <b>DWORD*</b>
@@ -24410,7 +24604,7 @@ class Shell {
      * @param {Pointer<UInt32>} pcbData Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by <i>pvData</i>. When <b>SHRegGetUSValue</b> returns, <i>pcbData</i> contains the size of the data copied to <i>pvData</i>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegGetUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
      * @param {Pointer} pvDefaultData Type: <b>void*</b>
@@ -24426,8 +24620,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetUSValueA(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegGetUSValueA", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
@@ -24435,10 +24629,10 @@ class Shell {
 
     /**
      * Retrieves a value from a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey relative to <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_CURRENT_USER</b>. For example: "Software\MyCompany\MyProduct".
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the value. This value can be <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwType Type: <b>DWORD*</b>
@@ -24450,7 +24644,7 @@ class Shell {
      * @param {Pointer<UInt32>} pcbData Type: <b>DWORD*</b>
      * 
      * A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by <i>pvData</i>. When <b>SHRegGetUSValue</b> returns, <i>pcbData</i> contains the size of the data copied to <i>pvData</i>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <b>SHRegGetUSValue</b> ignores <b>HKEY_CURRENT_USER</b> and returns the value from the key under <b>HKEY_LOCAL_MACHINE</b>.
      * @param {Pointer} pvDefaultData Type: <b>void*</b>
@@ -24466,8 +24660,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetUSValueW(pszSubKey, pszValue, pdwType, pvData, pcbData, fIgnoreHKCU, pvDefaultData, dwDefaultDataSize) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegGetUSValueW", "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "int", fIgnoreHKCU, "ptr", pvDefaultData, "uint", dwDefaultDataSize, "uint")
         return result
@@ -24475,10 +24669,10 @@ class Shell {
 
     /**
      * Sets a registry subkey value in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the name of the value.
      * @param {Integer} dwType Type: <b>DWORD</b>
@@ -24500,8 +24694,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetUSValueA(pszSubKey, pszValue, dwType, pvData, cbData, dwFlags) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegSetUSValueA", "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "uint", dwFlags, "uint")
         return result
@@ -24509,8 +24703,8 @@ class Shell {
 
     /**
      * Sets a registry subkey value in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Char>} pwzSubKey TBD
-     * @param {Pointer<Char>} pwzValue TBD
+     * @param {PWSTR} pwzSubKey TBD
+     * @param {PWSTR} pwzValue TBD
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * Type of data to be stored. This parameter must be the <b>REG_SZ</b> type. For more information, see <a href="https://docs.microsoft.com/windows/desktop/shell/hkey-type">Registry Data Types</a>.
@@ -24530,8 +24724,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetUSValueW(pwzSubKey, pwzValue, dwType, pvData, cbData, dwFlags) {
-        pwzSubKey := pwzSubKey is String? StrPtr(pwzSubKey) : pwzSubKey
-        pwzValue := pwzValue is String? StrPtr(pwzValue) : pwzValue
+        pwzSubKey := pwzSubKey is String ? StrPtr(pwzSubKey) : pwzSubKey
+        pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("SHLWAPI.dll\SHRegSetUSValueW", "ptr", pwzSubKey, "ptr", pwzValue, "uint", dwType, "ptr", pvData, "uint", cbData, "uint", dwFlags, "uint")
         return result
@@ -24539,10 +24733,10 @@ class Shell {
 
     /**
      * Reads a numeric string value from the registry and converts it to an integer.
-     * @param {Pointer<Void>} hk Type: <b>HKEY</b>
+     * @param {HKEY} hk Type: <b>HKEY</b>
      * 
      * A handle to the registry key that specifies the value to be read.
-     * @param {Pointer<Char>} pwzKey Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pwzKey Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string value that specifies the name of the value to be read. The string must be null-terminated.
      * @param {Integer} iDefault Type: <b>int</b>
@@ -24555,7 +24749,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetIntW(hk, pwzKey, iDefault) {
-        pwzKey := pwzKey is String? StrPtr(pwzKey) : pwzKey
+        pwzKey := pwzKey is String ? StrPtr(pwzKey) : pwzKey
+        hk := hk is Win32Handle ? NumGet(hk, "ptr") : hk
 
         result := DllCall("SHLWAPI.dll\SHRegGetIntW", "ptr", hk, "ptr", pwzKey, "int", iDefault, "int")
         return result
@@ -24563,27 +24758,27 @@ class Shell {
 
     /**
      * Retrieves a Boolean value from a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Byte>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey relative to <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_CURRENT_USER</b>. For example, "Software\MyCompany\MyProduct".
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the name of the value. This value can be <b>NULL</b>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shreggetusvaluea">SHRegGetUSValue</a> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Integer} fDefault Type: <b>BOOL</b>
+     * @param {BOOL} fDefault Type: <b>BOOL</b>
      * 
      * A value that is returned if there is no registry value.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns either the value from the registry, or <i>fDefault</i> if none is found.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shreggetboolusvaluea
      * @since windows5.0
      */
     static SHRegGetBoolUSValueA(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueA", "ptr", pszSubKey, "ptr", pszValue, "int", fIgnoreHKCU, "int", fDefault, "int")
         return result
@@ -24591,27 +24786,27 @@ class Shell {
 
     /**
      * Retrieves a Boolean value from a registry subkey in a user-specific subtree (HKEY_CURRENT_USER or HKEY_LOCAL_MACHINE).
-     * @param {Pointer<Char>} pszSubKey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubKey Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string with the name of the subkey relative to <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_CURRENT_USER</b>. For example, "Software\MyCompany\MyProduct".
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the name of the value. This value can be <b>NULL</b>.
-     * @param {Integer} fIgnoreHKCU Type: <b>BOOL</b>
+     * @param {BOOL} fIgnoreHKCU Type: <b>BOOL</b>
      * 
      * A variable that specifies which key to look under. When set to <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shreggetusvaluea">SHRegGetUSValue</a> ignores <b>HKEY_CURRENT_USER</b> and returns a value from <b>HKEY_LOCAL_MACHINE</b>.
-     * @param {Integer} fDefault Type: <b>BOOL</b>
+     * @param {BOOL} fDefault Type: <b>BOOL</b>
      * 
      * A value that is returned if there is no registry value.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns either the value from the registry, or <i>fDefault</i> if none is found.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shreggetboolusvaluew
      * @since windows5.0
      */
     static SHRegGetBoolUSValueW(pszSubKey, pszValue, fIgnoreHKCU, fDefault) {
-        pszSubKey := pszSubKey is String? StrPtr(pszSubKey) : pszSubKey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHRegGetBoolUSValueW", "ptr", pszSubKey, "ptr", pszValue, "int", fIgnoreHKCU, "int", fDefault, "int")
         return result
@@ -24650,13 +24845,13 @@ class Shell {
      * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
-     * @param {Pointer<Byte>} pszAssoc Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszAssoc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that is used to determine the root key. The following four types of strings can be used.
-     * @param {Pointer<Byte>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * An optional null-terminated string with additional information about the location of the string. It is typically set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Byte>} pszOut Type: <b>LPTSTR</b>
+     * @param {PSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string that, when this function returns successfully, receives the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -24694,9 +24889,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringA(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
-        pszAssoc := pszAssoc is String? StrPtr(pszAssoc) : pszAssoc
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringA", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         if(result != 0)
@@ -24713,13 +24908,13 @@ class Shell {
      * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
-     * @param {Pointer<Char>} pszAssoc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszAssoc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that is used to determine the root key. The following four types of strings can be used.
-     * @param {Pointer<Char>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * An optional null-terminated string with additional information about the location of the string. It is typically set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Char>} pszOut Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * Pointer to a null-terminated string that, when this function returns successfully, receives the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -24757,9 +24952,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringW(flags, str, pszAssoc, pszExtra, pszOut, pcchOut) {
-        pszAssoc := pszAssoc is String? StrPtr(pszAssoc) : pszAssoc
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringW", "uint", flags, "int", str, "ptr", pszAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         if(result != 0)
@@ -24776,13 +24971,13 @@ class Shell {
      * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
-     * @param {Pointer<Void>} hkAssoc Type: <b>HKEY</b>
+     * @param {HKEY} hkAssoc Type: <b>HKEY</b>
      * 
      * The HKEY value of the key that will be used as a root key. The search looks only below this key.
-     * @param {Pointer<Byte>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Byte>} pszOut Type: <b>LPTSTR</b>
+     * @param {PSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string used to return the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -24822,8 +25017,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringByKeyA(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
+        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         if(result != 0)
@@ -24840,13 +25036,13 @@ class Shell {
      * @param {Integer} str Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assocstr">ASSOCSTR</a> value that specifies the type of string that is to be returned.
-     * @param {Pointer<Void>} hkAssoc Type: <b>HKEY</b>
+     * @param {HKEY} hkAssoc Type: <b>HKEY</b>
      * 
      * The HKEY value of the key that will be used as a root key. The search looks only below this key.
-     * @param {Pointer<Char>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Char>} pszOut Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszOut Type: <b>LPTSTR</b>
      * 
      * A pointer to a null-terminated string used to return the requested string. Set this parameter to <b>NULL</b> to retrieve the required buffer size.
      * @param {Pointer<UInt32>} pcchOut Type: <b>DWORD*</b>
@@ -24886,8 +25082,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringByKeyW(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
-        pszOut := pszOut is String? StrPtr(pszOut) : pszOut
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
+        pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
+        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         if(result != 0)
@@ -24904,13 +25101,13 @@ class Shell {
      * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
-     * @param {Pointer<Byte>} pszAssoc Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszAssoc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that is used to determine the root key. Four types of strings can be used.
-     * @param {Pointer<Byte>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Void>} phkeyOut Type: <b>HKEY*</b>
+     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -24920,8 +25117,8 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryKeyA(flags, key, pszAssoc, pszExtra, phkeyOut) {
-        pszAssoc := pszAssoc is String? StrPtr(pszAssoc) : pszAssoc
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
+        pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHLWAPI.dll\AssocQueryKeyA", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0)
@@ -24938,13 +25135,13 @@ class Shell {
      * @param {Integer} key Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/ne-shlwapi-assockey">ASSOCKEY</a> value that specifies the type of key that is to be returned.
-     * @param {Pointer<Char>} pszAssoc Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszAssoc Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that is used to determine the root key. Four types of strings can be used.
-     * @param {Pointer<Char>} pszExtra Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<Void>} phkeyOut Type: <b>HKEY*</b>
+     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -24954,8 +25151,8 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryKeyW(flags, key, pszAssoc, pszExtra, phkeyOut) {
-        pszAssoc := pszAssoc is String? StrPtr(pszAssoc) : pszAssoc
-        pszExtra := pszExtra is String? StrPtr(pszExtra) : pszExtra
+        pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
+        pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
         result := DllCall("SHLWAPI.dll\AssocQueryKeyW", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0)
@@ -24966,17 +25163,17 @@ class Shell {
 
     /**
      * Determines whether a file type is considered a potential security risk.
-     * @param {Pointer<Char>} pszAssoc Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszAssoc Type: <b>PCWSTR</b>
      * 
      * A pointer to a string that contains the type of file in question. This may be either an extension such as ".exe" or a progid such as "exefile".
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the file type is considered dangerous; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-associsdangerous
      * @since windows5.1.2600
      */
     static AssocIsDangerous(pszAssoc) {
-        pszAssoc := pszAssoc is String? StrPtr(pszAssoc) : pszAssoc
+        pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
 
         result := DllCall("SHLWAPI.dll\AssocIsDangerous", "ptr", pszAssoc, "int")
         return result
@@ -24984,14 +25181,14 @@ class Shell {
 
     /**
      * Retrieves a file's perceived type based on its extension.
-     * @param {Pointer<Char>} pszExt Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszExt Type: <b>PCWSTR</b>
      * 
      * A pointer to a buffer that contains the file's extension. This should include the leading period, for example ".txt".
      * @param {Pointer<Int32>} ptype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-perceived">PERCEIVED</a> value that indicates the perceived type.
      * @param {Pointer<UInt32>} pflag Type: <b>PERCEIVEDFLAG*</b>
-     * @param {Pointer<Char>} ppszType Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszType Type: <b>PWSTR*</b>
      * 
      * If the function returns a success code, this contains the address of a pointer to a buffer that receives the perceived type string, for instance "text" or "video". This value can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25001,7 +25198,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static AssocGetPerceivedType(pszExt, ptype, pflag, ppszType) {
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, "int*", ptype, "uint*", pflag, "ptr", ppszType, "int")
         if(result != 0)
@@ -25012,13 +25209,13 @@ class Shell {
 
     /**
      * Deprecated.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
-     * @param {Pointer<Byte>} pszSubkey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25034,8 +25231,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStreamA(hkey, pszSubkey, pszValue, grfMode) {
-        pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25043,13 +25241,13 @@ class Shell {
 
     /**
      * Deprecated.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
-     * @param {Pointer<Char>} pszSubkey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25065,8 +25263,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStreamW(hkey, pszSubkey, pszValue, grfMode) {
-        pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25074,13 +25273,13 @@ class Shell {
 
     /**
      * Opens a registry value and supplies a stream that can be used to read from or write to the value. This function supersedes SHOpenRegStream.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
-     * @param {Pointer<Byte>} pszSubkey Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25091,8 +25290,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStream2A(hkey, pszSubkey, pszValue, grfMode) {
-        pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25100,13 +25300,13 @@ class Shell {
 
     /**
      * Opens a registry value and supplies a stream that can be used to read from or write to the value. This function supersedes SHOpenRegStream.
-     * @param {Pointer<Void>} hkey Type: <b>HKEY</b>
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
      * Required. The subtree, such as HKEY_LOCAL_MACHINE, that contains the value.
-     * @param {Pointer<Char>} pszSubkey Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszSubkey Type: <b>LPCTSTR</b>
      * 
      * Optional. Pointer to a null-terminated string that specifies the subkey that contains the value. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszValue Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszValue Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that specifies the value to be accessed. This value can be <b>NULL</b>.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25117,8 +25317,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStream2W(hkey, pszSubkey, pszValue, grfMode) {
-        pszSubkey := pszSubkey is String? StrPtr(pszSubkey) : pszSubkey
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
+        pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25126,7 +25327,7 @@ class Shell {
 
     /**
      * SHCreateStreamOnFile may be altered or unavailable. Instead, use SHCreateStreamOnFileEx.
-     * @param {Pointer<Byte>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file name.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25142,7 +25343,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileA(pszFile, grfMode, ppstm) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
         if(result != 0)
@@ -25153,7 +25354,7 @@ class Shell {
 
     /**
      * SHCreateStreamOnFile may be altered or unavailable. Instead, use SHCreateStreamOnFileEx.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file name.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25169,7 +25370,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileW(pszFile, grfMode, ppstm) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr", ppstm, "int")
         if(result != 0)
@@ -25180,7 +25381,7 @@ class Shell {
 
     /**
      * Opens or creates a file and retrieves a stream to read or write to that file.
-     * @param {Pointer<Char>} pszFile Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszFile Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated string that specifies the file name.
      * @param {Integer} grfMode Type: <b>DWORD</b>
@@ -25189,7 +25390,7 @@ class Shell {
      * @param {Integer} dwAttributes Type: <b>DWORD</b>
      * 
      * One or more flag values that specify file attributes in the case that a new file is created. For a complete list of possible values, see the <i>dwFlagsAndAttributes</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Integer} fCreate Type: <b>BOOL</b>
+     * @param {BOOL} fCreate Type: <b>BOOL</b>
      * 
      * A <b>BOOL</b> value that helps specify, in conjunction with <i>grfMode</i>, how existing files should be treated when creating the stream. See Remarks for details.
      * @param {Pointer<IStream>} pstmTemplate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
@@ -25205,7 +25406,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate, ppstm) {
-        pszFile := pszFile is String? StrPtr(pszFile) : pszFile
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr", ppstm, "int")
         if(result != 0)
@@ -25235,7 +25436,7 @@ class Shell {
 
     /**
      * Retrieves a string used with websites when specifying language preferences.
-     * @param {Pointer<Byte>} pszLanguages Type: <b>LPTSTR</b>
+     * @param {PSTR} pszLanguages Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that, when this function returns successfully, receives the language preferences information. We recommend that this buffer be of size 2048 characters to ensure sufficient space to return the full string. You can also call this function with this parameter set to NULL to retrieve the size of the string that will be returned.
      * @param {Pointer<UInt32>} pcchLanguages Type: <b>DWORD*</b>
@@ -25254,7 +25455,7 @@ class Shell {
      * @since windows5.0
      */
     static GetAcceptLanguagesA(pszLanguages, pcchLanguages) {
-        pszLanguages := pszLanguages is String? StrPtr(pszLanguages) : pszLanguages
+        pszLanguages := pszLanguages is String ? StrPtr(pszLanguages) : pszLanguages
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesA", "ptr", pszLanguages, "uint*", pcchLanguages, "int")
         if(result != 0)
@@ -25265,7 +25466,7 @@ class Shell {
 
     /**
      * Retrieves a string used with websites when specifying language preferences.
-     * @param {Pointer<Char>} pszLanguages Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszLanguages Type: <b>LPTSTR</b>
      * 
      * A pointer to a string that, when this function returns successfully, receives the language preferences information. We recommend that this buffer be of size 2048 characters to ensure sufficient space to return the full string. You can also call this function with this parameter set to NULL to retrieve the size of the string that will be returned.
      * @param {Pointer<UInt32>} pcchLanguages Type: <b>DWORD*</b>
@@ -25284,7 +25485,7 @@ class Shell {
      * @since windows5.0
      */
     static GetAcceptLanguagesW(pszLanguages, pcchLanguages) {
-        pszLanguages := pszLanguages is String? StrPtr(pszLanguages) : pszLanguages
+        pszLanguages := pszLanguages is String ? StrPtr(pszLanguages) : pszLanguages
 
         result := DllCall("SHLWAPI.dll\GetAcceptLanguagesW", "ptr", pszLanguages, "uint*", pcchLanguages, "int")
         if(result != 0)
@@ -25346,7 +25547,7 @@ class Shell {
      * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the COM object from which this function will attempt to obtain a window handle.
-     * @param {Pointer<Void>} phwnd Type: <b>HWND*</b>
+     * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
      * 
      * A pointer to a HWND that, when this function returns successfully, receives the window handle. If a window handle was not obtained, this parameter is set to <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25537,7 +25738,7 @@ class Shell {
      * @param {Pointer<Guid>} riidEvent Type: <b>REFIID</b>
      * 
      * The IID of the interface on the connection point container whose connection point object is being requested.
-     * @param {Integer} fConnect Type: <b>BOOL</b>
+     * @param {BOOL} fConnect Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if a connection is being established; <b>FALSE</b> if a connection is being broken.
      * @param {Pointer<IUnknown>} punkTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -25612,7 +25813,7 @@ class Shell {
      * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream from which to read.
-     * @param {Pointer<Char>} ppsz Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppsz Type: <b>PWSTR*</b>
      * 
      * A pointer to the null-terminated, Unicode string into which the stream is written.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25634,7 +25835,7 @@ class Shell {
      * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream in which to write.
-     * @param {Pointer<Char>} psz Type: <b>PCWSTR</b>
+     * @param {PWSTR} psz Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string from which to read.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -25644,7 +25845,7 @@ class Shell {
      * @since windows6.0.6000
      */
     static IStream_WriteStr(pstm, psz) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("SHLWAPI.dll\IStream_WriteStr", "ptr", pstm, "ptr", psz, "int")
         if(result != 0)
@@ -25683,7 +25884,7 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
      * A PIDL of the folder for which you are requesting properties. This parameter must be <b>NULL</b> if the SHGVSPB_ALLFOLDERS flag is passed.
-     * @param {Pointer<Char>} pszBagName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszBagName Type: <b>PCWSTR</b>
      * 
      * A pointer to a string that contains the name of the requested property bag.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -25705,7 +25906,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid, ppv) {
-        pszBagName := pszBagName is String? StrPtr(pszBagName) : pszBagName
+        pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
         result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -25727,7 +25928,7 @@ class Shell {
      * 
      * 
      * When you call the function, you can combine zero or more of the following flags, with exceptions as noted. You can also set this parameter to <b>NULL</b>, in which case the function assumes that the FDTF_DEFAULT flag is set.
-     * @param {Pointer<Byte>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the formatted date and time. The buffer must be large enough to contain the number of TCHAR characters specified by the <i>cchBuf</i> parameter, including a terminating null character.
      * @param {Integer} cchBuf Type: <b>UINT</b>
@@ -25740,7 +25941,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFormatDateTimeA(pft, pdwFlags, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\SHFormatDateTimeA", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -25759,7 +25960,7 @@ class Shell {
      * 
      * 
      * When you call the function, you can combine zero or more of the following flags, with exceptions as noted. You can also set this parameter to <b>NULL</b>, in which case the function assumes that the FDTF_DEFAULT flag is set.
-     * @param {Pointer<Char>} pszBuf Type: <b>LPTSTR</b>
+     * @param {PWSTR} pszBuf Type: <b>LPTSTR</b>
      * 
      * A pointer to a buffer that receives the formatted date and time. The buffer must be large enough to contain the number of TCHAR characters specified by the <i>cchBuf</i> parameter, including a terminating null character.
      * @param {Integer} cchBuf Type: <b>UINT</b>
@@ -25772,7 +25973,7 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHFormatDateTimeW(pft, pdwFlags, pszBuf, cchBuf) {
-        pszBuf := pszBuf is String? StrPtr(pszBuf) : pszBuf
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
         result := DllCall("SHLWAPI.dll\SHFormatDateTimeW", "ptr", pft, "uint*", pdwFlags, "ptr", pszBuf, "uint", cchBuf, "int")
         return result
@@ -25780,10 +25981,10 @@ class Shell {
 
     /**
      * Converts a string from the ANSI code page to the Unicode code page.
-     * @param {Pointer<Byte>} pszSrc Type: <b>PCSTR</b>
+     * @param {PSTR} pszSrc Type: <b>PCSTR</b>
      * 
      * A pointer to a null-terminated ANSI string to be converted to Unicode.
-     * @param {Pointer<Char>} pwszDst Type: <b>PWSTR</b>
+     * @param {PWSTR} pwszDst Type: <b>PWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the string specified by <i>pszSrc</i>, after the ANSI characters have been converted to Unicode (WCHAR). The buffer must be large enough to contain the number of Unicode characters specified by the <i>cwchBuf</i> parameter, including a terminating null character.
      * @param {Integer} cwchBuf Type: <b>int</b>
@@ -25796,8 +25997,8 @@ class Shell {
      * @since windows5.0
      */
     static SHAnsiToUnicode(pszSrc, pwszDst, cwchBuf) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
-        pwszDst := pwszDst is String? StrPtr(pwszDst) : pwszDst
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+        pwszDst := pwszDst is String ? StrPtr(pwszDst) : pwszDst
 
         result := DllCall("SHLWAPI.dll\SHAnsiToUnicode", "ptr", pszSrc, "ptr", pwszDst, "int", cwchBuf, "int")
         return result
@@ -25805,10 +26006,10 @@ class Shell {
 
     /**
      * Copies an ANSI string.
-     * @param {Pointer<Byte>} pszSrc Type: <b>LPCSTR</b>
+     * @param {PSTR} pszSrc Type: <b>LPCSTR</b>
      * 
      * A pointer to a null-terminated ANSI string to be converted to Unicode.
-     * @param {Pointer<Byte>} pszDst Type: <b>LPWSTR</b>
+     * @param {PSTR} pszDst Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the characters copied from <i>pszSrc</i>. The buffer must be large enough to contain the number of characters specified by the <i>cchBuf</i> parameter, including a room for a terminating null character.
      * @param {Integer} cchBuf Type: <b>int</b>
@@ -25821,8 +26022,8 @@ class Shell {
      * @since windows5.0
      */
     static SHAnsiToAnsi(pszSrc, pszDst, cchBuf) {
-        pszSrc := pszSrc is String? StrPtr(pszSrc) : pszSrc
-        pszDst := pszDst is String? StrPtr(pszDst) : pszDst
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+        pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
 
         result := DllCall("SHLWAPI.dll\SHAnsiToAnsi", "ptr", pszSrc, "ptr", pszDst, "int", cchBuf, "int")
         return result
@@ -25830,10 +26031,10 @@ class Shell {
 
     /**
      * Converts a string from the Unicode code page to the ANSI code page.
-     * @param {Pointer<Char>} pwszSrc Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszSrc Type: <b>PCWSTR</b>
      * 
      * A pointer to the null-terminated Unicode string to be converted to ANSI.
-     * @param {Pointer<Byte>} pszDst Type: <b>PSTR</b>
+     * @param {PSTR} pszDst Type: <b>PSTR</b>
      * 
      * A pointer to a buffer that, when this function returns successfully, receives the converted characters. The buffer must be large enough to contain the number of <b>CHAR</b> characters specified by the <i>cchBuf</i> parameter, including room for a terminating null character.
      * @param {Integer} cchBuf Type: <b>int</b>
@@ -25846,8 +26047,8 @@ class Shell {
      * @since windows5.0
      */
     static SHUnicodeToAnsi(pwszSrc, pszDst, cchBuf) {
-        pwszSrc := pwszSrc is String? StrPtr(pwszSrc) : pwszSrc
-        pszDst := pszDst is String? StrPtr(pszDst) : pszDst
+        pwszSrc := pwszSrc is String ? StrPtr(pwszSrc) : pwszSrc
+        pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
 
         result := DllCall("SHLWAPI.dll\SHUnicodeToAnsi", "ptr", pwszSrc, "ptr", pszDst, "int", cchBuf, "int")
         return result
@@ -25855,10 +26056,10 @@ class Shell {
 
     /**
      * Copies a Unicode string.
-     * @param {Pointer<Char>} pwzSrc Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwzSrc Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string to be copied to the output buffer.
-     * @param {Pointer<Char>} pwzDst Type: <b>PWSTR</b>
+     * @param {PWSTR} pwzDst Type: <b>PWSTR</b>
      * 
      * A pointer to an output buffer to receive the copied characters. The buffer must be large enough to contain the number of <b>WCHAR</b> characters specified by <i>cwchBuf</i>, including room for a terminating null character.
      * @param {Integer} cwchBuf Type: <b>int</b>
@@ -25871,8 +26072,8 @@ class Shell {
      * @since windows5.0
      */
     static SHUnicodeToUnicode(pwzSrc, pwzDst, cwchBuf) {
-        pwzSrc := pwzSrc is String? StrPtr(pwzSrc) : pwzSrc
-        pwzDst := pwzDst is String? StrPtr(pwzDst) : pwzDst
+        pwzSrc := pwzSrc is String ? StrPtr(pwzSrc) : pwzSrc
+        pwzDst := pwzDst is String ? StrPtr(pwzDst) : pwzDst
 
         result := DllCall("SHLWAPI.dll\SHUnicodeToUnicode", "ptr", pwzSrc, "ptr", pwzDst, "int", cwchBuf, "int")
         return result
@@ -25880,13 +26081,13 @@ class Shell {
 
     /**
      * SHMessageBoxCheck may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The window handle to the message box's owner. This value can be <b>NULL</b>.
-     * @param {Pointer<Byte>} pszText Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
-     * @param {Pointer<Byte>} pszCaption Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszCaption Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the title of the message box. If this parameter is set to <b>NULL</b>, the title is set to <b>Error!</b>.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -25898,7 +26099,7 @@ class Shell {
      * @param {Integer} iDefault Type: <b>int</b>
      * 
      * The value that the function returns when the user has opted not to have the message box displayed again. If the user has not opted to suppress the message box, the message box is displayed and the function ignores <i>iDefault</i>.
-     * @param {Pointer<Byte>} pszRegVal Type: <b>LPCTSTR</b>
+     * @param {PSTR} pszRegVal Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains a unique string value to associate with this message. To avoid collisions with values used by Microsoft, this string should include a GUID. This string must not exceed REGSTR_MAX_VALUE_LENGTH characters in length, including the terminating null character.
      * @returns {Integer} Type: <b>int</b>
@@ -25914,9 +26115,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHMessageBoxCheckA(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
-        pszCaption := pszCaption is String? StrPtr(pszCaption) : pszCaption
-        pszRegVal := pszRegVal is String? StrPtr(pszRegVal) : pszRegVal
+        pszText := pszText is String ? StrPtr(pszText) : pszText
+        pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
+        pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
@@ -25924,13 +26126,13 @@ class Shell {
 
     /**
      * SHMessageBoxCheck may be altered or unavailable.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The window handle to the message box's owner. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszText Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszText Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the message to be displayed.
-     * @param {Pointer<Char>} pszCaption Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszCaption Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains the title of the message box. If this parameter is set to <b>NULL</b>, the title is set to <b>Error!</b>.
      * @param {Integer} uType Type: <b>UINT</b>
@@ -25942,7 +26144,7 @@ class Shell {
      * @param {Integer} iDefault Type: <b>int</b>
      * 
      * The value that the function returns when the user has opted not to have the message box displayed again. If the user has not opted to suppress the message box, the message box is displayed and the function ignores <i>iDefault</i>.
-     * @param {Pointer<Char>} pszRegVal Type: <b>LPCTSTR</b>
+     * @param {PWSTR} pszRegVal Type: <b>LPCTSTR</b>
      * 
      * A pointer to a null-terminated string that contains a unique string value to associate with this message. To avoid collisions with values used by Microsoft, this string should include a GUID. This string must not exceed REGSTR_MAX_VALUE_LENGTH characters in length, including the terminating null character.
      * @returns {Integer} Type: <b>int</b>
@@ -25958,9 +26160,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHMessageBoxCheckW(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
-        pszText := pszText is String? StrPtr(pszText) : pszText
-        pszCaption := pszCaption is String? StrPtr(pszCaption) : pszCaption
-        pszRegVal := pszRegVal is String? StrPtr(pszRegVal) : pszRegVal
+        pszText := pszText is String ? StrPtr(pszText) : pszText
+        pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
+        pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
@@ -25971,13 +26174,13 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shsendmessagebroadcasta
@@ -25993,13 +26196,13 @@ class Shell {
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message to send.
-     * @param {Pointer} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
      * 
      * Additional message-specific information.
-     * @param {Pointer} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
      * 
      * Additional message-specific information.
-     * @returns {Pointer} Type: <b>LRESULT</b>
+     * @returns {LRESULT} Type: <b>LRESULT</b>
      * 
      * The return value is not meaningful.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shsendmessagebroadcastw
@@ -26012,17 +26215,17 @@ class Shell {
 
     /**
      * Removes the mnemonic marker from a string.
-     * @param {Pointer<Byte>} pszMenu Type: <b>LPTSTR*</b>
+     * @param {PSTR} pszMenu Type: <b>LPTSTR*</b>
      * 
      * A pointer to the null-terminated string that contains the mnemonic marker.
-     * @returns {Integer} Type: <b>TCHAR</b>
+     * @returns {CHAR} Type: <b>TCHAR</b>
      * 
      * Returns the mnemonic character, if one was found. Otherwise, returns 0.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shstripmneumonica
      * @since windows5.0
      */
     static SHStripMneumonicA(pszMenu) {
-        pszMenu := pszMenu is String? StrPtr(pszMenu) : pszMenu
+        pszMenu := pszMenu is String ? StrPtr(pszMenu) : pszMenu
 
         result := DllCall("SHLWAPI.dll\SHStripMneumonicA", "ptr", pszMenu, "char")
         return result
@@ -26030,7 +26233,7 @@ class Shell {
 
     /**
      * Removes the mnemonic marker from a string.
-     * @param {Pointer<Char>} pszMenu Type: <b>LPTSTR*</b>
+     * @param {PWSTR} pszMenu Type: <b>LPTSTR*</b>
      * 
      * A pointer to the null-terminated string that contains the mnemonic marker.
      * @returns {Integer} Type: <b>TCHAR</b>
@@ -26040,7 +26243,7 @@ class Shell {
      * @since windows5.0
      */
     static SHStripMneumonicW(pszMenu) {
-        pszMenu := pszMenu is String? StrPtr(pszMenu) : pszMenu
+        pszMenu := pszMenu is String ? StrPtr(pszMenu) : pszMenu
 
         result := DllCall("SHLWAPI.dll\SHStripMneumonicW", "ptr", pszMenu, "char")
         return result
@@ -26049,7 +26252,7 @@ class Shell {
     /**
      * Checks for specified operating systems and operating system features.
      * @param {Integer} dwOS Type: <b>DWORD</b>
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns a nonzero value if the specified operating system or operating system feature is detected, otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-isos
@@ -26119,7 +26322,7 @@ class Shell {
      * @param {Integer} dwProcessId Type: <b>DWORD</b>
      * 
      * The process ID of the process that will share memory block specified by <i>pvData</i>.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle to the shared memory for the process specified by <i>dwDestinationProcessId</i>. Returns <b>NULL</b> if unsuccessful.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shallocshared
@@ -26127,24 +26330,26 @@ class Shell {
      */
     static SHAllocShared(pvData, dwSize, dwProcessId) {
         result := DllCall("SHLWAPI.dll\SHAllocShared", "ptr", pvData, "uint", dwSize, "uint", dwProcessId, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * SHFreeShared may be altered or unavailable.
-     * @param {Pointer<Void>} hData Type: <b>HANDLE</b>
+     * @param {HANDLE} hData Type: <b>HANDLE</b>
      * 
      * A handle to the mapped memory.
      * @param {Integer} dwProcessId Type: <b>DWORD</b>
      * 
      * The process ID of the process from which the memory was allocated.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if successful; otherwise, <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shfreeshared
      * @since windows5.1.2600
      */
     static SHFreeShared(hData, dwProcessId) {
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
         A_LastError := 0
 
         result := DllCall("SHLWAPI.dll\SHFreeShared", "ptr", hData, "uint", dwProcessId, "int")
@@ -26156,7 +26361,7 @@ class Shell {
 
     /**
      * SHLockShared may be altered or unavailable.
-     * @param {Pointer<Void>} hData Type: <b>HANDLE</b>
+     * @param {HANDLE} hData Type: <b>HANDLE</b>
      * 
      * A handle to the memory you want to map into the calling process.
      * @param {Integer} dwProcessId Type: <b>DWORD</b>
@@ -26167,6 +26372,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHLockShared(hData, dwProcessId) {
+        hData := hData is Win32Handle ? NumGet(hData, "ptr") : hData
+
         result := DllCall("SHLWAPI.dll\SHLockShared", "ptr", hData, "uint", dwProcessId, "ptr")
         return result
     }
@@ -26176,7 +26383,7 @@ class Shell {
      * @param {Pointer<Void>} pvData Type: <b>void*</b>
      * 
      * A pointer to the shared memory block returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-shlockshared">SHLockShared</a>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * If the function succeeds, the return value is <b>TRUE</b> and all modified pages within the specified range are written to the disk with low priority. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shunlockshared
@@ -26287,7 +26494,7 @@ class Shell {
      * @param {Integer} dwType Type: <b>DWORD</b>
      * 
      * The type of machine being examined. The following is the only recognized value.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the machine is considered low on resources, <b>FALSE</b> otherwise.
      * 
@@ -26303,7 +26510,7 @@ class Shell {
 
     /**
      * GetMenuPosFromID may be altered or unavailable.
-     * @param {Pointer<Void>} hmenu Type: <b>HMENU</b>
+     * @param {HMENU} hmenu Type: <b>HMENU</b>
      * 
      * The handle of the menu.
      * @param {Integer} id Type: <b>UINT</b>
@@ -26316,6 +26523,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static GetMenuPosFromID(hmenu, id) {
+        hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
+
         result := DllCall("SHLWAPI.dll\GetMenuPosFromID", "ptr", hmenu, "uint", id, "int")
         return result
     }
@@ -26344,7 +26553,7 @@ class Shell {
 
     /**
      * Instructs system edit controls to use AutoComplete to help complete URLs or file system paths.
-     * @param {Pointer<Void>} hwndEdit Type: <b>HWND</b>
+     * @param {HWND} hwndEdit Type: <b>HWND</b>
      * 
      * The window handle of a system edit control. Typically, this parameter is the handle of an edit control or the edit control embedded in a <a href="https://docs.microsoft.com/windows/desktop/Controls/comboboxex-control-reference">ComboBoxEx</a> control.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
@@ -26357,6 +26566,8 @@ class Shell {
      * @since windows5.0
      */
     static SHAutoComplete(hwndEdit, dwFlags) {
+        hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
+
         result := DllCall("SHLWAPI.dll\SHAutoComplete", "ptr", hwndEdit, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
@@ -26432,7 +26643,7 @@ class Shell {
      * @param {Pointer<Guid>} pclsid Type: <b>const CLSID*</b>
      * 
      * A pointer to a variable that specifies the <b>CLSID</b> of the object being tested to see if it must be skipped. Typically, this is the CLSID of the object that <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-bindtoobject">IShellFolder::BindToObject</a> is about to create.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the object specified by <i>pclsid</i> must be skipped, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shskipjunction
@@ -26463,7 +26674,7 @@ class Shell {
      * 				 its argument. <b>SHCreateThread</b> will wait for the 
      * 				 function pointed to by <i>pfnCallback</i> to return before returning to its caller. The 
      * 				 return value of the function pointed to by <i>pfnCallback</i> is ignored.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the thread is successfully created, or <b>FALSE</b> otherwise. On failure, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the specific error value as shown here.
      * 
@@ -26507,10 +26718,10 @@ class Shell {
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pfnCallback Type: <b>LPTHREAD_START_ROUTINE</b>
      * 
      * A pointer to an optional application-defined function of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">LPTHREAD_START_ROUTINE</a>. This function is called in the context of the created thread before the function pointed to by <i>pfnThreadProc</i> is called. It will also receive <i>pData</i> as its argument. <b>SHCreateThreadWithHandle</b> waits for the function pointed to by <i>pfnCallback</i> to complete before returning to its caller. The return value for the function specified by <i>pfnCallback</i> is ignored.
-     * @param {Pointer<Void>} pHandle Type: <b>HANDLE*</b>
+     * @param {Pointer<HANDLE>} pHandle Type: <b>HANDLE*</b>
      * 
      * A pointer to the <b>HANDLE</b> of the created thread. When it is no longer needed, this handle should be closed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function. This value can be <b>NULL</b>.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> if the thread is successfully created; otherwise, <b>FALSE</b>
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatethreadwithhandle
@@ -26544,23 +26755,25 @@ class Shell {
 
     /**
      * Creates a halftone palette for the specified device context.
-     * @param {Pointer<Void>} hdc Type: <b>HDC</b>
+     * @param {HDC} hdc Type: <b>HDC</b>
      * 
      * The device context.
-     * @returns {Pointer<Void>} Type: <b>HPALETTE</b>
+     * @returns {HPALETTE} Type: <b>HPALETTE</b>
      * 
      * Returns the palette if successful; otherwise 0.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreateshellpalette
      * @since windows5.0
      */
     static SHCreateShellPalette(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("SHLWAPI.dll\SHCreateShellPalette", "ptr", hdc, "ptr")
-        return result
+        return HPALETTE({Value: result}, True)
     }
 
     /**
      * Converts colors from RGB to hue-luminance-saturation (HLS) format.
-     * @param {Integer} clrRGB Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @param {COLORREF} clrRGB Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The original RGB color.
      * @param {Pointer<UInt16>} pwHue Type: <b>WORD*</b>
@@ -26591,7 +26804,7 @@ class Shell {
      * @param {Integer} wSaturation Type: <b>WORD</b>
      * 
      * The original HLS saturation value.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @returns {COLORREF} Type: <b><a href="/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Returns the RGB value.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-colorhlstorgb
@@ -26604,16 +26817,16 @@ class Shell {
 
     /**
      * Changes the luminance of a RGB value. Hue and saturation are not affected.
-     * @param {Integer} clrRGB Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @param {COLORREF} clrRGB Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * The initial RGB value.
      * @param {Integer} n Type: <b>int</b>
      * 
      * The luminance in units of 0.1 percent of the total range. For example, a value of <i>n</i> = 50 corresponds to 5 percent of the maximum luminance.
-     * @param {Integer} fScale Type: <b>BOOL</b>
+     * @param {BOOL} fScale Type: <b>BOOL</b>
      * 
      * If <i>fScale</i> is set to <b>TRUE</b>, <i>n</i> specifies how much to increment or decrement the current luminance. If <i>fScale</i> is set to <b>FALSE</b>, <i>n</i> specifies the absolute luminance.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/gdi/colorref">COLORREF</a></b>
+     * @returns {COLORREF} Type: <b><a href="/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Returns the modified RGB value.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-coloradjustluma
@@ -26626,7 +26839,7 @@ class Shell {
 
     /**
      * Determines whether Windows Internet Explorer is in the Enhanced Security Configuration.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if Internet Explorer is in the Enhanced Security Configuration, and <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-isinternetescenabled
@@ -26640,8 +26853,8 @@ class Shell {
     /**
      * 
      * @param {Pointer<IMoniker>} pimkTrgt 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzFriendlyName 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzFriendlyName 
      * @param {Pointer<IHlinkSite>} pihlsite 
      * @param {Integer} dwSiteData 
      * @param {Pointer<IUnknown>} piunkOuter 
@@ -26650,8 +26863,8 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
         if(result != 0)
@@ -26662,9 +26875,9 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzTarget 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzFriendlyName 
+     * @param {PWSTR} pwzTarget 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzFriendlyName 
      * @param {Pointer<IHlinkSite>} pihlsite 
      * @param {Integer} dwSiteData 
      * @param {Pointer<IUnknown>} piunkOuter 
@@ -26673,9 +26886,9 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+        pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
         if(result != 0)
@@ -26749,8 +26962,8 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzTarget 
-     * @param {Pointer<Char>} pwzLocation 
+     * @param {PWSTR} pwzTarget 
+     * @param {PWSTR} pwzLocation 
      * @param {Pointer<IHlinkSite>} pihlsite 
      * @param {Integer} dwSiteData 
      * @param {Pointer<IHlinkFrame>} pihlframe 
@@ -26761,8 +26974,8 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkNavigateToStringReference(pwzTarget, pwzLocation, pihlsite, dwSiteData, pihlframe, grfHLNF, pibc, pibsc, pihlbc) {
-        pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
+        pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
         result := DllCall("hlink.dll\HlinkNavigateToStringReference", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pihlsite, "uint", dwSiteData, "ptr", pihlframe, "uint", grfHLNF, "ptr", pibc, "ptr", pibsc, "ptr", pihlbc, "int")
         if(result != 0)
@@ -26795,14 +27008,14 @@ class Shell {
      * @param {Pointer<IHlinkBrowseContext>} pihlbc 
      * @param {Integer} grfHLNF 
      * @param {Pointer<IMoniker>} pimkTarget 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzFriendlyName 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzFriendlyName 
      * @param {Pointer<UInt32>} puHLID 
      * @returns {HRESULT} 
      */
     static HlinkOnNavigate(pihlframe, pihlbc, grfHLNF, pimkTarget, pwzLocation, pwzFriendlyName, puHLID) {
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkOnNavigate", "ptr", pihlframe, "ptr", pihlbc, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", puHLID, "int")
         if(result != 0)
@@ -26817,13 +27030,13 @@ class Shell {
      * @param {Pointer<IHlinkBrowseContext>} pihlbc 
      * @param {Integer} uHLID 
      * @param {Pointer<IMoniker>} pimkTrgt 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzFriendlyName 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzFriendlyName 
      * @returns {HRESULT} 
      */
     static HlinkUpdateStackItem(pihlframe, pihlbc, uHLID, pimkTrgt, pwzLocation, pwzFriendlyName) {
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzFriendlyName := pwzFriendlyName is String? StrPtr(pwzFriendlyName) : pwzFriendlyName
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
         result := DllCall("hlink.dll\HlinkUpdateStackItem", "ptr", pihlframe, "ptr", pihlbc, "uint", uHLID, "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "int")
         if(result != 0)
@@ -26869,7 +27082,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzReference 
+     * @param {PWSTR} pwzReference 
      * @param {Integer} reserved 
      * @param {Pointer<IBindCtx>} pibc 
      * @param {Integer} cFmtetc 
@@ -26879,7 +27092,7 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkResolveStringForData(pwzReference, reserved, pibc, cFmtetc, rgFmtetc, pibsc, pimkBase) {
-        pwzReference := pwzReference is String? StrPtr(pwzReference) : pwzReference
+        pwzReference := pwzReference is String ? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkResolveStringForData", "ptr", pwzReference, "uint", reserved, "ptr", pibc, "uint", cFmtetc, "ptr", rgFmtetc, "ptr", pibsc, "ptr", pimkBase, "int")
         if(result != 0)
@@ -26891,14 +27104,14 @@ class Shell {
     /**
      * 
      * @param {Pointer<IBindCtx>} pibc 
-     * @param {Pointer<Char>} pwzDisplayName 
-     * @param {Integer} fNoForceAbs 
+     * @param {PWSTR} pwzDisplayName 
+     * @param {BOOL} fNoForceAbs 
      * @param {Pointer<UInt32>} pcchEaten 
      * @param {Pointer<IMoniker>} ppimk 
      * @returns {HRESULT} 
      */
     static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten, ppimk) {
-        pwzDisplayName := pwzDisplayName is String? StrPtr(pwzDisplayName) : pwzDisplayName
+        pwzDisplayName := pwzDisplayName is String ? StrPtr(pwzDisplayName) : pwzDisplayName
 
         result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, "uint*", pcchEaten, "ptr", ppimk, "int")
         if(result != 0)
@@ -26909,19 +27122,20 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzAdditionalHeaders 
-     * @param {Pointer<Void>} phwnd 
-     * @param {Pointer<Char>} pszUsername 
-     * @param {Pointer<Char>} pszPassword 
+     * @param {PWSTR} pwzAdditionalHeaders 
+     * @param {HWND} phwnd 
+     * @param {PWSTR} pszUsername 
+     * @param {PWSTR} pszPassword 
      * @param {Pointer<IUnknown>} piunkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppvObj 
      * @returns {HRESULT} 
      */
     static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid, ppvObj) {
-        pwzAdditionalHeaders := pwzAdditionalHeaders is String? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
-        pszUsername := pszUsername is String? StrPtr(pszUsername) : pszUsername
-        pszPassword := pszPassword is String? StrPtr(pszPassword) : pszPassword
+        pwzAdditionalHeaders := pwzAdditionalHeaders is String ? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
+        pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
+        phwnd := phwnd is Win32Handle ? NumGet(phwnd, "ptr") : phwnd
 
         result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
         if(result != 0)
@@ -26949,7 +27163,7 @@ class Shell {
      * 
      * @param {Pointer<IUnknown>} piunk 
      * @param {Pointer<IStream>} pistm 
-     * @param {Integer} fClearDirty 
+     * @param {BOOL} fClearDirty 
      * @returns {HRESULT} 
      */
     static OleSaveToStreamEx(piunk, pistm, fClearDirty) {
@@ -26963,11 +27177,11 @@ class Shell {
     /**
      * 
      * @param {Integer} uReference 
-     * @param {Pointer<Char>} pwzReference 
+     * @param {PWSTR} pwzReference 
      * @returns {HRESULT} 
      */
     static HlinkSetSpecialReference(uReference, pwzReference) {
-        pwzReference := pwzReference is String? StrPtr(pwzReference) : pwzReference
+        pwzReference := pwzReference is String ? StrPtr(pwzReference) : pwzReference
 
         result := DllCall("hlink.dll\HlinkSetSpecialReference", "uint", uReference, "ptr", pwzReference, "int")
         if(result != 0)
@@ -26979,7 +27193,7 @@ class Shell {
     /**
      * 
      * @param {Integer} uReference 
-     * @param {Pointer<Char>} ppwzReference 
+     * @param {Pointer<PWSTR>} ppwzReference 
      * @returns {HRESULT} 
      */
     static HlinkGetSpecialReference(uReference, ppwzReference) {
@@ -26994,15 +27208,15 @@ class Shell {
      * 
      * @param {Integer} grfHLSHORTCUTF 
      * @param {Pointer<IHlink>} pihl 
-     * @param {Pointer<Char>} pwzDir 
-     * @param {Pointer<Char>} pwzFileName 
-     * @param {Pointer<Char>} ppwzShortcutFile 
+     * @param {PWSTR} pwzDir 
+     * @param {PWSTR} pwzFileName 
+     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
     static HlinkCreateShortcut(grfHLSHORTCUTF, pihl, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
-        pwzDir := pwzDir is String? StrPtr(pwzDir) : pwzDir
-        pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
+        pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
+        pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcut", "uint", grfHLSHORTCUTF, "ptr", pihl, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
         if(result != 0)
@@ -27015,17 +27229,17 @@ class Shell {
      * 
      * @param {Integer} grfHLSHORTCUTF 
      * @param {Pointer<IMoniker>} pimkTarget 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzDir 
-     * @param {Pointer<Char>} pwzFileName 
-     * @param {Pointer<Char>} ppwzShortcutFile 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzDir 
+     * @param {PWSTR} pwzFileName 
+     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
     static HlinkCreateShortcutFromMoniker(grfHLSHORTCUTF, pimkTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzDir := pwzDir is String? StrPtr(pwzDir) : pwzDir
-        pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
+        pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromMoniker", "uint", grfHLSHORTCUTF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
         if(result != 0)
@@ -27037,19 +27251,19 @@ class Shell {
     /**
      * 
      * @param {Integer} grfHLSHORTCUTF 
-     * @param {Pointer<Char>} pwzTarget 
-     * @param {Pointer<Char>} pwzLocation 
-     * @param {Pointer<Char>} pwzDir 
-     * @param {Pointer<Char>} pwzFileName 
-     * @param {Pointer<Char>} ppwzShortcutFile 
+     * @param {PWSTR} pwzTarget 
+     * @param {PWSTR} pwzLocation 
+     * @param {PWSTR} pwzDir 
+     * @param {PWSTR} pwzFileName 
+     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
      * @returns {HRESULT} 
      */
     static HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
-        pwzTarget := pwzTarget is String? StrPtr(pwzTarget) : pwzTarget
-        pwzLocation := pwzLocation is String? StrPtr(pwzLocation) : pwzLocation
-        pwzDir := pwzDir is String? StrPtr(pwzDir) : pwzDir
-        pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
+        pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
+        pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
+        pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
+        pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkCreateShortcutFromString", "uint", grfHLSHORTCUTF, "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
         if(result != 0)
@@ -27060,7 +27274,7 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzShortcutFileName 
+     * @param {PWSTR} pwzShortcutFileName 
      * @param {Pointer<IHlinkSite>} pihlsite 
      * @param {Integer} dwSiteData 
      * @param {Pointer<IUnknown>} piunkOuter 
@@ -27069,7 +27283,7 @@ class Shell {
      * @returns {HRESULT} 
      */
     static HlinkResolveShortcut(pwzShortcutFileName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
+        pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcut", "ptr", pwzShortcutFileName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr", ppvObj, "int")
         if(result != 0)
@@ -27080,13 +27294,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzShortcutFileName 
+     * @param {PWSTR} pwzShortcutFileName 
      * @param {Pointer<IMoniker>} ppimkTarget 
-     * @param {Pointer<Char>} ppwzLocation 
+     * @param {Pointer<PWSTR>} ppwzLocation 
      * @returns {HRESULT} 
      */
     static HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocation) {
-        pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
+        pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr", ppimkTarget, "ptr", ppwzLocation, "int")
         if(result != 0)
@@ -27097,13 +27311,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzShortcutFileName 
-     * @param {Pointer<Char>} ppwzTarget 
-     * @param {Pointer<Char>} ppwzLocation 
+     * @param {PWSTR} pwzShortcutFileName 
+     * @param {Pointer<PWSTR>} ppwzTarget 
+     * @param {Pointer<PWSTR>} ppwzLocation 
      * @returns {HRESULT} 
      */
     static HlinkResolveShortcutToString(pwzShortcutFileName, ppwzTarget, ppwzLocation) {
-        pwzShortcutFileName := pwzShortcutFileName is String? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
+        pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
         result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, "ptr", ppwzTarget, "ptr", ppwzLocation, "int")
         if(result != 0)
@@ -27114,11 +27328,11 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzFileName 
+     * @param {PWSTR} pwzFileName 
      * @returns {HRESULT} 
      */
     static HlinkIsShortcut(pwzFileName) {
-        pwzFileName := pwzFileName is String? StrPtr(pwzFileName) : pwzFileName
+        pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
         result := DllCall("hlink.dll\HlinkIsShortcut", "ptr", pwzFileName, "int")
         if(result != 0)
@@ -27129,14 +27343,14 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzParams 
-     * @param {Pointer<Char>} pwzName 
-     * @param {Pointer<Char>} ppwzValue 
+     * @param {PWSTR} pwzParams 
+     * @param {PWSTR} pwzName 
+     * @param {Pointer<PWSTR>} ppwzValue 
      * @returns {HRESULT} 
      */
     static HlinkGetValueFromParams(pwzParams, pwzName, ppwzValue) {
-        pwzParams := pwzParams is String? StrPtr(pwzParams) : pwzParams
-        pwzName := pwzName is String? StrPtr(pwzName) : pwzName
+        pwzParams := pwzParams is String ? StrPtr(pwzParams) : pwzParams
+        pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
         result := DllCall("hlink.dll\HlinkGetValueFromParams", "ptr", pwzParams, "ptr", pwzName, "ptr", ppwzValue, "int")
         if(result != 0)
@@ -27147,13 +27361,13 @@ class Shell {
 
     /**
      * 
-     * @param {Pointer<Char>} pwzURL 
+     * @param {PWSTR} pwzURL 
      * @param {Integer} grfFlags 
-     * @param {Pointer<Char>} ppwzTranslatedURL 
+     * @param {Pointer<PWSTR>} ppwzTranslatedURL 
      * @returns {HRESULT} 
      */
     static HlinkTranslateURL(pwzURL, grfFlags, ppwzTranslatedURL) {
-        pwzURL := pwzURL is String? StrPtr(pwzURL) : pwzURL
+        pwzURL := pwzURL is String ? StrPtr(pwzURL) : pwzURL
 
         result := DllCall("hlink.dll\HlinkTranslateURL", "ptr", pwzURL, "uint", grfFlags, "ptr", ppwzTranslatedURL, "int")
         if(result != 0)
@@ -27164,14 +27378,14 @@ class Shell {
 
     /**
      * Determines if a path string is a valid Universal Naming Convention (UNC) path, as opposed to a path based on a drive letter.This function differs from PathIsUNC in that it also allows you to extract the name of the server from the path.
-     * @param {Pointer<Char>} pszPath A pointer to the path string.
-     * @param {Pointer<Char>} ppszServer A pointer to a string that, when this function returns successfully, receives the server portion of the UNC path. This value can be <b>NULL</b> if you don't need this information.
-     * @returns {Integer} Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
+     * @param {PWSTR} pszPath A pointer to the path string.
+     * @param {Pointer<PWSTR>} ppszServer A pointer to a string that, when this function returns successfully, receives the server portion of the UNC path. This value can be <b>NULL</b> if you don't need this information.
+     * @returns {BOOL} Returns <b>TRUE</b> if the string is a valid UNC path; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathisuncex
      * @since windows8.0
      */
     static PathIsUNCEx(pszPath, ppszServer) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, "ptr", ppszServer, "int")
         return result
@@ -27179,13 +27393,13 @@ class Shell {
 
     /**
      * Determines whether a path string refers to the root of a volume.This function differs from PathIsRoot in that it accepts paths with &#0034;\\&#0034;, &#0034;\\?\&#0034; and &#0034;\\?\UNC\&#0034; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string.
-     * @returns {Integer} Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
+     * @param {PWSTR} pszPath A pointer to the path string.
+     * @returns {BOOL} Returns <b>TRUE</b> if the specified path is a root, or <b>FALSE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchisroot
      * @since windows8.0
      */
     static PathCchIsRoot(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchIsRoot", "ptr", pszPath, "int")
         return result
@@ -27193,16 +27407,16 @@ class Shell {
 
     /**
      * Adds a backslash to the end of a string to create the correct syntax for a path.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to the terminating null character at the end of the string.
+     * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to the terminating null character at the end of the string.
      * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, is set to the number of unused characters in the destination buffer, including the terminating null character.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchaddbackslashex
      * @since windows8.0
      */
     static PathCchAddBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, "ptr*", pcchRemaining, "int")
         if(result != 0)
@@ -27213,14 +27427,14 @@ class Shell {
 
     /**
      * Adds a backslash to the end of a string to create the correct syntax for a path.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended backslash. This value should not be <b>NULL</b>.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the path string already ends in a backslash, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchaddbackslash
      * @since windows8.0
      */
     static PathCchAddBackslash(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslash", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -27231,16 +27445,16 @@ class Shell {
 
     /**
      * Removes the trailing backslash from the end of a path string.This function differs from PathCchRemoveBackslash in that it can return a pointer to the new end of the string and report the number of unused characters remaining in the buffer.This function differs from PathRemoveBackslash in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to end of the new string. If the string is a root path such as "C:\", the pointer points to the backslash; otherwise the pointer points to the string's terminating null character.
+     * @param {Pointer<PWSTR>} ppszEnd A value that, when this function returns successfully, receives the address of a pointer to end of the new string. If the string is a root path such as "C:\", the pointer points to the backslash; otherwise the pointer points to the string's terminating null character.
      * @param {Pointer<UIntPtr>} pcchRemaining A pointer to a value that, when this function returns successfully, receives the number of unused characters in the destination buffer, including the terminating null character. If the string is a root path such as "C:\", this count includes the backslash in that string.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchremovebackslashex
      * @since windows8.0
      */
     static PathCchRemoveBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, "ptr*", pcchRemaining, "int")
         if(result != 0)
@@ -27251,14 +27465,14 @@ class Shell {
 
     /**
      * Removes the trailing backslash from the end of a path string.This function differs from PathRemoveBackslash in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any trailing backslash removed. If no trailing backslash was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if the string was a root path or if no backslash was found, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchremovebackslash
      * @since windows8.0
      */
     static PathCchRemoveBackslash(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslash", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -27269,14 +27483,14 @@ class Shell {
 
     /**
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.This function differs from PathSkipRoot in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string.
-     * @param {Pointer<Char>} ppszRootEnd The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
+     * @param {PWSTR} pszPath A pointer to the path string.
+     * @param {Pointer<PWSTR>} ppszRootEnd The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchskiproot
      * @since windows8.0
      */
     static PathCchSkipRoot(pszPath, ppszRootEnd) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchSkipRoot", "ptr", pszPath, "ptr", ppszRootEnd, "int")
         if(result != 0)
@@ -27287,14 +27501,14 @@ class Shell {
 
     /**
      * Removes all file and directory elements in a path except for the root information.This function differs from PathStripToRoot in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, this string contains only the root information taken from that path.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, this string contains only the root information taken from that path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the path was truncated, <b>S_FALSE</b> if the path was already just a root, or an <b>HRESULT</b> failure code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchstriptoroot
      * @since windows8.0
      */
     static PathCchStripToRoot(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripToRoot", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -27305,14 +27519,14 @@ class Shell {
 
     /**
      * Removes the last element in a path string, whether that element is a file name or a directory name.
-     * @param {Pointer<Char>} pszPath A pointer to the fully-qualified path string. When this function returns successfully, the string will have had its last element and its leading backslash removed. This function does not affect root paths such as "C:\". In the case of a root path, the path string is returned unaltered. If a path string ends with a trailing backslash, only that backslash is removed.
+     * @param {PWSTR} pszPath A pointer to the fully-qualified path string. When this function returns successfully, the string will have had its last element and its leading backslash removed. This function does not affect root paths such as "C:\". In the case of a root path, the path string is returned unaltered. If a path string ends with a trailing backslash, only that backslash is removed.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if there was nothing to remove, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchremovefilespec
      * @since windows8.0
      */
     static PathCchRemoveFileSpec(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveFileSpec", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -27323,15 +27537,15 @@ class Shell {
 
     /**
      * Searches a path to find its file name extension, such as &quot;.exe&quot; or &quot;.ini&quot;.
-     * @param {Pointer<Char>} pszPath A pointer to the path to search.
+     * @param {PWSTR} pszPath A pointer to the path to search.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} ppszExt The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
+     * @param {Pointer<PWSTR>} ppszExt The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchfindextension
      * @since windows8.0
      */
     static PathCchFindExtension(pszPath, cchPath, ppszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchFindExtension", "ptr", pszPath, "ptr", cchPath, "ptr", ppszExt, "int")
         if(result != 0)
@@ -27342,11 +27556,11 @@ class Shell {
 
     /**
      * Adds a file name extension to a path string.This function differs from PathAddExtension in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended extension. This value should not be <b>NULL</b>.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the buffer contains the string with the appended extension. This value should not be <b>NULL</b>.
      * 
      * <div class="alert"><b>Note</b>  If the original string already has a file name extension present, no new extension will be added and the original string will be unchanged.</div>
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} pszExt A pointer to the file name extension string. This string can be given either with or without a preceding period (".ext" or "ext").
+     * @param {PWSTR} pszExt A pointer to the file name extension string. This string can be given either with or without a preceding period (".ext" or "ext").
      * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
@@ -27399,8 +27613,8 @@ class Shell {
      * @since windows8.0
      */
     static PathCchAddExtension(pszPath, cchPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
         if(result != 0)
@@ -27411,16 +27625,16 @@ class Shell {
 
     /**
      * Replaces a file name's extension at the end of a path string with a new extension.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, this value points to the same string, but with the renamed or added extension.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, this value points to the same string, but with the renamed or added extension.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} pszExt A pointer to the new extension string. The leading '.' character is optional. In the case of an empty string (""), any existing extension in the path string is removed.
+     * @param {PWSTR} pszExt A pointer to the new extension string. The leading '.' character is optional. In the case of an empty string (""), any existing extension in the path string is removed.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchrenameextension
      * @since windows8.0
      */
     static PathCchRenameExtension(pszPath, cchPath, pszExt) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRenameExtension", "ptr", pszPath, "ptr", cchPath, "ptr", pszExt, "int")
         if(result != 0)
@@ -27431,14 +27645,14 @@ class Shell {
 
     /**
      * Removes the file name extension from a path, if one is present.This function differs from PathRemoveExtension in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any extension removed. If no extension was found, the string is unchanged.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the string contains the path with any extension removed. If no extension was found, the string is unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the function was successful, <b>S_FALSE</b> if no extension was found, or an error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchremoveextension
      * @since windows8.0
      */
     static PathCchRemoveExtension(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveExtension", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -27449,9 +27663,9 @@ class Shell {
 
     /**
      * Simplifies a path by removing navigation elements such as &quot;.&quot; and &quot;..&quot; to produce a direct, well-formed path.This function differs from PathCchCanonicalize in that it allows for a longer final path to be constructed.This function differs from PathAllocCanonicalize in that the caller must declare the size of the returned string, which is stored on the stack.This function differs from PathCanonicalize in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the edited path string.
+     * @param {PWSTR} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the edited path string.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
-     * @param {Pointer<Char>} pszPathIn A pointer to the original path string. If this value is <b>NULL</b>, points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
+     * @param {PWSTR} pszPathIn A pointer to the original path string. If this value is <b>NULL</b>, points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
      * @param {Integer} dwFlags One or more of the following flags:
      * 
      * <table>
@@ -27580,8 +27794,8 @@ class Shell {
      * @since windows8.0
      */
     static PathCchCanonicalizeEx(pszPathOut, cchPathOut, pszPathIn, dwFlags) {
-        pszPathOut := pszPathOut is String? StrPtr(pszPathOut) : pszPathOut
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
+        pszPathOut := pszPathOut is String ? StrPtr(pszPathOut) : pszPathOut
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalizeEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "uint", dwFlags, "int")
         if(result != 0)
@@ -27592,9 +27806,9 @@ class Shell {
 
     /**
      * Converts a path string into a canonical form.This function differs from PathCchCanonicalizeEx in that you are restricted to a final path of length MAX_PATH.This function differs from PathAllocCanonicalize in that the caller must declare the size of the returned string, which is stored on the stack.This function differs from PathCanonicalize in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the canonicalized path string.
+     * @param {PWSTR} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the canonicalized path string.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
-     * @param {Pointer<Char>} pszPathIn A pointer to the original path string. If this value points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
+     * @param {PWSTR} pszPathIn A pointer to the original path string. If this value points to an empty string, or results in an empty string once the "." and ".." elements are removed, a single backslash is copied to the buffer pointed to by <i>pszPathOut</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
@@ -27637,8 +27851,8 @@ class Shell {
      * @since windows8.0
      */
     static PathCchCanonicalize(pszPathOut, cchPathOut, pszPathIn) {
-        pszPathOut := pszPathOut is String? StrPtr(pszPathOut) : pszPathOut
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
+        pszPathOut := pszPathOut is String ? StrPtr(pszPathOut) : pszPathOut
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCanonicalize", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "int")
         if(result != 0)
@@ -27649,10 +27863,10 @@ class Shell {
 
     /**
      * Combines two path fragments into a single path.
-     * @param {Pointer<Char>} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the combined path string. This parameter can point to the same buffer as <i>pszPathIn</i> or <i>pszMore</i>.
+     * @param {PWSTR} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the combined path string. This parameter can point to the same buffer as <i>pszPathIn</i> or <i>pszMore</i>.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
-     * @param {Pointer<Char>} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualfied, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
+     * @param {PWSTR} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
+     * @param {PWSTR} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualfied, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
      * @param {Integer} dwFlags One or more of the following flags:
      * 
      * <table>
@@ -27777,9 +27991,9 @@ class Shell {
      * @since windows8.0
      */
     static PathCchCombineEx(pszPathOut, cchPathOut, pszPathIn, pszMore, dwFlags) {
-        pszPathOut := pszPathOut is String? StrPtr(pszPathOut) : pszPathOut
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPathOut := pszPathOut is String ? StrPtr(pszPathOut) : pszPathOut
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombineEx", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "int")
         if(result != 0)
@@ -27790,10 +28004,10 @@ class Shell {
 
     /**
      * Combines two path fragments into a single path.
-     * @param {Pointer<Char>} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the combined path string. This parameter can point to the same buffer as <i>pszPathIn</i> or <i>pszMore</i>.
+     * @param {PWSTR} pszPathOut A pointer to a buffer that, when this function returns successfully, receives the combined path string. This parameter can point to the same buffer as <i>pszPathIn</i> or <i>pszMore</i>.
      * @param {Pointer} cchPathOut The size of the buffer pointed to by <i>pszPathOut</i>, in characters.
-     * @param {Pointer<Char>} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
-     * @param {Pointer<Char>} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualfied, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
+     * @param {PWSTR} pszPathIn A pointer to the first path string. This value can be <b>NULL</b>.
+     * @param {PWSTR} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualfied, it is copied directly to the output buffer without being combined with the other path. This value can be <b>NULL</b>.
      * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
@@ -27846,9 +28060,9 @@ class Shell {
      * @since windows8.0
      */
     static PathCchCombine(pszPathOut, cchPathOut, pszPathIn, pszMore) {
-        pszPathOut := pszPathOut is String? StrPtr(pszPathOut) : pszPathOut
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPathOut := pszPathOut is String ? StrPtr(pszPathOut) : pszPathOut
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchCombine", "ptr", pszPathOut, "ptr", cchPathOut, "ptr", pszPathIn, "ptr", pszMore, "int")
         if(result != 0)
@@ -27859,9 +28073,9 @@ class Shell {
 
     /**
      * Appends one path to the end of another.This function differs from PathCchAppend in that it allows for a longer final path to be constructed.This function differs from PathAppend in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
+     * @param {PWSTR} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} pszMore A pointer the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths that begin with the sequence \\?\ are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
+     * @param {PWSTR} pszMore A pointer the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths that begin with the sequence \\?\ are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
      * @param {Integer} dwFlags One or more of the following flags:
      * 
      * <table>
@@ -27974,8 +28188,8 @@ class Shell {
      * @since windows8.0
      */
     static PathCchAppendEx(pszPath, cchPath, pszMore, dwFlags) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppendEx", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "uint", dwFlags, "int")
         if(result != 0)
@@ -27986,9 +28200,9 @@ class Shell {
 
     /**
      * Appends one path to the end of another.This function differs from PathCchAppendEx in that you are restricted to a final path of length MAX_PATH.This function differs from PathAppend in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
-     * @param {Pointer<Char>} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
+     * @param {PWSTR} pszPath A pointer to a buffer that, on entry, contains the original path. When this function returns successfully, the buffer contains the original path plus the appended path.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<Char>} pszMore A pointer to the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths beginning with the "\\?\" sequence are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
+     * @param {PWSTR} pszMore A pointer to the path to append to the end of the path pointed to by <i>pszPath</i>. UNC paths and paths beginning with the "\\?\" sequence are accepted and recognized as fully-qualified paths. These paths replace the string pointed to by <i>pszPath</i> instead of being appended to it.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> code, including the following.
      * 
      * <table>
@@ -28031,8 +28245,8 @@ class Shell {
      * @since windows8.0
      */
     static PathCchAppend(pszPath, cchPath, pszMore) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAppend", "ptr", pszPath, "ptr", cchPath, "ptr", pszMore, "int")
         if(result != 0)
@@ -28043,14 +28257,14 @@ class Shell {
 
     /**
      * Removes the &quot;\\?\&quot; prefix, if present, from a file path.
-     * @param {Pointer<Char>} pszPath A pointer to the path string. When this function returns successfully, the same path string will have had the prefix removed, if the prefix was present. If no prefix was present, the string will be unchanged.
+     * @param {PWSTR} pszPath A pointer to the path string. When this function returns successfully, the same path string will have had the prefix removed, if the prefix was present. If no prefix was present, the string will be unchanged.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
      * @returns {HRESULT} This function returns <b>S_OK</b> if the prefix was removed, <b>S_FALSE</b> if the path did not have a prefix to remove, or an <b>HRESULT</b> failure code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchstripprefix
      * @since windows8.0
      */
     static PathCchStripPrefix(pszPath, cchPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchStripPrefix", "ptr", pszPath, "ptr", cchPath, "int")
         if(result != 0)
@@ -28061,8 +28275,8 @@ class Shell {
 
     /**
      * Concatenates two path fragments into a single path.
-     * @param {Pointer<Char>} pszPathIn A pointer to the first path string.
-     * @param {Pointer<Char>} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualified, it is copied directly to the output buffer without being combined with the other path.
+     * @param {PWSTR} pszPathIn A pointer to the first path string.
+     * @param {PWSTR} pszMore A pointer to the second path string. If this path begins with a single backslash, it is combined with only the root of the path pointed to by <i>pszPathIn</i>. If this path is fully qualified, it is copied directly to the output buffer without being combined with the other path.
      * @param {Integer} dwFlags One or more of the following flags:
      * 
      * <table>
@@ -28144,14 +28358,14 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
+     * @param {Pointer<PWSTR>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathalloccombine
      * @since windows8.0
      */
     static PathAllocCombine(pszPathIn, pszMore, dwFlags, ppszPathOut) {
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
-        pszMore := pszMore is String? StrPtr(pszMore) : pszMore
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
+        pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "ptr", ppszPathOut, "int")
         if(result != 0)
@@ -28162,7 +28376,7 @@ class Shell {
 
     /**
      * Converts a path string into a canonical form.This function differs from PathCchCanonicalize and PathCchCanonicalizeEx in that it returns the result on the heap.
-     * @param {Pointer<Char>} pszPathIn A pointer to a buffer that contains the original string. This value cannot be <b>NULL</b>.
+     * @param {PWSTR} pszPathIn A pointer to a buffer that contains the original string. This value cannot be <b>NULL</b>.
      * @param {Integer} dwFlags One or more of the following flags:
      * 
      * <table>
@@ -28244,13 +28458,13 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
+     * @param {Pointer<PWSTR>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathalloccanonicalize
      * @since windows8.0
      */
     static PathAllocCanonicalize(pszPathIn, dwFlags, ppszPathOut) {
-        pszPathIn := pszPathIn is String? StrPtr(pszPathIn) : pszPathIn
+        pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
         result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCanonicalize", "ptr", pszPathIn, "uint", dwFlags, "ptr", ppszPathOut, "int")
         if(result != 0)
@@ -28263,18 +28477,18 @@ class Shell {
      * Enables an app to register a callback function through which it can be notified that its library is going into or coming out of a suspended state.
      * @param {Pointer<PAPPSTATE_CHANGE_ROUTINE>} Routine A pointer to a callback function that is called when the app enters or leaves the suspended state. See <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nc-appnotify-pappstate_change_routine">PAPPSTATE_CHANGE_ROUTINE</a> for more detail on this function.
      * @param {Pointer<Void>} Context App-specific context information that the app uses when going into or out of a suspended state. This is commonly a "this" pointer.
-     * @param {Pointer<IntPtr>} Registration When this function returns successfully, this parameter receives the address of a pointer to a value that can be used to identify the registration. Store this value to use with <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-unregisterappstatechangenotification">UnregisterAppStateChangeNotification</a>.
+     * @param {Pointer<PAPPSTATE_REGISTRATION>} Registration When this function returns successfully, this parameter receives the address of a pointer to a value that can be used to identify the registration. Store this value to use with <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-unregisterappstatechangenotification">UnregisterAppStateChangeNotification</a>.
      * @returns {Integer} A standard Win32 status code.
      * @see https://docs.microsoft.com/windows/win32/api//appnotify/nf-appnotify-registerappstatechangenotification
      */
     static RegisterAppStateChangeNotification(Routine, Context, Registration) {
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, "ptr", Context, "ptr*", Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, "ptr", Context, "ptr", Registration, "uint")
         return result
     }
 
     /**
      * Cancels a change notification registered through RegisterAppStateChangeNotification.
-     * @param {Pointer} Registration A pointer to the registration handle retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-registerappstatechangenotification">RegisterAppStateChangeNotification</a> through its <i>Registration</i> parameter.
+     * @param {PAPPSTATE_REGISTRATION} Registration A pointer to the registration handle retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/appnotify/nf-appnotify-registerappstatechangenotification">RegisterAppStateChangeNotification</a> through its <i>Registration</i> parameter.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//appnotify/nf-appnotify-unregisterappstatechangenotification
      */
@@ -28286,17 +28500,17 @@ class Shell {
      * 
      * @param {Pointer<PAPPCONSTRAIN_CHANGE_ROUTINE>} Routine 
      * @param {Pointer<Void>} Context 
-     * @param {Pointer<IntPtr>} Registration 
+     * @param {Pointer<PAPPCONSTRAIN_REGISTRATION>} Registration 
      * @returns {Integer} 
      */
     static RegisterAppConstrainedChangeNotification(Routine, Context, Registration) {
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, "ptr", Context, "ptr*", Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, "ptr", Context, "ptr", Registration, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} Registration 
+     * @param {PAPPCONSTRAIN_REGISTRATION} Registration 
      * @returns {String} Nothing - always returns an empty string
      */
     static UnregisterAppConstrainedChangeNotification(Registration) {

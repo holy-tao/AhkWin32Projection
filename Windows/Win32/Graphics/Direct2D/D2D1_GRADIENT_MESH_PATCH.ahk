@@ -28,7 +28,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point00{
         get {
             if(!this.HasProp("__point00"))
-                this.__point00 := D2D_POINT_2F(this.ptr + 0)
+                this.__point00 := D2D_POINT_2F(0, this)
             return this.__point00
         }
     }
@@ -40,7 +40,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point01{
         get {
             if(!this.HasProp("__point01"))
-                this.__point01 := D2D_POINT_2F(this.ptr + 8)
+                this.__point01 := D2D_POINT_2F(8, this)
             return this.__point01
         }
     }
@@ -52,7 +52,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point02{
         get {
             if(!this.HasProp("__point02"))
-                this.__point02 := D2D_POINT_2F(this.ptr + 16)
+                this.__point02 := D2D_POINT_2F(16, this)
             return this.__point02
         }
     }
@@ -64,7 +64,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point03{
         get {
             if(!this.HasProp("__point03"))
-                this.__point03 := D2D_POINT_2F(this.ptr + 24)
+                this.__point03 := D2D_POINT_2F(24, this)
             return this.__point03
         }
     }
@@ -76,7 +76,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point10{
         get {
             if(!this.HasProp("__point10"))
-                this.__point10 := D2D_POINT_2F(this.ptr + 32)
+                this.__point10 := D2D_POINT_2F(32, this)
             return this.__point10
         }
     }
@@ -88,7 +88,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point11{
         get {
             if(!this.HasProp("__point11"))
-                this.__point11 := D2D_POINT_2F(this.ptr + 40)
+                this.__point11 := D2D_POINT_2F(40, this)
             return this.__point11
         }
     }
@@ -100,7 +100,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point12{
         get {
             if(!this.HasProp("__point12"))
-                this.__point12 := D2D_POINT_2F(this.ptr + 48)
+                this.__point12 := D2D_POINT_2F(48, this)
             return this.__point12
         }
     }
@@ -112,7 +112,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point13{
         get {
             if(!this.HasProp("__point13"))
-                this.__point13 := D2D_POINT_2F(this.ptr + 56)
+                this.__point13 := D2D_POINT_2F(56, this)
             return this.__point13
         }
     }
@@ -124,7 +124,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point20{
         get {
             if(!this.HasProp("__point20"))
-                this.__point20 := D2D_POINT_2F(this.ptr + 64)
+                this.__point20 := D2D_POINT_2F(64, this)
             return this.__point20
         }
     }
@@ -136,7 +136,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point21{
         get {
             if(!this.HasProp("__point21"))
-                this.__point21 := D2D_POINT_2F(this.ptr + 72)
+                this.__point21 := D2D_POINT_2F(72, this)
             return this.__point21
         }
     }
@@ -148,7 +148,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point22{
         get {
             if(!this.HasProp("__point22"))
-                this.__point22 := D2D_POINT_2F(this.ptr + 80)
+                this.__point22 := D2D_POINT_2F(80, this)
             return this.__point22
         }
     }
@@ -160,7 +160,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point23{
         get {
             if(!this.HasProp("__point23"))
-                this.__point23 := D2D_POINT_2F(this.ptr + 88)
+                this.__point23 := D2D_POINT_2F(88, this)
             return this.__point23
         }
     }
@@ -172,7 +172,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point30{
         get {
             if(!this.HasProp("__point30"))
-                this.__point30 := D2D_POINT_2F(this.ptr + 96)
+                this.__point30 := D2D_POINT_2F(96, this)
             return this.__point30
         }
     }
@@ -184,7 +184,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point31{
         get {
             if(!this.HasProp("__point31"))
-                this.__point31 := D2D_POINT_2F(this.ptr + 104)
+                this.__point31 := D2D_POINT_2F(104, this)
             return this.__point31
         }
     }
@@ -196,7 +196,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point32{
         get {
             if(!this.HasProp("__point32"))
-                this.__point32 := D2D_POINT_2F(this.ptr + 112)
+                this.__point32 := D2D_POINT_2F(112, this)
             return this.__point32
         }
     }
@@ -208,7 +208,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     point33{
         get {
             if(!this.HasProp("__point33"))
-                this.__point33 := D2D_POINT_2F(this.ptr + 120)
+                this.__point33 := D2D_POINT_2F(120, this)
             return this.__point33
         }
     }
@@ -220,7 +220,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     color00{
         get {
             if(!this.HasProp("__color00"))
-                this.__color00 := D2D1_COLOR_F(this.ptr + 128)
+                this.__color00 := D2D1_COLOR_F(128, this)
             return this.__color00
         }
     }
@@ -232,7 +232,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     color03{
         get {
             if(!this.HasProp("__color03"))
-                this.__color03 := D2D1_COLOR_F(this.ptr + 144)
+                this.__color03 := D2D1_COLOR_F(144, this)
             return this.__color03
         }
     }
@@ -244,7 +244,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     color30{
         get {
             if(!this.HasProp("__color30"))
-                this.__color30 := D2D1_COLOR_F(this.ptr + 160)
+                this.__color30 := D2D1_COLOR_F(160, this)
             return this.__color30
         }
     }
@@ -256,7 +256,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
     color33{
         get {
             if(!this.HasProp("__color33"))
-                this.__color33 := D2D1_COLOR_F(this.ptr + 176)
+                this.__color33 := D2D1_COLOR_F(176, this)
             return this.__color33
         }
     }

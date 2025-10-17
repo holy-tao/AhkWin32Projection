@@ -21,7 +21,7 @@ class DRIVER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DRIVER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pEnvironment {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class DRIVER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDriverPath {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class DRIVER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDataFile {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class DRIVER_INFO_5W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pConfigFile {
         get => NumGet(this, 40, "ptr")

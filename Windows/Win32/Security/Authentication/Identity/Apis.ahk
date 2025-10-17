@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
@@ -7269,7 +7269,7 @@ class Identity {
      * Generates a pseudo-random number.
      * @param {Pointer} RandomBuffer A pointer to a buffer that receives the random number as binary data. The size of this buffer is specified by the <i>RandomBufferLength</i> parameter.
      * @param {Integer} RandomBufferLength The length, in bytes, of the <i>RandomBuffer</i> buffer.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtlgenrandom
@@ -7284,7 +7284,7 @@ class Identity {
      * @param {Pointer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} MemorySize Number of bytes to which <i>Memory</i> points. The number of bytes must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} OptionFlags 
-     * @returns {Integer} If the function is successful, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function is successful, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an <b>NTSTATUS</b> code that indicates the error.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtlencryptmemory
@@ -7299,7 +7299,7 @@ class Identity {
      * @param {Pointer} Memory A pointer to the memory to encrypt. The size of the memory must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} MemorySize Number of bytes to which <i>Memory</i> points. The number of bytes must be a multiple of the RTL_ENCRYPT_MEMORY_SIZE constant.
      * @param {Integer} OptionFlags 
-     * @returns {Integer} If the function is successful, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function is successful, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an <b>NTSTATUS</b> code that indicates the error.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-rtldecryptmemory
@@ -7318,9 +7318,9 @@ class Identity {
      * 
      * 
      * This string must not exceed 127 bytes.
-     * @param {Pointer<Void>} LsaHandle Pointer that receives a handle used in future authentication function calls.
+     * @param {Pointer<HANDLE>} LsaHandle Pointer that receives a handle used in future authentication function calls.
      * @param {Pointer<UInt32>} SecurityMode The value returned is not meaningful and should be ignored.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. The following are possible error codes.
      * 
@@ -7375,7 +7375,7 @@ class Identity {
 
     /**
      * Authenticates a security principal's logon data by using stored credentials information.
-     * @param {Pointer<Void>} LsaHandle A handle obtained from a previous call to 
+     * @param {HANDLE} LsaHandle A handle obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaregisterlogonprocess">LsaRegisterLogonProcess</a>.
      * 
      * The caller is required to have <b>SeTcbPrivilege</b> only if one or more of the following is true:
@@ -7617,7 +7617,7 @@ class Identity {
      * @param {Pointer<UInt32>} ProfileBufferLength A pointer to a <b>ULONG</b> that receives the length, in bytes, of the returned profile buffer.
      * @param {Pointer<LUID>} LogonId A pointer to a buffer that receives an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-luid">LUID</a> that uniquely identifies the logon session. This <b>LUID</b> is assigned by the domain controller that authenticated the logon information.
-     * @param {Pointer<Void>} Token A pointer to a handle that receives the new user token created for this session. When you have finished using the token, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
+     * @param {Pointer<HANDLE>} Token A pointer to a handle that receives the new user token created for this session. When you have finished using the token, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
      * @param {Pointer<QUOTA_LIMITS>} Quotas When a primary token is returned, this parameter receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-quota_limits">QUOTA_LIMITS</a> structure that contains the process quota limits assigned to the newly logged on user's initial process.
      * @param {Pointer<Int32>} SubStatus If the logon failed due to account restrictions, this parameter receives information about why the logon failed. This value is set only if the account information of the user is valid and the logon is rejected.
@@ -7670,7 +7670,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} If the function succeeds, the function returns  STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns  STATUS_SUCCESS.
      * 
      * If the function fails, it returns  an <b>NTSTATUS</b> code, which can be one of the following values.
      * 
@@ -7779,13 +7779,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaLogonUser(LsaHandle, OriginName, LogonType, AuthenticationPackage, AuthenticationInformation, AuthenticationInformationLength, LocalGroups, SourceContext, ProfileBuffer, ProfileBufferLength, LogonId, Token, Quotas, SubStatus) {
+        LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
+
         result := DllCall("SECUR32.dll\LsaLogonUser", "ptr", LsaHandle, "ptr", OriginName, "int", LogonType, "uint", AuthenticationPackage, "ptr", AuthenticationInformation, "uint", AuthenticationInformationLength, "ptr", LocalGroups, "ptr", SourceContext, "ptr", ProfileBuffer, "uint*", ProfileBufferLength, "ptr", LogonId, "ptr", Token, "ptr", Quotas, "int*", SubStatus, "int")
         return result
     }
 
     /**
      * Obtains the unique identifier of an authentication package.
-     * @param {Pointer<Void>} LsaHandle Handle obtained from a previous call to 
+     * @param {HANDLE} LsaHandle Handle obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaregisterlogonprocess">LsaRegisterLogonProcess</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaconnectuntrusted">LsaConnectUntrusted</a>.
      * @param {Pointer<LSA_STRING>} PackageName Pointer to an 
@@ -7828,7 +7830,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<UInt32>} AuthenticationPackage Pointer to a <b>ULONG</b> that receives the authentication package identifier.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. The following are possible error codes.
      * 
@@ -7871,6 +7873,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaLookupAuthenticationPackage(LsaHandle, PackageName, AuthenticationPackage) {
+        LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
+
         result := DllCall("SECUR32.dll\LsaLookupAuthenticationPackage", "ptr", LsaHandle, "ptr", PackageName, "uint*", AuthenticationPackage, "int")
         return result
     }
@@ -7878,7 +7882,7 @@ class Identity {
     /**
      * Frees the memory used by a buffer previously allocated by the LSA.
      * @param {Pointer<Void>} Buffer Pointer to the buffer to be freed.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -7895,7 +7899,7 @@ class Identity {
 
     /**
      * Used by a logon application to communicate with an authentication package.
-     * @param {Pointer<Void>} LsaHandle A handle obtained from a previous call to 
+     * @param {HANDLE} LsaHandle A handle obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaregisterlogonprocess">LsaRegisterLogonProcess</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaconnectuntrusted">LsaConnectUntrusted</a>.
      * @param {Integer} AuthenticationPackage Supplies the identifier of the authentication package. This value is obtained by calling 
@@ -7911,7 +7915,7 @@ class Identity {
      * This buffer is allocated by this function. When you have finished using this buffer, free the memory by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LsaFreeReturnBuffer</a> function.
      * @param {Pointer<UInt32>} ReturnBufferLength A pointer to a <b>ULONG</b> that receives the length of the returned buffer, in bytes.
      * @param {Pointer<Int32>} ProtocolStatus If the function succeeds, this parameter receives a pointer to an <b>NTSTATUS</b> code that indicates the completion status of the authentication package.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS. Check the <i>ProtocolStatus</i> parameter to obtain the status returned by the authentication package.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS. Check the <i>ProtocolStatus</i> parameter to obtain the status returned by the authentication package.
      * 
      * If the function fails, the return value is an <b>NTSTATUS</b> code. The following are possible error codes.
      * 
@@ -7976,16 +7980,18 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaCallAuthenticationPackage(LsaHandle, AuthenticationPackage, ProtocolSubmitBuffer, SubmitBufferLength, ProtocolReturnBuffer, ReturnBufferLength, ProtocolStatus) {
+        LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
+
         result := DllCall("SECUR32.dll\LsaCallAuthenticationPackage", "ptr", LsaHandle, "uint", AuthenticationPackage, "ptr", ProtocolSubmitBuffer, "uint", SubmitBufferLength, "ptr", ProtocolReturnBuffer, "uint*", ReturnBufferLength, "int*", ProtocolStatus, "int")
         return result
     }
 
     /**
      * Deletes the caller's logon application context and closes the connection to the LSA server.
-     * @param {Pointer<Void>} LsaHandle Handle obtained from a 
+     * @param {HANDLE} LsaHandle Handle obtained from a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaregisterlogonprocess">LsaRegisterLogonProcess</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaconnectuntrusted">LsaConnectUntrusted</a> call.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -7996,14 +8002,16 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaDeregisterLogonProcess(LsaHandle) {
+        LsaHandle := LsaHandle is Win32Handle ? NumGet(LsaHandle, "ptr") : LsaHandle
+
         result := DllCall("SECUR32.dll\LsaDeregisterLogonProcess", "ptr", LsaHandle, "int")
         return result
     }
 
     /**
      * Establishes an untrusted connection to the LSA server.
-     * @param {Pointer<Void>} LsaHandle Pointer to a handle that receives the connection handle, which must be provided in future authentication services.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @param {Pointer<HANDLE>} LsaHandle Pointer to a handle that receives the connection handle, which must be provided in future authentication services.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8021,7 +8029,7 @@ class Identity {
     /**
      * The LsaFreeMemory function frees memory allocated for an output buffer by an LSA function call.
      * @param {Pointer<Void>} Buffer Pointer to memory buffer that was allocated by an LSA function call. If <b>LsaFreeMemory</b> is successful, this buffer is freed.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8057,10 +8065,10 @@ class Identity {
 
     /**
      * The LsaClose function closes a handle to a Policy or TrustedDomain object.
-     * @param {Pointer} ObjectHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object returned by the 
+     * @param {LSA_HANDLE} ObjectHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaopenpolicy">LsaOpenPolicy</a> function or to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaopentrusteddomainbyname">LsaOpenTrustedDomainByName</a> function. Following the completion of this call, the handle is no longer valid.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8071,6 +8079,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaClose(ObjectHandle) {
+        ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
+
         result := DllCall("ADVAPI32.dll\LsaClose", "ptr", ObjectHandle, "int")
         return result
     }
@@ -8080,7 +8090,7 @@ class Identity {
      * @param {Pointer<UInt32>} LogonSessionCount Pointer to a long integer that receives the number of elements returned in the array returned in <i>LogonSessionList</i> parameter.
      * @param {Pointer<LUID>} LogonSessionList Address of a pointer to a LUID. The pointer receives the first element of an array of logon session identifiers. The memory used by the array is allocated by the LSA. When the array is no longer needed, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LSAFreeReturnBuffer</a> function to free it.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code indicating the reason.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-lsaenumeratelogonsessions
@@ -8097,7 +8107,7 @@ class Identity {
      * @param {Pointer<SECURITY_LOGON_SESSION_DATA>} ppLogonSessionData Address of a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-security_logon_session_data">SECURITY_LOGON_SESSION_DATA</a> structure containing information on the logon session specified by <i>LogonId</i>. This structure is allocated by the LSA. When the information is no longer needed, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreereturnbuffer">LsaFreeReturnBuffer</a> function to free the memory used by this structure.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an <b>NTSTATUS</b> code indicating the reason.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-lsagetlogonsessiondata
@@ -8115,12 +8125,12 @@ class Identity {
      * @param {Pointer<LSA_OBJECT_ATTRIBUTES>} ObjectAttributes A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_object_attributes">LSA_OBJECT_ATTRIBUTES</a> structure that specifies the connection attributes. The structure members are not used; initialize them to <b>NULL</b> or zero.
      * @param {Integer} DesiredAccess An <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> that specifies the requested access rights. The function fails if the DACL of the target system does not allow the caller the requested access. To determine the access rights that you need, see the documentation for the LSA functions with which you want to use the policy handle.
-     * @param {Pointer<IntPtr>} PolicyHandle A pointer to an 
+     * @param {Pointer<LSA_HANDLE>} PolicyHandle A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/lsa-handle">LSA_HANDLE</a> variable that receives a handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object.
      * 
      * When you no longer need this handle, pass it to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaclose">LsaClose</a> function to close it.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8131,7 +8141,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaOpenPolicy(SystemName, ObjectAttributes, DesiredAccess, PolicyHandle) {
-        result := DllCall("ADVAPI32.dll\LsaOpenPolicy", "ptr", SystemName, "ptr", ObjectAttributes, "uint", DesiredAccess, "ptr*", PolicyHandle, "int")
+        result := DllCall("ADVAPI32.dll\LsaOpenPolicy", "ptr", SystemName, "ptr", ObjectAttributes, "uint", DesiredAccess, "ptr", PolicyHandle, "int")
         return result
     }
 
@@ -8140,7 +8150,7 @@ class Identity {
      * @param {Pointer<LSA_UNICODE_STRING>} CAPDNs 
      * @param {Integer} CAPDNCount 
      * @param {Integer} Flags 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static LsaSetCAPs(CAPDNs, CAPDNCount, Flags) {
         result := DllCall("ADVAPI32.dll\LsaSetCAPs", "ptr", CAPDNs, "uint", CAPDNCount, "uint", Flags, "int")
@@ -8150,9 +8160,9 @@ class Identity {
     /**
      * Returns an array of central access policies (CAPs) identifiers (CAPIDs) of all the CAPs applied on a specific computer.
      * @param {Pointer<LSA_UNICODE_STRING>} SystemName A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the specific computer. The name can have the form of "ComputerName" or "\\ComputerName". If this parameter is <b>NULL</b>, then the function returns the CAPIDs of the local computer.
-     * @param {Pointer<Void>} CAPIDs A pointer to a variable that receives an array of pointers to CAPIDs that identify the CAPs available on the specified computer. When you have finished using the CAPIDs, call the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function on each element in the array and the entire array.
+     * @param {Pointer<PSID>} CAPIDs A pointer to a variable that receives an array of pointers to CAPIDs that identify the CAPs available on the specified computer. When you have finished using the CAPIDs, call the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function on each element in the array and the entire array.
      * @param {Pointer<UInt32>} CAPIDCount A pointer to a variable that receives the number of CAPs that are available on the specified computer. The array returned in the <i>CAPIDs</i> parameter contains the same number of elements as the <i>CAPIDCount</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>. You can use the <a href="/windows/desktop/api/ntsecapi/nf-ntsecapi-lsantstatustowinerror">LsaNtStatusToWinError</a> function to  convert the <b>NTSTATUS</b> code to a Windows error code.
      * @see https://docs.microsoft.com/windows/win32/api//ntlsa/nf-ntlsa-lsagetappliedcapids
@@ -8165,11 +8175,11 @@ class Identity {
 
     /**
      * Returns the Central Access Policies (CAPs) for the specified IDs.
-     * @param {Pointer<Void>} CAPIDs A pointer to a variable that contains an array of pointers to CAPIDs that identify the CAPs being queried.
+     * @param {Pointer<PSID>} CAPIDs A pointer to a variable that contains an array of pointers to CAPIDs that identify the CAPs being queried.
      * @param {Integer} CAPIDCount The number of IDs in the <i>CAPIDs</i> parameter.
      * @param {Pointer<CENTRAL_ACCESS_POLICY>} CAPs Receives a pointer to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/ns-ntlsa-central_access_policy">CENTRAL_ACCESS_POLICY</a> structures representing the queried CAPs.
      * @param {Pointer<UInt32>} CAPCount The number of <a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/ns-ntlsa-central_access_policy">CENTRAL_ACCESS_POLICY</a> structure pointers returned in the <i>CAPs</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
      * @see https://docs.microsoft.com/windows/win32/api//ntlsa/nf-ntlsa-lsaquerycaps
@@ -8182,7 +8192,7 @@ class Identity {
 
     /**
      * Retrieves information about a Policy object.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} Buffer Pointer to a variable that receives a pointer to a structure containing the requested information. The type of structure depends on the value of the <i>InformationClass</i> parameter. 
@@ -8192,7 +8202,7 @@ class Identity {
      * 
      * When you no longer need the information, pass the returned pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
-     * @returns {Integer} If the <b>LsaQueryInformationPolicy</b> function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the <b>LsaQueryInformationPolicy</b> function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8203,17 +8213,19 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaQueryInformationPolicy(PolicyHandle, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * Modifies information in a Policy object.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The required access rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} Buffer Pointer to a structure containing the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8224,13 +8236,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaSetInformationPolicy(PolicyHandle, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * Retrieves domain information from the Policyobject.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
      * @param {Integer} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be returned from the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a>object. The following table shows the possible values.
      * 
      * <table>
@@ -8260,7 +8274,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Buffer Pointer to a buffer that receives the requested information.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
      * 
@@ -8288,13 +8302,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaQueryDomainInformationPolicy(PolicyHandle, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * Sets domain information to the Policyobject.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
      * @param {Integer} InformationClass <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_domain_information_class">POLICY_DOMAIN_INFORMATION_CLASS</a> enumeration that specifies the information to be set to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a>object. The following table shows the possible values.
      * 
      * <table>
@@ -8324,7 +8340,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Pointer<Void>} Buffer Pointer to a buffer that contains  the  information to set to the  <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a>object.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
      * 
@@ -8352,6 +8368,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaSetDomainInformationPolicy(PolicyHandle, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetDomainInformationPolicy", "ptr", PolicyHandle, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
@@ -8359,9 +8377,9 @@ class Identity {
     /**
      * The LsaRegisterPolicyChangeNotification function registers an event handle with the local security authority (LSA). This event handle is signaled whenever the indicated LSA policy is modified.
      * @param {Integer} InformationClass A
-     * @param {Pointer<Void>} NotificationEventHandle A handle to an event obtained by calling the 
+     * @param {HANDLE} NotificationEventHandle A handle to an event obtained by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function. The event can be either named or unnamed.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8372,6 +8390,8 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaRegisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
+        NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
+
         result := DllCall("SECUR32.dll\LsaRegisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
         return result
     }
@@ -8379,8 +8399,8 @@ class Identity {
     /**
      * The LsaUnregisterPolicyChangeNotification function disables a previously registered notification event.
      * @param {Integer} InformationClass A
-     * @param {Pointer<Void>} NotificationEventHandle A handle to the notification event to unregister.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @param {HANDLE} NotificationEventHandle A handle to the notification event to unregister.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8391,13 +8411,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaUnregisterPolicyChangeNotification(InformationClass, NotificationEventHandle) {
+        NotificationEventHandle := NotificationEventHandle is Win32Handle ? NumGet(NotificationEventHandle, "ptr") : NotificationEventHandle
+
         result := DllCall("SECUR32.dll\LsaUnregisterPolicyChangeNotification", "int", InformationClass, "ptr", NotificationEventHandle, "int")
         return result
     }
 
     /**
      * The LsaEnumerateTrustedDomains function retrieves the names and SIDs of domains trusted to authenticate logon credentials.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<UInt32>} EnumerationContext Pointer to an enumeration handle that enables you to make multiple calls to enumerate all the trusted domains. On the first call to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to a variable that has been initialized to zero. On subsequent calls to <b>LsaEnumerateTrustedDomains</b>, <i>EnumerationContext</i> must point to the enumeration handle returned by the previous call.
      * @param {Pointer<Void>} Buffer Receives a pointer to an array of 
@@ -8410,7 +8432,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @param {Integer} PreferedMaximumLength Specifies the preferred maximum size, in bytes, of the returned buffer. This information is approximate; the actual number of bytes returned may be greater than this value.
      * @param {Pointer<UInt32>} CountReturned Pointer to a variable that receives the number of elements returned in the <i>Buffer</i> parameter.
-     * @returns {Integer} If the function is successful, the return value is one of the following NTSTATUS values.
+     * @returns {NTSTATUS} If the function is successful, the return value is one of the following NTSTATUS values.
      * 
      * <table>
      * <tr>
@@ -8462,13 +8484,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateTrustedDomains(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomains", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
         return result
     }
 
     /**
      * Retrieves the security identifiers (SIDs) that correspond to an array of user, group, or local group names.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} Count Specifies the number of names in the <i>Names</i> array. This is also the number of entries returned in the <i>Sids</i> array. This value must be less than or equal to 1000.
      * @param {Pointer<LSA_UNICODE_STRING>} Names Pointer to an array of 
@@ -8494,7 +8518,7 @@ class Identity {
      * 
      * When you have finished using the returned pointer, free the memory by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function. This memory must be freed even when the function fails with the either of the error codes <b>STATUS_NONE_MAPPED</b> or <b>STATUS_SOME_NOT_MAPPED</b>
-     * @returns {Integer} If the function succeeds, the function returns  one of the following <b>NTSTATUS</b> values.
+     * @returns {NTSTATUS} If the function succeeds, the function returns  one of the following <b>NTSTATUS</b> values.
      * 
      * <table>
      * <tr>
@@ -8565,13 +8589,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaLookupNames(PolicyHandle, Count, Names, ReferencedDomains, Sids) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaLookupNames", "ptr", PolicyHandle, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "int")
         return result
     }
 
     /**
      * Retrieves the security identifiers (SIDs) for specified account names. LsaLookupNames2 can look up the SID for any account in any domain in a Windows forest.
-     * @param {Pointer} PolicyHandle A handle to a 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} Flags Values that control the behavior of this function. The following value is currently defined.
@@ -8614,7 +8640,7 @@ class Identity {
      * 
      * When you have finished using the returned pointer, free it by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function. This memory must be freed even when the function fails with the either of the error codes <b>STATUS_NONE_MAPPED</b> or <b>STATUS_SOME_NOT_MAPPED</b>
-     * @returns {Integer} If the function succeeds, the function returns one of the following <b>NTSTATUS</b> values.
+     * @returns {NTSTATUS} If the function succeeds, the function returns one of the following <b>NTSTATUS</b> values.
      * 
      * <table>
      * <tr>
@@ -8675,16 +8701,18 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaLookupNames2(PolicyHandle, Flags, Count, Names, ReferencedDomains, Sids) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaLookupNames2", "ptr", PolicyHandle, "uint", Flags, "uint", Count, "ptr", Names, "ptr", ReferencedDomains, "ptr", Sids, "int")
         return result
     }
 
     /**
      * Looks up the names that correspond to an array of security identifiers (SIDs). If LsaLookupSids cannot find a name that corresponds to a SID, the function returns the SID in character form.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} Count Specifies the number of SIDs in the <i>Sids</i> array. This is also the number of entries returned in the <i>Names</i> array. This value must be less than or equal to 20480.
-     * @param {Pointer<Void>} Sids Pointer to an array of SID pointers to look up. The SIDs can be well-known SIDs, user, group, or local group account SIDs, or domain SIDs.
+     * @param {Pointer<PSID>} Sids Pointer to an array of SID pointers to look up. The SIDs can be well-known SIDs, user, group, or local group account SIDs, or domain SIDs.
      * @param {Pointer<LSA_REFERENCED_DOMAIN_LIST>} ReferencedDomains Receives a pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_referenced_domain_list">LSA_REFERENCED_DOMAIN_LIST</a> structure. The <b>Domains</b> member of this structure is an array that contains an entry for each domain in which a SID was found. The entry for each domain contains the SID and flat name of the domain. For Windows domains, the flat name is the NetBIOS name. For links with non–Windows domains, the flat name is the identifying name of that domain, or it is <b>NULL</b>. 
      * 
      * 
@@ -8702,7 +8730,7 @@ class Identity {
      * 
      * When you no longer need the information, pass the returned pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>. This memory must be freed even when the function fails with the either of the error codes <b>STATUS_NONE_MAPPED</b> or <b>STATUS_SOME_NOT_MAPPED</b>
-     * @returns {Integer} If the function succeeds, the return value is one of the following <b>NTSTATUS</b> values.
+     * @returns {NTSTATUS} If the function succeeds, the return value is one of the following <b>NTSTATUS</b> values.
      * 
      * <table>
      * <tr>
@@ -8774,13 +8802,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaLookupSids(PolicyHandle, Count, Sids, ReferencedDomains, Names) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "int")
         return result
     }
 
     /**
      * Looks up the names that correspond to an array of security identifiers (SIDs) and supports Internet provider identities. If LsaLookupSids2 cannot find a name that corresponds to a SID, the function returns the SID in character form.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Integer} LookupOptions Flags that modify the lookup behavior. 
      * 
@@ -8821,7 +8851,7 @@ class Identity {
      * </tr>
      * </table>
      * @param {Integer} Count Specifies the number of SIDs in the <i>Sids</i> array. This is also the number of entries returned in the <i>Names</i> array. This value must be less than or equal to 20480.
-     * @param {Pointer<Void>} Sids Pointer to an array of SID pointers to look up. The SIDs can be well-known SIDs, user, group, or local group account SIDs, or domain SIDs.
+     * @param {Pointer<PSID>} Sids Pointer to an array of SID pointers to look up. The SIDs can be well-known SIDs, user, group, or local group account SIDs, or domain SIDs.
      * @param {Pointer<LSA_REFERENCED_DOMAIN_LIST>} ReferencedDomains Receives a pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_referenced_domain_list">LSA_REFERENCED_DOMAIN_LIST</a> structure. The <b>Domains</b> member of this structure is an array that contains an entry for each domain in which a SID was found. The entry for each domain contains the SID and flat name of the domain. For Windows domains, the flat name is the NetBIOS name. For links with non–Windows domains, the flat name is the identifying name of that domain, or it is <b>NULL</b>. 
      * 
      * 
@@ -8839,7 +8869,7 @@ class Identity {
      * 
      * When you no longer need the information, pass the returned pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>. This memory must be freed even when the function fails with the either of the error codes <b>STATUS_NONE_MAPPED</b> or <b>STATUS_SOME_NOT_MAPPED</b>
-     * @returns {Integer} If the function succeeds, the return value is one of the following <b>NTSTATUS</b> values.
+     * @returns {NTSTATUS} If the function succeeds, the return value is one of the following <b>NTSTATUS</b> values.
      * 
      * <table>
      * <tr>
@@ -8911,13 +8941,15 @@ class Identity {
      * @since windows8.0
      */
     static LsaLookupSids2(PolicyHandle, LookupOptions, Count, Sids, ReferencedDomains, Names) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, "ptr", Sids, "ptr", ReferencedDomains, "ptr", Names, "int")
         return result
     }
 
     /**
      * Returns the accounts in the database of a Local Security Authority (LSA) Policy object that hold a specified privilege.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have POLICY_LOOKUP_NAMES and POLICY_VIEW_LOCAL_INFORMATION user rights. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have POLICY_LOOKUP_NAMES and POLICY_VIEW_LOCAL_INFORMATION user rights. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} UserRight Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that specifies the name of a privilege. For a list of privileges, see 
@@ -8937,7 +8969,7 @@ class Identity {
      * When you no longer need the information, free the memory by passing the returned pointer to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function.
      * @param {Pointer<UInt32>} CountReturned Pointer to a variable that receives the number of entries returned in the <i>EnumerationBuffer</i> parameter.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> code, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -8978,15 +9010,17 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateAccountsWithUserRight(PolicyHandle, UserRight, Buffer, CountReturned) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaEnumerateAccountsWithUserRight", "ptr", PolicyHandle, "ptr", UserRight, "ptr", Buffer, "uint*", CountReturned, "int")
         return result
     }
 
     /**
      * The LsaEnumerateAccountRights function enumerates the privileges assigned to an account.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} AccountSid Pointer to the SID of the account for which to enumerate privileges.
+     * @param {PSID} AccountSid Pointer to the SID of the account for which to enumerate privileges.
      * @param {Pointer<LSA_UNICODE_STRING>} UserRights Receives a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structures. Each structure contains the name of a privilege held by the account. For a list of privilege names, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Privilege Constants</a>
@@ -8994,7 +9028,7 @@ class Identity {
      * When you no longer need the information, pass the returned pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @param {Pointer<UInt32>} CountOfRights Pointer to a variable that receives the number of privileges in the <i>UserRights</i> array.
-     * @returns {Integer} If at least one account right is found, the function succeeds and returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If at least one account right is found, the function succeeds and returns STATUS_SUCCESS.
      * 
      * If no account rights are found or if the function fails for any other reason, the function returns an NTSTATUS code such as FILE_NOT_FOUND. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>. Use the 
@@ -9003,20 +9037,22 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaEnumerateAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint*", CountOfRights, "int")
         return result
     }
 
     /**
      * Assigns one or more privileges to an account.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. If the account identified by the <i>AccountSid</i> parameter does not exist, the handle must have the POLICY_CREATE_ACCOUNT access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. If the account identified by the <i>AccountSid</i> parameter does not exist, the handle must have the POLICY_CREATE_ACCOUNT access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} AccountSid Pointer to the SID of the account to which the function assigns <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a>.
+     * @param {PSID} AccountSid Pointer to the SID of the account to which the function assigns <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} UserRights Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structures. Each structure contains the name of a privilege to add to the account. For a list of privilege names, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Privilege Constants</a>.
      * @param {Integer} CountOfRights Specifies the number of elements in the <i>UserRights</i> array.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be the following value or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9046,21 +9082,23 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaAddAccountRights(PolicyHandle, AccountSid, UserRights, CountOfRights) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaAddAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "ptr", UserRights, "uint", CountOfRights, "int")
         return result
     }
 
     /**
      * Removes one or more privileges from an account.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_LOOKUP_NAMES access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} AccountSid Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the account from which the privileges are removed.
-     * @param {Integer} AllRights If <b>TRUE</b>, the function removes all privileges and deletes the account. In this case, the function ignores the <i>UserRights</i> parameter. If <b>FALSE</b>, the function removes the privileges specified by the <i>UserRights</i> parameter.
+     * @param {PSID} AccountSid Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the account from which the privileges are removed.
+     * @param {BOOLEAN} AllRights If <b>TRUE</b>, the function removes all privileges and deletes the account. In this case, the function ignores the <i>UserRights</i> parameter. If <b>FALSE</b>, the function removes the privileges specified by the <i>UserRights</i> parameter.
      * @param {Pointer<LSA_UNICODE_STRING>} UserRights Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structures. Each structure contains the name of a privilege to be removed from the account. For a list of privilege names, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/authorization-constants">Privilege Constants</a>.
      * @param {Integer} CountOfRights Specifies the number of elements in the <i>UserRights</i> array.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9101,25 +9139,27 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaRemoveAccountRights(PolicyHandle, AccountSid, AllRights, UserRights, CountOfRights) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaRemoveAccountRights", "ptr", PolicyHandle, "ptr", AccountSid, "char", AllRights, "ptr", UserRights, "uint", CountOfRights, "int")
         return result
     }
 
     /**
      * The LsaOpenTrustedDomainByName function opens the LSA policy handle of a remote trusted domain. You can pass this handle into LSA function calls in order to set or query the LSA policy of the remote machine.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This is the policy handle of the local machine. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This is the policy handle of the local machine. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Name of the trusted domain. This name can be either the flat name, or the Domain Name System (DNS) domain name.
      * @param {Integer} DesiredAccess An 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that specifies the access permissions requested on the remote trusted domain object.
-     * @param {Pointer<IntPtr>} TrustedDomainHandle Pointer that receives the address of the LSA policy handle of the remote trusted domain. You can pass this handle into LSA function calls in order to query and manage the LSA policy of the remote machine. 
+     * @param {Pointer<LSA_HANDLE>} TrustedDomainHandle Pointer that receives the address of the LSA policy handle of the remote trusted domain. You can pass this handle into LSA function calls in order to query and manage the LSA policy of the remote machine. 
      * 
      * 
      * 
      * 
      * When your application no longer needs this handle, it should call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaclose">LsaClose</a> to delete the handle.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9160,15 +9200,17 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaOpenTrustedDomainByName(PolicyHandle, TrustedDomainName, DesiredAccess, TrustedDomainHandle) {
-        result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "uint", DesiredAccess, "ptr*", TrustedDomainHandle, "int")
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
+        result := DllCall("ADVAPI32.dll\LsaOpenTrustedDomainByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
         return result
     }
 
     /**
      * The LsaQueryTrustedDomainInfo function retrieves information about a trusted domain.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller that has a trust relationship with the domain identified by the <i>TrustedDomainSid</i> parameter. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller that has a trust relationship with the domain identified by the <i>TrustedDomainSid</i> parameter. The handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} TrustedDomainSid Pointer to the SID of the trusted domain to query.
+     * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain to query.
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} Buffer A pointer to a buffer that receives a pointer to a structure that contains the requested information. The type of structure depends on the value of the <i>InformationClass</i> parameter. 
      * 
@@ -9177,7 +9219,7 @@ class Identity {
      * 
      * When you have finished using the information, free the returned pointer by passing it to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value that indicates the error. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9188,18 +9230,20 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaQueryTrustedDomainInfo(PolicyHandle, TrustedDomainSid, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfo", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * The LsaSetTrustedDomainInformation function modifies a Policy object's information about a trusted domain.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller. The required user rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object of a domain controller. The required user rights for this handle depend on the value of the <i>InformationClass</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} TrustedDomainSid Pointer to the SID of the trusted domain whose information is modified. If the <i>InformationClass</i> parameter is set to TrustedDomainNameInformation, this parameter must point to the SID of the domain to add to the list of trusted domains.
+     * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain whose information is modified. If the <i>InformationClass</i> parameter is set to TrustedDomainNameInformation, this parameter must point to the SID of the domain to add to the list of trusted domains.
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} Buffer Pointer to a structure containing the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9210,16 +9254,18 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaSetTrustedDomainInformation(PolicyHandle, TrustedDomainSid, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInformation", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * The LsaDeleteTrustedDomain function removes a trusted domain from the list of trusted domains for a system and deletes the associated TrustedDomain object.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
-     * @param {Pointer<Void>} TrustedDomainSid Pointer to the SID of the trusted domain to be removed.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @param {PSID} TrustedDomainSid Pointer to the SID of the trusted domain to be removed.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9230,13 +9276,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaDeleteTrustedDomain(PolicyHandle, TrustedDomainSid) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaDeleteTrustedDomain", "ptr", PolicyHandle, "ptr", TrustedDomainSid, "int")
         return result
     }
 
     /**
      * The LsaQueryTrustedDomainInfoByName function returns information about a trusted domain.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This handle must have the POLICY_VIEW_LOCAL_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName String that contains the name of the trusted domain. This can either be the domain name or the flat name.
      * @param {Integer} InformationClass 
@@ -9248,7 +9296,7 @@ class Identity {
      * 
      * 
      * When you have finished using the buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a> function.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9290,18 +9338,20 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaQueryTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * The LsaSetTrustedDomainInfoByName function sets values for a TrustedDomain object.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the trusted domain object determines whether the caller's changes are accepted. For information about policy object handles, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the trusted domain object determines whether the caller's changes are accepted. For information about policy object handles, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Name of the trusted domain to set values for. This can either be the domain name or the flat name.
      * @param {Integer} InformationClass 
      * @param {Pointer<Void>} Buffer Pointer to a structure that contains the information to set. The type of structure depends on the value of the <i>InformationClass</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * the "LSA Policy Function Return Values" section of <a href="/windows/desktop/SecMgmt/management-return-values">Security Management Return Values</a>.
@@ -9312,13 +9362,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaSetTrustedDomainInfoByName(PolicyHandle, TrustedDomainName, InformationClass, Buffer) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetTrustedDomainInfoByName", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", InformationClass, "ptr", Buffer, "int")
         return result
     }
 
     /**
      * Returns information about the domains trusted by the local system.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This call requires POLICY_VIEW_LOCAL_INFORMATION access to the <b>Policy</b> object. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. This call requires POLICY_VIEW_LOCAL_INFORMATION access to the <b>Policy</b> object. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<UInt32>} EnumerationContext A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/lsa-enumeration-handle">LSA_ENUMERATION_HANDLE</a> that you can use to make multiple calls to <b>LsaEnumerateTrustedDomainsEx</b>  to retrieve all of the trusted domain information. For more information, see Remarks.
@@ -9332,7 +9384,7 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
      * @param {Integer} PreferedMaximumLength Preferred maximum length, in bytes, of returned data. This is not a hard upper limit, but serves as a guide. Due to data conversion between systems with different natural data sizes, the actual amount of data returned may be greater than this value.
      * @param {Pointer<UInt32>} CountReturned Pointer to a <b>LONG</b> that receives the number of trusted domain objects returned.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an  <b>NTSTATUS</b> code, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9373,13 +9425,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaEnumerateTrustedDomainsEx(PolicyHandle, EnumerationContext, Buffer, PreferedMaximumLength, CountReturned) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaEnumerateTrustedDomainsEx", "ptr", PolicyHandle, "uint*", EnumerationContext, "ptr", Buffer, "uint", PreferedMaximumLength, "uint*", CountReturned, "int")
         return result
     }
 
     /**
      * The LsaCreateTrustedDomainEx function establishes a new trusted domain by creating a new TrustedDomain object.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For the object to be created, the caller must have permission to create children on the <b>System</b> container. For information about policy object handles, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. For the object to be created, the caller must have permission to create children on the <b>System</b> container. For information about policy object handles, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<TRUSTED_DOMAIN_INFORMATION_EX>} TrustedDomainInformation Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_information_ex">TRUSTED_DOMAIN_INFORMATION_EX</a> structure that contains the name and SID of the new trusted domain.
@@ -9387,14 +9441,14 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-trusted_domain_auth_information">TRUSTED_DOMAIN_AUTH_INFORMATION</a> structure that contains authentication information for the new trusted domain.
      * @param {Integer} DesiredAccess An 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> structure that specifies the accesses to be granted for the new trusted domain.
-     * @param {Pointer<IntPtr>} TrustedDomainHandle Receives the LSA policy handle of the remote trusted domain. You can pass this handle into LSA function calls to manage the LSA policy of the trusted domain. 
+     * @param {Pointer<LSA_HANDLE>} TrustedDomainHandle Receives the LSA policy handle of the remote trusted domain. You can pass this handle into LSA function calls to manage the LSA policy of the trusted domain. 
      * 
      * 
      * 
      * 
      * When your application no longer needs this handle, it should call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsaclose">LsaClose</a> to delete the handle.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> code, which can be one of the following values or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9446,16 +9500,18 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaCreateTrustedDomainEx(PolicyHandle, TrustedDomainInformation, AuthenticationInformation, DesiredAccess, TrustedDomainHandle) {
-        result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", "ptr", PolicyHandle, "ptr", TrustedDomainInformation, "ptr", AuthenticationInformation, "uint", DesiredAccess, "ptr*", TrustedDomainHandle, "int")
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
+        result := DllCall("ADVAPI32.dll\LsaCreateTrustedDomainEx", "ptr", PolicyHandle, "ptr", TrustedDomainInformation, "ptr", AuthenticationInformation, "uint", DesiredAccess, "ptr", TrustedDomainHandle, "int")
         return result
     }
 
     /**
      * Retrieves forest trust information for the specified Local Security Authority�TrustedDomain object.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object for which to retrieve forest trust information.
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION>} ForestTrustInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_information">LSA_FOREST_TRUST_INFORMATION</a> structure that returns the forest trust information for the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object specified by the <i>TrustedDomainName</i> parameter.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be one of the following values or one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
      * 
@@ -9519,18 +9575,20 @@ class Identity {
      * @since windowsserver2003
      */
     static LsaQueryForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrustInfo) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "int")
         return result
     }
 
     /**
      * Sets the forest trust information for a specified Local Security Authority�TrustedDomain object.
-     * @param {Pointer} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
+     * @param {LSA_HANDLE} PolicyHandle A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object for the system.
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object to which to set the forest trust information specified by the <i>ForestTrustInfo</i> parameter.
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION>} ForestTrustInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_information">LSA_FOREST_TRUST_INFORMATION</a> structure that contains the forest trust information to set to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object specified by the <i>TrustedDomainName</i> parameter.
-     * @param {Integer} CheckOnly Boolean value that specifies whether changes to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object are persisted. If this value is <b>TRUE</b>, this function will check for collisions with the specified parameters but will not set the  forest trust information specified by the <i>ForestTrustInfo</i> parameter to the <b>TrustedDomain</b> object specified by the <i>TrustedDomainName</i> parameter. If this value is <b>FALSE</b>, the forest trust information will be set to the  <b>TrustedDomain</b> object.
+     * @param {BOOLEAN} CheckOnly Boolean value that specifies whether changes to the <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/trusteddomain-object">TrustedDomain</a> object are persisted. If this value is <b>TRUE</b>, this function will check for collisions with the specified parameters but will not set the  forest trust information specified by the <i>ForestTrustInfo</i> parameter to the <b>TrustedDomain</b> object specified by the <i>TrustedDomainName</i> parameter. If this value is <b>FALSE</b>, the forest trust information will be set to the  <b>TrustedDomain</b> object.
      * @param {Pointer<LSA_FOREST_TRUST_COLLISION_INFORMATION>} CollisionInfo Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_collision_information">LSA_FOREST_TRUST_COLLISION_INFORMATION</a> structure that returns information about any collisions that occurred.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code, which can be one of the following values or one of the <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
      * 
@@ -9570,20 +9628,22 @@ class Identity {
      * @since windowsserver2003
      */
     static LsaSetForestTrustInformation(PolicyHandle, TrustedDomainName, ForestTrustInfo, CheckOnly, CollisionInfo) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation", "ptr", PolicyHandle, "ptr", TrustedDomainName, "ptr", ForestTrustInfo, "char", CheckOnly, "ptr", CollisionInfo, "int")
         return result
     }
 
     /**
      * Do not use the LSA private data functions. Instead, use the CryptProtectData and CryptUnprotectData functions.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_CREATE_SECRET access right if this is the first time data is being stored under the key specified by the <i>KeyName</i> parameter. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_CREATE_SECRET access right if this is the first time data is being stored under the key specified by the <i>KeyName</i> parameter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} KeyName Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the name of the key under which the private data is stored.
      * @param {Pointer<LSA_UNICODE_STRING>} PrivateData Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure containing the private data to store. The function encrypts this data before storing it.
      * 
      * If this parameter is <b>NULL</b>, the function deletes any private data stored under the key and deletes the key. Subsequent attempts to retrieve data from the key will return the STATUS_OBJECT_NAME_NOT_FOUND error code.
-     * @returns {Integer} If the function succeeds, the return value is STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the return value is STATUS_SUCCESS.
      * 
      * If the function fails, the return value is an NTSTATUS code. For more information, see 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9594,13 +9654,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaStorePrivateData(PolicyHandle, KeyName, PrivateData) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaStorePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "int")
         return result
     }
 
     /**
      * Do not use the LSA private data functions. Instead, use the CryptProtectData and CryptUnprotectData functions.
-     * @param {Pointer} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_GET_PRIVATE_INFORMATION access right. For more information, see 
+     * @param {LSA_HANDLE} PolicyHandle A handle to a <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/policy-object">Policy</a> object. The handle must have the POLICY_GET_PRIVATE_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/opening-a-policy-object-handle">Opening a Policy Object Handle</a>.
      * @param {Pointer<LSA_UNICODE_STRING>} KeyName Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lsalookup/ns-lsalookup-lsa_unicode_string">LSA_UNICODE_STRING</a> structure that contains the name of the key under which the private data is stored.
@@ -9654,7 +9716,7 @@ class Identity {
      * 
      * When you no longer need the information, pass the returned pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-lsafreememory">LsaFreeMemory</a>.
-     * @returns {Integer} If the function succeeds, the function returns STATUS_SUCCESS.
+     * @returns {NTSTATUS} If the function succeeds, the function returns STATUS_SUCCESS.
      * 
      * If the function fails, it returns an <b>NTSTATUS</b> value, which can be the following value or one of the 
      * <a href="/windows/desktop/SecMgmt/management-return-values">LSA Policy Function Return Values</a>.
@@ -9685,13 +9747,15 @@ class Identity {
      * @since windows5.1.2600
      */
     static LsaRetrievePrivateData(PolicyHandle, KeyName, PrivateData) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaRetrievePrivateData", "ptr", PolicyHandle, "ptr", KeyName, "ptr", PrivateData, "int")
         return result
     }
 
     /**
      * The LsaNtStatusToWinError function converts an NTSTATUS code returned by an LSA function to a Windows error code.
-     * @param {Integer} Status An NTSTATUS code returned by an LSA function call. This value will be converted to a 
+     * @param {NTSTATUS} Status An NTSTATUS code returned by an LSA function call. This value will be converted to a 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System error code</a>.
      * @returns {Integer} The return value is the Windows error code that corresponds to the <i>Status</i> parameter. If there is no corresponding Windows error code, the return value is ERROR_MR_MID_NOT_FOUND.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecapi/nf-ntsecapi-lsantstatustowinerror
@@ -9704,28 +9768,32 @@ class Identity {
 
     /**
      * 
-     * @param {Pointer} PolicyHandle 
+     * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
      * @param {Integer} HighestRecordType 
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION2>} ForestTrustInfo 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static LsaQueryForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRecordType, ForestTrustInfo) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaQueryForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "int")
         return result
     }
 
     /**
      * 
-     * @param {Pointer} PolicyHandle 
+     * @param {LSA_HANDLE} PolicyHandle 
      * @param {Pointer<LSA_UNICODE_STRING>} TrustedDomainName 
      * @param {Integer} HighestRecordType 
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION2>} ForestTrustInfo 
-     * @param {Integer} CheckOnly 
+     * @param {BOOLEAN} CheckOnly 
      * @param {Pointer<LSA_FOREST_TRUST_COLLISION_INFORMATION>} CollisionInfo 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static LsaSetForestTrustInformation2(PolicyHandle, TrustedDomainName, HighestRecordType, ForestTrustInfo, CheckOnly, CollisionInfo) {
+        PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
+
         result := DllCall("ADVAPI32.dll\LsaSetForestTrustInformation2", "ptr", PolicyHandle, "ptr", TrustedDomainName, "int", HighestRecordType, "ptr", ForestTrustInfo, "char", CheckOnly, "ptr", CollisionInfo, "int")
         return result
     }
@@ -9736,7 +9804,7 @@ class Identity {
      * 
      * The <b>AuditCategoryGuid</b> member of these structures is ignored.
      * @param {Integer} dwPolicyCount The number of elements in the <i>pAuditPolicy</i> array.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -9786,12 +9854,12 @@ class Identity {
 
     /**
      * Sets per-user audit policy in one or more audit subcategories for the specified principal.
-     * @param {Pointer<Void>} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to set  audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to set  audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} pAuditPolicy A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures. Each structure specifies per-user audit policy for one audit subcategory.
      * 
      * The <b>AuditCategoryGuid</b> member of these structures is ignored.
      * @param {Integer} dwPolicyCount The number of elements in the <i>pAuditPolicy</i> array.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -9858,7 +9926,7 @@ class Identity {
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the system audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -9920,13 +9988,13 @@ class Identity {
 
     /**
      * Retrieves per-user audit policy in one or more audit-policy subcategories for the specified principal.
-     * @param {Pointer<Void>} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to query  audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to query  audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to query audit policy. For a list of defined audit-policy subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the per-user audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -9991,7 +10059,7 @@ class Identity {
      * @param {Pointer<POLICY_AUDIT_SID_ARRAY>} ppAuditSidArray A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_audit_sid_array">POLICY_AUDIT_SID_ARRAY</a> structures and the structures themselves. The <b>POLICY_AUDIT_SID_ARRAY</b> structures specify the users for whom per-user audit policy is specified. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10041,13 +10109,13 @@ class Identity {
 
     /**
      * Computes the effective audit policy for one or more subcategories for the specified security principal. The function computes effective audit policy by combining system audit policy with per-user policy.
-     * @param {Pointer<Void>} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to compute effective audit policy. Per-user policy for group SIDs is not currently supported.
+     * @param {PSID} pSid A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure associated with the principal for which to compute effective audit policy. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to compute effective audit policy. For a list of defined subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the effective audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10109,13 +10177,13 @@ class Identity {
 
     /**
      * Computes the effective audit policy for one or more subcategories for the security principal associated with the specified token. The function computes effective audit policy by combining system audit policy with per-user policy.
-     * @param {Pointer<Void>} hTokenHandle A handle to the access token associated with the principal for which to compute effective audit policy. The token must have been opened with <b>TOKEN_QUERY</b> access. Per-user policy for group SIDs is not currently supported.
+     * @param {HANDLE} hTokenHandle A handle to the access token associated with the principal for which to compute effective audit policy. The token must have been opened with <b>TOKEN_QUERY</b> access. Per-user policy for group SIDs is not currently supported.
      * @param {Pointer<Guid>} pSubCategoryGuids A pointer to an array of <b>GUID</b> values that specify the subcategories for which to compute effective audit policy. For a list of defined subcategories, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/auditing-constants">Auditing Constants</a>.
      * @param {Integer} dwPolicyCount The number of elements in each of the <i>pSubCategoryGuids</i> and <i>ppAuditPolicy</i> arrays.
      * @param {Pointer<AUDIT_POLICY_INFORMATION>} ppAuditPolicy A pointer to a single buffer that contains both an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-audit_policy_information">AUDIT_POLICY_INFORMATION</a> structures and the structures themselves. The <b>AUDIT_POLICY_INFORMATION</b> structures specify the effective audit policy for the subcategories specified by the <i>pSubCategoryGuids</i> array. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10166,6 +10234,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditComputeEffectivePolicyByToken(hTokenHandle, pSubCategoryGuids, dwPolicyCount, ppAuditPolicy) {
+        hTokenHandle := hTokenHandle is Win32Handle ? NumGet(hTokenHandle, "ptr") : hTokenHandle
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", "ptr", hTokenHandle, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, "ptr", ppAuditPolicy, "char")
@@ -10181,7 +10251,7 @@ class Identity {
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
      * @param {Pointer<UInt32>} pdwCountReturned A pointer to the number of elements in the <i>ppAuditCategoriesArray</i> array.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10201,12 +10271,12 @@ class Identity {
     /**
      * Enumerates the available audit-policy subcategories.
      * @param {Pointer<Guid>} pAuditCategoryGuid The <b>GUID</b> of an audit-policy category for which subcategories are enumerated. If the value of the <i>bRetrieveAllSubCategories</i> parameter is <b>TRUE</b>, this parameter is ignored.
-     * @param {Integer} bRetrieveAllSubCategories <b>TRUE</b> to enumerate all audit-policy subcategories; <b>FALSE</b> to enumerate only the subcategories of the audit-policy category specified by the <i>pAuditCategoryGuid</i> parameter.
+     * @param {BOOLEAN} bRetrieveAllSubCategories <b>TRUE</b> to enumerate all audit-policy subcategories; <b>FALSE</b> to enumerate only the subcategories of the audit-policy category specified by the <i>pAuditCategoryGuid</i> parameter.
      * @param {Pointer<Guid>} ppAuditSubCategoriesArray A pointer to a single buffer that contains both an array of pointers to <b>GUID</b> structures and the structures themselves. The <b>GUID</b> structures specify the audit-policy subcategories available on the computer. 
      * 
      * When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
      * @param {Pointer<UInt32>} pdwCountReturned A pointer to the number of audit-policy subcategories returned in the <i>ppAuditSubCategoriesArray</i> array.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10226,10 +10296,10 @@ class Identity {
     /**
      * Retrieves the display name of the specified audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy category.
-     * @param {Pointer<Char>} ppszCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy category specified by the <i>pAuditCategoryGuid</i> function.
+     * @param {Pointer<PWSTR>} ppszCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy category specified by the <i>pAuditCategoryGuid</i> function.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10249,10 +10319,10 @@ class Identity {
     /**
      * Retrieves the display name of the specified audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy category.
-     * @param {Pointer<Byte>} ppszCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy category specified by the <i>pAuditCategoryGuid</i> function.
+     * @param {Pointer<PSTR>} ppszCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy category specified by the <i>pAuditCategoryGuid</i> function.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10272,10 +10342,10 @@ class Identity {
     /**
      * Retrieves the display name of the specified audit-policy subcategory.
      * @param {Pointer<Guid>} pAuditSubCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy subcategory.
-     * @param {Pointer<Char>} ppszSubCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy subcategory specified by the <i>pAuditSubCategoryGuid</i> parameter.
+     * @param {Pointer<PWSTR>} ppszSubCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy subcategory specified by the <i>pAuditSubCategoryGuid</i> parameter.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10295,10 +10365,10 @@ class Identity {
     /**
      * Retrieves the display name of the specified audit-policy subcategory.
      * @param {Pointer<Guid>} pAuditSubCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy subcategory.
-     * @param {Pointer<Byte>} ppszSubCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy subcategory specified by the <i>pAuditSubCategoryGuid</i> parameter.
+     * @param {Pointer<PSTR>} ppszSubCategoryName The address of a pointer to a null-terminated string that contains the display name of the audit-policy subcategory specified by the <i>pAuditSubCategoryGuid</i> parameter.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/nf-ntsecapi-auditfree">AuditFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10319,7 +10389,7 @@ class Identity {
      * Retrieves an element of the POLICY_AUDIT_EVENT_TYPE enumeration that represents the specified audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that specifies an audit-policy category.
      * @param {Pointer<Int32>} pAuditCategoryId A pointer to an element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that represents the audit-policy category specified by the <i>pAuditCategoryGuid</i> parameter.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10340,7 +10410,7 @@ class Identity {
      * Retrieves a GUID structure that represents the specified audit-policy category.
      * @param {Integer} AuditCategoryId An element of the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ne-ntsecapi-policy_audit_event_type">POLICY_AUDIT_EVENT_TYPE</a> enumeration that specifies an audit-policy category.
      * @param {Pointer<Guid>} pAuditCategoryGuid A pointer to a <b>GUID</b> structure that represents the audit-policy category specified by the  <i>AuditCategoryId</i>
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -10360,8 +10430,8 @@ class Identity {
     /**
      * Sets a security descriptor that delegates access to audit policy.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>. If this parameter is <b>NULL</b>, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>. If this parameter is <b>NULL</b>, the function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10400,6 +10470,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditSetSecurity(SecurityInformation, pSecurityDescriptor) {
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\AuditSetSecurity", "uint", SecurityInformation, "ptr", pSecurityDescriptor, "char")
@@ -10412,8 +10484,8 @@ class Identity {
     /**
      * Retrieves security descriptor that delegates access to audit policy.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies which parts of the security descriptor this function sets. Only <b>SACL_SECURITY_INFORMATION</b> and <b>DACL_SECURITY_INFORMATION</b> are supported. Any other values are ignored. If neither <b>SACL_SECURITY_INFORMATION</b> nor <b>DACL_SECURITY_INFORMATION</b> is specified, this function fails and returns <b>ERROR_INVALID_PARAMETER</b>.
-     * @param {Pointer<Void>} ppSecurityDescriptor The address of a pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor The address of a pointer to a well-formed <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that controls access to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Audit security object</a>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10463,9 +10535,9 @@ class Identity {
 
     /**
      * Sets a global system access control list (SACL) that delegates access to the audit messages.
-     * @param {Pointer<Char>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
+     * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
      * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10504,7 +10576,7 @@ class Identity {
      * @since windows6.1
      */
     static AuditSetGlobalSaclW(ObjectTypeName, Acl) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
@@ -10517,9 +10589,9 @@ class Identity {
 
     /**
      * Sets a global system access control list (SACL) that delegates access to the audit messages.
-     * @param {Pointer<Byte>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
+     * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being created or accessed. For setting the global SACL on files, this should be set to "File" and  for setting the global SACL on registry, this should be set to "Key". This string appears in any audit message that the function generates.
      * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10558,7 +10630,7 @@ class Identity {
      * @since windows6.1
      */
     static AuditSetGlobalSaclA(ObjectTypeName, Acl) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
@@ -10571,9 +10643,9 @@ class Identity {
 
     /**
      * Retrieves a global system access control list (SACL) that delegates access to the audit messages.
-     * @param {Pointer<Char>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
+     * @param {PWSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
      * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10612,7 +10684,7 @@ class Identity {
      * @since windows6.1
      */
     static AuditQueryGlobalSaclW(ObjectTypeName, Acl) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
@@ -10625,9 +10697,9 @@ class Identity {
 
     /**
      * Retrieves a global system access control list (SACL) that delegates access to the audit messages.
-     * @param {Pointer<Byte>} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
+     * @param {PSTR} ObjectTypeName A pointer to a null-terminated string specifying the type of object being accessed. This parameter must be either "File" or "Key", depending on whether the object is a file or registry. This string appears in any audit message that the function generates.
      * @param {Pointer<ACL>} Acl A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl">ACL</a> structure that contains the SACL information.  This should be freed later by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {Integer} If the function succeeds, it returns <b>TRUE</b>.
+     * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. <b>GetLastError</b> may return one of the following error codes defined in WinError.h.
@@ -10666,7 +10738,7 @@ class Identity {
      * @since windows6.1
      */
     static AuditQueryGlobalSaclA(ObjectTypeName, Acl) {
-        ObjectTypeName := ObjectTypeName is String? StrPtr(ObjectTypeName) : ObjectTypeName
+        ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
 
         A_LastError := 0
 
@@ -10690,8 +10762,8 @@ class Identity {
 
     /**
      * The AcquireCredentialsHandle (CredSSP) function acquires a handle to preexisting credentials of a security principal.
-     * @param {Pointer<Char>} pszPrincipal 
-     * @param {Pointer<Char>} pszPackage 
+     * @param {PWSTR} pszPrincipal 
+     * @param {PWSTR} pszPackage 
      * @param {Integer} fCredentialUse 
      * @param {Pointer<Void>} pvLogonId A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) that identifies the user. This parameter is provided for file-system processes such as network redirectors. This parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} pAuthData A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/credssp/ns-credssp-credssp_cred">CREDSSP_CRED</a> structure that specifies authentication data for both Schannel and Negotiate packages.
@@ -10779,8 +10851,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AcquireCredentialsHandleW(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
-        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -10791,11 +10863,11 @@ class Identity {
 
     /**
      * The AcquireCredentialsHandle (CredSSP) function acquires a handle to preexisting credentials of a security principal.
-     * @param {Pointer<Byte>} pszPrincipal A pointer to a null-terminated string that specifies the name of the principal whose credentials the handle will reference.
+     * @param {PSTR} pszPrincipal A pointer to a null-terminated string that specifies the name of the principal whose credentials the handle will reference.
      * 
      * <div class="alert"><b>Note</b>  If the process that requests the handle does not have access to the credentials, the function returns an error. A null string indicates that the process requires a handle to the credentials of the user under whose <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> it is executing.</div>
      * <div> </div>
-     * @param {Pointer<Byte>} pszPackage A pointer to a null-terminated string that specifies the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> with which these credentials will be used. This is a security package name returned in the <b>Name</b> member of a 
+     * @param {PSTR} pszPackage A pointer to a null-terminated string that specifies the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> with which these credentials will be used. This is a security package name returned in the <b>Name</b> member of a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-enumeratesecuritypackagesa">EnumerateSecurityPackages</a> function. After a context is established, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes (CredSSP)</a> can be called with <i>ulAttribute</i> set to <b>SECPKG_ATTR_PACKAGE_INFO</b> to return information on the security package in use.
@@ -10886,8 +10958,8 @@ class Identity {
      * @since windows6.0.6000
      */
     static AcquireCredentialsHandleA(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
-        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pvLogonId, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "ptr", phCredential, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -10935,8 +11007,8 @@ class Identity {
     /**
      * 
      * @param {Pointer<SecHandle>} hCredentials 
-     * @param {Pointer<Char>} pszPrincipal 
-     * @param {Pointer<Char>} pszPackage 
+     * @param {PWSTR} pszPrincipal 
+     * @param {PWSTR} pszPackage 
      * @param {Integer} fCredentialUse 
      * @param {Pointer<Void>} pAuthData 
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn 
@@ -10945,8 +11017,8 @@ class Identity {
      * @returns {HRESULT} 
      */
     static AddCredentialsW(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
-        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -10958,8 +11030,8 @@ class Identity {
     /**
      * 
      * @param {Pointer<SecHandle>} hCredentials 
-     * @param {Pointer<Byte>} pszPrincipal 
-     * @param {Pointer<Byte>} pszPackage 
+     * @param {PSTR} pszPrincipal 
+     * @param {PSTR} pszPackage 
      * @param {Integer} fCredentialUse 
      * @param {Pointer<Void>} pAuthData 
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn 
@@ -10968,8 +11040,8 @@ class Identity {
      * @returns {HRESULT} 
      */
     static AddCredentialsA(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
-        pszPrincipal := pszPrincipal is String? StrPtr(pszPrincipal) : pszPrincipal
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, "ptr", pAuthData, "ptr", pGetKeyFn, "ptr", pvGetKeyArgument, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -10985,7 +11057,7 @@ class Identity {
      * @param {Pointer<UInt16>} pszAccountName The user name of the account for which to change the password.
      * @param {Pointer<UInt16>} pszOldPassword The old password to be changed.
      * @param {Pointer<UInt16>} pszNewPassword The new password for the specified account.
-     * @param {Integer} bImpersonating <b>TRUE</b> if the calling process is running as the client; otherwise, <b>FALSE</b>.
+     * @param {BOOLEAN} bImpersonating <b>TRUE</b> if the calling process is running as the client; otherwise, <b>FALSE</b>.
      * @param {Integer} dwReserved Reserved. Must be set to zero.
      * @param {Pointer<SecBufferDesc>} pOutput On input, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure. The <b>SecBufferDesc</b> structure must contain a single buffer of type <b>SECBUFFER_CHANGE_PASS_RESPONSE</b>. On output, the <b>pvBuffer</b> member of that structure points to a <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-domain_password_information">DOMAIN_PASSWORD_INFORMATION</a> structure.
      * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
@@ -11009,7 +11081,7 @@ class Identity {
      * @param {Pointer<SByte>} pszAccountName The user name of the account for which to change the password.
      * @param {Pointer<SByte>} pszOldPassword The old password to be changed.
      * @param {Pointer<SByte>} pszNewPassword The new password for the specified account.
-     * @param {Integer} bImpersonating <b>TRUE</b> if the calling process is running as the client; otherwise, <b>FALSE</b>.
+     * @param {BOOLEAN} bImpersonating <b>TRUE</b> if the calling process is running as the client; otherwise, <b>FALSE</b>.
      * @param {Integer} dwReserved Reserved. Must be set to zero.
      * @param {Pointer<SecBufferDesc>} pOutput On input, a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure. The <b>SecBufferDesc</b> structure must contain a single buffer of type <b>SECBUFFER_CHANGE_PASS_RESPONSE</b>. On output, the <b>pvBuffer</b> member of that structure points to a <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-domain_password_information">DOMAIN_PASSWORD_INFORMATION</a> structure.
      * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
@@ -13173,12 +13245,12 @@ class Identity {
      * 
      * @param {Pointer} lpIpAddress 
      * @param {Integer} cchIpAddress 
-     * @param {Pointer<Char>} TargetName 
+     * @param {PWSTR} TargetName 
      * @param {Pointer<Int32>} FreeCallContext 
      * @returns {HRESULT} 
      */
     static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName, FreeCallContext) {
-        TargetName := TargetName is String? StrPtr(TargetName) : TargetName
+        TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
         result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", FreeCallContext, "int")
         if(result != 0)
@@ -13901,7 +13973,7 @@ class Identity {
 
     /**
      * Retrieves information about a specified security package. This information includes the bounds on sizes of authentication information, credentials, and contexts.
-     * @param {Pointer<Char>} pszPackageName 
+     * @param {PWSTR} pszPackageName 
      * @param {Pointer<SecPkgInfoW>} ppPackageInfo Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure containing information about the specified security package.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
@@ -13911,7 +13983,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static QuerySecurityPackageInfoW(pszPackageName, ppPackageInfo) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, "ptr", ppPackageInfo, "int")
         if(result != 0)
@@ -13922,7 +13994,7 @@ class Identity {
 
     /**
      * Retrieves information about a specified security package. This information includes the bounds on sizes of authentication information, credentials, and contexts.
-     * @param {Pointer<Byte>} pszPackageName Pointer to a null-terminated string that specifies the name of the security package.
+     * @param {PSTR} pszPackageName Pointer to a null-terminated string that specifies the name of the security package.
      * @param {Pointer<SecPkgInfoA>} ppPackageInfo Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure containing information about the specified security package.
      * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
@@ -13932,7 +14004,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static QuerySecurityPackageInfoA(pszPackageName, ppPackageInfo) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, "ptr", ppPackageInfo, "int")
         if(result != 0)
@@ -14006,7 +14078,7 @@ class Identity {
 
     /**
      * Imports a security context. The security context must have been exported to the process calling ImportSecurityContext by a previous call to ExportSecurityContext.
-     * @param {Pointer<Char>} pszPackage A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> to which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> was exported.
+     * @param {PWSTR} pszPackage A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> to which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> was exported.
      * @param {Pointer<SecBuffer>} pPackedContext A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">serialized</a> security context created by <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-exportsecuritycontext">ExportSecurityContext</a>.
      * @param {Pointer<Void>} Token A handle to the context's token.
      * @param {Pointer<SecHandle>} phContext A handle of the new security context created from <i>pPackedContext</i>. When you have finished using the context, delete it by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-deletesecuritycontext">DeleteSecurityContext</a> function.
@@ -14079,7 +14151,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static ImportSecurityContextW(pszPackage, pPackedContext, Token, phContext) {
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
         if(result != 0)
@@ -14090,7 +14162,7 @@ class Identity {
 
     /**
      * Imports a security context. The security context must have been exported to the process calling ImportSecurityContext by a previous call to ExportSecurityContext.
-     * @param {Pointer<Byte>} pszPackage A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> to which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> was exported.
+     * @param {PSTR} pszPackage A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security package</a> to which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a> was exported.
      * @param {Pointer<SecBuffer>} pPackedContext A pointer to a buffer that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">serialized</a> security context created by <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-exportsecuritycontext">ExportSecurityContext</a>.
      * @param {Pointer<Void>} Token A handle to the context's token.
      * @param {Pointer<SecHandle>} phContext A handle of the new security context created from <i>pPackedContext</i>. When you have finished using the context, delete it by calling the  <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-deletesecuritycontext">DeleteSecurityContext</a> function.
@@ -14163,7 +14235,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static ImportSecurityContextA(pszPackage, pPackedContext, Token, phContext) {
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, "ptr", Token, "ptr", phContext, "int")
         if(result != 0)
@@ -14202,7 +14274,7 @@ class Identity {
 
     /**
      * Lists the packages that provide a SASL interface.
-     * @param {Pointer<Byte>} ProfileList Pointer to a list of Unicode or ANSI strings that contain the names of the packages with SASL wrapper support.
+     * @param {Pointer<PSTR>} ProfileList Pointer to a list of Unicode or ANSI strings that contain the names of the packages with SASL wrapper support.
      * @param {Pointer<UInt32>} ProfileCount Pointer to an unsigned <b>LONG</b> value that contains the number of packages with SASL wrapper support.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK.
      * 
@@ -14220,7 +14292,7 @@ class Identity {
 
     /**
      * Lists the packages that provide a SASL interface.
-     * @param {Pointer<Char>} ProfileList Pointer to a list of Unicode or ANSI strings that contain the names of the packages with SASL wrapper support.
+     * @param {Pointer<PWSTR>} ProfileList Pointer to a list of Unicode or ANSI strings that contain the names of the packages with SASL wrapper support.
      * @param {Pointer<UInt32>} ProfileCount Pointer to an unsigned <b>LONG</b> value that contains the number of packages with SASL wrapper support.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK.
      * 
@@ -14238,7 +14310,7 @@ class Identity {
 
     /**
      * Returns the package information for the specified package.
-     * @param {Pointer<Byte>} ProfileName Unicode or ANSI string that contains the name of the SASL package.
+     * @param {PSTR} ProfileName Unicode or ANSI string that contains the name of the SASL package.
      * @param {Pointer<SecPkgInfoA>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible failure return values.
      * 
@@ -14274,7 +14346,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslGetProfilePackageA(ProfileName, PackageInfo) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
         result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, "ptr", PackageInfo, "int")
         if(result != 0)
@@ -14285,7 +14357,7 @@ class Identity {
 
     /**
      * Returns the package information for the specified package.
-     * @param {Pointer<Char>} ProfileName Unicode or ANSI string that contains the name of the SASL package.
+     * @param {PWSTR} ProfileName Unicode or ANSI string that contains the name of the SASL package.
      * @param {Pointer<SecPkgInfoW>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
      * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible failure return values.
      * 
@@ -14321,7 +14393,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslGetProfilePackageW(ProfileName, PackageInfo) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
         result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, "ptr", PackageInfo, "int")
         if(result != 0)
@@ -14371,7 +14443,7 @@ class Identity {
      * @param {Pointer<SecHandle>} phCredential A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a> returned by the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> function used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. Using the <b>SaslInitializeSecurityContext</b> function requires at least OUTBOUND credentials.
      * @param {Pointer<SecHandle>} phContext Pointer to a <b>CtxtHandle</b> structure. On the first call to the <b>SaslInitializeSecurityContext</b> function, this pointer is <b>NULL</b>. On the second call, this parameter is a pointer to the handle to the partially formed context returned in the <i>phNewContext</i> parameter by the first call.
-     * @param {Pointer<Char>} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
+     * @param {PWSTR} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
      * @param {Integer} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
      * 
      * <table>
@@ -14534,7 +14606,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslInitializeSecurityContextW(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SECUR32.dll\SaslInitializeSecurityContextW", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -14548,7 +14620,7 @@ class Identity {
      * @param {Pointer<SecHandle>} phCredential A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">credentials</a> returned by the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> function used to build the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security context</a>. Using the <b>SaslInitializeSecurityContext</b> function requires at least OUTBOUND credentials.
      * @param {Pointer<SecHandle>} phContext Pointer to a <b>CtxtHandle</b> structure. On the first call to the <b>SaslInitializeSecurityContext</b> function, this pointer is <b>NULL</b>. On the second call, this parameter is a pointer to the handle to the partially formed context returned in the <i>phNewContext</i> parameter by the first call.
-     * @param {Pointer<Byte>} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
+     * @param {PSTR} pszTargetName Pointer to a Unicode or ANSI string that indicates the target of the context.
      * @param {Integer} fContextReq Bit flags that indicate the requirements of the context.  Flags used for this parameter are prefixed with ISC_REQ_; for example:  ISC_REQ_DELEGATE. Specify  combinations of the following attributes flags.
      * 
      * <table>
@@ -14711,7 +14783,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslInitializeSecurityContextA(phCredential, phContext, pszTargetName, fContextReq, Reserved1, TargetDataRep, pInput, Reserved2, phNewContext, pOutput, pfContextAttr, ptsExpiry) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SECUR32.dll\SaslInitializeSecurityContextA", "ptr", phCredential, "ptr", phContext, "ptr", pszTargetName, "uint", fContextReq, "uint", Reserved1, "uint", TargetDataRep, "ptr", pInput, "uint", Reserved2, "ptr", phNewContext, "ptr", pOutput, "uint*", pfContextAttr, "int64*", ptsExpiry, "int")
         if(result != 0)
@@ -15057,7 +15129,7 @@ class Identity {
 
     /**
      * Allows a Security Support Provider Interface (SSPI) application to prompt a user to enter credentials.
-     * @param {Pointer<Char>} pszTargetName The name of the target to use.
+     * @param {PWSTR} pszTargetName The name of the target to use.
      * @param {Pointer<Void>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box that this function displays. 
      *    
      * 
@@ -15068,7 +15140,7 @@ class Identity {
      * 
      * This function ignores the  <b>hbmBanner</b> member of the <b>CREDUI_INFO</b> structure.
      * @param {Integer} dwAuthError A Windows error code, defined in Winerror.h, that is displayed in the dialog box. If credentials previously collected were not valid, the caller uses this parameter to pass the error message from the API that collected the credentials (for example, Winlogon) to this function. The corresponding error message is formatted and displayed in the dialog box. Set the  value of this parameter to zero to display no error message.
-     * @param {Pointer<Char>} pszPackage The name of the security package to use.
+     * @param {PWSTR} pszPackage The name of the security package to use.
      * @param {Pointer<Void>} pInputAuthIdentity An identity structure that is used to populate credential fields in the dialog box. To leave the credential fields empty, set the value of this parameter to <b>NULL</b>.
      * @param {Pointer<Void>} ppAuthIdentity An identity structure that represents the  credentials this function collects.
      * 
@@ -15115,8 +15187,8 @@ class Identity {
      * @since windows6.1
      */
     static SspiPromptForCredentialsW(pszTargetName, pUiInfo, dwAuthError, pszPackage, pInputAuthIdentity, ppAuthIdentity, pfSave, dwFlags) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("credui.dll\SspiPromptForCredentialsW", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr", ppAuthIdentity, "int*", pfSave, "uint", dwFlags, "uint")
         return result
@@ -15124,7 +15196,7 @@ class Identity {
 
     /**
      * Allows a Security Support Provider Interface (SSPI) application to prompt a user to enter credentials.
-     * @param {Pointer<Byte>} pszTargetName The name of the target to use.
+     * @param {PSTR} pszTargetName The name of the target to use.
      * @param {Pointer<Void>} pUiInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credui_infoa">CREDUI_INFO</a> structure that contains information for customizing the appearance of the dialog box that this function displays. 
      *    
      * 
@@ -15135,7 +15207,7 @@ class Identity {
      * 
      * This function ignores the  <b>hbmBanner</b> member of the <b>CREDUI_INFO</b> structure.
      * @param {Integer} dwAuthError A Windows error code, defined in Winerror.h, that is displayed in the dialog box. If credentials previously collected were not valid, the caller uses this parameter to pass the error message from the API that collected the credentials (for example, Winlogon) to this function. The corresponding error message is formatted and displayed in the dialog box. Set the  value of this parameter to zero to display no error message.
-     * @param {Pointer<Byte>} pszPackage The name of the security package to use.
+     * @param {PSTR} pszPackage The name of the security package to use.
      * @param {Pointer<Void>} pInputAuthIdentity An identity structure that is used to populate credential fields in the dialog box. To leave the credential fields empty, set the value of this parameter to <b>NULL</b>.
      * @param {Pointer<Void>} ppAuthIdentity An identity structure that represents the  credentials this function collects.
      * 
@@ -15182,8 +15254,8 @@ class Identity {
      * @since windows6.1
      */
     static SspiPromptForCredentialsA(pszTargetName, pUiInfo, dwAuthError, pszPackage, pInputAuthIdentity, ppAuthIdentity, pfSave, dwFlags) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
-        pszPackage := pszPackage is String? StrPtr(pszPackage) : pszPackage
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
+        pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         result := DllCall("credui.dll\SspiPromptForCredentialsA", "ptr", pszTargetName, "ptr", pUiInfo, "uint", dwAuthError, "ptr", pszPackage, "ptr", pInputAuthIdentity, "ptr", ppAuthIdentity, "int*", pfSave, "uint", dwFlags, "uint")
         return result
@@ -15192,9 +15264,9 @@ class Identity {
     /**
      * Generates a target name and credential type from the specified identity structure.
      * @param {Pointer<Void>} AuthIdentity The identity structure from which to generate the credentials to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> function.
-     * @param {Pointer<Char>} pszTargetName A target name that can be modified by this function depending on the value of the <i>AuthIdentity</i> parameter.
+     * @param {PWSTR} pszTargetName A target name that can be modified by this function depending on the value of the <i>AuthIdentity</i> parameter.
      * @param {Pointer<UInt32>} pCredmanCredentialType The credential type to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> function.
-     * @param {Pointer<Char>} ppszCredmanTargetName The target name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> function.
+     * @param {Pointer<PWSTR>} ppszCredmanTargetName The target name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credreada">CredRead</a> function.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
      * If the function fails, it returns a nonzero error code.
@@ -15202,7 +15274,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiPrepareForCredRead(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SECUR32.dll\SspiPrepareForCredRead", "ptr", AuthIdentity, "ptr", pszTargetName, "uint*", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "int")
         if(result != 0)
@@ -15214,12 +15286,12 @@ class Identity {
     /**
      * Generates values from an identity structure that can be passed as the values of parameters in a call to the CredWrite function.
      * @param {Pointer<Void>} AuthIdentity The identity structure from which to generate the credentials to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
-     * @param {Pointer<Char>} pszTargetName A target name that can be modified by this function depending on the value of the <i>AuthIdentity</i> parameter.
+     * @param {PWSTR} pszTargetName A target name that can be modified by this function depending on the value of the <i>AuthIdentity</i> parameter.
      * 
      * Set the value of this parameter to <b>NULL</b> to use the user name as the target.
      * @param {Pointer<UInt32>} pCredmanCredentialType The credential type to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
-     * @param {Pointer<Char>} ppszCredmanTargetName The target name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
-     * @param {Pointer<Char>} ppszCredmanUserName The user name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
+     * @param {Pointer<PWSTR>} ppszCredmanTargetName The target name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
+     * @param {Pointer<PWSTR>} ppszCredmanUserName The user name to pass to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
      * @param {Pointer<Byte>} ppCredentialBlob The credential <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> to send to the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credwritea">CredWrite</a> function.
      * @param {Pointer<UInt32>} pCredentialBlobSize The size, in bytes, of the <i>ppCredentialBlob</i> buffer.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
@@ -15229,9 +15301,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiPrepareForCredWrite(AuthIdentity, pszTargetName, pCredmanCredentialType, ppszCredmanTargetName, ppszCredmanUserName, ppCredentialBlob, pCredentialBlobSize) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", "ptr", AuthIdentity, "ptr", pszTargetName, "uint*", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, "ptr", ppCredentialBlob, "uint*", pCredentialBlobSize, "int")
+        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", "ptr", AuthIdentity, "ptr", pszTargetName, "uint*", pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, "char*", ppCredentialBlob, "uint*", pCredentialBlobSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15311,7 +15383,7 @@ class Identity {
     /**
      * Indicates whether the specified identity structure is encrypted.
      * @param {Pointer<Void>} EncryptedAuthData The identity structure to test.
-     * @returns {Integer} <b>TRUE</b> if the identity structure specified by the <i>EncryptedAuthData</i> parameter is encrypted; otherwise, <b>FALSE</b>.
+     * @returns {BOOLEAN} <b>TRUE</b> if the identity structure specified by the <i>EncryptedAuthData</i> parameter is encrypted; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiisauthidentityencrypted
      * @since windows6.1
      */
@@ -15323,13 +15395,13 @@ class Identity {
     /**
      * Encodes the specified authentication identity as three strings.
      * @param {Pointer<Void>} pAuthIdentity The credential structure to be encoded.
-     * @param {Pointer<Char>} ppszUserName The marshaled user name of the identity specified by the <i>pAuthIdentity</i> parameter.
+     * @param {Pointer<PWSTR>} ppszUserName The marshaled user name of the identity specified by the <i>pAuthIdentity</i> parameter.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspifreeauthidentity">SspiFreeAuthIdentity</a> function.
-     * @param {Pointer<Char>} ppszDomainName The marshaled domain name of the identity specified by the <i>pAuthIdentity</i> parameter.
+     * @param {Pointer<PWSTR>} ppszDomainName The marshaled domain name of the identity specified by the <i>pAuthIdentity</i> parameter.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspifreeauthidentity">SspiFreeAuthIdentity</a> function.
-     * @param {Pointer<Char>} ppszPackedCredentialsString An encoded string version of a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that specifies the users credentials.
+     * @param {Pointer<PWSTR>} ppszPackedCredentialsString An encoded string version of a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that specifies the users credentials.
      * 
      * When you have finished using this string, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspifreeauthidentity">SspiFreeAuthIdentity</a> function.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
@@ -15435,9 +15507,9 @@ class Identity {
 
     /**
      * Encodes a set of three credential strings as an authentication identity structure.
-     * @param {Pointer<Char>} pszUserName The user name associated with the identity to encode.
-     * @param {Pointer<Char>} pszDomainName The domain name associated with the identity to encode.
-     * @param {Pointer<Char>} pszPackedCredentialsString An encoded string version of a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that specifies the user's credentials.
+     * @param {PWSTR} pszUserName The user name associated with the identity to encode.
+     * @param {PWSTR} pszDomainName The domain name associated with the identity to encode.
+     * @param {PWSTR} pszPackedCredentialsString An encoded string version of a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that specifies the user's credentials.
      * @param {Pointer<Void>} ppAuthIdentity A pointer to the encoded identity structure.
      * 
      * When you have finished using this structure, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspifreeauthidentity">SspiFreeAuthIdentity</a> function.
@@ -15448,9 +15520,9 @@ class Identity {
      * @since windows6.1
      */
     static SspiEncodeStringsAsAuthIdentity(pszUserName, pszDomainName, pszPackedCredentialsString, ppAuthIdentity) {
-        pszUserName := pszUserName is String? StrPtr(pszUserName) : pszUserName
-        pszDomainName := pszDomainName is String? StrPtr(pszDomainName) : pszDomainName
-        pszPackedCredentialsString := pszPackedCredentialsString is String? StrPtr(pszPackedCredentialsString) : pszPackedCredentialsString
+        pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
+        pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
+        pszPackedCredentialsString := pszPackedCredentialsString is String ? StrPtr(pszPackedCredentialsString) : pszPackedCredentialsString
 
         result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, "ptr", ppAuthIdentity, "int")
         if(result != 0)
@@ -15463,8 +15535,8 @@ class Identity {
      * Compares the two specified credentials.
      * @param {Pointer<Void>} AuthIdentity1 A pointer to an opaque structure that specifies the first credential to compare.
      * @param {Pointer<Void>} AuthIdentity2 A pointer to an opaque structure that specifies the second credential to compare.
-     * @param {Pointer<Byte>} SameSuppliedUser <b>TRUE</b> if the user account specified by the <i>AuthIdentity1</i> parameter is the same as the user account specified by the <i>AuthIdentity2</i> parameter; otherwise, <b>FALSE</b>.
-     * @param {Pointer<Byte>} SameSuppliedIdentity <b>TRUE</b> if the identity specified by the <i>AuthIdentity1</i> parameter is the same as the identity specified by the <i>AuthIdentity2</i> parameter; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOLEAN>} SameSuppliedUser <b>TRUE</b> if the user account specified by the <i>AuthIdentity1</i> parameter is the same as the user account specified by the <i>AuthIdentity2</i> parameter; otherwise, <b>FALSE</b>.
+     * @param {Pointer<BOOLEAN>} SameSuppliedIdentity <b>TRUE</b> if the identity specified by the <i>AuthIdentity1</i> parameter is the same as the identity specified by the <i>AuthIdentity2</i> parameter; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
      * If the function fails, it returns a nonzero error code.
@@ -15472,7 +15544,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiCompareAuthIdentities(AuthIdentity1, AuthIdentity2, SameSuppliedUser, SameSuppliedIdentity) {
-        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", "ptr", AuthIdentity1, "ptr", AuthIdentity2, "char*", SameSuppliedUser, "char*", SameSuppliedIdentity, "int")
+        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", "ptr", AuthIdentity1, "ptr", AuthIdentity2, "ptr", SameSuppliedUser, "ptr", SameSuppliedIdentity, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15491,7 +15563,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiMarshalAuthIdentity(AuthIdentity, AuthIdentityLength, AuthIdentityByteArray) {
-        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", "ptr", AuthIdentity, "uint*", AuthIdentityLength, "ptr", AuthIdentityByteArray, "int")
+        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", "ptr", AuthIdentity, "uint*", AuthIdentityLength, "char*", AuthIdentityByteArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15520,7 +15592,7 @@ class Identity {
     /**
      * Indicates whether an error returned after a call to either the InitializeSecurityContext or the AcceptSecurityContext function requires an additional call to the SspiPromptForCredentials function.
      * @param {Integer} ErrorOrNtStatus The error to test.
-     * @returns {Integer} <b>TRUE</b> if the error specified by the <i>ErrorOrNtStatus</i> parameter indicates that an additional call to <a href="/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> is necessary; otherwise, <b>FALSE</b>.
+     * @returns {BOOLEAN} <b>TRUE</b> if the error specified by the <i>ErrorOrNtStatus</i> parameter indicates that an additional call to <a href="/windows/desktop/api/sspi/nf-sspi-sspipromptforcredentialsa">SspiPromptForCredentials</a> is necessary; otherwise, <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiispromptingneeded
      * @since windows6.1
      */
@@ -15531,8 +15603,8 @@ class Identity {
 
     /**
      * Gets the host name associated with the specified target.
-     * @param {Pointer<Char>} pszTargetName The target for which to get the host name.
-     * @param {Pointer<Char>} pszHostName The name of the host associated with the target specified by the <i>pszTargetName</i> parameter.
+     * @param {PWSTR} pszTargetName The target for which to get the host name.
+     * @param {Pointer<PWSTR>} pszHostName The name of the host associated with the target specified by the <i>pszTargetName</i> parameter.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
      * If the function fails, it returns a nonzero error code.
@@ -15540,7 +15612,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiGetTargetHostName(pszTargetName, pszHostName) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr", pszHostName, "int")
         if(result != 0)
@@ -15552,7 +15624,7 @@ class Identity {
     /**
      * Creates a new identity structure that is a copy of the specified identity structure modified to exclude the specified security support provider (SSP).
      * @param {Pointer<Void>} AuthIdentity The identity structure to modify.
-     * @param {Pointer<Char>} pszPackageName The SSP to exclude.
+     * @param {PWSTR} pszPackageName The SSP to exclude.
      * @param {Pointer<Void>} ppNewAuthIdentity The modified identity structure.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
@@ -15561,7 +15633,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiExcludePackage(AuthIdentity, pszPackageName, ppNewAuthIdentity) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\SspiExcludePackage", "ptr", AuthIdentity, "ptr", pszPackageName, "ptr", ppNewAuthIdentity, "int")
         if(result != 0)
@@ -15586,7 +15658,7 @@ class Identity {
 
     /**
      * Adds a security support provider to the list of providers supported by Microsoft Negotiate.
-     * @param {Pointer<Byte>} pszPackageName The name of the package to add.
+     * @param {PSTR} pszPackageName The name of the package to add.
      * @param {Pointer<SECURITY_PACKAGE_OPTIONS>} pOptions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-security_package_options">SECURITY_PACKAGE_OPTIONS</a> structure that specifies additional information about the security package.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
@@ -15595,7 +15667,7 @@ class Identity {
      * @since windows6.1
      */
     static AddSecurityPackageA(pszPackageName, pOptions) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\AddSecurityPackageA", "ptr", pszPackageName, "ptr", pOptions, "int")
         if(result != 0)
@@ -15606,7 +15678,7 @@ class Identity {
 
     /**
      * Adds a security support provider to the list of providers supported by Microsoft Negotiate.
-     * @param {Pointer<Char>} pszPackageName The name of the package to add.
+     * @param {PWSTR} pszPackageName The name of the package to add.
      * @param {Pointer<SECURITY_PACKAGE_OPTIONS>} pOptions A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-security_package_options">SECURITY_PACKAGE_OPTIONS</a> structure that specifies additional information about the security package.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
@@ -15615,7 +15687,7 @@ class Identity {
      * @since windows6.1
      */
     static AddSecurityPackageW(pszPackageName, pOptions) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\AddSecurityPackageW", "ptr", pszPackageName, "ptr", pOptions, "int")
         if(result != 0)
@@ -15626,7 +15698,7 @@ class Identity {
 
     /**
      * Deletes a security support provider from the list of providers supported by Microsoft Negotiate.
-     * @param {Pointer<Byte>} pszPackageName The name of the security provider to delete.
+     * @param {PSTR} pszPackageName The name of the security provider to delete.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
      * If the function fails, it returns a nonzero error code.
@@ -15634,7 +15706,7 @@ class Identity {
      * @since windows6.1
      */
     static DeleteSecurityPackageA(pszPackageName) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\DeleteSecurityPackageA", "ptr", pszPackageName, "int")
         if(result != 0)
@@ -15645,7 +15717,7 @@ class Identity {
 
     /**
      * Deletes a security support provider from the list of providers supported by Microsoft Negotiate.
-     * @param {Pointer<Char>} pszPackageName The name of the security provider to delete.
+     * @param {PWSTR} pszPackageName The name of the security provider to delete.
      * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
      * 
      * If the function fails, it returns a nonzero error code.
@@ -15653,7 +15725,7 @@ class Identity {
      * @since windows6.1
      */
     static DeleteSecurityPackageW(pszPackageName) {
-        pszPackageName := pszPackageName is String? StrPtr(pszPackageName) : pszPackageName
+        pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         result := DllCall("SECUR32.dll\DeleteSecurityPackageW", "ptr", pszPackageName, "int")
         if(result != 0)
@@ -15667,14 +15739,14 @@ class Identity {
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} InTargetInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/u-gly">Unicode</a> version of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credential_target_informationa">CREDENTIAL_TARGET_INFORMATION</a> structure that specifies the target to serialize.
      * @param {Pointer<UInt16>} Buffer The serialized array of byte values that represents the target specified by the <i>InTargetInfo</i> parameter.
      * @param {Pointer<UInt32>} BufferSize The size, in bytes, of the <i>Buffer</i> array.
-     * @returns {Integer} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
+     * @returns {NTSTATUS} If the function succeeds, it returns <b>STATUS_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code that indicates the reason it failed.
      * @see https://docs.microsoft.com/windows/win32/api//ntsecpkg/nf-ntsecpkg-credmarshaltargetinfo
      * @since windows6.0.6000
      */
     static CredMarshalTargetInfo(InTargetInfo, Buffer, BufferSize) {
-        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ptr", Buffer, "uint*", BufferSize, "int")
+        result := DllCall("SECUR32.dll\CredMarshalTargetInfo", "ptr", InTargetInfo, "ushort*", Buffer, "uint*", BufferSize, "int")
         return result
     }
 
@@ -15684,7 +15756,7 @@ class Identity {
      * @param {Integer} BufferSize 
      * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} RetTargetInfo 
      * @param {Pointer<UInt32>} RetActualSize 
-     * @returns {Integer} 
+     * @returns {NTSTATUS} 
      */
     static CredUnmarshalTargetInfo(Buffer, BufferSize, RetTargetInfo, RetActualSize) {
         result := DllCall("SECUR32.dll\CredUnmarshalTargetInfo", "ptr", Buffer, "uint", BufferSize, "ptr", RetTargetInfo, "uint*", RetActualSize, "int")
@@ -15693,14 +15765,14 @@ class Identity {
 
     /**
      * Removes the specified string from the Schannel cache.
-     * @param {Pointer<Byte>} pszTargetName A pointer to a null-terminated string that specifies the entry to remove from the cache. If the value of this parameter is <b>NULL</b>, all entries are removed from the cache.
+     * @param {PSTR} pszTargetName A pointer to a null-terminated string that specifies the entry to remove from the cache. If the value of this parameter is <b>NULL</b>, all entries are removed from the cache.
      * @param {Integer} dwFlags This parameter is not used.
-     * @returns {Integer} Returns nonzero if the specified entries are removed from the Schannel cache or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the specified entries are removed from the Schannel cache or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//schannel/nf-schannel-sslemptycachea
      * @since windows5.1.2600
      */
     static SslEmptyCacheA(pszTargetName, dwFlags) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SCHANNEL.dll\SslEmptyCacheA", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
@@ -15708,14 +15780,14 @@ class Identity {
 
     /**
      * Removes the specified string from the Schannel cache.
-     * @param {Pointer<Char>} pszTargetName A pointer to a null-terminated string that specifies the entry to remove from the cache. If the value of this parameter is <b>NULL</b>, all entries are removed from the cache.
+     * @param {PWSTR} pszTargetName A pointer to a null-terminated string that specifies the entry to remove from the cache. If the value of this parameter is <b>NULL</b>, all entries are removed from the cache.
      * @param {Integer} dwFlags This parameter is not used.
-     * @returns {Integer} Returns nonzero if the specified entries are removed from the Schannel cache or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the specified entries are removed from the Schannel cache or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//schannel/nf-schannel-sslemptycachew
      * @since windows5.1.2600
      */
     static SslEmptyCacheW(pszTargetName, dwFlags) {
-        pszTargetName := pszTargetName is String? StrPtr(pszTargetName) : pszTargetName
+        pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
         result := DllCall("SCHANNEL.dll\SslEmptyCacheW", "ptr", pszTargetName, "uint", dwFlags, "int")
         return result
@@ -15739,7 +15811,7 @@ class Identity {
      * @param {Pointer<X509Certificate>} ppCertificate On return, receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-x509certificate">X509Certificate</a> structure that this function creates.
      * 
      * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/schannel/ns-schannel-x509certificate">X509Certificate</a> structure, free it by calling <a href="https://docs.microsoft.com/windows/desktop/api/schannel/nf-schannel-sslfreecertificate">SslFreeCertificate</a>.
-     * @returns {Integer} Returns nonzero if this function successfully created an <a href="/windows/desktop/api/schannel/ns-schannel-x509certificate">X509Certificate</a> structure or zero otherwise.
+     * @returns {BOOL} Returns nonzero if this function successfully created an <a href="/windows/desktop/api/schannel/ns-schannel-x509certificate">X509Certificate</a> structure or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//schannel/nf-schannel-sslcrackcertificate
      * @since windows5.1.2600
      */
@@ -15821,7 +15893,7 @@ class Identity {
      * @since windows8.0
      */
     static SslGetServerIdentity(ClientHello, ClientHelloSize, ServerIdentity, ServerIdentitySize, Flags) {
-        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, "ptr", ServerIdentity, "uint*", ServerIdentitySize, "uint", Flags, "int")
+        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, "char*", ServerIdentity, "uint*", ServerIdentitySize, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15848,7 +15920,7 @@ class Identity {
 
     /**
      * 
-     * @param {Pointer} SerializedCertificateStore 
+     * @param {CRYPT_INTEGER_BLOB} SerializedCertificateStore 
      * @param {Pointer<CERT_CONTEXT>} ppCertContext 
      * @returns {HRESULT} 
      */
@@ -15863,7 +15935,7 @@ class Identity {
     /**
      * Constructs one token binding that contains the exported public key and signature by using the specified key type for the token binding, a target identifier string for creating and retrieving the token binding key, and the unique data.
      * @param {Integer} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
-     * @param {Pointer<Char>} targetURL The target string to use in conjunction with the key type  to generate or retrieve a token binding key for the NCrypt operations that build the buffer for the <i>tokenBinding</i> parameter.
+     * @param {PWSTR} targetURL The target string to use in conjunction with the key type  to generate or retrieve a token binding key for the NCrypt operations that build the buffer for the <i>tokenBinding</i> parameter.
      * @param {Integer} bindingType The type of token binding that <b>TokenBindingGenerateBinding</b> should generate.
      * @param {Pointer} tlsEKM A pointer to the buffer that contains unique data.
      * @param {Integer} tlsEKMSize The size of the buffer that the <i>tlsUnique</i> parameter points to, in bytes.
@@ -15877,7 +15949,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGenerateBinding(keyType, targetURL, bindingType, tlsEKM, tlsEKMSize, extensionFormat, extensionData, tokenBinding, tokenBindingSize, resultData) {
-        targetURL := targetURL is String? StrPtr(targetURL) : targetURL
+        targetURL := targetURL is String ? StrPtr(targetURL) : targetURL
 
         result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, "ptr", extensionData, "ptr", tokenBinding, "uint*", tokenBindingSize, "ptr", resultData, "int")
         if(result != 0)
@@ -15961,13 +16033,13 @@ class Identity {
 
     /**
      * Deletes the token binding key that is associated with the specified target string.
-     * @param {Pointer<Char>} targetURL The target string for which <b>TokenBindingDeleteBinding</b> should delete the associated token binding key.
+     * @param {PWSTR} targetURL The target string for which <b>TokenBindingDeleteBinding</b> should delete the associated token binding key.
      * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/nf-tokenbinding-tokenbindingdeletebinding
      * @since windows10.0.10240
      */
     static TokenBindingDeleteBinding(targetURL) {
-        targetURL := targetURL is String? StrPtr(targetURL) : targetURL
+        targetURL := targetURL is String ? StrPtr(targetURL) : targetURL
 
         result := DllCall("TOKENBINDING.dll\TokenBindingDeleteBinding", "ptr", targetURL, "int")
         if(result != 0)
@@ -16013,12 +16085,12 @@ class Identity {
     /**
      * 
      * @param {Integer} keyType 
-     * @param {Pointer<Char>} targetUri 
+     * @param {PWSTR} targetUri 
      * @param {Pointer<TOKENBINDING_RESULT_DATA>} resultData 
      * @returns {HRESULT} 
      */
     static TokenBindingGenerateIDForUri(keyType, targetUri, resultData) {
-        targetUri := targetUri is String? StrPtr(targetUri) : targetUri
+        targetUri := targetUri is String ? StrPtr(targetUri) : targetUri
 
         result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, "ptr", resultData, "int")
         if(result != 0)
@@ -16045,14 +16117,14 @@ class Identity {
      * Retrieves the name of the user or other security principal associated with the calling thread. You can specify the format of the returned name.
      * @param {Integer} NameFormat The format of the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be <b>NameUnknown</b>. If the user account is not in a domain, only <b>NameSamCompatible</b> is supported.
-     * @param {Pointer<Byte>} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
+     * @param {PSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
      * @param {Pointer<UInt32>} nSize On input, this variable specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. If the function is successful, the variable receives the number of <b>TCHARs</b> copied to the buffer, not including the terminating null character. 
      * 
      * 
      * 
      * 
      * If <i>lpNameBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. This parameter receives the required buffer size, in Unicode characters (whether or not Unicode is being used), including the terminating null character.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
@@ -16100,7 +16172,7 @@ class Identity {
      * @since windows5.0
      */
     static GetUserNameExA(NameFormat, lpNameBuffer, nSize) {
-        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+        lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
         A_LastError := 0
 
@@ -16115,14 +16187,14 @@ class Identity {
      * Retrieves the name of the user or other security principal associated with the calling thread. You can specify the format of the returned name.
      * @param {Integer} NameFormat The format of the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be <b>NameUnknown</b>. If the user account is not in a domain, only <b>NameSamCompatible</b> is supported.
-     * @param {Pointer<Char>} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
+     * @param {PWSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. The buffer must include space for the terminating null character.
      * @param {Pointer<UInt32>} nSize On input, this variable specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. If the function is successful, the variable receives the number of <b>TCHARs</b> copied to the buffer, not including the terminating null character. 
      * 
      * 
      * 
      * 
      * If <i>lpNameBuffer</i> is too small, the function fails and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. This parameter receives the required buffer size, in Unicode characters (whether or not Unicode is being used), including the terminating null character.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible values include the following.
@@ -16170,7 +16242,7 @@ class Identity {
      * @since windows5.0
      */
     static GetUserNameExW(NameFormat, lpNameBuffer, nSize) {
-        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+        lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
         A_LastError := 0
 
@@ -16185,14 +16257,14 @@ class Identity {
      * Retrieves the local computer's name in a specified format.
      * @param {Integer} NameFormat The format for the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
-     * @param {Pointer<Byte>} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
+     * @param {PSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
      * 
      * 
      * 
      * 
      * If this parameter is <b>NULL</b>, either the function succeeds and the <i>lpnSize</i> parameter receives the required size, or the function fails with ERROR_INSUFFICIENT_BUFFER and <i>lpnSize</i> receives the required size. The behavior depends on the value of <i>NameFormat</i> and the version of the operating system.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. On success, receives the size of the name copied to the buffer. If the <i>lpNameBuffer</i> buffer is too small to hold the name, the function fails and <i>lpnSize</i> receives the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -16200,7 +16272,7 @@ class Identity {
      * @since windows5.0
      */
     static GetComputerObjectNameA(NameFormat, lpNameBuffer, nSize) {
-        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+        lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
         A_LastError := 0
 
@@ -16215,14 +16287,14 @@ class Identity {
      * Retrieves the local computer's name in a specified format.
      * @param {Integer} NameFormat The format for the name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
-     * @param {Pointer<Char>} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
+     * @param {PWSTR} lpNameBuffer A pointer to a buffer that receives the name in the specified format. 
      * 
      * 
      * 
      * 
      * If this parameter is <b>NULL</b>, either the function succeeds and the <i>lpnSize</i> parameter receives the required size, or the function fails with ERROR_INSUFFICIENT_BUFFER and <i>lpnSize</i> receives the required size. The behavior depends on the value of <i>NameFormat</i> and the version of the operating system.
      * @param {Pointer<UInt32>} nSize On input, specifies the size of the <i>lpNameBuffer</i> buffer, in <b>TCHARs</b>. On success, receives the size of the name copied to the buffer. If the <i>lpNameBuffer</i> buffer is too small to hold the name, the function fails and <i>lpnSize</i> receives the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -16230,7 +16302,7 @@ class Identity {
      * @since windows5.0
      */
     static GetComputerObjectNameW(NameFormat, lpNameBuffer, nSize) {
-        lpNameBuffer := lpNameBuffer is String? StrPtr(lpNameBuffer) : lpNameBuffer
+        lpNameBuffer := lpNameBuffer is String ? StrPtr(lpNameBuffer) : lpNameBuffer
 
         A_LastError := 0
 
@@ -16243,12 +16315,12 @@ class Identity {
 
     /**
      * Converts a directory service object name from one format to another.
-     * @param {Pointer<Byte>} lpAccountName The name to be translated.
+     * @param {PSTR} lpAccountName The name to be translated.
      * @param {Integer} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type.
      * @param {Integer} DesiredNameFormat The format of the converted name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
-     * @param {Pointer<Byte>} lpTranslatedName A pointer to a buffer that receives the converted name.
+     * @param {PSTR} lpTranslatedName A pointer to a buffer that receives the converted name.
      * @param {Pointer<UInt32>} nSize On input, the variable indicates the size of the <i>lpTranslatedName</i> buffer, in <b>TCHARs</b>. On output, the variable returns the size of the returned string, in <b>TCHARs</b>, including the terminating <b>null</b> character. 
      * 
      * 
@@ -16257,7 +16329,7 @@ class Identity {
      * If <i>lpTranslated</i> is <b>NULL</b> and <i>nSize</i> is 0, the function succeeds and <i>nSize</i> receives the required buffer size.
      * 
      * If the <i>lpTranslatedName</i> buffer is too small to hold the converted name, the function fails and <i>nSize</i> receives the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -16265,8 +16337,8 @@ class Identity {
      * @since windows5.0
      */
     static TranslateNameA(lpAccountName, AccountNameFormat, DesiredNameFormat, lpTranslatedName, nSize) {
-        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
-        lpTranslatedName := lpTranslatedName is String? StrPtr(lpTranslatedName) : lpTranslatedName
+        lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
+        lpTranslatedName := lpTranslatedName is String ? StrPtr(lpTranslatedName) : lpTranslatedName
 
         A_LastError := 0
 
@@ -16279,12 +16351,12 @@ class Identity {
 
     /**
      * Converts a directory service object name from one format to another.
-     * @param {Pointer<Char>} lpAccountName The name to be translated.
+     * @param {PWSTR} lpAccountName The name to be translated.
      * @param {Integer} AccountNameFormat The format of the name to be translated. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type.
      * @param {Integer} DesiredNameFormat The format of the converted name. This parameter is a value from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/secext/ne-secext-extended_name_format">EXTENDED_NAME_FORMAT</a> enumeration type. It cannot be NameUnknown.
-     * @param {Pointer<Char>} lpTranslatedName A pointer to a buffer that receives the converted name.
+     * @param {PWSTR} lpTranslatedName A pointer to a buffer that receives the converted name.
      * @param {Pointer<UInt32>} nSize On input, the variable indicates the size of the <i>lpTranslatedName</i> buffer, in <b>TCHARs</b>. On output, the variable returns the size of the returned string, in <b>TCHARs</b>, including the terminating <b>null</b> character. 
      * 
      * 
@@ -16293,7 +16365,7 @@ class Identity {
      * If <i>lpTranslated</i> is <b>NULL</b> and <i>nSize</i> is 0, the function succeeds and <i>nSize</i> receives the required buffer size.
      * 
      * If the <i>lpTranslatedName</i> buffer is too small to hold the converted name, the function fails and <i>nSize</i> receives the required buffer size.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOLEAN} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -16301,8 +16373,8 @@ class Identity {
      * @since windows5.0
      */
     static TranslateNameW(lpAccountName, AccountNameFormat, DesiredNameFormat, lpTranslatedName, nSize) {
-        lpAccountName := lpAccountName is String? StrPtr(lpAccountName) : lpAccountName
-        lpTranslatedName := lpTranslatedName is String? StrPtr(lpTranslatedName) : lpTranslatedName
+        lpAccountName := lpAccountName is String ? StrPtr(lpAccountName) : lpAccountName
+        lpTranslatedName := lpTranslatedName is String ? StrPtr(lpTranslatedName) : lpTranslatedName
 
         A_LastError := 0
 
@@ -16394,10 +16466,10 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszPKeyAlgorithm Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszPKeyAlgorithm Type: <b>PCWSTR</b>
      * 
      * The product key algorithm.
-     * @param {Pointer<Char>} pwszPKeyString Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszPKeyString Type: <b>PCWSTR</b>
      * 
      * The product key string.
      * @param {Integer} cbPKeySpecificData Type: <b>UINT</b>
@@ -16495,8 +16567,8 @@ class Identity {
      * @since windows8.0
      */
     static SLInstallProofOfPurchase(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeySpecificData, pbPKeySpecificData, pPkeyId) {
-        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
-        pwszPKeyString := pwszPKeyString is String? StrPtr(pwszPKeyString) : pwszPKeyString
+        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String ? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
+        pwszPKeyString := pwszPKeyString is String ? StrPtr(pwszPKeyString) : pwszPKeyString
 
         result := DllCall("SLC.dll\SLInstallProofOfPurchase", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "int")
         if(result != 0)
@@ -16755,7 +16827,7 @@ class Identity {
      * 
      * A pointer to the identifier of product SKU. If set to <b>NULL</b>, all of the  product  SKU's          
      * 		licenses will be consumed.
-     * @param {Pointer<Char>} pwszRightName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszRightName Type: <b>PCWSTR</b>
      * 
      * The name of right to be consumed.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -16810,7 +16882,7 @@ class Identity {
     static SLConsumeRight(hSLC, pAppId, pProductSkuId, pwszRightName) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        pwszRightName := pwszRightName is String? StrPtr(pwszRightName) : pwszRightName
+        pwszRightName := pwszRightName is String ? StrPtr(pwszRightName) : pwszRightName
 
         result := DllCall("SLC.dll\SLConsumeRight", "ptr", hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "int")
         if(result != 0)
@@ -16827,7 +16899,7 @@ class Identity {
      * @param {Pointer<Guid>} pProductSkuId Type: <b>const SLID*</b>
      * 
      * A pointer to the SKU ID.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The name associated with the value to retrieve.  The following names are valid.
      * 
@@ -16958,9 +17030,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetProductSkuInformation(hSLC, pProductSkuId, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetProductSkuInformation", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetProductSkuInformation", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16975,7 +17047,7 @@ class Identity {
      * @param {Pointer<Guid>} pPKeyId Type: <b>const SLID*</b>
      * 
      * A pointer to the PKey ID.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The name associated with the value to retrieve.  The following names are valid.
      * 
@@ -17140,9 +17212,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPKeyInformation(hSLC, pPKeyId, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetPKeyInformation", "ptr", hSLC, "ptr", pPKeyId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetPKeyInformation", "ptr", hSLC, "ptr", pPKeyId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17157,7 +17229,7 @@ class Identity {
      * @param {Pointer<Guid>} pSLLicenseId Type: <b>const SLID*</b>
      * 
      * A pointer to the license ID.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The name associated with the value to retrieve.. The following values are valid.
      * 
@@ -17288,9 +17360,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicenseInformation(hSLC, pSLLicenseId, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetLicenseInformation", "ptr", hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetLicenseInformation", "ptr", hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17438,7 +17510,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pwszRightName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszRightName Type: <b>PCWSTR</b>
      * 
      * Must be <b>NULL</b>.
      * @param {Pointer<UInt32>} pnStatusCount Type: <b>UINT*</b>
@@ -17485,7 +17557,7 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicensingStatusInformation(hSLC, pAppID, pProductSkuId, pwszRightName, pnStatusCount, ppLicensingStatus) {
-        pwszRightName := pwszRightName is String? StrPtr(pwszRightName) : pwszRightName
+        pwszRightName := pwszRightName is String ? StrPtr(pwszRightName) : pwszRightName
 
         result := DllCall("SLC.dll\SLGetLicensingStatusInformation", "ptr", hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, "uint*", pnStatusCount, "ptr", ppLicensingStatus, "int")
         if(result != 0)
@@ -17499,7 +17571,7 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The policy name.
      * @param {Pointer<UInt32>} peDataType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a>*</b>
@@ -17602,9 +17674,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPolicyInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetPolicyInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetPolicyInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17616,7 +17688,7 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The policy name.
      * @param {Pointer<UInt32>} pdwValue Type: <b>DWORD*</b>
@@ -17685,7 +17757,7 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPolicyInformationDWORD(hSLC, pwszValueName, pdwValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", "ptr", hSLC, "ptr", pwszValueName, "uint*", pdwValue, "int")
         if(result != 0)
@@ -17699,7 +17771,7 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The name associated with the value to retrieve.  The following names are valid.
      * 
@@ -17864,9 +17936,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetServiceInformation(hSLC, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetServiceInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetServiceInformation", "ptr", hSLC, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -17881,7 +17953,7 @@ class Identity {
      * @param {Pointer<Guid>} pApplicationId Type: <b>const SLID*</b>
      * 
      * A pointer to the application ID.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * <table>
      * <tr>
@@ -18098,9 +18170,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetApplicationInformation(hSLC, pApplicationId, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetApplicationInformation", "ptr", hSLC, "ptr", pApplicationId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetApplicationInformation", "ptr", hSLC, "ptr", pApplicationId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18125,7 +18197,7 @@ class Identity {
      * @param {Pointer<SL_ACTIVATION_INFO_HEADER>} pActivationInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_activation_info_header">SL_ACTIVATION_INFO_HEADER</a>*</b>
      * 
      * A pointer to additional product activation information.
-     * @param {Pointer<Char>} pwszProxyServer Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszProxyServer Type: <b>PCWSTR</b>
      * 
      * The proxy server name. Set this to <b>NULL</b> to use automatic proxy discovery.
      * @param {Integer} wProxyPort Type: <b>WORD</b>
@@ -18194,7 +18266,7 @@ class Identity {
      * @since windows8.0
      */
     static SLActivateProduct(hSLC, pProductSkuId, cbAppSpecificData, pvAppSpecificData, pActivationInfo, pwszProxyServer, wProxyPort) {
-        pwszProxyServer := pwszProxyServer is String? StrPtr(pwszProxyServer) : pwszProxyServer
+        pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
         result := DllCall("slcext.dll\SLActivateProduct", "ptr", hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, "ptr", pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "int")
         if(result != 0)
@@ -18205,13 +18277,13 @@ class Identity {
 
     /**
      * Checks the server status according to the specified URL and RequestType.
-     * @param {Pointer<Char>} pwszServerURL Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszServerURL Type: <b>PCWSTR</b>
      * 
      * The URL of the server.
-     * @param {Pointer<Char>} pwszAcquisitionType Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszAcquisitionType Type: <b>PCWSTR</b>
      * 
      * The acquisition type.
-     * @param {Pointer<Char>} pwszProxyServer Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszProxyServer Type: <b>PCWSTR</b>
      * 
      * The proxy server name. Set to <b>NULL</b> for automatic proxy discovery.
      * @param {Integer} wProxyPort Type: <b>WORD</b>
@@ -18246,9 +18318,9 @@ class Identity {
      * @since windows8.0
      */
     static SLGetServerStatus(pwszServerURL, pwszAcquisitionType, pwszProxyServer, wProxyPort, phrStatus) {
-        pwszServerURL := pwszServerURL is String? StrPtr(pwszServerURL) : pwszServerURL
-        pwszAcquisitionType := pwszAcquisitionType is String? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
-        pwszProxyServer := pwszProxyServer is String? StrPtr(pwszProxyServer) : pwszProxyServer
+        pwszServerURL := pwszServerURL is String ? StrPtr(pwszServerURL) : pwszServerURL
+        pwszAcquisitionType := pwszAcquisitionType is String ? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
+        pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
         result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "ptr", phrStatus, "int")
         if(result != 0)
@@ -18265,7 +18337,7 @@ class Identity {
      * @param {Pointer<Guid>} pProductSkuId Type: <b>const SLID*</b>
      * 
      * A pointer to the product ID.
-     * @param {Pointer<Char>} ppwszInstallationId Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppwszInstallationId Type: <b>PWSTR*</b>
      * 
      * The Installation ID string. Once you are finished, call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to      
      * 		free the memory.
@@ -18325,7 +18397,7 @@ class Identity {
      * @param {Pointer<SL_ACTIVATION_INFO_HEADER>} pActivationInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_activation_info_header">SL_ACTIVATION_INFO_HEADER</a>*</b>
      * 
      * A pointer to additional information.
-     * @param {Pointer<Char>} ppwszInstallationId Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppwszInstallationId Type: <b>PWSTR*</b>
      * 
      * The Installation ID string. Once you are finished, call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to      
      * 		free the memory.
@@ -18382,10 +18454,10 @@ class Identity {
      * @param {Pointer<Guid>} pProductSkuId Type: <b>const SLID*</b>
      * 
      * A pointer to the product ID.
-     * @param {Pointer<Char>} pwszInstallationId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszInstallationId Type: <b>PCWSTR</b>
      * 
      * The Installation ID generated by the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/nf-slpublic-slgenerateofflineinstallationid">SLGenerateOfflineInstallationId</a> function.
-     * @param {Pointer<Char>} pwszConfirmationId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszConfirmationId Type: <b>PCWSTR</b>
      * 
      * The confirmation ID CSR.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -18438,8 +18510,8 @@ class Identity {
      * @since windows8.0
      */
     static SLDepositOfflineConfirmationId(hSLC, pProductSkuId, pwszInstallationId, pwszConfirmationId) {
-        pwszInstallationId := pwszInstallationId is String? StrPtr(pwszInstallationId) : pwszInstallationId
-        pwszConfirmationId := pwszConfirmationId is String? StrPtr(pwszConfirmationId) : pwszConfirmationId
+        pwszInstallationId := pwszInstallationId is String ? StrPtr(pwszInstallationId) : pwszInstallationId
+        pwszConfirmationId := pwszConfirmationId is String ? StrPtr(pwszConfirmationId) : pwszConfirmationId
 
         result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         if(result != 0)
@@ -18459,10 +18531,10 @@ class Identity {
      * @param {Pointer<SL_ACTIVATION_INFO_HEADER>} pActivationInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_activation_info_header">SL_ACTIVATION_INFO_HEADER</a>*</b>
      * 
      * A pointer to additional information.
-     * @param {Pointer<Char>} pwszInstallationId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszInstallationId Type: <b>PCWSTR</b>
      * 
      * The Installation ID generated by the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/nf-slpublic-slgenerateofflineinstallationid">SLGenerateOfflineInstallationId</a> function.
-     * @param {Pointer<Char>} pwszConfirmationId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszConfirmationId Type: <b>PCWSTR</b>
      * 
      * The Confirmation ID CSR.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -18515,8 +18587,8 @@ class Identity {
      * @since windows8.0
      */
     static SLDepositOfflineConfirmationIdEx(hSLC, pProductSkuId, pActivationInfo, pwszInstallationId, pwszConfirmationId) {
-        pwszInstallationId := pwszInstallationId is String? StrPtr(pwszInstallationId) : pwszInstallationId
-        pwszConfirmationId := pwszConfirmationId is String? StrPtr(pwszConfirmationId) : pwszConfirmationId
+        pwszInstallationId := pwszInstallationId is String ? StrPtr(pwszInstallationId) : pwszInstallationId
+        pwszConfirmationId := pwszConfirmationId is String ? StrPtr(pwszConfirmationId) : pwszConfirmationId
 
         result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", "ptr", hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
         if(result != 0)
@@ -18528,8 +18600,8 @@ class Identity {
     /**
      * Gets the registered product key ID associated with the product.
      * @param {Pointer<Void>} hSLC The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszPKeyAlgorithm The product key algorithm.
-     * @param {Pointer<Char>} pwszPKeyString The product key string.
+     * @param {PWSTR} pwszPKeyAlgorithm The product key algorithm.
+     * @param {PWSTR} pwszPKeyString The product key string.
      * @param {Integer} cbPKeySpecificData The size, in bytes, of the product key specific data. If there is no PKey specific data, set <i>cbPKeySpecificData</i> to 0.
      * @param {Pointer} pbPKeySpecificData A pointer to the product key specific data. If there is no PKey specific data, set <i>pbPKeySpecificData</i> to <b>NULL</b>.
      * @param {Pointer<Guid>} pPKeyId A pointer to the product key ID.
@@ -18569,8 +18641,8 @@ class Identity {
      * @since windows8.0
      */
     static SLGetPKeyId(hSLC, pwszPKeyAlgorithm, pwszPKeyString, cbPKeySpecificData, pbPKeySpecificData, pPKeyId) {
-        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
-        pwszPKeyString := pwszPKeyString is String? StrPtr(pwszPKeyString) : pwszPKeyString
+        pwszPKeyAlgorithm := pwszPKeyAlgorithm is String ? StrPtr(pwszPKeyAlgorithm) : pwszPKeyAlgorithm
+        pwszPKeyString := pwszPKeyString is String ? StrPtr(pwszPKeyString) : pwszPKeyString
 
         result := DllCall("SLC.dll\SLGetPKeyId", "ptr", hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "int")
         if(result != 0)
@@ -18884,7 +18956,7 @@ class Identity {
      * @since windows8.0
      */
     static SLGetLicense(hSLC, pLicenseFileId, pcbLicenseFile, ppbLicenseFile) {
-        result := DllCall("SLC.dll\SLGetLicense", "ptr", hSLC, "ptr", pLicenseFileId, "uint*", pcbLicenseFile, "ptr", ppbLicenseFile, "int")
+        result := DllCall("SLC.dll\SLGetLicense", "ptr", hSLC, "ptr", pLicenseFileId, "uint*", pcbLicenseFile, "char*", ppbLicenseFile, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -18896,7 +18968,7 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC context.
-     * @param {Pointer<Char>} pwszEventId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszEventId Type: <b>PCWSTR</b>
      * 
      * The ID of the event to be fired.
      * @param {Pointer<Guid>} pApplicationId Type: <b>const SLID*</b>
@@ -18952,7 +19024,7 @@ class Identity {
      * @since windows8.0
      */
     static SLFireEvent(hSLC, pwszEventId, pApplicationId) {
-        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+        pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
 
         result := DllCall("SLC.dll\SLFireEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "int")
         if(result != 0)
@@ -18966,13 +19038,13 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC session.
-     * @param {Pointer<Char>} pwszEventId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszEventId Type: <b>PCWSTR</b>
      * 
      * The predefined SL event identifier.
      * @param {Pointer<Guid>} pApplicationId Type: <b>const SLID*</b>
      * 
      * A pointer to the  application ID to which the event will be registered.
-     * @param {Pointer<Void>} hEvent Type: <b>HANDLE</b>
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
      *  The event handle used for notification.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -19001,7 +19073,8 @@ class Identity {
      * @since windows8.0
      */
     static SLRegisterEvent(hSLC, pwszEventId, pApplicationId, hEvent) {
-        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+        pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("SLC.dll\SLRegisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         if(result != 0)
@@ -19015,13 +19088,13 @@ class Identity {
      * @param {Pointer<Void>} hSLC Type: <b>HSLC</b>
      * 
      * The handle to the current SLC session.
-     * @param {Pointer<Char>} pwszEventId Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszEventId Type: <b>PCWSTR</b>
      * 
      * The predefined SL event identifier that will be unregistered.
      * @param {Pointer<Guid>} pApplicationId Type: <b>const SLID*</b>
      * 
      * A pointer to the application ID that the event will be unregistered from.
-     * @param {Pointer<Void>} hEvent Type: <b>HANDLE</b>
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
      * The registered event handle.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -19074,7 +19147,8 @@ class Identity {
      * @since windows8.0
      */
     static SLUnregisterEvent(hSLC, pwszEventId, pApplicationId, hEvent) {
-        pwszEventId := pwszEventId is String? StrPtr(pwszEventId) : pwszEventId
+        pwszEventId := pwszEventId is String ? StrPtr(pwszEventId) : pwszEventId
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
         result := DllCall("SLC.dll\SLUnregisterEvent", "ptr", hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
         if(result != 0)
@@ -19085,7 +19159,7 @@ class Identity {
 
     /**
      * Retrieves the value portion of a name-value pair from the licensing policy of a software component.
-     * @param {Pointer<Char>} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
+     * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
      * @param {Pointer<UInt32>} peDataType A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sldatatype">SLDATATYPE</a> enumeration that specifies the type of data in the <i>ppbValue</i> buffer.
      * @param {Pointer<UInt32>} pcbValue A pointer to the size, in bytes, of the <i>ppbValue</i> buffer.
      * @param {Pointer<Byte>} ppbValue A pointer to an array of <b>BYTE</b> pointers that specifies the value associated with the name specified by the <i>pwszValueName</i> parameter.
@@ -19131,9 +19205,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetWindowsInformation(pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19142,7 +19216,7 @@ class Identity {
 
     /**
      * Retrieves the DWORD value portion of a name-value pair from the licensing policy of a software component.
-     * @param {Pointer<Char>} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
+     * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
      * @param {Pointer<UInt32>} pdwValue A pointer to the value associated with the name specified by the <i>pwszValueName</i> parameter.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
@@ -19184,7 +19258,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetWindowsInformationDWORD(pwszValueName, pdwValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "uint*", pdwValue, "int")
         if(result != 0)
@@ -19216,9 +19290,9 @@ class Identity {
      * Gets a XrML genuine ticket acquired from the Software Licensing Server (SLS).
      * @param {Pointer<Void>} ppTicketBlob The address of a pointer to a buffer that receives the ticket BLOB. When you have finished using this buffer, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @param {Pointer<UInt32>} pcbTicketBlob A pointer to the size, in bytes, of the <i>ppTicketBlob</i> buffer.
-     * @param {Pointer<Char>} pwszTemplateId A pointer to a null-terminated string that contains the ID of the BLOB template stored on the SLS.
-     * @param {Pointer<Char>} pwszServerUrl A pointer to a null-terminated string that contains the URL of the SLS.
-     * @param {Pointer<Char>} pwszClientToken Reserved.
+     * @param {PWSTR} pwszTemplateId A pointer to a null-terminated string that contains the ID of the BLOB template stored on the SLS.
+     * @param {PWSTR} pwszServerUrl A pointer to a null-terminated string that contains the URL of the SLS.
+     * @param {PWSTR} pwszClientToken Reserved.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -19226,9 +19300,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLAcquireGenuineTicket(ppTicketBlob, pcbTicketBlob, pwszTemplateId, pwszServerUrl, pwszClientToken) {
-        pwszTemplateId := pwszTemplateId is String? StrPtr(pwszTemplateId) : pwszTemplateId
-        pwszServerUrl := pwszServerUrl is String? StrPtr(pwszServerUrl) : pwszServerUrl
-        pwszClientToken := pwszClientToken is String? StrPtr(pwszClientToken) : pwszClientToken
+        pwszTemplateId := pwszTemplateId is String ? StrPtr(pwszTemplateId) : pwszTemplateId
+        pwszServerUrl := pwszServerUrl is String ? StrPtr(pwszServerUrl) : pwszServerUrl
+        pwszClientToken := pwszClientToken is String ? StrPtr(pwszClientToken) : pwszClientToken
 
         result := DllCall("slcext.dll\SLAcquireGenuineTicket", "ptr", ppTicketBlob, "uint*", pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "int")
         if(result != 0)
@@ -19240,7 +19314,7 @@ class Identity {
     /**
      * Specifies information about the genuine status of a Windows computer.
      * @param {Pointer<Guid>} pQueryId A pointer to an <b>SLID</b> structure that specifies the application for which to set information.
-     * @param {Pointer<Char>} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to set. The following names are valid.
+     * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to set. The following names are valid.
      * 
      * <table>
      * <tr>
@@ -19363,7 +19437,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLSetGenuineInformation(pQueryId, pwszValueName, eDataType, cbValue, pbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         result := DllCall("SLC.dll\SLSetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint", eDataType, "uint", cbValue, "ptr", pbValue, "int")
         if(result != 0)
@@ -19383,7 +19457,7 @@ class Identity {
      * @param {Pointer<Guid>} pSkuOrAppId Type: <b>const SLID*</b>
      * 
      * A pointer to the <b>SLID</b> of the application or SKU from which to obtain information.
-     * @param {Pointer<Char>} pwszValueName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The name associated with the value to retrieve.  The following names are valid.
      * 
@@ -19503,7 +19577,7 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} ppwszValue Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppwszValue Type: <b>PWSTR*</b>
      * 
      * The value to store. When finished using the memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
      * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
@@ -19532,7 +19606,7 @@ class Identity {
      * @since windows8.0
      */
     static SLGetReferralInformation(hSLC, eReferralType, pSkuOrAppId, pwszValueName, ppwszValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         result := DllCall("slcext.dll\SLGetReferralInformation", "ptr", hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr", ppwszValue, "int")
         if(result != 0)
@@ -19544,7 +19618,7 @@ class Identity {
     /**
      * Gets information about the genuine state of a Windows computer.
      * @param {Pointer<Guid>} pQueryId A pointer to an <b>SLID</b> structure that specifies the application to check.
-     * @param {Pointer<Char>} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve. The following names are valid.
+     * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve. The following names are valid.
      * 
      * <table>
      * <tr>
@@ -19637,9 +19711,9 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLGetGenuineInformation(pQueryId, pwszValueName, peDataType, pcbValue, ppbValue) {
-        pwszValueName := pwszValueName is String? StrPtr(pwszValueName) : pwszValueName
+        pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "ptr", ppbValue, "int")
+        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint*", peDataType, "uint*", pcbValue, "char*", ppbValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -19648,7 +19722,7 @@ class Identity {
 
     /**
      * Gets the value for the specified component policy.
-     * @param {Pointer<Char>} valueName The name of the policy for which you want to get information.
+     * @param {PWSTR} valueName The name of the policy for which you want to get information.
      * @param {Pointer<UInt32>} valueType The data type of the policy value. The following table describes the values that this parameter can 
      *        receive.
      * 
@@ -19711,7 +19785,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static SLQueryLicenseValueFromApp(valueName, valueType, dataBuffer, dataSize, resultDataSize) {
-        valueName := valueName is String? StrPtr(valueName) : valueName
+        valueName := valueName is String ? StrPtr(valueName) : valueName
 
         result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, "uint*", valueType, "ptr", dataBuffer, "uint", dataSize, "uint*", resultDataSize, "int")
         if(result != 0)
@@ -19740,7 +19814,7 @@ class Identity {
      * 
      * <b>Windows Server 2008 and Windows Vista:  </b>Sas.dll is not available natively. You must download the Windows 7 version of the Microsoft Windows Software Development Kit (SDK)  to use this function. In addition, an application must refer to Sas.dll to call this function.
      * 
-     * @param {Integer} AsUser <b>TRUE</b> if the caller is running as the current user; otherwise, <b>FALSE</b>.
+     * @param {BOOL} AsUser <b>TRUE</b> if the caller is running as the current user; otherwise, <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//sas/nf-sas-sendsas
      * @since windows6.1

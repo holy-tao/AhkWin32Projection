@@ -27,7 +27,7 @@ class TRUSTED_PASSWORD_INFO extends Win32Struct
     Password{
         get {
             if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Password := LSA_UNICODE_STRING(0, this)
             return this.__Password
         }
     }
@@ -39,7 +39,7 @@ class TRUSTED_PASSWORD_INFO extends Win32Struct
     OldPassword{
         get {
             if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__OldPassword := LSA_UNICODE_STRING(16, this)
             return this.__OldPassword
         }
     }

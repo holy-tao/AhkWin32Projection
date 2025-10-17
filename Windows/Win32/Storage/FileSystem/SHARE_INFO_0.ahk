@@ -15,7 +15,7 @@ class SHARE_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string specifying the share name of a resource.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     shi0_netname {
         get => NumGet(this, 0, "ptr")

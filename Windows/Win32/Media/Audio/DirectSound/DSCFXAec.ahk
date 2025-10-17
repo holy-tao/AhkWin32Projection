@@ -12,7 +12,7 @@ class DSCFXAec extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEnable {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class DSCFXAec extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNoiseFill {
         get => NumGet(this, 4, "int")

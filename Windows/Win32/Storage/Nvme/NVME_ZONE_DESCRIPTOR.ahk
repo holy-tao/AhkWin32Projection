@@ -11,10 +11,65 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
 
     static packingSize => 8
 
+    class _ZA extends Win32Struct {
+        static sizeof => 64
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ZFC
+         * - FZR
+         * - RZR
+         * - Reserved
+         * - ZDEV
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ZFC {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        FZR {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RZR {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ZDEV {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
     /**
+     * This bitfield backs the following members:
+     * - ZT
+     * - Reserved1
      * @type {Integer}
      */
-    Anonymous1 {
+    _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
     }
@@ -22,7 +77,26 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Anonymous2 {
+    ZT {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved1 {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - Reserved2
+     * - ZS
+     * @type {Integer}
+     */
+    _bitfield1 {
         get => NumGet(this, 1, "char")
         set => NumPut("char", value, this, 1)
     }
@@ -30,9 +104,28 @@ class NVME_ZONE_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    ZA {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    Reserved2 {
+        get => (this._bitfield1 >> 0) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 0) | (this._bitfield1 & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ZS {
+        get => (this._bitfield1 >> 4) & 0xF
+        set => this._bitfield1 := ((value & 0xF) << 4) | (this._bitfield1 & ~(0xF << 4))
+    }
+
+    /**
+     * @type {_ZA}
+     */
+    ZA{
+        get {
+            if(!this.HasProp("__ZA"))
+                this.__ZA := %this.__Class%._ZA(2, this)
+            return this.__ZA
+        }
     }
 
     /**

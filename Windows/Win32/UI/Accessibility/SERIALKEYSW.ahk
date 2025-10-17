@@ -50,7 +50,7 @@ class SERIALKEYSW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * Points to a string that contains the name of the serial port that receives input from the communication aid when the SerialKeys feature is on. If no port is being used, this member is <b>NULL</b>. If this member is "Auto", the system watches all unused serial ports for input from communication aids.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszActivePort {
         get => NumGet(this, 8, "ptr")
@@ -61,7 +61,7 @@ class SERIALKEYSW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPSTR</a></b>
      * 
      * Reserved; must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszPort {
         get => NumGet(this, 16, "ptr")
@@ -99,12 +99,8 @@ class SERIALKEYSW extends Win32Struct
         set => NumPut("uint", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

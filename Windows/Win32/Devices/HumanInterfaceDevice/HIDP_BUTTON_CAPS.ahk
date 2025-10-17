@@ -28,7 +28,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsAlias {
         get => NumGet(this, 3, "char")
@@ -68,7 +68,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsRange {
         get => NumGet(this, 12, "char")
@@ -76,7 +76,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsStringRange {
         get => NumGet(this, 13, "char")
@@ -84,7 +84,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsDesignatorRange {
         get => NumGet(this, 14, "char")
@@ -92,7 +92,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsAbsolute {
         get => NumGet(this, 15, "char")
@@ -272,7 +272,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     Range{
         get {
             if(!this.HasProp("__Range"))
-                this.__Range := %this.__Class%._Range(this.ptr + 56)
+                this.__Range := %this.__Class%._Range(56, this)
             return this.__Range
         }
     }
@@ -283,7 +283,7 @@ class HIDP_BUTTON_CAPS extends Win32Struct
     NotRange{
         get {
             if(!this.HasProp("__NotRange"))
-                this.__NotRange := %this.__Class%._NotRange(this.ptr + 56)
+                this.__NotRange := %this.__Class%._NotRange(56, this)
             return this.__NotRange
         }
     }

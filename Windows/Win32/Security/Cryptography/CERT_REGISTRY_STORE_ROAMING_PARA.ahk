@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Cryptography
@@ -12,15 +13,18 @@ class CERT_REGISTRY_STORE_ROAMING_PARA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HKEY}
      */
-    hKey {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hKey{
+        get {
+            if(!this.HasProp("__hKey"))
+                this.__hKey := HKEY(0, this)
+            return this.__hKey
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszStoreDirectory {
         get => NumGet(this, 8, "ptr")

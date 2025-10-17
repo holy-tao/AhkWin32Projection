@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_H264 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsLongTermReference {
         get => NumGet(this, 4, "int")

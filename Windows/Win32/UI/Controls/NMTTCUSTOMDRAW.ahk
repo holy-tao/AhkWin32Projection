@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NMCUSTOMDRAW.ahk
 
@@ -25,7 +27,7 @@ class NMTTCUSTOMDRAW extends Win32Struct
     nmcd{
         get {
             if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(this.ptr + 0)
+                this.__nmcd := NMCUSTOMDRAW(0, this)
             return this.__nmcd
         }
     }

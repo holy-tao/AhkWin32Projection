@@ -12,7 +12,7 @@ class SAM_REGISTER_MAPPING_ELEMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Original {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class SAM_REGISTER_MAPPING_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Mapped {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class SAM_REGISTER_MAPPING_ELEMENT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Continuable {
         get => NumGet(this, 16, "char")

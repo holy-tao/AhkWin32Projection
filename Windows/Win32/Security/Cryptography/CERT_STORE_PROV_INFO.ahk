@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTOREPROV.ahk
 
 /**
  * Contains information returned by the installed CertDllOpenStoreProv function when a store is opened by using the CertOpenStore function.
@@ -348,11 +349,14 @@ class CERT_STORE_PROV_INFO extends Win32Struct
 
     /**
      * A 32-bit, application-defined value that is the first parameter passed to all callbacks. An application can specify the contents of this member as desired. Typically, this is a pointer to data that is specific to the application, such as provider state information for each store opened.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTOREPROV}
      */
-    hStoreProv {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hStoreProv{
+        get {
+            if(!this.HasProp("__hStoreProv"))
+                this.__hStoreProv := HCERTSTOREPROV(16, this)
+            return this.__hStoreProv
+        }
     }
 
     /**
@@ -376,12 +380,8 @@ class CERT_STORE_PROV_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

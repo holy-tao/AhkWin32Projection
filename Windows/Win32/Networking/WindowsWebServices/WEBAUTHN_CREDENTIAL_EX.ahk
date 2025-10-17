@@ -36,7 +36,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCredentialType {
         get => NumGet(this, 16, "ptr")

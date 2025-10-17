@@ -18,7 +18,7 @@ class WHV_X64_MSR_ACCESS_CONTEXT extends Win32Struct
     AccessInfo{
         get {
             if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_X64_MSR_ACCESS_INFO(this.ptr + 0)
+                this.__AccessInfo := WHV_X64_MSR_ACCESS_INFO(0, this)
             return this.__AccessInfo
         }
     }

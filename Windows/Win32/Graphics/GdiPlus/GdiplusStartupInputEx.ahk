@@ -23,7 +23,7 @@ class GdiplusStartupInputEx extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := GdiplusStartupInput(this.ptr + 0)
+                this.__Base := GdiplusStartupInput(0, this)
             return this.__Base
         }
     }

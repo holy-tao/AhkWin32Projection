@@ -83,7 +83,7 @@ class DWRITE_GLYPH_RUN extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * If true, specifies that glyphs are rotated 90 degrees to the left and vertical metrics are used. Vertical writing is achieved by specifying <b>isSideways</b> = true and rotating the entire run 90 degrees to the right via a rotate transform.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isSideways {
         get => NumGet(this, 40, "int")

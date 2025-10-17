@@ -38,7 +38,7 @@ class MGM_IF_ENTRY extends Win32Struct
 
     /**
      * Indicates whether or not IGMP is enabled on this interface. If <b>bIGMP</b> is <b>TRUE</b>, then IGMP is enabled on this interface. If <b>bIGMP</b> is <b>FALSE</b>, then IGMP is not enabled on this interface.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIGMP {
         get => NumGet(this, 8, "int")
@@ -47,7 +47,7 @@ class MGM_IF_ENTRY extends Win32Struct
 
     /**
      * Indicates whether or not multicast forwarding is enabled on this interface. If <b>bIsEnabled</b> is <b>TRUE</b>, multicast forwarding is enabled on this interface. If <b>bIsEnabled</b> is <b>FALSE</b>, multicast forwarding is disabled on this interface.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsEnabled {
         get => NumGet(this, 12, "int")

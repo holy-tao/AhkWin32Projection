@@ -42,7 +42,7 @@ class WRDS_SETTINGS extends Win32Struct
     WRdsSetting{
         get {
             if(!this.HasProp("__WRdsSetting"))
-                this.__WRdsSetting := WRDS_SETTING(this.ptr + 8)
+                this.__WRdsSetting := WRDS_SETTING(8, this)
             return this.__WRdsSetting
         }
     }

@@ -13,7 +13,7 @@ class PORT_INFO_1A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pName {
         get => NumGet(this, 0, "ptr")

@@ -284,7 +284,7 @@ class DEVMODEA extends Win32Struct
     dmPosition{
         get {
             if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(this.ptr + 48)
+                this.__dmPosition := POINTL(48, this)
             return this.__dmPosition
         }
     }

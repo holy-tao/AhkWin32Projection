@@ -12,7 +12,7 @@ class WINHTTP_HEADER_NAME extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WINHTTP_HEADER_NAME extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")

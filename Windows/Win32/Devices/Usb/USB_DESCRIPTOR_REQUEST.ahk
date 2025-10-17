@@ -71,7 +71,7 @@ class USB_DESCRIPTOR_REQUEST extends Win32Struct
     SetupPacket{
         get {
             if(!this.HasProp("__SetupPacket"))
-                this.__SetupPacket := %this.__Class%._SetupPacket(this.ptr + 8)
+                this.__SetupPacket := %this.__Class%._SetupPacket(8, this)
             return this.__SetupPacket
         }
     }

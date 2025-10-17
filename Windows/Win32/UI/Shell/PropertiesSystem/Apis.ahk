@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
@@ -26,7 +27,7 @@ class PropertiesSystem {
      * @param {Integer} pdfFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * A flag that specifies the format to apply to the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
-     * @param {Pointer<Char>} pwszText Type: <b>LPWSTR</b>
+     * @param {PWSTR} pwszText Type: <b>LPWSTR</b>
      * 
      * When the function returns, contains a pointer to the formatted value as a null-terminated, Unicode string. The calling application is responsible for allocating memory for the buffer before it calls <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-psformatfordisplay">PSFormatForDisplay</a>.
      * @param {Integer} cchText Type: <b>DWORD</b>
@@ -79,7 +80,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static PSFormatForDisplay(propkey, propvar, pdfFlags, pwszText, cchText) {
-        pwszText := pwszText is String? StrPtr(pwszText) : pwszText
+        pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
         result := DllCall("PROPSYS.dll\PSFormatForDisplay", "ptr", propkey, "ptr", propvar, "int", pdfFlags, "ptr", pwszText, "uint", cchText, "int")
         if(result != 0)
@@ -99,7 +100,7 @@ class PropertiesSystem {
      * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more flags that specify the format to apply to the property string. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> for possible values.
-     * @param {Pointer<Char>} ppszDisplay Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszDisplay Type: <b>PWSTR*</b>
      * 
      * When the function returns, contains a pointer to a null-terminated, Unicode string representation of the requested property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -167,7 +168,7 @@ class PropertiesSystem {
      * @param {Integer} pdff Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a></b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/api/propsys/ne-propsys-propdesc_format_flags">PROPDESC_FORMAT_FLAGS</a> that specify the format to apply to the property string. See <b>PROPDESC_FORMAT_FLAGS</b> for possible values.
-     * @param {Pointer<Char>} ppszDisplay Type: <b>LPWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszDisplay Type: <b>LPWSTR*</b>
      * 
      * When the function returns, contains a pointer to the formatted value as a null-terminated, Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -192,7 +193,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Char>} ppszImageRes Type: <b>void**</b>
+     * @param {Pointer<PWSTR>} ppszImageRes Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -229,7 +230,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPERTYKEY>} pkey Type: <b>REFPROPERTYKEY</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that identifies a property.
-     * @param {Pointer<Char>} psz Type: <b>LPWSTR</b>
+     * @param {PWSTR} psz Type: <b>LPWSTR</b>
      * 
      * Pointer to a buffer that receives the output string. The buffer should be large enough to contain PKEYSTR_MAX <b>WCHAR</b><b>s</b>.
      * @param {Integer} cch Type: <b>UINT</b>
@@ -242,7 +243,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSStringFromPropertyKey(pkey, psz, cch) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("PROPSYS.dll\PSStringFromPropertyKey", "ptr", pkey, "ptr", psz, "uint", cch, "int")
         if(result != 0)
@@ -253,7 +254,7 @@ class PropertiesSystem {
 
     /**
      * Converts a string to a PROPERTYKEY structure.
-     * @param {Pointer<Char>} pszString Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszString Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated, Unicode string to be converted.
      * @param {Pointer<PROPERTYKEY>} pkey Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
@@ -266,7 +267,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSPropertyKeyFromString(pszString, pkey) {
-        pszString := pszString is String? StrPtr(pszString) : pszString
+        pszString := pszString is String ? StrPtr(pszString) : pszString
 
         result := DllCall("PROPSYS.dll\PSPropertyKeyFromString", "ptr", pszString, "ptr", pkey, "int")
         if(result != 0)
@@ -492,7 +493,7 @@ class PropertiesSystem {
 
     /**
      * Gets an instance of a property description interface for a specified property name.
-     * @param {Pointer<Char>} pszCanonicalName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszCanonicalName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that identifies the property.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -548,7 +549,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyDescriptionByName(pszCanonicalName, riid, ppv) {
-        pszCanonicalName := pszCanonicalName is String? StrPtr(pszCanonicalName) : pszCanonicalName
+        pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
         result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -559,7 +560,7 @@ class PropertiesSystem {
 
     /**
      * Gets the class identifier (CLSID) of a per-computer, registered file property handler.
-     * @param {Pointer<Char>} pszFilePath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszFilePath Type: <b>PCWSTR</b>
      * 
      * Pointer to a null-terminated, Unicode buffer that contains the absolute path of the file whose property handler CLSID is requested.
      * @param {Pointer<Guid>} pclsid Type: <b>CLSID*</b>
@@ -572,7 +573,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSLookupPropertyHandlerCLSID(pszFilePath, pclsid) {
-        pszFilePath := pszFilePath is String? StrPtr(pszFilePath) : pszFilePath
+        pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
 
         result := DllCall("PROPSYS.dll\PSLookupPropertyHandlerCLSID", "ptr", pszFilePath, "ptr", pclsid, "int")
         if(result != 0)
@@ -592,7 +593,7 @@ class PropertiesSystem {
      * <b>Windows XP:</b> Use <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellitem">SHCreateShellItem</a> to create the Shell item.
      * 
      * <b>Windows Vista:</b> Use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist">SHCreateItemFromIDList</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname">SHCreateItemFromParsingName</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename">SHCreateItemFromRelativeName</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder">SHCreateItemInKnownFolder</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemwithparent">SHCreateItemWithParent</a> to create the Shell item.
-     * @param {Integer} fReadWrite Type: <b>BOOL</b>
+     * @param {BOOL} fReadWrite Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to retrieve a read/write property handler. <b>FALSE</b> to retrieve a read-only property handler.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -626,7 +627,7 @@ class PropertiesSystem {
      * <b>Windows XP:</b> Use <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellitem">SHCreateShellItem</a> to create the Shell item.
      * 
      * <b>Windows Vista:</b> Use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist">SHCreateItemFromIDList</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname">SHCreateItemFromParsingName</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename">SHCreateItemFromRelativeName</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder">SHCreateItemInKnownFolder</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-shcreateitemwithparent">SHCreateItemWithParent</a> to create the Shell item.
-     * @param {Integer} fReadWrite Type: <b>BOOL</b>
+     * @param {BOOL} fReadWrite Type: <b>BOOL</b>
      * 
      * <b>TRUE</b> to retrieve a read/write property handler. <b>FALSE</b> to retrieve a read-only property handler.
      * @param {Pointer<IUnknown>} punkCreateObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -704,7 +705,7 @@ class PropertiesSystem {
 
     /**
      * Informs the schema subsystem of the addition of a property description schema file.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * Pointer to the full file path, as a Unicode string, to the <a href="https://docs.microsoft.com/windows/desktop/properties/propdesc-schema-entry">property description schema</a> (.propdesc) file on the local machine. This can be either a fully-specified full path, or a full path that includes environment variables such as <c>%PROGRAMFILES%</c>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -754,7 +755,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSRegisterPropertySchema(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("PROPSYS.dll\PSRegisterPropertySchema", "ptr", pszPath, "int")
         if(result != 0)
@@ -765,7 +766,7 @@ class PropertiesSystem {
 
     /**
      * Informs the schema subsystem of the removal of a property description schema file.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * Pointer to the full file path, as a Unicode string, to the property description schema (.propdesc) file on the local machine. This can be either a fully-specified full path, or a full path that includes environment variables such as <c>%PROGRAMFILES%</c>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -804,7 +805,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSUnregisterPropertySchema(pszPath) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("PROPSYS.dll\PSUnregisterPropertySchema", "ptr", pszPath, "int")
         if(result != 0)
@@ -914,7 +915,7 @@ class PropertiesSystem {
 
     /**
      * Gets the property key for a canonical property name.
-     * @param {Pointer<Char>} pszName Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszName Type: <b>PCWSTR</b>
      * 
      * Pointer to a property name as a null-terminated, Unicode string.
      * @param {Pointer<PROPERTYKEY>} ppropkey Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
@@ -967,7 +968,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyKeyFromName(pszName, ppropkey) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("PROPSYS.dll\PSGetPropertyKeyFromName", "ptr", pszName, "ptr", ppropkey, "int")
         if(result != 0)
@@ -981,7 +982,7 @@ class PropertiesSystem {
      * @param {Pointer<PROPERTYKEY>} propkey Type: <b>REFPROPERTYKEY</b>
      * 
      * Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> structure that identifies the requested property.
-     * @param {Pointer<Char>} ppszCanonicalName Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszCanonicalName Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to the property name as a null-terminated Unicode string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1113,7 +1114,7 @@ class PropertiesSystem {
 
     /**
      * Gets an instance of a property description list interface for a specified property list.
-     * @param {Pointer<Char>} pszPropList Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszPropList Type: <b>LPCWSTR</b>
      * 
      * Pointer to a null-terminated, Unicode string that identifies the property list. See <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipropertysystem-getpropertydescriptionlistfromstring">IPropertySystem::GetPropertyDescriptionListFromString</a> for more information about the format of this parameter.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -1158,7 +1159,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyDescriptionListFromString(pszPropList, riid, ppv) {
-        pszPropList := pszPropList is String? StrPtr(pszPropList) : pszPropList
+        pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
         result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -1335,7 +1336,7 @@ class PropertiesSystem {
      * @param {Integer} cb Type: <b>DWORD</b>
      * 
      * The size, in bytes, of the USERIALIZESPROPSTORAGE buffer pointed to by <i>psps</i>.
-     * @param {Pointer<Char>} pszName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that contains the name of the property.
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -1348,7 +1349,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetNamedPropertyFromPropertyStorage(psps, cb, pszName, ppropvar) {
-        pszName := pszName is String? StrPtr(pszName) : pszName
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("PROPSYS.dll\PSGetNamedPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", pszName, "ptr", ppropvar, "int")
         if(result != 0)
@@ -1362,7 +1363,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
      * @param {Pointer<VARIANT>} var Type: <b>VARIANT*</b>
@@ -1378,7 +1379,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadType(propBag, propName, var, type) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadType", "ptr", propBag, "ptr", propName, "ptr", var, "ushort", type, "int")
         if(result != 0)
@@ -1392,10 +1393,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Char>} value Type: <b>LPCWSTR</b>
+     * @param {PWSTR} value Type: <b>LPCWSTR</b>
      * 
      * When this function returns, contains a pointer to a string property value.
      * @param {Integer} characterCount Type: <b>int</b>
@@ -1408,8 +1409,8 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadStr(propBag, propName, value, characterCount) {
-        propName := propName is String? StrPtr(propName) : propName
-        value := value is String? StrPtr(value) : value
+        propName := propName is String ? StrPtr(propName) : propName
+        value := value is String ? StrPtr(value) : value
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStr", "ptr", propBag, "ptr", propName, "ptr", value, "int", characterCount, "int")
         if(result != 0)
@@ -1423,10 +1424,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
-     * @param {Pointer<Char>} value Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} value Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to a string data value from a property in a property bag and allocates memory for the string that is read. The caller of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pspropertybag_readstralloc">PSPropertyBag_ReadStrAlloc</a> function needs to call a <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function on this parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1436,7 +1437,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadStrAlloc(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStrAlloc", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1450,10 +1451,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Char>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @param {Pointer<BSTR>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * When this function returns, contains a pointer to a <b>BSTR</b> property value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1463,7 +1464,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadBSTR(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1477,10 +1478,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Char>} value Type: <b>LPCWSTR</b>
+     * @param {PWSTR} value Type: <b>LPCWSTR</b>
      * 
      * The string value to which the property should be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1490,8 +1491,8 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteStr(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
-        value := value is String? StrPtr(value) : value
+        propName := propName is String ? StrPtr(propName) : propName
+        value := value is String ? StrPtr(value) : value
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStr", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1505,10 +1506,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Char>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
+     * @param {BSTR} value Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a></b>
      * 
      * The <b>BSTR</b> value to which the named property should be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1518,9 +1519,10 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteBSTR(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
+        value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBSTR", "ptr", propBag, "ptr", propName, "char*", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1532,7 +1534,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<Int32>} value Type: <b>int*</b>
@@ -1545,7 +1547,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadInt(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, "int*", value, "int")
         if(result != 0)
@@ -1559,7 +1561,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Integer} value Type: <b>int</b>
@@ -1572,7 +1574,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteInt(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteInt", "ptr", propBag, "ptr", propName, "int", value, "int")
         if(result != 0)
@@ -1586,7 +1588,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<Int16>} value Type: <b>SHORT*</b>
@@ -1599,7 +1601,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadSHORT(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, "short*", value, "int")
         if(result != 0)
@@ -1613,7 +1615,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Integer} value Type: <b>SHORT</b>
@@ -1626,7 +1628,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteSHORT(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteSHORT", "ptr", propBag, "ptr", propName, "short", value, "int")
         if(result != 0)
@@ -1640,7 +1642,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<Int32>} value Type: <b>LONG*</b>
@@ -1653,7 +1655,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadLONG(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, "int*", value, "int")
         if(result != 0)
@@ -1667,7 +1669,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Integer} value Type: <b>LONG</b>
@@ -1680,7 +1682,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteLONG(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteLONG", "ptr", propBag, "ptr", propName, "int", value, "int")
         if(result != 0)
@@ -1694,7 +1696,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
      * @param {Pointer<UInt32>} value Type: <b>DWORD*</b>
@@ -1707,7 +1709,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadDWORD(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, "uint*", value, "int")
         if(result != 0)
@@ -1721,7 +1723,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Integer} value Type: <b>DWORD</b>
@@ -1734,7 +1736,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteDWORD(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteDWORD", "ptr", propBag, "ptr", propName, "uint", value, "int")
         if(result != 0)
@@ -1748,10 +1750,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Pointer<Int32>} value Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} value Type: <b>BOOL*</b>
      * 
      * When this function returns successfully, contains a pointer to the value read from the property.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1761,9 +1763,9 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadBOOL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "int*", value, "int")
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1775,10 +1777,10 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
-     * @param {Integer} value Type: <b>BOOL</b>
+     * @param {BOOL} value Type: <b>BOOL</b>
      * 
      * The <b>BOOL</b> value to which the named property should be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1788,7 +1790,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteBOOL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBOOL", "ptr", propBag, "ptr", propName, "int", value, "int")
         if(result != 0)
@@ -1802,7 +1804,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<POINTL>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a>*</b>
@@ -1815,7 +1817,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadPOINTL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1829,7 +1831,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<POINTL>} value Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162807(v=vs.85)">POINTL</a>*</b>
@@ -1842,7 +1844,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WritePOINTL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1856,7 +1858,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<POINTS>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162808(v=vs.85)">POINTS</a>*</b>
@@ -1869,7 +1871,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadPOINTS(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1883,7 +1885,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<POINTS>} value Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162808(v=vs.85)">POINTS</a>*</b>
@@ -1896,7 +1898,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WritePOINTS(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1910,7 +1912,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<RECTL>} value Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a>*</b>
@@ -1923,7 +1925,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadRECTL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1937,7 +1939,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<RECTL>} value Type: <b>const <a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a>*</b>
@@ -1950,7 +1952,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteRECTL(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1964,7 +1966,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
      * @param {Pointer<IStream>} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
@@ -1977,7 +1979,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadStream(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -1991,7 +1993,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<IStream>} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
@@ -2004,7 +2006,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteStream(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStream", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -2018,7 +2020,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2028,7 +2030,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_Delete(propBag, propName) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_Delete", "ptr", propBag, "ptr", propName, "int")
         if(result != 0)
@@ -2042,7 +2044,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<UInt64>} value Type: <b>ULONGLONG</b>
@@ -2055,7 +2057,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadULONGLONG(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, "uint*", value, "int")
         if(result != 0)
@@ -2069,7 +2071,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Integer} value Type: <b>ULONGLONG</b>
@@ -2082,7 +2084,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteULONGLONG(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteULONGLONG", "ptr", propBag, "ptr", propName, "uint", value, "int")
         if(result != 0)
@@ -2096,7 +2098,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object, that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -2112,7 +2114,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadUnknown(propBag, propName, riid, ppv) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -2126,7 +2128,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated property name string.
      * @param {Pointer<IUnknown>} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
@@ -2139,7 +2141,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteUnknown(propBag, propName, punk) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteUnknown", "ptr", propBag, "ptr", propName, "ptr", punk, "int")
         if(result != 0)
@@ -2153,7 +2155,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<Guid>} value Type: <b>GUID*</b>
@@ -2166,7 +2168,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadGUID(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadGUID", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -2180,7 +2182,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<Guid>} value Type: <b>const GUID*</b>
@@ -2193,7 +2195,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WriteGUID(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WriteGUID", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -2207,7 +2209,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<PROPERTYKEY>} value Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
@@ -2220,7 +2222,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_ReadPropertyKey(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -2234,7 +2236,7 @@ class PropertiesSystem {
      * @param {Pointer<IPropertyBag>} propBag Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
      * 
      * A pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> object that represents the property bag in which the property is stored.
-     * @param {Pointer<Char>} propName Type: <b>LPCWSTR</b>
+     * @param {PWSTR} propName Type: <b>LPCWSTR</b>
      * 
      * A null-terminated property name string.
      * @param {Pointer<PROPERTYKEY>} value Type: <b>REFPROPERTYKEY</b>
@@ -2247,7 +2249,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSPropertyBag_WritePropertyKey(propBag, propName, value) {
-        propName := propName is String? StrPtr(propName) : propName
+        propName := propName is String ? StrPtr(propName) : propName
 
         result := DllCall("PROPSYS.dll\PSPropertyBag_WritePropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "int")
         if(result != 0)
@@ -2284,7 +2286,7 @@ class PropertiesSystem {
 
     /**
      * Returns a property store for an item, given a path or parsing name.
-     * @param {Pointer<Char>} pszPath Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated Unicode string that specifies the item path.
      * @param {Pointer<IBindCtx>} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
@@ -2306,7 +2308,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid, ppv) {
-        pszPath := pszPath is String? StrPtr(pszPath) : pszPath
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -2317,7 +2319,7 @@ class PropertiesSystem {
 
     /**
      * Adds default properties to the property store as registered for the specified file extension.
-     * @param {Pointer<Char>} pszExt Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszExt Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string that specifies the extension.
      * @param {Pointer<IPropertyStore>} pPropStore Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a>*</b>
@@ -2330,7 +2332,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static SHAddDefaultPropertiesByExt(pszExt, pPropStore) {
-        pszExt := pszExt is String? StrPtr(pszExt) : pszExt
+        pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
         result := DllCall("SHELL32.dll\SHAddDefaultPropertiesByExt", "ptr", pszExt, "ptr", pPropStore, "int")
         if(result != 0)
@@ -2341,10 +2343,10 @@ class PropertiesSystem {
 
     /**
      * Opens the .pif file associated with a Microsoft MS-DOS application, and returns a handle to the application's properties.
-     * @param {Pointer<Char>} pszApp Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszApp Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the application's name.
-     * @param {Pointer<Char>} pszPIF Type: <b>PCWSTR</b>
+     * @param {PWSTR} pszPIF Type: <b>PCWSTR</b>
      * 
      * A null-terminated Unicode string that contains the name of the .pif file.
      * @param {Integer} hInf Type: <b>UINT</b>
@@ -2353,26 +2355,26 @@ class PropertiesSystem {
      * @param {Integer} flOpt Type: <b>UINT</b>
      * 
      * A flag that controls how the function operates.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * Returns a handle to the application's properties. Use this handle when you call the related .pif functions.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-pifmgr_openproperties
      * @since windows5.0
      */
     static PifMgr_OpenProperties(pszApp, pszPIF, hInf, flOpt) {
-        pszApp := pszApp is String? StrPtr(pszApp) : pszApp
-        pszPIF := pszPIF is String? StrPtr(pszPIF) : pszPIF
+        pszApp := pszApp is String ? StrPtr(pszApp) : pszApp
+        pszPIF := pszPIF is String ? StrPtr(pszPIF) : pszPIF
 
         result := DllCall("SHELL32.dll\PifMgr_OpenProperties", "ptr", pszApp, "ptr", pszPIF, "uint", hInf, "uint", flOpt, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Returns a specified block of data from a .pif file.
-     * @param {Pointer<Void>} hProps Type: <b>HANDLE</b>
+     * @param {HANDLE} hProps Type: <b>HANDLE</b>
      * 
      * A handle to an application's properties. This parameter should be set to the value that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-pifmgr_openproperties">PifMgr_OpenProperties</a>.
-     * @param {Pointer<Byte>} pszGroup Type: <b>PCSTR</b>
+     * @param {PSTR} pszGroup Type: <b>PCSTR</b>
      * 
      * A null-terminated string that contains the property group name. It can be one of the following, or any other name that corresponds to a valid .pif extension.
      * @param {Pointer} lpProps Type: <b>void*</b>
@@ -2391,7 +2393,8 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
-        pszGroup := pszGroup is String? StrPtr(pszGroup) : pszGroup
+        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
+        hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
 
         result := DllCall("SHELL32.dll\PifMgr_GetProperties", "ptr", hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, "int")
         return result
@@ -2399,10 +2402,10 @@ class PropertiesSystem {
 
     /**
      * Assigns values to a block of data from a .pif file.
-     * @param {Pointer<Void>} hProps Type: <b>HANDLE</b>
+     * @param {HANDLE} hProps Type: <b>HANDLE</b>
      * 
      * A handle to the application's properties. This parameter should be set to the value that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-pifmgr_openproperties">PifMgr_OpenProperties</a>.
-     * @param {Pointer<Byte>} pszGroup Type: <b>PCSTR</b>
+     * @param {PSTR} pszGroup Type: <b>PCSTR</b>
      * 
      * A null-terminated ANSI string containing the property group name. It can be one of the following, or any other name that corresponds to a valid .pif extension.
      * @param {Pointer} lpProps Type: <b>const void*</b>
@@ -2421,7 +2424,8 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
-        pszGroup := pszGroup is String? StrPtr(pszGroup) : pszGroup
+        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
+        hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
 
         result := DllCall("SHELL32.dll\PifMgr_SetProperties", "ptr", hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, "int")
         return result
@@ -2429,21 +2433,23 @@ class PropertiesSystem {
 
     /**
      * Closes application properties that were opened with PifMgr_OpenProperties.
-     * @param {Pointer<Void>} hProps Type: <b>HANDLE</b>
+     * @param {HANDLE} hProps Type: <b>HANDLE</b>
      * 
      * A handle to the application's properties. This parameter should be set to the value that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-pifmgr_openproperties">PifMgr_OpenProperties</a>.
      * @param {Integer} flOpt Type: <b>UINT</b>
      * 
      * A flag that specifies how the function operates.
-     * @returns {Pointer<Void>} Type: <b>int</b>
+     * @returns {HANDLE} Type: <b>int</b>
      * 
      * Returns <b>NULL</b> if successful. If unsuccessful, the functions returns the handle to the application properties that was passed as <i>hProps</i>.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-pifmgr_closeproperties
      * @since windows5.0
      */
     static PifMgr_CloseProperties(hProps, flOpt) {
+        hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
+
         result := DllCall("SHELL32.dll\PifMgr_CloseProperties", "ptr", hProps, "uint", flOpt, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -2551,7 +2557,7 @@ class PropertiesSystem {
 
     /**
      * Retrieves an object that represents a specific window's collection of properties, which allows those properties to be queried or set.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * A handle to the window whose properties are being retrieved.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
@@ -2567,6 +2573,8 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static SHGetPropertyStoreForWindow(hwnd, riid, ppv) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
             throw OSError(result)

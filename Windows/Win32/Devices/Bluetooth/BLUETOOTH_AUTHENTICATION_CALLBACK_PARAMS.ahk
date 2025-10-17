@@ -23,7 +23,7 @@ class BLUETOOTH_AUTHENTICATION_CALLBACK_PARAMS extends Win32Struct
     deviceInfo{
         get {
             if(!this.HasProp("__deviceInfo"))
-                this.__deviceInfo := BLUETOOTH_DEVICE_INFO(this.ptr + 0)
+                this.__deviceInfo := BLUETOOTH_DEVICE_INFO(0, this)
             return this.__deviceInfo
         }
     }

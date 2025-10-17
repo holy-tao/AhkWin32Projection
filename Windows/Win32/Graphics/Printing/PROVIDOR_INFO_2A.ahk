@@ -13,7 +13,7 @@ class PROVIDOR_INFO_2A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pOrder {
         get => NumGet(this, 0, "ptr")

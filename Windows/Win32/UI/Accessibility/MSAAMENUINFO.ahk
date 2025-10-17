@@ -49,7 +49,7 @@ class MSAAMENUINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * The text of the menu item, in Unicode, <b>including</b> the Unicode null-terminated character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszWText {
         get => NumGet(this, 8, "ptr")

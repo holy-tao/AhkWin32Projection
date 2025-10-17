@@ -117,7 +117,7 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 
     /**
      * Indicates whether to log the thread ID with each message.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogThreadID {
         get => NumGet(this, 8, "int")
@@ -126,7 +126,7 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 
     /**
      * Indicates whether to log source files and line numbers.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogFileline {
         get => NumGet(this, 12, "int")
@@ -135,7 +135,7 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 
     /**
      * Indicates whether to log function names.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogFunctionName {
         get => NumGet(this, 16, "int")
@@ -144,7 +144,7 @@ class XAUDIO2_DEBUG_CONFIGURATION extends Win32Struct
 
     /**
      * Indicates whether to log message timestamps.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogTiming {
         get => NumGet(this, 20, "int")

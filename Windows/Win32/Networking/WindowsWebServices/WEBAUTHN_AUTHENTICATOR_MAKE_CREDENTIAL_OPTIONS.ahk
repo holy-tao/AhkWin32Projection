@@ -35,7 +35,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIALS(this.ptr + 8)
+                this.__CredentialList := WEBAUTHN_CREDENTIALS(8, this)
             return this.__CredentialList
         }
     }
@@ -46,7 +46,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 24)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(24, this)
             return this.__Extensions
         }
     }
@@ -60,7 +60,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRequireResidentKey {
         get => NumGet(this, 44, "int")
@@ -124,7 +124,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPreferResidentKey {
         get => NumGet(this, 88, "int")
@@ -132,7 +132,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bBrowserInPrivateMode {
         get => NumGet(this, 92, "int")
@@ -140,7 +140,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEnablePrf {
         get => NumGet(this, 96, "int")

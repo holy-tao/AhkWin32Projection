@@ -24,7 +24,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_LOGDISKS extends Win32Struct
 
     /**
      * When <b>TRUE</b>, the result set includes all the offline disks in the available storage group.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IncludeOfflineDisks {
         get => NumGet(this, 8, "char")

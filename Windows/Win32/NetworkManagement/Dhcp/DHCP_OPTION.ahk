@@ -25,7 +25,7 @@ class DHCP_OPTION extends Win32Struct
 
     /**
      * Unicode string that contains the name of this option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     OptionName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class DHCP_OPTION extends Win32Struct
 
     /**
      * Unicode string that contains a comment about this option.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     OptionComment {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class DHCP_OPTION extends Win32Struct
     DefaultValue{
         get {
             if(!this.HasProp("__DefaultValue"))
-                this.__DefaultValue := DHCP_OPTION_DATA(this.ptr + 24)
+                this.__DefaultValue := DHCP_OPTION_DATA(24, this)
             return this.__DefaultValue
         }
     }

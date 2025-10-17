@@ -18,7 +18,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct
     DirectivesSupported{
         get {
             if(!this.HasProp("__DirectivesSupported"))
-                this.__DirectivesSupported := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(this.ptr + 0)
+                this.__DirectivesSupported := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(0, this)
             return this.__DirectivesSupported
         }
     }
@@ -29,7 +29,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct
     DirectivesEnabled{
         get {
             if(!this.HasProp("__DirectivesEnabled"))
-                this.__DirectivesEnabled := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(this.ptr + 32)
+                this.__DirectivesEnabled := NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR(32, this)
             return this.__DirectivesEnabled
         }
     }

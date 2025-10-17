@@ -22,7 +22,7 @@ class KERB_TICKET_CACHE_INFO extends Win32Struct
     ServerName{
         get {
             if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__ServerName := LSA_UNICODE_STRING(0, this)
             return this.__ServerName
         }
     }
@@ -34,7 +34,7 @@ class KERB_TICKET_CACHE_INFO extends Win32Struct
     RealmName{
         get {
             if(!this.HasProp("__RealmName"))
-                this.__RealmName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__RealmName := LSA_UNICODE_STRING(16, this)
             return this.__RealmName
         }
     }

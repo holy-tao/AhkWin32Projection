@@ -140,7 +140,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bTransferDataCB {
         get => NumGet(this, 88, "int")
@@ -148,7 +148,7 @@ class MINIDRV_TRANSFER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bClassDrvAllocBuf {
         get => NumGet(this, 92, "int")

@@ -180,7 +180,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
     ThisUpdateTime{
         get {
             if(!this.HasProp("__ThisUpdateTime"))
-                this.__ThisUpdateTime := FILETIME(this.ptr + 16)
+                this.__ThisUpdateTime := FILETIME(16, this)
             return this.__ThisUpdateTime
         }
     }
@@ -194,7 +194,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
     NextUpdateTime{
         get {
             if(!this.HasProp("__NextUpdateTime"))
-                this.__NextUpdateTime := FILETIME(this.ptr + 24)
+                this.__NextUpdateTime := FILETIME(24, this)
             return this.__NextUpdateTime
         }
     }
@@ -226,17 +226,13 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
     PublishTime{
         get {
             if(!this.HasProp("__PublishTime"))
-                this.__PublishTime := FILETIME(this.ptr + 32)
+                this.__PublishTime := FILETIME(32, this)
             return this.__PublishTime
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

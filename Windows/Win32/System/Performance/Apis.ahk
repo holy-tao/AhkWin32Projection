@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
@@ -973,7 +973,7 @@ class Performance {
     /**
      * Retrieves the current value of the performance counter, which is a high resolution (&lt;1us) time stamp that can be used for time-interval measurements.
      * @param {Pointer<Int64>} lpPerformanceCount A pointer to a variable that receives the current performance-counter value, in counts.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
      * @see https://docs.microsoft.com/windows/win32/api//profileapi/nf-profileapi-queryperformancecounter
@@ -992,7 +992,7 @@ class Performance {
     /**
      * Retrieves the frequency of the performance counter.
      * @param {Pointer<Int64>} lpFrequency A pointer to a variable that receives the current performance-counter frequency, in counts per second. If the installed hardware doesn't support a high-resolution performance counter, this parameter can be zero (this will not occur on systems that run Windows XP or later).
-     * @returns {Integer} If the installed hardware supports a high-resolution performance counter, the return value is nonzero.
+     * @returns {BOOL} If the installed hardware supports a high-resolution performance counter, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. On systems that run Windows XP or later, the function will always succeed and will thus never return zero.
      * @see https://docs.microsoft.com/windows/win32/api//profileapi/nf-profileapi-queryperformancefrequency
@@ -1010,15 +1010,15 @@ class Performance {
 
     /**
      * Installs performance counter strings, as defined in an input .ini file, into the system registry.
-     * @param {Pointer<Char>} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
-     * @param {Pointer<Char>} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
+     * @param {PWSTR} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
+     * @param {PWSTR} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
      * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-installperfdllw
      */
     static InstallPerfDllW(szComputerName, lpIniFile, dwFlags) {
-        szComputerName := szComputerName is String? StrPtr(szComputerName) : szComputerName
-        lpIniFile := lpIniFile is String? StrPtr(lpIniFile) : lpIniFile
+        szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
+        lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
         result := DllCall("loadperf.dll\InstallPerfDllW", "ptr", szComputerName, "ptr", lpIniFile, "ptr", dwFlags, "uint")
         return result
@@ -1026,15 +1026,15 @@ class Performance {
 
     /**
      * Installs performance counter strings, as defined in an input .ini file, into the system registry.
-     * @param {Pointer<Byte>} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
-     * @param {Pointer<Byte>} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
+     * @param {PSTR} szComputerName The name of the system. This should be <b>NULL</b> because this function cannot be used to install remotely.
+     * @param {PSTR} lpIniFile The name of the initialization file that contains definitions to  add to the registry.
      * @param {Pointer} dwFlags This parameter can be <b>LOADPERF_FLAGS_DISPLAY_USER_MSGS</b> (<c>(ULONG_PTR) 8</c>).
      * @returns {Integer} If the function is successful, it returns <b>TRUE</b> and posts additional information in  an application event log. Otherwise, it returns an error code that represents the condition that caused the failure.
      * @see https://docs.microsoft.com/windows/win32/api//loadperf/nf-loadperf-installperfdlla
      */
     static InstallPerfDllA(szComputerName, lpIniFile, dwFlags) {
-        szComputerName := szComputerName is String? StrPtr(szComputerName) : szComputerName
-        lpIniFile := lpIniFile is String? StrPtr(lpIniFile) : lpIniFile
+        szComputerName := szComputerName is String ? StrPtr(szComputerName) : szComputerName
+        lpIniFile := lpIniFile is String ? StrPtr(lpIniFile) : lpIniFile
 
         result := DllCall("loadperf.dll\InstallPerfDllA", "ptr", szComputerName, "ptr", lpIniFile, "ptr", dwFlags, "uint")
         return result
@@ -1042,10 +1042,10 @@ class Performance {
 
     /**
      * Loads onto the computer the performance objects and counters defined in the specified initialization file.
-     * @param {Pointer<Byte>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
+     * @param {PSTR} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
      * 
      * The function uses only the initialization file; the first argument is discarded. For example, to load an initialization file called "myfile.ini", the <i>commandLine</i> string could be "xx myfile.ini". The letters before the space (here "xx")  are discarded, and the second part, following the space, is interpreted as the initialization file specification.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Lodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {BOOL} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Lodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1055,7 +1055,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
         result := DllCall("loadperf.dll\LoadPerfCounterTextStringsA", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
@@ -1063,10 +1063,10 @@ class Performance {
 
     /**
      * Loads onto the computer the performance objects and counters defined in the specified initialization file.
-     * @param {Pointer<Char>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
+     * @param {PWSTR} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the initialization (.ini) file. The name can include the path to the initialization file. 
      * 
      * The function uses only the initialization file; the first argument is discarded. For example, to load an initialization file called "myfile.ini", the <i>commandLine</i> string could be "xx myfile.ini". The letters before the space (here "xx")  are discarded, and the second part, following the space, is interpreted as the initialization file specification.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Lodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {BOOL} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Lodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1076,7 +1076,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static LoadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
         result := DllCall("loadperf.dll\LoadPerfCounterTextStringsW", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
@@ -1084,8 +1084,8 @@ class Performance {
 
     /**
      * Unloads performance objects and counters from the computer for the specified application.
-     * @param {Pointer<Char>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {PWSTR} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
+     * @param {BOOL} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
@@ -1095,7 +1095,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsW(lpCommandLine, bQuietModeArg) {
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
         result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsW", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
@@ -1103,8 +1103,8 @@ class Performance {
 
     /**
      * Unloads performance objects and counters from the computer for the specified application.
-     * @param {Pointer<Byte>} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
-     * @param {Integer} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
+     * @param {PSTR} lpCommandLine Null-terminated string that consists of one or more arbitrary letters, a space, and then the name of the application. The name of the application must match the <b>drivername</b> key value found in the initialization (.ini) file used to <a href="https://docs.microsoft.com/windows/desktop/api/loadperf/nf-loadperf-loadperfcountertextstringsa">load the text strings</a>.
+     * @param {BOOL} bQuietModeArg Set to <b>TRUE</b> to prevent the function from displaying the output from the  <b>Unlodctr</b> tool; otherwise, <b>FALSE</b>. This parameter has meaning only if the application is run from a command prompt.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
@@ -1114,7 +1114,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static UnloadPerfCounterTextStringsA(lpCommandLine, bQuietModeArg) {
-        lpCommandLine := lpCommandLine is String? StrPtr(lpCommandLine) : lpCommandLine
+        lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
 
         result := DllCall("loadperf.dll\UnloadPerfCounterTextStringsA", "ptr", lpCommandLine, "int", bQuietModeArg, "uint")
         return result
@@ -1122,16 +1122,16 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Byte>} szNewCtrFilePath 
-     * @param {Pointer<Byte>} szNewHlpFilePath 
-     * @param {Pointer<Byte>} szLanguageID 
+     * @param {PSTR} szNewCtrFilePath 
+     * @param {PSTR} szNewHlpFilePath 
+     * @param {PSTR} szLanguageID 
      * @param {Pointer} dwModes 
      * @returns {Integer} 
      */
     static UpdatePerfNameFilesA(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwModes) {
-        szNewCtrFilePath := szNewCtrFilePath is String? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
-        szNewHlpFilePath := szNewHlpFilePath is String? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
-        szLanguageID := szLanguageID is String? StrPtr(szLanguageID) : szLanguageID
+        szNewCtrFilePath := szNewCtrFilePath is String ? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
+        szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
+        szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
         result := DllCall("loadperf.dll\UpdatePerfNameFilesA", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, "uint")
         return result
@@ -1139,16 +1139,16 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szNewCtrFilePath 
-     * @param {Pointer<Char>} szNewHlpFilePath 
-     * @param {Pointer<Char>} szLanguageID 
+     * @param {PWSTR} szNewCtrFilePath 
+     * @param {PWSTR} szNewHlpFilePath 
+     * @param {PWSTR} szLanguageID 
      * @param {Pointer} dwModes 
      * @returns {Integer} 
      */
     static UpdatePerfNameFilesW(szNewCtrFilePath, szNewHlpFilePath, szLanguageID, dwModes) {
-        szNewCtrFilePath := szNewCtrFilePath is String? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
-        szNewHlpFilePath := szNewHlpFilePath is String? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
-        szLanguageID := szLanguageID is String? StrPtr(szLanguageID) : szLanguageID
+        szNewCtrFilePath := szNewCtrFilePath is String ? StrPtr(szNewCtrFilePath) : szNewCtrFilePath
+        szNewHlpFilePath := szNewHlpFilePath is String ? StrPtr(szNewHlpFilePath) : szNewHlpFilePath
+        szLanguageID := szLanguageID is String ? StrPtr(szLanguageID) : szLanguageID
 
         result := DllCall("loadperf.dll\UpdatePerfNameFilesW", "ptr", szNewCtrFilePath, "ptr", szNewHlpFilePath, "ptr", szLanguageID, "ptr", dwModes, "uint")
         return result
@@ -1156,13 +1156,13 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Byte>} szReserved 
-     * @param {Pointer<Byte>} szServiceName 
+     * @param {PSTR} szReserved 
+     * @param {PSTR} szServiceName 
      * @returns {Integer} 
      */
     static SetServiceAsTrustedA(szReserved, szServiceName) {
-        szReserved := szReserved is String? StrPtr(szReserved) : szReserved
-        szServiceName := szServiceName is String? StrPtr(szServiceName) : szServiceName
+        szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
+        szServiceName := szServiceName is String ? StrPtr(szServiceName) : szServiceName
 
         result := DllCall("loadperf.dll\SetServiceAsTrustedA", "ptr", szReserved, "ptr", szServiceName, "uint")
         return result
@@ -1170,13 +1170,13 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szReserved 
-     * @param {Pointer<Char>} szServiceName 
+     * @param {PWSTR} szReserved 
+     * @param {PWSTR} szServiceName 
      * @returns {Integer} 
      */
     static SetServiceAsTrustedW(szReserved, szServiceName) {
-        szReserved := szReserved is String? StrPtr(szReserved) : szReserved
-        szServiceName := szServiceName is String? StrPtr(szServiceName) : szServiceName
+        szReserved := szReserved is String ? StrPtr(szReserved) : szReserved
+        szServiceName := szServiceName is String ? StrPtr(szServiceName) : szServiceName
 
         result := DllCall("loadperf.dll\SetServiceAsTrustedW", "ptr", szReserved, "ptr", szServiceName, "uint")
         return result
@@ -1184,13 +1184,13 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szFileName 
-     * @param {Pointer<Char>} szCommentString 
+     * @param {PWSTR} szFileName 
+     * @param {PWSTR} szCommentString 
      * @returns {Integer} 
      */
     static BackupPerfRegistryToFileW(szFileName, szCommentString) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
-        szCommentString := szCommentString is String? StrPtr(szCommentString) : szCommentString
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        szCommentString := szCommentString is String ? StrPtr(szCommentString) : szCommentString
 
         result := DllCall("loadperf.dll\BackupPerfRegistryToFileW", "ptr", szFileName, "ptr", szCommentString, "uint")
         return result
@@ -1198,13 +1198,13 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szFileName 
-     * @param {Pointer<Char>} szLangId 
+     * @param {PWSTR} szFileName 
+     * @param {PWSTR} szLangId 
      * @returns {Integer} 
      */
     static RestorePerfRegistryFromFileW(szFileName, szLangId) {
-        szFileName := szFileName is String? StrPtr(szFileName) : szFileName
-        szLangId := szLangId is String? StrPtr(szLangId) : szLangId
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
+        szLangId := szLangId is String ? StrPtr(szLangId) : szLangId
 
         result := DllCall("loadperf.dll\RestorePerfRegistryFromFileW", "ptr", szFileName, "ptr", szLangId, "uint")
         return result
@@ -1214,7 +1214,7 @@ class Performance {
      * Registers the provider.
      * @param {Pointer<Guid>} ProviderGuid GUID that uniquely identifies the provider. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element specifies the GUID.
      * @param {Pointer<PERFLIBREQUEST>} ControlCallback <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nc-perflib-perflibrequest">ControlCallback</a> function that PERFLIB calls to notify you of consumer requests, such as a request to add or remove counters from the query. This parameter is set if the <b>callback</b> attribute of the <b>counters</b> element is "custom"; otherwise, <b>NULL</b>.
-     * @param {Pointer<Void>} phProvider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
+     * @param {Pointer<HANDLE>} phProvider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1232,7 +1232,7 @@ class Performance {
      * Registers the provider.
      * @param {Pointer<Guid>} ProviderGuid GUID that uniquely identifies the provider. The <b>providerGuid</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element specifies the GUID.
      * @param {Pointer<PERF_PROVIDER_CONTEXT>} ProviderContext A <a href="https://docs.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_provider_context">PERF_PROVIDER_CONTEXT</a> structure that contains pointers to the control callback, memory management routines, and context information.
-     * @param {Pointer<Void>} Provider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
+     * @param {Pointer<HANDLE>} Provider Handle to the provider. You must call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstopprovider">PerfStopProvider</a> to release resources associated with the handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1248,7 +1248,7 @@ class Performance {
 
     /**
      * Removes the provider's registration from the list of registered providers and frees all resources associated with the provider.
-     * @param {Pointer<Void>} ProviderHandle Handle to the provider.
+     * @param {HANDLE} ProviderHandle Handle to the provider.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1258,13 +1258,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfStopProvider(ProviderHandle) {
+        ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
+
         result := DllCall("ADVAPI32.dll\PerfStopProvider", "ptr", ProviderHandle, "uint")
         return result
     }
 
     /**
      * Specifies the layout of a particular counter set.
-     * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer} Template Buffer that contains the counter set information. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_info">PERF_COUNTERSET_INFO</a>.
@@ -1278,19 +1280,21 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfSetCounterSetInfo(ProviderHandle, Template, TemplateSize) {
+        ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
+
         result := DllCall("ADVAPI32.dll\PerfSetCounterSetInfo", "ptr", ProviderHandle, "ptr", Template, "uint", TemplateSize, "uint")
         return result
     }
 
     /**
      * Creates an instance of the specified counter set.
-     * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<Guid>} CounterSetGuid GUID that uniquely identifies the counter set that you want to create an instance of. This is the same GUID specified in the <b>guid</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counterset--provider--element">counterSet</a> element. Use the GUID variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <b>counterSet</b> element.
      * 
      * <b>Windows Vista:  </b>The GUID variable is not available.
-     * @param {Pointer<Char>} Name <b>Null</b>-terminated Unicode string that contains a unique name for this instance.
+     * @param {PWSTR} Name <b>Null</b>-terminated Unicode string that contains a unique name for this instance.
      * @param {Integer} Id Unique identifier for this instance of the counter set. The identifier can be a serial number that you increment for each new instance.
      * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the instance of the counter set or <b>NULL</b> if PERFLIB could not create the instance. Cache this pointer to use in later calls instead of calling <a href="/windows/desktop/api/perflib/nf-perflib-perfqueryinstance">PerfQueryInstance</a> to retrieve the pointer to the instance.
      * 
@@ -1299,7 +1303,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfCreateInstance(ProviderHandle, CounterSetGuid, Name, Id) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
 
         A_LastError := 0
 
@@ -1312,7 +1317,7 @@ class Performance {
 
     /**
      * Deletes an instance of the counter set created by the PerfCreateInstance function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} InstanceBlock A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the instance of the counter set to delete.
@@ -1325,19 +1330,21 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfDeleteInstance(Provider, InstanceBlock) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfDeleteInstance", "ptr", Provider, "ptr", InstanceBlock, "uint")
         return result
     }
 
     /**
      * Retrieves a pointer to the specified counter set instance. Providers use this function.
-     * @param {Pointer<Void>} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} ProviderHandle The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<Guid>} CounterSetGuid GUID that uniquely identifies the counter set that you want to query. This is the same GUID specified in the <b>guid</b> attribute of the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-counters-counterset--provider--element">counterSet</a> element. Use the GUID variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <b>counterSet</b> element.
      * 
      * <b>Windows Vista:  </b>The GUID variable is not available.
-     * @param {Pointer<Char>} Name <b>Null</b>-terminated Unicode string that contains the name of counter set instance that you want to retrieve.
+     * @param {PWSTR} Name <b>Null</b>-terminated Unicode string that contains the name of counter set instance that you want to retrieve.
      * @param {Integer} Id Unique identifier of the counter set instance that you want to retrieve.
      * @returns {Pointer<PERF_COUNTERSET_INSTANCE>} A <a href="/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance or <b>NULL</b> if the instance does not exist.
      * 
@@ -1346,7 +1353,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
-        Name := Name is String? StrPtr(Name) : Name
+        Name := Name is String ? StrPtr(Name) : Name
+        ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
 
         A_LastError := 0
 
@@ -1359,7 +1367,7 @@ class Performance {
 
     /**
      * Updates the value of a counter whose value is a pointer to the actual data. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1380,13 +1388,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfSetCounterRefValue(Provider, Instance, CounterId, Address) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfSetCounterRefValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "ptr", Address, "uint")
         return result
     }
 
     /**
      * Updates the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1403,13 +1413,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfSetULongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfSetULongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Updates the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1426,13 +1438,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfSetULongLongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfSetULongLongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Increments the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1449,13 +1463,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfIncrementULongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfIncrementULongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Increments the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1472,13 +1488,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfIncrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfIncrementULongLongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Decrements the value of a counter whose value is a 4-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1495,13 +1513,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfDecrementULongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfDecrementULongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Decrements the value of a counter whose value is an 8-byte unsigned integer. Providers use this function.
-     * @param {Pointer<Void>} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
+     * @param {HANDLE} Provider The handle of the provider. Use the handle variable that the <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/ctrpp">CTRPP</a> tool generated for you. For the name of the variable, see the <b>symbol</b> attribute of the <a href="https://docs.microsoft.com/previous-versions/aa373164(v=vs.85)">provider</a> element.
      * 
      * <b>Windows Vista:  </b>The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfstartprovider">PerfStartProvider</a> function returns the handle.
      * @param {Pointer<PERF_COUNTERSET_INSTANCE>} Instance A <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ns-perflib-perf_counterset_instance">PERF_COUNTERSET_INSTANCE</a> structure that contains the counter set instance. The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfcreateinstance">PerfCreateInstance</a> function returns this pointer.
@@ -1518,13 +1538,15 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfDecrementULongLongCounterValue(Provider, Instance, CounterId, Value) {
+        Provider := Provider is Win32Handle ? NumGet(Provider, "ptr") : Provider
+
         result := DllCall("ADVAPI32.dll\PerfDecrementULongLongCounterValue", "ptr", Provider, "ptr", Instance, "uint", CounterId, "uint", Value, "uint")
         return result
     }
 
     /**
      * Gets the counter set identifiers of the counter sets that are registered on the specified system. Counter set identifiers are globally unique identifiers (GUIDs).
-     * @param {Pointer<Char>} szMachine The name of the machine for which to get the counter set identifiers. If NULL, the function retrieves the counter set identifiers for the local machine.
+     * @param {PWSTR} szMachine The name of the machine for which to get the counter set identifiers. If NULL, the function retrieves the counter set identifiers for the local machine.
      * @param {Pointer<Guid>} pCounterSetIds A pointer to a buffer that has enough space to receive the number of GUIDs that the <i>cCounterSetIds</i> parameter specifies. May be NULL if  
      * 
      * <i>cCounterSetIds</i> is 0.
@@ -1599,7 +1621,7 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSet(szMachine, pCounterSetIds, cCounterSetIds, pcCounterSetIdsActual) {
-        szMachine := szMachine is String? StrPtr(szMachine) : szMachine
+        szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
         result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSet", "ptr", szMachine, "ptr", pCounterSetIds, "uint", cCounterSetIds, "uint*", pcCounterSetIdsActual, "uint")
         return result
@@ -1607,7 +1629,7 @@ class Performance {
 
     /**
      * Gets the names and identifiers of the active instances of a counter set on the specified system.
-     * @param {Pointer<Char>} szMachine The name of the machine for which to get the information about the active instances of the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the active instances of the specified counter set for the local machine.
+     * @param {PWSTR} szMachine The name of the machine for which to get the information about the active instances of the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the active instances of the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get the information about of the active instances.
      * @param {Pointer} pInstances Pointer to a buffer that is large enough to receive the amount of data that the <i>cbInstances</i> parameter specifies. May be  
      * 
@@ -1683,7 +1705,7 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfEnumerateCounterSetInstances(szMachine, pCounterSetId, pInstances, cbInstances, pcbInstancesActual) {
-        szMachine := szMachine is String? StrPtr(szMachine) : szMachine
+        szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
         result := DllCall("ADVAPI32.dll\PerfEnumerateCounterSetInstances", "ptr", szMachine, "ptr", pCounterSetId, "ptr", pInstances, "uint", cbInstances, "uint*", pcbInstancesActual, "uint")
         return result
@@ -1691,7 +1713,7 @@ class Performance {
 
     /**
      * Gets information about a counter set on the specified system.
-     * @param {Pointer<Char>} szMachine The name of the machine for which to get the information about the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the specified counter set for the local machine.
+     * @param {PWSTR} szMachine The name of the machine for which to get the information about the counter set  that the <i>pCounterSet</i> parameter specifies. If NULL, the function retrieves information about the specified counter set for the local machine.
      * @param {Pointer<Guid>} pCounterSetId The counter set identifier of the counter set for which you want to get information.
      * @param {Integer} requestCode The type of information that you want to get about the counter set. See <a href="https://docs.microsoft.com/windows/desktop/api/perflib/ne-perflib-perfreginfotype">PerfRegInfoType</a> for a list of possible values.
      * @param {Integer} requestLangId The preferred locale identifier for the strings that contain the requested information if <i>requestCode</i> is <b>PERF_REG_COUNTERSET_NAME_STRING</b>,  
@@ -1777,7 +1799,7 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfQueryCounterSetRegistrationInfo(szMachine, pCounterSetId, requestCode, requestLangId, pbRegInfo, cbRegInfo, pcbRegInfoActual) {
-        szMachine := szMachine is String? StrPtr(szMachine) : szMachine
+        szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
         result := DllCall("ADVAPI32.dll\PerfQueryCounterSetRegistrationInfo", "ptr", szMachine, "ptr", pCounterSetId, "int", requestCode, "uint", requestLangId, "ptr", pbRegInfo, "uint", cbRegInfo, "uint*", pcbRegInfoActual, "uint")
         return result
@@ -1785,8 +1807,8 @@ class Performance {
 
     /**
      * Creates a handle that references a query on the specified system. A query is a list of counter specifications.
-     * @param {Pointer<Char>} szMachine The name of the machine for which you want to get the query handle.
-     * @param {Pointer<Void>} phQuery The handle to the query. Call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfclosequeryhandle">PerfCloseQueryHandle</a> to close ths handle when you no longer need it.
+     * @param {PWSTR} szMachine The name of the machine for which you want to get the query handle.
+     * @param {Pointer<HANDLE>} phQuery The handle to the query. Call <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfclosequeryhandle">PerfCloseQueryHandle</a> to close ths handle when you no longer need it.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1796,7 +1818,7 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfOpenQueryHandle(szMachine, phQuery) {
-        szMachine := szMachine is String? StrPtr(szMachine) : szMachine
+        szMachine := szMachine is String ? StrPtr(szMachine) : szMachine
 
         result := DllCall("ADVAPI32.dll\PerfOpenQueryHandle", "ptr", szMachine, "ptr", phQuery, "uint")
         return result
@@ -1804,7 +1826,7 @@ class Performance {
 
     /**
      * Closes a query handle that you opened by calling PerfOpenQueryHandle.
-     * @param {Pointer<Void>} hQuery A handle to the query that you want to close
+     * @param {HANDLE} hQuery A handle to the query that you want to close
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -1814,13 +1836,15 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfCloseQueryHandle(hQuery) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("ADVAPI32.dll\PerfCloseQueryHandle", "ptr", hQuery, "uint")
         return result
     }
 
     /**
      * Gets the counter specifications in the specified query.
-     * @param {Pointer<Void>} hQuery A handle to the query for which you want to get the counter specifications
+     * @param {HANDLE} hQuery A handle to the query for which you want to get the counter specifications
      * @param {Pointer} pCounters Pointer to a buffer that is large enough to hold the amount of data that the <i>cbCounters</i> parameter specifies, in bytes. May be
      * NULL if <i>cbCounters</i> is 0.
      * @param {Integer} cbCounters The size of the <i>pCounters</i> buffer, in bytes.
@@ -1894,13 +1918,15 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfQueryCounterInfo(hQuery, pCounters, cbCounters, pcbCountersActual) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("ADVAPI32.dll\PerfQueryCounterInfo", "ptr", hQuery, "ptr", pCounters, "uint", cbCounters, "uint*", pcbCountersActual, "uint")
         return result
     }
 
     /**
      * Gets the values of the performance counters that match the counter specifications in the specified query.
-     * @param {Pointer<Void>} hQuery A handle to a query for the counter specifications of the performance counters for which you want to get the values.
+     * @param {HANDLE} hQuery A handle to a query for the counter specifications of the performance counters for which you want to get the values.
      * @param {Pointer} pCounterBlock A pointer to a buffer that has enough space to receive the amount of  data that the <i>cbCounterBlock</i> parameter specifies, in bytes. May be NULL if  
      * 
      * <i>cbCounterBlock</i> is 0.
@@ -1975,13 +2001,15 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfQueryCounterData(hQuery, pCounterBlock, cbCounterBlock, pcbCounterBlockActual) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("ADVAPI32.dll\PerfQueryCounterData", "ptr", hQuery, "ptr", pCounterBlock, "uint", cbCounterBlock, "uint*", pcbCounterBlockActual, "uint")
         return result
     }
 
     /**
      * Adds performance counter specifications to the specified query.
-     * @param {Pointer<Void>} hQuery A handle to the query to which you want to add performance counter specifications.
+     * @param {HANDLE} hQuery A handle to the query to which you want to add performance counter specifications.
      * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to add.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -1993,13 +2021,15 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfAddCounters(hQuery, pCounters, cbCounters) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("ADVAPI32.dll\PerfAddCounters", "ptr", hQuery, "ptr", pCounters, "uint", cbCounters, "uint")
         return result
     }
 
     /**
      * Removes the specified performance counter specifications from the specified query.
-     * @param {Pointer<Void>} hQuery A handle to the query from which you want to remove performance counter specifications.
+     * @param {HANDLE} hQuery A handle to the query from which you want to remove performance counter specifications.
      * @param {Pointer} pCounters A pointer to the performance counter specifications that you want to remove.
      * @param {Integer} cbCounters The size of the buffer that the <i>pCounters</i> parameter specifies, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -2011,6 +2041,8 @@ class Performance {
      * @since windows10.0.14393
      */
     static PerfDeleteCounters(hQuery, pCounters, cbCounters) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("ADVAPI32.dll\PerfDeleteCounters", "ptr", hQuery, "ptr", pCounters, "uint", cbCounters, "uint")
         return result
     }
@@ -2034,10 +2066,10 @@ class Performance {
 
     /**
      * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
      * @param {Pointer} dwUserData User-defined value to associate with this query. To retrieve the user data later, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> and access the <b>dwQueryUserData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a>.
-     * @param {Pointer<Void>} phQuery Handle to the query. You use this handle in subsequent calls.
+     * @param {Pointer<PDH_HQUERY>} phQuery Handle to the query. You use this handle in subsequent calls.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -2048,7 +2080,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhOpenQueryW(szDataSource, dwUserData, phQuery) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhOpenQueryW", "ptr", szDataSource, "ptr", dwUserData, "ptr", phQuery, "uint")
         return result
@@ -2056,10 +2088,10 @@ class Performance {
 
     /**
      * Creates a new query that is used to manage the collection of performance data. To use handles to data sources, use the PdhOpenQueryH function.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file from which to retrieve performance data. If <b>NULL</b>, performance data is collected from a real-time data source.
      * @param {Pointer} dwUserData User-defined value to associate with this query. To retrieve the user data later, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> and access the <b>dwQueryUserData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a>.
-     * @param {Pointer<Void>} phQuery Handle to the query. You use this handle in subsequent calls.
+     * @param {Pointer<PDH_HQUERY>} phQuery Handle to the query. You use this handle in subsequent calls.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -2070,7 +2102,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhOpenQueryA(szDataSource, dwUserData, phQuery) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhOpenQueryA", "ptr", szDataSource, "ptr", dwUserData, "ptr", phQuery, "uint")
         return result
@@ -2078,12 +2110,12 @@ class Performance {
 
     /**
      * Adds the specified counter to the query.
-     * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
+     * @param {PDH_HQUERY} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
-     * @param {Pointer<Char>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
+     * @param {PWSTR} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/specifying-a-counter-path">Specifying a Counter Path</a>. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer} dwUserData User-defined value. This value becomes part of the counter information. To retrieve this value later, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> function and access the <b>dwUserData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure.
-     * @param {Pointer<Void>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
+     * @param {Pointer<PDH_HCOUNTER>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
      * @returns {Integer} Return ERROR_SUCCESS if the function succeeds.
      * 						
      * 
@@ -2200,7 +2232,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String? StrPtr(szFullCounterPath) : szFullCounterPath
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhAddCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2208,12 +2241,12 @@ class Performance {
 
     /**
      * Adds the specified counter to the query.
-     * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
+     * @param {PDH_HQUERY} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
-     * @param {Pointer<Byte>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
+     * @param {PSTR} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/specifying-a-counter-path">Specifying a Counter Path</a>. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer} dwUserData User-defined value. This value becomes part of the counter information. To retrieve this value later, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> function and access the <b>dwUserData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure.
-     * @param {Pointer<Void>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
+     * @param {Pointer<PDH_HCOUNTER>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
      * @returns {Integer} Return ERROR_SUCCESS if the function succeeds.
      * 						
      * 
@@ -2330,7 +2363,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String? StrPtr(szFullCounterPath) : szFullCounterPath
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhAddCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2338,12 +2372,12 @@ class Performance {
 
     /**
      * Adds the specified language-neutral counter to the query.
-     * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
+     * @param {PDH_HQUERY} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
-     * @param {Pointer<Char>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
+     * @param {PWSTR} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/specifying-a-counter-path">Specifying a Counter Path</a>. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer} dwUserData User-defined value. This value becomes part of the counter information. To retrieve this value later, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> function and access the <b>dwQueryUserData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure.
-     * @param {Pointer<Void>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
+     * @param {Pointer<PDH_HCOUNTER>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
      * @returns {Integer} Return ERROR_SUCCESS if the function succeeds.
      * 						
      * 
@@ -2460,7 +2494,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String? StrPtr(szFullCounterPath) : szFullCounterPath
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhAddEnglishCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2468,12 +2503,12 @@ class Performance {
 
     /**
      * Adds the specified language-neutral counter to the query.
-     * @param {Pointer<Void>} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
+     * @param {PDH_HQUERY} hQuery Handle to the query to which you want to add the counter. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
-     * @param {Pointer<Byte>} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
+     * @param {PSTR} szFullCounterPath Null-terminated string that contains the counter path. For details on the format of a counter path, see 
      * <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/specifying-a-counter-path">Specifying a Counter Path</a>. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer} dwUserData User-defined value. This value becomes part of the counter information. To retrieve this value later, call the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> function and access the <b>dwQueryUserData</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure.
-     * @param {Pointer<Void>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
+     * @param {Pointer<PDH_HCOUNTER>} phCounter Handle to the counter that was added to the query. You may need to reference this handle in subsequent calls.
      * @returns {Integer} Return ERROR_SUCCESS if the function succeeds.
      * 						
      * 
@@ -2590,7 +2625,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String? StrPtr(szFullCounterPath) : szFullCounterPath
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhAddEnglishCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2598,7 +2634,7 @@ class Performance {
 
     /**
      * Collects the current raw data value for all counters in the specified query and updates the status code of each counter.
-     * @param {Pointer<Void>} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
+     * @param {PDH_HQUERY} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Pointer<Int64>} pllTimeStamp Time stamp when the first counter value in the query was retrieved. The time is specified as FILETIME.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
      * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
@@ -2643,16 +2679,18 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhCollectQueryDataWithTime(hQuery, pllTimeStamp) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("pdh.dll\PdhCollectQueryDataWithTime", "ptr", hQuery, "int64*", pllTimeStamp, "uint")
         return result
     }
 
     /**
      * Validates that the specified counter is present on the computer or in the log file.
-     * @param {Pointer<Void>} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
+     * @param {PDH_HLOG} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
      * 
      * To validate that the counter is present on the local computer, specify <b>NULL</b> (this is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhvalidatepatha">PdhValidatePath</a>).
-     * @param {Pointer<Char>} szFullPathBuffer <b>Null</b>-terminated string that specifies the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} szFullPathBuffer <b>Null</b>-terminated string that specifies the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -2736,7 +2774,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhValidatePathExW(hDataSource, szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhValidatePathExW", "ptr", hDataSource, "ptr", szFullPathBuffer, "uint")
         return result
@@ -2744,10 +2783,10 @@ class Performance {
 
     /**
      * Validates that the specified counter is present on the computer or in the log file.
-     * @param {Pointer<Void>} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
+     * @param {PDH_HLOG} hDataSource Handle to the data source. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> and <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> functions return this handle. 
      * 
      * To validate that the counter is present on the local computer, specify <b>NULL</b> (this is the same as calling <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhvalidatepatha">PdhValidatePath</a>).
-     * @param {Pointer<Byte>} szFullPathBuffer <b>Null</b>-terminated string that specifies the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} szFullPathBuffer <b>Null</b>-terminated string that specifies the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -2831,7 +2870,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhValidatePathExA(hDataSource, szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhValidatePathExA", "ptr", hDataSource, "ptr", szFullPathBuffer, "uint")
         return result
@@ -2839,7 +2879,7 @@ class Performance {
 
     /**
      * Removes a counter from a query.
-     * @param {Pointer<Void>} hCounter Handle of the counter to remove from its query. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter to remove from its query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -2880,7 +2920,7 @@ class Performance {
 
     /**
      * Collects the current raw data value for all counters in the specified query and updates the status code of each counter.
-     * @param {Pointer<Void>} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
+     * @param {PDH_HQUERY} hQuery Handle of the query for which you want to collect data. The <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
      * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
      * <a href="/windows/desktop/PerfCtrs/pdh-error-codes">PDH error code</a>.
@@ -2924,13 +2964,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhCollectQueryData(hQuery) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("pdh.dll\PdhCollectQueryData", "ptr", hQuery, "uint")
         return result
     }
 
     /**
      * Closes all counters contained in the specified query, closes all handles related to the query, and frees all memory associated with the query.
-     * @param {Pointer<Void>} hQuery Handle to the query to close. This handle is returned by the 
+     * @param {PDH_HQUERY} hQuery Handle to the query to close. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS. Otherwise, the function returns a 
      * <a href="/windows/desktop/Debug/system-error-codes">system error code</a> or a 
@@ -2964,13 +3006,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhCloseQuery(hQuery) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("pdh.dll\PdhCloseQuery", "ptr", hQuery, "uint")
         return result
     }
 
     /**
      * Computes a displayable value for the specified counter.
-     * @param {Pointer<Void>} hCounter Handle of the counter for which you want to compute a displayable value. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter for which you want to compute a displayable value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
      * @param {Pointer<UInt32>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
@@ -3032,7 +3076,7 @@ class Performance {
 
     /**
      * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name.
-     * @param {Pointer<Void>} hCounter Handle to the counter whose current value you want to format. The 
+     * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -3095,7 +3139,7 @@ class Performance {
 
     /**
      * Returns an array of formatted counter values. Use this function when you want to format the counter values of a counter that contains a wildcard character for the instance name.
-     * @param {Pointer<Void>} hCounter Handle to the counter whose current value you want to format. The 
+     * @param {PDH_HCOUNTER} hCounter Handle to the counter whose current value you want to format. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -3158,7 +3202,7 @@ class Performance {
 
     /**
      * Returns the current raw value of the counter.
-     * @param {Pointer<Void>} hCounter Handle of the counter from which to retrieve the current raw value. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter from which to retrieve the current raw value. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwType Receives the counter type. For a list of counter types, see the Counter Types section of the <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2003/cc776490(v=ws.10)">Windows Server 2003 Deployment Kit</a>. This parameter is optional.
      * @param {Pointer<PDH_RAW_COUNTER>} pValue A 
@@ -3208,7 +3252,7 @@ class Performance {
 
     /**
      * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
-     * @param {Pointer<Void>} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<UInt32>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
@@ -3270,7 +3314,7 @@ class Performance {
 
     /**
      * Returns an array of raw values from the specified counter. Use this function when you want to retrieve the raw counter values of a counter that contains a wildcard character for the instance name.
-     * @param {Pointer<Void>} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter for whose current raw instance values you want to retrieve. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<UInt32>} lpdwBufferSize Size of the <i>ItemBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<UInt32>} lpdwItemCount Number of raw counter values in the <i>ItemBuffer</i> buffer.
@@ -3332,7 +3376,7 @@ class Performance {
 
     /**
      * Calculates the displayable value of two raw counter values.
-     * @param {Pointer<Void>} hCounter Handle to the counter to calculate. The function uses information from the counter to determine how to calculate the value. This handle is returned by the 
+     * @param {PDH_HCOUNTER} hCounter Handle to the counter to calculate. The function uses information from the counter to determine how to calculate the value. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function.
      * @param {Integer} dwFormat 
      * @param {Pointer<PDH_RAW_COUNTER>} rawValue1 Raw counter value used to compute the displayable counter value. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_counter">PDH_RAW_COUNTER</a> structure.
@@ -3384,7 +3428,7 @@ class Performance {
 
     /**
      * Computes statistics for a counter from an array of raw values.
-     * @param {Pointer<Void>} hCounter Handle of the counter for which you want to compute statistics. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter for which you want to compute statistics. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} dwFormat 
      * @param {Integer} dwFirstEntry Zero-based index of the first raw counter value to use to begin the calculations. The index value must point to the oldest entry in the buffer. The 
@@ -3439,9 +3483,9 @@ class Performance {
 
     /**
      * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values.
-     * @param {Pointer<Void>} hCounter Handle of the counter from which you want to retrieve information. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
+     * @param {BOOLEAN} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<PDH_COUNTER_INFO_W>} lpBuffer Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure. The structure is variable-length, because the string data is appended to the end of the fixed-format portion of the structure. This is done so that all data is returned in a single buffer allocated by the caller. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
@@ -3501,9 +3545,9 @@ class Performance {
 
     /**
      * Retrieves information about a counter, such as data size, counter type, path, and user-supplied data values.
-     * @param {Pointer<Void>} hCounter Handle of the counter from which you want to retrieve information. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter from which you want to retrieve information. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
-     * @param {Integer} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
+     * @param {BOOLEAN} bRetrieveExplainText Determines whether explain text is retrieved. If you set this parameter to <b>TRUE</b>, the explain text for the counter is retrieved. If you set this parameter to <b>FALSE</b>, the field in the returned buffer is <b>NULL</b>.
      * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>lpBuffer</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<PDH_COUNTER_INFO_A>} lpBuffer Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a> structure. The structure is variable-length, because the string data is appended to the end of the fixed-format portion of the structure. This is done so that all data is returned in a single buffer allocated by the caller. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
@@ -3563,7 +3607,7 @@ class Performance {
 
     /**
      * Sets the scale factor that is applied to the calculated value of the specified counter when you request the formatted counter value. If the PDH_FMT_NOSCALE flag is set, then this scale factor is ignored.
-     * @param {Pointer<Void>} hCounter Handle of the counter to apply the scale factor to. The 
+     * @param {PDH_HCOUNTER} hCounter Handle of the counter to apply the scale factor to. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Integer} lFactor Power of ten by which to multiply the calculated value before returning it. The minimum value of this parameter is PDH_MIN_SCALE (–7), where the returned value is the actual value multiplied by 10<sup>–</sup>⁷. The maximum value of this parameter is PDH_MAX_SCALE (+7), where the returned value is the actual value multiplied by 10⁺⁷. A value of zero will set the scale to one, so that the actual value is returned.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -3611,7 +3655,7 @@ class Performance {
 
     /**
      * Connects to the specified computer.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3651,7 +3695,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhConnectMachineW(szMachineName) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
 
         result := DllCall("pdh.dll\PdhConnectMachineW", "ptr", szMachineName, "uint")
         return result
@@ -3659,7 +3703,7 @@ class Performance {
 
     /**
      * Connects to the specified computer.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer to connect to. If <b>NULL</b>, PDH connects to the local computer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3699,7 +3743,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhConnectMachineA(szMachineName) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
 
         result := DllCall("pdh.dll\PdhConnectMachineA", "ptr", szMachineName, "uint")
         return result
@@ -3707,8 +3751,8 @@ class Performance {
 
     /**
      * Returns a list of the computer names associated with counters in a log file.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
-     * @param {Pointer<Char>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
+     * @param {PWSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -3749,8 +3793,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesW(szDataSource, mszMachineList, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        mszMachineList := mszMachineList is String? StrPtr(mszMachineList) : mszMachineList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
         result := DllCall("pdh.dll\PdhEnumMachinesW", "ptr", szDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -3758,8 +3802,8 @@ class Performance {
 
     /**
      * Returns a list of the computer names associated with counters in a log file.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
-     * @param {Pointer<Byte>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the name of a log file. The function enumerates the names of the computers whose counter data is in the log file. If <b>NULL</b>, the function enumerates the list of computers that were specified when adding counters to a real time query or when calling the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhconnectmachinea">PdhConnectMachine</a> function.
+     * @param {PSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -3800,8 +3844,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesA(szDataSource, mszMachineList, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        mszMachineList := mszMachineList is String? StrPtr(mszMachineList) : mszMachineList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
         result := DllCall("pdh.dll\PdhEnumMachinesA", "ptr", szDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -3809,22 +3853,22 @@ class Performance {
 
     /**
      * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
      * the <i>szMachineName</i> parameter to enumerate the names.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Char>} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
+     * @param {PWSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
-     * @param {Integer} bRefresh 
+     * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3886,9 +3930,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsW(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        mszObjectList := mszObjectList is String? StrPtr(mszObjectList) : mszObjectList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
         result := DllCall("pdh.dll\PdhEnumObjectsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -3896,22 +3940,22 @@ class Performance {
 
     /**
      * Returns a list of objects available on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectsH function.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the performance objects. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
      * the <i>szMachineName</i> parameter to enumerate the names.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Byte>} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
+     * @param {PSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
-     * @param {Integer} bRefresh 
+     * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -3973,9 +4017,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsA(szDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        mszObjectList := mszObjectList is String? StrPtr(mszObjectList) : mszObjectList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
 
         result := DllCall("pdh.dll\PdhEnumObjectsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -3983,20 +4027,20 @@ class Performance {
 
     /**
      * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
      * the <i>szMachineName</i> parameter to enumerate the names.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Char>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Char>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
+     * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
+     * @param {PWSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Char>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
+     * @param {PWSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
@@ -4074,11 +4118,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsW(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        mszCounterList := mszCounterList is String? StrPtr(mszCounterList) : mszCounterList
-        mszInstanceList := mszInstanceList is String? StrPtr(mszInstanceList) : mszInstanceList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
+        mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -4086,20 +4130,20 @@ class Performance {
 
     /**
      * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. To use handles to data sources, use the PdhEnumObjectItemsH function.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the name of the log file used to enumerate the counter and instance names. If <b>NULL</b>, the function uses the computer specified in  
      * 
      * 
      * the <i>szMachineName</i> parameter to enumerate the names.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Byte>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Byte>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
+     * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
+     * @param {PSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i>parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Byte>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
+     * @param {PSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchInstanceListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
@@ -4177,11 +4221,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsA(szDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        mszCounterList := mszCounterList is String? StrPtr(mszCounterList) : mszCounterList
-        mszInstanceList := mszInstanceList is String? StrPtr(mszInstanceList) : mszInstanceList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
+        mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -4195,7 +4239,7 @@ class Performance {
      * 
      * 
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
-     * @param {Pointer<Char>} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PWSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -4237,7 +4281,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathW(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhMakeCounterPathW", "ptr", pCounterPathElements, "ptr", szFullPathBuffer, "uint*", pcchBufferSize, "uint", dwFlags, "uint")
         return result
@@ -4251,7 +4295,7 @@ class Performance {
      * 
      * 
      * If the instance name member is <b>NULL</b>, the path will not contain an instance reference and the <b>szParentInstance</b> and <b>dwInstanceIndex</b> members will be ignored.
-     * @param {Pointer<Byte>} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PSTR} szFullPathBuffer Caller-allocated buffer that receives a <b>null</b>-terminated counter path. The maximum length of a counter path is PDH_MAX_COUNTER_PATH. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szFullPathBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -4293,7 +4337,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhMakeCounterPathA(pCounterPathElements, szFullPathBuffer, pcchBufferSize, dwFlags) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhMakeCounterPathA", "ptr", pCounterPathElements, "ptr", szFullPathBuffer, "uint*", pcchBufferSize, "uint", dwFlags, "uint")
         return result
@@ -4301,7 +4345,7 @@ class Performance {
 
     /**
      * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure.
-     * @param {Pointer<Char>} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_W>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4367,7 +4411,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhParseCounterPathW(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhParseCounterPathW", "ptr", szFullPathBuffer, "ptr", pCounterPathElements, "uint*", pdwBufferSize, "uint", dwFlags, "uint")
         return result
@@ -4375,7 +4419,7 @@ class Performance {
 
     /**
      * Parses the elements of the counter path and stores the results in the PDH_COUNTER_PATH_ELEMENTS structure.
-     * @param {Pointer<Byte>} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} szFullPathBuffer <b>Null</b>-terminated string that contains the counter path to parse. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @param {Pointer<PDH_COUNTER_PATH_ELEMENTS_A>} pCounterPathElements Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_path_elements_a">PDH_COUNTER_PATH_ELEMENTS</a> structure. The structure contains pointers to the individual string elements of the path referenced by the <i>szFullPathBuffer</i> parameter. The function appends the strings to the end of the <b>PDH_COUNTER_PATH_ELEMENTS</b> structure. The allocated buffer should be large enough for the structure and the strings. Set to <b>NULL</b> if <i>pdwBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pdwBufferSize Size of the <i>pCounterPathElements</i> buffer, in bytes. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4441,7 +4485,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhParseCounterPathA(szFullPathBuffer, pCounterPathElements, pdwBufferSize, dwFlags) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhParseCounterPathA", "ptr", szFullPathBuffer, "ptr", pCounterPathElements, "uint*", pdwBufferSize, "uint", dwFlags, "uint")
         return result
@@ -4449,7 +4493,7 @@ class Performance {
 
     /**
      * Parses the elements of an instance string.
-     * @param {Pointer<Char>} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
+     * @param {PWSTR} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
      * 
      * 
      * 
@@ -4460,9 +4504,9 @@ class Performance {
      * <li>parent/instance</li>
      * <li>parent/instance#index</li>
      * </ul>
-     * @param {Pointer<Char>} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
+     * @param {PWSTR} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Char>} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
+     * @param {PWSTR} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
      * @param {Pointer<UInt32>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<UInt32>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -4515,9 +4559,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameW(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
-        szInstanceString := szInstanceString is String? StrPtr(szInstanceString) : szInstanceString
-        szInstanceName := szInstanceName is String? StrPtr(szInstanceName) : szInstanceName
-        szParentName := szParentName is String? StrPtr(szParentName) : szParentName
+        szInstanceString := szInstanceString is String ? StrPtr(szInstanceString) : szInstanceString
+        szInstanceName := szInstanceName is String ? StrPtr(szInstanceName) : szInstanceName
+        szParentName := szParentName is String ? StrPtr(szParentName) : szParentName
 
         result := DllCall("pdh.dll\PdhParseInstanceNameW", "ptr", szInstanceString, "ptr", szInstanceName, "uint*", pcchInstanceNameLength, "ptr", szParentName, "uint*", pcchParentNameLength, "uint*", lpIndex, "uint")
         return result
@@ -4525,7 +4569,7 @@ class Performance {
 
     /**
      * Parses the elements of an instance string.
-     * @param {Pointer<Byte>} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
+     * @param {PSTR} szInstanceString <b>Null</b>-terminated string that specifies the instance string to parse into individual components. This string can contain the following formats, and is less than MAX_PATH characters in length: 
      * 
      * 
      * 
@@ -4536,9 +4580,9 @@ class Performance {
      * <li>parent/instance</li>
      * <li>parent/instance#index</li>
      * </ul>
-     * @param {Pointer<Byte>} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
+     * @param {PSTR} szInstanceName Caller-allocated buffer that receives the <b>null</b>-terminated instance name. Set to <b>NULL</b> if <i>pcchInstanceNameLength</i> is zero.
      * @param {Pointer<UInt32>} pcchInstanceNameLength Size of the <i>szInstanceName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Byte>} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
+     * @param {PSTR} szParentName Caller-allocated buffer that receives the <b>null</b>-terminated name of the parent instance, if one is specified. Set to <b>NULL</b> if <i>pcchParentNameLength</i> is zero.
      * @param {Pointer<UInt32>} pcchParentNameLength Size of the <i>szParentName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @param {Pointer<UInt32>} lpIndex Index value of the instance. If an index entry is not present in the string, then this value is zero. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -4591,9 +4635,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhParseInstanceNameA(szInstanceString, szInstanceName, pcchInstanceNameLength, szParentName, pcchParentNameLength, lpIndex) {
-        szInstanceString := szInstanceString is String? StrPtr(szInstanceString) : szInstanceString
-        szInstanceName := szInstanceName is String? StrPtr(szInstanceName) : szInstanceName
-        szParentName := szParentName is String? StrPtr(szParentName) : szParentName
+        szInstanceString := szInstanceString is String ? StrPtr(szInstanceString) : szInstanceString
+        szInstanceName := szInstanceName is String ? StrPtr(szInstanceName) : szInstanceName
+        szParentName := szParentName is String ? StrPtr(szParentName) : szParentName
 
         result := DllCall("pdh.dll\PdhParseInstanceNameA", "ptr", szInstanceString, "ptr", szInstanceName, "uint*", pcchInstanceNameLength, "ptr", szParentName, "uint*", pcchParentNameLength, "uint*", lpIndex, "uint")
         return result
@@ -4601,7 +4645,7 @@ class Performance {
 
     /**
      * Validates that the counter is present on the computer specified in the counter path.
-     * @param {Pointer<Char>} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4685,7 +4729,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhValidatePathW(szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhValidatePathW", "ptr", szFullPathBuffer, "uint")
         return result
@@ -4693,7 +4737,7 @@ class Performance {
 
     /**
      * Validates that the counter is present on the computer specified in the counter path.
-     * @param {Pointer<Byte>} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} szFullPathBuffer Null-terminated string that contains the counter path to validate. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -4777,7 +4821,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhValidatePathA(szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String? StrPtr(szFullPathBuffer) : szFullPathBuffer
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhValidatePathA", "ptr", szFullPathBuffer, "uint")
         return result
@@ -4785,11 +4829,11 @@ class Performance {
 
     /**
      * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function.
-     * @param {Pointer<Char>} szDataSource Should be <b>NULL</b>. 
+     * @param {PWSTR} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, the <i>szDefaultObjectName</i> parameter will be a <b>null</b> string.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Char>} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PWSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4854,9 +4898,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectW(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szDefaultObjectName := szDefaultObjectName is String? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -4864,11 +4908,11 @@ class Performance {
 
     /**
      * Retrieves the name of the default object. This name can be used to set the initial object selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfObjectH function.
-     * @param {Pointer<Byte>} szDataSource Should be <b>NULL</b>. 
+     * @param {PSTR} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, the <i>szDefaultObjectName</i> parameter will be a <b>null</b> string.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Byte>} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to <b>NULL</b> if the <i>pcchBufferSize</i> parameter is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -4933,9 +4977,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectA(szDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szDefaultObjectName := szDefaultObjectName is String? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -4943,13 +4987,13 @@ class Performance {
 
     /**
      * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function.
-     * @param {Pointer<Char>} szDataSource Should be <b>NULL</b>. 
+     * @param {PWSTR} szDataSource Should be <b>NULL</b>. 
      * 
      * 
      * If you specify a log file, <i>szDefaultCounterName</i> will be a <b>null</b> string.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
-     * @param {Pointer<Char>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
-     * @param {Pointer<Char>} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
+     * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
+     * @param {PWSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5045,10 +5089,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterW(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szDefaultCounterName := szDefaultCounterName is String? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterW", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result
@@ -5056,12 +5100,12 @@ class Performance {
 
     /**
      * Retrieves the name of the default counter for the specified object. This name can be used to set the initial counter selection in the Browse Counter dialog box. To use handles to data sources, use the PdhGetDefaultPerfCounterH function.
-     * @param {Pointer<Byte>} szDataSource Should be <b>NULL</b>. 
+     * @param {PSTR} szDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file, <i>szDefaultCounterName</i> will be a <b>null</b> string.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
-     * @param {Pointer<Byte>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
-     * @param {Pointer<Byte>} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the object name.
+     * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
+     * @param {PSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5157,10 +5201,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterA(szDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szDefaultCounterName := szDefaultCounterName is String? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterA", "ptr", szDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result
@@ -5204,8 +5248,8 @@ class Performance {
 
     /**
      * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
-     * @param {Pointer<Char>} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
-     * @param {Pointer<Char>} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PWSTR} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -5260,8 +5304,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathW(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
         result := DllCall("pdh.dll\PdhExpandCounterPathW", "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint")
         return result
@@ -5269,8 +5313,8 @@ class Performance {
 
     /**
      * Examines the specified computer (or local computer if none is specified) for counters and instances of counters that match the wildcard strings in the counter path.
-     * @param {Pointer<Byte>} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
-     * @param {Pointer<Byte>} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PSTR} szWildCardPath <b>Null</b>-terminated string that contains the counter path to expand. The function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives the list of expanded counter paths that match the wildcard specification in <i>szWildCardPath</i>. Each counter path in this list is terminated by a <b>null</b> character. The list is terminated with two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -5325,8 +5369,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandCounterPathA(szWildCardPath, mszExpandedPathList, pcchPathListLength) {
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
         result := DllCall("pdh.dll\PdhExpandCounterPathA", "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint")
         return result
@@ -5334,9 +5378,9 @@ class Performance {
 
     /**
      * Returns the performance object name or counter name corresponding to the specified index.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
-     * @param {Pointer<Char>} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
+     * @param {PWSTR} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5377,8 +5421,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexW(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szNameBuffer := szNameBuffer is String? StrPtr(szNameBuffer) : szNameBuffer
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
         result := DllCall("pdh.dll\PdhLookupPerfNameByIndexW", "ptr", szMachineName, "uint", dwNameIndex, "ptr", szNameBuffer, "uint*", pcchNameBufferSize, "uint")
         return result
@@ -5386,9 +5430,9 @@ class Performance {
 
     /**
      * Returns the performance object name or counter name corresponding to the specified index.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified performance object or counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
      * @param {Integer} dwNameIndex Index of the performance object or counter.
-     * @param {Pointer<Byte>} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
+     * @param {PSTR} szNameBuffer Caller-allocated buffer that receives the <b>null</b>-terminated name of the performance object or counter. Set to <b>NULL</b> if <i>pcchNameBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchNameBufferSize Size of the <i>szNameBuffer</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5429,8 +5473,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhLookupPerfNameByIndexA(szMachineName, dwNameIndex, szNameBuffer, pcchNameBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szNameBuffer := szNameBuffer is String? StrPtr(szNameBuffer) : szNameBuffer
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
         result := DllCall("pdh.dll\PdhLookupPerfNameByIndexA", "ptr", szMachineName, "uint", dwNameIndex, "ptr", szNameBuffer, "uint*", pcchNameBufferSize, "uint")
         return result
@@ -5438,8 +5482,8 @@ class Performance {
 
     /**
      * Returns the counter index corresponding to the specified counter name.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
-     * @param {Pointer<Char>} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
+     * @param {PWSTR} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
      * @param {Pointer<UInt32>} pdwIndex Index of the counter.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5469,8 +5513,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameW(szMachineName, szNameBuffer, pdwIndex) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szNameBuffer := szNameBuffer is String? StrPtr(szNameBuffer) : szNameBuffer
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
         result := DllCall("pdh.dll\PdhLookupPerfIndexByNameW", "ptr", szMachineName, "ptr", szNameBuffer, "uint*", pdwIndex, "uint")
         return result
@@ -5478,8 +5522,8 @@ class Performance {
 
     /**
      * Returns the counter index corresponding to the specified counter name.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
-     * @param {Pointer<Byte>} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer where the specified counter is located. The computer name can be specified by the DNS name or the IP address. If <b>NULL</b>, the function uses the local computer.
+     * @param {PSTR} szNameBuffer <b>Null</b>-terminated string that contains the counter name.
      * @param {Pointer<UInt32>} pdwIndex Index of the counter.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5509,8 +5553,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhLookupPerfIndexByNameA(szMachineName, szNameBuffer, pdwIndex) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szNameBuffer := szNameBuffer is String? StrPtr(szNameBuffer) : szNameBuffer
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szNameBuffer := szNameBuffer is String ? StrPtr(szNameBuffer) : szNameBuffer
 
         result := DllCall("pdh.dll\PdhLookupPerfIndexByNameA", "ptr", szMachineName, "ptr", szNameBuffer, "uint*", pdwIndex, "uint")
         return result
@@ -5518,13 +5562,13 @@ class Performance {
 
     /**
      * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
      * 
      * If <b>NULL</b>, the function searches the computer specified in <i>szWildCardPath</i>.
-     * @param {Pointer<Byte>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
-     * @param {Pointer<Byte>} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -5631,9 +5675,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathA(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathA", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -5641,13 +5685,13 @@ class Performance {
 
     /**
      * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters. To use handles to data sources, use the PdhExpandWildCardPathH function.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that contains the name of a log file. The function uses the performance objects and counters defined in the log file to expand the path specified in the <i>szWildCardPath</i> parameter. 
      * 
      * If <b>NULL</b>, the function searches the computer specified in <i>szWildCardPath</i>.
-     * @param {Pointer<Char>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
-     * @param {Pointer<Char>} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -5754,9 +5798,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathW(szDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathW", "ptr", szDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -5764,7 +5808,7 @@ class Performance {
 
     /**
      * Opens the specified log file for reading or writing.
-     * @param {Pointer<Char>} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
+     * @param {PWSTR} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
      * 
      * 
      * 
@@ -5772,7 +5816,7 @@ class Performance {
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
      * @param {Integer} dwAccessFlags 
      * @param {Pointer<UInt32>} lpdwLogType 
-     * @param {Pointer<Void>} hQuery Specify a query handle if you are writing query data to a log file. The 
+     * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
      * 
@@ -5782,8 +5826,8 @@ class Performance {
      * @param {Integer} dwMaxSize Maximum size of the log file, in bytes. Specify the maximum size if you want to limit the file size or if <i>dwAccessFlags</i> specifies <b>PDH_LOG_OPT_CIRCULAR</b>; otherwise, set to 0.
      * 
      * For circular log files, you must specify a value large enough to hold at least one sample.   Sample size depends on data being collected. However, specifying a value of at least one megabyte will cover most samples.
-     * @param {Pointer<Char>} szUserCaption <b>Null</b>-terminated string that specifies the user-defined caption of the log file. A log file caption generally describes the contents of the log file. When an existing log file is opened, the value of this parameter is ignored.
-     * @param {Pointer<Void>} phLog Handle to the opened log file.
+     * @param {PWSTR} szUserCaption <b>Null</b>-terminated string that specifies the user-defined caption of the log file. A log file caption generally describes the contents of the log file. When an existing log file is opened, the value of this parameter is ignored.
+     * @param {Pointer<PDH_HLOG>} phLog Handle to the opened log file.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5794,8 +5838,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
-        szLogFileName := szLogFileName is String? StrPtr(szLogFileName) : szLogFileName
-        szUserCaption := szUserCaption is String? StrPtr(szUserCaption) : szUserCaption
+        szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
+        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, "uint", dwAccessFlags, "uint*", lpdwLogType, "ptr", hQuery, "uint", dwMaxSize, "ptr", szUserCaption, "ptr", phLog, "uint")
         return result
@@ -5803,7 +5848,7 @@ class Performance {
 
     /**
      * Opens the specified log file for reading or writing.
-     * @param {Pointer<Byte>} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
+     * @param {PSTR} szLogFileName <b>Null</b>-terminated string that specifies the name of the log file to open. The name can contain an absolute or relative path. 
      * 
      * 
      * 
@@ -5811,7 +5856,7 @@ class Performance {
      * If the <i>lpdwLogType</i> parameter is <b>PDH_LOG_TYPE_SQL</b>, specify the name of the log file in the form, <b>SQL:</b><i>DataSourceName</i><b>!</b><i>LogFileName</i>.
      * @param {Integer} dwAccessFlags 
      * @param {Pointer<UInt32>} lpdwLogType 
-     * @param {Pointer<Void>} hQuery Specify a query handle if you are writing query data to a log file. The 
+     * @param {PDH_HQUERY} hQuery Specify a query handle if you are writing query data to a log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle. 
      * 
      * 
@@ -5821,8 +5866,8 @@ class Performance {
      * @param {Integer} dwMaxSize Maximum size of the log file, in bytes. Specify the maximum size if you want to limit the file size or if <i>dwAccessFlags</i> specifies <b>PDH_LOG_OPT_CIRCULAR</b>; otherwise, set to 0.
      * 
      * For circular log files, you must specify a value large enough to hold at least one sample.   Sample size depends on data being collected. However, specifying a value of at least one megabyte will cover most samples.
-     * @param {Pointer<Byte>} szUserCaption <b>Null</b>-terminated string that specifies the user-defined caption of the log file. A log file caption generally describes the contents of the log file. When an existing log file is opened, the value of this parameter is ignored.
-     * @param {Pointer<Void>} phLog Handle to the opened log file.
+     * @param {PSTR} szUserCaption <b>Null</b>-terminated string that specifies the user-defined caption of the log file. A log file caption generally describes the contents of the log file. When an existing log file is opened, the value of this parameter is ignored.
+     * @param {Pointer<PDH_HLOG>} phLog Handle to the opened log file.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5833,8 +5878,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
-        szLogFileName := szLogFileName is String? StrPtr(szLogFileName) : szLogFileName
-        szUserCaption := szUserCaption is String? StrPtr(szUserCaption) : szUserCaption
+        szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
+        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
 
         result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, "uint", dwAccessFlags, "uint*", lpdwLogType, "ptr", hQuery, "uint", dwMaxSize, "ptr", szUserCaption, "ptr", phLog, "uint")
         return result
@@ -5842,9 +5888,9 @@ class Performance {
 
     /**
      * Collects counter data for the current query and writes the data to the log file.
-     * @param {Pointer<Void>} hLog Handle of a single log file to update. The 
+     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
-     * @param {Pointer<Char>} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
+     * @param {PWSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5884,7 +5930,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhUpdateLogW(hLog, szUserString) {
-        szUserString := szUserString is String? StrPtr(szUserString) : szUserString
+        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", hLog, "ptr", szUserString, "uint")
         return result
@@ -5892,9 +5939,9 @@ class Performance {
 
     /**
      * Collects counter data for the current query and writes the data to the log file.
-     * @param {Pointer<Void>} hLog Handle of a single log file to update. The 
+     * @param {PDH_HLOG} hLog Handle of a single log file to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function returns this handle.
-     * @param {Pointer<Byte>} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
+     * @param {PSTR} szUserString Null-terminated string that contains a user-defined comment to add to the data record. The string can not be empty.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -5934,7 +5981,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhUpdateLogA(hLog, szUserString) {
-        szUserString := szUserString is String? StrPtr(szUserString) : szUserString
+        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
 
         result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", hLog, "ptr", szUserString, "uint")
         return result
@@ -5942,7 +5990,7 @@ class Performance {
 
     /**
      * Synchronizes the information in the log file catalog with the performance data in the log file.
-     * @param {Pointer<Void>} hLog Handle to the log file containing the file catalog to update. The 
+     * @param {PDH_HLOG} hLog Handle to the log file containing the file catalog to update. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -5994,13 +6042,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhUpdateLogFileCatalog(hLog) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhUpdateLogFileCatalog", "ptr", hLog, "uint")
         return result
     }
 
     /**
      * Returns the size of the specified log file.
-     * @param {Pointer<Void>} hLog Handle to the log file. The 
+     * @param {PDH_HLOG} hLog Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
      * @param {Pointer<Int64>} llSize Size of the log file, in bytes.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -6042,13 +6092,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetLogFileSize(hLog, llSize) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhGetLogFileSize", "ptr", hLog, "int64*", llSize, "uint")
         return result
     }
 
     /**
      * Closes the specified log file.
-     * @param {Pointer<Void>} hLog Handle to the log file to be closed. This handle is returned by the 
+     * @param {PDH_HLOG} hLog Handle to the log file to be closed. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a> function.
      * @param {Integer} dwFlags You can specify the following flag. 
      * 
@@ -6098,15 +6150,17 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhCloseLog(hLog, dwFlags) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhCloseLog", "ptr", hLog, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * Displays a dialog window that prompts the user to specify the source of the performance data.
-     * @param {Pointer<Void>} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
+     * @param {HWND} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
      * @param {Integer} dwFlags 
-     * @param {Pointer<Char>} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
+     * @param {PWSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
      * @param {Pointer<UInt32>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
@@ -6149,7 +6203,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
         result := DllCall("pdh.dll\PdhSelectDataSourceW", "ptr", hWndOwner, "uint", dwFlags, "ptr", szDataSource, "uint*", pcchBufferLength, "uint")
         return result
@@ -6157,9 +6212,9 @@ class Performance {
 
     /**
      * Displays a dialog window that prompts the user to specify the source of the performance data.
-     * @param {Pointer<Void>} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
+     * @param {HWND} hWndOwner Owner of the dialog window. This can be <b>NULL</b> if there is no owner (the desktop becomes the owner).
      * @param {Integer} dwFlags 
-     * @param {Pointer<Byte>} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
+     * @param {PSTR} szDataSource Caller-allocated buffer that receives a <b>null</b>-terminated string that contains the name of a log file that the user selected. The log file name is truncated to the size of the buffer if the buffer is too small.
      * 
      * If the user selected a real time source, the buffer is empty.
      * @param {Pointer<UInt32>} pcchBufferLength Maximum size of the <i>szDataSource</i> buffer, in <b>TCHARs</b>.
@@ -6202,7 +6257,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceA(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
 
         result := DllCall("pdh.dll\PdhSelectDataSourceA", "ptr", hWndOwner, "uint", dwFlags, "ptr", szDataSource, "uint*", pcchBufferLength, "uint")
         return result
@@ -6210,9 +6266,9 @@ class Performance {
 
     /**
      * Determines if the specified query is a real-time query.
-     * @param {Pointer<Void>} hQuery Handle to the query. The 
+     * @param {PDH_HQUERY} hQuery Handle to the query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
-     * @returns {Integer} If the query is a real-time query, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If the query is a real-time query, the return value is <b>TRUE</b>.
      * 						
      * 
      * If the query is not a real-time query, the return value is <b>FALSE</b>.
@@ -6220,13 +6276,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhIsRealTimeQuery(hQuery) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("pdh.dll\PdhIsRealTimeQuery", "ptr", hQuery, "int")
         return result
     }
 
     /**
      * Limits the samples that you can read from a log file to those within the specified time range, inclusively.
-     * @param {Pointer<Void>} hQuery Handle to the query. The 
+     * @param {PDH_HQUERY} hQuery Handle to the query. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that specifies the time range. Specify the time as local file time. The end time must be greater than the start time. You can specify 0 for the start time and the maximum 64-bit value for the end time if you want to read all records.
@@ -6269,13 +6327,15 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhSetQueryTimeRange(hQuery, pInfo) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+
         result := DllCall("pdh.dll\PdhSetQueryTimeRange", "ptr", hQuery, "ptr", pInfo, "uint")
         return result
     }
 
     /**
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
-     * @param {Pointer<Char>} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
+     * @param {PWSTR} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
      * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that receives the time range.
@@ -6330,7 +6390,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeW(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeW", "ptr", szDataSource, "uint*", pdwNumEntries, "ptr", pInfo, "uint*", pdwBufferSize, "uint")
         return result
@@ -6338,7 +6398,7 @@ class Performance {
 
     /**
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source. To use handles to data sources, use the PdhGetDataSourceTimeRangeH function.
-     * @param {Pointer<Byte>} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
+     * @param {PSTR} szDataSource Null-terminated string that specifies the name of a log file from which the time range information is retrieved.
      * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_time_info">PDH_TIME_INFO</a> structure that receives the time range.
@@ -6393,7 +6453,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeA(szDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeA", "ptr", szDataSource, "uint*", pdwNumEntries, "ptr", pInfo, "uint*", pdwBufferSize, "uint")
         return result
@@ -6401,10 +6461,10 @@ class Performance {
 
     /**
      * Uses a separate thread to collect the current raw data value for all counters in the specified query. The function then signals the application-defined event and waits the specified time interval before returning.
-     * @param {Pointer<Void>} hQuery Handle of the query. The query identifies the counters that you want to collect. The 
+     * @param {PDH_HQUERY} hQuery Handle of the query. The query identifies the counters that you want to collect. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenquerya">PdhOpenQuery</a> function returns this handle.
      * @param {Integer} dwIntervalTime Time interval to wait, in seconds.
-     * @param {Pointer<Void>} hNewDataEvent Handle to the event that you want PDH to signal after the time interval expires. To create an event object, call the 
+     * @param {HANDLE} hNewDataEvent Handle to the event that you want PDH to signal after the time interval expires. To create an event object, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6445,6 +6505,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhCollectQueryDataEx(hQuery, dwIntervalTime, hNewDataEvent) {
+        hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        hNewDataEvent := hNewDataEvent is Win32Handle ? NumGet(hNewDataEvent, "ptr") : hNewDataEvent
+
         result := DllCall("pdh.dll\PdhCollectQueryDataEx", "ptr", hQuery, "uint", dwIntervalTime, "ptr", hNewDataEvent, "uint")
         return result
     }
@@ -6478,7 +6541,7 @@ class Performance {
 
     /**
      * Returns the time base of the specified counter.
-     * @param {Pointer<Void>} hCounter Handle to the counter. The 
+     * @param {PDH_HCOUNTER} hCounter Handle to the counter. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhaddcountera">PdhAddCounter</a> function returns this handle.
      * @param {Pointer<Int64>} pTimeBase Time base that specifies the number of performance values a counter samples per second.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
@@ -6526,9 +6589,9 @@ class Performance {
 
     /**
      * Reads the information in the specified binary trace log file.
-     * @param {Pointer<Void>} hLog Handle to the log file. The 
+     * @param {PDH_HLOG} hLog Handle to the log file. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhopenloga">PdhOpenLog</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function returns this handle.
-     * @param {Pointer} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
+     * @param {FILETIME} ftRecord Time stamp of the record to be read. If the time stamp does not match a record in the log file, the function returns the record that has a time stamp closest to (but not greater than) the given time stamp.
      * @param {Pointer<PDH_RAW_LOG_RECORD>} pRawLogRecord Caller-allocated buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_raw_log_record">PDH_RAW_LOG_RECORD</a> structure; the structure contains the log file record information. Set to <b>NULL</b> if <i>pdwBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pdwBufferLength Size of the <i>pRawLogRecord</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -6582,6 +6645,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhReadRawLogRecord(hLog, ftRecord, pRawLogRecord, pdwBufferLength) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhReadRawLogRecord", "ptr", hLog, "ptr", ftRecord, "ptr", pRawLogRecord, "uint*", pdwBufferLength, "uint")
         return result
     }
@@ -6623,8 +6688,8 @@ class Performance {
 
     /**
      * Binds one or more binary log files together for reading log data.
-     * @param {Pointer<Void>} phDataSource Handle to the bound data sources.
-     * @param {Pointer<Char>} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
+     * @param {Pointer<PDH_HLOG>} phDataSource Handle to the bound data sources.
+     * @param {PWSTR} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
      * 
      * If <b>NULL</b>, the source is a real-time data source.
      * @returns {Integer} Returns ERROR_SUCCESS if the function succeeds.
@@ -6637,7 +6702,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceW(phDataSource, LogFileNameList) {
-        LogFileNameList := LogFileNameList is String? StrPtr(LogFileNameList) : LogFileNameList
+        LogFileNameList := LogFileNameList is String ? StrPtr(LogFileNameList) : LogFileNameList
 
         result := DllCall("pdh.dll\PdhBindInputDataSourceW", "ptr", phDataSource, "ptr", LogFileNameList, "uint")
         return result
@@ -6645,8 +6710,8 @@ class Performance {
 
     /**
      * Binds one or more binary log files together for reading log data.
-     * @param {Pointer<Void>} phDataSource Handle to the bound data sources.
-     * @param {Pointer<Byte>} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
+     * @param {Pointer<PDH_HLOG>} phDataSource Handle to the bound data sources.
+     * @param {PSTR} LogFileNameList <b>Null</b>-terminated string that contains one or more binary log files to bind together. Terminate each log file name with a <b>null</b>-terminator character and the list with one additional <b>null</b>-terminator character. The log file names can contain absolute or relative paths. You cannot specify more than 32 log files.
      * 
      * If <b>NULL</b>, the source is a real-time data source.
      * @returns {Integer} Returns ERROR_SUCCESS if the function succeeds.
@@ -6659,7 +6724,7 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhBindInputDataSourceA(phDataSource, LogFileNameList) {
-        LogFileNameList := LogFileNameList is String? StrPtr(LogFileNameList) : LogFileNameList
+        LogFileNameList := LogFileNameList is String ? StrPtr(LogFileNameList) : LogFileNameList
 
         result := DllCall("pdh.dll\PdhBindInputDataSourceA", "ptr", phDataSource, "ptr", LogFileNameList, "uint")
         return result
@@ -6667,11 +6732,11 @@ class Performance {
 
     /**
      * Creates a new query that is used to manage the collection of performance data. This function is identical to the PdhOpenQuery function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer} dwUserData User-defined value to associate with this query. To retrieve the user data later, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhgetcounterinfoa">PdhGetCounterInfo</a> function and access the <b>dwQueryUserData</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/pdh/ns-pdh-pdh_counter_info_a">PDH_COUNTER_INFO</a>.
-     * @param {Pointer<Void>} phQuery Handle to the query. You use this handle in subsequent calls.
+     * @param {Pointer<PDH_HQUERY>} phQuery Handle to the query. You use this handle in subsequent calls.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6682,15 +6747,17 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhOpenQueryH(hDataSource, dwUserData, phQuery) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+
         result := DllCall("pdh.dll\PdhOpenQueryH", "ptr", hDataSource, "ptr", dwUserData, "ptr", phQuery, "uint")
         return result
     }
 
     /**
      * Returns a list of the computer names associated with counters in a log file.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Char>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PWSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6731,7 +6798,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
-        mszMachineList := mszMachineList is String? StrPtr(mszMachineList) : mszMachineList
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumMachinesHW", "ptr", hDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -6739,9 +6807,9 @@ class Performance {
 
     /**
      * Returns a list of the computer names associated with counters in a log file.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Byte>} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PSTR} mszMachineList Caller-allocated buffer to receive the list of <b>null</b>-terminated strings that contain the computer names. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszMachineNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -6782,7 +6850,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHA(hDataSource, mszMachineList, pcchBufferSize) {
-        mszMachineList := mszMachineList is String? StrPtr(mszMachineList) : mszMachineList
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumMachinesHA", "ptr", hDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -6790,20 +6859,20 @@ class Performance {
 
     /**
      * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If <i>szDataSource</i> is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Char>} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PWSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
-     * @param {Integer} bRefresh 
+     * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6865,8 +6934,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHW(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        mszObjectList := mszObjectList is String? StrPtr(mszObjectList) : mszObjectList
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -6874,20 +6944,20 @@ class Performance {
 
     /**
      * Returns a list of objects available on the specified computer or in the specified log file.This function is identical to PdhEnumObjects, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to enumerate the performance objects. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If <i>szDataSource</i> is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Byte>} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
+     * @param {PSTR} mszObjectList Caller-allocated buffer that receives the list of object names. Each object name in this list is terminated by a <b>null</b> character. The list is terminated with two <b>null</b>-terminator characters. Set to <b>NULL</b> if <i>pcchBufferLength</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>mszObjectList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <b>Windows XP:  </b>Add one to the required buffer size.
      * @param {Integer} dwDetailLevel 
-     * @param {Integer} bRefresh 
+     * @param {BOOL} bRefresh 
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
      * 
@@ -6949,8 +7019,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHA(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        mszObjectList := mszObjectList is String? StrPtr(mszObjectList) : mszObjectList
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -6958,18 +7029,18 @@ class Performance {
 
     /**
      * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Char>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Char>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
+     * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
+     * @param {PWSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Char>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
+     * @param {PWSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
@@ -7047,10 +7118,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        mszCounterList := mszCounterList is String? StrPtr(mszCounterList) : mszCounterList
-        mszInstanceList := mszInstanceList is String? StrPtr(mszInstanceList) : mszInstanceList
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
+        mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -7058,18 +7130,18 @@ class Performance {
 
     /**
      * Returns the specified object's counter and instance names that exist on the specified computer or in the specified log file. This function is identical to the PdhEnumObjectItems function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer that contains the counter and instance names that you want to enumerate. 
      * 
      * 
      * Include the leading slashes in the computer name, for example, \\computername.
      * 
      * If the <i>szDataSource</i> parameter is <b>NULL</b>, you can set <i>szMachineName</i> to <b>NULL</b> to specify the local computer.
-     * @param {Pointer<Byte>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
-     * @param {Pointer<Byte>} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
+     * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose counter and instance names you want to enumerate.
+     * @param {PSTR} mszCounterList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter names provided by the specified object. The list contains unique counter names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchCounterListLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchCounterListLength Size of the <i>mszCounterList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
-     * @param {Pointer<Byte>} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
+     * @param {PSTR} mszInstanceList Caller-allocated buffer that receives a list of <b>null</b>-terminated instance names provided by the specified object. The list contains unique instance names. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if the <i>pcchInstanceListLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchInstanceListLength Size of the <i>mszInstanceList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * If the specified object does not support variable instances, then the returned value will be zero. If the specified object does support variable instances, but does not currently have any instances, then the value returned is 2, which is the size of an empty MULTI_SZ list string.
@@ -7147,10 +7219,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        mszCounterList := mszCounterList is String? StrPtr(mszCounterList) : mszCounterList
-        mszInstanceList := mszInstanceList is String? StrPtr(mszInstanceList) : mszInstanceList
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
+        mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -7158,12 +7231,12 @@ class Performance {
 
     /**
      * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Char>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PWSTR} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * 
      * If <i>hDataSource</i> is a real time data source, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
-     * @param {Pointer<Char>} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PWSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -7259,8 +7332,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathHW", "ptr", hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -7268,12 +7342,12 @@ class Performance {
 
     /**
      * Examines the specified computer or log file and returns those counter paths that match the given counter path which contains wildcard characters.This function is identical to the PdhExpandWildCardPath function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
-     * @param {Pointer<Byte>} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
+     * @param {PSTR} szWildCardPath <b>Null</b>-terminated string that specifies the counter path to expand. The maximum length of a counter path is PDH_MAX_COUNTER_PATH.
      * 
      * If <i>hDataSource</i> is a real time data source, the function searches the computer specified in the path for matches. If the path does not specify a computer, the function searches the local computer.
-     * @param {Pointer<Byte>} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
+     * @param {PSTR} mszExpandedPathList Caller-allocated buffer that receives a list of <b>null</b>-terminated counter paths that match the wildcard specification in the <i>szWildCardPath</i>. The list is terminated by two <b>NULL</b> characters. Set to <b>NULL</b> if <i>pcchPathListLength</i> is zero.
      * @param {Pointer<UInt32>} pcchPathListLength Size of the <i>mszExpandedPathList</i> buffer, in <b>TCHARs</b>. If zero on input and the object exists, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * 
      * <div class="alert"><b>Note</b>  You must add one to the required size on Windows XP.</div>
@@ -7369,8 +7443,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
-        szWildCardPath := szWildCardPath is String? StrPtr(szWildCardPath) : szWildCardPath
-        mszExpandedPathList := mszExpandedPathList is String? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
+        mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathHA", "ptr", hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -7378,7 +7453,7 @@ class Performance {
 
     /**
      * Determines the time range, number of entries and, if applicable, the size of the buffer containing the performance data from the specified input source.This function is identical to the PdhGetDataSourceTimeRange function, except that it supports the use of handles to data sources.
-     * @param {Pointer<Void>} hDataSource Handle to a data source returned by the 
+     * @param {PDH_HLOG} hDataSource Handle to a data source returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/pdh/nf-pdh-pdhbindinputdatasourcea">PdhBindInputDataSource</a> function.
      * @param {Pointer<UInt32>} pdwNumEntries Number of structures in the <i>pInfo</i> buffer. This function collects information for only one time range, so the value is typically 1, or zero if an error occurred.
      * @param {Pointer<PDH_TIME_INFO>} pInfo A 
@@ -7434,17 +7509,19 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDataSourceTimeRangeH(hDataSource, pdwNumEntries, pInfo, pdwBufferSize) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+
         result := DllCall("pdh.dll\PdhGetDataSourceTimeRangeH", "ptr", hDataSource, "uint*", pdwNumEntries, "ptr", pInfo, "uint*", pdwBufferSize, "uint")
         return result
     }
 
     /**
      * Retrieves the name of the default object.
-     * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
+     * @param {PDH_HLOG} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultObjectName</i> will be a <b>null</b> string.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Char>} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PWSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -7520,8 +7597,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHW(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szDefaultObjectName := szDefaultObjectName is String? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7529,11 +7607,11 @@ class Performance {
 
     /**
      * Retrieves the name of the default object.
-     * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
+     * @param {PDH_HLOG} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultObjectName</i> will be a <b>null</b> string.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Byte>} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PSTR} szDefaultObjectName Caller-allocated buffer that receives the <b>null</b>-terminated default object name. Set to  <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * 
      * Note that PDH always returns Processor for the default object name.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultObjectName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
@@ -7609,8 +7687,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHA(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szDefaultObjectName := szDefaultObjectName is String? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7618,12 +7697,12 @@ class Performance {
 
     /**
      * Retrieves the name of the default counter for the specified object.
-     * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
+     * @param {PDH_HLOG} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultCounterName</i> will be a <b>null</b> string.
-     * @param {Pointer<Char>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Char>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
-     * @param {Pointer<Char>} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PWSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PWSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
+     * @param {PWSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7719,9 +7798,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHW(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szDefaultCounterName := szDefaultCounterName is String? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7729,12 +7809,12 @@ class Performance {
 
     /**
      * Retrieves the name of the default counter for the specified object.
-     * @param {Pointer<Void>} hDataSource Should be <b>NULL</b>. 
+     * @param {PDH_HLOG} hDataSource Should be <b>NULL</b>. 
      * 
      * If you specify a log file handle, <i>szDefaultCounterName</i> will be a <b>null</b> string.
-     * @param {Pointer<Byte>} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
-     * @param {Pointer<Byte>} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
-     * @param {Pointer<Byte>} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
+     * @param {PSTR} szMachineName <b>Null</b>-terminated string that specifies the name of the computer used to verify the object name. If <b>NULL</b>, the local computer is used to verify the name.
+     * @param {PSTR} szObjectName <b>Null</b>-terminated string that specifies the name of the object whose default counter name you want to retrieve.
+     * @param {PSTR} szDefaultCounterName Caller-allocated buffer that receives the <b>null</b>-terminated default counter name. Set to <b>NULL</b> if <i>pcchBufferSize</i> is zero.
      * @param {Pointer<UInt32>} pcchBufferSize Size of the <i>szDefaultCounterName</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7830,9 +7910,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHA(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
-        szMachineName := szMachineName is String? StrPtr(szMachineName) : szMachineName
-        szObjectName := szObjectName is String? StrPtr(szObjectName) : szObjectName
-        szDefaultCounterName := szDefaultCounterName is String? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
+        szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
+        szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7876,11 +7957,11 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szDataSource 
+     * @param {PWSTR} szDataSource 
      * @returns {Integer} 
      */
     static PdhVerifySQLDBW(szDataSource) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhVerifySQLDBW", "ptr", szDataSource, "uint")
         return result
@@ -7888,11 +7969,11 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Byte>} szDataSource 
+     * @param {PSTR} szDataSource 
      * @returns {Integer} 
      */
     static PdhVerifySQLDBA(szDataSource) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhVerifySQLDBA", "ptr", szDataSource, "uint")
         return result
@@ -7900,11 +7981,11 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Char>} szDataSource 
+     * @param {PWSTR} szDataSource 
      * @returns {Integer} 
      */
     static PdhCreateSQLTablesW(szDataSource) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhCreateSQLTablesW", "ptr", szDataSource, "uint")
         return result
@@ -7912,11 +7993,11 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Byte>} szDataSource 
+     * @param {PSTR} szDataSource 
      * @returns {Integer} 
      */
     static PdhCreateSQLTablesA(szDataSource) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhCreateSQLTablesA", "ptr", szDataSource, "uint")
         return result
@@ -7924,8 +8005,8 @@ class Performance {
 
     /**
      * Enumerates the names of the log sets within the DSN.
-     * @param {Pointer<Char>} szDataSource <b>Null</b>-terminated string that specifies the DSN.
-     * @param {Pointer<Char>} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
+     * @param {PWSTR} szDataSource <b>Null</b>-terminated string that specifies the DSN.
+     * @param {PWSTR} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -7966,8 +8047,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesW(szDataSource, mszDataSetNameList, pcchBufferLength) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        mszDataSetNameList := mszDataSetNameList is String? StrPtr(mszDataSetNameList) : mszDataSetNameList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        mszDataSetNameList := mszDataSetNameList is String ? StrPtr(mszDataSetNameList) : mszDataSetNameList
 
         result := DllCall("pdh.dll\PdhEnumLogSetNamesW", "ptr", szDataSource, "ptr", mszDataSetNameList, "uint*", pcchBufferLength, "uint")
         return result
@@ -7975,8 +8056,8 @@ class Performance {
 
     /**
      * Enumerates the names of the log sets within the DSN.
-     * @param {Pointer<Byte>} szDataSource <b>Null</b>-terminated string that specifies the DSN.
-     * @param {Pointer<Byte>} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
+     * @param {PSTR} szDataSource <b>Null</b>-terminated string that specifies the DSN.
+     * @param {PSTR} mszDataSetNameList Caller-allocated buffer that receives the list of <b>null</b>-terminated log set names. The list is terminated with a <b>null</b>-terminator character. Set to <b>NULL</b> if the <i>pcchBufferLength</i> parameter is zero.
      * @param {Pointer<UInt32>} pcchBufferLength Size of the <i>mszLogSetNameList</i> buffer, in <b>TCHARs</b>. If zero on input, the function returns PDH_MORE_DATA and sets this parameter to the required buffer size. If the buffer is larger than the required size, the function sets this parameter to the actual size of the buffer that was used. If the specified size on input is greater than zero but less than the required size, you should not rely on the returned size to reallocate the buffer.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 						
@@ -8017,8 +8098,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumLogSetNamesA(szDataSource, mszDataSetNameList, pcchBufferLength) {
-        szDataSource := szDataSource is String? StrPtr(szDataSource) : szDataSource
-        mszDataSetNameList := mszDataSetNameList is String? StrPtr(mszDataSetNameList) : mszDataSetNameList
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
+        mszDataSetNameList := mszDataSetNameList is String ? StrPtr(mszDataSetNameList) : mszDataSetNameList
 
         result := DllCall("pdh.dll\PdhEnumLogSetNamesA", "ptr", szDataSource, "ptr", mszDataSetNameList, "uint*", pcchBufferLength, "uint")
         return result
@@ -8026,23 +8107,27 @@ class Performance {
 
     /**
      * 
-     * @param {Pointer<Void>} hLog 
+     * @param {PDH_HLOG} hLog 
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<Int32>} pRunId 
      * @returns {Integer} 
      */
     static PdhGetLogSetGUID(hLog, pGuid, pRunId) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhGetLogSetGUID", "ptr", hLog, "ptr", pGuid, "int*", pRunId, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} hLog 
+     * @param {PDH_HLOG} hLog 
      * @param {Integer} RunId 
      * @returns {Integer} 
      */
     static PdhSetLogSetRunID(hLog, RunId) {
+        hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+
         result := DllCall("pdh.dll\PdhSetLogSetRunID", "ptr", hLog, "int", RunId, "uint")
         return result
     }

@@ -48,7 +48,7 @@ class MFVIDEOFORMAT extends Win32Struct
     videoInfo{
         get {
             if(!this.HasProp("__videoInfo"))
-                this.__videoInfo := MFVideoInfo(this.ptr + 8)
+                this.__videoInfo := MFVideoInfo(8, this)
             return this.__videoInfo
         }
     }
@@ -69,7 +69,7 @@ class MFVIDEOFORMAT extends Win32Struct
     compressedInfo{
         get {
             if(!this.HasProp("__compressedInfo"))
-                this.__compressedInfo := MFVideoCompressedInfo(this.ptr + 128)
+                this.__compressedInfo := MFVideoCompressedInfo(128, this)
             return this.__compressedInfo
         }
     }
@@ -81,7 +81,7 @@ class MFVIDEOFORMAT extends Win32Struct
     surfaceInfo{
         get {
             if(!this.HasProp("__surfaceInfo"))
-                this.__surfaceInfo := MFVideoSurfaceInfo(this.ptr + 152)
+                this.__surfaceInfo := MFVideoSurfaceInfo(152, this)
             return this.__surfaceInfo
         }
     }

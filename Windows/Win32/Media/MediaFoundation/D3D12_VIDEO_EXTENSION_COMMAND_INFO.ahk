@@ -29,7 +29,7 @@ class D3D12_VIDEO_EXTENSION_COMMAND_INFO extends Win32Struct
 
     /**
      * A pointer to a wide string containing the name of the command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Name {
         get => NumGet(this, 8, "ptr")

@@ -34,7 +34,7 @@ class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct
     PrivateSensorTypeInfo{
         get {
             if(!this.HasProp("__PrivateSensorTypeInfo"))
-                this.__PrivateSensorTypeInfo := WINBIO_DATA(this.ptr + 8)
+                this.__PrivateSensorTypeInfo := WINBIO_DATA(8, this)
             return this.__PrivateSensorTypeInfo
         }
     }

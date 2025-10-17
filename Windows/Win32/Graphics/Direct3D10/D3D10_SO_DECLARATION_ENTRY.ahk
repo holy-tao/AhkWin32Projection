@@ -17,7 +17,7 @@ class D3D10_SO_DECLARATION_ENTRY extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Type of output element.  Possible values: "POSITION", "NORMAL", or "TEXCOORD0".
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SemanticName {
         get => NumGet(this, 0, "ptr")

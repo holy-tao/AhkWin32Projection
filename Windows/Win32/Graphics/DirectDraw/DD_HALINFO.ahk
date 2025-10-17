@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DDPIXELFORMAT.ahk
 #Include .\VIDEOMEMORYINFO.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDNTCORECAPS.ahk
 
 /**
@@ -37,7 +38,7 @@ class DD_HALINFO extends Win32Struct
     vmiData{
         get {
             if(!this.HasProp("__vmiData"))
-                this.__vmiData := VIDEOMEMORYINFO(this.ptr + 8)
+                this.__vmiData := VIDEOMEMORYINFO(8, this)
             return this.__vmiData
         }
     }
@@ -49,7 +50,7 @@ class DD_HALINFO extends Win32Struct
     ddCaps{
         get {
             if(!this.HasProp("__ddCaps"))
-                this.__ddCaps := DDNTCORECAPS(this.ptr + 96)
+                this.__ddCaps := DDNTCORECAPS(96, this)
             return this.__ddCaps
         }
     }

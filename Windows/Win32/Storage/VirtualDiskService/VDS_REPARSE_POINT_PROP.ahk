@@ -29,7 +29,7 @@ class VDS_REPARSE_POINT_PROP extends Win32Struct
 
     /**
      * A string for a path without a drive letter. For example, "\mount".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPath {
         get => NumGet(this, 8, "ptr")

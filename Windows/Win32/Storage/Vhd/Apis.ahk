@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Vhd
  * @version v4.0.30319
@@ -74,7 +74,7 @@ class Vhd {
      * Opens a virtual hard disk (VHD) or CD or DVD image file (ISO) for use.
      * @param {Pointer<VIRTUAL_STORAGE_TYPE>} VirtualStorageType A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> 
      *      structure.
-     * @param {Pointer<Char>} Path A pointer to a valid path to the virtual disk image to open.
+     * @param {PWSTR} Path A pointer to a valid path to the virtual disk image to open.
      * @param {Integer} VirtualDiskAccessMask A valid value of the 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/vdssys/ne-vdssys-_virtual_disk_access_mask">VIRTUAL_DISK_ACCESS_MASK</a> enumeration.
      * @param {Integer} Flags A valid combination of values of the 
@@ -82,7 +82,7 @@ class Vhd {
      * @param {Pointer<OPEN_VIRTUAL_DISK_PARAMETERS>} Parameters An optional pointer to a valid 
      *      <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-open_virtual_disk_parameters">OPEN_VIRTUAL_DISK_PARAMETERS</a> structure. Can 
      *      be <b>NULL</b>.
-     * @param {Pointer<Void>} Handle A pointer to the handle object that represents the open virtual disk.
+     * @param {Pointer<HANDLE>} Handle A pointer to the handle object that represents the open virtual disk.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> (0) and the 
      *       <i>Handle</i> parameter contains a valid pointer to the new virtual disk object.
      * 
@@ -93,7 +93,7 @@ class Vhd {
      * @since windows6.1
      */
     static OpenVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, Flags, Parameters, Handle) {
-        Path := Path is String? StrPtr(Path) : Path
+        Path := Path is String ? StrPtr(Path) : Path
 
         result := DllCall("VirtDisk.dll\OpenVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "int", Flags, "ptr", Parameters, "ptr", Handle, "uint")
         return result
@@ -103,13 +103,13 @@ class Vhd {
      * Creates a virtual hard disk (VHD) image file, either using default parameters or using an existing virtual disk or physical disk.
      * @param {Pointer<VIRTUAL_STORAGE_TYPE>} VirtualStorageType A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-virtual_storage_type">VIRTUAL_STORAGE_TYPE</a> structure 
      *      that contains the desired disk type and vendor information.
-     * @param {Pointer<Char>} Path A pointer to a valid string that represents the path to the new virtual disk image file.
+     * @param {PWSTR} Path A pointer to a valid string that represents the path to the new virtual disk image file.
      * @param {Integer} VirtualDiskAccessMask The <a href="https://docs.microsoft.com/windows/desktop/api/vdssys/ne-vdssys-_virtual_disk_access_mask">VIRTUAL_DISK_ACCESS_MASK</a> value to use 
      *      when opening the newly created virtual disk file. If the <b>Version</b> member of the 
      *      <i>Parameters</i> parameter is set to 
      *      <b>CREATE_VIRTUAL_DISK_VERSION_2</b> then only the 
      *      <b>VIRTUAL_DISK_ACCESS_NONE</b> (0) value may be specified.
-     * @param {Pointer<Void>} SecurityDescriptor An optional pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor An optional pointer to a 
      *      <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> to apply to the virtual 
      *      disk image file. If this parameter is <b>NULL</b>, the parent directory's security descriptor 
      *      will be used.
@@ -122,7 +122,7 @@ class Vhd {
      * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure 
      *      if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation 
      *      is desired.
-     * @param {Pointer<Void>} Handle A pointer to the handle object that represents the newly created virtual disk.
+     * @param {Pointer<HANDLE>} Handle A pointer to the handle object that represents the newly created virtual disk.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and the 
      *       <i>Handle</i> parameter contains a valid pointer to the new virtual disk object.
      * 
@@ -133,7 +133,8 @@ class Vhd {
      * @since windows6.1
      */
     static CreateVirtualDisk(VirtualStorageType, Path, VirtualDiskAccessMask, SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, Overlapped, Handle) {
-        Path := Path is String? StrPtr(Path) : Path
+        Path := Path is String ? StrPtr(Path) : Path
+        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
 
         result := DllCall("VirtDisk.dll\CreateVirtualDisk", "ptr", VirtualStorageType, "ptr", Path, "int", VirtualDiskAccessMask, "ptr", SecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped, "ptr", Handle, "uint")
         return result
@@ -141,9 +142,9 @@ class Vhd {
 
     /**
      * Attaches a virtual hard disk (VHD) or CD or DVD image file (ISO) by locating an appropriate VHD provider to accomplish the attachment.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
+     * @param {HANDLE} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
-     * @param {Pointer<Void>} SecurityDescriptor An optional pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor An optional pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> to apply to the attached 
      *       virtual disk. If this parameter is <b>NULL</b>, the security descriptor of the virtual disk 
      *       image file is used.
@@ -170,13 +171,16 @@ class Vhd {
      * @since windows6.1
      */
     static AttachVirtualDisk(VirtualDiskHandle, SecurityDescriptor, Flags, ProviderSpecificFlags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+        SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
+
         result := DllCall("VirtDisk.dll\AttachVirtualDisk", "ptr", VirtualDiskHandle, "ptr", SecurityDescriptor, "int", Flags, "uint", ProviderSpecificFlags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Detaches a virtual hard disk (VHD) or CD or DVD image file (ISO) by locating an appropriate virtual disk provider to accomplish the operation.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to an open virtual disk, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to an open virtual disk, which must have been opened using the 
      *       <b>VIRTUAL_DISK_ACCESS_DETACH</b> flag set in the 
      *       <i>VirtualDiskAccessMask</i> parameter to the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. For information on how to 
@@ -195,13 +199,15 @@ class Vhd {
      * @since windows6.1
      */
     static DetachVirtualDisk(VirtualDiskHandle, Flags, ProviderSpecificFlags) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\DetachVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "uint", ProviderSpecificFlags, "uint")
         return result
     }
 
     /**
      * Retrieves the path to the physical device object that contains a virtual hard disk (VHD) or CD or DVD image file (ISO).
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
      *      <b>VIRTUAL_DISK_ACCESS_GET_INFO</b> flag. For information on how to open a virtual disk, see 
      *      the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Pointer<UInt32>} DiskPathSizeInBytes The size, in bytes, of the buffer pointed to by the <i>DiskPath</i> parameter.
@@ -218,6 +224,8 @@ class Vhd {
      * @since windows6.1
      */
     static GetVirtualDiskPhysicalPath(VirtualDiskHandle, DiskPathSizeInBytes, DiskPath) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\GetVirtualDiskPhysicalPath", "ptr", VirtualDiskHandle, "uint*", DiskPathSizeInBytes, "ptr", DiskPath, "uint")
         return result
     }
@@ -235,7 +243,7 @@ class Vhd {
 
     /**
      * Returns the relationships between virtual hard disks (VHDs) or CD or DVD image file (ISO) or the volumes contained within those disks and their parent disk or volume.
-     * @param {Pointer<Void>} ObjectHandle A handle to a volume or root directory if  the <i>Flags</i> parameter does not specify 
+     * @param {HANDLE} ObjectHandle A handle to a volume or root directory if  the <i>Flags</i> parameter does not specify 
      *       the <b>GET_STORAGE_DEPENDENCY_FLAG_DISK_HANDLE</b> flag. For information on how to open a 
      *       volume or root directory, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
      * 
@@ -262,13 +270,15 @@ class Vhd {
      * @since windows6.1
      */
     static GetStorageDependencyInformation(ObjectHandle, Flags, StorageDependencyInfoSize, StorageDependencyInfo, SizeUsed) {
+        ObjectHandle := ObjectHandle is Win32Handle ? NumGet(ObjectHandle, "ptr") : ObjectHandle
+
         result := DllCall("VirtDisk.dll\GetStorageDependencyInformation", "ptr", ObjectHandle, "int", Flags, "uint", StorageDependencyInfoSize, "ptr", StorageDependencyInfo, "uint*", SizeUsed, "uint")
         return result
     }
 
     /**
      * Retrieves information about a VHD.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open VHD, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open VHD, which must have been opened using the 
      *       <b>VIRTUAL_DISK_ACCESS_GET_INFO</b> flag set in the 
      *       <i>VirtualDiskAccessMask</i> parameter to the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. For information on how to 
@@ -291,13 +301,15 @@ class Vhd {
      * @since windows6.1
      */
     static GetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfoSize, VirtualDiskInfo, SizeUsed) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\GetVirtualDiskInformation", "ptr", VirtualDiskHandle, "uint*", VirtualDiskInfoSize, "ptr", VirtualDiskInfo, "uint*", SizeUsed, "uint")
         return result
     }
 
     /**
      * Sets information about a virtual hard disk (VHD).
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
      *      <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see 
      *      the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Pointer<SET_VIRTUAL_DISK_INFO>} VirtualDiskInfo A pointer to a valid [SET_VIRTUAL_DISK_INFO](./ns-virtdisk-set_virtual_disk_info.md) 
@@ -312,13 +324,15 @@ class Vhd {
      * @since windows6.1
      */
     static SetVirtualDiskInformation(VirtualDiskHandle, VirtualDiskInfo) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\SetVirtualDiskInformation", "ptr", VirtualDiskHandle, "ptr", VirtualDiskInfo, "uint")
         return result
     }
 
     /**
      * Enumerates the metadata associated with a virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle Handle to an open virtual disk.
+     * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
      * @param {Pointer<UInt32>} NumberOfItems Address of a <b>ULONG</b>. On input, the value indicates the number of elements in 
      *       the buffer pointed to by the <i>Items</i> parameter. On output, the value contains the number 
      *       of items retrieved. If the buffer was too small, the API will fail and return 
@@ -340,13 +354,15 @@ class Vhd {
      * @since windows8.0
      */
     static EnumerateVirtualDiskMetadata(VirtualDiskHandle, NumberOfItems, Items) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\EnumerateVirtualDiskMetadata", "ptr", VirtualDiskHandle, "uint*", NumberOfItems, "ptr", Items, "uint")
         return result
     }
 
     /**
      * Retrieves the specified metadata from the virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle Handle to an open virtual disk.
+     * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
      * @param {Pointer<Guid>} Item Address of a <b>GUID</b> identifying the metadata to retrieve.
      * @param {Pointer<UInt32>} MetaDataSize Address of a <b>ULONG</b>. On input, the value indicates the size, in bytes, of 
      *       the buffer pointed to by the <i>MetaData</i> parameter. On output, the value contains size, 
@@ -367,13 +383,15 @@ class Vhd {
      * @since windows8.0
      */
     static GetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\GetVirtualDiskMetadata", "ptr", VirtualDiskHandle, "ptr", Item, "uint*", MetaDataSize, "ptr", MetaData, "uint")
         return result
     }
 
     /**
      * Sets a metadata item for a virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle Handle to an open virtual disk.
+     * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
      * @param {Pointer<Guid>} Item Address of a <b>GUID</b> identifying the metadata to retrieve.
      * @param {Integer} MetaDataSize Address of a <b>ULONG</b> containing the size, in bytes, of 
      *       the buffer pointed to by the <i>MetaData</i> parameter.
@@ -388,13 +406,15 @@ class Vhd {
      * @since windows8.0
      */
     static SetVirtualDiskMetadata(VirtualDiskHandle, Item, MetaDataSize, MetaData) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\SetVirtualDiskMetadata", "ptr", VirtualDiskHandle, "ptr", Item, "uint", MetaDataSize, "ptr", MetaData, "uint")
         return result
     }
 
     /**
      * Deletes metadata from a virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk.
      * @param {Pointer<Guid>} Item The item to be deleted.
      * @returns {Integer} Status of the request.
      * 
@@ -406,13 +426,15 @@ class Vhd {
      * @since windows8.0
      */
     static DeleteVirtualDiskMetadata(VirtualDiskHandle, Item) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\DeleteVirtualDiskMetadata", "ptr", VirtualDiskHandle, "ptr", Item, "uint")
         return result
     }
 
     /**
      * Checks the progress of an asynchronous virtual hard disk (VHD) operation.
-     * @param {Pointer<Void>} VirtualDiskHandle A valid handle to a virtual disk with a pending asynchronous operation.
+     * @param {HANDLE} VirtualDiskHandle A valid handle to a virtual disk with a pending asynchronous operation.
      * @param {Pointer<OVERLAPPED>} Overlapped A pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This 
      *      parameter must reference the same structure previously sent to the virtual disk operation being checked for 
      *      progress.
@@ -431,13 +453,15 @@ class Vhd {
      * @since windows6.1
      */
     static GetVirtualDiskOperationProgress(VirtualDiskHandle, Overlapped, Progress) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\GetVirtualDiskOperationProgress", "ptr", VirtualDiskHandle, "ptr", Overlapped, "ptr", Progress, "uint")
         return result
     }
 
     /**
      * Reduces the size of a virtual hard disk (VHD) backing store file.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
      *       <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag in the 
      *       <i>VirtualDiskAccessMask</i> parameter passed to 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a>. For information on how to open a 
@@ -460,13 +484,15 @@ class Vhd {
      * @since windows6.1
      */
     static CompactVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\CompactVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Merges a child virtual hard disk (VHD) in a differencing chain with one or more parent virtual disks in the chain.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Integer} Flags Must be the <b>MERGE_VIRTUAL_DISK_FLAG_NONE</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-merge_virtual_disk_flag">MERGE_VIRTUAL_DISK_FLAG</a> enumeration.
      * @param {Pointer<MERGE_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-merge_virtual_disk_parameters">MERGE_VIRTUAL_DISK_PARAMETERS</a> structure that contains merge parameter data.
      * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
@@ -479,13 +505,15 @@ class Vhd {
      * @since windows6.1
      */
     static MergeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\MergeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Increases the size of a fixed or dynamically expandable virtual hard disk (VHD).
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the <b>VIRTUAL_DISK_ACCESS_METAOPS</b> flag. For information on how to open a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Integer} Flags Must be the <b>EXPAND_VIRTUAL_DISK_FLAG_NONE</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-expand_virtual_disk_flag">EXPAND_VIRTUAL_DISK_FLAG</a> enumeration.
      * @param {Pointer<EXPAND_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-expand_virtual_disk_parameters">EXPAND_VIRTUAL_DISK_PARAMETERS</a> structure that contains expansion parameter data.
      * @param {Pointer<OVERLAPPED>} Overlapped An optional pointer to a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure if <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">asynchronous</a> operation is desired.
@@ -498,13 +526,15 @@ class Vhd {
      * @since windows6.1
      */
     static ExpandVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\ExpandVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Resizes a virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle Handle to an open virtual disk.
+     * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
      * @param {Integer} Flags Zero or more flags enumerated from the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/virtdisk/ne-virtdisk-resize_virtual_disk_flag">RESIZE_VIRTUAL_DISK_FLAG</a> enumeration.
      * @param {Pointer<RESIZE_VIRTUAL_DISK_PARAMETERS>} Parameters Address of a 
@@ -522,13 +552,15 @@ class Vhd {
      * @since windows8.0
      */
     static ResizeVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\ResizeVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Initiates a mirror operation for a virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk. For information on how to open a virtual disk, see the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Integer} Flags A valid combination of values from the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-mirror_virtual_disk_flag">MIRROR_VIRTUAL_DISK_FLAG</a> enumeration.
@@ -576,13 +608,15 @@ class Vhd {
      * @since windows8.0
      */
     static MirrorVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\MirrorVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * Breaks a previously initiated mirror operation and sets the mirror to be the active virtual disk.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open mirrored virtual disk. For information on how to open a virtual disk, see the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open mirrored virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. For information on how to 
      *       mirror a virtual disk, see the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-breakmirrorvirtualdisk">MirrorVirtualDisk</a> 
      *       function.
@@ -596,14 +630,16 @@ class Vhd {
      * @since windows8.0
      */
     static BreakMirrorVirtualDisk(VirtualDiskHandle) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\BreakMirrorVirtualDisk", "ptr", VirtualDiskHandle, "uint")
         return result
     }
 
     /**
      * Attaches a parent to a virtual disk opened with the OPEN_VIRTUAL_DISK_FLAG_CUSTOM_DIFF_CHAIN flag.
-     * @param {Pointer<Void>} VirtualDiskHandle Handle to a virtual disk.
-     * @param {Pointer<Char>} ParentPath Address of a string containing a valid path to the virtual hard disk image to add as a parent.
+     * @param {HANDLE} VirtualDiskHandle Handle to a virtual disk.
+     * @param {PWSTR} ParentPath Address of a string containing a valid path to the virtual hard disk image to add as a parent.
      * @returns {Integer} Status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -614,7 +650,8 @@ class Vhd {
      * @since windows8.0
      */
     static AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
-        ParentPath := ParentPath is String? StrPtr(ParentPath) : ParentPath
+        ParentPath := ParentPath is String ? StrPtr(ParentPath) : ParentPath
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
         result := DllCall("VirtDisk.dll\AddVirtualDiskParent", "ptr", VirtualDiskHandle, "ptr", ParentPath, "uint")
         return result
@@ -622,12 +659,12 @@ class Vhd {
 
     /**
      * Retrieves information about changes to the specified areas of a virtual hard disk (VHD) that are tracked by resilient change tracking (RCT).
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open VHD, which must have been opened using the 
+     * @param {HANDLE} VirtualDiskHandle A handle to the open VHD, which must have been opened using the 
      *       <b>VIRTUAL_DISK_ACCESS_GET_INFO</b> flag set in the 
      *       <i>VirtualDiskAccessMask</i> parameter to the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. For information on how to 
      *       open a VHD, see the <b>OpenVirtualDisk</b> function.
-     * @param {Pointer<Char>} ChangeTrackingId A pointer to a string that specifies the change tracking identifier for the change that identifies the state of the virtual disk that you want to use as the basis of comparison to determine whether the specified area of the VHD has changed.
+     * @param {PWSTR} ChangeTrackingId A pointer to a string that specifies the change tracking identifier for the change that identifies the state of the virtual disk that you want to use as the basis of comparison to determine whether the specified area of the VHD has changed.
      * @param {Integer} ByteOffset An unsigned long integer that specifies the distance from the start of the VHD to the beginning of  the area of the VHD that you want to check for changes, in bytes.
      * @param {Integer} ByteLength An unsigned long integer that specifies the length of the area of the VHD that you want to check for changes, in bytes.
      * @param {Integer} Flags Reserved. Set to <b>QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE</b>.
@@ -645,7 +682,8 @@ class Vhd {
      * @since windows10.0.10240
      */
     static QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
-        ChangeTrackingId := ChangeTrackingId is String? StrPtr(ChangeTrackingId) : ChangeTrackingId
+        ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
 
         result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", "ptr", VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, "int", Flags, "ptr", Ranges, "uint*", RangeCount, "uint*", ProcessedLength, "uint")
         return result
@@ -653,7 +691,7 @@ class Vhd {
 
     /**
      * Creates a snapshot of the current virtual disk for VHD Set files.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
      * @param {Pointer<TAKE_SNAPSHOT_VHDSET_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-take_snapshot_vhdset_parameters">TAKE_SNAPSHOT_VHDSET_PARAMETERS</a> structure that contains snapshot data.
      * @param {Integer} Flags Snapshot flags, which must be a valid combination of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-take_snapshot_vhdset_flag">TAKE_SNAPSHOT_VHDSET_FLAG</a> enumeration
      * @returns {Integer} Status of the request.
@@ -666,13 +704,15 @@ class Vhd {
      * @since windows10.0.10240
      */
     static TakeSnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\TakeSnapshotVhdSet", "ptr", VirtualDiskHandle, "ptr", Parameters, "int", Flags, "uint")
         return result
     }
 
     /**
      * Deletes a snapshot from a VHD Set file.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
      * @param {Pointer<DELETE_SNAPSHOT_VHDSET_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-delete_snapshot_vhdset_parameters">DELETE_SNAPSHOT_VHDSET_PARAMETERS</a> structure that contains snapshot deletion data.
      * @param {Integer} Flags Snapshot deletion flags, which must be a valid combination of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-delete_snapshot_vhdset_flag">DELETE_SNAPSHOT_VHDSET_FLAG</a> enumeration.
      * @returns {Integer} Status of the request.
@@ -685,13 +725,15 @@ class Vhd {
      * @since windows10.0.10240
      */
     static DeleteSnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\DeleteSnapshotVhdSet", "ptr", VirtualDiskHandle, "ptr", Parameters, "int", Flags, "uint")
         return result
     }
 
     /**
      * Modifies the internal contents of a virtual disk file. Can be used to set the active leaf, or to fix up snapshot entries.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
+     * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk. This must be a VHD Set file.
      * @param {Pointer<MODIFY_VHDSET_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-modify_vhdset_parameters">MODIFY_VHDSET_PARAMETERS</a> structure that contains modification data.
      * @param {Integer} Flags Modification flags, which must be a valid combination of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-modify_vhdset_flag">MODIFY_VHDSET_FLAG</a> enumeration.
      * @returns {Integer} Status of the request.
@@ -704,13 +746,15 @@ class Vhd {
      * @since windows10.0.10240
      */
     static ModifyVhdSet(VirtualDiskHandle, Parameters, Flags) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\ModifyVhdSet", "ptr", VirtualDiskHandle, "ptr", Parameters, "int", Flags, "uint")
         return result
     }
 
     /**
      * Applies a snapshot of the current virtual disk for VHD Set files.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
+     * @param {HANDLE} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
      * @param {Pointer<APPLY_SNAPSHOT_VHDSET_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-apply_snapshot_vhdset_parameters">APPLY_SNAPSHOT_VHDSET_PARAMETERS</a> structure that contains snapshot data.
      * @param {Integer} Flags A valid combination of values of the 
@@ -725,13 +769,15 @@ class Vhd {
      * @since windows10.0.10240
      */
     static ApplySnapshotVhdSet(VirtualDiskHandle, Parameters, Flags) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\ApplySnapshotVhdSet", "ptr", VirtualDiskHandle, "ptr", Parameters, "int", Flags, "uint")
         return result
     }
 
     /**
      * Issues an embedded SCSI request directly to a virtual hard disk.
-     * @param {Pointer<Void>} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
+     * @param {HANDLE} VirtualDiskHandle A handle to an open virtual disk. For information on how to open a virtual disk, see the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. This handle may also be a handle to a Remote Shared Virtual Disk. For information on how to open a Remote Shared Virtual Disk, see the <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-rsvd/c865c326-47d6-4a91-a62d-0e8f26007d15">Remote Shared Virtual Disk Protocol</a> documentation.
      * @param {Pointer<RAW_SCSI_VIRTUAL_DISK_PARAMETERS>} Parameters A pointer to a valid <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-raw_scsi_virtual_disk_parameters">RAW_SCSI_VIRTUAL_DISK_PARAMETERS</a> structure that contains snapshot deletion data.
      * @param {Integer} Flags SCSI virtual disk flags, which must be a valid combination of the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-raw_scsi_virtual_disk_flag">RAW_SCSI_VIRTUAL_DISK_FLAG</a> enumeration.
@@ -748,29 +794,35 @@ class Vhd {
      * @since windows10.0.10240
      */
     static RawSCSIVirtualDisk(VirtualDiskHandle, Parameters, Flags, Response) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\RawSCSIVirtualDisk", "ptr", VirtualDiskHandle, "ptr", Parameters, "int", Flags, "ptr", Response, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} VirtualDiskHandle 
+     * @param {HANDLE} VirtualDiskHandle 
      * @param {Integer} Flags 
      * @param {Pointer<FORK_VIRTUAL_DISK_PARAMETERS>} Parameters 
      * @param {Pointer<OVERLAPPED>} Overlapped 
      * @returns {Integer} 
      */
     static ForkVirtualDisk(VirtualDiskHandle, Flags, Parameters, Overlapped) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\ForkVirtualDisk", "ptr", VirtualDiskHandle, "int", Flags, "ptr", Parameters, "ptr", Overlapped, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} VirtualDiskHandle 
+     * @param {HANDLE} VirtualDiskHandle 
      * @returns {Integer} 
      */
     static CompleteForkVirtualDisk(VirtualDiskHandle) {
+        VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+
         result := DllCall("VirtDisk.dll\CompleteForkVirtualDisk", "ptr", VirtualDiskHandle, "uint")
         return result
     }

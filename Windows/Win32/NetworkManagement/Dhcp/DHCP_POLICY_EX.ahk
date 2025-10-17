@@ -12,7 +12,7 @@ class DHCP_POLICY_EX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PolicyName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DHCP_POLICY_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsGlobalPolicy {
         get => NumGet(this, 8, "int")
@@ -68,7 +68,7 @@ class DHCP_POLICY_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Description {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class DHCP_POLICY_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 56, "int")

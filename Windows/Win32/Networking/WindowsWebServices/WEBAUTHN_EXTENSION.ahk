@@ -12,7 +12,7 @@ class WEBAUTHN_EXTENSION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszExtensionIdentifier {
         get => NumGet(this, 0, "ptr")

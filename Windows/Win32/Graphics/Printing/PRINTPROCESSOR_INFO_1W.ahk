@@ -13,7 +13,7 @@ class PRINTPROCESSOR_INFO_1W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 0, "ptr")

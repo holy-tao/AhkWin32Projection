@@ -63,7 +63,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     displayName {
         get => NumGet(this, 24, "ptr")
@@ -76,7 +76,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     capabilities{
         get {
             if(!this.HasProp("__capabilities"))
-                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(this.ptr + 32)
+                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(32, this)
             return this.__capabilities
         }
     }
@@ -87,7 +87,7 @@ class INET_FIREWALL_AC_CHANGE extends Win32Struct
     binaries{
         get {
             if(!this.HasProp("__binaries"))
-                this.__binaries := INET_FIREWALL_AC_BINARIES(this.ptr + 32)
+                this.__binaries := INET_FIREWALL_AC_BINARIES(32, this)
             return this.__binaries
         }
     }

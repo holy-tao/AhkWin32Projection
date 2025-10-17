@@ -18,7 +18,7 @@ class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct
     Command{
         get {
             if(!this.HasProp("__Command"))
-                this.__Command := PROPERTYKEY(this.ptr + 0)
+                this.__Command := PROPERTYKEY(0, this)
             return this.__Command
         }
     }
@@ -37,7 +37,7 @@ class WPD_COMMAND_ACCESS_LOOKUP_ENTRY extends Win32Struct
     AccessProperty{
         get {
             if(!this.HasProp("__AccessProperty"))
-                this.__AccessProperty := PROPERTYKEY(this.ptr + 24)
+                this.__AccessProperty := PROPERTYKEY(24, this)
             return this.__AccessProperty
         }
     }

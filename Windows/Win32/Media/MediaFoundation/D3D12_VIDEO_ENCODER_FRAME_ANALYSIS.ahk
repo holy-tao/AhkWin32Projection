@@ -34,7 +34,7 @@ class D3D12_VIDEO_ENCODER_FRAME_ANALYSIS extends Win32Struct
     DownscaledReferences{
         get {
             if(!this.HasProp("__DownscaledReferences"))
-                this.__DownscaledReferences := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(this.ptr + 16)
+                this.__DownscaledReferences := D3D12_VIDEO_ENCODE_REFERENCE_FRAMES(16, this)
             return this.__DownscaledReferences
         }
     }

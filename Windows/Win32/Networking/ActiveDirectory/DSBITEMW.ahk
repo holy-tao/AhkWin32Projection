@@ -30,7 +30,7 @@ class DSBITEMW extends Win32Struct
 
     /**
      * Pointer to a  null-terminated Unicode string that contains the ADsPath of the item.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszADsPath {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class DSBITEMW extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the object class name of the item.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszClass {
         get => NumGet(this, 16, "ptr")

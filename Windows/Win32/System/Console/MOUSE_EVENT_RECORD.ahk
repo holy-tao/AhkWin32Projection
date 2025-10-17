@@ -18,7 +18,7 @@ class MOUSE_EVENT_RECORD extends Win32Struct
     dwMousePosition{
         get {
             if(!this.HasProp("__dwMousePosition"))
-                this.__dwMousePosition := COORD(this.ptr + 0)
+                this.__dwMousePosition := COORD(0, this)
             return this.__dwMousePosition
         }
     }

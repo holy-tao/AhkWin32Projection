@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\LUID.ahk
 #Include ..\QUOTA_LIMITS.ahk
 
@@ -26,11 +27,14 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * Handle of the users token.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    UserToken {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    UserToken{
+        get {
+            if(!this.HasProp("__UserToken"))
+                this.__UserToken := HANDLE(8, this)
+            return this.__UserToken
+        }
     }
 
     /**
@@ -40,7 +44,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 16)
+                this.__LogonId := LUID(16, this)
             return this.__LogonId
         }
     }
@@ -52,14 +56,14 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
     Quotas{
         get {
             if(!this.HasProp("__Quotas"))
-                this.__Quotas := QUOTA_LIMITS(this.ptr + 24)
+                this.__Quotas := QUOTA_LIMITS(24, this)
             return this.__Quotas
         }
     }
 
     /**
      * User's name as a string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     UserName {
         get => NumGet(this, 72, "ptr")
@@ -68,7 +72,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * User's domain as a string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Domain {
         get => NumGet(this, 80, "ptr")
@@ -86,7 +90,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <b>TRUE</b> if the logon was done by SmartCard.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SmartCardLogon {
         get => NumGet(this, 96, "int")
@@ -191,7 +195,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the relative path to the account's logon script.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     LogonScript {
         get => NumGet(this, 160, "ptr")
@@ -200,7 +204,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the home directory for the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     HomeDirectory {
         get => NumGet(this, 168, "ptr")
@@ -209,7 +213,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the full name of the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FullName {
         get => NumGet(this, 176, "ptr")
@@ -218,7 +222,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> specifying the path to the user's roaming profile if the user has a roaming profile. For example: \\SomeServer\SomeShare\MyUserName
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProfilePath {
         get => NumGet(this, 184, "ptr")
@@ -227,7 +231,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the drive letter (for example, C:\ or D:\) of the home directory.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     HomeDirectoryDrive {
         get => NumGet(this, 192, "ptr")
@@ -236,7 +240,7 @@ class WLX_CONSOLESWITCH_CREDENTIALS_INFO_V1_0 extends Win32Struct
 
     /**
      * <a href="https://docs.microsoft.com/windows/desktop/api/subauth/ns-subauth-unicode_string">UNICODE_STRING</a> containing the name of the server that processed the logon request.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     LogonServer {
         get => NumGet(this, 200, "ptr")

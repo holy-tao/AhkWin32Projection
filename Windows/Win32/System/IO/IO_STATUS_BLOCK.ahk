@@ -12,7 +12,7 @@ class IO_STATUS_BLOCK extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     Status {
         get => NumGet(this, 0, "int")

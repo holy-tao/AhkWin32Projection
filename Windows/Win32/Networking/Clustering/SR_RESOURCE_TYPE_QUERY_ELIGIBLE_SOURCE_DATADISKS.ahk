@@ -24,7 +24,7 @@ class SR_RESOURCE_TYPE_QUERY_ELIGIBLE_SOURCE_DATADISKS extends Win32Struct
 
     /**
      * <b>true</b> if the result set includes disks in the available storage group.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IncludeAvailableStoargeDisks {
         get => NumGet(this, 8, "char")

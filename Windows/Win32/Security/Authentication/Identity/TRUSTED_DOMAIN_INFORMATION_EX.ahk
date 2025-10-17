@@ -22,7 +22,7 @@ class TRUSTED_DOMAIN_INFORMATION_EX extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Name := LSA_UNICODE_STRING(0, this)
             return this.__Name
         }
     }
@@ -34,14 +34,14 @@ class TRUSTED_DOMAIN_INFORMATION_EX extends Win32Struct
     FlatName{
         get {
             if(!this.HasProp("__FlatName"))
-                this.__FlatName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__FlatName := LSA_UNICODE_STRING(16, this)
             return this.__FlatName
         }
     }
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the trusted domain. For non-Microsoft trusted domains, this member can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 32, "ptr")

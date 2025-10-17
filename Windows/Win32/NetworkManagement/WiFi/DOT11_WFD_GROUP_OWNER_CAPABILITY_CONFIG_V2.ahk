@@ -18,13 +18,13 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bPersistentGroupEnabled {
         get => NumGet(this, 4, "char")
@@ -32,7 +32,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bIntraBSSDistributionSupported {
         get => NumGet(this, 5, "char")
@@ -40,7 +40,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bCrossConnectionSupported {
         get => NumGet(this, 6, "char")
@@ -48,7 +48,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bPersistentReconnectSupported {
         get => NumGet(this, 7, "char")
@@ -56,7 +56,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bGroupFormationEnabled {
         get => NumGet(this, 8, "char")
@@ -72,7 +72,7 @@ class DOT11_WFD_GROUP_OWNER_CAPABILITY_CONFIG_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bEapolKeyIpAddressAllocationSupported {
         get => NumGet(this, 16, "char")

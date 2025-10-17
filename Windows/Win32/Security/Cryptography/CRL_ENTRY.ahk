@@ -28,7 +28,7 @@ class CRL_ENTRY extends Win32Struct
     SerialNumber{
         get {
             if(!this.HasProp("__SerialNumber"))
-                this.__SerialNumber := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__SerialNumber := CRYPT_INTEGER_BLOB(0, this)
             return this.__SerialNumber
         }
     }
@@ -40,7 +40,7 @@ class CRL_ENTRY extends Win32Struct
     RevocationDate{
         get {
             if(!this.HasProp("__RevocationDate"))
-                this.__RevocationDate := FILETIME(this.ptr + 16)
+                this.__RevocationDate := FILETIME(16, this)
             return this.__RevocationDate
         }
     }

@@ -16,7 +16,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the alarm should be activated when the battery discharges below the value set in <b>BatteryLevel</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Enable {
         get => NumGet(this, 0, "char")
@@ -52,7 +52,7 @@ class SYSTEM_POWER_LEVEL extends Win32Struct
     PowerPolicy{
         get {
             if(!this.HasProp("__PowerPolicy"))
-                this.__PowerPolicy := POWER_ACTION_POLICY(this.ptr + 8)
+                this.__PowerPolicy := POWER_ACTION_POLICY(8, this)
             return this.__PowerPolicy
         }
     }

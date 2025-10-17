@@ -24,14 +24,14 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
     DistPointName{
         get {
             if(!this.HasProp("__DistPointName"))
-                this.__DistPointName := CRL_DIST_POINT_NAME(this.ptr + 0)
+                this.__DistPointName := CRL_DIST_POINT_NAME(0, this)
             return this.__DistPointName
         }
     }
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only user certificates are contained in the CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOnlyContainsUserCerts {
         get => NumGet(this, 24, "int")
@@ -40,7 +40,7 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if only CA certificates are contained in the CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOnlyContainsCACerts {
         get => NumGet(this, 28, "int")
@@ -55,14 +55,14 @@ class CRL_ISSUING_DIST_POINT extends Win32Struct
     OnlySomeReasonFlags{
         get {
             if(!this.HasProp("__OnlySomeReasonFlags"))
-                this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(this.ptr + 32)
+                this.__OnlySomeReasonFlags := CRYPT_BIT_BLOB(32, this)
             return this.__OnlySomeReasonFlags
         }
     }
 
     /**
      * <b>BOOL</b> flag. <b>TRUE</b> if this is an indirect CRL.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIndirectCRL {
         get => NumGet(this, 56, "int")

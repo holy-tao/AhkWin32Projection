@@ -36,7 +36,7 @@ class WSMAN_SHELL_STARTUP_INFO_V10 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     workingDirectory {
         get => NumGet(this, 24, "ptr")

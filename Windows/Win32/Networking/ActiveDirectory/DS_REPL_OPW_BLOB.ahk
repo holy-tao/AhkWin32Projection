@@ -21,7 +21,7 @@ class DS_REPL_OPW_BLOB extends Win32Struct
     ftimeEnqueued{
         get {
             if(!this.HasProp("__ftimeEnqueued"))
-                this.__ftimeEnqueued := FILETIME(this.ptr + 0)
+                this.__ftimeEnqueued := FILETIME(0, this)
             return this.__ftimeEnqueued
         }
     }

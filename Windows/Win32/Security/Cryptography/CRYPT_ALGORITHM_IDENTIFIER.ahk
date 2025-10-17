@@ -16,7 +16,7 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -113,7 +113,7 @@ class CRYPT_ALGORITHM_IDENTIFIER extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Parameters := CRYPT_INTEGER_BLOB(8, this)
             return this.__Parameters
         }
     }

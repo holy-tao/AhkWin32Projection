@@ -42,7 +42,7 @@ class RID_DEVICE_INFO extends Win32Struct
     mouse{
         get {
             if(!this.HasProp("__mouse"))
-                this.__mouse := RID_DEVICE_INFO_MOUSE(this.ptr + 8)
+                this.__mouse := RID_DEVICE_INFO_MOUSE(8, this)
             return this.__mouse
         }
     }
@@ -53,7 +53,7 @@ class RID_DEVICE_INFO extends Win32Struct
     keyboard{
         get {
             if(!this.HasProp("__keyboard"))
-                this.__keyboard := RID_DEVICE_INFO_KEYBOARD(this.ptr + 8)
+                this.__keyboard := RID_DEVICE_INFO_KEYBOARD(8, this)
             return this.__keyboard
         }
     }
@@ -64,17 +64,13 @@ class RID_DEVICE_INFO extends Win32Struct
     hid{
         get {
             if(!this.HasProp("__hid"))
-                this.__hid := RID_DEVICE_INFO_HID(this.ptr + 8)
+                this.__hid := RID_DEVICE_INFO_HID(8, this)
             return this.__hid
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

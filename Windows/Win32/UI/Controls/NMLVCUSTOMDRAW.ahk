@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NMCUSTOMDRAW.ahk
 
@@ -31,7 +33,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     nmcd{
         get {
             if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(this.ptr + 0)
+                this.__nmcd := NMCUSTOMDRAW(0, this)
             return this.__nmcd
         }
     }
@@ -40,7 +42,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> value representing the color that will be used to display text foreground in the list-view control.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrText {
         get => NumGet(this, 80, "uint")
@@ -51,7 +53,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * <b>COLORREF</b> value representing the color that will be used to display text background in the list-view control. In <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0., </a> this member is ignored if the background image is set with the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-setbkimage">LVM_SETBKIMAGE</a> message.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrTextBk {
         get => NumGet(this, 84, "uint")
@@ -88,7 +90,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0.</a> 
      * 					<b>COLORREF</b> value representing the color that will be used to display the face of an item.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrFace {
         get => NumGet(this, 96, "uint")
@@ -158,7 +160,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     rcText{
         get {
             if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(this.ptr + 120)
+                this.__rcText := RECT(120, this)
             return this.__rcText
         }
     }

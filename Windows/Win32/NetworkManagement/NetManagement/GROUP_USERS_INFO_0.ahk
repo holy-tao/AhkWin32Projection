@@ -28,7 +28,7 @@ class GROUP_USERS_INFO_0 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode character string that specifies a name. For more information, see the Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     grui0_name {
         get => NumGet(this, 0, "ptr")

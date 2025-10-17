@@ -34,7 +34,7 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class CERT_BIOMETRIC_DATA extends Win32Struct
     HashedUrl{
         get {
             if(!this.HasProp("__HashedUrl"))
-                this.__HashedUrl := CERT_HASHED_URL(this.ptr + 16)
+                this.__HashedUrl := CERT_HASHED_URL(16, this)
             return this.__HashedUrl
         }
     }

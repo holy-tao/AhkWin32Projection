@@ -12,7 +12,7 @@ class DxcArgPair extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DxcArgPair extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pValue {
         get => NumGet(this, 8, "ptr")

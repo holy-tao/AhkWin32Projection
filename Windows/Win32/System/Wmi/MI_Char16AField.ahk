@@ -21,7 +21,7 @@ class MI_Char16AField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_Char16A(this.ptr + 0)
+                this.__value := MI_Char16A(0, this)
             return this.__value
         }
     }

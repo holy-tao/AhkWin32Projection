@@ -15,7 +15,7 @@ class RESOURCE_TERMINAL_FAILURE_INFO_BUFFER extends Win32Struct
 
     /**
      * <b>TRUE</b> if the resource  failure is a terminal failure; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isTerminalFailure {
         get => NumGet(this, 0, "int")

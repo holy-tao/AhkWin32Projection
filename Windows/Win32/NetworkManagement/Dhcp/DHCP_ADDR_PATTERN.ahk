@@ -15,7 +15,7 @@ class DHCP_ADDR_PATTERN extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the hardware type member (<b>HWType</b>) will be matched; if <b>FALSE</b>, the hardware type member is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     MatchHWType {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class DHCP_ADDR_PATTERN extends Win32Struct
 
     /**
      * If <b>TRUE</b>, <b>Pattern</b> contains a wildcard pattern; if <b>FALSE</b>, <b>Pattern</b> contains a hardware address.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsWildcard {
         get => NumGet(this, 8, "int")

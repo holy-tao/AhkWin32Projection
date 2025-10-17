@@ -18,7 +18,7 @@ class UDATE extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 0)
+                this.__st := SYSTEMTIME(0, this)
             return this.__st
         }
     }

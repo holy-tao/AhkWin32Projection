@@ -65,7 +65,7 @@ class DML_CUMULATIVE_SUMMATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If **TRUE**, then the value of the current element is excluded when writing the running tally to the output tensor. If **FALSE**, then the value of the current element is included in the running tally.
-     * @type {Integer}
+     * @type {BOOL}
      */
     HasExclusiveSum {
         get => NumGet(this, 24, "int")

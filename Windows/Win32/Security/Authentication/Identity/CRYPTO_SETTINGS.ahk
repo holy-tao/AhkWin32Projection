@@ -43,7 +43,7 @@ class CRYPTO_SETTINGS extends Win32Struct
     strCngAlgId{
         get {
             if(!this.HasProp("__strCngAlgId"))
-                this.__strCngAlgId := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__strCngAlgId := LSA_UNICODE_STRING(8, this)
             return this.__strCngAlgId
         }
     }

@@ -30,7 +30,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
     CharacteristicUuid{
         get {
             if(!this.HasProp("__CharacteristicUuid"))
-                this.__CharacteristicUuid := BTH_LE_UUID(this.ptr + 8)
+                this.__CharacteristicUuid := BTH_LE_UUID(8, this)
             return this.__CharacteristicUuid
         }
     }
@@ -55,7 +55,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic can be broadcast.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsBroadcastable {
         get => NumGet(this, 28, "char")
@@ -64,7 +64,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic  can be read.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsReadable {
         get => NumGet(this, 29, "char")
@@ -73,7 +73,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic  can be written to.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsWritable {
         get => NumGet(this, 30, "char")
@@ -82,7 +82,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic  can be written to without requiring a response.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsWritableWithoutResponse {
         get => NumGet(this, 31, "char")
@@ -91,7 +91,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic can be signed writable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsSignedWritable {
         get => NumGet(this, 32, "char")
@@ -100,7 +100,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic can be updated by the device through Handle Value Notifications, and the new value will be returned through the callback function registered via <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattregisterevent">BluetoothGATTRegisterEvent</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsNotifiable {
         get => NumGet(this, 33, "char")
@@ -109,7 +109,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic can be updated by the device through Handle Value Indications, and the new value will be returned through the callback function registered via <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattregisterevent">BluetoothGATTRegisterEvent</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsIndicatable {
         get => NumGet(this, 34, "char")
@@ -118,7 +118,7 @@ class BTH_LE_GATT_CHARACTERISTIC extends Win32Struct
 
     /**
      * The characteristic  has extended properties, which will be presented through a Characteristic Extended Properties descriptor.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HasExtendedProperties {
         get => NumGet(this, 35, "char")

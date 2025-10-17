@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include .\TVITEMA.ahk
 #Include ..\..\Foundation\POINT.ahk
@@ -32,7 +33,7 @@ class NMTREEVIEWA extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -74,7 +75,7 @@ class NMTREEVIEWA extends Win32Struct
     itemOld{
         get {
             if(!this.HasProp("__itemOld"))
-                this.__itemOld := TVITEMA(this.ptr + 32)
+                this.__itemOld := TVITEMA(32, this)
             return this.__itemOld
         }
     }
@@ -89,7 +90,7 @@ class NMTREEVIEWA extends Win32Struct
     itemNew{
         get {
             if(!this.HasProp("__itemNew"))
-                this.__itemNew := TVITEMA(this.ptr + 88)
+                this.__itemNew := TVITEMA(88, this)
             return this.__itemNew
         }
     }
@@ -104,7 +105,7 @@ class NMTREEVIEWA extends Win32Struct
     ptDrag{
         get {
             if(!this.HasProp("__ptDrag"))
-                this.__ptDrag := POINT(this.ptr + 144)
+                this.__ptDrag := POINT(144, this)
             return this.__ptDrag
         }
     }

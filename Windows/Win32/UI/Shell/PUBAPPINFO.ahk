@@ -40,7 +40,7 @@ class PUBAPPINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a string containing the display name of the publisher. This name appears in <b>Add/Remove Programs</b> if duplicate application names are encountered. The string buffer must be allocated using the Shell task allocator.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSource {
         get => NumGet(this, 8, "ptr")
@@ -56,7 +56,7 @@ class PUBAPPINFO extends Win32Struct
     stAssigned{
         get {
             if(!this.HasProp("__stAssigned"))
-                this.__stAssigned := SYSTEMTIME(this.ptr + 16)
+                this.__stAssigned := SYSTEMTIME(16, this)
             return this.__stAssigned
         }
     }
@@ -68,7 +68,7 @@ class PUBAPPINFO extends Win32Struct
     stPublished{
         get {
             if(!this.HasProp("__stPublished"))
-                this.__stPublished := SYSTEMTIME(this.ptr + 32)
+                this.__stPublished := SYSTEMTIME(32, this)
             return this.__stPublished
         }
     }
@@ -82,7 +82,7 @@ class PUBAPPINFO extends Win32Struct
     stScheduled{
         get {
             if(!this.HasProp("__stScheduled"))
-                this.__stScheduled := SYSTEMTIME(this.ptr + 48)
+                this.__stScheduled := SYSTEMTIME(48, this)
             return this.__stScheduled
         }
     }
@@ -96,17 +96,13 @@ class PUBAPPINFO extends Win32Struct
     stExpire{
         get {
             if(!this.HasProp("__stExpire"))
-                this.__stExpire := SYSTEMTIME(this.ptr + 64)
+                this.__stExpire := SYSTEMTIME(64, this)
             return this.__stExpire
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

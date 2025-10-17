@@ -33,7 +33,7 @@ class pluginResource extends Win32Struct
 
     /**
      * The contents of the resource file. The plug-in should allocate memory for this member by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     resourceFileContents {
         get => NumGet(this, 1024, "ptr")

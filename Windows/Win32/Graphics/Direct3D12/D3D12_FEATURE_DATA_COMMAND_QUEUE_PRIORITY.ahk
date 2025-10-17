@@ -46,7 +46,7 @@ class D3D12_FEATURE_DATA_COMMAND_QUEUE_PRIORITY extends Win32Struct
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-structs-and-classes?view=vs-2015">SAL</a>: <c>_Out_</c>
      * 
      * On return, contains true if the specfied command list type supports the specified priority level; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     PriorityForTypeIsSupported {
         get => NumGet(this, 8, "int")

@@ -18,13 +18,13 @@ class USB_HUB_INFORMATION extends Win32Struct
     HubDescriptor{
         get {
             if(!this.HasProp("__HubDescriptor"))
-                this.__HubDescriptor := USB_HUB_DESCRIPTOR(this.ptr + 0)
+                this.__HubDescriptor := USB_HUB_DESCRIPTOR(0, this)
             return this.__HubDescriptor
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HubIsBusPowered {
         get => NumGet(this, 72, "char")

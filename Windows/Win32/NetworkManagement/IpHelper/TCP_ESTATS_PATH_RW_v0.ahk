@@ -30,7 +30,7 @@ class TCP_ESTATS_PATH_RW_v0 extends Win32Struct
      * If this member is set to <b>TRUE</b>, extended statistics on the TCP connection are enabled. If this member is set to <b>FALSE</b>, extended statistics on the TCP connection are disabled. 
      * 
      * The default state for this member when not set is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EnableCollection {
         get => NumGet(this, 0, "char")

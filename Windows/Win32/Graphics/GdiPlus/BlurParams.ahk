@@ -32,7 +32,7 @@ class BlurParams extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Boolean value that specifies whether the bitmap expands by an amount equal to the blur radius. If <b>TRUE</b>, the bitmap expands by an amount equal to the radius so that it can have soft edges. If <b>FALSE</b>, the bitmap remains the same size and the soft edges are clipped.
-     * @type {Integer}
+     * @type {BOOL}
      */
     expandEdge {
         get => NumGet(this, 4, "int")

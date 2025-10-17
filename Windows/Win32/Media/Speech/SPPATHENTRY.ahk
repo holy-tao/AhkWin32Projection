@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\SPTRANSITIONID.ahk
 #Include .\SPPHRASEELEMENT.ahk
 
 /**
@@ -13,11 +14,14 @@ class SPPATHENTRY extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {SPTRANSITIONID}
      */
-    hTransition {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hTransition{
+        get {
+            if(!this.HasProp("__hTransition"))
+                this.__hTransition := SPTRANSITIONID(0, this)
+            return this.__hTransition
+        }
     }
 
     /**
@@ -26,7 +30,7 @@ class SPPATHENTRY extends Win32Struct
     elem{
         get {
             if(!this.HasProp("__elem"))
-                this.__elem := SPPHRASEELEMENT(this.ptr + 8)
+                this.__elem := SPPHRASEELEMENT(8, this)
             return this.__elem
         }
     }

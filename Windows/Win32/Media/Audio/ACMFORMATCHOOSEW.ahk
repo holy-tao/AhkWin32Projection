@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -29,11 +31,14 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -53,7 +58,7 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTitle {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +82,7 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 392, "ptr")
@@ -109,15 +114,18 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(416, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTemplateName {
         get => NumGet(this, 424, "ptr")
@@ -125,7 +133,7 @@ class ACMFORMATCHOOSEW extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 432, "ptr")

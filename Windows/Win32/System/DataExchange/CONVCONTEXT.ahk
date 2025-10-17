@@ -95,7 +95,7 @@ class CONVCONTEXT extends Win32Struct
     qos{
         get {
             if(!this.HasProp("__qos"))
-                this.__qos := SECURITY_QUALITY_OF_SERVICE(this.ptr + 24)
+                this.__qos := SECURITY_QUALITY_OF_SERVICE(24, this)
             return this.__qos
         }
     }

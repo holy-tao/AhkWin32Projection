@@ -28,7 +28,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 8)
+                this.__LogonId := LUID(8, this)
             return this.__LogonId
         }
     }
@@ -47,7 +47,7 @@ class KERB_PURGE_TKT_CACHE_EX_REQUEST extends Win32Struct
     TicketTemplate{
         get {
             if(!this.HasProp("__TicketTemplate"))
-                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(this.ptr + 24)
+                this.__TicketTemplate := KERB_TICKET_CACHE_INFO_EX(24, this)
             return this.__TicketTemplate
         }
     }

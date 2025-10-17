@@ -22,7 +22,7 @@ class CHANGER_SET_POSITION extends Win32Struct
     Transport{
         get {
             if(!this.HasProp("__Transport"))
-                this.__Transport := CHANGER_ELEMENT(this.ptr + 0)
+                this.__Transport := CHANGER_ELEMENT(0, this)
             return this.__Transport
         }
     }
@@ -34,7 +34,7 @@ class CHANGER_SET_POSITION extends Win32Struct
     Destination{
         get {
             if(!this.HasProp("__Destination"))
-                this.__Destination := CHANGER_ELEMENT(this.ptr + 8)
+                this.__Destination := CHANGER_ELEMENT(8, this)
             return this.__Destination
         }
     }
@@ -42,7 +42,7 @@ class CHANGER_SET_POSITION extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the media currently carried by <b>Transport</b> should be flipped. Otherwise, it should not. This member is valid only if the <b>Features0</b> member of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ns-winioctl-get_changer_parameters">GET_CHANGER_PARAMETERS</a> structure is CHANGER_MEDIUM_FLIP.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Flip {
         get => NumGet(this, 16, "char")

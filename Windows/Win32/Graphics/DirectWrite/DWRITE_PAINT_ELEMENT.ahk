@@ -19,6 +19,20 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         static sizeof => 240
         static packingSize => 8
 
+        class PAINT_LAYERS extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            childCount {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         class PAINT_SOLID_GLYPH extends Win32Struct {
             static sizeof => 232
             static packingSize => 8
@@ -37,7 +51,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             color{
                 get {
                     if(!this.HasProp("__color"))
-                        this.__color := DWRITE_PAINT_COLOR(this.ptr + 8)
+                        this.__color := DWRITE_PAINT_COLOR(8, this)
                     return this.__color
                 }
             }
@@ -238,6 +252,20 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         
         }
     
+        class PAINT_GLYPH extends Win32Struct {
+            static sizeof => 232
+            static packingSize => 8
+    
+            /**
+             * @type {Integer}
+             */
+            glyphIndex {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+        }
+    
         class PAINT_COLOR_GLYPH extends Win32Struct {
             static sizeof => 232
             static packingSize => 8
@@ -256,7 +284,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             clipBox{
                 get {
                     if(!this.HasProp("__clipBox"))
-                        this.__clipBox := D2D_RECT_F(this.ptr + 8)
+                        this.__clipBox := D2D_RECT_F(8, this)
                     return this.__clipBox
                 }
             }
@@ -278,11 +306,14 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {PAINT_LAYERS}
          */
-        layers {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        layers{
+            get {
+                if(!this.HasProp("__layers"))
+                    this.__layers := %this.__Class%.PAINT_LAYERS(0, this)
+                return this.__layers
+            }
         }
     
         /**
@@ -291,7 +322,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         solidGlyph{
             get {
                 if(!this.HasProp("__solidGlyph"))
-                    this.__solidGlyph := %this.__Class%.PAINT_SOLID_GLYPH(this.ptr + 0)
+                    this.__solidGlyph := %this.__Class%.PAINT_SOLID_GLYPH(0, this)
                 return this.__solidGlyph
             }
         }
@@ -302,7 +333,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         solid{
             get {
                 if(!this.HasProp("__solid"))
-                    this.__solid := DWRITE_PAINT_COLOR(this.ptr + 0)
+                    this.__solid := DWRITE_PAINT_COLOR(0, this)
                 return this.__solid
             }
         }
@@ -313,7 +344,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         linearGradient{
             get {
                 if(!this.HasProp("__linearGradient"))
-                    this.__linearGradient := %this.__Class%.PAINT_LINEAR_GRADIENT(this.ptr + 0)
+                    this.__linearGradient := %this.__Class%.PAINT_LINEAR_GRADIENT(0, this)
                 return this.__linearGradient
             }
         }
@@ -324,7 +355,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         radialGradient{
             get {
                 if(!this.HasProp("__radialGradient"))
-                    this.__radialGradient := %this.__Class%.PAINT_RADIAL_GRADIENT(this.ptr + 0)
+                    this.__radialGradient := %this.__Class%.PAINT_RADIAL_GRADIENT(0, this)
                 return this.__radialGradient
             }
         }
@@ -335,17 +366,20 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         sweepGradient{
             get {
                 if(!this.HasProp("__sweepGradient"))
-                    this.__sweepGradient := %this.__Class%.PAINT_SWEEP_GRADIENT(this.ptr + 0)
+                    this.__sweepGradient := %this.__Class%.PAINT_SWEEP_GRADIENT(0, this)
                 return this.__sweepGradient
             }
         }
     
         /**
-         * @type {Integer}
+         * @type {PAINT_GLYPH}
          */
-        glyph {
-            get => NumGet(this, 0, "uint")
-            set => NumPut("uint", value, this, 0)
+        glyph{
+            get {
+                if(!this.HasProp("__glyph"))
+                    this.__glyph := %this.__Class%.PAINT_GLYPH(0, this)
+                return this.__glyph
+            }
         }
     
         /**
@@ -354,7 +388,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         colorGlyph{
             get {
                 if(!this.HasProp("__colorGlyph"))
-                    this.__colorGlyph := %this.__Class%.PAINT_COLOR_GLYPH(this.ptr + 0)
+                    this.__colorGlyph := %this.__Class%.PAINT_COLOR_GLYPH(0, this)
                 return this.__colorGlyph
             }
         }
@@ -365,7 +399,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         transform{
             get {
                 if(!this.HasProp("__transform"))
-                    this.__transform := DWRITE_MATRIX(this.ptr + 0)
+                    this.__transform := DWRITE_MATRIX(0, this)
                 return this.__transform
             }
         }
@@ -376,7 +410,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         composite{
             get {
                 if(!this.HasProp("__composite"))
-                    this.__composite := %this.__Class%.PAINT_COMPOSITE(this.ptr + 0)
+                    this.__composite := %this.__Class%.PAINT_COMPOSITE(0, this)
                 return this.__composite
             }
         }
@@ -397,7 +431,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     paint{
         get {
             if(!this.HasProp("__paint"))
-                this.__paint := %this.__Class%.PAINT_UNION(this.ptr + 8)
+                this.__paint := %this.__Class%.PAINT_UNION(8, this)
             return this.__paint
         }
     }

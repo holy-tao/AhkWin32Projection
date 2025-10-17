@@ -36,7 +36,7 @@ class SERVICE_REQUIRED_PRIVILEGES_INFOA extends Win32Struct
      * A multi-string that specifies the privileges. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * 
      * A multi-string is a sequence of null-terminated strings, terminated by an empty string (\0). The following is an example: <c>String1\0String2\0String3\0LastString\0\0</c>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pmszRequiredPrivileges {
         get => NumGet(this, 0, "ptr")

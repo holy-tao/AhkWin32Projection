@@ -67,7 +67,7 @@ class D3D10_BLEND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Determines whether or not to use <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d10-graphics-programming-guide-blend-state">alpha-to-coverage</a> as a multisampling technique when setting a pixel to a rendertarget.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AlphaToCoverageEnable {
         get => NumGet(this, 0, "int")
@@ -78,7 +78,7 @@ class D3D10_BLEND_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable (or disable) blending. There are eight elements in this array; these correspond to the eight rendertargets that can be set to output-merger stage at one time.
-     * @type {Array<Int32>}
+     * @type {Array<BOOL>}
      */
     BlendEnable{
         get {

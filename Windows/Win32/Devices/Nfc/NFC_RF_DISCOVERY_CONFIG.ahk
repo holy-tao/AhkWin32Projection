@@ -28,7 +28,7 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCardEmulation {
         get => NumGet(this, 8, "char")
@@ -44,7 +44,7 @@ class NFC_RF_DISCOVERY_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fNfcIPTgtModeDisable {
         get => NumGet(this, 10, "char")

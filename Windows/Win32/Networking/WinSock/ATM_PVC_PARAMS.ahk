@@ -21,7 +21,7 @@ class ATM_PVC_PARAMS extends Win32Struct
     PvcConnectionId{
         get {
             if(!this.HasProp("__PvcConnectionId"))
-                this.__PvcConnectionId := ATM_CONNECTION_ID(this.ptr + 0)
+                this.__PvcConnectionId := ATM_CONNECTION_ID(0, this)
             return this.__PvcConnectionId
         }
     }
@@ -32,7 +32,7 @@ class ATM_PVC_PARAMS extends Win32Struct
     PvcQos{
         get {
             if(!this.HasProp("__PvcQos"))
-                this.__PvcQos := QOS(this.ptr + 16)
+                this.__PvcQos := QOS(16, this)
             return this.__PvcQos
         }
     }

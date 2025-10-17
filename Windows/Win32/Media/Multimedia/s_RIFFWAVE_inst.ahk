@@ -20,7 +20,7 @@ class s_RIFFWAVE_inst extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     chFineTune {
         get => NumGet(this, 1, "char")
@@ -28,7 +28,7 @@ class s_RIFFWAVE_inst extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     chGain {
         get => NumGet(this, 2, "char")

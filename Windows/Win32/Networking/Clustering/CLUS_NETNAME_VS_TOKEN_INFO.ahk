@@ -37,7 +37,7 @@ class CLUS_NETNAME_VS_TOKEN_INFO extends Win32Struct
      * Indicates whether the new handle is inheritable. If <b>TRUE</b>, the duplicate handle can 
      *       be inherited by new processes created by the target process. If <b>FALSE</b>, the new handle 
      *       cannot be inherited.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InheritHandle {
         get => NumGet(this, 8, "int")

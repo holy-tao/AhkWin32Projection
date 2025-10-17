@@ -15,7 +15,7 @@ class MPR_SERVER_0 extends Win32Struct
 
     /**
      * A <b>BOOL</b> that specifies whether the Demand Dial Manager (DDM) is running on the device. If <b>TRUE</b>, the DDM is not running on the device. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLanOnlyMode {
         get => NumGet(this, 0, "int")

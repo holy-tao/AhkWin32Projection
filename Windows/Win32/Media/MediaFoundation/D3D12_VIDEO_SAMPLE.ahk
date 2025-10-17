@@ -42,7 +42,7 @@ class D3D12_VIDEO_SAMPLE extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := D3D12_VIDEO_FORMAT(this.ptr + 8)
+                this.__Format := D3D12_VIDEO_FORMAT(8, this)
             return this.__Format
         }
     }

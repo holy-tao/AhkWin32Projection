@@ -38,7 +38,7 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
 
     /**
      * String for filename to save.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class MCI_DGV_SAVE_PARMSW extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

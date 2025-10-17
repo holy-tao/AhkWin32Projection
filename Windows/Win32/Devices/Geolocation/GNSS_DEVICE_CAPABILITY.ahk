@@ -29,7 +29,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportMultipleFixSessions {
         get => NumGet(this, 8, "int")
@@ -37,7 +37,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportMultipleAppSessions {
         get => NumGet(this, 12, "int")
@@ -45,7 +45,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     RequireAGnssInjection {
         get => NumGet(this, 16, "int")
@@ -69,7 +69,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportDistanceTracking {
         get => NumGet(this, 28, "int")
@@ -77,7 +77,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportContinuousTracking {
         get => NumGet(this, 32, "int")
@@ -93,7 +93,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved2 {
         get => NumGet(this, 40, "int")
@@ -101,7 +101,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved3 {
         get => NumGet(this, 44, "int")
@@ -109,7 +109,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved4 {
         get => NumGet(this, 48, "int")
@@ -117,7 +117,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved5 {
         get => NumGet(this, 52, "int")
@@ -133,7 +133,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved6 {
         get => NumGet(this, 60, "int")
@@ -141,7 +141,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved7 {
         get => NumGet(this, 64, "int")
@@ -149,7 +149,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportCpLocation {
         get => NumGet(this, 68, "int")
@@ -157,7 +157,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportUplV2 {
         get => NumGet(this, 72, "int")
@@ -165,7 +165,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportSuplV1 {
         get => NumGet(this, 76, "int")
@@ -173,7 +173,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportSuplV2 {
         get => NumGet(this, 80, "int")
@@ -186,7 +186,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     SupportedSuplVersion{
         get {
             if(!this.HasProp("__SupportedSuplVersion"))
-                this.__SupportedSuplVersion := GNSS_SUPL_VERSION(this.ptr + 88)
+                this.__SupportedSuplVersion := GNSS_SUPL_VERSION(88, this)
             return this.__SupportedSuplVersion
         }
     }
@@ -200,7 +200,7 @@ class GNSS_DEVICE_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportMultipleSuplRootCert {
         get => NumGet(this, 100, "int")

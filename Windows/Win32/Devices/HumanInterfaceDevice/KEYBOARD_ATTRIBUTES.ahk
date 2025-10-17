@@ -38,7 +38,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyboardIdentifier{
         get {
             if(!this.HasProp("__KeyboardIdentifier"))
-                this.__KeyboardIdentifier := KEYBOARD_ID(this.ptr + 0)
+                this.__KeyboardIdentifier := KEYBOARD_ID(0, this)
             return this.__KeyboardIdentifier
         }
     }
@@ -95,7 +95,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMinimum{
         get {
             if(!this.HasProp("__KeyRepeatMinimum"))
-                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(this.ptr + 18)
+                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(18, this)
             return this.__KeyRepeatMinimum
         }
     }
@@ -107,7 +107,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMaximum{
         get {
             if(!this.HasProp("__KeyRepeatMaximum"))
-                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(this.ptr + 24)
+                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(24, this)
             return this.__KeyRepeatMaximum
         }
     }

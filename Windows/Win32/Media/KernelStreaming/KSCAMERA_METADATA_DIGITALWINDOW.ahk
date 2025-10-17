@@ -19,7 +19,7 @@ class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := KSCAMERA_METADATA_ITEMHEADER(this.ptr + 0)
+                this.__Header := KSCAMERA_METADATA_ITEMHEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class KSCAMERA_METADATA_DIGITALWINDOW extends Win32Struct
     Window{
         get {
             if(!this.HasProp("__Window"))
-                this.__Window := KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_SETTING(this.ptr + 8)
+                this.__Window := KSCAMERA_EXTENDEDPROP_DIGITALWINDOW_SETTING(8, this)
             return this.__Window
         }
     }

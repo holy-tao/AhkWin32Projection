@@ -20,10 +20,21 @@ class USB_ENDPOINT_STATUS extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Halt
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "ushort")
         set => NumPut("ushort", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Halt {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 }

@@ -5,6 +5,8 @@
 #Include .\BUCKET_COUNTER.ahk
 #Include .\LATENCY_STAMP.ahk
 #Include .\MEASURED_LATENCY.ahk
+#Include .\LATENCY_STAMP_UNITS.ahk
+#Include .\DEBUG_BIT_FIELD.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
@@ -22,7 +24,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     FeatureStatus{
         get {
             if(!this.HasProp("__FeatureStatus"))
-                this.__FeatureStatus := LATENCY_MONITOR_FEATURE_STATUS(this.ptr + 0)
+                this.__FeatureStatus := LATENCY_MONITOR_FEATURE_STATUS(0, this)
             return this.__FeatureStatus
         }
     }
@@ -89,7 +91,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveLatencyConfig{
         get {
             if(!this.HasProp("__ActiveLatencyConfig"))
-                this.__ActiveLatencyConfig := ACTIVE_LATENCY_CONFIGURATION(this.ptr + 10)
+                this.__ActiveLatencyConfig := ACTIVE_LATENCY_CONFIGURATION(10, this)
             return this.__ActiveLatencyConfig
         }
     }
@@ -119,7 +121,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveBucketCounter0{
         get {
             if(!this.HasProp("__ActiveBucketCounter0"))
-                this.__ActiveBucketCounter0 := BUCKET_COUNTER(this.ptr + 32)
+                this.__ActiveBucketCounter0 := BUCKET_COUNTER(32, this)
             return this.__ActiveBucketCounter0
         }
     }
@@ -130,7 +132,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveBucketCounter1{
         get {
             if(!this.HasProp("__ActiveBucketCounter1"))
-                this.__ActiveBucketCounter1 := BUCKET_COUNTER(this.ptr + 48)
+                this.__ActiveBucketCounter1 := BUCKET_COUNTER(48, this)
             return this.__ActiveBucketCounter1
         }
     }
@@ -141,7 +143,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveBucketCounter2{
         get {
             if(!this.HasProp("__ActiveBucketCounter2"))
-                this.__ActiveBucketCounter2 := BUCKET_COUNTER(this.ptr + 64)
+                this.__ActiveBucketCounter2 := BUCKET_COUNTER(64, this)
             return this.__ActiveBucketCounter2
         }
     }
@@ -152,7 +154,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveBucketCounter3{
         get {
             if(!this.HasProp("__ActiveBucketCounter3"))
-                this.__ActiveBucketCounter3 := BUCKET_COUNTER(this.ptr + 80)
+                this.__ActiveBucketCounter3 := BUCKET_COUNTER(80, this)
             return this.__ActiveBucketCounter3
         }
     }
@@ -163,7 +165,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveLatencyStamp{
         get {
             if(!this.HasProp("__ActiveLatencyStamp"))
-                this.__ActiveLatencyStamp := LATENCY_STAMP(this.ptr + 96)
+                this.__ActiveLatencyStamp := LATENCY_STAMP(96, this)
             return this.__ActiveLatencyStamp
         }
     }
@@ -174,17 +176,20 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     ActiveMeasuredLatency{
         get {
             if(!this.HasProp("__ActiveMeasuredLatency"))
-                this.__ActiveMeasuredLatency := MEASURED_LATENCY(this.ptr + 192)
+                this.__ActiveMeasuredLatency := MEASURED_LATENCY(192, this)
             return this.__ActiveMeasuredLatency
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {LATENCY_STAMP_UNITS}
      */
-    ActiveLatencyStampUnits {
-        get => NumGet(this, 216, "ushort")
-        set => NumPut("ushort", value, this, 216)
+    ActiveLatencyStampUnits{
+        get {
+            if(!this.HasProp("__ActiveLatencyStampUnits"))
+                this.__ActiveLatencyStampUnits := LATENCY_STAMP_UNITS(216, this)
+            return this.__ActiveLatencyStampUnits
+        }
     }
 
     /**
@@ -204,7 +209,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticBucketCounter0{
         get {
             if(!this.HasProp("__StaticBucketCounter0"))
-                this.__StaticBucketCounter0 := BUCKET_COUNTER(this.ptr + 240)
+                this.__StaticBucketCounter0 := BUCKET_COUNTER(240, this)
             return this.__StaticBucketCounter0
         }
     }
@@ -215,7 +220,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticBucketCounter1{
         get {
             if(!this.HasProp("__StaticBucketCounter1"))
-                this.__StaticBucketCounter1 := BUCKET_COUNTER(this.ptr + 256)
+                this.__StaticBucketCounter1 := BUCKET_COUNTER(256, this)
             return this.__StaticBucketCounter1
         }
     }
@@ -226,7 +231,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticBucketCounter2{
         get {
             if(!this.HasProp("__StaticBucketCounter2"))
-                this.__StaticBucketCounter2 := BUCKET_COUNTER(this.ptr + 272)
+                this.__StaticBucketCounter2 := BUCKET_COUNTER(272, this)
             return this.__StaticBucketCounter2
         }
     }
@@ -237,7 +242,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticBucketCounter3{
         get {
             if(!this.HasProp("__StaticBucketCounter3"))
-                this.__StaticBucketCounter3 := BUCKET_COUNTER(this.ptr + 288)
+                this.__StaticBucketCounter3 := BUCKET_COUNTER(288, this)
             return this.__StaticBucketCounter3
         }
     }
@@ -248,7 +253,7 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticLatencyStamp{
         get {
             if(!this.HasProp("__StaticLatencyStamp"))
-                this.__StaticLatencyStamp := LATENCY_STAMP(this.ptr + 304)
+                this.__StaticLatencyStamp := LATENCY_STAMP(304, this)
             return this.__StaticLatencyStamp
         }
     }
@@ -259,17 +264,20 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     StaticMeasuredLatency{
         get {
             if(!this.HasProp("__StaticMeasuredLatency"))
-                this.__StaticMeasuredLatency := MEASURED_LATENCY(this.ptr + 400)
+                this.__StaticMeasuredLatency := MEASURED_LATENCY(400, this)
             return this.__StaticMeasuredLatency
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {LATENCY_STAMP_UNITS}
      */
-    StaticLatencyStampUnits {
-        get => NumGet(this, 424, "ushort")
-        set => NumPut("ushort", value, this, 424)
+    StaticLatencyStampUnits{
+        get {
+            if(!this.HasProp("__StaticLatencyStampUnits"))
+                this.__StaticLatencyStampUnits := LATENCY_STAMP_UNITS(424, this)
+            return this.__StaticLatencyStampUnits
+        }
     }
 
     /**
@@ -284,11 +292,14 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DEBUG_BIT_FIELD}
      */
-    DebugLogTriggerEnable {
-        get => NumGet(this, 448, "ushort")
-        set => NumPut("ushort", value, this, 448)
+    DebugLogTriggerEnable{
+        get {
+            if(!this.HasProp("__DebugLogTriggerEnable"))
+                this.__DebugLogTriggerEnable := DEBUG_BIT_FIELD(448, this)
+            return this.__DebugLogTriggerEnable
+        }
     }
 
     /**
@@ -316,19 +327,33 @@ class NVME_OCP_DEVICE_LATENCY_MONITOR_LOG extends Win32Struct
     }
 
     /**
+     * @type {DEBUG_BIT_FIELD}
+     */
+    DebugCounterTriggerSource{
+        get {
+            if(!this.HasProp("__DebugCounterTriggerSource"))
+                this.__DebugCounterTriggerSource := DEBUG_BIT_FIELD(466, this)
+            return this.__DebugCounterTriggerSource
+        }
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - BasedOnTimestamp
+     * - Reserved
      * @type {Integer}
      */
-    DebugCounterTriggerSource {
-        get => NumGet(this, 466, "ushort")
-        set => NumPut("ushort", value, this, 466)
+    _bitfield {
+        get => NumGet(this, 468, "char")
+        set => NumPut("char", value, this, 468)
     }
 
     /**
      * @type {Integer}
      */
-    Anonymous {
-        get => NumGet(this, 468, "char")
-        set => NumPut("char", value, this, 468)
+    BasedOnTimestamp {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

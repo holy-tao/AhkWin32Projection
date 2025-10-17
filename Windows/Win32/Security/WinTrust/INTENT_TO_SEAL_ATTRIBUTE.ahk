@@ -20,7 +20,7 @@ class INTENT_TO_SEAL_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     seal {
         get => NumGet(this, 4, "char")

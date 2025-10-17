@@ -22,7 +22,7 @@ class DAV_CALLBACK_AUTH_UNP extends Win32Struct
 
     /**
      * A pointer to a string that contains the user name. This string is allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a> callback function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUserName {
         get => NumGet(this, 0, "ptr")
@@ -40,7 +40,7 @@ class DAV_CALLBACK_AUTH_UNP extends Win32Struct
 
     /**
      * A pointer to a string that contains the password. This string is allocated by <a href="https://docs.microsoft.com/windows/desktop/api/davclnt/nc-davclnt-pfndavauthcallback">DavAuthCallback</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPassword {
         get => NumGet(this, 16, "ptr")

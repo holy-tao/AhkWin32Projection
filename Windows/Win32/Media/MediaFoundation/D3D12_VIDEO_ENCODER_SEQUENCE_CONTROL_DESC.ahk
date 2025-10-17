@@ -32,7 +32,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     IntraRefreshConfig{
         get {
             if(!this.HasProp("__IntraRefreshConfig"))
-                this.__IntraRefreshConfig := D3D12_VIDEO_ENCODER_INTRA_REFRESH(this.ptr + 8)
+                this.__IntraRefreshConfig := D3D12_VIDEO_ENCODER_INTRA_REFRESH(8, this)
             return this.__IntraRefreshConfig
         }
     }
@@ -43,7 +43,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     RateControl{
         get {
             if(!this.HasProp("__RateControl"))
-                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(this.ptr + 16)
+                this.__RateControl := D3D12_VIDEO_ENCODER_RATE_CONTROL(16, this)
             return this.__RateControl
         }
     }
@@ -54,7 +54,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     PictureTargetResolution{
         get {
             if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 48)
+                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
             return this.__PictureTargetResolution
         }
     }
@@ -73,7 +73,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     FrameSubregionsLayoutData{
         get {
             if(!this.HasProp("__FrameSubregionsLayoutData"))
-                this.__FrameSubregionsLayoutData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(this.ptr + 64)
+                this.__FrameSubregionsLayoutData := D3D12_VIDEO_ENCODER_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA(64, this)
             return this.__FrameSubregionsLayoutData
         }
     }
@@ -84,7 +84,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     CodecGopSequence{
         get {
             if(!this.HasProp("__CodecGopSequence"))
-                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(this.ptr + 80)
+                this.__CodecGopSequence := D3D12_VIDEO_ENCODER_SEQUENCE_GOP_STRUCTURE(80, this)
             return this.__CodecGopSequence
         }
     }

@@ -53,7 +53,7 @@ class ADDRINFOEX2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")
@@ -109,7 +109,7 @@ class ADDRINFOEX2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ai_fqdn {
         get => NumGet(this, 80, "ptr")

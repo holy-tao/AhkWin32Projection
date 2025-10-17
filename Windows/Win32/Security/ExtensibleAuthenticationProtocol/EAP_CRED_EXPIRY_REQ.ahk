@@ -28,7 +28,7 @@ class EAP_CRED_EXPIRY_REQ extends Win32Struct
     curCreds{
         get {
             if(!this.HasProp("__curCreds"))
-                this.__curCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(this.ptr + 0)
+                this.__curCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(0, this)
             return this.__curCreds
         }
     }
@@ -40,7 +40,7 @@ class EAP_CRED_EXPIRY_REQ extends Win32Struct
     newCreds{
         get {
             if(!this.HasProp("__newCreds"))
-                this.__newCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(this.ptr + 16)
+                this.__newCreds := EAP_CONFIG_INPUT_FIELD_ARRAY(16, this)
             return this.__newCreds
         }
     }

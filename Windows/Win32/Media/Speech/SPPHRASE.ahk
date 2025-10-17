@@ -19,13 +19,13 @@ class SPPHRASE extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := SPPHRASE_50(this.ptr + 0)
+                this.__Base := SPPHRASE_50(0, this)
             return this.__Base
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pSML {
         get => NumGet(this, 152, "ptr")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
 
 /**
@@ -23,7 +24,7 @@ class MSGFILTER extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -44,7 +45,7 @@ class MSGFILTER extends Win32Struct
      * 
      * The 
      * 					<b>wParam</b> parameter of the message.
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +57,7 @@ class MSGFILTER extends Win32Struct
      * 
      * The 
      * 					<b>lParam</b> parameter of the message.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")

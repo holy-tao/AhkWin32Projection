@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\MFVideoNormalizedRect.ahk
 #Include .\MFVideoAlphaBitmapParams.ahk
@@ -23,7 +24,7 @@ class MFVideoAlphaBitmap extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the <b>hdc</b> member is used. Otherwise, the <b>pDDs</b> member is used.
-     * @type {Integer}
+     * @type {BOOL}
      */
     GetBitmapFromDC {
         get => NumGet(this, 0, "int")
@@ -31,11 +32,14 @@ class MFVideoAlphaBitmap extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(8, this)
+            return this.__hdc
+        }
     }
 
     /**
@@ -53,7 +57,7 @@ class MFVideoAlphaBitmap extends Win32Struct
     params{
         get {
             if(!this.HasProp("__params"))
-                this.__params := MFVideoAlphaBitmapParams(this.ptr + 16)
+                this.__params := MFVideoAlphaBitmapParams(16, this)
             return this.__params
         }
     }

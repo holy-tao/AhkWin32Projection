@@ -19,7 +19,7 @@ class DEVPROPERTY extends Win32Struct
     CompKey{
         get {
             if(!this.HasProp("__CompKey"))
-                this.__CompKey := DEVPROPCOMPKEY(this.ptr + 0)
+                this.__CompKey := DEVPROPCOMPKEY(0, this)
             return this.__CompKey
         }
     }

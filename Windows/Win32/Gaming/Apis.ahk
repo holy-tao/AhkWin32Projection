@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Gaming
  * @version v4.0.30319
@@ -22,12 +22,12 @@ class Gaming {
 ;@region Methods
     /**
      * Gets the current resource state (that is, whether the app is running in Game Mode or shared mode).
-     * @param {Pointer<Int32>} hasExpandedResources True if  the app is running in Game Mode; otherwise, false.
+     * @param {Pointer<BOOL>} hasExpandedResources True if  the app is running in Game Mode; otherwise, false.
      * @returns {HRESULT} The result of the operation.
      * @see https://docs.microsoft.com/windows/win32/api//expandedresources/nf-expandedresources-hasexpandedresources
      */
     static HasExpandedResources(hasExpandedResources) {
-        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "int*", hasExpandedResources, "int")
+        result := DllCall("api-ms-win-gaming-expandedresources-l1-1-0.dll\HasExpandedResources", "ptr", hasExpandedResources, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -77,16 +77,16 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} serviceConfigurationId Type: <b>HSTRING</b>
+     * @param {HSTRING} serviceConfigurationId Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} sessionTemplateName Type: <b>HSTRING</b>
+     * @param {HSTRING} sessionTemplateName Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} sessionId Type: <b>HSTRING</b>
+     * @param {HSTRING} sessionId Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} invitationDisplayText Type: <b>HSTRING</b>
+     * @param {HSTRING} invitationDisplayText Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -101,6 +101,11 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-showgameinviteui
      */
     static ShowGameInviteUI(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context) {
+        serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
+        sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
+        sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
+        invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowGameInviteUI", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -110,16 +115,16 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} promptDisplayText Type: <b>HSTRING</b>
+     * @param {HSTRING} promptDisplayText Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} xuids Type: <b>const HSTRING*</b>
+     * @param {Pointer<HSTRING>} xuids Type: <b>const HSTRING*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer} xuidsCount Type: <b>size_t</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} preSelectedXuids Type: <b>const HSTRING*</b>
+     * @param {Pointer<HSTRING>} preSelectedXuids Type: <b>const HSTRING*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer} preSelectedXuidsCount Type: <b>size_t</b>
@@ -143,6 +148,8 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-showplayerpickerui
      */
     static ShowPlayerPickerUI(promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
+        promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowPlayerPickerUI", "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -152,7 +159,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} targetUserXuid Type: <b>HSTRING</b>
+     * @param {HSTRING} targetUserXuid Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -167,6 +174,8 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-showprofilecardui
      */
     static ShowProfileCardUI(targetUserXuid, completionRoutine, context) {
+        targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowProfileCardUI", "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -176,7 +185,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} targetUserXuid Type: <b>HSTRING</b>
+     * @param {HSTRING} targetUserXuid Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -191,6 +200,8 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-showchangefriendrelationshipui
      */
     static ShowChangeFriendRelationshipUI(targetUserXuid, completionRoutine, context) {
+        targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-0.dll\ShowChangeFriendRelationshipUI", "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -224,7 +235,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Integer} waitForCompletion Type: <b>BOOL</b>
+     * @param {BOOL} waitForCompletion Type: <b>BOOL</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -242,7 +253,7 @@ class Gaming {
 
     /**
      * Do not use. This API is only supported for Xbox developers.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-trycancelpendinggameui
@@ -257,13 +268,13 @@ class Gaming {
      * @param {Integer} privilegeId Type: <b>UINT32</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} scope Type: <b>HSTRING</b>
+     * @param {HSTRING} scope Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} policy Type: <b>HSTRING</b>
+     * @param {HSTRING} policy Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} friendlyMessage Type: <b>HSTRING</b>
+     * @param {HSTRING} friendlyMessage Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine Type: <b>GameUICompletionRoutine</b>
@@ -278,6 +289,10 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-checkgamingprivilegewithui
      */
     static CheckGamingPrivilegeWithUI(privilegeId, scope, policy, friendlyMessage, completionRoutine, context) {
+        scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
+        policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
+        friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeWithUI", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -290,13 +305,13 @@ class Gaming {
      * @param {Integer} privilegeId Type: <b>UINT32</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} scope Type: <b>HSTRING</b>
+     * @param {HSTRING} scope Type: <b>HSTRING</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
-     * @param {Pointer<Void>} policy Type: <b>HSTRING</b>
+     * @param {HSTRING} policy Type: <b>HSTRING</b>
      * 
      * Specifies a HSTRING that ... TBD
-     * @param {Pointer<Int32>} hasPrivilege Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} hasPrivilege Type: <b>BOOL*</b>
      * 
      * Do not use. This API is only supported for Xbox developers.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -305,7 +320,10 @@ class Gaming {
      * @see https://docs.microsoft.com/windows/win32/api//gamingtcui/nf-gamingtcui-checkgamingprivilegesilently
      */
     static CheckGamingPrivilegeSilently(privilegeId, scope, policy, hasPrivilege) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", hasPrivilege, "int")
+        scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
+        policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-1.dll\CheckGamingPrivilegeSilently", "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -315,15 +333,20 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<Void>} serviceConfigurationId 
-     * @param {Pointer<Void>} sessionTemplateName 
-     * @param {Pointer<Void>} sessionId 
-     * @param {Pointer<Void>} invitationDisplayText 
+     * @param {HSTRING} serviceConfigurationId 
+     * @param {HSTRING} sessionTemplateName 
+     * @param {HSTRING} sessionId 
+     * @param {HSTRING} invitationDisplayText 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static ShowGameInviteUIForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, completionRoutine, context) {
+        serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
+        sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
+        sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
+        invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowGameInviteUIForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -334,10 +357,10 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<Void>} promptDisplayText 
-     * @param {Pointer<Void>} xuids 
+     * @param {HSTRING} promptDisplayText 
+     * @param {Pointer<HSTRING>} xuids 
      * @param {Pointer} xuidsCount 
-     * @param {Pointer<Void>} preSelectedXuids 
+     * @param {Pointer<HSTRING>} preSelectedXuids 
      * @param {Pointer} preSelectedXuidsCount 
      * @param {Pointer} minSelectionCount 
      * @param {Pointer} maxSelectionCount 
@@ -346,6 +369,8 @@ class Gaming {
      * @returns {HRESULT} 
      */
     static ShowPlayerPickerUIForUser(user, promptDisplayText, xuids, xuidsCount, preSelectedXuids, preSelectedXuidsCount, minSelectionCount, maxSelectionCount, completionRoutine, context) {
+        promptDisplayText := promptDisplayText is Win32Handle ? NumGet(promptDisplayText, "ptr") : promptDisplayText
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowPlayerPickerUIForUser", "ptr", user, "ptr", promptDisplayText, "ptr", xuids, "ptr", xuidsCount, "ptr", preSelectedXuids, "ptr", preSelectedXuidsCount, "ptr", minSelectionCount, "ptr", maxSelectionCount, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -356,12 +381,14 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<Void>} targetUserXuid 
+     * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static ShowProfileCardUIForUser(user, targetUserXuid, completionRoutine, context) {
+        targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowProfileCardUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -372,12 +399,14 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<Void>} targetUserXuid 
+     * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static ShowChangeFriendRelationshipUIForUser(user, targetUserXuid, completionRoutine, context) {
+        targetUserXuid := targetUserXuid is Win32Handle ? NumGet(targetUserXuid, "ptr") : targetUserXuid
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\ShowChangeFriendRelationshipUIForUser", "ptr", user, "ptr", targetUserXuid, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -405,14 +434,18 @@ class Gaming {
      * 
      * @param {Pointer<IInspectable>} user 
      * @param {Integer} privilegeId 
-     * @param {Pointer<Void>} scope 
-     * @param {Pointer<Void>} policy 
-     * @param {Pointer<Void>} friendlyMessage 
+     * @param {HSTRING} scope 
+     * @param {HSTRING} policy 
+     * @param {HSTRING} friendlyMessage 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static CheckGamingPrivilegeWithUIForUser(user, privilegeId, scope, policy, friendlyMessage, completionRoutine, context) {
+        scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
+        policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
+        friendlyMessage := friendlyMessage is Win32Handle ? NumGet(friendlyMessage, "ptr") : friendlyMessage
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeWithUIForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", friendlyMessage, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -424,13 +457,16 @@ class Gaming {
      * 
      * @param {Pointer<IInspectable>} user 
      * @param {Integer} privilegeId 
-     * @param {Pointer<Void>} scope 
-     * @param {Pointer<Void>} policy 
-     * @param {Pointer<Int32>} hasPrivilege 
+     * @param {HSTRING} scope 
+     * @param {HSTRING} policy 
+     * @param {Pointer<BOOL>} hasPrivilege 
      * @returns {HRESULT} 
      */
     static CheckGamingPrivilegeSilentlyForUser(user, privilegeId, scope, policy, hasPrivilege) {
-        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "int*", hasPrivilege, "int")
+        scope := scope is Win32Handle ? NumGet(scope, "ptr") : scope
+        policy := policy is Win32Handle ? NumGet(policy, "ptr") : policy
+
+        result := DllCall("api-ms-win-gaming-tcui-l1-1-2.dll\CheckGamingPrivilegeSilentlyForUser", "ptr", user, "uint", privilegeId, "ptr", scope, "ptr", policy, "ptr", hasPrivilege, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -439,16 +475,22 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<Void>} serviceConfigurationId 
-     * @param {Pointer<Void>} sessionTemplateName 
-     * @param {Pointer<Void>} sessionId 
-     * @param {Pointer<Void>} invitationDisplayText 
-     * @param {Pointer<Void>} customActivationContext 
+     * @param {HSTRING} serviceConfigurationId 
+     * @param {HSTRING} sessionTemplateName 
+     * @param {HSTRING} sessionId 
+     * @param {HSTRING} invitationDisplayText 
+     * @param {HSTRING} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static ShowGameInviteUIWithContext(serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context) {
+        serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
+        sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
+        sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
+        invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
+        customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContext", "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)
@@ -459,16 +501,22 @@ class Gaming {
     /**
      * 
      * @param {Pointer<IInspectable>} user 
-     * @param {Pointer<Void>} serviceConfigurationId 
-     * @param {Pointer<Void>} sessionTemplateName 
-     * @param {Pointer<Void>} sessionId 
-     * @param {Pointer<Void>} invitationDisplayText 
-     * @param {Pointer<Void>} customActivationContext 
+     * @param {HSTRING} serviceConfigurationId 
+     * @param {HSTRING} sessionTemplateName 
+     * @param {HSTRING} sessionId 
+     * @param {HSTRING} invitationDisplayText 
+     * @param {HSTRING} customActivationContext 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
      */
     static ShowGameInviteUIWithContextForUser(user, serviceConfigurationId, sessionTemplateName, sessionId, invitationDisplayText, customActivationContext, completionRoutine, context) {
+        serviceConfigurationId := serviceConfigurationId is Win32Handle ? NumGet(serviceConfigurationId, "ptr") : serviceConfigurationId
+        sessionTemplateName := sessionTemplateName is Win32Handle ? NumGet(sessionTemplateName, "ptr") : sessionTemplateName
+        sessionId := sessionId is Win32Handle ? NumGet(sessionId, "ptr") : sessionId
+        invitationDisplayText := invitationDisplayText is Win32Handle ? NumGet(invitationDisplayText, "ptr") : invitationDisplayText
+        customActivationContext := customActivationContext is Win32Handle ? NumGet(customActivationContext, "ptr") : customActivationContext
+
         result := DllCall("api-ms-win-gaming-tcui-l1-1-3.dll\ShowGameInviteUIWithContextForUser", "ptr", user, "ptr", serviceConfigurationId, "ptr", sessionTemplateName, "ptr", sessionId, "ptr", invitationDisplayText, "ptr", customActivationContext, "ptr", completionRoutine, "ptr", context, "int")
         if(result != 0)
             throw OSError(result)

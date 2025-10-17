@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -44,11 +45,14 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hComPropSheet {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hComPropSheet{
+        get {
+            if(!this.HasProp("__hComPropSheet"))
+                this.__hComPropSheet := HANDLE(8, this)
+            return this.__hComPropSheet
+        }
     }
 
     /**
@@ -60,7 +64,7 @@ class PROPSHEETUI_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParamInit {
         get => NumGet(this, 24, "ptr")
@@ -83,12 +87,8 @@ class PROPSHEETUI_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

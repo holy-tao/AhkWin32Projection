@@ -31,7 +31,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     hSyncFreq{
         get {
             if(!this.HasProp("__hSyncFreq"))
-                this.__hSyncFreq := DISPLAYCONFIG_RATIONAL(this.ptr + 8)
+                this.__hSyncFreq := DISPLAYCONFIG_RATIONAL(8, this)
             return this.__hSyncFreq
         }
     }
@@ -43,7 +43,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     vSyncFreq{
         get {
             if(!this.HasProp("__vSyncFreq"))
-                this.__vSyncFreq := DISPLAYCONFIG_RATIONAL(this.ptr + 16)
+                this.__vSyncFreq := DISPLAYCONFIG_RATIONAL(16, this)
             return this.__vSyncFreq
         }
     }
@@ -55,7 +55,7 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     activeSize{
         get {
             if(!this.HasProp("__activeSize"))
-                this.__activeSize := DISPLAYCONFIG_2DREGION(this.ptr + 24)
+                this.__activeSize := DISPLAYCONFIG_2DREGION(24, this)
             return this.__activeSize
         }
     }
@@ -67,17 +67,62 @@ class DISPLAYCONFIG_VIDEO_SIGNAL_INFO extends Win32Struct
     totalSize{
         get {
             if(!this.HasProp("__totalSize"))
-                this.__totalSize := DISPLAYCONFIG_2DREGION(this.ptr + 32)
+                this.__totalSize := DISPLAYCONFIG_2DREGION(32, this)
             return this.__totalSize
         }
     }
 
+    class _AdditionalSignalInfo extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - videoStandard
+         * - vSyncFreqDivider
+         * - reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        videoStandard {
+            get => (this._bitfield >> 0) & 0xFFFF
+            set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        vSyncFreqDivider {
+            get => (this._bitfield >> 16) & 0x3F
+            set => this._bitfield := ((value & 0x3F) << 16) | (this._bitfield & ~(0x3F << 16))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        reserved {
+            get => (this._bitfield >> 22) & 0x3FF
+            set => this._bitfield := ((value & 0x3FF) << 22) | (this._bitfield & ~(0x3FF << 22))
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * @type {_AdditionalSignalInfo}
      */
-    AdditionalSignalInfo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+    AdditionalSignalInfo{
+        get {
+            if(!this.HasProp("__AdditionalSignalInfo"))
+                this.__AdditionalSignalInfo := %this.__Class%._AdditionalSignalInfo(40, this)
+            return this.__AdditionalSignalInfo
+        }
     }
 
     /**

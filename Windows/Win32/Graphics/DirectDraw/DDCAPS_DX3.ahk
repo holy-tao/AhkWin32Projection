@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectDraw
@@ -223,11 +224,14 @@ class DDCAPS_DX3 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    ddsCaps {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+    ddsCaps{
+        get {
+            if(!this.HasProp("__ddsCaps"))
+                this.__ddsCaps := DDSCAPS(132, this)
+            return this.__ddsCaps
+        }
     }
 
     /**

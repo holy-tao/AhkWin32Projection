@@ -15,7 +15,7 @@ class SERVER_INFO_1516 extends Win32Struct
 
     /**
      * Specifies whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1516_timesource {
         get => NumGet(this, 0, "int")

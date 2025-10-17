@@ -20,7 +20,7 @@ class WSD_LOCALIZED_STRING extends Win32Struct
 
     /**
      * The standard language code used for localization. Valid language codes are specified in <a href="https://www.ietf.org/rfc/rfc1766.txt">RFC 1766</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lang {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class WSD_LOCALIZED_STRING extends Win32Struct
 
     /**
      * The string data in the localized language.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     String {
         get => NumGet(this, 8, "ptr")

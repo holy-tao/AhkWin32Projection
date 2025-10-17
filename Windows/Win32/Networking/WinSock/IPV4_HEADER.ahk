@@ -21,11 +21,30 @@ class IPV4_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - HeaderLength
+     * - Version
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "char")
         set => NumPut("char", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    HeaderLength {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Version {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
     }
 
     /**
@@ -34,6 +53,33 @@ class IPV4_HEADER extends Win32Struct
     TypeOfServiceAndEcnField {
         get => NumGet(this, 1, "char")
         set => NumPut("char", value, this, 1)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - EcnField
+     * - TypeOfService
+     * @type {Integer}
+     */
+    _bitfield1 {
+        get => NumGet(this, 1, "char")
+        set => NumPut("char", value, this, 1)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EcnField {
+        get => (this._bitfield1 >> 0) & 0x3
+        set => this._bitfield1 := ((value & 0x3) << 0) | (this._bitfield1 & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TypeOfService {
+        get => (this._bitfield1 >> 2) & 0x3F
+        set => this._bitfield1 := ((value & 0x3F) << 2) | (this._bitfield1 & ~(0x3F << 2))
     }
 
     /**
@@ -58,6 +104,52 @@ class IPV4_HEADER extends Win32Struct
     FlagsAndOffset {
         get => NumGet(this, 6, "ushort")
         set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * This bitfield backs the following members:
+     * - DontUse1
+     * - MoreFragments
+     * - DontFragment
+     * - Reserved
+     * - DontUse2
+     * @type {Integer}
+     */
+    _bitfield12 {
+        get => NumGet(this, 6, "ushort")
+        set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DontUse1 {
+        get => (this._bitfield12 >> 0) & 0x1F
+        set => this._bitfield12 := ((value & 0x1F) << 0) | (this._bitfield12 & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MoreFragments {
+        get => (this._bitfield12 >> 5) & 0x1
+        set => this._bitfield12 := ((value & 0x1) << 5) | (this._bitfield12 & ~(0x1 << 5))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DontFragment {
+        get => (this._bitfield12 >> 6) & 0x1
+        set => this._bitfield12 := ((value & 0x1) << 6) | (this._bitfield12 & ~(0x1 << 6))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    DontUse2 {
+        get => (this._bitfield12 >> 8) & 0xFF
+        set => this._bitfield12 := ((value & 0xFF) << 8) | (this._bitfield12 & ~(0xFF << 8))
     }
 
     /**
@@ -90,7 +182,7 @@ class IPV4_HEADER extends Win32Struct
     SourceAddress{
         get {
             if(!this.HasProp("__SourceAddress"))
-                this.__SourceAddress := IN_ADDR(this.ptr + 12)
+                this.__SourceAddress := IN_ADDR(12, this)
             return this.__SourceAddress
         }
     }
@@ -101,7 +193,7 @@ class IPV4_HEADER extends Win32Struct
     DestinationAddress{
         get {
             if(!this.HasProp("__DestinationAddress"))
-                this.__DestinationAddress := IN_ADDR(this.ptr + 16)
+                this.__DestinationAddress := IN_ADDR(16, this)
             return this.__DestinationAddress
         }
     }

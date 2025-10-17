@@ -30,7 +30,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target server name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ServerName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that specifies the DFS root target or link target share name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ShareName {
         get => NumGet(this, 16, "ptr")
@@ -53,7 +53,7 @@ class DFS_STORAGE_INFO_1 extends Win32Struct
     TargetPriority{
         get {
             if(!this.HasProp("__TargetPriority"))
-                this.__TargetPriority := DFS_TARGET_PRIORITY(this.ptr + 24)
+                this.__TargetPriority := DFS_TARGET_PRIORITY(24, this)
             return this.__TargetPriority
         }
     }

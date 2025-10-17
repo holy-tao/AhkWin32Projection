@@ -15,7 +15,7 @@ class MPR_FILTER_0 extends Win32Struct
 
     /**
      * A <b>BOOL</b> that specifies the state of the static filters. Set to <b>TRUE</b> if static filters are  enabled and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEnable {
         get => NumGet(this, 0, "int")

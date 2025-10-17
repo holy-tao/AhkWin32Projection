@@ -12,7 +12,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {alljoyn_interfacedescription}
      */
     iface {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     name {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     signature {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     returnSignature {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class alljoyn_interfacedescription_member extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     argNames {
         get => NumGet(this, 40, "ptr")

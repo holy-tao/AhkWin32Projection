@@ -233,7 +233,7 @@ class AVISTREAMINFOW extends Win32Struct
     rcFrame{
         get {
             if(!this.HasProp("__rcFrame"))
-                this.__rcFrame := RECT(this.ptr + 56)
+                this.__rcFrame := RECT(56, this)
             return this.__rcFrame
         }
     }

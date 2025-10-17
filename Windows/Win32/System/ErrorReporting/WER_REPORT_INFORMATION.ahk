@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information used by the WerReportCreate function.
@@ -24,11 +26,14 @@ class WER_REPORT_INFORMATION extends Win32Struct
 
     /**
      * A handle to the process for which the report is being generated. If this member is <b>NULL</b>, this is the calling process.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(8, this)
+            return this.__hProcess
+        }
     }
 
     /**
@@ -78,10 +83,13 @@ class WER_REPORT_INFORMATION extends Win32Struct
 
     /**
      * A handle to the parent window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 2200, "ptr")
-        set => NumPut("ptr", value, this, 2200)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(2200, this)
+            return this.__hwndParent
+        }
     }
 }

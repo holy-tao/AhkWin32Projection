@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
@@ -393,7 +393,7 @@ class Direct2D {
      * @param {Float} angle Type: <b>FLOAT</b>
      * 
      * The clockwise rotation angle, in degrees.
-     * @param {Pointer} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point about which to rotate.
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
@@ -415,7 +415,7 @@ class Direct2D {
      * @param {Float} angleY Type: <b>FLOAT</b>
      * 
      * The y-axis skew angle, which is measured in degrees counterclockwise from the x-axis.
-     * @param {Pointer} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The center point of the skew operation.
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
@@ -434,7 +434,7 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * The matrix to test.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
      * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-d2d1ismatrixinvertible
@@ -450,7 +450,7 @@ class Direct2D {
      * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * The matrix to invert.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
      * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-d2d1invertmatrix
@@ -544,7 +544,7 @@ class Direct2D {
      * @param {Pointer<D2D1_COLOR_F>} color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
      * 
      * The source color.
-     * @returns {Pointer} Type: <b><a href="/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
+     * @returns {D2D1_COLOR_F} Type: <b><a href="/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The converted color.
      * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-d2d1convertcolorspace

@@ -21,7 +21,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * Name of the target server as specified by the caller accessing the target. It is typically the NetBIOS or DNS name of the target server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TargetName {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * NetBIOS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NetbiosServerName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * DNS name of the target server. If the name is not known, this member can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DnsServerName {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * NetBIOS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NetbiosDomainName {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * DNS name of the target server's domain. If the name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DnsDomainName {
         get => NumGet(this, 32, "ptr")
@@ -66,7 +66,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * DNS name of the target server's tree. If the tree name is not known, this member can be <b>NULL</b>. If the target server is a member of a workgroup, this member must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DnsTreeName {
         get => NumGet(this, 40, "ptr")
@@ -75,7 +75,7 @@ class CREDENTIAL_TARGET_INFORMATIONW extends Win32Struct
 
     /**
      * Name of the authentication package that determined the values <b>NetbiosServerName</b>, <b>DnsServerName</b>, <b>NetbiosDomainName</b>, <b>DnsDomainName</b>, and <b>DnsTreeName</b> as a function of <b>TargetName</b>. This member can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-acquirecredentialshandlea">AcquireCredentialsHandle</a> as the package name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PackageName {
         get => NumGet(this, 48, "ptr")

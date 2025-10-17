@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\EVT_HANDLE.ahk
 
 /**
  * Contains event data or property values.
@@ -14,7 +15,7 @@ class EVT_VARIANT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     BooleanVal {
         get => NumGet(this, 0, "int")
@@ -126,7 +127,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     StringVal {
         get => NumGet(this, 0, "ptr")
@@ -134,7 +135,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     AnsiStringVal {
         get => NumGet(this, 0, "ptr")
@@ -150,7 +151,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     SidVal {
         get => NumGet(this, 0, "ptr")
@@ -166,7 +167,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     BooleanArr {
         get => NumGet(this, 0, "ptr")
@@ -278,7 +279,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")
@@ -286,7 +287,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     AnsiStringArr {
         get => NumGet(this, 0, "ptr")
@@ -294,7 +295,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<PSID>}
      */
     SidArr {
         get => NumGet(this, 0, "ptr")
@@ -310,15 +311,18 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {EVT_HANDLE}
      */
-    EvtHandleVal {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    EvtHandleVal{
+        get {
+            if(!this.HasProp("__EvtHandleVal"))
+                this.__EvtHandleVal := EVT_HANDLE(0, this)
+            return this.__EvtHandleVal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     XmlVal {
         get => NumGet(this, 0, "ptr")
@@ -326,7 +330,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     XmlValArr {
         get => NumGet(this, 0, "ptr")

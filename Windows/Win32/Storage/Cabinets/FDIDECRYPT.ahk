@@ -132,7 +132,7 @@ class FDIDECRYPT extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         fSplit {
             get => NumGet(this, 28, "int")
@@ -155,7 +155,7 @@ class FDIDECRYPT extends Win32Struct
     cabinet{
         get {
             if(!this.HasProp("__cabinet"))
-                this.__cabinet := %this.__Class%._cabinet(this.ptr + 16)
+                this.__cabinet := %this.__Class%._cabinet(16, this)
             return this.__cabinet
         }
     }
@@ -166,7 +166,7 @@ class FDIDECRYPT extends Win32Struct
     folder{
         get {
             if(!this.HasProp("__folder"))
-                this.__folder := %this.__Class%._folder(this.ptr + 16)
+                this.__folder := %this.__Class%._folder(16, this)
             return this.__folder
         }
     }
@@ -177,7 +177,7 @@ class FDIDECRYPT extends Win32Struct
     decrypt{
         get {
             if(!this.HasProp("__decrypt"))
-                this.__decrypt := %this.__Class%._decrypt(this.ptr + 16)
+                this.__decrypt := %this.__Class%._decrypt(16, this)
             return this.__decrypt
         }
     }

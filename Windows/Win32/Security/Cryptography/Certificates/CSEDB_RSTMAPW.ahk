@@ -12,7 +12,7 @@ class CSEDB_RSTMAPW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDatabaseName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class CSEDB_RSTMAPW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszNewDatabaseName {
         get => NumGet(this, 8, "ptr")

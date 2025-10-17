@@ -36,7 +36,7 @@ class DELTA_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Editable {
         get => NumGet(this, 16, "int")

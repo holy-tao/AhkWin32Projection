@@ -38,7 +38,7 @@ class ENUMLOGFONTEXDVA extends Win32Struct
     elfEnumLogfontEx{
         get {
             if(!this.HasProp("__elfEnumLogfontEx"))
-                this.__elfEnumLogfontEx := ENUMLOGFONTEXA(this.ptr + 0)
+                this.__elfEnumLogfontEx := ENUMLOGFONTEXA(0, this)
             return this.__elfEnumLogfontEx
         }
     }
@@ -50,7 +50,7 @@ class ENUMLOGFONTEXDVA extends Win32Struct
     elfDesignVector{
         get {
             if(!this.HasProp("__elfDesignVector"))
-                this.__elfDesignVector := DESIGNVECTOR(this.ptr + 192)
+                this.__elfDesignVector := DESIGNVECTOR(192, this)
             return this.__elfDesignVector
         }
     }

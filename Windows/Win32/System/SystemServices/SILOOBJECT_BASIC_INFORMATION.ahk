@@ -36,7 +36,7 @@ class SILOOBJECT_BASIC_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsInServerSilo {
         get => NumGet(this, 12, "char")

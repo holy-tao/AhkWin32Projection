@@ -26,7 +26,7 @@ class DIJOYTYPEINFO_DX6 extends Win32Struct
     hws{
         get {
             if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(this.ptr + 8)
+                this.__hws := JOYREGHWSETTINGS(8, this)
             return this.__hws
         }
     }

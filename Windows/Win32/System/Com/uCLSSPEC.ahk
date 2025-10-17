@@ -20,7 +20,7 @@ class uCLSSPEC extends Win32Struct
             static packingSize => 8
     
             /**
-             * @type {Pointer<Char>}
+             * @type {PWSTR}
              */
             pPackageName {
                 get => NumGet(this, 0, "ptr")
@@ -68,7 +68,7 @@ class uCLSSPEC extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pFileExt {
             get => NumGet(this, 0, "ptr")
@@ -76,7 +76,7 @@ class uCLSSPEC extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pMimeType {
             get => NumGet(this, 0, "ptr")
@@ -84,7 +84,7 @@ class uCLSSPEC extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pProgId {
             get => NumGet(this, 0, "ptr")
@@ -92,7 +92,7 @@ class uCLSSPEC extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         pFileName {
             get => NumGet(this, 0, "ptr")
@@ -105,7 +105,7 @@ class uCLSSPEC extends Win32Struct
         ByName{
             get {
                 if(!this.HasProp("__ByName"))
-                    this.__ByName := %this.__Class%._ByName(this.ptr + 0)
+                    this.__ByName := %this.__Class%._ByName(0, this)
                 return this.__ByName
             }
         }
@@ -116,7 +116,7 @@ class uCLSSPEC extends Win32Struct
         ByObjectId{
             get {
                 if(!this.HasProp("__ByObjectId"))
-                    this.__ByObjectId := %this.__Class%._ByObjectId(this.ptr + 0)
+                    this.__ByObjectId := %this.__Class%._ByObjectId(0, this)
                 return this.__ByObjectId
             }
         }
@@ -137,7 +137,7 @@ class uCLSSPEC extends Win32Struct
     tagged_union{
         get {
             if(!this.HasProp("__tagged_union"))
-                this.__tagged_union := %this.__Class%._tagged_union(this.ptr + 8)
+                this.__tagged_union := %this.__Class%._tagged_union(8, this)
             return this.__tagged_union
         }
     }

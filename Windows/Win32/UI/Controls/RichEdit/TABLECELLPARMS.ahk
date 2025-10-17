@@ -152,7 +152,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Left border color (\clbrdrl\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBrdrLeft {
         get => NumGet(this, 16, "uint")
@@ -163,7 +163,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Top border color (\clbrdrt\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBrdrTop {
         get => NumGet(this, 20, "uint")
@@ -174,7 +174,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Right border color (\clbrdrr\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBrdrRight {
         get => NumGet(this, 24, "uint")
@@ -185,7 +185,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Bottom border color (\clbrdrb\brdrcf).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBrdrBottom {
         get => NumGet(this, 28, "uint")
@@ -196,7 +196,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Background color (\clcbpat).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBackPat {
         get => NumGet(this, 32, "uint")
@@ -207,7 +207,7 @@ class TABLECELLPARMS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a></b>
      * 
      * Foreground color (\clcfpat).
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crForePat {
         get => NumGet(this, 36, "uint")

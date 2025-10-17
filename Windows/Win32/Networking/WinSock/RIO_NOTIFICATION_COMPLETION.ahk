@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Specifies the method for I/O completion to be used with a RIONotify function for sending or receiving network data with the Winsock registered I/O extensions.
@@ -42,15 +43,18 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        EventHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        EventHandle{
+            get {
+                if(!this.HasProp("__EventHandle"))
+                    this.__EventHandle := HANDLE(0, this)
+                return this.__EventHandle
+            }
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOL}
          */
         NotifyReset {
             get => NumGet(this, 8, "int")
@@ -64,11 +68,14 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        IocpHandle {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        IocpHandle{
+            get {
+                if(!this.HasProp("__IocpHandle"))
+                    this.__IocpHandle := HANDLE(0, this)
+                return this.__IocpHandle
+            }
         }
     
         /**
@@ -95,7 +102,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event(this.ptr + 8)
+                this.__Event := %this.__Class%._Event(8, this)
             return this.__Event
         }
     }
@@ -106,7 +113,7 @@ class RIO_NOTIFICATION_COMPLETION extends Win32Struct
     Iocp{
         get {
             if(!this.HasProp("__Iocp"))
-                this.__Iocp := %this.__Class%._Iocp(this.ptr + 8)
+                this.__Iocp := %this.__Class%._Iocp(8, this)
             return this.__Iocp
         }
     }

@@ -26,7 +26,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
 
     /**
      * Optional.  A pointer to a null-terminated Unicode string that contains the <b>Id</b> attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszId {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
     Canonicalization{
         get {
             if(!this.HasProp("__Canonicalization"))
-                this.__Canonicalization := CRYPT_XML_ALGORITHM(this.ptr + 16)
+                this.__Canonicalization := CRYPT_XML_ALGORITHM(16, this)
             return this.__Canonicalization
         }
     }
@@ -52,7 +52,7 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
     SignatureMethod{
         get {
             if(!this.HasProp("__SignatureMethod"))
-                this.__SignatureMethod := CRYPT_XML_ALGORITHM(this.ptr + 48)
+                this.__SignatureMethod := CRYPT_XML_ALGORITHM(48, this)
             return this.__SignatureMethod
         }
     }
@@ -82,17 +82,13 @@ class CRYPT_XML_SIGNED_INFO extends Win32Struct
     Encoded{
         get {
             if(!this.HasProp("__Encoded"))
-                this.__Encoded := CRYPT_XML_BLOB(this.ptr + 96)
+                this.__Encoded := CRYPT_XML_BLOB(96, this)
             return this.__Encoded
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

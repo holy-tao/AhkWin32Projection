@@ -16,7 +16,7 @@ class HTTP_SERVICE_CONFIG_URLACL_KEY extends Win32Struct
     /**
      * A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/Http/urlprefix-strings">UrlPrefix string</a> that defines the portion of the URL namespace to which this reservation pertains.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUrlPrefix {
         get => NumGet(this, 0, "ptr")

@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -55,13 +55,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     PictureTargetResolution{
         get {
             if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 32)
+                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
             return this.__PictureTargetResolution
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 40, "int")
@@ -106,7 +106,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(this.ptr + 64)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(64, this)
             return this.__CodecConfiguration
         }
     }
@@ -117,7 +117,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataQPMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataQPMapTextureDimensions"))
-                this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 80)
+                this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(80, this)
             return this.__EncoderOutputMetadataQPMapTextureDimensions
         }
     }
@@ -128,7 +128,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataSATDMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataSATDMapTextureDimensions"))
-                this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 88)
+                this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(88, this)
             return this.__EncoderOutputMetadataSATDMapTextureDimensions
         }
     }
@@ -139,7 +139,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataBitAllocationMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataBitAllocationMapTextureDimensions"))
-                this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 96)
+                this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(96, this)
             return this.__EncoderOutputMetadataBitAllocationMapTextureDimensions
         }
     }

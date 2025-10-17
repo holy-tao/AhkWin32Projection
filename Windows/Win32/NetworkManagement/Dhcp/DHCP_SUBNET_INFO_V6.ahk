@@ -21,7 +21,7 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
     SubnetAddress{
         get {
             if(!this.HasProp("__SubnetAddress"))
-                this.__SubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__SubnetAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__SubnetAddress
         }
     }
@@ -46,7 +46,7 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the name of the IPv6 prefix.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SubnetName {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +55,7 @@ class DHCP_SUBNET_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains an optional comment for the IPv6 prefix.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SubnetComment {
         get => NumGet(this, 32, "ptr")

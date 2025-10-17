@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\Foundation\RECT.ahk
 #Include .\NMCUSTOMDRAW.ahk
 
@@ -26,7 +28,7 @@ class NMTVCUSTOMDRAW extends Win32Struct
     nmcd{
         get {
             if(!this.HasProp("__nmcd"))
-                this.__nmcd := NMCUSTOMDRAW(this.ptr + 0)
+                this.__nmcd := NMCUSTOMDRAW(0, this)
             return this.__nmcd
         }
     }
@@ -36,7 +38,7 @@ class NMTVCUSTOMDRAW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value representing the color that will be used to display text foreground in the tree-view control.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrText {
         get => NumGet(this, 80, "uint")
@@ -48,7 +50,7 @@ class NMTVCUSTOMDRAW extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value representing the color that will be used to display text background in the tree-view control.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrTextBk {
         get => NumGet(this, 84, "uint")

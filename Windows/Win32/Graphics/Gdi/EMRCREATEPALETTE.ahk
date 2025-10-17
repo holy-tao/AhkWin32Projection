@@ -23,7 +23,7 @@ class EMRCREATEPALETTE extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -44,7 +44,7 @@ class EMRCREATEPALETTE extends Win32Struct
     lgpl{
         get {
             if(!this.HasProp("__lgpl"))
-                this.__lgpl := LOGPALETTE(this.ptr + 16)
+                this.__lgpl := LOGPALETTE(16, this)
             return this.__lgpl
         }
     }

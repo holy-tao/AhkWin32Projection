@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Rpc
  * @version v4.0.30319
@@ -1422,7 +1422,7 @@ class Rpc {
 
     /**
      * Returns a binding handle from a string representation of a binding handle.
-     * @param {Pointer<Byte>} StringBinding Pointer to a string representation of a binding handle.
+     * @param {PSTR} StringBinding Pointer to a string representation of a binding handle.
      * @param {Pointer<Void>} Binding Returns a pointer to the server binding handle.
      * @returns {Integer} <table>
      * <tr>
@@ -1538,7 +1538,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingFromStringBindingA(StringBinding, Binding) {
-        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
         result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingA", "ptr", StringBinding, "ptr", Binding, "int")
         return result
@@ -1546,7 +1546,7 @@ class Rpc {
 
     /**
      * Returns a binding handle from a string representation of a binding handle.
-     * @param {Pointer<Char>} StringBinding Pointer to a string representation of a binding handle.
+     * @param {PWSTR} StringBinding Pointer to a string representation of a binding handle.
      * @param {Pointer<Void>} Binding Returns a pointer to the server binding handle.
      * @returns {Integer} <table>
      * <tr>
@@ -1662,7 +1662,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingFromStringBindingW(StringBinding, Binding) {
-        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
         result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingW", "ptr", StringBinding, "ptr", Binding, "int")
         return result
@@ -1897,7 +1897,7 @@ class Rpc {
     /**
      * The RpcBindingToStringBinding function returns a string representation of a binding handle.
      * @param {Pointer<Void>} Binding Client or server binding handle to convert to a string representation of a binding handle.
-     * @param {Pointer<Byte>} StringBinding Returns a pointer to a pointer to the string representation of the binding handle specified in the <i>Binding</i> parameter. 
+     * @param {Pointer<PSTR>} StringBinding Returns a pointer to a pointer to the string representation of the binding handle specified in the <i>Binding</i> parameter. 
      * 
      * 
      * 
@@ -1949,7 +1949,7 @@ class Rpc {
     /**
      * The RpcBindingToStringBinding function returns a string representation of a binding handle.
      * @param {Pointer<Void>} Binding Client or server binding handle to convert to a string representation of a binding handle.
-     * @param {Pointer<Char>} StringBinding Returns a pointer to a pointer to the string representation of the binding handle specified in the <i>Binding</i> parameter. 
+     * @param {Pointer<PWSTR>} StringBinding Returns a pointer to a pointer to the string representation of the binding handle specified in the <i>Binding</i> parameter. 
      * 
      * 
      * 
@@ -2066,13 +2066,13 @@ class Rpc {
 
     /**
      * The RpcStringBindingCompose function creates a string binding handle.
-     * @param {Pointer<Byte>} ObjUuid Pointer to a <b>null</b>-terminated string representation of an object 
+     * @param {PSTR} ObjUuid Pointer to a <b>null</b>-terminated string representation of an object 
      * <a href="https://msdn.microsoft.com/">UUID</a>. For example, the string 6B29FC40-CA47-1067-B31D-00DD010662DA represents a valid UUID.
-     * @param {Pointer<Byte>} ProtSeq Pointer to a <b>null</b>-terminated string representation of a protocol sequence. See Note.
-     * @param {Pointer<Byte>} NetworkAddr Pointer to a <b>null</b>-terminated string representation of a network address. The network-address format is associated with the protocol sequence. See Note.
-     * @param {Pointer<Byte>} Endpoint Pointer to a <b>null</b>-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <b>ncacn_np</b> is a pipe name in the format \pipe\pipename. See Note.
-     * @param {Pointer<Byte>} Options Pointer to a <b>null</b>-terminated string representation of network options. The option string is associated with the protocol sequence. See Note.
-     * @param {Pointer<Byte>} StringBinding Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a binding handle. 
+     * @param {PSTR} ProtSeq Pointer to a <b>null</b>-terminated string representation of a protocol sequence. See Note.
+     * @param {PSTR} NetworkAddr Pointer to a <b>null</b>-terminated string representation of a network address. The network-address format is associated with the protocol sequence. See Note.
+     * @param {PSTR} Endpoint Pointer to a <b>null</b>-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <b>ncacn_np</b> is a pipe name in the format \pipe\pipename. See Note.
+     * @param {PSTR} Options Pointer to a <b>null</b>-terminated string representation of network options. The option string is associated with the protocol sequence. See Note.
+     * @param {Pointer<PSTR>} StringBinding Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a binding handle. 
      * 
      * 
      * 
@@ -2121,11 +2121,11 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingComposeA(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding) {
-        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
-        ProtSeq := ProtSeq is String? StrPtr(ProtSeq) : ProtSeq
-        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
-        Options := Options is String? StrPtr(Options) : Options
+        ObjUuid := ObjUuid is String ? StrPtr(ObjUuid) : ObjUuid
+        ProtSeq := ProtSeq is String ? StrPtr(ProtSeq) : ProtSeq
+        NetworkAddr := NetworkAddr is String ? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
+        Options := Options is String ? StrPtr(Options) : Options
 
         result := DllCall("RPCRT4.dll\RpcStringBindingComposeA", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, "ptr", StringBinding, "int")
         return result
@@ -2133,13 +2133,13 @@ class Rpc {
 
     /**
      * The RpcStringBindingCompose function creates a string binding handle.
-     * @param {Pointer<Char>} ObjUuid Pointer to a <b>null</b>-terminated string representation of an object 
+     * @param {PWSTR} ObjUuid Pointer to a <b>null</b>-terminated string representation of an object 
      * <a href="https://msdn.microsoft.com/">UUID</a>. For example, the string 6B29FC40-CA47-1067-B31D-00DD010662DA represents a valid UUID.
-     * @param {Pointer<Char>} ProtSeq Pointer to a <b>null</b>-terminated string representation of a protocol sequence. See Note.
-     * @param {Pointer<Char>} NetworkAddr Pointer to a <b>null</b>-terminated string representation of a network address. The network-address format is associated with the protocol sequence. See Note.
-     * @param {Pointer<Char>} Endpoint Pointer to a <b>null</b>-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <b>ncacn_np</b> is a pipe name in the format \pipe\pipename. See Note.
-     * @param {Pointer<Char>} Options Pointer to a <b>null</b>-terminated string representation of network options. The option string is associated with the protocol sequence. See Note.
-     * @param {Pointer<Char>} StringBinding Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a binding handle. 
+     * @param {PWSTR} ProtSeq Pointer to a <b>null</b>-terminated string representation of a protocol sequence. See Note.
+     * @param {PWSTR} NetworkAddr Pointer to a <b>null</b>-terminated string representation of a network address. The network-address format is associated with the protocol sequence. See Note.
+     * @param {PWSTR} Endpoint Pointer to a <b>null</b>-terminated string representation of an endpoint. The endpoint format and content are associated with the protocol sequence. For example, the endpoint associated with the protocol sequence <b>ncacn_np</b> is a pipe name in the format \pipe\pipename. See Note.
+     * @param {PWSTR} Options Pointer to a <b>null</b>-terminated string representation of network options. The option string is associated with the protocol sequence. See Note.
+     * @param {Pointer<PWSTR>} StringBinding Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a binding handle. 
      * 
      * 
      * 
@@ -2188,11 +2188,11 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingComposeW(ObjUuid, ProtSeq, NetworkAddr, Endpoint, Options, StringBinding) {
-        ObjUuid := ObjUuid is String? StrPtr(ObjUuid) : ObjUuid
-        ProtSeq := ProtSeq is String? StrPtr(ProtSeq) : ProtSeq
-        NetworkAddr := NetworkAddr is String? StrPtr(NetworkAddr) : NetworkAddr
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
-        Options := Options is String? StrPtr(Options) : Options
+        ObjUuid := ObjUuid is String ? StrPtr(ObjUuid) : ObjUuid
+        ProtSeq := ProtSeq is String ? StrPtr(ProtSeq) : ProtSeq
+        NetworkAddr := NetworkAddr is String ? StrPtr(NetworkAddr) : NetworkAddr
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
+        Options := Options is String ? StrPtr(Options) : Options
 
         result := DllCall("RPCRT4.dll\RpcStringBindingComposeW", "ptr", ObjUuid, "ptr", ProtSeq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", Options, "ptr", StringBinding, "int")
         return result
@@ -2200,8 +2200,8 @@ class Rpc {
 
     /**
      * The RpcStringBindingParse function returns the object UUID part and the address parts of a string binding as separate strings.
-     * @param {Pointer<Byte>} StringBinding Pointer to a <b>null</b>-terminated string representation of a binding.
-     * @param {Pointer<Byte>} ObjUuid Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an object 
+     * @param {PSTR} StringBinding Pointer to a <b>null</b>-terminated string representation of a binding.
+     * @param {Pointer<PSTR>} ObjUuid Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an object 
      * <a href="https://msdn.microsoft.com/">UUID</a>. 
      * 
      * 
@@ -2210,7 +2210,7 @@ class Rpc {
      * Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>ObjectUuid</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Byte>} Protseq Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a protocol sequence. For a list of Microsoft RPC supported protocol sequences, see 
+     * @param {Pointer<PSTR>} Protseq Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a protocol sequence. For a list of Microsoft RPC supported protocol sequences, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/string-binding">String Binding</a>. 
      * 
      * 
@@ -2219,13 +2219,13 @@ class Rpc {
      * Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>ProtSeq</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Byte>} NetworkAddr Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a network address. Specify a <b>NULL</b> value to prevent 
+     * @param {Pointer<PSTR>} NetworkAddr Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a network address. Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>NetworkAddr</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Byte>} Endpoint Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an endpoint. Specify a <b>NULL</b> value to prevent 
+     * @param {Pointer<PSTR>} Endpoint Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an endpoint. Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>EndPoint</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Byte>} NetworkOptions Returns a pointer to a pointer to a <b>null</b>-terminated string representation of network options. 
+     * @param {Pointer<PSTR>} NetworkOptions Returns a pointer to a pointer to a <b>null</b>-terminated string representation of network options. 
      * 
      * 
      * 
@@ -2270,7 +2270,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingParseA(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
-        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
         result := DllCall("RPCRT4.dll\RpcStringBindingParseA", "ptr", StringBinding, "ptr", ObjUuid, "ptr", Protseq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", NetworkOptions, "int")
         return result
@@ -2278,8 +2278,8 @@ class Rpc {
 
     /**
      * The RpcStringBindingParse function returns the object UUID part and the address parts of a string binding as separate strings.
-     * @param {Pointer<Char>} StringBinding Pointer to a <b>null</b>-terminated string representation of a binding.
-     * @param {Pointer<Char>} ObjUuid Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an object 
+     * @param {PWSTR} StringBinding Pointer to a <b>null</b>-terminated string representation of a binding.
+     * @param {Pointer<PWSTR>} ObjUuid Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an object 
      * <a href="https://msdn.microsoft.com/">UUID</a>. 
      * 
      * 
@@ -2288,7 +2288,7 @@ class Rpc {
      * Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>ObjectUuid</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Char>} Protseq Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a protocol sequence. For a list of Microsoft RPC supported protocol sequences, see 
+     * @param {Pointer<PWSTR>} Protseq Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a protocol sequence. For a list of Microsoft RPC supported protocol sequences, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/string-binding">String Binding</a>. 
      * 
      * 
@@ -2297,13 +2297,13 @@ class Rpc {
      * Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>ProtSeq</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Char>} NetworkAddr Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a network address. Specify a <b>NULL</b> value to prevent 
+     * @param {Pointer<PWSTR>} NetworkAddr Returns a pointer to a pointer to a <b>null</b>-terminated string representation of a network address. Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>NetworkAddr</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Char>} Endpoint Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an endpoint. Specify a <b>NULL</b> value to prevent 
+     * @param {Pointer<PWSTR>} Endpoint Returns a pointer to a pointer to a <b>null</b>-terminated string representation of an endpoint. Specify a <b>NULL</b> value to prevent 
      * <b>RpcStringBindingParse</b> from returning the <i>EndPoint</i> parameter. In this case, the application does not call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a>.
-     * @param {Pointer<Char>} NetworkOptions Returns a pointer to a pointer to a <b>null</b>-terminated string representation of network options. 
+     * @param {Pointer<PWSTR>} NetworkOptions Returns a pointer to a pointer to a <b>null</b>-terminated string representation of network options. 
      * 
      * 
      * 
@@ -2348,7 +2348,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcStringBindingParseW(StringBinding, ObjUuid, Protseq, NetworkAddr, Endpoint, NetworkOptions) {
-        StringBinding := StringBinding is String? StrPtr(StringBinding) : StringBinding
+        StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
         result := DllCall("RPCRT4.dll\RpcStringBindingParseW", "ptr", StringBinding, "ptr", ObjUuid, "ptr", Protseq, "ptr", NetworkAddr, "ptr", Endpoint, "ptr", NetworkOptions, "int")
         return result
@@ -2356,7 +2356,7 @@ class Rpc {
 
     /**
      * The RpcStringFree function frees a character string allocated by the RPC run-time library.
-     * @param {Pointer<Byte>} String Pointer to a pointer to the character string to free.
+     * @param {Pointer<PSTR>} String Pointer to a pointer to the character string to free.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2389,7 +2389,7 @@ class Rpc {
 
     /**
      * The RpcStringFree function frees a character string allocated by the RPC run-time library.
-     * @param {Pointer<Char>} String Pointer to a pointer to the character string to free.
+     * @param {Pointer<PWSTR>} String Pointer to a pointer to the character string to free.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2456,7 +2456,7 @@ class Rpc {
 
     /**
      * The RpcNetworkIsProtseqValid function tells whether the specified protocol sequence is supported by both the RPC run-time library and the operating system. Server applications often use RpcNetworkInqProtseqs.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to be checked. 
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to be checked. 
      * 
      * 
      * 
@@ -2511,7 +2511,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkIsProtseqValidA(Protseq) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcNetworkIsProtseqValidA", "ptr", Protseq, "int")
         return result
@@ -2519,7 +2519,7 @@ class Rpc {
 
     /**
      * The RpcNetworkIsProtseqValid function tells whether the specified protocol sequence is supported by both the RPC run-time library and the operating system. Server applications often use RpcNetworkInqProtseqs.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to be checked. 
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to be checked. 
      * 
      * 
      * 
@@ -2574,7 +2574,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkIsProtseqValidW(Protseq) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcNetworkIsProtseqValidW", "ptr", Protseq, "int")
         return result
@@ -3817,7 +3817,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseq function tells the RPC run-time library to use the specified protocol sequence for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @returns {Integer} <table>
@@ -3890,7 +3890,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqA(Protseq, MaxCalls, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
         return result
@@ -3898,7 +3898,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEx function tells the RPC run-time library to use the specified protocol sequence for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the Windows XP/2000/NT security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @param {Pointer<RPC_POLICY>} Policy Pointer to the 
@@ -3974,7 +3974,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqExA(Protseq, MaxCalls, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqExA", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -3982,7 +3982,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseq function tells the RPC run-time library to use the specified protocol sequence for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @returns {Integer} <table>
@@ -4055,7 +4055,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqW(Protseq, MaxCalls, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "int")
         return result
@@ -4063,7 +4063,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEx function tells the RPC run-time library to use the specified protocol sequence for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the Windows XP/2000/NT security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @param {Pointer<RPC_POLICY>} Policy Pointer to the 
@@ -4139,7 +4139,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqExW(Protseq, MaxCalls, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqExW", "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -4147,9 +4147,9 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEp function tells the RPC run-time library to use the specified protocol sequence combined with the specified endpoint for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
-     * @param {Pointer<Byte>} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
+     * @param {PSTR} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @returns {Integer} <table>
      * <tr>
@@ -4243,8 +4243,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpA(Protseq, MaxCalls, Endpoint, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
         return result
@@ -4252,9 +4252,9 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEpEx function tells the RPC run-time library to use the specified protocol sequence combined with the specified endpoint for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
-     * @param {Pointer<Byte>} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified by <i>Protseq</i>.
+     * @param {PSTR} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified by <i>Protseq</i>.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <i>ncalrpc</i> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @param {Pointer<RPC_POLICY>} Policy Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_policy">RPC_POLICY</a> structure, which contains flags that set transport-specific attributes. In the case of the <b>ncadg_mq</b> transport, these flags specify the properties of the server process–receive queue. In the case of the <b>ncacn_ip_tcp</b> or <b>ncadg_ip_udp</b> transports, these flags restrict port allocation for dynamic ports and allow multihomed computers to selectively bind to network interface cards. 
@@ -4358,8 +4358,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpExA(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExA", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -4367,9 +4367,9 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEp function tells the RPC run-time library to use the specified protocol sequence combined with the specified endpoint for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
-     * @param {Pointer<Char>} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
+     * @param {PWSTR} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @returns {Integer} <table>
      * <tr>
@@ -4463,8 +4463,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpW(Protseq, MaxCalls, Endpoint, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "int")
         return result
@@ -4472,9 +4472,9 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqEpEx function tells the RPC run-time library to use the specified protocol sequence combined with the specified endpoint for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
-     * @param {Pointer<Char>} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified by <i>Protseq</i>.
+     * @param {PWSTR} Endpoint Pointer to the endpoint-address information to use in creating a binding for the protocol sequence specified by <i>Protseq</i>.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <i>ncalrpc</i> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
      * @param {Pointer<RPC_POLICY>} Policy Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_policy">RPC_POLICY</a> structure, which contains flags that set transport-specific attributes. In the case of the <b>ncadg_mq</b> transport, these flags specify the properties of the server process–receive queue. In the case of the <b>ncacn_ip_tcp</b> or <b>ncadg_ip_udp</b> transports, these flags restrict port allocation for dynamic ports and allow multihomed computers to selectively bind to network interface cards. 
@@ -4578,8 +4578,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqEpExW(Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqEpExW", "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -4587,7 +4587,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqIf function tells the RPC run-time library to use the specified protocol sequence combined with the endpoints in the interface specification for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} IfSpec Interface containing endpoint information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
@@ -4683,7 +4683,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqIfA(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
         return result
@@ -4691,7 +4691,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqIfEx function tells the RPC run-time library to use the specified protocol sequence combined with the endpoints in the interface specification for receiving remote procedure calls.
-     * @param {Pointer<Byte>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} IfSpec Interface containing endpoint information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
@@ -4789,7 +4789,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUseProtseqIfExA(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExA", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -4797,7 +4797,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqIf function tells the RPC run-time library to use the specified protocol sequence combined with the endpoints in the interface specification for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} IfSpec Interface containing endpoint information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
@@ -4893,7 +4893,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerUseProtseqIfW(Protseq, MaxCalls, IfSpec, SecurityDescriptor) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "int")
         return result
@@ -4901,7 +4901,7 @@ class Rpc {
 
     /**
      * The RpcServerUseProtseqIfEx function tells the RPC run-time library to use the specified protocol sequence combined with the endpoints in the interface specification for receiving remote procedure calls.
-     * @param {Pointer<Char>} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
+     * @param {PWSTR} Protseq Pointer to a string identifier of the protocol sequence to register with the RPC run-time library.
      * @param {Integer} MaxCalls Backlog queue length for the <b>ncacn_ip_tcp</b> protocol sequence. All other protocol sequences ignore this parameter. Use RPC_C_PROTSEQ_MAX_REQS_DEFAULT to specify the default value. See Remarks.
      * @param {Pointer<Void>} IfSpec Interface containing endpoint information to use in creating a binding for the protocol sequence specified in the <i>Protseq</i> parameter.
      * @param {Pointer<Void>} SecurityDescriptor Pointer to an optional parameter provided for the security subsystem. Used only for <b>ncacn_np</b> and <b>ncalrpc</b> protocol sequences. All other protocol sequences ignore this parameter. Using a security descriptor on the endpoint in order to make a server secure is not recommended. This parameter does not appear in the DCE specification for this API.
@@ -4999,7 +4999,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcServerUseProtseqIfExW(Protseq, MaxCalls, IfSpec, SecurityDescriptor, Policy) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\RpcServerUseProtseqIfExW", "ptr", Protseq, "uint", MaxCalls, "ptr", IfSpec, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -5526,7 +5526,7 @@ class Rpc {
      * The RpcMgmtInqServerPrincName function returns a server's principal name.
      * @param {Pointer<Void>} Binding To receive the principal name for a server, specify a server binding handle for that server. To receive the principal name for your own (local) application, specify a value of <b>NULL</b>.
      * @param {Integer} AuthnSvc Authentication service for which a principal name is returned. Valid values are the constant for any valid security provider.
-     * @param {Pointer<Byte>} ServerPrincName Returns a principal name that is registered for the authentication service in <i>AuthnSvc</i> by the server referenced in <i>Binding</i>. If multiple names are registered, only one name is returned.
+     * @param {Pointer<PSTR>} ServerPrincName Returns a principal name that is registered for the authentication service in <i>AuthnSvc</i> by the server referenced in <i>Binding</i>. If multiple names are registered, only one name is returned.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5583,7 +5583,7 @@ class Rpc {
      * The RpcMgmtInqServerPrincName function returns a server's principal name.
      * @param {Pointer<Void>} Binding To receive the principal name for a server, specify a server binding handle for that server. To receive the principal name for your own (local) application, specify a value of <b>NULL</b>.
      * @param {Integer} AuthnSvc Authentication service for which a principal name is returned. Valid values are the constant for any valid security provider.
-     * @param {Pointer<Char>} ServerPrincName Returns a principal name that is registered for the authentication service in <i>AuthnSvc</i> by the server referenced in <i>Binding</i>. If multiple names are registered, only one name is returned.
+     * @param {Pointer<PWSTR>} ServerPrincName Returns a principal name that is registered for the authentication service in <i>AuthnSvc</i> by the server referenced in <i>Binding</i>. If multiple names are registered, only one name is returned.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5639,7 +5639,7 @@ class Rpc {
     /**
      * The RpcServerInqDefaultPrincName function obtains the default principal name for a given authentication service.
      * @param {Integer} AuthnSvc Authentication service to use when the server receives a request for a remote procedure call.
-     * @param {Pointer<Byte>} PrincName Upon success, contains the default principal name for the given authentication service as specified by the <i>AuthnSvc</i> parameter. The authentication service in use defines the content of the name and its syntax. This principal name must be used as the <i>ServerPrincName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. If the function succeeds, <i>PrincName</i> must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function. If the function fails, the contents of <i>PrincName</i> is undefined and the caller has no obligation to free it.
+     * @param {Pointer<PSTR>} PrincName Upon success, contains the default principal name for the given authentication service as specified by the <i>AuthnSvc</i> parameter. The authentication service in use defines the content of the name and its syntax. This principal name must be used as the <i>ServerPrincName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. If the function succeeds, <i>PrincName</i> must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function. If the function fails, the contents of <i>PrincName</i> is undefined and the caller has no obligation to free it.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5684,7 +5684,7 @@ class Rpc {
     /**
      * The RpcServerInqDefaultPrincName function obtains the default principal name for a given authentication service.
      * @param {Integer} AuthnSvc Authentication service to use when the server receives a request for a remote procedure call.
-     * @param {Pointer<Char>} PrincName Upon success, contains the default principal name for the given authentication service as specified by the <i>AuthnSvc</i> parameter. The authentication service in use defines the content of the name and its syntax. This principal name must be used as the <i>ServerPrincName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. If the function succeeds, <i>PrincName</i> must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function. If the function fails, the contents of <i>PrincName</i> is undefined and the caller has no obligation to free it.
+     * @param {Pointer<PWSTR>} PrincName Upon success, contains the default principal name for the given authentication service as specified by the <i>AuthnSvc</i> parameter. The authentication service in use defines the content of the name and its syntax. This principal name must be used as the <i>ServerPrincName</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. If the function succeeds, <i>PrincName</i> must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function. If the function fails, the contents of <i>PrincName</i> is undefined and the caller has no obligation to free it.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5793,7 +5793,7 @@ class Rpc {
      * To use the syntax specified in the registry value entry
      * 
      * <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Returns the address of a pointer to the name of the name-service database entry in which <i>Binding</i> was found. 
+     * @param {Pointer<PSTR>} EntryName Returns the address of a pointer to the name of the name-service database entry in which <i>Binding</i> was found. 
      * 
      * 
      * 
@@ -5897,7 +5897,7 @@ class Rpc {
      * To use the syntax specified in the registry value entry
      * 
      * <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Returns the address of a pointer to the name of the name-service database entry in which <i>Binding</i> was found. 
+     * @param {Pointer<PWSTR>} EntryName Returns the address of a pointer to the name of the name-service database entry in which <i>Binding</i> was found. 
      * 
      * 
      * 
@@ -6403,7 +6403,7 @@ class Rpc {
      * 
      * The data that the <i>Privs</i> parameter points to comes directly from the SSP. Therefore, the format of the data is specific to the SSP. For more information on SSPs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/security-support-providers-ssps-">Security Support Providers (SSPs)</a>.
-     * @param {Pointer<Byte>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in Microsoft-standard (msstd) format. For further information on msstd format, see 
+     * @param {Pointer<PSTR>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in Microsoft-standard (msstd) format. For further information on msstd format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * 
      * Specify a null value to prevent 
@@ -6494,7 +6494,7 @@ class Rpc {
      * 
      * The data that the <i>Privs</i> parameter points to comes directly from the SSP. Therefore, the format of the data is specific to the SSP. For more information on SSPs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/security-support-providers-ssps-">Security Support Providers (SSPs)</a>.
-     * @param {Pointer<Char>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in Microsoft-standard (msstd) format. For further information on msstd format, see 
+     * @param {Pointer<PWSTR>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in Microsoft-standard (msstd) format. For further information on msstd format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * 
      * Specify a null value to prevent 
@@ -6585,7 +6585,7 @@ class Rpc {
      * 
      * For more information on SSPs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/security-support-providers-ssps-">Security Support Providers (SSPs)</a>.
-     * @param {Pointer<Byte>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in msstd format. For further information on msstd format, see 
+     * @param {Pointer<PSTR>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in msstd format. For further information on msstd format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * 
      * Specify a null value to prevent 
@@ -6700,7 +6700,7 @@ class Rpc {
      * 
      * For more information on SSPs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/security-support-providers-ssps-">Security Support Providers (SSPs)</a>.
-     * @param {Pointer<Char>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in msstd format. For further information on msstd format, see 
+     * @param {Pointer<PWSTR>} ServerPrincName Returns a pointer to a pointer to the server principal name specified by the server application that called the <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverregisterauthinfo">RpcServerRegisterAuthInfo</a> function. The content of the returned name and its syntax are defined by the authentication service in use. For the SCHANNEL SSP, the principal name is in msstd format. For further information on msstd format, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * 
      * Specify a null value to prevent 
@@ -6809,7 +6809,7 @@ class Rpc {
     /**
      * The RpcBindingInqAuthInfo function returns authentication and authorization information from a binding handle.
      * @param {Pointer<Void>} Binding Server binding handle from which authentication and authorization information is returned.
-     * @param {Pointer<Byte>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
+     * @param {Pointer<PSTR>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
@@ -6902,7 +6902,7 @@ class Rpc {
     /**
      * The RpcBindingInqAuthInfo function returns authentication and authorization information from a binding handle.
      * @param {Pointer<Void>} Binding Server binding handle from which authentication and authorization information is returned.
-     * @param {Pointer<Char>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
+     * @param {Pointer<PWSTR>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
@@ -6995,7 +6995,7 @@ class Rpc {
     /**
      * The RpcBindingSetAuthInfo function sets a binding handle's authentication and authorization information.
      * @param {Pointer<Void>} Binding Server binding handle to which authentication and authorization information is to be applied.
-     * @param {Pointer<Byte>} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use. 
+     * @param {PSTR} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use. 
      * 
      * <div class="alert"><b>Note</b>  For the set of allowable target names for SSPs, please refer to the comments in the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext</a> documentation.</div>
      * <div> </div>
@@ -7089,7 +7089,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
         return result
@@ -7098,7 +7098,7 @@ class Rpc {
     /**
      * The RpcBindingSetAuthInfoEx function sets a binding handle's authentication, authorization, and security quality-of-service information.
      * @param {Pointer<Void>} Binding Server binding handle into which authentication and authorization information is set.
-     * @param {Pointer<Byte>} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use.
+     * @param {PSTR} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use.
      * 
      * <div class="alert"><b>Note</b>  For the set of allowable target names for SSPs, please refer to the comments in the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext</a> documentation.</div>
      * <div> </div>
@@ -7180,7 +7180,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQos) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQos, "int")
         return result
@@ -7189,7 +7189,7 @@ class Rpc {
     /**
      * The RpcBindingSetAuthInfo function sets a binding handle's authentication and authorization information.
      * @param {Pointer<Void>} Binding Server binding handle to which authentication and authorization information is to be applied.
-     * @param {Pointer<Char>} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use. 
+     * @param {PWSTR} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use. 
      * 
      * <div class="alert"><b>Note</b>  For the set of allowable target names for SSPs, please refer to the comments in the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext</a> documentation.</div>
      * <div> </div>
@@ -7280,7 +7280,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "int")
         return result
@@ -7289,7 +7289,7 @@ class Rpc {
     /**
      * The RpcBindingSetAuthInfoEx function sets a binding handle's authentication, authorization, and security quality-of-service information.
      * @param {Pointer<Void>} Binding Server binding handle into which authentication and authorization information is set.
-     * @param {Pointer<Char>} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use.
+     * @param {PWSTR} ServerPrincName Pointer to the expected principal name of the server referenced by <i>Binding</i>. The content of the name and its syntax are defined by the authentication service in use.
      * 
      * <div class="alert"><b>Note</b>  For the set of allowable target names for SSPs, please refer to the comments in the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-initializesecuritycontexta">InitializeSecurityContext</a> documentation.</div>
      * <div> </div>
@@ -7379,7 +7379,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingSetAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, SecurityQOS) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcBindingSetAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint", AuthnLevel, "uint", AuthnSvc, "ptr", AuthIdentity, "uint", AuthzSvc, "ptr", SecurityQOS, "int")
         return result
@@ -7388,7 +7388,7 @@ class Rpc {
     /**
      * The RpcBindingInqAuthInfoEx function returns authentication, authorization, and security quality-of-service information from a binding handle.
      * @param {Pointer<Void>} Binding Server binding handle from which authentication and authorization information is returned.
-     * @param {Pointer<Byte>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
+     * @param {Pointer<PSTR>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
@@ -7481,7 +7481,7 @@ class Rpc {
     /**
      * The RpcBindingInqAuthInfoEx function returns authentication, authorization, and security quality-of-service information from a binding handle.
      * @param {Pointer<Void>} Binding Server binding handle from which authentication and authorization information is returned.
-     * @param {Pointer<Char>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
+     * @param {Pointer<PWSTR>} ServerPrincName Returns a pointer to a pointer to the expected principal name of the server referenced in <i>Binding</i>. The content of the returned name and its syntax are defined by the authentication service in use.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
@@ -7590,7 +7590,7 @@ class Rpc {
 
     /**
      * The RpcServerRegisterAuthInfo function registers authentication information with the RPC run-time library.
-     * @param {Pointer<Byte>} ServerPrincName Pointer to the principal name to use for the server when authenticating remote procedure calls using the service specified by the <i>AuthnSvc</i> parameter. The content of the name and its syntax are defined by the authentication service in use. For more information, see 
+     * @param {PSTR} ServerPrincName Pointer to the principal name to use for the server when authenticating remote procedure calls using the service specified by the <i>AuthnSvc</i> parameter. The content of the name and its syntax are defined by the authentication service in use. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * @param {Integer} AuthnSvc Authentication service to use when the server receives a request for a remote procedure call.
      * @param {Pointer<RPC_AUTH_KEY_RETRIEVAL_FN>} GetKeyFn Address of a server-application-provided routine that returns encryption keys. See 
@@ -7728,7 +7728,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterAuthInfoA(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoA", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
         return result
@@ -7736,7 +7736,7 @@ class Rpc {
 
     /**
      * The RpcServerRegisterAuthInfo function registers authentication information with the RPC run-time library.
-     * @param {Pointer<Char>} ServerPrincName Pointer to the principal name to use for the server when authenticating remote procedure calls using the service specified by the <i>AuthnSvc</i> parameter. The content of the name and its syntax are defined by the authentication service in use. For more information, see 
+     * @param {PWSTR} ServerPrincName Pointer to the principal name to use for the server when authenticating remote procedure calls using the service specified by the <i>AuthnSvc</i> parameter. The content of the name and its syntax are defined by the authentication service in use. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a>.
      * @param {Integer} AuthnSvc Authentication service to use when the server receives a request for a remote procedure call.
      * @param {Pointer<RPC_AUTH_KEY_RETRIEVAL_FN>} GetKeyFn Address of a server-application-provided routine that returns encryption keys. See 
@@ -7874,7 +7874,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerRegisterAuthInfoW(ServerPrincName, AuthnSvc, GetKeyFn, Arg) {
-        ServerPrincName := ServerPrincName is String? StrPtr(ServerPrincName) : ServerPrincName
+        ServerPrincName := ServerPrincName is String ? StrPtr(ServerPrincName) : ServerPrincName
 
         result := DllCall("RPCRT4.dll\RpcServerRegisterAuthInfoW", "ptr", ServerPrincName, "uint", AuthnSvc, "ptr", GetKeyFn, "ptr", Arg, "int")
         return result
@@ -8297,7 +8297,7 @@ class Rpc {
      * The UuidToString function converts a UUID to a string.
      * @param {Pointer<Guid>} Uuid Pointer to a binary 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>.
-     * @param {Pointer<Byte>} StringUuid Pointer to the null-terminated string into which the <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> specified in the <i>Uuid</i> parameter will be placed.
+     * @param {Pointer<PSTR>} StringUuid Pointer to the null-terminated string into which the <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> specified in the <i>Uuid</i> parameter will be placed.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8341,7 +8341,7 @@ class Rpc {
 
     /**
      * The UuidFromString function converts a string to a UUID.
-     * @param {Pointer<Byte>} StringUuid Pointer to a string representation of a 
+     * @param {PSTR} StringUuid Pointer to a string representation of a 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>.
      * @param {Pointer<Guid>} Uuid Returns a pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> in binary form.
      * @returns {Integer} <table>
@@ -8381,7 +8381,7 @@ class Rpc {
      * @since windows5.0
      */
     static UuidFromStringA(StringUuid, Uuid) {
-        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+        StringUuid := StringUuid is String ? StrPtr(StringUuid) : StringUuid
 
         result := DllCall("RPCRT4.dll\UuidFromStringA", "ptr", StringUuid, "ptr", Uuid, "int")
         return result
@@ -8391,7 +8391,7 @@ class Rpc {
      * The UuidToString function converts a UUID to a string.
      * @param {Pointer<Guid>} Uuid Pointer to a binary 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>.
-     * @param {Pointer<Char>} StringUuid Pointer to the null-terminated string into which the <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> specified in the <i>Uuid</i> parameter will be placed.
+     * @param {Pointer<PWSTR>} StringUuid Pointer to the null-terminated string into which the <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> specified in the <i>Uuid</i> parameter will be placed.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8435,7 +8435,7 @@ class Rpc {
 
     /**
      * The UuidFromString function converts a string to a UUID.
-     * @param {Pointer<Char>} StringUuid Pointer to a string representation of a 
+     * @param {PWSTR} StringUuid Pointer to a string representation of a 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>.
      * @param {Pointer<Guid>} Uuid Returns a pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> in binary form.
      * @returns {Integer} <table>
@@ -8475,7 +8475,7 @@ class Rpc {
      * @since windows5.0
      */
     static UuidFromStringW(StringUuid, Uuid) {
-        StringUuid := StringUuid is String? StrPtr(StringUuid) : StringUuid
+        StringUuid := StringUuid is String ? StrPtr(StringUuid) : StringUuid
 
         result := DllCall("RPCRT4.dll\UuidFromStringW", "ptr", StringUuid, "ptr", Uuid, "int")
         return result
@@ -8643,7 +8643,7 @@ class Rpc {
      * 
      * 
      * A null parameter value indicates there are no object UUIDs to register.
-     * @param {Pointer<Byte>} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null-terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
+     * @param {PSTR} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null-terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
      * 
      * 
      * 
@@ -8708,7 +8708,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterNoReplaceA(IfSpec, BindingVector, UuidVector, Annotation) {
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
@@ -8724,7 +8724,7 @@ class Rpc {
      * 
      * 
      * A null parameter value indicates there are no object UUIDs to register.
-     * @param {Pointer<Char>} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null-terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
+     * @param {PWSTR} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null-terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
      * 
      * 
      * 
@@ -8789,7 +8789,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterNoReplaceW(IfSpec, BindingVector, UuidVector, Annotation) {
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCRT4.dll\RpcEpRegisterNoReplaceW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
@@ -8800,7 +8800,7 @@ class Rpc {
      * @param {Pointer<Void>} IfSpec Interface to register with the local endpoint-map database.
      * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector Pointer to a vector of binding handles over which the server can receive remote procedure calls.
      * @param {Pointer<UUID_VECTOR>} UuidVector Pointer to a vector of object UUIDs offered by the server. The server application constructs this vector.A null argument value indicates there are no object UUIDs to register.
-     * @param {Pointer<Byte>} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
+     * @param {PSTR} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
      * 
      * 
      * 
@@ -8865,7 +8865,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterA(IfSpec, BindingVector, UuidVector, Annotation) {
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCRT4.dll\RpcEpRegisterA", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
@@ -8876,7 +8876,7 @@ class Rpc {
      * @param {Pointer<Void>} IfSpec Interface to register with the local endpoint-map database.
      * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector Pointer to a vector of binding handles over which the server can receive remote procedure calls.
      * @param {Pointer<UUID_VECTOR>} UuidVector Pointer to a vector of object UUIDs offered by the server. The server application constructs this vector.A null argument value indicates there are no object UUIDs to register.
-     * @param {Pointer<Char>} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
+     * @param {PWSTR} Annotation Pointer to the character-string comment applied to each cross-product element added to the local endpoint-map database. The string can be up to 64 characters long, including the null terminating character. Specify a null value or a null-terminated string ("\0") if there is no annotation string. 
      * 
      * 
      * 
@@ -8941,7 +8941,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcEpRegisterW(IfSpec, BindingVector, UuidVector, Annotation) {
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCRT4.dll\RpcEpRegisterW", "ptr", IfSpec, "ptr", BindingVector, "ptr", UuidVector, "ptr", Annotation, "int")
         return result
@@ -9024,7 +9024,7 @@ class Rpc {
     /**
      * The DceErrorInqText function returns the message text for a status code.
      * @param {Integer} RpcStatus Status code to convert to a text string.
-     * @param {Pointer<Byte>} ErrorText Returns the text corresponding to the error code.
+     * @param {PSTR} ErrorText Returns the text corresponding to the error code.
      * 
      * <table>
      * <tr>
@@ -9061,7 +9061,7 @@ class Rpc {
      * @since windows5.0
      */
     static DceErrorInqTextA(RpcStatus, ErrorText) {
-        ErrorText := ErrorText is String? StrPtr(ErrorText) : ErrorText
+        ErrorText := ErrorText is String ? StrPtr(ErrorText) : ErrorText
 
         result := DllCall("RPCRT4.dll\DceErrorInqTextA", "int", RpcStatus, "ptr", ErrorText, "int")
         return result
@@ -9070,7 +9070,7 @@ class Rpc {
     /**
      * The DceErrorInqText function returns the message text for a status code.
      * @param {Integer} RpcStatus Status code to convert to a text string.
-     * @param {Pointer<Char>} ErrorText Returns the text corresponding to the error code.
+     * @param {PWSTR} ErrorText Returns the text corresponding to the error code.
      * 
      * <table>
      * <tr>
@@ -9107,7 +9107,7 @@ class Rpc {
      * @since windows5.0
      */
     static DceErrorInqTextW(RpcStatus, ErrorText) {
-        ErrorText := ErrorText is String? StrPtr(ErrorText) : ErrorText
+        ErrorText := ErrorText is String ? StrPtr(ErrorText) : ErrorText
 
         result := DllCall("RPCRT4.dll\DceErrorInqTextW", "int", RpcStatus, "ptr", ErrorText, "int")
         return result
@@ -9311,7 +9311,7 @@ class Rpc {
      * @param {Pointer<RPC_IF_ID>} IfId Returns the interface identifier of the endpoint-map element.
      * @param {Pointer<Void>} Binding Optional. Returns the binding handle from the endpoint-map element.
      * @param {Pointer<Guid>} ObjectUuid Optional. Returns the object UUID from the endpoint-map element.
-     * @param {Pointer<Byte>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
+     * @param {Pointer<PSTR>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -9349,7 +9349,7 @@ class Rpc {
      * @param {Pointer<RPC_IF_ID>} IfId Returns the interface identifier of the endpoint-map element.
      * @param {Pointer<Void>} Binding Optional. Returns the binding handle from the endpoint-map element.
      * @param {Pointer<Guid>} ObjectUuid Optional. Returns the object UUID from the endpoint-map element.
-     * @param {Pointer<Char>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
+     * @param {Pointer<PWSTR>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -10015,7 +10015,7 @@ class Rpc {
      * @returns {Integer} 
      */
     static I_RpcBindingToStaticStringBindingW(Binding, StringBinding) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", "ptr", Binding, "ptr", StringBinding, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", "ptr", Binding, "ushort*", StringBinding, "int")
         return result
     }
 
@@ -10056,7 +10056,7 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<UInt32>} MarshalledTargetInfoSize 
-     * @param {Pointer<Byte>} MarshalledTargetInfo 
+     * @param {Pointer<PSTR>} MarshalledTargetInfo 
      * @returns {Integer} 
      */
     static I_RpcBindingInqMarshalledTargetInfo(Binding, MarshalledTargetInfoSize, MarshalledTargetInfo) {
@@ -10135,11 +10135,11 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} EntryNameSyntax 
-     * @param {Pointer<Char>} EntryName 
+     * @param {PWSTR} EntryName 
      * @returns {Integer} 
      */
     static I_RpcNsBindingSetEntryNameW(Binding, EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameW", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -10149,11 +10149,11 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} EntryNameSyntax 
-     * @param {Pointer<Byte>} EntryName 
+     * @param {PSTR} EntryName 
      * @returns {Integer} 
      */
     static I_RpcNsBindingSetEntryNameA(Binding, EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCRT4.dll\I_RpcNsBindingSetEntryNameA", "ptr", Binding, "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -10161,18 +10161,18 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Byte>} NetworkAddress 
-     * @param {Pointer<Byte>} Protseq 
+     * @param {PSTR} NetworkAddress 
+     * @param {PSTR} Protseq 
      * @param {Integer} MaxCalls 
-     * @param {Pointer<Byte>} Endpoint 
+     * @param {PSTR} Endpoint 
      * @param {Pointer<Void>} SecurityDescriptor 
      * @param {Pointer<Void>} Policy 
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseqEp2A(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
-        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -10180,18 +10180,18 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Char>} NetworkAddress 
-     * @param {Pointer<Char>} Protseq 
+     * @param {PWSTR} NetworkAddress 
+     * @param {PWSTR} Protseq 
      * @param {Integer} MaxCalls 
-     * @param {Pointer<Char>} Endpoint 
+     * @param {PWSTR} Endpoint 
      * @param {Pointer<Void>} SecurityDescriptor 
      * @param {Pointer<Void>} Policy 
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseqEp2W(NetworkAddress, Protseq, MaxCalls, Endpoint, SecurityDescriptor, Policy) {
-        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseqEp2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", Endpoint, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -10199,16 +10199,16 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Char>} NetworkAddress 
-     * @param {Pointer<Char>} Protseq 
+     * @param {PWSTR} NetworkAddress 
+     * @param {PWSTR} Protseq 
      * @param {Integer} MaxCalls 
      * @param {Pointer<Void>} SecurityDescriptor 
      * @param {Pointer<Void>} Policy 
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseq2W(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy) {
-        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2W", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -10216,16 +10216,16 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Byte>} NetworkAddress 
-     * @param {Pointer<Byte>} Protseq 
+     * @param {PSTR} NetworkAddress 
+     * @param {PSTR} Protseq 
      * @param {Integer} MaxCalls 
      * @param {Pointer<Void>} SecurityDescriptor 
      * @param {Pointer<Void>} Policy 
      * @returns {Integer} 
      */
     static I_RpcServerUseProtseq2A(NetworkAddress, Protseq, MaxCalls, SecurityDescriptor, Policy) {
-        NetworkAddress := NetworkAddress is String? StrPtr(NetworkAddress) : NetworkAddress
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
+        NetworkAddress := NetworkAddress is String ? StrPtr(NetworkAddress) : NetworkAddress
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
 
         result := DllCall("RPCRT4.dll\I_RpcServerUseProtseq2A", "ptr", NetworkAddress, "ptr", Protseq, "uint", MaxCalls, "ptr", SecurityDescriptor, "ptr", Policy, "int")
         return result
@@ -10233,14 +10233,14 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Char>} Protseq 
-     * @param {Pointer<Char>} Endpoint 
+     * @param {PWSTR} Protseq 
+     * @param {PWSTR} Endpoint 
      * @param {Pointer<Void>} IfSpec 
      * @returns {Integer} 
      */
     static I_RpcServerStartService(Protseq, Endpoint, IfSpec) {
-        Protseq := Protseq is String? StrPtr(Protseq) : Protseq
-        Endpoint := Endpoint is String? StrPtr(Endpoint) : Endpoint
+        Protseq := Protseq is String ? StrPtr(Protseq) : Protseq
+        Endpoint := Endpoint is String ? StrPtr(Endpoint) : Endpoint
 
         result := DllCall("RPCRT4.dll\I_RpcServerStartService", "ptr", Protseq, "ptr", Endpoint, "ptr", IfSpec, "int")
         return result
@@ -10249,7 +10249,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Char>} DynamicEndpoint 
+     * @param {Pointer<PWSTR>} DynamicEndpoint 
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointW(Binding, DynamicEndpoint) {
@@ -10260,7 +10260,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Byte>} DynamicEndpoint 
+     * @param {Pointer<PSTR>} DynamicEndpoint 
      * @returns {Integer} 
      */
     static I_RpcBindingInqDynamicEndpointA(Binding, DynamicEndpoint) {
@@ -10336,16 +10336,16 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Char>} ServerName 
-     * @param {Pointer<Char>} ServiceName 
-     * @param {Pointer<Char>} NetworkOptions 
+     * @param {PWSTR} ServerName 
+     * @param {PWSTR} ServiceName 
+     * @param {PWSTR} NetworkOptions 
      * @param {Pointer<Void>} Binding 
      * @returns {Integer} 
      */
     static I_RpcBindingCreateNP(ServerName, ServiceName, NetworkOptions, Binding) {
-        ServerName := ServerName is String? StrPtr(ServerName) : ServerName
-        ServiceName := ServiceName is String? StrPtr(ServiceName) : ServiceName
-        NetworkOptions := NetworkOptions is String? StrPtr(NetworkOptions) : NetworkOptions
+        ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
+        ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
+        NetworkOptions := NetworkOptions is String ? StrPtr(NetworkOptions) : NetworkOptions
 
         result := DllCall("RPCRT4.dll\I_RpcBindingCreateNP", "ptr", ServerName, "ptr", ServiceName, "ptr", NetworkOptions, "ptr", Binding, "int")
         return result
@@ -10578,7 +10578,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. The client and the server must both use the same entry name.
+     * @param {PSTR} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. The client and the server must both use the same entry name.
      * @param {Pointer<Void>} IfSpec Stub-generated data structure specifying the interface to export. A null value indicates there are no binding handles to export (only object UUIDs are to be exported) and <i>BindingVec</i> is ignored.
      * @param {Pointer<RPC_BINDING_VECTOR>} BindingVec Pointer to server bindings to export. A null value indicates there are no binding handles to export (only object UUIDs are to be exported).
      * @param {Pointer<UUID_VECTOR>} ObjectUuidVec Pointer to a vector of object UUIDs offered by the server. The server application constructs this vector. A null value indicates there are no object UUIDs to export (only binding handles are to be exported).
@@ -10696,7 +10696,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportA(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingExportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
@@ -10710,7 +10710,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
+     * @param {PSTR} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
      * @param {Pointer<Void>} IfSpec Interface specification for the binding handles to be removed from the name service database. A null parameter value indicates not to unexport any binding handles (only object UUIDs are to be unexported).
      * @param {Pointer<UUID_VECTOR>} ObjectUuidVec Pointer to a vector of object UUIDs that the server no longer wants to offer. The application constructs this vector. A null value indicates there are no object UUIDs to unexport (only binding handles are to be unexported).
      * @returns {Integer} <table>
@@ -10827,7 +10827,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportA(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
         return result
@@ -10841,7 +10841,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. The client and the server must both use the same entry name.
+     * @param {PWSTR} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. The client and the server must both use the same entry name.
      * @param {Pointer<Void>} IfSpec Stub-generated data structure specifying the interface to export. A null value indicates there are no binding handles to export (only object UUIDs are to be exported) and <i>BindingVec</i> is ignored.
      * @param {Pointer<RPC_BINDING_VECTOR>} BindingVec Pointer to server bindings to export. A null value indicates there are no binding handles to export (only object UUIDs are to be exported).
      * @param {Pointer<UUID_VECTOR>} ObjectUuidVec Pointer to a vector of object UUIDs offered by the server. The server application constructs this vector. A null value indicates there are no object UUIDs to export (only binding handles are to be exported).
@@ -10959,7 +10959,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportW(EntryNameSyntax, EntryName, IfSpec, BindingVec, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingExportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", BindingVec, "ptr", ObjectUuidVec, "int")
         return result
@@ -10973,7 +10973,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
+     * @param {PWSTR} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
      * @param {Pointer<Void>} IfSpec Interface specification for the binding handles to be removed from the name service database. A null parameter value indicates not to unexport any binding handles (only object UUIDs are to be unexported).
      * @param {Pointer<UUID_VECTOR>} ObjectUuidVec Pointer to a vector of object UUIDs that the server no longer wants to offer. The application constructs this vector. A null value indicates there are no object UUIDs to unexport (only binding handles are to be unexported).
      * @returns {Integer} <table>
@@ -11090,7 +11090,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportW(EntryNameSyntax, EntryName, IfSpec, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectUuidVec, "int")
         return result
@@ -11104,7 +11104,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. 
+     * @param {PSTR} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. 
      * 
      * 
      * 
@@ -11226,7 +11226,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
@@ -11240,7 +11240,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
+     * @param {PSTR} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
      * @param {Pointer<Void>} IfSpec Interface specification for the binding handles to be removed from the name service database. A null parameter value indicates not to unexport any binding handles (only object UUIDs are to be unexported).
      * @param {Pointer<UUID_VECTOR>} ObjectVector Pointer to a vector of object UUIDs that the server no longer wants to offer. The application constructs this vector. A null value indicates there are no object UUIDs to unexport (only binding handles are to be unexported).
      * @returns {Integer} <table>
@@ -11357,7 +11357,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportPnPA(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
@@ -11371,7 +11371,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. 
+     * @param {PWSTR} EntryName Pointer to the entry name to which binding handles and object UUIDs are exported. You cannot provide a null or empty string. 
      * 
      * 
      * 
@@ -11493,7 +11493,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingExportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingExportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
@@ -11507,7 +11507,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
+     * @param {PWSTR} EntryName Pointer to the entry name from which to remove binding handles and object UUIDs.
      * @param {Pointer<Void>} IfSpec Interface specification for the binding handles to be removed from the name service database. A null parameter value indicates not to unexport any binding handles (only object UUIDs are to be unexported).
      * @param {Pointer<UUID_VECTOR>} ObjectVector Pointer to a vector of object UUIDs that the server no longer wants to offer. The application constructs this vector. A null value indicates there are no object UUIDs to unexport (only binding handles are to be unexported).
      * @returns {Integer} <table>
@@ -11624,7 +11624,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingUnexportPnPW(EntryNameSyntax, EntryName, IfSpec, ObjectVector) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingUnexportPnPW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjectVector, "int")
         return result
@@ -11638,7 +11638,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to an entry name at which the search for compatible bindings begins. 
+     * @param {PSTR} EntryName Pointer to an entry name at which the search for compatible bindings begins. 
      * 
      * 
      * 
@@ -11755,7 +11755,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
         return result
@@ -11769,7 +11769,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to an entry name at which the search for compatible bindings begins. 
+     * @param {PWSTR} EntryName Pointer to an entry name at which the search for compatible bindings begins. 
      * 
      * 
      * 
@@ -11886,7 +11886,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
         return result
@@ -11991,7 +11991,7 @@ class Rpc {
     /**
      * The RpcNsGroupDelete function deletes a group attribute.
      * @param {Integer} GroupNameSyntax 
-     * @param {Pointer<Byte>} GroupName Pointer to the name of the name-service group to delete.
+     * @param {PSTR} GroupName Pointer to the name of the name-service group to delete.
      * @returns {Integer} This function returns one of the following values:
      * 
      * <table>
@@ -12075,7 +12075,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupDeleteA(GroupNameSyntax, GroupName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupDeleteA", "uint", GroupNameSyntax, "ptr", GroupName, "int")
         return result
@@ -12089,14 +12089,14 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} GroupName Pointer to the name of the RPC group to receive a new member.
+     * @param {PSTR} GroupName Pointer to the name of the RPC group to receive a new member.
      * @param {Integer} MemberNameSyntax Syntax to use in <i>MemberName</i>. 
      * 
      * 
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} MemberName Pointer to the name of the new RPC group member.
+     * @param {PSTR} MemberName Pointer to the name of the new RPC group member.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -12167,8 +12167,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrAddA(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -12182,14 +12182,14 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} GroupName Pointer to the name of the RPC group from which to remove the member name.
+     * @param {PSTR} GroupName Pointer to the name of the RPC group from which to remove the member name.
      * @param {Integer} MemberNameSyntax Syntax to use in the <i>MemberName</i> parameter. 
      * 
      * 
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} MemberName Pointer to the name of the member to remove from the RPC group attribute in the entry <i>GroupName</i>.
+     * @param {PSTR} MemberName Pointer to the name of the member to remove from the RPC group attribute in the entry <i>GroupName</i>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -12282,8 +12282,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrRemoveA(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -12297,7 +12297,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} GroupName Pointer to the name of the RPC group to view.
+     * @param {PSTR} GroupName Pointer to the name of the RPC group to view.
      * @param {Integer} MemberNameSyntax Syntax of the return parameter, <i>MemberName</i>, in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqnexta">RpcNsGroupMbrInqNext</a> function. 
      * 
@@ -12389,7 +12389,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
         return result
@@ -12398,7 +12398,7 @@ class Rpc {
     /**
      * The RpcNsGroupMbrInqNext function returns one entry name from a group at a time.
      * @param {Pointer<Void>} InquiryContext Name service handle.
-     * @param {Pointer<Byte>} MemberName Returns the address of a pointer to an RPC group member name. The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
+     * @param {Pointer<PSTR>} MemberName Returns the address of a pointer to an RPC group member name. The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqbegina">RpcNsGroupMbrInqBegin</a> function. 
      * 
      * 
@@ -12473,7 +12473,7 @@ class Rpc {
     /**
      * The RpcNsGroupDelete function deletes a group attribute.
      * @param {Integer} GroupNameSyntax 
-     * @param {Pointer<Char>} GroupName Pointer to the name of the name-service group to delete.
+     * @param {PWSTR} GroupName Pointer to the name of the name-service group to delete.
      * @returns {Integer} This function returns one of the following values:
      * 
      * <table>
@@ -12557,7 +12557,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupDeleteW(GroupNameSyntax, GroupName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupDeleteW", "uint", GroupNameSyntax, "ptr", GroupName, "int")
         return result
@@ -12571,14 +12571,14 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} GroupName Pointer to the name of the RPC group to receive a new member.
+     * @param {PWSTR} GroupName Pointer to the name of the RPC group to receive a new member.
      * @param {Integer} MemberNameSyntax Syntax to use in <i>MemberName</i>. 
      * 
      * 
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} MemberName Pointer to the name of the new RPC group member.
+     * @param {PWSTR} MemberName Pointer to the name of the new RPC group member.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -12649,8 +12649,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrAddW(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrAddW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -12664,14 +12664,14 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} GroupName Pointer to the name of the RPC group from which to remove the member name.
+     * @param {PWSTR} GroupName Pointer to the name of the RPC group from which to remove the member name.
      * @param {Integer} MemberNameSyntax Syntax to use in the <i>MemberName</i> parameter. 
      * 
      * 
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} MemberName Pointer to the name of the member to remove from the RPC group attribute in the entry <i>GroupName</i>.
+     * @param {PWSTR} MemberName Pointer to the name of the member to remove from the RPC group attribute in the entry <i>GroupName</i>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -12764,8 +12764,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrRemoveW(GroupNameSyntax, GroupName, MemberNameSyntax, MemberName) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrRemoveW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -12779,7 +12779,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} GroupName Pointer to the name of the RPC group to view.
+     * @param {PWSTR} GroupName Pointer to the name of the RPC group to view.
      * @param {Integer} MemberNameSyntax Syntax of the return parameter, <i>MemberName</i>, in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqnexta">RpcNsGroupMbrInqNext</a> function. 
      * 
@@ -12871,7 +12871,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
-        GroupName := GroupName is String? StrPtr(GroupName) : GroupName
+        GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
         result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
         return result
@@ -12880,7 +12880,7 @@ class Rpc {
     /**
      * The RpcNsGroupMbrInqNext function returns one entry name from a group at a time.
      * @param {Pointer<Void>} InquiryContext Name service handle.
-     * @param {Pointer<Char>} MemberName Returns the address of a pointer to an RPC group member name. The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
+     * @param {Pointer<PWSTR>} MemberName Returns the address of a pointer to an RPC group member name. The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqbegina">RpcNsGroupMbrInqBegin</a> function. 
      * 
      * 
@@ -13004,7 +13004,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} ProfileName Pointer to the name of the profile to delete.
+     * @param {PSTR} ProfileName Pointer to the name of the profile to delete.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -13086,7 +13086,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileDeleteA(ProfileNameSyntax, ProfileName) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileDeleteA", "uint", ProfileNameSyntax, "ptr", ProfileName, "int")
         return result
@@ -13100,7 +13100,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} ProfileName Pointer to the name of the profile to receive a new element.
+     * @param {PSTR} ProfileName Pointer to the name of the profile to receive a new element.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to the interface identification of the new profile element. To add or replace the default profile element, specify a null value.
      * @param {Integer} MemberNameSyntax Syntax of <i>MemberName</i>. 
      * 
@@ -13108,9 +13108,9 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} MemberName Pointer to a name service–entry name to include in the new profile element.
+     * @param {PSTR} MemberName Pointer to a name service–entry name to include in the new profile element.
      * @param {Integer} Priority Integer value (0 through 7) that indicates the relative priority for using the new profile element during the import and lookup operations. A value of 0 is the highest priority; a value of 7 is the lowest priority. When adding a default profile member, use a value of 0.
-     * @param {Pointer<Byte>} Annotation Pointer to an annotation string stored as part of the new profile element. Specify a null value or a null-terminated string if there is no annotation string. 
+     * @param {PSTR} Annotation Pointer to an annotation string stored as part of the new profile element. Specify a null value or a null-terminated string if there is no annotation string. 
      * 
      * 
      * 
@@ -13186,9 +13186,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltAddA(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltAddA", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", Priority, "ptr", Annotation, "int")
         return result
@@ -13202,7 +13202,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} ProfileName Pointer to the name of the profile from which to remove an element.
+     * @param {PSTR} ProfileName Pointer to the name of the profile from which to remove an element.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to the interface identification of the profile element to be removed. 
      * 
      * 
@@ -13215,7 +13215,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} MemberName Pointer to the name service–entry name in the profile element to remove.
+     * @param {PSTR} MemberName Pointer to the name service–entry name in the profile element to remove.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -13297,8 +13297,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltRemoveA(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveA", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -13312,7 +13312,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} ProfileName Pointer to the name of the profile to view.
+     * @param {PSTR} ProfileName Pointer to the name of the profile to view.
      * @param {Integer} InquiryType Type of inquiry to perform on the profile. The following table lists valid inquiry types. 
      * 
      * 
@@ -13452,7 +13452,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} MemberName Pointer to the member name that the 
+     * @param {PSTR} MemberName Pointer to the member name that the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> function looks for in profile elements. The <i>MemberName</i> parameter is used only when specifying a value of RPC_C_PROFILE_MATCH_BY_MBR or RPC_C_PROFILE_MATCH_BY_BOTH for <i>InquiryType</i>. Otherwise, <i>MemberName</i> is ignored and a null value can be specified.
      * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> and 
@@ -13549,8 +13549,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqBeginA(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
         return result
@@ -13561,7 +13561,7 @@ class Rpc {
      * @param {Pointer<Void>} InquiryContext Name-service handle returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqbegina">RpcNsProfileEltInqBegin</a> function.
      * @param {Pointer<RPC_IF_ID>} IfId Returns a pointer to the interface identification of the profile element.
-     * @param {Pointer<Byte>} MemberName Returns a pointer to a pointer to the profile element's member name.The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
+     * @param {Pointer<PSTR>} MemberName Returns a pointer to a pointer to the profile element's member name.The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqbegina">RpcNsProfileEltInqBegin</a> function. 
      * 
      * 
@@ -13571,7 +13571,7 @@ class Rpc {
      * <b>RpcNsProfileEltInqNext</b> from returning the <i>MemberName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
      * @param {Pointer<UInt32>} Priority Returns a pointer to the profile-element priority.
-     * @param {Pointer<Byte>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
+     * @param {Pointer<PSTR>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
      * 
      * 
      * 
@@ -13650,7 +13650,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} ProfileName Pointer to the name of the profile to delete.
+     * @param {PWSTR} ProfileName Pointer to the name of the profile to delete.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -13732,7 +13732,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileDeleteW(ProfileNameSyntax, ProfileName) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileDeleteW", "uint", ProfileNameSyntax, "ptr", ProfileName, "int")
         return result
@@ -13746,7 +13746,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} ProfileName Pointer to the name of the profile to receive a new element.
+     * @param {PWSTR} ProfileName Pointer to the name of the profile to receive a new element.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to the interface identification of the new profile element. To add or replace the default profile element, specify a null value.
      * @param {Integer} MemberNameSyntax Syntax of <i>MemberName</i>. 
      * 
@@ -13754,9 +13754,9 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} MemberName Pointer to a name service–entry name to include in the new profile element.
+     * @param {PWSTR} MemberName Pointer to a name service–entry name to include in the new profile element.
      * @param {Integer} Priority Integer value (0 through 7) that indicates the relative priority for using the new profile element during the import and lookup operations. A value of 0 is the highest priority; a value of 7 is the lowest priority. When adding a default profile member, use a value of 0.
-     * @param {Pointer<Char>} Annotation Pointer to an annotation string stored as part of the new profile element. Specify a null value or a null-terminated string if there is no annotation string. 
+     * @param {PWSTR} Annotation Pointer to an annotation string stored as part of the new profile element. Specify a null value or a null-terminated string if there is no annotation string. 
      * 
      * 
      * 
@@ -13832,9 +13832,9 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltAddW(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName, Priority, Annotation) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
-        Annotation := Annotation is String? StrPtr(Annotation) : Annotation
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
+        Annotation := Annotation is String ? StrPtr(Annotation) : Annotation
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltAddW", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "uint", Priority, "ptr", Annotation, "int")
         return result
@@ -13848,7 +13848,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} ProfileName Pointer to the name of the profile from which to remove an element.
+     * @param {PWSTR} ProfileName Pointer to the name of the profile from which to remove an element.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to the interface identification of the profile element to be removed. 
      * 
      * 
@@ -13861,7 +13861,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} MemberName Pointer to the name service–entry name in the profile element to remove.
+     * @param {PWSTR} MemberName Pointer to the name service–entry name in the profile element to remove.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -13943,8 +13943,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltRemoveW(ProfileNameSyntax, ProfileName, IfId, MemberNameSyntax, MemberName) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltRemoveW", "uint", ProfileNameSyntax, "ptr", ProfileName, "ptr", IfId, "uint", MemberNameSyntax, "ptr", MemberName, "int")
         return result
@@ -13958,7 +13958,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} ProfileName Pointer to the name of the profile to view.
+     * @param {PWSTR} ProfileName Pointer to the name of the profile to view.
      * @param {Integer} InquiryType Type of inquiry to perform on the profile. The following table lists valid inquiry types. 
      * 
      * 
@@ -14098,7 +14098,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} MemberName Pointer to the member name that the 
+     * @param {PWSTR} MemberName Pointer to the member name that the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> function looks for in profile elements. The <i>MemberName</i> parameter is used only when specifying a value of RPC_C_PROFILE_MATCH_BY_MBR or RPC_C_PROFILE_MATCH_BY_BOTH for <i>InquiryType</i>. Otherwise, <i>MemberName</i> is ignored and a null value can be specified.
      * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> and 
@@ -14195,8 +14195,8 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqBeginW(ProfileNameSyntax, ProfileName, InquiryType, IfId, VersOption, MemberNameSyntax, MemberName, InquiryContext) {
-        ProfileName := ProfileName is String? StrPtr(ProfileName) : ProfileName
-        MemberName := MemberName is String? StrPtr(MemberName) : MemberName
+        ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
+        MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
         result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
         return result
@@ -14207,7 +14207,7 @@ class Rpc {
      * @param {Pointer<Void>} InquiryContext Name-service handle returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqbegina">RpcNsProfileEltInqBegin</a> function.
      * @param {Pointer<RPC_IF_ID>} IfId Returns a pointer to the interface identification of the profile element.
-     * @param {Pointer<Char>} MemberName Returns a pointer to a pointer to the profile element's member name.The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
+     * @param {Pointer<PWSTR>} MemberName Returns a pointer to a pointer to the profile element's member name.The syntax of the returned name was specified by the <i>MemberNameSyntax</i> parameter in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqbegina">RpcNsProfileEltInqBegin</a> function. 
      * 
      * 
@@ -14217,7 +14217,7 @@ class Rpc {
      * <b>RpcNsProfileEltInqNext</b> from returning the <i>MemberName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
      * @param {Pointer<UInt32>} Priority Returns a pointer to the profile-element priority.
-     * @param {Pointer<Char>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
+     * @param {Pointer<PWSTR>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
      * 
      * 
      * 
@@ -14335,7 +14335,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
+     * @param {PSTR} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
      * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqnext">RpcNsEntryObjectInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqdone">RpcNsEntryObjectInqDone</a> functions.
@@ -14420,7 +14420,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
         return result
@@ -14434,7 +14434,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
+     * @param {PWSTR} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
      * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqnext">RpcNsEntryObjectInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqdone">RpcNsEntryObjectInqDone</a> functions.
@@ -14519,7 +14519,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
         return result
@@ -14650,8 +14650,8 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of <b>RPC_C_NS_SYNTAX_DEFAULT</b>.
-     * @param {Pointer<Byte>} EntryName Pointer to the entry name to expand.
-     * @param {Pointer<Byte>} ExpandedName Returns a pointer to a pointer to the expanded version of <i>EntryName</i>.
+     * @param {PSTR} EntryName Pointer to the entry name to expand.
+     * @param {Pointer<PSTR>} ExpandedName Returns a pointer to a pointer to the expanded version of <i>EntryName</i>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -14689,7 +14689,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryExpandNameA(EntryNameSyntax, EntryName, ExpandedName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", ExpandedName, "int")
         return result
@@ -14703,7 +14703,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the name of the entry from which to remove binding handles and object UUIDs.
+     * @param {PSTR} EntryName Pointer to the name of the entry from which to remove binding handles and object UUIDs.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to an interface identification. A null parameter value indicates that binding handles are not to be unexported—only object UUIDs are to be unexported.
      * @param {Integer} VersOption Specifies how the 
      * <b>RpcNsMgmtBindingUnexport</b> function uses the <b>VersMajor</b> and <b>VersMinor</b> members of the structure pointed to by the <i>IfId</i> parameter. 
@@ -14885,7 +14885,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtBindingUnexportA(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuidVec, "int")
         return result
@@ -14899,7 +14899,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the name of the entry to create.
+     * @param {PSTR} EntryName Pointer to the name of the entry to create.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -14981,7 +14981,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryCreateA(EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateA", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -14995,7 +14995,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the name of the entry to delete.
+     * @param {PSTR} EntryName Pointer to the name of the entry to delete.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15088,7 +15088,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryDeleteA(EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteA", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -15102,7 +15102,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
+     * @param {PSTR} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
      * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVec Returns an address of a pointer to the interface-identification vector.
      * @returns {Integer} <table>
      * <tr>
@@ -15185,7 +15185,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
         return result
@@ -15331,8 +15331,8 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of <b>RPC_C_NS_SYNTAX_DEFAULT</b>.
-     * @param {Pointer<Char>} EntryName Pointer to the entry name to expand.
-     * @param {Pointer<Char>} ExpandedName Returns a pointer to a pointer to the expanded version of <i>EntryName</i>.
+     * @param {PWSTR} EntryName Pointer to the entry name to expand.
+     * @param {Pointer<PWSTR>} ExpandedName Returns a pointer to a pointer to the expanded version of <i>EntryName</i>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15370,7 +15370,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryExpandNameW(EntryNameSyntax, EntryName, ExpandedName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsEntryExpandNameW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", ExpandedName, "int")
         return result
@@ -15384,7 +15384,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the name of the entry from which to remove binding handles and object UUIDs.
+     * @param {PWSTR} EntryName Pointer to the name of the entry from which to remove binding handles and object UUIDs.
      * @param {Pointer<RPC_IF_ID>} IfId Pointer to an interface identification. A null parameter value indicates that binding handles are not to be unexported—only object UUIDs are to be unexported.
      * @param {Integer} VersOption Specifies how the 
      * <b>RpcNsMgmtBindingUnexport</b> function uses the <b>VersMajor</b> and <b>VersMinor</b> members of the structure pointed to by the <i>IfId</i> parameter. 
@@ -15566,7 +15566,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtBindingUnexportW(EntryNameSyntax, EntryName, IfId, VersOption, ObjectUuidVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtBindingUnexportW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuidVec, "int")
         return result
@@ -15580,7 +15580,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the name of the entry to create.
+     * @param {PWSTR} EntryName Pointer to the name of the entry to create.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15662,7 +15662,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryCreateW(EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryCreateW", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -15676,7 +15676,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the name of the entry to delete.
+     * @param {PWSTR} EntryName Pointer to the name of the entry to delete.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15769,7 +15769,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryDeleteW(EntryNameSyntax, EntryName) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryDeleteW", "uint", EntryNameSyntax, "ptr", EntryName, "int")
         return result
@@ -15783,7 +15783,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
+     * @param {PWSTR} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
      * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVec Returns an address of a pointer to the interface-identification vector.
      * @returns {Integer} <table>
      * <tr>
@@ -15866,7 +15866,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
         return result
@@ -15880,7 +15880,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, specify RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Byte>} EntryName Pointer to an entry name at which the search for compatible binding handles begins. 
+     * @param {PSTR} EntryName Pointer to an entry name at which the search for compatible binding handles begins. 
      * 
      * 
      * 
@@ -16001,7 +16001,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
         return result
@@ -16015,7 +16015,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, specify RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Char>} EntryName Pointer to an entry name at which the search for compatible binding handles begins. 
+     * @param {PWSTR} EntryName Pointer to an entry name at which the search for compatible binding handles begins. 
      * 
      * 
      * 
@@ -16136,7 +16136,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
-        EntryName := EntryName is String? StrPtr(EntryName) : EntryName
+        EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
         result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
         return result
@@ -16543,7 +16543,7 @@ class Rpc {
      * The client calls the RpcAsyncCancelCall function to cancel an asynchronous call.
      * @param {Pointer<RPC_ASYNC_STATE>} pAsync Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_async_state">RPC_ASYNC_STATE</a> structure that contains asynchronous call information.
-     * @param {Integer} fAbort If <b>TRUE</b>, the call is canceled immediately. If <b>FALSE</b>, wait for the server to complete the call.
+     * @param {BOOL} fAbort If <b>TRUE</b>, the call is canceled immediately. If <b>FALSE</b>, wait for the server to complete the call.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16608,7 +16608,7 @@ class Rpc {
      * The RpcErrorGetNextRecord function retrieves the next extended error information record for an enumeration handle.
      * @param {Pointer<RPC_ERROR_ENUM_HANDLE>} EnumHandle Pointer to the enumeration handle, in the form of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ns-rpcasync-rpc_error_enum_handle">RPC_ERROR_ENUM_HANDLE</a> structure. The structure must be allocated by the caller, and cannot be freed until the operation is complete. All members are ignored on input.
-     * @param {Integer} CopyStrings Specifies whether the string fields in <i>ErrorInfo</i> are copied to the default system heap, at which point ownership of those buffers is transferred to the caller. 
+     * @param {BOOL} CopyStrings Specifies whether the string fields in <i>ErrorInfo</i> are copied to the default system heap, at which point ownership of those buffers is transferred to the caller. 
      * 
      * 
      * 
@@ -16753,10 +16753,10 @@ class Rpc {
     /**
      * The RpcGetAuthorizationContextForClient function returns the Authz context for an RPC client that can be used with Authz functions for high-performance authentication. Supported for ncalrpc and ncacn_* protocol sequences only.
      * @param {Pointer<Void>} ClientBinding Binding handle on the server that represents a binding to a client. The server impersonates the client indicated by this handle. If a value of zero is specified, the server impersonates the client that is being served by this server thread.
-     * @param {Integer} ImpersonateOnReturn Directs the function to impersonate the client on return, and then return an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure. Set this parameter to nonzero to impersonate the client. See Remarks.
+     * @param {BOOL} ImpersonateOnReturn Directs the function to impersonate the client on return, and then return an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure. Set this parameter to nonzero to impersonate the client. See Remarks.
      * @param {Pointer<Void>} Reserved1 Reserved. Must be null.
      * @param {Pointer<Int64>} pExpirationTime Pointer to the expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
-     * @param {Pointer} Reserved2 Reserved. Must be a <b>LUID</b> structure with each member set to zero.
+     * @param {LUID} Reserved2 Reserved. Must be a <b>LUID</b> structure with each member set to zero.
      * @param {Integer} Reserved3 Reserved. Must be zero.
      * @param {Pointer<Void>} Reserved4 Reserved. Must be null.
      * @param {Pointer<Void>} pAuthzClientContext Pointer to an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure that can be passed directly to Authz functions. If the function fails, the content of this parameter is undefined.
@@ -17672,7 +17672,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17740,7 +17740,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17778,7 +17778,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17791,7 +17791,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17804,7 +17804,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17842,7 +17842,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17855,7 +17855,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17869,7 +17869,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17882,7 +17882,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17895,7 +17895,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17933,7 +17933,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17946,7 +17946,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17984,7 +17984,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17997,7 +17997,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18010,7 +18010,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18023,7 +18023,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18036,7 +18036,7 @@ class Rpc {
      * @returns {Pointer<Byte>} 
      */
     static NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18066,7 +18066,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18104,7 +18104,7 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -18943,7 +18943,7 @@ class Rpc {
      * The NdrClientCall2 function is the client-side entry point for the /Oicf mode stub.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
      * @param {Pointer<Byte>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
-     * @returns {Pointer} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
+     * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrclientcall2
@@ -18958,7 +18958,7 @@ class Rpc {
      * The NdrAsyncClientCall function is the asynchronous client-side entry point for the /Oi and /Oic mode stub.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
      * @param {Pointer<Byte>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
-     * @returns {Pointer} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
+     * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrasyncclientcall
@@ -18973,7 +18973,7 @@ class Rpc {
      * NdrDcomAsyncClientCall may be altered or unavailable.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Reserved.
      * @param {Pointer<Byte>} pFormat Reserved.
-     * @returns {Pointer} Reserved.
+     * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrdcomasyncclientcall
      * @since windows5.0
      */
@@ -19818,7 +19818,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo Reserved.
      * @param {Integer} nProcNum Reserved.
      * @param {Pointer<Void>} pReturnValue Reserved.
-     * @returns {Pointer} Reserved.
+     * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrclientcall3
      * @since windows5.0
      */
@@ -19832,7 +19832,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo Reserved.
      * @param {Integer} nProcNum Reserved.
      * @param {Pointer<Void>} pReturnValue Reserved.
-     * @returns {Pointer} Reserved.
+     * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndr64asyncclientcall
      * @since windows5.1.2600
      */
@@ -19846,7 +19846,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
      * @param {Pointer<Void>} pReturnValue 
-     * @returns {Pointer} 
+     * @returns {CLIENT_CALL_RETURN} 
      */
     static Ndr64DcomAsyncClientCall(pProxyInfo, nProcNum, pReturnValue) {
         result := DllCall("RPCRT4.dll\Ndr64DcomAsyncClientCall", "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
@@ -20260,7 +20260,7 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "ptr", pBuffer, "uint*", pEncodedSize, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "char*", pBuffer, "uint*", pEncodedSize, "ptr", pHandle, "int")
         return result
     }
 
@@ -20675,7 +20675,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle Reserved.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
      * @param {Pointer<Byte>} pFormatString Reserved.
-     * @returns {Pointer} Reserved.
+     * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//midles/nf-midles-ndrmesprocencodedecode2
      * @since windows5.0
      */
@@ -20695,7 +20695,7 @@ class Rpc {
      * @returns {Pointer} 
      */
     static NdrMesTypeAlignSize3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject, "ptr")
+        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject, "ptr")
         return result
     }
 
@@ -20710,7 +20710,7 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -20724,7 +20724,7 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -20738,7 +20738,7 @@ class Rpc {
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -20747,7 +20747,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
      * @param {Integer} nProcNum 
      * @param {Pointer<Void>} pReturnValue 
-     * @returns {Pointer} 
+     * @returns {CLIENT_CALL_RETURN} 
      */
     static NdrMesProcEncodeDecode3(Handle, pProxyInfo, nProcNum, pReturnValue) {
         result := DllCall("RPCRT4.dll\NdrMesProcEncodeDecode3", "ptr", Handle, "ptr", pProxyInfo, "uint", nProcNum, "ptr", pReturnValue, "CDecl ptr")
@@ -20793,7 +20793,7 @@ class Rpc {
      * Server programs use the RpcCertGeneratePrincipalName function to generate principal names for security certificates.
      * @param {Pointer<CERT_CONTEXT>} Context Pointer to the security-certificate context.
      * @param {Integer} Flags Currently, the only valid flag for this parameter is RPC_C_FULL_CERT_CHAIN. Using this flag causes the principal name to be generated in fullsic format.
-     * @param {Pointer<Char>} pBuffer Pointer to a pointer. The 
+     * @param {Pointer<PWSTR>} pBuffer Pointer to a pointer. The 
      * <b>RpcCertGeneratePrincipalName</b> function sets this to point at a null-terminated string that contains the 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">principal name</a>.
      * @returns {Integer} This function does not return a value.
@@ -20809,7 +20809,7 @@ class Rpc {
      * Server programs use the RpcCertGeneratePrincipalName function to generate principal names for security certificates.
      * @param {Pointer<CERT_CONTEXT>} Context Pointer to the security-certificate context.
      * @param {Integer} Flags Currently, the only valid flag for this parameter is RPC_C_FULL_CERT_CHAIN. Using this flag causes the principal name to be generated in fullsic format.
-     * @param {Pointer<Byte>} pBuffer Pointer to a pointer. The 
+     * @param {Pointer<PSTR>} pBuffer Pointer to a pointer. The 
      * <b>RpcCertGeneratePrincipalName</b> function sets this to point at a null-terminated string that contains the 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">principal name</a>.
      * @returns {Integer} This function does not return a value.

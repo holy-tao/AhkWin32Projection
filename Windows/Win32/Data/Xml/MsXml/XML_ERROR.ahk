@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -20,11 +21,14 @@ class XML_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    _pchBuf {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    _pchBuf{
+        get {
+            if(!this.HasProp("___pchBuf"))
+                this.___pchBuf := BSTR(8, this)
+            return this.___pchBuf
+        }
     }
 
     /**
@@ -44,19 +48,25 @@ class XML_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    _pszFound {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    _pszFound{
+        get {
+            if(!this.HasProp("___pszFound"))
+                this.___pszFound := BSTR(24, this)
+            return this.___pszFound
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    _pszExpected {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    _pszExpected{
+        get {
+            if(!this.HasProp("___pszExpected"))
+                this.___pszExpected := BSTR(32, this)
+            return this.___pszExpected
+        }
     }
 
     /**

@@ -23,7 +23,7 @@ class USER_INFO_20 extends Win32Struct
      * 
      * A pointer to a Unicode string that specifies the name of the user account. Calls to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netusersetinfo">NetUserSetInfo</a> function ignore this member. For more information, see the following Remarks section.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri20_name {
         get => NumGet(this, 0, "ptr")
@@ -34,7 +34,7 @@ class USER_INFO_20 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri20_full_name {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class USER_INFO_20 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user account. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri20_comment {
         get => NumGet(this, 16, "ptr")

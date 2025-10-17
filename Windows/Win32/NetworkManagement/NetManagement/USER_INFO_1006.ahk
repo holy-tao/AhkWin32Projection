@@ -16,7 +16,7 @@ class USER_INFO_1006 extends Win32Struct
     /**
      * Pointer to a Unicode string specifying the path of the home directory for the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. The string can be null.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1006_home_dir {
         get => NumGet(this, 0, "ptr")

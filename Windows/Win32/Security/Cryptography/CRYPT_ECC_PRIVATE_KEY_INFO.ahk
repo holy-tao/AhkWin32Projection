@@ -27,13 +27,13 @@ class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
     PrivateKey{
         get {
             if(!this.HasProp("__PrivateKey"))
-                this.__PrivateKey := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__PrivateKey := CRYPT_INTEGER_BLOB(8, this)
             return this.__PrivateKey
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szCurveOid {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class CRYPT_ECC_PRIVATE_KEY_INFO extends Win32Struct
     PublicKey{
         get {
             if(!this.HasProp("__PublicKey"))
-                this.__PublicKey := CRYPT_BIT_BLOB(this.ptr + 32)
+                this.__PublicKey := CRYPT_BIT_BLOB(32, this)
             return this.__PublicKey
         }
     }

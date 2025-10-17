@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains combo box status information.
@@ -46,7 +47,7 @@ class COMBOBOXINFO extends Win32Struct
     rcItem{
         get {
             if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(this.ptr + 8)
+                this.__rcItem := RECT(8, this)
             return this.__rcItem
         }
     }
@@ -60,7 +61,7 @@ class COMBOBOXINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(this.ptr + 24)
+                this.__rcButton := RECT(24, this)
             return this.__rcButton
         }
     }
@@ -78,41 +79,46 @@ class COMBOBOXINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the combo box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndCombo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hwndCombo{
+        get {
+            if(!this.HasProp("__hwndCombo"))
+                this.__hwndCombo := HWND(48, this)
+            return this.__hwndCombo
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the edit box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndItem {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hwndItem{
+        get {
+            if(!this.HasProp("__hwndItem"))
+                this.__hwndItem := HWND(56, this)
+            return this.__hwndItem
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the drop-down list.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndList {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hwndList{
+        get {
+            if(!this.HasProp("__hwndList"))
+                this.__hwndList := HWND(64, this)
+            return this.__hwndList
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

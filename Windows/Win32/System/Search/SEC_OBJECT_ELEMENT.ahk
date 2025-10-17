@@ -26,7 +26,7 @@ class SEC_OBJECT_ELEMENT extends Win32Struct
     ObjectID{
         get {
             if(!this.HasProp("__ObjectID"))
-                this.__ObjectID := DBID(this.ptr + 8)
+                this.__ObjectID := DBID(8, this)
             return this.__ObjectID
         }
     }

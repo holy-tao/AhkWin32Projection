@@ -21,7 +21,7 @@ class WS_CUSTOM_CERT_CREDENTIAL extends Win32Struct
     credential{
         get {
             if(!this.HasProp("__credential"))
-                this.__credential := WS_CERT_CREDENTIAL(this.ptr + 0)
+                this.__credential := WS_CERT_CREDENTIAL(0, this)
             return this.__credential
         }
     }

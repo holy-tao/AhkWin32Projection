@@ -40,7 +40,7 @@ class STACKFRAME64 extends Win32Struct
     AddrPC{
         get {
             if(!this.HasProp("__AddrPC"))
-                this.__AddrPC := ADDRESS64(this.ptr + 0)
+                this.__AddrPC := ADDRESS64(0, this)
             return this.__AddrPC
         }
     }
@@ -53,7 +53,7 @@ class STACKFRAME64 extends Win32Struct
     AddrReturn{
         get {
             if(!this.HasProp("__AddrReturn"))
-                this.__AddrReturn := ADDRESS64(this.ptr + 16)
+                this.__AddrReturn := ADDRESS64(16, this)
             return this.__AddrReturn
         }
     }
@@ -75,7 +75,7 @@ class STACKFRAME64 extends Win32Struct
     AddrFrame{
         get {
             if(!this.HasProp("__AddrFrame"))
-                this.__AddrFrame := ADDRESS64(this.ptr + 32)
+                this.__AddrFrame := ADDRESS64(32, this)
             return this.__AddrFrame
         }
     }
@@ -97,7 +97,7 @@ class STACKFRAME64 extends Win32Struct
     AddrStack{
         get {
             if(!this.HasProp("__AddrStack"))
-                this.__AddrStack := ADDRESS64(this.ptr + 48)
+                this.__AddrStack := ADDRESS64(48, this)
             return this.__AddrStack
         }
     }
@@ -110,7 +110,7 @@ class STACKFRAME64 extends Win32Struct
     AddrBStore{
         get {
             if(!this.HasProp("__AddrBStore"))
-                this.__AddrBStore := ADDRESS64(this.ptr + 64)
+                this.__AddrBStore := ADDRESS64(64, this)
             return this.__AddrBStore
         }
     }
@@ -139,7 +139,7 @@ class STACKFRAME64 extends Win32Struct
 
     /**
      * This member is <b>TRUE</b> if this is a WOW far call.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Far {
         get => NumGet(this, 120, "int")
@@ -148,7 +148,7 @@ class STACKFRAME64 extends Win32Struct
 
     /**
      * This member is <b>TRUE</b> if this is a virtual frame.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Virtual {
         get => NumGet(this, 124, "int")
@@ -176,7 +176,7 @@ class STACKFRAME64 extends Win32Struct
     KdHelp{
         get {
             if(!this.HasProp("__KdHelp"))
-                this.__KdHelp := KDHELP64(this.ptr + 152)
+                this.__KdHelp := KDHELP64(152, this)
             return this.__KdHelp
         }
     }

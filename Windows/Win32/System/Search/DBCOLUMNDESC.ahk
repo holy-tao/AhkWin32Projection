@@ -13,7 +13,7 @@ class DBCOLUMNDESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszTypeName {
         get => NumGet(this, 0, "ptr")
@@ -66,7 +66,7 @@ class DBCOLUMNDESC extends Win32Struct
     dbcid{
         get {
             if(!this.HasProp("__dbcid"))
-                this.__dbcid := DBID(this.ptr + 48)
+                this.__dbcid := DBID(48, this)
             return this.__dbcid
         }
     }

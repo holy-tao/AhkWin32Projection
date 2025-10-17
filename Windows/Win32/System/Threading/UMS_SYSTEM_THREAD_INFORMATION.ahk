@@ -27,11 +27,30 @@ class UMS_SYSTEM_THREAD_INFORMATION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - IsUmsSchedulerThread
+     * - IsUmsWorkerThread
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "uint")
         set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsUmsSchedulerThread {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IsUmsWorkerThread {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
     }
 
     /**

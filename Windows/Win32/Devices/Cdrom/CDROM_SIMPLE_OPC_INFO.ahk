@@ -20,7 +20,7 @@ class CDROM_SIMPLE_OPC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Exclude0 {
         get => NumGet(this, 4, "char")
@@ -28,7 +28,7 @@ class CDROM_SIMPLE_OPC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Exclude1 {
         get => NumGet(this, 5, "char")

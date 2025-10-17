@@ -78,7 +78,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Identity{
         get {
             if(!this.HasProp("__Identity"))
-                this.__Identity := WINBIO_IDENTITY(this.ptr + 16)
+                this.__Identity := WINBIO_IDENTITY(16, this)
             return this.__Identity
         }
     }
@@ -105,7 +105,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Properties{
         get {
             if(!this.HasProp("__Properties"))
-                this.__Properties := WINBIO_PRESENCE_PROPERTIES(this.ptr + 112)
+                this.__Properties := WINBIO_PRESENCE_PROPERTIES(112, this)
             return this.__Properties
         }
     }
@@ -116,7 +116,7 @@ class WINBIO_PRESENCE extends Win32Struct
     Authorization{
         get {
             if(!this.HasProp("__Authorization"))
-                this.__Authorization := %this.__Class%._Authorization(this.ptr + 512)
+                this.__Authorization := %this.__Class%._Authorization(512, this)
             return this.__Authorization
         }
     }

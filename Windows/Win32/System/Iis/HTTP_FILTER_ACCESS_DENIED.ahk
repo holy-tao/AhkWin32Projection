@@ -12,7 +12,7 @@ class HTTP_FILTER_ACCESS_DENIED extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszURL {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HTTP_FILTER_ACCESS_DENIED extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszPhysicalPath {
         get => NumGet(this, 8, "ptr")

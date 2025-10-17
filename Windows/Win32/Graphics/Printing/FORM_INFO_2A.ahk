@@ -23,7 +23,7 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class FORM_INFO_2A extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(this.ptr + 16)
+                this.__Size := SIZE(16, this)
             return this.__Size
         }
     }
@@ -47,13 +47,13 @@ class FORM_INFO_2A extends Win32Struct
     ImageableArea{
         get {
             if(!this.HasProp("__ImageableArea"))
-                this.__ImageableArea := RECTL(this.ptr + 24)
+                this.__ImageableArea := RECTL(24, this)
             return this.__ImageableArea
         }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pKeyword {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pMuiDll {
         get => NumGet(this, 56, "ptr")
@@ -85,7 +85,7 @@ class FORM_INFO_2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pDisplayName {
         get => NumGet(this, 72, "ptr")

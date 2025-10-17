@@ -18,7 +18,7 @@ class ICMPV6_ECHO_REPLY_LH extends Win32Struct
     Address{
         get {
             if(!this.HasProp("__Address"))
-                this.__Address := IPV6_ADDRESS_EX(this.ptr + 0)
+                this.__Address := IPV6_ADDRESS_EX(0, this)
             return this.__Address
         }
     }

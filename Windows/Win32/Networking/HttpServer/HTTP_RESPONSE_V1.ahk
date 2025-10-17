@@ -32,7 +32,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := HTTP_VERSION(this.ptr + 4)
+                this.__Version := HTTP_VERSION(4, this)
             return this.__Version
         }
     }
@@ -60,7 +60,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
 
     /**
      * A pointer to a human-readable, null-terminated string of printable characters that characterizes the result of the HTTP request (for example, "OK" or "Not Found").
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pReason {
         get => NumGet(this, 16, "ptr")
@@ -75,7 +75,7 @@ class HTTP_RESPONSE_V1 extends Win32Struct
     Headers{
         get {
             if(!this.HasProp("__Headers"))
-                this.__Headers := HTTP_RESPONSE_HEADERS(this.ptr + 24)
+                this.__Headers := HTTP_RESPONSE_HEADERS(24, this)
             return this.__Headers
         }
     }

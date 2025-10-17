@@ -21,14 +21,14 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_KEY extends Win32Struct
     IpPort{
         get {
             if(!this.HasProp("__IpPort"))
-                this.__IpPort := SOCKADDR_STORAGE(this.ptr + 0)
+                this.__IpPort := SOCKADDR_STORAGE(0, this)
             return this.__IpPort
         }
     }
 
     /**
      * A pointer to a null-terminated Unicode UTF-16 string that represents the hostname.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Host {
         get => NumGet(this, 248, "ptr")

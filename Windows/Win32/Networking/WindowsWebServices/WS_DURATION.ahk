@@ -15,7 +15,7 @@ class WS_DURATION extends Win32Struct
 
     /**
      * If <b>TRUE</b>, this represents a negative duration.
-     * @type {Integer}
+     * @type {BOOL}
      */
     negative {
         get => NumGet(this, 0, "int")

@@ -12,7 +12,7 @@ class BLOCK_NTLM_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BlockNTLM {
         get => NumGet(this, 0, "char")

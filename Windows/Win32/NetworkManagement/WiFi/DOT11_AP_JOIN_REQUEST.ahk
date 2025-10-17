@@ -27,7 +27,7 @@ class DOT11_AP_JOIN_REQUEST extends Win32Struct
     OperationalRateSet{
         get {
             if(!this.HasProp("__OperationalRateSet"))
-                this.__OperationalRateSet := DOT11_RATE_SET(this.ptr + 8)
+                this.__OperationalRateSet := DOT11_RATE_SET(8, this)
             return this.__OperationalRateSet
         }
     }
@@ -46,7 +46,7 @@ class DOT11_AP_JOIN_REQUEST extends Win32Struct
     dot11BSSDescription{
         get {
             if(!this.HasProp("__dot11BSSDescription"))
-                this.__dot11BSSDescription := DOT11_BSS_DESCRIPTION(this.ptr + 144)
+                this.__dot11BSSDescription := DOT11_BSS_DESCRIPTION(144, this)
             return this.__dot11BSSDescription
         }
     }

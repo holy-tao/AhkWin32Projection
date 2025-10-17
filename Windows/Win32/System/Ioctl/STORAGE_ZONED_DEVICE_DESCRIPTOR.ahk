@@ -57,7 +57,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
         }
     
         /**
-         * @type {Integer}
+         * @type {BOOLEAN}
          */
         UnrestrictedRead {
             get => NumGet(this, 4, "char")
@@ -105,7 +105,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     SequentialRequiredZone{
         get {
             if(!this.HasProp("__SequentialRequiredZone"))
-                this.__SequentialRequiredZone := %this.__Class%._SequentialRequiredZone(this.ptr + 16)
+                this.__SequentialRequiredZone := %this.__Class%._SequentialRequiredZone(16, this)
             return this.__SequentialRequiredZone
         }
     }
@@ -116,7 +116,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
     SequentialPreferredZone{
         get {
             if(!this.HasProp("__SequentialPreferredZone"))
-                this.__SequentialPreferredZone := %this.__Class%._SequentialPreferredZone(this.ptr + 16)
+                this.__SequentialPreferredZone := %this.__Class%._SequentialPreferredZone(16, this)
             return this.__SequentialPreferredZone
         }
     }

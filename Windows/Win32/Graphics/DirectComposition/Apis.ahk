@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
@@ -102,7 +102,7 @@ class DirectComposition {
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      * Contains the security descriptor for the composition surface object, and specifies whether the handle of the composition surface object is inheritable when a child process is created. If this parameter is NULL, the composition surface object is created with default security attributes  that grant read and write access to the current process,  but do not enable child processes to  inherit the handle.
-     * @param {Pointer<Void>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
+     * @param {Pointer<HANDLE>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * The handle of the new composition surface object. This parameter must not be NULL.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -124,10 +124,10 @@ class DirectComposition {
      * @param {Pointer<IDCompositionVisual>} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
-     * @param {Integer} enable Type: <b>BOOL</b>
+     * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -136,6 +136,8 @@ class DirectComposition {
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositionattachmousewheeltohwnd
      */
     static DCompositionAttachMouseWheelToHwnd(visual, hwnd, enable) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
         if(result != 0)
             throw OSError(result)
@@ -148,10 +150,10 @@ class DirectComposition {
      * @param {Pointer<IDCompositionVisual>} visual Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositionvisual">IDCompositionVisual</a>*</b>
      * 
      * The visual to route messages from.
-     * @param {Pointer<Void>} hwnd Type: <b>HWND</b>
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The HWND to route messages to.
-     * @param {Integer} enable Type: <b>BOOL</b>
+     * @param {BOOL} enable Type: <b>BOOL</b>
      * 
      * Boolean value indicating whether to enable or disable routing.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -160,6 +162,8 @@ class DirectComposition {
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositionattachmousedragtohwnd
      */
     static DCompositionAttachMouseDragToHwnd(visual, hwnd, enable) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
         if(result != 0)
             throw OSError(result)
@@ -215,7 +219,7 @@ class DirectComposition {
 
     /**
      * 
-     * @param {Integer} enable 
+     * @param {BOOL} enable 
      * @returns {HRESULT} 
      */
     static DCompositionBoostCompositorClock(enable) {
@@ -229,7 +233,7 @@ class DirectComposition {
     /**
      * 
      * @param {Integer} count 
-     * @param {Pointer<Void>} handles 
+     * @param {Pointer<HANDLE>} handles 
      * @param {Integer} timeoutInMs 
      * @returns {Integer} 
      */

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.UI.WindowsAndMessaging
@@ -12,11 +13,14 @@ class HARDWAREHOOKSTRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(0, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -28,7 +32,7 @@ class HARDWAREHOOKSTRUCT extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {WPARAM}
      */
     wParam {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +40,7 @@ class HARDWAREHOOKSTRUCT extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 24, "ptr")

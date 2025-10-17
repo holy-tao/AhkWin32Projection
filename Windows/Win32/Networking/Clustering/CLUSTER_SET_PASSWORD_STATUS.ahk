@@ -24,7 +24,7 @@ class CLUSTER_SET_PASSWORD_STATUS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates that the password change was attempted on this node.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SetAttempted {
         get => NumGet(this, 4, "char")

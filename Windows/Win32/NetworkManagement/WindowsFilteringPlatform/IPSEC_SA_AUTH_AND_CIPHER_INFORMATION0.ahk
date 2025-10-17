@@ -32,7 +32,7 @@ class IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0 extends Win32Struct
     saCipherInformation{
         get {
             if(!this.HasProp("__saCipherInformation"))
-                this.__saCipherInformation := IPSEC_SA_CIPHER_INFORMATION0(this.ptr + 0)
+                this.__saCipherInformation := IPSEC_SA_CIPHER_INFORMATION0(0, this)
             return this.__saCipherInformation
         }
     }
@@ -44,7 +44,7 @@ class IPSEC_SA_AUTH_AND_CIPHER_INFORMATION0 extends Win32Struct
     saAuthInformation{
         get {
             if(!this.HasProp("__saAuthInformation"))
-                this.__saAuthInformation := IPSEC_SA_AUTH_INFORMATION0(this.ptr + 32)
+                this.__saAuthInformation := IPSEC_SA_AUTH_INFORMATION0(32, this)
             return this.__saAuthInformation
         }
     }

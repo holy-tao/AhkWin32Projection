@@ -27,7 +27,7 @@ class JOYREGUSERVALUES extends Win32Struct
     jrvRanges{
         get {
             if(!this.HasProp("__jrvRanges"))
-                this.__jrvRanges := JOYRANGE(this.ptr + 8)
+                this.__jrvRanges := JOYRANGE(8, this)
             return this.__jrvRanges
         }
     }
@@ -38,7 +38,7 @@ class JOYREGUSERVALUES extends Win32Struct
     jpDeadZone{
         get {
             if(!this.HasProp("__jpDeadZone"))
-                this.__jpDeadZone := JOYPOS(this.ptr + 80)
+                this.__jpDeadZone := JOYPOS(80, this)
             return this.__jpDeadZone
         }
     }

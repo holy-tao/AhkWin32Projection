@@ -30,7 +30,7 @@ class PNRPINFO_V1 extends Win32Struct
 
     /**
      * Points  to the Unicode string that contains the identity.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpwszIdentity {
         get => NumGet(this, 8, "ptr")
@@ -100,7 +100,7 @@ class PNRPINFO_V1 extends Win32Struct
     saHint{
         get {
             if(!this.HasProp("__saHint"))
-                this.__saHint := SOCKET_ADDRESS(this.ptr + 40)
+                this.__saHint := SOCKET_ADDRESS(40, this)
             return this.__saHint
         }
     }

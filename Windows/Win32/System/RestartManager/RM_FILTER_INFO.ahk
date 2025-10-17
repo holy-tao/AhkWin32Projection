@@ -45,7 +45,7 @@ class RM_FILTER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     strFilename {
         get => NumGet(this, 16, "ptr")
@@ -58,13 +58,13 @@ class RM_FILTER_INFO extends Win32Struct
     Process{
         get {
             if(!this.HasProp("__Process"))
-                this.__Process := RM_UNIQUE_PROCESS(this.ptr + 16)
+                this.__Process := RM_UNIQUE_PROCESS(16, this)
             return this.__Process
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     strServiceShortName {
         get => NumGet(this, 16, "ptr")

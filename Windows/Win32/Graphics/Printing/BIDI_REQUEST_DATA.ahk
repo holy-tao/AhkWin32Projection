@@ -22,7 +22,7 @@ class BIDI_REQUEST_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pSchema {
         get => NumGet(this, 8, "ptr")
@@ -35,7 +35,7 @@ class BIDI_REQUEST_DATA extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := BIDI_DATA(this.ptr + 16)
+                this.__data := BIDI_DATA(16, this)
             return this.__data
         }
     }

@@ -26,7 +26,7 @@ class INTERFACE_INFO_EX extends Win32Struct
     iiAddress{
         get {
             if(!this.HasProp("__iiAddress"))
-                this.__iiAddress := SOCKET_ADDRESS(this.ptr + 8)
+                this.__iiAddress := SOCKET_ADDRESS(8, this)
             return this.__iiAddress
         }
     }
@@ -37,7 +37,7 @@ class INTERFACE_INFO_EX extends Win32Struct
     iiBroadcastAddress{
         get {
             if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := SOCKET_ADDRESS(this.ptr + 24)
+                this.__iiBroadcastAddress := SOCKET_ADDRESS(24, this)
             return this.__iiBroadcastAddress
         }
     }
@@ -48,7 +48,7 @@ class INTERFACE_INFO_EX extends Win32Struct
     iiNetmask{
         get {
             if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := SOCKET_ADDRESS(this.ptr + 40)
+                this.__iiNetmask := SOCKET_ADDRESS(40, this)
             return this.__iiNetmask
         }
     }

@@ -26,7 +26,7 @@ class PARTITION_INFORMATION_MBR extends Win32Struct
     /**
      * If the member is <b>TRUE</b>, the partition is a boot partition. When this structure is used with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_partition_info_ex">IOCTL_DISK_SET_PARTITION_INFO_EX</a> control code, the value of this parameter is ignored.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     BootIndicator {
         get => NumGet(this, 1, "char")
@@ -36,7 +36,7 @@ class PARTITION_INFORMATION_MBR extends Win32Struct
     /**
      * If this member is <b>TRUE</b>, the partition is of a recognized type. When this structure is used with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-ioctl_disk_set_partition_info_ex">IOCTL_DISK_SET_PARTITION_INFO_EX</a> control code, the value of this parameter is ignored.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RecognizedPartition {
         get => NumGet(this, 2, "char")

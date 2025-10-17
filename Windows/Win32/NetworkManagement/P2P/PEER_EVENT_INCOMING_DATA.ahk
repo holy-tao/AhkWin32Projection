@@ -49,7 +49,7 @@ class PEER_EVENT_INCOMING_DATA extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(this.ptr + 24)
+                this.__data := PEER_DATA(24, this)
             return this.__data
         }
     }

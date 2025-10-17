@@ -16,7 +16,7 @@ class DS_REPL_ATTR_META_DATA extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the LDAP display name of the attribute corresponding to this metadata.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszAttributeName {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +39,7 @@ class DS_REPL_ATTR_META_DATA extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(this.ptr + 16)
+                this.__ftimeLastOriginatingChange := FILETIME(16, this)
             return this.__ftimeLastOriginatingChange
         }
     }

@@ -29,7 +29,7 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, downsampling is enabled<b></b>. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored. The default state value is <b>FALSE</b> (downsampling is disabled).
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")
@@ -43,7 +43,7 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(this.ptr + 8)
+                this.__Size := SIZE(8, this)
             return this.__Size
         }
     }

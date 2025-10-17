@@ -21,7 +21,7 @@ class PORT_INFO_3W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszStatus {
         get => NumGet(this, 8, "ptr")

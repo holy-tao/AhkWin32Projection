@@ -52,7 +52,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszUsageOid {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreRoots {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreCAs {
         get => NumGet(this, 72, "ptr")
@@ -108,7 +108,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rghstoreTrust {
         get => NumGet(this, 88, "ptr")
@@ -116,7 +116,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 96, "ptr")
@@ -163,12 +163,8 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
         set => NumPut("ptr", value, this, 136)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 144
     }
 }

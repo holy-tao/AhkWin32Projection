@@ -23,7 +23,7 @@ class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the computer name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szMachineName {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +32,7 @@ class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the object name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szObjectName {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the instance name. Can contain a wildcard character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szInstanceName {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the parent instance name. Can contain a wildcard character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szParentInstance {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class PDH_COUNTER_PATH_ELEMENTS_W extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the counter name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szCounterName {
         get => NumGet(this, 40, "ptr")

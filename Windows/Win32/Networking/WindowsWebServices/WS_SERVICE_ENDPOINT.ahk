@@ -23,7 +23,7 @@ class WS_SERVICE_ENDPOINT extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := WS_ENDPOINT_ADDRESS(this.ptr + 0)
+                this.__address := WS_ENDPOINT_ADDRESS(0, this)
             return this.__address
         }
     }
@@ -98,7 +98,7 @@ class WS_SERVICE_ENDPOINT extends Win32Struct
     channelProperties{
         get {
             if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(this.ptr + 88)
+                this.__channelProperties := WS_CHANNEL_PROPERTIES(88, this)
             return this.__channelProperties
         }
     }

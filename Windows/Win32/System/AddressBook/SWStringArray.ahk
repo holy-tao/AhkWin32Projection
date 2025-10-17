@@ -20,7 +20,7 @@ class SWStringArray extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     lppszW {
         get => NumGet(this, 8, "ptr")

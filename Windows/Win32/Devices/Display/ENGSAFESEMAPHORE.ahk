@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HSEMAPHORE.ahk
 
 /**
  * The ENGSAFESEMAPHORE structure provides the driver with a thread-safe semaphore.
@@ -24,11 +25,14 @@ class ENGSAFESEMAPHORE extends Win32Struct
 
     /**
      * Handle to the semaphore.
-     * @type {Pointer<Void>}
+     * @type {HSEMAPHORE}
      */
-    hsem {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hsem{
+        get {
+            if(!this.HasProp("__hsem"))
+                this.__hsem := HSEMAPHORE(0, this)
+            return this.__hsem
+        }
     }
 
     /**

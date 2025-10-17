@@ -15,7 +15,7 @@ class ID_PARAMETER_PAIR extends Win32Struct
 
     /**
      * <b>TRUE</b> if the ID is variable length; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsVariable {
         get => NumGet(this, 0, "int")

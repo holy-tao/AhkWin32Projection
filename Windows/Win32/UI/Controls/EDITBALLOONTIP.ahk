@@ -28,7 +28,7 @@ class EDITBALLOONTIP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * A pointer to a Unicode string that contains the title of the balloon tip.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTitle {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class EDITBALLOONTIP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * A pointer to a Unicode string that contains the balloon tip text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszText {
         get => NumGet(this, 16, "ptr")

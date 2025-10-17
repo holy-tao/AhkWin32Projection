@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -28,19 +29,25 @@ class OEMDMPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hPrinter {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hPrinter{
+        get {
+            if(!this.HasProp("__hPrinter"))
+                this.__hPrinter := HANDLE(16, this)
+            return this.__hPrinter
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hModule {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hModule{
+        get {
+            if(!this.HasProp("__hModule"))
+                this.__hModule := HANDLE(24, this)
+            return this.__hModule
+        }
     }
 
     /**
@@ -83,12 +90,8 @@ class OEMDMPARAM extends Win32Struct
         set => NumPut("uint", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

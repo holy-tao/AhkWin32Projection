@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\CF_CONNECTION_KEY.ahk
 
 /**
  * Contains common callback information.
@@ -41,11 +42,14 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * An opaque handle created by <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfconnectsyncroot">CfConnectSyncRoot</a> for a sync root managed by the sync provider.
-     * @type {Integer}
+     * @type {CF_CONNECTION_KEY}
      */
-    ConnectionKey {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    ConnectionKey{
+        get {
+            if(!this.HasProp("__ConnectionKey"))
+                this.__ConnectionKey := CF_CONNECTION_KEY(8, this)
+            return this.__ConnectionKey
+        }
     }
 
     /**
@@ -59,7 +63,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * GUID name of the volume on which the placeholder file/directory to be serviced resides. It is in the form: “\\?\Volume{GUID}”.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     VolumeGuidName {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +72,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * DOS drive letter of the volume in the form of “X:” where X is the drive letter.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     VolumeDosName {
         get => NumGet(this, 32, "ptr")
@@ -149,7 +153,7 @@ class CF_CALLBACK_INFO extends Win32Struct
 
     /**
      * The absolute path of the placeholder file/directory to be serviced on the volume identified by VolumeGuidName/VolumeDosName. It starts from the root directory of the volume. See the Remarks section for more details.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NormalizedPath {
         get => NumGet(this, 104, "ptr")

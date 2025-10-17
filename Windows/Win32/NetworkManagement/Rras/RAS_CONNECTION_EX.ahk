@@ -5,6 +5,7 @@
 #Include .\PPP_PROJECTION_INFO.ahk
 #Include .\IKEV2_PROJECTION_INFO.ahk
 #Include .\PROJECTION_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains specific information for the connection that includes:\_the user name, domain, and Globally Unique Identifier (GUID) associated with the connection, its Network Access Protection (NAP) quarantine state, its packet statistics, as well as its Point-to-Point(PPP) and Internet Key Exchange version 2 (IKEv2) related information.
@@ -28,7 +29,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -121,7 +122,7 @@ class RAS_CONNECTION_EX extends Win32Struct
     probationTime{
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(this.ptr + 1128)
+                this.__probationTime := FILETIME(1128, this)
             return this.__probationTime
         }
     }
@@ -268,26 +269,32 @@ class RAS_CONNECTION_EX extends Win32Struct
     ProjectionInfo{
         get {
             if(!this.HasProp("__ProjectionInfo"))
-                this.__ProjectionInfo := PROJECTION_INFO(this.ptr + 1448)
+                this.__ProjectionInfo := PROJECTION_INFO(1448, this)
             return this.__ProjectionInfo
         }
     }
 
     /**
      * A handle to the RAS connection.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hConnection {
-        get => NumGet(this, 1648, "ptr")
-        set => NumPut("ptr", value, this, 1648)
+    hConnection{
+        get {
+            if(!this.HasProp("__hConnection"))
+                this.__hConnection := HANDLE(1648, this)
+            return this.__hConnection
+        }
     }
 
     /**
      * A handle to the RAS connection interface.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hInterface {
-        get => NumGet(this, 1656, "ptr")
-        set => NumPut("ptr", value, this, 1656)
+    hInterface{
+        get {
+            if(!this.HasProp("__hInterface"))
+                this.__hInterface := HANDLE(1656, this)
+            return this.__hInterface
+        }
     }
 }

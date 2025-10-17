@@ -20,7 +20,7 @@ class DOT11_SUPPORTED_ANTENNA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bSupportedAntenna {
         get => NumGet(this, 4, "char")

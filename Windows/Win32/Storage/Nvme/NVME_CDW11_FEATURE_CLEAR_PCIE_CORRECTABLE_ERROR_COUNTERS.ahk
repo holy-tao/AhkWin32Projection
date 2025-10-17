@@ -12,11 +12,30 @@ class NVME_CDW11_FEATURE_CLEAR_PCIE_CORRECTABLE_ERROR_COUNTERS extends Win32Stru
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved0
+     * - Clear
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Reserved0 {
+        get => (this._bitfield >> 0) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 0) | (this._bitfield & ~(0x7FFFFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Clear {
+        get => (this._bitfield >> 31) & 0x1
+        set => this._bitfield := ((value & 0x1) << 31) | (this._bitfield & ~(0x1 << 31))
     }
 
     /**

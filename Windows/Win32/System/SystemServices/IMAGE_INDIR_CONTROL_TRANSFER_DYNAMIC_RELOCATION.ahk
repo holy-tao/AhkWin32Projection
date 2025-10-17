@@ -56,12 +56,4 @@ class IMAGE_INDIR_CONTROL_TRANSFER_DYNAMIC_RELOCATION extends Win32Struct
         get => (this._bitfield >> 14) & 0x1
         set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 15) & 0x1
-        set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
-    }
 }

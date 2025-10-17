@@ -23,7 +23,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     timeStamp{
         get {
             if(!this.HasProp("__timeStamp"))
-                this.__timeStamp := FILETIME(this.ptr + 0)
+                this.__timeStamp := FILETIME(0, this)
             return this.__timeStamp
         }
     }
@@ -83,7 +83,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     localAddrV6{
         get {
             if(!this.HasProp("__localAddrV6"))
-                this.__localAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 24)
+                this.__localAddrV6 := FWP_BYTE_ARRAY16(24, this)
             return this.__localAddrV6
         }
     }
@@ -102,7 +102,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     remoteAddrV6{
         get {
             if(!this.HasProp("__remoteAddrV6"))
-                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(this.ptr + 40)
+                this.__remoteAddrV6 := FWP_BYTE_ARRAY16(40, this)
             return this.__remoteAddrV6
         }
     }
@@ -141,7 +141,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     appId{
         get {
             if(!this.HasProp("__appId"))
-                this.__appId := FWP_BYTE_BLOB(this.ptr + 64)
+                this.__appId := FWP_BYTE_BLOB(64, this)
             return this.__appId
         }
     }
@@ -177,7 +177,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
 
     /**
      * The enterprise identifier for use with enterprise data protection (EDP).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     enterpriseId {
         get => NumGet(this, 104, "ptr")
@@ -200,7 +200,7 @@ class FWPM_NET_EVENT_HEADER3 extends Win32Struct
     effectiveName{
         get {
             if(!this.HasProp("__effectiveName"))
-                this.__effectiveName := FWP_BYTE_BLOB(this.ptr + 120)
+                this.__effectiveName := FWP_BYTE_BLOB(120, this)
             return this.__effectiveName
         }
     }

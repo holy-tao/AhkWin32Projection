@@ -24,7 +24,7 @@ class POWER_POLICY extends Win32Struct
     user{
         get {
             if(!this.HasProp("__user"))
-                this.__user := USER_POWER_POLICY(this.ptr + 0)
+                this.__user := USER_POWER_POLICY(0, this)
             return this.__user
         }
     }
@@ -37,7 +37,7 @@ class POWER_POLICY extends Win32Struct
     mach{
         get {
             if(!this.HasProp("__mach"))
-                this.__mach := MACHINE_POWER_POLICY(this.ptr + 88)
+                this.__mach := MACHINE_POWER_POLICY(88, this)
             return this.__mach
         }
     }

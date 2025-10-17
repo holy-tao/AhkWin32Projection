@@ -18,7 +18,7 @@ class TA_TRANSFORM_CLIP extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := TA_TRANSFORM(this.ptr + 0)
+                this.__header := TA_TRANSFORM(0, this)
             return this.__header
         }
     }

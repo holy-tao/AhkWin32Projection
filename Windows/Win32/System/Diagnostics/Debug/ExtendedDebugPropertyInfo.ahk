@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\Com\CY.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Foundation\DECIMAL.ahk
 #Include ..\..\Variant\VARIANT.ahk
 
@@ -23,7 +24,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 8, "ptr")
@@ -31,7 +32,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszType {
         get => NumGet(this, 16, "ptr")
@@ -39,7 +40,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszValue {
         get => NumGet(this, 24, "ptr")
@@ -47,7 +48,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszFullName {
         get => NumGet(this, 32, "ptr")
@@ -92,7 +93,7 @@ class ExtendedDebugPropertyInfo extends Win32Struct
     varValue{
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(this.ptr + 64)
+                this.__varValue := VARIANT(64, this)
             return this.__varValue
         }
     }

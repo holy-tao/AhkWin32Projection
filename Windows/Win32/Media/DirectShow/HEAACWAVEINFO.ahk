@@ -69,7 +69,7 @@ class HEAACWAVEINFO extends Win32Struct
     wfx{
         get {
             if(!this.HasProp("__wfx"))
-                this.__wfx := WAVEFORMATEX(this.ptr + 0)
+                this.__wfx := WAVEFORMATEX(0, this)
             return this.__wfx
         }
     }

@@ -24,7 +24,7 @@ class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING_CONSTRAINT extends Win32Struct
     bindingConstraint{
         get {
             if(!this.HasProp("__bindingConstraint"))
-                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(this.ptr + 0)
+                this.__bindingConstraint := WS_SECURITY_BINDING_CONSTRAINT(0, this)
             return this.__bindingConstraint
         }
     }

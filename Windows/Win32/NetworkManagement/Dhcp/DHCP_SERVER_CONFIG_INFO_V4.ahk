@@ -64,7 +64,7 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that specifies the  file name of the client lease JET database.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DatabaseName {
         get => NumGet(this, 8, "ptr")
@@ -73,7 +73,7 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that specifies the absolute path to <b>DatabaseName</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DatabasePath {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that specifies the absolute path and file name of the backup client lease JET database.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     BackupPath {
         get => NumGet(this, 24, "ptr")
@@ -190,7 +190,7 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
 
     /**
      * Unicode string that contains the boot table string for the DHCP server. ?? More information needed. ??
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszBootTableString {
         get => NumGet(this, 64, "ptr")
@@ -199,7 +199,7 @@ class DHCP_SERVER_CONFIG_INFO_V4 extends Win32Struct
 
     /**
      * Specifies whether or not to enable audit logging on the DHCP server. A value of <b>TRUE</b> indicates that an audit log is generated; <b>FALSE</b> indicates that audit logging is not performed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuditLog {
         get => NumGet(this, 72, "int")

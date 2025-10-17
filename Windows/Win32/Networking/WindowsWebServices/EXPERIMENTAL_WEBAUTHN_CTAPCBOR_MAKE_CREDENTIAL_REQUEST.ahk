@@ -75,7 +75,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     WebAuthNCredentialParameters{
         get {
             if(!this.HasProp("__WebAuthNCredentialParameters"))
-                this.__WebAuthNCredentialParameters := WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(this.ptr + 48)
+                this.__WebAuthNCredentialParameters := WEBAUTHN_COSE_CREDENTIAL_PARAMETERS(48, this)
             return this.__WebAuthNCredentialParameters
         }
     }
@@ -86,7 +86,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(this.ptr + 64)
+                this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(64, this)
             return this.__CredentialList
         }
     }
@@ -116,7 +116,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_MAKE_CREDENTIAL_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEmptyPinAuth {
         get => NumGet(this, 104, "int")

@@ -30,7 +30,7 @@ class INHERITED_FROMW extends Win32Struct
 
     /**
      * Name of the ancestor from which the ACE was inherited. For an explicit ACE, set this to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     AncestorName {
         get => NumGet(this, 8, "ptr")

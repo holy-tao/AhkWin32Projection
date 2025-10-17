@@ -50,7 +50,7 @@ class CERT_QC_STATEMENT extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszStatementId {
         get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class CERT_QC_STATEMENT extends Win32Struct
     StatementInfo{
         get {
             if(!this.HasProp("__StatementInfo"))
-                this.__StatementInfo := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__StatementInfo := CRYPT_INTEGER_BLOB(8, this)
             return this.__StatementInfo
         }
     }

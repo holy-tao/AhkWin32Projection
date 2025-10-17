@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -47,7 +48,7 @@ class UiaPropertyCondition extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := VARIANT(this.ptr + 8)
+                this.__Value := VARIANT(8, this)
             return this.__Value
         }
     }

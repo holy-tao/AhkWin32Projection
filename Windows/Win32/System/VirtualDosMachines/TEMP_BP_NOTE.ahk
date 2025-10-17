@@ -28,7 +28,7 @@ class TEMP_BP_NOTE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPM {
         get => NumGet(this, 8, "int")

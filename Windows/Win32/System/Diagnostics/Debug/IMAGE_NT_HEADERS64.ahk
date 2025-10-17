@@ -47,7 +47,7 @@ class IMAGE_NT_HEADERS64 extends Win32Struct
     FileHeader{
         get {
             if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(this.ptr + 8)
+                this.__FileHeader := IMAGE_FILE_HEADER(8, this)
             return this.__FileHeader
         }
     }
@@ -60,7 +60,7 @@ class IMAGE_NT_HEADERS64 extends Win32Struct
     OptionalHeader{
         get {
             if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER64(this.ptr + 32)
+                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER64(32, this)
             return this.__OptionalHeader
         }
     }

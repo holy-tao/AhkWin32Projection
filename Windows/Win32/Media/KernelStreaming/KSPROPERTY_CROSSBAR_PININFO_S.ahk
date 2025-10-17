@@ -18,7 +18,7 @@ class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSIDENTIFIER(this.ptr + 0)
+                this.__Property := KSIDENTIFIER(0, this)
             return this.__Property
         }
     }
@@ -61,7 +61,7 @@ class KSPROPERTY_CROSSBAR_PININFO_S extends Win32Struct
     Medium{
         get {
             if(!this.HasProp("__Medium"))
-                this.__Medium := KSIDENTIFIER(this.ptr + 32)
+                this.__Medium := KSIDENTIFIER(32, this)
             return this.__Medium
         }
     }

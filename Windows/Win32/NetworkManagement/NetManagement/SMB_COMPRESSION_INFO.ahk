@@ -12,7 +12,7 @@ class SMB_COMPRESSION_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Switch {
         get => NumGet(this, 0, "char")

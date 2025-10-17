@@ -28,7 +28,7 @@ class ENCRYPTION_PROTECTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpProtectorDescriptor {
         get => NumGet(this, 16, "ptr")

@@ -12,7 +12,7 @@ class POWER_SESSION_ALLOW_EXTERNAL_DMA_DEVICES extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsAllowed {
         get => NumGet(this, 0, "char")

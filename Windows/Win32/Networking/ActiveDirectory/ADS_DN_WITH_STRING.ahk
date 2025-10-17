@@ -20,7 +20,7 @@ class ADS_DN_WITH_STRING extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the string value of the attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszStringValue {
         get => NumGet(this, 0, "ptr")
@@ -29,7 +29,7 @@ class ADS_DN_WITH_STRING extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDNString {
         get => NumGet(this, 8, "ptr")

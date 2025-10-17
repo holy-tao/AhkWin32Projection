@@ -34,14 +34,6 @@ class DSSD_POWER_STATE_DESCRIPTOR extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 5) & 0x3
-        set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
-    }
-
-    /**
-     * @type {Integer}
-     */
     ValidDSSDPowerState {
         get => (this._bitfield >> 7) & 0x1
         set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))

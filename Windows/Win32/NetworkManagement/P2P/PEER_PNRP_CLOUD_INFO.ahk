@@ -15,7 +15,7 @@ class PEER_PNRP_CLOUD_INFO extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the PNRP cloud. The maximum size of this name is 256 characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzCloudName {
         get => NumGet(this, 0, "ptr")

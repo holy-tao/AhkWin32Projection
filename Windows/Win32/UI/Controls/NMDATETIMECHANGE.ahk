@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -24,7 +25,7 @@ class NMDATETIMECHANGE extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -77,7 +78,7 @@ class NMDATETIMECHANGE extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 32)
+                this.__st := SYSTEMTIME(32, this)
             return this.__st
         }
     }

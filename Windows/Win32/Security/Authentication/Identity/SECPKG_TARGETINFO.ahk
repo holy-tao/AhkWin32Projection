@@ -15,7 +15,7 @@ class SECPKG_TARGETINFO extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that specifies the domain of the target computer.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     DomainSid {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class SECPKG_TARGETINFO extends Win32Struct
 
     /**
      * The name of the target computer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ComputerName {
         get => NumGet(this, 8, "ptr")

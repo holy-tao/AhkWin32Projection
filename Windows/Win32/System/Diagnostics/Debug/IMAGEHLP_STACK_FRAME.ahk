@@ -121,7 +121,7 @@ class IMAGEHLP_STACK_FRAME extends Win32Struct
 
     /**
      * If this is a virtual frame, this member is <b>TRUE</b>. Otherwise, this member is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Virtual {
         get => NumGet(this, 120, "int")

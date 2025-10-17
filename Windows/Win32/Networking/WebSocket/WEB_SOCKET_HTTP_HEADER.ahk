@@ -17,7 +17,7 @@ class WEB_SOCKET_HTTP_HEADER extends Win32Struct
      * Type: <b>PCHAR</b>
      * 
      * A pointer to the HTTP header name. The name must not  contain a colon character.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pcName {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +39,7 @@ class WEB_SOCKET_HTTP_HEADER extends Win32Struct
      * Type: <b>PCHAR</b>
      * 
      * A pointer to the HTTP header value.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pcValue {
         get => NumGet(this, 16, "ptr")

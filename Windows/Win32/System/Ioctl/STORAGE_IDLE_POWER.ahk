@@ -58,14 +58,6 @@ class STORAGE_IDLE_POWER extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 2) & 0x3FFFFFFF
-        set => this._bitfield := ((value & 0x3FFFFFFF) << 2) | (this._bitfield & ~(0x3FFFFFFF << 2))
-    }
-
-    /**
-     * @type {Integer}
-     */
     D3IdleTimeout {
         get => NumGet(this, 12, "uint")
         set => NumPut("uint", value, this, 12)

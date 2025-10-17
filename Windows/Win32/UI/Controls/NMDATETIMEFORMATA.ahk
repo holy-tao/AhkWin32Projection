@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -30,7 +31,7 @@ class NMDATETIMEFORMATA extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -39,7 +40,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * A pointer to the substring that defines a DTP control callback field. The substring consists of one or more "X" characters followed by a NULL character. (For more information about callback fields, see <a href="https://docs.microsoft.com/windows/desktop/Controls/date-and-time-picker-controls">Callback fields</a>.)
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszFormat {
         get => NumGet(this, 24, "ptr")
@@ -55,7 +56,7 @@ class NMDATETIMEFORMATA extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(this.ptr + 32)
+                this.__st := SYSTEMTIME(32, this)
             return this.__st
         }
     }
@@ -66,7 +67,7 @@ class NMDATETIMEFORMATA extends Win32Struct
      * A pointer to a null-terminated string that contains the display text of the control. By default, this is the address of the 
      * 					<b>szDisplay</b> member of this structure. It is acceptable to have <b>pszDisplay</b> point to an existing string. In this case, you do not need to assign a value to <b>szDisplay</b>. However, the string that 
      * <b>pszDisplay</b> points to must remain valid until another <a href="https://docs.microsoft.com/windows/desktop/Controls/dtn-format">DTN_FORMAT</a> notification is sent, or until the control is destroyed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszDisplay {
         get => NumGet(this, 48, "ptr")

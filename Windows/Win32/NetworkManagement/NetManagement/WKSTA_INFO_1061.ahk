@@ -12,7 +12,7 @@ class WKSTA_INFO_1061 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1061_use_512_byte_max_transfer {
         get => NumGet(this, 0, "int")

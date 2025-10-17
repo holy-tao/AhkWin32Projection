@@ -20,7 +20,7 @@ class SE_IMPERSONATION_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CopyOnOpen {
         get => NumGet(this, 8, "char")
@@ -28,7 +28,7 @@ class SE_IMPERSONATION_STATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EffectiveOnly {
         get => NumGet(this, 9, "char")

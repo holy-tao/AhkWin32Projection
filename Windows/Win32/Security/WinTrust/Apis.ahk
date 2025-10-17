@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Security.WinTrust
  * @version v4.0.30319
@@ -982,7 +982,7 @@ class WinTrust {
 ;@region Methods
     /**
      * Performs a trust verification action on a specified object.
-     * @param {Pointer<Void>} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1136,13 +1136,15 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WinVerifyTrust(hwnd, pgActionID, pWVTData) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("WINTRUST.dll\WinVerifyTrust", "ptr", hwnd, "ptr", pgActionID, "ptr", pWVTData, "int")
         return result
     }
 
     /**
      * Performs a trust verification action on a specified object and takes a pointer to a WINTRUST_DATA structure.
-     * @param {Pointer<Void>} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
+     * @param {HWND} hwnd Optional handle to a caller window. A trust provider can use this value to determine whether it can interact with the user. However, trust providers typically perform verification actions without input from the user.
      * @param {Pointer<Guid>} pgActionID A pointer to a <b>GUID</b> structure that identifies an action and the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/t-gly">trust provider</a> that supports that action. This value indicates the type of verification action to be performed on the structure pointed to by <i>pWinTrustData</i>.
      * 
      * The WinTrust service is designed to work with trust providers implemented by third parties. Each trust provider provides its own unique set of action identifiers. For information about the action identifiers supported by a trust provider, see the documentation for that trust provider.
@@ -1308,6 +1310,8 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WinVerifyTrustEx(hwnd, pgActionID, pWinTrustData) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+
         result := DllCall("WINTRUST.dll\WinVerifyTrustEx", "ptr", hwnd, "ptr", pgActionID, "ptr", pWinTrustData, "int")
         return result
     }
@@ -1326,7 +1330,7 @@ class WinTrust {
     /**
      * Sets policy flags for a policy provider.
      * @param {Integer} dwPolicyFlags 
-     * @returns {Integer} Returns nonzero if the policy flags were set successfully or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the policy flags were set successfully or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustsetregpolicyflags
      * @since windows5.1.2600
      */
@@ -1381,7 +1385,7 @@ class WinTrust {
      * </table>
      * @param {Integer} fdwFlags a value that determines whether registry errors are reported by this function. If <i>fdwFlags</i> is zero and this function experiences a registry error, the registry error will not be propagated to the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  function. If <i>fdwFlags</i> is WT_ADD_ACTION_ID_RET_RESULT_FLAG (0x1) and this function experiences a registry error, the registry error will be propagated to the <b>GetLastError</b>  function.
      * @param {Pointer<CRYPT_REGISTER_ACTIONID>} psProvInfo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_register_actionid">CRYPT_REGISTER_ACTIONID</a> structure that defines the information for the trust provider.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.  For information about any registry errors that this function may encounter, see the description for <i>fdwFlags</i>.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.  For information about any registry errors that this function may encounter, see the description for <i>fdwFlags</i>.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustaddactionid
      * @since windows5.1.2600
      */
@@ -1439,7 +1443,7 @@ class WinTrust {
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustremoveactionid
      * @since windows5.1.2600
      */
@@ -1493,7 +1497,7 @@ class WinTrust {
      * </tr>
      * </table>
      * @param {Pointer<CRYPT_PROVIDER_FUNCTIONS>} pPfns A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_functions">CRYPT_PROVIDER_FUNCTIONS</a> structure that receives the addresses of the function pointers.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b> if the function fails.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustloadfunctionpointers
      * @since windows5.1.2600
      */
@@ -1504,14 +1508,14 @@ class WinTrust {
 
     /**
      * Specifies the default usage identifier and callback information for a provider.
-     * @param {Pointer<Byte>} pszUsageOID Pointer to a string that contains the identifier.
+     * @param {PSTR} pszUsageOID Pointer to a string that contains the identifier.
      * @param {Pointer<CRYPT_PROVIDER_REGDEFUSAGE>} psDefUsage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_regdefusage">CRYPT_PROVIDER_REGDEFUSAGE</a> structure that contains callback information.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustadddefaultforusage
      * @since windows5.1.2600
      */
     static WintrustAddDefaultForUsage(pszUsageOID, psDefUsage) {
-        pszUsageOID := pszUsageOID is String? StrPtr(pszUsageOID) : pszUsageOID
+        pszUsageOID := pszUsageOID is String ? StrPtr(pszUsageOID) : pszUsageOID
 
         A_LastError := 0
 
@@ -1525,14 +1529,14 @@ class WinTrust {
     /**
      * Retrieves the default usage identifier and callback information.
      * @param {Integer} dwAction 
-     * @param {Pointer<Byte>} pszUsageOID Pointer to a string that contains the identifier.
+     * @param {PSTR} pszUsageOID Pointer to a string that contains the identifier.
      * @param {Pointer<CRYPT_PROVIDER_DEFUSAGE>} psUsage Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_defusage">CRYPT_PROVIDER_DEFUSAGE</a> structure that contains callback information to be retrieved.
-     * @returns {Integer} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
+     * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; <b>FALSE</b>  if the function fails.   If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function  to determine the reason for failure.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustgetdefaultforusage
      * @since windows5.1.2600
      */
     static WintrustGetDefaultForUsage(dwAction, pszUsageOID, psUsage) {
-        pszUsageOID := pszUsageOID is String? StrPtr(pszUsageOID) : pszUsageOID
+        pszUsageOID := pszUsageOID is String ? StrPtr(pszUsageOID) : pszUsageOID
 
         A_LastError := 0
 
@@ -1547,7 +1551,7 @@ class WinTrust {
      * Retrieves a signer or countersigner by index from the chain.
      * @param {Pointer<CRYPT_PROVIDER_DATA>} pProvData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure that contains the signer and countersigner information.
      * @param {Integer} idxSigner The index of the signer. The index is zero based.
-     * @param {Integer} fCounterSigner If <b>TRUE</b>, the countersigner, as specified by <i>idxCounterSigner</i>, is retrieved by this function; the signer that contains the countersigner is identified by  <i>idxSigner</i>. If <b>FALSE</b>, the signer, as specified by <i>idxSigner</i>, is retrieved by this function.
+     * @param {BOOL} fCounterSigner If <b>TRUE</b>, the countersigner, as specified by <i>idxCounterSigner</i>, is retrieved by this function; the signer that contains the countersigner is identified by  <i>idxSigner</i>. If <b>FALSE</b>, the signer, as specified by <i>idxSigner</i>, is retrieved by this function.
      * @param {Integer} idxCounterSigner The index of the countersigner. The index is zero based. The countersigner applies to the signer identified by <i>idxSigner</i>.
      * @returns {Pointer<CRYPT_PROVIDER_SGNR>} If the function succeeds, the function returns a pointer to a <a href="/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_sgnr">CRYPT_PROVIDER_SGNR</a> structure for the requested signer or countersigner.
      * 
@@ -1577,7 +1581,7 @@ class WinTrust {
 
     /**
      * Retrieves trust provider information from a specified handle.
-     * @param {Pointer<Void>} hStateData A handle previously set by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrustex">WinVerifyTrustEx</a> function as the <b>hWVTStateData</b>	 member of the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
+     * @param {HANDLE} hStateData A handle previously set by the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/nf-wintrust-winverifytrustex">WinVerifyTrustEx</a> function as the <b>hWVTStateData</b>	 member of the <a href="https://docs.microsoft.com/windows/desktop/api/wintrust/ns-wintrust-wintrust_data">WINTRUST_DATA</a> structure.
      * @returns {Pointer<CRYPT_PROVIDER_DATA>} If the function succeeds, the function returns a pointer to a <a href="/windows/desktop/api/wintrust/ns-wintrust-crypt_provider_data">CRYPT_PROVIDER_DATA</a> structure. The returned pointer can be used by the <a href="/windows/desktop/api/wintrust/nf-wintrust-wthelpergetprovsignerfromchain">WTHelperGetProvSignerFromChain</a>   function.
      * 
      * If the function fails, it returns <b>NULL</b>.
@@ -1585,6 +1589,8 @@ class WinTrust {
      * @since windows5.1.2600
      */
     static WTHelperProvDataFromStateData(hStateData) {
+        hStateData := hStateData is Win32Handle ? NumGet(hStateData, "ptr") : hStateData
+
         result := DllCall("WINTRUST.dll\WTHelperProvDataFromStateData", "ptr", hStateData, "ptr")
         return result
     }
@@ -1608,7 +1614,7 @@ class WinTrust {
      * Checks whether a certificate is self-signed.
      * @param {Integer} dwEncoding A <b>DWORD</b> value that specifies the encoding types of the certificate to check. For information about possible encoding types, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/certificate-and-message-encoding-types">Certificate and Message Encoding Types</a>.
      * @param {Pointer<CERT_INFO>} pCert A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_info">CERT_INFO</a> structure that contains information about  the certificate to check.
-     * @returns {Integer} If the function succeeds, the function returns <b>TRUE</b>.
+     * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wthelpercertisselfsigned
@@ -1638,7 +1644,7 @@ class WinTrust {
 
     /**
      * Displays the Certificates dialog box.
-     * @param {Pointer<Void>} hwndParent The handle of the parent window for the dialog box. If this parameter is <b>NULL</b>, the dialog box has no parent.
+     * @param {HWND} hwndParent The handle of the parent window for the dialog box. If this parameter is <b>NULL</b>, the dialog box has no parent.
      * @param {Integer} dwFlags A set of flags that modify the behavior of this function. This can be zero or the following value.
      * 
      * <table>
@@ -1659,23 +1665,27 @@ class WinTrust {
      * </tr>
      * </table>
      * @param {Pointer<Void>} pvReserved Not used. Must be <b>NULL</b>.
-     * @returns {Integer} Returns nonzero if the dialog box was opened successfully or zero otherwise.
+     * @returns {BOOL} Returns nonzero if the dialog box was opened successfully or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-openpersonaltrustdbdialogex
      * @since windows5.1.2600
      */
     static OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
     }
 
     /**
      * Displays the Certificates dialog box.
-     * @param {Pointer<Void>} hwndParent The handle of the parent window for the dialog box. If this parameter is <b>NULL</b>, the dialog box has no parent.
-     * @returns {Integer} Returns nonzero if the dialog box was opened successfully or zero otherwise.
+     * @param {HWND} hwndParent The handle of the parent window for the dialog box. If this parameter is <b>NULL</b>, the dialog box has no parent.
+     * @returns {BOOL} Returns nonzero if the dialog box was opened successfully or zero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-openpersonaltrustdbdialog
      * @since windows5.1.2600
      */
     static OpenPersonalTrustDBDialog(hwndParent) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
         result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialog", "ptr", hwndParent, "int")
         return result
     }
@@ -1687,7 +1697,7 @@ class WinTrust {
      * This setting applies to each instance of Wintrust.dll.
      * 
      * 
-     * @param {Integer} fIncludePEPageHashes Determines whether page hashes are included when creating SIP indirect data for PE files. If this parameter is nonzero, page hashes are included. If this parameter is zero, page hashes are not included. The value is zero by default.
+     * @param {BOOL} fIncludePEPageHashes Determines whether page hashes are included when creating SIP indirect data for PE files. If this parameter is nonzero, page hashes are included. If this parameter is zero, page hashes are not included. The value is zero by default.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//wintrust/nf-wintrust-wintrustsetdefaultincludepepagehashes
      * @since windows6.0.6000

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\..\System\Variant\VARIANT.ahk
 
@@ -46,7 +47,7 @@ class TS_ATTRVAL extends Win32Struct
     varValue{
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(this.ptr + 16)
+                this.__varValue := VARIANT(16, this)
             return this.__varValue
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The ADSPROPERROR structure is used to pass error data to the notification object with the ADsPropSendErrorMessage function or the WM_ADSPROP_NOTIFY_ERROR message.
@@ -15,16 +16,19 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Contains the window handle of the property page that generated the error.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndPage {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndPage{
+        get {
+            if(!this.HasProp("__hwndPage"))
+                this.__hwndPage := HWND(0, this)
+            return this.__hwndPage
+        }
     }
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the title of the property page that generated the error.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPageTitle {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +37,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the ADsPath of the directory object that the error occurred on.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszObjPath {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +46,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the class name of the directory object that the error occurred on.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszObjClass {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +64,7 @@ class ADSPROPERROR extends Win32Struct
 
     /**
      * Pointer to a NULL-terminated Unicode string that contains the error message to be displayed in the error dialog box. This member is ignored if <i>hr</i> is not equal to <b>S_OK</b>. In this case, the error dialog box will display a system-defined message for the error specified by <i>hr</i>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszError {
         get => NumGet(this, 40, "ptr")

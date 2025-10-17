@@ -22,7 +22,7 @@ class MFVideoArea extends Win32Struct
     OffsetX{
         get {
             if(!this.HasProp("__OffsetX"))
-                this.__OffsetX := MFOffset(this.ptr + 0)
+                this.__OffsetX := MFOffset(0, this)
             return this.__OffsetX
         }
     }
@@ -34,7 +34,7 @@ class MFVideoArea extends Win32Struct
     OffsetY{
         get {
             if(!this.HasProp("__OffsetY"))
-                this.__OffsetY := MFOffset(this.ptr + 4)
+                this.__OffsetY := MFOffset(4, this)
             return this.__OffsetY
         }
     }
@@ -46,7 +46,7 @@ class MFVideoArea extends Win32Struct
     Area{
         get {
             if(!this.HasProp("__Area"))
-                this.__Area := SIZE(this.ptr + 8)
+                this.__Area := SIZE(8, this)
             return this.__Area
         }
     }

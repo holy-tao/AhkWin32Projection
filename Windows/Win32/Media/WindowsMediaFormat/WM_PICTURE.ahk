@@ -15,7 +15,7 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing the multipurpose Internet mail extension (MIME) type of the picture.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszMIMEType {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a wide-character null-terminated string containing a description of the picture.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 16, "ptr")

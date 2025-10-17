@@ -15,7 +15,7 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server policy name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PolicyName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * <b>TRUE</b> if the DHCP server policy is global. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsGlobalPolicy {
         get => NumGet(this, 8, "int")
@@ -78,7 +78,7 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the description of the DHCP server policy.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Description {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +87,7 @@ class DHCP_POLICY extends Win32Struct
 
     /**
      * <b>TRUE</b> if the policy is enabled. Otherwise, it is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 56, "int")

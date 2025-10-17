@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -20,11 +21,14 @@ class D3DAUTHENTICATEDCHANNEL_QUERY_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hChannel {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hChannel{
+        get {
+            if(!this.HasProp("__hChannel"))
+                this.__hChannel := HANDLE(8, this)
+            return this.__hChannel
+        }
     }
 
     /**

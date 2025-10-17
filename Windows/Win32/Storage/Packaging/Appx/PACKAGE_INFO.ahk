@@ -46,7 +46,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The location of the package.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     path {
         get => NumGet(this, 8, "ptr")
@@ -57,7 +57,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package full name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     packageFullName {
         get => NumGet(this, 16, "ptr")
@@ -68,7 +68,7 @@ class PACKAGE_INFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The package family name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     packageFamilyName {
         get => NumGet(this, 24, "ptr")
@@ -84,7 +84,7 @@ class PACKAGE_INFO extends Win32Struct
     packageId{
         get {
             if(!this.HasProp("__packageId"))
-                this.__packageId := PACKAGE_ID(this.ptr + 32)
+                this.__packageId := PACKAGE_ID(32, this)
             return this.__packageId
         }
     }

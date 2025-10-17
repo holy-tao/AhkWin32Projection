@@ -52,7 +52,7 @@ class IO_SCSI_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     TaggedQueuing {
         get => NumGet(this, 20, "char")
@@ -60,7 +60,7 @@ class IO_SCSI_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AdapterScansDown {
         get => NumGet(this, 21, "char")
@@ -68,7 +68,7 @@ class IO_SCSI_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AdapterUsesPio {
         get => NumGet(this, 22, "char")

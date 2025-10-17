@@ -36,7 +36,7 @@ class MINIDUMP_EXCEPTION_INFORMATION64 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ClientPointers {
         get => NumGet(this, 24, "int")

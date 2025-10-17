@@ -38,14 +38,14 @@ class PEER_APPLICATION extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := PEER_DATA(this.ptr + 8)
+                this.__data := PEER_DATA(8, this)
             return this.__data
         }
     }
 
     /**
      * Pointer to a zero-terminated Unicode string that contains an optional  description of the local application. This description is limited to 255 unicode characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzDescription {
         get => NumGet(this, 24, "ptr")

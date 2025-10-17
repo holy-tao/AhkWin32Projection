@@ -30,14 +30,14 @@ class LSA_TRUST_INFORMATION extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Name := LSA_UNICODE_STRING(0, this)
             return this.__Name
         }
     }
 
     /**
      * Pointer to the SID of the domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 16, "ptr")

@@ -76,11 +76,22 @@ class POWER_LIMIT_ATTRIBUTES extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - SupportTimeParameter
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 32, "uint")
         set => NumPut("uint", value, this, 32)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SupportTimeParameter {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
 
     /**

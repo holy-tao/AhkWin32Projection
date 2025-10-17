@@ -16,7 +16,7 @@ class USER_INFO_1011 extends Win32Struct
     /**
      * Pointer to a Unicode string that contains the full name of the user. The user is specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1011_full_name {
         get => NumGet(this, 0, "ptr")

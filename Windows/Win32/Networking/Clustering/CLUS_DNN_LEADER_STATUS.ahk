@@ -15,7 +15,7 @@ class CLUS_DNN_LEADER_STATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the Distributed Network Name (DNN) resource for the Scale-Out File Server  is online; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsOnline {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class CLUS_DNN_LEADER_STATUS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the file server is running; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsFileServerPresent {
         get => NumGet(this, 4, "int")

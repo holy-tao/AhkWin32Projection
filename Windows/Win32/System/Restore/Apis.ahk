@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Restore
  * @version v4.0.30319
@@ -121,7 +121,7 @@ class Restore {
      * <a href="https://docs.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-restorepointinfoa">RESTOREPOINTINFO</a> structure that specifies the restore point.
      * @param {Pointer<STATEMGRSTATUS>} pSMgrStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-statemgrstatus">STATEMGRSTATUS</a> structure that receives the status information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
      * 
      * If the function fails, the return value is <b>FALSE</b>. The <b>nStatus</b> member of <i>pSMgrStatus</i> receives error information.
      * @see https://docs.microsoft.com/windows/win32/api//srrestoreptapi/nf-srrestoreptapi-srsetrestorepointa
@@ -138,7 +138,7 @@ class Restore {
      * <a href="https://docs.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-restorepointinfoa">RESTOREPOINTINFO</a> structure that specifies the restore point.
      * @param {Pointer<STATEMGRSTATUS>} pSMgrStatus A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/srrestoreptapi/ns-srrestoreptapi-statemgrstatus">STATEMGRSTATUS</a> structure that receives the status information.
-     * @returns {Integer} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
+     * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
      * 
      * If the function fails, the return value is <b>FALSE</b>. The <b>nStatus</b> member of <i>pSMgrStatus</i> receives error information.
      * @see https://docs.microsoft.com/windows/win32/api//srrestoreptapi/nf-srrestoreptapi-srsetrestorepointw

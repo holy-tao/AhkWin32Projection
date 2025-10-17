@@ -19,7 +19,7 @@ class WTS_VALIDATION_INFORMATIONW extends Win32Struct
     ProductInfo{
         get {
             if(!this.HasProp("__ProductInfo"))
-                this.__ProductInfo := PRODUCT_INFOW(this.ptr + 0)
+                this.__ProductInfo := PRODUCT_INFOW(0, this)
             return this.__ProductInfo
         }
     }

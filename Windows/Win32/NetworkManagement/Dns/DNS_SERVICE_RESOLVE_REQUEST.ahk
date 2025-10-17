@@ -36,7 +36,7 @@ class DNS_SERVICE_RESOLVE_REQUEST extends Win32Struct
 
     /**
      * A pointer to a string that represents the service name. This is a fully qualified domain name that begins with a service name, and ends with ".local". It takes the generalized form "\<ServiceName\>.\_\<ServiceType\>.\_\<TransportProtocol\>.local". For example, "MyMusicServer._http._tcp.local".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     QueryName {
         get => NumGet(this, 8, "ptr")

@@ -45,7 +45,7 @@ class DML_FILL_VALUE_CONSTANT_OPERATOR_DESC extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := DML_SCALAR_UNION(this.ptr + 16)
+                this.__Value := DML_SCALAR_UNION(16, this)
             return this.__Value
         }
     }

@@ -22,7 +22,7 @@ class D3D11_FEATURE_DATA_THREADING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> means resources can be created concurrently on multiple threads while drawing; <b>FALSE</b> means that the presence of coarse synchronization will prevent concurrency.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DriverConcurrentCreates {
         get => NumGet(this, 0, "int")
@@ -33,7 +33,7 @@ class D3D11_FEATURE_DATA_THREADING extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> means command lists are supported by the current driver; <b>FALSE</b> means that the API will emulate deferred contexts and command lists with software.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DriverCommandLists {
         get => NumGet(this, 4, "int")

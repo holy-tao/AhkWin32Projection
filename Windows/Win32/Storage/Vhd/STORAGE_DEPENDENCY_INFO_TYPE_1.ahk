@@ -39,7 +39,7 @@ class STORAGE_DEPENDENCY_INFO_TYPE_1 extends Win32Struct
     VirtualStorageType{
         get {
             if(!this.HasProp("__VirtualStorageType"))
-                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(this.ptr + 8)
+                this.__VirtualStorageType := VIRTUAL_STORAGE_TYPE(8, this)
             return this.__VirtualStorageType
         }
     }

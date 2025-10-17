@@ -324,7 +324,7 @@ class FILE_ID_EXTD_DIR_INFO extends Win32Struct
     FileId{
         get {
             if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(this.ptr + 72)
+                this.__FileId := FILE_ID_128(72, this)
             return this.__FileId
         }
     }

@@ -35,7 +35,7 @@ class FWPM_LAYER0 extends Win32Struct
     displayData{
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(this.ptr + 8)
+                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
             return this.__displayData
         }
     }

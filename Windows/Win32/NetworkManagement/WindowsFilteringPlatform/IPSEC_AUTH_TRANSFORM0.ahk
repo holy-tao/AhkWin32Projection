@@ -113,7 +113,7 @@ class IPSEC_AUTH_TRANSFORM0 extends Win32Struct
     authTransformId{
         get {
             if(!this.HasProp("__authTransformId"))
-                this.__authTransformId := IPSEC_AUTH_TRANSFORM_ID0(this.ptr + 0)
+                this.__authTransformId := IPSEC_AUTH_TRANSFORM_ID0(0, this)
             return this.__authTransformId
         }
     }

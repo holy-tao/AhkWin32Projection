@@ -24,7 +24,7 @@ class DRVCONFIGINFO extends Win32Struct
 
     /**
      * Address of a null-terminated, wide-character string specifying the name of the registry key associated with the driver.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszDCISectionName {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class DRVCONFIGINFO extends Win32Struct
 
     /**
      * Address of a null-terminated, wide-character string specifying the name of the registry value associated with the driver.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszDCIAliasName {
         get => NumGet(this, 16, "ptr")

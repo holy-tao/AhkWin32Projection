@@ -22,7 +22,7 @@ class EMRSETVIEWPORTEXTEX extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRSETVIEWPORTEXTEX extends Win32Struct
     szlExtent{
         get {
             if(!this.HasProp("__szlExtent"))
-                this.__szlExtent := SIZE(this.ptr + 8)
+                this.__szlExtent := SIZE(8, this)
             return this.__szlExtent
         }
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Ndis\NDIS_OBJECT_HEADER.ahk
 #Include .\DOT11_HRDSSS_PHY_ATTRIBUTES.ahk
+#Include .\DOT11_OFDM_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_ERP_PHY_ATTRIBUTES.ahk
 #Include .\DOT11_DATA_RATE_MAPPING_ENTRY.ahk
 #Include .\DOT11_SUPPORTED_DATA_RATES_VALUE_V2.ahk
@@ -22,7 +23,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -36,7 +37,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bHardwarePhyState {
         get => NumGet(this, 8, "char")
@@ -44,7 +45,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bSoftwarePhyState {
         get => NumGet(this, 9, "char")
@@ -52,7 +53,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bCFPollable {
         get => NumGet(this, 10, "char")
@@ -89,17 +90,20 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     HRDSSSAttributes{
         get {
             if(!this.HasProp("__HRDSSSAttributes"))
-                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(this.ptr + 24)
+                this.__HRDSSSAttributes := DOT11_HRDSSS_PHY_ATTRIBUTES(24, this)
             return this.__HRDSSSAttributes
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {DOT11_OFDM_PHY_ATTRIBUTES}
      */
-    OFDMAttributes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    OFDMAttributes{
+        get {
+            if(!this.HasProp("__OFDMAttributes"))
+                this.__OFDMAttributes := DOT11_OFDM_PHY_ATTRIBUTES(24, this)
+            return this.__OFDMAttributes
+        }
     }
 
     /**
@@ -108,7 +112,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     ERPAttributes{
         get {
             if(!this.HasProp("__ERPAttributes"))
-                this.__ERPAttributes := DOT11_ERP_PHY_ATTRIBUTES(this.ptr + 24)
+                this.__ERPAttributes := DOT11_ERP_PHY_ATTRIBUTES(24, this)
             return this.__ERPAttributes
         }
     }
@@ -157,7 +161,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     SupportedDataRatesValue{
         get {
             if(!this.HasProp("__SupportedDataRatesValue"))
-                this.__SupportedDataRatesValue := DOT11_SUPPORTED_DATA_RATES_VALUE_V2(this.ptr + 1088)
+                this.__SupportedDataRatesValue := DOT11_SUPPORTED_DATA_RATES_VALUE_V2(1088, this)
             return this.__SupportedDataRatesValue
         }
     }

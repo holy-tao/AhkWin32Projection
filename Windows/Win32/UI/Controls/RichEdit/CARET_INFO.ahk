@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls.RichEdit
@@ -12,11 +13,14 @@ class CARET_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbitmap {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hbitmap{
+        get {
+            if(!this.HasProp("__hbitmap"))
+                this.__hbitmap := HBITMAP(0, this)
+            return this.__hbitmap
+        }
     }
 
     /**

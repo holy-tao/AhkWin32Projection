@@ -36,7 +36,7 @@ class SCSI_INQUIRY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeviceClaimed {
         get => NumGet(this, 3, "char")

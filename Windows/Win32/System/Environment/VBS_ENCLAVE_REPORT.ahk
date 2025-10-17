@@ -71,7 +71,7 @@ class VBS_ENCLAVE_REPORT extends Win32Struct
     EnclaveIdentity{
         get {
             if(!this.HasProp("__EnclaveIdentity"))
-                this.__EnclaveIdentity := ENCLAVE_IDENTITY(this.ptr + 72)
+                this.__EnclaveIdentity := ENCLAVE_IDENTITY(72, this)
             return this.__EnclaveIdentity
         }
     }

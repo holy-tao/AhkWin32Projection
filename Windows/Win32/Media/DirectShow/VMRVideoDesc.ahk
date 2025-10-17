@@ -43,7 +43,7 @@ class VMRVideoDesc extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     SingleFieldPerSample {
         get => NumGet(this, 12, "int")
@@ -66,7 +66,7 @@ class VMRVideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := VMRFrequency(this.ptr + 24)
+                this.__InputSampleFreq := VMRFrequency(24, this)
             return this.__InputSampleFreq
         }
     }
@@ -79,7 +79,7 @@ class VMRVideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := VMRFrequency(this.ptr + 32)
+                this.__OutputFrameFreq := VMRFrequency(32, this)
             return this.__OutputFrameFreq
         }
     }

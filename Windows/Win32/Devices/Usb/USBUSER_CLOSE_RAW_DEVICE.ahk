@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USBUSER_REQUEST_HEADER.ahk
+#Include .\USB_CLOSE_RAW_DEVICE_PARAMETERS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -18,16 +19,19 @@ class USBUSER_CLOSE_RAW_DEVICE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USBUSER_REQUEST_HEADER(this.ptr + 0)
+                this.__Header := USBUSER_REQUEST_HEADER(0, this)
             return this.__Header
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_CLOSE_RAW_DEVICE_PARAMETERS}
      */
-    Parameters {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    Parameters{
+        get {
+            if(!this.HasProp("__Parameters"))
+                this.__Parameters := USB_CLOSE_RAW_DEVICE_PARAMETERS(16, this)
+            return this.__Parameters
+        }
     }
 }

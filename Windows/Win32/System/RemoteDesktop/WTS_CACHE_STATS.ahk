@@ -35,7 +35,7 @@ class WTS_CACHE_STATS extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := WTS_CACHE_STATS_UN(this.ptr + 8)
+                this.__Data := WTS_CACHE_STATS_UN(8, this)
             return this.__Data
         }
     }

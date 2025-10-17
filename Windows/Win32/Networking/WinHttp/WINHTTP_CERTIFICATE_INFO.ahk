@@ -34,7 +34,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
     ftExpiry{
         get {
             if(!this.HasProp("__ftExpiry"))
-                this.__ftExpiry := FILETIME(this.ptr + 0)
+                this.__ftExpiry := FILETIME(0, this)
             return this.__ftExpiry
         }
     }
@@ -47,14 +47,14 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
     ftStart{
         get {
             if(!this.HasProp("__ftStart"))
-                this.__ftStart := FILETIME(this.ptr + 8)
+                this.__ftStart := FILETIME(8, this)
             return this.__ftStart
         }
     }
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server for which the certificate was issued.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszSubjectInfo {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +63,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the organization, site, and server that issued the certificate.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszIssuerInfo {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the protocol used to provide the secure connection. This member is not current used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszProtocolName {
         get => NumGet(this, 32, "ptr")
@@ -81,7 +81,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to sign the certificate. This member is not current used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszSignatureAlgName {
         get => NumGet(this, 40, "ptr")
@@ -90,7 +90,7 @@ class WINHTTP_CERTIFICATE_INFO extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the name of the algorithm used to perform encryption over the secure channel (SSL/TLS) connection. This member is not current used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszEncryptionAlgName {
         get => NumGet(this, 48, "ptr")

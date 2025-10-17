@@ -36,7 +36,7 @@ class CLUSPROP_LIST extends Win32Struct
     PropertyName{
         get {
             if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := CLUSPROP_SZ(this.ptr + 8)
+                this.__PropertyName := CLUSPROP_SZ(8, this)
             return this.__PropertyName
         }
     }

@@ -22,7 +22,7 @@ class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO extends Win32Struct
     EncryptionAlgorithm{
         get {
             if(!this.HasProp("__EncryptionAlgorithm"))
-                this.__EncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 0)
+                this.__EncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(0, this)
             return this.__EncryptionAlgorithm
         }
     }
@@ -34,7 +34,7 @@ class CRYPT_ENCRYPTED_PRIVATE_KEY_INFO extends Win32Struct
     EncryptedPrivateKey{
         get {
             if(!this.HasProp("__EncryptedPrivateKey"))
-                this.__EncryptedPrivateKey := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__EncryptedPrivateKey := CRYPT_INTEGER_BLOB(24, this)
             return this.__EncryptedPrivateKey
         }
     }

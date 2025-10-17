@@ -52,7 +52,7 @@ class HTTP_FILTER_AUTH_COMPLETE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fResetAuth {
         get => NumGet(this, 36, "int")

@@ -42,7 +42,7 @@ class D3D_SHADER_CACHE_COMPILER_PROPERTIES extends Win32Struct
     CompilerVersion{
         get {
             if(!this.HasProp("__CompilerVersion"))
-                this.__CompilerVersion := D3D_VERSION_NUMBER(this.ptr + 272)
+                this.__CompilerVersion := D3D_VERSION_NUMBER(272, this)
             return this.__CompilerVersion
         }
     }
@@ -53,7 +53,7 @@ class D3D_SHADER_CACHE_COMPILER_PROPERTIES extends Win32Struct
     ApplicationProfileVersion{
         get {
             if(!this.HasProp("__ApplicationProfileVersion"))
-                this.__ApplicationProfileVersion := D3D_VERSION_NUMBER(this.ptr + 288)
+                this.__ApplicationProfileVersion := D3D_VERSION_NUMBER(288, this)
             return this.__ApplicationProfileVersion
         }
     }

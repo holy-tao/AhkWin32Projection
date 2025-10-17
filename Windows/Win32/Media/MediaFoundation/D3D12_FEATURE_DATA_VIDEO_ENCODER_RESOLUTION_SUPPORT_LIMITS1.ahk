@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH.ahk
 #Include .\D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS.ahk
@@ -47,11 +48,14 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     }
 
     /**
-     * @type {Integer}
+     * @type {D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP}
      */
-    QPMap {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    QPMap{
+        get {
+            if(!this.HasProp("__QPMap"))
+                this.__QPMap := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_QPMAP(16, this)
+            return this.__QPMap
+        }
     }
 
     /**
@@ -60,7 +64,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     DirtyRegions{
         get {
             if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(this.ptr + 24)
+                this.__DirtyRegions := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_DIRTY_REGIONS(24, this)
             return this.__DirtyRegions
         }
     }
@@ -71,7 +75,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     MotionSearch{
         get {
             if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(this.ptr + 32)
+                this.__MotionSearch := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_MOTION_SEARCH(32, this)
             return this.__MotionSearch
         }
     }
@@ -82,7 +86,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_LIMITS1 extends Win32S
     FrameAnalysis{
         get {
             if(!this.HasProp("__FrameAnalysis"))
-                this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(this.ptr + 56)
+                this.__FrameAnalysis := D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLUTION_SUPPORT_FRAME_ANALYSIS(56, this)
             return this.__FrameAnalysis
         }
     }

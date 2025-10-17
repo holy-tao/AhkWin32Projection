@@ -20,7 +20,7 @@ class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ObjectNameW {
         get => NumGet(this, 8, "ptr")

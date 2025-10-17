@@ -21,7 +21,7 @@ class WS_XML_TOKEN_MESSAGE_SECURITY_BINDING extends Win32Struct
     binding{
         get {
             if(!this.HasProp("__binding"))
-                this.__binding := WS_SECURITY_BINDING(this.ptr + 0)
+                this.__binding := WS_SECURITY_BINDING(0, this)
             return this.__binding
         }
     }
@@ -50,7 +50,7 @@ class WS_XML_TOKEN_MESSAGE_SECURITY_BINDING extends Win32Struct
      * kept for internal use -- the application continues to own the supplied
      * token and is responsible for deleting it with <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsfreesecuritytoken">WsFreeSecurityToken</a> any time after the channel creation call
      * returns.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_SECURITY_TOKEN>}
      */
     xmlToken {
         get => NumGet(this, 32, "ptr")

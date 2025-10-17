@@ -28,7 +28,7 @@ class DEBUG_DECODE_ERROR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     TreatAsStatus {
         get => NumGet(this, 8, "int")

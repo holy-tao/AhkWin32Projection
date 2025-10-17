@@ -60,7 +60,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * The name of the process's executable image. Space for this string is allocated by the method called and freed by the caller (for more information, see <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>). This member is not returned by default. To return this member, specify the GATD_INCLUDE_PROCESS_EXE_NAME flag when you call a method that returns an <b>ApplicationProcessSummary</b> structure.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProcessExeName {
         get => NumGet(this, 32, "ptr")
@@ -69,7 +69,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * Indicates whether the process is a COM+ server application running as a Windows service.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsService {
         get => NumGet(this, 40, "int")
@@ -78,7 +78,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * Indicates whether the process is a COM+ server application instance that is paused.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsPaused {
         get => NumGet(this, 44, "int")
@@ -87,7 +87,7 @@ class ApplicationProcessSummary extends Win32Struct
 
     /**
      * Indicates whether the process is a COM+ server application instance that has been recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRecycled {
         get => NumGet(this, 48, "int")

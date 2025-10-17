@@ -82,7 +82,7 @@ class KSPROPERTY_SPHLI extends Win32Struct
     ColCon{
         get {
             if(!this.HasProp("__ColCon"))
-                this.__ColCon := KS_COLCON(this.ptr + 20)
+                this.__ColCon := KS_COLCON(20, this)
             return this.__ColCon
         }
     }

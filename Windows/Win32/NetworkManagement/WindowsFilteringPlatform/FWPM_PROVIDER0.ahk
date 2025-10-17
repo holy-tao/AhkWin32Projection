@@ -39,7 +39,7 @@ class FWPM_PROVIDER0 extends Win32Struct
     displayData{
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(this.ptr + 8)
+                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
             return this.__displayData
         }
     }
@@ -89,7 +89,7 @@ class FWPM_PROVIDER0 extends Win32Struct
     providerData{
         get {
             if(!this.HasProp("__providerData"))
-                this.__providerData := FWP_BYTE_BLOB(this.ptr + 32)
+                this.__providerData := FWP_BYTE_BLOB(32, this)
             return this.__providerData
         }
     }
@@ -97,7 +97,7 @@ class FWPM_PROVIDER0 extends Win32Struct
     /**
      * Optional name of the Windows service hosting the provider. This allows
      *    BFE to detect that a provider has been disabled.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     serviceName {
         get => NumGet(this, 48, "ptr")

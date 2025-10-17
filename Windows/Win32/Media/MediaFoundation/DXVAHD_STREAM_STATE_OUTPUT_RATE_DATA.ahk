@@ -48,7 +48,7 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Integer}
+     * @type {BOOL}
      */
     RepeatFrame {
         get => NumGet(this, 0, "int")
@@ -73,7 +73,7 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
     CustomRate{
         get {
             if(!this.HasProp("__CustomRate"))
-                this.__CustomRate := DXVAHD_RATIONAL(this.ptr + 8)
+                this.__CustomRate := DXVAHD_RATIONAL(8, this)
             return this.__CustomRate
         }
     }

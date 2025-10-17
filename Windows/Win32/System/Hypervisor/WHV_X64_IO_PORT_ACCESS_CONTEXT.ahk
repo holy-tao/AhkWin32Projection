@@ -49,7 +49,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     AccessInfo{
         get {
             if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(this.ptr + 24)
+                this.__AccessInfo := WHV_X64_IO_PORT_ACCESS_INFO(24, this)
             return this.__AccessInfo
         }
     }
@@ -111,7 +111,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     Ds{
         get {
             if(!this.HasProp("__Ds"))
-                this.__Ds := WHV_X64_SEGMENT_REGISTER(this.ptr + 72)
+                this.__Ds := WHV_X64_SEGMENT_REGISTER(72, this)
             return this.__Ds
         }
     }
@@ -122,7 +122,7 @@ class WHV_X64_IO_PORT_ACCESS_CONTEXT extends Win32Struct
     Es{
         get {
             if(!this.HasProp("__Es"))
-                this.__Es := WHV_X64_SEGMENT_REGISTER(this.ptr + 88)
+                this.__Es := WHV_X64_SEGMENT_REGISTER(88, this)
             return this.__Es
         }
     }

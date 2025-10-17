@@ -26,7 +26,7 @@ class JET_SIGNATURE extends Win32Struct
     logtimeCreate{
         get {
             if(!this.HasProp("__logtimeCreate"))
-                this.__logtimeCreate := JET_LOGTIME(this.ptr + 8)
+                this.__logtimeCreate := JET_LOGTIME(8, this)
             return this.__logtimeCreate
         }
     }

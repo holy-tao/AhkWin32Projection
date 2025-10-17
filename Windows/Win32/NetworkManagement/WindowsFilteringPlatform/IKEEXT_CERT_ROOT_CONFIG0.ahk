@@ -28,7 +28,7 @@ class IKEEXT_CERT_ROOT_CONFIG0 extends Win32Struct
     certData{
         get {
             if(!this.HasProp("__certData"))
-                this.__certData := FWP_BYTE_BLOB(this.ptr + 0)
+                this.__certData := FWP_BYTE_BLOB(0, this)
             return this.__certData
         }
     }

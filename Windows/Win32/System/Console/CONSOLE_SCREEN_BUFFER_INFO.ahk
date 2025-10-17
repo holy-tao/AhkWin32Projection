@@ -19,7 +19,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     dwSize{
         get {
             if(!this.HasProp("__dwSize"))
-                this.__dwSize := COORD(this.ptr + 0)
+                this.__dwSize := COORD(0, this)
             return this.__dwSize
         }
     }
@@ -30,7 +30,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     dwCursorPosition{
         get {
             if(!this.HasProp("__dwCursorPosition"))
-                this.__dwCursorPosition := COORD(this.ptr + 4)
+                this.__dwCursorPosition := COORD(4, this)
             return this.__dwCursorPosition
         }
     }
@@ -49,7 +49,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     srWindow{
         get {
             if(!this.HasProp("__srWindow"))
-                this.__srWindow := SMALL_RECT(this.ptr + 16)
+                this.__srWindow := SMALL_RECT(16, this)
             return this.__srWindow
         }
     }
@@ -60,7 +60,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     dwMaximumWindowSize{
         get {
             if(!this.HasProp("__dwMaximumWindowSize"))
-                this.__dwMaximumWindowSize := COORD(this.ptr + 24)
+                this.__dwMaximumWindowSize := COORD(24, this)
             return this.__dwMaximumWindowSize
         }
     }

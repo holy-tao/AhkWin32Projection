@@ -23,7 +23,7 @@ class PERBANDINFO extends Win32Struct
 
     /**
      * If <b>TRUE</b>, GDI redraws the previous band. If <b>FALSE</b>, GDI draws the next band.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRepeatThisBand {
         get => NumGet(this, 0, "int")
@@ -37,7 +37,7 @@ class PERBANDINFO extends Win32Struct
     szlBand{
         get {
             if(!this.HasProp("__szlBand"))
-                this.__szlBand := SIZE(this.ptr + 8)
+                this.__szlBand := SIZE(8, this)
             return this.__szlBand
         }
     }

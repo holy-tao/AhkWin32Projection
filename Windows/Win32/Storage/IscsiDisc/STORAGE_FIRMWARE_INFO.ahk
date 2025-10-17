@@ -29,7 +29,7 @@ class STORAGE_FIRMWARE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     UpgradeSupport {
         get => NumGet(this, 8, "char")

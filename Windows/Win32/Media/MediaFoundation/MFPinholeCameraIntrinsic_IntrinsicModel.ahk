@@ -41,7 +41,7 @@ class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
     CameraModel{
         get {
             if(!this.HasProp("__CameraModel"))
-                this.__CameraModel := MFCameraIntrinsic_PinholeCameraModel(this.ptr + 8)
+                this.__CameraModel := MFCameraIntrinsic_PinholeCameraModel(8, this)
             return this.__CameraModel
         }
     }
@@ -53,7 +53,7 @@ class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
     DistortionModel{
         get {
             if(!this.HasProp("__DistortionModel"))
-                this.__DistortionModel := MFCameraIntrinsic_DistortionModel(this.ptr + 24)
+                this.__DistortionModel := MFCameraIntrinsic_DistortionModel(24, this)
             return this.__DistortionModel
         }
     }

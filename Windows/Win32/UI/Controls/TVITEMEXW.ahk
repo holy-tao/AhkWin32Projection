@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Specifies or receives attributes of a tree-view item. This structure is an enhancement to the TVITEM structure. New applications should use this structure where appropriate.
@@ -32,7 +33,7 @@ class TVITEMEXW extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the item.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hItem {
         get => NumGet(this, 8, "ptr")
@@ -77,7 +78,7 @@ class TVITEMEXW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the item text if the structure specifies item attributes. If this member is the LPSTR_TEXTCALLBACK value, the parent window is responsible for storing the name. In this case, the tree-view control sends the parent window a <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-getdispinfo">TVN_GETDISPINFO</a> notification code when it needs the item text for displaying, sorting, or editing and a <a href="https://docs.microsoft.com/windows/desktop/Controls/tvn-setdispinfo">TVN_SETDISPINFO</a> notification code when the item text changes. If the structure is receiving item attributes, this member is the address of the buffer that receives the item text. Note that although the tree-view control allows any length string to be stored as item text, only the first 260 characters are displayed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszText {
         get => NumGet(this, 24, "ptr")
@@ -130,7 +131,7 @@ class TVITEMEXW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * A value to associate with the item.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")
@@ -200,11 +201,14 @@ class TVITEMEXW extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * <b>Internet Explorer 6 and later</b>. Not used; must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(64, this)
+            return this.__hwnd
+        }
     }
 
     /**

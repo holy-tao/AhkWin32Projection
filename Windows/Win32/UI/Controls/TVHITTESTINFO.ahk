@@ -23,7 +23,7 @@ class TVHITTESTINFO extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 0)
+                this.__pt := POINT(0, this)
             return this.__pt
         }
     }
@@ -41,7 +41,7 @@ class TVHITTESTINFO extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the item that occupies the point.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hItem {
         get => NumGet(this, 16, "ptr")

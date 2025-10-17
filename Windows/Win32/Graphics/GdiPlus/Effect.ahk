@@ -22,7 +22,7 @@ class Effect extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<CGpEffect>}
      */
     nativeEffect {
         get => NumGet(this, 8, "ptr")
@@ -46,7 +46,7 @@ class Effect extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     useAuxData {
         get => NumGet(this, 32, "int")

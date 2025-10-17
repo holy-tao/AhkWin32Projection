@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\HCERTSTORE.ahk
 
 /**
  * Contains the subject to import into the CryptUIWizImport function.
@@ -32,7 +33,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFileName {
         get => NumGet(this, 8, "ptr")
@@ -64,11 +65,14 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertStore {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCertStore{
+        get {
+            if(!this.HasProp("__hCertStore"))
+                this.__hCertStore := HCERTSTORE(8, this)
+            return this.__hCertStore
+        }
     }
 
     /**
@@ -82,7 +86,7 @@ class CRYPTUI_WIZ_IMPORT_SRC_INFO extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the password used to access the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">private key</a>.  A password is required if <b>pwszFileName</b> contains a PFX BLOB.  If a password is not required, the variable can be an empty string. This member cannot be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPassword {
         get => NumGet(this, 24, "ptr")

@@ -78,7 +78,7 @@ class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct
     /**
      * Specifies whether the hardware and driver support a tile-based renderer.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support a tile-based renderer.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TileBasedRenderer {
         get => NumGet(this, 4, "int")
@@ -88,7 +88,7 @@ class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct
     /**
      * Specifies whether the hardware and driver support UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UMA {
         get => NumGet(this, 8, "int")
@@ -98,7 +98,7 @@ class D3D12_FEATURE_DATA_ARCHITECTURE extends Win32Struct
     /**
      * Specifies whether the hardware and driver support cache-coherent UMA.
      *             The runtime sets this member to <b>TRUE</b> if the hardware and driver support cache-coherent UMA.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CacheCoherentUMA {
         get => NumGet(this, 12, "int")

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HSZ.ahk
 
 /**
  * Contains a DDE service name and topic name. A DDE server application can use this structure during an XTYP_WILDCONNECT transaction to enumerate the service-topic pairs that it supports.
@@ -17,21 +18,27 @@ class HSZPAIR extends Win32Struct
      * Type: <b>HSZ</b>
      * 
      * A handle to the service name.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszSvc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hszSvc{
+        get {
+            if(!this.HasProp("__hszSvc"))
+                this.__hszSvc := HSZ(0, this)
+            return this.__hszSvc
+        }
     }
 
     /**
      * Type: <b>HSZ</b>
      * 
      * A handle to the topic name.
-     * @type {Pointer<Void>}
+     * @type {HSZ}
      */
-    hszTopic {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hszTopic{
+        get {
+            if(!this.HasProp("__hszTopic"))
+                this.__hszTopic := HSZ(8, this)
+            return this.__hszTopic
+        }
     }
 }

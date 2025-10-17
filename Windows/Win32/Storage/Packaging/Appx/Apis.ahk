@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
@@ -313,7 +313,7 @@ class Appx {
      * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFullName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -352,7 +352,7 @@ class Appx {
      * @since windows8.0
      */
     static GetCurrentPackageFullName(packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\GetCurrentPackageFullName", "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -363,7 +363,7 @@ class Appx {
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters, including the null terminator. On output, the size of the package family name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -402,7 +402,7 @@ class Appx {
      * @since windows8.0
      */
     static GetCurrentPackageFamilyName(packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\GetCurrentPackageFamilyName", "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -413,7 +413,7 @@ class Appx {
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * The package path.
      * @returns {Integer} Type: <b>LONG</b>
@@ -452,7 +452,7 @@ class Appx {
      * @since windows8.0
      */
     static GetCurrentPackagePath(pathLength, path) {
-        path := path is String? StrPtr(path) : path
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("KERNEL32.dll\GetCurrentPackagePath", "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -460,7 +460,7 @@ class Appx {
 
     /**
      * Gets the package identifier (ID) for the specified process.
-     * @param {Pointer<Void>} hProcess Type: <b>HANDLE</b>
+     * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
@@ -505,19 +505,21 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageId(hProcess, bufferLength, buffer) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+
         result := DllCall("KERNEL32.dll\GetPackageId", "ptr", hProcess, "uint*", bufferLength, "ptr", buffer, "uint")
         return result
     }
 
     /**
      * Gets the package full name for the specified process.
-     * @param {Pointer<Void>} hProcess Type: <b>HANDLE</b>
+     * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFullName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -556,7 +558,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullName(hProcess, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("KERNEL32.dll\GetPackageFullName", "ptr", hProcess, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -564,10 +567,10 @@ class Appx {
 
     /**
      * Gets the package full name for the specified token.
-     * @param {Pointer<Void>} token A token that contains the package identity.
+     * @param {HANDLE} token A token that contains the package identity.
      * @param {Pointer<UInt32>} packageFullNameLength On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the 
      *       size of the package full name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFullName The package full name.
+     * @param {PWSTR} packageFullName The package full name.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function 
      *       returns an error code. The possible error codes include the following.
      * 
@@ -604,7 +607,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullNameFromToken(token, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        token := token is Win32Handle ? NumGet(token, "ptr") : token
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFullNameFromToken", "ptr", token, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -612,13 +616,13 @@ class Appx {
 
     /**
      * Gets the package family name for the specified process.
-     * @param {Pointer<Void>} hProcess Type: <b>HANDLE</b>
+     * @param {HANDLE} hProcess Type: <b>HANDLE</b>
      * 
      * A handle to the process that has the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null-terminator.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -657,7 +661,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyName(hProcess, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("KERNEL32.dll\GetPackageFamilyName", "ptr", hProcess, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -665,13 +670,13 @@ class Appx {
 
     /**
      * Gets the package family name for the specified token.
-     * @param {Pointer<Void>} token Type: <b>HANDLE</b>
+     * @param {HANDLE} token Type: <b>HANDLE</b>
      * 
      * A token that contains the package identity.
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null-terminator.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -710,7 +715,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyNameFromToken(token, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        token := token is Win32Handle ? NumGet(token, "ptr") : token
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFamilyNameFromToken", "ptr", token, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -724,7 +730,7 @@ class Appx {
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null-terminator.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * The package path.
      * @returns {Integer} Type: <b>LONG</b>
@@ -754,7 +760,7 @@ class Appx {
     static GetPackagePath(packageId, pathLength, path) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        path := path is String? StrPtr(path) : path
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("KERNEL32.dll\GetPackagePath", "ptr", packageId, "uint", reserved, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -762,7 +768,7 @@ class Appx {
 
     /**
      * Gets the path of the specified package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
@@ -770,7 +776,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package path string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -798,8 +804,8 @@ class Appx {
      * @since windows8.1
      */
     static GetPackagePathByFullName(packageFullName, pathLength, path) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        path := path is String? StrPtr(path) : path
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("KERNEL32.dll\GetPackagePathByFullName", "ptr", packageFullName, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -807,7 +813,7 @@ class Appx {
 
     /**
      * Gets the path of the specified staged package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
@@ -815,7 +821,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package path string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -843,8 +849,8 @@ class Appx {
      * @since windows8.1
      */
     static GetStagedPackagePathByFullName(packageFullName, pathLength, path) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        path := path is String? StrPtr(path) : path
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("KERNEL32.dll\GetStagedPackagePathByFullName", "ptr", packageFullName, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -852,7 +858,7 @@ class Appx {
 
     /**
      * Gets the path of the specified package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
@@ -863,7 +869,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package path string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -891,8 +897,8 @@ class Appx {
      * @since windows10.0.10240
      */
     static GetPackagePathByFullName2(packageFullName, packagePathType, pathLength, path) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        path := path is String? StrPtr(path) : path
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -900,7 +906,7 @@ class Appx {
 
     /**
      * Gets the path of the specified staged package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the staged package.
      * @param {Integer} packagePathType Type: [**PackagePathType**](ne-appmodel-packagepathtype.md)
@@ -911,7 +917,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package path string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>path</i> to get the number of characters. You use this number to allocate memory space for <i>path</i>. Then you pass the address of this memory space to fill <i>path</i>.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package path string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -939,8 +945,8 @@ class Appx {
      * @since windows10.0.10240
      */
     static GetStagedPackagePathByFullName2(packageFullName, packagePathType, pathLength, path) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        path := path is String? StrPtr(path) : path
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetStagedPackagePathByFullName2", "ptr", packageFullName, "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -1011,7 +1017,7 @@ class Appx {
      * @param {Pointer<UInt32>} pathLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>path</i> buffer, in characters. On output, the size of the package path returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} path Type: <b>PWSTR</b>
+     * @param {PWSTR} path Type: <b>PWSTR</b>
      * 
      * The package path.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1050,7 +1056,7 @@ class Appx {
      * @since windows10.0.10240
      */
     static GetCurrentPackagePath2(packagePathType, pathLength, path) {
-        path := path is String? StrPtr(path) : path
+        path := path is String ? StrPtr(path) : path
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-3.dll\GetCurrentPackagePath2", "int", packagePathType, "uint*", pathLength, "ptr", path, "uint")
         return result
@@ -1059,7 +1065,7 @@ class Appx {
     /**
      * Gets the application user model ID for the current process.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
-     * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
+     * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
@@ -1093,7 +1099,7 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getcurrentapplicationusermodelid
      */
     static GetCurrentApplicationUserModelId(applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
         result := DllCall("KERNEL32.dll\GetCurrentApplicationUserModelId", "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
@@ -1101,9 +1107,9 @@ class Appx {
 
     /**
      * Gets the application user model ID for the specified process.
-     * @param {Pointer<Void>} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * @param {HANDLE} hProcess A handle to the process. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
-     * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
+     * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
@@ -1137,7 +1143,8 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelid
      */
     static GetApplicationUserModelId(hProcess, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("KERNEL32.dll\GetApplicationUserModelId", "ptr", hProcess, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
@@ -1145,9 +1152,9 @@ class Appx {
 
     /**
      * Gets the application user model ID for the specified token.
-     * @param {Pointer<Void>} token A token that contains the application identity. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
+     * @param {HANDLE} token A token that contains the application identity. This handle must have the <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more info, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Pointer<UInt32>} applicationUserModelIdLength On input, the size of the  <i>applicationUserModelId</i> buffer, in wide characters. On success, the size of the buffer used, including the null terminator.
-     * @param {Pointer<Char>} applicationUserModelId A pointer to a buffer that receives the application user model ID.
+     * @param {PWSTR} applicationUserModelId A pointer to a buffer that receives the application user model ID.
      * @returns {Integer} If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
      * 
      * <table>
@@ -1181,7 +1188,8 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelidfromtoken
      */
     static GetApplicationUserModelIdFromToken(token, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
+        token := token is Win32Handle ? NumGet(token, "ptr") : token
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetApplicationUserModelIdFromToken", "ptr", token, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
@@ -1189,11 +1197,11 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageFullName 
+     * @param {PWSTR} packageFullName 
      * @returns {Integer} 
      */
     static VerifyPackageFullName(packageFullName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\VerifyPackageFullName", "ptr", packageFullName, "uint")
         return result
@@ -1201,11 +1209,11 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageFamilyName 
+     * @param {PWSTR} packageFamilyName 
      * @returns {Integer} 
      */
     static VerifyPackageFamilyName(packageFamilyName) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\VerifyPackageFamilyName", "ptr", packageFamilyName, "uint")
         return result
@@ -1223,11 +1231,11 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} applicationUserModelId 
+     * @param {PWSTR} applicationUserModelId 
      * @returns {Integer} 
      */
     static VerifyApplicationUserModelId(applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\VerifyApplicationUserModelId", "ptr", applicationUserModelId, "uint")
         return result
@@ -1235,11 +1243,11 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageRelativeApplicationId 
+     * @param {PWSTR} packageRelativeApplicationId 
      * @returns {Integer} 
      */
     static VerifyPackageRelativeApplicationId(packageRelativeApplicationId) {
-        packageRelativeApplicationId := packageRelativeApplicationId is String? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
+        packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\VerifyPackageRelativeApplicationId", "ptr", packageRelativeApplicationId, "uint")
         return result
@@ -1247,7 +1255,7 @@ class Appx {
 
     /**
      * Gets the package identifier (ID) for the specified package full name.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of a package.
      * @param {Integer} flags Type: <b>const UINT32</b>
@@ -1295,7 +1303,7 @@ class Appx {
      * @since windows8.0
      */
     static PackageIdFromFullName(packageFullName, flags, bufferLength, buffer) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\PackageIdFromFullName", "ptr", packageFullName, "uint", flags, "uint*", bufferLength, "ptr", buffer, "uint")
         return result
@@ -1309,7 +1317,7 @@ class Appx {
      * @param {Pointer<UInt32>} packageFullNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFullName</i> buffer, in characters. On output, the size of the package full name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFullName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PWSTR</b>
      * 
      * The package full name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1337,7 +1345,7 @@ class Appx {
      * @since windows8.0
      */
     static PackageFullNameFromId(packageId, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\PackageFullNameFromId", "ptr", packageId, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -1351,7 +1359,7 @@ class Appx {
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1379,7 +1387,7 @@ class Appx {
      * @since windows8.0
      */
     static PackageFamilyNameFromId(packageId, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\PackageFamilyNameFromId", "ptr", packageId, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -1387,13 +1395,13 @@ class Appx {
 
     /**
      * Gets the package family name for the specified package full name.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of a package.
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageFamilyName</i> buffer, in characters. On output, the size of the package family name returned, in characters, including the null terminator.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * The package family name.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1421,8 +1429,8 @@ class Appx {
      * @since windows8.0
      */
     static PackageFamilyNameFromFullName(packageFullName, packageFamilyNameLength, packageFamilyName) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\PackageFamilyNameFromFullName", "ptr", packageFullName, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -1430,19 +1438,19 @@ class Appx {
 
     /**
      * Gets the package name and publisher identifier (ID) for the specified package family name.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The family name of a package.
      * @param {Pointer<UInt32>} packageNameLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packageName</i> buffer, in characters. On output, the size of the package name returned, in characters, including the null-terminator.
-     * @param {Pointer<Char>} packageName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageName Type: <b>PWSTR</b>
      * 
      * The package name.
      * @param {Pointer<UInt32>} packagePublisherIdLength Type: <b>UINT32*</b>
      * 
      * On input, the size of the <i>packagePublishId</i> buffer, in characters. On output, the size of the publisher ID returned, in characters, including the null-terminator.
-     * @param {Pointer<Char>} packagePublisherId Type: <b>PWSTR</b>
+     * @param {PWSTR} packagePublisherId Type: <b>PWSTR</b>
      * 
      * The package publisher ID.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1470,9 +1478,9 @@ class Appx {
      * @since windows8.0
      */
     static PackageNameAndPublisherIdFromFamilyName(packageFamilyName, packageNameLength, packageName, packagePublisherIdLength, packagePublisherId) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        packageName := packageName is String? StrPtr(packageName) : packageName
-        packagePublisherId := packagePublisherId is String? StrPtr(packagePublisherId) : packagePublisherId
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        packageName := packageName is String ? StrPtr(packageName) : packageName
+        packagePublisherId := packagePublisherId is String ? StrPtr(packagePublisherId) : packagePublisherId
 
         result := DllCall("KERNEL32.dll\PackageNameAndPublisherIdFromFamilyName", "ptr", packageFamilyName, "uint*", packageNameLength, "ptr", packageName, "uint*", packagePublisherIdLength, "ptr", packagePublisherId, "uint")
         return result
@@ -1480,10 +1488,10 @@ class Appx {
 
     /**
      * Constructs an application user model ID from the package family name and the package relative application ID (PRAID).
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The package family name.
-     * @param {Pointer<Char>} packageRelativeApplicationId Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageRelativeApplicationId Type: <b>PCWSTR</b>
      * 
      * The package-relative app ID (PRAID).
      * @param {Pointer<UInt32>} applicationUserModelIdLength Type: <b>UINT32*</b>
@@ -1491,7 +1499,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the app user model ID string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>applicationUserModelId</i> to get the number of characters. You use this number to allocate memory space for <i>applicationUserModelId</i>. Then you pass the address of this memory space to fill <i>applicationUserModelId</i>.
-     * @param {Pointer<Char>} applicationUserModelId Type: <b>PWSTR</b>
+     * @param {PWSTR} applicationUserModelId Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the app user model ID string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1530,9 +1538,9 @@ class Appx {
      * @since windows8.1
      */
     static FormatApplicationUserModelId(packageFamilyName, packageRelativeApplicationId, applicationUserModelIdLength, applicationUserModelId) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        packageRelativeApplicationId := packageRelativeApplicationId is String? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
         result := DllCall("KERNEL32.dll\FormatApplicationUserModelId", "ptr", packageFamilyName, "ptr", packageRelativeApplicationId, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
@@ -1540,7 +1548,7 @@ class Appx {
 
     /**
      * Deconstructs an application user model ID to its package family name and package relative application ID (PRAID).
-     * @param {Pointer<Char>} applicationUserModelId Type: <b>PCWSTR</b>
+     * @param {PWSTR} applicationUserModelId Type: <b>PCWSTR</b>
      * 
      * The app user model ID.
      * @param {Pointer<UInt32>} packageFamilyNameLength Type: <b>UINT32*</b>
@@ -1548,7 +1556,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package family name string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>packageFamilyName</i> to get the number of characters. You use this number to allocate memory space for <i>packageFamilyName</i>. Then you pass the address of this memory space to fill <i>packageFamilyName</i>.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package family name string, which includes the null-terminator.
      * @param {Pointer<UInt32>} packageRelativeApplicationIdLength Type: <b>UINT32*</b>
@@ -1556,7 +1564,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters (<b>WCHAR</b>s) in the package-relative app ID string, which includes the null-terminator. 
      * 
      * First you pass <b>NULL</b> to <i>packageRelativeApplicationId</i> to get the number of characters. You use this number to allocate memory space for <i>packageRelativeApplicationId</i>. Then you pass the address of this memory space to fill <i>packageRelativeApplicationId</i>.
-     * @param {Pointer<Char>} packageRelativeApplicationId Type: <b>PWSTR</b>
+     * @param {PWSTR} packageRelativeApplicationId Type: <b>PWSTR</b>
      * 
      * A pointer to memory space that receives  the package-relative app ID (PRAID) string, which includes the null-terminator.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1595,9 +1603,9 @@ class Appx {
      * @since windows8.1
      */
     static ParseApplicationUserModelId(applicationUserModelId, packageFamilyNameLength, packageFamilyName, packageRelativeApplicationIdLength, packageRelativeApplicationId) {
-        applicationUserModelId := applicationUserModelId is String? StrPtr(applicationUserModelId) : applicationUserModelId
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        packageRelativeApplicationId := packageRelativeApplicationId is String? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        packageRelativeApplicationId := packageRelativeApplicationId is String ? StrPtr(packageRelativeApplicationId) : packageRelativeApplicationId
 
         result := DllCall("KERNEL32.dll\ParseApplicationUserModelId", "ptr", applicationUserModelId, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint*", packageRelativeApplicationIdLength, "ptr", packageRelativeApplicationId, "uint")
         return result
@@ -1605,7 +1613,7 @@ class Appx {
 
     /**
      * Gets the packages with the specified family name for the current user.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The package family name.
      * @param {Pointer<UInt32>} count Type: <b>UINT32*</b>
@@ -1613,7 +1621,7 @@ class Appx {
      * A pointer to a variable that holds the number of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>packageFullNames</i> to get the number of package full names. You use this number to allocate memory space for <i>packageFullNames</i>. Then you pass the address of this number to fill <i>packageFullNames</i>.
-     * @param {Pointer<Char>} packageFullNames Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} packageFullNames Type: <b>PWSTR*</b>
      * 
      * A pointer to the strings of package full names.
      * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
@@ -1621,7 +1629,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this number to fill <i>buffer</i>.
-     * @param {Pointer<Char>} buffer Type: <b>WCHAR*</b>
+     * @param {PWSTR} buffer Type: <b>WCHAR*</b>
      * 
      * The string of characters for all of the package full names.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1649,8 +1657,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackagesByPackageFamily(packageFamilyName, count, packageFullNames, bufferLength, buffer) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        buffer := buffer is String? StrPtr(buffer) : buffer
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        buffer := buffer is String ? StrPtr(buffer) : buffer
 
         result := DllCall("KERNEL32.dll\GetPackagesByPackageFamily", "ptr", packageFamilyName, "uint*", count, "ptr", packageFullNames, "uint*", bufferLength, "ptr", buffer, "uint")
         return result
@@ -1658,7 +1666,7 @@ class Appx {
 
     /**
      * Finds the packages with the specified family name for the current user.
-     * @param {Pointer<Char>} packageFamilyName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFamilyName Type: <b>PCWSTR</b>
      * 
      * The package family name.
      * @param {Integer} packageFilters Type: <b>UINT32</b>
@@ -1669,7 +1677,7 @@ class Appx {
      * A pointer to a variable that holds the number of package full names that were found. 
      * 
      * First you pass <b>NULL</b> to <i>packageFullNames</i> to get the number of package full names that were found. You use this number to allocate memory space for <i>packageFullNames</i>. Then you pass the address of this memory space to fill <i>packageFullNames</i>.
-     * @param {Pointer<Char>} packageFullNames Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} packageFullNames Type: <b>PWSTR*</b>
      * 
      * A pointer to memory space that receives  the strings of package full names that were found.
      * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
@@ -1677,7 +1685,7 @@ class Appx {
      * A pointer to a variable that holds the number of characters in the string of package full names. 
      * 
      * First you pass <b>NULL</b> to <i>buffer</i> to get the number of characters. You use this number to allocate memory space for <i>buffer</i>. Then you pass the address of this memory space to fill <i>buffer</i>.
-     * @param {Pointer<Char>} buffer Type: <b>WCHAR*</b>
+     * @param {PWSTR} buffer Type: <b>WCHAR*</b>
      * 
      * A pointer to memory space that receives  the string of characters for all of the package full names.
      * @param {Pointer<UInt32>} packageProperties Type: <b>UINT32*</b>
@@ -1708,8 +1716,8 @@ class Appx {
      * @since windows8.1
      */
     static FindPackagesByPackageFamily(packageFamilyName, packageFilters, count, packageFullNames, bufferLength, buffer, packageProperties) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        buffer := buffer is String? StrPtr(buffer) : buffer
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        buffer := buffer is String ? StrPtr(buffer) : buffer
 
         result := DllCall("KERNEL32.dll\FindPackagesByPackageFamily", "ptr", packageFamilyName, "uint", packageFilters, "uint*", count, "ptr", packageFullNames, "uint*", bufferLength, "ptr", buffer, "uint*", packageProperties, "uint")
         return result
@@ -1717,7 +1725,7 @@ class Appx {
 
     /**
      * Gets the origin of the specified package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
      * @param {Pointer<Int32>} origin Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-packageorigin">PackageOrigin</a>*</b>
@@ -1748,7 +1756,7 @@ class Appx {
      * @since windows8.1
      */
     static GetStagedPackageOrigin(packageFullName, origin) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetStagedPackageOrigin", "ptr", packageFullName, "int*", origin, "uint")
         return result
@@ -1810,10 +1818,10 @@ class Appx {
 
     /**
      * Opens the package information of the specified package.
-     * @param {Pointer<Char>} packageFullName Type: <b>PCWSTR</b>
+     * @param {PWSTR} packageFullName Type: <b>PCWSTR</b>
      * 
      * The full name of the package.
-     * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE*</b>
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE*</b>
      * 
      * A reference to package information.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1843,7 +1851,7 @@ class Appx {
     static OpenPackageInfoByFullName(packageFullName, packageInfoReference) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\OpenPackageInfoByFullName", "ptr", packageFullName, "uint", reserved, "ptr", packageInfoReference, "uint")
         return result
@@ -1851,15 +1859,15 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} userSid 
-     * @param {Pointer<Char>} packageFullName 
-     * @param {Pointer<Void>} packageInfoReference 
+     * @param {PSID} userSid 
+     * @param {PWSTR} packageFullName 
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference 
      * @returns {Integer} 
      */
     static OpenPackageInfoByFullNameForUser(userSid, packageFullName, packageInfoReference) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\OpenPackageInfoByFullNameForUser", "ptr", userSid, "ptr", packageFullName, "uint", reserved, "ptr", packageInfoReference, "uint")
         return result
@@ -1867,7 +1875,7 @@ class Appx {
 
     /**
      * Closes a reference to the specified package information.
-     * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
      * @returns {Integer} Type: <b>LONG</b>
@@ -1883,7 +1891,7 @@ class Appx {
 
     /**
      * Gets the package information for the specified package.
-     * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
      * @param {Integer} flags Type: <b>const UINT32</b>
@@ -1929,7 +1937,7 @@ class Appx {
 
     /**
      * Gets the IDs of apps in the specified package.
-     * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
      * @param {Pointer<UInt32>} bufferLength Type: <b>UINT32*</b>
@@ -1974,7 +1982,7 @@ class Appx {
 
     /**
      * Gets the package information for the specified package.
-     * @param {Pointer<Void>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
+     * @param {Pointer<_PACKAGE_INFO_REFERENCE>} packageInfoReference Type: <b>PACKAGE_INFO_REFERENCE</b>
      * 
      * A reference to package information.
      * @param {Integer} flags Type: <b>const UINT32</b>
@@ -2023,14 +2031,14 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageFullName 
-     * @param {Pointer<Int32>} isMSIXPackage 
+     * @param {PWSTR} packageFullName 
+     * @param {Pointer<BOOL>} isMSIXPackage 
      * @returns {HRESULT} 
      */
     static CheckIsMSIXPackage(packageFullName, isMSIXPackage) {
-        packageFullName := packageFullName is String? StrPtr(packageFullName) : packageFullName
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
-        result := DllCall("KERNEL32.dll\CheckIsMSIXPackage", "ptr", packageFullName, "int*", isMSIXPackage, "int")
+        result := DllCall("KERNEL32.dll\CheckIsMSIXPackage", "ptr", packageFullName, "ptr", isMSIXPackage, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2039,19 +2047,19 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} user 
-     * @param {Pointer<Char>} packageFamilyName 
-     * @param {Pointer} minVersion 
+     * @param {PSID} user 
+     * @param {PWSTR} packageFamilyName 
+     * @param {PACKAGE_VERSION} minVersion 
      * @param {Integer} packageDependencyProcessorArchitectures 
      * @param {Integer} lifetimeKind 
-     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {PWSTR} lifetimeArtifact 
      * @param {Integer} options 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<PWSTR>} packageDependencyId 
      * @returns {HRESULT} 
      */
     static TryCreatePackageDependency(user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, packageDependencyId) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        lifetimeArtifact := lifetimeArtifact is String? StrPtr(lifetimeArtifact) : lifetimeArtifact
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        lifetimeArtifact := lifetimeArtifact is String ? StrPtr(lifetimeArtifact) : lifetimeArtifact
 
         result := DllCall("KERNELBASE.dll\TryCreatePackageDependency", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr", packageDependencyId, "int")
         if(result != 0)
@@ -2062,20 +2070,20 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} user 
-     * @param {Pointer<Char>} packageFamilyName 
-     * @param {Pointer} minVersion 
+     * @param {PSID} user 
+     * @param {PWSTR} packageFamilyName 
+     * @param {PACKAGE_VERSION} minVersion 
      * @param {Integer} packageDependencyProcessorArchitectures 
      * @param {Integer} lifetimeKind 
-     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {PWSTR} lifetimeArtifact 
      * @param {Integer} options 
      * @param {Pointer<FILETIME>} lifetimeExpiration 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {Pointer<PWSTR>} packageDependencyId 
      * @returns {HRESULT} 
      */
     static TryCreatePackageDependency2(user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, lifetimeExpiration, packageDependencyId) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
-        lifetimeArtifact := lifetimeArtifact is String? StrPtr(lifetimeArtifact) : lifetimeArtifact
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
+        lifetimeArtifact := lifetimeArtifact is String ? StrPtr(lifetimeArtifact) : lifetimeArtifact
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\TryCreatePackageDependency2", "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int", packageDependencyProcessorArchitectures, "int", lifetimeKind, "ptr", lifetimeArtifact, "int", options, "ptr", lifetimeExpiration, "ptr", packageDependencyId, "int")
         if(result != 0)
@@ -2086,11 +2094,11 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {PWSTR} packageDependencyId 
      * @returns {HRESULT} 
      */
     static DeletePackageDependency(packageDependencyId) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\DeletePackageDependency", "ptr", packageDependencyId, "int")
         if(result != 0)
@@ -2101,15 +2109,15 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {PWSTR} packageDependencyId 
      * @param {Integer} rank 
      * @param {Integer} options 
-     * @param {Pointer<Void>} packageDependencyContext 
-     * @param {Pointer<Char>} packageFullName 
+     * @param {Pointer<PACKAGEDEPENDENCY_CONTEXT>} packageDependencyContext 
+     * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
      */
     static AddPackageDependency(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\AddPackageDependency", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, "ptr", packageFullName, "int")
         if(result != 0)
@@ -2120,15 +2128,15 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {PWSTR} packageDependencyId 
      * @param {Integer} rank 
      * @param {Integer} options 
-     * @param {Pointer<Void>} packageDependencyContext 
-     * @param {Pointer<Char>} packageFullName 
+     * @param {Pointer<PACKAGEDEPENDENCY_CONTEXT>} packageDependencyContext 
+     * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
      */
     static AddPackageDependency2(packageDependencyId, rank, options, packageDependencyContext, packageFullName) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\AddPackageDependency2", "ptr", packageDependencyId, "int", rank, "int", options, "ptr", packageDependencyContext, "ptr", packageFullName, "int")
         if(result != 0)
@@ -2139,7 +2147,7 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} packageDependencyContext 
+     * @param {PACKAGEDEPENDENCY_CONTEXT} packageDependencyContext 
      * @returns {HRESULT} 
      */
     static RemovePackageDependency(packageDependencyContext) {
@@ -2152,12 +2160,12 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
-     * @param {Pointer<Char>} packageFullName 
+     * @param {PWSTR} packageDependencyId 
+     * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
      */
     static GetResolvedPackageFullNameForPackageDependency(packageDependencyId, packageFullName) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("KERNELBASE.dll\GetResolvedPackageFullNameForPackageDependency", "ptr", packageDependencyId, "ptr", packageFullName, "int")
         if(result != 0)
@@ -2168,12 +2176,12 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
-     * @param {Pointer<Char>} packageFullName 
+     * @param {PWSTR} packageDependencyId 
+     * @param {Pointer<PWSTR>} packageFullName 
      * @returns {HRESULT} 
      */
     static GetResolvedPackageFullNameForPackageDependency2(packageDependencyId, packageFullName) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetResolvedPackageFullNameForPackageDependency2", "ptr", packageDependencyId, "ptr", packageFullName, "int")
         if(result != 0)
@@ -2184,8 +2192,8 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} packageDependencyContext 
-     * @param {Pointer<Char>} packageDependencyId 
+     * @param {PACKAGEDEPENDENCY_CONTEXT} packageDependencyContext 
+     * @param {Pointer<PWSTR>} packageDependencyId 
      * @returns {HRESULT} 
      */
     static GetIdForPackageDependencyContext(packageDependencyContext, packageDependencyId) {
@@ -2209,7 +2217,7 @@ class Appx {
      * 
      * @param {Pointer<FindPackageDependencyCriteria>} findPackageDependencyCriteria 
      * @param {Pointer<UInt32>} packageDependencyIdsCount 
-     * @param {Pointer<Char>} packageDependencyIds 
+     * @param {Pointer<PWSTR>} packageDependencyIds 
      * @returns {HRESULT} 
      */
     static FindPackageDependency(findPackageDependencyCriteria, packageDependencyIdsCount, packageDependencyIds) {
@@ -2222,19 +2230,19 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
-     * @param {Pointer<Void>} user 
-     * @param {Pointer<Char>} packageFamilyName 
+     * @param {PWSTR} packageDependencyId 
+     * @param {Pointer<PSID>} user 
+     * @param {Pointer<PWSTR>} packageFamilyName 
      * @param {Pointer<PACKAGE_VERSION>} minVersion 
      * @param {Pointer<Int32>} packageDependencyProcessorArchitectures 
      * @param {Pointer<Int32>} lifetimeKind 
-     * @param {Pointer<Char>} lifetimeArtifact 
+     * @param {Pointer<PWSTR>} lifetimeArtifact 
      * @param {Pointer<Int32>} options 
      * @param {Pointer<FILETIME>} lifetimeExpiration 
      * @returns {HRESULT} 
      */
     static GetPackageDependencyInformation(packageDependencyId, user, packageFamilyName, minVersion, packageDependencyProcessorArchitectures, lifetimeKind, lifetimeArtifact, options, lifetimeExpiration) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetPackageDependencyInformation", "ptr", packageDependencyId, "ptr", user, "ptr", packageFamilyName, "ptr", minVersion, "int*", packageDependencyProcessorArchitectures, "int*", lifetimeKind, "ptr", lifetimeArtifact, "int*", options, "ptr", lifetimeExpiration, "int")
         if(result != 0)
@@ -2245,17 +2253,17 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageDependencyId 
-     * @param {Pointer<Void>} user 
-     * @param {Integer} scopeIsSystem 
+     * @param {PWSTR} packageDependencyId 
+     * @param {PSID} user 
+     * @param {BOOL} scopeIsSystem 
      * @param {Pointer<UInt32>} processIdsCount 
      * @param {Pointer<UInt32>} processIds 
      * @returns {HRESULT} 
      */
     static GetProcessesUsingPackageDependency(packageDependencyId, user, scopeIsSystem, processIdsCount, processIds) {
-        packageDependencyId := packageDependencyId is String? StrPtr(packageDependencyId) : packageDependencyId
+        packageDependencyId := packageDependencyId is String ? StrPtr(packageDependencyId) : packageDependencyId
 
-        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "ptr", processIds, "int")
+        result := DllCall("api-ms-win-appmodel-runtime-l1-1-7.dll\GetProcessesUsingPackageDependency", "ptr", packageDependencyId, "ptr", user, "int", scopeIsSystem, "uint*", processIdsCount, "uint*", processIds, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2264,7 +2272,7 @@ class Appx {
 
     /**
      * Retrieves a value indicating whether a process can be suspended/resumed by the Process Lifecycle Manager (PLM).
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicylifecyclemanagement.md">AppPolicyLifecycleManagement</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the identified process is lifecycle-managed or not.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2274,13 +2282,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetlifecyclemanagement
      */
     static AppPolicyGetLifecycleManagement(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetLifecycleManagement", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves a value indicating whether a process uses a CoreWindow-based, or a HWND-based, windowing model. You can use the value to decide how to register for window state change notifications (size changed, visibility changed, etc.).
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/win32/api/appmodel/ne-appmodel-apppolicywindowingmodel">AppPolicyWindowingModel</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the windowing model of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2290,13 +2300,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetwindowingmodel
      */
     static AppPolicyGetWindowingModel(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetWindowingModel", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves a value indicating whether a process’s policy allows it to load non-Windows (third-party) plugins. You can use the value to decide whether or not to allow non-Windows (third-party) plugins.
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicymediafoundationcodecloading.md">AppPolicyMediaFoundationCodecLoading</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the codec-loading policy of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2306,13 +2318,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetmediafoundationcodecloading
      */
     static AppPolicyGetMediaFoundationCodecLoading(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetMediaFoundationCodecLoading", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves a value indicating the application type of a process so that you can determine whether to enable private reflection and/or make managed objects agile.
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="../appmodel/ne-appmodel-apppolicyclrcompat.md">AppPolicyClrCompat</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating the application type of the identified process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2322,13 +2336,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetclrcompat
      */
     static AppPolicyGetClrCompat(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetClrCompat", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves the kind of initialization that should be automatically performed for a process when beginthread[ex] creates a thread.
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicythreadinitializationtype">AppPolicyThreadInitializationType</a> enumerated type. When the function returns successfully, the variable contains a value indicating the kind of initialization that should be automatically performed for the process when beginthread[ex] creates a thread.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2338,13 +2354,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetthreadinitializationtype
      */
     static AppPolicyGetThreadInitializationType(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetThreadInitializationType", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves the method used for a process to surface developer information, such as asserts, to the user.
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyshowdeveloperdiagnostic">AppPolicyShowDeveloperDiagnostic</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used for the process to surface developer information, such as asserts, to the user.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2354,13 +2372,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetshowdeveloperdiagnostic
      */
     static AppPolicyGetShowDeveloperDiagnostic(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetShowDeveloperDiagnostic", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves the method used to end a process.
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicyprocessterminationmethod">AppPolicyProcessTerminationMethod</a> enumerated type. When the function returns successfully, the variable contains a value indicating the method used to end the process.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2370,13 +2390,15 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetprocessterminationmethod
      */
     static AppPolicyGetProcessTerminationMethod(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetProcessTerminationMethod", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * Retrieves a value indicating whether a process has full or restricted access to the IO devices (file, file stream, directory, physical disk, volume, console buffer, tape drive, communications resource, mailslot, and pipe).
-     * @param {Pointer<Void>} processToken A handle that identifies the access token for a process.
+     * @param {HANDLE} processToken A handle that identifies the access token for a process.
      * @param {Pointer<Int32>} policy A pointer to a variable of the <a href="https://docs.microsoft.com/windows/desktop/api/appmodel/ne-appmodel-apppolicycreatefileaccess">AppPolicyCreateFileAccess</a> enumerated type. When the function returns successfully, the variable contains an enumerated constant value indicating whether the process has full or restricted access to the IO devices.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 
@@ -2386,18 +2408,20 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-apppolicygetcreatefileaccess
      */
     static AppPolicyGetCreateFileAccess(processToken, policy) {
+        processToken := processToken is Win32Handle ? NumGet(processToken, "ptr") : processToken
+
         result := DllCall("KERNEL32.dll\AppPolicyGetCreateFileAccess", "ptr", processToken, "int*", policy, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Char>} packageFamilyName 
-     * @param {Pointer<Void>} context 
+     * @param {PWSTR} packageFamilyName 
+     * @param {Pointer<PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE>} context 
      * @returns {HRESULT} 
      */
     static CreatePackageVirtualizationContext(packageFamilyName, context) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\CreatePackageVirtualizationContext", "ptr", packageFamilyName, "ptr", context, "int")
         if(result != 0)
@@ -2408,7 +2432,7 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} context 
      * @param {Pointer<UIntPtr>} cookie 
      * @returns {HRESULT} 
      */
@@ -2422,7 +2446,7 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} context 
+     * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} context 
      * @returns {String} Nothing - always returns an empty string
      */
     static ReleasePackageVirtualizationContext(context) {
@@ -2440,8 +2464,8 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Void>} sourceContext 
-     * @param {Pointer<Void>} destContext 
+     * @param {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} sourceContext 
+     * @param {Pointer<PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE>} destContext 
      * @returns {HRESULT} 
      */
     static DuplicatePackageVirtualizationContext(sourceContext, destContext) {
@@ -2454,7 +2478,7 @@ class Appx {
 
     /**
      * 
-     * @returns {Pointer<Void>} 
+     * @returns {PACKAGE_VIRTUALIZATION_CONTEXT_HANDLE} 
      */
     static GetCurrentPackageVirtualizationContext() {
         result := DllCall("KERNEL32.dll\GetCurrentPackageVirtualizationContext", "ptr")
@@ -2463,13 +2487,13 @@ class Appx {
 
     /**
      * 
-     * @param {Pointer<Char>} packageFamilyName 
+     * @param {PWSTR} packageFamilyName 
      * @param {Pointer<UInt32>} count 
-     * @param {Pointer<Void>} processes 
+     * @param {Pointer<HANDLE>} processes 
      * @returns {HRESULT} 
      */
     static GetProcessesInVirtualizationContext(packageFamilyName, count, processes) {
-        packageFamilyName := packageFamilyName is String? StrPtr(packageFamilyName) : packageFamilyName
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\GetProcessesInVirtualizationContext", "ptr", packageFamilyName, "uint*", count, "ptr", processes, "int")
         if(result != 0)

@@ -68,11 +68,31 @@ class USB_DEVICE_CAPABILITY_BILLBOARD_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - VConnPowerNeededForFullFunctionality
+     * - Reserved
+     * - NoVconnPowerRequired
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 6, "ushort")
         set => NumPut("ushort", value, this, 6)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    VConnPowerNeededForFullFunctionality {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NoVconnPowerRequired {
+        get => (this._bitfield >> 15) & 0x1
+        set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
     }
 
     /**

@@ -50,7 +50,7 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR extends Win32Struct
     WarpedMotionInfo{
         get {
             if(!this.HasProp("__WarpedMotionInfo"))
-                this.__WarpedMotionInfo := D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO(this.ptr + 16)
+                this.__WarpedMotionInfo := D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_WARPED_MOTION_INFO(16, this)
             return this.__WarpedMotionInfo
         }
     }

@@ -76,7 +76,7 @@ class CDROM_SET_STREAMING extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RestoreDefaults {
         get => NumGet(this, 32, "char")
@@ -84,7 +84,7 @@ class CDROM_SET_STREAMING extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SetExact {
         get => NumGet(this, 33, "char")
@@ -92,7 +92,7 @@ class CDROM_SET_STREAMING extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RandomAccess {
         get => NumGet(this, 34, "char")
@@ -100,7 +100,7 @@ class CDROM_SET_STREAMING extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Persistent {
         get => NumGet(this, 35, "char")

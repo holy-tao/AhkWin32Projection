@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Use this structure to specify or modify the attributes of a window type.
@@ -42,7 +43,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies whether the strings used in this structure are UNICODE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUniCodeStrings {
         get => NumGet(this, 4, "int")
@@ -113,7 +114,7 @@ class HH_WINTYPE extends Win32Struct
     rcWindowPos{
         get {
             if(!this.HasProp("__rcWindowPos"))
-                this.__rcWindowPos := RECT(this.ptr + 40)
+                this.__rcWindowPos := RECT(40, this)
             return this.__rcWindowPos
         }
     }
@@ -129,20 +130,26 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the window if the window has been created.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndHelp {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hwndHelp{
+        get {
+            if(!this.HasProp("__hwndHelp"))
+                this.__hwndHelp := HWND(64, this)
+            return this.__hwndHelp
+        }
     }
 
     /**
      * Specifies the window that will receive HTML Help notification messages. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-notification-messages">Notification messages</a> are sent via Windows <b>WM_NOTIFY</b> messages.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndCaller {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hwndCaller{
+        get {
+            if(!this.HasProp("__hwndCaller"))
+                this.__hwndCaller := HWND(72, this)
+            return this.__hwndCaller
+        }
     }
 
     /**
@@ -156,29 +163,38 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies the handle of the toolbar.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndToolBar {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hwndToolBar{
+        get {
+            if(!this.HasProp("__hwndToolBar"))
+                this.__hwndToolBar := HWND(88, this)
+            return this.__hwndToolBar
+        }
     }
 
     /**
      * Specifies the handle of the Navigation pane.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndNavigation {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hwndNavigation{
+        get {
+            if(!this.HasProp("__hwndNavigation"))
+                this.__hwndNavigation := HWND(96, this)
+            return this.__hwndNavigation
+        }
     }
 
     /**
      * Specifies the handle of the Topic pane, which hosts Shdocvw.dll.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndHTML {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+    hwndHTML{
+        get {
+            if(!this.HasProp("__hwndHTML"))
+                this.__hwndHTML := HWND(104, this)
+            return this.__hwndHTML
+        }
     }
 
     /**
@@ -197,7 +213,7 @@ class HH_WINTYPE extends Win32Struct
     rcHTML{
         get {
             if(!this.HasProp("__rcHTML"))
-                this.__rcHTML := RECT(this.ptr + 120)
+                this.__rcHTML := RECT(120, this)
             return this.__rcHTML
         }
     }
@@ -252,7 +268,7 @@ class HH_WINTYPE extends Win32Struct
 
     /**
      * Specifies that the Help Viewer open with the Navigation pane closed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNotExpanded {
         get => NumGet(this, 172, "int")
@@ -350,7 +366,7 @@ class HH_WINTYPE extends Win32Struct
     rcMinSize{
         get {
             if(!this.HasProp("__rcMinSize"))
-                this.__rcMinSize := RECT(this.ptr + 248)
+                this.__rcMinSize := RECT(248, this)
             return this.__rcMinSize
         }
     }

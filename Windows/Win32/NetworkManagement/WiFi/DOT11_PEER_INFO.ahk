@@ -56,7 +56,7 @@ class DOT11_PEER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bWpsEnabled {
         get => NumGet(this, 20, "char")
@@ -120,7 +120,7 @@ class DOT11_PEER_INFO extends Win32Struct
     Statistics{
         get {
             if(!this.HasProp("__Statistics"))
-                this.__Statistics := DOT11_PEER_STATISTICS(this.ptr + 304)
+                this.__Statistics := DOT11_PEER_STATISTICS(304, this)
             return this.__Statistics
         }
     }

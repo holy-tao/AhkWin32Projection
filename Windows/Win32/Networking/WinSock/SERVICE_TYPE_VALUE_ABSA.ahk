@@ -241,7 +241,7 @@ class SERVICE_TYPE_VALUE_ABSA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpValueName {
         get => NumGet(this, 16, "ptr")

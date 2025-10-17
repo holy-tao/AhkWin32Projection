@@ -44,7 +44,7 @@ class DDHAL_SETMODEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     inexcl {
         get => NumGet(this, 24, "int")
@@ -52,7 +52,7 @@ class DDHAL_SETMODEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     useRefreshRate {
         get => NumGet(this, 28, "int")

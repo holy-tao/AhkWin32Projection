@@ -20,7 +20,7 @@ class SID_AND_ATTRIBUTES extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 0, "ptr")

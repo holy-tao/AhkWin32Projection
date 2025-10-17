@@ -12,7 +12,7 @@ class WINHTTP_HOST_CONNECTION_GROUP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszHost {
         get => NumGet(this, 0, "ptr")

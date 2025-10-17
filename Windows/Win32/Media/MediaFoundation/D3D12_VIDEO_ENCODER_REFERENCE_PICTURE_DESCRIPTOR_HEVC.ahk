@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRefUsedByCurrentPic {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class D3D12_VIDEO_ENCODER_REFERENCE_PICTURE_DESCRIPTOR_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsLongTermReference {
         get => NumGet(this, 8, "int")

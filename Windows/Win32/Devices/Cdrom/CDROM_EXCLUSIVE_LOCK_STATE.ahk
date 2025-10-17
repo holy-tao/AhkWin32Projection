@@ -12,7 +12,7 @@ class CDROM_EXCLUSIVE_LOCK_STATE extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     LockState {
         get => NumGet(this, 0, "char")

@@ -16,7 +16,7 @@ class CERT_OTHER_LOGOTYPE_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CERT_OTHER_LOGOTYPE_INFO extends Win32Struct
     LogotypeInfo{
         get {
             if(!this.HasProp("__LogotypeInfo"))
-                this.__LogotypeInfo := CERT_LOGOTYPE_INFO(this.ptr + 8)
+                this.__LogotypeInfo := CERT_LOGOTYPE_INFO(8, this)
             return this.__LogotypeInfo
         }
     }

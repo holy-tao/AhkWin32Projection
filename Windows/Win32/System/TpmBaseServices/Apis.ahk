@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.TpmBaseServices
  * @version v4.0.30319
@@ -147,7 +147,7 @@ class TpmBaseServices {
 ;@region Methods
     /**
      * Creates a context handle that can be used to pass commands to TBS.
-     * @param {Pointer<UInt32>} pContextParams A parameter to a [TBS_CONTEXT_PARAMS](./ns-tbs-tbs_context_params.md) structure that contains the parameters associated with the context.
+     * @param {Pointer<TBS_CONTEXT_PARAMS>} pContextParams A parameter to a [TBS_CONTEXT_PARAMS](./ns-tbs-tbs_context_params.md) structure that contains the parameters associated with the context.
      * @param {Pointer<Void>} phContext A pointer to a location to store the new context handle.
      * @returns {Integer} If the function succeeds, the function returns TBS_SUCCESS.
      * 
@@ -283,7 +283,7 @@ class TpmBaseServices {
      * @since windows6.0.6000
      */
     static Tbsi_Context_Create(pContextParams, phContext) {
-        result := DllCall("tbs.dll\Tbsi_Context_Create", "uint*", pContextParams, "ptr", phContext, "uint")
+        result := DllCall("tbs.dll\Tbsi_Context_Create", "ptr", pContextParams, "ptr", phContext, "uint")
         return result
     }
 
@@ -998,11 +998,11 @@ class TpmBaseServices {
      * @param {Pointer} pbWindowsAIK 
      * @param {Integer} cbWindowsAIK 
      * @param {Pointer<UInt32>} pcbResult 
-     * @param {Pointer<Int32>} pfProtectedByTPM 
+     * @param {Pointer<BOOL>} pfProtectedByTPM 
      * @returns {HRESULT} 
      */
     static GetDeviceID(pbWindowsAIK, cbWindowsAIK, pcbResult, pfProtectedByTPM) {
-        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "uint*", pcbResult, "int*", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceID", "ptr", pbWindowsAIK, "uint", cbWindowsAIK, "uint*", pcbResult, "ptr", pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1011,16 +1011,16 @@ class TpmBaseServices {
 
     /**
      * 
-     * @param {Pointer<Char>} pszWindowsAIK 
+     * @param {PWSTR} pszWindowsAIK 
      * @param {Integer} cchWindowsAIK 
      * @param {Pointer<UInt32>} pcchResult 
-     * @param {Pointer<Int32>} pfProtectedByTPM 
+     * @param {Pointer<BOOL>} pfProtectedByTPM 
      * @returns {HRESULT} 
      */
     static GetDeviceIDString(pszWindowsAIK, cchWindowsAIK, pcchResult, pfProtectedByTPM) {
-        pszWindowsAIK := pszWindowsAIK is String? StrPtr(pszWindowsAIK) : pszWindowsAIK
+        pszWindowsAIK := pszWindowsAIK is String ? StrPtr(pszWindowsAIK) : pszWindowsAIK
 
-        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "uint*", pcchResult, "int*", pfProtectedByTPM, "int")
+        result := DllCall("tbs.dll\GetDeviceIDString", "ptr", pszWindowsAIK, "uint", cchWindowsAIK, "uint*", pcchResult, "ptr", pfProtectedByTPM, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1209,7 +1209,7 @@ class TpmBaseServices {
 
     /**
      * 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static Tbsi_Is_Tpm_Present() {
         result := DllCall("tbs.dll\Tbsi_Is_Tpm_Present", "int")

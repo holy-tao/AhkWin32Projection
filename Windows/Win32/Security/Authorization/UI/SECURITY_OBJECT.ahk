@@ -20,7 +20,7 @@ class SECURITY_OBJECT extends Win32Struct
 
     /**
      * A pointer to the name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -145,7 +145,7 @@ class SECURITY_OBJECT extends Win32Struct
 
     /**
      * <b>TRUE</b> if the security object represents one of the well-know security objects listed in the <b>Id</b> member.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fWellKnown {
         get => NumGet(this, 40, "char")

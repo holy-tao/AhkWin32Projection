@@ -20,7 +20,7 @@ class Sharpen extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := Effect(this.ptr + 0)
+                this.__Base := Effect(0, this)
             return this.__Base
         }
     }

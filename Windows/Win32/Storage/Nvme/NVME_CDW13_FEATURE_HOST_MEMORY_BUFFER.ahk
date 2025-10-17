@@ -12,11 +12,22 @@ class NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - Reserved
+     * - HMDLLA
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    HMDLLA {
+        get => (this._bitfield >> 4) & 0xFFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFFF) << 4) | (this._bitfield & ~(0xFFFFFFF << 4))
     }
 
     /**

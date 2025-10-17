@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\DOT11_IV48_COUNTER.ahk
 
 /**
@@ -96,19 +97,25 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hWEPOffloadContext {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hWEPOffloadContext{
+        get {
+            if(!this.HasProp("__hWEPOffloadContext"))
+                this.__hWEPOffloadContext := HANDLE(48, this)
+            return this.__hWEPOffloadContext
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hAuthOffloadContext {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hAuthOffloadContext{
+        get {
+            if(!this.HasProp("__hAuthOffloadContext"))
+                this.__hAuthOffloadContext := HANDLE(56, this)
+            return this.__hAuthOffloadContext
+        }
     }
 
     /**
@@ -133,7 +140,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     dot11LowestIV48Counter{
         get {
             if(!this.HasProp("__dot11LowestIV48Counter"))
-                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(this.ptr + 72)
+                this.__dot11LowestIV48Counter := DOT11_IV48_COUNTER(72, this)
             return this.__dot11LowestIV48Counter
         }
     }
@@ -152,7 +159,7 @@ class DOT11_RECV_EXTENSION_INFO_V2 extends Win32Struct
     dot11HighestIV48Counter{
         get {
             if(!this.HasProp("__dot11HighestIV48Counter"))
-                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(this.ptr + 88)
+                this.__dot11HighestIV48Counter := DOT11_IV48_COUNTER(88, this)
             return this.__dot11HighestIV48Counter
         }
     }

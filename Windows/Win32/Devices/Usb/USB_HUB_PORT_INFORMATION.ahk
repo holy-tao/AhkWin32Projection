@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\USB_DEVICE_STATE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -12,11 +13,14 @@ class USB_HUB_PORT_INFORMATION extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {USB_DEVICE_STATE}
      */
-    DeviceState {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    DeviceState{
+        get {
+            if(!this.HasProp("__DeviceState"))
+                this.__DeviceState := USB_DEVICE_STATE(0, this)
+            return this.__DeviceState
+        }
     }
 
     /**

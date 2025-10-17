@@ -21,7 +21,7 @@ class UNIVERSAL_NAME_INFOW extends Win32Struct
 
     /**
      * If the provider supports a universal name, it will return that here.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpUniversalName {
         get => NumGet(this, 0, "ptr")

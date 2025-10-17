@@ -29,7 +29,7 @@ class DXGI_INFO_QUEUE_FILTER extends Win32Struct
     AllowList{
         get {
             if(!this.HasProp("__AllowList"))
-                this.__AllowList := DXGI_INFO_QUEUE_FILTER_DESC(this.ptr + 0)
+                this.__AllowList := DXGI_INFO_QUEUE_FILTER_DESC(0, this)
             return this.__AllowList
         }
     }
@@ -41,7 +41,7 @@ class DXGI_INFO_QUEUE_FILTER extends Win32Struct
     DenyList{
         get {
             if(!this.HasProp("__DenyList"))
-                this.__DenyList := DXGI_INFO_QUEUE_FILTER_DESC(this.ptr + 48)
+                this.__DenyList := DXGI_INFO_QUEUE_FILTER_DESC(48, this)
             return this.__DenyList
         }
     }

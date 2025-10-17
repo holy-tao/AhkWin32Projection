@@ -28,7 +28,7 @@ class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUserName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPassword {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class REPAIR_CLUSTER_NAME_ACCOUNT_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDomain {
         get => NumGet(this, 24, "ptr")

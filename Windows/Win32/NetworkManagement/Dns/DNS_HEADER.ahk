@@ -297,15 +297,6 @@ class DNS_HEADER extends Win32Struct
     }
 
     /**
-     * Reserved. Do not use.
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield2 >> 6) & 0x1
-        set => this._bitfield2 := ((value & 0x1) << 6) | (this._bitfield2 & ~(0x1 << 6))
-    }
-
-    /**
      * A value that specifies whether recursive name query is supported by the DNS name server.
      * 
      * <table>

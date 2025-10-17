@@ -109,7 +109,7 @@ class DHCP_ATTRIB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DhcpAttribBool {
         get => NumGet(this, 8, "int")

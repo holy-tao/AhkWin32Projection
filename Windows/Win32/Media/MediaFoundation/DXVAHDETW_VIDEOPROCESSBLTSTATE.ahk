@@ -36,7 +36,7 @@ class DXVAHDETW_VIDEOPROCESSBLTSTATE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SetState {
         get => NumGet(this, 16, "int")

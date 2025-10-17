@@ -56,7 +56,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * Specifies a Boolean variable that indicates whether the fax routing method is enabled or disabled for the fax device of interest. If this parameter is equal to <b>TRUE</b>, the fax routing method is enabled for the device.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 8, "int")
@@ -67,7 +67,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DeviceName {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      *                     
      * 
      * For more information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Guid {
         get => NumGet(this, 24, "ptr")
@@ -93,7 +93,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing method.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FriendlyName {
         get => NumGet(this, 32, "ptr")
@@ -104,7 +104,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the function that executes the specified fax routing procedure. The fax routing extension DLL identified by the <b>ExtensionImageName</b> member exports the function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FunctionName {
         get => NumGet(this, 40, "ptr")
@@ -115,7 +115,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax routing extension DLL that implements the fax routing method.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ExtensionImageName {
         get => NumGet(this, 48, "ptr")
@@ -126,7 +126,7 @@ class FAX_ROUTING_METHODW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing extension DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ExtensionFriendlyName {
         get => NumGet(this, 56, "ptr")

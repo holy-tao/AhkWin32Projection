@@ -44,7 +44,7 @@ class AUDIT_PARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     String {
         get => NumGet(this, 16, "ptr")

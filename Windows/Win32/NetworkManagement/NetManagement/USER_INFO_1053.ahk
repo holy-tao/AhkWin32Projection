@@ -16,7 +16,7 @@ class USER_INFO_1053 extends Win32Struct
     /**
      * Specifies the drive letter to assign to the user's home directory for logon purposes. The user is specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1053_home_dir_drive {
         get => NumGet(this, 0, "ptr")

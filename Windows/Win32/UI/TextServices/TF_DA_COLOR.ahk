@@ -31,7 +31,7 @@ class TF_DA_COLOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {COLORREF}
      */
     cr {
         get => NumGet(this, 4, "uint")

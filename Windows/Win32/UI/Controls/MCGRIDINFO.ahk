@@ -81,7 +81,7 @@ class MCGRIDINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>dwPart</b> is MCGIP_CALENDARCELL, indicates if the cell described by <b>iRow</b> and <b>iCol</b> is currently selected.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSelected {
         get => NumGet(this, 24, "int")
@@ -97,7 +97,7 @@ class MCGRIDINFO extends Win32Struct
     stStart{
         get {
             if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(this.ptr + 32)
+                this.__stStart := SYSTEMTIME(32, this)
             return this.__stStart
         }
     }
@@ -111,7 +111,7 @@ class MCGRIDINFO extends Win32Struct
     stEnd{
         get {
             if(!this.HasProp("__stEnd"))
-                this.__stEnd := SYSTEMTIME(this.ptr + 48)
+                this.__stEnd := SYSTEMTIME(48, this)
             return this.__stEnd
         }
     }
@@ -125,7 +125,7 @@ class MCGRIDINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 64)
+                this.__rc := RECT(64, this)
             return this.__rc
         }
     }
@@ -141,7 +141,7 @@ class MCGRIDINFO extends Win32Struct
      * <li>MCGIP_CALENDARCELL: Returns the text of the cell indicated by <b>iRow</b> and <b>iCol</b>, for instance "11" if the 11th day was specified.</li>
      * <li>MCGIP_CALENDARHEADER: Returns the text of what it says in the calendar header, for instance "July, 2006".</li>
      * </ul>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 80, "ptr")
@@ -159,12 +159,8 @@ class MCGRIDINFO extends Win32Struct
         set => NumPut("ptr", value, this, 88)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 96
     }
 }

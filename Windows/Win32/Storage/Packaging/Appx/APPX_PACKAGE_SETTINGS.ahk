@@ -28,7 +28,7 @@ class APPX_PACKAGE_SETTINGS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the package is created as Zip32; <b>FALSE</b> if the package is created as Zip64. The default is Zip64.
-     * @type {Integer}
+     * @type {BOOL}
      */
     forceZip32 {
         get => NumGet(this, 0, "int")

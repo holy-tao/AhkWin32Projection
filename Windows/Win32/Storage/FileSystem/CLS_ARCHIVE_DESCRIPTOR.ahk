@@ -34,7 +34,7 @@ class CLS_ARCHIVE_DESCRIPTOR extends Win32Struct
     infoContainer{
         get {
             if(!this.HasProp("__infoContainer"))
-                this.__infoContainer := CLS_CONTAINER_INFORMATION(this.ptr + 16)
+                this.__infoContainer := CLS_CONTAINER_INFORMATION(16, this)
             return this.__infoContainer
         }
     }

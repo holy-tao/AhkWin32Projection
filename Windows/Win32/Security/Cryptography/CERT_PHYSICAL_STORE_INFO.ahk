@@ -34,7 +34,7 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptinstalloidfunctionaddress">CryptInstallOIDFunctionAddress</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptregisteroidfunction">CryptRegisterOIDFunction</a>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/extending-certopenstore-functionality">CertOpenStore</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszOpenStoreProvider {
         get => NumGet(this, 8, "ptr")
@@ -79,7 +79,7 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
     OpenParameters{
         get {
             if(!this.HasProp("__OpenParameters"))
-                this.__OpenParameters := CRYPT_INTEGER_BLOB(this.ptr + 24)
+                this.__OpenParameters := CRYPT_INTEGER_BLOB(24, this)
             return this.__OpenParameters
         }
     }
@@ -163,12 +163,8 @@ class CERT_PHYSICAL_STORE_INFO extends Win32Struct
         set => NumPut("uint", value, this, 44)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

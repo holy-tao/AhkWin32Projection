@@ -20,7 +20,7 @@ class NCRYPT_VBS_IDENTITY_KEY_ATTESTATION_CLAIM_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSignatureHashAlg {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class NCRYPT_VBS_IDENTITY_KEY_ATTESTATION_CLAIM_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPaddingHashAlg {
         get => NumGet(this, 24, "ptr")

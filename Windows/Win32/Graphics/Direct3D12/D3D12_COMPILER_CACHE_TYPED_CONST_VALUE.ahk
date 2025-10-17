@@ -26,7 +26,7 @@ class D3D12_COMPILER_CACHE_TYPED_CONST_VALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := D3D12_COMPILER_CACHE_CONST_VALUE(this.ptr + 8)
+                this.__Value := D3D12_COMPILER_CACHE_CONST_VALUE(8, this)
             return this.__Value
         }
     }

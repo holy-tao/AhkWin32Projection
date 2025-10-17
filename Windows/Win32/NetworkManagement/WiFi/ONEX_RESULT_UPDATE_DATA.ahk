@@ -29,7 +29,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     oneXStatus{
         get {
             if(!this.HasProp("__oneXStatus"))
-                this.__oneXStatus := ONEX_STATUS(this.ptr + 0)
+                this.__oneXStatus := ONEX_STATUS(0, this)
             return this.__oneXStatus
         }
     }
@@ -50,7 +50,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
 
     /**
      * Indicates if a response was received from the 802.1X authentication server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBackendEngaged {
         get => NumGet(this, 16, "int")
@@ -93,7 +93,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     authParams{
         get {
             if(!this.HasProp("__authParams"))
-                this.__authParams := ONEX_VARIABLE_BLOB(this.ptr + 24)
+                this.__authParams := ONEX_VARIABLE_BLOB(24, this)
             return this.__authParams
         }
     }
@@ -105,7 +105,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
     eapError{
         get {
             if(!this.HasProp("__eapError"))
-                this.__eapError := ONEX_VARIABLE_BLOB(this.ptr + 32)
+                this.__eapError := ONEX_VARIABLE_BLOB(32, this)
             return this.__eapError
         }
     }

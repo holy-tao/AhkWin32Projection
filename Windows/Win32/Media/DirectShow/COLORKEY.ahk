@@ -38,7 +38,7 @@ class COLORKEY extends Win32Struct
 
     /**
      * Lowest RGB color value.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     LowColorValue {
         get => NumGet(this, 8, "uint")
@@ -47,7 +47,7 @@ class COLORKEY extends Win32Struct
 
     /**
      * Highest RGB color value.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     HighColorValue {
         get => NumGet(this, 12, "uint")

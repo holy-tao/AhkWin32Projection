@@ -20,7 +20,7 @@ class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct
     FullSpeedClassInterface{
         get {
             if(!this.HasProp("__FullSpeedClassInterface"))
-                this.__FullSpeedClassInterface := USBFN_CLASS_INTERFACE(this.ptr + 0)
+                this.__FullSpeedClassInterface := USBFN_CLASS_INTERFACE(0, this)
             return this.__FullSpeedClassInterface
         }
     }
@@ -31,7 +31,7 @@ class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct
     HighSpeedClassInterface{
         get {
             if(!this.HasProp("__HighSpeedClassInterface"))
-                this.__HighSpeedClassInterface := USBFN_CLASS_INTERFACE(this.ptr + 136)
+                this.__HighSpeedClassInterface := USBFN_CLASS_INTERFACE(136, this)
             return this.__HighSpeedClassInterface
         }
     }
@@ -53,7 +53,7 @@ class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HasInterfaceGuid {
         get => NumGet(this, 430, "char")
@@ -66,7 +66,7 @@ class USBFN_CLASS_INFORMATION_PACKET extends Win32Struct
     SuperSpeedClassInterface{
         get {
             if(!this.HasProp("__SuperSpeedClassInterface"))
-                this.__SuperSpeedClassInterface := USBFN_CLASS_INTERFACE(this.ptr + 432)
+                this.__SuperSpeedClassInterface := USBFN_CLASS_INTERFACE(432, this)
             return this.__SuperSpeedClassInterface
         }
     }

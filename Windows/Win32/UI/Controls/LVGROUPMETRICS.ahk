@@ -86,7 +86,7 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the left border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crLeft {
         get => NumGet(this, 24, "uint")
@@ -97,7 +97,7 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the top border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crTop {
         get => NumGet(this, 28, "uint")
@@ -108,7 +108,7 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the right border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crRight {
         get => NumGet(this, 32, "uint")
@@ -119,7 +119,7 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the bottom border. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crBottom {
         get => NumGet(this, 36, "uint")
@@ -130,7 +130,7 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the header text. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crHeader {
         get => NumGet(this, 40, "uint")
@@ -141,19 +141,15 @@ class LVGROUPMETRICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a></b>
      * 
      * Specifies the color of the footer text. Not implemented.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     crFooter {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

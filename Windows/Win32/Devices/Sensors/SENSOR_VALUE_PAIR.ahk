@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
@@ -46,7 +47,7 @@ class SENSOR_VALUE_PAIR extends Win32Struct
     Key{
         get {
             if(!this.HasProp("__Key"))
-                this.__Key := PROPERTYKEY(this.ptr + 0)
+                this.__Key := PROPERTYKEY(0, this)
             return this.__Key
         }
     }
@@ -57,7 +58,7 @@ class SENSOR_VALUE_PAIR extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := PROPVARIANT(this.ptr + 16)
+                this.__Value := PROPVARIANT(16, this)
             return this.__Value
         }
     }

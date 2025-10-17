@@ -20,7 +20,7 @@ class SPPHRASEREPLACEMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszReplacementText {
         get => NumGet(this, 8, "ptr")

@@ -52,7 +52,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRemovable {
         get => NumGet(this, 32, "int")
@@ -60,7 +60,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bBackedUp {
         get => NumGet(this, 36, "int")
@@ -68,7 +68,7 @@ class WEBAUTHN_CREDENTIAL_DETAILS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     EXPERIMENTAL_pwszAuthenticatorName {
         get => NumGet(this, 40, "ptr")

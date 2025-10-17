@@ -19,7 +19,7 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
     Timeouts{
         get {
             if(!this.HasProp("__Timeouts"))
-                this.__Timeouts := SERIAL_TIMEOUTS(this.ptr + 0)
+                this.__Timeouts := SERIAL_TIMEOUTS(0, this)
             return this.__Timeouts
         }
     }
@@ -30,7 +30,7 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
     HandFlow{
         get {
             if(!this.HasProp("__HandFlow"))
-                this.__HandFlow := SERIAL_HANDFLOW(this.ptr + 24)
+                this.__HandFlow := SERIAL_HANDFLOW(24, this)
             return this.__HandFlow
         }
     }

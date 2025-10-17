@@ -23,7 +23,7 @@ class IKEEXT_CREDENTIAL_PAIR0 extends Win32Struct
     localCredentials{
         get {
             if(!this.HasProp("__localCredentials"))
-                this.__localCredentials := IKEEXT_CREDENTIAL0(this.ptr + 0)
+                this.__localCredentials := IKEEXT_CREDENTIAL0(0, this)
             return this.__localCredentials
         }
     }
@@ -37,7 +37,7 @@ class IKEEXT_CREDENTIAL_PAIR0 extends Win32Struct
     peerCredentials{
         get {
             if(!this.HasProp("__peerCredentials"))
-                this.__peerCredentials := IKEEXT_CREDENTIAL0(this.ptr + 16)
+                this.__peerCredentials := IKEEXT_CREDENTIAL0(16, this)
             return this.__peerCredentials
         }
     }

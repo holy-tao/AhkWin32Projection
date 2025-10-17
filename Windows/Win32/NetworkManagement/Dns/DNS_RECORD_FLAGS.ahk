@@ -63,13 +63,4 @@ class DNS_RECORD_FLAGS extends Win32Struct
         get => (this._bitfield >> 5) & 0x7
         set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
     }
-
-    /**
-     * Reserved. Do not use.
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 8) & 0xFFFFFF
-        set => this._bitfield := ((value & 0xFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFF << 8))
-    }
 }

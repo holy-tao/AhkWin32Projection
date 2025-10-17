@@ -278,7 +278,7 @@ class WRDS_SETTINGS_1 extends Win32Struct
 
     /**
      * Specifies whether or not the keep alive setting is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WRdsKeepAliveStartValue {
         get => NumGet(this, 116, "char")

@@ -36,7 +36,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     HydrationPolicy{
         get {
             if(!this.HasProp("__HydrationPolicy"))
-                this.__HydrationPolicy := CF_HYDRATION_POLICY(this.ptr + 8)
+                this.__HydrationPolicy := CF_HYDRATION_POLICY(8, this)
             return this.__HydrationPolicy
         }
     }
@@ -48,7 +48,7 @@ class CF_SYNC_ROOT_STANDARD_INFO extends Win32Struct
     PopulationPolicy{
         get {
             if(!this.HasProp("__PopulationPolicy"))
-                this.__PopulationPolicy := CF_POPULATION_POLICY(this.ptr + 12)
+                this.__PopulationPolicy := CF_POPULATION_POLICY(12, this)
             return this.__PopulationPolicy
         }
     }

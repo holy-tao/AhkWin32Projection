@@ -12,7 +12,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_REMOVE_AUTHENTICATOR_OPTIONS extends Win32Str
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPluginClsId {
         get => NumGet(this, 0, "ptr")

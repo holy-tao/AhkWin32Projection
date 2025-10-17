@@ -75,7 +75,7 @@ class VMR9AllocationInfo extends Win32Struct
     szAspectRatio{
         get {
             if(!this.HasProp("__szAspectRatio"))
-                this.__szAspectRatio := SIZE(this.ptr + 24)
+                this.__szAspectRatio := SIZE(24, this)
             return this.__szAspectRatio
         }
     }
@@ -87,7 +87,7 @@ class VMR9AllocationInfo extends Win32Struct
     szNativeSize{
         get {
             if(!this.HasProp("__szNativeSize"))
-                this.__szNativeSize := SIZE(this.ptr + 32)
+                this.__szNativeSize := SIZE(32, this)
             return this.__szNativeSize
         }
     }

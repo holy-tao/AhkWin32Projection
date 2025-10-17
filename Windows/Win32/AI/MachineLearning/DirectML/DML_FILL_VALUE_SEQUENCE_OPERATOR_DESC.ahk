@@ -45,7 +45,7 @@ class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
     ValueStart{
         get {
             if(!this.HasProp("__ValueStart"))
-                this.__ValueStart := DML_SCALAR_UNION(this.ptr + 16)
+                this.__ValueStart := DML_SCALAR_UNION(16, this)
             return this.__ValueStart
         }
     }
@@ -59,7 +59,7 @@ class DML_FILL_VALUE_SEQUENCE_OPERATOR_DESC extends Win32Struct
     ValueDelta{
         get {
             if(!this.HasProp("__ValueDelta"))
-                this.__ValueDelta := DML_SCALAR_UNION(this.ptr + 72)
+                this.__ValueDelta := DML_SCALAR_UNION(72, this)
             return this.__ValueDelta
         }
     }

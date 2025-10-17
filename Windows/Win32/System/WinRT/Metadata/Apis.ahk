@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
@@ -997,13 +997,13 @@ class Metadata {
 
     /**
      * Locates and retrieves the metadata file that describes the Application Binary Interface (ABI) for the specified typename.
-     * @param {Pointer<Void>} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {HSTRING} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name to resolve, either a typename or a namespace. The name input string must be non-empty and must not contain embedded NUL characters. If the name is a dot-separated string, then the substring to the left of the last dot and the substring to the right of the last dot must be non-empty.
      * @param {Pointer<IMetaDataDispenserEx>} metaDataDispenser Type: <b>IMetaDataDispenserEx*</b>
      * 
      * A metadata dispenser that the caller can optionally pass in for the <b>RoGetMetaDataFile</b> function to be able to open the metadata files through the provided <b>IMetaDataDispenserEx::OpenScope</b> method. If the metadata dispenser parameter is set to <b>nullptr</b>, the function creates an internal instance of the refactored metadata reader (RoMetadata.dll) and uses its <b>IMetaDataDispenserEx::OpenScope</b> method.
-     * @param {Pointer<Void>} metaDataFilePath Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
+     * @param {Pointer<HSTRING>} metaDataFilePath Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * The absolute path of the metadata (.winmd) file that describes the ABI, unless set to <b>nullptr</b>. The caller is responsible for freeing the <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a> by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> method.
      * @param {Pointer<IMetaDataImport2>} metaDataImport Type: <b>IMetaDataImport2**</b>
@@ -1077,6 +1077,8 @@ class Metadata {
      * @since windows8.0
      */
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
+        name := name is Win32Handle ? NumGet(name, "ptr") : name
+
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr", metaDataImport, "uint*", typeDefToken, "int")
         if(result != 0)
             throw OSError(result)
@@ -1086,13 +1088,13 @@ class Metadata {
 
     /**
      * Parses a type name and existing type parameters, in the case of parameterized types.
-     * @param {Pointer<Void>} typeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {HSTRING} typeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * String-encoded typename. The typename can be a non-namespace-qualified type, a non-parameterized namespace-qualified type or a fully instantiated namespace-qualified parameterized type.
      * @param {Pointer<UInt32>} partsCount Type: <b>DWORD*</b>
      * 
      * Number of elements in the <i>typenameParts</i> array.
-     * @param {Pointer<Void>} typeNameParts Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<HSTRING>} typeNameParts Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * The first element of the array is the specified type, and the remaining array elements are the type parameters (if any) in prewalk tree order.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1142,6 +1144,8 @@ class Metadata {
      * @since windows8.0
      */
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
+        typeName := typeName is Win32Handle ? NumGet(typeName, "ptr") : typeName
+
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, "uint*", partsCount, "ptr", typeNameParts, "int")
         if(result != 0)
             throw OSError(result)
@@ -1151,12 +1155,12 @@ class Metadata {
 
     /**
      * Determine the direct children, types, and sub-namespaces of the specified Windows Runtime namespace, from any programming language supported by the Windows Runtime.
-     * @param {Pointer<Void>} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {HSTRING} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * Full namespace for which we are trying to retrieve direct children. This is a required parameter.
      * 
      * If this namespace is empty or <b>nullptr</b>, the <b>RoResolveNamespace</b> function returns top-level namespaces. Both Windows  and other top-level namespaces are in the package graph.
-     * @param {Pointer<Void>} windowsMetaDataDir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
+     * @param {HSTRING} windowsMetaDataDir Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * Optional parameter that contains a path to the SDK directory to search for metadata (.winmd) files.
      * 
@@ -1164,19 +1168,19 @@ class Metadata {
      * @param {Integer} packageGraphDirsCount Type: <b>const DWORD</b>
      * 
      * Count of paths in the <i>packageGraphDirs</i> array.
-     * @param {Pointer<Void>} packageGraphDirs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
+     * @param {Pointer<HSTRING>} packageGraphDirs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * Count of package paths in the explicit package dependency graph array. The count is ignored if <i>packageGraphDirs</i> is <b>nullptr</b>.
      * @param {Pointer<UInt32>} metaDataFilePathsCount Type: <b>DWORD*</b>
      * 
      * Count of metadata files in the <i>metaDataFilePaths</i> array.
-     * @param {Pointer<Void>} metaDataFilePaths Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<HSTRING>} metaDataFilePaths Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * Optional output parameter that contains callee-allocated array of absolute file paths of all metadata (.winmd) files that could possibly contain direct children of <i>name</i>.
      * @param {Pointer<UInt32>} subNamespacesCount Type: <b>DWORD*</b>
      * 
      * Count of metadata files in the <i>subNamespaces</i> array.
-     * @param {Pointer<Void>} subNamespaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<HSTRING>} subNamespaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * Optional output parameter that contains a callee-allocated array of names of direct children of the given namespace. This list is a hint of other subnamespaces and is not necessarily complete.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1237,6 +1241,9 @@ class Metadata {
      * @since windows8.0
      */
     static RoResolveNamespace(name, windowsMetaDataDir, packageGraphDirsCount, packageGraphDirs, metaDataFilePathsCount, metaDataFilePaths, subNamespacesCount, subNamespaces) {
+        name := name is Win32Handle ? NumGet(name, "ptr") : name
+        windowsMetaDataDir := windowsMetaDataDir is Win32Handle ? NumGet(windowsMetaDataDir, "ptr") : windowsMetaDataDir
+
         result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, "uint*", metaDataFilePathsCount, "ptr", metaDataFilePaths, "uint*", subNamespacesCount, "ptr", subNamespaces, "int")
         if(result != 0)
             throw OSError(result)
@@ -1246,7 +1253,7 @@ class Metadata {
 
     /**
      * Returns true or false to indicate whether the API contract with the specified name and major and minor version number is present.
-     * @param {Pointer<Char>} name Type: <b>PCWSTR</b>
+     * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the API contract.
      * @param {Integer} majorVersion Type: <b>UINT16</b>
@@ -1255,7 +1262,7 @@ class Metadata {
      * @param {Integer} minorVersion Type: <b>UINT16</b>
      * 
      * The minor version number of the API contract.
-     * @param {Pointer<Int32>} present Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} present Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1302,9 +1309,9 @@ class Metadata {
      * @since windows10.0.10240
      */
     static RoIsApiContractPresent(name, majorVersion, minorVersion, present) {
-        name := name is String? StrPtr(name) : name
+        name := name is String ? StrPtr(name) : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "int*", present, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "ptr", present, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1313,13 +1320,13 @@ class Metadata {
 
     /**
      * Returns true or false to indicate whether the API contract with the specified name and major version number is present.
-     * @param {Pointer<Char>} name Type: <b>PCWSTR</b>
+     * @param {PWSTR} name Type: <b>PCWSTR</b>
      * 
      * The name of the API contract.
      * @param {Integer} majorVersion Type: <b>UINT16</b>
      * 
      * The major version number of the API contract.
-     * @param {Pointer<Int32>} present Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} present Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1366,9 +1373,9 @@ class Metadata {
      * @since windows10.0.10240
      */
     static RoIsApiContractMajorVersionPresent(name, majorVersion, present) {
-        name := name is String? StrPtr(name) : name
+        name := name is String ? StrPtr(name) : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "int*", present, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "ptr", present, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1406,7 +1413,7 @@ class Metadata {
      * @param {Integer} nameElementCount Type: <b>UINT32</b>
      * 
      * Number of elements in <i>nameElements.</i>
-     * @param {Pointer<Char>} nameElements Type: <b>PCWSTR*</b>
+     * @param {Pointer<PWSTR>} nameElements Type: <b>PCWSTR*</b>
      * 
      * A parsed Windows Runtime type name, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataresolution/nf-rometadataresolution-roparsetypename">RoParseTypeName</a> function.
      * For example, "Windows.Foundation.Collections.IVector`1", and "N1.N2.IFoo".
@@ -1418,7 +1425,7 @@ class Metadata {
      * @param {Pointer<Guid>} iid Type: <b>GUID*</b>
      * 
      * The IID of the interface or delegate that corresponds with <i>nameElements</i>.
-     * @param {Pointer<Void>} pExtra Type: <b>ROPARAMIIDHANDLE*</b>
+     * @param {Pointer<ROPARAMIIDHANDLE>} pExtra Type: <b>ROPARAMIIDHANDLE*</b>
      * 
      * Handle to the IID that corresponds with <i>nameElements</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1478,7 +1485,7 @@ class Metadata {
 
     /**
      * Frees the handle allocated by RoGetParameterizedTypeInstanceIID.
-     * @param {Pointer<Void>} extra Type: <b>ROPARAMIIDHANDLE</b>
+     * @param {ROPARAMIIDHANDLE} extra Type: <b>ROPARAMIIDHANDLE</b>
      * 
      * A handle to the IID.
      * @returns {String} Nothing - always returns an empty string
@@ -1486,21 +1493,25 @@ class Metadata {
      * @since windows8.0
      */
     static RoFreeParameterizedTypeExtra(extra) {
+        extra := extra is Win32Handle ? NumGet(extra, "ptr") : extra
+
         DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoFreeParameterizedTypeExtra", "ptr", extra)
     }
 
     /**
      * Gets the type signature used to compute the IID from the last call to RoGetParameterizedTypeInstanceIID with the specified handle.
-     * @param {Pointer<Void>} extra Type: <b>ROPARAMIIDHANDLE</b>
+     * @param {ROPARAMIIDHANDLE} extra Type: <b>ROPARAMIIDHANDLE</b>
      * 
      * A handle to the IID.
-     * @returns {Pointer<Byte>} Type: <b>HRESULT</b>
+     * @returns {PSTR} Type: <b>HRESULT</b>
      * 
      * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-roparameterizedtypeextragettypesignature
      * @since windows8.0
      */
     static RoParameterizedTypeExtraGetTypeSignature(extra) {
+        extra := extra is Win32Handle ? NumGet(extra, "ptr") : extra
+
         result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoParameterizedTypeExtraGetTypeSignature", "ptr", extra, "char*")
         return result
     }

@@ -45,7 +45,7 @@ class D3D_SHADER_MACRO extends Win32Struct
 
     /**
      * The macro name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")
@@ -54,7 +54,7 @@ class D3D_SHADER_MACRO extends Win32Struct
 
     /**
      * The macro definition.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Definition {
         get => NumGet(this, 8, "ptr")

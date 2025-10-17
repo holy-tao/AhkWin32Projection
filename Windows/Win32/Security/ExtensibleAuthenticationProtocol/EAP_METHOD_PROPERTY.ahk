@@ -42,7 +42,7 @@ class EAP_METHOD_PROPERTY extends Win32Struct
     eapMethodPropertyValue{
         get {
             if(!this.HasProp("__eapMethodPropertyValue"))
-                this.__eapMethodPropertyValue := EAP_METHOD_PROPERTY_VALUE(this.ptr + 8)
+                this.__eapMethodPropertyValue := EAP_METHOD_PROPERTY_VALUE(8, this)
             return this.__eapMethodPropertyValue
         }
     }

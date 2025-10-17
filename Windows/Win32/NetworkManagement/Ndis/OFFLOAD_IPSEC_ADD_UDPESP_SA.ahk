@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\OFFLOAD_ALGO_INFO.ahk
 #Include .\OFFLOAD_SECURITY_ASSOCIATION.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY.ahk
 
 /**
@@ -114,11 +115,14 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    OffloadHandle {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    OffloadHandle{
+        get {
+            if(!this.HasProp("__OffloadHandle"))
+                this.__OffloadHandle := HANDLE(64, this)
+            return this.__OffloadHandle
+        }
     }
 
     /**
@@ -127,17 +131,20 @@ class OFFLOAD_IPSEC_ADD_UDPESP_SA extends Win32Struct
     EncapTypeEntry{
         get {
             if(!this.HasProp("__EncapTypeEntry"))
-                this.__EncapTypeEntry := OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(this.ptr + 72)
+                this.__EncapTypeEntry := OFFLOAD_IPSEC_UDPESP_ENCAPTYPE_ENTRY(72, this)
             return this.__EncapTypeEntry
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    EncapTypeEntryOffldHandle {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    EncapTypeEntryOffldHandle{
+        get {
+            if(!this.HasProp("__EncapTypeEntryOffldHandle"))
+                this.__EncapTypeEntryOffldHandle := HANDLE(80, this)
+            return this.__EncapTypeEntryOffldHandle
+        }
     }
 
     /**

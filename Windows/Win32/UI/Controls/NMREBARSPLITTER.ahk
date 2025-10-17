@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\RECT.ahk
 
@@ -24,7 +25,7 @@ class NMREBARSPLITTER extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -38,7 +39,7 @@ class NMREBARSPLITTER extends Win32Struct
     rcSizing{
         get {
             if(!this.HasProp("__rcSizing"))
-                this.__rcSizing := RECT(this.ptr + 24)
+                this.__rcSizing := RECT(24, this)
             return this.__rcSizing
         }
     }

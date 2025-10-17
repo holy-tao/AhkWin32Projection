@@ -23,7 +23,7 @@ class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL extends Win32Struct
     credential{
         get {
             if(!this.HasProp("__credential"))
-                this.__credential := WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(this.ptr + 0)
+                this.__credential := WS_WINDOWS_INTEGRATED_AUTH_CREDENTIAL(0, this)
             return this.__credential
         }
     }
@@ -35,7 +35,7 @@ class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL extends Win32Struct
     username{
         get {
             if(!this.HasProp("__username"))
-                this.__username := WS_STRING(this.ptr + 8)
+                this.__username := WS_STRING(8, this)
             return this.__username
         }
     }
@@ -48,7 +48,7 @@ class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL extends Win32Struct
     password{
         get {
             if(!this.HasProp("__password"))
-                this.__password := WS_STRING(this.ptr + 24)
+                this.__password := WS_STRING(24, this)
             return this.__password
         }
     }
@@ -60,7 +60,7 @@ class WS_STRING_WINDOWS_INTEGRATED_AUTH_CREDENTIAL extends Win32Struct
     domain{
         get {
             if(!this.HasProp("__domain"))
-                this.__domain := WS_STRING(this.ptr + 40)
+                this.__domain := WS_STRING(40, this)
             return this.__domain
         }
     }

@@ -90,7 +90,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 40)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(40, this)
             return this.__SampleDesc
         }
     }
@@ -120,7 +120,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SamplerFeedbackMipRegion{
         get {
             if(!this.HasProp("__SamplerFeedbackMipRegion"))
-                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(this.ptr + 56)
+                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(56, this)
             return this.__SamplerFeedbackMipRegion
         }
     }

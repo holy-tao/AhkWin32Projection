@@ -42,7 +42,7 @@ class WINBIO_BDB_ANSI_381_HEADER extends Win32Struct
     ProductId{
         get {
             if(!this.HasProp("__ProductId"))
-                this.__ProductId := WINBIO_REGISTERED_FORMAT(this.ptr + 16)
+                this.__ProductId := WINBIO_REGISTERED_FORMAT(16, this)
             return this.__ProductId
         }
     }

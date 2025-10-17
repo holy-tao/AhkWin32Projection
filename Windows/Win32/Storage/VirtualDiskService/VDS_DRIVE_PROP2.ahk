@@ -37,7 +37,7 @@ class VDS_DRIVE_PROP2 extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains the name of the drive.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFriendlyName {
         get => NumGet(this, 16, "ptr")
@@ -46,7 +46,7 @@ class VDS_DRIVE_PROP2 extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains the drive identifier.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIdentification {
         get => NumGet(this, 24, "ptr")

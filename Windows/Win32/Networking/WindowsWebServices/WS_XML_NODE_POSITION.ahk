@@ -15,7 +15,7 @@ class WS_XML_NODE_POSITION extends Win32Struct
 
     /**
      * The xml buffer to which the position refers.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WS_XML_BUFFER>}
      */
     buffer {
         get => NumGet(this, 0, "ptr")

@@ -31,7 +31,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT extends Win32S
     SessionInfo{
         get {
             if(!this.HasProp("__SessionInfo"))
-                this.__SessionInfo := D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO(this.ptr + 8)
+                this.__SessionInfo := D3D12_VIDEO_ENCODER_INPUT_MAP_SESSION_INFO(8, this)
             return this.__SessionInfo
         }
     }
@@ -45,7 +45,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOLVE_INPUT_PARAM_LAYOUT extends Win32S
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 108, "int")

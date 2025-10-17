@@ -21,7 +21,7 @@ class FLOWDESCRIPTOR extends Win32Struct
     FlowSpec{
         get {
             if(!this.HasProp("__FlowSpec"))
-                this.__FlowSpec := FLOWSPEC(this.ptr + 0)
+                this.__FlowSpec := FLOWSPEC(0, this)
             return this.__FlowSpec
         }
     }

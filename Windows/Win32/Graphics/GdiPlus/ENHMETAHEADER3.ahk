@@ -46,7 +46,7 @@ class ENHMETAHEADER3 extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(this.ptr + 8)
+                this.__rclBounds := RECTL(8, this)
             return this.__rclBounds
         }
     }
@@ -60,7 +60,7 @@ class ENHMETAHEADER3 extends Win32Struct
     rclFrame{
         get {
             if(!this.HasProp("__rclFrame"))
-                this.__rclFrame := RECTL(this.ptr + 24)
+                this.__rclFrame := RECTL(24, this)
             return this.__rclFrame
         }
     }
@@ -173,7 +173,7 @@ class ENHMETAHEADER3 extends Win32Struct
     szlDevice{
         get {
             if(!this.HasProp("__szlDevice"))
-                this.__szlDevice := SIZE(this.ptr + 72)
+                this.__szlDevice := SIZE(72, this)
             return this.__szlDevice
         }
     }
@@ -187,7 +187,7 @@ class ENHMETAHEADER3 extends Win32Struct
     szlMillimeters{
         get {
             if(!this.HasProp("__szlMillimeters"))
-                this.__szlMillimeters := SIZE(this.ptr + 80)
+                this.__szlMillimeters := SIZE(80, this)
             return this.__szlMillimeters
         }
     }

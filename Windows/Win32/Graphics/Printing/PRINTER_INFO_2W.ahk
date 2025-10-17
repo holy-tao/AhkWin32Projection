@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -13,7 +14,7 @@ class PRINTER_INFO_2W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pServerName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +22,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +30,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pShareName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +38,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPortName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +46,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDriverName {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +54,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pComment {
         get => NumGet(this, 40, "ptr")
@@ -61,7 +62,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pLocation {
         get => NumGet(this, 48, "ptr")
@@ -77,7 +78,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pSepFile {
         get => NumGet(this, 64, "ptr")
@@ -85,7 +86,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrintProcessor {
         get => NumGet(this, 72, "ptr")
@@ -93,7 +94,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDatatype {
         get => NumGet(this, 80, "ptr")
@@ -101,7 +102,7 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pParameters {
         get => NumGet(this, 88, "ptr")
@@ -109,11 +110,14 @@ class PRINTER_INFO_2W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    pSecurityDescriptor {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    pSecurityDescriptor{
+        get {
+            if(!this.HasProp("__pSecurityDescriptor"))
+                this.__pSecurityDescriptor := PSECURITY_DESCRIPTOR(96, this)
+            return this.__pSecurityDescriptor
+        }
     }
 
     /**

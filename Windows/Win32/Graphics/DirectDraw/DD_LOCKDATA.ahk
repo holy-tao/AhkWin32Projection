@@ -48,7 +48,7 @@ class DD_LOCKDATA extends Win32Struct
     rArea{
         get {
             if(!this.HasProp("__rArea"))
-                this.__rArea := RECTL(this.ptr + 24)
+                this.__rArea := RECTL(24, this)
             return this.__rArea
         }
     }

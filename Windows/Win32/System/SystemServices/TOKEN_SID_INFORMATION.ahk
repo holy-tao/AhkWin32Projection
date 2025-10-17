@@ -12,7 +12,7 @@ class TOKEN_SID_INFORMATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 0, "ptr")

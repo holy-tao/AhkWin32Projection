@@ -41,7 +41,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(this.ptr + 16)
+                this.__rDest := RECTL(16, this)
             return this.__rDest
         }
     }
@@ -62,7 +62,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECTL(this.ptr + 40)
+                this.__rSrc := RECTL(40, this)
             return this.__rSrc
         }
     }
@@ -240,7 +240,7 @@ class DD_UPDATEOVERLAYDATA extends Win32Struct
     overlayFX{
         get {
             if(!this.HasProp("__overlayFX"))
-                this.__overlayFX := DDOVERLAYFX(this.ptr + 64)
+                this.__overlayFX := DDOVERLAYFX(64, this)
             return this.__overlayFX
         }
     }

@@ -137,7 +137,7 @@ class IPSEC_CIPHER_TRANSFORM0 extends Win32Struct
     cipherTransformId{
         get {
             if(!this.HasProp("__cipherTransformId"))
-                this.__cipherTransformId := IPSEC_CIPHER_TRANSFORM_ID0(this.ptr + 0)
+                this.__cipherTransformId := IPSEC_CIPHER_TRANSFORM_ID0(0, this)
             return this.__cipherTransformId
         }
     }

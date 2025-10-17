@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\JET_INSTANCE.ahk
+#Include ..\StructuredStorage\JET_API_PTR.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -13,11 +15,14 @@ class JET_INSTANCE_INFO_W extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer}
+     * @type {JET_INSTANCE}
      */
-    hInstanceId {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hInstanceId{
+        get {
+            if(!this.HasProp("__hInstanceId"))
+                this.__hInstanceId := JET_INSTANCE(0, this)
+            return this.__hInstanceId
+        }
     }
 
     /**
@@ -29,11 +34,14 @@ class JET_INSTANCE_INFO_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {JET_API_PTR}
      */
-    cDatabases {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    cDatabases{
+        get {
+            if(!this.HasProp("__cDatabases"))
+                this.__cDatabases := JET_API_PTR(16, this)
+            return this.__cDatabases
+        }
     }
 
     /**

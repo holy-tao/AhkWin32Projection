@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\MSIHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -12,10 +13,13 @@ class PMSIHANDLE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {MSIHANDLE}
      */
-    m_h {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    m_h{
+        get {
+            if(!this.HasProp("__m_h"))
+                this.__m_h := MSIHANDLE(0, this)
+            return this.__m_h
+        }
     }
 }

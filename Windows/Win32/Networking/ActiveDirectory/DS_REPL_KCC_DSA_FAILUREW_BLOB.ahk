@@ -39,7 +39,7 @@ class DS_REPL_KCC_DSA_FAILUREW_BLOB extends Win32Struct
     ftimeFirstFailure{
         get {
             if(!this.HasProp("__ftimeFirstFailure"))
-                this.__ftimeFirstFailure := FILETIME(this.ptr + 16)
+                this.__ftimeFirstFailure := FILETIME(16, this)
             return this.__ftimeFirstFailure
         }
     }

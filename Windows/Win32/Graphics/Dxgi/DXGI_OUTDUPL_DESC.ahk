@@ -27,7 +27,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
     ModeDesc{
         get {
             if(!this.HasProp("__ModeDesc"))
-                this.__ModeDesc := DXGI_MODE_DESC(this.ptr + 0)
+                this.__ModeDesc := DXGI_MODE_DESC(0, this)
             return this.__ModeDesc
         }
     }
@@ -43,7 +43,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
 
     /**
      * Specifies whether the resource that contains the desktop image is already located in system memory. <b>TRUE</b> if the resource is in system memory; otherwise, <b>FALSE</b>. If this value is <b>TRUE</b> and  the application requires CPU access, it can use the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-mapdesktopsurface">IDXGIOutputDuplication::MapDesktopSurface</a> and <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nf-dxgi1_2-idxgioutputduplication-unmapdesktopsurface">IDXGIOutputDuplication::UnMapDesktopSurface</a> methods to avoid copying the data into a staging buffer.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DesktopImageInSystemMemory {
         get => NumGet(this, 36, "int")

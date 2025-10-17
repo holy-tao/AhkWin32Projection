@@ -80,7 +80,7 @@ class CRYPT_RC2_CBC_PARAMETERS extends Win32Struct
 
     /**
      * Boolean specifying whether an 8-byte <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">initialization vector</a> (IV) is contained in <b>rgbIV[8]</b>. Set to <b>TRUE</b> when IV is present.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIV {
         get => NumGet(this, 4, "int")

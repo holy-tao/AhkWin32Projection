@@ -14,7 +14,7 @@ class EC_VARIANT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     BooleanVal {
         get => NumGet(this, 0, "int")
@@ -38,7 +38,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     StringVal {
         get => NumGet(this, 0, "ptr")
@@ -54,7 +54,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     BooleanArr {
         get => NumGet(this, 0, "ptr")
@@ -70,7 +70,7 @@ class EC_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     StringArr {
         get => NumGet(this, 0, "ptr")

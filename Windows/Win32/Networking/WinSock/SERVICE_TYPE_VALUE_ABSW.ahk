@@ -241,7 +241,7 @@ class SERVICE_TYPE_VALUE_ABSW extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpValueName {
         get => NumGet(this, 16, "ptr")

@@ -12,7 +12,7 @@ class HTTP_FILTER_AUTHENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszUser {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HTTP_FILTER_AUTHENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszPassword {
         get => NumGet(this, 16, "ptr")

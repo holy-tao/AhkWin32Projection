@@ -27,7 +27,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -38,7 +38,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     ProxyServerName{
         get {
             if(!this.HasProp("__ProxyServerName"))
-                this.__ProxyServerName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__ProxyServerName := LSA_UNICODE_STRING(24, this)
             return this.__ProxyServerName
         }
     }
@@ -49,7 +49,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     ProxyServerVdir{
         get {
             if(!this.HasProp("__ProxyServerVdir"))
-                this.__ProxyServerVdir := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__ProxyServerVdir := LSA_UNICODE_STRING(40, this)
             return this.__ProxyServerVdir
         }
     }
@@ -68,7 +68,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 64)
+                this.__LogonId := LUID(64, this)
             return this.__LogonId
         }
     }
@@ -79,7 +79,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     CredUserName{
         get {
             if(!this.HasProp("__CredUserName"))
-                this.__CredUserName := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__CredUserName := LSA_UNICODE_STRING(72, this)
             return this.__CredUserName
         }
     }
@@ -90,13 +90,13 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     CredDomainName{
         get {
             if(!this.HasProp("__CredDomainName"))
-                this.__CredDomainName := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__CredDomainName := LSA_UNICODE_STRING(88, this)
             return this.__CredDomainName
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     GlobalCache {
         get => NumGet(this, 104, "char")

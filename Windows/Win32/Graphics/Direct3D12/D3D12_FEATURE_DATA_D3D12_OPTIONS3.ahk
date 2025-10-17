@@ -15,7 +15,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct
 
     /**
      * Indicates whether timestamp queries are supported on copy queues.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CopyQueueTimestampQueriesSupported {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct
 
     /**
      * Indicates whether casting from one fully typed format to another, compatible, format is supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CastingFullyTypedFormatSupported {
         get => NumGet(this, 4, "int")
@@ -51,7 +51,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS3 extends Win32Struct
 
     /**
      * Indicates whether barycentrics are supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     BarycentricsSupported {
         get => NumGet(this, 16, "int")

@@ -51,7 +51,7 @@ class X509Certificate extends Win32Struct
     ValidFrom{
         get {
             if(!this.HasProp("__ValidFrom"))
-                this.__ValidFrom := FILETIME(this.ptr + 24)
+                this.__ValidFrom := FILETIME(24, this)
             return this.__ValidFrom
         }
     }
@@ -63,14 +63,14 @@ class X509Certificate extends Win32Struct
     ValidUntil{
         get {
             if(!this.HasProp("__ValidUntil"))
-                this.__ValidUntil := FILETIME(this.ptr + 32)
+                this.__ValidUntil := FILETIME(32, this)
             return this.__ValidUntil
         }
     }
 
     /**
      * A pointer to a string that specifies the issuer of the certificate.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszIssuer {
         get => NumGet(this, 40, "ptr")
@@ -79,7 +79,7 @@ class X509Certificate extends Win32Struct
 
     /**
      * A pointer to a string that specifies the subject of the certificate.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSubject {
         get => NumGet(this, 48, "ptr")

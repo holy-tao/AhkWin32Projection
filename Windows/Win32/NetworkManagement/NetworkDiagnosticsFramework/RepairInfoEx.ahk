@@ -25,7 +25,7 @@ class RepairInfoEx extends Win32Struct
     repair{
         get {
             if(!this.HasProp("__repair"))
-                this.__repair := RepairInfo(this.ptr + 0)
+                this.__repair := RepairInfo(0, this)
             return this.__repair
         }
     }

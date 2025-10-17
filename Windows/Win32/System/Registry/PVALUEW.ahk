@@ -13,7 +13,7 @@ class PVALUEW extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pv_valuename {
         get => NumGet(this, 0, "ptr")

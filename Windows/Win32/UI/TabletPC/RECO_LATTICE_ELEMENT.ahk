@@ -72,7 +72,7 @@ class RECO_LATTICE_ELEMENT extends Win32Struct
     epProp{
         get {
             if(!this.HasProp("__epProp"))
-                this.__epProp := RECO_LATTICE_PROPERTIES(this.ptr + 24)
+                this.__epProp := RECO_LATTICE_PROPERTIES(24, this)
             return this.__epProp
         }
     }

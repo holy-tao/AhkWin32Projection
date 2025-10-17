@@ -75,7 +75,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     V1Functions{
         get {
             if(!this.HasProp("__V1Functions"))
-                this.__V1Functions := CLRES_V1_FUNCTIONS(this.ptr + 8)
+                this.__V1Functions := CLRES_V1_FUNCTIONS(8, this)
             return this.__V1Functions
         }
     }
@@ -86,7 +86,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     V2Functions{
         get {
             if(!this.HasProp("__V2Functions"))
-                this.__V2Functions := CLRES_V2_FUNCTIONS(this.ptr + 8)
+                this.__V2Functions := CLRES_V2_FUNCTIONS(8, this)
             return this.__V2Functions
         }
     }
@@ -97,7 +97,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     V3Functions{
         get {
             if(!this.HasProp("__V3Functions"))
-                this.__V3Functions := CLRES_V3_FUNCTIONS(this.ptr + 8)
+                this.__V3Functions := CLRES_V3_FUNCTIONS(8, this)
             return this.__V3Functions
         }
     }
@@ -108,7 +108,7 @@ class CLRES_FUNCTION_TABLE extends Win32Struct
     V4Functions{
         get {
             if(!this.HasProp("__V4Functions"))
-                this.__V4Functions := CLRES_V4_FUNCTIONS(this.ptr + 8)
+                this.__V4Functions := CLRES_V4_FUNCTIONS(8, this)
             return this.__V4Functions
         }
     }

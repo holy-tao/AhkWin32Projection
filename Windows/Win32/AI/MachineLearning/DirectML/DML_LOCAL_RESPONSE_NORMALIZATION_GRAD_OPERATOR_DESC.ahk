@@ -36,7 +36,7 @@ class DML_LOCAL_RESPONSE_NORMALIZATION_GRAD_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     CrossChannel {
         get => NumGet(this, 24, "int")

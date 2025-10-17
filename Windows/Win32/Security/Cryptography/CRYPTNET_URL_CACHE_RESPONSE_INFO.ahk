@@ -96,7 +96,7 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
     LastModifiedTime{
         get {
             if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(this.ptr + 8)
+                this.__LastModifiedTime := FILETIME(8, this)
             return this.__LastModifiedTime
         }
     }
@@ -112,7 +112,7 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
 
     /**
      * A pointer to a string that contains the <b>ETag</b> response-header field value of the cached HTTP response for the URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszETag {
         get => NumGet(this, 24, "ptr")
@@ -128,12 +128,8 @@ class CRYPTNET_URL_CACHE_RESPONSE_INFO extends Win32Struct
         set => NumPut("uint", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

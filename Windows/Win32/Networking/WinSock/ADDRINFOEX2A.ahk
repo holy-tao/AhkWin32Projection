@@ -54,7 +54,7 @@ class ADDRINFOEX2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ai_canonname {
         get => NumGet(this, 24, "ptr")
@@ -110,7 +110,7 @@ class ADDRINFOEX2A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ai_fqdn {
         get => NumGet(this, 80, "ptr")

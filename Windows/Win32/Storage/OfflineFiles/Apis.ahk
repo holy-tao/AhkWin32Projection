@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
@@ -502,14 +502,14 @@ class OfflineFiles {
 ;@region Methods
     /**
      * Enables or disables the Offline Files feature.
-     * @param {Integer} bEnable Specify <b>TRUE</b> to enable Offline Files, or <b>FALSE</b> to disable.
-     * @param {Pointer<Int32>} pbRebootRequired Receives <b>TRUE</b> if a system restart is necessary to apply the desired configuration, or <b>FALSE</b> otherwise.
+     * @param {BOOL} bEnable Specify <b>TRUE</b> to enable Offline Files, or <b>FALSE</b> to disable.
+     * @param {Pointer<BOOL>} pbRebootRequired Receives <b>TRUE</b> if a system restart is necessary to apply the desired configuration, or <b>FALSE</b> otherwise.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//cscapi/nf-cscapi-offlinefilesenable
      * @since windows6.0.6000
      */
     static OfflineFilesEnable(bEnable, pbRebootRequired) {
-        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "int", bEnable, "int*", pbRebootRequired, "uint")
+        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "int", bEnable, "ptr", pbRebootRequired, "uint")
         return result
     }
 
@@ -526,28 +526,28 @@ class OfflineFiles {
 
     /**
      * Determines whether the Offline Files feature is enabled and, if so, whether it is active.
-     * @param {Pointer<Int32>} pbActive Receives <b>TRUE</b> if both the CSC driver and Offline Files Service are in the running state, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<BOOL>} pbActive Receives <b>TRUE</b> if both the CSC driver and Offline Files Service are in the running state, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<BOOL>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//cscapi/nf-cscapi-offlinefilesquerystatus
      * @since windows6.0.6000
      */
     static OfflineFilesQueryStatus(pbActive, pbEnabled) {
-        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatus", "int*", pbActive, "int*", pbEnabled, "uint")
+        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatus", "ptr", pbActive, "ptr", pbEnabled, "uint")
         return result
     }
 
     /**
      * Determines whether the Offline Files feature is enabled and, if so, whether it is active and available. This function is identical to the OfflineFilesQueryStatus function, except that it has an additional output parameter.
-     * @param {Pointer<Int32>} pbActive Receives <b>TRUE</b> if both the CSC driver and Offline Files Service are in the running state, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
-     * @param {Pointer<Int32>} pbAvailable Receives <b>TRUE</b> if the Offline Files Service is ready to be started without requiring the computer to be restarted, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<BOOL>} pbActive Receives <b>TRUE</b> if both the CSC driver and Offline Files Service are in the running state, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<BOOL>} pbEnabled Receives <b>TRUE</b> if the CSC driver's start type is set to <b>SERVICE_SYSTEM_START</b> and the Offline Files service's start type is set to <b>SERVICE_AUTO_START</b>, or <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<BOOL>} pbAvailable Receives <b>TRUE</b> if the Offline Files Service is ready to be started without requiring the computer to be restarted, or  <b>FALSE</b> otherwise. This parameter is optional and can be <b>NULL</b>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//cscapi/nf-cscapi-offlinefilesquerystatusex
      * @since windows8.0
      */
     static OfflineFilesQueryStatusEx(pbActive, pbEnabled, pbAvailable) {
-        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatusEx", "int*", pbActive, "int*", pbEnabled, "int*", pbAvailable, "uint")
+        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatusEx", "ptr", pbActive, "ptr", pbEnabled, "ptr", pbAvailable, "uint")
         return result
     }
 

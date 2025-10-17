@@ -19,7 +19,7 @@ class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
      * The name of the child placeholder file or directory to be created. It should consist only of the file or directory name.
      * 
      * For example, if the sync root of the provider is C:\SyncRoot then to create a placeholder named placeholder.txt in a subdirectory SubDirectory of the sync root, call the CfCreatePlaceholders function with BaseDirectoryPath equal to C:\SyncRoot\SubDirectory and set the RelativePathName field of the CF_PLACEHOLDER_CREATE_INFO to placeholder.txt.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     RelativeFileName {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class CF_PLACEHOLDER_CREATE_INFO extends Win32Struct
     FsMetadata{
         get {
             if(!this.HasProp("__FsMetadata"))
-                this.__FsMetadata := CF_FS_METADATA(this.ptr + 8)
+                this.__FsMetadata := CF_FS_METADATA(8, this)
             return this.__FsMetadata
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Represents a catalog file.
@@ -33,7 +34,7 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the name of the catalog file. This member must be initialized before a call to the <a href="https://docs.microsoft.com/windows/desktop/api/mscat/nf-mscat-cryptcatpersiststore">CryptCATPersistStore</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszP7File {
         get => NumGet(this, 8, "ptr")
@@ -69,20 +70,26 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hReserved {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hReserved{
+        get {
+            if(!this.HasProp("__hReserved"))
+                this.__hReserved := HANDLE(32, this)
+            return this.__hReserved
+        }
     }
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hAttrs {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hAttrs{
+        get {
+            if(!this.HasProp("__hAttrs"))
+                this.__hAttrs := HANDLE(40, this)
+            return this.__hAttrs
+        }
     }
 
     /**
@@ -96,10 +103,13 @@ class CRYPTCATSTORE extends Win32Struct
 
     /**
      * This member is reserved and must be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hSorted {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hSorted{
+        get {
+            if(!this.HasProp("__hSorted"))
+                this.__hSorted := HANDLE(56, this)
+            return this.__hSorted
+        }
     }
 }

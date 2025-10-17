@@ -15,7 +15,7 @@ class NCryptProviderName extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class NCryptProviderName extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains optional text for the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszComment {
         get => NumGet(this, 8, "ptr")

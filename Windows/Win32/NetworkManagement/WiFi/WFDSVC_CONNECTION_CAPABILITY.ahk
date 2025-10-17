@@ -12,7 +12,7 @@ class WFDSVC_CONNECTION_CAPABILITY extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bNew {
         get => NumGet(this, 0, "char")
@@ -20,7 +20,7 @@ class WFDSVC_CONNECTION_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bClient {
         get => NumGet(this, 1, "char")
@@ -28,7 +28,7 @@ class WFDSVC_CONNECTION_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bGO {
         get => NumGet(this, 2, "char")

@@ -47,19 +47,15 @@ class HIGHCONTRASTA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPTSTR</a></b>
      * 
      * Points to a string that contains the name of the color scheme that will be set to the default scheme.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszDefaultScheme {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 16
     }
 }

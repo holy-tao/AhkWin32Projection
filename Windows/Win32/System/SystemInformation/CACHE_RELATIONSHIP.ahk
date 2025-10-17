@@ -85,7 +85,7 @@ class CACHE_RELATIONSHIP extends Win32Struct
     GroupMask{
         get {
             if(!this.HasProp("__GroupMask"))
-                this.__GroupMask := GROUP_AFFINITY(this.ptr + 32)
+                this.__GroupMask := GROUP_AFFINITY(32, this)
             return this.__GroupMask
         }
     }

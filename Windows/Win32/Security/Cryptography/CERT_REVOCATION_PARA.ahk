@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * Is passed in calls to the CertVerifyRevocation function to assist in finding the issuer of the context to be verified.
@@ -51,7 +52,7 @@ class CERT_REVOCATION_PARA extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate store</a> handles. Specifies a set of stores that are searched for issuer certificates.  If <i>rgCertStore</i> is not set, the default stores are searched.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     rgCertStore {
         get => NumGet(this, 24, "ptr")
@@ -60,11 +61,14 @@ class CERT_REVOCATION_PARA extends Win32Struct
 
     /**
      * Optional store handle. When specified, a handler that uses <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate revocation lists</a> (CRLs) can search this store for CRLs.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCrlStore {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hCrlStore{
+        get {
+            if(!this.HasProp("__hCrlStore"))
+                this.__hCrlStore := HCERTSTORE(32, this)
+            return this.__hCrlStore
+        }
     }
 
     /**
@@ -76,12 +80,8 @@ class CERT_REVOCATION_PARA extends Win32Struct
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

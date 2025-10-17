@@ -19,7 +19,7 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct
     wmiHeader{
         get {
             if(!this.HasProp("__wmiHeader"))
-                this.__wmiHeader := EVENT_TRACE_HEADER(this.ptr + 0)
+                this.__wmiHeader := EVENT_TRACE_HEADER(0, this)
             return this.__wmiHeader
         }
     }
@@ -54,13 +54,13 @@ class DXVA2TraceVideoProcessBltData extends Win32Struct
     TargetRect{
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(this.ptr + 64)
+                this.__TargetRect := RECT(64, this)
             return this.__TargetRect
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enter {
         get => NumGet(this, 80, "int")

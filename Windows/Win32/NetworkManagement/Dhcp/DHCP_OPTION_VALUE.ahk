@@ -30,7 +30,7 @@ class DHCP_OPTION_VALUE extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := DHCP_OPTION_DATA(this.ptr + 8)
+                this.__Value := DHCP_OPTION_DATA(8, this)
             return this.__Value
         }
     }

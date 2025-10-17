@@ -25,7 +25,7 @@ class WSDXML_ELEMENT extends Win32Struct
     Node{
         get {
             if(!this.HasProp("__Node"))
-                this.__Node := WSDXML_NODE(this.ptr + 0)
+                this.__Node := WSDXML_NODE(0, this)
             return this.__Node
         }
     }

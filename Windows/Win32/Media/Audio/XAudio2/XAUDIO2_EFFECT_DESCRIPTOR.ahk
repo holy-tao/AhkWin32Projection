@@ -36,7 +36,7 @@ class XAUDIO2_EFFECT_DESCRIPTOR extends Win32Struct
 
     /**
      * TRUE if the effect should begin in the enabled state. Otherwise, FALSE.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InitialState {
         get => NumGet(this, 8, "int")

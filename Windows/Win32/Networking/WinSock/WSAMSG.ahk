@@ -84,7 +84,7 @@ class WSAMSG extends Win32Struct
     Control{
         get {
             if(!this.HasProp("__Control"))
-                this.__Control := WSABUF(this.ptr + 32)
+                this.__Control := WSABUF(32, this)
             return this.__Control
         }
     }

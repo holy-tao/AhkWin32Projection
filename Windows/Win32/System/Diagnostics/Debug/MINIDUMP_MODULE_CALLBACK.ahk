@@ -16,7 +16,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
 
     /**
      * The fully qualified path of the module executable.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FullPath {
         get => NumGet(this, 0, "ptr")
@@ -67,7 +67,7 @@ class MINIDUMP_MODULE_CALLBACK extends Win32Struct
     VersionInfo{
         get {
             if(!this.HasProp("__VersionInfo"))
-                this.__VersionInfo := VS_FIXEDFILEINFO(this.ptr + 32)
+                this.__VersionInfo := VS_FIXEDFILEINFO(32, this)
             return this.__VersionInfo
         }
     }

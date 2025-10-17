@@ -53,7 +53,7 @@ class VDS_DRIVE_EXTENT extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the extent is allocated to a LUN plex. If <b>FALSE</b>, the extent is unallocated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bUsed {
         get => NumGet(this, 24, "int")

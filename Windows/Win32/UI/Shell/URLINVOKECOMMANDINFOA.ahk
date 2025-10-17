@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -29,15 +30,18 @@ class URLINVOKECOMMANDINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pcszVerb {
         get => NumGet(this, 16, "ptr")

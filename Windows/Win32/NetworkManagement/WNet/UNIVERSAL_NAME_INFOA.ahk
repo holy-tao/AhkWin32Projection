@@ -21,7 +21,7 @@ class UNIVERSAL_NAME_INFOA extends Win32Struct
 
     /**
      * If the provider supports a universal name, it will return that here.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpUniversalName {
         get => NumGet(this, 0, "ptr")

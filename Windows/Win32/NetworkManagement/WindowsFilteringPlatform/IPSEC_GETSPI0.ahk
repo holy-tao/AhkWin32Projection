@@ -21,7 +21,7 @@ class IPSEC_GETSPI0 extends Win32Struct
     inboundIpsecTraffic{
         get {
             if(!this.HasProp("__inboundIpsecTraffic"))
-                this.__inboundIpsecTraffic := IPSEC_TRAFFIC0(this.ptr + 0)
+                this.__inboundIpsecTraffic := IPSEC_TRAFFIC0(0, this)
             return this.__inboundIpsecTraffic
         }
     }
@@ -36,9 +36,9 @@ class IPSEC_GETSPI0 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
-    Anonymous {
+    inboundUdpEncapsulation {
         get => NumGet(this, 72, "ptr")
         set => NumPut("ptr", value, this, 72)
     }

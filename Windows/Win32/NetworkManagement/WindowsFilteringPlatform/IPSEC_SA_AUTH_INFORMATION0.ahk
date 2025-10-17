@@ -28,7 +28,7 @@ class IPSEC_SA_AUTH_INFORMATION0 extends Win32Struct
     authTransform{
         get {
             if(!this.HasProp("__authTransform"))
-                this.__authTransform := IPSEC_AUTH_TRANSFORM0(this.ptr + 0)
+                this.__authTransform := IPSEC_AUTH_TRANSFORM0(0, this)
             return this.__authTransform
         }
     }
@@ -40,7 +40,7 @@ class IPSEC_SA_AUTH_INFORMATION0 extends Win32Struct
     authKey{
         get {
             if(!this.HasProp("__authKey"))
-                this.__authKey := FWP_BYTE_BLOB(this.ptr + 16)
+                this.__authKey := FWP_BYTE_BLOB(16, this)
             return this.__authKey
         }
     }

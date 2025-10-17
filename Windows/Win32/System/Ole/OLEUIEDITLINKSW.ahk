@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Edit Links dialog box, and contains space for the library to return information when the dialog box is dismissed.
@@ -98,16 +101,19 @@ class OLEUIEDITLINKSW extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWndOwner{
+        get {
+            if(!this.HasProp("__hWndOwner"))
+                this.__hWndOwner := HWND(8, this)
+            return this.__hWndOwner
+        }
     }
 
     /**
      * Pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Links</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -125,7 +131,7 @@ class OLEUIEDITLINKSW extends Win32Struct
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIEDITLINKS</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 32, "ptr")
@@ -134,16 +140,19 @@ class OLEUIEDITLINKSW extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(40, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Edit Links</b> dialog box template.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -152,11 +161,14 @@ class OLEUIEDITLINKSW extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<Void>}
+     * @type {HRSRC}
      */
-    hResource {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hResource{
+        get {
+            if(!this.HasProp("__hResource"))
+                this.__hResource := HRSRC(56, this)
+            return this.__hResource
+        }
     }
 
     /**

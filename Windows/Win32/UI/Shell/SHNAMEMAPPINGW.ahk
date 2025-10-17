@@ -30,7 +30,7 @@ class SHNAMEMAPPINGW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the old path name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszOldPath {
         get => NumGet(this, 0, "ptr")
@@ -41,7 +41,7 @@ class SHNAMEMAPPINGW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * The address of a character buffer that contains the new path name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszNewPath {
         get => NumGet(this, 8, "ptr")

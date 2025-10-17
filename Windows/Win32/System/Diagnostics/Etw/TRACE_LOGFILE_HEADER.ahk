@@ -83,7 +83,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     VersionDetail{
         get {
             if(!this.HasProp("__VersionDetail"))
-                this.__VersionDetail := %this.__Class%._VersionDetail(this.ptr + 4)
+                this.__VersionDetail := %this.__Class%._VersionDetail(4, this)
             return this.__VersionDetail
         }
     }
@@ -196,7 +196,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * Do not use.
      * 
      * The name of the event tracing session is the first null-terminated string following this structure in memory.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     LoggerName {
         get => NumGet(this, 56, "ptr")
@@ -207,7 +207,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
      * Do Not use.
      * 
      * The name of the event tracing log file is the second null-terminated string following this structure in memory. The first string is the name of the session.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     LogFileName {
         get => NumGet(this, 64, "ptr")
@@ -222,7 +222,7 @@ class TRACE_LOGFILE_HEADER extends Win32Struct
     TimeZone{
         get {
             if(!this.HasProp("__TimeZone"))
-                this.__TimeZone := TIME_ZONE_INFORMATION(this.ptr + 72)
+                this.__TimeZone := TIME_ZONE_INFORMATION(72, this)
             return this.__TimeZone
         }
     }

@@ -24,7 +24,7 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's IP address in dot notation (for example, "192.168.10.2").
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIPAddress {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's port number.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszPort {
         get => NumGet(this, 16, "ptr")
@@ -42,19 +42,15 @@ class WM_CLIENT_PROPERTIES_EX extends Win32Struct
 
     /**
      * String containing the client's name on the domain name server (DNS), if known.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDNSName {
         get => NumGet(this, 24, "ptr")
         set => NumPut("ptr", value, this, 24)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

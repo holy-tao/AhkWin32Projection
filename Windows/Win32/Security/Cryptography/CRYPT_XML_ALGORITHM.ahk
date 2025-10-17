@@ -26,7 +26,7 @@ class CRYPT_XML_ALGORITHM extends Win32Struct
     /**
      * A pointer to a null-terminated Unicode string that contains the <b>Algorithm</b> attribute. 
      *     When the <b>Encoded</b> member contains an element that is proved by an application, this member is set to <b>NULL</b>.XML
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszAlgorithm {
         get => NumGet(this, 8, "ptr")
@@ -41,17 +41,13 @@ class CRYPT_XML_ALGORITHM extends Win32Struct
     Encoded{
         get {
             if(!this.HasProp("__Encoded"))
-                this.__Encoded := CRYPT_XML_BLOB(this.ptr + 16)
+                this.__Encoded := CRYPT_XML_BLOB(16, this)
             return this.__Encoded
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 32
     }
 }

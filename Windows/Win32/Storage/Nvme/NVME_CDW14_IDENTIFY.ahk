@@ -12,11 +12,22 @@ class NVME_CDW14_IDENTIFY extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - UUIDIndex
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    UUIDIndex {
+        get => (this._bitfield >> 0) & 0x7F
+        set => this._bitfield := ((value & 0x7F) << 0) | (this._bitfield & ~(0x7F << 0))
     }
 
     /**

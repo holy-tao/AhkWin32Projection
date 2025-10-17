@@ -36,7 +36,7 @@ class TCP_INFO_v2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     TimestampsEnabled {
         get => NumGet(this, 16, "char")
@@ -244,7 +244,7 @@ class TCP_INFO_v2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EcnNegotiated {
         get => NumGet(this, 140, "char")

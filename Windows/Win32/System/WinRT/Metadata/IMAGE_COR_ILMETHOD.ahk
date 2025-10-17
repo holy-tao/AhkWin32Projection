@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include .\IMAGE_COR_ILMETHOD_TINY.ahk
 #Include .\IMAGE_COR_ILMETHOD_FAT.ahk
 
 /**
@@ -13,11 +14,14 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {IMAGE_COR_ILMETHOD_TINY}
      */
-    Tiny {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    Tiny{
+        get {
+            if(!this.HasProp("__Tiny"))
+                this.__Tiny := IMAGE_COR_ILMETHOD_TINY(0, this)
+            return this.__Tiny
+        }
     }
 
     /**
@@ -26,7 +30,7 @@ class IMAGE_COR_ILMETHOD extends Win32Struct
     Fat{
         get {
             if(!this.HasProp("__Fat"))
-                this.__Fat := IMAGE_COR_ILMETHOD_FAT(this.ptr + 0)
+                this.__Fat := IMAGE_COR_ILMETHOD_FAT(0, this)
             return this.__Fat
         }
     }

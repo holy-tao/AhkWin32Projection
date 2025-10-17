@@ -20,7 +20,7 @@ class GNSS_SATELLITEINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     UsedInPositiong {
         get => NumGet(this, 4, "int")

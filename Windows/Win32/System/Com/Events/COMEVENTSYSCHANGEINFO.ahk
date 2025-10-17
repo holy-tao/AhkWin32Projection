@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 
 /**
  * Represents a system event structure, which contains the partition and application ID from which an event originated.
@@ -33,29 +34,38 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
 
     /**
      * The EventClass ID or subscription ID from which the change impacts.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    objectId {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    objectId{
+        get {
+            if(!this.HasProp("__objectId"))
+                this.__objectId := BSTR(8, this)
+            return this.__objectId
+        }
     }
 
     /**
      * The EventClass partition ID or the subscriber partition ID affected.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    partitionId {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    partitionId{
+        get {
+            if(!this.HasProp("__partitionId"))
+                this.__partitionId := BSTR(16, this)
+            return this.__partitionId
+        }
     }
 
     /**
      * The EventClass application ID or subscriber application ID affected.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    applicationId {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    applicationId{
+        get {
+            if(!this.HasProp("__applicationId"))
+                this.__applicationId := BSTR(24, this)
+            return this.__applicationId
+        }
     }
 
     /**
@@ -70,12 +80,8 @@ class COMEVENTSYSCHANGEINFO extends Win32Struct
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 112
     }
 }

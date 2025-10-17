@@ -45,7 +45,7 @@ class GROUP_SOURCE_REQ extends Win32Struct
     gsr_group{
         get {
             if(!this.HasProp("__gsr_group"))
-                this.__gsr_group := SOCKADDR_STORAGE(this.ptr + 8)
+                this.__gsr_group := SOCKADDR_STORAGE(8, this)
             return this.__gsr_group
         }
     }
@@ -57,7 +57,7 @@ class GROUP_SOURCE_REQ extends Win32Struct
     gsr_source{
         get {
             if(!this.HasProp("__gsr_source"))
-                this.__gsr_source := SOCKADDR_STORAGE(this.ptr + 256)
+                this.__gsr_source := SOCKADDR_STORAGE(256, this)
             return this.__gsr_source
         }
     }

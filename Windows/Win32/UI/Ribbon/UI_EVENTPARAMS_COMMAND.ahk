@@ -33,7 +33,7 @@ class UI_EVENTPARAMS_COMMAND extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name that is associated with <b>CommandId</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     CommandName {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class UI_EVENTPARAMS_COMMAND extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-command">Command</a> name  of the parent that is associated with <b>CommandId</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ParentCommandName {
         get => NumGet(this, 24, "ptr")

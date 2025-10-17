@@ -12,7 +12,7 @@ class WININET_PROXY_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fProxy {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class WININET_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBypass {
         get => NumGet(this, 4, "int")
@@ -36,7 +36,7 @@ class WININET_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProxy {
         get => NumGet(this, 16, "ptr")

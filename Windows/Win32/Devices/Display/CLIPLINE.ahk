@@ -29,7 +29,7 @@ class CLIPLINE extends Win32Struct
     ptfxA{
         get {
             if(!this.HasProp("__ptfxA"))
-                this.__ptfxA := POINTFIX(this.ptr + 0)
+                this.__ptfxA := POINTFIX(0, this)
             return this.__ptfxA
         }
     }
@@ -41,7 +41,7 @@ class CLIPLINE extends Win32Struct
     ptfxB{
         get {
             if(!this.HasProp("__ptfxB"))
-                this.__ptfxB := POINTFIX(this.ptr + 8)
+                this.__ptfxB := POINTFIX(8, this)
             return this.__ptfxB
         }
     }

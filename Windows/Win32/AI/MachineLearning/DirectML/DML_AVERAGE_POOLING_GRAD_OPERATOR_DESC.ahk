@@ -94,7 +94,7 @@ class DML_AVERAGE_POOLING_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * See *IncludePadding* in [DML_AVERAGE_POOLING_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_average_pooling_operator_desc).
-     * @type {Integer}
+     * @type {BOOL}
      */
     IncludePadding {
         get => NumGet(this, 56, "int")

@@ -20,7 +20,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -50,7 +50,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     PrimaryDeviceType{
         get {
             if(!this.HasProp("__PrimaryDeviceType"))
-                this.__PrimaryDeviceType := DOT11_WFD_DEVICE_TYPE(this.ptr + 16)
+                this.__PrimaryDeviceType := DOT11_WFD_DEVICE_TYPE(16, this)
             return this.__PrimaryDeviceType
         }
     }
@@ -61,7 +61,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     DeviceName{
         get {
             if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := DOT11_WPS_DEVICE_NAME(this.ptr + 24)
+                this.__DeviceName := DOT11_WPS_DEVICE_NAME(24, this)
             return this.__DeviceName
         }
     }

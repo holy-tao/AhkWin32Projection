@@ -18,7 +18,7 @@ class CSV_QUERY_FILE_REVISION_FILE_ID_128 extends Win32Struct
     FileId{
         get {
             if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(this.ptr + 0)
+                this.__FileId := FILE_ID_128(0, this)
             return this.__FileId
         }
     }

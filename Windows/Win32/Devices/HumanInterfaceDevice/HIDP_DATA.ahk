@@ -36,7 +36,7 @@ class HIDP_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     On {
         get => NumGet(this, 7, "char")

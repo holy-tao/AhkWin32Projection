@@ -12,7 +12,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MismatchingOutputDimensionsSupported {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     PointSamplingAddressesNeverRoundUp {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     RasterizerDesc2Supported {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     NarrowQuadrilateralLinesSupported {
         get => NumGet(this, 16, "int")
@@ -52,7 +52,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AnisoFilterWithPointMipSupported {
         get => NumGet(this, 20, "int")
@@ -84,7 +84,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS19 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ComputeOnlyCustomHeapSupported {
         get => NumGet(this, 36, "int")

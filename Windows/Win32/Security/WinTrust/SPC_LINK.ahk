@@ -22,7 +22,7 @@ class SPC_LINK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszUrl {
         get => NumGet(this, 8, "ptr")
@@ -35,13 +35,13 @@ class SPC_LINK extends Win32Struct
     Moniker{
         get {
             if(!this.HasProp("__Moniker"))
-                this.__Moniker := SPC_SERIALIZED_OBJECT(this.ptr + 8)
+                this.__Moniker := SPC_SERIALIZED_OBJECT(8, this)
             return this.__Moniker
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFile {
         get => NumGet(this, 8, "ptr")

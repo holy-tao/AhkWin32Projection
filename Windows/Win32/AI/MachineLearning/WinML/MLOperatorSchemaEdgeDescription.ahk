@@ -37,7 +37,7 @@ class MLOperatorSchemaEdgeDescription extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     typeLabel {
         get => NumGet(this, 8, "ptr")
@@ -50,7 +50,7 @@ class MLOperatorSchemaEdgeDescription extends Win32Struct
     edgeDescription{
         get {
             if(!this.HasProp("__edgeDescription"))
-                this.__edgeDescription := MLOperatorEdgeDescription(this.ptr + 8)
+                this.__edgeDescription := MLOperatorEdgeDescription(8, this)
             return this.__edgeDescription
         }
     }

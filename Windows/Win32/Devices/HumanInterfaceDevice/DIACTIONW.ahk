@@ -37,7 +37,7 @@ class DIACTIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lptszActionName {
         get => NumGet(this, 16, "ptr")

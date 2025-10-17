@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains shared context information used by the sensor, engine, and storage adapter components in a single biometric unit.
@@ -20,29 +21,38 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * File handle to the sensor device associated with the biometric unit. Adapters should treat this as a read-only field.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    SensorHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    SensorHandle{
+        get {
+            if(!this.HasProp("__SensorHandle"))
+                this.__SensorHandle := HANDLE(0, this)
+            return this.__SensorHandle
+        }
     }
 
     /**
      * File handle to the dedicated hardware matching engine, if one is present. This is modified only by the engine adapter. It is read by the Windows Biometric Framework.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    EngineHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    EngineHandle{
+        get {
+            if(!this.HasProp("__EngineHandle"))
+                this.__EngineHandle := HANDLE(8, this)
+            return this.__EngineHandle
+        }
     }
 
     /**
      * File handle to the template storage database. This is read by the Windows Biometric Framework, but it is modified only by the storage adapter.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    StorageHandle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    StorageHandle{
+        get {
+            if(!this.HasProp("__StorageHandle"))
+                this.__StorageHandle := HANDLE(16, this)
+            return this.__StorageHandle
+        }
     }
 
     /**
@@ -74,7 +84,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * Pointer to a private data structure defined by the sensor adapter. This pointer and the structure contents are managed by the sensor adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WINIBIO_SENSOR_CONTEXT>}
      */
     SensorContext {
         get => NumGet(this, 48, "ptr")
@@ -83,7 +93,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * Pointer to a private data structure defined by the engine adapter. This pointer and the structure contents are managed by the engine adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WINIBIO_ENGINE_CONTEXT>}
      */
     EngineContext {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +102,7 @@ class WINBIO_PIPELINE extends Win32Struct
 
     /**
      * Pointer to a private data structure defined by the storage adapter. This pointer and the structure contents are managed by the storage adapter and are never accessed by the Windows Biometric Framework.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<WINIBIO_STORAGE_CONTEXT>}
      */
     StorageContext {
         get => NumGet(this, 64, "ptr")

@@ -55,7 +55,7 @@ class PEER_CONNECTION_INFO extends Win32Struct
 
     /**
      * Points to a string that identifies the node on the other end of a connection.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzPeerId {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class PEER_CONNECTION_INFO extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := PEER_ADDRESS(this.ptr + 32)
+                this.__address := PEER_ADDRESS(32, this)
             return this.__address
         }
     }

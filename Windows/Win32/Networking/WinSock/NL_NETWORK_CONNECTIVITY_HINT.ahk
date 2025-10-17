@@ -42,7 +42,7 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is approaching its data limit, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ApproachingDataLimit {
         get => NumGet(this, 8, "char")
@@ -53,7 +53,7 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection has exceeded its data limit, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OverDataLimit {
         get => NumGet(this, 9, "char")
@@ -64,7 +64,7 @@ class NL_NETWORK_CONNECTIVITY_HINT extends Win32Struct
      * Type: **[BOOLEAN](/windows/win32/winprog/windows-data-types)**
      * 
      * `TRUE` if the connection is roaming, otherwise `FALSE`.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Roaming {
         get => NumGet(this, 10, "char")

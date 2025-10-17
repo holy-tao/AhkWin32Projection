@@ -118,7 +118,7 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      * If this member is <b>TRUE</b>, the storage adapter uses programmed I/O (PIO) and 
      *       requires the use of system-space virtual addresses mapped to physical memory for data buffers. When this member 
      *       is <b>FALSE</b>, the storage adapter does not use PIO.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AdapterUsesPio {
         get => NumGet(this, 20, "char")
@@ -130,7 +130,7 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       the storage adapter begins scanning with the highest device number rather than the lowest. When this member is 
      *       <b>FALSE</b>, the storage adapter begins scanning with the lowest device number. This member 
      *       is reserved for legacy miniport drivers.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AdapterScansDown {
         get => NumGet(this, 21, "char")
@@ -142,7 +142,7 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      *       per-logical-unit internal queues, or the non-SCSI equivalent. When this member is 
      *       <b>FALSE</b>, the storage adapter neither supports SCSI-tagged queuing nor per-logical-unit 
      *       internal queues.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CommandQueueing {
         get => NumGet(this, 22, "char")
@@ -153,7 +153,7 @@ class STORAGE_ADAPTER_DESCRIPTOR extends Win32Struct
      * If this member is <b>TRUE</b>, the storage adapter supports synchronous transfers as a 
      *       way of speeding up I/O. When this member is <b>FALSE</b>, the storage adapter does not 
      *       support synchronous transfers as a way of speeding up I/O.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AcceleratedTransfer {
         get => NumGet(this, 23, "char")

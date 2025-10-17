@@ -20,7 +20,7 @@ class NDR64_BINDINGS extends Win32Struct
     Primitive{
         get {
             if(!this.HasProp("__Primitive"))
-                this.__Primitive := NDR64_BIND_PRIMITIVE(this.ptr + 0)
+                this.__Primitive := NDR64_BIND_PRIMITIVE(0, this)
             return this.__Primitive
         }
     }
@@ -31,7 +31,7 @@ class NDR64_BINDINGS extends Win32Struct
     Generic{
         get {
             if(!this.HasProp("__Generic"))
-                this.__Generic := NDR64_BIND_GENERIC(this.ptr + 0)
+                this.__Generic := NDR64_BIND_GENERIC(0, this)
             return this.__Generic
         }
     }
@@ -42,7 +42,7 @@ class NDR64_BINDINGS extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := NDR64_BIND_CONTEXT(this.ptr + 0)
+                this.__Context := NDR64_BIND_CONTEXT(0, this)
             return this.__Context
         }
     }

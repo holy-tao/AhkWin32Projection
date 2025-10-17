@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCS_OPERATION.ahk
 
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
@@ -20,7 +21,7 @@ class HCS_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     EventData {
         get => NumGet(this, 8, "ptr")
@@ -28,10 +29,13 @@ class HCS_EVENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCS_OPERATION}
      */
-    Operation {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    Operation{
+        get {
+            if(!this.HasProp("__Operation"))
+                this.__Operation := HCS_OPERATION(16, this)
+            return this.__Operation
+        }
     }
 }

@@ -32,7 +32,7 @@ class D2D1_ROUNDED_RECT extends Win32Struct
     rect{
         get {
             if(!this.HasProp("__rect"))
-                this.__rect := D2D_RECT_F(this.ptr + 0)
+                this.__rect := D2D_RECT_F(0, this)
             return this.__rect
         }
     }

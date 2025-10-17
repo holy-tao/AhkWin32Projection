@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
@@ -347,7 +347,7 @@ class StructuredStorage {
      * @param {Pointer<IUnknown>} punkOuter When non-<b>NULL</b>, indicates the instance is being created as part of an aggregate, and <i>punkOuter</i> is to be used as the pointer to the new instance's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. Aggregation is not supported cross-process or cross-computer. When instantiating an object out of process, CLASS_E_NOAGGREGATION will be returned if <i>punkOuter</i> is non-<b>NULL</b>.
      * @param {Integer} dwClsCtx Values from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-clsctx">CLSCTX</a> enumeration.
      * @param {Integer} grfMode Specifies how the file is to be opened. See <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>.
-     * @param {Pointer<Char>} pwszName The file used to initialize the object with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-load">IPersistFile::Load</a>. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} pwszName The file used to initialize the object with <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-load">IPersistFile::Load</a>. This parameter cannot be <b>NULL</b>.
      * @param {Integer} dwCount The number of structures in <i>pResults</i>. This parameter must be greater than 0.
      * @param {Pointer<MULTI_QI>} pResults An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-multi_qi">MULTI_QI</a> structures. Each structure has three members: the identifier for a requested interface (<b>pIID</b>), the location to return the interface pointer (<b>pItf</b>) and the return value of the call to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> (<b>hr</b>).
      * @returns {HRESULT} This function can return the standard return value E_INVALIDARG, as well as the following values.
@@ -395,7 +395,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static CoGetInstanceFromFile(pServerInfo, pClsid, punkOuter, dwClsCtx, grfMode, pwszName, dwCount, pResults) {
-        pwszName := pwszName is String? StrPtr(pwszName) : pwszName
+        pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         result := DllCall("OLE32.dll\CoGetInstanceFromFile", "ptr", pServerInfo, "ptr", pClsid, "ptr", punkOuter, "uint", dwClsCtx, "uint", grfMode, "ptr", pwszName, "uint", dwCount, "ptr", pResults, "int")
         if(result != 0)
@@ -501,7 +501,7 @@ class StructuredStorage {
 
     /**
      * Opens a wrapper object on a temporary file.
-     * @param {Pointer<Char>} pwcsName A pointer to the null-terminated unicode string name of the file for which a wrapper object is created.
+     * @param {PWSTR} pwcsName A pointer to the null-terminated unicode string name of the file for which a wrapper object is created.
      * @param {Pointer<IFillLockBytes>} ppflb A pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ifilllockbytes">IFillLockBytes</a>* pointer variable that receives the interface pointer to the new byte array wrapper object.
      * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL, in addition to the following:
@@ -510,7 +510,7 @@ class StructuredStorage {
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-stggetifilllockbytesonfile
      */
     static StgGetIFillLockBytesOnFile(pwcsName, ppflb) {
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("ole32.dll\StgGetIFillLockBytesOnFile", "ptr", pwcsName, "ptr", ppflb, "int")
         if(result != 0)
@@ -521,7 +521,7 @@ class StructuredStorage {
 
     /**
      * Opens a compound file on an ILockBytes implementation that is capable of monitoring sector data.
-     * @param {Pointer<Char>} pwcsDfName A pointer to the null-terminated Unicode string name of the compound file to be opened.
+     * @param {PWSTR} pwcsDfName A pointer to the null-terminated Unicode string name of the compound file to be opened.
      * @param {Integer} grfMode Access mode to use when opening the newly created storage object. Values are taken from the 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. Be aware that priority mode and exclusions are not supported. The most common access mode is likely to be STGM_DIRECT | STGM_READ | STGM_SHARE_EXCLUSIVE.
      * @param {Integer} reserved Reserved for future use.
@@ -534,7 +534,7 @@ class StructuredStorage {
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-stgopenlayoutdocfile
      */
     static StgOpenLayoutDocfile(pwcsDfName, grfMode, reserved, ppstgOpen) {
-        pwcsDfName := pwcsDfName is String? StrPtr(pwcsDfName) : pwcsDfName
+        pwcsDfName := pwcsDfName is String ? StrPtr(pwcsDfName) : pwcsDfName
 
         result := DllCall("dflayout.dll\StgOpenLayoutDocfile", "ptr", pwcsDfName, "uint", grfMode, "uint", reserved, "ptr", ppstgOpen, "int")
         if(result != 0)
@@ -545,8 +545,8 @@ class StructuredStorage {
 
     /**
      * Creates a stream object that uses an HGLOBAL memory handle to store the stream contents.
-     * @param {Pointer<Void>} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
-     * @param {Integer} fDeleteOnRelease A value that indicates whether the underlying handle for this stream object should be automatically freed when the stream object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the underlying handle. See the Remarks for further discussion of the case where <i>fDeleteOnRelease</i> is <b>FALSE</b>.
+     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {BOOL} fDeleteOnRelease A value that indicates whether the underlying handle for this stream object should be automatically freed when the stream object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the underlying handle. See the Remarks for further discussion of the case where <i>fDeleteOnRelease</i> is <b>FALSE</b>.
      * @param {Pointer<IStream>} ppstm The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the new stream object. Its value cannot be <b>NULL</b>.
      * @returns {HRESULT} This function supports the standard return values E_INVALIDARG and E_OUTOFMEMORY, as well as the following.
@@ -554,6 +554,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static CreateStreamOnHGlobal(hGlobal, fDeleteOnRelease, ppstm) {
+        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+
         result := DllCall("OLE32.dll\CreateStreamOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr", ppstm, "int")
         if(result != 0)
             throw OSError(result)
@@ -565,7 +567,7 @@ class StructuredStorage {
      * The GetHGlobalFromStream function retrieves the global memory handle to a stream that was created through a call to the CreateStreamOnHGlobal function.
      * @param {Pointer<IStream>} pstm <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> pointer to the stream object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-createstreamonhglobal">CreateStreamOnHGlobal</a> function.
-     * @param {Pointer<Void>} phglobal Pointer to the current memory handle used by the specified stream object.
+     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified stream object.
      * @returns {HRESULT} This function returns HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-gethglobalfromstream
      * @since windows5.0
@@ -651,7 +653,7 @@ class StructuredStorage {
 
     /**
      * Creates a new compound file storage object using the COM-provided compound file implementation for the IStorage interface.
-     * @param {Pointer<Char>} pwcsName A pointer to a null-terminated Unicode string name for the compound file being created. It is passed uninterpreted to the file system. This can be a relative name or <b>NULL</b>. If <b>NULL</b>, a temporary compound file is allocated with a unique name.
+     * @param {PWSTR} pwcsName A pointer to a null-terminated Unicode string name for the compound file being created. It is passed uninterpreted to the file system. This can be a relative name or <b>NULL</b>. If <b>NULL</b>, a temporary compound file is allocated with a unique name.
      * @param {Integer} grfMode Specifies the access mode to use when opening the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with STGM_CREATE or STGM_CONVERT, the overwrite or conversion takes place when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. STGM_CREATE and STGM_CONVERT cannot be combined with the STGM_NOSNAPSHOT flag, because a snapshot copy is required when a file is overwritten or converted in the transacted mode.
      * @param {Pointer<IStorage>} ppstgOpen A pointer to the location of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the new storage object.
@@ -664,7 +666,7 @@ class StructuredStorage {
     static StgCreateDocfile(pwcsName, grfMode, ppstgOpen) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("OLE32.dll\StgCreateDocfile", "ptr", pwcsName, "uint", grfMode, "uint", reserved, "ptr", ppstgOpen, "int")
         if(result != 0)
@@ -698,7 +700,7 @@ class StructuredStorage {
 
     /**
      * Opens an existing root storage object in the file system.
-     * @param {Pointer<Char>} pwcsName A pointer to the path of the <b>null</b>-terminated Unicode string file that contains the storage object to open. This parameter is ignored if the <i>pstgPriority</i> parameter is not <b>NULL</b>.
+     * @param {PWSTR} pwcsName A pointer to the path of the <b>null</b>-terminated Unicode string file that contains the storage object to open. This parameter is ignored if the <i>pstgPriority</i> parameter is not <b>NULL</b>.
      * @param {Pointer<IStorage>} pstgPriority A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface that should be <b>NULL</b>. If not <b>NULL</b>, this parameter is used as described below in the Remarks section.
      * 
@@ -715,9 +717,9 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgOpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, ppstgOpen) {
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, "ptr", snbExclude, "uint", reserved, "ptr", ppstgOpen, "int")
+        result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, "ushort*", snbExclude, "uint", reserved, "ptr", ppstgOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -746,7 +748,7 @@ class StructuredStorage {
     static StgOpenStorageOnILockBytes(plkbyt, pstgPriority, grfMode, snbExclude, ppstgOpen) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, "uint", grfMode, "ptr", snbExclude, "uint", reserved, "ptr", ppstgOpen, "int")
+        result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, "uint", grfMode, "ushort*", snbExclude, "uint", reserved, "ptr", ppstgOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -755,7 +757,7 @@ class StructuredStorage {
 
     /**
      * The StgIsStorageFile function indicates whether a particular disk file contains a storage object.
-     * @param {Pointer<Char>} pwcsName Pointer to the null-terminated Unicode string name of the disk file to be examined. The <i>pwcsName</i> parameter is passed uninterpreted to the underlying file system.
+     * @param {PWSTR} pwcsName Pointer to the null-terminated Unicode string name of the disk file to be examined. The <i>pwcsName</i> parameter is passed uninterpreted to the underlying file system.
      * @returns {HRESULT} <b>StgIsStorageFile</b> function can also return any file system errors or system errors wrapped in an <b>HRESULT</b>. See 
      * <a href="/windows/desktop/com/error-handling-strategies">Error Handling Strategies</a> and 
      * <a href="/windows/desktop/com/handling-unknown-errors">Handling Unknown Errors</a>
@@ -763,7 +765,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgIsStorageFile(pwcsName) {
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
         result := DllCall("OLE32.dll\StgIsStorageFile", "ptr", pwcsName, "int")
         if(result != 0)
@@ -792,7 +794,7 @@ class StructuredStorage {
 
     /**
      * The StgSetTimes function sets the creation, access, and modification times of the indicated file, if supported by the underlying file system.
-     * @param {Pointer<Char>} lpszName Pointer to the name of the file to be changed.
+     * @param {PWSTR} lpszName Pointer to the name of the file to be changed.
      * @param {Pointer<FILETIME>} pctime Pointer to the new value for the creation time.
      * @param {Pointer<FILETIME>} patime Pointer to the new value for the access time.
      * @param {Pointer<FILETIME>} pmtime Pointer to the new value for the modification time.
@@ -803,7 +805,7 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgSetTimes(lpszName, pctime, patime, pmtime) {
-        lpszName := lpszName is String? StrPtr(lpszName) : lpszName
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         result := DllCall("OLE32.dll\StgSetTimes", "ptr", lpszName, "ptr", pctime, "ptr", patime, "ptr", pmtime, "int")
         if(result != 0)
@@ -814,7 +816,7 @@ class StructuredStorage {
 
     /**
      * Creates a new storage object using a provided implementation for the IStorage or IPropertySetStorage interfaces.
-     * @param {Pointer<Char>} pwcsName A pointer to the path of the file to create. It is passed uninterpreted to the file system. This can be a relative name or <b>NULL</b>. If <b>NULL</b>, a temporary file is allocated with a unique name. If non-<b>NULL</b>, the string size must not exceed MAX_PATH characters. 
+     * @param {PWSTR} pwcsName A pointer to the path of the file to create. It is passed uninterpreted to the file system. This can be a relative name or <b>NULL</b>. If <b>NULL</b>, a temporary file is allocated with a unique name. If non-<b>NULL</b>, the string size must not exceed MAX_PATH characters. 
      * 
      * 
      * 
@@ -855,7 +857,7 @@ class StructuredStorage {
      * @param {Pointer<STGOPTIONS>} pStgOptions The <i>pStgOptions</i> parameter is valid only if the <i>stgfmt</i> parameter is set to STGFMT_DOCFILE. If the <i>stgfmt</i> parameter is set to STGFMT_DOCFILE, <i>pStgOptions</i> points to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/ns-coml2api-stgoptions">STGOPTIONS</a> structure, which specifies features of the storage object, such as the sector size. This parameter may be <b>NULL</b>, which creates a storage object with a default sector size of 512 bytes. If non-<b>NULL</b>, the <b>ulSectorSize</b> member must be set to either 512 or 4096. If set to 4096, STGM_SIMPLE may not be specified in the <i>grfMode</i> parameter. The <b>usVersion</b> member must be set before calling 
      * <b>StgCreateStorageEx</b>. For more information, see <b>STGOPTIONS</b>.
-     * @param {Pointer<Void>} pSecurityDescriptor Enables the ACLs to be set when the file is created. If not <b>NULL</b>, needs to be a pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure. See <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> for information on how to set ACLs on files.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor Enables the ACLs to be set when the file is created. If not <b>NULL</b>, needs to be a pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure. See <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> for information on how to set ACLs on files.
      * 
      * <b>Windows Server 2003, Windows 2000 Server, Windows XP and Windows 2000 Professional:  </b>Value must be <b>NULL</b>.
      * @param {Pointer<Guid>} riid A value that specifies the interface identifier (IID) of the interface pointer to return. This IID may be for the 
@@ -869,7 +871,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgCreateStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid, ppObjectOpen) {
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr", ppObjectOpen, "int")
         if(result != 0)
@@ -880,7 +883,7 @@ class StructuredStorage {
 
     /**
      * Opens an existing root storage object in the file system. Use this function to open Compound Files and regular files.
-     * @param {Pointer<Char>} pwcsName A pointer to the path of the null-terminated Unicode string file that contains the storage object. This string size cannot exceed <b>MAX_PATH</b> characters.
+     * @param {PWSTR} pwcsName A pointer to the path of the null-terminated Unicode string file that contains the storage object. This string size cannot exceed <b>MAX_PATH</b> characters.
      * 
      * <b>Windows Server 2003 and Windows XP/2000:  </b>Unlike the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function, the <b>MAX_PATH</b> limit cannot be exceeded by using the "\\?\" prefix.
      * @param {Integer} grfMode A value that specifies the access mode to open the new storage object. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. If the caller specifies transacted mode together with <b>STGM_CREATE</b> or <b>STGM_CONVERT</b>, the overwrite or conversion occurs when the commit operation is called for the root storage. If <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-commit">IStorage::Commit</a> is not called for the root storage object, previous contents of the file will be restored. <b>STGM_CREATE</b> and <b>STGM_CONVERT</b> cannot be combined with the <b>STGM_NOSNAPSHOT</b> flag, because a snapshot copy is required when a file is overwritten or converted in transacted mode.
@@ -897,7 +900,7 @@ class StructuredStorage {
      * @param {Pointer<STGOPTIONS>} pStgOptions A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/ns-coml2api-stgoptions">STGOPTIONS</a> structure that contains data about the storage object opened. The <i>pStgOptions</i> parameter is valid only if the <i>stgfmt</i> parameter is set to <b>STGFMT_DOCFILE</b>. The <b>usVersion</b> member must be set before calling 
      * <b>StgOpenStorageEx</b>. For more information, see the <b>STGOPTIONS</b> structure.
-     * @param {Pointer<Void>} pSecurityDescriptor Reserved; must be zero.
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor Reserved; must be zero.
      * @param {Pointer<Guid>} riid A value that specifies the GUID of the interface pointer to return. Can also be the header-specified value for <b>IID_IStorage</b> to obtain the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface or for <b>IID_IPropertySetStorage</b> to obtain the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a> interface.
@@ -908,7 +911,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgOpenStorageEx(pwcsName, grfMode, stgfmt, grfAttrs, pStgOptions, pSecurityDescriptor, riid, ppObjectOpen) {
-        pwcsName := pwcsName is String? StrPtr(pwcsName) : pwcsName
+        pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr", ppObjectOpen, "int")
         if(result != 0)
@@ -982,13 +986,13 @@ class StructuredStorage {
     /**
      * Converts a property set format identifier (FMTID) to its storage or stream name.
      * @param {Pointer<Guid>} pfmtid A pointer to the FMTID of the property set.
-     * @param {Pointer<Char>} oszName A pointer to a null-terminated string that receives the storage or stream name of the property set identified by <i>pfmtid</i>. The array allocated for this string must be at least CCH_MAX_PROPSTG_NAME (32) characters in length.
+     * @param {PWSTR} oszName A pointer to a null-terminated string that receives the storage or stream name of the property set identified by <i>pfmtid</i>. The array allocated for this string must be at least CCH_MAX_PROPSTG_NAME (32) characters in length.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG as well as the following:
      * @see https://docs.microsoft.com/windows/win32/api//coml2api/nf-coml2api-fmtidtopropstgname
      * @since windows5.0
      */
     static FmtIdToPropStgName(pfmtid, oszName) {
-        oszName := oszName is String? StrPtr(oszName) : oszName
+        oszName := oszName is String ? StrPtr(oszName) : oszName
 
         result := DllCall("OLE32.dll\FmtIdToPropStgName", "ptr", pfmtid, "ptr", oszName, "int")
         if(result != 0)
@@ -999,14 +1003,14 @@ class StructuredStorage {
 
     /**
      * Converts a property set storage or stream name to its format identifier.
-     * @param {Pointer<Char>} oszName A pointer to a null-terminated Unicode string that contains the stream name of a simple property set or the storage name of a nonsimple property set.
+     * @param {PWSTR} oszName A pointer to a null-terminated Unicode string that contains the stream name of a simple property set or the storage name of a nonsimple property set.
      * @param {Pointer<Guid>} pfmtid A pointer to a FMTID variable that receives the format identifier of the property set specified by <i>oszName</i>.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG as well as the following:
      * @see https://docs.microsoft.com/windows/win32/api//coml2api/nf-coml2api-propstgnametofmtid
      * @since windows5.0
      */
     static PropStgNameToFmtId(oszName, pfmtid) {
-        oszName := oszName is String? StrPtr(oszName) : oszName
+        oszName := oszName is String ? StrPtr(oszName) : oszName
 
         result := DllCall("OLE32.dll\PropStgNameToFmtId", "ptr", oszName, "ptr", pfmtid, "int")
         if(result != 0)
@@ -1091,7 +1095,7 @@ class StructuredStorage {
      * @param {Pointer<ILockBytes>} plkbyt Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> interface on the byte-array object previously created by a call to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/coml2api/nf-coml2api-createilockbytesonhglobal">CreateILockBytesOnHGlobal</a> function.
-     * @param {Pointer<Void>} phglobal Pointer to the current memory handle used by the specified byte-array object.
+     * @param {Pointer<HGLOBAL>} phglobal Pointer to the current memory handle used by the specified byte-array object.
      * @returns {HRESULT} This function returns HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//coml2api/nf-coml2api-gethglobalfromilockbytes
      * @since windows5.0
@@ -1106,8 +1110,8 @@ class StructuredStorage {
 
     /**
      * Creates a byte array object that uses an HGLOBAL memory handle to store the bytes intended for in-memory storage of a compound file.
-     * @param {Pointer<Void>} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
-     * @param {Integer} fDeleteOnRelease A flag  that specifies whether the underlying handle for this byte array object should be automatically freed when the object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the <i>hGlobal</i> parameter.
+     * @param {HGLOBAL} hGlobal A memory handle allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalalloc">GlobalAlloc</a> function, or if <b>NULL</b> a new handle is to be allocated instead. The handle must be allocated as moveable and nondiscardable.
+     * @param {BOOL} fDeleteOnRelease A flag  that specifies whether the underlying handle for this byte array object should be automatically freed when the object is released. If set to <b>FALSE</b>, the caller must free the <i>hGlobal</i> after the final release. If set to <b>TRUE</b>, the final release will automatically free the <i>hGlobal</i> parameter.
      * @param {Pointer<ILockBytes>} pplkbyt The address of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a> pointer variable that receives the interface pointer to the new byte array object.
      * @returns {HRESULT} This function supports the standard return values <b>E_INVALIDARG</b> and <b>E_OUTOFMEMORY</b>, as well as the following:
@@ -1115,6 +1119,8 @@ class StructuredStorage {
      * @since windows5.0
      */
     static CreateILockBytesOnHGlobal(hGlobal, fDeleteOnRelease, pplkbyt) {
+        hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
+
         result := DllCall("OLE32.dll\CreateILockBytesOnHGlobal", "ptr", hGlobal, "int", fDeleteOnRelease, "ptr", pplkbyt, "int")
         if(result != 0)
             throw OSError(result)
@@ -1164,7 +1170,7 @@ class StructuredStorage {
      * @param {Integer} CodePage A property set codepage.
      * @param {Pointer<PROPVARIANT>} pvar A pointer to <b>PROPVARIANT</b>.
      * @param {Pointer<IMemoryAllocator>} pma A pointer to a class that implements the <a href="https://docs.microsoft.com/windows/desktop/Stg/imemoryallocator">IMemoryAllocator</a> abstract class.
-     * @returns {Integer} Returns <b>TRUE</b> is the property converted was an indirect type (<b>VT_STREAM</b> or <b>VT_STREAMED_OBJECT</b>); otherwise <b>FALSE</b>.
+     * @returns {BOOLEAN} Returns <b>TRUE</b> is the property converted was an indirect type (<b>VT_STREAM</b> or <b>VT_STREAMED_OBJECT</b>); otherwise <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-stgconvertpropertytovariant
      * @since windows5.0
      */
@@ -1193,14 +1199,14 @@ class StructuredStorage {
      * The WriteFmtUserTypeStg function writes a clipboard format and user type to the storage object.
      * @param {Pointer<IStorage>} pstg <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the storage object where the information is to be written.
      * @param {Integer} cf Specifies the clipboard format that describes the structure of the native area of the storage object. The format tag includes the policy for the names of streams and substorages within this storage object and the rules for interpreting data within those streams.
-     * @param {Pointer<Char>} lpszUserType Pointer to a null-terminated Unicode string that specifies the object's current user type. The user type value, itself, cannot be <b>NULL</b>. This is the type returned by the 
+     * @param {PWSTR} lpszUserType Pointer to a null-terminated Unicode string that specifies the object's current user type. The user type value, itself, cannot be <b>NULL</b>. This is the type returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> method. If this function is transported to a remote machine where the object class does not exist, this persistently stored user type can be shown to the user in dialog boxes.
      * @returns {HRESULT} This function returns HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-writefmtusertypestg
      * @since windows5.0
      */
     static WriteFmtUserTypeStg(pstg, cf, lpszUserType) {
-        lpszUserType := lpszUserType is String? StrPtr(lpszUserType) : lpszUserType
+        lpszUserType := lpszUserType is String ? StrPtr(lpszUserType) : lpszUserType
 
         result := DllCall("OLE32.dll\WriteFmtUserTypeStg", "ptr", pstg, "ushort", cf, "ptr", lpszUserType, "int")
         if(result != 0)
@@ -1214,7 +1220,7 @@ class StructuredStorage {
      * @param {Pointer<IStorage>} pstg Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object from which the information is to be read.
      * @param {Pointer<UInt16>} pcf Pointer to where the clipboard format is to be written on return. It can be <b>NULL</b>, indicating the format is of no interest to the caller.
-     * @param {Pointer<Char>} lplpszUserType Address of <b>LPWSTR</b> pointer variable that receives a pointer to the null-terminated Unicode user-type string. The caller can specify <b>NULL</b> for this parameter, which indicates that the user type is of no interest. This function allocates memory for the string. The caller is responsible for freeing the memory with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<PWSTR>} lplpszUserType Address of <b>LPWSTR</b> pointer variable that receives a pointer to the null-terminated Unicode user-type string. The caller can specify <b>NULL</b> for this parameter, which indicates that the user type is of no interest. This function allocates memory for the string. The caller is responsible for freeing the memory with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @returns {HRESULT} This function supports the standard return values E_FAIL, E_INVALIDARG, and E_OUTOFMEMORY, in addition to the following:
      * 
      * This function also returns any of the error values returned by the 
@@ -1232,7 +1238,7 @@ class StructuredStorage {
 
     /**
      * Converts the specified object from the OLE 1 storage model to an OLE 2 structured storage object without specifying presentation data.
-     * @param {Pointer<TypeHandle>} lpolestream A pointer to a stream that contains the persistent representation of the object in the OLE 1 storage format.
+     * @param {Pointer<OLESTREAM>} lpolestream A pointer to a stream that contains the persistent representation of the object in the OLE 1 storage format.
      * @param {Pointer<IStorage>} pstg A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the OLE 2 structured storage object.
      * @param {Pointer<DVTARGETDEVICE>} ptd A pointer to the 
@@ -1253,7 +1259,7 @@ class StructuredStorage {
      * The OleConvertIStorageToOLESTREAM function converts the specified storage object from OLE 2 structured storage to the OLE 1 storage object model but does not include the presentation data. This is one of several compatibility functions.
      * @param {Pointer<IStorage>} pstg Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object to be converted to an OLE 1 storage.
-     * @param {Pointer<TypeHandle>} lpolestream Pointer to an OLE 1 stream structure where the persistent representation of the object is saved using the OLE 1 storage model.
+     * @param {Pointer<OLESTREAM>} lpolestream Pointer to an OLE 1 stream structure where the persistent representation of the object is saved using the OLE 1 storage model.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG, in addition to the following:
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleconvertistoragetoolestream
      * @since windows5.0
@@ -1269,7 +1275,7 @@ class StructuredStorage {
     /**
      * The SetConvertStg function sets the convert bit in a storage object to indicate that the object is to be converted to a new class when it is opened. The setting can be retrieved with a call to the GetConvertStg function.
      * @param {Pointer<IStorage>} pStg <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> pointer to the storage object in which to set the conversion bit.
-     * @param {Integer} fConvert If <b>TRUE</b>, sets the conversion bit for the object to indicate the object is to be converted when opened. If <b>FALSE</b>, clears the conversion bit.
+     * @param {BOOL} fConvert If <b>TRUE</b>, sets the conversion bit for the object to indicate the object is to be converted when opened. If <b>FALSE</b>, clears the conversion bit.
      * @returns {HRESULT} See the 
      * <a href="/windows/desktop/api/objidl/nf-objidl-istorage-createstream">IStorage::CreateStream</a>, 
      * <a href="/windows/desktop/api/objidl/nf-objidl-istorage-openstream">IStorage::OpenStream</a>, 
@@ -1296,7 +1302,7 @@ class StructuredStorage {
      * @param {Integer} dwSize Size of the data, in bytes, to be converted.
      * @param {Pointer<STGMEDIUM>} pmedium Pointer to the 
      * <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> structure for the serialized data to be converted.
-     * @param {Pointer<TypeHandle>} polestm Pointer to a stream where the persistent representation of the object is saved using the OLE 1 storage model.
+     * @param {Pointer<OLESTREAM>} polestm Pointer to a stream where the persistent representation of the object is saved using the OLE 1 storage model.
      * @returns {HRESULT} This function supports the standard return value E_INVALIDARG, in addition to the following:
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleconvertistoragetoolestreamex
      * @since windows5.0
@@ -1311,7 +1317,7 @@ class StructuredStorage {
 
     /**
      * The OleConvertOLESTREAMToIStorageEx function converts the specified object from the OLE 1 storage model to an OLE 2 structured storage object including presentation data. This is one of several compatibility functions.
-     * @param {Pointer<TypeHandle>} polestm Pointer to the stream that contains the persistent representation of the object in the OLE 1 storage format.
+     * @param {Pointer<OLESTREAM>} polestm Pointer to the stream that contains the persistent representation of the object in the OLE 1 storage format.
      * @param {Pointer<IStorage>} pstg Pointer to the OLE 2 structured storage object.
      * @param {Pointer<UInt16>} pcfFormat Pointer to where the format of the presentation data is returned. May be <b>NULL</b>, indicating the absence of presentation data.
      * @param {Pointer<Int32>} plwWidth Pointer to where the width value (in HIMETRIC) of the presentation data is returned.
@@ -1366,7 +1372,7 @@ class StructuredStorage {
 
     /**
      * Initializes a PROPVARIANT structure based on a string resource embedded in an executable file.
-     * @param {Pointer<Void>} hinst Type: <b>HINSTANCE</b>
+     * @param {HINSTANCE} hinst Type: <b>HINSTANCE</b>
      * 
      * Handle to an instance of the module whose executable file contains the string resource.
      * @param {Integer} id Type: <b>UINT</b>
@@ -1382,6 +1388,8 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromResource(hinst, id, ppropvar) {
+        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+
         result := DllCall("PROPSYS.dll\InitPropVariantFromResource", "ptr", hinst, "uint", id, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
@@ -1529,7 +1537,7 @@ class StructuredStorage {
 
     /**
      * Initializes a PROPVARIANT structure from a specified Boolean vector.
-     * @param {Pointer<Int32>} prgf Type: <b>const BOOL*</b>
+     * @param {Pointer<BOOL>} prgf Type: <b>const BOOL*</b>
      * 
      * Pointer to the Boolean vector used to initialize the structure. If this parameter is <b>NULL</b>, the elements pointed to by the <b>cabool.pElems</b> structure member are initialized with VARIANT_FALSE.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1545,7 +1553,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromBooleanVector(prgf, cElems, ppropvar) {
-        result := DllCall("PROPSYS.dll\InitPropVariantFromBooleanVector", "int*", prgf, "uint", cElems, "ptr", ppropvar, "int")
+        result := DllCall("PROPSYS.dll\InitPropVariantFromBooleanVector", "ptr", prgf, "uint", cElems, "ptr", ppropvar, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1754,7 +1762,7 @@ class StructuredStorage {
 
     /**
      * Initializes a PROPVARIANT structure from a specified string vector.
-     * @param {Pointer<Char>} prgsz Type: <b>PCWSTR*</b>
+     * @param {Pointer<PWSTR>} prgsz Type: <b>PCWSTR*</b>
      * 
      * Pointer to a buffer that contains the source string vector.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1779,7 +1787,7 @@ class StructuredStorage {
 
     /**
      * Initializes a PROPVARIANT structure from a specified string. The string is parsed as a semi-colon delimited list (for example:\_&quot;A;B;C&quot;).
-     * @param {Pointer<Char>} psz Type: <b>PCWSTR</b>
+     * @param {PWSTR} psz Type: <b>PCWSTR</b>
      * 
      * Pointer to a buffer that contains the source Unicode string.
      * @param {Pointer<PROPVARIANT>} ppropvar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
@@ -1792,7 +1800,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static InitPropVariantFromStringAsVector(psz, ppropvar) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("PROPSYS.dll\InitPropVariantFromStringAsVector", "ptr", psz, "ptr", ppropvar, "int")
         if(result != 0)
@@ -1806,10 +1814,10 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvarIn Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Integer} fDefault Type: <b>BOOL</b>
+     * @param {BOOL} fDefault Type: <b>BOOL</b>
      * 
      * Specifies the default property value, for use where no value currently exists.
-     * @returns {Integer} Type: <b>BOOL</b>
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * The extracted Boolean value or the default value.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-propvarianttobooleanwithdefault
@@ -1958,17 +1966,17 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvarIn Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} pszDefault Type: <b>LPCWSTR</b>
+     * @param {PWSTR} pszDefault Type: <b>LPCWSTR</b>
      * 
      * Pointer to a default Unicode string value, for use where no value currently exists. May be <b>NULL</b>.
-     * @returns {Pointer<Char>} Type: <b>PCWSTR</b>
+     * @returns {PWSTR} Type: <b>PCWSTR</b>
      * 
      * Returns string value or default, or the default.
      * @see https://docs.microsoft.com/windows/win32/api//propvarutil/nf-propvarutil-propvarianttostringwithdefault
      * @since windows5.1.2600
      */
     static PropVariantToStringWithDefault(propvarIn, pszDefault) {
-        pszDefault := pszDefault is String? StrPtr(pszDefault) : pszDefault
+        pszDefault := pszDefault is String ? StrPtr(pszDefault) : pszDefault
 
         result := DllCall("PROPSYS.dll\PropVariantToStringWithDefault", "ptr", propvarIn, "ptr", pszDefault, "char*")
         return result
@@ -1979,7 +1987,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvarIn Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Int32>} pfRet Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} pfRet Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted property value if one exists; otherwise, contains <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1989,7 +1997,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBoolean(propvarIn, pfRet) {
-        result := DllCall("PROPSYS.dll\PropVariantToBoolean", "ptr", propvarIn, "int*", pfRet, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToBoolean", "ptr", propvarIn, "ptr", pfRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2221,7 +2229,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} psz Type: <b>PWSTR</b>
+     * @param {PWSTR} psz Type: <b>PWSTR</b>
      * 
      * Points to a string buffer. When this function returns, the buffer is initialized with a <b>NULL</b> terminated Unicode string value.
      * @param {Integer} cch Type: <b>UINT</b>
@@ -2274,7 +2282,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToString(propvar, psz, cch) {
-        psz := psz is String? StrPtr(psz) : psz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("PROPSYS.dll\PropVariantToString", "ptr", propvar, "ptr", psz, "uint", cch, "int")
         if(result != 0)
@@ -2310,7 +2318,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} ppszOut Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszOut Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains a pointer to the extracted property value if one exists.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2332,7 +2340,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} pbstrOut Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @param {Pointer<BSTR>} pbstrOut Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, contains an empty string.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2395,7 +2403,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Int32>} prgf Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} prgf Type: <b>BOOL*</b>
      * 
      * Points to a buffer that contains <i>crgf</i> <b>BOOL</b> values. When this function returns, the buffer has been initialized with <i>pcElem</i> Boolean elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
      * @param {Integer} crgf Type: <b>ULONG</b>
@@ -2451,7 +2459,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVector(propvar, prgf, crgf, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", "ptr", propvar, "int*", prgf, "uint", crgf, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToBooleanVector", "ptr", propvar, "ptr", prgf, "uint", crgf, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2967,7 +2975,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} prgsz Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} prgsz Type: <b>PWSTR*</b>
      * 
      * Pointer to a vector of string pointers. When this function returns, the buffer has been initialized with <i>pcElem</i> elements pointing to newly allocated strings containing the data extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>.
      * @param {Integer} crgsz Type: <b>ULONG</b>
@@ -3035,7 +3043,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Int32>} pprgf Type: <b>BOOL**</b>
+     * @param {Pointer<BOOL>} pprgf Type: <b>BOOL**</b>
      * 
      * When this function returns, contains a pointer to a vector of Boolean values extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
      * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
@@ -3131,7 +3139,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt16VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, "short*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3185,7 +3193,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt16VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, "ushort*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3239,7 +3247,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt32VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, "int*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3293,7 +3301,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt32VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, "uint*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3347,7 +3355,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt64VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, "int64*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3401,7 +3409,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt64VectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, "uint*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3426,7 +3434,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVectorAlloc(propvar, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, "ptr", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, "double*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3492,7 +3500,7 @@ class StructuredStorage {
      * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
-     * @param {Pointer<Char>} pprgsz Type: <b>PWSTR**</b>
+     * @param {Pointer<PWSTR>} pprgsz Type: <b>PWSTR**</b>
      * 
      * When this function returns, contains a pointer to a vector of strings extracted from source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
      * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
@@ -3549,7 +3557,7 @@ class StructuredStorage {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies the vector or array index; otherwise, <i>iElem</i> must be 0.
-     * @param {Pointer<Int32>} pfVal Type: <b>BOOL*</b>
+     * @param {Pointer<BOOL>} pfVal Type: <b>BOOL*</b>
      * 
      * When this function returns, contains the extracted Boolean value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3559,7 +3567,7 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantGetBooleanElem(propvar, iElem, pfVal) {
-        result := DllCall("PROPSYS.dll\PropVariantGetBooleanElem", "ptr", propvar, "uint", iElem, "int*", pfVal, "int")
+        result := DllCall("PROPSYS.dll\PropVariantGetBooleanElem", "ptr", propvar, "uint", iElem, "ptr", pfVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3774,7 +3782,7 @@ class StructuredStorage {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * The vector or array index; otherwise, <i>iElem</i> must be 0.
-     * @param {Pointer<Char>} ppszVal Type: <b>PWSTR*</b>
+     * @param {Pointer<PWSTR>} ppszVal Type: <b>PWSTR*</b>
      * 
      * When this function returns, contains the extracted string value. The calling application is responsible for freeing this string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>

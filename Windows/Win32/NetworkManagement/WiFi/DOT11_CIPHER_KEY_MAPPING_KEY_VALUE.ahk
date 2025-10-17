@@ -39,7 +39,7 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bDelete {
         get => NumGet(this, 16, "char")
@@ -47,7 +47,7 @@ class DOT11_CIPHER_KEY_MAPPING_KEY_VALUE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bStatic {
         get => NumGet(this, 17, "char")

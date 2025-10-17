@@ -23,7 +23,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET extends Win32Struct
     KeyDesc{
         get {
             if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(this.ptr + 0)
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(0, this)
             return this.__KeyDesc
         }
     }
@@ -35,7 +35,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET extends Win32Struct
     ParamDesc{
         get {
             if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM(this.ptr + 256)
+                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM(256, this)
             return this.__ParamDesc
         }
     }

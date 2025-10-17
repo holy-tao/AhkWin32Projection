@@ -98,7 +98,7 @@ class INKMETRIC extends Win32Struct
 
     /**
      * Ink color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     color {
         get => NumGet(this, 16, "uint")

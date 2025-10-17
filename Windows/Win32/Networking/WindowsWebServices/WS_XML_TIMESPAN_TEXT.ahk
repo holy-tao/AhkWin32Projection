@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\WS_XML_TEXT.ahk
+#Include .\WS_TIMESPAN.ahk
 
 /**
  * Represents a time span formatted as the text &quot;[+|-][d?.]HH:mm:ss[.fffffff]&quot; d is a series of digits representing the day.
@@ -21,17 +22,20 @@ class WS_XML_TIMESPAN_TEXT extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := WS_XML_TEXT(this.ptr + 0)
+                this.__text := WS_XML_TEXT(0, this)
             return this.__text
         }
     }
 
     /**
      * The timespan.
-     * @type {Integer}
+     * @type {WS_TIMESPAN}
      */
-    value {
-        get => NumGet(this, 8, "int64")
-        set => NumPut("int64", value, this, 8)
+    value{
+        get {
+            if(!this.HasProp("__value"))
+                this.__value := WS_TIMESPAN(8, this)
+            return this.__value
+        }
     }
 }

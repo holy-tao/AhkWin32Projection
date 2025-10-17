@@ -52,11 +52,40 @@ class USB_DEVICE_CAPABILITY_PD_CONSUMER_PORT_DESCRIPTOR extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - BatteryCharging
+     * - USBPowerDelivery
+     * - USBTypeCCurrent
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 4, "ushort")
         set => NumPut("ushort", value, this, 4)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    BatteryCharging {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    USBPowerDelivery {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    USBTypeCCurrent {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
 
     /**

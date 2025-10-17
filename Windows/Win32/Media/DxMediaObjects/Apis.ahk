@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Media.DxMediaObjects
  * @version v4.0.30319
@@ -92,7 +92,7 @@ class DxMediaObjects {
 ;@region Methods
     /**
      * The DMORegister function registers a DMO.
-     * @param {Pointer<Char>} szName NULL-terminated string that contains a descriptive name for the DMO. Names longer than 79 characters might be truncated.
+     * @param {PWSTR} szName NULL-terminated string that contains a descriptive name for the DMO. Names longer than 79 characters might be truncated.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
      * @param {Pointer<Guid>} guidCategory GUID that specifies the category of the DMO. See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/dmo-guids">DMO GUIDs</a> for a list of category GUIDs.
      * @param {Integer} dwFlags Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/dmoreg/ne-dmoreg-dmo_register_flags">DMO_REGISTER_FLAGS</a> enumeration.
@@ -144,7 +144,7 @@ class DxMediaObjects {
      * @see https://docs.microsoft.com/windows/win32/api//dmoreg/nf-dmoreg-dmoregister
      */
     static DMORegister(szName, clsidDMO, guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMORegister", "ptr", szName, "ptr", clsidDMO, "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "int")
         if(result != 0)
@@ -310,7 +310,7 @@ class DxMediaObjects {
     /**
      * The DMOGetName function retrieves the name of a DMO from the registry.
      * @param {Pointer<Guid>} clsidDMO Class identifier (CLSID) of the DMO.
-     * @param {Pointer<Char>} szName Array of 80 Unicode characters that receives the name of the DMO. The caller must allocate the array. The name is a NULL-terminated string.
+     * @param {PWSTR} szName Array of 80 Unicode characters that receives the name of the DMO. The caller must allocate the array. The name is a NULL-terminated string.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -355,7 +355,7 @@ class DxMediaObjects {
      * @see https://docs.microsoft.com/windows/win32/api//dmoreg/nf-dmoreg-dmogetname
      */
     static DMOGetName(clsidDMO, szName) {
-        szName := szName is String? StrPtr(szName) : szName
+        szName := szName is String ? StrPtr(szName) : szName
 
         result := DllCall("msdmo.dll\DMOGetName", "ptr", clsidDMO, "ptr", szName, "int")
         if(result != 0)

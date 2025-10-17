@@ -20,7 +20,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRpId {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class WEBAUTHN_GET_CREDENTIALS_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bBrowserInPrivateMode {
         get => NumGet(this, 16, "int")

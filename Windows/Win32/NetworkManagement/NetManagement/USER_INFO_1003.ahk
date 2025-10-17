@@ -21,7 +21,7 @@ class USER_INFO_1003 extends Win32Struct
     /**
      * Specifies a Unicode string that contains the password for the user account specified in the <i>username</i> parameter to the 
      * <b>NetUserSetInfo</b> function. The length cannot exceed PWLEN bytes.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1003_password {
         get => NumGet(this, 0, "ptr")

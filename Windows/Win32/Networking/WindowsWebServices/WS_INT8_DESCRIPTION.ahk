@@ -15,7 +15,7 @@ class WS_INT8_DESCRIPTION extends Win32Struct
 
     /**
      * The minimum value.
-     * @type {Integer}
+     * @type {CHAR}
      */
     minValue {
         get => NumGet(this, 0, "char")
@@ -24,7 +24,7 @@ class WS_INT8_DESCRIPTION extends Win32Struct
 
     /**
      * The maximum value.
-     * @type {Integer}
+     * @type {CHAR}
      */
     maxValue {
         get => NumGet(this, 1, "char")

@@ -37,7 +37,7 @@ class DXVAHD_STREAM_STATE_LUMA_KEY_DATA extends Win32Struct
 
     /**
      * If <b>TRUE</b>, luma keying is enabled. Otherwise, luma keying is disabled. The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

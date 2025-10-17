@@ -39,7 +39,7 @@ class CHARSETINFO extends Win32Struct
     fs{
         get {
             if(!this.HasProp("__fs"))
-                this.__fs := FONTSIGNATURE(this.ptr + 8)
+                this.__fs := FONTSIGNATURE(8, this)
             return this.__fs
         }
     }

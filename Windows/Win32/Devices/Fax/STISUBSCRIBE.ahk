@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -36,19 +38,25 @@ class STISUBSCRIBE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndNotify {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hWndNotify{
+        get {
+            if(!this.HasProp("__hWndNotify"))
+                this.__hWndNotify := HWND(16, this)
+            return this.__hWndNotify
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hEvent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hEvent{
+        get {
+            if(!this.HasProp("__hEvent"))
+                this.__hEvent := HANDLE(24, this)
+            return this.__hEvent
+        }
     }
 
     /**

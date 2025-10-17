@@ -29,7 +29,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the caller is requesting queued presents; otherwise, <b>FALSE</b>. If <b>TRUE</b>, the remaining parameters must be specified. If <b>FALSE</b>, queued presentation is disabled for this window and present behavior returns to the default behavior.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fQueue {
         get => NumGet(this, 4, "int")
@@ -56,7 +56,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
 
     /**
      * <b>TRUE</b> if the application wants DWM to schedule presentation based on source rate. <b>FALSE</b> if the application will decide how many refreshes to display for each frame. If <b>TRUE</b>, <b>rateSource</b> must be specified. If <b>FALSE</b>, <b>cRefreshesPerFrame</b> must be specified.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUseSourceRate {
         get => NumGet(this, 20, "int")
@@ -70,7 +70,7 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
     rateSource{
         get {
             if(!this.HasProp("__rateSource"))
-                this.__rateSource := UNSIGNED_RATIO(this.ptr + 24)
+                this.__rateSource := UNSIGNED_RATIO(24, this)
             return this.__rateSource
         }
     }
@@ -93,12 +93,8 @@ class DWM_PRESENT_PARAMETERS extends Win32Struct
         set => NumPut("int", value, this, 36)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

@@ -71,7 +71,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Reg128{
         get {
             if(!this.HasProp("__Reg128"))
-                this.__Reg128 := %this.__Class%._Reg128(this.ptr + 0)
+                this.__Reg128 := %this.__Class%._Reg128(0, this)
             return this.__Reg128
         }
     }
@@ -113,11 +113,85 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
         }
     
         /**
+         * This bitfield backs the following members:
+         * - SegmentType
+         * - NonSystemSegment
+         * - DescriptorPrivilegeLevel
+         * - Present
+         * - Reserved
+         * - Available
+         * - Long
+         * - Default
+         * - Granularity
          * @type {Integer}
          */
-        Anonymous {
+        _bitfield {
             get => NumGet(this, 14, "ushort")
             set => NumPut("ushort", value, this, 14)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SegmentType {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        NonSystemSegment {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DescriptorPrivilegeLevel {
+            get => (this._bitfield >> 5) & 0x3
+            set => this._bitfield := ((value & 0x3) << 5) | (this._bitfield & ~(0x3 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Present {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Available {
+            get => (this._bitfield >> 12) & 0x1
+            set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Long {
+            get => (this._bitfield >> 13) & 0x1
+            set => this._bitfield := ((value & 0x1) << 13) | (this._bitfield & ~(0x1 << 13))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Default {
+            get => (this._bitfield >> 14) & 0x1
+            set => this._bitfield := ((value & 0x1) << 14) | (this._bitfield & ~(0x1 << 14))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Granularity {
+            get => (this._bitfield >> 15) & 0x1
+            set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))
         }
     
     }
@@ -266,7 +340,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Segment{
         get {
             if(!this.HasProp("__Segment"))
-                this.__Segment := %this.__Class%._Segment(this.ptr + 0)
+                this.__Segment := %this.__Class%._Segment(0, this)
             return this.__Segment
         }
     }
@@ -277,7 +351,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     Table{
         get {
             if(!this.HasProp("__Table"))
-                this.__Table := %this.__Class%._Table(this.ptr + 0)
+                this.__Table := %this.__Class%._Table(0, this)
             return this.__Table
         }
     }
@@ -288,7 +362,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     FpControlStatus{
         get {
             if(!this.HasProp("__FpControlStatus"))
-                this.__FpControlStatus := %this.__Class%._FpControlStatus(this.ptr + 0)
+                this.__FpControlStatus := %this.__Class%._FpControlStatus(0, this)
             return this.__FpControlStatus
         }
     }
@@ -299,7 +373,7 @@ class VIRTUAL_PROCESSOR_REGISTER extends Win32Struct
     XmmControlStatus{
         get {
             if(!this.HasProp("__XmmControlStatus"))
-                this.__XmmControlStatus := %this.__Class%._XmmControlStatus(this.ptr + 0)
+                this.__XmmControlStatus := %this.__Class%._XmmControlStatus(0, this)
             return this.__XmmControlStatus
         }
     }

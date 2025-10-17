@@ -15,7 +15,7 @@ class CALLFRAMEPARAMINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if this is an [in] parameter; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fIn {
         get => NumGet(this, 0, "char")
@@ -24,7 +24,7 @@ class CALLFRAMEPARAMINFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if this is an [out] parameter; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fOut {
         get => NumGet(this, 1, "char")

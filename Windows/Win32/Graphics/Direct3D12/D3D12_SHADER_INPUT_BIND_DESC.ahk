@@ -20,7 +20,7 @@ class D3D12_SHADER_INPUT_BIND_DESC extends Win32Struct
 
     /**
      * Name of the shader resource.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Name {
         get => NumGet(this, 0, "ptr")

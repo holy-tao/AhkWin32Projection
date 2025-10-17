@@ -27,7 +27,7 @@ class FONTDESC extends Win32Struct
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/nf-wtypesbase-olestr">OLESTR</a> that specifies the caller-owned string specifying the font name.
      * 
      * cySize
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrName {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class FONTDESC extends Win32Struct
     cySize{
         get {
             if(!this.HasProp("__cySize"))
-                this.__cySize := CY(this.ptr + 16)
+                this.__cySize := CY(16, this)
             return this.__cySize
         }
     }
@@ -66,7 +66,7 @@ class FONTDESC extends Win32Struct
 
     /**
      * Initial italic state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fItalic {
         get => NumGet(this, 36, "int")
@@ -75,7 +75,7 @@ class FONTDESC extends Win32Struct
 
     /**
      * Initial underline state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUnderline {
         get => NumGet(this, 40, "int")
@@ -84,7 +84,7 @@ class FONTDESC extends Win32Struct
 
     /**
      * Initial strikethrough state of the font.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fStrikethrough {
         get => NumGet(this, 44, "int")

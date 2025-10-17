@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Holds the parameters for the IShellView2::CreateViewWindow2 method.
@@ -83,19 +84,18 @@ class SV2CVW2_PARAMS extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A window handle to the new Shell view.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndView {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hwndView{
+        get {
+            if(!this.HasProp("__hwndView"))
+                this.__hwndView := HWND(48, this)
+            return this.__hwndView
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

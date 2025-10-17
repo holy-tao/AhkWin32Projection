@@ -44,7 +44,7 @@ class GLYPHMETRICS extends Win32Struct
     gmptGlyphOrigin{
         get {
             if(!this.HasProp("__gmptGlyphOrigin"))
-                this.__gmptGlyphOrigin := POINT(this.ptr + 8)
+                this.__gmptGlyphOrigin := POINT(8, this)
             return this.__gmptGlyphOrigin
         }
     }

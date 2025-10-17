@@ -21,7 +21,7 @@ class LDAPModA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     mod_type {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class LDAPModA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     modv_strvals {
         get => NumGet(this, 16, "ptr")

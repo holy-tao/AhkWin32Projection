@@ -25,7 +25,7 @@ class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE extends Win32Struct
     channelProperties{
         get {
             if(!this.HasProp("__channelProperties"))
-                this.__channelProperties := WS_CHANNEL_PROPERTIES(this.ptr + 0)
+                this.__channelProperties := WS_CHANNEL_PROPERTIES(0, this)
             return this.__channelProperties
         }
     }
@@ -37,7 +37,7 @@ class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE extends Win32Struct
     securityProperties{
         get {
             if(!this.HasProp("__securityProperties"))
-                this.__securityProperties := WS_SECURITY_PROPERTIES(this.ptr + 16)
+                this.__securityProperties := WS_SECURITY_PROPERTIES(16, this)
             return this.__securityProperties
         }
     }
@@ -50,7 +50,7 @@ class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE extends Win32Struct
     sslTransportSecurityBinding{
         get {
             if(!this.HasProp("__sslTransportSecurityBinding"))
-                this.__sslTransportSecurityBinding := WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE(this.ptr + 32)
+                this.__sslTransportSecurityBinding := WS_SSL_TRANSPORT_SECURITY_BINDING_TEMPLATE(32, this)
             return this.__sslTransportSecurityBinding
         }
     }
@@ -63,7 +63,7 @@ class WS_HTTP_SSL_HEADER_AUTH_BINDING_TEMPLATE extends Win32Struct
     httpHeaderAuthSecurityBinding{
         get {
             if(!this.HasProp("__httpHeaderAuthSecurityBinding"))
-                this.__httpHeaderAuthSecurityBinding := WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE(this.ptr + 56)
+                this.__httpHeaderAuthSecurityBinding := WS_HTTP_HEADER_AUTH_SECURITY_BINDING_TEMPLATE(56, this)
             return this.__httpHeaderAuthSecurityBinding
         }
     }

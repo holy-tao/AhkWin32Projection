@@ -33,7 +33,7 @@ class DHCPAPI_PARAMS extends Win32Struct
 
     /**
      * Specifies whether the DHCP parameter is vendor-specific. Set to <b>TRUE</b> if the parameter is vendor-specific.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsVendor {
         get => NumGet(this, 8, "int")

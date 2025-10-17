@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -13,19 +14,25 @@ class DROPSTRUCT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndSource {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndSource{
+        get {
+            if(!this.HasProp("__hwndSource"))
+                this.__hwndSource := HWND(0, this)
+            return this.__hwndSource
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndSink {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndSink{
+        get {
+            if(!this.HasProp("__hwndSink"))
+                this.__hwndSink := HWND(8, this)
+            return this.__hwndSink
+        }
     }
 
     /**
@@ -50,7 +57,7 @@ class DROPSTRUCT extends Win32Struct
     ptDrop{
         get {
             if(!this.HasProp("__ptDrop"))
-                this.__ptDrop := POINT(this.ptr + 32)
+                this.__ptDrop := POINT(32, this)
             return this.__ptDrop
         }
     }

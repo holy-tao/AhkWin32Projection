@@ -38,7 +38,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     InputSample{
         get {
             if(!this.HasProp("__InputSample"))
-                this.__InputSample := D3D12_VIDEO_SAMPLE(this.ptr + 8)
+                this.__InputSample := D3D12_VIDEO_SAMPLE(8, this)
             return this.__InputSample
         }
     }
@@ -68,7 +68,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXGI_RATIONAL(this.ptr + 32)
+                this.__InputFrameRate := DXGI_RATIONAL(32, this)
             return this.__InputFrameRate
         }
     }
@@ -80,7 +80,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     OutputFormat{
         get {
             if(!this.HasProp("__OutputFormat"))
-                this.__OutputFormat := D3D12_VIDEO_FORMAT(this.ptr + 40)
+                this.__OutputFormat := D3D12_VIDEO_FORMAT(40, this)
             return this.__OutputFormat
         }
     }
@@ -101,7 +101,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXGI_RATIONAL(this.ptr + 56)
+                this.__OutputFrameRate := DXGI_RATIONAL(56, this)
             return this.__OutputFrameRate
         }
     }
@@ -122,7 +122,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     ScaleSupport{
         get {
             if(!this.HasProp("__ScaleSupport"))
-                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(this.ptr + 72)
+                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(72, this)
             return this.__ScaleSupport
         }
     }

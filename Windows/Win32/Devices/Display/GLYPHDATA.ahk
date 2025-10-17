@@ -30,7 +30,7 @@ class GLYPHDATA extends Win32Struct
     gdf{
         get {
             if(!this.HasProp("__gdf"))
-                this.__gdf := GLYPHDEF(this.ptr + 0)
+                this.__gdf := GLYPHDEF(0, this)
             return this.__gdf
         }
     }
@@ -96,7 +96,7 @@ class GLYPHDATA extends Win32Struct
     rclInk{
         get {
             if(!this.HasProp("__rclInk"))
-                this.__rclInk := RECTL(this.ptr + 40)
+                this.__rclInk := RECTL(40, this)
             return this.__rclInk
         }
     }
@@ -108,7 +108,7 @@ class GLYPHDATA extends Win32Struct
     ptqD{
         get {
             if(!this.HasProp("__ptqD"))
-                this.__ptqD := POINTQF(this.ptr + 56)
+                this.__ptqD := POINTQF(56, this)
             return this.__ptqD
         }
     }

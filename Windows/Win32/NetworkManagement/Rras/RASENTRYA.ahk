@@ -76,7 +76,7 @@ class RASENTRYA extends Win32Struct
     ipaddr{
         get {
             if(!this.HasProp("__ipaddr"))
-                this.__ipaddr := RASIPADDR(this.ptr + 160)
+                this.__ipaddr := RASIPADDR(160, this)
             return this.__ipaddr
         }
     }
@@ -87,7 +87,7 @@ class RASENTRYA extends Win32Struct
     ipaddrDns{
         get {
             if(!this.HasProp("__ipaddrDns"))
-                this.__ipaddrDns := RASIPADDR(this.ptr + 164)
+                this.__ipaddrDns := RASIPADDR(164, this)
             return this.__ipaddrDns
         }
     }
@@ -98,7 +98,7 @@ class RASENTRYA extends Win32Struct
     ipaddrDnsAlt{
         get {
             if(!this.HasProp("__ipaddrDnsAlt"))
-                this.__ipaddrDnsAlt := RASIPADDR(this.ptr + 168)
+                this.__ipaddrDnsAlt := RASIPADDR(168, this)
             return this.__ipaddrDnsAlt
         }
     }
@@ -109,7 +109,7 @@ class RASENTRYA extends Win32Struct
     ipaddrWins{
         get {
             if(!this.HasProp("__ipaddrWins"))
-                this.__ipaddrWins := RASIPADDR(this.ptr + 172)
+                this.__ipaddrWins := RASIPADDR(172, this)
             return this.__ipaddrWins
         }
     }
@@ -120,7 +120,7 @@ class RASENTRYA extends Win32Struct
     ipaddrWinsAlt{
         get {
             if(!this.HasProp("__ipaddrWinsAlt"))
-                this.__ipaddrWinsAlt := RASIPADDR(this.ptr + 176)
+                this.__ipaddrWinsAlt := RASIPADDR(176, this)
             return this.__ipaddrWinsAlt
         }
     }
@@ -419,7 +419,7 @@ class RASENTRYA extends Win32Struct
     ipv6addrDns{
         get {
             if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(this.ptr + 2880)
+                this.__ipv6addrDns := IN6_ADDR(2880, this)
             return this.__ipv6addrDns
         }
     }
@@ -430,7 +430,7 @@ class RASENTRYA extends Win32Struct
     ipv6addrDnsAlt{
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(this.ptr + 2896)
+                this.__ipv6addrDnsAlt := IN6_ADDR(2896, this)
             return this.__ipv6addrDnsAlt
         }
     }
@@ -457,7 +457,7 @@ class RASENTRYA extends Win32Struct
     ipv6addr{
         get {
             if(!this.HasProp("__ipv6addr"))
-                this.__ipv6addr := IN6_ADDR(this.ptr + 2920)
+                this.__ipv6addr := IN6_ADDR(2920, this)
             return this.__ipv6addr
         }
     }
@@ -495,7 +495,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsImsConfig {
         get => NumGet(this, 3460, "int")
@@ -519,7 +519,7 @@ class RASENTRYA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDisableIKEv2Fragmentation {
         get => NumGet(this, 3472, "int")

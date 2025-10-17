@@ -33,7 +33,7 @@ class SOLE_AUTHENTICATION_SERVICE extends Win32Struct
 
     /**
      * The principal name to be used with the authentication service. If the principal name is <b>NULL</b>, the current user identifier is assumed. A <b>NULL</b> principal name is allowed for NTLMSSP, Kerberos, and Snego authentication services but may not work for other authentication services. For Schannel, this member must point to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the server's certificate; if it <b>NULL</b> and if a certificate for the current user does not exist, RPC_E_NO_GOOD_SECURITY_PACKAGES is returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrincipalName {
         get => NumGet(this, 8, "ptr")

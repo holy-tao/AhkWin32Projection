@@ -27,7 +27,7 @@ class CORE_PRINTER_DRIVERA extends Win32Struct
     ftDriverDate{
         get {
             if(!this.HasProp("__ftDriverDate"))
-                this.__ftDriverDate := FILETIME(this.ptr + 8)
+                this.__ftDriverDate := FILETIME(8, this)
             return this.__ftDriverDate
         }
     }

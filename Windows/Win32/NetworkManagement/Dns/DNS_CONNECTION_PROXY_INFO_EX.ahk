@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\DNS_CONNECTION_PROXY_INFO.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Dns
@@ -18,7 +19,7 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     ProxyInfo{
         get {
             if(!this.HasProp("__ProxyInfo"))
-                this.__ProxyInfo := DNS_CONNECTION_PROXY_INFO(this.ptr + 0)
+                this.__ProxyInfo := DNS_CONNECTION_PROXY_INFO(0, this)
             return this.__ProxyInfo
         }
     }
@@ -32,7 +33,7 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszConnectionName {
         get => NumGet(this, 80, "ptr")
@@ -40,7 +41,7 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDirectConfiguration {
         get => NumGet(this, 88, "int")
@@ -48,10 +49,13 @@ class DNS_CONNECTION_PROXY_INFO_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hConnection {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+    hConnection{
+        get {
+            if(!this.HasProp("__hConnection"))
+                this.__hConnection := HANDLE(96, this)
+            return this.__hConnection
+        }
     }
 }

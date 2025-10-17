@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * TBD.
@@ -33,16 +34,19 @@ class MONITOR_STATE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ActiveResource {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    ActiveResource{
+        get {
+            if(!this.HasProp("__ActiveResource"))
+                this.__ActiveResource := HANDLE(16, this)
+            return this.__ActiveResource
+        }
     }
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     ResmonStop {
         get => NumGet(this, 24, "int")

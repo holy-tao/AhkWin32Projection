@@ -30,7 +30,7 @@ class DOCINFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of the document.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszDocName {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class DOCINFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the name of an output file. If this pointer is <b>NULL</b>, the output will be sent to the device identified by the device context handle that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startdoca">StartDoc</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszOutput {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +48,7 @@ class DOCINFOW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that specifies the type of data used to record the print job. The legal values for this member can be found by calling <a href="https://docs.microsoft.com/windows/desktop/printdocs/enumprintprocessordatatypes">EnumPrintProcessorDatatypes</a> and can include such values as raw, emf, or XPS_PASS. This member can be <b>NULL</b>. Note that the requested data type might be ignored.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszDatatype {
         get => NumGet(this, 24, "ptr")
@@ -64,12 +64,8 @@ class DOCINFOW extends Win32Struct
         set => NumPut("uint", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

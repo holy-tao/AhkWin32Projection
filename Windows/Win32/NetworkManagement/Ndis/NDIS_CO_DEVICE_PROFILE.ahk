@@ -18,7 +18,7 @@ class NDIS_CO_DEVICE_PROFILE extends Win32Struct
     DeviceDescription{
         get {
             if(!this.HasProp("__DeviceDescription"))
-                this.__DeviceDescription := NDIS_VAR_DATA_DESC(this.ptr + 0)
+                this.__DeviceDescription := NDIS_VAR_DATA_DESC(0, this)
             return this.__DeviceDescription
         }
     }
@@ -29,7 +29,7 @@ class NDIS_CO_DEVICE_PROFILE extends Win32Struct
     DevSpecificInfo{
         get {
             if(!this.HasProp("__DevSpecificInfo"))
-                this.__DevSpecificInfo := NDIS_VAR_DATA_DESC(this.ptr + 16)
+                this.__DevSpecificInfo := NDIS_VAR_DATA_DESC(16, this)
             return this.__DevSpecificInfo
         }
     }

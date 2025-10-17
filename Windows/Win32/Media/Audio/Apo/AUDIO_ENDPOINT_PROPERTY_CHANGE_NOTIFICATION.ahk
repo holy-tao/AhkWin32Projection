@@ -34,7 +34,7 @@ class AUDIO_ENDPOINT_PROPERTY_CHANGE_NOTIFICATION extends Win32Struct
     propertyKey{
         get {
             if(!this.HasProp("__propertyKey"))
-                this.__propertyKey := PROPERTYKEY(this.ptr + 16)
+                this.__propertyKey := PROPERTYKEY(16, this)
             return this.__propertyKey
         }
     }

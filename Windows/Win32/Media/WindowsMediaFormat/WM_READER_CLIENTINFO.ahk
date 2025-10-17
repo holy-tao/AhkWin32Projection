@@ -31,7 +31,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Two-letter or three-letter language code.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszLang {
         get => NumGet(this, 8, "ptr")
@@ -40,7 +40,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * The browser's user-agent string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszBrowserUserAgent {
         get => NumGet(this, 16, "ptr")
@@ -49,7 +49,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Web page that contains the <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">plug-in</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszBrowserWebPage {
         get => NumGet(this, 24, "ptr")
@@ -67,7 +67,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Unused. See Remarks.
-     * @type {Pointer<IntPtr>}
+     * @type {Pointer<LPARAM>}
      */
     pReserved {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * Host application's .exe file; for example, Iexplore.exe.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszHostExe {
         get => NumGet(this, 48, "ptr")
@@ -94,19 +94,15 @@ class WM_READER_CLIENTINFO extends Win32Struct
 
     /**
      * String identifying the player application. For example, "WMPlayer/9.0.0.0" identifies version 9 of the Windows Media Player.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszPlayerUserAgent {
         get => NumGet(this, 64, "ptr")
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

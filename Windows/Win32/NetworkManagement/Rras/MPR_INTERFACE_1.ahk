@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The MPR_INTERFACE_1 structure contains configuration and status information for a particular router interface.
@@ -24,16 +25,19 @@ class MPR_INTERFACE_1 extends Win32Struct
 
     /**
      * Handle to the interface.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hInterface {
-        get => NumGet(this, 520, "ptr")
-        set => NumPut("ptr", value, this, 520)
+    hInterface{
+        get {
+            if(!this.HasProp("__hInterface"))
+                this.__hInterface := HANDLE(520, this)
+            return this.__hInterface
+        }
     }
 
     /**
      * Specifies whether the interface is enabled. This value is <b>TRUE</b> if the interface is enabled, <b>FALSE</b> if the interface is administratively disabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEnabled {
         get => NumGet(this, 528, "int")
@@ -185,7 +189,7 @@ class MPR_INTERFACE_1 extends Win32Struct
      * <pre class="syntax" xml:space="preserve"><code>2 09:00-12:00 13:00-17:30&lt;NULL&gt;4 09:00-12:00 13:00-17:30&lt;NULL&gt;&lt;NULL&gt;
      * </code></pre>
      * The preceding string restricts dial-out to Tuesdays and Thursdays from 9:00 AM to 12:00 PM and from 1:00 PM to 5:30 PM.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpwsDialoutHoursRestriction {
         get => NumGet(this, 552, "ptr")

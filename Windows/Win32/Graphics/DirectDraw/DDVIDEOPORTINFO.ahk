@@ -62,7 +62,7 @@ class DDVIDEOPORTINFO extends Win32Struct
     rCrop{
         get {
             if(!this.HasProp("__rCrop"))
-                this.__rCrop := RECT(this.ptr + 16)
+                this.__rCrop := RECT(16, this)
             return this.__rCrop
         }
     }

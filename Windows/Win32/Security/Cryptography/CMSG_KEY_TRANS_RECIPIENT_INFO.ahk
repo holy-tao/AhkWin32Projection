@@ -33,7 +33,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
     RecipientId{
         get {
             if(!this.HasProp("__RecipientId"))
-                this.__RecipientId := CERT_ID(this.ptr + 8)
+                this.__RecipientId := CERT_ID(8, this)
             return this.__RecipientId
         }
     }
@@ -46,7 +46,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
     KeyEncryptionAlgorithm{
         get {
             if(!this.HasProp("__KeyEncryptionAlgorithm"))
-                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 48)
+                this.__KeyEncryptionAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(48, this)
             return this.__KeyEncryptionAlgorithm
         }
     }
@@ -58,7 +58,7 @@ class CMSG_KEY_TRANS_RECIPIENT_INFO extends Win32Struct
     EncryptedKey{
         get {
             if(!this.HasProp("__EncryptedKey"))
-                this.__EncryptedKey := CRYPT_INTEGER_BLOB(this.ptr + 72)
+                this.__EncryptedKey := CRYPT_INTEGER_BLOB(72, this)
             return this.__EncryptedKey
         }
     }

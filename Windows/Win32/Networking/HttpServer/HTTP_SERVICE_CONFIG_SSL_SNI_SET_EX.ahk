@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\HTTP_SERVICE_CONFIG_SSL_SNI_KEY.ahk
+#Include .\HTTP2_WINDOW_SIZE_PARAM.ahk
 #Include .\HTTP2_SETTINGS_LIMITS_PARAM.ahk
 #Include .\HTTP_PERFORMANCE_PARAM.ahk
 #Include .\HTTP_TLS_RESTRICTIONS_PARAM.ahk
@@ -26,7 +27,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX extends Win32Struct
     KeyDesc{
         get {
             if(!this.HasProp("__KeyDesc"))
-                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(this.ptr + 0)
+                this.__KeyDesc := HTTP_SERVICE_CONFIG_SSL_SNI_KEY(0, this)
             return this.__KeyDesc
         }
     }
@@ -37,7 +38,7 @@ class HTTP_SERVICE_CONFIG_SSL_SNI_SET_EX extends Win32Struct
     ParamDesc{
         get {
             if(!this.HasProp("__ParamDesc"))
-                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM_EX(this.ptr + 256)
+                this.__ParamDesc := HTTP_SERVICE_CONFIG_SSL_PARAM_EX(256, this)
             return this.__ParamDesc
         }
     }

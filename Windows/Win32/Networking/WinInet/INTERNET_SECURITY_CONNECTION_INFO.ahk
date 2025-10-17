@@ -22,7 +22,7 @@ class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSecure {
         get => NumGet(this, 4, "int")
@@ -35,7 +35,7 @@ class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
     connectionInfo{
         get {
             if(!this.HasProp("__connectionInfo"))
-                this.__connectionInfo := SecPkgContext_ConnectionInfo(this.ptr + 8)
+                this.__connectionInfo := SecPkgContext_ConnectionInfo(8, this)
             return this.__connectionInfo
         }
     }
@@ -46,7 +46,7 @@ class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
     cipherInfo{
         get {
             if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(this.ptr + 40)
+                this.__cipherInfo := SecPkgContext_CipherInfo(40, this)
             return this.__cipherInfo
         }
     }

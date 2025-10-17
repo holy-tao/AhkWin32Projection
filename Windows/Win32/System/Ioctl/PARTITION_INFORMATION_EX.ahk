@@ -59,7 +59,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, the partition is rewritable. The value of this parameter should be set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RewritePartition {
         get => NumGet(this, 28, "char")
@@ -68,7 +68,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsServicePartition {
         get => NumGet(this, 29, "char")
@@ -81,7 +81,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
     Mbr{
         get {
             if(!this.HasProp("__Mbr"))
-                this.__Mbr := PARTITION_INFORMATION_MBR(this.ptr + 32)
+                this.__Mbr := PARTITION_INFORMATION_MBR(32, this)
             return this.__Mbr
         }
     }
@@ -92,7 +92,7 @@ class PARTITION_INFORMATION_EX extends Win32Struct
     Gpt{
         get {
             if(!this.HasProp("__Gpt"))
-                this.__Gpt := PARTITION_INFORMATION_GPT(this.ptr + 32)
+                this.__Gpt := PARTITION_INFORMATION_GPT(32, this)
             return this.__Gpt
         }
     }

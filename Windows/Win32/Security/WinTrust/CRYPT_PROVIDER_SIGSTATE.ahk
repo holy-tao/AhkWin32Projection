@@ -42,7 +42,7 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Specifies whether the first attempt to verify a signature has been made.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fFirstAttemptMade {
         get => NumGet(this, 24, "int")
@@ -51,7 +51,7 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Specifies whether there exist further signatures that await verification.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNoMoreSigs {
         get => NumGet(this, 28, "int")
@@ -78,7 +78,7 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Specifies whether the policy provider supports multiple signatures.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSupportMultiSig {
         get => NumGet(this, 40, "int")
@@ -105,7 +105,7 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCheckedSealing {
         get => NumGet(this, 52, "int")

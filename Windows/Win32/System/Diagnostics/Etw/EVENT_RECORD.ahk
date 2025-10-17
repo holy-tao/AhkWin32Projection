@@ -28,7 +28,7 @@ class EVENT_RECORD extends Win32Struct
     EventHeader{
         get {
             if(!this.HasProp("__EventHeader"))
-                this.__EventHeader := EVENT_HEADER(this.ptr + 0)
+                this.__EventHeader := EVENT_HEADER(0, this)
             return this.__EventHeader
         }
     }
@@ -40,7 +40,7 @@ class EVENT_RECORD extends Win32Struct
     BufferContext{
         get {
             if(!this.HasProp("__BufferContext"))
-                this.__BufferContext := ETW_BUFFER_CONTEXT(this.ptr + 64)
+                this.__BufferContext := ETW_BUFFER_CONTEXT(64, this)
             return this.__BufferContext
         }
     }

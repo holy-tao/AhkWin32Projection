@@ -30,7 +30,7 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     Rgb256x3x16{
         get {
             if(!this.HasProp("__Rgb256x3x16"))
-                this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(this.ptr + 8)
+                this.__Rgb256x3x16 := GAMMA_RAMP_RGB256x3x16(8, this)
             return this.__Rgb256x3x16
         }
     }
@@ -41,7 +41,7 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     Dxgi1{
         get {
             if(!this.HasProp("__Dxgi1"))
-                this.__Dxgi1 := GAMMA_RAMP_DXGI_1(this.ptr + 8)
+                this.__Dxgi1 := GAMMA_RAMP_DXGI_1(8, this)
             return this.__Dxgi1
         }
     }
@@ -52,7 +52,7 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     T3x4{
         get {
             if(!this.HasProp("__T3x4"))
-                this.__T3x4 := COLORSPACE_TRANSFORM_3x4(this.ptr + 8)
+                this.__T3x4 := COLORSPACE_TRANSFORM_3x4(8, this)
             return this.__T3x4
         }
     }
@@ -63,7 +63,7 @@ class COLORSPACE_TRANSFORM extends Win32Struct
     MatrixV2{
         get {
             if(!this.HasProp("__MatrixV2"))
-                this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(this.ptr + 8)
+                this.__MatrixV2 := COLORSPACE_TRANSFORM_MATRIX_V2(8, this)
             return this.__MatrixV2
         }
     }

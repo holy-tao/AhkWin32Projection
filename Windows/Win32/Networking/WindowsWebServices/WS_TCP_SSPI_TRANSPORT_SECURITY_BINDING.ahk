@@ -21,7 +21,7 @@ class WS_TCP_SSPI_TRANSPORT_SECURITY_BINDING extends Win32Struct
     binding{
         get {
             if(!this.HasProp("__binding"))
-                this.__binding := WS_SECURITY_BINDING(this.ptr + 0)
+                this.__binding := WS_SECURITY_BINDING(0, this)
             return this.__binding
         }
     }

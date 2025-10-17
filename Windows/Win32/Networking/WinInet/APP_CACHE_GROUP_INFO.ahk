@@ -13,7 +13,7 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszManifestUrl {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class APP_CACHE_GROUP_INFO extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(this.ptr + 8)
+                this.__ftLastAccessTime := FILETIME(8, this)
             return this.__ftLastAccessTime
         }
     }

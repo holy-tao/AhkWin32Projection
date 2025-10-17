@@ -24,7 +24,7 @@ class TAPE_ERASE extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, return as soon as the erase operation begins. Otherwise, return when the operation has been completed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Immediate {
         get => NumGet(this, 4, "char")

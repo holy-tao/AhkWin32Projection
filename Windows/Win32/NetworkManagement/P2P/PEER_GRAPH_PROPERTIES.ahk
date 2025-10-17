@@ -96,7 +96,7 @@ class PEER_GRAPH_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the unique identifier for a peer graph.  This ID must be unique for the computer/user pair. This member is required  and has no default value. If the string value is greater than 256 characters (including the null terminator), an error is returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzGraphId {
         get => NumGet(this, 16, "ptr")
@@ -105,7 +105,7 @@ class PEER_GRAPH_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the unique identifier for the creator of a peer graph. This member is required  and has no default value. If the string value is greater than 256 characters (including the null terminator), an error is returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzCreatorId {
         get => NumGet(this, 24, "ptr")
@@ -114,7 +114,7 @@ class PEER_GRAPH_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the friendly name of a peer graph. This member is optional and can be <b>NULL</b>. The default value is <b>NULL</b>. The maximum length of this string is 256 characters, including the null terminator.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzFriendlyName {
         get => NumGet(this, 32, "ptr")
@@ -123,7 +123,7 @@ class PEER_GRAPH_PROPERTIES extends Win32Struct
 
     /**
      * Specifies the comment used to describe a peer  graph. This member is optional and can be <b>NULL</b>. The default value is <b>NULL</b>. The maximum length of this string is 512 characters, including the null terminator.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzComment {
         get => NumGet(this, 40, "ptr")

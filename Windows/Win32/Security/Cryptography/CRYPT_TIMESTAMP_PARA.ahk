@@ -17,7 +17,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
     /**
      * Optional. A pointer to a null-terminated character string that contains the Time Stamping Authority (TSA) policy under which the time stamp token
      * should be provided.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszTSAPolicyId {
         get => NumGet(this, 0, "ptr")
@@ -27,7 +27,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
     /**
      * A Boolean value that specifies whether the TSA must include the certificates
      * used to sign the time stamp token in the response .
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRequestCerts {
         get => NumGet(this, 8, "int")
@@ -42,7 +42,7 @@ class CRYPT_TIMESTAMP_PARA extends Win32Struct
     Nonce{
         get {
             if(!this.HasProp("__Nonce"))
-                this.__Nonce := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Nonce := CRYPT_INTEGER_BLOB(16, this)
             return this.__Nonce
         }
     }

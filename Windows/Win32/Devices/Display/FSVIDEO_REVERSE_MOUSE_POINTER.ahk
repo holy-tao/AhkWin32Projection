@@ -19,7 +19,7 @@ class FSVIDEO_REVERSE_MOUSE_POINTER extends Win32Struct
     Screen{
         get {
             if(!this.HasProp("__Screen"))
-                this.__Screen := FSCNTL_SCREEN_INFO(this.ptr + 0)
+                this.__Screen := FSCNTL_SCREEN_INFO(0, this)
             return this.__Screen
         }
     }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT.ahk
 
 /**
@@ -19,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_CONFIGUREUNCOMPRESSEDENCRYPTION extends Win32Struc
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(this.ptr + 0)
+                this.__Parameters := D3DAUTHENTICATEDCHANNEL_CONFIGURE_INPUT(0, this)
             return this.__Parameters
         }
     }

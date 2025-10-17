@@ -21,7 +21,7 @@ class DHCP_IP_RESERVATION_V6 extends Win32Struct
     ReservedIpAddress{
         get {
             if(!this.HasProp("__ReservedIpAddress"))
-                this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__ReservedIpAddress
         }
     }

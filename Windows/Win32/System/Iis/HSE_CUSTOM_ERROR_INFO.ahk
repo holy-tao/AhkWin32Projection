@@ -12,7 +12,7 @@ class HSE_CUSTOM_ERROR_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszStatus {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HSE_CUSTOM_ERROR_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAsync {
         get => NumGet(this, 12, "int")

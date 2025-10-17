@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -18,7 +19,7 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
 
     /**
      * Name of the property.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPropName {
         get => NumGet(this, 0, "ptr")
@@ -32,7 +33,7 @@ class MMC_SNAPIN_PROPERTY extends Win32Struct
     varValue{
         get {
             if(!this.HasProp("__varValue"))
-                this.__varValue := VARIANT(this.ptr + 8)
+                this.__varValue := VARIANT(8, this)
             return this.__varValue
         }
     }

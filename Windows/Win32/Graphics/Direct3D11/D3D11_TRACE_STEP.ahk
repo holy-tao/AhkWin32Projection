@@ -31,7 +31,7 @@ class D3D11_TRACE_STEP extends Win32Struct
 
     /**
      * A value that specifies whether the instruction is active. This value is TRUE if something happened; therefore, you should parse other data in this structure. Otherwise, nothing happened; for example, if an instruction is disabled due to flow control even though other pixels in the stamp execute it.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InstructionActive {
         get => NumGet(this, 4, "int")

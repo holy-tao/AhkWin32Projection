@@ -34,7 +34,7 @@ class DWM_TIMING_INFO extends Win32Struct
     rateRefresh{
         get {
             if(!this.HasProp("__rateRefresh"))
-                this.__rateRefresh := UNSIGNED_RATIO(this.ptr + 8)
+                this.__rateRefresh := UNSIGNED_RATIO(8, this)
             return this.__rateRefresh
         }
     }
@@ -55,7 +55,7 @@ class DWM_TIMING_INFO extends Win32Struct
     rateCompose{
         get {
             if(!this.HasProp("__rateCompose"))
-                this.__rateCompose := UNSIGNED_RATIO(this.ptr + 24)
+                this.__rateCompose := UNSIGNED_RATIO(24, this)
             return this.__rateCompose
         }
     }
@@ -384,12 +384,8 @@ class DWM_TIMING_INFO extends Win32Struct
         set => NumPut("uint", value, this, 312)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 320
     }
 }

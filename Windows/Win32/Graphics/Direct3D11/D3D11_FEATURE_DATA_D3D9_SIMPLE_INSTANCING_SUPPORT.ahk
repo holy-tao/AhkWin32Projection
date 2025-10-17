@@ -23,7 +23,7 @@ class D3D11_FEATURE_DATA_D3D9_SIMPLE_INSTANCING_SUPPORT extends Win32Struct
 
     /**
      * Specifies whether the hardware and driver support simple instancing. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support simple instancing.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SimpleInstancingSupported {
         get => NumGet(this, 0, "int")

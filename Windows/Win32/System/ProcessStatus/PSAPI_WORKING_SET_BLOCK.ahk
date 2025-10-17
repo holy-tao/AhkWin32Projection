@@ -23,10 +23,48 @@ class PSAPI_WORKING_SET_BLOCK extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Protection
+     * - ShareCount
+     * - Shared
+     * - Reserved
+     * - VirtualPage
      * @type {Pointer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "ptr")
         set => NumPut("ptr", value, this, 0)
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    Protection {
+        get => (this._bitfield >> 0) & 0x1F
+        set => this._bitfield := ((value & 0x1F) << 0) | (this._bitfield & ~(0x1F << 0))
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    ShareCount {
+        get => (this._bitfield >> 5) & 0x7
+        set => this._bitfield := ((value & 0x7) << 5) | (this._bitfield & ~(0x7 << 5))
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    Shared {
+        get => (this._bitfield >> 8) & 0x1
+        set => this._bitfield := ((value & 0x1) << 8) | (this._bitfield & ~(0x1 << 8))
+    }
+
+    /**
+     * @type {Pointer}
+     */
+    VirtualPage {
+        get => (this._bitfield >> 12) & 0xFFFFF
+        set => this._bitfield := ((value & 0xFFFFF) << 12) | (this._bitfield & ~(0xFFFFF << 12))
     }
 }

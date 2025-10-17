@@ -43,7 +43,7 @@ class AsnOctetString extends Win32Struct
     /**
      * Flag that specifies whether the data stream has been dynamically allocated with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function.
-     * @type {Integer}
+     * @type {BOOL}
      */
     dynamic {
         get => NumGet(this, 12, "int")

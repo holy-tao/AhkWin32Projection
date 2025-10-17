@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Facilitates and manages the visibility, authentication, and selection of Bluetooth devices and services.
@@ -50,7 +51,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Sets the information text when not <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszInfo {
         get => NumGet(this, 16, "ptr")
@@ -59,16 +60,19 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * Handle to the parent window. Set to <b>NULL</b> for no parent.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(24, this)
+            return this.__hwndParent
+        }
     }
 
     /**
      * If <b>TRUE</b>, forces authentication before returning.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fForceAuthentication {
         get => NumGet(this, 32, "int")
@@ -77,7 +81,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, authenticated devices are shown in the picker.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fShowAuthenticated {
         get => NumGet(this, 36, "int")
@@ -86,7 +90,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, remembered devices are shown in the picker.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fShowRemembered {
         get => NumGet(this, 40, "int")
@@ -95,7 +99,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, unknown devices that are not authenticated or remembered are shown in the picker.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fShowUnknown {
         get => NumGet(this, 44, "int")
@@ -104,7 +108,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, starts the Add New Device wizard.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAddNewDeviceWizard {
         get => NumGet(this, 48, "int")
@@ -113,7 +117,7 @@ class BLUETOOTH_SELECT_DEVICE_PARAMS extends Win32Struct
 
     /**
      * If <b>TRUE</b>, skips the Services page in the Add New Device wizard.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSkipServicesPage {
         get => NumGet(this, 52, "int")

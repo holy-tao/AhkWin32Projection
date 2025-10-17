@@ -18,7 +18,7 @@ class FSCNTL_SCREEN_INFO extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := COORD(this.ptr + 0)
+                this.__Position := COORD(0, this)
             return this.__Position
         }
     }
@@ -29,7 +29,7 @@ class FSCNTL_SCREEN_INFO extends Win32Struct
     ScreenSize{
         get {
             if(!this.HasProp("__ScreenSize"))
-                this.__ScreenSize := COORD(this.ptr + 4)
+                this.__ScreenSize := COORD(4, this)
             return this.__ScreenSize
         }
     }

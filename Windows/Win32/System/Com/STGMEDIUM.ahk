@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
+#Include ..\..\Foundation\HGLOBAL.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -20,11 +23,14 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hBitmap {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hBitmap{
+        get {
+            if(!this.HasProp("__hBitmap"))
+                this.__hBitmap := HBITMAP(8, this)
+            return this.__hBitmap
+        }
     }
 
     /**
@@ -36,23 +42,29 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HENHMETAFILE}
      */
-    hEnhMetaFile {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hEnhMetaFile{
+        get {
+            if(!this.HasProp("__hEnhMetaFile"))
+                this.__hEnhMetaFile := HENHMETAFILE(8, this)
+            return this.__hEnhMetaFile
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HGLOBAL}
      */
-    hGlobal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hGlobal{
+        get {
+            if(!this.HasProp("__hGlobal"))
+                this.__hGlobal := HGLOBAL(8, this)
+            return this.__hGlobal
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszFileName {
         get => NumGet(this, 8, "ptr")

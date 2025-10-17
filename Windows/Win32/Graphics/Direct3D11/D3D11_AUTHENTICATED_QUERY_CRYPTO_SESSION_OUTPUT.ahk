@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D11_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3D11_AUTHENTICATED_QUERY_OUTPUT.ahk
 
 /**
@@ -22,35 +23,44 @@ class D3D11_AUTHENTICATED_QUERY_CRYPTO_SESSION_OUTPUT extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3D11_AUTHENTICATED_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
 
     /**
      * A handle to a decoder device.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    DecoderHandle {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    DecoderHandle{
+        get {
+            if(!this.HasProp("__DecoderHandle"))
+                this.__DecoderHandle := HANDLE(40, this)
+            return this.__DecoderHandle
+        }
     }
 
     /**
      * A handle to the cryptographic session that is associated with the decoder device.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    CryptoSessionHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    CryptoSessionHandle{
+        get {
+            if(!this.HasProp("__CryptoSessionHandle"))
+                this.__CryptoSessionHandle := HANDLE(48, this)
+            return this.__CryptoSessionHandle
+        }
     }
 
     /**
      * A handle to the Direct3D device that is associated with the decoder device.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    DeviceHandle {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    DeviceHandle{
+        get {
+            if(!this.HasProp("__DeviceHandle"))
+                this.__DeviceHandle := HANDLE(56, this)
+            return this.__DeviceHandle
+        }
     }
 }

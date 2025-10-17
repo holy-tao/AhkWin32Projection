@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
@@ -1177,7 +1177,7 @@ class AddressBook {
     /**
      * 
      * @param {Pointer<Void>} ftg 
-     * @param {Integer} fEnable 
+     * @param {BOOL} fEnable 
      * @returns {String} Nothing - always returns an empty string
      */
     static EnableIdleRoutine(ftg, fEnable) {
@@ -1253,7 +1253,7 @@ class AddressBook {
      * 
      * @param {Pointer<MAPINAMEID>} lpName1 
      * @param {Pointer<MAPINAMEID>} lpName2 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FEqualNames(lpName1, lpName2) {
         result := DllCall("MAPI32.dll\FEqualNames", "ptr", lpName1, "ptr", lpName2, "int")
@@ -1265,7 +1265,7 @@ class AddressBook {
      * @param {Pointer<SPropValue>} lpSPropValueDst 
      * @param {Pointer<SPropValue>} lpSPropValueSrc 
      * @param {Integer} ulFuzzyLevel 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FPropContainsProp(lpSPropValueDst, lpSPropValueSrc, ulFuzzyLevel) {
         result := DllCall("MAPI32.dll\FPropContainsProp", "ptr", lpSPropValueDst, "ptr", lpSPropValueSrc, "uint", ulFuzzyLevel, "int")
@@ -1277,7 +1277,7 @@ class AddressBook {
      * @param {Pointer<SPropValue>} lpSPropValue1 
      * @param {Integer} ulRelOp 
      * @param {Pointer<SPropValue>} lpSPropValue2 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FPropCompareProp(lpSPropValue1, ulRelOp, lpSPropValue2) {
         result := DllCall("MAPI32.dll\FPropCompareProp", "ptr", lpSPropValue1, "uint", ulRelOp, "ptr", lpSPropValue2, "int")
@@ -1376,7 +1376,7 @@ class AddressBook {
      * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
      * @param {Pointer<IMalloc>} lpMalloc 
-     * @param {Pointer<Void>} hInstance 
+     * @param {HINSTANCE} hInstance 
      * @param {Integer} cPages 
      * @param {Pointer<DTPAGE>} lpPage 
      * @param {Integer} ulFlags 
@@ -1385,6 +1385,8 @@ class AddressBook {
      * @returns {HRESULT} 
      */
     static BuildDisplayTable(lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+
         result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr", lppTable, "ptr", lppTblData, "int")
         if(result != 0)
             throw OSError(result)
@@ -1548,7 +1550,7 @@ class AddressBook {
      * 
      * @param {Pointer<IMAPIProp>} lpMapiProp 
      * @param {Integer} ulPropTag 
-     * @returns {Integer} 
+     * @returns {BOOL} 
      */
     static FPropExists(lpMapiProp, ulPropTag) {
         result := DllCall("MAPI32.dll\FPropExists", "ptr", lpMapiProp, "uint", ulPropTag, "int")
@@ -1648,14 +1650,14 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszLocal 
-     * @param {Pointer<Byte>} lpszUNC 
+     * @param {PSTR} lpszLocal 
+     * @param {PSTR} lpszUNC 
      * @param {Integer} cchUNC 
      * @returns {Integer} 
      */
     static ScUNCFromLocalPath(lpszLocal, lpszUNC, cchUNC) {
-        lpszLocal := lpszLocal is String? StrPtr(lpszLocal) : lpszLocal
-        lpszUNC := lpszUNC is String? StrPtr(lpszUNC) : lpszUNC
+        lpszLocal := lpszLocal is String ? StrPtr(lpszLocal) : lpszLocal
+        lpszUNC := lpszUNC is String ? StrPtr(lpszUNC) : lpszUNC
 
         result := DllCall("MAPI32.dll\ScUNCFromLocalPath", "ptr", lpszLocal, "ptr", lpszUNC, "uint", cchUNC, "int")
         return result
@@ -1663,14 +1665,14 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpszUNC 
-     * @param {Pointer<Byte>} lpszLocal 
+     * @param {PSTR} lpszUNC 
+     * @param {PSTR} lpszLocal 
      * @param {Integer} cchLocal 
      * @returns {Integer} 
      */
     static ScLocalPathFromUNC(lpszUNC, lpszLocal, cchLocal) {
-        lpszUNC := lpszUNC is String? StrPtr(lpszUNC) : lpszUNC
-        lpszLocal := lpszLocal is String? StrPtr(lpszLocal) : lpszLocal
+        lpszUNC := lpszUNC is String ? StrPtr(lpszUNC) : lpszUNC
+        lpszLocal := lpszLocal is String ? StrPtr(lpszLocal) : lpszLocal
 
         result := DllCall("MAPI32.dll\ScLocalPathFromUNC", "ptr", lpszUNC, "ptr", lpszLocal, "uint", cchLocal, "int")
         return result
@@ -1678,9 +1680,9 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer} ftAddend1 
-     * @param {Pointer} ftAddend2 
-     * @returns {Pointer} 
+     * @param {FILETIME} ftAddend1 
+     * @param {FILETIME} ftAddend2 
+     * @returns {FILETIME} 
      */
     static FtAddFt(ftAddend1, ftAddend2) {
         result := DllCall("MAPI32.dll\FtAddFt", "ptr", ftAddend1, "ptr", ftAddend2, "ptr")
@@ -1691,7 +1693,7 @@ class AddressBook {
      * 
      * @param {Integer} ftMultiplicand 
      * @param {Integer} ftMultiplier 
-     * @returns {Pointer} 
+     * @returns {FILETIME} 
      */
     static FtMulDwDw(ftMultiplicand, ftMultiplier) {
         result := DllCall("MAPI32.dll\FtMulDwDw", "uint", ftMultiplicand, "uint", ftMultiplier, "ptr")
@@ -1701,8 +1703,8 @@ class AddressBook {
     /**
      * 
      * @param {Integer} ftMultiplier 
-     * @param {Pointer} ftMultiplicand 
-     * @returns {Pointer} 
+     * @param {FILETIME} ftMultiplicand 
+     * @returns {FILETIME} 
      */
     static FtMulDw(ftMultiplier, ftMultiplicand) {
         result := DllCall("MAPI32.dll\FtMulDw", "uint", ftMultiplier, "ptr", ftMultiplicand, "ptr")
@@ -1711,9 +1713,9 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer} ftMinuend 
-     * @param {Pointer} ftSubtrahend 
-     * @returns {Pointer} 
+     * @param {FILETIME} ftMinuend 
+     * @param {FILETIME} ftSubtrahend 
+     * @returns {FILETIME} 
      */
     static FtSubFt(ftMinuend, ftSubtrahend) {
         result := DllCall("MAPI32.dll\FtSubFt", "ptr", ftMinuend, "ptr", ftSubtrahend, "ptr")
@@ -1722,8 +1724,8 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer} ft 
-     * @returns {Pointer} 
+     * @param {FILETIME} ft 
+     * @returns {FILETIME} 
      */
     static FtNegFt(ft) {
         result := DllCall("MAPI32.dll\FtNegFt", "ptr", ft, "ptr")
@@ -1739,7 +1741,7 @@ class AddressBook {
      * @returns {Integer} 
      */
     static ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
-        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, "char*", lpbParent, "uint*", lpcbConvIndex, "ptr", lppbConvIndex, "int")
+        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, "char*", lpbParent, "uint*", lpcbConvIndex, "char*", lppbConvIndex, "int")
         return result
     }
 
@@ -1765,11 +1767,11 @@ class AddressBook {
      * 
      * @param {Pointer<IMessage>} lpMessage 
      * @param {Integer} ulFlags 
-     * @param {Pointer<Int32>} lpfMessageUpdated 
+     * @param {Pointer<BOOL>} lpfMessageUpdated 
      * @returns {HRESULT} 
      */
     static RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
-        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, "int*", lpfMessageUpdated, "int")
+        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, "ptr", lpfMessageUpdated, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -19,7 +19,7 @@ class SORTKEY extends Win32Struct
     propColumn{
         get {
             if(!this.HasProp("__propColumn"))
-                this.__propColumn := FULLPROPSPEC(this.ptr + 0)
+                this.__propColumn := FULLPROPSPEC(0, this)
             return this.__propColumn
         }
     }

@@ -15,7 +15,7 @@ class PRJ_FILE_BASIC_INFO extends Win32Struct
 
     /**
      * Specifies whether the item is a directory.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IsDirectory {
         get => NumGet(this, 0, "char")

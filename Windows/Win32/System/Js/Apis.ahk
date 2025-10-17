@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Js
  * @version v4.0.30319
@@ -192,15 +192,15 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} script 
+     * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
-     * @param {Pointer<Char>} sourceUrl 
+     * @param {PWSTR} sourceUrl 
      * @param {Pointer<Void>} result 
      * @returns {Integer} 
      */
     static JsParseScript(script, sourceContext, sourceUrl, result) {
-        script := script is String? StrPtr(script) : script
-        sourceUrl := sourceUrl is String? StrPtr(sourceUrl) : sourceUrl
+        script := script is String ? StrPtr(script) : script
+        sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
         result := DllCall("chakra.dll\JsParseScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
         return result
@@ -208,15 +208,15 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} script 
+     * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
-     * @param {Pointer<Char>} sourceUrl 
+     * @param {PWSTR} sourceUrl 
      * @param {Pointer<Void>} result 
      * @returns {Integer} 
      */
     static JsRunScript(script, sourceContext, sourceUrl, result) {
-        script := script is String? StrPtr(script) : script
-        sourceUrl := sourceUrl is String? StrPtr(sourceUrl) : sourceUrl
+        script := script is String ? StrPtr(script) : script
+        sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
         result := DllCall("chakra.dll\JsRunScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
         return result
@@ -224,13 +224,13 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} script 
+     * @param {PWSTR} script 
      * @param {Pointer<Byte>} buffer 
      * @param {Pointer<UInt32>} bufferSize 
      * @returns {Integer} 
      */
     static JsSerializeScript(script, buffer, bufferSize) {
-        script := script is String? StrPtr(script) : script
+        script := script is String ? StrPtr(script) : script
 
         result := DllCall("chakra.dll\JsSerializeScript", "ptr", script, "char*", buffer, "uint*", bufferSize, "uint")
         return result
@@ -238,16 +238,16 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} script 
+     * @param {PWSTR} script 
      * @param {Pointer<Byte>} buffer 
      * @param {Pointer} sourceContext 
-     * @param {Pointer<Char>} sourceUrl 
+     * @param {PWSTR} sourceUrl 
      * @param {Pointer<Void>} result 
      * @returns {Integer} 
      */
     static JsParseSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
-        script := script is String? StrPtr(script) : script
-        sourceUrl := sourceUrl is String? StrPtr(sourceUrl) : sourceUrl
+        script := script is String ? StrPtr(script) : script
+        sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
         result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
         return result
@@ -255,16 +255,16 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} script 
+     * @param {PWSTR} script 
      * @param {Pointer<Byte>} buffer 
      * @param {Pointer} sourceContext 
-     * @param {Pointer<Char>} sourceUrl 
+     * @param {PWSTR} sourceUrl 
      * @param {Pointer<Void>} result 
      * @returns {Integer} 
      */
     static JsRunSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
-        script := script is String? StrPtr(script) : script
-        sourceUrl := sourceUrl is String? StrPtr(sourceUrl) : sourceUrl
+        script := script is String ? StrPtr(script) : script
+        sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
         result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
         return result
@@ -272,12 +272,12 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} name 
+     * @param {PWSTR} name 
      * @param {Pointer<Void>} propertyId 
      * @returns {Integer} 
      */
     static JsGetPropertyIdFromName(name, propertyId) {
-        name := name is String? StrPtr(name) : name
+        name := name is String ? StrPtr(name) : name
 
         result := DllCall("chakra.dll\JsGetPropertyIdFromName", "ptr", name, "ptr", propertyId, "uint")
         return result
@@ -290,7 +290,7 @@ class Js {
      * @returns {Integer} 
      */
     static JsGetPropertyNameFromId(propertyId, name) {
-        result := DllCall("chakra.dll\JsGetPropertyNameFromId", "ptr", propertyId, "ptr", name, "uint")
+        result := DllCall("chakra.dll\JsGetPropertyNameFromId", "ptr", propertyId, "ushort*", name, "uint")
         return result
     }
 
@@ -435,13 +435,13 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Char>} stringValue 
+     * @param {PWSTR} stringValue 
      * @param {Pointer} stringLength 
      * @param {Pointer<Void>} value 
      * @returns {Integer} 
      */
     static JsPointerToString(stringValue, stringLength, value) {
-        stringValue := stringValue is String? StrPtr(stringValue) : stringValue
+        stringValue := stringValue is String ? StrPtr(stringValue) : stringValue
 
         result := DllCall("chakra.dll\JsPointerToString", "ptr", stringValue, "ptr", stringLength, "ptr", value, "uint")
         return result
@@ -455,7 +455,7 @@ class Js {
      * @returns {Integer} 
      */
     static JsStringToPointer(value, stringValue, stringLength) {
-        result := DllCall("chakra.dll\JsStringToPointer", "ptr", value, "ptr", stringValue, "ptr*", stringLength, "uint")
+        result := DllCall("chakra.dll\JsStringToPointer", "ptr", value, "ushort*", stringValue, "ptr*", stringLength, "uint")
         return result
     }
 

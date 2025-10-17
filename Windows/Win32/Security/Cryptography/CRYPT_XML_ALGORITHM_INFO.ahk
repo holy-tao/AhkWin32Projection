@@ -24,7 +24,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the URI associated with the attribute of the <b>SignatureMethod</b> or <b>DigestMethod</b> element of the XML signature.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszAlgorithmURI {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the display name of the algorithm.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszName {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +55,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszCNGAlgid {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  BCrypt* and NCrypt* functions are defined in Bcrypt.h and Ncrypt.h.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszCNGExtraAlgid {
         get => NumGet(this, 40, "ptr")
@@ -115,12 +115,8 @@ class CRYPT_XML_ALGORITHM_INFO extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

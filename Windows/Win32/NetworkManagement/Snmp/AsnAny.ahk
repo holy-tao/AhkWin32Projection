@@ -59,7 +59,7 @@ class AsnAny extends Win32Struct
     string{
         get {
             if(!this.HasProp("__string"))
-                this.__string := AsnOctetString(this.ptr + 8)
+                this.__string := AsnOctetString(8, this)
             return this.__string
         }
     }
@@ -70,7 +70,7 @@ class AsnAny extends Win32Struct
     bits{
         get {
             if(!this.HasProp("__bits"))
-                this.__bits := AsnOctetString(this.ptr + 8)
+                this.__bits := AsnOctetString(8, this)
             return this.__bits
         }
     }
@@ -81,7 +81,7 @@ class AsnAny extends Win32Struct
     object{
         get {
             if(!this.HasProp("__object"))
-                this.__object := AsnObjectIdentifier(this.ptr + 8)
+                this.__object := AsnObjectIdentifier(8, this)
             return this.__object
         }
     }
@@ -92,7 +92,7 @@ class AsnAny extends Win32Struct
     sequence{
         get {
             if(!this.HasProp("__sequence"))
-                this.__sequence := AsnOctetString(this.ptr + 8)
+                this.__sequence := AsnOctetString(8, this)
             return this.__sequence
         }
     }
@@ -103,7 +103,7 @@ class AsnAny extends Win32Struct
     address{
         get {
             if(!this.HasProp("__address"))
-                this.__address := AsnOctetString(this.ptr + 8)
+                this.__address := AsnOctetString(8, this)
             return this.__address
         }
     }
@@ -138,7 +138,7 @@ class AsnAny extends Win32Struct
     arbitrary{
         get {
             if(!this.HasProp("__arbitrary"))
-                this.__arbitrary := AsnOctetString(this.ptr + 8)
+                this.__arbitrary := AsnOctetString(8, this)
             return this.__arbitrary
         }
     }

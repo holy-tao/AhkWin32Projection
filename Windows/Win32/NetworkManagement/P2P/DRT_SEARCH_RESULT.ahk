@@ -49,7 +49,7 @@ class DRT_SEARCH_RESULT extends Win32Struct
     registration{
         get {
             if(!this.HasProp("__registration"))
-                this.__registration := DRT_REGISTRATION(this.ptr + 16)
+                this.__registration := DRT_REGISTRATION(16, this)
             return this.__registration
         }
     }

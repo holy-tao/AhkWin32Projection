@@ -44,7 +44,7 @@ class DOT11_POWER_MGMT_MODE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bReceiveDTIMs {
         get => NumGet(this, 12, "char")

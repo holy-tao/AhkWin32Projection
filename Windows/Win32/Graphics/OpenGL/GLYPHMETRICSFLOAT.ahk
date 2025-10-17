@@ -44,7 +44,7 @@ class GLYPHMETRICSFLOAT extends Win32Struct
     gmfptGlyphOrigin{
         get {
             if(!this.HasProp("__gmfptGlyphOrigin"))
-                this.__gmfptGlyphOrigin := POINTFLOAT(this.ptr + 8)
+                this.__gmfptGlyphOrigin := POINTFLOAT(8, this)
             return this.__gmfptGlyphOrigin
         }
     }

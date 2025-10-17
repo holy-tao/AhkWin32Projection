@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HRASCONN.ahk
 #Include ..\..\Foundation\LUID.ahk
 
 /**
@@ -22,11 +23,14 @@ class RASCONNA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HRASCONN}
      */
-    hrasconn {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hrasconn{
+        get {
+            if(!this.HasProp("__hrasconn"))
+                this.__hrasconn := HRASCONN(8, this)
+            return this.__hrasconn
+        }
     }
 
     /**
@@ -91,7 +95,7 @@ class RASCONNA extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := LUID(this.ptr + 704)
+                this.__luid := LUID(704, this)
             return this.__luid
         }
     }

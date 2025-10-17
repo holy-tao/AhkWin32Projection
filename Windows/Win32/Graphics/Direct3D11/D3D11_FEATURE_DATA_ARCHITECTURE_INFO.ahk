@@ -15,7 +15,7 @@ class D3D11_FEATURE_DATA_ARCHITECTURE_INFO extends Win32Struct
 
     /**
      * Specifies whether a rendering device batches rendering commands and performs multipass rendering into tiles or bins over a render area. Certain API usage patterns that are fine for TileBasedDefferredRenderers (TBDRs) can perform worse on non-TBDRs and vice versa.  Applications that are careful about rendering can be friendly to both TBDR and non-TBDR architectures. <b>TRUE</b> if the rendering device batches rendering commands and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TileBasedDeferredRenderer {
         get => NumGet(this, 0, "int")

@@ -24,7 +24,7 @@ class ADS_ATTR_INFO extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the attribute name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszAttrName {
         get => NumGet(this, 0, "ptr")

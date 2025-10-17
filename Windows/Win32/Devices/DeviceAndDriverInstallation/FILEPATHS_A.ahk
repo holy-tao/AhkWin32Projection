@@ -13,7 +13,7 @@ class FILEPATHS_A extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Target {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class FILEPATHS_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Source {
         get => NumGet(this, 8, "ptr")

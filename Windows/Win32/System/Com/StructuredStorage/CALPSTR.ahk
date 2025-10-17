@@ -20,7 +20,7 @@ class CALPSTR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<PSTR>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

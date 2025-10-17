@@ -30,7 +30,7 @@ class CLUSTER_IP_ENTRY extends Win32Struct
     /**
      * A <b>NULL</b>-terminated Unicode string containing a valid IPv4 or IPv6 numeric network 
      *       address.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszIpAddress {
         get => NumGet(this, 0, "ptr")

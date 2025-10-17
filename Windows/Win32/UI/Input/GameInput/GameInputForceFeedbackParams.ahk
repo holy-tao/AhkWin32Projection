@@ -31,7 +31,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     constant{
         get {
             if(!this.HasProp("__constant"))
-                this.__constant := GameInputForceFeedbackConstantParams(this.ptr + 8)
+                this.__constant := GameInputForceFeedbackConstantParams(8, this)
             return this.__constant
         }
     }
@@ -42,7 +42,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     ramp{
         get {
             if(!this.HasProp("__ramp"))
-                this.__ramp := GameInputForceFeedbackRampParams(this.ptr + 8)
+                this.__ramp := GameInputForceFeedbackRampParams(8, this)
             return this.__ramp
         }
     }
@@ -53,7 +53,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     sineWave{
         get {
             if(!this.HasProp("__sineWave"))
-                this.__sineWave := GameInputForceFeedbackPeriodicParams(this.ptr + 8)
+                this.__sineWave := GameInputForceFeedbackPeriodicParams(8, this)
             return this.__sineWave
         }
     }
@@ -64,7 +64,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     squareWave{
         get {
             if(!this.HasProp("__squareWave"))
-                this.__squareWave := GameInputForceFeedbackPeriodicParams(this.ptr + 8)
+                this.__squareWave := GameInputForceFeedbackPeriodicParams(8, this)
             return this.__squareWave
         }
     }
@@ -75,7 +75,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     triangleWave{
         get {
             if(!this.HasProp("__triangleWave"))
-                this.__triangleWave := GameInputForceFeedbackPeriodicParams(this.ptr + 8)
+                this.__triangleWave := GameInputForceFeedbackPeriodicParams(8, this)
             return this.__triangleWave
         }
     }
@@ -86,7 +86,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     sawtoothUpWave{
         get {
             if(!this.HasProp("__sawtoothUpWave"))
-                this.__sawtoothUpWave := GameInputForceFeedbackPeriodicParams(this.ptr + 8)
+                this.__sawtoothUpWave := GameInputForceFeedbackPeriodicParams(8, this)
             return this.__sawtoothUpWave
         }
     }
@@ -97,7 +97,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     sawtoothDownWave{
         get {
             if(!this.HasProp("__sawtoothDownWave"))
-                this.__sawtoothDownWave := GameInputForceFeedbackPeriodicParams(this.ptr + 8)
+                this.__sawtoothDownWave := GameInputForceFeedbackPeriodicParams(8, this)
             return this.__sawtoothDownWave
         }
     }
@@ -108,7 +108,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     spring{
         get {
             if(!this.HasProp("__spring"))
-                this.__spring := GameInputForceFeedbackConditionParams(this.ptr + 8)
+                this.__spring := GameInputForceFeedbackConditionParams(8, this)
             return this.__spring
         }
     }
@@ -119,7 +119,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     friction{
         get {
             if(!this.HasProp("__friction"))
-                this.__friction := GameInputForceFeedbackConditionParams(this.ptr + 8)
+                this.__friction := GameInputForceFeedbackConditionParams(8, this)
             return this.__friction
         }
     }
@@ -130,7 +130,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     damper{
         get {
             if(!this.HasProp("__damper"))
-                this.__damper := GameInputForceFeedbackConditionParams(this.ptr + 8)
+                this.__damper := GameInputForceFeedbackConditionParams(8, this)
             return this.__damper
         }
     }
@@ -141,7 +141,7 @@ class GameInputForceFeedbackParams extends Win32Struct
     inertia{
         get {
             if(!this.HasProp("__inertia"))
-                this.__inertia := GameInputForceFeedbackConditionParams(this.ptr + 8)
+                this.__inertia := GameInputForceFeedbackConditionParams(8, this)
             return this.__inertia
         }
     }

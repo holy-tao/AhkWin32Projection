@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * The MBN_INTERFACE_CAPS structure represents the interface capabilities.
@@ -46,11 +47,14 @@ class MBN_INTERFACE_CAPS extends Win32Struct
 
     /**
      * Contains the name of the custom data class.  If the <b>MBN_DATA_CLASS_CUSTOM</b> bit  of <b>dataClass</b> is not set, then the string is <b>NULL</b>.  Otherwise, the caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    customDataClass {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    customDataClass{
+        get {
+            if(!this.HasProp("__customDataClass"))
+                this.__customDataClass := BSTR(16, this)
+            return this.__customDataClass
+        }
     }
 
     /**
@@ -285,11 +289,14 @@ class MBN_INTERFACE_CAPS extends Win32Struct
 
     /**
      * Contains the name of the custom band class.  If the <b>MBN_BAND_CLASS_CUSTOM</b> bit  of <b>cdmaBandClass</b> and <b>gsmBandClass</b> is not set, then the string is <b>NULL</b>.  Otherwise, the caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    customBandClass {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    customBandClass{
+        get {
+            if(!this.HasProp("__customBandClass"))
+                this.__customBandClass := BSTR(32, this)
+            return this.__customBandClass
+        }
     }
 
     /**
@@ -312,37 +319,49 @@ class MBN_INTERFACE_CAPS extends Win32Struct
 
     /**
      * Contains the device ID.  For GSM devices, this must be the IMEI (up to 15 digits).  For CDMA devices, this must be the ESN (11 digits) / MEID (17 digits).  The maximum length of the string is <b>MBN_DEVICEID_LEN</b>.  For the definition of <b>MBN_DEVICEID_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    deviceID {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    deviceID{
+        get {
+            if(!this.HasProp("__deviceID"))
+                this.__deviceID := BSTR(48, this)
+            return this.__deviceID
+        }
     }
 
     /**
      * Contains the name of the device manufacturer.  This string can be empty.  The maximum length of the string is <b>MBN_MANUFACTURER_LEN</b>.  For the definition of <b>MBN_MANUFACTURER_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    manufacturer {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    manufacturer{
+        get {
+            if(!this.HasProp("__manufacturer"))
+                this.__manufacturer := BSTR(56, this)
+            return this.__manufacturer
+        }
     }
 
     /**
      * Contains the device model.  This string can be empty.  The maximum length of this string is <b>MBN_MODEL_LEN</b>.  For the definition of <b>MBN_MODEL_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    model {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    model{
+        get {
+            if(!this.HasProp("__model"))
+                this.__model := BSTR(64, this)
+            return this.__model
+        }
     }
 
     /**
      * Contains the firmware-specific information for this device.  This string can be empty.  The maximum length of the string is <b>MBN_FIRMWARE_LEN</b>.  For the definition of <b>MBN_FIRMWARE_LEN</b>, see <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_interface_caps_constants">MBN_INTERFACE_CAPS_CONSTANTS</a>.  The caller must free this string by calling <a href=" http://msdn.microsoft.com/en-us/library/ms221481.aspx">SysFreeString</a>.
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    firmwareInfo {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    firmwareInfo{
+        get {
+            if(!this.HasProp("__firmwareInfo"))
+                this.__firmwareInfo := BSTR(72, this)
+            return this.__firmwareInfo
+        }
     }
 }

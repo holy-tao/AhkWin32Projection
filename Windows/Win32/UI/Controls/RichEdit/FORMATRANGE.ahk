@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Graphics\Gdi\HDC.ahk
 #Include ..\..\..\Foundation\RECT.ahk
 #Include .\CHARRANGE.ahk
 
@@ -27,22 +28,28 @@ class FORMATRANGE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * A HDC for the device to render to, if <a href="https://msdn.microsoft.com/6d1e562b-d741-4d4a-a395-554083cb0dbb">EM_FORMATRANGE</a> is being used to send the output to a device.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdc {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hdc{
+        get {
+            if(!this.HasProp("__hdc"))
+                this.__hdc := HDC(0, this)
+            return this.__hdc
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
      * An HDC for the target device to format for.
-     * @type {Pointer<Void>}
+     * @type {HDC}
      */
-    hdcTarget {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hdcTarget{
+        get {
+            if(!this.HasProp("__hdcTarget"))
+                this.__hdcTarget := HDC(8, this)
+            return this.__hdcTarget
+        }
     }
 
     /**
@@ -54,7 +61,7 @@ class FORMATRANGE extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }
@@ -68,7 +75,7 @@ class FORMATRANGE extends Win32Struct
     rcPage{
         get {
             if(!this.HasProp("__rcPage"))
-                this.__rcPage := RECT(this.ptr + 32)
+                this.__rcPage := RECT(32, this)
             return this.__rcPage
         }
     }
@@ -82,7 +89,7 @@ class FORMATRANGE extends Win32Struct
     chrg{
         get {
             if(!this.HasProp("__chrg"))
-                this.__chrg := CHARRANGE(this.ptr + 48)
+                this.__chrg := CHARRANGE(48, this)
             return this.__chrg
         }
     }

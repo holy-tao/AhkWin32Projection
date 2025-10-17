@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 
 /**
@@ -96,7 +97,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
     boolVal {
         get => NumGet(this, 8, "short")
@@ -104,7 +105,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
     __OBSOLETE__VARIANT_BOOL {
         get => NumGet(this, 8, "short")
@@ -125,7 +126,7 @@ class VARIANT extends Win32Struct
     cyVal{
         get {
             if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(this.ptr + 8)
+                this.__cyVal := CY(8, this)
             return this.__cyVal
         }
     }
@@ -139,11 +140,14 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    bstrVal {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    bstrVal{
+        get {
+            if(!this.HasProp("__bstrVal"))
+                this.__bstrVal := BSTR(8, this)
+            return this.__bstrVal
+        }
     }
 
     /**
@@ -219,7 +223,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<VARIANT_BOOL>}
      */
     pboolVal {
         get => NumGet(this, 8, "ptr")
@@ -227,7 +231,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<VARIANT_BOOL>}
      */
     __OBSOLETE__VARIANT_PBOOL {
         get => NumGet(this, 8, "ptr")
@@ -259,7 +263,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<BSTR>}
      */
     pbstrVal {
         get => NumGet(this, 8, "ptr")
@@ -307,7 +311,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     cVal {
         get => NumGet(this, 8, "char")
@@ -363,7 +367,7 @@ class VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pcVal {
         get => NumGet(this, 8, "ptr")
@@ -432,7 +436,7 @@ class VARIANT extends Win32Struct
     decVal{
         get {
             if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(this.ptr + 0)
+                this.__decVal := DECIMAL(0, this)
             return this.__decVal
         }
     }

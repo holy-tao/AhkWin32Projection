@@ -21,7 +21,7 @@ class BTH_RADIO_IN_RANGE extends Win32Struct
     deviceInfo{
         get {
             if(!this.HasProp("__deviceInfo"))
-                this.__deviceInfo := BTH_DEVICE_INFO(this.ptr + 0)
+                this.__deviceInfo := BTH_DEVICE_INFO(0, this)
             return this.__deviceInfo
         }
     }

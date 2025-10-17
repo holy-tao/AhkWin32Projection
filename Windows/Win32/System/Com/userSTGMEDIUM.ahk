@@ -52,7 +52,7 @@ class userSTGMEDIUM extends Win32Struct
             }
         
             /**
-             * @type {Pointer<Char>}
+             * @type {PWSTR}
              */
             lpszFileName {
                 get => NumGet(this, 0, "ptr")
@@ -91,7 +91,7 @@ class userSTGMEDIUM extends Win32Struct
         u{
             get {
                 if(!this.HasProp("__u"))
-                    this.__u := %this.__Class%._u(this.ptr + 8)
+                    this.__u := %this.__Class%._u(8, this)
                 return this.__u
             }
         }
@@ -104,7 +104,7 @@ class userSTGMEDIUM extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._STGMEDIUM_UNION(this.ptr + 0)
+                this.__u := %this.__Class%._STGMEDIUM_UNION(0, this)
             return this.__u
         }
     }

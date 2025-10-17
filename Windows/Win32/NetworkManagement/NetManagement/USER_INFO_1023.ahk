@@ -21,7 +21,7 @@ class USER_INFO_1023 extends Win32Struct
      * 
      * 
      * Server names should be preceded by two backslashes (\\). To indicate that the logon request can be handled by any logon server, specify an asterisk (\\*) for the server name. A null string indicates that requests should be sent to the domain controller.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1023_logon_server {
         get => NumGet(this, 0, "ptr")

@@ -50,7 +50,7 @@ class WLAN_REALTIME_CONNECTION_QUALITY_LINK_INFO extends Win32Struct
     wlanRateSet{
         get {
             if(!this.HasProp("__wlanRateSet"))
-                this.__wlanRateSet := WLAN_RATE_SET(this.ptr + 16)
+                this.__wlanRateSet := WLAN_RATE_SET(16, this)
             return this.__wlanRateSet
         }
     }

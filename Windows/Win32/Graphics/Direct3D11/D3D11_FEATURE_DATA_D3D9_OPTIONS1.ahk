@@ -20,7 +20,7 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
 
     /**
      * Specifies whether the driver supports the nonpowers-of-2-unconditionally feature. For more info about this feature, see <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a>. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher feature levels.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>FALSE</b> if the hardware and driver support the powers-of-2 (2D textures must have widths and heights specified as powers of two) feature or the nonpowers-of-2-conditionally feature.
-     * @type {Integer}
+     * @type {BOOL}
      */
     FullNonPow2TextureSupported {
         get => NumGet(this, 0, "int")
@@ -29,7 +29,7 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
 
     /**
      * Specifies whether the driver supports the shadowing feature with the comparison-filtering mode set to less than or equal to. The runtime sets this member to <b>TRUE</b> for hardware at Direct3D 10 and higher <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a>.  For hardware at Direct3D 9.3 and lower feature levels, the runtime sets this member to <b>TRUE</b> only if the hardware and driver support the shadowing feature; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthAsTextureWithLessEqualComparisonFilterSupported {
         get => NumGet(this, 4, "int")
@@ -38,7 +38,7 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
 
     /**
      * Specifies whether the hardware and driver support simple instancing. The runtime sets this member to <b>TRUE</b> if  the hardware and driver support simple instancing.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SimpleInstancingSupported {
         get => NumGet(this, 8, "int")
@@ -51,7 +51,7 @@ class D3D11_FEATURE_DATA_D3D9_OPTIONS1 extends Win32Struct
      * If the hardware and driver don't support this feature, the app must match the render target surface type with the depth stencil surface type. Because hardware at Direct3D 9.3 and lower <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> doesn't allow <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/texturecube">TextureCube</a> depth surfaces, the only way to render a scene into a <b>TextureCube</b> while having depth buffering enabled is to render each <b>TextureCube</b> face separately to a <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/sm5-object-texture2d">Texture2D</a> render target first (because that can be matched with a <b>Texture2D</b> depth), and then copy the results into the <b>TextureCube</b>.  If  the hardware and driver support this feature, the app can just render to the <b>TextureCube</b> faces directly while getting depth buffering out of a <b>Texture2D</b> depth buffer.
      * 
      * You only need to query this feature from  hardware at Direct3D 9.3 and lower <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature levels</a> because hardware at Direct3D 10.0 and higher feature levels allow <a href="https://docs.microsoft.com/windows/desktop/direct3dhlsl/texturecube">TextureCube</a> depth surfaces.
-     * @type {Integer}
+     * @type {BOOL}
      */
     TextureCubeFaceRenderTargetWithNonCubeDepthStencilSupported {
         get => NumGet(this, 12, "int")

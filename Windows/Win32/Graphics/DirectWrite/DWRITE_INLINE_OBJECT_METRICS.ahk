@@ -51,7 +51,7 @@ class DWRITE_INLINE_OBJECT_METRICS extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A Boolean flag that indicates whether the object is to be placed upright or alongside the text baseline for vertical text.
-     * @type {Integer}
+     * @type {BOOL}
      */
     supportsSideways {
         get => NumGet(this, 12, "int")

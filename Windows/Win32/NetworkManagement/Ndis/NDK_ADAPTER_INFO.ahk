@@ -26,7 +26,7 @@ class NDK_ADAPTER_INFO extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := NDK_VERSION(this.ptr + 0)
+                this.__Version := NDK_VERSION(0, this)
             return this.__Version
         }
     }

@@ -32,7 +32,7 @@ class PEER_ADDRESS extends Win32Struct
     sin6{
         get {
             if(!this.HasProp("__sin6"))
-                this.__sin6 := SOCKADDR_IN6(this.ptr + 8)
+                this.__sin6 := SOCKADDR_IN6(8, this)
             return this.__sin6
         }
     }

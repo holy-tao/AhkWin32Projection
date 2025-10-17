@@ -21,7 +21,7 @@ class WTS_SERVER_INFOW extends Win32Struct
 
     /**
      * Name of the server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pServerName {
         get => NumGet(this, 0, "ptr")

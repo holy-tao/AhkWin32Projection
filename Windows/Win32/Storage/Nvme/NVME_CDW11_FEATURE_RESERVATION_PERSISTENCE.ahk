@@ -29,12 +29,4 @@ class NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE extends Win32Struct
         get => (this._bitfield >> 0) & 0x1
         set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 1) & 0x7FFFFFFF
-        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
-    }
 }

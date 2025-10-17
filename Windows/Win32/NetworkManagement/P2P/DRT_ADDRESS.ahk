@@ -21,7 +21,7 @@ class DRT_ADDRESS extends Win32Struct
     socketAddress{
         get {
             if(!this.HasProp("__socketAddress"))
-                this.__socketAddress := SOCKADDR_STORAGE(this.ptr + 0)
+                this.__socketAddress := SOCKADDR_STORAGE(0, this)
             return this.__socketAddress
         }
     }

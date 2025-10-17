@@ -22,7 +22,7 @@ class EMRLINETO extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMRLINETO extends Win32Struct
     ptl{
         get {
             if(!this.HasProp("__ptl"))
-                this.__ptl := POINTL(this.ptr + 8)
+                this.__ptl := POINTL(8, this)
             return this.__ptl
         }
     }

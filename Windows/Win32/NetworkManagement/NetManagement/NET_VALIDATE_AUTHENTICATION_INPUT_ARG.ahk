@@ -22,14 +22,14 @@ class NET_VALIDATE_AUTHENTICATION_INPUT_ARG extends Win32Struct
     InputPersistedFields{
         get {
             if(!this.HasProp("__InputPersistedFields"))
-                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(this.ptr + 0)
+                this.__InputPersistedFields := NET_VALIDATE_PERSISTED_FIELDS(0, this)
             return this.__InputPersistedFields
         }
     }
 
     /**
      * BOOLEAN value that indicates the result of the client application's authentication of the password supplied by the user. If this parameter is <b>FALSE</b>, the password has not been authenticated.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PasswordMatched {
         get => NumGet(this, 48, "char")

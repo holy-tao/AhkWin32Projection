@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include Common\D2D_SIZE_U.ahk
 
 /**
@@ -26,11 +27,14 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * The HWND to which the render target issues the output from its drawing commands.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(0, this)
+            return this.__hwnd
+        }
     }
 
     /**
@@ -42,7 +46,7 @@ class D2D1_HWND_RENDER_TARGET_PROPERTIES extends Win32Struct
     pixelSize{
         get {
             if(!this.HasProp("__pixelSize"))
-                this.__pixelSize := D2D_SIZE_U(this.ptr + 8)
+                this.__pixelSize := D2D_SIZE_U(8, this)
             return this.__pixelSize
         }
     }

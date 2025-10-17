@@ -21,7 +21,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFormatType {
         get => NumGet(this, 8, "ptr")
@@ -114,7 +114,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 96)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(96, this)
             return this.__Extensions
         }
     }
@@ -128,7 +128,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bEpAtt {
         get => NumGet(this, 116, "int")
@@ -136,7 +136,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bLargeBlobSupported {
         get => NumGet(this, 120, "int")
@@ -144,7 +144,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bResidentKey {
         get => NumGet(this, 124, "int")
@@ -152,7 +152,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPrfEnabled {
         get => NumGet(this, 128, "int")

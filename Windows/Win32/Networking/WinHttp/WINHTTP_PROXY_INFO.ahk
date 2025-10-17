@@ -45,7 +45,7 @@ class WINHTTP_PROXY_INFO extends Win32Struct
 
     /**
      * Pointer to a string value that contains the proxy server list.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszProxy {
         get => NumGet(this, 8, "ptr")
@@ -54,7 +54,7 @@ class WINHTTP_PROXY_INFO extends Win32Struct
 
     /**
      * Pointer to a string value that contains the proxy bypass list.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszProxyBypass {
         get => NumGet(this, 16, "ptr")

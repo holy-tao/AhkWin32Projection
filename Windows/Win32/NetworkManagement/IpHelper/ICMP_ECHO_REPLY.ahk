@@ -328,7 +328,7 @@ class ICMP_ECHO_REPLY extends Win32Struct
     Options{
         get {
             if(!this.HasProp("__Options"))
-                this.__Options := IP_OPTION_INFORMATION(this.ptr + 24)
+                this.__Options := IP_OPTION_INFORMATION(24, this)
             return this.__Options
         }
     }

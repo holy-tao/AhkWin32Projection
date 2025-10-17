@@ -54,7 +54,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * A pointer to a wide character string that represents the name of the event source.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szEventSourceName {
         get => NumGet(this, 8, "ptr")
@@ -63,7 +63,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event messages.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szEventMessageFile {
         get => NumGet(this, 16, "ptr")
@@ -72,7 +72,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * A pointer to a wide character string that represents the name of the XML schema file for the event source.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szEventSourceXmlSchemaFile {
         get => NumGet(this, 24, "ptr")
@@ -81,7 +81,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * A pointer to a wide character string that represents the name of the resource that contains the event parameter strings.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szEventAccessStringsFile {
         get => NumGet(this, 32, "ptr")
@@ -90,7 +90,7 @@ class AUTHZ_SOURCE_SCHEMA_REGISTRATION extends Win32Struct
 
     /**
      * This member is reserved and must be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szExecutableImagePath {
         get => NumGet(this, 40, "ptr")

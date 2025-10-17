@@ -49,7 +49,7 @@ class POLYTEXTW extends Win32Struct
 
     /**
      * Pointer to a string of text to be drawn by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-polytextouta">PolyTextOut</a> function. This string need not be null-terminated, since <b>n</b> specifies the length of the string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstr {
         get => NumGet(this, 16, "ptr")
@@ -72,7 +72,7 @@ class POLYTEXTW extends Win32Struct
     rcl{
         get {
             if(!this.HasProp("__rcl"))
-                this.__rcl := RECT(this.ptr + 32)
+                this.__rcl := RECT(32, this)
             return this.__rcl
         }
     }

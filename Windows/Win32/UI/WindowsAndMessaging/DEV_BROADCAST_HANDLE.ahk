@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\HDEVNOTIFY.ahk
 
 /**
  * Contains information about a file system handle.
@@ -42,21 +44,27 @@ class DEV_BROADCAST_HANDLE extends Win32Struct
 
     /**
      * A handle to the device to be checked.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    dbch_handle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    dbch_handle{
+        get {
+            if(!this.HasProp("__dbch_handle"))
+                this.__dbch_handle := HANDLE(16, this)
+            return this.__dbch_handle
+        }
     }
 
     /**
      * A handle to the device notification. This handle is returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerdevicenotificationa">RegisterDeviceNotification</a>.
-     * @type {Pointer<Void>}
+     * @type {HDEVNOTIFY}
      */
-    dbch_hdevnotify {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    dbch_hdevnotify{
+        get {
+            if(!this.HasProp("__dbch_hdevnotify"))
+                this.__dbch_hdevnotify := HDEVNOTIFY(24, this)
+            return this.__dbch_hdevnotify
+        }
     }
 
     /**

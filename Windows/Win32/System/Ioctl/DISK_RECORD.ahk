@@ -60,7 +60,7 @@ class DISK_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReadRequest {
         get => NumGet(this, 37, "char")

@@ -18,7 +18,7 @@ class BCRYPT_SIGNATURE_FUNCTION_TABLE extends Win32Struct
     Version{
         get {
             if(!this.HasProp("__Version"))
-                this.__Version := BCRYPT_INTERFACE_VERSION(this.ptr + 0)
+                this.__Version := BCRYPT_INTERFACE_VERSION(0, this)
             return this.__Version
         }
     }

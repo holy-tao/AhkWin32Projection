@@ -74,7 +74,7 @@ class DEBUG_STACK_FRAME extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Virtual {
         get => NumGet(this, 120, "int")

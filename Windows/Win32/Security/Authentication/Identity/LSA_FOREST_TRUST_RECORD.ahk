@@ -96,7 +96,7 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct
     TopLevelName{
         get {
             if(!this.HasProp("__TopLevelName"))
-                this.__TopLevelName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__TopLevelName := LSA_UNICODE_STRING(16, this)
             return this.__TopLevelName
         }
     }
@@ -107,7 +107,7 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct
     DomainInfo{
         get {
             if(!this.HasProp("__DomainInfo"))
-                this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(this.ptr + 16)
+                this.__DomainInfo := LSA_FOREST_TRUST_DOMAIN_INFO(16, this)
             return this.__DomainInfo
         }
     }
@@ -118,7 +118,7 @@ class LSA_FOREST_TRUST_RECORD extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := LSA_FOREST_TRUST_BINARY_DATA(this.ptr + 16)
+                this.__Data := LSA_FOREST_TRUST_BINARY_DATA(16, this)
             return this.__Data
         }
     }

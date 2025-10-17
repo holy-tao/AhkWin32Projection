@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The GPOBROWSEINFO structure contains information that the BrowseForGPO function uses to initialize a GPO browser dialog box. After the user closes the dialog box, the system returns information about the user's actions in this structure.
@@ -33,16 +34,19 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the handle to the parent window. If this member is <b>NULL</b>, the dialog box has no owner.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
      * Specifies the title bar text. If this member is <b>NULL</b>, the title bar text is <b>Browse for a Group Policy Object</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpTitle {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +55,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Specifies the initial domain or organizational unit.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpInitialOU {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +64,7 @@ class GPOBROWSEINFO extends Win32Struct
 
     /**
      * Pointer to a buffer that receives the Active Directory path of the GPO.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDSPath {
         get => NumGet(this, 32, "ptr")
@@ -80,7 +84,7 @@ class GPOBROWSEINFO extends Win32Struct
      * Pointer to a buffer that receives either the computer name or the friendly (display) name of the GPO. If the user opens or creates a GPO in the <b>Computers</b> tab, this member contains the computer name. If the user opens or creates a GPO in the Active Directory, this member contains the friendly name. To determine the GPO type, see the description for the <b>gpoType</b> member.
      * 
      * This member can be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpName {
         get => NumGet(this, 48, "ptr")

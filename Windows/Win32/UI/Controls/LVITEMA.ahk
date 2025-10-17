@@ -236,7 +236,7 @@ class LVITEMA extends Win32Struct
      * 
      * 
      * Do not set <b>pszText</b> to LPSTR_TEXTCALLBACK if the list-view control has the <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTASCENDING</a> or <a href="https://docs.microsoft.com/windows/desktop/Controls/list-view-window-styles">LVS_SORTDESCENDING</a> style.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszText {
         get => NumGet(this, 24, "ptr")
@@ -278,7 +278,7 @@ class LVITEMA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Value specific to the item. If you use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-sortitems">LVM_SORTITEMS</a> message, the list-view control passes this value to the application-defined comparison function. You can also use the <a href="https://docs.microsoft.com/windows/desktop/Controls/lvm-finditem">LVM_FINDITEM</a> message to search a list-view control for an item with a specified <b>lParam</b> value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 40, "ptr")

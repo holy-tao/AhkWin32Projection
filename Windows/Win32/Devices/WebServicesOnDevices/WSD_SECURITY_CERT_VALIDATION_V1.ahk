@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
@@ -28,19 +29,25 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertMatchStore {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hCertMatchStore{
+        get {
+            if(!this.HasProp("__hCertMatchStore"))
+                this.__hCertMatchStore := HCERTSTORE(16, this)
+            return this.__hCertMatchStore
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertIssuerStore {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hCertIssuerStore{
+        get {
+            if(!this.HasProp("__hCertIssuerStore"))
+                this.__hCertIssuerStore := HCERTSTORE(24, this)
+            return this.__hCertIssuerStore
+        }
     }
 
     /**

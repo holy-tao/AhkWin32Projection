@@ -52,7 +52,7 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Owner {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class SECURITY_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Group {
         get => NumGet(this, 16, "ptr")

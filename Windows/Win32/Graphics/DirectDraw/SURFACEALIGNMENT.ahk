@@ -95,7 +95,7 @@ class SURFACEALIGNMENT extends Win32Struct
     Linear{
         get {
             if(!this.HasProp("__Linear"))
-                this.__Linear := %this.__Class%._Linear(this.ptr + 0)
+                this.__Linear := %this.__Class%._Linear(0, this)
             return this.__Linear
         }
     }
@@ -106,7 +106,7 @@ class SURFACEALIGNMENT extends Win32Struct
     Rectangular{
         get {
             if(!this.HasProp("__Rectangular"))
-                this.__Rectangular := %this.__Class%._Rectangular(this.ptr + 0)
+                this.__Rectangular := %this.__Class%._Rectangular(0, this)
             return this.__Rectangular
         }
     }

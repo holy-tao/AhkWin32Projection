@@ -18,7 +18,7 @@ class D3D12_VIDEO_ENCODER_RESOLVE_METADATA_OUTPUT_ARGUMENTS extends Win32Struct
     ResolvedLayoutMetadata{
         get {
             if(!this.HasProp("__ResolvedLayoutMetadata"))
-                this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(this.ptr + 0)
+                this.__ResolvedLayoutMetadata := D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER(0, this)
             return this.__ResolvedLayoutMetadata
         }
     }

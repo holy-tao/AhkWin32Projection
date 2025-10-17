@@ -21,7 +21,7 @@ class PATCH_OLD_FILE_INFO_A extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     OldFileName {
         get => NumGet(this, 8, "ptr")

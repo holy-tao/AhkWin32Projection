@@ -38,7 +38,7 @@ class ADS_DN_WITH_BINARY extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the distinguished name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDNString {
         get => NumGet(this, 16, "ptr")

@@ -23,7 +23,7 @@ class USN_RECORD_UNION extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USN_RECORD_COMMON_HEADER(this.ptr + 0)
+                this.__Header := USN_RECORD_COMMON_HEADER(0, this)
             return this.__Header
         }
     }
@@ -34,7 +34,7 @@ class USN_RECORD_UNION extends Win32Struct
     V2{
         get {
             if(!this.HasProp("__V2"))
-                this.__V2 := USN_RECORD_V2(this.ptr + 0)
+                this.__V2 := USN_RECORD_V2(0, this)
             return this.__V2
         }
     }
@@ -45,7 +45,7 @@ class USN_RECORD_UNION extends Win32Struct
     V3{
         get {
             if(!this.HasProp("__V3"))
-                this.__V3 := USN_RECORD_V3(this.ptr + 0)
+                this.__V3 := USN_RECORD_V3(0, this)
             return this.__V3
         }
     }
@@ -56,7 +56,7 @@ class USN_RECORD_UNION extends Win32Struct
     V4{
         get {
             if(!this.HasProp("__V4"))
-                this.__V4 := USN_RECORD_V4(this.ptr + 0)
+                this.__V4 := USN_RECORD_V4(0, this)
             return this.__V4
         }
     }

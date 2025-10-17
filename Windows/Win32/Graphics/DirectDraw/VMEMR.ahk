@@ -124,7 +124,7 @@ class VMEMR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDiscardable {
         get => NumGet(this, 88, "int")

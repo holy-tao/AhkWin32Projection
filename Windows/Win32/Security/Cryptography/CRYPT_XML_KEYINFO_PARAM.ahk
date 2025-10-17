@@ -16,7 +16,7 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that contains the <b>Id</b> attribute of the <b>KeyInfo</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszId {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
 
     /**
      * A pointer to a null-terminated wide character string that contains the value in the <b>KeyName</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszKeyName {
         get => NumGet(this, 8, "ptr")
@@ -39,14 +39,14 @@ class CRYPT_XML_KEYINFO_PARAM extends Win32Struct
     SKI{
         get {
             if(!this.HasProp("__SKI"))
-                this.__SKI := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__SKI := CRYPT_INTEGER_BLOB(16, this)
             return this.__SKI
         }
     }
 
     /**
      * A pointer to a null-terminated wide character string that  contains the value of the <b>X509SubjectName</b> element.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszSubjectName {
         get => NumGet(this, 32, "ptr")

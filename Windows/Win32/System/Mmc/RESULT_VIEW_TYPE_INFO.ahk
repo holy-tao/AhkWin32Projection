@@ -15,7 +15,7 @@ class RESULT_VIEW_TYPE_INFO extends Win32Struct
 
     /**
      * Snap-in-provided identifier for this view type. When implementing <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-icomponent2-getresultviewtype2">IComponent2::GetResultViewType2</a>, this member must contain a valid view description string; otherwise, MMC will not initialize your snap-in. Additionally, this value must be created by means of <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. It will be freed by MMC, not the snap-in.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pstrPersistableViewDescription {
         get => NumGet(this, 0, "ptr")
@@ -57,7 +57,7 @@ class RESULT_VIEW_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pstrURL {
         get => NumGet(this, 24, "ptr")

@@ -234,7 +234,7 @@ class TOKEN_GROUPS_AND_PRIVILEGES extends Win32Struct
     AuthenticationId{
         get {
             if(!this.HasProp("__AuthenticationId"))
-                this.__AuthenticationId := LUID(this.ptr + 48)
+                this.__AuthenticationId := LUID(48, this)
             return this.__AuthenticationId
         }
     }

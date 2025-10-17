@@ -28,7 +28,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_CODEC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 8, "int")

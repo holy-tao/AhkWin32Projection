@@ -21,7 +21,7 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProviderName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class CRYPT_CSP_PROVIDER extends Win32Struct
     Signature{
         get {
             if(!this.HasProp("__Signature"))
-                this.__Signature := CRYPT_BIT_BLOB(this.ptr + 16)
+                this.__Signature := CRYPT_BIT_BLOB(16, this)
             return this.__Signature
         }
     }

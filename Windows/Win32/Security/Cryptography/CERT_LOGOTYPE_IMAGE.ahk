@@ -21,7 +21,7 @@ class CERT_LOGOTYPE_IMAGE extends Win32Struct
     LogotypeDetails{
         get {
             if(!this.HasProp("__LogotypeDetails"))
-                this.__LogotypeDetails := CERT_LOGOTYPE_DETAILS(this.ptr + 0)
+                this.__LogotypeDetails := CERT_LOGOTYPE_DETAILS(0, this)
             return this.__LogotypeDetails
         }
     }

@@ -22,7 +22,7 @@ class CERT_GENERAL_SUBTREE extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CERT_ALT_NAME_ENTRY(this.ptr + 0)
+                this.__Base := CERT_ALT_NAME_ENTRY(0, this)
             return this.__Base
         }
     }
@@ -38,7 +38,7 @@ class CERT_GENERAL_SUBTREE extends Win32Struct
 
     /**
      * Currently not used.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMaximum {
         get => NumGet(this, 28, "int")

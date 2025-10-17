@@ -24,7 +24,7 @@ class AUTHZ_ACCESS_REQUEST extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) to use for the principal self SID in the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL).
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     PrincipalSelfSid {
         get => NumGet(this, 8, "ptr")

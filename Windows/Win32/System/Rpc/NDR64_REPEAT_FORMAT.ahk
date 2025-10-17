@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_POINTER_REPEAT_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -20,11 +21,14 @@ class NDR64_REPEAT_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDR64_POINTER_REPEAT_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 1, "char")
-        set => NumPut("char", value, this, 1)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := NDR64_POINTER_REPEAT_FLAGS(1, this)
+            return this.__Flags
+        }
     }
 
     /**

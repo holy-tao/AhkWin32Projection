@@ -19,7 +19,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -30,7 +30,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     GOOperatingChannel{
         get {
             if(!this.HasProp("__GOOperatingChannel"))
-                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(this.ptr + 5)
+                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(5, this)
             return this.__GOOperatingChannel
         }
     }
@@ -44,7 +44,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bInGroupFormation {
         get => NumGet(this, 16, "char")
@@ -52,7 +52,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bWaitForWPSReady {
         get => NumGet(this, 17, "char")

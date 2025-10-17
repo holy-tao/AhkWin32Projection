@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 
 /**
  * The CREDUI_INFO structure is used to pass information to the CredUIPromptForCredentials function that creates a dialog box used to obtain credentials information.
@@ -30,16 +32,19 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Specifies the handle to the parent window of the dialog box. The dialog box is modal with respect to the parent window. If this member is <b>NULL</b>, the desktop is the parent window of the dialog box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
      * Pointer to a string containing a brief message to display in the dialog box. The length of this string should not exceed CREDUI_MAX_MESSAGE_LENGTH.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszMessageText {
         get => NumGet(this, 16, "ptr")
@@ -48,7 +53,7 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Pointer to a string containing the title for the dialog box. The length of this string should not exceed CREDUI_MAX_CAPTION_LENGTH.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCaptionText {
         get => NumGet(this, 24, "ptr")
@@ -57,19 +62,18 @@ class CREDUI_INFOA extends Win32Struct
 
     /**
      * Bitmap to display in the dialog box. If this member is <b>NULL</b>, a default bitmap is used. The bitmap size is limited to 320x60 pixels.
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmBanner {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hbmBanner{
+        get {
+            if(!this.HasProp("__hbmBanner"))
+                this.__hbmBanner := HBITMAP(32, this)
+            return this.__hbmBanner
+        }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

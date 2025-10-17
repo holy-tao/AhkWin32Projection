@@ -12,7 +12,7 @@ class KSAC3_ROOM_TYPE extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLargeRoom {
         get => NumGet(this, 0, "int")

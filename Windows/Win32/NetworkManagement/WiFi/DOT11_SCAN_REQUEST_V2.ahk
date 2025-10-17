@@ -39,7 +39,7 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bRestrictedScan {
         get => NumGet(this, 16, "char")
@@ -63,7 +63,7 @@ class DOT11_SCAN_REQUEST_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUseRequestIE {
         get => NumGet(this, 28, "char")

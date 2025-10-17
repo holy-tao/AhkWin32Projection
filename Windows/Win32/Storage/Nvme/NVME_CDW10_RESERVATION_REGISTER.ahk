@@ -12,11 +12,40 @@ class NVME_CDW10_RESERVATION_REGISTER extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - RREGA
+     * - IEKEY
+     * - Reserved
+     * - CPTPL
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    RREGA {
+        get => (this._bitfield >> 0) & 0x7
+        set => this._bitfield := ((value & 0x7) << 0) | (this._bitfield & ~(0x7 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    IEKEY {
+        get => (this._bitfield >> 3) & 0x1
+        set => this._bitfield := ((value & 0x1) << 3) | (this._bitfield & ~(0x1 << 3))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CPTPL {
+        get => (this._bitfield >> 30) & 0x3
+        set => this._bitfield := ((value & 0x3) << 30) | (this._bitfield & ~(0x3 << 30))
     }
 
     /**

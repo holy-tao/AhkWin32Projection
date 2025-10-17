@@ -24,7 +24,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Name of the cluster.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszClusterName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
 
     /**
      * Address of array of pointers to strings, each naming a node to be added to the new cluster.
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     ppszNodeNames {
         get => NumGet(this, 24, "ptr")
@@ -86,7 +86,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
      *        <b>cNodes</b> member must be one (1) or more, the <b>ppszNodeNames</b> 
      *        member must not be <b>NULL</b>, and the <b>lpszClusterName</b> member 
      *        must not be <b>NULL</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fEmptyCluster {
         get => NumGet(this, 48, "char")
@@ -114,7 +114,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUserName {
         get => NumGet(this, 64, "ptr")
@@ -122,7 +122,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPassword {
         get => NumGet(this, 72, "ptr")
@@ -130,7 +130,7 @@ class CREATE_CLUSTER_CONFIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDomain {
         get => NumGet(this, 80, "ptr")

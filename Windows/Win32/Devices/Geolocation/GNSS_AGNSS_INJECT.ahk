@@ -42,7 +42,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     InjectionStatus {
         get => NumGet(this, 12, "int")
@@ -74,7 +74,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     Time{
         get {
             if(!this.HasProp("__Time"))
-                this.__Time := GNSS_AGNSS_INJECTTIME(this.ptr + 536)
+                this.__Time := GNSS_AGNSS_INJECTTIME(536, this)
             return this.__Time
         }
     }
@@ -85,7 +85,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := GNSS_AGNSS_INJECTPOSITION(this.ptr + 536)
+                this.__Position := GNSS_AGNSS_INJECTPOSITION(536, this)
             return this.__Position
         }
     }
@@ -96,7 +96,7 @@ class GNSS_AGNSS_INJECT extends Win32Struct
     BlobData{
         get {
             if(!this.HasProp("__BlobData"))
-                this.__BlobData := GNSS_AGNSS_INJECTBLOB(this.ptr + 536)
+                this.__BlobData := GNSS_AGNSS_INJECTBLOB(536, this)
             return this.__BlobData
         }
     }

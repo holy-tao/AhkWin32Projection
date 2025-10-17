@@ -3,6 +3,7 @@
 #Include .\DMUS_LFOPARAMS.ahk
 #Include .\DMUS_VEGPARAMS.ahk
 #Include .\DMUS_PEGPARAMS.ahk
+#Include .\DMUS_MSCPARAMS.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -20,7 +21,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     LFO{
         get {
             if(!this.HasProp("__LFO"))
-                this.__LFO := DMUS_LFOPARAMS(this.ptr + 0)
+                this.__LFO := DMUS_LFOPARAMS(0, this)
             return this.__LFO
         }
     }
@@ -31,7 +32,7 @@ class DMUS_ARTICPARAMS extends Win32Struct
     VolEG{
         get {
             if(!this.HasProp("__VolEG"))
-                this.__VolEG := DMUS_VEGPARAMS(this.ptr + 24)
+                this.__VolEG := DMUS_VEGPARAMS(24, this)
             return this.__VolEG
         }
     }
@@ -42,16 +43,19 @@ class DMUS_ARTICPARAMS extends Win32Struct
     PitchEG{
         get {
             if(!this.HasProp("__PitchEG"))
-                this.__PitchEG := DMUS_PEGPARAMS(this.ptr + 48)
+                this.__PitchEG := DMUS_PEGPARAMS(48, this)
             return this.__PitchEG
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {DMUS_MSCPARAMS}
      */
-    Misc {
-        get => NumGet(this, 76, "int")
-        set => NumPut("int", value, this, 76)
+    Misc{
+        get {
+            if(!this.HasProp("__Misc"))
+                this.__Misc := DMUS_MSCPARAMS(76, this)
+            return this.__Misc
+        }
     }
 }

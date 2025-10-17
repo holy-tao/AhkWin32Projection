@@ -12,7 +12,7 @@ class WKSTA_INFO_1059 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1059_buf_read_only_files {
         get => NumGet(this, 0, "int")

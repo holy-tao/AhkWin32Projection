@@ -12,7 +12,7 @@ class POLICY_AUDIT_FULL_SET_INFO extends Win32Struct
     static packingSize => 1
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ShutDownOnFull {
         get => NumGet(this, 0, "char")

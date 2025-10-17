@@ -30,7 +30,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOneXEnabled {
         get => NumGet(this, 8, "int")
@@ -43,7 +43,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     eapMethodType{
         get {
             if(!this.HasProp("__eapMethodType"))
-                this.__eapMethodType := EAP_METHOD_TYPE(this.ptr + 16)
+                this.__eapMethodType := EAP_METHOD_TYPE(16, this)
             return this.__eapMethodType
         }
     }

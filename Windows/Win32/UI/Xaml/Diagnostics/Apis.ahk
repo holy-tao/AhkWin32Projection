@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
@@ -17,17 +17,17 @@ class Diagnostics {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Char>} endPointName 
+     * @param {PWSTR} endPointName 
      * @param {Integer} pid 
-     * @param {Pointer<Char>} wszDllXamlDiagnostics 
-     * @param {Pointer<Char>} wszTAPDllName 
+     * @param {PWSTR} wszDllXamlDiagnostics 
+     * @param {PWSTR} wszTAPDllName 
      * @param {Pointer<Guid>} tapClsid 
      * @returns {HRESULT} 
      */
     static InitializeXamlDiagnostic(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid) {
-        endPointName := endPointName is String? StrPtr(endPointName) : endPointName
-        wszDllXamlDiagnostics := wszDllXamlDiagnostics is String? StrPtr(wszDllXamlDiagnostics) : wszDllXamlDiagnostics
-        wszTAPDllName := wszTAPDllName is String? StrPtr(wszTAPDllName) : wszTAPDllName
+        endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
+        wszDllXamlDiagnostics := wszDllXamlDiagnostics is String ? StrPtr(wszDllXamlDiagnostics) : wszDllXamlDiagnostics
+        wszTAPDllName := wszTAPDllName is String ? StrPtr(wszTAPDllName) : wszTAPDllName
 
         result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnostic", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, "ptr", tapClsid, "int")
         if(result != 0)
@@ -38,21 +38,21 @@ class Diagnostics {
 
     /**
      * Initializes a Xaml Diagnostics session. This is the entry point for any debugging tool using the XAML Diagnostic APIs.
-     * @param {Pointer<Char>} endPointName The end point name for Visual Diagnostics.
+     * @param {PWSTR} endPointName The end point name for Visual Diagnostics.
      * @param {Integer} pid The pid of the process to connect to.
-     * @param {Pointer<Char>} wszDllXamlDiagnostics The path to XamlDiagnostics.dll.
-     * @param {Pointer<Char>} wszTAPDllName The name of the DLL to be injected in the process.
+     * @param {PWSTR} wszDllXamlDiagnostics The path to XamlDiagnostics.dll.
+     * @param {PWSTR} wszTAPDllName The name of the DLL to be injected in the process.
      * @param {Pointer<Guid>} tapClsid The COM CLSID of the DLL to be injected in the process.
-     * @param {Pointer<Char>} wszInitializationData Initialization data for Xaml Diagnostics.
+     * @param {PWSTR} wszInitializationData Initialization data for Xaml Diagnostics.
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-initializexamldiagnosticsex
      * @since windows10.0.15063
      */
     static InitializeXamlDiagnosticsEx(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid, wszInitializationData) {
-        endPointName := endPointName is String? StrPtr(endPointName) : endPointName
-        wszDllXamlDiagnostics := wszDllXamlDiagnostics is String? StrPtr(wszDllXamlDiagnostics) : wszDllXamlDiagnostics
-        wszTAPDllName := wszTAPDllName is String? StrPtr(wszTAPDllName) : wszTAPDllName
-        wszInitializationData := wszInitializationData is String? StrPtr(wszInitializationData) : wszInitializationData
+        endPointName := endPointName is String ? StrPtr(endPointName) : endPointName
+        wszDllXamlDiagnostics := wszDllXamlDiagnostics is String ? StrPtr(wszDllXamlDiagnostics) : wszDllXamlDiagnostics
+        wszTAPDllName := wszTAPDllName is String ? StrPtr(wszTAPDllName) : wszTAPDllName
+        wszInitializationData := wszInitializationData is String ? StrPtr(wszInitializationData) : wszInitializationData
 
         result := DllCall("Windows.UI.Xaml.dll\InitializeXamlDiagnosticsEx", "ptr", endPointName, "uint", pid, "ptr", wszDllXamlDiagnostics, "ptr", wszTAPDllName, "ptr", tapClsid, "ptr", wszInitializationData, "int")
         if(result != 0)

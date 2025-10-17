@@ -21,7 +21,7 @@ class WTS_SERVER_INFOA extends Win32Struct
 
     /**
      * Name of the server.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pServerName {
         get => NumGet(this, 0, "ptr")

@@ -84,7 +84,7 @@ class D3D12_VIDEO_ENCODER_RATE_CONTROL_CONFIGURATION_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<D3D12_VIDEO_ENCODER_RATE_CONTROL_ABSOLUTE_QP_MAP>}
      */
     pConfiguration_AbsoluteQPMap {
         get => NumGet(this, 8, "ptr")

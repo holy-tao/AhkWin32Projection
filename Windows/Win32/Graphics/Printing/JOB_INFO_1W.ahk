@@ -22,7 +22,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPrinterName {
         get => NumGet(this, 8, "ptr")
@@ -30,7 +30,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pMachineName {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +38,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pUserName {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDocument {
         get => NumGet(this, 32, "ptr")
@@ -54,7 +54,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDatatype {
         get => NumGet(this, 40, "ptr")
@@ -62,7 +62,7 @@ class JOB_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pStatus {
         get => NumGet(this, 48, "ptr")
@@ -115,7 +115,7 @@ class JOB_INFO_1W extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(this.ptr + 80)
+                this.__Submitted := SYSTEMTIME(80, this)
             return this.__Submitted
         }
     }

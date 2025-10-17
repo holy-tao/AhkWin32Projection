@@ -22,7 +22,7 @@ class DWRITE_COLOR_GLYPH_RUN1 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := DWRITE_COLOR_GLYPH_RUN(this.ptr + 0)
+                this.__Base := DWRITE_COLOR_GLYPH_RUN(0, this)
             return this.__Base
         }
     }

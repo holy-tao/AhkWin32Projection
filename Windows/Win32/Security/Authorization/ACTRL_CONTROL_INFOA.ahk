@@ -13,7 +13,7 @@ class ACTRL_CONTROL_INFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpControlId {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class ACTRL_CONTROL_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpControlName {
         get => NumGet(this, 8, "ptr")

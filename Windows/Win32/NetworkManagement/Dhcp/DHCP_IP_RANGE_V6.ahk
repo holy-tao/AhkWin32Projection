@@ -21,7 +21,7 @@ class DHCP_IP_RANGE_V6 extends Win32Struct
     StartAddress{
         get {
             if(!this.HasProp("__StartAddress"))
-                this.__StartAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__StartAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__StartAddress
         }
     }
@@ -33,7 +33,7 @@ class DHCP_IP_RANGE_V6 extends Win32Struct
     EndAddress{
         get {
             if(!this.HasProp("__EndAddress"))
-                this.__EndAddress := DHCP_IPV6_ADDRESS(this.ptr + 16)
+                this.__EndAddress := DHCP_IPV6_ADDRESS(16, this)
             return this.__EndAddress
         }
     }

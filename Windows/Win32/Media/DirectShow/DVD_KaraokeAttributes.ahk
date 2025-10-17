@@ -24,7 +24,7 @@ class DVD_KaraokeAttributes extends Win32Struct
 
     /**
      * If <b>TRUE</b>, the "Guide Vocal 1" channel contains the "Master of Ceremonies" content.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMasterOfCeremoniesInGuideVocal1 {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class DVD_KaraokeAttributes extends Win32Struct
 
     /**
      * A Boolean value indicating whether the song is intended to be sung as a duet.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fDuet {
         get => NumGet(this, 8, "int")

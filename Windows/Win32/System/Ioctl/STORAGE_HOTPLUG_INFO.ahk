@@ -51,7 +51,7 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
     /**
      * If this member is set to a nonzero value, the device media is removable. Otherwise, the device media is not 
      *       removable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     MediaRemovable {
         get => NumGet(this, 4, "char")
@@ -61,7 +61,7 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
     /**
      * If this member is set to a nonzero value, the media is not lockable. Otherwise, the device media is 
      *       lockable.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     MediaHotplug {
         get => NumGet(this, 5, "char")
@@ -71,7 +71,7 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
     /**
      * If this member is set to a nonzero value, the device is a hotplug device. Otherwise, the device is not a 
      *       hotplug device.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DeviceHotplug {
         get => NumGet(this, 6, "char")
@@ -80,7 +80,7 @@ class STORAGE_HOTPLUG_INFO extends Win32Struct
 
     /**
      * Reserved; set the value to <b>NULL</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WriteCacheEnableOverride {
         get => NumGet(this, 7, "char")

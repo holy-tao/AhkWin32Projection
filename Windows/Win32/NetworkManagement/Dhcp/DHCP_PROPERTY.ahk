@@ -41,7 +41,7 @@ class DHCP_PROPERTY extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         StringValue {
             get => NumGet(this, 0, "ptr")
@@ -54,7 +54,7 @@ class DHCP_PROPERTY extends Win32Struct
         BinaryValue{
             get {
                 if(!this.HasProp("__BinaryValue"))
-                    this.__BinaryValue := DHCP_BINARY_DATA(this.ptr + 0)
+                    this.__BinaryValue := DHCP_BINARY_DATA(0, this)
                 return this.__BinaryValue
             }
         }
@@ -83,7 +83,7 @@ class DHCP_PROPERTY extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := %this.__Class%._DHCP_PROPERTY_VALUE_UNION(this.ptr + 8)
+                this.__Value := %this.__Class%._DHCP_PROPERTY_VALUE_UNION(8, this)
             return this.__Value
         }
     }

@@ -20,7 +20,7 @@ class ADS_ATTR_DEF extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of the attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszAttrName {
         get => NumGet(this, 0, "ptr")
@@ -56,7 +56,7 @@ class ADS_ATTR_DEF extends Win32Struct
 
     /**
      * Whether or not this attribute takes more than one value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMultiValued {
         get => NumGet(this, 20, "int")

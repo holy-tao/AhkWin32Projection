@@ -25,7 +25,7 @@ class CMC_TAGGED_OTHER_MSG extends Win32Struct
 
     /**
      * Object identifier (OID) of the other message.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszObjId {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class CMC_TAGGED_OTHER_MSG extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__Value := CRYPT_INTEGER_BLOB(16, this)
             return this.__Value
         }
     }

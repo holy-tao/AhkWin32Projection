@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains parameters for the SHBrowseForFolder function and receives information about the folder selected by the user.
@@ -23,11 +24,14 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window for the dialog box.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(0, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -45,7 +49,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Pointer to a buffer to receive the display name of the folder selected by the user. The size of this buffer is assumed to be MAX_PATH characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDisplayName {
         get => NumGet(this, 16, "ptr")
@@ -56,7 +60,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a null-terminated string that is displayed above the tree view control in the dialog box. This string can be used to specify instructions to the user.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszTitle {
         get => NumGet(this, 24, "ptr")
@@ -87,7 +91,7 @@ class BROWSEINFOW extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value that the dialog box passes to the callback function, if one is specified in <b>lpfn</b>.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")

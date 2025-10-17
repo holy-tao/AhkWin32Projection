@@ -36,11 +36,31 @@ class NVMEOF_DISC_LPE extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - FabricSecureChannel
+     * - SqFlowControlDisable
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 3, "char")
         set => NumPut("char", value, this, 3)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    FabricSecureChannel {
+        get => (this._bitfield >> 0) & 0x3
+        set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SqFlowControlDisable {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
 
     /**

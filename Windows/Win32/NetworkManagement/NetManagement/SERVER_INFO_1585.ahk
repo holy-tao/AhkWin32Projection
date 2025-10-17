@@ -12,7 +12,7 @@ class SERVER_INFO_1585 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1585_sendsfrompreferredprocessor {
         get => NumGet(this, 0, "int")

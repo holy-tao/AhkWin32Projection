@@ -30,7 +30,7 @@ class SOURCEFILEW extends Win32Struct
 
     /**
      * The fully qualified source file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FileName {
         get => NumGet(this, 8, "ptr")

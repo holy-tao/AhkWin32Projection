@@ -130,7 +130,7 @@ class USB_BUS_STATISTICS_0 extends Win32Struct
 
     /**
      * A Boolean value that indicates whether the root hub is enabled. If <b>TRUE</b>, he root hub is enabled. If <b>FALSE</b>, the root hub is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     RootHubEnabled {
         get => NumGet(this, 56, "char")

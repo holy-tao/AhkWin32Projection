@@ -23,7 +23,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     Alpha{
         get {
             if(!this.HasProp("__Alpha"))
-                this.__Alpha := DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(this.ptr + 0)
+                this.__Alpha := DEBUG_PROCESSOR_IDENTIFICATION_ALPHA(0, this)
             return this.__Alpha
         }
     }
@@ -34,7 +34,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     Amd64{
         get {
             if(!this.HasProp("__Amd64"))
-                this.__Amd64 := DEBUG_PROCESSOR_IDENTIFICATION_AMD64(this.ptr + 0)
+                this.__Amd64 := DEBUG_PROCESSOR_IDENTIFICATION_AMD64(0, this)
             return this.__Amd64
         }
     }
@@ -45,7 +45,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     Ia64{
         get {
             if(!this.HasProp("__Ia64"))
-                this.__Ia64 := DEBUG_PROCESSOR_IDENTIFICATION_IA64(this.ptr + 0)
+                this.__Ia64 := DEBUG_PROCESSOR_IDENTIFICATION_IA64(0, this)
             return this.__Ia64
         }
     }
@@ -56,7 +56,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     X86{
         get {
             if(!this.HasProp("__X86"))
-                this.__X86 := DEBUG_PROCESSOR_IDENTIFICATION_X86(this.ptr + 0)
+                this.__X86 := DEBUG_PROCESSOR_IDENTIFICATION_X86(0, this)
             return this.__X86
         }
     }
@@ -67,7 +67,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     Arm{
         get {
             if(!this.HasProp("__Arm"))
-                this.__Arm := DEBUG_PROCESSOR_IDENTIFICATION_ARM(this.ptr + 0)
+                this.__Arm := DEBUG_PROCESSOR_IDENTIFICATION_ARM(0, this)
             return this.__Arm
         }
     }
@@ -78,7 +78,7 @@ class DEBUG_PROCESSOR_IDENTIFICATION_ALL extends Win32Struct
     Arm64{
         get {
             if(!this.HasProp("__Arm64"))
-                this.__Arm64 := DEBUG_PROCESSOR_IDENTIFICATION_ARM64(this.ptr + 0)
+                this.__Arm64 := DEBUG_PROCESSOR_IDENTIFICATION_ARM64(0, this)
             return this.__Arm64
         }
     }

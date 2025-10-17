@@ -53,7 +53,7 @@ class IP_MREQ extends Win32Struct
     imr_multiaddr{
         get {
             if(!this.HasProp("__imr_multiaddr"))
-                this.__imr_multiaddr := IN_ADDR(this.ptr + 0)
+                this.__imr_multiaddr := IN_ADDR(0, this)
             return this.__imr_multiaddr
         }
     }
@@ -67,7 +67,7 @@ class IP_MREQ extends Win32Struct
     imr_interface{
         get {
             if(!this.HasProp("__imr_interface"))
-                this.__imr_interface := IN_ADDR(this.ptr + 4)
+                this.__imr_interface := IN_ADDR(4, this)
             return this.__imr_interface
         }
     }

@@ -34,7 +34,7 @@ class RM_UNIQUE_PROCESS extends Win32Struct
     ProcessStartTime{
         get {
             if(!this.HasProp("__ProcessStartTime"))
-                this.__ProcessStartTime := FILETIME(this.ptr + 8)
+                this.__ProcessStartTime := FILETIME(8, this)
             return this.__ProcessStartTime
         }
     }

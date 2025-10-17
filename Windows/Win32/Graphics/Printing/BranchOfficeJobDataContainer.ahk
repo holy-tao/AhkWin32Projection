@@ -4,6 +4,7 @@
 #Include .\BranchOfficeJobDataRendered.ahk
 #Include .\BranchOfficeJobDataError.ahk
 #Include .\BranchOfficeJobDataPipelineFailed.ahk
+#Include .\BranchOfficeLogOfflineFileFull.ahk
 #Include .\BranchOfficeJobData.ahk
 
 /**

@@ -19,7 +19,7 @@ class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct
     DataRange{
         get {
             if(!this.HasProp("__DataRange"))
-                this.__DataRange := KSDATAFORMAT(this.ptr + 0)
+                this.__DataRange := KSDATAFORMAT(0, this)
             return this.__DataRange
         }
     }
@@ -30,7 +30,7 @@ class KS_DATARANGE_BDA_TRANSPORT extends Win32Struct
     BdaTransportInfo{
         get {
             if(!this.HasProp("__BdaTransportInfo"))
-                this.__BdaTransportInfo := BDA_TRANSPORT_INFO(this.ptr + 48)
+                this.__BdaTransportInfo := BDA_TRANSPORT_INFO(48, this)
             return this.__BdaTransportInfo
         }
     }

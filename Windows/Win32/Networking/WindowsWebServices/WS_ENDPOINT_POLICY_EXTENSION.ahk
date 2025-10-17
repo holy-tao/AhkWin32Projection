@@ -33,6 +33,20 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
 
     static packingSize => 8
 
+    class _out extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 8
+
+        /**
+         * @type {Pointer<WS_XML_BUFFER>}
+         */
+        assertionValue {
+            get => NumGet(this, 0, "ptr")
+            set => NumPut("ptr", value, this, 0)
+        }
+    
+    }
+
     /**
      * The base policy extension that this policy extension derives from.
      * @type {WS_POLICY_EXTENSION}
@@ -40,7 +54,7 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     policyExtension{
         get {
             if(!this.HasProp("__policyExtension"))
-                this.__policyExtension := WS_POLICY_EXTENSION(this.ptr + 0)
+                this.__policyExtension := WS_POLICY_EXTENSION(0, this)
             return this.__policyExtension
         }
     }
@@ -66,10 +80,13 @@ class WS_ENDPOINT_POLICY_EXTENSION extends Win32Struct
     /**
      * When <a href="https://docs.microsoft.com/windows/desktop/api/webservices/nf-webservices-wsmatchpolicyalternative">WsMatchPolicyAlternative</a> returns NOERROR, the
      *                     fields of this structure will be filled out as follows:
-     * @type {Pointer<TypeHandle>}
+     * @type {_out}
      */
-    out {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    out{
+        get {
+            if(!this.HasProp("__out"))
+                this.__out := %this.__Class%._out(24, this)
+            return this.__out
+        }
     }
 }

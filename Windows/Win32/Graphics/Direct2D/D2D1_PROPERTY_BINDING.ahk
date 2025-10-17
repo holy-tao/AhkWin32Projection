@@ -24,7 +24,7 @@ class D2D1_PROPERTY_BINDING extends Win32Struct
 
     /**
      * The name of the property.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     propertyName {
         get => NumGet(this, 0, "ptr")

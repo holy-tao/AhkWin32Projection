@@ -31,7 +31,7 @@ class IKEEXT_PROPOSAL0 extends Win32Struct
     cipherAlgorithm{
         get {
             if(!this.HasProp("__cipherAlgorithm"))
-                this.__cipherAlgorithm := IKEEXT_CIPHER_ALGORITHM0(this.ptr + 0)
+                this.__cipherAlgorithm := IKEEXT_CIPHER_ALGORITHM0(0, this)
             return this.__cipherAlgorithm
         }
     }
@@ -43,7 +43,7 @@ class IKEEXT_PROPOSAL0 extends Win32Struct
     integrityAlgorithm{
         get {
             if(!this.HasProp("__integrityAlgorithm"))
-                this.__integrityAlgorithm := IKEEXT_INTEGRITY_ALGORITHM0(this.ptr + 12)
+                this.__integrityAlgorithm := IKEEXT_INTEGRITY_ALGORITHM0(12, this)
             return this.__integrityAlgorithm
         }
     }

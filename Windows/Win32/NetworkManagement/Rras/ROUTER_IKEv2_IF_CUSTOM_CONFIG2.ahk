@@ -35,7 +35,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     certificateName{
         get {
             if(!this.HasProp("__certificateName"))
-                this.__certificateName := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__certificateName := CRYPT_INTEGER_BLOB(8, this)
             return this.__certificateName
         }
     }
@@ -54,7 +54,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     certificateHash{
         get {
             if(!this.HasProp("__certificateHash"))
-                this.__certificateHash := CRYPT_INTEGER_BLOB(this.ptr + 32)
+                this.__certificateHash := CRYPT_INTEGER_BLOB(32, this)
             return this.__certificateHash
         }
     }
@@ -73,7 +73,7 @@ class ROUTER_IKEv2_IF_CUSTOM_CONFIG2 extends Win32Struct
     vpnTrafficSelectors{
         get {
             if(!this.HasProp("__vpnTrafficSelectors"))
-                this.__vpnTrafficSelectors := MPR_VPN_TRAFFIC_SELECTORS(this.ptr + 56)
+                this.__vpnTrafficSelectors := MPR_VPN_TRAFFIC_SELECTORS(56, this)
             return this.__vpnTrafficSelectors
         }
     }

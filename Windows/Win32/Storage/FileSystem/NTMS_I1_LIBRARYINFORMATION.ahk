@@ -36,7 +36,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     LibrarySupportsDriveCleaning {
         get => NumGet(this, 24, "int")
@@ -44,7 +44,7 @@ class NTMS_I1_LIBRARYINFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     BarCodeReaderInstalled {
         get => NumGet(this, 28, "int")

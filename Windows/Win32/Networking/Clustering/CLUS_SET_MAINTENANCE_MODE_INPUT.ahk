@@ -12,7 +12,7 @@ class CLUS_SET_MAINTENANCE_MODE_INPUT extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     InMaintenance {
         get => NumGet(this, 0, "int")

@@ -51,7 +51,7 @@ class PANEL_SET_BRIGHTNESS extends Win32Struct
     SensorData{
         get {
             if(!this.HasProp("__SensorData"))
-                this.__SensorData := PANEL_BRIGHTNESS_SENSOR_DATA(this.ptr + 16)
+                this.__SensorData := PANEL_BRIGHTNESS_SENSOR_DATA(16, this)
             return this.__SensorData
         }
     }

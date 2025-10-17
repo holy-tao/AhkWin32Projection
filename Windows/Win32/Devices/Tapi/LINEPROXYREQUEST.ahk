@@ -114,7 +114,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 8)
+                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
                 return this.__GroupList
             }
         }
@@ -191,7 +191,7 @@ class LINEPROXYREQUEST extends Win32Struct
         AgentCaps{
             get {
                 if(!this.HasProp("__AgentCaps"))
-                    this.__AgentCaps := LINEAGENTCAPS(this.ptr + 8)
+                    this.__AgentCaps := LINEAGENTCAPS(8, this)
                 return this.__AgentCaps
             }
         }
@@ -216,7 +216,7 @@ class LINEPROXYREQUEST extends Win32Struct
         AgentStatus{
             get {
                 if(!this.HasProp("__AgentStatus"))
-                    this.__AgentStatus := LINEAGENTSTATUS(this.ptr + 8)
+                    this.__AgentStatus := LINEAGENTSTATUS(8, this)
                 return this.__AgentStatus
             }
         }
@@ -282,7 +282,7 @@ class LINEPROXYREQUEST extends Win32Struct
         ActivityList{
             get {
                 if(!this.HasProp("__ActivityList"))
-                    this.__ActivityList := LINEAGENTACTIVITYLIST(this.ptr + 8)
+                    this.__ActivityList := LINEAGENTACTIVITYLIST(8, this)
                 return this.__ActivityList
             }
         }
@@ -307,7 +307,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 8)
+                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
                 return this.__GroupList
             }
         }
@@ -430,7 +430,7 @@ class LINEPROXYREQUEST extends Win32Struct
         AgentInfo{
             get {
                 if(!this.HasProp("__AgentInfo"))
-                    this.__AgentInfo := LINEAGENTINFO(this.ptr + 8)
+                    this.__AgentInfo := LINEAGENTINFO(8, this)
                 return this.__AgentInfo
             }
         }
@@ -509,7 +509,7 @@ class LINEPROXYREQUEST extends Win32Struct
         SessionList{
             get {
                 if(!this.HasProp("__SessionList"))
-                    this.__SessionList := LINEAGENTSESSIONLIST(this.ptr + 8)
+                    this.__SessionList := LINEAGENTSESSIONLIST(8, this)
                 return this.__SessionList
             }
         }
@@ -534,7 +534,7 @@ class LINEPROXYREQUEST extends Win32Struct
         SessionInfo{
             get {
                 if(!this.HasProp("__SessionInfo"))
-                    this.__SessionInfo := LINEAGENTSESSIONINFO(this.ptr + 8)
+                    this.__SessionInfo := LINEAGENTSESSIONINFO(8, this)
                 return this.__SessionInfo
             }
         }
@@ -589,7 +589,7 @@ class LINEPROXYREQUEST extends Win32Struct
         QueueList{
             get {
                 if(!this.HasProp("__QueueList"))
-                    this.__QueueList := LINEQUEUELIST(this.ptr + 8)
+                    this.__QueueList := LINEQUEUELIST(8, this)
                 return this.__QueueList
             }
         }
@@ -636,7 +636,7 @@ class LINEPROXYREQUEST extends Win32Struct
         QueueInfo{
             get {
                 if(!this.HasProp("__QueueInfo"))
-                    this.__QueueInfo := LINEQUEUEINFO(this.ptr + 8)
+                    this.__QueueInfo := LINEQUEUEINFO(8, this)
                 return this.__QueueInfo
             }
         }
@@ -653,7 +653,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(this.ptr + 0)
+                    this.__GroupList := LINEAGENTGROUPLIST(0, this)
                 return this.__GroupList
             }
         }
@@ -666,7 +666,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentGroup{
         get {
             if(!this.HasProp("__SetAgentGroup"))
-                this.__SetAgentGroup := %this.__Class%._SetAgentGroup(this.ptr + 32)
+                this.__SetAgentGroup := %this.__Class%._SetAgentGroup(32, this)
             return this.__SetAgentGroup
         }
     }
@@ -677,7 +677,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentState{
         get {
             if(!this.HasProp("__SetAgentState"))
-                this.__SetAgentState := %this.__Class%._SetAgentState(this.ptr + 32)
+                this.__SetAgentState := %this.__Class%._SetAgentState(32, this)
             return this.__SetAgentState
         }
     }
@@ -688,7 +688,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentActivity{
         get {
             if(!this.HasProp("__SetAgentActivity"))
-                this.__SetAgentActivity := %this.__Class%._SetAgentActivity(this.ptr + 32)
+                this.__SetAgentActivity := %this.__Class%._SetAgentActivity(32, this)
             return this.__SetAgentActivity
         }
     }
@@ -699,7 +699,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentCaps{
         get {
             if(!this.HasProp("__GetAgentCaps"))
-                this.__GetAgentCaps := %this.__Class%._GetAgentCaps(this.ptr + 32)
+                this.__GetAgentCaps := %this.__Class%._GetAgentCaps(32, this)
             return this.__GetAgentCaps
         }
     }
@@ -710,7 +710,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentStatus{
         get {
             if(!this.HasProp("__GetAgentStatus"))
-                this.__GetAgentStatus := %this.__Class%._GetAgentStatus(this.ptr + 32)
+                this.__GetAgentStatus := %this.__Class%._GetAgentStatus(32, this)
             return this.__GetAgentStatus
         }
     }
@@ -721,7 +721,7 @@ class LINEPROXYREQUEST extends Win32Struct
     AgentSpecific{
         get {
             if(!this.HasProp("__AgentSpecific"))
-                this.__AgentSpecific := %this.__Class%._AgentSpecific(this.ptr + 32)
+                this.__AgentSpecific := %this.__Class%._AgentSpecific(32, this)
             return this.__AgentSpecific
         }
     }
@@ -732,7 +732,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentActivityList{
         get {
             if(!this.HasProp("__GetAgentActivityList"))
-                this.__GetAgentActivityList := %this.__Class%._GetAgentActivityList(this.ptr + 32)
+                this.__GetAgentActivityList := %this.__Class%._GetAgentActivityList(32, this)
             return this.__GetAgentActivityList
         }
     }
@@ -743,7 +743,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentGroupList{
         get {
             if(!this.HasProp("__GetAgentGroupList"))
-                this.__GetAgentGroupList := %this.__Class%._GetAgentGroupList(this.ptr + 32)
+                this.__GetAgentGroupList := %this.__Class%._GetAgentGroupList(32, this)
             return this.__GetAgentGroupList
         }
     }
@@ -754,7 +754,7 @@ class LINEPROXYREQUEST extends Win32Struct
     CreateAgent{
         get {
             if(!this.HasProp("__CreateAgent"))
-                this.__CreateAgent := %this.__Class%._CreateAgent(this.ptr + 32)
+                this.__CreateAgent := %this.__Class%._CreateAgent(32, this)
             return this.__CreateAgent
         }
     }
@@ -765,7 +765,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentStateEx{
         get {
             if(!this.HasProp("__SetAgentStateEx"))
-                this.__SetAgentStateEx := %this.__Class%._SetAgentStateEx(this.ptr + 32)
+                this.__SetAgentStateEx := %this.__Class%._SetAgentStateEx(32, this)
             return this.__SetAgentStateEx
         }
     }
@@ -776,7 +776,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentMeasurementPeriod{
         get {
             if(!this.HasProp("__SetAgentMeasurementPeriod"))
-                this.__SetAgentMeasurementPeriod := %this.__Class%._SetAgentMeasurementPeriod(this.ptr + 32)
+                this.__SetAgentMeasurementPeriod := %this.__Class%._SetAgentMeasurementPeriod(32, this)
             return this.__SetAgentMeasurementPeriod
         }
     }
@@ -787,7 +787,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentInfo{
         get {
             if(!this.HasProp("__GetAgentInfo"))
-                this.__GetAgentInfo := %this.__Class%._GetAgentInfo(this.ptr + 32)
+                this.__GetAgentInfo := %this.__Class%._GetAgentInfo(32, this)
             return this.__GetAgentInfo
         }
     }
@@ -798,7 +798,7 @@ class LINEPROXYREQUEST extends Win32Struct
     CreateAgentSession{
         get {
             if(!this.HasProp("__CreateAgentSession"))
-                this.__CreateAgentSession := %this.__Class%._CreateAgentSession(this.ptr + 32)
+                this.__CreateAgentSession := %this.__Class%._CreateAgentSession(32, this)
             return this.__CreateAgentSession
         }
     }
@@ -809,7 +809,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentSessionList{
         get {
             if(!this.HasProp("__GetAgentSessionList"))
-                this.__GetAgentSessionList := %this.__Class%._GetAgentSessionList(this.ptr + 32)
+                this.__GetAgentSessionList := %this.__Class%._GetAgentSessionList(32, this)
             return this.__GetAgentSessionList
         }
     }
@@ -820,7 +820,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetAgentSessionInfo{
         get {
             if(!this.HasProp("__GetAgentSessionInfo"))
-                this.__GetAgentSessionInfo := %this.__Class%._GetAgentSessionInfo(this.ptr + 32)
+                this.__GetAgentSessionInfo := %this.__Class%._GetAgentSessionInfo(32, this)
             return this.__GetAgentSessionInfo
         }
     }
@@ -831,7 +831,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetAgentSessionState{
         get {
             if(!this.HasProp("__SetAgentSessionState"))
-                this.__SetAgentSessionState := %this.__Class%._SetAgentSessionState(this.ptr + 32)
+                this.__SetAgentSessionState := %this.__Class%._SetAgentSessionState(32, this)
             return this.__SetAgentSessionState
         }
     }
@@ -842,7 +842,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetQueueList{
         get {
             if(!this.HasProp("__GetQueueList"))
-                this.__GetQueueList := %this.__Class%._GetQueueList(this.ptr + 32)
+                this.__GetQueueList := %this.__Class%._GetQueueList(32, this)
             return this.__GetQueueList
         }
     }
@@ -853,7 +853,7 @@ class LINEPROXYREQUEST extends Win32Struct
     SetQueueMeasurementPeriod{
         get {
             if(!this.HasProp("__SetQueueMeasurementPeriod"))
-                this.__SetQueueMeasurementPeriod := %this.__Class%._SetQueueMeasurementPeriod(this.ptr + 32)
+                this.__SetQueueMeasurementPeriod := %this.__Class%._SetQueueMeasurementPeriod(32, this)
             return this.__SetQueueMeasurementPeriod
         }
     }
@@ -864,7 +864,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetQueueInfo{
         get {
             if(!this.HasProp("__GetQueueInfo"))
-                this.__GetQueueInfo := %this.__Class%._GetQueueInfo(this.ptr + 32)
+                this.__GetQueueInfo := %this.__Class%._GetQueueInfo(32, this)
             return this.__GetQueueInfo
         }
     }
@@ -875,7 +875,7 @@ class LINEPROXYREQUEST extends Win32Struct
     GetGroupList{
         get {
             if(!this.HasProp("__GetGroupList"))
-                this.__GetGroupList := %this.__Class%._GetGroupList(this.ptr + 32)
+                this.__GetGroupList := %this.__Class%._GetGroupList(32, this)
             return this.__GetGroupList
         }
     }

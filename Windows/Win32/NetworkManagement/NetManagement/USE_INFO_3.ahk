@@ -21,7 +21,7 @@ class USE_INFO_3 extends Win32Struct
     ui3_ui2{
         get {
             if(!this.HasProp("__ui3_ui2"))
-                this.__ui3_ui2 := USE_INFO_2(this.ptr + 0)
+                this.__ui3_ui2 := USE_INFO_2(0, this)
             return this.__ui3_ui2
         }
     }

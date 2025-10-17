@@ -21,7 +21,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvNbComputerName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvNbDomainName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvDnsComputerName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvDnsDomainName {
         get => NumGet(this, 32, "ptr")
@@ -53,7 +53,7 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvDnsTreeName {
         get => NumGet(this, 40, "ptr")
@@ -74,13 +74,13 @@ class SECPKG_NTLM_TARGETINFO extends Win32Struct
     MsvAvTimestamp{
         get {
             if(!this.HasProp("__MsvAvTimestamp"))
-                this.__MsvAvTimestamp := FILETIME(this.ptr + 56)
+                this.__MsvAvTimestamp := FILETIME(56, this)
             return this.__MsvAvTimestamp
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     MsvAvTargetName {
         get => NumGet(this, 64, "ptr")

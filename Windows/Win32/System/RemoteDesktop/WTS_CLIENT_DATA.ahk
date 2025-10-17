@@ -18,7 +18,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the logon (CTRL+ALT+DELETE) key sequence is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCtrlAltDel {
         get => NumGet(this, 0, "char")
@@ -27,7 +27,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the client can double-click.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDoubleClickDetect {
         get => NumGet(this, 1, "char")
@@ -36,7 +36,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the Windows key is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fEnableWindowsKey {
         get => NumGet(this, 2, "char")
@@ -45,7 +45,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the title bar is hidden.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fHideTitleBar {
         get => NumGet(this, 3, "char")
@@ -54,7 +54,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the logon process is automatic. This value overwrites the  <b>fInheritAutoLogon</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInheritAutoLogon {
         get => NumGet(this, 4, "int")
@@ -63,7 +63,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether to prompt the user for a password. If this value is <b>TRUE</b>, the user will be prompted even if the <b>fInheritAutoLogon</b> registry value is <b>TRUE</b> and the "Always ask for a password" policy is not set.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fPromptForPassword {
         get => NumGet(this, 8, "char")
@@ -72,7 +72,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the client is using saved credentials during the logon process.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fUsingSavedCreds {
         get => NumGet(this, 9, "char")
@@ -108,7 +108,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies that a smart card was used during the logon process. The smart card PIN is the password.  This value is used if <b>fInheritAutoLogon</b> is set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fPasswordIsScPin {
         get => NumGet(this, 1546, "char")
@@ -117,7 +117,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the initial program to start in the Remote Desktop Services shell is inherited. This value overwrites the  <b>fInheritInitialProgram</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInheritInitialProgram {
         get => NumGet(this, 1548, "int")
@@ -144,7 +144,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether the initial program is displayed maximized. This value is used if <b>fInheritInitialProgram</b> is set to <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fMaximizeShell {
         get => NumGet(this, 2580, "char")
@@ -189,7 +189,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether to inherit the monitor color depth. This value overwrites the  <b>fInheritColorDepth</b> listener registry value.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInheritColorDepth {
         get => NumGet(this, 2608, "int")
@@ -243,7 +243,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether mouse input is enabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fMouse {
         get => NumGet(this, 2676, "char")
@@ -306,7 +306,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether to turn on audio. A value of <b>TRUE</b> specifies no audio.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fNoAudioPlayback {
         get => NumGet(this, 2768, "char")
@@ -315,7 +315,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether to leave audio playback on the remote computer.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fRemoteConsoleAudio {
         get => NumGet(this, 2769, "char")
@@ -338,7 +338,7 @@ class WTS_CLIENT_DATA extends Win32Struct
     ClientTimeZone{
         get {
             if(!this.HasProp("__ClientTimeZone"))
-                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(this.ptr + 2792)
+                this.__ClientTimeZone := WTS_TIME_ZONE_INFORMATION(2792, this)
             return this.__ClientTimeZone
         }
     }
@@ -386,7 +386,7 @@ class WTS_CLIENT_DATA extends Win32Struct
     ClientSockAddress{
         get {
             if(!this.HasProp("__ClientSockAddress"))
-                this.__ClientSockAddress := WTS_SOCKADDR(this.ptr + 3096)
+                this.__ClientSockAddress := WTS_SOCKADDR(3096, this)
             return this.__ClientSockAddress
         }
     }
@@ -465,7 +465,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether printer mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCpm {
         get => NumGet(this, 3734, "char")
@@ -474,7 +474,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether drive mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCdm {
         get => NumGet(this, 3735, "char")
@@ -483,7 +483,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether COM port  mapping is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableCcm {
         get => NumGet(this, 3736, "char")
@@ -492,7 +492,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether LPT printer redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableLPT {
         get => NumGet(this, 3737, "char")
@@ -501,7 +501,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether clipboard redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisableClip {
         get => NumGet(this, 3738, "char")
@@ -510,7 +510,7 @@ class WTS_CLIENT_DATA extends Win32Struct
 
     /**
      * Specifies whether PNP redirection is enabled. This value is initially set from policy information. If you reset the value, the policy will be overwritten.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     fDisablePNP {
         get => NumGet(this, 3739, "char")

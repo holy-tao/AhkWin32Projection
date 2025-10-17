@@ -100,7 +100,7 @@ class SECPKG_PARAMETERS extends Win32Struct
 
     /**
      * The security identifier of the primary domain.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     DomainSid {
         get => NumGet(this, 16, "ptr")
@@ -114,7 +114,7 @@ class SECPKG_PARAMETERS extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__DomainName := LSA_UNICODE_STRING(24, this)
             return this.__DomainName
         }
     }
@@ -126,7 +126,7 @@ class SECPKG_PARAMETERS extends Win32Struct
     DnsDomainName{
         get {
             if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__DnsDomainName := LSA_UNICODE_STRING(40, this)
             return this.__DnsDomainName
         }
     }

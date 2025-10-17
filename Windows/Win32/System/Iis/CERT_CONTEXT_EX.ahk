@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 #Include ..\..\Security\Cryptography\CERT_CONTEXT.ahk
 
 /**
@@ -18,7 +19,7 @@ class CERT_CONTEXT_EX extends Win32Struct
     CertContext{
         get {
             if(!this.HasProp("__CertContext"))
-                this.__CertContext := CERT_CONTEXT(this.ptr + 0)
+                this.__CertContext := CERT_CONTEXT(0, this)
             return this.__CertContext
         }
     }

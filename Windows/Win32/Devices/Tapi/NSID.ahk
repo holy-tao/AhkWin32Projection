@@ -53,7 +53,7 @@ class NSID extends Win32Struct
     alias{
         get {
             if(!this.HasProp("__alias"))
-                this.__alias := ADDRALIAS(this.ptr + 32)
+                this.__alias := ADDRALIAS(32, this)
             return this.__alias
         }
     }

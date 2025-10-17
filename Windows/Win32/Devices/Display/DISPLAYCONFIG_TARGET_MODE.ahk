@@ -23,7 +23,7 @@ class DISPLAYCONFIG_TARGET_MODE extends Win32Struct
     targetVideoSignalInfo{
         get {
             if(!this.HasProp("__targetVideoSignalInfo"))
-                this.__targetVideoSignalInfo := DISPLAYCONFIG_VIDEO_SIGNAL_INFO(this.ptr + 0)
+                this.__targetVideoSignalInfo := DISPLAYCONFIG_VIDEO_SIGNAL_INFO(0, this)
             return this.__targetVideoSignalInfo
         }
     }

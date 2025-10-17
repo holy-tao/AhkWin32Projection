@@ -26,7 +26,7 @@ class MSV1_0_PASSTHROUGH_REQUEST extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -37,7 +37,7 @@ class MSV1_0_PASSTHROUGH_REQUEST extends Win32Struct
     PackageName{
         get {
             if(!this.HasProp("__PackageName"))
-                this.__PackageName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__PackageName := LSA_UNICODE_STRING(24, this)
             return this.__PackageName
         }
     }

@@ -22,7 +22,7 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := SAFER_IDENTIFICATION_HEADER(this.ptr + 0)
+                this.__header := SAFER_IDENTIFICATION_HEADER(0, this)
             return this.__header
         }
     }
@@ -38,7 +38,7 @@ class SAFER_PATHNAME_IDENTIFICATION extends Win32Struct
 
     /**
      * A pointer to a <b>null</b>-terminated wide character string that specifies the fully qualified path and file name to be used for path-based discrimination checks. The image name is also used to open and read the file to identify any other discrimination criteria not supplied in this structure. This member can be set to <b>NULL</b>. If the <b>dwCheckFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winsafer/ns-winsafer-safer_identification_header">SAFER_IDENTIFICATION_HEADER</a> structure specified by the <b>header</b> member includes SAFER_CRITERIA_AUTHENTICODE, either the <b>hImageFileHandle</b> member or the <b>ImagePath</b> member of the <b>SAFER_IDENTIFICATION_HEADER</b> structure must be set.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ImageName {
         get => NumGet(this, 536, "ptr")

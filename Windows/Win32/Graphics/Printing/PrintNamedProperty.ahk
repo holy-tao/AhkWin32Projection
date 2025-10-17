@@ -13,7 +13,7 @@ class PrintNamedProperty extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     propertyName {
         get => NumGet(this, 0, "ptr")
@@ -26,7 +26,7 @@ class PrintNamedProperty extends Win32Struct
     propertyValue{
         get {
             if(!this.HasProp("__propertyValue"))
-                this.__propertyValue := PrintPropertyValue(this.ptr + 8)
+                this.__propertyValue := PrintPropertyValue(8, this)
             return this.__propertyValue
         }
     }

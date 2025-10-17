@@ -38,7 +38,7 @@ class MCI_DGV_RESTORE_PARMSA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string containing the filename from which the frame buffer information will be restored.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrFileName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class MCI_DGV_RESTORE_PARMSA extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(this.ptr + 16)
+                this.__rc := RECT(16, this)
             return this.__rc
         }
     }

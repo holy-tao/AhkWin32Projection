@@ -34,7 +34,7 @@ class NFC_LLCP_SOCKET_CL_PAYLOAD extends Win32Struct
     sPayload{
         get {
             if(!this.HasProp("__sPayload"))
-                this.__sPayload := NFC_DATA_BUFFER(this.ptr + 12)
+                this.__sPayload := NFC_DATA_BUFFER(12, this)
             return this.__sPayload
         }
     }

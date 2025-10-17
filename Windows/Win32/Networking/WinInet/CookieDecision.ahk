@@ -20,7 +20,7 @@ class CookieDecision extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAllowSession {
         get => NumGet(this, 4, "int")

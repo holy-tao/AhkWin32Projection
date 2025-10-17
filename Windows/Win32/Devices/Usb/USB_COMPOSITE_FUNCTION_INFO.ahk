@@ -36,7 +36,7 @@ class USB_COMPOSITE_FUNCTION_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     FunctionIsIdle {
         get => NumGet(this, 3, "char")

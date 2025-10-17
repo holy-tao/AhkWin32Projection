@@ -16,6 +16,9 @@
 #Include .\NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE.ahk
 #Include .\NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE.ahk
 #Include .\NVME_CDW0_FEATURE_ERROR_INJECTION.ahk
+#Include .\NVME_CDW11_FEATURE_HOST_IDENTIFIER.ahk
+#Include .\NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE.ahk
+#Include .\NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK.ahk
 #Include .\NVME_CDW11_FEATURE_GET_HOST_METADATA.ahk
 #Include .\NVME_CDW11_FEATURE_SET_HOST_METADATA.ahk
 
@@ -35,7 +38,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     NumberOfQueues{
         get {
             if(!this.HasProp("__NumberOfQueues"))
-                this.__NumberOfQueues := NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(this.ptr + 0)
+                this.__NumberOfQueues := NVME_CDW11_FEATURE_NUMBER_OF_QUEUES(0, this)
             return this.__NumberOfQueues
         }
     }
@@ -46,7 +49,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     InterruptCoalescing{
         get {
             if(!this.HasProp("__InterruptCoalescing"))
-                this.__InterruptCoalescing := NVME_CDW11_FEATURE_INTERRUPT_COALESCING(this.ptr + 0)
+                this.__InterruptCoalescing := NVME_CDW11_FEATURE_INTERRUPT_COALESCING(0, this)
             return this.__InterruptCoalescing
         }
     }
@@ -57,7 +60,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     InterruptVectorConfig{
         get {
             if(!this.HasProp("__InterruptVectorConfig"))
-                this.__InterruptVectorConfig := NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(this.ptr + 0)
+                this.__InterruptVectorConfig := NVME_CDW11_FEATURE_INTERRUPT_VECTOR_CONFIG(0, this)
             return this.__InterruptVectorConfig
         }
     }
@@ -68,7 +71,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     LbaRangeType{
         get {
             if(!this.HasProp("__LbaRangeType"))
-                this.__LbaRangeType := NVME_CDW11_FEATURE_LBA_RANGE_TYPE(this.ptr + 0)
+                this.__LbaRangeType := NVME_CDW11_FEATURE_LBA_RANGE_TYPE(0, this)
             return this.__LbaRangeType
         }
     }
@@ -79,7 +82,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     Arbitration{
         get {
             if(!this.HasProp("__Arbitration"))
-                this.__Arbitration := NVME_CDW11_FEATURE_ARBITRATION(this.ptr + 0)
+                this.__Arbitration := NVME_CDW11_FEATURE_ARBITRATION(0, this)
             return this.__Arbitration
         }
     }
@@ -90,7 +93,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     VolatileWriteCache{
         get {
             if(!this.HasProp("__VolatileWriteCache"))
-                this.__VolatileWriteCache := NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(this.ptr + 0)
+                this.__VolatileWriteCache := NVME_CDW11_FEATURE_VOLATILE_WRITE_CACHE(0, this)
             return this.__VolatileWriteCache
         }
     }
@@ -101,7 +104,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     AsyncEventConfig{
         get {
             if(!this.HasProp("__AsyncEventConfig"))
-                this.__AsyncEventConfig := NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(this.ptr + 0)
+                this.__AsyncEventConfig := NVME_CDW11_FEATURE_ASYNC_EVENT_CONFIG(0, this)
             return this.__AsyncEventConfig
         }
     }
@@ -112,7 +115,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     PowerManagement{
         get {
             if(!this.HasProp("__PowerManagement"))
-                this.__PowerManagement := NVME_CDW11_FEATURE_POWER_MANAGEMENT(this.ptr + 0)
+                this.__PowerManagement := NVME_CDW11_FEATURE_POWER_MANAGEMENT(0, this)
             return this.__PowerManagement
         }
     }
@@ -123,7 +126,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     AutoPowerStateTransition{
         get {
             if(!this.HasProp("__AutoPowerStateTransition"))
-                this.__AutoPowerStateTransition := NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(this.ptr + 0)
+                this.__AutoPowerStateTransition := NVME_CDW11_FEATURE_AUTO_POWER_STATE_TRANSITION(0, this)
             return this.__AutoPowerStateTransition
         }
     }
@@ -134,7 +137,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     TemperatureThreshold{
         get {
             if(!this.HasProp("__TemperatureThreshold"))
-                this.__TemperatureThreshold := NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(this.ptr + 0)
+                this.__TemperatureThreshold := NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD(0, this)
             return this.__TemperatureThreshold
         }
     }
@@ -145,7 +148,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     ErrorRecovery{
         get {
             if(!this.HasProp("__ErrorRecovery"))
-                this.__ErrorRecovery := NVME_CDW11_FEATURE_ERROR_RECOVERY(this.ptr + 0)
+                this.__ErrorRecovery := NVME_CDW11_FEATURE_ERROR_RECOVERY(0, this)
             return this.__ErrorRecovery
         }
     }
@@ -156,7 +159,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     HostMemoryBuffer{
         get {
             if(!this.HasProp("__HostMemoryBuffer"))
-                this.__HostMemoryBuffer := NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(this.ptr + 0)
+                this.__HostMemoryBuffer := NVME_CDW11_FEATURE_HOST_MEMORY_BUFFER(0, this)
             return this.__HostMemoryBuffer
         }
     }
@@ -167,7 +170,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     WriteAtomicityNormal{
         get {
             if(!this.HasProp("__WriteAtomicityNormal"))
-                this.__WriteAtomicityNormal := NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(this.ptr + 0)
+                this.__WriteAtomicityNormal := NVME_CDW11_FEATURE_WRITE_ATOMICITY_NORMAL(0, this)
             return this.__WriteAtomicityNormal
         }
     }
@@ -178,7 +181,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     NonOperationalPowerState{
         get {
             if(!this.HasProp("__NonOperationalPowerState"))
-                this.__NonOperationalPowerState := NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(this.ptr + 0)
+                this.__NonOperationalPowerState := NVME_CDW11_FEATURE_NON_OPERATIONAL_POWER_STATE(0, this)
             return this.__NonOperationalPowerState
         }
     }
@@ -189,7 +192,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     IoCommandSetProfile{
         get {
             if(!this.HasProp("__IoCommandSetProfile"))
-                this.__IoCommandSetProfile := NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(this.ptr + 0)
+                this.__IoCommandSetProfile := NVME_CDW11_FEATURE_IO_COMMAND_SET_PROFILE(0, this)
             return this.__IoCommandSetProfile
         }
     }
@@ -200,33 +203,42 @@ class NVME_CDW11_FEATURES extends Win32Struct
     ErrorInjection{
         get {
             if(!this.HasProp("__ErrorInjection"))
-                this.__ErrorInjection := NVME_CDW0_FEATURE_ERROR_INJECTION(this.ptr + 0)
+                this.__ErrorInjection := NVME_CDW0_FEATURE_ERROR_INJECTION(0, this)
             return this.__ErrorInjection
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_HOST_IDENTIFIER}
      */
-    HostIdentifier {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    HostIdentifier{
+        get {
+            if(!this.HasProp("__HostIdentifier"))
+                this.__HostIdentifier := NVME_CDW11_FEATURE_HOST_IDENTIFIER(0, this)
+            return this.__HostIdentifier
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE}
      */
-    ReservationPersistence {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    ReservationPersistence{
+        get {
+            if(!this.HasProp("__ReservationPersistence"))
+                this.__ReservationPersistence := NVME_CDW11_FEATURE_RESERVATION_PERSISTENCE(0, this)
+            return this.__ReservationPersistence
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK}
      */
-    ReservationNotificationMask {
-        get => NumGet(this, 0, "uint")
-        set => NumPut("uint", value, this, 0)
+    ReservationNotificationMask{
+        get {
+            if(!this.HasProp("__ReservationNotificationMask"))
+                this.__ReservationNotificationMask := NVME_CDW11_FEATURE_RESERVATION_NOTIFICATION_MASK(0, this)
+            return this.__ReservationNotificationMask
+        }
     }
 
     /**
@@ -235,7 +247,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     GetHostMetadata{
         get {
             if(!this.HasProp("__GetHostMetadata"))
-                this.__GetHostMetadata := NVME_CDW11_FEATURE_GET_HOST_METADATA(this.ptr + 0)
+                this.__GetHostMetadata := NVME_CDW11_FEATURE_GET_HOST_METADATA(0, this)
             return this.__GetHostMetadata
         }
     }
@@ -246,7 +258,7 @@ class NVME_CDW11_FEATURES extends Win32Struct
     SetHostMetadata{
         get {
             if(!this.HasProp("__SetHostMetadata"))
-                this.__SetHostMetadata := NVME_CDW11_FEATURE_SET_HOST_METADATA(this.ptr + 0)
+                this.__SetHostMetadata := NVME_CDW11_FEATURE_SET_HOST_METADATA(0, this)
             return this.__SetHostMetadata
         }
     }

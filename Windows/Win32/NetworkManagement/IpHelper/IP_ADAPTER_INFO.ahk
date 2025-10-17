@@ -240,7 +240,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     IpAddressList{
         get {
             if(!this.HasProp("__IpAddressList"))
-                this.__IpAddressList := IP_ADDR_STRING(this.ptr + 832)
+                this.__IpAddressList := IP_ADDR_STRING(832, this)
             return this.__IpAddressList
         }
     }
@@ -254,7 +254,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     GatewayList{
         get {
             if(!this.HasProp("__GatewayList"))
-                this.__GatewayList := IP_ADDR_STRING(this.ptr + 912)
+                this.__GatewayList := IP_ADDR_STRING(912, this)
             return this.__GatewayList
         }
     }
@@ -270,7 +270,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     DhcpServer{
         get {
             if(!this.HasProp("__DhcpServer"))
-                this.__DhcpServer := IP_ADDR_STRING(this.ptr + 992)
+                this.__DhcpServer := IP_ADDR_STRING(992, this)
             return this.__DhcpServer
         }
     }
@@ -279,7 +279,7 @@ class IP_ADAPTER_INFO extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * An option value that specifies whether this adapter uses the Windows Internet Name Service (WINS).
-     * @type {Integer}
+     * @type {BOOL}
      */
     HaveWins {
         get => NumGet(this, 1072, "int")
@@ -297,7 +297,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     PrimaryWinsServer{
         get {
             if(!this.HasProp("__PrimaryWinsServer"))
-                this.__PrimaryWinsServer := IP_ADDR_STRING(this.ptr + 1080)
+                this.__PrimaryWinsServer := IP_ADDR_STRING(1080, this)
             return this.__PrimaryWinsServer
         }
     }
@@ -313,7 +313,7 @@ class IP_ADAPTER_INFO extends Win32Struct
     SecondaryWinsServer{
         get {
             if(!this.HasProp("__SecondaryWinsServer"))
-                this.__SecondaryWinsServer := IP_ADDR_STRING(this.ptr + 1160)
+                this.__SecondaryWinsServer := IP_ADDR_STRING(1160, this)
             return this.__SecondaryWinsServer
         }
     }

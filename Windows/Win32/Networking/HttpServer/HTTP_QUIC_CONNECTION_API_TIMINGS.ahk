@@ -114,7 +114,7 @@ class HTTP_QUIC_CONNECTION_API_TIMINGS extends Win32Struct
     ControlStreamTimings{
         get {
             if(!this.HasProp("__ControlStreamTimings"))
-                this.__ControlStreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(this.ptr + 96)
+                this.__ControlStreamTimings := HTTP_QUIC_STREAM_API_TIMINGS(96, this)
             return this.__ControlStreamTimings
         }
     }

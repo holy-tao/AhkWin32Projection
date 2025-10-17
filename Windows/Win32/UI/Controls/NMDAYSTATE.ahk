@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
@@ -25,7 +26,7 @@ class NMDAYSTATE extends Win32Struct
     nmhdr{
         get {
             if(!this.HasProp("__nmhdr"))
-                this.__nmhdr := NMHDR(this.ptr + 0)
+                this.__nmhdr := NMHDR(0, this)
             return this.__nmhdr
         }
     }
@@ -40,7 +41,7 @@ class NMDAYSTATE extends Win32Struct
     stStart{
         get {
             if(!this.HasProp("__stStart"))
-                this.__stStart := SYSTEMTIME(this.ptr + 24)
+                this.__stStart := SYSTEMTIME(24, this)
             return this.__stStart
         }
     }

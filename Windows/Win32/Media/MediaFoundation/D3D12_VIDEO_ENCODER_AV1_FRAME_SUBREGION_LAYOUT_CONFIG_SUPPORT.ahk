@@ -13,7 +13,7 @@ class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win3
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Use128SuperBlocks {
         get => NumGet(this, 0, "int")
@@ -26,7 +26,7 @@ class D3D12_VIDEO_ENCODER_AV1_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT extends Win3
     TilesConfiguration{
         get {
             if(!this.HasProp("__TilesConfiguration"))
-                this.__TilesConfiguration := D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(this.ptr + 8)
+                this.__TilesConfiguration := D3D12_VIDEO_ENCODER_AV1_PICTURE_CONTROL_SUBREGIONS_LAYOUT_DATA_TILES(8, this)
             return this.__TilesConfiguration
         }
     }

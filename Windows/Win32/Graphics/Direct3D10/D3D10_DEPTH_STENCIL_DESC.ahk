@@ -25,7 +25,7 @@ class D3D10_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A Boolean value that enables depth testing.  The default value is <b>TRUE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthEnable {
         get => NumGet(this, 0, "int")
@@ -58,7 +58,7 @@ class D3D10_DEPTH_STENCIL_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * A Boolean value that enables stencil testing.  The default value is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     StencilEnable {
         get => NumGet(this, 12, "int")
@@ -96,7 +96,7 @@ class D3D10_DEPTH_STENCIL_DESC extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D10_DEPTH_STENCILOP_DESC(this.ptr + 24)
+                this.__FrontFace := D3D10_DEPTH_STENCILOP_DESC(24, this)
             return this.__FrontFace
         }
     }
@@ -110,7 +110,7 @@ class D3D10_DEPTH_STENCIL_DESC extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D10_DEPTH_STENCILOP_DESC(this.ptr + 40)
+                this.__BackFace := D3D10_DEPTH_STENCILOP_DESC(40, this)
             return this.__BackFace
         }
     }

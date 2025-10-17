@@ -24,7 +24,7 @@ class WLAN_INTERFACE_CAPABILITY extends Win32Struct
 
     /**
      * Indicates whether 802.11d is supported by the interface.  If <b>TRUE</b>, 802.11d is supported.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDot11DSupported {
         get => NumGet(this, 4, "int")

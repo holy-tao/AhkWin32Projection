@@ -30,7 +30,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA extends Win32Struct
     Quantization{
         get {
             if(!this.HasProp("__Quantization"))
-                this.__Quantization := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX(this.ptr + 8)
+                this.__Quantization := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX(8, this)
             return this.__Quantization
         }
     }
@@ -41,7 +41,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA extends Win32Struct
     DirtyRegions{
         get {
             if(!this.HasProp("__DirtyRegions"))
-                this.__DirtyRegions := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS(this.ptr + 8)
+                this.__DirtyRegions := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_DIRTY_REGIONS(8, this)
             return this.__DirtyRegions
         }
     }
@@ -52,7 +52,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA extends Win32Struct
     MotionVectors{
         get {
             if(!this.HasProp("__MotionVectors"))
-                this.__MotionVectors := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS(this.ptr + 8)
+                this.__MotionVectors := D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_MOTION_VECTORS(8, this)
             return this.__MotionVectors
         }
     }

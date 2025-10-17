@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.ClrHosting
  * @version v4.0.30319
@@ -92,14 +92,14 @@ class ClrHosting {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Char>} pbuffer 
+     * @param {PWSTR} pbuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetCORSystemDirectory(pbuffer, cchBuffer, dwLength) {
-        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+        pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
         result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -110,14 +110,14 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pbBuffer 
+     * @param {PWSTR} pbBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetCORVersion(pbBuffer, cchBuffer, dwLength) {
-        pbBuffer := pbBuffer is String? StrPtr(pbBuffer) : pbBuffer
+        pbBuffer := pbBuffer is String ? StrPtr(pbBuffer) : pbBuffer
 
         result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -128,16 +128,16 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} szFilename 
-     * @param {Pointer<Char>} szBuffer 
+     * @param {PWSTR} szFilename 
+     * @param {PWSTR} szBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
-        szFilename := szFilename is String? StrPtr(szFilename) : szFilename
-        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+        szFilename := szFilename is String ? StrPtr(szFilename) : szFilename
+        szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
         result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -148,14 +148,14 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pbuffer 
+     * @param {PWSTR} pbuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetCORRequiredVersion(pbuffer, cchBuffer, dwLength) {
-        pbuffer := pbuffer is String? StrPtr(pbuffer) : pbuffer
+        pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
 
         result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -166,26 +166,26 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pExe 
-     * @param {Pointer<Char>} pwszVersion 
-     * @param {Pointer<Char>} pConfigurationFile 
+     * @param {PWSTR} pExe 
+     * @param {PWSTR} pwszVersion 
+     * @param {PWSTR} pConfigurationFile 
      * @param {Integer} startupFlags 
      * @param {Integer} runtimeInfoFlags 
-     * @param {Pointer<Char>} pDirectory 
+     * @param {PWSTR} pDirectory 
      * @param {Integer} dwDirectory 
      * @param {Pointer<UInt32>} dwDirectoryLength 
-     * @param {Pointer<Char>} pVersion 
+     * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwlength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetRequestedRuntimeInfo(pExe, pwszVersion, pConfigurationFile, startupFlags, runtimeInfoFlags, pDirectory, dwDirectory, dwDirectoryLength, pVersion, cchBuffer, dwlength) {
-        pExe := pExe is String? StrPtr(pExe) : pExe
-        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
-        pConfigurationFile := pConfigurationFile is String? StrPtr(pConfigurationFile) : pConfigurationFile
-        pDirectory := pDirectory is String? StrPtr(pDirectory) : pDirectory
-        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+        pExe := pExe is String ? StrPtr(pExe) : pExe
+        pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
+        pConfigurationFile := pConfigurationFile is String ? StrPtr(pConfigurationFile) : pConfigurationFile
+        pDirectory := pDirectory is String ? StrPtr(pDirectory) : pDirectory
+        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, "uint", startupFlags, "uint", runtimeInfoFlags, "ptr", pDirectory, "uint", dwDirectory, "uint*", dwDirectoryLength, "ptr", pVersion, "uint", cchBuffer, "uint*", dwlength, "int")
         if(result != 0)
@@ -196,16 +196,16 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pExe 
-     * @param {Pointer<Char>} pVersion 
+     * @param {PWSTR} pExe 
+     * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetRequestedRuntimeVersion(pExe, pVersion, cchBuffer, dwLength) {
-        pExe := pExe is String? StrPtr(pExe) : pExe
-        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+        pExe := pExe is String ? StrPtr(pExe) : pExe
+        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -216,9 +216,9 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszVersion 
-     * @param {Pointer<Char>} pwszBuildFlavor 
-     * @param {Pointer<Char>} pwszHostConfigFile 
+     * @param {PWSTR} pwszVersion 
+     * @param {PWSTR} pwszBuildFlavor 
+     * @param {PWSTR} pwszHostConfigFile 
      * @param {Pointer<Void>} pReserved 
      * @param {Integer} startupFlags 
      * @param {Pointer<Guid>} rclsid 
@@ -228,9 +228,9 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntimeHost(pwszVersion, pwszBuildFlavor, pwszHostConfigFile, pReserved, startupFlags, rclsid, riid, ppv) {
-        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
-        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
-        pwszHostConfigFile := pwszHostConfigFile is String? StrPtr(pwszHostConfigFile) : pwszHostConfigFile
+        pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+        pwszHostConfigFile := pwszHostConfigFile is String ? StrPtr(pwszHostConfigFile) : pwszHostConfigFile
 
         result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, "ptr", pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -241,8 +241,8 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszVersion 
-     * @param {Pointer<Char>} pwszBuildFlavor 
+     * @param {PWSTR} pwszVersion 
+     * @param {PWSTR} pwszBuildFlavor 
      * @param {Integer} startupFlags 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
@@ -251,8 +251,8 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntimeEx(pwszVersion, pwszBuildFlavor, startupFlags, rclsid, riid, ppv) {
-        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
-        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+        pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
         result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -282,8 +282,8 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszVersion 
-     * @param {Pointer<Char>} pwszBuildFlavor 
+     * @param {PWSTR} pwszVersion 
+     * @param {PWSTR} pwszBuildFlavor 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppv 
@@ -291,8 +291,8 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToRuntime(pwszVersion, pwszBuildFlavor, rclsid, riid, ppv) {
-        pwszVersion := pwszVersion is String? StrPtr(pwszVersion) : pwszVersion
-        pwszBuildFlavor := pwszBuildFlavor is String? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
+        pwszVersion := pwszVersion is String ? StrPtr(pwszVersion) : pwszVersion
+        pwszBuildFlavor := pwszBuildFlavor is String ? StrPtr(pwszBuildFlavor) : pwszBuildFlavor
 
         result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -303,7 +303,7 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pwszFileName 
+     * @param {PWSTR} pwszFileName 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppv 
@@ -311,7 +311,7 @@ class ClrHosting {
      * @deprecated
      */
     static CorBindToCurrentRuntime(pwszFileName, rclsid, riid, ppv) {
-        pwszFileName := pwszFileName is String? StrPtr(pwszFileName) : pwszFileName
+        pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
         if(result != 0)
@@ -322,14 +322,14 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} pTypeName 
+     * @param {PWSTR} pTypeName 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} ppObject 
      * @returns {HRESULT} 
      * @deprecated
      */
     static ClrCreateManagedInstance(pTypeName, riid, ppObject) {
-        pTypeName := pTypeName is String? StrPtr(pTypeName) : pTypeName
+        pTypeName := pTypeName is String ? StrPtr(pTypeName) : pTypeName
 
         result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, "ptr", ppObject, "int")
         if(result != 0)
@@ -349,15 +349,17 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Void>} hwnd 
-     * @param {Pointer<Void>} hinst 
-     * @param {Pointer<Char>} lpszCmdLine 
+     * @param {HWND} hwnd 
+     * @param {HINSTANCE} hinst 
+     * @param {PWSTR} lpszCmdLine 
      * @param {Integer} nCmdShow 
      * @returns {HRESULT} 
      * @deprecated
      */
     static RunDll32ShimW(hwnd, hinst, lpszCmdLine, nCmdShow) {
-        lpszCmdLine := lpszCmdLine is String? StrPtr(lpszCmdLine) : lpszCmdLine
+        lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
         result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
         if(result != 0)
@@ -368,16 +370,16 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} szDllName 
-     * @param {Pointer<Char>} szVersion 
+     * @param {PWSTR} szDllName 
+     * @param {PWSTR} szVersion 
      * @param {Pointer<Void>} pvReserved 
-     * @param {Pointer<Void>} phModDll 
+     * @param {Pointer<HMODULE>} phModDll 
      * @returns {HRESULT} 
      * @deprecated
      */
     static LoadLibraryShim(szDllName, szVersion, pvReserved, phModDll) {
-        szDllName := szDllName is String? StrPtr(szDllName) : szDllName
-        szVersion := szVersion is String? StrPtr(szVersion) : szVersion
+        szDllName := szDllName is String ? StrPtr(szDllName) : szDllName
+        szVersion := szVersion is String ? StrPtr(szVersion) : szVersion
 
         result := DllCall("MSCorEE.dll\LoadLibraryShim", "ptr", szDllName, "ptr", szVersion, "ptr", pvReserved, "ptr", phModDll, "int")
         if(result != 0)
@@ -388,19 +390,19 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Char>} szDllName 
-     * @param {Pointer<Byte>} szFunctionName 
+     * @param {PWSTR} szDllName 
+     * @param {PSTR} szFunctionName 
      * @param {Pointer<Void>} lpvArgument1 
      * @param {Pointer<Void>} lpvArgument2 
-     * @param {Pointer<Char>} szVersion 
+     * @param {PWSTR} szVersion 
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      * @deprecated
      */
     static CallFunctionShim(szDllName, szFunctionName, lpvArgument1, lpvArgument2, szVersion, pvReserved) {
-        szDllName := szDllName is String? StrPtr(szDllName) : szDllName
-        szFunctionName := szFunctionName is String? StrPtr(szFunctionName) : szFunctionName
-        szVersion := szVersion is String? StrPtr(szVersion) : szVersion
+        szDllName := szDllName is String ? StrPtr(szDllName) : szDllName
+        szFunctionName := szFunctionName is String ? StrPtr(szFunctionName) : szFunctionName
+        szVersion := szVersion is String ? StrPtr(szVersion) : szVersion
 
         result := DllCall("MSCorEE.dll\CallFunctionShim", "ptr", szDllName, "ptr", szFunctionName, "ptr", lpvArgument1, "ptr", lpvArgument2, "ptr", szVersion, "ptr", pvReserved, "int")
         if(result != 0)
@@ -411,13 +413,13 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Byte>} pwszProcName 
+     * @param {PSTR} pwszProcName 
      * @param {Pointer<Void>} ppv 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetRealProcAddress(pwszProcName, ppv) {
-        pwszProcName := pwszProcName is String? StrPtr(pwszProcName) : pwszProcName
+        pwszProcName := pwszProcName is String ? StrPtr(pwszProcName) : pwszProcName
 
         result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, "ptr", ppv, "int")
         if(result != 0)
@@ -439,14 +441,14 @@ class ClrHosting {
     /**
      * 
      * @param {Integer} iResouceID 
-     * @param {Pointer<Char>} szBuffer 
+     * @param {PWSTR} szBuffer 
      * @param {Integer} iMax 
      * @param {Integer} bQuiet 
      * @returns {HRESULT} 
      * @deprecated
      */
     static LoadStringRC(iResouceID, szBuffer, iMax, bQuiet) {
-        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+        szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
         result := DllCall("MSCorEE.dll\LoadStringRC", "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "int")
         if(result != 0)
@@ -459,7 +461,7 @@ class ClrHosting {
      * 
      * @param {Integer} lcid 
      * @param {Integer} iResouceID 
-     * @param {Pointer<Char>} szBuffer 
+     * @param {PWSTR} szBuffer 
      * @param {Integer} iMax 
      * @param {Integer} bQuiet 
      * @param {Pointer<Int32>} pcwchUsed 
@@ -467,7 +469,7 @@ class ClrHosting {
      * @deprecated
      */
     static LoadStringRCEx(lcid, iResouceID, szBuffer, iMax, bQuiet, pcwchUsed) {
-        szBuffer := szBuffer is String? StrPtr(szBuffer) : szBuffer
+        szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
         result := DllCall("MSCorEE.dll\LoadStringRCEx", "uint", lcid, "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "int*", pcwchUsed, "int")
         if(result != 0)
@@ -495,13 +497,13 @@ class ClrHosting {
     /**
      * 
      * @param {Integer} iDebuggerVersion 
-     * @param {Pointer<Char>} szDebuggeeVersion 
+     * @param {PWSTR} szDebuggeeVersion 
      * @param {Pointer<IUnknown>} ppCordb 
      * @returns {HRESULT} 
      * @deprecated
      */
     static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion, ppCordb) {
-        szDebuggeeVersion := szDebuggeeVersion is String? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
+        szDebuggeeVersion := szDebuggeeVersion is String ? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
 
         result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr", ppCordb, "int")
         if(result != 0)
@@ -512,15 +514,16 @@ class ClrHosting {
 
     /**
      * 
-     * @param {Pointer<Void>} hProcess 
-     * @param {Pointer<Char>} pVersion 
+     * @param {HANDLE} hProcess 
+     * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @returns {HRESULT} 
      * @deprecated
      */
     static GetVersionFromProcess(hProcess, pVersion, cchBuffer, dwLength) {
-        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)
@@ -532,16 +535,16 @@ class ClrHosting {
     /**
      * 
      * @param {Integer} dwClickOnceHost 
-     * @param {Pointer<Char>} pwzAppFullName 
+     * @param {PWSTR} pwzAppFullName 
      * @param {Integer} dwManifestPaths 
-     * @param {Pointer<Char>} ppwzManifestPaths 
+     * @param {Pointer<PWSTR>} ppwzManifestPaths 
      * @param {Integer} dwActivationData 
-     * @param {Pointer<Char>} ppwzActivationData 
+     * @param {Pointer<PWSTR>} ppwzActivationData 
      * @param {Pointer<PROCESS_INFORMATION>} lpProcessInformation 
      * @returns {HRESULT} 
      */
     static CorLaunchApplication(dwClickOnceHost, pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, lpProcessInformation) {
-        pwzAppFullName := pwzAppFullName is String? StrPtr(pwzAppFullName) : pwzAppFullName
+        pwzAppFullName := pwzAppFullName is String ? StrPtr(pwzAppFullName) : pwzAppFullName
 
         result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, "ptr", lpProcessInformation, "int")
         if(result != 0)
@@ -553,14 +556,14 @@ class ClrHosting {
     /**
      * 
      * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Char>} pVersion 
+     * @param {PWSTR} pVersion 
      * @param {Integer} cchBuffer 
      * @param {Pointer<UInt32>} dwLength 
      * @param {Integer} dwResolutionFlags 
      * @returns {HRESULT} 
      */
     static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwLength, dwResolutionFlags) {
-        pVersion := pVersion is String? StrPtr(pVersion) : pVersion
+        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
         result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, "uint*", dwLength, "int", dwResolutionFlags, "int")
         if(result != 0)

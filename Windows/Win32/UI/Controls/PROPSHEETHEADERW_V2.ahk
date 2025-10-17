@@ -1,5 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * @namespace Windows.Win32.UI.Controls
@@ -28,31 +33,40 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(24, this)
+            return this.__hIcon
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszIcon {
         get => NumGet(this, 24, "ptr")
@@ -60,7 +74,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCaption {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +98,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pStartPage {
         get => NumGet(this, 48, "ptr")
@@ -100,7 +114,7 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<HPROPSHEETPAGE>}
      */
     phpage {
         get => NumGet(this, 56, "ptr")
@@ -116,15 +130,18 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmWatermark {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    hbmWatermark{
+        get {
+            if(!this.HasProp("__hbmWatermark"))
+                this.__hbmWatermark := HBITMAP(72, this)
+            return this.__hbmWatermark
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszbmWatermark {
         get => NumGet(this, 72, "ptr")
@@ -132,23 +149,29 @@ class PROPSHEETHEADERW_V2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HPALETTE}
      */
-    hplWatermark {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+    hplWatermark{
+        get {
+            if(!this.HasProp("__hplWatermark"))
+                this.__hplWatermark := HPALETTE(80, this)
+            return this.__hplWatermark
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HBITMAP}
      */
-    hbmHeader {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    hbmHeader{
+        get {
+            if(!this.HasProp("__hbmHeader"))
+                this.__hbmHeader := HBITMAP(88, this)
+            return this.__hbmHeader
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszbmHeader {
         get => NumGet(this, 88, "ptr")

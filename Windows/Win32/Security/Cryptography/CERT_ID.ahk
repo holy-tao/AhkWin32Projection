@@ -30,7 +30,7 @@ class CERT_ID extends Win32Struct
     IssuerSerialNumber{
         get {
             if(!this.HasProp("__IssuerSerialNumber"))
-                this.__IssuerSerialNumber := CERT_ISSUER_SERIAL_NUMBER(this.ptr + 8)
+                this.__IssuerSerialNumber := CERT_ISSUER_SERIAL_NUMBER(8, this)
             return this.__IssuerSerialNumber
         }
     }
@@ -41,7 +41,7 @@ class CERT_ID extends Win32Struct
     KeyId{
         get {
             if(!this.HasProp("__KeyId"))
-                this.__KeyId := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__KeyId := CRYPT_INTEGER_BLOB(8, this)
             return this.__KeyId
         }
     }
@@ -52,7 +52,7 @@ class CERT_ID extends Win32Struct
     HashId{
         get {
             if(!this.HasProp("__HashId"))
-                this.__HashId := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__HashId := CRYPT_INTEGER_BLOB(8, this)
             return this.__HashId
         }
     }

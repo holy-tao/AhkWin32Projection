@@ -15,7 +15,7 @@ class SERVER_INFO_1515 extends Win32Struct
 
     /**
      * Specifies whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1515_enableforcedlogoff {
         get => NumGet(this, 0, "int")

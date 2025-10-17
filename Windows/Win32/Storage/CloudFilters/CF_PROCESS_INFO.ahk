@@ -33,7 +33,7 @@ class CF_PROCESS_INFO extends Win32Struct
 
     /**
      * The absolute path of the main executable file including the volume name in the format of NT file path. If the platform failed to retrieve the image path, “UNKNOWN” will be returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ImagePath {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CF_PROCESS_INFO extends Win32Struct
 
     /**
      * Used for modern applications. The app package name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PackageName {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class CF_PROCESS_INFO extends Win32Struct
 
     /**
      * Used for modern applications. The application ID.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ApplicationId {
         get => NumGet(this, 24, "ptr")
@@ -62,7 +62,7 @@ class CF_PROCESS_INFO extends Win32Struct
      * <b>Note</b>  This member was added in Windows 10, version 1803.
      * 
      * Used to start the process. If the platform failed to retrieve the command line, “UNKNOWN” will be returned.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     CommandLine {
         get => NumGet(this, 32, "ptr")

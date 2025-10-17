@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_INPUT.ahk
 
 /**
@@ -18,7 +19,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_INPUT extends
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(this.ptr + 0)
+                this.__Input := D3DAUTHENTICATEDCHANNEL_QUERY_INPUT(0, this)
             return this.__Input
         }
     }

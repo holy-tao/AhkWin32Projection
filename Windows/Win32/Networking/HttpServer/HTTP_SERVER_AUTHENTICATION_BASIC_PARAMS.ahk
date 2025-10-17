@@ -26,7 +26,7 @@ class HTTP_SERVER_AUTHENTICATION_BASIC_PARAMS extends Win32Struct
      * The realm used for Basic authentication.
      * 
      * The realm allows the  server to be partitioned into a set of protection spaces, each with its own set of authentication schemes from the authentication database.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Realm {
         get => NumGet(this, 8, "ptr")

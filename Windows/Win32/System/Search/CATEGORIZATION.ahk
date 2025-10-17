@@ -36,7 +36,7 @@ class CATEGORIZATION extends Win32Struct
     bucket{
         get {
             if(!this.HasProp("__bucket"))
-                this.__bucket := BUCKETCATEGORIZE(this.ptr + 8)
+                this.__bucket := BUCKETCATEGORIZE(8, this)
             return this.__bucket
         }
     }
@@ -47,7 +47,7 @@ class CATEGORIZATION extends Win32Struct
     range{
         get {
             if(!this.HasProp("__range"))
-                this.__range := RANGECATEGORIZE(this.ptr + 8)
+                this.__range := RANGECATEGORIZE(8, this)
             return this.__range
         }
     }
@@ -58,7 +58,7 @@ class CATEGORIZATION extends Win32Struct
     csColumns{
         get {
             if(!this.HasProp("__csColumns"))
-                this.__csColumns := COLUMNSET(this.ptr + 24)
+                this.__csColumns := COLUMNSET(24, this)
             return this.__csColumns
         }
     }

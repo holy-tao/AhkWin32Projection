@@ -30,7 +30,7 @@ class PEER_PRESENCE_INFO extends Win32Struct
 
     /**
      * Zero-terminated Unicode string that contains a user- or application-defined message that expands upon the current status value. This string is limited to 255 characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzDescriptiveText {
         get => NumGet(this, 8, "ptr")

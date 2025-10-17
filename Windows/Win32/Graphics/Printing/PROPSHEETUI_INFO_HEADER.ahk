@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -36,27 +39,36 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndParent {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hWndParent{
+        get {
+            if(!this.HasProp("__hWndParent"))
+                this.__hWndParent := HWND(16, this)
+            return this.__hWndParent
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInst {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hInst{
+        get {
+            if(!this.HasProp("__hInst"))
+                this.__hInst := HINSTANCE(24, this)
+            return this.__hInst
+        }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HICON}
      */
-    hIcon {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hIcon{
+        get {
+            if(!this.HasProp("__hIcon"))
+                this.__hIcon := HICON(32, this)
+            return this.__hIcon
+        }
     }
 
     /**
@@ -67,12 +79,8 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
         set => NumPut("ptr", value, this, 32)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 40
     }
 }

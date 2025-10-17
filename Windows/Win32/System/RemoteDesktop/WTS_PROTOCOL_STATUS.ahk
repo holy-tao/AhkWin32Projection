@@ -28,7 +28,7 @@ class WTS_PROTOCOL_STATUS extends Win32Struct
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := WTS_PROTOCOL_COUNTERS(this.ptr + 0)
+                this.__Output := WTS_PROTOCOL_COUNTERS(0, this)
             return this.__Output
         }
     }
@@ -40,7 +40,7 @@ class WTS_PROTOCOL_STATUS extends Win32Struct
     Input{
         get {
             if(!this.HasProp("__Input"))
-                this.__Input := WTS_PROTOCOL_COUNTERS(this.ptr + 464)
+                this.__Input := WTS_PROTOCOL_COUNTERS(464, this)
             return this.__Input
         }
     }
@@ -52,7 +52,7 @@ class WTS_PROTOCOL_STATUS extends Win32Struct
     Cache{
         get {
             if(!this.HasProp("__Cache"))
-                this.__Cache := WTS_CACHE_STATS(this.ptr + 928)
+                this.__Cache := WTS_CACHE_STATS(928, this)
             return this.__Cache
         }
     }

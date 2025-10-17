@@ -43,7 +43,7 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     DstRect{
         get {
             if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(this.ptr + 16)
+                this.__DstRect := RECT(16, this)
             return this.__DstRect
         }
     }
@@ -54,7 +54,7 @@ class DXVA_DeinterlaceBlt extends Win32Struct
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(this.ptr + 32)
+                this.__SrcRect := RECT(32, this)
             return this.__SrcRect
         }
     }

@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.Web.MsHtml
  * @version v4.0.30319
@@ -31557,14 +31557,15 @@ class MsHtml {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<Void>} hwndOwner 
-     * @param {Pointer<Char>} pszUrl 
+     * @param {HWND} hwndOwner 
+     * @param {PWSTR} pszUrl 
      * @param {Pointer<IEnumPrivacyRecords>} pPrivacyEnum 
-     * @param {Integer} fReportAllSites 
+     * @param {BOOL} fReportAllSites 
      * @returns {HRESULT} 
      */
     static DoPrivacyDlg(hwndOwner, pszUrl, pPrivacyEnum, fReportAllSites) {
-        pszUrl := pszUrl is String? StrPtr(pszUrl) : pszUrl
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("SHDOCVW.dll\DoPrivacyDlg", "ptr", hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, "int", fReportAllSites, "int")
         if(result != 0)

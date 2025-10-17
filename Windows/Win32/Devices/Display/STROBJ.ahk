@@ -53,7 +53,7 @@ class STROBJ extends Win32Struct
     rclBkGround{
         get {
             if(!this.HasProp("__rclBkGround"))
-                this.__rclBkGround := RECTL(this.ptr + 16)
+                this.__rclBkGround := RECTL(16, this)
             return this.__rclBkGround
         }
     }
@@ -69,7 +69,7 @@ class STROBJ extends Win32Struct
 
     /**
      * Pointer to the original Unicode string or <b>cGlyphs</b> characters. Contrary to its name, this string is not usually null-terminated. Also, this string is not always valid, such as in journalling with printer fonts, in which case this parameter will be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszOrg {
         get => NumGet(this, 40, "ptr")

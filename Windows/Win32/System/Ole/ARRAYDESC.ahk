@@ -22,7 +22,7 @@ class ARRAYDESC extends Win32Struct
     tdescElem{
         get {
             if(!this.HasProp("__tdescElem"))
-                this.__tdescElem := TYPEDESC(this.ptr + 0)
+                this.__tdescElem := TYPEDESC(0, this)
             return this.__tdescElem
         }
     }

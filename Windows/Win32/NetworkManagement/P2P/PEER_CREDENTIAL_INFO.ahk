@@ -34,7 +34,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the membership issuer's PNRP name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzIssuerPeerName {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the friendly (display) name of the issuer.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwzIssuerFriendlyName {
         get => NumGet(this, 32, "ptr")
@@ -75,7 +75,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
     ftValidityStart{
         get {
             if(!this.HasProp("__ftValidityStart"))
-                this.__ftValidityStart := FILETIME(this.ptr + 40)
+                this.__ftValidityStart := FILETIME(40, this)
             return this.__ftValidityStart
         }
     }
@@ -87,7 +87,7 @@ class PEER_CREDENTIAL_INFO extends Win32Struct
     ftValidityEnd{
         get {
             if(!this.HasProp("__ftValidityEnd"))
-                this.__ftValidityEnd := FILETIME(this.ptr + 48)
+                this.__ftValidityEnd := FILETIME(48, this)
             return this.__ftValidityEnd
         }
     }

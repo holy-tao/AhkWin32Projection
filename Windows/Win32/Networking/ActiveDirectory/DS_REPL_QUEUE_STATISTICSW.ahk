@@ -26,7 +26,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeCurrentOpStarted{
         get {
             if(!this.HasProp("__ftimeCurrentOpStarted"))
-                this.__ftimeCurrentOpStarted := FILETIME(this.ptr + 0)
+                this.__ftimeCurrentOpStarted := FILETIME(0, this)
             return this.__ftimeCurrentOpStarted
         }
     }
@@ -47,7 +47,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestSync{
         get {
             if(!this.HasProp("__ftimeOldestSync"))
-                this.__ftimeOldestSync := FILETIME(this.ptr + 16)
+                this.__ftimeOldestSync := FILETIME(16, this)
             return this.__ftimeOldestSync
         }
     }
@@ -59,7 +59,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestAdd{
         get {
             if(!this.HasProp("__ftimeOldestAdd"))
-                this.__ftimeOldestAdd := FILETIME(this.ptr + 24)
+                this.__ftimeOldestAdd := FILETIME(24, this)
             return this.__ftimeOldestAdd
         }
     }
@@ -71,7 +71,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestMod{
         get {
             if(!this.HasProp("__ftimeOldestMod"))
-                this.__ftimeOldestMod := FILETIME(this.ptr + 32)
+                this.__ftimeOldestMod := FILETIME(32, this)
             return this.__ftimeOldestMod
         }
     }
@@ -83,7 +83,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestDel{
         get {
             if(!this.HasProp("__ftimeOldestDel"))
-                this.__ftimeOldestDel := FILETIME(this.ptr + 40)
+                this.__ftimeOldestDel := FILETIME(40, this)
             return this.__ftimeOldestDel
         }
     }
@@ -95,7 +95,7 @@ class DS_REPL_QUEUE_STATISTICSW extends Win32Struct
     ftimeOldestUpdRefs{
         get {
             if(!this.HasProp("__ftimeOldestUpdRefs"))
-                this.__ftimeOldestUpdRefs := FILETIME(this.ptr + 48)
+                this.__ftimeOldestUpdRefs := FILETIME(48, this)
             return this.__ftimeOldestUpdRefs
         }
     }

@@ -27,7 +27,7 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(this.ptr + 8)
+                this.__Submitted := SYSTEMTIME(8, this)
             return this.__Submitted
         }
     }

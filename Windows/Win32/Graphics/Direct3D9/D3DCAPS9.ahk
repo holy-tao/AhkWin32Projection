@@ -2266,7 +2266,7 @@ class D3DCAPS9 extends Win32Struct
     VS20Caps{
         get {
             if(!this.HasProp("__VS20Caps"))
-                this.__VS20Caps := D3DVSHADERCAPS2_0(this.ptr + 248)
+                this.__VS20Caps := D3DVSHADERCAPS2_0(248, this)
             return this.__VS20Caps
         }
     }
@@ -2280,7 +2280,7 @@ class D3DCAPS9 extends Win32Struct
     PS20Caps{
         get {
             if(!this.HasProp("__PS20Caps"))
-                this.__PS20Caps := D3DPSHADERCAPS2_0(this.ptr + 264)
+                this.__PS20Caps := D3DPSHADERCAPS2_0(264, this)
             return this.__PS20Caps
         }
     }

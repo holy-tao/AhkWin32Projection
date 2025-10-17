@@ -31,7 +31,7 @@ class D3D12_FEATURE_DATA_CROSS_NODE extends Win32Struct
      * Type: <b>[BOOL](/windows/desktop/winprog/windows-data-types)</b>
      * 
      * Indicates there is support for shader instructions which operate across adapters.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AtomicShaderInstructions {
         get => NumGet(this, 4, "int")

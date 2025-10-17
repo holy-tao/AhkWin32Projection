@@ -30,7 +30,7 @@ class QUERYCONTEXT extends Win32Struct
     Platform{
         get {
             if(!this.HasProp("__Platform"))
-                this.__Platform := CSPLATFORM(this.ptr + 8)
+                this.__Platform := CSPLATFORM(8, this)
             return this.__Platform
         }
     }

@@ -34,7 +34,7 @@ class SYMSRV_INDEX_INFO extends Win32Struct
 
     /**
      * A value that indicates whether the image file is stripped.
-     * @type {Integer}
+     * @type {BOOL}
      */
     stripped {
         get => NumGet(this, 268, "int")

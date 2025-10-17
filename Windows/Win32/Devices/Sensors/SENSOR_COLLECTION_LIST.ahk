@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk

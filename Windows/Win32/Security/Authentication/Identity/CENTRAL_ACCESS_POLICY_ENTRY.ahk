@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\LSA_UNICODE_STRING.ahk
+#Include ..\..\PSECURITY_DESCRIPTOR.ahk
 
 /**
  * Represents a central access policy entry containing a list of security descriptors and staged security descriptors.
@@ -21,7 +22,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Name := LSA_UNICODE_STRING(0, this)
             return this.__Name
         }
     }
@@ -33,7 +34,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
     Description{
         get {
             if(!this.HasProp("__Description"))
-                this.__Description := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__Description := LSA_UNICODE_STRING(16, this)
             return this.__Description
         }
     }
@@ -45,7 +46,7 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
     ChangeId{
         get {
             if(!this.HasProp("__ChangeId"))
-                this.__ChangeId := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__ChangeId := LSA_UNICODE_STRING(32, this)
             return this.__ChangeId
         }
     }
@@ -79,11 +80,14 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of security descriptors associated with the entry.
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    SD {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+    SD{
+        get {
+            if(!this.HasProp("__SD"))
+                this.__SD := PSECURITY_DESCRIPTOR(72, this)
+            return this.__SD
+        }
     }
 
     /**
@@ -97,11 +101,14 @@ class CENTRAL_ACCESS_POLICY_ENTRY extends Win32Struct
 
     /**
      * A buffer of staged security descriptors associated with the entry.
-     * @type {Pointer<Void>}
+     * @type {PSECURITY_DESCRIPTOR}
      */
-    StagedSD {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    StagedSD{
+        get {
+            if(!this.HasProp("__StagedSD"))
+                this.__StagedSD := PSECURITY_DESCRIPTOR(88, this)
+            return this.__StagedSD
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\PM_INVOCATIONINFO.ahk
 
 /**
@@ -29,11 +30,14 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    TileID {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    TileID{
+        get {
+            if(!this.HasProp("__TileID"))
+                this.__TileID := BSTR(16, this)
+            return this.__TileID
+        }
     }
 
     /**
@@ -64,7 +68,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsDefault {
         get => NumGet(this, 160, "int")
@@ -96,7 +100,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRestoring {
         get => NumGet(this, 180, "int")
@@ -104,7 +108,7 @@ class PM_STARTTILEBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsModern {
         get => NumGet(this, 184, "int")
@@ -117,17 +121,13 @@ class PM_STARTTILEBLOB extends Win32Struct
     InvocationInfo{
         get {
             if(!this.HasProp("__InvocationInfo"))
-                this.__InvocationInfo := PM_INVOCATIONINFO(this.ptr + 192)
+                this.__InvocationInfo := PM_INVOCATIONINFO(192, this)
             return this.__InvocationInfo
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 208
     }
 }

@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Contains criteria upon which to select certificates that are presented in a certificate selection dialog box. This structure is used in the CertSelectCertificate function.
@@ -31,20 +33,26 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
     /**
      * A handle to the parent window of any dialog boxes that 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> generates.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndParent {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndParent{
+        get {
+            if(!this.HasProp("__hwndParent"))
+                this.__hwndParent := HWND(8, this)
+            return this.__hwndParent
+        }
     }
 
     /**
      * A handle to the module whose executable file contains the dialog box template.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
@@ -63,7 +71,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
      *        dialog box template. If the  specifies a resource identifier, its high-order word must be zero and its 
      *        low-order word must contain the identifier. One way to create this integer value is to use the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pTemplateName {
         get => NumGet(this, 24, "ptr")
@@ -81,7 +89,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
 
     /**
      * A pointer to a string that contains the text for the title of the dialog box.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szTitle {
         get => NumGet(this, 40, "ptr")
@@ -100,7 +108,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
     /**
      * A pointer to the array of certificate stores that the dialog box enumerates and displays the certificates 
      *       from. The <b>cCertStore</b> member contains the number of elements in this array.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HCERTSTORE>}
      */
     arrayCertStore {
         get => NumGet(this, 56, "ptr")
@@ -110,7 +118,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
     /**
      * A pointer to a string representation of an object identifier (OID) for an enhanced key usage (EKU). If an 
      *       OID is provided, only certificates that include this EKU will be displayed.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     szPurposeOid {
         get => NumGet(this, 64, "ptr")
@@ -158,7 +166,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
      * A pointer to an array of byte values that hold custom data that is passed through to the filter procedure 
      *       referenced by <b>pfnFilter</b>. This custom data is not used by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/cryptdlg/nf-cryptdlg-certselectcertificatea">CertSelectCertificate</a> function.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 88, "ptr")
@@ -189,7 +197,7 @@ class CERT_SELECT_STRUCT_W extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the full path to the Help file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szHelpFileName {
         get => NumGet(this, 112, "ptr")

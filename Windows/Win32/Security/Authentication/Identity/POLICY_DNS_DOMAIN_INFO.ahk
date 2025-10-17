@@ -31,7 +31,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
     Name{
         get {
             if(!this.HasProp("__Name"))
-                this.__Name := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__Name := LSA_UNICODE_STRING(0, this)
             return this.__Name
         }
     }
@@ -43,7 +43,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
     DnsDomainName{
         get {
             if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__DnsDomainName := LSA_UNICODE_STRING(16, this)
             return this.__DnsDomainName
         }
     }
@@ -55,7 +55,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
     DnsForestName{
         get {
             if(!this.HasProp("__DnsForestName"))
-                this.__DnsForestName := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__DnsForestName := LSA_UNICODE_STRING(32, this)
             return this.__DnsForestName
         }
     }
@@ -72,7 +72,7 @@ class POLICY_DNS_DOMAIN_INFO extends Win32Struct
 
     /**
      * Pointer to the SID of the primary domain. This is the same as the primary domain SID in the <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-policy_primary_domain_info">POLICY_PRIMARY_DOMAIN_INFO</a> structure.
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     Sid {
         get => NumGet(this, 56, "ptr")

@@ -12,7 +12,7 @@ class FindPackageDependencyCriteria extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     User {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class FindPackageDependencyCriteria extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ScopeIsSystem {
         get => NumGet(this, 8, "int")
@@ -28,7 +28,7 @@ class FindPackageDependencyCriteria extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     PackageFamilyName {
         get => NumGet(this, 16, "ptr")

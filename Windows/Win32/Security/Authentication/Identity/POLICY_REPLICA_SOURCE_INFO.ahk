@@ -18,7 +18,7 @@ class POLICY_REPLICA_SOURCE_INFO extends Win32Struct
     ReplicaSource{
         get {
             if(!this.HasProp("__ReplicaSource"))
-                this.__ReplicaSource := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__ReplicaSource := LSA_UNICODE_STRING(0, this)
             return this.__ReplicaSource
         }
     }
@@ -29,7 +29,7 @@ class POLICY_REPLICA_SOURCE_INFO extends Win32Struct
     ReplicaAccountName{
         get {
             if(!this.HasProp("__ReplicaAccountName"))
-                this.__ReplicaAccountName := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__ReplicaAccountName := LSA_UNICODE_STRING(16, this)
             return this.__ReplicaAccountName
         }
     }

@@ -15,7 +15,7 @@ class ATSC_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the ETM_id field in the header must match the value of the <b>EtmId</b> structure member. Otherwise, the ETM_id field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifyEtmId {
         get => NumGet(this, 0, "int")

@@ -21,7 +21,7 @@ class TOKEN_MANDATORY_LABEL extends Win32Struct
     Label{
         get {
             if(!this.HasProp("__Label"))
-                this.__Label := SID_AND_ATTRIBUTES(this.ptr + 0)
+                this.__Label := SID_AND_ATTRIBUTES(0, this)
             return this.__Label
         }
     }

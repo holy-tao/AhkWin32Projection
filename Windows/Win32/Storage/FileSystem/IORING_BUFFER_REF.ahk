@@ -30,7 +30,7 @@ class IORING_BUFFER_REF extends Win32Struct
         IndexAndOffset{
             get {
                 if(!this.HasProp("__IndexAndOffset"))
-                    this.__IndexAndOffset := IORING_REGISTERED_BUFFER(this.ptr + 0)
+                    this.__IndexAndOffset := IORING_REGISTERED_BUFFER(0, this)
                 return this.__IndexAndOffset
             }
         }
@@ -51,7 +51,7 @@ class IORING_BUFFER_REF extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__Buffer"))
-                this.__Buffer := %this.__Class%.BufferUnion(this.ptr + 8)
+                this.__Buffer := %this.__Class%.BufferUnion(8, this)
             return this.__Buffer
         }
     }

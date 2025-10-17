@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains process creation information that can be used by a debugger.
@@ -19,21 +20,27 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      * 
      * When the debugger is finished with this file, it should close the handle using the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hFile {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hFile{
+        get {
+            if(!this.HasProp("__hFile"))
+                this.__hFile := HANDLE(0, this)
+            return this.__hFile
+        }
     }
 
     /**
      * A handle to the process. If this member is <b>NULL</b>, the handle is not valid. 
      *       Otherwise, the debugger can use the member to read from and write to the process's memory.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hProcess {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hProcess{
+        get {
+            if(!this.HasProp("__hProcess"))
+                this.__hProcess := HANDLE(8, this)
+            return this.__hProcess
+        }
     }
 
     /**
@@ -43,11 +50,14 @@ class CREATE_PROCESS_DEBUG_INFO extends Win32Struct
      *       <b>THREAD_SET_CONTEXT</b>, and <b>THREAD_SUSPEND_RESUME</b> access to the 
      *       thread, allowing the debugger to read from and write to the registers of the thread and to control execution of 
      *       the thread.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hThread {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hThread{
+        get {
+            if(!this.HasProp("__hThread"))
+                this.__hThread := HANDLE(16, this)
+            return this.__hThread
+        }
     }
 
     /**

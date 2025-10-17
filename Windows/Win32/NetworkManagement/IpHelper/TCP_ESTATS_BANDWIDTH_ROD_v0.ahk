@@ -72,7 +72,7 @@ class TCP_ESTATS_BANDWIDTH_ROD_v0 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed outbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     OutboundBandwidthPeaked {
         get => NumGet(this, 32, "char")
@@ -83,7 +83,7 @@ class TCP_ESTATS_BANDWIDTH_ROD_v0 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A boolean value that indicates if the computed inbound bandwidth estimate for the network path for the TCP connection has reached its peak value.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     InboundBandwidthPeaked {
         get => NumGet(this, 33, "char")

@@ -41,10 +41,9 @@ class AUTHZ_SECURITY_ATTRIBUTES_INFORMATION extends Win32Struct
     }
 
     /**
-     * 
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<AUTHZ_SECURITY_ATTRIBUTE_V1>}
      */
-    Attribute {
+    pAttributeV1 {
         get => NumGet(this, 8, "ptr")
         set => NumPut("ptr", value, this, 8)
     }

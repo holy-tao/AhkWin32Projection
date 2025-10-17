@@ -28,7 +28,7 @@ class MrmResourceIndexerMessage extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     text {
         get => NumGet(this, 8, "ptr")

@@ -23,7 +23,7 @@ class ColorMap extends Win32Struct
     oldColor{
         get {
             if(!this.HasProp("__oldColor"))
-                this.__oldColor := Color(this.ptr + 0)
+                this.__oldColor := Color(0, this)
             return this.__oldColor
         }
     }
@@ -37,7 +37,7 @@ class ColorMap extends Win32Struct
     newColor{
         get {
             if(!this.HasProp("__newColor"))
-                this.__newColor := Color(this.ptr + 600)
+                this.__newColor := Color(600, this)
             return this.__newColor
         }
     }

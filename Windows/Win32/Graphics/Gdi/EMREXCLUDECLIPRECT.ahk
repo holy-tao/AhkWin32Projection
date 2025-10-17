@@ -22,7 +22,7 @@ class EMREXCLUDECLIPRECT extends Win32Struct
     emr{
         get {
             if(!this.HasProp("__emr"))
-                this.__emr := EMR(this.ptr + 0)
+                this.__emr := EMR(0, this)
             return this.__emr
         }
     }
@@ -34,7 +34,7 @@ class EMREXCLUDECLIPRECT extends Win32Struct
     rclClip{
         get {
             if(!this.HasProp("__rclClip"))
-                this.__rclClip := RECTL(this.ptr + 8)
+                this.__rclClip := RECTL(8, this)
             return this.__rclClip
         }
     }

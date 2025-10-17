@@ -36,7 +36,7 @@ class STORAGE_ZONE_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ResetWritePointerRecommend {
         get => NumGet(this, 12, "char")

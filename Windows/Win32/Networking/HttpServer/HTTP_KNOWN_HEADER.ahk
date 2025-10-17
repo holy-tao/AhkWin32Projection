@@ -34,7 +34,7 @@ class HTTP_KNOWN_HEADER extends Win32Struct
     /**
      * Pointer to the text of this HTTP header. Use <b>RawValueLength</b> to determine where this text ends rather than relying on the string to have a terminating null. The format of the header text is specified in 
      * <a href="https://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pRawValue {
         get => NumGet(this, 8, "ptr")

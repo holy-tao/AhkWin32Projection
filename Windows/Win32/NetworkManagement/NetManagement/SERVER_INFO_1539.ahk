@@ -15,7 +15,7 @@ class SERVER_INFO_1539 extends Win32Struct
 
     /**
      * Specifies whether the server processes raw SMBs. If enabled, this member allows more data to be transferred per transaction and improves performance. However, it is possible that processing raw SMBs can impede performance on certain networks. The server maintains the value of this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1539_enableraw {
         get => NumGet(this, 0, "int")

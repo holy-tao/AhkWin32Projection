@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\USB_HUB_DESCRIPTOR.ahk
 #Include .\USB_HUB_INFORMATION.ahk
+#Include .\USB_MI_PARENT_INFORMATION.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Usb
@@ -27,16 +28,19 @@ class USB_NODE_INFORMATION extends Win32Struct
     HubInformation{
         get {
             if(!this.HasProp("__HubInformation"))
-                this.__HubInformation := USB_HUB_INFORMATION(this.ptr + 8)
+                this.__HubInformation := USB_HUB_INFORMATION(8, this)
             return this.__HubInformation
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {USB_MI_PARENT_INFORMATION}
      */
-    MiParentInformation {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    MiParentInformation{
+        get {
+            if(!this.HasProp("__MiParentInformation"))
+                this.__MiParentInformation := USB_MI_PARENT_INFORMATION(8, this)
+            return this.__MiParentInformation
+        }
     }
 }

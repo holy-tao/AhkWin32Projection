@@ -50,7 +50,7 @@ class STATPROPSETSTG extends Win32Struct
     mtime{
         get {
             if(!this.HasProp("__mtime"))
-                this.__mtime := FILETIME(this.ptr + 24)
+                this.__mtime := FILETIME(24, this)
             return this.__mtime
         }
     }
@@ -62,7 +62,7 @@ class STATPROPSETSTG extends Win32Struct
     ctime{
         get {
             if(!this.HasProp("__ctime"))
-                this.__ctime := FILETIME(this.ptr + 32)
+                this.__ctime := FILETIME(32, this)
             return this.__ctime
         }
     }
@@ -74,7 +74,7 @@ class STATPROPSETSTG extends Win32Struct
     atime{
         get {
             if(!this.HasProp("__atime"))
-                this.__atime := FILETIME(this.ptr + 40)
+                this.__atime := FILETIME(40, this)
             return this.__atime
         }
     }

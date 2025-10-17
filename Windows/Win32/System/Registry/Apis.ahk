@@ -1,5 +1,5 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
 /**
  * @namespace Windows.Win32.System.Registry
  * @version v4.0.30319
@@ -4462,7 +4462,7 @@ class Registry {
 ;@region Methods
     /**
      * Closes a handle to the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to the open key to be closed. The handle must have been opened by the 
+     * @param {HKEY} hKey A handle to the open key to be closed. The handle must have been opened by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -4473,13 +4473,15 @@ class Registry {
      * @since windows5.0
      */
     static RegCloseKey(hKey) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
         result := DllCall("ADVAPI32.dll\RegCloseKey", "ptr", hKey, "uint")
         return result
     }
 
     /**
      * Maps a predefined registry key to the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to one of the following 
+     * @param {HKEY} hKey A handle to one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
      * 
@@ -4491,7 +4493,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_PERFORMANCE_DATA</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Void>} hNewHKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hNewHKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It cannot be one of the predefined keys. The function maps <i>hKey</i> to refer to the <i>hNewHKey</i> key. This affects only the calling process. 
      * 
      * 
@@ -4506,13 +4508,16 @@ class Registry {
      * @since windows5.0
      */
     static RegOverridePredefKey(hKey, hNewHKey) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hNewHKey := hNewHKey is Win32Handle ? NumGet(hNewHKey, "ptr") : hNewHKey
+
         result := DllCall("ADVAPI32.dll\RegOverridePredefKey", "ptr", hKey, "ptr", hNewHKey, "uint")
         return result
     }
 
     /**
      * Retrieves a handle to the HKEY_CLASSES_ROOT key for a specified user. The user is identified by an access token.
-     * @param {Pointer<Void>} hToken A handle to a primary or impersonation access token that identifies the user of interest. This can be a token handle returned by a call to 
+     * @param {HANDLE} hToken A handle to a primary or impersonation access token that identifies the user of interest. This can be a token handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, 
@@ -4527,7 +4532,7 @@ class Registry {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a>.
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. When you no longer need the returned handle, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. When you no longer need the returned handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close it.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -4539,6 +4544,8 @@ class Registry {
     static RegOpenUserClassesRoot(hToken, samDesired, phkResult) {
         static dwOptions := 0 ;Reserved parameters must always be NULL
 
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+
         result := DllCall("ADVAPI32.dll\RegOpenUserClassesRoot", "ptr", hToken, "uint", dwOptions, "uint", samDesired, "ptr", phkResult, "uint")
         return result
     }
@@ -4547,7 +4554,7 @@ class Registry {
      * Retrieves a handle to the HKEY_CURRENT_USER key for the user the current thread is impersonating.
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. When you no longer need the returned handle, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. When you no longer need the returned handle, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function to close it.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -4591,7 +4598,7 @@ class Registry {
 
     /**
      * Establishes a connection to a predefined registry key on another computer.
-     * @param {Pointer<Byte>} lpMachineName The name of the remote computer. The string has the following form: 
+     * @param {PSTR} lpMachineName The name of the remote computer. The string has the following form: 
      * 
      * 
      * 
@@ -4601,7 +4608,7 @@ class Registry {
      * The caller must have access to the remote computer or the function fails.
      * 
      * If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {Pointer<Void>} hKey A predefined registry handle. This parameter can be one of the following 
+     * @param {HKEY} hKey A predefined registry handle. This parameter can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a> on the remote computer. 
      * 
      * 
@@ -4610,7 +4617,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_PERFORMANCE_DATA</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a key handle identifying the predefined handle on the remote computer.
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a key handle identifying the predefined handle on the remote computer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -4619,7 +4626,8 @@ class Registry {
      * @since windows5.0
      */
     static RegConnectRegistryA(lpMachineName, hKey, phkResult) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegConnectRegistryA", "ptr", lpMachineName, "ptr", hKey, "ptr", phkResult, "uint")
         return result
@@ -4627,7 +4635,7 @@ class Registry {
 
     /**
      * Establishes a connection to a predefined registry key on another computer.
-     * @param {Pointer<Char>} lpMachineName The name of the remote computer. The string has the following form: 
+     * @param {PWSTR} lpMachineName The name of the remote computer. The string has the following form: 
      * 
      * 
      * 
@@ -4637,7 +4645,7 @@ class Registry {
      * The caller must have access to the remote computer or the function fails.
      * 
      * If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {Pointer<Void>} hKey A predefined registry handle. This parameter can be one of the following 
+     * @param {HKEY} hKey A predefined registry handle. This parameter can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a> on the remote computer. 
      * 
      * 
@@ -4646,7 +4654,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_PERFORMANCE_DATA</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a key handle identifying the predefined handle on the remote computer.
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a key handle identifying the predefined handle on the remote computer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -4655,7 +4663,8 @@ class Registry {
      * @since windows5.0
      */
     static RegConnectRegistryW(lpMachineName, hKey, phkResult) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegConnectRegistryW", "ptr", lpMachineName, "ptr", hKey, "ptr", phkResult, "uint")
         return result
@@ -4663,14 +4672,15 @@ class Registry {
 
     /**
      * 
-     * @param {Pointer<Byte>} lpMachineName 
-     * @param {Pointer<Void>} hKey 
+     * @param {PSTR} lpMachineName 
+     * @param {HKEY} hKey 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} phkResult 
+     * @param {Pointer<HKEY>} phkResult 
      * @returns {Integer} 
      */
     static RegConnectRegistryExA(lpMachineName, hKey, Flags, phkResult) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegConnectRegistryExA", "ptr", lpMachineName, "ptr", hKey, "uint", Flags, "ptr", phkResult, "int")
         return result
@@ -4678,14 +4688,15 @@ class Registry {
 
     /**
      * 
-     * @param {Pointer<Char>} lpMachineName 
-     * @param {Pointer<Void>} hKey 
+     * @param {PWSTR} lpMachineName 
+     * @param {HKEY} hKey 
      * @param {Integer} Flags 
-     * @param {Pointer<Void>} phkResult 
+     * @param {Pointer<HKEY>} phkResult 
      * @returns {Integer} 
      */
     static RegConnectRegistryExW(lpMachineName, hKey, Flags, phkResult) {
-        lpMachineName := lpMachineName is String? StrPtr(lpMachineName) : lpMachineName
+        lpMachineName := lpMachineName is String ? StrPtr(lpMachineName) : lpMachineName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegConnectRegistryExW", "ptr", lpMachineName, "ptr", hKey, "uint", Flags, "ptr", phkResult, "int")
         return result
@@ -4693,7 +4704,7 @@ class Registry {
 
     /**
      * Creates the specified registry key. If the key already exists in the registry, the function opens it.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -4711,13 +4722,13 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of a key that this function opens or creates. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
+     * @param {PSTR} lpSubKey The name of a key that this function opens or creates. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * 
      * For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>hKey</i> is one of the predefined keys, <i>lpSubKey</i> may be <b>NULL</b>. In that case, <i>phkResult</i> receives the same <i>hKey</i> handle passed in to the function.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -4727,7 +4738,8 @@ class Registry {
      * @since windows5.0
      */
     static RegCreateKeyA(hKey, lpSubKey, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
@@ -4735,7 +4747,7 @@ class Registry {
 
     /**
      * Creates the specified registry key. If the key already exists in the registry, the function opens it.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -4753,13 +4765,13 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of a key that this function opens or creates. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
+     * @param {PWSTR} lpSubKey The name of a key that this function opens or creates. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * 
      * For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>hKey</i> is one of the predefined keys, <i>lpSubKey</i> may be <b>NULL</b>. In that case, <i>phkResult</i> receives the same <i>hKey</i> handle passed in to the function.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -4769,7 +4781,8 @@ class Registry {
      * @since windows5.0
      */
     static RegCreateKeyW(hKey, lpSubKey, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
@@ -4777,7 +4790,7 @@ class Registry {
 
     /**
      * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that modify the registry if allowed by its security descriptor.
@@ -4795,12 +4808,12 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
+     * @param {PSTR} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>lpSubKey</i> is a pointer to an empty string, <i>phkResult</i> receives a new handle to the key specified by <i>hKey</i>.
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpClass The user-defined class type of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpClass The user-defined class type of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired A mask that specifies the access rights for the key to be created. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -4811,7 +4824,7 @@ class Registry {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
@@ -4856,8 +4869,9 @@ class Registry {
     static RegCreateKeyExA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "uint")
         return result
@@ -4865,7 +4879,7 @@ class Registry {
 
     /**
      * Creates the specified registry key. If the key already exists, the function opens it. Note that key names are not case sensitive.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that modify the registry if allowed by its security descriptor.
@@ -4883,12 +4897,12 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
+     * @param {PWSTR} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>lpSubKey</i> is a pointer to an empty string, <i>phkResult</i> receives a new handle to the key specified by <i>hKey</i>.
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} lpClass The user-defined class type of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpClass The user-defined class type of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired A mask that specifies the access rights for the key to be created. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -4899,7 +4913,7 @@ class Registry {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
@@ -4944,8 +4958,9 @@ class Registry {
     static RegCreateKeyExW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "uint")
         return result
@@ -4953,7 +4968,7 @@ class Registry {
 
     /**
      * Creates the specified registry key and associates it with a transaction.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that create keys if allowed by its security descriptor.
@@ -4971,12 +4986,12 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
+     * @param {PSTR} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>lpSubKey</i> is a pointer to an empty string, <i>phkResult</i> receives a new handle to the key specified by <i>hKey</i>.
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpClass The user-defined class of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpClass The user-defined class of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired A mask that specifies the access rights for the key to be created. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -4987,7 +5002,7 @@ class Registry {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
@@ -5022,7 +5037,7 @@ class Registry {
      *  
      * 
      * If <i>lpdwDisposition</i> is <b>NULL</b>, no disposition information is returned.
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -5033,8 +5048,10 @@ class Registry {
     static RegCreateKeyTransactedA(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
         static Reserved := 0, pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
@@ -5042,7 +5059,7 @@ class Registry {
 
     /**
      * Creates the specified registry key and associates it with a transaction.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The calling process  must have KEY_CREATE_SUB_KEY access to the key. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * Access for key creation is checked against the security descriptor of the registry key, not the access mask specified when the handle was obtained. Therefore, even if <i>hKey</i> was opened with a <i>samDesired</i> of KEY_READ, it   can be used in operations that create keys if allowed by its security descriptor.
@@ -5060,12 +5077,12 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
+     * @param {PWSTR} lpSubKey The name of a subkey that this function opens or creates. The subkey specified must be a subkey of the key identified by the <i>hKey</i> parameter; it can be up to 32 levels deep in the registry tree. For more information on key names, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/structure-of-the-registry">Structure of the Registry</a>.
      * 
      * If <i>lpSubKey</i> is a pointer to an empty string, <i>phkResult</i> receives a new handle to the key specified by <i>hKey</i>.
      * 
      * This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Char>} lpClass The user-defined class of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpClass The user-defined class of this key. This parameter may be ignored. This parameter can be <b>NULL</b>.
      * @param {Integer} dwOptions 
      * @param {Integer} samDesired A mask that specifies the access rights for the key to be created. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
@@ -5076,7 +5093,7 @@ class Registry {
      * 
      * 
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
@@ -5111,7 +5128,7 @@ class Registry {
      *  
      * 
      * If <i>lpdwDisposition</i> is <b>NULL</b>, no disposition information is returned.
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -5122,8 +5139,10 @@ class Registry {
     static RegCreateKeyTransactedW(hKey, lpSubKey, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, hTransaction) {
         static Reserved := 0, pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegCreateKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", Reserved, "ptr", lpClass, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
@@ -5131,7 +5150,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5144,7 +5163,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of the key to be deleted. It must be a subkey of the key that <i>hKey</i> identifies, but it cannot have subkeys. This parameter cannot be <b>NULL</b>.
+     * @param {PSTR} lpSubKey The name of the key to be deleted. It must be a subkey of the key that <i>hKey</i> identifies, but it cannot have subkeys. This parameter cannot be <b>NULL</b>.
      * 
      * The function opens the subkey with the DELETE access right. 
      * 
@@ -5160,7 +5179,8 @@ class Registry {
      * @since windows5.0
      */
     static RegDeleteKeyA(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyA", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -5168,7 +5188,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5181,7 +5201,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of the key to be deleted. It must be a subkey of the key that <i>hKey</i> identifies, but it cannot have subkeys. This parameter cannot be <b>NULL</b>.
+     * @param {PWSTR} lpSubKey The name of the key to be deleted. It must be a subkey of the key that <i>hKey</i> identifies, but it cannot have subkeys. This parameter cannot be <b>NULL</b>.
      * 
      * The function opens the subkey with the DELETE access right. 
      * 
@@ -5197,7 +5217,8 @@ class Registry {
      * @since windows5.0
      */
     static RegDeleteKeyW(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyW", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -5205,7 +5226,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values from the specified platform-specific view of the registry.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5218,7 +5239,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
+     * @param {PSTR} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
      * 
      * The  function opens the subkey with the DELETE access right. 
      * 
@@ -5264,7 +5285,8 @@ class Registry {
     static RegDeleteKeyExA(hKey, lpSubKey, samDesired) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
         return result
@@ -5272,7 +5294,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values from the specified platform-specific view of the registry.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5285,7 +5307,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
+     * @param {PWSTR} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
      * 
      * The  function opens the subkey with the DELETE access right. 
      * 
@@ -5331,7 +5353,8 @@ class Registry {
     static RegDeleteKeyExW(hKey, lpSubKey, samDesired) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "uint")
         return result
@@ -5339,7 +5362,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5352,7 +5375,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
+     * @param {PSTR} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
      * 
      * The  function opens the subkey with the DELETE access right. 
      * 
@@ -5389,7 +5412,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
@@ -5399,7 +5422,9 @@ class Registry {
     static RegDeleteKeyTransactedA(hKey, lpSubKey, samDesired, hTransaction) {
         static Reserved := 0, pExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
         return result
@@ -5407,7 +5432,7 @@ class Registry {
 
     /**
      * Deletes a subkey and its values from the specified platform-specific view of the registry as a transacted operation.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
+     * @param {HKEY} hKey A handle to an open registry key. The access rights of this key do not affect the delete operation. For more information about access rights, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5420,7 +5445,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
+     * @param {PWSTR} lpSubKey The name of the key to be deleted. This key must be a subkey of the key specified by the value of the <i>hKey</i> parameter. 
      * 
      * The  function opens the subkey with the DELETE access right. 
      * 
@@ -5457,7 +5482,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.
@@ -5467,7 +5492,9 @@ class Registry {
     static RegDeleteKeyTransactedW(hKey, lpSubKey, samDesired, hTransaction) {
         static Reserved := 0, pExtendedParameter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", samDesired, "uint", Reserved, "ptr", hTransaction, "ptr", pExtendedParameter, "uint")
         return result
@@ -5475,7 +5502,7 @@ class Registry {
 
     /**
      * Disables registry reflection for the specified key. Disabling reflection for a key does not affect reflection of any subkeys.
-     * @param {Pointer<Void>} hBase A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hBase A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function; it cannot specify a key on a remote computer.
      * 
@@ -5487,13 +5514,15 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegDisableReflectionKey(hBase) {
+        hBase := hBase is Win32Handle ? NumGet(hBase, "ptr") : hBase
+
         result := DllCall("ADVAPI32.dll\RegDisableReflectionKey", "ptr", hBase, "uint")
         return result
     }
 
     /**
      * Restores registry reflection for the specified disabled key. Restoring reflection for a key does not affect reflection of any subkeys.
-     * @param {Pointer<Void>} hBase A handle to the registry key that was previously disabled using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> function. This handle is returned by the 
+     * @param {HKEY} hBase A handle to the registry key that was previously disabled using the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> function. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function; it cannot specify a key on a remote computer.
      * 
@@ -5505,17 +5534,19 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegEnableReflectionKey(hBase) {
+        hBase := hBase is Win32Handle ? NumGet(hBase, "ptr") : hBase
+
         result := DllCall("ADVAPI32.dll\RegEnableReflectionKey", "ptr", hBase, "uint")
         return result
     }
 
     /**
      * Determines whether reflection has been disabled or enabled for the specified key.
-     * @param {Pointer<Void>} hBase A handle to the registry key.
+     * @param {HKEY} hBase A handle to the registry key.
      *       This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a> function; it cannot specify a key on a remote computer.
-     * @param {Pointer<Int32>} bIsReflectionDisabled A value that indicates whether reflection has been disabled through <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> or enabled through <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenablereflectionkey">RegEnableReflectionKey</a>.
+     * @param {Pointer<BOOL>} bIsReflectionDisabled A value that indicates whether reflection has been disabled through <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regdisablereflectionkey">RegDisableReflectionKey</a> or enabled through <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regenablereflectionkey">RegEnableReflectionKey</a>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -5525,13 +5556,15 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
-        result := DllCall("ADVAPI32.dll\RegQueryReflectionKey", "ptr", hBase, "int*", bIsReflectionDisabled, "uint")
+        hBase := hBase is Win32Handle ? NumGet(hBase, "ptr") : hBase
+
+        result := DllCall("ADVAPI32.dll\RegQueryReflectionKey", "ptr", hBase, "ptr", bIsReflectionDisabled, "uint")
         return result
     }
 
     /**
      * Removes a named value from the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5549,7 +5582,7 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Byte>} lpValueName The registry value to be removed. If this parameter is <b>NULL</b> or an empty string, the value set by the 
+     * @param {PSTR} lpValueName The registry value to be removed. If this parameter is <b>NULL</b> or an empty string, the value set by the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winreg/nf-winreg-regsetvalueexa">RegSetValueEx</a> function is removed. 
      * 
      * 
@@ -5565,7 +5598,8 @@ class Registry {
      * @since windows5.0
      */
     static RegDeleteValueA(hKey, lpValueName) {
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteValueA", "ptr", hKey, "ptr", lpValueName, "uint")
         return result
@@ -5573,7 +5607,7 @@ class Registry {
 
     /**
      * Removes a named value from the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5591,7 +5625,7 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Char>} lpValueName The registry value to be removed. If this parameter is <b>NULL</b> or an empty string, the value set by the 
+     * @param {PWSTR} lpValueName The registry value to be removed. If this parameter is <b>NULL</b> or an empty string, the value set by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsetvaluea">RegSetValue</a> function is removed. 
      * 
      * 
@@ -5607,7 +5641,8 @@ class Registry {
      * @since windows5.0
      */
     static RegDeleteValueW(hKey, lpValueName) {
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteValueW", "ptr", hKey, "ptr", lpValueName, "uint")
         return result
@@ -5615,7 +5650,7 @@ class Registry {
 
     /**
      * Enumerates the subkeys of the specified open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5638,7 +5673,7 @@ class Registry {
      * 
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
-     * @param {Pointer<Byte>} lpName A pointer to a buffer that receives the name of the subkey, including the terminating null character. This function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
+     * @param {PSTR} lpName A pointer to a buffer that receives the name of the subkey, including the terminating null character. This function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
      * 
      * 
      * 
@@ -5657,7 +5692,8 @@ class Registry {
      * @since windows5.0
      */
     static RegEnumKeyA(hKey, dwIndex, lpName, cchName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumKeyA", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
         return result
@@ -5665,7 +5701,7 @@ class Registry {
 
     /**
      * Enumerates the subkeys of the specified open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5688,7 +5724,7 @@ class Registry {
      * 
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
-     * @param {Pointer<Char>} lpName A pointer to a buffer that receives the name of the subkey, including the terminating null character. This function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
+     * @param {PWSTR} lpName A pointer to a buffer that receives the name of the subkey, including the terminating null character. This function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
      * 
      * 
      * 
@@ -5707,7 +5743,8 @@ class Registry {
      * @since windows5.0
      */
     static RegEnumKeyW(hKey, dwIndex, lpName, cchName) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumKeyW", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint", cchName, "uint")
         return result
@@ -5715,7 +5752,7 @@ class Registry {
 
     /**
      * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5736,7 +5773,7 @@ class Registry {
      * 
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
-     * @param {Pointer<Byte>} lpName A pointer to a buffer that receives the name of the subkey, including the terminating <b>null</b> character. The function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
+     * @param {PSTR} lpName A pointer to a buffer that receives the name of the subkey, including the terminating <b>null</b> character. The function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
      * 
      * 
      * If the function fails, no information is copied to this buffer.
@@ -5747,7 +5784,7 @@ class Registry {
      * 
      * To determine the required buffer size, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function to determine the size of the largest subkey for the key identified by the <i>hKey</i> parameter.
-     * @param {Pointer<Byte>} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time at which the enumerated subkey was last written. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -5762,8 +5799,9 @@ class Registry {
     static RegEnumKeyExA(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumKeyExA", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint*", lpcchName, "uint*", lpReserved, "ptr", lpClass, "uint*", lpcchClass, "ptr", lpftLastWriteTime, "uint")
         return result
@@ -5771,7 +5809,7 @@ class Registry {
 
     /**
      * Enumerates the subkeys of the specified open registry key. The function retrieves information about one subkey each time it is called.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_ENUMERATE_SUB_KEYS access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -5792,7 +5830,7 @@ class Registry {
      * 
      * 
      * Because subkeys are not ordered, any new subkey will have an arbitrary index. This means that the function may return subkeys in any order.
-     * @param {Pointer<Char>} lpName A pointer to a buffer that receives the name of the subkey, including the terminating <b>null</b> character. The function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
+     * @param {PWSTR} lpName A pointer to a buffer that receives the name of the subkey, including the terminating <b>null</b> character. The function copies only the name of the subkey, not the full key hierarchy, to the buffer. 
      * 
      * 
      * If the function fails, no information is copied to this buffer.
@@ -5803,7 +5841,7 @@ class Registry {
      * 
      * To determine the required buffer size, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function to determine the size of the largest subkey for the key identified by the <i>hKey</i> parameter.
-     * @param {Pointer<Char>} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time at which the enumerated subkey was last written. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -5818,8 +5856,9 @@ class Registry {
     static RegEnumKeyExW(hKey, dwIndex, lpName, lpcchName, lpClass, lpcchClass, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumKeyExW", "ptr", hKey, "uint", dwIndex, "ptr", lpName, "uint*", lpcchName, "uint*", lpReserved, "ptr", lpClass, "uint*", lpcchClass, "ptr", lpftLastWriteTime, "uint")
         return result
@@ -5827,7 +5866,7 @@ class Registry {
 
     /**
      * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5851,7 +5890,7 @@ class Registry {
      * 
      * 
      * Because values are not ordered, any new value will have an arbitrary index. This means that the function may return values in any order.
-     * @param {Pointer<Byte>} lpValueName A pointer to a buffer that receives the name of the value as a <b>null</b>-terminated string. 
+     * @param {PSTR} lpValueName A pointer to a buffer that receives the name of the value as a <b>null</b>-terminated string. 
      * 
      * 
      * This buffer must be large enough to include the terminating <b>null</b> character. 
@@ -5890,7 +5929,8 @@ class Registry {
     static RegEnumValueA(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumValueA", "ptr", hKey, "uint", dwIndex, "ptr", lpValueName, "uint*", lpcchValueName, "uint*", lpReserved, "uint*", lpType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
@@ -5898,7 +5938,7 @@ class Registry {
 
     /**
      * Enumerates the values for the specified open registry key. The function copies one indexed value name and data block for the key each time it is called.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5922,7 +5962,7 @@ class Registry {
      * 
      * 
      * Because values are not ordered, any new value will have an arbitrary index. This means that the function may return values in any order.
-     * @param {Pointer<Char>} lpValueName A pointer to a buffer that receives the name of the value as a <b>null</b>-terminated string. 
+     * @param {PWSTR} lpValueName A pointer to a buffer that receives the name of the value as a <b>null</b>-terminated string. 
      * 
      * 
      * This buffer must be large enough to include the terminating <b>null</b> character. 
@@ -5959,7 +5999,8 @@ class Registry {
     static RegEnumValueW(hKey, dwIndex, lpValueName, lpcchValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegEnumValueW", "ptr", hKey, "uint", dwIndex, "ptr", lpValueName, "uint*", lpcchValueName, "uint*", lpReserved, "uint*", lpType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
@@ -5967,7 +6008,7 @@ class Registry {
 
     /**
      * Writes all the attributes of the specified open registry key into the registry.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -5992,13 +6033,15 @@ class Registry {
      * @since windows5.0
      */
     static RegFlushKey(hKey) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
         result := DllCall("ADVAPI32.dll\RegFlushKey", "ptr", hKey, "uint")
         return result
     }
 
     /**
      * Retrieves a copy of the security descriptor protecting the specified open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open key for which to retrieve the security descriptor.
+     * @param {HKEY} hKey A handle to an open key for which to retrieve the security descriptor.
      * @param {Integer} SecurityInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that indicates the requested security information.
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the requested security descriptor.
@@ -6012,13 +6055,15 @@ class Registry {
      * @since windows5.1.2600
      */
     static RegGetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor, lpcbSecurityDescriptor) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
         result := DllCall("ADVAPI32.dll\RegGetKeySecurity", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint*", lpcbSecurityDescriptor, "uint")
         return result
     }
 
     /**
      * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey.
-     * @param {Pointer<Void>} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
+     * @param {HKEY} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
      * 
@@ -6027,7 +6072,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
      * This function always loads information at the top of the registry hierarchy. The <b>HKEY_CLASSES_ROOT</b> and <b>HKEY_CURRENT_USER</b> handle values cannot be specified for this parameter, because they represent subsets of the <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_USERS</b> handle values, respectively.
-     * @param {Pointer<Byte>} lpSubKey The name of the key to be created under <i>hKey</i>. This subkey is where the registration information from the file will be loaded. 
+     * @param {PSTR} lpSubKey The name of the key to be created under <i>hKey</i>. This subkey is where the registration information from the file will be loaded. 
      * 
      * 
      * 
@@ -6036,7 +6081,7 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Byte>} lpFile The name of the  file containing the registry data. This file must be a local file that was created with the 
+     * @param {PSTR} lpFile The name of the  file containing the registry data. This file must be a local file that was created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function. If this file does not exist, a file is created with the specified name.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6046,8 +6091,9 @@ class Registry {
      * @since windows5.0
      */
     static RegLoadKeyA(hKey, lpSubKey, lpFile) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegLoadKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpFile, "uint")
         return result
@@ -6055,7 +6101,7 @@ class Registry {
 
     /**
      * Creates a subkey under HKEY_USERS or HKEY_LOCAL_MACHINE and loads the data from the specified registry hive into that subkey.
-     * @param {Pointer<Void>} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
+     * @param {HKEY} hKey A handle to the key where the subkey will be created. This can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a>, or one of the following predefined handles: 
      * 
      * 
@@ -6064,7 +6110,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
      * This function always loads information at the top of the registry hierarchy. The <b>HKEY_CLASSES_ROOT</b> and <b>HKEY_CURRENT_USER</b> handle values cannot be specified for this parameter, because they represent subsets of the <b>HKEY_LOCAL_MACHINE</b> and <b>HKEY_USERS</b> handle values, respectively.
-     * @param {Pointer<Char>} lpSubKey The name of the key to be created under <i>hKey</i>. This subkey is where the registration information from the file will be loaded. 
+     * @param {PWSTR} lpSubKey The name of the key to be created under <i>hKey</i>. This subkey is where the registration information from the file will be loaded. 
      * 
      * 
      * 
@@ -6073,7 +6119,7 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Char>} lpFile The name of the  file containing the registry data. This file must be a local file that was created with the 
+     * @param {PWSTR} lpFile The name of the  file containing the registry data. This file must be a local file that was created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function. If this file does not exist, a file is created with the specified name.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6083,8 +6129,9 @@ class Registry {
      * @since windows5.0
      */
     static RegLoadKeyW(hKey, lpSubKey, lpFile) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegLoadKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpFile, "uint")
         return result
@@ -6092,7 +6139,7 @@ class Registry {
 
     /**
      * Notifies the caller about changes to the attributes or contents of a specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -6109,10 +6156,10 @@ class Registry {
      * 
      * The key must have been opened with the KEY_NOTIFY access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Integer} bWatchSubtree If this parameter is TRUE, the function reports changes in the specified key and its subkeys. If the parameter is <b>FALSE</b>, the function reports changes only in the specified key.
+     * @param {BOOL} bWatchSubtree If this parameter is TRUE, the function reports changes in the specified key and its subkeys. If the parameter is <b>FALSE</b>, the function reports changes only in the specified key.
      * @param {Integer} dwNotifyFilter 
-     * @param {Pointer<Void>} hEvent A handle to an event. If the <i>fAsynchronous</i> parameter is <b>TRUE</b>, the function returns immediately and changes are reported by signaling this event. If <i>fAsynchronous</i> is <b>FALSE</b>, <i>hEvent</i> is ignored.
-     * @param {Integer} fAsynchronous If this parameter is <b>TRUE</b>, the function returns immediately and reports changes by signaling the specified event. If this parameter is <b>FALSE</b>, the function does not return until a change has occurred. 
+     * @param {HANDLE} hEvent A handle to an event. If the <i>fAsynchronous</i> parameter is <b>TRUE</b>, the function returns immediately and changes are reported by signaling this event. If <i>fAsynchronous</i> is <b>FALSE</b>, <i>hEvent</i> is ignored.
+     * @param {BOOL} fAsynchronous If this parameter is <b>TRUE</b>, the function returns immediately and reports changes by signaling the specified event. If this parameter is <b>FALSE</b>, the function does not return until a change has occurred. 
      * 
      * 
      * 
@@ -6126,13 +6173,16 @@ class Registry {
      * @since windows5.0
      */
     static RegNotifyChangeKeyValue(hKey, bWatchSubtree, dwNotifyFilter, hEvent, fAsynchronous) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         result := DllCall("ADVAPI32.dll\RegNotifyChangeKeyValue", "ptr", hKey, "int", bWatchSubtree, "uint", dwNotifyFilter, "ptr", hEvent, "int", fAsynchronous, "uint")
         return result
     }
 
     /**
      * Opens the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6142,7 +6192,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Byte>} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
+     * @param {PSTR} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6150,7 +6200,7 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6160,7 +6210,8 @@ class Registry {
      * @since windows5.0
      */
     static RegOpenKeyA(hKey, lpSubKey, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
@@ -6168,7 +6219,7 @@ class Registry {
 
     /**
      * Opens the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6178,7 +6229,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Char>} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
+     * @param {PWSTR} lpSubKey The name of the registry key to be opened. This key must be a subkey of the key identified by the <i>hKey</i> parameter. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6186,7 +6237,7 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6196,7 +6247,8 @@ class Registry {
      * @since windows5.0
      */
     static RegOpenKeyW(hKey, lpSubKey, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", phkResult, "uint")
         return result
@@ -6204,7 +6256,7 @@ class Registry {
 
     /**
      * Opens the specified registry key. Note that key names are not case sensitive.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6217,7 +6269,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Byte>} lpSubKey The name of the registry subkey to be opened. 
+     * @param {PSTR} lpSubKey The name of the registry subkey to be opened. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6249,7 +6301,7 @@ class Registry {
      * </table>
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key to be opened. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6262,7 +6314,8 @@ class Registry {
      * @since windows5.0
      */
     static RegOpenKeyExA(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyExA", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
         return result
@@ -6270,7 +6323,7 @@ class Registry {
 
     /**
      * Opens the specified registry key. Note that key names are not case sensitive.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <b>RegOpenKeyEx</b> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6283,7 +6336,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Char>} lpSubKey The name of the registry subkey to be opened. 
+     * @param {PWSTR} lpSubKey The name of the registry subkey to be opened. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6315,7 +6368,7 @@ class Registry {
      * </table>
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key to be opened. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -6325,7 +6378,8 @@ class Registry {
      * @since windows5.0
      */
     static RegOpenKeyExW(hKey, lpSubKey, ulOptions, samDesired, phkResult) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyExW", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "uint")
         return result
@@ -6333,7 +6387,7 @@ class Registry {
 
     /**
      * Opens the specified registry key and associates it with a transaction.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6342,7 +6396,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Byte>} lpSubKey The name of the registry subkey to be opened. 
+     * @param {PSTR} lpSubKey The name of the registry subkey to be opened. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6357,9 +6411,9 @@ class Registry {
      * @param {Integer} ulOptions This parameter is reserved and must be zero.
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -6370,7 +6424,9 @@ class Registry {
     static RegOpenKeyTransactedA(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
         static pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedA", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
@@ -6378,7 +6434,7 @@ class Registry {
 
     /**
      * Opens the specified registry key and associates it with a transaction.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, or 
      *  <b>RegOpenKeyTransacted</b> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:
@@ -6387,7 +6443,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Char>} lpSubKey The name of the registry subkey to be opened. 
+     * @param {PWSTR} lpSubKey The name of the registry subkey to be opened. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6402,9 +6458,9 @@ class Registry {
      * @param {Integer} ulOptions This parameter is reserved and must be zero.
      * @param {Integer} samDesired A mask that specifies the desired access rights to the key. The function fails if the security descriptor of the key does not permit the requested access for the calling process. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
-     * @param {Pointer<Void>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
+     * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<Void>} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
+     * @param {HANDLE} hTransaction A handle to an active transaction. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ktmw32/nf-ktmw32-createtransaction">CreateTransaction</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -6415,7 +6471,9 @@ class Registry {
     static RegOpenKeyTransactedW(hKey, lpSubKey, ulOptions, samDesired, phkResult, hTransaction) {
         static pExtendedParemeter := 0 ;Reserved parameters must always be NULL
 
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        hTransaction := hTransaction is Win32Handle ? NumGet(hTransaction, "ptr") : hTransaction
 
         result := DllCall("ADVAPI32.dll\RegOpenKeyTransactedW", "ptr", hKey, "ptr", lpSubKey, "uint", ulOptions, "uint", samDesired, "ptr", phkResult, "ptr", hTransaction, "ptr", pExtendedParemeter, "uint")
         return result
@@ -6423,7 +6481,7 @@ class Registry {
 
     /**
      * Retrieves information about the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6439,7 +6497,7 @@ class Registry {
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_PERFORMANCE_DATA</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Byte>} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
+     * @param {PSTR} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
      * 
      * The size should include the terminating <b>null</b> character. When the function returns, this variable contains the size of the class string that is stored in the buffer. The count returned does not include the terminating <b>null</b> character. If the buffer is not big enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string, in characters, without counting the terminating <b>null</b> character.
@@ -6474,7 +6532,8 @@ class Registry {
     static RegQueryInfoKeyA(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryInfoKeyA", "ptr", hKey, "ptr", lpClass, "uint*", lpcchClass, "uint*", lpReserved, "uint*", lpcSubKeys, "uint*", lpcbMaxSubKeyLen, "uint*", lpcbMaxClassLen, "uint*", lpcValues, "uint*", lpcbMaxValueNameLen, "uint*", lpcbMaxValueLen, "uint*", lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
         return result
@@ -6482,7 +6541,7 @@ class Registry {
 
     /**
      * Retrieves information about the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6498,7 +6557,7 @@ class Registry {
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_PERFORMANCE_DATA</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Char>} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
      * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
      * 
      * The size should include the terminating <b>null</b> character. When the function returns, this variable contains the size of the class string that is stored in the buffer. The count returned does not include the terminating <b>null</b> character. If the buffer is not big enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string, in characters, without counting the terminating <b>null</b> character.
@@ -6533,7 +6592,8 @@ class Registry {
     static RegQueryInfoKeyW(hKey, lpClass, lpcchClass, lpcSubKeys, lpcbMaxSubKeyLen, lpcbMaxClassLen, lpcValues, lpcbMaxValueNameLen, lpcbMaxValueLen, lpcbSecurityDescriptor, lpftLastWriteTime) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpClass := lpClass is String? StrPtr(lpClass) : lpClass
+        lpClass := lpClass is String ? StrPtr(lpClass) : lpClass
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryInfoKeyW", "ptr", hKey, "ptr", lpClass, "uint*", lpcchClass, "uint*", lpReserved, "uint*", lpcSubKeys, "uint*", lpcbMaxSubKeyLen, "uint*", lpcbMaxClassLen, "uint*", lpcValues, "uint*", lpcbMaxValueNameLen, "uint*", lpcbMaxValueLen, "uint*", lpcbSecurityDescriptor, "ptr", lpftLastWriteTime, "uint")
         return result
@@ -6541,7 +6601,7 @@ class Registry {
 
     /**
      * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6557,7 +6617,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of the subkey of the <i>hKey</i> parameter for which the default value is retrieved. 
+     * @param {PSTR} lpSubKey The name of the subkey of the <i>hKey</i> parameter for which the default value is retrieved. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6589,7 +6649,8 @@ class Registry {
      * @since windows5.0
      */
     static RegQueryValueA(hKey, lpSubKey, lpData, lpcbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpData, "int*", lpcbData, "uint")
         return result
@@ -6597,7 +6658,7 @@ class Registry {
 
     /**
      * Retrieves the data associated with the default or unnamed value of a specified registry key. The data must be a null-terminated string.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6613,7 +6674,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of the subkey of the <i>hKey</i> parameter for which the default value is retrieved. 
+     * @param {PWSTR} lpSubKey The name of the subkey of the <i>hKey</i> parameter for which the default value is retrieved. 
      * 
      * Key names are not case sensitive.
      * 
@@ -6645,7 +6706,8 @@ class Registry {
      * @since windows5.0
      */
     static RegQueryValueW(hKey, lpSubKey, lpData, lpcbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpData, "int*", lpcbData, "uint")
         return result
@@ -6653,7 +6715,7 @@ class Registry {
 
     /**
      * Retrieves the type and data for a list of value names associated with an open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
@@ -6736,13 +6798,15 @@ class Registry {
      * @since windows5.0
      */
     static RegQueryMultipleValuesA(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
         result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesA", "ptr", hKey, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, "uint*", ldwTotsize, "uint")
         return result
     }
 
     /**
      * Retrieves the type and data for a list of value names associated with an open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6822,13 +6886,15 @@ class Registry {
      * @since windows5.0
      */
     static RegQueryMultipleValuesW(hKey, val_list, num_vals, lpValueBuf, ldwTotsize) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+
         result := DllCall("ADVAPI32.dll\RegQueryMultipleValuesW", "ptr", hKey, "ptr", val_list, "uint", num_vals, "ptr", lpValueBuf, "uint*", ldwTotsize, "uint")
         return result
     }
 
     /**
      * Retrieves the type and data for the specified value name associated with an open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6847,7 +6913,7 @@ class Registry {
      * <dd><b>HKEY_PERFORMANCE_TEXT</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpValueName The name of the registry value. 
+     * @param {PSTR} lpValueName The name of the registry value. 
      * 
      * 
      * 
@@ -6893,7 +6959,8 @@ class Registry {
     static RegQueryValueExA(hKey, lpValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryValueExA", "ptr", hKey, "ptr", lpValueName, "uint*", lpReserved, "uint*", lpType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
@@ -6901,7 +6968,7 @@ class Registry {
 
     /**
      * Retrieves the type and data for the specified value name associated with an open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -6920,7 +6987,7 @@ class Registry {
      * <dd><b>HKEY_PERFORMANCE_TEXT</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpValueName The name of the registry value. 
+     * @param {PWSTR} lpValueName The name of the registry value. 
      * 
      * 
      * 
@@ -6966,7 +7033,8 @@ class Registry {
     static RegQueryValueExW(hKey, lpValueName, lpType, lpData, lpcbData) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegQueryValueExW", "ptr", hKey, "ptr", lpValueName, "uint*", lpReserved, "uint*", lpType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
@@ -6974,7 +7042,7 @@ class Registry {
 
     /**
      * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -6987,7 +7055,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Byte>} lpSubKey The name of the registry key whose subkeys and values are to be replaced. If the key exists, it must be a subkey of the key identified by the <i>hKey</i> parameter. If the subkey does not exist, it is created. This parameter can be <b>NULL</b>. 
+     * @param {PSTR} lpSubKey The name of the registry key whose subkeys and values are to be replaced. If the key exists, it must be a subkey of the key identified by the <i>hKey</i> parameter. If the subkey does not exist, it is created. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -6997,9 +7065,9 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Byte>} lpNewFile The name of the file with the registry information. This file is typically created by using the 
+     * @param {PSTR} lpNewFile The name of the file with the registry information. This file is typically created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function.
-     * @param {Pointer<Byte>} lpOldFile The name of the file that receives a backup copy of the registry information being replaced.
+     * @param {PSTR} lpOldFile The name of the file that receives a backup copy of the registry information being replaced.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7008,9 +7076,10 @@ class Registry {
      * @since windows5.0
      */
     static RegReplaceKeyA(hKey, lpSubKey, lpNewFile, lpOldFile) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpNewFile := lpNewFile is String? StrPtr(lpNewFile) : lpNewFile
-        lpOldFile := lpOldFile is String? StrPtr(lpOldFile) : lpOldFile
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
+        lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegReplaceKeyA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
         return result
@@ -7018,7 +7087,7 @@ class Registry {
 
     /**
      * Replaces the file backing a registry key and all its subkeys with another file, so that when the system is next started, the key and subkeys will have the values stored in the new file.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
@@ -7031,7 +7100,7 @@ class Registry {
      * <b>HKEY_CURRENT_USER</b>
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Char>} lpSubKey The name of the registry key whose subkeys and values are to be replaced. If the key exists, it must be a subkey of the key identified by the <i>hKey</i> parameter. If the subkey does not exist, it is created. This parameter can be <b>NULL</b>. 
+     * @param {PWSTR} lpSubKey The name of the registry key whose subkeys and values are to be replaced. If the key exists, it must be a subkey of the key identified by the <i>hKey</i> parameter. If the subkey does not exist, it is created. This parameter can be <b>NULL</b>. 
      * 
      * 
      * 
@@ -7041,9 +7110,9 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<Char>} lpNewFile The name of the file with the registry information. This file is typically created by using the 
+     * @param {PWSTR} lpNewFile The name of the file with the registry information. This file is typically created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function.
-     * @param {Pointer<Char>} lpOldFile The name of the file that receives a backup copy of the registry information being replaced.
+     * @param {PWSTR} lpOldFile The name of the file that receives a backup copy of the registry information being replaced.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7052,9 +7121,10 @@ class Registry {
      * @since windows5.0
      */
     static RegReplaceKeyW(hKey, lpSubKey, lpNewFile, lpOldFile) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpNewFile := lpNewFile is String? StrPtr(lpNewFile) : lpNewFile
-        lpOldFile := lpOldFile is String? StrPtr(lpOldFile) : lpOldFile
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpNewFile := lpNewFile is String ? StrPtr(lpNewFile) : lpNewFile
+        lpOldFile := lpOldFile is String ? StrPtr(lpOldFile) : lpOldFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegReplaceKeyW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpNewFile, "ptr", lpOldFile, "uint")
         return result
@@ -7062,7 +7132,7 @@ class Registry {
 
     /**
      * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -7075,7 +7145,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
      * Any information contained in this key and its descendent keys is overwritten by the information in the file pointed to by the <i>lpFile</i> parameter.
-     * @param {Pointer<Byte>} lpFile The name of the file with the registry information. This file is typically created by using the 
+     * @param {PSTR} lpFile The name of the file with the registry information. This file is typically created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -7086,7 +7156,8 @@ class Registry {
      * @since windows5.0
      */
     static RegRestoreKeyA(hKey, lpFile, dwFlags) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegRestoreKeyA", "ptr", hKey, "ptr", lpFile, "uint", dwFlags, "uint")
         return result
@@ -7094,7 +7165,7 @@ class Registry {
 
     /**
      * Reads the registry information in a specified file and copies it over the specified key. This registry information may be in the form of a key and multiple levels of subkeys.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. This handle is returned by the 
+     * @param {HKEY} hKey A handle to an open registry key. This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>: 
      * 
@@ -7107,7 +7178,7 @@ class Registry {
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
      * Any information contained in this key and its descendent keys is overwritten by the information in the file pointed to by the <i>lpFile</i> parameter.
-     * @param {Pointer<Char>} lpFile The name of the file with the registry information. This file is typically created by using the 
+     * @param {PWSTR} lpFile The name of the file with the registry information. This file is typically created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> function.
      * @param {Integer} dwFlags 
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -7118,7 +7189,8 @@ class Registry {
      * @since windows5.0
      */
     static RegRestoreKeyW(hKey, lpFile, dwFlags) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegRestoreKeyW", "ptr", hKey, "ptr", lpFile, "uint", dwFlags, "uint")
         return result
@@ -7126,7 +7198,7 @@ class Registry {
 
     /**
      * Changes the name of the specified registry key.
-     * @param {Pointer<Void>} hKey A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right. For more information, see [Registry Key Security and Access Rights](/windows/win32/SysInfo/registry-key-security-and-access-rights).
+     * @param {HKEY} hKey A handle to the key to be renamed. The handle must be opened with the KEY_WRITE access right. For more information, see [Registry Key Security and Access Rights](/windows/win32/SysInfo/registry-key-security-and-access-rights).
      * 
      * This handle is returned by the [RegCreateKeyEx](nf-winreg-regcreatekeyexa.md) or [RegOpenKeyEx](nf-winreg-regopenkeyexa.md) function, or it can be one of the following [Predefined Keys](/windows/win32/SysInfo/predefined-keys):
      * 
@@ -7135,16 +7207,17 @@ class Registry {
      * * HKEY_CURRENT_USER
      * * HKEY_LOCAL_MACHINE
      * * HKEY_USERS
-     * @param {Pointer<Char>} lpSubKeyName The name of the subkey to be renamed. This key must be a subkey of the key identified by the *hKeySrc* parameter. This parameter can also be **NULL**, in which case the key identified by the *hKeySrc* parameter will be renamed.
-     * @param {Pointer<Char>} lpNewKeyName The new name of the key. The new name must not already exist.
+     * @param {PWSTR} lpSubKeyName The name of the subkey to be renamed. This key must be a subkey of the key identified by the *hKeySrc* parameter. This parameter can also be **NULL**, in which case the key identified by the *hKeySrc* parameter will be renamed.
+     * @param {PWSTR} lpNewKeyName The new name of the key. The new name must not already exist.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the [FormatMessage](/windows/desktop/api/winbase/nf-winbase-formatmessage) function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error. An error code of STATUS_ACCESS_DENIED indicates that the caller does not have the necessary access rights to the specified registry key or subkeys.
      * @see https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regrenamekey
      */
     static RegRenameKey(hKey, lpSubKeyName, lpNewKeyName) {
-        lpSubKeyName := lpSubKeyName is String? StrPtr(lpSubKeyName) : lpSubKeyName
-        lpNewKeyName := lpNewKeyName is String? StrPtr(lpNewKeyName) : lpNewKeyName
+        lpSubKeyName := lpSubKeyName is String ? StrPtr(lpSubKeyName) : lpSubKeyName
+        lpNewKeyName := lpNewKeyName is String ? StrPtr(lpNewKeyName) : lpNewKeyName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegRenameKey", "ptr", hKey, "ptr", lpSubKeyName, "ptr", lpNewKeyName, "uint")
         return result
@@ -7152,7 +7225,7 @@ class Registry {
 
     /**
      * Saves the specified key and all of its subkeys and values to a new file, in the standard format.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey A handle to an open registry key. 
      * 
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
@@ -7164,7 +7237,7 @@ class Registry {
      * <dd><b>HKEY_CLASSES_ROOT</b></dd>
      * <dd><b>HKEY_CURRENT_USER</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
+     * @param {PSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
      * 
      * 
      * 
@@ -7182,7 +7255,8 @@ class Registry {
      * @since windows5.0
      */
     static RegSaveKeyA(hKey, lpFile, lpSecurityAttributes) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSaveKeyA", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
         return result
@@ -7190,7 +7264,7 @@ class Registry {
 
     /**
      * Saves the specified key and all of its subkeys and values to a new file, in the standard format.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey A handle to an open registry key. 
      * 
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
@@ -7202,7 +7276,7 @@ class Registry {
      * <dd><b>HKEY_CLASSES_ROOT</b></dd>
      * <dd><b>HKEY_CURRENT_USER</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
+     * @param {PWSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
      * 
      * 
      * 
@@ -7220,7 +7294,8 @@ class Registry {
      * @since windows5.0
      */
     static RegSaveKeyW(hKey, lpFile, lpSecurityAttributes) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSaveKeyW", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint")
         return result
@@ -7228,11 +7303,11 @@ class Registry {
 
     /**
      * Sets the security of an open registry key.
-     * @param {Pointer<Void>} hKey A handle to an open key for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> is set.
+     * @param {HKEY} hKey A handle to an open key for which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> is set.
      * @param {Integer} SecurityInformation A set of 
      * bit flags that indicate the type of security information to set. This parameter can be a combination of the 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> bit flags.
-     * @param {Pointer<Void>} pSecurityDescriptor A pointer to a 
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that specifies the security <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attributes</a> to set for the specified key.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
@@ -7243,13 +7318,16 @@ class Registry {
      * @since windows5.1.2600
      */
     static RegSetKeySecurity(hKey, SecurityInformation, pSecurityDescriptor) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+
         result := DllCall("ADVAPI32.dll\RegSetKeySecurity", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint")
         return result
     }
 
     /**
      * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7265,7 +7343,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of a subkey of the <i>hKey</i> parameter. The function sets the default value of the specified subkey. If <i>lpSubKey</i> does not exist, the function creates it.
+     * @param {PSTR} lpSubKey The name of a subkey of the <i>hKey</i> parameter. The function sets the default value of the specified subkey. If <i>lpSubKey</i> does not exist, the function creates it.
      * 
      * Key names are not case sensitive.
      * 
@@ -7285,7 +7363,8 @@ class Registry {
      * @since windows5.0
      */
     static RegSetValueA(hKey, lpSubKey, dwType, lpData, cbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetValueA", "ptr", hKey, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7293,7 +7372,7 @@ class Registry {
 
     /**
      * Sets the data for the default or unnamed value of a specified registry key. The data must be a text string.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7309,7 +7388,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of a subkey of the <i>hKey</i> parameter. The function sets the default value of the specified subkey. If <i>lpSubKey</i> does not exist, the function creates it.
+     * @param {PWSTR} lpSubKey The name of a subkey of the <i>hKey</i> parameter. The function sets the default value of the specified subkey. If <i>lpSubKey</i> does not exist, the function creates it.
      * 
      * Key names are not case sensitive.
      * 
@@ -7329,7 +7408,8 @@ class Registry {
      * @since windows5.0
      */
     static RegSetValueW(hKey, lpSubKey, dwType, lpData, cbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetValueW", "ptr", hKey, "ptr", lpSubKey, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7337,7 +7417,7 @@ class Registry {
 
     /**
      * Sets the data and type of a specified value under a registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * This handle is returned by the 
@@ -7353,7 +7433,7 @@ class Registry {
      * <li><b>HKEY_PERFORMANCE_TEXT</b></li>
      * <li><b>HKEY_PERFORMANCE_NLSTEXT</b></li>
      * </ul>
-     * @param {Pointer<Byte>} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key. 
+     * @param {PSTR} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key. 
      * 
      * If <i>lpValueName</i> is <b>NULL</b> or an empty string, "", the function sets the type and data for the key's unnamed or default value.
      * 
@@ -7380,7 +7460,8 @@ class Registry {
     static RegSetValueExA(hKey, lpValueName, dwType, lpData, cbData) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetValueExA", "ptr", hKey, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7388,7 +7469,7 @@ class Registry {
 
     /**
      * Sets the data and type of a specified value under a registry key.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * This handle is returned by the 
@@ -7404,7 +7485,7 @@ class Registry {
      * <li><b>HKEY_PERFORMANCE_TEXT</b></li>
      * <li><b>HKEY_PERFORMANCE_NLSTEXT</b></li>
      * </ul>
-     * @param {Pointer<Char>} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key. 
+     * @param {PWSTR} lpValueName The name of the value to be set. If a value with this name is not already present in the key, the function adds it to the key. 
      * 
      * If <i>lpValueName</i> is <b>NULL</b> or an empty string, "", the function sets the type and data for the key's unnamed or default value.
      * 
@@ -7431,7 +7512,8 @@ class Registry {
     static RegSetValueExW(hKey, lpValueName, dwType, lpData, cbData) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetValueExW", "ptr", hKey, "ptr", lpValueName, "uint", Reserved, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7439,7 +7521,7 @@ class Registry {
 
     /**
      * Unloads the specified registry key and its subkeys from the registry.
-     * @param {Pointer<Void>} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
+     * @param {HKEY} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
      * 
@@ -7447,7 +7529,7 @@ class Registry {
      * 
      * <b>HKEY_LOCAL_MACHINE</b>
      * <b>HKEY_USERS</b>
-     * @param {Pointer<Byte>} lpSubKey The name of the subkey to be unloaded. The key referred to by the <i>lpSubKey</i> parameter must have been created by using the 
+     * @param {PSTR} lpSubKey The name of the subkey to be unloaded. The key referred to by the <i>lpSubKey</i> parameter must have been created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a> function. 
      * 
      * 
@@ -7465,7 +7547,8 @@ class Registry {
      * @since windows5.0
      */
     static RegUnLoadKeyA(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegUnLoadKeyA", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -7473,12 +7556,12 @@ class Registry {
 
     /**
      * Unloads the specified registry key and its subkeys from the registry.
-     * @param {Pointer<Void>} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
+     * @param {HKEY} hKey A handle to the registry key to be unloaded. This parameter can be a handle returned by a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function or one of the following predefined handles: 
      * 
      * * HKEY_LOCAL_MACHINE
      * * HKEY_USERS
-     * @param {Pointer<Char>} lpSubKey The name of the subkey to be unloaded. The key referred to by the <i>lpSubKey</i> parameter must have been created by using the 
+     * @param {PWSTR} lpSubKey The name of the subkey to be unloaded. The key referred to by the <i>lpSubKey</i> parameter must have been created by using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regloadkeya">RegLoadKey</a> function. 
      * 
      * 
@@ -7496,7 +7579,8 @@ class Registry {
      * @since windows5.0
      */
     static RegUnLoadKeyW(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegUnLoadKeyW", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -7504,7 +7588,7 @@ class Registry {
 
     /**
      * Removes the specified value from the specified registry key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7522,8 +7606,8 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Byte>} lpSubKey The name of the registry key. This key must be a subkey of the key identified by the <i>hKey</i> parameter.
-     * @param {Pointer<Byte>} lpValueName The registry value to be removed from the key.
+     * @param {PSTR} lpSubKey The name of the registry key. This key must be a subkey of the key identified by the <i>hKey</i> parameter.
+     * @param {PSTR} lpValueName The registry value to be removed from the key.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7532,8 +7616,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegDeleteKeyValueA(hKey, lpSubKey, lpValueName) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint")
         return result
@@ -7541,7 +7626,7 @@ class Registry {
 
     /**
      * Removes the specified value from the specified registry key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7559,8 +7644,8 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Char>} lpSubKey The name of the registry key. This key must be a subkey of the key identified by the <i>hKey</i> parameter.
-     * @param {Pointer<Char>} lpValueName The registry value to be removed from the key.
+     * @param {PWSTR} lpSubKey The name of the registry key. This key must be a subkey of the key identified by the <i>hKey</i> parameter.
+     * @param {PWSTR} lpValueName The registry value to be removed from the key.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7569,8 +7654,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegDeleteKeyValueW(hKey, lpSubKey, lpValueName) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteKeyValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint")
         return result
@@ -7578,7 +7664,7 @@ class Registry {
 
     /**
      * Sets the data for the specified value in the specified registry key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7596,10 +7682,10 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Byte>} lpSubKey The name of the subkey relative to the key identified by <i>hKey</i>.
+     * @param {PSTR} lpSubKey The name of the subkey relative to the key identified by <i>hKey</i>.
      * If the subkey does not exist, it is created as a non-volatile key with a default security descriptor.
      * If this parameter is <b>NULL</b>, then the value is created in the key specified by <i>hKey</i>.
-     * @param {Pointer<Byte>} lpValueName The name of the registry value whose data is to be updated.
+     * @param {PSTR} lpValueName The name of the registry value whose data is to be updated.
      * @param {Integer} dwType The type of data pointed to by the <i>lpData</i> parameter. For a list of the possible types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Pointer} lpData The data to be stored with the specified value name. 
@@ -7614,8 +7700,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegSetKeyValueA(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetKeyValueA", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7623,7 +7710,7 @@ class Registry {
 
     /**
      * Sets the data for the specified value in the specified registry key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_SET_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7641,10 +7728,10 @@ class Registry {
      *    <b>HKEY_CURRENT_USER</b>
      *    <b>HKEY_LOCAL_MACHINE</b>
      *    <b>HKEY_USERS</b></pre>
-     * @param {Pointer<Char>} lpSubKey The name of the subkey relative to the key identified by <i>hKey</i>.
+     * @param {PWSTR} lpSubKey The name of the subkey relative to the key identified by <i>hKey</i>.
      * If the subkey does not exist, it is created as a non-volatile key with a default security descriptor.
      * If this parameter is <b>NULL</b>, then the value is created in the key specified by <i>hKey</i>.
-     * @param {Pointer<Char>} lpValueName The name of the registry value whose data is to be updated.
+     * @param {PWSTR} lpValueName The name of the registry value whose data is to be updated.
      * @param {Integer} dwType The type of data pointed to by the <i>lpData</i> parameter. For a list of the possible types, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>.
      * @param {Pointer} lpData The data to be stored with the specified value name. 
@@ -7659,8 +7746,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegSetKeyValueW(hKey, lpSubKey, lpValueName, dwType, lpData, cbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValueName := lpValueName is String? StrPtr(lpValueName) : lpValueName
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValueName := lpValueName is String ? StrPtr(lpValueName) : lpValueName
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSetKeyValueW", "ptr", hKey, "ptr", lpSubKey, "ptr", lpValueName, "uint", dwType, "ptr", lpData, "uint", cbData, "uint")
         return result
@@ -7668,7 +7756,7 @@ class Registry {
 
     /**
      * Deletes the subkeys and values of the specified key recursively.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -7681,7 +7769,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKey</i> parameter. If this parameter is <b>NULL</b>, the subkeys and values of <i>hKey</i> are deleted.
+     * @param {PSTR} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKey</i> parameter. If this parameter is <b>NULL</b>, the subkeys and values of <i>hKey</i> are deleted.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7690,7 +7778,8 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegDeleteTreeA(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteTreeA", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -7698,7 +7787,7 @@ class Registry {
 
     /**
      * Deletes the subkeys and values of the specified key recursively.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the following access rights: DELETE, KEY_ENUMERATE_SUB_KEYS, and KEY_QUERY_VALUE. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -7711,7 +7800,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKey</i> parameter. If this parameter is <b>NULL</b>, the subkeys and values of <i>hKey</i> are deleted.
+     * @param {PWSTR} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKey</i> parameter. If this parameter is <b>NULL</b>, the subkeys and values of <i>hKey</i> are deleted.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the 
@@ -7720,7 +7809,8 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegDeleteTreeW(hKey, lpSubKey) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegDeleteTreeW", "ptr", hKey, "ptr", lpSubKey, "uint")
         return result
@@ -7728,7 +7818,7 @@ class Registry {
 
     /**
      * Copies the specified registry key, along with its values and subkeys, to the specified destination key.
-     * @param {Pointer<Void>} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
+     * @param {HKEY} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7737,8 +7827,8 @@ class Registry {
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>.
-     * @param {Pointer<Byte>} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKeySrc</i> parameter. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<Void>} hKeyDest A handle to the destination key. The calling process  must have KEY_CREATE_SUB_KEY access to the key.  
+     * @param {PSTR} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKeySrc</i> parameter. This parameter can also be <b>NULL</b>.
+     * @param {HKEY} hKeyDest A handle to the destination key. The calling process  must have KEY_CREATE_SUB_KEY access to the key.  
      * 
      * 
      * 
@@ -7754,7 +7844,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegCopyTreeA(hKeySrc, lpSubKey, hKeyDest) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKeySrc := hKeySrc is Win32Handle ? NumGet(hKeySrc, "ptr") : hKeySrc
+        hKeyDest := hKeyDest is Win32Handle ? NumGet(hKeyDest, "ptr") : hKeyDest
 
         result := DllCall("ADVAPI32.dll\RegCopyTreeA", "ptr", hKeySrc, "ptr", lpSubKey, "ptr", hKeyDest, "uint")
         return result
@@ -7762,7 +7854,7 @@ class Registry {
 
     /**
      * Retrieves the type and data for the specified registry value.
-     * @param {Pointer<Void>} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7781,12 +7873,12 @@ class Registry {
      * <dd><b>HKEY_PERFORMANCE_TEXT</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} lpSubKey The path of a registry key relative to the key specified by the *hkey* parameter. The registry value will be retrieved from this subkey.
+     * @param {PSTR} lpSubKey The path of a registry key relative to the key specified by the *hkey* parameter. The registry value will be retrieved from this subkey.
      * 
      * The path is not case sensitive.
      * 
      * If this parameter is **NULL** or an empty string, "", the value will be read from the key specified by *hkey* itself.
-     * @param {Pointer<Byte>} lpValue The name of the registry value.
+     * @param {PSTR} lpValue The name of the registry value.
      * 
      * If this parameter is **NULL** or an empty string, "", the function retrieves the type and data for the key's unnamed or default value, if any.
      * Keys do not automatically have an unnamed or default value, and unnamed values can be of any type.
@@ -7826,8 +7918,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegGetValueA(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("ADVAPI32.dll\RegGetValueA", "ptr", hkey, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -7835,7 +7928,7 @@ class Registry {
 
     /**
      * Retrieves the type and data for the specified registry value.
-     * @param {Pointer<Void>} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hkey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7854,12 +7947,12 @@ class Registry {
      * <dd><b>HKEY_PERFORMANCE_TEXT</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} lpSubKey The path of a registry key relative to the key specified by the *hkey* parameter. The registry value will be retrieved from this subkey.
+     * @param {PWSTR} lpSubKey The path of a registry key relative to the key specified by the *hkey* parameter. The registry value will be retrieved from this subkey.
      * 
      * The path is not case sensitive.
      * 
      * If this parameter is **NULL** or an empty string, "", the value will be read from the key specified by *hkey* itself.
-     * @param {Pointer<Char>} lpValue The name of the registry value.
+     * @param {PWSTR} lpValue The name of the registry value.
      * 
      * If this parameter is **NULL** or an empty string, "", the function retrieves the type and data for the key's unnamed or default value, if any.
      * Keys do not automatically have an unnamed or default value, and unnamed values can be of any type.
@@ -7899,8 +7992,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegGetValueW(hkey, lpSubKey, lpValue, dwFlags, pdwType, pvData, pcbData) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
-        lpValue := lpValue is String? StrPtr(lpValue) : lpValue
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        lpValue := lpValue is String ? StrPtr(lpValue) : lpValue
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("ADVAPI32.dll\RegGetValueW", "ptr", hkey, "ptr", lpSubKey, "ptr", lpValue, "uint", dwFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -7908,7 +8002,7 @@ class Registry {
 
     /**
      * Copies the specified registry key, along with its values and subkeys, to the specified destination key.
-     * @param {Pointer<Void>} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
+     * @param {HKEY} hKeySrc A handle to an open registry key. The key must have been opened with the KEY_READ access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>. 
      * 
      * 
@@ -7917,8 +8011,8 @@ class Registry {
      * This handle is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function, or it can be one of the <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>.
-     * @param {Pointer<Char>} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKeySrc</i> parameter. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<Void>} hKeyDest A handle to the destination key. The calling process  must have KEY_CREATE_SUB_KEY access to the key.  
+     * @param {PWSTR} lpSubKey The name of the key. This key must be a subkey of the key identified by the <i>hKeySrc</i> parameter. This parameter can also be <b>NULL</b>.
+     * @param {HKEY} hKeyDest A handle to the destination key. The calling process  must have KEY_CREATE_SUB_KEY access to the key.  
      * 
      * 
      * 
@@ -7934,7 +8028,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegCopyTreeW(hKeySrc, lpSubKey, hKeyDest) {
-        lpSubKey := lpSubKey is String? StrPtr(lpSubKey) : lpSubKey
+        lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
+        hKeySrc := hKeySrc is Win32Handle ? NumGet(hKeySrc, "ptr") : hKeySrc
+        hKeyDest := hKeyDest is Win32Handle ? NumGet(hKeyDest, "ptr") : hKeyDest
 
         result := DllCall("ADVAPI32.dll\RegCopyTreeW", "ptr", hKeySrc, "ptr", lpSubKey, "ptr", hKeyDest, "uint")
         return result
@@ -7942,7 +8038,7 @@ class Registry {
 
     /**
      * Loads the specified string from the specified key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -7954,7 +8050,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Byte>} pszValue The name of the registry value.
+     * @param {PSTR} pszValue The name of the registry value.
      * @param {Pointer} pszOutBuf A pointer to a buffer that receives the string.
      * 
      * Strings of the following form receive special handling:
@@ -7985,7 +8081,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pszDirectory The directory path.
+     * @param {PSTR} pszDirectory The directory path.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
@@ -7998,8 +8094,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegLoadMUIStringA(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
-        pszDirectory := pszDirectory is String? StrPtr(pszDirectory) : pszDirectory
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegLoadMUIStringA", "ptr", hKey, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, "uint*", pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
         return result
@@ -8007,7 +8104,7 @@ class Registry {
 
     /**
      * Loads the specified string from the specified key and subkey.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
+     * @param {HKEY} hKey A handle to an open registry key. The key must have been opened with the KEY_QUERY_VALUE access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.
      * 
      * This handle is returned by the 
@@ -8019,7 +8116,7 @@ class Registry {
      * <dd><b>HKEY_LOCAL_MACHINE</b></dd>
      * <dd><b>HKEY_USERS</b></dd>
      * </dl>
-     * @param {Pointer<Char>} pszValue The name of the registry value.
+     * @param {PWSTR} pszValue The name of the registry value.
      * @param {Pointer} pszOutBuf A pointer to a buffer that receives the string.
      * 
      * Strings of the following form receive special handling:
@@ -8050,7 +8147,7 @@ class Registry {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Char>} pszDirectory The directory path.
+     * @param {PWSTR} pszDirectory The directory path.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a 
@@ -8063,8 +8160,9 @@ class Registry {
      * @since windows6.0.6000
      */
     static RegLoadMUIStringW(hKey, pszValue, pszOutBuf, cbOutBuf, pcbData, Flags, pszDirectory) {
-        pszValue := pszValue is String? StrPtr(pszValue) : pszValue
-        pszDirectory := pszDirectory is String? StrPtr(pszDirectory) : pszDirectory
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
+        pszDirectory := pszDirectory is String ? StrPtr(pszDirectory) : pszDirectory
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegLoadMUIStringW", "ptr", hKey, "ptr", pszValue, "ptr", pszOutBuf, "uint", cbOutBuf, "uint*", pcbData, "uint", Flags, "ptr", pszDirectory, "uint")
         return result
@@ -8072,9 +8170,9 @@ class Registry {
 
     /**
      * Loads the specified registry hive as an application hive.
-     * @param {Pointer<Byte>} lpFile The name of the  hive file. This hive must have been created with the 
+     * @param {PSTR} lpFile The name of the  hive file. This hive must have been created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeyexa">RegSaveKeyEx</a> function. If the  file does not exist, an empty hive file is created with the specified name.
-     * @param {Pointer<Void>} phkResult Pointer to the handle for the root key of the loaded hive.
+     * @param {Pointer<HKEY>} phkResult Pointer to the handle for the root key of the loaded hive.
      * 
      * The only way to access keys in the hive is through this handle. The registry will prevent an application from accessing keys in this hive using an absolute path to the key. As a result, it is not possible to navigate to this hive through the registry's namespace.
      * @param {Integer} samDesired A mask that specifies the access rights requested for the returned root key. For more information, see 
@@ -8090,7 +8188,7 @@ class Registry {
     static RegLoadAppKeyA(lpFile, phkResult, samDesired, dwOptions) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
         result := DllCall("ADVAPI32.dll\RegLoadAppKeyA", "ptr", lpFile, "ptr", phkResult, "uint", samDesired, "uint", dwOptions, "uint", Reserved, "uint")
         return result
@@ -8098,9 +8196,9 @@ class Registry {
 
     /**
      * Loads the specified registry hive as an application hive.
-     * @param {Pointer<Char>} lpFile The name of the  hive file. This hive must have been created with the 
+     * @param {PWSTR} lpFile The name of the  hive file. This hive must have been created with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeya">RegSaveKey</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regsavekeyexa">RegSaveKeyEx</a> function. If the  file does not exist, an empty hive file is created with the specified name.
-     * @param {Pointer<Void>} phkResult Pointer to the handle for the root key of the loaded hive.
+     * @param {Pointer<HKEY>} phkResult Pointer to the handle for the root key of the loaded hive.
      * 
      * The only way to access keys in the hive is through this handle. The registry will prevent an application from accessing keys in this hive using an absolute path to the key. As a result, it is not possible to navigate to this hive through the registry's namespace.
      * @param {Integer} samDesired A mask that specifies the access rights requested for the returned root key. For more information, see 
@@ -8116,7 +8214,7 @@ class Registry {
     static RegLoadAppKeyW(lpFile, phkResult, samDesired, dwOptions) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
 
         result := DllCall("ADVAPI32.dll\RegLoadAppKeyW", "ptr", lpFile, "ptr", phkResult, "uint", samDesired, "uint", dwOptions, "uint", Reserved, "uint")
         return result
@@ -8124,10 +8222,10 @@ class Registry {
 
     /**
      * Saves the specified key and all of its subkeys and values to a registry file, in the specified format.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
-     * @param {Pointer<Byte>} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
+     * @param {PSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
      * 
      * 
      * 
@@ -8148,7 +8246,8 @@ class Registry {
      * @since windows5.1.2600
      */
     static RegSaveKeyExA(hKey, lpFile, lpSecurityAttributes, Flags) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSaveKeyExA", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
         return result
@@ -8156,10 +8255,10 @@ class Registry {
 
     /**
      * Saves the specified key and all of its subkeys and values to a registry file, in the specified format.
-     * @param {Pointer<Void>} hKey A handle to an open registry key. 
+     * @param {HKEY} hKey A handle to an open registry key. 
      * 
      * This function does not support the <b>HKEY_CLASSES_ROOT</b> predefined key.
-     * @param {Pointer<Char>} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
+     * @param {PWSTR} lpFile The name of the file in which the specified key and subkeys are to be saved. If the file already exists, the function fails. 
      * 
      * 
      * 
@@ -8180,7 +8279,8 @@ class Registry {
      * @since windows5.1.2600
      */
     static RegSaveKeyExW(hKey, lpFile, lpSecurityAttributes, Flags) {
-        lpFile := lpFile is String? StrPtr(lpFile) : lpFile
+        lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("ADVAPI32.dll\RegSaveKeyExW", "ptr", hKey, "ptr", lpFile, "ptr", lpSecurityAttributes, "uint", Flags, "uint")
         return result
@@ -8188,11 +8288,11 @@ class Registry {
 
     /**
      * 
-     * @param {Pointer<Void>} hkeyPrimary 
-     * @param {Pointer<Char>} pwszPrimarySubKey 
-     * @param {Pointer<Void>} hkeyFallback 
-     * @param {Pointer<Char>} pwszFallbackSubKey 
-     * @param {Pointer<Char>} pwszValue 
+     * @param {HKEY} hkeyPrimary 
+     * @param {PWSTR} pwszPrimarySubKey 
+     * @param {HKEY} hkeyFallback 
+     * @param {PWSTR} pwszFallbackSubKey 
+     * @param {PWSTR} pwszValue 
      * @param {Integer} dwFlags 
      * @param {Pointer<UInt32>} pdwType 
      * @param {Pointer} pvData 
@@ -8201,9 +8301,11 @@ class Registry {
      * @returns {Integer} 
      */
     static GetRegistryValueWithFallbackW(hkeyPrimary, pwszPrimarySubKey, hkeyFallback, pwszFallbackSubKey, pwszValue, dwFlags, pdwType, pvData, cbDataIn, pcbDataOut) {
-        pwszPrimarySubKey := pwszPrimarySubKey is String? StrPtr(pwszPrimarySubKey) : pwszPrimarySubKey
-        pwszFallbackSubKey := pwszFallbackSubKey is String? StrPtr(pwszFallbackSubKey) : pwszFallbackSubKey
-        pwszValue := pwszValue is String? StrPtr(pwszValue) : pwszValue
+        pwszPrimarySubKey := pwszPrimarySubKey is String ? StrPtr(pwszPrimarySubKey) : pwszPrimarySubKey
+        pwszFallbackSubKey := pwszFallbackSubKey is String ? StrPtr(pwszFallbackSubKey) : pwszFallbackSubKey
+        pwszValue := pwszValue is String ? StrPtr(pwszValue) : pwszValue
+        hkeyPrimary := hkeyPrimary is Win32Handle ? NumGet(hkeyPrimary, "ptr") : hkeyPrimary
+        hkeyFallback := hkeyFallback is Win32Handle ? NumGet(hkeyFallback, "ptr") : hkeyFallback
 
         result := DllCall("api-ms-win-core-state-helpers-l1-1-0.dll\GetRegistryValueWithFallbackW", "ptr", hkeyPrimary, "ptr", pwszPrimarySubKey, "ptr", hkeyFallback, "ptr", pwszFallbackSubKey, "ptr", pwszValue, "uint", dwFlags, "uint*", pdwType, "ptr", pvData, "uint", cbDataIn, "uint*", pcbDataOut, "uint")
         return result

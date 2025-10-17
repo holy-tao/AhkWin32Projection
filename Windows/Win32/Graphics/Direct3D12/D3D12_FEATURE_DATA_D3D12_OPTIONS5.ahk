@@ -20,7 +20,7 @@ class D3D12_FEATURE_DATA_D3D12_OPTIONS5 extends Win32Struct
 
     /**
      * A boolean value indicating whether the options require shader-resource view tier 3 tiled resource support. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_tiled_resources_tier">D3D12_TILED_RESOURCES_TIER</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SRVOnlyTiledResourceTier3 {
         get => NumGet(this, 0, "int")

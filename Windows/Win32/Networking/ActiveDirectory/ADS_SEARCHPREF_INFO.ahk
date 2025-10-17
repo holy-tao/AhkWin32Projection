@@ -152,7 +152,7 @@ class ADS_SEARCHPREF_INFO extends Win32Struct
     vValue{
         get {
             if(!this.HasProp("__vValue"))
-                this.__vValue := ADSVALUE(this.ptr + 8)
+                this.__vValue := ADSVALUE(8, this)
             return this.__vValue
         }
     }

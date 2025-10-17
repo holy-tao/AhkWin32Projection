@@ -12,11 +12,39 @@ class NVME_VERSION extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - TER
+     * - MNR
+     * - MJR
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    TER {
+        get => (this._bitfield >> 0) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MNR {
+        get => (this._bitfield >> 8) & 0xFF
+        set => this._bitfield := ((value & 0xFF) << 8) | (this._bitfield & ~(0xFF << 8))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    MJR {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

@@ -80,7 +80,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     VS{
         get {
             if(!this.HasProp("__VS"))
-                this.__VS := D3D12_SHADER_BYTECODE(this.ptr + 8)
+                this.__VS := D3D12_SHADER_BYTECODE(8, this)
             return this.__VS
         }
     }
@@ -92,7 +92,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     PS{
         get {
             if(!this.HasProp("__PS"))
-                this.__PS := D3D12_SHADER_BYTECODE(this.ptr + 24)
+                this.__PS := D3D12_SHADER_BYTECODE(24, this)
             return this.__PS
         }
     }
@@ -104,7 +104,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     DS{
         get {
             if(!this.HasProp("__DS"))
-                this.__DS := D3D12_SHADER_BYTECODE(this.ptr + 40)
+                this.__DS := D3D12_SHADER_BYTECODE(40, this)
             return this.__DS
         }
     }
@@ -116,7 +116,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     HS{
         get {
             if(!this.HasProp("__HS"))
-                this.__HS := D3D12_SHADER_BYTECODE(this.ptr + 56)
+                this.__HS := D3D12_SHADER_BYTECODE(56, this)
             return this.__HS
         }
     }
@@ -128,7 +128,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     GS{
         get {
             if(!this.HasProp("__GS"))
-                this.__GS := D3D12_SHADER_BYTECODE(this.ptr + 72)
+                this.__GS := D3D12_SHADER_BYTECODE(72, this)
             return this.__GS
         }
     }
@@ -140,7 +140,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     StreamOutput{
         get {
             if(!this.HasProp("__StreamOutput"))
-                this.__StreamOutput := D3D12_STREAM_OUTPUT_DESC(this.ptr + 88)
+                this.__StreamOutput := D3D12_STREAM_OUTPUT_DESC(88, this)
             return this.__StreamOutput
         }
     }
@@ -152,7 +152,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     BlendState{
         get {
             if(!this.HasProp("__BlendState"))
-                this.__BlendState := D3D12_BLEND_DESC(this.ptr + 120)
+                this.__BlendState := D3D12_BLEND_DESC(120, this)
             return this.__BlendState
         }
     }
@@ -173,7 +173,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     RasterizerState{
         get {
             if(!this.HasProp("__RasterizerState"))
-                this.__RasterizerState := D3D12_RASTERIZER_DESC(this.ptr + 200)
+                this.__RasterizerState := D3D12_RASTERIZER_DESC(200, this)
             return this.__RasterizerState
         }
     }
@@ -185,7 +185,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     DepthStencilState{
         get {
             if(!this.HasProp("__DepthStencilState"))
-                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(this.ptr + 248)
+                this.__DepthStencilState := D3D12_DEPTH_STENCIL_DESC(248, this)
             return this.__DepthStencilState
         }
     }
@@ -197,7 +197,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     InputLayout{
         get {
             if(!this.HasProp("__InputLayout"))
-                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(this.ptr + 304)
+                this.__InputLayout := D3D12_INPUT_LAYOUT_DESC(304, this)
             return this.__InputLayout
         }
     }
@@ -257,7 +257,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(this.ptr + 368)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(368, this)
             return this.__SampleDesc
         }
     }
@@ -280,7 +280,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
     CachedPSO{
         get {
             if(!this.HasProp("__CachedPSO"))
-                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(this.ptr + 384)
+                this.__CachedPSO := D3D12_CACHED_PIPELINE_STATE(384, this)
             return this.__CachedPSO
         }
     }

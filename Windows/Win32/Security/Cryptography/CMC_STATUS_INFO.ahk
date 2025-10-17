@@ -108,7 +108,7 @@ class CMC_STATUS_INFO extends Win32Struct
 
     /**
      * Optional string text indicating message status.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszStatusString {
         get => NumGet(this, 16, "ptr")

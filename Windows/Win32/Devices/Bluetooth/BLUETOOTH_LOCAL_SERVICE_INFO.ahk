@@ -13,7 +13,7 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enabled {
         get => NumGet(this, 0, "int")
@@ -26,7 +26,7 @@ class BLUETOOTH_LOCAL_SERVICE_INFO extends Win32Struct
     btAddr{
         get {
             if(!this.HasProp("__btAddr"))
-                this.__btAddr := BLUETOOTH_ADDRESS(this.ptr + 8)
+                this.__btAddr := BLUETOOTH_ADDRESS(8, this)
             return this.__btAddr
         }
     }

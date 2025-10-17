@@ -28,7 +28,7 @@ class WSMAN_OPTION_SETEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     optionsMustUnderstand {
         get => NumGet(this, 16, "int")
@@ -36,7 +36,7 @@ class WSMAN_OPTION_SETEX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     optionTypes {
         get => NumGet(this, 24, "ptr")

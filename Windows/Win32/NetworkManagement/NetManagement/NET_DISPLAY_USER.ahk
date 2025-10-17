@@ -17,7 +17,7 @@ class NET_DISPLAY_USER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that specifies the name of the user account.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1_name {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class NET_DISPLAY_USER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains a comment associated with the user. This string can be a null string, or it can have any number of characters before the terminating null character (MAXCOMMENTSZ).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1_comment {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class NET_DISPLAY_USER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string that contains the full name of the user. This string can be a null string, or it can have any number of characters before the terminating null character.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     usri1_full_name {
         get => NumGet(this, 24, "ptr")

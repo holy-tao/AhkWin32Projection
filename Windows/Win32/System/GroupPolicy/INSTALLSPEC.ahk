@@ -18,7 +18,7 @@ class INSTALLSPEC extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         Name {
             get => NumGet(this, 0, "ptr")
@@ -64,7 +64,7 @@ class INSTALLSPEC extends Win32Struct
     AppName{
         get {
             if(!this.HasProp("__AppName"))
-                this.__AppName := %this.__Class%._AppName(this.ptr + 0)
+                this.__AppName := %this.__Class%._AppName(0, this)
             return this.__AppName
         }
     }
@@ -74,7 +74,7 @@ class INSTALLSPEC extends Win32Struct
      * 
      * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/nf-appmgmt-installapplication">InstallApplication</a> fails if the <b>Type</b> member of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-installdata">INSTALLDATA</a> equals <b>FILEEXT</b> and there is no application deployed to the user with this file name extension.</div>
      * <div> </div>
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     FileExt {
         get => NumGet(this, 0, "ptr")
@@ -83,7 +83,7 @@ class INSTALLSPEC extends Win32Struct
 
     /**
      * This parameter is reserved and should not be used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProgId {
         get => NumGet(this, 0, "ptr")
@@ -97,7 +97,7 @@ class INSTALLSPEC extends Win32Struct
     COMClass{
         get {
             if(!this.HasProp("__COMClass"))
-                this.__COMClass := %this.__Class%._COMClass(this.ptr + 0)
+                this.__COMClass := %this.__Class%._COMClass(0, this)
             return this.__COMClass
         }
     }

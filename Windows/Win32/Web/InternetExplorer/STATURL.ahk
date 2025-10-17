@@ -21,7 +21,7 @@ class STATURL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsUrl {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class STATURL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsTitle {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class STATURL extends Win32Struct
     ftLastVisited{
         get {
             if(!this.HasProp("__ftLastVisited"))
-                this.__ftLastVisited := FILETIME(this.ptr + 24)
+                this.__ftLastVisited := FILETIME(24, this)
             return this.__ftLastVisited
         }
     }
@@ -53,7 +53,7 @@ class STATURL extends Win32Struct
     ftLastUpdated{
         get {
             if(!this.HasProp("__ftLastUpdated"))
-                this.__ftLastUpdated := FILETIME(this.ptr + 32)
+                this.__ftLastUpdated := FILETIME(32, this)
             return this.__ftLastUpdated
         }
     }
@@ -64,7 +64,7 @@ class STATURL extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 40)
+                this.__ftExpires := FILETIME(40, this)
             return this.__ftExpires
         }
     }
@@ -77,12 +77,8 @@ class STATURL extends Win32Struct
         set => NumPut("uint", value, this, 48)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 56
     }
 }

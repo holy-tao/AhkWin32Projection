@@ -99,7 +99,7 @@ class DML_BATCH_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** to specify that locations are spatial, otherwise **FALSE**. Setting this to **FALSE** will require the Width and Height dimensions of *MeanTensor* and *VarianceTensor* to not be broadcast. This parameter was deprecated in **DML_FEATURE_LEVEL_4_0**, and has no effect.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Spatial {
         get => NumGet(this, 48, "int")

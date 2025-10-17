@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Contains information passed to a WH_CBT hook procedure, CBTProc, before a window is activated.
@@ -17,7 +18,7 @@ class CBTACTIVATESTRUCT extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * This member is <b>TRUE</b> if a mouse click is causing the activation or <b>FALSE</b> if it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMouse {
         get => NumGet(this, 0, "int")
@@ -28,10 +29,13 @@ class CBTACTIVATESTRUCT extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndActive {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWndActive{
+        get {
+            if(!this.HasProp("__hWndActive"))
+                this.__hWndActive := HWND(8, this)
+            return this.__hWndActive
+        }
     }
 }

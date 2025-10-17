@@ -12,7 +12,7 @@ class BucketParameters extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInited {
         get => NumGet(this, 0, "int")

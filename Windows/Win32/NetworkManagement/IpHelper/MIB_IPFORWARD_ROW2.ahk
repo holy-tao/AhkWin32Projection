@@ -53,7 +53,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(this.ptr + 0)
+                this.__InterfaceLuid := NET_LUID_LH(0, this)
             return this.__InterfaceLuid
         }
     }
@@ -78,7 +78,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     DestinationPrefix{
         get {
             if(!this.HasProp("__DestinationPrefix"))
-                this.__DestinationPrefix := IP_ADDRESS_PREFIX(this.ptr + 24)
+                this.__DestinationPrefix := IP_ADDRESS_PREFIX(24, this)
             return this.__DestinationPrefix
         }
     }
@@ -92,7 +92,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
     NextHop{
         get {
             if(!this.HasProp("__NextHop"))
-                this.__NextHop := SOCKADDR_INET(this.ptr + 96)
+                this.__NextHop := SOCKADDR_INET(96, this)
             return this.__NextHop
         }
     }
@@ -359,7 +359,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is a loopback route (the gateway is on the local host).
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Loopback {
         get => NumGet(this, 180, "char")
@@ -370,7 +370,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the IP address is autoconfigured.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AutoconfigureAddress {
         get => NumGet(this, 181, "char")
@@ -381,7 +381,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is published.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Publish {
         get => NumGet(this, 182, "char")
@@ -392,7 +392,7 @@ class MIB_IPFORWARD_ROW2 extends Win32Struct
      * Type: <b>BOOLEAN</b>
      * 
      * A value that specifies if the route is immortal.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Immortal {
         get => NumGet(this, 183, "char")

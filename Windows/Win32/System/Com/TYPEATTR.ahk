@@ -62,7 +62,7 @@ class TYPEATTR extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpstrSchema {
         get => NumGet(this, 24, "ptr")
@@ -166,7 +166,7 @@ class TYPEATTR extends Win32Struct
     tdescAlias{
         get {
             if(!this.HasProp("__tdescAlias"))
-                this.__tdescAlias := TYPEDESC(this.ptr + 56)
+                this.__tdescAlias := TYPEDESC(56, this)
             return this.__tdescAlias
         }
     }
@@ -178,7 +178,7 @@ class TYPEATTR extends Win32Struct
     idldescType{
         get {
             if(!this.HasProp("__idldescType"))
-                this.__idldescType := IDLDESC(this.ptr + 72)
+                this.__idldescType := IDLDESC(72, this)
             return this.__idldescType
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * Specifies the location in the registry where the TB_SAVERESTORE message stores and retrieves information about the state of a toolbar.
@@ -23,18 +24,21 @@ class TBSAVEPARAMSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HKEY</a></b>
      * 
      * Handle to the registry key.
-     * @type {Pointer<Void>}
+     * @type {HKEY}
      */
-    hkr {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hkr{
+        get {
+            if(!this.HasProp("__hkr"))
+                this.__hkr := HKEY(0, this)
+            return this.__hkr
+        }
     }
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Subkey name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSubKey {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +49,7 @@ class TBSAVEPARAMSA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCTSTR</a></b>
      * 
      * Value name.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszValueName {
         get => NumGet(this, 16, "ptr")

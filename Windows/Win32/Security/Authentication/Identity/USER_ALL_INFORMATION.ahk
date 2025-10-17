@@ -78,7 +78,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := LSA_UNICODE_STRING(this.ptr + 48)
+                this.__UserName := LSA_UNICODE_STRING(48, this)
             return this.__UserName
         }
     }
@@ -90,7 +90,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     FullName{
         get {
             if(!this.HasProp("__FullName"))
-                this.__FullName := LSA_UNICODE_STRING(this.ptr + 64)
+                this.__FullName := LSA_UNICODE_STRING(64, this)
             return this.__FullName
         }
     }
@@ -102,7 +102,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     HomeDirectory{
         get {
             if(!this.HasProp("__HomeDirectory"))
-                this.__HomeDirectory := LSA_UNICODE_STRING(this.ptr + 80)
+                this.__HomeDirectory := LSA_UNICODE_STRING(80, this)
             return this.__HomeDirectory
         }
     }
@@ -114,7 +114,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     HomeDirectoryDrive{
         get {
             if(!this.HasProp("__HomeDirectoryDrive"))
-                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(this.ptr + 96)
+                this.__HomeDirectoryDrive := LSA_UNICODE_STRING(96, this)
             return this.__HomeDirectoryDrive
         }
     }
@@ -126,7 +126,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     ScriptPath{
         get {
             if(!this.HasProp("__ScriptPath"))
-                this.__ScriptPath := LSA_UNICODE_STRING(this.ptr + 112)
+                this.__ScriptPath := LSA_UNICODE_STRING(112, this)
             return this.__ScriptPath
         }
     }
@@ -138,7 +138,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     ProfilePath{
         get {
             if(!this.HasProp("__ProfilePath"))
-                this.__ProfilePath := LSA_UNICODE_STRING(this.ptr + 128)
+                this.__ProfilePath := LSA_UNICODE_STRING(128, this)
             return this.__ProfilePath
         }
     }
@@ -150,7 +150,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     AdminComment{
         get {
             if(!this.HasProp("__AdminComment"))
-                this.__AdminComment := LSA_UNICODE_STRING(this.ptr + 144)
+                this.__AdminComment := LSA_UNICODE_STRING(144, this)
             return this.__AdminComment
         }
     }
@@ -162,7 +162,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     WorkStations{
         get {
             if(!this.HasProp("__WorkStations"))
-                this.__WorkStations := LSA_UNICODE_STRING(this.ptr + 160)
+                this.__WorkStations := LSA_UNICODE_STRING(160, this)
             return this.__WorkStations
         }
     }
@@ -174,7 +174,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     UserComment{
         get {
             if(!this.HasProp("__UserComment"))
-                this.__UserComment := LSA_UNICODE_STRING(this.ptr + 176)
+                this.__UserComment := LSA_UNICODE_STRING(176, this)
             return this.__UserComment
         }
     }
@@ -186,7 +186,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := LSA_UNICODE_STRING(this.ptr + 192)
+                this.__Parameters := LSA_UNICODE_STRING(192, this)
             return this.__Parameters
         }
     }
@@ -198,7 +198,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     LmPassword{
         get {
             if(!this.HasProp("__LmPassword"))
-                this.__LmPassword := LSA_UNICODE_STRING(this.ptr + 208)
+                this.__LmPassword := LSA_UNICODE_STRING(208, this)
             return this.__LmPassword
         }
     }
@@ -210,7 +210,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     NtPassword{
         get {
             if(!this.HasProp("__NtPassword"))
-                this.__NtPassword := LSA_UNICODE_STRING(this.ptr + 224)
+                this.__NtPassword := LSA_UNICODE_STRING(224, this)
             return this.__NtPassword
         }
     }
@@ -222,7 +222,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     PrivateData{
         get {
             if(!this.HasProp("__PrivateData"))
-                this.__PrivateData := LSA_UNICODE_STRING(this.ptr + 240)
+                this.__PrivateData := LSA_UNICODE_STRING(240, this)
             return this.__PrivateData
         }
     }
@@ -234,7 +234,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     SecurityDescriptor{
         get {
             if(!this.HasProp("__SecurityDescriptor"))
-                this.__SecurityDescriptor := SR_SECURITY_DESCRIPTOR(this.ptr + 256)
+                this.__SecurityDescriptor := SR_SECURITY_DESCRIPTOR(256, this)
             return this.__SecurityDescriptor
         }
     }
@@ -282,7 +282,7 @@ class USER_ALL_INFORMATION extends Win32Struct
     LogonHours{
         get {
             if(!this.HasProp("__LogonHours"))
-                this.__LogonHours := LOGON_HOURS(this.ptr + 288)
+                this.__LogonHours := LOGON_HOURS(288, this)
             return this.__LogonHours
         }
     }
@@ -325,7 +325,7 @@ class USER_ALL_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether there is a local machine password.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     LmPasswordPresent {
         get => NumGet(this, 312, "char")
@@ -334,7 +334,7 @@ class USER_ALL_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether there is a Windows domain password.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     NtPasswordPresent {
         get => NumGet(this, 313, "char")
@@ -343,7 +343,7 @@ class USER_ALL_INFORMATION extends Win32Struct
 
     /**
      * Indicates whether the password has expired.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PasswordExpired {
         get => NumGet(this, 314, "char")
@@ -352,7 +352,7 @@ class USER_ALL_INFORMATION extends Win32Struct
 
     /**
      * When set to <b>TRUE</b>, indicates that the <b>PrivateData</b> member is encrypted. A value of <b>FALSE</b> indicates that the <b>PrivateData</b> is in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">plaintext</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PrivateDataSensitive {
         get => NumGet(this, 315, "char")

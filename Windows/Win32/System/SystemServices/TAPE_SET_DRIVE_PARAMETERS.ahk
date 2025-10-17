@@ -15,7 +15,7 @@ class TAPE_SET_DRIVE_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, hardware error correction is supported. Otherwise, it is not.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ECC {
         get => NumGet(this, 0, "char")
@@ -24,7 +24,7 @@ class TAPE_SET_DRIVE_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, hardware data compression is enabled. Otherwise, it is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Compression {
         get => NumGet(this, 1, "char")
@@ -33,7 +33,7 @@ class TAPE_SET_DRIVE_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, data padding is enabled. Otherwise, it is disabled. Data padding keeps the tape streaming at a constant speed.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     DataPadding {
         get => NumGet(this, 2, "char")
@@ -42,7 +42,7 @@ class TAPE_SET_DRIVE_PARAMETERS extends Win32Struct
 
     /**
      * If this member is <b>TRUE</b>, setmark reporting is enabled. Otherwise, it is disabled.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ReportSetmarks {
         get => NumGet(this, 3, "char")

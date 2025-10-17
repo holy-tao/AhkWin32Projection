@@ -22,17 +22,36 @@ class DISPLAYCONFIG_SET_TARGET_PERSISTENCE extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(this.ptr + 0)
+                this.__header := DISPLAYCONFIG_DEVICE_INFO_HEADER(0, this)
             return this.__header
         }
     }
 
     /**
+     * This bitfield backs the following members:
+     * - bootPersistenceOn
+     * - reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 24, "uint")
         set => NumPut("uint", value, this, 24)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    bootPersistenceOn {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    reserved {
+        get => (this._bitfield >> 1) & 0x7FFFFFFF
+        set => this._bitfield := ((value & 0x7FFFFFFF) << 1) | (this._bitfield & ~(0x7FFFFFFF << 1))
     }
 
     /**

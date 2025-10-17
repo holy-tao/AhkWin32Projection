@@ -38,7 +38,7 @@ class WM_MEDIA_TYPE extends Win32Struct
 
     /**
      * Set to true if the samples are of a fixed size. Compressed audio samples are of a fixed size while video samples are not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFixedSizeSamples {
         get => NumGet(this, 16, "int")
@@ -47,7 +47,7 @@ class WM_MEDIA_TYPE extends Win32Struct
 
     /**
      * Set to true if the samples are temporally compressed. Temporal compression is compression where some samples describe the changes in content from the previous sample, instead of describing the sample in its entirety. Only compressed video can be temporally compressed. By definition, no media type can use both fixed sized samples and temporal compression.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bTemporalCompression {
         get => NumGet(this, 20, "int")

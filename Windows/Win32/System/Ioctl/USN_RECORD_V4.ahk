@@ -39,7 +39,7 @@ class USN_RECORD_V4 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := USN_RECORD_COMMON_HEADER(this.ptr + 0)
+                this.__Header := USN_RECORD_COMMON_HEADER(0, this)
             return this.__Header
         }
     }
@@ -53,7 +53,7 @@ class USN_RECORD_V4 extends Win32Struct
     FileReferenceNumber{
         get {
             if(!this.HasProp("__FileReferenceNumber"))
-                this.__FileReferenceNumber := FILE_ID_128(this.ptr + 8)
+                this.__FileReferenceNumber := FILE_ID_128(8, this)
             return this.__FileReferenceNumber
         }
     }
@@ -68,7 +68,7 @@ class USN_RECORD_V4 extends Win32Struct
     ParentFileReferenceNumber{
         get {
             if(!this.HasProp("__ParentFileReferenceNumber"))
-                this.__ParentFileReferenceNumber := FILE_ID_128(this.ptr + 24)
+                this.__ParentFileReferenceNumber := FILE_ID_128(24, this)
             return this.__ParentFileReferenceNumber
         }
     }

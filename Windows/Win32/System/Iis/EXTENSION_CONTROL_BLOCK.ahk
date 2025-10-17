@@ -28,7 +28,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HCONN}
      */
     ConnID {
         get => NumGet(this, 8, "ptr")
@@ -52,7 +52,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszMethod {
         get => NumGet(this, 184, "ptr")
@@ -60,7 +60,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszQueryString {
         get => NumGet(this, 192, "ptr")
@@ -68,7 +68,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszPathInfo {
         get => NumGet(this, 200, "ptr")
@@ -76,7 +76,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszPathTranslated {
         get => NumGet(this, 208, "ptr")
@@ -108,7 +108,7 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszContentType {
         get => NumGet(this, 232, "ptr")
@@ -147,12 +147,8 @@ class EXTENSION_CONTROL_BLOCK extends Win32Struct
         set => NumPut("ptr", value, this, 264)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 272
     }
 }

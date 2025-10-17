@@ -42,7 +42,7 @@ class RDITEMHDR extends Win32Struct
 
     /**
      * Reserved for future use.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lpReserved {
         get => NumGet(this, 16, "ptr")

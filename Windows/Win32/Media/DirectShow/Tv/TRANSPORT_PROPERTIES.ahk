@@ -27,12 +27,40 @@ class TRANSPORT_PROPERTIES extends Win32Struct
         set => NumPut("int64", value, this, 8)
     }
 
+    class _Others extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - TransportScramblingControl
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TransportScramblingControl {
+            get => (this._bitfield >> 0) & 0xFF
+            set => this._bitfield := ((value & 0xFF) << 0) | (this._bitfield & ~(0xFF << 0))
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * @type {_Others}
      */
-    Others {
-        get => NumGet(this, 16, "int64")
-        set => NumPut("int64", value, this, 16)
+    Others{
+        get {
+            if(!this.HasProp("__Others"))
+                this.__Others := %this.__Class%._Others(16, this)
+            return this.__Others
+        }
     }
 
     /**

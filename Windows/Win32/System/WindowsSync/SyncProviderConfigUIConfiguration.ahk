@@ -60,7 +60,7 @@ class SyncProviderConfigUIConfiguration extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsGlobal {
         get => NumGet(this, 40, "int")

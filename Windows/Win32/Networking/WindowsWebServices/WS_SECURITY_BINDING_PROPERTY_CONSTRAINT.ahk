@@ -24,7 +24,7 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
         securityBindingProperty{
             get {
                 if(!this.HasProp("__securityBindingProperty"))
-                    this.__securityBindingProperty := WS_SECURITY_BINDING_PROPERTY(this.ptr + 0)
+                    this.__securityBindingProperty := WS_SECURITY_BINDING_PROPERTY(0, this)
                 return this.__securityBindingProperty
             }
         }
@@ -93,7 +93,7 @@ class WS_SECURITY_BINDING_PROPERTY_CONSTRAINT extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(this.ptr + 24)
+                this.__out := %this.__Class%._out(24, this)
             return this.__out
         }
     }

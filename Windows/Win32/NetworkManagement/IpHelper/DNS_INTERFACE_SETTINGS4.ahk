@@ -28,7 +28,7 @@ class DNS_INTERFACE_SETTINGS4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DNS_INTERFACE_SETTINGS4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NameServer {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DNS_INTERFACE_SETTINGS4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SearchList {
         get => NumGet(this, 32, "ptr")
@@ -84,7 +84,7 @@ class DNS_INTERFACE_SETTINGS4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ProfileNameServer {
         get => NumGet(this, 56, "ptr")
@@ -100,7 +100,7 @@ class DNS_INTERFACE_SETTINGS4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     SupplementalSearchList {
         get => NumGet(this, 72, "ptr")

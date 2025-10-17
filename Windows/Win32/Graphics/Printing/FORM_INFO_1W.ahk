@@ -23,7 +23,7 @@ class FORM_INFO_1W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pName {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class FORM_INFO_1W extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(this.ptr + 16)
+                this.__Size := SIZE(16, this)
             return this.__Size
         }
     }
@@ -47,7 +47,7 @@ class FORM_INFO_1W extends Win32Struct
     ImageableArea{
         get {
             if(!this.HasProp("__ImageableArea"))
-                this.__ImageableArea := RECTL(this.ptr + 24)
+                this.__ImageableArea := RECTL(24, this)
             return this.__ImageableArea
         }
     }

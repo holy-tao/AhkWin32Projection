@@ -46,7 +46,7 @@ class DXGI_MODE_DESC1 extends Win32Struct
     RefreshRate{
         get {
             if(!this.HasProp("__RefreshRate"))
-                this.__RefreshRate := DXGI_RATIONAL(this.ptr + 8)
+                this.__RefreshRate := DXGI_RATIONAL(8, this)
             return this.__RefreshRate
         }
     }
@@ -80,7 +80,7 @@ class DXGI_MODE_DESC1 extends Win32Struct
 
     /**
      * Specifies whether the full-screen display mode is stereo. <b>TRUE</b> if stereo; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Stereo {
         get => NumGet(this, 28, "int")

@@ -18,7 +18,7 @@ class BIN_COUNT extends Win32Struct
     BinRange{
         get {
             if(!this.HasProp("__BinRange"))
-                this.__BinRange := BIN_RANGE(this.ptr + 0)
+                this.__BinRange := BIN_RANGE(0, this)
             return this.__BinRange
         }
     }

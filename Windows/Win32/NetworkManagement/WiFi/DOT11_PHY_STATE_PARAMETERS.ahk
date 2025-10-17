@@ -18,7 +18,7 @@ class DOT11_PHY_STATE_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -32,7 +32,7 @@ class DOT11_PHY_STATE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bHardwarePhyState {
         get => NumGet(this, 8, "char")
@@ -40,7 +40,7 @@ class DOT11_PHY_STATE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bSoftwarePhyState {
         get => NumGet(this, 9, "char")

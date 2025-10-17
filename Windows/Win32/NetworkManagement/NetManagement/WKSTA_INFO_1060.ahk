@@ -12,7 +12,7 @@ class WKSTA_INFO_1060 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1060_force_core_create_mode {
         get => NumGet(this, 0, "int")

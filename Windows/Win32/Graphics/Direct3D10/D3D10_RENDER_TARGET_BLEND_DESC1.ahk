@@ -63,7 +63,7 @@ class D3D10_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Enable (or disable) blending.
-     * @type {Integer}
+     * @type {BOOL}
      */
     BlendEnable {
         get => NumGet(this, 0, "int")

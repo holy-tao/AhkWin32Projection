@@ -20,7 +20,7 @@ class DOT11_PHY_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUseParameters {
         get => NumGet(this, 4, "char")

@@ -58,7 +58,7 @@ class PRIVKEYVER3 extends Win32Struct
     DSSSeed{
         get {
             if(!this.HasProp("__DSSSeed"))
-                this.__DSSSeed := DSSSEED(this.ptr + 24)
+                this.__DSSSeed := DSSSEED(24, this)
             return this.__DSSSeed
         }
     }

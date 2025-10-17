@@ -52,7 +52,7 @@ class DDHAL_SETPALETTEDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Attach {
         get => NumGet(this, 40, "int")

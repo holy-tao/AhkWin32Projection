@@ -19,13 +19,13 @@ class KSPROPERTY_BDA_RF_TUNER_STANDARD_MODE_S extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := KSP_NODE(this.ptr + 0)
+                this.__Property := KSP_NODE(0, this)
             return this.__Property
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AutoDetect {
         get => NumGet(this, 24, "int")

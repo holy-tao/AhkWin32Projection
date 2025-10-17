@@ -45,7 +45,7 @@ class DML_UPSAMPLE_2D_OPERATOR_DESC extends Win32Struct
     ScaleSize{
         get {
             if(!this.HasProp("__ScaleSize"))
-                this.__ScaleSize := DML_SIZE_2D(this.ptr + 16)
+                this.__ScaleSize := DML_SIZE_2D(16, this)
             return this.__ScaleSize
         }
     }

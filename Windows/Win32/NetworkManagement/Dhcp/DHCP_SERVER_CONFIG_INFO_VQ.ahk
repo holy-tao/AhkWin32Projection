@@ -75,7 +75,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that represents the DHCP server database name that is used by the DHCP server for persistent storage.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DatabaseName {
         get => NumGet(this, 8, "ptr")
@@ -84,7 +84,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path, where the DHCP server database is stored.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     DatabasePath {
         get => NumGet(this, 16, "ptr")
@@ -93,7 +93,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path for backup storage that is used by the DHCP server for backup.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     BackupPath {
         get => NumGet(this, 24, "ptr")
@@ -525,7 +525,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * Pointer to a null-terminated Unicode string that contains the absolute path of the BOOTP TABLE given to the BOOTP client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszBootTableString {
         get => NumGet(this, 64, "ptr")
@@ -534,7 +534,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * If <b>TRUE</b>, an audit log will be written by the DHCP server; if <b>FALSE</b>, it will not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuditLog {
         get => NumGet(this, 72, "int")
@@ -543,7 +543,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * If <b>TRUE</b>, Quarantine is turned ON on the DHCP server; if <b>FALSE</b>, it is turned OFF.
-     * @type {Integer}
+     * @type {BOOL}
      */
     QuarantineOn {
         get => NumGet(this, 76, "int")
@@ -561,7 +561,7 @@ class DHCP_SERVER_CONFIG_INFO_VQ extends Win32Struct
 
     /**
      * If <b>TRUE</b>, NAP is enabled on the DHCP server; if <b>FALSE</b>, it is not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     QuarRuntimeStatus {
         get => NumGet(this, 84, "int")

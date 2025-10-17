@@ -19,13 +19,13 @@ class NATLANGUAGERESTRICTION extends Win32Struct
     prop{
         get {
             if(!this.HasProp("__prop"))
-                this.__prop := FULLPROPSPEC(this.ptr + 0)
+                this.__prop := FULLPROPSPEC(0, this)
             return this.__prop
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwcsPhrase {
         get => NumGet(this, 24, "ptr")

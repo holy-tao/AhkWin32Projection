@@ -21,11 +21,39 @@ class IPV6_HEADER extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - Anonymous1
+     * - Version
+     * - Anonymous2
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Anonymous1 {
+        get => (this._bitfield >> 0) & 0xF
+        set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Version {
+        get => (this._bitfield >> 4) & 0xF
+        set => this._bitfield := ((value & 0xF) << 4) | (this._bitfield & ~(0xF << 4))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Anonymous2 {
+        get => (this._bitfield >> 8) & 0xFFFFFF
+        set => this._bitfield := ((value & 0xFFFFFF) << 8) | (this._bitfield & ~(0xFFFFFF << 8))
     }
 
     /**
@@ -58,7 +86,7 @@ class IPV6_HEADER extends Win32Struct
     SourceAddress{
         get {
             if(!this.HasProp("__SourceAddress"))
-                this.__SourceAddress := IN6_ADDR(this.ptr + 8)
+                this.__SourceAddress := IN6_ADDR(8, this)
             return this.__SourceAddress
         }
     }
@@ -69,7 +97,7 @@ class IPV6_HEADER extends Win32Struct
     DestinationAddress{
         get {
             if(!this.HasProp("__DestinationAddress"))
-                this.__DestinationAddress := IN6_ADDR(this.ptr + 24)
+                this.__DestinationAddress := IN6_ADDR(24, this)
             return this.__DestinationAddress
         }
     }

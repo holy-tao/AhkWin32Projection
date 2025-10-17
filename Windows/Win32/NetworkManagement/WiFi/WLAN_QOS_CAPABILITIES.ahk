@@ -12,7 +12,7 @@ class WLAN_QOS_CAPABILITIES extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bMSCSSupported {
         get => NumGet(this, 0, "int")
@@ -20,7 +20,7 @@ class WLAN_QOS_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDSCPToUPMappingSupported {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class WLAN_QOS_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bSCSSupported {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class WLAN_QOS_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bDSCPPolicySupported {
         get => NumGet(this, 12, "int")

@@ -35,7 +35,7 @@ class ID_PARAMETERS extends Win32Struct
     replicaId{
         get {
             if(!this.HasProp("__replicaId"))
-                this.__replicaId := ID_PARAMETER_PAIR(this.ptr + 8)
+                this.__replicaId := ID_PARAMETER_PAIR(8, this)
             return this.__replicaId
         }
     }
@@ -47,7 +47,7 @@ class ID_PARAMETERS extends Win32Struct
     itemId{
         get {
             if(!this.HasProp("__itemId"))
-                this.__itemId := ID_PARAMETER_PAIR(this.ptr + 16)
+                this.__itemId := ID_PARAMETER_PAIR(16, this)
             return this.__itemId
         }
     }
@@ -59,7 +59,7 @@ class ID_PARAMETERS extends Win32Struct
     changeUnitId{
         get {
             if(!this.HasProp("__changeUnitId"))
-                this.__changeUnitId := ID_PARAMETER_PAIR(this.ptr + 24)
+                this.__changeUnitId := ID_PARAMETER_PAIR(24, this)
             return this.__changeUnitId
         }
     }

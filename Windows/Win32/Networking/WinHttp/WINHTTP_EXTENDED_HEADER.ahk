@@ -12,7 +12,7 @@ class WINHTTP_EXTENDED_HEADER extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class WINHTTP_EXTENDED_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class WINHTTP_EXTENDED_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszValue {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class WINHTTP_EXTENDED_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszValue {
         get => NumGet(this, 8, "ptr")

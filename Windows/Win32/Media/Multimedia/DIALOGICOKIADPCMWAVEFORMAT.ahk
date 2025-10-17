@@ -18,7 +18,7 @@ class DIALOGICOKIADPCMWAVEFORMAT extends Win32Struct
     ewf{
         get {
             if(!this.HasProp("__ewf"))
-                this.__ewf := WAVEFORMATEX(this.ptr + 0)
+                this.__ewf := WAVEFORMATEX(0, this)
             return this.__ewf
         }
     }

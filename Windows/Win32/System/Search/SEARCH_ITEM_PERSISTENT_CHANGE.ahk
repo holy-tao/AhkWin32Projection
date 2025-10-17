@@ -32,7 +32,7 @@ class SEARCH_ITEM_PERSISTENT_CHANGE extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Pointer to a null-terminated Unicode string containing the URL of the item in a SEARCH_CHANGE_ADD, SEARCH_CHANGE_MODIFY, or SEARCH_CHANGE_DELETE notification. In the case of a move, this member contains the new URL of the item.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     URL {
         get => NumGet(this, 8, "ptr")
@@ -41,7 +41,7 @@ class SEARCH_ITEM_PERSISTENT_CHANGE extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     OldURL {
         get => NumGet(this, 16, "ptr")

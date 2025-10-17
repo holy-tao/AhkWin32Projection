@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about a heap element.
@@ -196,11 +197,14 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Void>}
+         * @type {HANDLE}
          */
-        hMem {
-            get => NumGet(this, 0, "ptr")
-            set => NumPut("ptr", value, this, 0)
+        hMem{
+            get {
+                if(!this.HasProp("__hMem"))
+                    this.__hMem := HANDLE(0, this)
+                return this.__hMem
+            }
         }
     
         /**
@@ -260,7 +264,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     Block{
         get {
             if(!this.HasProp("__Block"))
-                this.__Block := %this.__Class%._Block(this.ptr + 16)
+                this.__Block := %this.__Class%._Block(16, this)
             return this.__Block
         }
     }
@@ -271,7 +275,7 @@ class PROCESS_HEAP_ENTRY extends Win32Struct
     Region{
         get {
             if(!this.HasProp("__Region"))
-                this.__Region := %this.__Class%._Region(this.ptr + 16)
+                this.__Region := %this.__Class%._Region(16, this)
             return this.__Region
         }
     }

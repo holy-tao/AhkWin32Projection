@@ -39,7 +39,7 @@ class SECPKG_EVENT_PACKAGE_CHANGE extends Win32Struct
     PackageName{
         get {
             if(!this.HasProp("__PackageName"))
-                this.__PackageName := SECURITY_STRING(this.ptr + 16)
+                this.__PackageName := SECURITY_STRING(16, this)
             return this.__PackageName
         }
     }

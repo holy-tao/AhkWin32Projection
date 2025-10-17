@@ -34,7 +34,7 @@ class DROPFILES extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(this.ptr + 8)
+                this.__pt := POINT(8, this)
             return this.__pt
         }
     }
@@ -43,7 +43,7 @@ class DROPFILES extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A nonclient area flag. If this member is <b>TRUE</b>, <b>pt</b> specifies the screen coordinates of a point in a window's nonclient area. If it is <b>FALSE</b>, <b>pt</b> specifies the client coordinates of a point in the client area.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fNC {
         get => NumGet(this, 16, "int")
@@ -54,7 +54,7 @@ class DROPFILES extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the file contains ANSI or Unicode characters. If the value is zero, the file contains ANSI characters. Otherwise, it contains Unicode characters.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fWide {
         get => NumGet(this, 20, "int")

@@ -26,7 +26,7 @@ class STREAM_EXTENT_ENTRY extends Win32Struct
     RetrievalPointers{
         get {
             if(!this.HasProp("__RetrievalPointers"))
-                this.__RetrievalPointers := RETRIEVAL_POINTERS_BUFFER(this.ptr + 8)
+                this.__RetrievalPointers := RETRIEVAL_POINTERS_BUFFER(8, this)
             return this.__RetrievalPointers
         }
     }

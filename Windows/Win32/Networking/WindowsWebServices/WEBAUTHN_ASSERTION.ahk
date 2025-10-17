@@ -59,7 +59,7 @@ class WEBAUTHN_ASSERTION extends Win32Struct
     Credential{
         get {
             if(!this.HasProp("__Credential"))
-                this.__Credential := WEBAUTHN_CREDENTIAL(this.ptr + 32)
+                this.__Credential := WEBAUTHN_CREDENTIAL(32, this)
             return this.__Credential
         }
     }
@@ -86,7 +86,7 @@ class WEBAUTHN_ASSERTION extends Win32Struct
     Extensions{
         get {
             if(!this.HasProp("__Extensions"))
-                this.__Extensions := WEBAUTHN_EXTENSIONS(this.ptr + 72)
+                this.__Extensions := WEBAUTHN_EXTENSIONS(72, this)
             return this.__Extensions
         }
     }

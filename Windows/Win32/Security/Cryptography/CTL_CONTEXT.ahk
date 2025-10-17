@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCERTSTORE.ahk
 
 /**
  * The CTL_CONTEXT structure contains both the encoded and decoded representations of a CTL.
@@ -61,11 +62,14 @@ class CTL_CONTEXT extends Win32Struct
 
     /**
      * A handle to the certificate store.
-     * @type {Pointer<Void>}
+     * @type {HCERTSTORE}
      */
-    hCertStore {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hCertStore{
+        get {
+            if(!this.HasProp("__hCertStore"))
+                this.__hCertStore := HCERTSTORE(32, this)
+            return this.__hCertStore
+        }
     }
 
     /**

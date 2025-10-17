@@ -16,7 +16,7 @@ class DD_CREATEMOCOMPDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")
@@ -66,7 +66,7 @@ class DD_CREATEMOCOMPDATA extends Win32Struct
     ddUncompPixelFormat{
         get {
             if(!this.HasProp("__ddUncompPixelFormat"))
-                this.__ddUncompPixelFormat := DDPIXELFORMAT(this.ptr + 32)
+                this.__ddUncompPixelFormat := DDPIXELFORMAT(32, this)
             return this.__ddUncompPixelFormat
         }
     }

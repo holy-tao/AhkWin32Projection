@@ -34,7 +34,7 @@ class MPR_SERVER_SET_CONFIG_EX1 extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := MPRAPI_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := MPRAPI_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -102,7 +102,7 @@ class MPR_SERVER_SET_CONFIG_EX1 extends Win32Struct
     ConfigParams{
         get {
             if(!this.HasProp("__ConfigParams"))
-                this.__ConfigParams := MPRAPI_TUNNEL_CONFIG_PARAMS1(this.ptr + 8)
+                this.__ConfigParams := MPRAPI_TUNNEL_CONFIG_PARAMS1(8, this)
             return this.__ConfigParams
         }
     }

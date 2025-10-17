@@ -44,7 +44,7 @@ class SERIAL_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     EofReceived {
         get => NumGet(this, 16, "char")
@@ -52,7 +52,7 @@ class SERIAL_STATUS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     WaitForImmediate {
         get => NumGet(this, 17, "char")

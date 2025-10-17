@@ -30,7 +30,7 @@ class CLUS_MAINTENANCE_MODE_INFO extends Win32Struct
      * 
      * When queried, a resource will return <b>True</b> or <b>False</b> to 
      *        indicate the current maintenance mode state of the resource.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InMaintenance {
         get => NumGet(this, 0, "int")

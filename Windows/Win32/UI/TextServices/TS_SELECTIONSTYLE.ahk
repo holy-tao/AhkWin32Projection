@@ -29,7 +29,7 @@ class TS_SELECTIONSTYLE extends Win32Struct
 
     /**
      * Indicates if the selection is an interim character. If this value is nonzero, then the seleciton is an interim character and <b>ase</b> will be TS_AE_NONE. If this value is zero, the selection is not an interim character.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fInterimChar {
         get => NumGet(this, 4, "int")

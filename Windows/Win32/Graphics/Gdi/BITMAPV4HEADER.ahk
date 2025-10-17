@@ -198,7 +198,7 @@ class BITMAPV4HEADER extends Win32Struct
     bV4Endpoints{
         get {
             if(!this.HasProp("__bV4Endpoints"))
-                this.__bV4Endpoints := CIEXYZTRIPLE(this.ptr + 64)
+                this.__bV4Endpoints := CIEXYZTRIPLE(64, this)
             return this.__bV4Endpoints
         }
     }

@@ -52,7 +52,7 @@ class FWPM_FILTER_CONDITION0 extends Win32Struct
     conditionValue{
         get {
             if(!this.HasProp("__conditionValue"))
-                this.__conditionValue := FWP_CONDITION_VALUE0(this.ptr + 16)
+                this.__conditionValue := FWP_CONDITION_VALUE0(16, this)
             return this.__conditionValue
         }
     }

@@ -28,7 +28,7 @@ class D3D12_RASTERIZER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     FrontCounterClockwise {
         get => NumGet(this, 8, "int")
@@ -60,7 +60,7 @@ class D3D12_RASTERIZER_DESC2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     DepthClipEnable {
         get => NumGet(this, 24, "int")

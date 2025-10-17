@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\RECT.ahk
 
 /**
@@ -43,66 +44,84 @@ class GUITHREADINFO extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the active window within the thread.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndActive {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndActive{
+        get {
+            if(!this.HasProp("__hwndActive"))
+                this.__hwndActive := HWND(8, this)
+            return this.__hwndActive
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has the keyboard focus.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndFocus {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwndFocus{
+        get {
+            if(!this.HasProp("__hwndFocus"))
+                this.__hwndFocus := HWND(16, this)
+            return this.__hwndFocus
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that has captured the mouse.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndCapture {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    hwndCapture{
+        get {
+            if(!this.HasProp("__hwndCapture"))
+                this.__hwndCapture := HWND(24, this)
+            return this.__hwndCapture
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that owns any active menus.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndMenuOwner {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hwndMenuOwner{
+        get {
+            if(!this.HasProp("__hwndMenuOwner"))
+                this.__hwndMenuOwner := HWND(32, this)
+            return this.__hwndMenuOwner
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window in a move or size loop.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndMoveSize {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hwndMoveSize{
+        get {
+            if(!this.HasProp("__hwndMoveSize"))
+                this.__hwndMoveSize := HWND(40, this)
+            return this.__hwndMoveSize
+        }
     }
 
     /**
      * Type: <b>HWND</b>
      * 
      * A handle to the window that is displaying the caret.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndCaret {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hwndCaret{
+        get {
+            if(!this.HasProp("__hwndCaret"))
+                this.__hwndCaret := HWND(48, this)
+            return this.__hwndCaret
+        }
     }
 
     /**
@@ -114,17 +133,13 @@ class GUITHREADINFO extends Win32Struct
     rcCaret{
         get {
             if(!this.HasProp("__rcCaret"))
-                this.__rcCaret := RECT(this.ptr + 56)
+                this.__rcCaret := RECT(56, this)
             return this.__rcCaret
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

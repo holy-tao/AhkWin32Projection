@@ -391,7 +391,7 @@ class DWRITE_PANOSE extends Win32Struct
     text{
         get {
             if(!this.HasProp("__text"))
-                this.__text := %this.__Class%._text(this.ptr + 0)
+                this.__text := %this.__Class%._text(0, this)
             return this.__text
         }
     }
@@ -403,7 +403,7 @@ class DWRITE_PANOSE extends Win32Struct
     script{
         get {
             if(!this.HasProp("__script"))
-                this.__script := %this.__Class%._script(this.ptr + 0)
+                this.__script := %this.__Class%._script(0, this)
             return this.__script
         }
     }
@@ -415,7 +415,7 @@ class DWRITE_PANOSE extends Win32Struct
     decorative{
         get {
             if(!this.HasProp("__decorative"))
-                this.__decorative := %this.__Class%._decorative(this.ptr + 0)
+                this.__decorative := %this.__Class%._decorative(0, this)
             return this.__decorative
         }
     }
@@ -427,7 +427,7 @@ class DWRITE_PANOSE extends Win32Struct
     symbol{
         get {
             if(!this.HasProp("__symbol"))
-                this.__symbol := %this.__Class%._symbol(this.ptr + 0)
+                this.__symbol := %this.__Class%._symbol(0, this)
             return this.__symbol
         }
     }

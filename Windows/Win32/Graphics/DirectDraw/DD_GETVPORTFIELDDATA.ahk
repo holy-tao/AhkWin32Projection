@@ -15,7 +15,7 @@ class DD_GETVPORTFIELDDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class DD_GETVPORTFIELDDATA extends Win32Struct
 
     /**
      * Specifies the location in which the driver should indicate the polarity of the field. This member should be set to <b>TRUE</b> if the current field is the even field of an interlaced signal and to <b>FALSE</b> if the current field is the odd field.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bField {
         get => NumGet(this, 16, "int")

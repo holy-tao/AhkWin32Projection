@@ -26,7 +26,7 @@ class CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO extends Win32Struct
     CertSignHashCNGAlgPropData{
         get {
             if(!this.HasProp("__CertSignHashCNGAlgPropData"))
-                this.__CertSignHashCNGAlgPropData := CRYPT_INTEGER_BLOB(this.ptr + 0)
+                this.__CertSignHashCNGAlgPropData := CRYPT_INTEGER_BLOB(0, this)
             return this.__CertSignHashCNGAlgPropData
         }
     }
@@ -38,7 +38,7 @@ class CRYPT_VERIFY_CERT_SIGN_STRONG_PROPERTIES_INFO extends Win32Struct
     CertIssuerPubKeyBitLengthPropData{
         get {
             if(!this.HasProp("__CertIssuerPubKeyBitLengthPropData"))
-                this.__CertIssuerPubKeyBitLengthPropData := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__CertIssuerPubKeyBitLengthPropData := CRYPT_INTEGER_BLOB(16, this)
             return this.__CertIssuerPubKeyBitLengthPropData
         }
     }

@@ -20,7 +20,7 @@ class WEBAUTHN_CRED_PROTECT_EXTENSION_IN extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRequireCredProtect {
         get => NumGet(this, 4, "int")

@@ -16,7 +16,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether the process is one that can be recycled. For example, only COM+ server applications can be recycled, and applications running as Windows services cannot be recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRecyclable {
         get => NumGet(this, 0, "int")
@@ -25,7 +25,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether the process is a COM+ server application instance that has been recycled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRecycled {
         get => NumGet(this, 4, "int")
@@ -39,7 +39,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeRecycled{
         get {
             if(!this.HasProp("__TimeRecycled"))
-                this.__TimeRecycled := FILETIME(this.ptr + 8)
+                this.__TimeRecycled := FILETIME(8, this)
             return this.__TimeRecycled
         }
     }
@@ -51,7 +51,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeToTerminate{
         get {
             if(!this.HasProp("__TimeToTerminate"))
-                this.__TimeToTerminate := FILETIME(this.ptr + 16)
+                this.__TimeToTerminate := FILETIME(16, this)
             return this.__TimeToTerminate
         }
     }
@@ -67,7 +67,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether a paused COM+ server application instance has met the conditions for automatic recycling. If so, the application instance will be recycled when it is resumed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsPendingRecycle {
         get => NumGet(this, 28, "int")
@@ -76,7 +76,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
 
     /**
      * Indicates whether the process is an instance of a COM+ server application that has been configured for automatic recycling based on lifetime.
-     * @type {Integer}
+     * @type {BOOL}
      */
     HasAutomaticLifetimeRecycling {
         get => NumGet(this, 32, "int")
@@ -90,7 +90,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeForAutomaticRecycling{
         get {
             if(!this.HasProp("__TimeForAutomaticRecycling"))
-                this.__TimeForAutomaticRecycling := FILETIME(this.ptr + 40)
+                this.__TimeForAutomaticRecycling := FILETIME(40, this)
             return this.__TimeForAutomaticRecycling
         }
     }

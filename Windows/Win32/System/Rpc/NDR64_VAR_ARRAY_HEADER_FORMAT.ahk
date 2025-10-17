@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\NDR64_ARRAY_FLAGS.ahk
 
 /**
  * @namespace Windows.Win32.System.Rpc
@@ -28,11 +29,14 @@ class NDR64_VAR_ARRAY_HEADER_FORMAT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NDR64_ARRAY_FLAGS}
      */
-    Flags {
-        get => NumGet(this, 2, "char")
-        set => NumPut("char", value, this, 2)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := NDR64_ARRAY_FLAGS(2, this)
+            return this.__Flags
+        }
     }
 
     /**

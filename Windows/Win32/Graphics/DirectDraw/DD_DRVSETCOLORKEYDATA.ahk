@@ -34,7 +34,7 @@ class DD_DRVSETCOLORKEYDATA extends Win32Struct
     ckNew{
         get {
             if(!this.HasProp("__ckNew"))
-                this.__ckNew := DDCOLORKEY(this.ptr + 16)
+                this.__ckNew := DDCOLORKEY(16, this)
             return this.__ckNew
         }
     }

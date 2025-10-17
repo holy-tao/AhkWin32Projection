@@ -24,7 +24,7 @@ class D3D11_FEATURE_DATA_VIDEO_DECODER_HISTOGRAM extends Win32Struct
     DecoderDesc{
         get {
             if(!this.HasProp("__DecoderDesc"))
-                this.__DecoderDesc := D3D11_VIDEO_DECODER_DESC(this.ptr + 0)
+                this.__DecoderDesc := D3D11_VIDEO_DECODER_DESC(0, this)
             return this.__DecoderDesc
         }
     }

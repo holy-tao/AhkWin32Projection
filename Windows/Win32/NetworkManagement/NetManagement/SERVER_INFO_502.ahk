@@ -160,7 +160,7 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server maps a request to a normal open request with shared-read access when the server receives a compatibility open request with read access. Mapping such requests allows several MS-DOS computers to open a single file for read access.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv502_enablesoftcompat {
         get => NumGet(this, 52, "int")
@@ -171,7 +171,7 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv502_enableforcedlogoff {
         get => NumGet(this, 56, "int")
@@ -182,7 +182,7 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv502_timesource {
         get => NumGet(this, 60, "int")
@@ -193,7 +193,7 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server accepts function calls from previous-generation LAN Manager clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv502_acceptdownlevelapis {
         get => NumGet(this, 64, "int")
@@ -204,7 +204,7 @@ class SERVER_INFO_502 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is visible to LAN Manager 2.x clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv502_lmannounce {
         get => NumGet(this, 68, "int")

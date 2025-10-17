@@ -19,7 +19,7 @@ class NDIS_IP_OPER_STATE extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -38,7 +38,7 @@ class NDIS_IP_OPER_STATE extends Win32Struct
     IpOperationalStatus{
         get {
             if(!this.HasProp("__IpOperationalStatus"))
-                this.__IpOperationalStatus := NDIS_IP_OPER_STATUS(this.ptr + 8)
+                this.__IpOperationalStatus := NDIS_IP_OPER_STATUS(8, this)
             return this.__IpOperationalStatus
         }
     }

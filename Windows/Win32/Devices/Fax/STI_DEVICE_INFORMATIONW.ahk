@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\STI_DEV_CAPS.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -36,11 +37,14 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {STI_DEV_CAPS}
      */
-    DeviceCapabilitiesA {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+    DeviceCapabilitiesA{
+        get {
+            if(!this.HasProp("__DeviceCapabilitiesA"))
+                this.__DeviceCapabilitiesA := STI_DEV_CAPS(264, this)
+            return this.__DeviceCapabilitiesA
+        }
     }
 
     /**
@@ -52,7 +56,7 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszVendorDescription {
         get => NumGet(this, 272, "ptr")
@@ -60,7 +64,7 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDeviceDescription {
         get => NumGet(this, 280, "ptr")
@@ -68,7 +72,7 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPortName {
         get => NumGet(this, 288, "ptr")
@@ -76,7 +80,7 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPropProvider {
         get => NumGet(this, 296, "ptr")
@@ -84,7 +88,7 @@ class STI_DEVICE_INFORMATIONW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszLocalName {
         get => NumGet(this, 304, "ptr")

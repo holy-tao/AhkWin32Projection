@@ -36,6 +36,75 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
         set => NumPut("char", value, this, 2)
     }
 
+    class _Flags extends Win32Struct {
+        static sizeof => 1
+        static packingSize => 1
+
+        /**
+         * This bitfield backs the following members:
+         * - Route
+         * - Reserved1
+         * - SitePrefix
+         * - RouterAddress
+         * - Autonomous
+         * - OnLink
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Route {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Reserved1 {
+            get => (this._bitfield >> 1) & 0x7
+            set => this._bitfield := ((value & 0x7) << 1) | (this._bitfield & ~(0x7 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SitePrefix {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        RouterAddress {
+            get => (this._bitfield >> 5) & 0x1
+            set => this._bitfield := ((value & 0x1) << 5) | (this._bitfield & ~(0x1 << 5))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Autonomous {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        OnLink {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -45,11 +114,14 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_Flags}
      */
-    Flags {
-        get => NumGet(this, 3, "char")
-        set => NumPut("char", value, this, 3)
+    Flags{
+        get {
+            if(!this.HasProp("__Flags"))
+                this.__Flags := %this.__Class%._Flags(3, this)
+            return this.__Flags
+        }
     }
 
     /**
@@ -101,7 +173,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
     nd_opt_pi_prefix{
         get {
             if(!this.HasProp("__nd_opt_pi_prefix"))
-                this.__nd_opt_pi_prefix := IN6_ADDR(this.ptr + 16)
+                this.__nd_opt_pi_prefix := IN6_ADDR(16, this)
             return this.__nd_opt_pi_prefix
         }
     }

@@ -21,7 +21,7 @@ class DXVAHD_STREAM_STATE_FILTER_DATA extends Win32Struct
 
     /**
      * <b>If TRUE</b>, the filter is enabled. Otherwise, <b>the filter is disabled</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

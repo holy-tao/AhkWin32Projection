@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * Describes a deleted list box or combo box item.
@@ -48,11 +49,14 @@ class DELETEITEMSTRUCT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * A handle to the control.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndItem {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hwndItem{
+        get {
+            if(!this.HasProp("__hwndItem"))
+                this.__hwndItem := HWND(16, this)
+            return this.__hwndItem
+        }
     }
 
     /**

@@ -21,7 +21,7 @@ class STATDATA extends Win32Struct
     formatetc{
         get {
             if(!this.HasProp("__formatetc"))
-                this.__formatetc := FORMATETC(this.ptr + 0)
+                this.__formatetc := FORMATETC(0, this)
             return this.__formatetc
         }
     }

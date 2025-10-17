@@ -19,7 +19,7 @@ class AcousticEchoCanceller_Reference_Input extends Win32Struct
     apoInitSystemEffects{
         get {
             if(!this.HasProp("__apoInitSystemEffects"))
-                this.__apoInitSystemEffects := APOInitSystemEffects3(this.ptr + 0)
+                this.__apoInitSystemEffects := APOInitSystemEffects3(0, this)
             return this.__apoInitSystemEffects
         }
     }

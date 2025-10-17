@@ -30,7 +30,7 @@ class TF_SELECTION extends Win32Struct
     style{
         get {
             if(!this.HasProp("__style"))
-                this.__style := TF_SELECTIONSTYLE(this.ptr + 8)
+                this.__style := TF_SELECTIONSTYLE(8, this)
             return this.__style
         }
     }

@@ -41,7 +41,7 @@ class SRestriction extends Win32Struct
     resCompareProps{
         get {
             if(!this.HasProp("__resCompareProps"))
-                this.__resCompareProps := SComparePropsRestriction(this.ptr + 8)
+                this.__resCompareProps := SComparePropsRestriction(8, this)
             return this.__resCompareProps
         }
     }
@@ -52,7 +52,7 @@ class SRestriction extends Win32Struct
     resAnd{
         get {
             if(!this.HasProp("__resAnd"))
-                this.__resAnd := SAndRestriction(this.ptr + 8)
+                this.__resAnd := SAndRestriction(8, this)
             return this.__resAnd
         }
     }
@@ -63,7 +63,7 @@ class SRestriction extends Win32Struct
     resOr{
         get {
             if(!this.HasProp("__resOr"))
-                this.__resOr := SOrRestriction(this.ptr + 8)
+                this.__resOr := SOrRestriction(8, this)
             return this.__resOr
         }
     }
@@ -74,7 +74,7 @@ class SRestriction extends Win32Struct
     resNot{
         get {
             if(!this.HasProp("__resNot"))
-                this.__resNot := SNotRestriction(this.ptr + 8)
+                this.__resNot := SNotRestriction(8, this)
             return this.__resNot
         }
     }
@@ -85,7 +85,7 @@ class SRestriction extends Win32Struct
     resContent{
         get {
             if(!this.HasProp("__resContent"))
-                this.__resContent := SContentRestriction(this.ptr + 8)
+                this.__resContent := SContentRestriction(8, this)
             return this.__resContent
         }
     }
@@ -96,7 +96,7 @@ class SRestriction extends Win32Struct
     resProperty{
         get {
             if(!this.HasProp("__resProperty"))
-                this.__resProperty := SPropertyRestriction(this.ptr + 8)
+                this.__resProperty := SPropertyRestriction(8, this)
             return this.__resProperty
         }
     }
@@ -107,7 +107,7 @@ class SRestriction extends Win32Struct
     resBitMask{
         get {
             if(!this.HasProp("__resBitMask"))
-                this.__resBitMask := SBitMaskRestriction(this.ptr + 8)
+                this.__resBitMask := SBitMaskRestriction(8, this)
             return this.__resBitMask
         }
     }
@@ -118,7 +118,7 @@ class SRestriction extends Win32Struct
     resSize{
         get {
             if(!this.HasProp("__resSize"))
-                this.__resSize := SSizeRestriction(this.ptr + 8)
+                this.__resSize := SSizeRestriction(8, this)
             return this.__resSize
         }
     }
@@ -129,7 +129,7 @@ class SRestriction extends Win32Struct
     resExist{
         get {
             if(!this.HasProp("__resExist"))
-                this.__resExist := SExistRestriction(this.ptr + 8)
+                this.__resExist := SExistRestriction(8, this)
             return this.__resExist
         }
     }
@@ -140,7 +140,7 @@ class SRestriction extends Win32Struct
     resSub{
         get {
             if(!this.HasProp("__resSub"))
-                this.__resSub := SSubRestriction(this.ptr + 8)
+                this.__resSub := SSubRestriction(8, this)
             return this.__resSub
         }
     }
@@ -151,7 +151,7 @@ class SRestriction extends Win32Struct
     resComment{
         get {
             if(!this.HasProp("__resComment"))
-                this.__resComment := SCommentRestriction(this.ptr + 8)
+                this.__resComment := SCommentRestriction(8, this)
             return this.__resComment
         }
     }

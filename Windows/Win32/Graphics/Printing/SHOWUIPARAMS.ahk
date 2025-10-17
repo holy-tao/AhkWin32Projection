@@ -26,7 +26,7 @@ class SHOWUIPARAMS extends Win32Struct
     MessageBoxParams{
         get {
             if(!this.HasProp("__MessageBoxParams"))
-                this.__MessageBoxParams := MESSAGEBOX_PARAMS(this.ptr + 8)
+                this.__MessageBoxParams := MESSAGEBOX_PARAMS(8, this)
             return this.__MessageBoxParams
         }
     }

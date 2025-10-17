@@ -15,7 +15,7 @@ class BCRYPT_PROVIDER_NAME extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the name of the provider.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszProviderName {
         get => NumGet(this, 0, "ptr")

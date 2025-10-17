@@ -18,7 +18,7 @@ class DXCoreEngineQueryInput extends Win32Struct
     adapterEngineIndex{
         get {
             if(!this.HasProp("__adapterEngineIndex"))
-                this.__adapterEngineIndex := DXCoreAdapterEngineIndex(this.ptr + 0)
+                this.__adapterEngineIndex := DXCoreAdapterEngineIndex(0, this)
             return this.__adapterEngineIndex
         }
     }

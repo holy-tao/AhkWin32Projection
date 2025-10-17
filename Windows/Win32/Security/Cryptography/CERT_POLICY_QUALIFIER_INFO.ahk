@@ -16,7 +16,7 @@ class CERT_POLICY_QUALIFIER_INFO extends Win32Struct
 
     /**
      * OID specifying the qualifier.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszPolicyQualifierId {
         get => NumGet(this, 0, "ptr")
@@ -30,7 +30,7 @@ class CERT_POLICY_QUALIFIER_INFO extends Win32Struct
     Qualifier{
         get {
             if(!this.HasProp("__Qualifier"))
-                this.__Qualifier := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__Qualifier := CRYPT_INTEGER_BLOB(8, this)
             return this.__Qualifier
         }
     }

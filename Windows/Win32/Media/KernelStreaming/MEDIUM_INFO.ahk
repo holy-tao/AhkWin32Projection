@@ -12,7 +12,7 @@ class MEDIUM_INFO extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     MediaPresent {
         get => NumGet(this, 0, "int")
@@ -28,7 +28,7 @@ class MEDIUM_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     RecordInhibit {
         get => NumGet(this, 8, "int")

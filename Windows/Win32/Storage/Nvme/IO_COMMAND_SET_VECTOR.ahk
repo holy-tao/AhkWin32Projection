@@ -47,12 +47,4 @@ class IO_COMMAND_SET_VECTOR extends Win32Struct
         get => (this._bitfield >> 2) & 0x1
         set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 3) & 0x1FFFFFFFFFFFFFFF
-        set => this._bitfield := ((value & 0x1FFFFFFFFFFFFFFF) << 3) | (this._bitfield & ~(0x1FFFFFFFFFFFFFFF << 3))
-    }
 }

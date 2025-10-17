@@ -31,7 +31,7 @@ class IP_ADDR_STRING extends Win32Struct
     IpAddress{
         get {
             if(!this.HasProp("__IpAddress"))
-                this.__IpAddress := IP_ADDRESS_STRING(this.ptr + 8)
+                this.__IpAddress := IP_ADDRESS_STRING(8, this)
             return this.__IpAddress
         }
     }
@@ -43,7 +43,7 @@ class IP_ADDR_STRING extends Win32Struct
     IpMask{
         get {
             if(!this.HasProp("__IpMask"))
-                this.__IpMask := IP_ADDRESS_STRING(this.ptr + 40)
+                this.__IpMask := IP_ADDRESS_STRING(40, this)
             return this.__IpMask
         }
     }

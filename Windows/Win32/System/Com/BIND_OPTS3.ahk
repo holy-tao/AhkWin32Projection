@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BIND_OPTS.ahk
 #Include .\BIND_OPTS2.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.System.Com
@@ -19,16 +20,19 @@ class BIND_OPTS3 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := BIND_OPTS2(this.ptr + 0)
+                this.__Base := BIND_OPTS2(0, this)
             return this.__Base
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(40, this)
+            return this.__hwnd
+        }
     }
 }

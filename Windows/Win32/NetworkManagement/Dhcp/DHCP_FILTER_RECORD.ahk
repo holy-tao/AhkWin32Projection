@@ -21,14 +21,14 @@ class DHCP_FILTER_RECORD extends Win32Struct
     AddrPatt{
         get {
             if(!this.HasProp("__AddrPatt"))
-                this.__AddrPatt := DHCP_ADDR_PATTERN(this.ptr + 0)
+                this.__AddrPatt := DHCP_ADDR_PATTERN(0, this)
             return this.__AddrPatt
         }
     }
 
     /**
      * Pointer to a null-terminated Unicode string which contains the comment associated with the address/pattern.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Comment {
         get => NumGet(this, 272, "ptr")

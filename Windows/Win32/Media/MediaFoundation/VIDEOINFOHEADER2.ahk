@@ -203,7 +203,7 @@ class VIDEOINFOHEADER2 extends Win32Struct
     rcSource{
         get {
             if(!this.HasProp("__rcSource"))
-                this.__rcSource := RECT(this.ptr + 0)
+                this.__rcSource := RECT(0, this)
             return this.__rcSource
         }
     }
@@ -215,7 +215,7 @@ class VIDEOINFOHEADER2 extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(this.ptr + 16)
+                this.__rcTarget := RECT(16, this)
             return this.__rcTarget
         }
     }
@@ -443,7 +443,7 @@ class VIDEOINFOHEADER2 extends Win32Struct
     bmiHeader{
         get {
             if(!this.HasProp("__bmiHeader"))
-                this.__bmiHeader := BITMAPINFOHEADER(this.ptr + 72)
+                this.__bmiHeader := BITMAPINFOHEADER(72, this)
             return this.__bmiHeader
         }
     }

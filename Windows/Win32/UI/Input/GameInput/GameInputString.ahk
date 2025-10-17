@@ -28,7 +28,7 @@ class GameInputString extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     data {
         get => NumGet(this, 8, "ptr")

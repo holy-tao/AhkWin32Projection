@@ -16,7 +16,7 @@ class DD_GETMOCOMPCOMPBUFFDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_directdraw_local">DD_DIRECTDRAW_LOCAL</a> structure that is relevant to the current Microsoft DirectDraw process only.
-     * @type {Pointer<TypeHandle>}
+     * @type {Pointer<DD_DIRECTDRAW_LOCAL>}
      */
     lpDD {
         get => NumGet(this, 0, "ptr")
@@ -57,7 +57,7 @@ class DD_GETMOCOMPCOMPBUFFDATA extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(this.ptr + 24)
+                this.__ddPixelFormat := DDPIXELFORMAT(24, this)
             return this.__ddPixelFormat
         }
     }

@@ -19,7 +19,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 0)
+                this.__LogonId := LUID(0, this)
             return this.__LogonId
         }
     }
@@ -30,7 +30,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     DownlevelName{
         get {
             if(!this.HasProp("__DownlevelName"))
-                this.__DownlevelName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DownlevelName := LSA_UNICODE_STRING(8, this)
             return this.__DownlevelName
         }
     }
@@ -41,7 +41,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__DomainName := LSA_UNICODE_STRING(24, this)
             return this.__DomainName
         }
     }
@@ -52,7 +52,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Password{
         get {
             if(!this.HasProp("__Password"))
-                this.__Password := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__Password := LSA_UNICODE_STRING(40, this)
             return this.__Password
         }
     }
@@ -63,13 +63,13 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     OldPassword{
         get {
             if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__OldPassword := LSA_UNICODE_STRING(56, this)
             return this.__OldPassword
         }
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {PSID}
      */
     UserSid {
         get => NumGet(this, 72, "ptr")
@@ -90,7 +90,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     DnsDomainName{
         get {
             if(!this.HasProp("__DnsDomainName"))
-                this.__DnsDomainName := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__DnsDomainName := LSA_UNICODE_STRING(88, this)
             return this.__DnsDomainName
         }
     }
@@ -101,7 +101,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Upn{
         get {
             if(!this.HasProp("__Upn"))
-                this.__Upn := LSA_UNICODE_STRING(this.ptr + 104)
+                this.__Upn := LSA_UNICODE_STRING(104, this)
             return this.__Upn
         }
     }
@@ -112,7 +112,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(this.ptr + 120)
+                this.__LogonServer := LSA_UNICODE_STRING(120, this)
             return this.__LogonServer
         }
     }
@@ -123,7 +123,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Spare1{
         get {
             if(!this.HasProp("__Spare1"))
-                this.__Spare1 := LSA_UNICODE_STRING(this.ptr + 136)
+                this.__Spare1 := LSA_UNICODE_STRING(136, this)
             return this.__Spare1
         }
     }
@@ -134,7 +134,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Spare2{
         get {
             if(!this.HasProp("__Spare2"))
-                this.__Spare2 := LSA_UNICODE_STRING(this.ptr + 152)
+                this.__Spare2 := LSA_UNICODE_STRING(152, this)
             return this.__Spare2
         }
     }
@@ -145,7 +145,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Spare3{
         get {
             if(!this.HasProp("__Spare3"))
-                this.__Spare3 := LSA_UNICODE_STRING(this.ptr + 168)
+                this.__Spare3 := LSA_UNICODE_STRING(168, this)
             return this.__Spare3
         }
     }
@@ -156,7 +156,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     Spare4{
         get {
             if(!this.HasProp("__Spare4"))
-                this.__Spare4 := LSA_UNICODE_STRING(this.ptr + 184)
+                this.__Spare4 := LSA_UNICODE_STRING(184, this)
             return this.__Spare4
         }
     }
@@ -175,7 +175,7 @@ class SECPKG_PRIMARY_CRED_EX extends Win32Struct
     PrevLogonId{
         get {
             if(!this.HasProp("__PrevLogonId"))
-                this.__PrevLogonId := LUID(this.ptr + 208)
+                this.__PrevLogonId := LUID(208, this)
             return this.__PrevLogonId
         }
     }

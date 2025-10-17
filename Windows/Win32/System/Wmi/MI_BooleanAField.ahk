@@ -21,7 +21,7 @@ class MI_BooleanAField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_BooleanA(this.ptr + 0)
+                this.__value := MI_BooleanA(0, this)
             return this.__value
         }
     }

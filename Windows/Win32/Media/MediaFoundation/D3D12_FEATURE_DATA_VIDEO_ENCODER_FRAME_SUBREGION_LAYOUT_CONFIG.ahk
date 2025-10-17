@@ -37,7 +37,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG extends Win
     Profile{
         get {
             if(!this.HasProp("__Profile"))
-                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(this.ptr + 8)
+                this.__Profile := D3D12_VIDEO_ENCODER_PROFILE_DESC(8, this)
             return this.__Profile
         }
     }
@@ -48,7 +48,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG extends Win
     Level{
         get {
             if(!this.HasProp("__Level"))
-                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(this.ptr + 24)
+                this.__Level := D3D12_VIDEO_ENCODER_LEVEL_SETTING(24, this)
             return this.__Level
         }
     }
@@ -67,7 +67,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG extends Win
     FrameResolution{
         get {
             if(!this.HasProp("__FrameResolution"))
-                this.__FrameResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 48)
+                this.__FrameResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
             return this.__FrameResolution
         }
     }
@@ -78,13 +78,13 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG extends Win
     CodecSupport{
         get {
             if(!this.HasProp("__CodecSupport"))
-                this.__CodecSupport := D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(this.ptr + 56)
+                this.__CodecSupport := D3D12_VIDEO_ENCODER_FRAME_SUBREGION_LAYOUT_CONFIG_SUPPORT(56, this)
             return this.__CodecSupport
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 72, "int")

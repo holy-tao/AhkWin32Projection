@@ -12,20 +12,85 @@ class NVME_IDENTIFY_SPECIFIC_NAMESPACE_IO_COMMAND_SET extends Win32Struct
 
     static packingSize => 8
 
-    /**
-     * @type {Integer}
-     */
-    ZOC {
-        get => NumGet(this, 0, "ushort")
-        set => NumPut("ushort", value, this, 0)
+    class _ZOC extends Win32Struct {
+        static sizeof => 3968
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - VariableZoneCapacity
+         * - ZoneExcursions
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        VariableZoneCapacity {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ZoneExcursions {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+    }
+
+    class _OZCS extends Win32Struct {
+        static sizeof => 3968
+        static packingSize => 8
+
+        /**
+         * This bitfield backs the following members:
+         * - ReadAcrossZoneBoundaries
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "ushort")
+            set => NumPut("ushort", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReadAcrossZoneBoundaries {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ZOC}
      */
-    OZCS {
-        get => NumGet(this, 2, "ushort")
-        set => NumPut("ushort", value, this, 2)
+    ZOC{
+        get {
+            if(!this.HasProp("__ZOC"))
+                this.__ZOC := %this.__Class%._ZOC(0, this)
+            return this.__ZOC
+        }
+    }
+
+    /**
+     * @type {_OZCS}
+     */
+    OZCS{
+        get {
+            if(!this.HasProp("__OZCS"))
+                this.__OZCS := %this.__Class%._OZCS(2, this)
+            return this.__OZCS
+        }
     }
 
     /**

@@ -24,7 +24,7 @@ class WSMAN_ERROR extends Win32Struct
 
     /**
      * Specifies extended error information that relates to a failed call. This field contains the fault detail text if it is present in the fault. If there is no fault detail, this field contains the fault reason text. This field can be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     errorDetail {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class WSMAN_ERROR extends Win32Struct
 
     /**
      * Specifies the language for the error description. This field can be set to <b>NULL</b>.  For more information about the language format, see the    RFC 3066 specification from the Internet Engineering Task Force at <a href="https://www.ietf.org/rfc/rfc3066.txt">http://www.ietf.org/rfc/rfc3066.txt</a>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     language {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class WSMAN_ERROR extends Win32Struct
 
     /**
      * Specifies the name of the computer. This field can be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     machineName {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class WSMAN_ERROR extends Win32Struct
 
     /**
      * Specifies the name of the plug-in that generated the error. This field can be set to <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pluginName {
         get => NumGet(this, 32, "ptr")

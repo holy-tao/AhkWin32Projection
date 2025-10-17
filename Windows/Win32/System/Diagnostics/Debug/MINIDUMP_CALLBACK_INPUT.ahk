@@ -1,13 +1,17 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include .\ARM64_NT_NEON128.ahk
 #Include .\CONTEXT.ahk
 #Include .\MINIDUMP_THREAD_CALLBACK.ahk
 #Include .\MINIDUMP_THREAD_EX_CALLBACK.ahk
 #Include ..\..\..\Storage\FileSystem\VS_FIXEDFILEINFO.ahk
 #Include .\MINIDUMP_MODULE_CALLBACK.ahk
+#Include .\MINIDUMP_INCLUDE_THREAD_CALLBACK.ahk
+#Include .\MINIDUMP_INCLUDE_MODULE_CALLBACK.ahk
 #Include .\MINIDUMP_IO_CALLBACK.ahk
 #Include .\MINIDUMP_READ_MEMORY_FAILURE_CALLBACK.ahk
+#Include .\MINIDUMP_VM_QUERY_CALLBACK.ahk
 #Include .\MINIDUMP_VM_PRE_READ_CALLBACK.ahk
 #Include .\MINIDUMP_VM_POST_READ_CALLBACK.ahk
 
@@ -43,11 +47,14 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
      * A handle to the process that contains the callback function.
      * 
      * This member is not used if <b>CallbackType</b> is <b>IoStartCallback</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ProcessHandle {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    ProcessHandle{
+        get {
+            if(!this.HasProp("__ProcessHandle"))
+                this.__ProcessHandle := HANDLE(8, this)
+            return this.__ProcessHandle
+        }
     }
 
     /**
@@ -74,7 +81,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Thread{
         get {
             if(!this.HasProp("__Thread"))
-                this.__Thread := MINIDUMP_THREAD_CALLBACK(this.ptr + 24)
+                this.__Thread := MINIDUMP_THREAD_CALLBACK(24, this)
             return this.__Thread
         }
     }
@@ -85,7 +92,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ThreadEx{
         get {
             if(!this.HasProp("__ThreadEx"))
-                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(this.ptr + 24)
+                this.__ThreadEx := MINIDUMP_THREAD_EX_CALLBACK(24, this)
             return this.__ThreadEx
         }
     }
@@ -96,25 +103,31 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Module{
         get {
             if(!this.HasProp("__Module"))
-                this.__Module := MINIDUMP_MODULE_CALLBACK(this.ptr + 24)
+                this.__Module := MINIDUMP_MODULE_CALLBACK(24, this)
             return this.__Module
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {MINIDUMP_INCLUDE_THREAD_CALLBACK}
      */
-    IncludeThread {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    IncludeThread{
+        get {
+            if(!this.HasProp("__IncludeThread"))
+                this.__IncludeThread := MINIDUMP_INCLUDE_THREAD_CALLBACK(24, this)
+            return this.__IncludeThread
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {MINIDUMP_INCLUDE_MODULE_CALLBACK}
      */
-    IncludeModule {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    IncludeModule{
+        get {
+            if(!this.HasProp("__IncludeModule"))
+                this.__IncludeModule := MINIDUMP_INCLUDE_MODULE_CALLBACK(24, this)
+            return this.__IncludeModule
+        }
     }
 
     /**
@@ -123,7 +136,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     Io{
         get {
             if(!this.HasProp("__Io"))
-                this.__Io := MINIDUMP_IO_CALLBACK(this.ptr + 24)
+                this.__Io := MINIDUMP_IO_CALLBACK(24, this)
             return this.__Io
         }
     }
@@ -134,7 +147,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     ReadMemoryFailure{
         get {
             if(!this.HasProp("__ReadMemoryFailure"))
-                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(this.ptr + 24)
+                this.__ReadMemoryFailure := MINIDUMP_READ_MEMORY_FAILURE_CALLBACK(24, this)
             return this.__ReadMemoryFailure
         }
     }
@@ -148,11 +161,14 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {MINIDUMP_VM_QUERY_CALLBACK}
      */
-    VmQuery {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+    VmQuery{
+        get {
+            if(!this.HasProp("__VmQuery"))
+                this.__VmQuery := MINIDUMP_VM_QUERY_CALLBACK(24, this)
+            return this.__VmQuery
+        }
     }
 
     /**
@@ -161,7 +177,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPreRead{
         get {
             if(!this.HasProp("__VmPreRead"))
-                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(this.ptr + 24)
+                this.__VmPreRead := MINIDUMP_VM_PRE_READ_CALLBACK(24, this)
             return this.__VmPreRead
         }
     }
@@ -172,7 +188,7 @@ class MINIDUMP_CALLBACK_INPUT extends Win32Struct
     VmPostRead{
         get {
             if(!this.HasProp("__VmPostRead"))
-                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(this.ptr + 24)
+                this.__VmPostRead := MINIDUMP_VM_POST_READ_CALLBACK(24, this)
             return this.__VmPostRead
         }
     }

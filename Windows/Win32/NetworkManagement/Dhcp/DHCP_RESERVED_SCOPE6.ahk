@@ -18,7 +18,7 @@ class DHCP_RESERVED_SCOPE6 extends Win32Struct
     ReservedIpAddress{
         get {
             if(!this.HasProp("__ReservedIpAddress"))
-                this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__ReservedIpAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__ReservedIpAddress
         }
     }
@@ -29,7 +29,7 @@ class DHCP_RESERVED_SCOPE6 extends Win32Struct
     ReservedIpSubnetAddress{
         get {
             if(!this.HasProp("__ReservedIpSubnetAddress"))
-                this.__ReservedIpSubnetAddress := DHCP_IPV6_ADDRESS(this.ptr + 16)
+                this.__ReservedIpSubnetAddress := DHCP_IPV6_ADDRESS(16, this)
             return this.__ReservedIpSubnetAddress
         }
     }

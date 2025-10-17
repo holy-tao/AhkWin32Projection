@@ -21,7 +21,7 @@ class TOKEN_ORIGIN extends Win32Struct
     OriginatingLogonSession{
         get {
             if(!this.HasProp("__OriginatingLogonSession"))
-                this.__OriginatingLogonSession := LUID(this.ptr + 0)
+                this.__OriginatingLogonSession := LUID(0, this)
             return this.__OriginatingLogonSession
         }
     }

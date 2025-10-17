@@ -26,7 +26,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := LSA_UNICODE_STRING(this.ptr + 8)
+                this.__DomainName := LSA_UNICODE_STRING(8, this)
             return this.__DomainName
         }
     }
@@ -37,7 +37,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     AccountName{
         get {
             if(!this.HasProp("__AccountName"))
-                this.__AccountName := LSA_UNICODE_STRING(this.ptr + 24)
+                this.__AccountName := LSA_UNICODE_STRING(24, this)
             return this.__AccountName
         }
     }
@@ -48,7 +48,7 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     OldPassword{
         get {
             if(!this.HasProp("__OldPassword"))
-                this.__OldPassword := LSA_UNICODE_STRING(this.ptr + 40)
+                this.__OldPassword := LSA_UNICODE_STRING(40, this)
             return this.__OldPassword
         }
     }
@@ -59,13 +59,13 @@ class MSV1_0_CHANGEPASSWORD_REQUEST extends Win32Struct
     NewPassword{
         get {
             if(!this.HasProp("__NewPassword"))
-                this.__NewPassword := LSA_UNICODE_STRING(this.ptr + 56)
+                this.__NewPassword := LSA_UNICODE_STRING(56, this)
             return this.__NewPassword
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Impersonating {
         get => NumGet(this, 72, "char")

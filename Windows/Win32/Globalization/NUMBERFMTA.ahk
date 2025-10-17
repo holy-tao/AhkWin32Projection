@@ -51,7 +51,7 @@ class NUMBERFMTA extends Win32Struct
 
     /**
      * Pointer to a null-terminated decimal separator string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDecimalSep {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class NUMBERFMTA extends Win32Struct
 
     /**
      * Pointer to a null-terminated thousand separator string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpThousandSep {
         get => NumGet(this, 24, "ptr")

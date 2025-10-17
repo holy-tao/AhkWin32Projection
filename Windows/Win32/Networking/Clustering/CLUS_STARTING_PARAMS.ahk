@@ -30,7 +30,7 @@ class CLUS_STARTING_PARAMS extends Win32Struct
 
     /**
      * Indicates whether this particular start of the Cluster service represents a form or a join operation.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bForm {
         get => NumGet(this, 4, "int")
@@ -39,7 +39,7 @@ class CLUS_STARTING_PARAMS extends Win32Struct
 
     /**
      * Indicates whether this version of the Cluster service has ever started on the node.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFirst {
         get => NumGet(this, 8, "int")

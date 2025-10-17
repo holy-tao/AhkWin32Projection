@@ -34,7 +34,7 @@ class SEALING_TIMESTAMP_ATTRIBUTE extends Win32Struct
     sealTimeStampToken{
         get {
             if(!this.HasProp("__sealTimeStampToken"))
-                this.__sealTimeStampToken := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__sealTimeStampToken := CRYPT_INTEGER_BLOB(8, this)
             return this.__sealTimeStampToken
         }
     }

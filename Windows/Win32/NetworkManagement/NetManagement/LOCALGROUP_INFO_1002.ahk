@@ -15,7 +15,7 @@ class LOCALGROUP_INFO_1002 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies a remark associated with the local group. This member can be a null string. The comment can have as many as MAXCOMMENTSZ characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrpi1002_comment {
         get => NumGet(this, 0, "ptr")

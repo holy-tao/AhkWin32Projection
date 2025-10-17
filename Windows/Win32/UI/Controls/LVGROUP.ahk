@@ -44,7 +44,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the header text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the header text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHeader {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the footer text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the footer text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszFooter {
         get => NumGet(this, 24, "ptr")
@@ -128,7 +128,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the subtitle text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the subtitle text. This element is drawn under the header text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSubtitle {
         get => NumGet(this, 56, "ptr")
@@ -150,7 +150,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the text for a task link when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the task text. This item is drawn right-aligned opposite the header text. When clicked by the user, the task link generates an <a href="https://docs.microsoft.com/windows/desktop/Controls/lvn-linkclick">LVN_LINKCLICK</a> notification.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszTask {
         get => NumGet(this, 72, "ptr")
@@ -172,7 +172,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the top description text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the top description text. This item is drawn opposite the title image when there is a title image, no extended image, and <b>uAlign</b>==<b>LVGA_HEADER_CENTER</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDescriptionTop {
         get => NumGet(this, 88, "ptr")
@@ -194,7 +194,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * Pointer to a null-terminated string that contains the bottom description text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the bottom description text. This item is drawn under the top description text when there is a title image, no extended image, and <b>uAlign</b>==<b>LVGA_HEADER_CENTER</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDescriptionBottom {
         get => NumGet(this, 104, "ptr")
@@ -260,7 +260,7 @@ class LVGROUP extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a></b>
      * 
      * <b>NULL</b> if group is not a subset. Pointer to a null-terminated string that contains the subset title text when item information is being set. If group information is being retrieved, this member specifies the address of the buffer that receives the subset title text.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSubsetTitle {
         get => NumGet(this, 136, "ptr")
@@ -278,12 +278,8 @@ class LVGROUP extends Win32Struct
         set => NumPut("uint", value, this, 144)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 152
     }
 }

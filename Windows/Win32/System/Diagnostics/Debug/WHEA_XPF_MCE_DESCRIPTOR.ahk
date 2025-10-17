@@ -44,7 +44,7 @@ class WHEA_XPF_MCE_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MCE_FLAGS(this.ptr + 8)
+                this.__Flags := XPF_MCE_FLAGS(8, this)
             return this.__Flags
         }
     }

@@ -24,7 +24,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
     ClientIpAddress{
         get {
             if(!this.HasProp("__ClientIpAddress"))
-                this.__ClientIpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__ClientIpAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__ClientIpAddress
         }
     }
@@ -36,7 +36,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
     ClientDUID{
         get {
             if(!this.HasProp("__ClientDUID"))
-                this.__ClientDUID := DHCP_BINARY_DATA(this.ptr + 16)
+                this.__ClientDUID := DHCP_BINARY_DATA(16, this)
             return this.__ClientDUID
         }
     }
@@ -90,7 +90,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string containing the name of the DHCPv6 client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClientName {
         get => NumGet(this, 40, "ptr")
@@ -99,7 +99,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string containing a comment relating to the DHCPv6 client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ClientComment {
         get => NumGet(this, 48, "ptr")
@@ -113,7 +113,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
     ClientValidLeaseExpires{
         get {
             if(!this.HasProp("__ClientValidLeaseExpires"))
-                this.__ClientValidLeaseExpires := DATE_TIME(this.ptr + 56)
+                this.__ClientValidLeaseExpires := DATE_TIME(56, this)
             return this.__ClientValidLeaseExpires
         }
     }
@@ -125,7 +125,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
     ClientPrefLeaseExpires{
         get {
             if(!this.HasProp("__ClientPrefLeaseExpires"))
-                this.__ClientPrefLeaseExpires := DATE_TIME(this.ptr + 64)
+                this.__ClientPrefLeaseExpires := DATE_TIME(64, this)
             return this.__ClientPrefLeaseExpires
         }
     }
@@ -137,7 +137,7 @@ class DHCP_CLIENT_INFO_V6 extends Win32Struct
     OwnerHost{
         get {
             if(!this.HasProp("__OwnerHost"))
-                this.__OwnerHost := DHCP_HOST_INFO_V6(this.ptr + 72)
+                this.__OwnerHost := DHCP_HOST_INFO_V6(72, this)
             return this.__OwnerHost
         }
     }

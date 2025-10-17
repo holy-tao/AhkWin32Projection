@@ -36,7 +36,7 @@ class GNSS_ERRORINFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsRecoverable {
         get => NumGet(this, 12, "int")

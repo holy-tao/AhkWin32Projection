@@ -24,7 +24,7 @@ class DD_CREATEPALETTEDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/windows/desktop/api/ddrawint/ns-ddrawint-dd_palette_global">DD_PALETTE_GLOBAL</a> structure representing the DirectDrawPalette object.
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<DD_PALETTE_GLOBAL>}
      */
     lpDDPalette {
         get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class DD_CREATEPALETTEDATA extends Win32Struct
 
     /**
      * Specifies a BOOL value that is set to <b>TRUE</b> to indicate that this process has exclusive mode and <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     is_excl {
         get => NumGet(this, 40, "int")

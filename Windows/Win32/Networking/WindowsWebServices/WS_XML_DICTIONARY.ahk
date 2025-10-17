@@ -86,7 +86,7 @@ class WS_XML_DICTIONARY extends Win32Struct
      *         
      * 
      * If this is <b>TRUE</b>, then the strings can be manipulated more efficiently.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isConst {
         get => NumGet(this, 20, "int")

@@ -26,14 +26,14 @@ class DHCP_HOST_INFO_V6 extends Win32Struct
     IpAddress{
         get {
             if(!this.HasProp("__IpAddress"))
-                this.__IpAddress := DHCP_IPV6_ADDRESS(this.ptr + 0)
+                this.__IpAddress := DHCP_IPV6_ADDRESS(0, this)
             return this.__IpAddress
         }
     }
 
     /**
      * Pointer to a Unicode string that contains the NetBIOS name of the DHCPv6 server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NetBiosName {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DHCP_HOST_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the network name of the DHCPv6 server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     HostName {
         get => NumGet(this, 24, "ptr")

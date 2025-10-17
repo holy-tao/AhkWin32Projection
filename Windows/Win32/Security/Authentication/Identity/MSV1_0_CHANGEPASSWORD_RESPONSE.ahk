@@ -21,7 +21,7 @@ class MSV1_0_CHANGEPASSWORD_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     PasswordInfoValid {
         get => NumGet(this, 4, "char")
@@ -34,7 +34,7 @@ class MSV1_0_CHANGEPASSWORD_RESPONSE extends Win32Struct
     DomainPasswordInfo{
         get {
             if(!this.HasProp("__DomainPasswordInfo"))
-                this.__DomainPasswordInfo := DOMAIN_PASSWORD_INFORMATION(this.ptr + 8)
+                this.__DomainPasswordInfo := DOMAIN_PASSWORD_INFORMATION(8, this)
             return this.__DomainPasswordInfo
         }
     }

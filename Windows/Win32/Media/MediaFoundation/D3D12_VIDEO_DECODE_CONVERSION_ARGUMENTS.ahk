@@ -24,7 +24,7 @@ class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct
 
     /**
      * A boolean value indicating whether decode conversion should be used.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

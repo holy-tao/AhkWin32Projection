@@ -21,7 +21,7 @@ class MI_ConstReal32AField extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := MI_ConstReal32A(this.ptr + 0)
+                this.__value := MI_ConstReal32A(0, this)
             return this.__value
         }
     }

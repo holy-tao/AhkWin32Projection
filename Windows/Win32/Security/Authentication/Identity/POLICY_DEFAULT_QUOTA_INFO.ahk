@@ -18,7 +18,7 @@ class POLICY_DEFAULT_QUOTA_INFO extends Win32Struct
     QuotaLimits{
         get {
             if(!this.HasProp("__QuotaLimits"))
-                this.__QuotaLimits := QUOTA_LIMITS(this.ptr + 0)
+                this.__QuotaLimits := QUOTA_LIMITS(0, this)
             return this.__QuotaLimits
         }
     }

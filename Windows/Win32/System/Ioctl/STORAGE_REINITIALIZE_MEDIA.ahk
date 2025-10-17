@@ -11,6 +11,40 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
 
     static packingSize => 4
 
+    class _SanitizeOption extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 4
+
+        /**
+         * This bitfield backs the following members:
+         * - SanitizeMethod
+         * - DisallowUnrestrictedSanitizeExit
+         * - Reserved
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SanitizeMethod {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        DisallowUnrestrictedSanitizeExit {
+            get => (this._bitfield >> 4) & 0x1
+            set => this._bitfield := ((value & 0x1) << 4) | (this._bitfield & ~(0x1 << 4))
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */
@@ -36,10 +70,13 @@ class STORAGE_REINITIALIZE_MEDIA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_SanitizeOption}
      */
-    SanitizeOption {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+    SanitizeOption{
+        get {
+            if(!this.HasProp("__SanitizeOption"))
+                this.__SanitizeOption := %this.__Class%._SanitizeOption(12, this)
+            return this.__SanitizeOption
+        }
     }
 }

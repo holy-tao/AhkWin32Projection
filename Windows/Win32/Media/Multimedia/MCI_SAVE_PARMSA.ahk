@@ -21,7 +21,7 @@ class MCI_SAVE_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpfilename {
         get => NumGet(this, 8, "ptr")

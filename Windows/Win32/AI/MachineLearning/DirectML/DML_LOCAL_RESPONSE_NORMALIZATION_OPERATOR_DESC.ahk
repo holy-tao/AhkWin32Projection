@@ -39,7 +39,7 @@ class DML_LOCAL_RESPONSE_NORMALIZATION_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the LRN layer sums across channels; otherwise, **FALSE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     CrossChannel {
         get => NumGet(this, 16, "int")

@@ -27,6 +27,20 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
         set => NumPut("int", value, this, 0)
     }
 
+    class _VertexBuffer extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Slot {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _Constant extends Win32Struct {
         static sizeof => 12
         static packingSize => 8
@@ -57,6 +71,48 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     
     }
 
+    class _ConstantBufferView extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RootParameterIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _ShaderResourceView extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RootParameterIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
+    class _UnorderedAccessView extends Win32Struct {
+        static sizeof => 12
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        RootParameterIndex {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
+    }
+
     class _IncrementingConstant extends Win32Struct {
         static sizeof => 12
         static packingSize => 8
@@ -80,11 +136,14 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {_VertexBuffer}
      */
-    VertexBuffer {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    VertexBuffer{
+        get {
+            if(!this.HasProp("__VertexBuffer"))
+                this.__VertexBuffer := %this.__Class%._VertexBuffer(8, this)
+            return this.__VertexBuffer
+        }
     }
 
     /**
@@ -93,33 +152,42 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     Constant{
         get {
             if(!this.HasProp("__Constant"))
-                this.__Constant := %this.__Class%._Constant(this.ptr + 8)
+                this.__Constant := %this.__Class%._Constant(8, this)
             return this.__Constant
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ConstantBufferView}
      */
-    ConstantBufferView {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    ConstantBufferView{
+        get {
+            if(!this.HasProp("__ConstantBufferView"))
+                this.__ConstantBufferView := %this.__Class%._ConstantBufferView(8, this)
+            return this.__ConstantBufferView
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_ShaderResourceView}
      */
-    ShaderResourceView {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    ShaderResourceView{
+        get {
+            if(!this.HasProp("__ShaderResourceView"))
+                this.__ShaderResourceView := %this.__Class%._ShaderResourceView(8, this)
+            return this.__ShaderResourceView
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {_UnorderedAccessView}
      */
-    UnorderedAccessView {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    UnorderedAccessView{
+        get {
+            if(!this.HasProp("__UnorderedAccessView"))
+                this.__UnorderedAccessView := %this.__Class%._UnorderedAccessView(8, this)
+            return this.__UnorderedAccessView
+        }
     }
 
     /**
@@ -128,7 +196,7 @@ class D3D12_INDIRECT_ARGUMENT_DESC extends Win32Struct
     IncrementingConstant{
         get {
             if(!this.HasProp("__IncrementingConstant"))
-                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(this.ptr + 8)
+                this.__IncrementingConstant := %this.__Class%._IncrementingConstant(8, this)
             return this.__IncrementingConstant
         }
     }

@@ -28,7 +28,7 @@ class INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     canTransformMultipleBlocks {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     canReuseTransform {
         get => NumGet(this, 12, "int")

@@ -42,7 +42,7 @@ class DEVICE_DATA_SET_SCRUB_EX_OUTPUT extends Win32Struct
     ParityExtent{
         get {
             if(!this.HasProp("__ParityExtent"))
-                this.__ParityExtent := DEVICE_DATA_SET_RANGE(this.ptr + 24)
+                this.__ParityExtent := DEVICE_DATA_SET_RANGE(24, this)
             return this.__ParityExtent
         }
     }

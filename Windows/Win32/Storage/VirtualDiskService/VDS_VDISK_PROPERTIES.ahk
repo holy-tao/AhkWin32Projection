@@ -39,7 +39,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
     VirtualDeviceType{
         get {
             if(!this.HasProp("__VirtualDeviceType"))
-                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(this.ptr + 16)
+                this.__VirtualDeviceType := VIRTUAL_STORAGE_TYPE(16, this)
             return this.__VirtualDeviceType
         }
     }
@@ -64,7 +64,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and directory path of the backing file for the virtual disk.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pPath {
         get => NumGet(this, 48, "ptr")
@@ -73,7 +73,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string containing the name and device path of the disk device object for the volume where the virtual disk resides.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pDeviceName {
         get => NumGet(this, 56, "ptr")
@@ -91,7 +91,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * <b>TRUE</b> if the virtual disk is a child virtual disk, or <b>FALSE</b> otherwise.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsChild {
         get => NumGet(this, 68, "int")
@@ -100,7 +100,7 @@ class VDS_VDISK_PROPERTIES extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated wide-character string that contains an optional path to a parent virtual disk object.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pParentPath {
         get => NumGet(this, 72, "ptr")

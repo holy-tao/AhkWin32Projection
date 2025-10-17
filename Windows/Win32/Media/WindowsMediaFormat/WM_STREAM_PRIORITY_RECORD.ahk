@@ -29,7 +29,7 @@ class WM_STREAM_PRIORITY_RECORD extends Win32Struct
 
     /**
      * Flag indicating whether the listed stream is mandatory. Mandatory streams will not be dropped regardless of their position in the priority list.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fMandatory {
         get => NumGet(this, 4, "int")

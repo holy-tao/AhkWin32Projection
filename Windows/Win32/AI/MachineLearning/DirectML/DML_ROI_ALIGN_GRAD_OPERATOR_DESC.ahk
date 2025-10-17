@@ -124,7 +124,7 @@ class DML_ROI_ALIGN_GRAD_OPERATOR_DESC extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     AlignRegionsToCorners {
         get => NumGet(this, 80, "int")

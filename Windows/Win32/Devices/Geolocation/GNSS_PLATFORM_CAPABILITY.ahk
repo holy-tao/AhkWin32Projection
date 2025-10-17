@@ -28,7 +28,7 @@ class GNSS_PLATFORM_CAPABILITY extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportAgnssInjection {
         get => NumGet(this, 8, "int")

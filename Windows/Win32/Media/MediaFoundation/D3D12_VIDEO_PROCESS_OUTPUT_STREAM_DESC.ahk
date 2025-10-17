@@ -79,14 +79,14 @@ class D3D12_VIDEO_PROCESS_OUTPUT_STREAM_DESC extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 32)
+                this.__FrameRate := DXGI_RATIONAL(32, this)
             return this.__FrameRate
         }
     }
 
     /**
      * If TRUE, stereo output is enabled. Otherwise, the video processor produces mono video frames.
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnableStereo {
         get => NumGet(this, 40, "int")

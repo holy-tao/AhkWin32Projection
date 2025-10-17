@@ -61,7 +61,7 @@ class VTableProvStruc extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszProvName {
         get => NumGet(this, 48, "ptr")

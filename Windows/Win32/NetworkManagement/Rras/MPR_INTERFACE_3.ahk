@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Networking\WinSock\IN6_ADDR.ahk
 
 /**
@@ -44,16 +45,19 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * A handle to the interface.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hInterface {
-        get => NumGet(this, 520, "ptr")
-        set => NumPut("ptr", value, this, 520)
+    hInterface{
+        get {
+            if(!this.HasProp("__hInterface"))
+                this.__hInterface := HANDLE(520, this)
+            return this.__hInterface
+        }
     }
 
     /**
      * A value that specifies whether the interface is enabled. This value is <b>TRUE</b> if the interface is enabled, <b>FALSE</b> if the interface is administratively disabled.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEnabled {
         get => NumGet(this, 528, "int")
@@ -354,7 +358,7 @@ class MPR_INTERFACE_3 extends Win32Struct
 
     /**
      * A pointer to a list of consecutive null-terminated Unicode strings. The last string is terminated by two consecutive null characters. The strings are alternate phone numbers that the router dials, in the order listed, if the primary number fails to connect. For more information, see <b>szLocalPhoneNumber</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szAlternates {
         get => NumGet(this, 816, "ptr")
@@ -842,7 +846,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     ipv6addrDns{
         get {
             if(!this.HasProp("__ipv6addrDns"))
-                this.__ipv6addrDns := IN6_ADDR(this.ptr + 2488)
+                this.__ipv6addrDns := IN6_ADDR(2488, this)
             return this.__ipv6addrDns
         }
     }
@@ -854,7 +858,7 @@ class MPR_INTERFACE_3 extends Win32Struct
     ipv6addrDnsAlt{
         get {
             if(!this.HasProp("__ipv6addrDnsAlt"))
-                this.__ipv6addrDnsAlt := IN6_ADDR(this.ptr + 2504)
+                this.__ipv6addrDnsAlt := IN6_ADDR(2504, this)
             return this.__ipv6addrDnsAlt
         }
     }

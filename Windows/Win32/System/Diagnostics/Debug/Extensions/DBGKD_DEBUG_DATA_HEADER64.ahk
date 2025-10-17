@@ -18,7 +18,7 @@ class DBGKD_DEBUG_DATA_HEADER64 extends Win32Struct
     List{
         get {
             if(!this.HasProp("__List"))
-                this.__List := LIST_ENTRY64(this.ptr + 0)
+                this.__List := LIST_ENTRY64(0, this)
             return this.__List
         }
     }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\BITMAP.ahk
 #Include .\BITMAPINFOHEADER.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The DIBSECTION structure contains information about a DIB created by calling the CreateDIBSection function.
@@ -22,7 +23,7 @@ class DIBSECTION extends Win32Struct
     dsBm{
         get {
             if(!this.HasProp("__dsBm"))
-                this.__dsBm := BITMAP(this.ptr + 0)
+                this.__dsBm := BITMAP(0, this)
             return this.__dsBm
         }
     }
@@ -34,7 +35,7 @@ class DIBSECTION extends Win32Struct
     dsBmih{
         get {
             if(!this.HasProp("__dsBmih"))
-                this.__dsBmih := BITMAPINFOHEADER(this.ptr + 32)
+                this.__dsBmih := BITMAPINFOHEADER(32, this)
             return this.__dsBmih
         }
     }
@@ -55,11 +56,14 @@ class DIBSECTION extends Win32Struct
      * Contains a handle to the file mapping object that the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-createdibsection">CreateDIBSection</a> function used to create the DIB. 
      * 			 If <b>CreateDIBSection</b> was called with a <b>NULL</b> value for its <i>hSection</i> parameter, 
      * 			 causing the system to allocate memory for the bitmap, the <i>dshSection</i> member will be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    dshSection {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+    dshSection{
+        get {
+            if(!this.HasProp("__dshSection"))
+                this.__dshSection := HANDLE(88, this)
+            return this.__dshSection
+        }
     }
 
     /**

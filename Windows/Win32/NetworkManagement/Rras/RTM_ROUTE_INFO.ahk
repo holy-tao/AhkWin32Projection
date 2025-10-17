@@ -264,7 +264,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     PrefInfo{
         get {
             if(!this.HasProp("__PrefInfo"))
-                this.__PrefInfo := RTM_PREF_INFO(this.ptr + 32)
+                this.__PrefInfo := RTM_PREF_INFO(32, this)
             return this.__PrefInfo
         }
     }
@@ -294,7 +294,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     NextHopsList{
         get {
             if(!this.HasProp("__NextHopsList"))
-                this.__NextHopsList := RTM_NEXTHOP_LIST(this.ptr + 56)
+                this.__NextHopsList := RTM_NEXTHOP_LIST(56, this)
             return this.__NextHopsList
         }
     }

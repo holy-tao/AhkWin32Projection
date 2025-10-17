@@ -1,8 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\SURFACEALIGNMENT.ahk
 #Include .\HEAPALIGNMENT.ahk
 #Include .\DDSCAPSEX.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The VMEMHEAP structure contains information about the heap.
@@ -104,7 +106,7 @@ class VMEMHEAP extends Win32Struct
     Alignment{
         get {
             if(!this.HasProp("__Alignment"))
-                this.__Alignment := HEAPALIGNMENT(this.ptr + 56)
+                this.__Alignment := HEAPALIGNMENT(56, this)
             return this.__Alignment
         }
     }
@@ -116,7 +118,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 184)
+                this.__ddsCapsEx := DDSCAPSEX(184, this)
             return this.__ddsCapsEx
         }
     }
@@ -128,7 +130,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsExAlt{
         get {
             if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(this.ptr + 200)
+                this.__ddsCapsExAlt := DDSCAPSEX(200, this)
             return this.__ddsCapsExAlt
         }
     }
@@ -144,11 +146,14 @@ class VMEMHEAP extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hdevAGP {
-        get => NumGet(this, 224, "ptr")
-        set => NumPut("ptr", value, this, 224)
+    hdevAGP{
+        get {
+            if(!this.HasProp("__hdevAGP"))
+                this.__hdevAGP := HANDLE(224, this)
+            return this.__hdevAGP
+        }
     }
 
     /**

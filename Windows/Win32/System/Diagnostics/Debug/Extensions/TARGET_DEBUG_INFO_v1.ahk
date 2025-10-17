@@ -90,7 +90,7 @@ class TARGET_DEBUG_INFO_v1 extends Win32Struct
     OsInfo{
         get {
             if(!this.HasProp("__OsInfo"))
-                this.__OsInfo := OS_INFO_v1(this.ptr + 64)
+                this.__OsInfo := OS_INFO_v1(64, this)
             return this.__OsInfo
         }
     }
@@ -101,7 +101,7 @@ class TARGET_DEBUG_INFO_v1 extends Win32Struct
     Cpu{
         get {
             if(!this.HasProp("__Cpu"))
-                this.__Cpu := CPU_INFO_v1(this.ptr + 416)
+                this.__Cpu := CPU_INFO_v1(416, this)
             return this.__Cpu
         }
     }

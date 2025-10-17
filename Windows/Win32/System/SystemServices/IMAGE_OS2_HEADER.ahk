@@ -20,7 +20,7 @@ class IMAGE_OS2_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     ne_ver {
         get => NumGet(this, 2, "char")
@@ -28,7 +28,7 @@ class IMAGE_OS2_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     ne_rev {
         get => NumGet(this, 3, "char")

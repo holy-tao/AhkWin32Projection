@@ -21,7 +21,7 @@ class WS_XML_TEXT_NODE extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_XML_NODE(this.ptr + 0)
+                this.__node := WS_XML_NODE(0, this)
             return this.__node
         }
     }

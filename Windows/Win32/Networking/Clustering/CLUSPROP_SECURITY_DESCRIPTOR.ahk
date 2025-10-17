@@ -22,7 +22,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := CLUSPROP_VALUE(this.ptr + 0)
+                this.__Base := CLUSPROP_VALUE(0, this)
             return this.__Base
         }
     }
@@ -33,7 +33,7 @@ class CLUSPROP_SECURITY_DESCRIPTOR extends Win32Struct
     sd{
         get {
             if(!this.HasProp("__sd"))
-                this.__sd := SECURITY_DESCRIPTOR_RELATIVE(this.ptr + 16)
+                this.__sd := SECURITY_DESCRIPTOR_RELATIVE(16, this)
             return this.__sd
         }
     }

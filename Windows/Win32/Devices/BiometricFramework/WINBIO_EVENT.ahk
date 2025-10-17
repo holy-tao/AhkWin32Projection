@@ -60,7 +60,7 @@ class WINBIO_EVENT extends Win32Struct
         Identity{
             get {
                 if(!this.HasProp("__Identity"))
-                    this.__Identity := WINBIO_IDENTITY(this.ptr + 8)
+                    this.__Identity := WINBIO_IDENTITY(8, this)
                 return this.__Identity
             }
         }
@@ -83,13 +83,27 @@ class WINBIO_EVENT extends Win32Struct
     
     }
 
+    class _Error extends Win32Struct {
+        static sizeof => 100
+        static packingSize => 8
+
+        /**
+         * @type {HRESULT}
+         */
+        ErrorCode {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {_Unclaimed}
      */
     Unclaimed{
         get {
             if(!this.HasProp("__Unclaimed"))
-                this.__Unclaimed := %this.__Class%._Unclaimed(this.ptr + 8)
+                this.__Unclaimed := %this.__Class%._Unclaimed(8, this)
             return this.__Unclaimed
         }
     }
@@ -100,16 +114,19 @@ class WINBIO_EVENT extends Win32Struct
     UnclaimedIdentify{
         get {
             if(!this.HasProp("__UnclaimedIdentify"))
-                this.__UnclaimedIdentify := %this.__Class%._UnclaimedIdentify(this.ptr + 8)
+                this.__UnclaimedIdentify := %this.__Class%._UnclaimedIdentify(8, this)
             return this.__UnclaimedIdentify
         }
     }
 
     /**
-     * @type {HRESULT}
+     * @type {_Error}
      */
-    Error {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+    Error{
+        get {
+            if(!this.HasProp("__Error"))
+                this.__Error := %this.__Class%._Error(8, this)
+            return this.__Error
+        }
     }
 }

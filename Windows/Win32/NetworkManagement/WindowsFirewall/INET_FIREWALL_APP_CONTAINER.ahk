@@ -43,7 +43,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * The app container's globally unique name.
      * 
      *  Also referred to as the  Package Family Name, for the app container of a Windows Store app.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     appContainerName {
         get => NumGet(this, 16, "ptr")
@@ -54,7 +54,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * Friendly name of the app container
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     displayName {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A description of the app container (its use, the objective of the application that uses it, etc.)
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     description {
         get => NumGet(this, 32, "ptr")
@@ -81,7 +81,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     capabilities{
         get {
             if(!this.HasProp("__capabilities"))
-                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(this.ptr + 40)
+                this.__capabilities := INET_FIREWALL_AC_CAPABILITIES(40, this)
             return this.__capabilities
         }
     }
@@ -95,14 +95,14 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
     binaries{
         get {
             if(!this.HasProp("__binaries"))
-                this.__binaries := INET_FIREWALL_AC_BINARIES(this.ptr + 56)
+                this.__binaries := INET_FIREWALL_AC_BINARIES(56, this)
             return this.__binaries
         }
     }
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     workingDirectory {
         get => NumGet(this, 72, "ptr")
@@ -111,7 +111,7 @@ class INET_FIREWALL_APP_CONTAINER extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     packageFullName {
         get => NumGet(this, 80, "ptr")

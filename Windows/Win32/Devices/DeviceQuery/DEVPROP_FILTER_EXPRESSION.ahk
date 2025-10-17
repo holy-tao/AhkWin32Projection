@@ -28,7 +28,7 @@ class DEVPROP_FILTER_EXPRESSION extends Win32Struct
     Property{
         get {
             if(!this.HasProp("__Property"))
-                this.__Property := DEVPROPERTY(this.ptr + 8)
+                this.__Property := DEVPROPERTY(8, this)
             return this.__Property
         }
     }

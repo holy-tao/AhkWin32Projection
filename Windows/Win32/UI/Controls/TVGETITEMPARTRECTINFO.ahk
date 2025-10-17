@@ -17,7 +17,7 @@ class TVGETITEMPARTRECTINFO extends Win32Struct
      * Type: <b>HTREEITEM</b>
      * 
      * Handle to the parent item.
-     * @type {Pointer}
+     * @type {HTREEITEM}
      */
     hti {
         get => NumGet(this, 0, "ptr")

@@ -16,7 +16,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the URL in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszUrl {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the name in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the value in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszValue {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class XHR_COOKIE extends Win32Struct
 
     /**
      * A null-terminated string that specifies the user policy in the cookie.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszP3PPolicy {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class XHR_COOKIE extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(this.ptr + 32)
+                this.__ftExpires := FILETIME(32, this)
             return this.__ftExpires
         }
     }

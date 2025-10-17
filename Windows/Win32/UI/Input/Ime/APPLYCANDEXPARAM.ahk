@@ -20,7 +20,7 @@ class APPLYCANDEXPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpwstrDisplay {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class APPLYCANDEXPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpwstrReading {
         get => NumGet(this, 16, "ptr")

@@ -37,7 +37,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     dot11SSID{
         get {
             if(!this.HasProp("__dot11SSID"))
-                this.__dot11SSID := DOT11_SSID(this.ptr + 16)
+                this.__dot11SSID := DOT11_SSID(16, this)
             return this.__dot11SSID
         }
     }
@@ -51,7 +51,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bRestrictedScan {
         get => NumGet(this, 56, "char")
@@ -59,7 +59,7 @@ class DOT11_SCAN_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUseRequestIE {
         get => NumGet(this, 57, "char")

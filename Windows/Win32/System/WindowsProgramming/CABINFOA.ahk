@@ -13,7 +13,7 @@ class CABINFOA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszCab {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszInf {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class CABINFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pszSection {
         get => NumGet(this, 16, "ptr")

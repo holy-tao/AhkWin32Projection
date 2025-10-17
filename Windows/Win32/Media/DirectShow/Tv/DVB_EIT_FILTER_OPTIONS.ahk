@@ -15,7 +15,7 @@ class DVB_EIT_FILTER_OPTIONS extends Win32Struct
 
     /**
      * If this flag is <b>TRUE</b>, the number of the segment that is queried from the header must match the value of the <b>bSegment</b> structure member. Otherwise, the segment field is ignored.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fSpecifySegment {
         get => NumGet(this, 0, "int")

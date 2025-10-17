@@ -24,11 +24,40 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
         }
     
         /**
+         * This bitfield backs the following members:
+         * - Obsolete
+         * - ATR
+         * - ASCR
+         * - Reserved
          * @type {Integer}
          */
-        Anonymous {
+        _bitfield {
             get => NumGet(this, 2, "ushort")
             set => NumPut("ushort", value, this, 2)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Obsolete {
+            get => (this._bitfield >> 0) & 0x1
+            set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ATR {
+            get => (this._bitfield >> 1) & 0x1
+            set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ASCR {
+            get => (this._bitfield >> 2) & 0x1
+            set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
         }
     
         /**
@@ -47,7 +76,7 @@ class NVMEOF_CONNECT_RESPONSE extends Win32Struct
     Success{
         get {
             if(!this.HasProp("__Success"))
-                this.__Success := %this.__Class%._Success(this.ptr + 0)
+                this.__Success := %this.__Class%._Success(0, this)
             return this.__Success
         }
     }

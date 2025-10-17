@@ -12,11 +12,30 @@ class NVME_CDW11_GET_LOG_PAGE extends Win32Struct
     static packingSize => 4
 
     /**
+     * This bitfield backs the following members:
+     * - NUMDU
+     * - LogSpecificIdentifier
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NUMDU {
+        get => (this._bitfield >> 0) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 0) | (this._bitfield & ~(0xFFFF << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    LogSpecificIdentifier {
+        get => (this._bitfield >> 16) & 0xFFFF
+        set => this._bitfield := ((value & 0xFFFF) << 16) | (this._bitfield & ~(0xFFFF << 16))
     }
 
     /**

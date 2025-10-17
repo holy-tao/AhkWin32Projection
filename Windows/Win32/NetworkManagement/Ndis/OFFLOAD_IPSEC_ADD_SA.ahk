@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\OFFLOAD_ALGO_INFO.ahk
 #Include .\OFFLOAD_SECURITY_ASSOCIATION.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.NetworkManagement.Ndis
@@ -113,11 +114,14 @@ class OFFLOAD_IPSEC_ADD_SA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    OffloadHandle {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    OffloadHandle{
+        get {
+            if(!this.HasProp("__OffloadHandle"))
+                this.__OffloadHandle := HANDLE(64, this)
+            return this.__OffloadHandle
+        }
     }
 
     /**

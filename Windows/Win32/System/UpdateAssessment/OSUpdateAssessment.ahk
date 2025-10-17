@@ -17,7 +17,7 @@ class OSUpdateAssessment extends Win32Struct
 
     /**
      * <b>true</b> if the OS on the device is no longer supported by Microsoft and will no longer receive servicing updates; otherwise, <b>false</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isEndOfSupport {
         get => NumGet(this, 0, "int")
@@ -31,7 +31,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentForCurrent{
         get {
             if(!this.HasProp("__assessmentForCurrent"))
-                this.__assessmentForCurrent := UpdateAssessment(this.ptr + 8)
+                this.__assessmentForCurrent := UpdateAssessment(8, this)
             return this.__assessmentForCurrent
         }
     }
@@ -43,7 +43,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentForUpToDate{
         get {
             if(!this.HasProp("__assessmentForUpToDate"))
-                this.__assessmentForUpToDate := UpdateAssessment(this.ptr + 24)
+                this.__assessmentForUpToDate := UpdateAssessment(24, this)
             return this.__assessmentForUpToDate
         }
     }
@@ -64,7 +64,7 @@ class OSUpdateAssessment extends Win32Struct
     assessmentTime{
         get {
             if(!this.HasProp("__assessmentTime"))
-                this.__assessmentTime := FILETIME(this.ptr + 40)
+                this.__assessmentTime := FILETIME(40, this)
             return this.__assessmentTime
         }
     }
@@ -76,14 +76,14 @@ class OSUpdateAssessment extends Win32Struct
     releaseInfoTime{
         get {
             if(!this.HasProp("__releaseInfoTime"))
-                this.__releaseInfoTime := FILETIME(this.ptr + 48)
+                this.__releaseInfoTime := FILETIME(48, this)
             return this.__releaseInfoTime
         }
     }
 
     /**
      * The latest OS build that Microsoft has released. This value is used to determine whether a device is current.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     currentOSBuild {
         get => NumGet(this, 56, "ptr")
@@ -97,14 +97,14 @@ class OSUpdateAssessment extends Win32Struct
     currentOSReleaseTime{
         get {
             if(!this.HasProp("__currentOSReleaseTime"))
-                this.__currentOSReleaseTime := FILETIME(this.ptr + 64)
+                this.__currentOSReleaseTime := FILETIME(64, this)
             return this.__currentOSReleaseTime
         }
     }
 
     /**
      * The latest applicable OS build in the device's servicing train. This value is used to determine whether a device is up-to-date.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     upToDateOSBuild {
         get => NumGet(this, 72, "ptr")
@@ -118,7 +118,7 @@ class OSUpdateAssessment extends Win32Struct
     upToDateOSReleaseTime{
         get {
             if(!this.HasProp("__upToDateOSReleaseTime"))
-                this.__upToDateOSReleaseTime := FILETIME(this.ptr + 80)
+                this.__upToDateOSReleaseTime := FILETIME(80, this)
             return this.__upToDateOSReleaseTime
         }
     }

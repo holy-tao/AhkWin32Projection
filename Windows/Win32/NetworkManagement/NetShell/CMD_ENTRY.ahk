@@ -22,7 +22,7 @@ class CMD_ENTRY extends Win32Struct
 
     /**
      * The token (name) for the command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszCmdToken {
         get => NumGet(this, 0, "ptr")

@@ -34,7 +34,7 @@ class KSSTREAM_HEADER extends Win32Struct
     PresentationTime{
         get {
             if(!this.HasProp("__PresentationTime"))
-                this.__PresentationTime := KSTIME(this.ptr + 8)
+                this.__PresentationTime := KSTIME(8, this)
             return this.__PresentationTime
         }
     }

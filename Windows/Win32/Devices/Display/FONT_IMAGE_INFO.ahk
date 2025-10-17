@@ -18,7 +18,7 @@ class FONT_IMAGE_INFO extends Win32Struct
     FontSize{
         get {
             if(!this.HasProp("__FontSize"))
-                this.__FontSize := COORD(this.ptr + 0)
+                this.__FontSize := COORD(0, this)
             return this.__FontSize
         }
     }

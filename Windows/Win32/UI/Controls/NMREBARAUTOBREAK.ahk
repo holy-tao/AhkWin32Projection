@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\NMHDR.ahk
 
 /**
@@ -24,7 +25,7 @@ class NMREBARAUTOBREAK extends Win32Struct
     hdr{
         get {
             if(!this.HasProp("__hdr"))
-                this.__hdr := NMHDR(this.ptr + 0)
+                this.__hdr := NMHDR(0, this)
             return this.__hdr
         }
     }
@@ -55,7 +56,7 @@ class NMREBARAUTOBREAK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPARAM</a></b>
      * 
      * Application-defined value from the <b>lParam</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-rebarbandinfoa">REBARBANDINFO</a> structure that defines the rebar band.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 32, "ptr")
@@ -88,7 +89,7 @@ class NMREBARAUTOBREAK extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>BOOL</b> that indicates whether a break should occur.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAutoBreak {
         get => NumGet(this, 48, "int")

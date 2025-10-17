@@ -33,7 +33,7 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> is the shader is defined inline; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsInline {
         get => NumGet(this, 8, "int")
@@ -66,7 +66,7 @@ class D3D10_EFFECT_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * A string that constains a declaration of the <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-pipeline-stages">stream output </a> from a geometry shader.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SODecl {
         get => NumGet(this, 32, "ptr")

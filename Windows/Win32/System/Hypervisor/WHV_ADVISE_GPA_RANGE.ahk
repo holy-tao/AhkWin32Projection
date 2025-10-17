@@ -19,7 +19,7 @@ class WHV_ADVISE_GPA_RANGE extends Win32Struct
     Populate{
         get {
             if(!this.HasProp("__Populate"))
-                this.__Populate := WHV_ADVISE_GPA_RANGE_POPULATE(this.ptr + 0)
+                this.__Populate := WHV_ADVISE_GPA_RANGE_POPULATE(0, this)
             return this.__Populate
         }
     }

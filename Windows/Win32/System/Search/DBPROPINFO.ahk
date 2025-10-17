@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\Com\CY.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\Foundation\DECIMAL.ahk
 #Include ..\Variant\VARIANT.ahk
 
@@ -15,7 +16,7 @@ class DBPROPINFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszDescription {
         get => NumGet(this, 0, "ptr")
@@ -52,7 +53,7 @@ class DBPROPINFO extends Win32Struct
     vValues{
         get {
             if(!this.HasProp("__vValues"))
-                this.__vValues := VARIANT(this.ptr + 24)
+                this.__vValues := VARIANT(24, this)
             return this.__vValues
         }
     }

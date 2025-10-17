@@ -79,7 +79,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * 
      * > [!NOTE]
      * > It's not valid for *LogicOpEnable* and *BlendEnable* to both be **TRUE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     BlendEnable {
         get => NumGet(this, 0, "int")
@@ -93,7 +93,7 @@ class D3D11_RENDER_TARGET_BLEND_DESC1 extends Win32Struct
      * 
      * > [!NOTE]
      * > If you set *LogicOpEnable* to **TRUE**, then *BlendEnable* must be **FALSE**, and the system's [**D3D11_FEATURE_DATA_D3D11_OPTIONS::OutputMergerLogicOp**](../d3d11/ns-d3d11-d3d11_feature_data_d3d11_options.md) option must be **TRUE**.
-     * @type {Integer}
+     * @type {BOOL}
      */
     LogicOpEnable {
         get => NumGet(this, 4, "int")

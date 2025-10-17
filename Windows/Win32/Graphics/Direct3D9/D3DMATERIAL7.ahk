@@ -18,7 +18,7 @@ class D3DMATERIAL7 extends Win32Struct
     diffuse{
         get {
             if(!this.HasProp("__diffuse"))
-                this.__diffuse := D3DCOLORVALUE(this.ptr + 0)
+                this.__diffuse := D3DCOLORVALUE(0, this)
             return this.__diffuse
         }
     }
@@ -29,7 +29,7 @@ class D3DMATERIAL7 extends Win32Struct
     dcvDiffuse{
         get {
             if(!this.HasProp("__dcvDiffuse"))
-                this.__dcvDiffuse := D3DCOLORVALUE(this.ptr + 0)
+                this.__dcvDiffuse := D3DCOLORVALUE(0, this)
             return this.__dcvDiffuse
         }
     }
@@ -40,7 +40,7 @@ class D3DMATERIAL7 extends Win32Struct
     ambient{
         get {
             if(!this.HasProp("__ambient"))
-                this.__ambient := D3DCOLORVALUE(this.ptr + 16)
+                this.__ambient := D3DCOLORVALUE(16, this)
             return this.__ambient
         }
     }
@@ -51,7 +51,7 @@ class D3DMATERIAL7 extends Win32Struct
     dcvAmbient{
         get {
             if(!this.HasProp("__dcvAmbient"))
-                this.__dcvAmbient := D3DCOLORVALUE(this.ptr + 16)
+                this.__dcvAmbient := D3DCOLORVALUE(16, this)
             return this.__dcvAmbient
         }
     }
@@ -62,7 +62,7 @@ class D3DMATERIAL7 extends Win32Struct
     specular{
         get {
             if(!this.HasProp("__specular"))
-                this.__specular := D3DCOLORVALUE(this.ptr + 32)
+                this.__specular := D3DCOLORVALUE(32, this)
             return this.__specular
         }
     }
@@ -73,7 +73,7 @@ class D3DMATERIAL7 extends Win32Struct
     dcvSpecular{
         get {
             if(!this.HasProp("__dcvSpecular"))
-                this.__dcvSpecular := D3DCOLORVALUE(this.ptr + 32)
+                this.__dcvSpecular := D3DCOLORVALUE(32, this)
             return this.__dcvSpecular
         }
     }
@@ -84,7 +84,7 @@ class D3DMATERIAL7 extends Win32Struct
     emissive{
         get {
             if(!this.HasProp("__emissive"))
-                this.__emissive := D3DCOLORVALUE(this.ptr + 48)
+                this.__emissive := D3DCOLORVALUE(48, this)
             return this.__emissive
         }
     }
@@ -95,7 +95,7 @@ class D3DMATERIAL7 extends Win32Struct
     dcvEmissive{
         get {
             if(!this.HasProp("__dcvEmissive"))
-                this.__dcvEmissive := D3DCOLORVALUE(this.ptr + 48)
+                this.__dcvEmissive := D3DCOLORVALUE(48, this)
             return this.__dcvEmissive
         }
     }

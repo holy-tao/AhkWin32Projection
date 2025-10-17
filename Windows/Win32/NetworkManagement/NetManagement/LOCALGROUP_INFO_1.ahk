@@ -26,7 +26,7 @@ class LOCALGROUP_INFO_1 extends Win32Struct
      * 
      * This member is ignored when you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/lmaccess/nf-lmaccess-netlocalgroupsetinfo">NetLocalGroupSetInfo</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrpi1_name {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class LOCALGROUP_INFO_1 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains a remark associated with the local group. This member can be a null string. The comment can have as many as MAXCOMMENTSZ characters.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lgrpi1_comment {
         get => NumGet(this, 8, "ptr")

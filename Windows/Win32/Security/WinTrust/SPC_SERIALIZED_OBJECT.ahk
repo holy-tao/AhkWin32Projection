@@ -29,7 +29,7 @@ class SPC_SERIALIZED_OBJECT extends Win32Struct
     SerializedData{
         get {
             if(!this.HasProp("__SerializedData"))
-                this.__SerializedData := CRYPT_INTEGER_BLOB(this.ptr + 16)
+                this.__SerializedData := CRYPT_INTEGER_BLOB(16, this)
             return this.__SerializedData
         }
     }

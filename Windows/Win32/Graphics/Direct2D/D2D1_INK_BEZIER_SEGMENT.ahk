@@ -21,7 +21,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
     point1{
         get {
             if(!this.HasProp("__point1"))
-                this.__point1 := D2D1_INK_POINT(this.ptr + 0)
+                this.__point1 := D2D1_INK_POINT(0, this)
             return this.__point1
         }
     }
@@ -33,7 +33,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
     point2{
         get {
             if(!this.HasProp("__point2"))
-                this.__point2 := D2D1_INK_POINT(this.ptr + 16)
+                this.__point2 := D2D1_INK_POINT(16, this)
             return this.__point2
         }
     }
@@ -45,7 +45,7 @@ class D2D1_INK_BEZIER_SEGMENT extends Win32Struct
     point3{
         get {
             if(!this.HasProp("__point3"))
-                this.__point3 := D2D1_INK_POINT(this.ptr + 32)
+                this.__point3 := D2D1_INK_POINT(32, this)
             return this.__point3
         }
     }

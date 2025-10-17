@@ -15,7 +15,7 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * A tag string, in UNICODE.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszTag {
         get => NumGet(this, 0, "ptr")
@@ -80,7 +80,7 @@ class TAG_TYPE extends Win32Struct
 
     /**
      * This value specifies whether the tag is present. <b>TRUE</b> indicates the tag is present.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bPresent {
         get => NumGet(this, 12, "int")

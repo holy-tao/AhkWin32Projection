@@ -24,7 +24,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The cluster name that represents the cluster on the domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszClusterName {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The user name for the domain credentials.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUserName {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The password for the domain credentials.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszPassword {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * The domain name to join.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDomain {
         get => NumGet(this, 40, "ptr")
@@ -87,7 +87,7 @@ class CREATE_CLUSTER_NAME_ACCOUNT extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUpgradeVCOs {
         get => NumGet(this, 56, "char")

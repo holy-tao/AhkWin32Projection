@@ -34,7 +34,7 @@ class KSPROPERTY_DESCRIPTION extends Win32Struct
     PropTypeSet{
         get {
             if(!this.HasProp("__PropTypeSet"))
-                this.__PropTypeSet := KSIDENTIFIER(this.ptr + 8)
+                this.__PropTypeSet := KSIDENTIFIER(8, this)
             return this.__PropTypeSet
         }
     }

@@ -24,7 +24,7 @@ class FWPM_NET_EVENT0 extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := FWPM_NET_EVENT_HEADER0(this.ptr + 0)
+                this.__header := FWPM_NET_EVENT_HEADER0(0, this)
             return this.__header
         }
     }

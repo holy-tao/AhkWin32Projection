@@ -11,12 +11,66 @@ class NVME_CDW13_READ_WRITE extends Win32Struct
 
     static packingSize => 4
 
+    class _DSM extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 2
+
+        /**
+         * This bitfield backs the following members:
+         * - AccessFrequency
+         * - AccessLatency
+         * - SequentialRequest
+         * - Incompressible
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AccessFrequency {
+            get => (this._bitfield >> 0) & 0xF
+            set => this._bitfield := ((value & 0xF) << 0) | (this._bitfield & ~(0xF << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        AccessLatency {
+            get => (this._bitfield >> 4) & 0x3
+            set => this._bitfield := ((value & 0x3) << 4) | (this._bitfield & ~(0x3 << 4))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        SequentialRequest {
+            get => (this._bitfield >> 6) & 0x1
+            set => this._bitfield := ((value & 0x1) << 6) | (this._bitfield & ~(0x1 << 6))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        Incompressible {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+    }
+
     /**
-     * @type {Integer}
+     * @type {_DSM}
      */
-    DSM {
-        get => NumGet(this, 0, "char")
-        set => NumPut("char", value, this, 0)
+    DSM{
+        get {
+            if(!this.HasProp("__DSM"))
+                this.__DSM := %this.__Class%._DSM(0, this)
+            return this.__DSM
+        }
     }
 
     /**

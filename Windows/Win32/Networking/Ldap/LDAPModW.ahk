@@ -21,7 +21,7 @@ class LDAPModW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     mod_type {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class LDAPModW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<PWSTR>}
      */
     modv_strvals {
         get => NumGet(this, 16, "ptr")

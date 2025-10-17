@@ -47,7 +47,7 @@ class NLA_BLOB extends Win32Struct
     header{
         get {
             if(!this.HasProp("__header"))
-                this.__header := %this.__Class%._header(this.ptr + 0)
+                this.__header := %this.__Class%._header(0, this)
             return this.__header
         }
     }
@@ -174,7 +174,7 @@ class NLA_BLOB extends Win32Struct
         remote{
             get {
                 if(!this.HasProp("__remote"))
-                    this.__remote := %this.__Class%._remote(this.ptr + 0)
+                    this.__remote := %this.__Class%._remote(0, this)
                 return this.__remote
             }
         }
@@ -195,7 +195,7 @@ class NLA_BLOB extends Win32Struct
     interfaceData{
         get {
             if(!this.HasProp("__interfaceData"))
-                this.__interfaceData := %this.__Class%._interfaceData(this.ptr + 16)
+                this.__interfaceData := %this.__Class%._interfaceData(16, this)
             return this.__interfaceData
         }
     }
@@ -206,7 +206,7 @@ class NLA_BLOB extends Win32Struct
     locationData{
         get {
             if(!this.HasProp("__locationData"))
-                this.__locationData := %this.__Class%._locationData(this.ptr + 16)
+                this.__locationData := %this.__Class%._locationData(16, this)
             return this.__locationData
         }
     }
@@ -217,7 +217,7 @@ class NLA_BLOB extends Win32Struct
     connectivity{
         get {
             if(!this.HasProp("__connectivity"))
-                this.__connectivity := %this.__Class%._connectivity(this.ptr + 16)
+                this.__connectivity := %this.__Class%._connectivity(16, this)
             return this.__connectivity
         }
     }
@@ -228,7 +228,7 @@ class NLA_BLOB extends Win32Struct
     ICS{
         get {
             if(!this.HasProp("__ICS"))
-                this.__ICS := %this.__Class%._ICS(this.ptr + 16)
+                this.__ICS := %this.__Class%._ICS(16, this)
             return this.__ICS
         }
     }

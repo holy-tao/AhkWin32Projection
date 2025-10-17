@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\EapUsernamePasswordCredential.ahk
 #Include .\EapCertificateCredential.ahk
+#Include .\EapSimCredential.ahk
 
 /**
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
@@ -19,7 +20,7 @@ class EapCredentialTypeData extends Win32Struct
     username_password{
         get {
             if(!this.HasProp("__username_password"))
-                this.__username_password := EapUsernamePasswordCredential(this.ptr + 0)
+                this.__username_password := EapUsernamePasswordCredential(0, this)
             return this.__username_password
         }
     }
@@ -30,16 +31,19 @@ class EapCredentialTypeData extends Win32Struct
     certificate{
         get {
             if(!this.HasProp("__certificate"))
-                this.__certificate := EapCertificateCredential(this.ptr + 0)
+                this.__certificate := EapCertificateCredential(0, this)
             return this.__certificate
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {EapSimCredential}
      */
-    sim {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    sim{
+        get {
+            if(!this.HasProp("__sim"))
+                this.__sim := EapSimCredential(0, this)
+            return this.__sim
+        }
     }
 }

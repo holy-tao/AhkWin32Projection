@@ -44,7 +44,7 @@ class FWPM_SESSION0 extends Win32Struct
     displayData{
         get {
             if(!this.HasProp("__displayData"))
-                this.__displayData := FWPM_DISPLAY_DATA0(this.ptr + 8)
+                this.__displayData := FWPM_DISPLAY_DATA0(8, this)
             return this.__displayData
         }
     }
@@ -118,7 +118,7 @@ class FWPM_SESSION0 extends Win32Struct
 
     /**
      * User name of the client.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     username {
         get => NumGet(this, 48, "ptr")
@@ -127,7 +127,7 @@ class FWPM_SESSION0 extends Win32Struct
 
     /**
      * TRUE if this is a kernel-mode client.
-     * @type {Integer}
+     * @type {BOOL}
      */
     kernelMode {
         get => NumGet(this, 56, "int")

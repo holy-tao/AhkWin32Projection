@@ -25,7 +25,7 @@ class FILE_SET_SPARSE_BUFFER extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A value of <b>FALSE</b> for this member is not supported. Specifying 
      *         <b>FALSE</b> will cause the 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/winioctl/ni-winioctl-fsctl_set_sparse">FSCTL_SET_SPARSE</a> call to fail.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SetSparse {
         get => NumGet(this, 0, "char")

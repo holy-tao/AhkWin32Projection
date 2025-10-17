@@ -21,7 +21,7 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_XML_NODE(this.ptr + 0)
+                this.__node := WS_XML_NODE(0, this)
             return this.__node
         }
     }
@@ -73,7 +73,7 @@ class WS_XML_ELEMENT_NODE extends Win32Struct
 
     /**
      * Whether the element is an empty element or not.  In the example, it would be <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     isEmpty {
         get => NumGet(this, 48, "int")

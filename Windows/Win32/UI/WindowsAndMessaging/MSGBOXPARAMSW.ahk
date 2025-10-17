@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
 
 /**
  * Contains information used to display a message box. The MessageBoxIndirect function uses this structure.
@@ -34,11 +36,14 @@ class MSGBOXPARAMSW extends Win32Struct
      * Type: <b>HWND</b>
      * 
      * A handle to the owner window. This member can be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwndOwner{
+        get {
+            if(!this.HasProp("__hwndOwner"))
+                this.__hwndOwner := HWND(8, this)
+            return this.__hwndOwner
+        }
     }
 
     /**
@@ -48,18 +53,21 @@ class MSGBOXPARAMSW extends Win32Struct
      * 					<b>lpszIcon</b> member, and the string resource identified by the 
      * 					<b>lpszText</b> or 
      * 					<b>lpszCaption</b> member.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(16, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Type: <b>LPCTSTR</b>
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message to be displayed.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszText {
         get => NumGet(this, 24, "ptr")
@@ -71,7 +79,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * A null-terminated string, or the identifier of a string resource, that contains the message box title. If this member is <b>NULL</b>, the default title 
      * 					<b>Error</b> is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszCaption {
         get => NumGet(this, 32, "ptr")
@@ -104,7 +112,7 @@ class MSGBOXPARAMSW extends Win32Struct
      * 
      * This member is ignored if the 
      * 						<b>dwStyle</b> member does not specify the <b>MB_USERICON</b> flag.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszIcon {
         get => NumGet(this, 48, "ptr")
@@ -152,12 +160,8 @@ class MSGBOXPARAMSW extends Win32Struct
         set => NumPut("uint", value, this, 72)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 80
     }
 }

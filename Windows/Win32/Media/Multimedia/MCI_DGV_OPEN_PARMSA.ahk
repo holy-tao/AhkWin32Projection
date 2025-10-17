@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The MCI_DGV_OPEN_PARMS structure contains information for the MCI_OPEN command for digital-video devices.
@@ -46,7 +47,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Name or constant ID of device type.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrDeviceType {
         get => NumGet(this, 16, "ptr")
@@ -55,7 +56,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Optional device alias.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrElementName {
         get => NumGet(this, 24, "ptr")
@@ -64,7 +65,7 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Optional device alias.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrAlias {
         get => NumGet(this, 32, "ptr")
@@ -82,10 +83,13 @@ class MCI_DGV_OPEN_PARMSA extends Win32Struct
 
     /**
      * Handle to parent window.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndParent {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    hWndParent{
+        get {
+            if(!this.HasProp("__hWndParent"))
+                this.__hWndParent := HWND(48, this)
+            return this.__hWndParent
+        }
     }
 }

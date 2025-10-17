@@ -140,7 +140,7 @@ class RPC_CALL_ATTRIBUTES_V1_A extends Win32Struct
 
     /**
      * Specifies whether a <b>Null</b> session is used. Zero indicates the call is not coming over a <b>Null</b> session; any other value indicates a <b>Null</b> session.
-     * @type {Integer}
+     * @type {BOOL}
      */
     NullSession {
         get => NumGet(this, 48, "int")

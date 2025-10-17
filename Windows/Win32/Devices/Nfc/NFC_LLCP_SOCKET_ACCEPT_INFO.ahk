@@ -26,7 +26,7 @@ class NFC_LLCP_SOCKET_ACCEPT_INFO extends Win32Struct
     sSocketOption{
         get {
             if(!this.HasProp("__sSocketOption"))
-                this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(this.ptr + 8)
+                this.__sSocketOption := NFC_LLCP_SOCKET_OPTION(8, this)
             return this.__sSocketOption
         }
     }

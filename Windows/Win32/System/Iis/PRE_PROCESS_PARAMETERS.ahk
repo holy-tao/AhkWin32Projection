@@ -13,7 +13,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSessionId {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszSiteName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszUserName {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszHostName {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszRemoteIpAddress {
         get => NumGet(this, 32, "ptr")
@@ -61,7 +61,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszLocalIpAddress {
         get => NumGet(this, 48, "ptr")
@@ -77,7 +77,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCommand {
         get => NumGet(this, 64, "ptr")
@@ -85,7 +85,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCommandParameters {
         get => NumGet(this, 72, "ptr")
@@ -98,7 +98,7 @@ class PRE_PROCESS_PARAMETERS extends Win32Struct
     SessionStartTime{
         get {
             if(!this.HasProp("__SessionStartTime"))
-                this.__SessionStartTime := FILETIME(this.ptr + 80)
+                this.__SessionStartTime := FILETIME(80, this)
             return this.__SessionStartTime
         }
     }

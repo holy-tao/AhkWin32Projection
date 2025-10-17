@@ -44,7 +44,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESSOR_SIZE1 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Protected {
         get => NumGet(this, 32, "int")

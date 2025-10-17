@@ -34,7 +34,7 @@ class WS_STRING extends Win32Struct
 
     /**
      * The array of characters that make up the string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     chars {
         get => NumGet(this, 8, "ptr")

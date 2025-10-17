@@ -21,7 +21,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     ClearOnInitialization {
         get => NumGet(this, 1, "char")
@@ -42,7 +42,7 @@ class WHEA_XPF_MC_BANK_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := XPF_MC_BANK_FLAGS(this.ptr + 4)
+                this.__Flags := XPF_MC_BANK_FLAGS(4, this)
             return this.__Flags
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HCRYPTPROV_LEGACY.ahk
 #Include .\CRYPT_INTEGER_BLOB.ahk
 #Include .\CRYPT_ALGORITHM_IDENTIFIER.ahk
 
@@ -48,11 +49,14 @@ class CRYPT_HASH_MESSAGE_PARA extends Win32Struct
      * <b>Windows Server 2003 and Windows XP:  </b>A handle to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) to be used.Unless there is a strong reason for passing in a specific cryptographic provider in <b>hCryptProv</b>, pass zero to use the default RSA or DSS provider.
      * 
      * This member's data type is <b>HCRYPTPROV</b>.
-     * @type {Pointer}
+     * @type {HCRYPTPROV_LEGACY}
      */
-    hCryptProv {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hCryptProv{
+        get {
+            if(!this.HasProp("__hCryptProv"))
+                this.__hCryptProv := HCRYPTPROV_LEGACY(8, this)
+            return this.__hCryptProv
+        }
     }
 
     /**
@@ -62,7 +66,7 @@ class CRYPT_HASH_MESSAGE_PARA extends Win32Struct
     HashAlgorithm{
         get {
             if(!this.HasProp("__HashAlgorithm"))
-                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(this.ptr + 16)
+                this.__HashAlgorithm := CRYPT_ALGORITHM_IDENTIFIER(16, this)
             return this.__HashAlgorithm
         }
     }
@@ -76,12 +80,8 @@ class CRYPT_HASH_MESSAGE_PARA extends Win32Struct
         set => NumPut("ptr", value, this, 40)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 48
     }
 }

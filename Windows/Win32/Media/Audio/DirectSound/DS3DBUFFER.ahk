@@ -26,7 +26,7 @@ class DS3DBUFFER extends Win32Struct
     vPosition{
         get {
             if(!this.HasProp("__vPosition"))
-                this.__vPosition := D3DVECTOR(this.ptr + 8)
+                this.__vPosition := D3DVECTOR(8, this)
             return this.__vPosition
         }
     }
@@ -37,7 +37,7 @@ class DS3DBUFFER extends Win32Struct
     vVelocity{
         get {
             if(!this.HasProp("__vVelocity"))
-                this.__vVelocity := D3DVECTOR(this.ptr + 24)
+                this.__vVelocity := D3DVECTOR(24, this)
             return this.__vVelocity
         }
     }
@@ -64,7 +64,7 @@ class DS3DBUFFER extends Win32Struct
     vConeOrientation{
         get {
             if(!this.HasProp("__vConeOrientation"))
-                this.__vConeOrientation := D3DVECTOR(this.ptr + 48)
+                this.__vConeOrientation := D3DVECTOR(48, this)
             return this.__vConeOrientation
         }
     }

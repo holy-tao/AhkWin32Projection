@@ -25,14 +25,14 @@ class WSDXML_TEXT extends Win32Struct
     Node{
         get {
             if(!this.HasProp("__Node"))
-                this.__Node := WSDXML_NODE(this.ptr + 0)
+                this.__Node := WSDXML_NODE(0, this)
             return this.__Node
         }
     }
 
     /**
      * The text contained in the XML node. The maximum length of this string is WSD_MAX_TEXT_LENGTH (8192). The text must consist of UTF-16 encoded characters. The text cannot contain raw XML, as special characters are rendered using the equivalent entity reference. For example,  <c>&lt;</code> is rendered as <code>&amp;lt;</c>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Text {
         get => NumGet(this, 32, "ptr")

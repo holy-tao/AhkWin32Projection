@@ -38,7 +38,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         ParentFilePath {
             get => NumGet(this, 8, "ptr")
@@ -60,7 +60,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Char>}
+         * @type {PWSTR}
          */
         ParentFilePath {
             get => NumGet(this, 8, "ptr")
@@ -70,7 +70,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     ParentFilePath {
         get => NumGet(this, 8, "ptr")
@@ -91,7 +91,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentPathWithDepthInfo{
         get {
             if(!this.HasProp("__ParentPathWithDepthInfo"))
-                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(this.ptr + 8)
+                this.__ParentPathWithDepthInfo := %this.__Class%._ParentPathWithDepthInfo(8, this)
             return this.__ParentPathWithDepthInfo
         }
     }
@@ -113,7 +113,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     ChangeTrackingEnabled {
         get => NumGet(this, 8, "int")
@@ -126,7 +126,7 @@ class SET_VIRTUAL_DISK_INFO extends Win32Struct
     ParentLocator{
         get {
             if(!this.HasProp("__ParentLocator"))
-                this.__ParentLocator := %this.__Class%._ParentLocator(this.ptr + 8)
+                this.__ParentLocator := %this.__Class%._ParentLocator(8, this)
             return this.__ParentLocator
         }
     }

@@ -42,7 +42,7 @@ class SOCKADDR_IN6_W2KSP1 extends Win32Struct
     sin6_addr{
         get {
             if(!this.HasProp("__sin6_addr"))
-                this.__sin6_addr := IN6_ADDR(this.ptr + 8)
+                this.__sin6_addr := IN6_ADDR(8, this)
             return this.__sin6_addr
         }
     }

@@ -15,7 +15,7 @@ class SERVER_INFO_1542 extends Win32Struct
 
     /**
      * Specifies the maximum number of free connection blocks maintained per endpoint. The server sets these aside to handle bursts of requests by clients to connect to the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv1542_maxfreeconnections {
         get => NumGet(this, 0, "int")

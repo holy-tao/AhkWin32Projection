@@ -30,7 +30,7 @@ class CMC_TAGGED_CERT_REQUEST extends Win32Struct
     SignedCertRequest{
         get {
             if(!this.HasProp("__SignedCertRequest"))
-                this.__SignedCertRequest := CRYPT_INTEGER_BLOB(this.ptr + 8)
+                this.__SignedCertRequest := CRYPT_INTEGER_BLOB(8, this)
             return this.__SignedCertRequest
         }
     }

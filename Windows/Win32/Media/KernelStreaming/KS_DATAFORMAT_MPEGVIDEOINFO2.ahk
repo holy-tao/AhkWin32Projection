@@ -22,7 +22,7 @@ class KS_DATAFORMAT_MPEGVIDEOINFO2 extends Win32Struct
     DataFormat{
         get {
             if(!this.HasProp("__DataFormat"))
-                this.__DataFormat := KSDATAFORMAT(this.ptr + 0)
+                this.__DataFormat := KSDATAFORMAT(0, this)
             return this.__DataFormat
         }
     }
@@ -33,7 +33,7 @@ class KS_DATAFORMAT_MPEGVIDEOINFO2 extends Win32Struct
     MpegVideoInfoHeader2{
         get {
             if(!this.HasProp("__MpegVideoInfoHeader2"))
-                this.__MpegVideoInfoHeader2 := KS_MPEGVIDEOINFO2(this.ptr + 48)
+                this.__MpegVideoInfoHeader2 := KS_MPEGVIDEOINFO2(48, this)
             return this.__MpegVideoInfoHeader2
         }
     }

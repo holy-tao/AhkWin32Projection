@@ -31,7 +31,7 @@ class CF_SYNC_POLICIES extends Win32Struct
     Hydration{
         get {
             if(!this.HasProp("__Hydration"))
-                this.__Hydration := CF_HYDRATION_POLICY(this.ptr + 4)
+                this.__Hydration := CF_HYDRATION_POLICY(4, this)
             return this.__Hydration
         }
     }
@@ -43,7 +43,7 @@ class CF_SYNC_POLICIES extends Win32Struct
     Population{
         get {
             if(!this.HasProp("__Population"))
-                this.__Population := CF_POPULATION_POLICY(this.ptr + 8)
+                this.__Population := CF_POPULATION_POLICY(8, this)
             return this.__Population
         }
     }

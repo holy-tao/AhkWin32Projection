@@ -26,7 +26,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     LeftParams{
         get {
             if(!this.HasProp("__LeftParams"))
-                this.__LeftParams := KSDS3D_ITD_PARAMS(this.ptr + 8)
+                this.__LeftParams := KSDS3D_ITD_PARAMS(8, this)
             return this.__LeftParams
         }
     }
@@ -37,7 +37,7 @@ class KSDS3D_ITD_PARAMS_MSG extends Win32Struct
     RightParams{
         get {
             if(!this.HasProp("__RightParams"))
-                this.__RightParams := KSDS3D_ITD_PARAMS(this.ptr + 32)
+                this.__RightParams := KSDS3D_ITD_PARAMS(32, this)
             return this.__RightParams
         }
     }

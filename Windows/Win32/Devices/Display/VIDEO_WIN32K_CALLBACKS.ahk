@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Display
@@ -36,11 +37,14 @@ class VIDEO_WIN32K_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    pPhysDeviceObject {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    pPhysDeviceObject{
+        get {
+            if(!this.HasProp("__pPhysDeviceObject"))
+                this.__pPhysDeviceObject := HANDLE(24, this)
+            return this.__pPhysDeviceObject
+        }
     }
 
     /**

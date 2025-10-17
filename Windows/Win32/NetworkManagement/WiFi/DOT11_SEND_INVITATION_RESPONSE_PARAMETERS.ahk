@@ -20,7 +20,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
@@ -74,7 +74,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     MinimumConfigTimeout{
         get {
             if(!this.HasProp("__MinimumConfigTimeout"))
-                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(this.ptr + 30)
+                this.__MinimumConfigTimeout := DOT11_WFD_CONFIGURATION_TIMEOUT(30, this)
             return this.__MinimumConfigTimeout
         }
     }
@@ -91,7 +91,7 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUseGroupBSSID {
         get => NumGet(this, 38, "char")
@@ -104,13 +104,13 @@ class DOT11_SEND_INVITATION_RESPONSE_PARAMETERS extends Win32Struct
     OperatingChannel{
         get {
             if(!this.HasProp("__OperatingChannel"))
-                this.__OperatingChannel := DOT11_WFD_CHANNEL(this.ptr + 40)
+                this.__OperatingChannel := DOT11_WFD_CHANNEL(40, this)
             return this.__OperatingChannel
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bUseSpecifiedOperatingChannel {
         get => NumGet(this, 45, "char")

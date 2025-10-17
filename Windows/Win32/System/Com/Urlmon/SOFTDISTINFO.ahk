@@ -51,7 +51,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the TITLE flag from the associated .cdf file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szTitle {
         get => NumGet(this, 16, "ptr")
@@ -62,7 +62,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the contents of the ABSTRACT flag from the associated .cdf file.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szAbstract {
         get => NumGet(this, 24, "ptr")
@@ -73,7 +73,7 @@ class SOFTDISTINFO extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A string that contains the URL of the webpage to advertise or install the update.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szHREF {
         get => NumGet(this, 32, "ptr")
@@ -157,12 +157,8 @@ class SOFTDISTINFO extends Win32Struct
         set => NumPut("uint", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

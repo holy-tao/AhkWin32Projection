@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Jet
@@ -76,10 +77,13 @@ class JET_OPENTEMPORARYTABLE extends Win32Struct
     }
 
     /**
-     * @type {Pointer}
+     * @type {JET_TABLEID}
      */
-    tableid {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    tableid{
+        get {
+            if(!this.HasProp("__tableid"))
+                this.__tableid := JET_TABLEID(56, this)
+            return this.__tableid
+        }
     }
 }

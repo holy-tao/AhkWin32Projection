@@ -112,7 +112,7 @@ class ICOPEN extends Win32Struct
 
     /**
      * 
-     * @type {Pointer}
+     * @type {LRESULT}
      */
     dwError {
         get => NumGet(this, 24, "ptr")

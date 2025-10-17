@@ -18,7 +18,7 @@ class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct
     ServerName{
         get {
             if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__ServerName := LSA_UNICODE_STRING(0, this)
             return this.__ServerName
         }
     }
@@ -32,7 +32,7 @@ class KERB_S4U2PROXY_CACHE_ENTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {NTSTATUS}
      */
     LastStatus {
         get => NumGet(this, 20, "int")

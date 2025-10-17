@@ -99,7 +99,7 @@ class DML_MEAN_VARIANCE_NORMALIZATION1_OPERATOR_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * **TRUE** if the Normalization layer includes Variance in the normalization calculation. Otherwise, **FALSE**. If **FALSE**, then normalization equation is `Output = FusedActivation(Scale * (Input - Mean) + Bias)`.
-     * @type {Integer}
+     * @type {BOOL}
      */
     NormalizeVariance {
         get => NumGet(this, 48, "int")

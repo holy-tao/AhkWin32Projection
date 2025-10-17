@@ -18,7 +18,7 @@ class KSEC_LIST_ENTRY extends Win32Struct
     List{
         get {
             if(!this.HasProp("__List"))
-                this.__List := LIST_ENTRY(this.ptr + 0)
+                this.__List := LIST_ENTRY(0, this)
             return this.__List
         }
     }

@@ -34,7 +34,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
     Configuration{
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(this.ptr + 8)
+                this.__Configuration := D3D12_VIDEO_DECODE_CONFIGURATION(8, this)
             return this.__Configuration
         }
     }
@@ -73,7 +73,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(this.ptr + 40)
+                this.__FrameRate := DXGI_RATIONAL(40, this)
             return this.__FrameRate
         }
     }

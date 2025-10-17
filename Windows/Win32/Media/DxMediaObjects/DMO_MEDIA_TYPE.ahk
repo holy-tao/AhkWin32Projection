@@ -38,7 +38,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * If <b>TRUE</b>, samples are of a fixed size. This field is informational only. For audio, it is generally set to <b>TRUE</b>. For video, it is usually <b>TRUE</b> for uncompressed video and <b>FALSE</b> for compressed video.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFixedSizeSamples {
         get => NumGet(this, 16, "int")
@@ -47,7 +47,7 @@ class DMO_MEDIA_TYPE extends Win32Struct
 
     /**
      * If <b>TRUE</b>, samples are compressed using temporal (interframe) compression. (A value of <b>TRUE</b> indicates that not all frames are key frames.) This field is informational only.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bTemporalCompression {
         get => NumGet(this, 20, "int")

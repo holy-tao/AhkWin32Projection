@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\POINT.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * The CAPSTATUS structure defines the current state of the capture window.
@@ -39,7 +40,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Live window flag. The value of this member is <b>TRUE</b> if the window is displaying video using the preview method.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLiveWindow {
         get => NumGet(this, 8, "int")
@@ -48,7 +49,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Overlay window flag. The value of this member is <b>TRUE</b> if the window is displaying video using hardware overlay.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fOverlayWindow {
         get => NumGet(this, 12, "int")
@@ -57,7 +58,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Input scaling flag. The value of this member is <b>TRUE</b> if the window is scaling the input video to the client area when displaying video using preview. This parameter has no effect when displaying video using overlay.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fScale {
         get => NumGet(this, 16, "int")
@@ -71,14 +72,14 @@ class CAPSTATUS extends Win32Struct
     ptScroll{
         get {
             if(!this.HasProp("__ptScroll"))
-                this.__ptScroll := POINT(this.ptr + 24)
+                this.__ptScroll := POINT(24, this)
             return this.__ptScroll
         }
     }
 
     /**
      * Default palette flag. The value of this member is <b>TRUE</b> if the capture driver is using its default palette.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fUsingDefaultPalette {
         get => NumGet(this, 32, "int")
@@ -87,7 +88,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Audio hardware flag. The value of this member is <b>TRUE</b> if the system has waveform-audio hardware installed.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAudioHardware {
         get => NumGet(this, 36, "int")
@@ -96,7 +97,7 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Capture file flag. The value of this member is <b>TRUE</b> if a valid capture file has been generated.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCapFileExists {
         get => NumGet(this, 40, "int")
@@ -141,16 +142,19 @@ class CAPSTATUS extends Win32Struct
 
     /**
      * Handle to current palette.
-     * @type {Pointer<Void>}
+     * @type {HPALETTE}
      */
-    hPalCurrent {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hPalCurrent{
+        get {
+            if(!this.HasProp("__hPalCurrent"))
+                this.__hPalCurrent := HPALETTE(64, this)
+            return this.__hPalCurrent
+        }
     }
 
     /**
      * Capturing flag. The value of this member is <b>TRUE</b> when capturing is in progress.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fCapturingNow {
         get => NumGet(this, 72, "int")

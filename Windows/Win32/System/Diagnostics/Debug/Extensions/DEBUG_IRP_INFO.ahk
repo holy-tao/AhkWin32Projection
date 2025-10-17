@@ -82,7 +82,7 @@ class DEBUG_IRP_INFO extends Win32Struct
     CurrentStack{
         get {
             if(!this.HasProp("__CurrentStack"))
-                this.__CurrentStack := DEBUG_IRP_STACK_INFO(this.ptr + 56)
+                this.__CurrentStack := DEBUG_IRP_STACK_INFO(56, this)
             return this.__CurrentStack
         }
     }

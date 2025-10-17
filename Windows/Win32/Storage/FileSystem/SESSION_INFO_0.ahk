@@ -15,7 +15,7 @@ class SESSION_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that contains the name of the computer that established the session. This string cannot contain a backslash (\\).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sesi0_cname {
         get => NumGet(this, 0, "ptr")

@@ -15,7 +15,7 @@ class MSG_INFO_0 extends Win32Struct
 
     /**
      * Pointer to a Unicode string that specifies the alias to which the message is to be sent. The constant LEN specifies the maximum number of characters in the string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     msgi0_name {
         get => NumGet(this, 0, "ptr")

@@ -48,7 +48,7 @@ class BTH_LE_GATT_DESCRIPTOR extends Win32Struct
     DescriptorUuid{
         get {
             if(!this.HasProp("__DescriptorUuid"))
-                this.__DescriptorUuid := BTH_LE_UUID(this.ptr + 8)
+                this.__DescriptorUuid := BTH_LE_UUID(8, this)
             return this.__DescriptorUuid
         }
     }

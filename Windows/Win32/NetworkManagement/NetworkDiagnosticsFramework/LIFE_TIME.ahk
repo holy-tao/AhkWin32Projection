@@ -18,7 +18,7 @@ class LIFE_TIME extends Win32Struct
     startTime{
         get {
             if(!this.HasProp("__startTime"))
-                this.__startTime := FILETIME(this.ptr + 0)
+                this.__startTime := FILETIME(0, this)
             return this.__startTime
         }
     }
@@ -29,7 +29,7 @@ class LIFE_TIME extends Win32Struct
     endTime{
         get {
             if(!this.HasProp("__endTime"))
-                this.__endTime := FILETIME(this.ptr + 8)
+                this.__endTime := FILETIME(8, this)
             return this.__endTime
         }
     }

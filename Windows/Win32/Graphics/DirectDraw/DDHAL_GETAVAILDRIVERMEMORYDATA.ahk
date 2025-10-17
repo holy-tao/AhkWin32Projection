@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 #Include .\DDSCAPSEX.ahk
 
 /**
@@ -21,11 +22,14 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    DDSCaps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    DDSCaps{
+        get {
+            if(!this.HasProp("__DDSCaps"))
+                this.__DDSCaps := DDSCAPS(8, this)
+            return this.__DDSCaps
+        }
     }
 
     /**
@@ -66,7 +70,7 @@ class DDHAL_GETAVAILDRIVERMEMORYDATA extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(this.ptr + 32)
+                this.__ddsCapsEx := DDSCAPSEX(32, this)
             return this.__ddsCapsEx
         }
     }

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * The table of NET_INTERFACE_CONTEXT structures.
@@ -15,11 +16,14 @@ class NET_INTERFACE_CONTEXT_TABLE extends Win32Struct
 
     /**
      * A handle to the interface context.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    InterfaceContextHandle {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    InterfaceContextHandle{
+        get {
+            if(!this.HasProp("__InterfaceContextHandle"))
+                this.__InterfaceContextHandle := HANDLE(0, this)
+            return this.__InterfaceContextHandle
+        }
     }
 
     /**

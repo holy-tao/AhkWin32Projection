@@ -27,7 +27,7 @@ class EapCertificateCredential extends Win32Struct
 
     /**
      * If the certificate is present on the system and strong private key protection is turned on for this certificate, this field contains the password to access the certificate.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     password {
         get => NumGet(this, 24, "ptr")

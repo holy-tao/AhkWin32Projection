@@ -27,7 +27,7 @@ class POLICY_AUDIT_EVENTS_INFO extends Win32Struct
      * If this flag is <b>TRUE</b>, the system generates audit records according to the event auditing options specified in the <b>EventAuditingOptions</b> member.
      * 
      * If this flag is <b>FALSE</b>, the system does not generate audit records. However, note that set operations update the event auditing options as specified in the <b>EventAuditingOptions</b> member even when <b>AuditingMode</b> is <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AuditingMode {
         get => NumGet(this, 0, "char")

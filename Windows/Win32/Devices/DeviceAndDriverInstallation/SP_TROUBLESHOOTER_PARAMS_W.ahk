@@ -19,7 +19,7 @@ class SP_TROUBLESHOOTER_PARAMS_W extends Win32Struct
     ClassInstallHeader{
         get {
             if(!this.HasProp("__ClassInstallHeader"))
-                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(this.ptr + 0)
+                this.__ClassInstallHeader := SP_CLASSINSTALL_HEADER(0, this)
             return this.__ClassInstallHeader
         }
     }

@@ -40,7 +40,7 @@ class CLUSTER_READ_BATCH_COMMAND extends Win32Struct
 
     /**
      * The name of the key requested in the read command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wzSubkeyName {
         get => NumGet(this, 8, "ptr")
@@ -49,7 +49,7 @@ class CLUSTER_READ_BATCH_COMMAND extends Win32Struct
 
     /**
      * The name of the value requested in the read command.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wzValueName {
         get => NumGet(this, 16, "ptr")

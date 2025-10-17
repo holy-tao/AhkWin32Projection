@@ -65,7 +65,7 @@ class VDS_FILE_SYSTEM_TYPE_PROP extends Win32Struct
 
     /**
      * A string containing all characters that are not valid for this file system type.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIllegalLabelCharSet {
         get => NumGet(this, 32, "ptr")

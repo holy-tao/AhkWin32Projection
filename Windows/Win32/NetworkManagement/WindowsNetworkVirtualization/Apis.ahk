@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.NetworkManagement.WindowsNetworkVirtualization
  * @version v4.0.30319
@@ -22,7 +23,7 @@ class WindowsNetworkVirtualization {
 ;@region Methods
     /**
      * Provides a handle to the Windows Network Virtualization (WNV) driver object to be used to request and receive WNV notifications.
-     * @returns {Pointer<Void>} Type: <b>HANDLE</b>
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
      * If the function succeeds, it returns the handle to the WNV driver object. If the function fails, it returns <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wnvapi/nf-wnvapi-wnvopen
@@ -30,12 +31,12 @@ class WindowsNetworkVirtualization {
      */
     static WnvOpen() {
         result := DllCall("wnvapi.dll\WnvOpen", "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * Requests notification from the Windows Network Virtualization (WNV) driver whenever a certain type of event occurs.
-     * @param {Pointer<Void>} WnvHandle Type: <b>HANDLE</b>
+     * @param {HANDLE} WnvHandle Type: <b>HANDLE</b>
      * 
      * An object handle that is returned from a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wnvapi/nf-wnvapi-wnvopen">WnvOpen</a> function.
      * @param {Pointer<WNV_NOTIFICATION_PARAM>} NotificationParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wnvapi/ns-wnvapi-wnv_notification_param">PWNV_NOTIFICATION_PARAM</a></b>
@@ -89,6 +90,8 @@ class WindowsNetworkVirtualization {
      * @since windowsserver2012
      */
     static WnvRequestNotification(WnvHandle, NotificationParam, Overlapped, BytesTransferred) {
+        WnvHandle := WnvHandle is Win32Handle ? NumGet(WnvHandle, "ptr") : WnvHandle
+
         result := DllCall("wnvapi.dll\WnvRequestNotification", "ptr", WnvHandle, "ptr", NotificationParam, "ptr", Overlapped, "uint*", BytesTransferred, "uint")
         return result
     }

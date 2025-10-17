@@ -97,7 +97,7 @@ class OLEUIVIEWPROPSW extends Win32Struct
 
     /**
      * Custom data to pass to the hook (not used in this dialog box).
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 24, "ptr")

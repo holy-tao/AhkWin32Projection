@@ -92,20 +92,54 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
         set => NumPut("int", value, this, 8)
     }
 
-    /**
-     * @type {Integer}
-     */
-    ProcessorCore {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+    class _ProcessorCore extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        Flags {
+            get => NumGet(this, 0, "char")
+            set => NumPut("char", value, this, 0)
+        }
+    
+    }
+
+    class _NumaNode extends Win32Struct {
+        static sizeof => 16
+        static packingSize => 8
+
+        /**
+         * @type {Integer}
+         */
+        NodeNumber {
+            get => NumGet(this, 0, "uint")
+            set => NumPut("uint", value, this, 0)
+        }
+    
     }
 
     /**
-     * @type {Integer}
+     * @type {_ProcessorCore}
      */
-    NumaNode {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+    ProcessorCore{
+        get {
+            if(!this.HasProp("__ProcessorCore"))
+                this.__ProcessorCore := %this.__Class%._ProcessorCore(16, this)
+            return this.__ProcessorCore
+        }
+    }
+
+    /**
+     * @type {_NumaNode}
+     */
+    NumaNode{
+        get {
+            if(!this.HasProp("__NumaNode"))
+                this.__NumaNode := %this.__Class%._NumaNode(16, this)
+            return this.__NumaNode
+        }
     }
 
     /**
@@ -114,7 +148,7 @@ class SYSTEM_LOGICAL_PROCESSOR_INFORMATION extends Win32Struct
     Cache{
         get {
             if(!this.HasProp("__Cache"))
-                this.__Cache := CACHE_DESCRIPTOR(this.ptr + 16)
+                this.__Cache := CACHE_DESCRIPTOR(16, this)
             return this.__Cache
         }
     }

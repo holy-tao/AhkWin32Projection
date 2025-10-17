@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include .\DIMM_ADDRESS.ahk
+#Include .\DIMM_ADDR_VALID_BITS_DDR4.ahk
+#Include .\DIMM_ADDR_VALID_BITS_DDR5.ahk
 #Include .\DIMM_ADDR_VALID_BITS.ahk
 #Include .\DIMM_INFO.ahk
 
@@ -28,7 +30,7 @@ class MEMORY_DEFECT extends Win32Struct
     DimmInfo{
         get {
             if(!this.HasProp("__DimmInfo"))
-                this.__DimmInfo := DIMM_INFO(this.ptr + 8)
+                this.__DimmInfo := DIMM_INFO(8, this)
             return this.__DimmInfo
         }
     }

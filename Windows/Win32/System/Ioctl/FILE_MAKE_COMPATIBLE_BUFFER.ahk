@@ -15,7 +15,7 @@ class FILE_MAKE_COMPATIBLE_BUFFER extends Win32Struct
 
     /**
      * If <b>TRUE</b>, indicates the media should be finalized. No new data can be appended to the media.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     CloseDisc {
         get => NumGet(this, 0, "char")

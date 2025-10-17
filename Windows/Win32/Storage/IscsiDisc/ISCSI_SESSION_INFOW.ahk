@@ -27,14 +27,14 @@ class ISCSI_SESSION_INFOW extends Win32Struct
     SessionId{
         get {
             if(!this.HasProp("__SessionId"))
-                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(this.ptr + 0)
+                this.__SessionId := ISCSI_UNIQUE_SESSION_ID(0, this)
             return this.__SessionId
         }
     }
 
     /**
      * A string that represents the initiator name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     InitiatorName {
         get => NumGet(this, 16, "ptr")
@@ -43,7 +43,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
 
     /**
      * A string that represents the target node name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TargetNodeName {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class ISCSI_SESSION_INFOW extends Win32Struct
 
     /**
      * A string that represents the target name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     TargetName {
         get => NumGet(this, 32, "ptr")

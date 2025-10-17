@@ -39,7 +39,7 @@ class CRYPT_SMART_CARD_ROOT_INFO extends Win32Struct
     luid{
         get {
             if(!this.HasProp("__luid"))
-                this.__luid := ROOT_INFO_LUID(this.ptr + 16)
+                this.__luid := ROOT_INFO_LUID(16, this)
             return this.__luid
         }
     }

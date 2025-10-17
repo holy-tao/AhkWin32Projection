@@ -58,7 +58,7 @@ class PACKAGE_ID extends Win32Struct
     version{
         get {
             if(!this.HasProp("__version"))
-                this.__version := PACKAGE_VERSION(this.ptr + 8)
+                this.__version := PACKAGE_VERSION(8, this)
             return this.__version
         }
     }
@@ -67,7 +67,7 @@ class PACKAGE_ID extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The name of the package.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 16, "ptr")
@@ -78,7 +78,7 @@ class PACKAGE_ID extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher of the package. If there is no publisher for the package, this member is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     publisher {
         get => NumGet(this, 24, "ptr")
@@ -89,7 +89,7 @@ class PACKAGE_ID extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The resource identifier (ID) of the package. If there is no resource ID for the package, this member is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     resourceId {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +100,7 @@ class PACKAGE_ID extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PWSTR</a></b>
      * 
      * The publisher identifier (ID) of the package. If there is no publisher ID for the package, this member is <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     publisherId {
         get => NumGet(this, 40, "ptr")

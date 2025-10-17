@@ -214,7 +214,7 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * If <b>dwFlags</b> includes the WINHTTP_AUTOPROXY_CONFIG_URL flag, the <b>lpszAutoConfigUrl</b> must point to a <b>null</b>-terminated Unicode string that contains the URL of the proxy auto-configuration (PAC) file.
      * 
      * If <b>dwFlags</b> does not include the WINHTTP_AUTOPROXY_CONFIG_URL flag, then <b>lpszAutoConfigUrl</b> must be <b>NULL</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszAutoConfigUrl {
         get => NumGet(this, 8, "ptr")
@@ -243,7 +243,7 @@ class WINHTTP_AUTOPROXY_OPTIONS extends Win32Struct
      * Specifies whether the client's domain credentials should be automatically sent in response to an NTLM or Negotiate Authentication challenge when WinHTTP requests the PAC file.
      * 
      * If this flag is TRUE, credentials should automatically be sent in response to an authentication challenge. If this flag is FALSE and authentication is required to download the PAC file, the <a href="https://docs.microsoft.com/windows/desktop/api/winhttp/nf-winhttp-winhttpgetproxyforurl">WinHttpGetProxyForUrl</a> function fails.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAutoLogonIfChallenged {
         get => NumGet(this, 28, "int")

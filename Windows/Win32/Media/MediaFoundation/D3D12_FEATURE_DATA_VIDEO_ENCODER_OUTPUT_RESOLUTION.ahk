@@ -37,7 +37,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsSupported {
         get => NumGet(this, 12, "int")
@@ -50,7 +50,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     MinResolutionSupported{
         get {
             if(!this.HasProp("__MinResolutionSupported"))
-                this.__MinResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 16)
+                this.__MinResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(16, this)
             return this.__MinResolutionSupported
         }
     }
@@ -61,7 +61,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_OUTPUT_RESOLUTION extends Win32Struct
     MaxResolutionSupported{
         get {
             if(!this.HasProp("__MaxResolutionSupported"))
-                this.__MaxResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(this.ptr + 24)
+                this.__MaxResolutionSupported := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(24, this)
             return this.__MaxResolutionSupported
         }
     }

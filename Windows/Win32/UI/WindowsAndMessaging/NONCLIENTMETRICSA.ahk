@@ -90,7 +90,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfCaptionFont{
         get {
             if(!this.HasProp("__lfCaptionFont"))
-                this.__lfCaptionFont := LOGFONTA(this.ptr + 24)
+                this.__lfCaptionFont := LOGFONTA(24, this)
             return this.__lfCaptionFont
         }
     }
@@ -120,7 +120,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfSmCaptionFont{
         get {
             if(!this.HasProp("__lfSmCaptionFont"))
-                this.__lfSmCaptionFont := LOGFONTA(this.ptr + 96)
+                this.__lfSmCaptionFont := LOGFONTA(96, this)
             return this.__lfSmCaptionFont
         }
     }
@@ -150,7 +150,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfMenuFont{
         get {
             if(!this.HasProp("__lfMenuFont"))
-                this.__lfMenuFont := LOGFONTA(this.ptr + 168)
+                this.__lfMenuFont := LOGFONTA(168, this)
             return this.__lfMenuFont
         }
     }
@@ -162,7 +162,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfStatusFont{
         get {
             if(!this.HasProp("__lfStatusFont"))
-                this.__lfStatusFont := LOGFONTA(this.ptr + 232)
+                this.__lfStatusFont := LOGFONTA(232, this)
             return this.__lfStatusFont
         }
     }
@@ -174,7 +174,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfMessageFont{
         get {
             if(!this.HasProp("__lfMessageFont"))
-                this.__lfMessageFont := LOGFONTA(this.ptr + 296)
+                this.__lfMessageFont := LOGFONTA(296, this)
             return this.__lfMessageFont
         }
     }
@@ -190,12 +190,8 @@ class NONCLIENTMETRICSA extends Win32Struct
         set => NumPut("int", value, this, 356)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 360
     }
 }

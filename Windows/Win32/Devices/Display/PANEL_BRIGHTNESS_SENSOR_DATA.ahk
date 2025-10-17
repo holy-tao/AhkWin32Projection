@@ -13,11 +13,40 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct
     static packingSize => 8
 
     /**
+     * This bitfield backs the following members:
+     * - AlsReadingValid
+     * - ChromaticityCoordinateValid
+     * - ColorTemperatureValid
+     * - Reserved
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 0, "uint")
         set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    AlsReadingValid {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ChromaticityCoordinateValid {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ColorTemperatureValid {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
 
     /**
@@ -42,7 +71,7 @@ class PANEL_BRIGHTNESS_SENSOR_DATA extends Win32Struct
     ChromaticityCoordinate{
         get {
             if(!this.HasProp("__ChromaticityCoordinate"))
-                this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(this.ptr + 8)
+                this.__ChromaticityCoordinate := CHROMATICITY_COORDINATE(8, this)
             return this.__ChromaticityCoordinate
         }
     }

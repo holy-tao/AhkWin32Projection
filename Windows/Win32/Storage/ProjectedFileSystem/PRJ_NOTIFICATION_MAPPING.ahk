@@ -41,7 +41,7 @@ class PRJ_NOTIFICATION_MAPPING extends Win32Struct
 
     /**
      * The directory that the notification mapping is paired to.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     NotificationRoot {
         get => NumGet(this, 8, "ptr")

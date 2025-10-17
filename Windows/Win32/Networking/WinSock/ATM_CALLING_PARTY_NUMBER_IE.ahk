@@ -18,7 +18,7 @@ class ATM_CALLING_PARTY_NUMBER_IE extends Win32Struct
     ATM_Number{
         get {
             if(!this.HasProp("__ATM_Number"))
-                this.__ATM_Number := ATM_ADDRESS(this.ptr + 0)
+                this.__ATM_Number := ATM_ADDRESS(0, this)
             return this.__ATM_Number
         }
     }

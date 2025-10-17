@@ -12,7 +12,7 @@ class DOT11EXT_IHV_CONNECTIVITY_PROFILE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszXmlFragmentIhvConnectivity {
         get => NumGet(this, 0, "ptr")

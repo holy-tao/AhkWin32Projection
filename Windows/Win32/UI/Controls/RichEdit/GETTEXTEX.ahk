@@ -53,7 +53,7 @@ class GETTEXTEX extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The character used if a wide character cannot be represented in the specified code page. It is used only if the code page is <b>not</b> 1200 (Unicode). If this member is <b>NULL</b>, a system default value is used.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDefaultChar {
         get => NumGet(this, 16, "ptr")
@@ -64,7 +64,7 @@ class GETTEXTEX extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPBOOL</a></b>
      * 
      * A flag that indicates whether the default character (<b>lpDefaultChar</b>) was used. This member is used only if the code page is not 1200 or <b>CP_UTF8</b> (Unicode). The flag is <b>TRUE</b> if one or more wide characters in the source string cannot be represented in the specified code page. Otherwise, the flag is <b>FALSE</b>. This member can be NULL.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<BOOL>}
      */
     lpUsedDefChar {
         get => NumGet(this, 24, "ptr")

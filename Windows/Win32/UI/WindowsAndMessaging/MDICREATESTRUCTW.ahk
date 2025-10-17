@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information about the class, title, owner, location, and size of a multiple-document interface (MDI) child window.
@@ -32,7 +33,7 @@ class MDICREATESTRUCTW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The name of the window class of the MDI child window. The class name must have been registered by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerclassa">RegisterClass</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szClass {
         get => NumGet(this, 0, "ptr")
@@ -43,7 +44,7 @@ class MDICREATESTRUCTW extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * The title of the MDI child window. The system displays the title in the child window's title bar.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     szTitle {
         get => NumGet(this, 8, "ptr")
@@ -54,11 +55,14 @@ class MDICREATESTRUCTW extends Win32Struct
      * Type: <b>HANDLE</b>
      * 
      * A handle to the instance of the application creating the MDI client window.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hOwner {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    hOwner{
+        get {
+            if(!this.HasProp("__hOwner"))
+                this.__hOwner := HANDLE(16, this)
+            return this.__hOwner
+        }
     }
 
     /**
@@ -118,7 +122,7 @@ class MDICREATESTRUCTW extends Win32Struct
      * Type: <b>LPARAM</b>
      * 
      * An application-defined value.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 48, "ptr")

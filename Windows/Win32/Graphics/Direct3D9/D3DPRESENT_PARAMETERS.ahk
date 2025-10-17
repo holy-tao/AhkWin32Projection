@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -68,15 +69,18 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hDeviceWindow {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    hDeviceWindow{
+        get {
+            if(!this.HasProp("__hDeviceWindow"))
+                this.__hDeviceWindow := HWND(32, this)
+            return this.__hDeviceWindow
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Windowed {
         get => NumGet(this, 40, "int")
@@ -84,7 +88,7 @@ class D3DPRESENT_PARAMETERS extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnableAutoDepthStencil {
         get => NumGet(this, 44, "int")

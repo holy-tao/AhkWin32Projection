@@ -24,7 +24,7 @@ class LICINFO extends Win32Struct
 
     /**
      * Indicates whether this class factory allows the creation of its objects on an unlicensed machine through the use of a license key. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iclassfactory2-requestlickey">IClassFactory2::RequestLicKey</a> can be called to obtain the key. If <b>FALSE</b>, objects can be created only on a fully licensed machine.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fRuntimeKeyAvail {
         get => NumGet(this, 4, "int")
@@ -33,7 +33,7 @@ class LICINFO extends Win32Struct
 
     /**
      * Indicates whether a full machine license exists such that calls to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iclassfactory-createinstance">IClassFactory::CreateInstance</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iclassfactory2-requestlickey">IClassFactory2::RequestLicKey</a> will succeed. If <b>TRUE</b>, the full machine license exists. Thus, objects can be created freely. and a license key is available if <b>fRuntimeKeyAvail</b> is also <b>TRUE</b>. If <b>FALSE</b>, this class factory cannot create any instances of objects on this machine unless the proper license key is passed to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iclassfactory2-createinstancelic">IClassFactory2::CreateInstanceLic</a>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fLicVerified {
         get => NumGet(this, 8, "int")

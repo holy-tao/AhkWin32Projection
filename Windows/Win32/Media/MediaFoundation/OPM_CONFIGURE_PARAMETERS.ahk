@@ -35,7 +35,7 @@ class OPM_CONFIGURE_PARAMETERS extends Win32Struct
     omac{
         get {
             if(!this.HasProp("__omac"))
-                this.__omac := OPM_OMAC(this.ptr + 0)
+                this.__omac := OPM_OMAC(0, this)
             return this.__omac
         }
     }

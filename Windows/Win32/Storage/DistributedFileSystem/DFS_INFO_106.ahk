@@ -30,7 +30,7 @@ class DFS_INFO_106 extends Win32Struct
     TargetPriority{
         get {
             if(!this.HasProp("__TargetPriority"))
-                this.__TargetPriority := DFS_TARGET_PRIORITY(this.ptr + 8)
+                this.__TargetPriority := DFS_TARGET_PRIORITY(8, this)
             return this.__TargetPriority
         }
     }

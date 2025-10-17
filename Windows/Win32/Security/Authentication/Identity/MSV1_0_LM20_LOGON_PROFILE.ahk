@@ -69,7 +69,7 @@ class MSV1_0_LM20_LOGON_PROFILE extends Win32Struct
     LogonDomainName{
         get {
             if(!this.HasProp("__LogonDomainName"))
-                this.__LogonDomainName := LSA_UNICODE_STRING(this.ptr + 48)
+                this.__LogonDomainName := LSA_UNICODE_STRING(48, this)
             return this.__LogonDomainName
         }
     }
@@ -93,7 +93,7 @@ class MSV1_0_LM20_LOGON_PROFILE extends Win32Struct
     LogonServer{
         get {
             if(!this.HasProp("__LogonServer"))
-                this.__LogonServer := LSA_UNICODE_STRING(this.ptr + 72)
+                this.__LogonServer := LSA_UNICODE_STRING(72, this)
             return this.__LogonServer
         }
     }
@@ -105,7 +105,7 @@ class MSV1_0_LM20_LOGON_PROFILE extends Win32Struct
     UserParameters{
         get {
             if(!this.HasProp("__UserParameters"))
-                this.__UserParameters := LSA_UNICODE_STRING(this.ptr + 88)
+                this.__UserParameters := LSA_UNICODE_STRING(88, this)
             return this.__UserParameters
         }
     }

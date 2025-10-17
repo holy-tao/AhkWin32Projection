@@ -41,7 +41,7 @@ class RAS_PROJECTION_INFO extends Win32Struct
     ppp{
         get {
             if(!this.HasProp("__ppp"))
-                this.__ppp := RASPPP_PROJECTION_INFO(this.ptr + 8)
+                this.__ppp := RASPPP_PROJECTION_INFO(8, this)
             return this.__ppp
         }
     }
@@ -52,7 +52,7 @@ class RAS_PROJECTION_INFO extends Win32Struct
     ikev2{
         get {
             if(!this.HasProp("__ikev2"))
-                this.__ikev2 := RASIKEV2_PROJECTION_INFO(this.ptr + 8)
+                this.__ikev2 := RASIKEV2_PROJECTION_INFO(8, this)
             return this.__ikev2
         }
     }

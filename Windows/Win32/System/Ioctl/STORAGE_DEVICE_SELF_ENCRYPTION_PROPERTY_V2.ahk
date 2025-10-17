@@ -28,7 +28,7 @@ class STORAGE_DEVICE_SELF_ENCRYPTION_PROPERTY_V2 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     SupportsSelfEncryption {
         get => NumGet(this, 8, "char")

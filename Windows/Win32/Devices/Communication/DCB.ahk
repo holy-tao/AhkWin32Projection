@@ -443,7 +443,7 @@ class DCB extends Win32Struct
 
     /**
      * The value of the XON character for both transmission and reception.
-     * @type {Integer}
+     * @type {CHAR}
      */
     XonChar {
         get => NumGet(this, 21, "char")
@@ -452,7 +452,7 @@ class DCB extends Win32Struct
 
     /**
      * The value of the XOFF character for both transmission and reception.
-     * @type {Integer}
+     * @type {CHAR}
      */
     XoffChar {
         get => NumGet(this, 22, "char")
@@ -461,7 +461,7 @@ class DCB extends Win32Struct
 
     /**
      * The value of the character used to replace bytes received with a parity error.
-     * @type {Integer}
+     * @type {CHAR}
      */
     ErrorChar {
         get => NumGet(this, 23, "char")
@@ -470,7 +470,7 @@ class DCB extends Win32Struct
 
     /**
      * The value of the character used to signal the end of data.
-     * @type {Integer}
+     * @type {CHAR}
      */
     EofChar {
         get => NumGet(this, 24, "char")
@@ -479,7 +479,7 @@ class DCB extends Win32Struct
 
     /**
      * The value of the character used to signal an event.
-     * @type {Integer}
+     * @type {CHAR}
      */
     EvtChar {
         get => NumGet(this, 25, "char")

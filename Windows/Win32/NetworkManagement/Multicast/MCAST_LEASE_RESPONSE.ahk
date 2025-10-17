@@ -40,7 +40,7 @@ class MCAST_LEASE_RESPONSE extends Win32Struct
     ServerAddress{
         get {
             if(!this.HasProp("__ServerAddress"))
-                this.__ServerAddress := IPNG_ADDRESS(this.ptr + 8)
+                this.__ServerAddress := IPNG_ADDRESS(8, this)
             return this.__ServerAddress
         }
     }

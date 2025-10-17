@@ -273,7 +273,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_ADDRESS_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_ADDRESS_EVENT_INFO"))
-                this.__MSP_ADDRESS_EVENT_INFO := %this.__Class%._MSP_ADDRESS_EVENT_INFO(this.ptr + 16)
+                this.__MSP_ADDRESS_EVENT_INFO := %this.__Class%._MSP_ADDRESS_EVENT_INFO(16, this)
             return this.__MSP_ADDRESS_EVENT_INFO
         }
     }
@@ -284,7 +284,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_CALL_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_CALL_EVENT_INFO"))
-                this.__MSP_CALL_EVENT_INFO := %this.__Class%._MSP_CALL_EVENT_INFO(this.ptr + 16)
+                this.__MSP_CALL_EVENT_INFO := %this.__Class%._MSP_CALL_EVENT_INFO(16, this)
             return this.__MSP_CALL_EVENT_INFO
         }
     }
@@ -295,7 +295,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_TSP_DATA{
         get {
             if(!this.HasProp("__MSP_TSP_DATA"))
-                this.__MSP_TSP_DATA := %this.__Class%._MSP_TSP_DATA(this.ptr + 16)
+                this.__MSP_TSP_DATA := %this.__Class%._MSP_TSP_DATA(16, this)
             return this.__MSP_TSP_DATA
         }
     }
@@ -306,7 +306,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_PRIVATE_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_PRIVATE_EVENT_INFO"))
-                this.__MSP_PRIVATE_EVENT_INFO := %this.__Class%._MSP_PRIVATE_EVENT_INFO(this.ptr + 16)
+                this.__MSP_PRIVATE_EVENT_INFO := %this.__Class%._MSP_PRIVATE_EVENT_INFO(16, this)
             return this.__MSP_PRIVATE_EVENT_INFO
         }
     }
@@ -317,7 +317,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_FILE_TERMINAL_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_FILE_TERMINAL_EVENT_INFO"))
-                this.__MSP_FILE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_FILE_TERMINAL_EVENT_INFO(this.ptr + 16)
+                this.__MSP_FILE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_FILE_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_FILE_TERMINAL_EVENT_INFO
         }
     }
@@ -328,7 +328,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_ASR_TERMINAL_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_ASR_TERMINAL_EVENT_INFO"))
-                this.__MSP_ASR_TERMINAL_EVENT_INFO := %this.__Class%._MSP_ASR_TERMINAL_EVENT_INFO(this.ptr + 16)
+                this.__MSP_ASR_TERMINAL_EVENT_INFO := %this.__Class%._MSP_ASR_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_ASR_TERMINAL_EVENT_INFO
         }
     }
@@ -339,7 +339,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_TTS_TERMINAL_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_TTS_TERMINAL_EVENT_INFO"))
-                this.__MSP_TTS_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TTS_TERMINAL_EVENT_INFO(this.ptr + 16)
+                this.__MSP_TTS_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TTS_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_TTS_TERMINAL_EVENT_INFO
         }
     }
@@ -350,7 +350,7 @@ class MSP_EVENT_INFO extends Win32Struct
     MSP_TONE_TERMINAL_EVENT_INFO{
         get {
             if(!this.HasProp("__MSP_TONE_TERMINAL_EVENT_INFO"))
-                this.__MSP_TONE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TONE_TERMINAL_EVENT_INFO(this.ptr + 16)
+                this.__MSP_TONE_TERMINAL_EVENT_INFO := %this.__Class%._MSP_TONE_TERMINAL_EVENT_INFO(16, this)
             return this.__MSP_TONE_TERMINAL_EVENT_INFO
         }
     }

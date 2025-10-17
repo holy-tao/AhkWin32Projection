@@ -34,7 +34,7 @@ class DVR_STREAM_DESC extends Win32Struct
 
     /**
      * Indicates whether or not the stream is the default stream.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Default {
         get => NumGet(this, 8, "int")
@@ -43,7 +43,7 @@ class DVR_STREAM_DESC extends Win32Struct
 
     /**
      * Indicates whether or not the stream has been created.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Creation {
         get => NumGet(this, 12, "int")
@@ -84,7 +84,7 @@ class DVR_STREAM_DESC extends Win32Struct
     MediaType{
         get {
             if(!this.HasProp("__MediaType"))
-                this.__MediaType := AM_MEDIA_TYPE(this.ptr + 40)
+                this.__MediaType := AM_MEDIA_TYPE(40, this)
             return this.__MediaType
         }
     }

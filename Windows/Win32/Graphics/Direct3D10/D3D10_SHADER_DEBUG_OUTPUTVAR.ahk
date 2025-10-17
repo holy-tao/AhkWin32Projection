@@ -94,7 +94,7 @@ class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether the output variable can evaluate to not a number.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bNaNPossible {
         get => NumGet(this, 28, "int")
@@ -105,7 +105,7 @@ class D3D10_SHADER_DEBUG_OUTPUTVAR extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Indicates whether the output variable can evaluate to infinity.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bInfPossible {
         get => NumGet(this, 32, "int")

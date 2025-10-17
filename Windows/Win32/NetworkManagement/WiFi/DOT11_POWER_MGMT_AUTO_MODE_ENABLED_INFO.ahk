@@ -18,13 +18,13 @@ class DOT11_POWER_MGMT_AUTO_MODE_ENABLED_INFO extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := NDIS_OBJECT_HEADER(this.ptr + 0)
+                this.__Header := NDIS_OBJECT_HEADER(0, this)
             return this.__Header
         }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bEnabled {
         get => NumGet(this, 4, "char")

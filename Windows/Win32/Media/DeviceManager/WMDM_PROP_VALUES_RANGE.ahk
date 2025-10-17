@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\System\Com\CY.ahk
 #Include ..\..\Foundation\FILETIME.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\StructuredStorage\BSTRBLOB.ahk
 #Include ..\..\System\Com\BLOB.ahk
 #Include ..\..\System\Com\StructuredStorage\CAC.ahk
@@ -45,7 +46,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     rangeMin{
         get {
             if(!this.HasProp("__rangeMin"))
-                this.__rangeMin := PROPVARIANT(this.ptr + 0)
+                this.__rangeMin := PROPVARIANT(0, this)
             return this.__rangeMin
         }
     }
@@ -56,7 +57,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     rangeMax{
         get {
             if(!this.HasProp("__rangeMax"))
-                this.__rangeMax := PROPVARIANT(this.ptr + 24)
+                this.__rangeMax := PROPVARIANT(24, this)
             return this.__rangeMax
         }
     }
@@ -67,7 +68,7 @@ class WMDM_PROP_VALUES_RANGE extends Win32Struct
     rangeStep{
         get {
             if(!this.HasProp("__rangeStep"))
-                this.__rangeStep := PROPVARIANT(this.ptr + 48)
+                this.__rangeStep := PROPVARIANT(48, this)
             return this.__rangeStep
         }
     }

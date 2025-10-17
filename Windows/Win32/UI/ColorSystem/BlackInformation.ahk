@@ -46,7 +46,7 @@ class BlackInformation extends Win32Struct
 
     /**
      * 
-     * @type {Integer}
+     * @type {BOOL}
      */
     fBlackOnly {
         get => NumGet(this, 0, "int")

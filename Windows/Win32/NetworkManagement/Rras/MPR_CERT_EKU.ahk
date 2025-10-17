@@ -20,7 +20,7 @@ class MPR_CERT_EKU extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsEKUOID {
         get => NumGet(this, 4, "int")
@@ -28,7 +28,7 @@ class MPR_CERT_EKU extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszEKU {
         get => NumGet(this, 8, "ptr")

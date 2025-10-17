@@ -99,7 +99,7 @@ class SERVER_INFO_101 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying the name of a server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv101_name {
         get => NumGet(this, 8, "ptr")
@@ -147,7 +147,7 @@ class SERVER_INFO_101 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode string specifying a comment describing the server. The comment can be null.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv101_comment {
         get => NumGet(this, 32, "ptr")

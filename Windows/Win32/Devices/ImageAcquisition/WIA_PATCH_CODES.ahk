@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\WIA_PATCH_CODE_INFO.ahk
 
 /**
  * @namespace Windows.Win32.Devices.ImageAcquisition
@@ -7,9 +8,9 @@
  */
 class WIA_PATCH_CODES extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     /**
      * @type {Integer}
@@ -44,12 +45,12 @@ class WIA_PATCH_CODES extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<WIA_PATCH_CODE_INFO>}
      */
     PatchCodes{
         get {
             if(!this.HasProp("__PatchCodesProxyArray"))
-                this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "uint")
+                this.__PatchCodesProxyArray := Win32FixedArray(this.ptr + 16, 1, WIA_PATCH_CODE_INFO, "")
             return this.__PatchCodesProxyArray
         }
     }

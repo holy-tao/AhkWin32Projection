@@ -41,7 +41,7 @@ class DVD_TitleAttributes extends Win32Struct
     TitleLength{
         get {
             if(!this.HasProp("__TitleLength"))
-                this.__TitleLength := DVD_HMSF_TIMECODE(this.ptr + 0)
+                this.__TitleLength := DVD_HMSF_TIMECODE(0, this)
             return this.__TitleLength
         }
     }
@@ -53,7 +53,7 @@ class DVD_TitleAttributes extends Win32Struct
     VideoAttributes{
         get {
             if(!this.HasProp("__VideoAttributes"))
-                this.__VideoAttributes := DVD_VideoAttributes(this.ptr + 8)
+                this.__VideoAttributes := DVD_VideoAttributes(8, this)
             return this.__VideoAttributes
         }
     }

@@ -15,7 +15,7 @@ class CRYPTUI_INITDIALOG_STRUCT extends Win32Struct
 
     /**
      * The <b>lParam</b> in the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lParam {
         get => NumGet(this, 0, "ptr")

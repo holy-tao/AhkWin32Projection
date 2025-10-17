@@ -124,7 +124,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_restrictnullsessaccess {
         get => NumGet(this, 56, "int")
@@ -132,7 +132,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enablewfw311directipx {
         get => NumGet(this, 60, "int")
@@ -212,7 +212,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_sendsfrompreferredprocessor {
         get => NumGet(this, 100, "int")
@@ -236,7 +236,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enablecompression {
         get => NumGet(this, 112, "int")
@@ -244,7 +244,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_autosharewks {
         get => NumGet(this, 116, "int")
@@ -252,7 +252,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_autoshareserver {
         get => NumGet(this, 120, "int")
@@ -260,7 +260,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enablesecuritysignature {
         get => NumGet(this, 124, "int")
@@ -268,7 +268,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_requiresecuritysignature {
         get => NumGet(this, 128, "int")
@@ -308,7 +308,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enableW9xsecuritysignature {
         get => NumGet(this, 152, "int")
@@ -316,7 +316,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enforcekerberosreauthentication {
         get => NumGet(this, 156, "int")
@@ -324,7 +324,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_disabledos {
         get => NumGet(this, 160, "int")
@@ -340,7 +340,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_disablestrictnamechecking {
         get => NumGet(this, 168, "int")
@@ -348,7 +348,7 @@ class SERVER_INFO_598 extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv598_enableauthenticateusersharing {
         get => NumGet(this, 172, "int")

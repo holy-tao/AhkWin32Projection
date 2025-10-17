@@ -16,7 +16,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the  distinguished name of the directory system agent object in the directory that corresponds to the source server.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDsaDN {
         get => NumGet(this, 0, "ptr")
@@ -39,7 +39,7 @@ class DS_REPL_KCC_DSA_FAILUREW extends Win32Struct
     ftimeFirstFailure{
         get {
             if(!this.HasProp("__ftimeFirstFailure"))
-                this.__ftimeFirstFailure := FILETIME(this.ptr + 16)
+                this.__ftimeFirstFailure := FILETIME(16, this)
             return this.__ftimeFirstFailure
         }
     }

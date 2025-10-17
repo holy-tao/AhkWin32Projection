@@ -95,7 +95,7 @@ class DEBUG_DRIVER_OBJECT_INFO extends Win32Struct
     DriverName{
         get {
             if(!this.HasProp("__DriverName"))
-                this.__DriverName := %this.__Class%._DriverName(this.ptr + 40)
+                this.__DriverName := %this.__Class%._DriverName(40, this)
             return this.__DriverName
         }
     }

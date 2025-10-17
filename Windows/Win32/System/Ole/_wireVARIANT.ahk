@@ -110,7 +110,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {VARIANT_BOOL}
      */
     boolVal {
         get => NumGet(this, 16, "short")
@@ -131,7 +131,7 @@ class _wireVARIANT extends Win32Struct
     cyVal{
         get {
             if(!this.HasProp("__cyVal"))
-                this.__cyVal := CY(this.ptr + 16)
+                this.__cyVal := CY(16, this)
             return this.__cyVal
         }
     }
@@ -233,7 +233,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<VARIANT_BOOL>}
      */
     pboolVal {
         get => NumGet(this, 16, "ptr")
@@ -305,7 +305,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {CHAR}
      */
     cVal {
         get => NumGet(this, 16, "char")
@@ -358,7 +358,7 @@ class _wireVARIANT extends Win32Struct
     decVal{
         get {
             if(!this.HasProp("__decVal"))
-                this.__decVal := DECIMAL(this.ptr + 16)
+                this.__decVal := DECIMAL(16, this)
             return this.__decVal
         }
     }
@@ -372,7 +372,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     pcVal {
         get => NumGet(this, 16, "ptr")

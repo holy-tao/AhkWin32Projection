@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\DDSCAPS.ahk
 
 /**
  * The DD_GETAVAILDRIVERMEMORYDATA structure contains the information needed by the driver to query and return the amount of free memory.
@@ -24,11 +25,14 @@ class DD_GETAVAILDRIVERMEMORYDATA extends Win32Struct
 
     /**
      * Points to a <a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff550286(v=vs.85)">DDSCAPS</a> structure that describes the type of surface for which memory availability is being queried.
-     * @type {Integer}
+     * @type {DDSCAPS}
      */
-    DDSCaps {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+    DDSCaps{
+        get {
+            if(!this.HasProp("__DDSCaps"))
+                this.__DDSCaps := DDSCAPS(8, this)
+            return this.__DDSCaps
+        }
     }
 
     /**

@@ -21,7 +21,7 @@ class MCI_VD_ESCAPE_PARMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpstrCommand {
         get => NumGet(this, 8, "ptr")

@@ -28,7 +28,7 @@ class COR_PRF_EVENTPIPE_PARAM_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 8, "ptr")

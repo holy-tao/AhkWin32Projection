@@ -50,7 +50,7 @@ class WINDOWDATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window URL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszUrl {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class WINDOWDATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window URL Location (local anchor).
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszUrlLocation {
         get => NumGet(this, 24, "ptr")
@@ -72,7 +72,7 @@ class WINDOWDATA extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a buffer to hold the window title.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszTitle {
         get => NumGet(this, 32, "ptr")

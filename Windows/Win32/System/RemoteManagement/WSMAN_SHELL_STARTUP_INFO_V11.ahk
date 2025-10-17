@@ -18,13 +18,13 @@ class WSMAN_SHELL_STARTUP_INFO_V11 extends Win32Struct
     Base{
         get {
             if(!this.HasProp("__Base"))
-                this.__Base := WSMAN_SHELL_STARTUP_INFO_V10(this.ptr + 0)
+                this.__Base := WSMAN_SHELL_STARTUP_INFO_V10(0, this)
             return this.__Base
         }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     name {
         get => NumGet(this, 40, "ptr")

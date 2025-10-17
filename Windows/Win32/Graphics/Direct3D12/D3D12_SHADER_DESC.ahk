@@ -41,7 +41,7 @@ class D3D12_SHADER_DESC extends Win32Struct
 
     /**
      * The name of the originator of the shader.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Creator {
         get => NumGet(this, 8, "ptr")

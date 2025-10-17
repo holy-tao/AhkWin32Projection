@@ -26,7 +26,7 @@ class AVITCDLINDEX_ENTRY extends Win32Struct
     time{
         get {
             if(!this.HasProp("__time"))
-                this.__time := TIMECODE(this.ptr + 8)
+                this.__time := TIMECODE(8, this)
             return this.__time
         }
     }

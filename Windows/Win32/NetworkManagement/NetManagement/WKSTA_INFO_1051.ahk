@@ -12,7 +12,7 @@ class WKSTA_INFO_1051 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1051_buf_named_pipes {
         get => NumGet(this, 0, "int")

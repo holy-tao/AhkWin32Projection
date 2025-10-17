@@ -56,7 +56,7 @@ class SPropValue extends Win32Struct
     Value{
         get {
             if(!this.HasProp("__Value"))
-                this.__Value := __UPV(this.ptr + 8)
+                this.__Value := __UPV(8, this)
             return this.__Value
         }
     }

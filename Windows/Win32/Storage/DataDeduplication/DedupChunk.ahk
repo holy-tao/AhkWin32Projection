@@ -18,7 +18,7 @@ class DedupChunk extends Win32Struct
     Hash{
         get {
             if(!this.HasProp("__Hash"))
-                this.__Hash := DedupHash(this.ptr + 0)
+                this.__Hash := DedupHash(0, this)
             return this.__Hash
         }
     }

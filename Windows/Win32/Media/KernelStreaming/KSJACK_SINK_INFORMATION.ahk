@@ -52,7 +52,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
 
     /**
      * Specifies whether the sink supports High-bandwidth Digital Content Protection (HDCP).
-     * @type {Integer}
+     * @type {BOOL}
      */
     HDCPCapable {
         get => NumGet(this, 12, "int")
@@ -61,7 +61,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
 
     /**
      * Specifies whether the sink supports ACP Packet, ISRC1, or ISRC2.
-     * @type {Integer}
+     * @type {BOOL}
      */
     AICapable {
         get => NumGet(this, 16, "int")
@@ -93,7 +93,7 @@ class KSJACK_SINK_INFORMATION extends Win32Struct
     PortId{
         get {
             if(!this.HasProp("__PortId"))
-                this.__PortId := LUID(this.ptr + 88)
+                this.__PortId := LUID(88, this)
             return this.__PortId
         }
     }

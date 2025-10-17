@@ -28,7 +28,7 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     PTZStatus {
         get => NumGet(this, 8, "int")
@@ -36,7 +36,7 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Events {
         get => NumGet(this, 12, "int")
@@ -44,7 +44,7 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Analytics {
         get => NumGet(this, 16, "int")
@@ -52,7 +52,7 @@ class KSPROPERTY_NETWORKCAMERACONTROL_METADATA_INFO extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     Reserved {
         get => NumGet(this, 20, "int")

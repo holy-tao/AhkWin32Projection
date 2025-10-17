@@ -45,11 +45,39 @@ class XSTATE_CONFIGURATION extends Win32Struct
     }
 
     /**
+     * This bitfield backs the following members:
+     * - OptimizedSave
+     * - CompactionEnabled
+     * - ExtendedFeatureDisable
      * @type {Integer}
      */
-    Anonymous {
+    _bitfield {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OptimizedSave {
+        get => (this._bitfield >> 0) & 0x1
+        set => this._bitfield := ((value & 0x1) << 0) | (this._bitfield & ~(0x1 << 0))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    CompactionEnabled {
+        get => (this._bitfield >> 1) & 0x1
+        set => this._bitfield := ((value & 0x1) << 1) | (this._bitfield & ~(0x1 << 1))
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ExtendedFeatureDisable {
+        get => (this._bitfield >> 2) & 0x1
+        set => this._bitfield := ((value & 0x1) << 2) | (this._bitfield & ~(0x1 << 2))
     }
 
     /**

@@ -18,7 +18,7 @@ class DUMP_POINTERS_EX extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := DUMP_POINTERS_VERSION(this.ptr + 0)
+                this.__Header := DUMP_POINTERS_VERSION(0, this)
             return this.__Header
         }
     }
@@ -48,7 +48,7 @@ class DUMP_POINTERS_EX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     AllocateCommonBuffers {
         get => NumGet(this, 28, "char")
@@ -120,7 +120,7 @@ class DUMP_POINTERS_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<BOOLEAN>}
      */
     DeviceReady {
         get => NumGet(this, 80, "ptr")

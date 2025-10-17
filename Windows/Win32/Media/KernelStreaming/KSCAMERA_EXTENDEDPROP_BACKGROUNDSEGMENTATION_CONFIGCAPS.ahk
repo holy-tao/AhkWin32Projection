@@ -40,7 +40,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     Resolution{
         get {
             if(!this.HasProp("__Resolution"))
-                this.__Resolution := SIZE(this.ptr + 0)
+                this.__Resolution := SIZE(0, this)
             return this.__Resolution
         }
     }
@@ -51,7 +51,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     MaxFrameRate{
         get {
             if(!this.HasProp("__MaxFrameRate"))
-                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(this.ptr + 8)
+                this.__MaxFrameRate := %this.__Class%._MaxFrameRate(8, this)
             return this.__MaxFrameRate
         }
     }
@@ -62,7 +62,7 @@ class KSCAMERA_EXTENDEDPROP_BACKGROUNDSEGMENTATION_CONFIGCAPS extends Win32Struc
     MaskResolution{
         get {
             if(!this.HasProp("__MaskResolution"))
-                this.__MaskResolution := SIZE(this.ptr + 16)
+                this.__MaskResolution := SIZE(16, this)
             return this.__MaskResolution
         }
     }

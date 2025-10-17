@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 /**
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
@@ -517,8 +518,8 @@ class GroupPolicy {
 ;@region Methods
     /**
      * The RefreshPolicy function causes policy to be applied immediately on the client computer.
-     * @param {Integer} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -537,9 +538,9 @@ class GroupPolicy {
 
     /**
      * The RefreshPolicyEx function causes policy to be applied immediately on the computer. The extended function allows you to specify the type of policy refresh to apply.
-     * @param {Integer} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
+     * @param {BOOL} bMachine Specifies whether to refresh the computer policy or user policy. If this value is <b>TRUE</b>, the system refreshes the computer policy. If this value is <b>FALSE</b>, the system refreshes the user policy.
      * @param {Integer} dwOptions Specifies the type of policy refresh to apply. This parameter can be the following value.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -558,8 +559,8 @@ class GroupPolicy {
 
     /**
      * The EnterCriticalPolicySection function pauses the application of policy to allow applications to safely read policy settings.
-     * @param {Integer} bMachine A value that specifies whether to stop the application of computer policy or user policy. If this value is <b>TRUE</b>, the system stops applying computer policy. If this value is <b>FALSE</b>, the system stops applying user policy.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is a handle to a policy section.
+     * @param {BOOL} bMachine A value that specifies whether to stop the application of computer policy or user policy. If this value is <b>TRUE</b>, the system stops applying computer policy. If this value is <b>FALSE</b>, the system stops applying user policy.
+     * @returns {HANDLE} If the function succeeds, the return value is a handle to a policy section.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
@@ -573,14 +574,14 @@ class GroupPolicy {
         if(A_LastError)
             throw OSError()
 
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
      * The LeaveCriticalPolicySection function resumes the background application of policy. This function closes the handle to the policy section.
-     * @param {Pointer<Void>} hSection Handle to a policy section, which is returned by the 
+     * @param {HANDLE} hSection Handle to a policy section, which is returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-entercriticalpolicysection">EnterCriticalPolicySection</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -588,6 +589,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static LeaveCriticalPolicySection(hSection) {
+        hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\LeaveCriticalPolicySection", "ptr", hSection, "int")
@@ -599,10 +602,10 @@ class GroupPolicy {
 
     /**
      * The RegisterGPNotification function enables an application to receive notification when there is a change in policy. When a policy change occurs, the specified event object is set to the signaled state.
-     * @param {Pointer<Void>} hEvent Handle to an event object. Use the 
+     * @param {HANDLE} hEvent Handle to an event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create the event object.
-     * @param {Integer} bMachine Specifies the policy change type. If <b>TRUE</b>, computer policy changes are reported. If <b>FALSE</b>, user policy changes are reported.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @param {BOOL} bMachine Specifies the policy change type. If <b>TRUE</b>, computer policy changes are reported. If <b>FALSE</b>, user policy changes are reported.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -610,6 +613,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static RegisterGPNotification(hEvent, bMachine) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\RegisterGPNotification", "ptr", hEvent, "int", bMachine, "int")
@@ -621,9 +626,9 @@ class GroupPolicy {
 
     /**
      * The UnregisterGPNotification function unregisters the specified policy-notification handle from receiving policy change notifications.
-     * @param {Pointer<Void>} hEvent Policy-notification handle passed to the 
+     * @param {HANDLE} hEvent Policy-notification handle passed to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-registergpnotification">RegisterGPNotification</a> function.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -631,6 +636,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static UnregisterGPNotification(hEvent) {
+        hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
+
         A_LastError := 0
 
         result := DllCall("USERENV.dll\UnregisterGPNotification", "ptr", hEvent, "int")
@@ -642,7 +649,7 @@ class GroupPolicy {
 
     /**
      * The GetGPOList function retrieves the list of GPOs for the specified user or computer.
-     * @param {Pointer<Void>} hToken A token for the user or computer, returned from the 
+     * @param {HANDLE} hToken A token for the user or computer, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, 
@@ -651,20 +658,20 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a> and the following Remarks section.
      * 
      * If this parameter is <b>NULL</b>, you must supply values for the <i>lpName</i> and <i>lpHostName</i> parameters.
-     * @param {Pointer<Byte>} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
+     * @param {PSTR} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
+     * @param {PSTR} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function, specifying <b>DS_DIRECTORY_SERVICE_REQUIRED</b> in the <i>flags</i> parameter.
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Byte>} lpComputerName A pointer to the name of the computer used to determine the site location. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
+     * @param {PSTR} lpComputerName A pointer to the name of the computer used to determine the site location. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
      * @param {Integer} dwFlags A value that specifies additional flags that are used to control information retrieval. If you specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the computer. If you do not specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the user.
      * 
      * If you specify <b>GPO_LIST_FLAG_SITEONLY</b> the function returns only site information for the computer or user.
      * @param {Pointer<GROUP_POLICY_OBJECTA>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -672,9 +679,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpHostName := lpHostName is String? StrPtr(lpHostName) : lpHostName
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -687,7 +695,7 @@ class GroupPolicy {
 
     /**
      * The GetGPOList function retrieves the list of GPOs for the specified user or computer.
-     * @param {Pointer<Void>} hToken A token for the user or computer, returned from the 
+     * @param {HANDLE} hToken A token for the user or computer, returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-logonusera">LogonUser</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-createrestrictedtoken">CreateRestrictedToken</a>, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-duplicatetoken">DuplicateToken</a>, 
@@ -696,20 +704,20 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">Access Rights for Access-Token Objects</a> and the following Remarks section.
      * 
      * If this parameter is <b>NULL</b>, you must supply values for the <i>lpName</i> and <i>lpHostName</i> parameters.
-     * @param {Pointer<Char>} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
+     * @param {PWSTR} lpName A pointer to the user or computer name, in the fully qualified distinguished name format (for example,  "CN=<i>user</i>, OU=<i>users</i>, DC=<i>contoso</i>, DC=<i>com</i>").
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Char>} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
+     * @param {PWSTR} lpHostName A DNS domain name or domain controller name. Domain controller name can be retrieved using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> function, specifying <b>DS_DIRECTORY_SERVICE_REQUIRED</b> in the <i>flags</i> parameter.
      * 
      * If the <i>hToken</i> parameter is not <b>NULL</b>, this parameter must be <b>NULL</b>.
-     * @param {Pointer<Char>} lpComputerName A pointer to the name of the computer used to determine the site location. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
+     * @param {PWSTR} lpComputerName A pointer to the name of the computer used to determine the site location. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
      * @param {Integer} dwFlags A value that specifies additional flags that are used to control information retrieval. If you specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the computer. If you do not specify <b>GPO_LIST_FLAG_MACHINE</b>, the function retrieves policy information for the user.
      * 
      * If you specify <b>GPO_LIST_FLAG_SITEONLY</b> the function returns only site information for the computer or user.
      * @param {Pointer<GROUP_POLICY_OBJECTW>} pGPOList A pointer that receives the list of GPO structures. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -717,9 +725,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
-        lpName := lpName is String? StrPtr(lpName) : lpName
-        lpHostName := lpHostName is String? StrPtr(lpHostName) : lpHostName
-        lpComputerName := lpComputerName is String? StrPtr(lpComputerName) : lpComputerName
+        lpName := lpName is String ? StrPtr(lpName) : lpName
+        lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
+        lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -736,7 +745,7 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getgpolista">GetGPOList</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -759,7 +768,7 @@ class GroupPolicy {
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getgpolista">GetGPOList</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/nf-userenv-getappliedgpolista">GetAppliedGPOList</a> function. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/userenv/ns-userenv-group_policy_objecta">GROUP_POLICY_OBJECT</a>.
-     * @returns {Integer} If the function succeeds, the return value is nonzero.
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -779,8 +788,8 @@ class GroupPolicy {
     /**
      * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer.
      * @param {Integer} dwFlags A value that specifies the policy type. This parameter can be the following value.
-     * @param {Pointer<Byte>} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {Pointer<Void>} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
+     * @param {PSTR} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
+     * @param {PSID} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
      * 
      * If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is <b>NULL</b>, the user is the currently logged-on user. If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is not <b>NULL</b>, the user is represented by <i>pSidUser</i> on the local computer. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
@@ -793,7 +802,7 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
         return result
@@ -802,8 +811,8 @@ class GroupPolicy {
     /**
      * The GetAppliedGPOList function retrieves the list of GPOs applied for the specified user or computer.
      * @param {Integer} dwFlags A value that specifies the policy type. This parameter can be the following value.
-     * @param {Pointer<Char>} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
-     * @param {Pointer<Void>} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
+     * @param {PWSTR} pMachineName A pointer to the name of the remote computer. The format of the name is "&#92;&#92;<i>computer_name</i>". If this parameter is <b>NULL</b>, the local computer name is used.
+     * @param {PSID} pSidUser A value that specifies the SID of the user. If <i>pMachineName</i> is not <b>NULL</b> and <i>dwFlags</i> specifies user policy, then <i>pSidUser</i> cannot be <b>NULL</b>.
      * 
      * If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is <b>NULL</b>, the user is the currently logged-on user. If <i>pMachineName</i> is <b>NULL</b> and <i>pSidUser</i> is not <b>NULL</b>, the user is represented by <i>pSidUser</i> on the local computer. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-identifiers">Security Identifiers</a>.
@@ -816,7 +825,7 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr", ppGPOList, "uint")
         return result
@@ -857,8 +866,8 @@ class GroupPolicy {
 
     /**
      * 
-     * @param {Pointer<Void>} pSecurityDescriptor 
-     * @param {Pointer<Void>} pPrincipalSelfSid 
+     * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor 
+     * @param {PSID} pPrincipalSelfSid 
      * @param {Pointer<Void>} pRsopToken 
      * @param {Integer} dwDesiredAccessMask 
      * @param {Pointer<OBJECT_TYPE_LIST>} pObjectTypeList 
@@ -867,14 +876,16 @@ class GroupPolicy {
      * @param {Pointer} pPrivilegeSet 
      * @param {Pointer<UInt32>} pdwPrivilegeSetLength 
      * @param {Pointer<UInt32>} pdwGrantedAccessMask 
-     * @param {Pointer<Int32>} pbAccessStatus 
+     * @param {Pointer<BOOL>} pbAccessStatus 
      * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopAccessCheckByType(pSecurityDescriptor, pPrincipalSelfSid, pRsopToken, dwDesiredAccessMask, pObjectTypeList, ObjectTypeListLength, pGenericMapping, pPrivilegeSet, pdwPrivilegeSetLength, pdwGrantedAccessMask, pbAccessStatus) {
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, "uint*", pdwPrivilegeSetLength, "uint*", pdwGrantedAccessMask, "int*", pbAccessStatus, "int")
+        result := DllCall("USERENV.dll\RsopAccessCheckByType", "ptr", pSecurityDescriptor, "ptr", pPrincipalSelfSid, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "ptr", pObjectTypeList, "uint", ObjectTypeListLength, "ptr", pGenericMapping, "ptr", pPrivilegeSet, "uint*", pdwPrivilegeSetLength, "uint*", pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
         if(A_LastError)
             throw OSError()
 
@@ -886,18 +897,18 @@ class GroupPolicy {
 
     /**
      * 
-     * @param {Pointer<Char>} pszFileName 
+     * @param {PWSTR} pszFileName 
      * @param {Pointer<Void>} pRsopToken 
      * @param {Integer} dwDesiredAccessMask 
      * @param {Pointer<UInt32>} pdwGrantedAccessMask 
-     * @param {Pointer<Int32>} pbAccessStatus 
+     * @param {Pointer<BOOL>} pbAccessStatus 
      * @returns {HRESULT} 
      * @since windows6.0.6000
      */
     static RsopFileAccessCheck(pszFileName, pRsopToken, dwDesiredAccessMask, pdwGrantedAccessMask, pbAccessStatus) {
-        pszFileName := pszFileName is String? StrPtr(pszFileName) : pszFileName
+        pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "uint*", pdwGrantedAccessMask, "int*", pbAccessStatus, "int")
+        result := DllCall("USERENV.dll\RsopFileAccessCheck", "ptr", pszFileName, "ptr", pRsopToken, "uint", dwDesiredAccessMask, "uint*", pdwGrantedAccessMask, "ptr", pbAccessStatus, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -940,13 +951,13 @@ class GroupPolicy {
 
     /**
      * 
-     * @param {Integer} bMachine 
-     * @param {Pointer<Char>} lpwszMgmtProduct 
+     * @param {BOOL} bMachine 
+     * @param {PWSTR} lpwszMgmtProduct 
      * @param {Integer} dwMgmtProductOptions 
      * @returns {Integer} 
      */
     static GenerateGPNotification(bMachine, lpwszMgmtProduct, dwMgmtProductOptions) {
-        lpwszMgmtProduct := lpwszMgmtProduct is String? StrPtr(lpwszMgmtProduct) : lpwszMgmtProduct
+        lpwszMgmtProduct := lpwszMgmtProduct is String ? StrPtr(lpwszMgmtProduct) : lpwszMgmtProduct
 
         result := DllCall("USERENV.dll\GenerateGPNotification", "int", bMachine, "ptr", lpwszMgmtProduct, "uint", dwMgmtProductOptions, "uint")
         return result
@@ -967,7 +978,7 @@ class GroupPolicy {
 
     /**
      * The UninstallApplication function uninstalls a group policy application that handles setup and installation using Windows Installer .msi files.
-     * @param {Pointer<Char>} ProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> product code of the product being uninstalled. The <a href="https://docs.microsoft.com/windows/desktop/Msi/product-codes">product code</a> of the application should be provided in the form of  a <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">Windows Installer GUID</a> as a string with braces.
+     * @param {PWSTR} ProductCode The <a href="https://docs.microsoft.com/windows/desktop/Msi/windows-installer-portal">Windows Installer</a> product code of the product being uninstalled. The <a href="https://docs.microsoft.com/windows/desktop/Msi/product-codes">product code</a> of the application should be provided in the form of  a <a href="https://docs.microsoft.com/windows/desktop/Msi/guid">Windows Installer GUID</a> as a string with braces.
      * @param {Integer} dwStatus The status of the uninstall attempt. The <i>dwStatus</i> parameter is the Windows success code of the uninstall attempt returned by <a href="https://docs.microsoft.com/windows/desktop/api/msi/nf-msi-msiconfigureproducta">MsiConfigureProduct</a>.  The system can use this to ensure that the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/Policy/reporting-group-policy">Resultant Set of Policy (RSoP)</a> indicates whether the uninstall failed or succeeded.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
      * <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a> or the header file WinError.h.
@@ -975,7 +986,7 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static UninstallApplication(ProductCode, dwStatus) {
-        ProductCode := ProductCode is String? StrPtr(ProductCode) : ProductCode
+        ProductCode := ProductCode is String ? StrPtr(ProductCode) : ProductCode
 
         result := DllCall("ADVAPI32.dll\UninstallApplication", "ptr", ProductCode, "uint", dwStatus, "uint")
         return result
@@ -983,14 +994,14 @@ class GroupPolicy {
 
     /**
      * 
-     * @param {Pointer<Char>} Descriptor 
-     * @param {Pointer<Char>} CommandLine 
+     * @param {PWSTR} Descriptor 
+     * @param {PWSTR} CommandLine 
      * @param {Pointer<UInt32>} CommandLineLength 
      * @returns {Integer} 
      */
     static CommandLineFromMsiDescriptor(Descriptor, CommandLine, CommandLineLength) {
-        Descriptor := Descriptor is String? StrPtr(Descriptor) : Descriptor
-        CommandLine := CommandLine is String? StrPtr(CommandLine) : CommandLine
+        Descriptor := Descriptor is String ? StrPtr(Descriptor) : Descriptor
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
         result := DllCall("ADVAPI32.dll\CommandLineFromMsiDescriptor", "ptr", Descriptor, "ptr", CommandLine, "uint*", CommandLineLength, "uint")
         return result
@@ -1017,7 +1028,7 @@ class GroupPolicy {
 
     /**
      * The GetLocalManagedApplications function can be run on the target computer to get a list of managed applications on that computer.
-     * @param {Integer} bUserApps A value that, if <b>TRUE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the user.  If the value of this parameter is <b>FALSE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the local computer.
+     * @param {BOOL} bUserApps A value that, if <b>TRUE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the user.  If the value of this parameter is <b>FALSE</b>, the <i>prgLocalApps</i> parameter contains a list of managed applications that applies to the local computer.
      * @param {Pointer<UInt32>} pdwApps The address of a <b>DWORD</b> that specifies the number of applications in the list returned by <i>prgLocalApps</i>.
      * @param {Pointer<LOCALMANAGEDAPPLICATION>} prgLocalApps The address of an array that contains the list of managed applications. You must call <b>LocalFree</b> to free this array when its contents are no longer required. This parameter cannot be null. The list is returned as a <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-localmanagedapplication">LOCALMANAGEDAPPLICATION</a> structure.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>. Otherwise, the function returns one of the system error codes. For a complete list of error codes, see 
@@ -1032,13 +1043,13 @@ class GroupPolicy {
 
     /**
      * 
-     * @param {Pointer<Char>} ProductCode 
-     * @param {Pointer<Char>} DisplayName 
-     * @param {Pointer<Char>} SupportUrl 
+     * @param {PWSTR} ProductCode 
+     * @param {Pointer<PWSTR>} DisplayName 
+     * @param {Pointer<PWSTR>} SupportUrl 
      * @returns {String} Nothing - always returns an empty string
      */
     static GetLocalManagedApplicationData(ProductCode, DisplayName, SupportUrl) {
-        ProductCode := ProductCode is String? StrPtr(ProductCode) : ProductCode
+        ProductCode := ProductCode is String ? StrPtr(ProductCode) : ProductCode
 
         DllCall("ADVAPI32.dll\GetLocalManagedApplicationData", "ptr", ProductCode, "ptr", DisplayName, "ptr", SupportUrl)
     }
@@ -1060,11 +1071,11 @@ class GroupPolicy {
 
     /**
      * The CreateGPOLink function creates a link between the specified GPO and the specified site, domain, or organizational unit.
-     * @param {Pointer<Char>} lpGPO A value that specifies the path to the GPO, in ADSI format 
+     * @param {PWSTR} lpGPO A value that specifies the path to the GPO, in ADSI format 
      *       ("LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>"). 
      *       You cannot specify a server name in this parameter.
-     * @param {Pointer<Char>} lpContainer A value that specifies the Active Directory path to the site, domain, or organizational unit.
-     * @param {Integer} fHighPriority A value that specifies the link priority. If this parameter is <b>TRUE</b>, the system 
+     * @param {PWSTR} lpContainer A value that specifies the Active Directory path to the site, domain, or organizational unit.
+     * @param {BOOL} fHighPriority A value that specifies the link priority. If this parameter is <b>TRUE</b>, the system 
      *       creates the link as the highest priority. If this parameter is <b>FALSE</b>, the system 
      *       creates the link as the lowest priority.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns 
@@ -1076,8 +1087,8 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static CreateGPOLink(lpGPO, lpContainer, fHighPriority) {
-        lpGPO := lpGPO is String? StrPtr(lpGPO) : lpGPO
-        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+        lpGPO := lpGPO is String ? StrPtr(lpGPO) : lpGPO
+        lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\CreateGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int", fHighPriority, "int")
         if(result != 0)
@@ -1088,15 +1099,15 @@ class GroupPolicy {
 
     /**
      * The DeleteGPOLink function deletes the link between the specified GPO and the specified site, domain, or organizational unit.
-     * @param {Pointer<Char>} lpGPO A value that specifies the path to the GPO, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
-     * @param {Pointer<Char>} lpContainer Specifies the Active Directory path to the site, domain, or organizational unit.
+     * @param {PWSTR} lpGPO A value that specifies the path to the GPO, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
+     * @param {PWSTR} lpContainer Specifies the Active Directory path to the site, domain, or organizational unit.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the  header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-deletegpolink
      * @since windows6.0.6000
      */
     static DeleteGPOLink(lpGPO, lpContainer) {
-        lpGPO := lpGPO is String? StrPtr(lpGPO) : lpGPO
-        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+        lpGPO := lpGPO is String ? StrPtr(lpGPO) : lpGPO
+        lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteGPOLink", "ptr", lpGPO, "ptr", lpContainer, "int")
         if(result != 0)
@@ -1107,13 +1118,13 @@ class GroupPolicy {
 
     /**
      * The DeleteAllGPOLinks function deletes all GPO links for the specified site, domain, or organizational unit.
-     * @param {Pointer<Char>} lpContainer A value that specifies the path to the site, domain, or organizational unit, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
+     * @param {PWSTR} lpContainer A value that specifies the path to the site, domain, or organizational unit, in ADSI format (LDAP://cn=<i>user</i>, ou=<i>users</i>, dc=<i>coname</i>, dc=<i>com</i>). You cannot specify a server name in this parameter.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-deleteallgpolinks
      * @since windows6.0.6000
      */
     static DeleteAllGPOLinks(lpContainer) {
-        lpContainer := lpContainer is String? StrPtr(lpContainer) : lpContainer
+        lpContainer := lpContainer is String ? StrPtr(lpContainer) : lpContainer
 
         result := DllCall("GPEDIT.dll\DeleteAllGPOLinks", "ptr", lpContainer, "int")
         if(result != 0)
@@ -1141,16 +1152,16 @@ class GroupPolicy {
 
     /**
      * The ImportRSoPData function imports a data file containing RSoP data to a WMI namespace. The file must be one generated by a call to the ExportRSoPData function.
-     * @param {Pointer<Char>} lpNameSpace Pointer to a string specifying the namespace to contain the RSoP data. The namespace must exist prior to calling 
+     * @param {PWSTR} lpNameSpace Pointer to a string specifying the namespace to contain the RSoP data. The namespace must exist prior to calling 
      * <b>ImportRSoPData</b>.
-     * @param {Pointer<Char>} lpFileName Pointer to a string specifying the name of the file that contains the RSoP data.
+     * @param {PWSTR} lpFileName Pointer to a string specifying the name of the file that contains the RSoP data.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the Platform SDK header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-importrsopdata
      * @since windows6.0.6000
      */
     static ImportRSoPData(lpNameSpace, lpFileName) {
-        lpNameSpace := lpNameSpace is String? StrPtr(lpNameSpace) : lpNameSpace
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpNameSpace := lpNameSpace is String ? StrPtr(lpNameSpace) : lpNameSpace
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ImportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
         if(result != 0)
@@ -1161,15 +1172,15 @@ class GroupPolicy {
 
     /**
      * The ExportRSoPData function exports a WMI namespace that contains RSoP information to a data file. The function writes the information to a data file that can be imported to a WMI namespace with a call to the ImportRSoPData function.
-     * @param {Pointer<Char>} lpNameSpace A pointer to a string that specifies the namespace which contains the RSoP data.
-     * @param {Pointer<Char>} lpFileName A pointer to a string that specifies the name of the file to receive the RSoP data.
+     * @param {PWSTR} lpNameSpace A pointer to a string that specifies the namespace which contains the RSoP data.
+     * @param {PWSTR} lpFileName A pointer to a string that specifies the name of the file to receive the RSoP data.
      * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns one of the COM error codes defined in the header file WinError.h.
      * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-exportrsopdata
      * @since windows6.0.6000
      */
     static ExportRSoPData(lpNameSpace, lpFileName) {
-        lpNameSpace := lpNameSpace is String? StrPtr(lpNameSpace) : lpNameSpace
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpNameSpace := lpNameSpace is String ? StrPtr(lpNameSpace) : lpNameSpace
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GPEDIT.dll\ExportRSoPData", "ptr", lpNameSpace, "ptr", lpFileName, "int")
         if(result != 0)

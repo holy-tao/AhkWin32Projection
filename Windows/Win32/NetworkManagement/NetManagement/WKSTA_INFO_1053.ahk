@@ -12,7 +12,7 @@ class WKSTA_INFO_1053 extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     wki1053_utilize_nt_caching {
         get => NumGet(this, 0, "int")

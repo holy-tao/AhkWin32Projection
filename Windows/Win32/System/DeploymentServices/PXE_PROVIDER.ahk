@@ -25,7 +25,7 @@ class PXE_PROVIDER extends Win32Struct
     /**
      * Address of a null-terminated string that specifies the display name of the provider. This name is displayed 
      *       to the user and must be unique among registered providers.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszName {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class PXE_PROVIDER extends Win32Struct
 
     /**
      * Address of a null-terminated string that specifies the full path to the provider DLL.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFilePath {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class PXE_PROVIDER extends Win32Struct
     /**
      * Indicates whether the provider is critical. If a critical provider fails, the WDS server will also 
      *       fail.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsCritical {
         get => NumGet(this, 24, "int")

@@ -23,7 +23,7 @@ class IKEEXT_KEYMODULE_STATISTICS1 extends Win32Struct
     v4Statistics{
         get {
             if(!this.HasProp("__v4Statistics"))
-                this.__v4Statistics := IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(this.ptr + 0)
+                this.__v4Statistics := IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(0, this)
             return this.__v4Statistics
         }
     }
@@ -37,7 +37,7 @@ class IKEEXT_KEYMODULE_STATISTICS1 extends Win32Struct
     v6Statistics{
         get {
             if(!this.HasProp("__v6Statistics"))
-                this.__v6Statistics := IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(this.ptr + 72)
+                this.__v6Statistics := IKEEXT_IP_VERSION_SPECIFIC_KEYMODULE_STATISTICS1(72, this)
             return this.__v6Statistics
         }
     }

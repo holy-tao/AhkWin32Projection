@@ -33,7 +33,7 @@ class StylusInfo extends Win32Struct
 
     /**
      * <b>TRUE</b> if the stylus is upside down, otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bIsInvertedCursor {
         get => NumGet(this, 8, "int")

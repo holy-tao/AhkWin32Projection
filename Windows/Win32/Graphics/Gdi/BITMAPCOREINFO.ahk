@@ -62,7 +62,7 @@ class BITMAPCOREINFO extends Win32Struct
     bmciHeader{
         get {
             if(!this.HasProp("__bmciHeader"))
-                this.__bmciHeader := BITMAPCOREHEADER(this.ptr + 0)
+                this.__bmciHeader := BITMAPCOREHEADER(0, this)
             return this.__bmciHeader
         }
     }

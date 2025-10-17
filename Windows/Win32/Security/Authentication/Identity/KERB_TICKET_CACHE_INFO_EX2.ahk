@@ -18,7 +18,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     ClientName{
         get {
             if(!this.HasProp("__ClientName"))
-                this.__ClientName := LSA_UNICODE_STRING(this.ptr + 0)
+                this.__ClientName := LSA_UNICODE_STRING(0, this)
             return this.__ClientName
         }
     }
@@ -29,7 +29,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     ClientRealm{
         get {
             if(!this.HasProp("__ClientRealm"))
-                this.__ClientRealm := LSA_UNICODE_STRING(this.ptr + 16)
+                this.__ClientRealm := LSA_UNICODE_STRING(16, this)
             return this.__ClientRealm
         }
     }
@@ -40,7 +40,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     ServerName{
         get {
             if(!this.HasProp("__ServerName"))
-                this.__ServerName := LSA_UNICODE_STRING(this.ptr + 32)
+                this.__ServerName := LSA_UNICODE_STRING(32, this)
             return this.__ServerName
         }
     }
@@ -51,7 +51,7 @@ class KERB_TICKET_CACHE_INFO_EX2 extends Win32Struct
     ServerRealm{
         get {
             if(!this.HasProp("__ServerRealm"))
-                this.__ServerRealm := LSA_UNICODE_STRING(this.ptr + 48)
+                this.__ServerRealm := LSA_UNICODE_STRING(48, this)
             return this.__ServerRealm
         }
     }

@@ -33,14 +33,14 @@ class CERT_KEYGEN_REQUEST_INFO extends Win32Struct
     SubjectPublicKeyInfo{
         get {
             if(!this.HasProp("__SubjectPublicKeyInfo"))
-                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(this.ptr + 8)
+                this.__SubjectPublicKeyInfo := CERT_PUBLIC_KEY_INFO(8, this)
             return this.__SubjectPublicKeyInfo
         }
     }
 
     /**
      * A random printable string. This string is used by the server to ensure that the key that it is certifying matches the client on the page.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszChallengeString {
         get => NumGet(this, 56, "ptr")

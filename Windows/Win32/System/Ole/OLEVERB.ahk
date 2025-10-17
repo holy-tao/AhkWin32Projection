@@ -24,7 +24,7 @@ class OLEVERB extends Win32Struct
 
     /**
      * Pointer to a string that contains the verb's name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszVerbName {
         get => NumGet(this, 8, "ptr")

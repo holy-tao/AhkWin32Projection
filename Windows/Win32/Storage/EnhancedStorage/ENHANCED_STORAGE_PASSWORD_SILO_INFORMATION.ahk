@@ -51,7 +51,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if the silo claims compliance with the  Federal Information Processing Standard  (FIPS); otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     FipsCompliant {
         get => NumGet(this, 12, "int")
@@ -60,7 +60,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if a device-unique security identifier provided by the manufacturer is available; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     SecurityIDAvailable {
         get => NumGet(this, 16, "int")
@@ -69,7 +69,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if an initialization is in progress; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     InitializeInProgress {
         get => NumGet(this, 20, "int")
@@ -78,7 +78,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if the silo is set to prepare for initalization to the default state set by the manufacturer; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ITMSArmed {
         get => NumGet(this, 24, "int")
@@ -87,7 +87,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if the silo is capable of initializing to the default state set by the manufacturer; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ITMSArmable {
         get => NumGet(this, 28, "int")
@@ -96,7 +96,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
 
     /**
      * <b>TRUE</b> if the user account has been created in the password silo; otherwise, <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UserCreated {
         get => NumGet(this, 32, "int")
@@ -106,7 +106,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
     /**
      * <b>TRUE</b> if the silo resets Administrator authentication failure count to zero upon power cycle. This is the default behavior for the silo. 
      * If <b>FALSE</b>, the silo will not reset Administrator authentication failure count to zero upon power cycle.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ResetOnPORDefault {
         get => NumGet(this, 36, "int")
@@ -116,7 +116,7 @@ class ENHANCED_STORAGE_PASSWORD_SILO_INFORMATION extends Win32Struct
     /**
      * <b>TRUE</b> if the silo is currently set to reset Administrator authentication failure count to zero upon power cycle; Otherwise <b>FALSE</b>. 
      * This configuration is affected by changes introduced by the host or the implementation of factory default settings.
-     * @type {Integer}
+     * @type {BOOL}
      */
     ResetOnPORCurrent {
         get => NumGet(this, 40, "int")

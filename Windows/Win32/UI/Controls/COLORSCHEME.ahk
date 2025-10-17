@@ -29,7 +29,7 @@ class COLORSCHEME extends Win32Struct
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that represents the highlight color of the buttons. Use 
      * 					<b>CLR_DEFAULT</b> for the default highlight color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrBtnHighlight {
         get => NumGet(this, 4, "uint")
@@ -41,7 +41,7 @@ class COLORSCHEME extends Win32Struct
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value that represents the shadow color of the buttons. Use 
      * 					<b>CLR_DEFAULT</b> for the default shadow color.
-     * @type {Integer}
+     * @type {COLORREF}
      */
     clrBtnShadow {
         get => NumGet(this, 8, "uint")

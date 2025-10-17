@@ -17,7 +17,7 @@ class CRYPT_KEY_PROV_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the name of the key container.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a key within a CNG key storage provider. This string is passed as the <i>pwszKeyName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenkey">NCryptOpenKey</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszContainerName {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class CRYPT_KEY_PROV_INFO extends Win32Struct
      * A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * 
      * When the <b>dwProvType</b> member is zero, this string contains the name of a CNG key storage provider. This string is passed as the <i>pwszProviderName</i> parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/ncrypt/nf-ncrypt-ncryptopenstorageprovider">NCryptOpenStorageProvider</a> function.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszProvName {
         get => NumGet(this, 8, "ptr")

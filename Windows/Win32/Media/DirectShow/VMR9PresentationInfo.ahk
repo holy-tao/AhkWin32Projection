@@ -58,7 +58,7 @@ class VMR9PresentationInfo extends Win32Struct
     szAspectRatio{
         get {
             if(!this.HasProp("__szAspectRatio"))
-                this.__szAspectRatio := SIZE(this.ptr + 32)
+                this.__szAspectRatio := SIZE(32, this)
             return this.__szAspectRatio
         }
     }
@@ -70,7 +70,7 @@ class VMR9PresentationInfo extends Win32Struct
     rcSrc{
         get {
             if(!this.HasProp("__rcSrc"))
-                this.__rcSrc := RECT(this.ptr + 40)
+                this.__rcSrc := RECT(40, this)
             return this.__rcSrc
         }
     }
@@ -82,7 +82,7 @@ class VMR9PresentationInfo extends Win32Struct
     rcDst{
         get {
             if(!this.HasProp("__rcDst"))
-                this.__rcDst := RECT(this.ptr + 56)
+                this.__rcDst := RECT(56, this)
             return this.__rcDst
         }
     }

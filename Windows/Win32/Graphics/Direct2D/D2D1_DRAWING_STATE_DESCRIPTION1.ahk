@@ -67,7 +67,7 @@ class D2D1_DRAWING_STATE_DESCRIPTION1 extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transform"))
-                this.__transform := D2D_MATRIX_3X2_F(this.ptr + 24)
+                this.__transform := D2D_MATRIX_3X2_F(24, this)
             return this.__transform
         }
     }

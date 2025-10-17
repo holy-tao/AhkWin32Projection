@@ -20,7 +20,7 @@ class SAFER_HASH_IDENTIFICATION2 extends Win32Struct
     hashIdentification{
         get {
             if(!this.HasProp("__hashIdentification"))
-                this.__hashIdentification := SAFER_HASH_IDENTIFICATION(this.ptr + 0)
+                this.__hashIdentification := SAFER_HASH_IDENTIFICATION(0, this)
             return this.__hashIdentification
         }
     }

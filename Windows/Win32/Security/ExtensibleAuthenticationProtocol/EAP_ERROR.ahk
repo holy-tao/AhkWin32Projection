@@ -31,7 +31,7 @@ class EAP_ERROR extends Win32Struct
     type{
         get {
             if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(this.ptr + 8)
+                this.__type := EAP_METHOD_TYPE(8, this)
             return this.__type
         }
     }
@@ -532,7 +532,7 @@ class EAP_ERROR extends Win32Struct
 
     /**
      * A localized and readable string that describes the root cause of the error.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pRootCauseString {
         get => NumGet(this, 56, "ptr")
@@ -541,7 +541,7 @@ class EAP_ERROR extends Win32Struct
 
     /**
      * A localized and readable string that describes the possible repair action.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pRepairString {
         get => NumGet(this, 64, "ptr")

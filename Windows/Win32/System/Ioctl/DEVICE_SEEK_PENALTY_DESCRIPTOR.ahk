@@ -35,7 +35,7 @@ class DEVICE_SEEK_PENALTY_DESCRIPTOR extends Win32Struct
 
     /**
      * Specifies whether the device incurs a seek penalty.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     IncursSeekPenalty {
         get => NumGet(this, 8, "char")

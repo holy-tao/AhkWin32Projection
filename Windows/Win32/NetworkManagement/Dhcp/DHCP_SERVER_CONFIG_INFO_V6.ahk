@@ -15,7 +15,7 @@ class DHCP_SERVER_CONFIG_INFO_V6 extends Win32Struct
 
     /**
      * Reserved. This must to be set to 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
     UnicastFlag {
         get => NumGet(this, 0, "int")
@@ -24,7 +24,7 @@ class DHCP_SERVER_CONFIG_INFO_V6 extends Win32Struct
 
     /**
      * Reserved. This must to be set to 0.
-     * @type {Integer}
+     * @type {BOOL}
      */
     RapidCommitFlag {
         get => NumGet(this, 4, "int")
@@ -87,7 +87,7 @@ class DHCP_SERVER_CONFIG_INFO_V6 extends Win32Struct
 
     /**
      * If <b>TRUE</b>, audit logs are enabled on the DHCPv6 server; if <b>FALSE</b>, they are not.
-     * @type {Integer}
+     * @type {BOOL}
      */
     fAuditLog {
         get => NumGet(this, 32, "int")

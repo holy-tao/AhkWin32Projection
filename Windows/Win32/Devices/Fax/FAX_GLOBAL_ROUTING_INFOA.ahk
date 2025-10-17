@@ -60,7 +60,7 @@ class FAX_GLOBAL_ROUTING_INFOA extends Win32Struct
      *                     
      * 
      * For more information about fax routing methods, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-about-the-fax-routing-extension-api">About the Fax Routing Extension API</a>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Guid {
         get => NumGet(this, 8, "ptr")
@@ -71,7 +71,7 @@ class FAX_GLOBAL_ROUTING_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     FriendlyName {
         get => NumGet(this, 16, "ptr")
@@ -82,7 +82,7 @@ class FAX_GLOBAL_ROUTING_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that is the name of the function that executes the specified fax routing method. The fax routing extension DLL identified by the <b>ExtensionImageName</b> member exports the function.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     FunctionName {
         get => NumGet(this, 24, "ptr")
@@ -93,7 +93,7 @@ class FAX_GLOBAL_ROUTING_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax routing extension DLL that implements the fax routing method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ExtensionImageName {
         get => NumGet(this, 32, "ptr")
@@ -104,7 +104,7 @@ class FAX_GLOBAL_ROUTING_INFOA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the user-friendly name to display for the fax routing extension DLL that implements the fax routing method.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     ExtensionFriendlyName {
         get => NumGet(this, 40, "ptr")

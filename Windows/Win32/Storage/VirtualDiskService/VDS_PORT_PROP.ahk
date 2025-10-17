@@ -31,7 +31,7 @@ class VDS_PORT_PROP extends Win32Struct
 
     /**
      * The name of the port; a zero-terminated, human-readable string.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFriendlyName {
         get => NumGet(this, 8, "ptr")
@@ -43,7 +43,7 @@ class VDS_PORT_PROP extends Win32Struct
      *       string.
      * 
      * For Fibre Channel networks, this member should be the WWN for the port, formatted as a hexadecimal string (16 characters long), most significant byte first. For example, a WWN address of 01:23:45:67:89:AB:CD:EF should be represented as "0123456789ABCDEF".
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIdentification {
         get => NumGet(this, 16, "ptr")

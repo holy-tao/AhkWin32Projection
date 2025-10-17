@@ -20,7 +20,7 @@ class WCS_DEVICE_MHC2_CAPABILITIES extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     SupportsMhc2 {
         get => NumGet(this, 4, "int")

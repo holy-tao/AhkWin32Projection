@@ -12,7 +12,7 @@ class POWER_MONITOR_INVOCATION extends Win32Struct
     static packingSize => 4
 
     /**
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Console {
         get => NumGet(this, 0, "char")

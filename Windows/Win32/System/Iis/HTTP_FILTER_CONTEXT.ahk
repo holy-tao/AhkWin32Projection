@@ -44,7 +44,7 @@ class HTTP_FILTER_CONTEXT extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fIsSecurePort {
         get => NumGet(this, 20, "int")
@@ -99,12 +99,8 @@ class HTTP_FILTER_CONTEXT extends Win32Struct
         set => NumPut("ptr", value, this, 64)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 72
     }
 }

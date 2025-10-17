@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
-
+#Include ..\..\..\..\Win32Handle.ahk
+#Include .\HCOLORSPACE.ahk
 /**
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
@@ -427,7 +428,7 @@ class ColorSystem {
 ;@region Methods
     /**
      * The SetICMMode function causes Image Color Management to be enabled, disabled, or queried on a given device context (DC).
-     * @param {Pointer<Void>} hdc Identifies handle to the device context.
+     * @param {HDC} hdc Identifies handle to the device context.
      * @param {Integer} mode Turns on and off image color management. This parameter can take one of the following constant values.<div> </div>
      * 
      * 
@@ -486,69 +487,79 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMMode(hdc, mode) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc, "int", mode, "int")
         return result
     }
 
     /**
      * The CheckColorsInGamut function determines whether a specified set of RGB triples lies in the output gamut of a specified device. The RGB triples are interpreted in the input logical color space.
-     * @param {Pointer<Void>} hdc Handle to the device context whose output gamut to be checked.
+     * @param {HDC} hdc Handle to the device context whose output gamut to be checked.
      * @param {Pointer<RGBTRIPLE>} lpRGBTriple Pointer to an array of RGB triples to check.
      * @param {Pointer} dlpBuffer Pointer to the buffer in which the results are to be placed. This buffer must be at least as large as <i>nCount</i> bytes.
      * @param {Integer} nCount The number of elements in the array of triples.
-     * @returns {Integer} If this function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-checkcolorsingamut
      * @since windows5.0
      */
     static CheckColorsInGamut(hdc, lpRGBTriple, dlpBuffer, nCount) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\CheckColorsInGamut", "ptr", hdc, "ptr", lpRGBTriple, "ptr", dlpBuffer, "uint", nCount, "int")
         return result
     }
 
     /**
      * The GetColorSpace function retrieves the handle to the input color space from a specified device context.
-     * @param {Pointer<Void>} hdc Specifies a device context that is to have its input color space handle retrieved.
-     * @returns {Pointer<Void>} If the function succeeds, the return value is the current input color space handle.
+     * @param {HDC} hdc Specifies a device context that is to have its input color space handle retrieved.
+     * @returns {HCOLORSPACE} If the function succeeds, the return value is the current input color space handle.
      * 
      * If this function fails, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcolorspace
      * @since windows5.0
      */
     static GetColorSpace(hdc) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
-        return result
+        return HCOLORSPACE({Value: result}, True)
     }
 
     /**
      * The GetLogColorSpace function retrieves the color space definition identified by a specified handle.
-     * @param {Pointer<Void>} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
-     * @returns {Integer} If this function succeeds, the return value is TRUE.
+     * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlogcolorspacea
      * @since windows5.0
      */
     static GetLogColorSpaceA(hColorSpace, lpBuffer, nSize) {
+        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+
         result := DllCall("GDI32.dll\GetLogColorSpaceA", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
 
     /**
      * The GetLogColorSpace function retrieves the color space definition identified by a specified handle.
-     * @param {Pointer<Void>} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
-     * @returns {Integer} If this function succeeds, the return value is TRUE.
+     * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getlogcolorspacew
      * @since windows5.0
      */
     static GetLogColorSpaceW(hColorSpace, lpBuffer, nSize) {
+        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+
         result := DllCall("GDI32.dll\GetLogColorSpaceW", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
@@ -556,7 +567,7 @@ class ColorSystem {
     /**
      * The CreateColorSpace function creates a logical color space.
      * @param {Pointer<LOGCOLORSPACEA>} lplcs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> data structure.
-     * @returns {Pointer<Void>} If this function succeeds, the return value is a handle that identifies a color space.
+     * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle that identifies a color space.
      * 
      * If this function fails, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createcolorspacea
@@ -564,13 +575,13 @@ class ColorSystem {
      */
     static CreateColorSpaceA(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceA", "ptr", lplcs, "ptr")
-        return result
+        return HCOLORSPACE({Value: result}, True)
     }
 
     /**
      * The CreateColorSpace function creates a logical color space.
      * @param {Pointer<LOGCOLORSPACEW>} lplcs Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> data structure.
-     * @returns {Pointer<Void>} If this function succeeds, the return value is a handle that identifies a color space.
+     * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle that identifies a color space.
      * 
      * If this function fails, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createcolorspacew
@@ -578,51 +589,57 @@ class ColorSystem {
      */
     static CreateColorSpaceW(lplcs) {
         result := DllCall("GDI32.dll\CreateColorSpaceW", "ptr", lplcs, "ptr")
-        return result
+        return HCOLORSPACE({Value: result}, True)
     }
 
     /**
      * The SetColorSpace function defines the input color space for a given device context.
-     * @param {Pointer<Void>} hdc Specifies the handle to a device context.
-     * @param {Pointer<Void>} hcs Identifies handle to the color space to set.
-     * @returns {Pointer<Void>} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
+     * @param {HDC} hdc Specifies the handle to a device context.
+     * @param {HCOLORSPACE} hcs Identifies handle to the color space to set.
+     * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
      * If this function fails, the return value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setcolorspace
      * @since windows5.0
      */
     static SetColorSpace(hdc, hcs) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
+
         result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
-        return result
+        return HCOLORSPACE({Value: result}, True)
     }
 
     /**
      * The DeleteColorSpace function removes and destroys a specified color space.
-     * @param {Pointer<Void>} hcs Specifies the handle to a color space to delete.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @param {HCOLORSPACE} hcs Specifies the handle to a color space to delete.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-deletecolorspace
      * @since windows5.0
      */
     static DeleteColorSpace(hcs) {
+        hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
+
         result := DllCall("GDI32.dll\DeleteColorSpace", "ptr", hcs, "int")
         return result
     }
 
     /**
      * The GetICMProfile function retrieves the file name of the current output color profile for a specified device context.
-     * @param {Pointer<Void>} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
      * @param {Pointer<UInt32>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
-     * @param {Pointer<Byte>} pszFilename Points to the buffer that receives the path name of the profile.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
+     * @param {PSTR} pszFilename Points to the buffer that receives the path name of the profile.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-geticmprofilea
      * @since windows5.0
      */
     static GetICMProfileA(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String? StrPtr(pszFilename) : pszFilename
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
         return result
@@ -630,17 +647,18 @@ class ColorSystem {
 
     /**
      * The GetICMProfile function retrieves the file name of the current output color profile for a specified device context.
-     * @param {Pointer<Void>} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
      * @param {Pointer<UInt32>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
-     * @param {Pointer<Char>} pszFilename Points to the buffer that receives the path name of the profile.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
+     * @param {PWSTR} pszFilename Points to the buffer that receives the path name of the profile.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-geticmprofilew
      * @since windows5.0
      */
     static GetICMProfileW(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String? StrPtr(pszFilename) : pszFilename
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
         return result
@@ -648,16 +666,17 @@ class ColorSystem {
 
     /**
      * The SetICMProfile function sets a specified color profile as the output profile for a specified device context (DC).
-     * @param {Pointer<Void>} hdc Specifies a device context in which to set the color profile.
-     * @param {Pointer<Byte>} lpFileName Specifies the path name of the color profile to be set.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {PSTR} lpFileName Specifies the path name of the color profile to be set.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-seticmprofilea
      * @since windows5.0
      */
     static SetICMProfileA(hdc, lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
         return result
@@ -665,16 +684,17 @@ class ColorSystem {
 
     /**
      * The SetICMProfile function sets a specified color profile as the output profile for a specified device context (DC).
-     * @param {Pointer<Void>} hdc Specifies a device context in which to set the color profile.
-     * @param {Pointer<Char>} lpFileName Specifies the path name of the color profile to be set.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {PWSTR} lpFileName Specifies the path name of the color profile to be set.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-seticmprofilew
      * @since windows5.0
      */
     static SetICMProfileW(hdc, lpFileName) {
-        lpFileName := lpFileName is String? StrPtr(lpFileName) : lpFileName
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
         result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
         return result
@@ -682,84 +702,95 @@ class ColorSystem {
 
     /**
      * The GetDeviceGammaRamp function gets the gamma ramp on direct color display boards having drivers that support downloadable gamma ramps in hardware.
-     * @param {Pointer<Void>} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
      * @param {Pointer<Void>} lpRamp Points to a buffer where the function can place the current gamma ramp of the color display board. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (DAC) values. The sequence of the arrays is red, green, blue.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getdevicegammaramp
      * @since windows5.0
      */
     static GetDeviceGammaRamp(hdc, lpRamp) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc, "ptr", lpRamp, "int")
         return result
     }
 
     /**
      * The SetDeviceGammaRamp function sets the gamma ramp on direct color display boards having drivers that support downloadable gamma ramps in hardware.
-     * @param {Pointer<Void>} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
      * @param {Pointer<Void>} lpRamp Pointer to a buffer containing the gamma ramp to be set. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (<i>DAC</i> ) values. The sequence of the arrays is red, green, blue. The RGB values must be stored in the most significant bits of each WORD to increase DAC independence.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-setdevicegammaramp
      * @since windows5.0
      */
     static SetDeviceGammaRamp(hdc, lpRamp) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc, "ptr", lpRamp, "int")
         return result
     }
 
     /**
      * The ColorMatchToTarget function enables you to preview colors as they would appear on the target device.
-     * @param {Pointer<Void>} hdc Specifies the device context for previewing, generally the screen.
-     * @param {Pointer<Void>} hdcTarget Specifies the target device context, generally a printer.
+     * @param {HDC} hdc Specifies the device context for previewing, generally the screen.
+     * @param {HDC} hdcTarget Specifies the target device context, generally a printer.
      * @param {Integer} action 
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-colormatchtotarget
      * @since windows5.0
      */
     static ColorMatchToTarget(hdc, hdcTarget, action) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        hdcTarget := hdcTarget is Win32Handle ? NumGet(hdcTarget, "ptr") : hdcTarget
+
         result := DllCall("GDI32.dll\ColorMatchToTarget", "ptr", hdc, "ptr", hdcTarget, "uint", action, "int")
         return result
     }
 
     /**
      * The EnumICMProfiles function enumerates the different output color profiles that the system supports for a given device context.
-     * @param {Pointer<Void>} hdc Specifies the device context.
+     * @param {HDC} hdc Specifies the device context.
      * @param {Pointer<ICMENUMPROCA>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
-     * @param {Pointer} param2 
+     * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumicmprofilesa
      * @since windows5.0
      */
     static EnumICMProfilesA(hdc, proc, param2) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
         return result
     }
 
     /**
      * The EnumICMProfiles function enumerates the different output color profiles that the system supports for a given device context.
-     * @param {Pointer<Void>} hdc Specifies the device context.
+     * @param {HDC} hdc Specifies the device context.
      * @param {Pointer<ICMENUMPROCW>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
-     * @param {Pointer} param2 
+     * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumicmprofilesw
      * @since windows5.0
      */
     static EnumICMProfilesW(hdc, proc, param2) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+
         result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
         return result
     }
 
     /**
      * The UpdateICMRegKey function manages color profiles and Color Management Modules in the system.
-     * @param {Pointer<Byte>} lpszCMID Points to a string that specifies the ICC profile identifier for the color management DLL to use with the profile.
-     * @param {Pointer<Byte>} lpszFileName Points to a fully qualified ICC color profile file name or to a <b>DEVMODE</b> structure.
+     * @param {PSTR} lpszCMID Points to a string that specifies the ICC profile identifier for the color management DLL to use with the profile.
+     * @param {PSTR} lpszFileName Points to a fully qualified ICC color profile file name or to a <b>DEVMODE</b> structure.
      * @param {Integer} command 
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-updateicmregkeya
@@ -768,8 +799,8 @@ class ColorSystem {
     static UpdateICMRegKeyA(lpszCMID, lpszFileName, command) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        lpszCMID := lpszCMID is String? StrPtr(lpszCMID) : lpszCMID
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszCMID := lpszCMID is String ? StrPtr(lpszCMID) : lpszCMID
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("GDI32.dll\UpdateICMRegKeyA", "uint", reserved, "ptr", lpszCMID, "ptr", lpszFileName, "uint", command, "int")
         return result
@@ -777,10 +808,10 @@ class ColorSystem {
 
     /**
      * The UpdateICMRegKey function manages color profiles and Color Management Modules in the system.
-     * @param {Pointer<Char>} lpszCMID Points to a string that specifies the ICC profile identifier for the color management DLL to use with the profile.
-     * @param {Pointer<Char>} lpszFileName Points to a fully qualified ICC color profile file name or to a <b>DEVMODE</b> structure.
+     * @param {PWSTR} lpszCMID Points to a string that specifies the ICC profile identifier for the color management DLL to use with the profile.
+     * @param {PWSTR} lpszFileName Points to a fully qualified ICC color profile file name or to a <b>DEVMODE</b> structure.
      * @param {Integer} command 
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-updateicmregkeyw
@@ -789,8 +820,8 @@ class ColorSystem {
     static UpdateICMRegKeyW(lpszCMID, lpszFileName, command) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        lpszCMID := lpszCMID is String? StrPtr(lpszCMID) : lpszCMID
-        lpszFileName := lpszFileName is String? StrPtr(lpszFileName) : lpszFileName
+        lpszCMID := lpszCMID is String ? StrPtr(lpszCMID) : lpszCMID
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("GDI32.dll\UpdateICMRegKeyW", "uint", reserved, "ptr", lpszCMID, "ptr", lpszFileName, "uint", command, "int")
         return result
@@ -798,17 +829,20 @@ class ColorSystem {
 
     /**
      * The ColorCorrectPalette function corrects the entries of a palette using the WCS 1.0 parameters in the specified device context.
-     * @param {Pointer<Void>} hdc Specifies a device context whose WCS parameters to use.
-     * @param {Pointer<Void>} hPal Specifies the handle to the palette to be color corrected.
+     * @param {HDC} hdc Specifies a device context whose WCS parameters to use.
+     * @param {HPALETTE} hPal Specifies the handle to the palette to be color corrected.
      * @param {Integer} deFirst Specifies the first entry in the palette to be color corrected.
      * @param {Integer} num Specifies the number of entries to color correct.
-     * @returns {Integer} If this function succeeds, the return value is <b>TRUE</b>.
+     * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-colorcorrectpalette
      * @since windows5.0
      */
     static ColorCorrectPalette(hdc, hPal, deFirst, num) {
+        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
+
         result := DllCall("GDI32.dll\ColorCorrectPalette", "ptr", hdc, "ptr", hPal, "uint", deFirst, "uint", num, "int")
         return result
     }
@@ -888,7 +922,7 @@ class ColorSystem {
     /**
      * Closes an open profile handle.
      * @param {Pointer} hProfile Handle to the profile to be closed. The function determines whether the HPROFILE contains ICC or WCS profile information.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-closecolorprofile
@@ -903,7 +937,7 @@ class ColorSystem {
      * @param {Pointer} hProfile Handle to an open color profile. The function determines whether the HPROFILE contains ICC or WCS profile information.
      * @param {Pointer} pProfile Pointer to buffer to receive raw ICC or DMP profile data. Can be **NULL**. If it is, the size required for the buffer will be stored in the memory location pointed to by *pcbSize*. The buffer can be allocated to the appropriate size, and this function called again with *pBuffer* containing the address of the buffer.
      * @param {Pointer<UInt32>} pcbProfile Pointer to a **DWORD** that holds the size of buffer pointed at by *pBuffer*. On return it is filled with size of buffer that was actually used if the function succeeds. If this function is called with *pBuffer* set to **NULL**, this parameter will contain the size of the buffer required.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**. It returns **FALSE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It returns **FALSE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofilefromhandle
@@ -916,14 +950,14 @@ class ColorSystem {
     /**
      * Allows you to determine whether the specified profile is a valid International Color Consortium (ICC) profile, or a valid Windows Color System (WCS) profile handle that can be used for color management.
      * @param {Pointer} hProfile Specifies a handle to the profile to be validated. The function determines whether the HPROFILE contains ICC or WCS profile information.
-     * @param {Pointer<Int32>} pbValid Pointer to a variable that is set to **TRUE** on return if the operation succeeds and the profile is a valid ICC or WCS profile. If the operation fails or the profile is not valid the variable is **FALSE**.
-     * @returns {Integer} If this function succeeds and the profile is valid, the return value is **TRUE**.
+     * @param {Pointer<BOOL>} pbValid Pointer to a variable that is set to **TRUE** on return if the operation succeeds and the profile is a valid ICC or WCS profile. If the operation fails or the profile is not valid the variable is **FALSE**.
+     * @returns {BOOL} If this function succeeds and the profile is valid, the return value is **TRUE**.
      * 
      * If this function fails (or succeeds and the profile is not valid), the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-iscolorprofilevalid
      */
     static IsColorProfileValid(hProfile, pbValid) {
-        result := DllCall("mscms.dll\IsColorProfileValid", "ptr", hProfile, "int*", pbValid, "int")
+        result := DllCall("mscms.dll\IsColorProfileValid", "ptr", hProfile, "ptr", pbValid, "int")
         return result
     }
 
@@ -931,7 +965,7 @@ class ColorSystem {
      * Converts a logical [color space](/windows/win32/wcs/c) to a [device profile](/windows/win32/wcs/d).
      * @param {Pointer<LOGCOLORSPACEA>} pLogColorSpace A pointer to a logical color space structure. See [**LOGCOLORSPACEA**](/windows/desktop/api/Wingdi/ns-wingdi-logcolorspacea) for details. The **lcsFilename** \[0\] member of the structure must be set to the **null** character ('\\0') or this function call will fail with the return value of INVALID\_PARAMETER.
      * @param {Pointer<Byte>} pProfile A pointer to a pointer to a buffer where the device profile will be created. This function allocates the buffer and fills it with profile information if it is successful. If not, the pointer is set to **NULL**. The caller is responsible for freeing this buffer when it is no longer needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
      * 
@@ -939,7 +973,7 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-createprofilefromlogcolorspacea
      */
     static CreateProfileFromLogColorSpaceA(pLogColorSpace, pProfile) {
-        result := DllCall("mscms.dll\CreateProfileFromLogColorSpaceA", "ptr", pLogColorSpace, "ptr", pProfile, "int")
+        result := DllCall("mscms.dll\CreateProfileFromLogColorSpaceA", "ptr", pLogColorSpace, "char*", pProfile, "int")
         return result
     }
 
@@ -947,7 +981,7 @@ class ColorSystem {
      * Converts a logical [color space](/windows/win32/wcs/c) to a [device profile](/windows/win32/wcs/d).
      * @param {Pointer<LOGCOLORSPACEW>} pLogColorSpace A pointer to a logical color space structure. See [**LOGCOLORSPACEA**](/windows/desktop/api/Wingdi/ns-wingdi-logcolorspacea) for details. The **lcsFilename** \[0\] member of the structure must be set to the **null** character ('\\0') or this function call will fail with the return value of INVALID\_PARAMETER.
      * @param {Pointer<Byte>} pProfile A pointer to a pointer to a buffer where the device profile will be created. This function allocates the buffer and fills it with profile information if it is successful. If not, the pointer is set to **NULL**. The caller is responsible for freeing this buffer when it is no longer needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
      * 
@@ -955,7 +989,7 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-createprofilefromlogcolorspacew
      */
     static CreateProfileFromLogColorSpaceW(pLogColorSpace, pProfile) {
-        result := DllCall("mscms.dll\CreateProfileFromLogColorSpaceW", "ptr", pLogColorSpace, "ptr", pProfile, "int")
+        result := DllCall("mscms.dll\CreateProfileFromLogColorSpaceW", "ptr", pLogColorSpace, "char*", pProfile, "int")
         return result
     }
 
@@ -963,7 +997,7 @@ class ColorSystem {
      * Retrieves the number of tagged elements in a given color profile.
      * @param {Pointer} hProfile Specifies a handle to the profile in question.
      * @param {Pointer<UInt32>} pnElementCount Pointer to a variable in which to place the number of tagged elements in the profile.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcountcolorprofileelements
@@ -977,7 +1011,7 @@ class ColorSystem {
      * Retrieves or derives ICC header structure from either ICC color profile or WCS XML profile. Drivers and applications should assume returning **TRUE** only indicates that a properly structured header is returned. Each tag will still need to be validated independently using either legacy ICM2 APIs or XML schema APIs.
      * @param {Pointer} hProfile Specifies a handle to the color profile in question.
      * @param {Pointer<PROFILEHEADER>} pHeader Points to a variable in which the ICC header structure is to be placed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. This function will fail is an invalid ICC or WCS XML profile is referenced in the hProfile parameter. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofileheader
@@ -992,7 +1026,7 @@ class ColorSystem {
      * @param {Pointer} hProfile Specifies a handle to the ICC color profile in question.
      * @param {Integer} dwIndex Specifies the one-based index of the tag to retrieve.
      * @param {Pointer<UInt32>} pTag Pointer to a variable in which the tag name is to be placed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofileelementtag
@@ -1006,14 +1040,14 @@ class ColorSystem {
      * Reports whether a specified International Color Consortium (ICC) tag is present in the specified color profile.
      * @param {Pointer} hProfile Specifies a handle to the ICC profile in question.
      * @param {Integer} tag Specifies the ICC tag to check.
-     * @param {Pointer<Int32>} pbPresent Pointer to a variable that is set to **TRUE** on return if the specified ICC tag is present, or **FALSE** if not.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {Pointer<BOOL>} pbPresent Pointer to a variable that is set to **TRUE** on return if the specified ICC tag is present, or **FALSE** if not.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-iscolorprofiletagpresent
      */
     static IsColorProfileTagPresent(hProfile, tag, pbPresent) {
-        result := DllCall("mscms.dll\IsColorProfileTagPresent", "ptr", hProfile, "uint", tag, "int*", pbPresent, "int")
+        result := DllCall("mscms.dll\IsColorProfileTagPresent", "ptr", hProfile, "uint", tag, "ptr", pbPresent, "int")
         return result
     }
 
@@ -1024,14 +1058,14 @@ class ColorSystem {
      * @param {Integer} dwOffset Specifies the offset from the first byte of the tagged element data at which to begin copying.
      * @param {Pointer<UInt32>} pcbElement Pointer to a variable specifying the number of bytes to copy. On return, the variable contains the number of bytes actually copied.
      * @param {Pointer} pElement Pointer to a buffer into which the tagged element data is to be copied. The buffer must contain at least as many bytes as are specified by the variable pointed to by *pcbSize*. If the *pBuffer* pointer is set to **NULL**, the size of the entire tagged element data in bytes is returned in the memory location pointed to by *pcbSize,* and *dwOffset* is ignored. In this case, the function will return **FALSE**.
-     * @param {Pointer<Int32>} pbReference Points to a Boolean value that is set to **TRUE** if more than one tag in the color profile refers to the same data as the specified tag refers to, or **FALSE** if not.
-     * @returns {Integer} If this function succeeds, the return value is nonzero.
+     * @param {Pointer<BOOL>} pbReference Points to a Boolean value that is set to **TRUE** if more than one tag in the color profile refers to the same data as the specified tag refers to, or **FALSE** if not.
+     * @returns {BOOL} If this function succeeds, the return value is nonzero.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolorprofileelement
      */
     static GetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement, pbReference) {
-        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, "uint*", pcbElement, "ptr", pElement, "int*", pbReference, "int")
+        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, "uint*", pcbElement, "ptr", pElement, "ptr", pbReference, "int")
         return result
     }
 
@@ -1039,7 +1073,7 @@ class ColorSystem {
      * Sets the header data in a specified ICC color profile.
      * @param {Pointer} hProfile Specifies a handle to the ICC color profile in question.
      * @param {Pointer<PROFILEHEADER>} pHeader Pointer to the profile header data to write to the specified profile.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setcolorprofileheader
@@ -1054,7 +1088,7 @@ class ColorSystem {
      * @param {Pointer} hProfile Specifies a handle to the ICC color profile in question.
      * @param {Integer} tagType Identifies the tagged element.
      * @param {Integer} pcbElement Specifies the size to set the tagged element to. If *cbSize* is zero, this function deletes the specified tagged element. If the tag is a reference, only the tag table entry is deleted, not the data.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setcolorprofileelementsize
@@ -1071,7 +1105,7 @@ class ColorSystem {
      * @param {Integer} dwOffset Specifies the offset from the first byte of the tagged element data at which to start writing.
      * @param {Pointer<UInt32>} pcbElement Pointer to a variable containing the number of bytes of data to write. On return, it contains the number of bytes actually written.
      * @param {Pointer<Void>} pElement Pointer to a buffer containing the data to write to the tagged element in the color profile.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setcolorprofileelement
@@ -1086,7 +1120,7 @@ class ColorSystem {
      * @param {Pointer} hProfile Specifies a handle to the ICC color profile in question.
      * @param {Integer} newTag Identifies the new tag to create.
      * @param {Integer} refTag Identifies the existing tag whose data is to be referenced by the new tag.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setcolorprofileelementreference
@@ -1103,14 +1137,14 @@ class ColorSystem {
      * @param {Integer} dwCSAType Specifies the type of color space array. See [Color Space Type Identifiers](/windows/win32/wcs/color-space-type-identifiers).
      * @param {Pointer} pPS2ColorSpaceArray Pointer to a buffer in which the color space array is to be placed. If the *pBuffer* pointer is set to **NULL**, the function returns the required size of the buffer in the memory location pointed to by *pcbSize*.
      * @param {Pointer<UInt32>} pcbPS2ColorSpaceArray Pointer to a variable containing the size of the buffer in bytes. On return, it contains the number of bytes copied into the buffer.
-     * @param {Pointer<Int32>} pbBinary Pointer to a Boolean variable. If set to **TRUE**, the data copied could be binary. If set to **FALSE**, data should be encoded as ASCII85. On return, the memory location pointed to by *pbBinary* indicates whether the data returned actually is binary (**TRUE**) or ASCII85 (**FALSE**).
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
+     * @param {Pointer<BOOL>} pbBinary Pointer to a Boolean variable. If set to **TRUE**, the data copied could be binary. If set to **FALSE**, data should be encoded as ASCII85. On return, the memory location pointed to by *pbBinary* indicates whether the data returned actually is binary (**TRUE**) or ASCII85 (**FALSE**).
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorspacearray
      */
     static GetPS2ColorSpaceArray(hProfile, dwIntent, dwCSAType, pPS2ColorSpaceArray, pcbPS2ColorSpaceArray, pbBinary) {
-        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, "uint*", pcbPS2ColorSpaceArray, "int*", pbBinary, "int")
+        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, "uint*", pcbPS2ColorSpaceArray, "ptr", pbBinary, "int")
         return result
     }
 
@@ -1130,7 +1164,7 @@ class ColorSystem {
      * For more information, see [Rendering Intents](/windows/win32/wcs/rendering-intents).
      * @param {Pointer} pBuffer Points to a buffer in which the color rendering intent is to be placed. If the *pBuffer* pointer is set to **NULL**, the buffer size required is returned in *\*pcbSize*.
      * @param {Pointer<UInt32>} pcbPS2ColorRenderingIntent Points to a variable containing the buffer size in bytes. On return, this variable contains the number of bytes actually copied.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**. If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**. If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorrenderingintent
@@ -1153,14 +1187,14 @@ class ColorSystem {
      * For more information, see [Rendering intents](/windows/win32/wcs/rendering-intents).
      * @param {Pointer} pPS2ColorRenderingDictionary Pointer to a buffer in which the color rendering dictionary is to be placed. If the *pBuffer* pointer is set to **NULL**, the required buffer size is returned in *\*pcbSize*.
      * @param {Pointer<UInt32>} pcbPS2ColorRenderingDictionary Pointer to a variable containing the size of the buffer in bytes. On return, the variable contains the number of bytes actually copied.
-     * @param {Pointer<Int32>} pbBinary Pointer to a Boolean variable. If **TRUE**, the color rendering dictionary could be copied in binary form. If **FALSE**, the dictionary will be encoded in ASCII85 form. On return, this Boolean variable indicates whether the dictionary was actually binary (**TRUE**) or ASCII85 (**FALSE**).
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
+     * @param {Pointer<BOOL>} pbBinary Pointer to a Boolean variable. If **TRUE**, the color rendering dictionary could be copied in binary form. If **FALSE**, the dictionary will be encoded in ASCII85 form. On return, this Boolean variable indicates whether the dictionary was actually binary (**TRUE**) or ASCII85 (**FALSE**).
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getps2colorrenderingdictionary
      */
     static GetPS2ColorRenderingDictionary(hProfile, dwIntent, pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionary, pbBinary) {
-        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, "uint*", pcbPS2ColorRenderingDictionary, "int*", pbBinary, "int")
+        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, "uint*", pcbPS2ColorRenderingDictionary, "ptr", pbBinary, "int")
         return result
     }
 
@@ -1168,7 +1202,7 @@ class ColorSystem {
      * Retrieves information about the International Color Consortium (ICC) named color profile that is specified in the first parameter.
      * @param {Pointer} hProfile The handle to the ICC profile from which the information will be retrieved.
      * @param {Pointer<NAMED_PROFILE_INFO>} pNamedProfileInfo A pointer to a **NAMED\_PROFILE\_INFO** structure.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getnamedprofileinfo
@@ -1184,13 +1218,13 @@ class ColorSystem {
      * @param {Pointer<SByte>} paColorName Pointer to an array of color name structures.
      * @param {Pointer<UInt32>} paIndex Pointer to an array of **DWORDS** that this function fills with the indices. The indices begin with one, not zero.
      * @param {Integer} dwCount The number of color names to convert.
-     * @returns {Integer} If this function succeeds with the conversion, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds with the conversion, the return value is **TRUE**.
      * 
      * If the conversion function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-convertcolornametoindex
      */
     static ConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
-        result := DllCall("mscms.dll\ConvertColorNameToIndex", "ptr", hProfile, "ptr", paColorName, "uint*", paIndex, "uint", dwCount, "int")
+        result := DllCall("mscms.dll\ConvertColorNameToIndex", "ptr", hProfile, "char*", paColorName, "uint*", paIndex, "uint", dwCount, "int")
         return result
     }
 
@@ -1200,13 +1234,13 @@ class ColorSystem {
      * @param {Pointer<UInt32>} paIndex Pointer to an array of color-space index numbers. The indices begin with one, not zero.
      * @param {Pointer<SByte>} paColorName Pointer to an array of color name structures.
      * @param {Integer} dwCount The number of indices to convert.
-     * @returns {Integer} If this conversion function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this conversion function succeeds, the return value is **TRUE**.
      * 
      * If this conversion function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-convertindextocolorname
      */
     static ConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
-        result := DllCall("mscms.dll\ConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "ptr", paColorName, "uint", dwCount, "int")
+        result := DllCall("mscms.dll\ConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "char*", paColorName, "uint", dwCount, "int")
         return result
     }
 
@@ -1219,13 +1253,13 @@ class ColorSystem {
      * @param {Integer} dwFlags Specifies flags to used control creation of the transform. For details, see [CMM Transform Creation Flags](/windows/win32/wcs/cmm-transform-creation-flags).
      * @param {Pointer<Byte>} pProfileData Pointer to a pointer to a buffer. If successful, this function allocates the buffer, places its address in *\*pProfileData*, and fills it with a device link profile. If the function succeeds, the calling application must free the buffer after it is no longer needed.
      * @param {Integer} indexPreferredCMM Specifies the one-based index of the color profile that indicates what color management module (CMM) to use. The application developer may allow Windows to choose the CMM by setting this parameter to INDEX\_DONT\_CARE. See [Using Color Management Modules (CMM)](/windows/win32/wcs/using-color-management-modules--cmm).
-     * @returns {Integer} If this function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. For extended error information, call GetLastError.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-createdevicelinkprofile
      */
     static CreateDeviceLinkProfile(hProfile, nProfiles, padwIntent, nIntents, dwFlags, pProfileData, indexPreferredCMM) {
-        result := DllCall("mscms.dll\CreateDeviceLinkProfile", "ptr*", hProfile, "uint", nProfiles, "uint*", padwIntent, "uint", nIntents, "uint", dwFlags, "ptr", pProfileData, "uint", indexPreferredCMM, "int")
+        result := DllCall("mscms.dll\CreateDeviceLinkProfile", "ptr*", hProfile, "uint", nProfiles, "uint*", padwIntent, "uint", nIntents, "uint", dwFlags, "char*", pProfileData, "uint", indexPreferredCMM, "int")
         return result
     }
 
@@ -1282,7 +1316,7 @@ class ColorSystem {
     /**
      * Deletes a given color transform.
      * @param {Pointer} hxform Identifies the color transform to delete.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-deletecolortransform
@@ -1307,8 +1341,8 @@ class ColorSystem {
      * @param {Integer} bmOutput Specifies the format of the output bitmap. Must be set to one of the values of the [**BMFORMAT**](/windows/win32/api/icm/ne-icm-bmformat) enumerated type.
      * @param {Integer} dwOutputStride Specifies the number of bytes from the beginning of one scan line to the beginning of the next in the output bitmap; if set to zero, the function assumes that scan lines should be padded to be **DWORD**-aligned.
      * @param {Pointer<LPBMCALLBACKFN>} pfnCallBack Pointer to a callback function called periodically by **TranslateBitmapBits** to report progress and allow the calling process to cancel the translation. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback) )
-     * @param {Pointer} ulCallbackData Data passed back to the callback function, for example, to identify the translation that is reporting progress.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {LPARAM} ulCallbackData Data passed back to the callback function, for example, to identify the translation that is reporting progress.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-translatebitmapbits
@@ -1328,8 +1362,8 @@ class ColorSystem {
      * @param {Integer} dwStride Specifies the number of bytes from the beginning one scan line to the beginning of the next one. If set to zero, the bitmap scan lines are assumed to be padded so as to be **DWORD**-aligned.
      * @param {Pointer<Byte>} paResult Pointer to an array of bytes where the test results are to be placed. This results buffer must contain at least as many bytes as there are pixels in the bitmap.
      * @param {Pointer<LPBMCALLBACKFN>} pfnCallback Pointer to a callback function called periodically by **CheckBitmapBits** to report progress and allow the calling process to cancel the bitmap test. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback)).
-     * @param {Pointer} lpCallbackData Data passed back to the callback function, for example, to identify the bitmap test about which progress is being reported.
-     * @returns {Integer} If this function succeeds, the return value is a nonzero value.
+     * @param {LPARAM} lpCallbackData Data passed back to the callback function, for example, to identify the bitmap test about which progress is being reported.
+     * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-checkbitmapbits
@@ -1347,7 +1381,7 @@ class ColorSystem {
      * @param {Integer} ctInput Specifies the input color type.
      * @param {Pointer<COLOR>} paOutputColors Pointer to an array of *nColors* **COLOR** structures that receive the translated colors.
      * @param {Integer} ctOutput Specifies the output color type.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-translatecolors
@@ -1364,7 +1398,7 @@ class ColorSystem {
      * @param {Integer} nColors Contains the number of elements in the arrays pointed to by *paInputColors* and *paResult*.
      * @param {Integer} ctInput Specifies the input color type.
      * @param {Pointer<Byte>} paResult Pointer to an array of *nColors* bytes that receives the results of the test.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-checkcolors
@@ -1390,17 +1424,17 @@ class ColorSystem {
 
     /**
      * Associates a specified identification value with the specified color management module dynamic link library (CMM DLL). When this ID appears in a color profile, Windows can then locate the corresponding CMM so as to create a transform.
-     * @param {Pointer<Byte>} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the machine on which a CMM DLL should be registered. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the machine on which a CMM DLL should be registered. A **NULL** pointer indicates the local machine.
      * @param {Integer} cmmID Specifies the ID signature of the CMM registered with the International Color Consortium (ICC).
-     * @param {Pointer<Byte>} pCMMdll Pointer to the fully qualified path name of the CMM DLL.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pCMMdll Pointer to the fully qualified path name of the CMM DLL.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-registercmma
      */
     static RegisterCMMA(pMachineName, cmmID, pCMMdll) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pCMMdll := pCMMdll is String? StrPtr(pCMMdll) : pCMMdll
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pCMMdll := pCMMdll is String ? StrPtr(pCMMdll) : pCMMdll
 
         result := DllCall("mscms.dll\RegisterCMMA", "ptr", pMachineName, "uint", cmmID, "ptr", pCMMdll, "int")
         return result
@@ -1408,17 +1442,17 @@ class ColorSystem {
 
     /**
      * Associates a specified identification value with the specified color management module dynamic link library (CMM DLL). When this ID appears in a color profile, Windows can then locate the corresponding CMM so as to create a transform.
-     * @param {Pointer<Char>} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the machine on which a CMM DLL should be registered. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the machine on which a CMM DLL should be registered. A **NULL** pointer indicates the local machine.
      * @param {Integer} cmmID Specifies the ID signature of the CMM registered with the International Color Consortium (ICC).
-     * @param {Pointer<Char>} pCMMdll Pointer to the fully qualified path name of the CMM DLL.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pCMMdll Pointer to the fully qualified path name of the CMM DLL.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-registercmmw
      */
     static RegisterCMMW(pMachineName, cmmID, pCMMdll) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pCMMdll := pCMMdll is String? StrPtr(pCMMdll) : pCMMdll
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pCMMdll := pCMMdll is String ? StrPtr(pCMMdll) : pCMMdll
 
         result := DllCall("mscms.dll\RegisterCMMW", "ptr", pMachineName, "uint", cmmID, "ptr", pCMMdll, "int")
         return result
@@ -1426,15 +1460,15 @@ class ColorSystem {
 
     /**
      * Dissociates a specified ID value from a given color management module dynamic-link library (CMM DLL).
-     * @param {Pointer<Byte>} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the computer on which a CMM DLLs registration should be removed. A **NULL** pointer indicates the local computer.
+     * @param {PSTR} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the computer on which a CMM DLLs registration should be removed. A **NULL** pointer indicates the local computer.
      * @param {Integer} cmmID Specifies the ID value identifying the CMM whose registration is to be removed. This is the signature of the CMM registered with the International Color Consortium (ICC).
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-unregistercmma
      */
     static UnregisterCMMA(pMachineName, cmmID) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\UnregisterCMMA", "ptr", pMachineName, "uint", cmmID, "int")
         return result
@@ -1442,15 +1476,15 @@ class ColorSystem {
 
     /**
      * Dissociates a specified ID value from a given color management module dynamic-link library (CMM DLL).
-     * @param {Pointer<Char>} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the computer on which a CMM DLLs registration should be removed. A **NULL** pointer indicates the local computer.
+     * @param {PWSTR} pMachineName Reserved; must currently be set to **NULL**, until non-local registration is supported. This parameter is intended to point to the name of the computer on which a CMM DLLs registration should be removed. A **NULL** pointer indicates the local computer.
      * @param {Integer} cmmID Specifies the ID value identifying the CMM whose registration is to be removed. This is the signature of the CMM registered with the International Color Consortium (ICC).
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-unregistercmmw
      */
     static UnregisterCMMW(pMachineName, cmmID) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\UnregisterCMMW", "ptr", pMachineName, "uint", cmmID, "int")
         return result
@@ -1461,7 +1495,7 @@ class ColorSystem {
      * @param {Integer} dwCMMType Specifies the signature of the desired CMM as registered with the International Color Consortium (ICC).
      * 
      * **Windows 2000 only:** Setting this parameter to **NULL** causes the WCS system to select the default CMM.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-selectcmm
@@ -1473,17 +1507,17 @@ class ColorSystem {
 
     /**
      * Retrieves the path of the Windows COLOR directory on a specified machine.
-     * @param {Pointer<Byte>} pMachineName Reserved; must be **NULL**. This parameter is intended to point to the name of the machine on which the profile is to be installed. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pMachineName Reserved; must be **NULL**. This parameter is intended to point to the name of the machine on which the profile is to be installed. A **NULL** pointer indicates the local machine.
      * @param {Pointer} pBuffer Points to the buffer in which the color directory path is to be placed.
      * @param {Pointer<UInt32>} pdwSize Points to a variable containing the size in bytes of the buffer pointed to by *pBuffer*. On return, the variable contains the size of the buffer actually used or needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolordirectorya
      * @deprecated
      */
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\GetColorDirectoryA", "ptr", pMachineName, "ptr", pBuffer, "uint*", pdwSize, "int")
         return result
@@ -1491,17 +1525,17 @@ class ColorSystem {
 
     /**
      * Retrieves the path of the Windows COLOR directory on a specified machine.
-     * @param {Pointer<Char>} pMachineName Reserved; must be **NULL**. This parameter is intended to point to the name of the machine on which the profile is to be installed. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pMachineName Reserved; must be **NULL**. This parameter is intended to point to the name of the machine on which the profile is to be installed. A **NULL** pointer indicates the local machine.
      * @param {Pointer} pBuffer Points to the buffer in which the color directory path is to be placed.
      * @param {Pointer<UInt32>} pdwSize Points to a variable containing the size in bytes of the buffer pointed to by *pBuffer*. On return, the variable contains the size of the buffer actually used or needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getcolordirectoryw
      * @deprecated
      */
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\GetColorDirectoryW", "ptr", pMachineName, "ptr", pBuffer, "uint*", pdwSize, "int")
         return result
@@ -1509,16 +1543,16 @@ class ColorSystem {
 
     /**
      * Installs a given profile for use on a specified machine. The profile is also copied to the COLOR directory.
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which the profile is to be installed. A **NULL** pointer indicates the local computer.
-     * @param {Pointer<Byte>} pProfileName Pointer to the fully qualified path name of the profile to install.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which the profile is to be installed. A **NULL** pointer indicates the local computer.
+     * @param {PSTR} pProfileName Pointer to the fully qualified path name of the profile to install.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-installcolorprofilea
      */
     static InstallColorProfileA(pMachineName, pProfileName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\InstallColorProfileA", "ptr", pMachineName, "ptr", pProfileName, "int")
         return result
@@ -1526,16 +1560,16 @@ class ColorSystem {
 
     /**
      * Installs a given profile for use on a specified machine. The profile is also copied to the COLOR directory.
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which the profile is to be installed. A **NULL** pointer indicates the local computer.
-     * @param {Pointer<Char>} pProfileName Pointer to the fully qualified path name of the profile to install.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which the profile is to be installed. A **NULL** pointer indicates the local computer.
+     * @param {PWSTR} pProfileName Pointer to the fully qualified path name of the profile to install.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-installcolorprofilew
      */
     static InstallColorProfileW(pMachineName, pProfileName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\InstallColorProfileW", "ptr", pMachineName, "ptr", pProfileName, "int")
         return result
@@ -1543,17 +1577,17 @@ class ColorSystem {
 
     /**
      * Removes a specified color profile from a specified computer. Associated files are optionally deleted from the system.
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine from which to uninstall the specified profile. A **NULL** pointer indicates the local machine.
-     * @param {Pointer<Byte>} pProfileName Points to the file name of the profile to uninstall.
-     * @param {Integer} bDelete If set to **TRUE**, the function deletes the profile from the COLOR directory. If set to **FALSE**, this function has no effect.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine from which to uninstall the specified profile. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pProfileName Points to the file name of the profile to uninstall.
+     * @param {BOOL} bDelete If set to **TRUE**, the function deletes the profile from the COLOR directory. If set to **FALSE**, this function has no effect.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-uninstallcolorprofilea
      */
     static UninstallColorProfileA(pMachineName, pProfileName, bDelete) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\UninstallColorProfileA", "ptr", pMachineName, "ptr", pProfileName, "int", bDelete, "int")
         return result
@@ -1561,17 +1595,17 @@ class ColorSystem {
 
     /**
      * Removes a specified color profile from a specified computer. Associated files are optionally deleted from the system.
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine from which to uninstall the specified profile. A **NULL** pointer indicates the local machine.
-     * @param {Pointer<Char>} pProfileName Points to the file name of the profile to uninstall.
-     * @param {Integer} bDelete If set to **TRUE**, the function deletes the profile from the COLOR directory. If set to **FALSE**, this function has no effect.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine from which to uninstall the specified profile. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pProfileName Points to the file name of the profile to uninstall.
+     * @param {BOOL} bDelete If set to **TRUE**, the function deletes the profile from the COLOR directory. If set to **FALSE**, this function has no effect.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-uninstallcolorprofilew
      */
     static UninstallColorProfileW(pMachineName, pProfileName, bDelete) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\UninstallColorProfileW", "ptr", pMachineName, "ptr", pProfileName, "int", bDelete, "int")
         return result
@@ -1579,18 +1613,18 @@ class ColorSystem {
 
     /**
      * Enumerates all the profiles satisfying the given enumeration criteria.
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to enumerate profiles. A **NULL** pointer indicates the local computer.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to enumerate profiles. A **NULL** pointer indicates the local computer.
      * @param {Pointer<ENUMTYPEA>} pEnumRecord Pointer to a structure specifying the enumeration criteria.
      * @param {Pointer} pEnumerationBuffer Pointer to a buffer in which the profiles are to be enumerated. A MULTI\_SZ string of profile names satisfying the criteria specified in *\*pEnumRecord* will be placed in this buffer.
      * @param {Pointer<UInt32>} pdwSizeOfEnumerationBuffer Pointer to a variable containing the size of the buffer pointed to by *pBuffer*. On return, *\*pdwSize* contains the size of buffer actually used or needed.
      * @param {Pointer<UInt32>} pnProfiles Pointer to a variable that will contain, on return, the number of profile names actually copied to the buffer.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-enumcolorprofilesa
      */
     static EnumColorProfilesA(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\EnumColorProfilesA", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "uint*", pdwSizeOfEnumerationBuffer, "uint*", pnProfiles, "int")
         return result
@@ -1598,18 +1632,18 @@ class ColorSystem {
 
     /**
      * Enumerates all the profiles satisfying the given enumeration criteria.
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to enumerate profiles. A **NULL** pointer indicates the local computer.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to enumerate profiles. A **NULL** pointer indicates the local computer.
      * @param {Pointer<ENUMTYPEW>} pEnumRecord Pointer to a structure specifying the enumeration criteria.
      * @param {Pointer} pEnumerationBuffer Pointer to a buffer in which the profiles are to be enumerated. A MULTI\_SZ string of profile names satisfying the criteria specified in *\*pEnumRecord* will be placed in this buffer.
      * @param {Pointer<UInt32>} pdwSizeOfEnumerationBuffer Pointer to a variable containing the size of the buffer pointed to by *pBuffer*. On return, *\*pdwSize* contains the size of buffer actually used or needed.
      * @param {Pointer<UInt32>} pnProfiles Pointer to a variable that will contain, on return, the number of profile names actually copied to the buffer.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-enumcolorprofilesw
      */
     static EnumColorProfilesW(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\EnumColorProfilesW", "ptr", pMachineName, "ptr", pEnumRecord, "ptr", pEnumerationBuffer, "uint*", pdwSizeOfEnumerationBuffer, "uint*", pnProfiles, "int")
         return result
@@ -1617,17 +1651,17 @@ class ColorSystem {
 
     /**
      * Registers a specified profile for a given standard [color space](/windows/win32/wcs/c). The profile can be queried using [GetStandardColorSpaceProfileW](/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilew).
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to set a standard color space profile. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to set a standard color space profile. A **NULL** pointer indicates the local machine.
      * @param {Integer} dwProfileID Specifies the ID value of the standard color space that the given profile represents. This is a custom ID value used to uniquely identify the color space profile within your application.
-     * @param {Pointer<Byte>} pProfilename Points to a fully qualified path to the profile file.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pProfilename Points to a fully qualified path to the profile file.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setstandardcolorspaceprofilea
      */
     static SetStandardColorSpaceProfileA(pMachineName, dwProfileID, pProfilename) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfilename := pProfilename is String? StrPtr(pProfilename) : pProfilename
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfilename := pProfilename is String ? StrPtr(pProfilename) : pProfilename
 
         result := DllCall("mscms.dll\SetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwProfileID, "ptr", pProfilename, "int")
         return result
@@ -1635,17 +1669,17 @@ class ColorSystem {
 
     /**
      * Registers a specified profile for a given standard [color space](/windows/win32/wcs/c). The profile can be queried using [GetStandardColorSpaceProfileW](/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilew).
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to set a standard color space profile. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to set a standard color space profile. A **NULL** pointer indicates the local machine.
      * @param {Integer} dwProfileID Specifies the ID value of the standard color space that the given profile represents. This is a custom ID value used to uniquely identify the color space profile within your application.
-     * @param {Pointer<Char>} pProfileName 
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pProfileName 
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setstandardcolorspaceprofilew
      */
     static SetStandardColorSpaceProfileW(pMachineName, dwProfileID, pProfileName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\SetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwProfileID, "ptr", pProfileName, "int")
         return result
@@ -1653,17 +1687,17 @@ class ColorSystem {
 
     /**
      * Retrieves the color profile registered for the specified standard [color space](/windows/win32/wcs/c).
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to get a standard color space profile. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to get a standard color space profile. A **NULL** pointer indicates the local machine.
      * @param {Integer} dwSCS Specifies the ID value of the standard color space for which to retrieve the profile. The only valid values for this parameter are LCS\_sRGB and LCS\_WINDOWS\_COLOR\_SPACE.
      * @param {Pointer} pBuffer Pointer to the buffer in which the name of the profile is to be placed. If **NULL**, the call will return **TRUE** and the required size of the buffer is placed in *pdwSize.*
      * @param {Pointer<UInt32>} pcbSize Pointer to a variable containing the size in bytes of the buffer pointed to by *pProfileName*. On return, the variable contains the size of the buffer actually used or needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getstandardcolorspaceprofilea
      */
     static GetStandardColorSpaceProfileA(pMachineName, dwSCS, pBuffer, pcbSize) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\GetStandardColorSpaceProfileA", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "uint*", pcbSize, "int")
         return result
@@ -1671,17 +1705,17 @@ class ColorSystem {
 
     /**
      * Retrieves the color profile registered for the specified standard [color space](/windows/win32/wcs/c).
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to get a standard color space profile. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to get a standard color space profile. A **NULL** pointer indicates the local machine.
      * @param {Integer} dwSCS Specifies the ID value of the standard color space for which to retrieve the profile. The only valid values for this parameter are LCS\_sRGB and LCS\_WINDOWS\_COLOR\_SPACE.
      * @param {Pointer} pBuffer Pointer to the buffer in which the name of the profile is to be placed. If **NULL**, the call will return **TRUE** and the required size of the buffer is placed in *pdwSize.*
      * @param {Pointer<UInt32>} pcbSize Pointer to a variable containing the size in bytes of the buffer pointed to by *pProfileName*. On return, the variable contains the size of the buffer actually used or needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-getstandardcolorspaceprofilew
      */
     static GetStandardColorSpaceProfileW(pMachineName, dwSCS, pBuffer, pcbSize) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
         result := DllCall("mscms.dll\GetStandardColorSpaceProfileW", "ptr", pMachineName, "uint", dwSCS, "ptr", pBuffer, "uint*", pcbSize, "int")
         return result
@@ -1689,18 +1723,18 @@ class ColorSystem {
 
     /**
      * Associates a specified color profile with a specified device.
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to associate the specified profile and device. A **NULL** pointer indicates the local machine.
-     * @param {Pointer<Byte>} pProfileName Points to the file name of the profile to associate.
-     * @param {Pointer<Byte>} pDeviceName Points to the name of the device to associate.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to associate the specified profile and device. A **NULL** pointer indicates the local machine.
+     * @param {PSTR} pProfileName Points to the file name of the profile to associate.
+     * @param {PSTR} pDeviceName Points to the name of the device to associate.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-associatecolorprofilewithdevicea
      */
     static AssociateColorProfileWithDeviceA(pMachineName, pProfileName, pDeviceName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\AssociateColorProfileWithDeviceA", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1708,18 +1742,18 @@ class ColorSystem {
 
     /**
      * Associates a specified color profile with a specified device.
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to associate the specified profile and device. A **NULL** pointer indicates the local machine.
-     * @param {Pointer<Char>} pProfileName Points to the file name of the profile to associate.
-     * @param {Pointer<Char>} pDeviceName Points to the name of the device to associate.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the machine on which to associate the specified profile and device. A **NULL** pointer indicates the local machine.
+     * @param {PWSTR} pProfileName Points to the file name of the profile to associate.
+     * @param {PWSTR} pDeviceName Points to the name of the device to associate.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-associatecolorprofilewithdevicew
      */
     static AssociateColorProfileWithDeviceW(pMachineName, pProfileName, pDeviceName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\AssociateColorProfileWithDeviceW", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1727,18 +1761,18 @@ class ColorSystem {
 
     /**
      * Disassociates a specified color profile with a specified device on a specified computer.
-     * @param {Pointer<Byte>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to disassociate the specified profile and device. A **NULL** pointer indicates the local computer.
-     * @param {Pointer<Byte>} pProfileName Pointer to the file name of the profile to disassociate.
-     * @param {Pointer<Byte>} pDeviceName Pointer to the name of the device to disassociate.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to disassociate the specified profile and device. A **NULL** pointer indicates the local computer.
+     * @param {PSTR} pProfileName Pointer to the file name of the profile to disassociate.
+     * @param {PSTR} pDeviceName Pointer to the name of the device to disassociate.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-disassociatecolorprofilefromdevicea
      */
     static DisassociateColorProfileFromDeviceA(pMachineName, pProfileName, pDeviceName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\DisassociateColorProfileFromDeviceA", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1746,18 +1780,18 @@ class ColorSystem {
 
     /**
      * Disassociates a specified color profile with a specified device on a specified computer.
-     * @param {Pointer<Char>} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to disassociate the specified profile and device. A **NULL** pointer indicates the local computer.
-     * @param {Pointer<Char>} pProfileName Pointer to the file name of the profile to disassociate.
-     * @param {Pointer<Char>} pDeviceName Pointer to the name of the device to disassociate.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pMachineName Reserved. Must be **NULL**. This parameter is intended to point to the name of the computer on which to disassociate the specified profile and device. A **NULL** pointer indicates the local computer.
+     * @param {PWSTR} pProfileName Pointer to the file name of the profile to disassociate.
+     * @param {PWSTR} pDeviceName Pointer to the name of the device to disassociate.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-disassociatecolorprofilefromdevicew
      */
     static DisassociateColorProfileFromDeviceW(pMachineName, pProfileName, pDeviceName) {
-        pMachineName := pMachineName is String? StrPtr(pMachineName) : pMachineName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\DisassociateColorProfileFromDeviceW", "ptr", pMachineName, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1768,7 +1802,7 @@ class ColorSystem {
      * @param {Pointer<COLORMATCHSETUPW>} pcms Pointer to a [**COLORMATCHSETUPW**](/windows/win32/api/icm/ns-icm-colormatchsetupw) structure that on entry contains information used to initialize the dialog box.
      * 
      * When **SetupColorMatching** returns, if the user clicked the OK button, this structure contains information about the user's selection. Otherwise, if an error occurred or the user canceled the dialog box, the structure is left unchanged.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
      * 
      * If this function fails, the return value is **FALSE** indicating that an error occurred or the dialog was canceled. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setupcolormatchingw
@@ -1783,7 +1817,7 @@ class ColorSystem {
      * @param {Pointer<COLORMATCHSETUPA>} pcms Pointer to a [**COLORMATCHSETUPW**](/windows/win32/api/icm/ns-icm-colormatchsetupw) structure that on entry contains information used to initialize the dialog box.
      * 
      * When **SetupColorMatching** returns, if the user clicked the OK button, this structure contains information about the user's selection. Otherwise, if an error occurred or the user canceled the dialog box, the structure is left unchanged.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
      * 
      * If this function fails, the return value is **FALSE** indicating that an error occurred or the dialog was canceled. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-setupcolormatchinga
@@ -1796,16 +1830,16 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope A [**WCS\_PROFILE\_MANAGEMENT\_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value that specifies the scope of this profile management operation, which could be system-wide or for the current user.
-     * @param {Pointer<Char>} pProfileName A pointer to the file name of the profile to associate.
-     * @param {Pointer<Char>} pDeviceName A pointer to the name of the device with which the profile is to be associated.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pProfileName A pointer to the file name of the profile to associate.
+     * @param {PWSTR} pDeviceName A pointer to the name of the device with which the profile is to be associated.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsassociatecolorprofilewithdevice
      */
     static WcsAssociateColorProfileWithDevice(scope, pProfileName, pDeviceName) {
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\WcsAssociateColorProfileWithDevice", "int", scope, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1814,16 +1848,16 @@ class ColorSystem {
     /**
      * Disassociates a specified WCS color profile from a specified device on a computer.
      * @param {Integer} scope A [**WCS\_PROFILE\_MANAGEMENT\_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value that specifies the scope of this profile management operation, which could be system-wide or for the current user.
-     * @param {Pointer<Char>} pProfileName A pointer to the file name of the profile to disassociate.
-     * @param {Pointer<Char>} pDeviceName A pointer to the name of the device from which to disassociate the profile.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pProfileName A pointer to the file name of the profile to disassociate.
+     * @param {PWSTR} pDeviceName A pointer to the name of the device from which to disassociate the profile.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsdisassociatecolorprofilefromdevice
      */
     static WcsDisassociateColorProfileFromDevice(scope, pProfileName, pDeviceName) {
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\WcsDisassociateColorProfileFromDevice", "int", scope, "ptr", pProfileName, "ptr", pDeviceName, "int")
         return result
@@ -1834,7 +1868,7 @@ class ColorSystem {
      * @param {Integer} scope A [**WCS\_PROFILE\_MANAGEMENT\_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value that specifies the scope of the profile management operation that is performed by this function.
      * @param {Pointer<ENUMTYPEW>} pEnumRecord A pointer to a structure that specifies the enumeration criteria.
      * @param {Pointer<UInt32>} pdwSize A pointer to a variable that receives the size of the buffer that is required to receive all enumerated profile names. This value is used by the *dwSize* parameter of the [**WcsEnumColorProfiles**](/windows/win32/api/icm/nf-icm-wcsenumcolorprofiles) function.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsenumcolorprofilessize
@@ -1851,7 +1885,7 @@ class ColorSystem {
      * @param {Pointer} pBuffer A pointer to a buffer in which the profile names are to be enumerated. The **WcsEnumColorProfiles** function places, in this buffer, a MULTI\_SZ string that consists of profile names that satisfy the criteria specified in *\*pEnumRecord*.
      * @param {Integer} dwSize A variable that contains the size, in bytes, of the buffer that is pointed to by *pBuffer*. See **Remarks**.
      * @param {Pointer<UInt32>} pnProfiles An optional pointer to a variable that receives the number of profile names that are copied to the buffer to which *pBuffer* points. Can be **NULL** if this information is not needed.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsenumcolorprofiles
@@ -1864,18 +1898,18 @@ class ColorSystem {
     /**
      * Returns the size, in bytes, of the default color profile name (including the **NULL** terminator), for a device.
      * @param {Integer} scope A [**WCS\_PROFILE\_MANAGEMENT\_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value that specifies the scope of this profile management operation.
-     * @param {Pointer<Char>} pDeviceName A pointer to the name of the device for which the default color profile is to be obtained. If **NULL**, a device-independent default profile will be used.
+     * @param {PWSTR} pDeviceName A pointer to the name of the device for which the default color profile is to be obtained. If **NULL**, a device-independent default profile will be used.
      * @param {Integer} cptColorProfileType A [**COLORPROFILETYPE**](/windows/win32/api/icm/ne-icm-colorprofiletype) value specifying the color profile type.
      * @param {Integer} cpstColorProfileSubType A [**COLORPROFILESUBTYPE**](/windows/win32/api/icm/ne-icm-colorprofilesubtype) value specifying the color profile subtype.
      * @param {Integer} dwProfileID The ID of the color space that the color profile represents.
      * @param {Pointer<UInt32>} pcbProfileName A pointer to a location that receives the size, in bytes, of the path name of the default color profile, including the **NULL** terminator.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetdefaultcolorprofilesize
      */
     static WcsGetDefaultColorProfileSize(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pcbProfileName) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\WcsGetDefaultColorProfileSize", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "uint*", pcbProfileName, "int")
         return result
@@ -1884,19 +1918,19 @@ class ColorSystem {
     /**
      * Retrieves the default color profile for a device, or for a device-independent default if the device is not specified.
      * @param {Integer} scope A [**WCS_PROFILE_MANAGEMENT_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value specifying the scope of this profile management operation.
-     * @param {Pointer<Char>} pDeviceName A pointer to the name of the device for which the default color profile is obtained. If **NULL**, a device-independent default profile is obtained.
+     * @param {PWSTR} pDeviceName A pointer to the name of the device for which the default color profile is obtained. If **NULL**, a device-independent default profile is obtained.
      * @param {Integer} cptColorProfileType A [**COLORPROFILETYPE**](/windows/win32/api/icm/ne-icm-colorprofiletype) value specifying the color profile type.
      * @param {Integer} cpstColorProfileSubType A [**COLORPROFILESUBTYPE**](/windows/win32/api/icm/ne-icm-colorprofilesubtype) value specifying the color profile subtype.
      * @param {Integer} dwProfileID The ID of the color space that the color profile represents.
      * @param {Integer} cbProfileName The buffer size, in bytes, of the buffer that is pointed to by *pProfileName*.
      * @param {Pointer} pProfileName A pointer to a buffer to receive the name of the color profile. The size of the buffer, in bytes, will be the indicated by *cbProfileName*.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetdefaultcolorprofile
      */
     static WcsGetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, cbProfileName, pProfileName) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\WcsGetDefaultColorProfile", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "uint", cbProfileName, "ptr", pProfileName, "int")
         return result
@@ -1905,19 +1939,19 @@ class ColorSystem {
     /**
      * Sets the default color profile name for the specified profile type in the specified profile management scope.
      * @param {Integer} scope A [**WCS\_PROFILE\_MANAGEMENT\_SCOPE**](/windows/win32/api/icm/ne-icm-wcs_profile_management_scope) value that specifies the scope of this profile management operation.
-     * @param {Pointer<Char>} pDeviceName A pointer to the name of the device for which the default color profile is to be set. If **NULL**, a device-independent default profile is used.
+     * @param {PWSTR} pDeviceName A pointer to the name of the device for which the default color profile is to be set. If **NULL**, a device-independent default profile is used.
      * @param {Integer} cptColorProfileType A [**COLORPROFILETYPE**](/windows/win32/api/icm/ne-icm-colorprofiletype) value that specifies the color profile type.
      * @param {Integer} cpstColorProfileSubType A [**COLORPROFILESUBTYPE**](/windows/win32/api/icm/ne-icm-colorprofilesubtype) value that specifies the color profile subtype.
      * @param {Integer} dwProfileID The ID of the color space that the color profile represents. This is a custom ID value used to uniquely identify the color space profile within your application.
-     * @param {Pointer<Char>} pProfileName A pointer to a buffer that holds the name of the color profile. See Remarks.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {PWSTR} pProfileName A pointer to a buffer that holds the name of the color profile. See Remarks.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcssetdefaultcolorprofile
      */
     static WcsSetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pProfileName) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
-        pProfileName := pProfileName is String? StrPtr(pProfileName) : pProfileName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
+        pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
 
         result := DllCall("mscms.dll\WcsSetDefaultColorProfile", "int", scope, "ptr", pDeviceName, "int", cptColorProfileType, "int", cpstColorProfileSubType, "uint", dwProfileID, "ptr", pProfileName, "int")
         return result
@@ -1927,7 +1961,7 @@ class ColorSystem {
      * Sets the default rendering intent in the specified profile management scope.
      * @param {Integer} scope The profile management scope for this operation, which can be system-wide or the current user only.
      * @param {Integer} dwRenderingIntent 
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcssetdefaultrenderingintent
@@ -1943,7 +1977,7 @@ class ColorSystem {
      * @param {Pointer<UInt32>} pdwRenderingIntent A pointer to the variable that will hold the rendering intent.
      * 
      * For more information, see [Rendering intents](/windows/win32/wcs/rendering-intents).
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetdefaultrenderingintent
@@ -1955,33 +1989,33 @@ class ColorSystem {
 
     /**
      * Determines whether the user chose to use a per-user profile association list for the specified device.
-     * @param {Pointer<Char>} pDeviceName A pointer to a string containing the user-friendly name of the device.
+     * @param {PWSTR} pDeviceName A pointer to a string containing the user-friendly name of the device.
      * @param {Integer} dwDeviceClass 
-     * @param {Pointer<Int32>} pUsePerUserProfiles A pointer to a location to receive a Boolean value that is **TRUE** if the user chose to use a per-user profile association list for the specified device; otherwise **FALSE**.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {Pointer<BOOL>} pUsePerUserProfiles A pointer to a location to receive a Boolean value that is **TRUE** if the user chose to use a per-user profile association list for the specified device; otherwise **FALSE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetuseperuserprofiles
      */
     static WcsGetUsePerUserProfiles(pDeviceName, dwDeviceClass, pUsePerUserProfiles) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("mscms.dll\WcsGetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "int*", pUsePerUserProfiles, "int")
+        result := DllCall("mscms.dll\WcsGetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "ptr", pUsePerUserProfiles, "int")
         return result
     }
 
     /**
      * Enables a user to specify whether or not to use a per-user profile association list for the specified device.
-     * @param {Pointer<Char>} pDeviceName A pointer to a string that contains the user-friendly name of the device.
+     * @param {PWSTR} pDeviceName A pointer to a string that contains the user-friendly name of the device.
      * @param {Integer} dwDeviceClass 
-     * @param {Integer} usePerUserProfiles A Boolean value that is **TRUE** if the user wants to use a per-user profile association list for the specified device; otherwise **FALSE**.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {BOOL} usePerUserProfiles A Boolean value that is **TRUE** if the user wants to use a per-user profile association list for the specified device; otherwise **FALSE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcssetuseperuserprofiles
      */
     static WcsSetUsePerUserProfiles(pDeviceName, dwDeviceClass, usePerUserProfiles) {
-        pDeviceName := pDeviceName is String? StrPtr(pDeviceName) : pDeviceName
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("mscms.dll\WcsSetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "int", usePerUserProfiles, "int")
         return result
@@ -1999,7 +2033,7 @@ class ColorSystem {
      * @param {Integer} cdtOutput The [**COLORDATATYPE**](/windows/win32/api/icm/ne-icm-colordatatype) output that specified the color data type.
      * @param {Integer} cbOutput The buffer size, in bytes, of *pOutputData*.
      * @param {Pointer} pOutputData A pointer to an array of colors that receives the results of the color translation.The size of the buffer for this array, in bytes, is the **DWORD** value of *cbOutput*.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcstranslatecolors
@@ -2018,7 +2052,7 @@ class ColorSystem {
      * @param {Integer} cbInput The buffer size of *pInputData*.
      * @param {Pointer} pInputData A pointer to an array of input colors. Colors in this array correspond to the color space of the source profile. The size of the buffer for this array will be the number of bytes indicated by *cbInput*.
      * @param {Pointer<Byte>} paResult A pointer to an array of *nColors* bytes that receives the results of the test.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcscheckcolors
@@ -2035,7 +2069,7 @@ class ColorSystem {
      * @param {Integer} nColors Specifies the number of elements in the array.
      * @param {Integer} ctInput Specifies the input color type.
      * @param {Pointer<Byte>} lpaResult Pointer to a buffer in which to place an array of bytes containing the test results. Each byte in the buffer corresponds to a **COLOR** structure, and on exit has been set to an unsigned value between 0 and 255. The value 0 denotes that the color is in gamut, while a nonzero value indicates that it is out of gamut. For any integer *n* such that 0 \< *n* \< 255, a result value of *n* + 1 indicates that the corresponding color is at least as far out of gamut as would be indicated by a result value of *n*. These values are usually generated from the *gamutTag* in the ICC profile.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. If the function is not successful, the CMM should call [SetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror) to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcheckcolors
@@ -2055,8 +2089,8 @@ class ColorSystem {
      * @param {Integer} dwStride 
      * @param {Pointer<Byte>} lpaResult 
      * @param {Pointer<LPBMCALLBACKFN>} pfnCallback 
-     * @param {Pointer} ulCallbackData 
-     * @returns {Integer} 
+     * @param {LPARAM} ulCallbackData 
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcheckrgbs
      */
     static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, pfnCallback, ulCallbackData) {
@@ -2070,13 +2104,13 @@ class ColorSystem {
      * @param {Pointer<SByte>} paColorName Pointer to an array of color name structures.
      * @param {Pointer<UInt32>} paIndex Pointer to an array of **DWORDS** that this function fills with the indices.
      * @param {Integer} dwCount The number of color names to convert.
-     * @returns {Integer} If this function succeeds with the conversion, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds with the conversion, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmconvertcolornametoindex
      */
     static CMConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
-        result := DllCall("ICM32.dll\CMConvertColorNameToIndex", "ptr", hProfile, "ptr", paColorName, "uint*", paIndex, "uint", dwCount, "int")
+        result := DllCall("ICM32.dll\CMConvertColorNameToIndex", "ptr", hProfile, "char*", paColorName, "uint*", paIndex, "uint", dwCount, "int")
         return result
     }
 
@@ -2086,13 +2120,13 @@ class ColorSystem {
      * @param {Pointer<UInt32>} paIndex Pointer to an array of color-space index numbers.
      * @param {Pointer<SByte>} paColorName Pointer to an array of color name structures.
      * @param {Integer} dwCount The number of indices to convert.
-     * @returns {Integer} If this conversion function succeeds, the return value is TRUE.
+     * @returns {BOOL} If this conversion function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmconvertindextocolorname
      */
     static CMConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
-        result := DllCall("ICM32.dll\CMConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "ptr", paColorName, "uint", dwCount, "int")
+        result := DllCall("ICM32.dll\CMConvertIndexToColorName", "ptr", hProfile, "uint*", paIndex, "char*", paColorName, "uint", dwCount, "int")
         return result
     }
 
@@ -2104,13 +2138,13 @@ class ColorSystem {
      * @param {Integer} nIntents The number of elements in the array of intents.
      * @param {Integer} dwFlags Specifies flags to used control creation of the transform. For details, see [CMM Transform Creation Flags](/windows/win32/wcs/cmm-transform-creation-flags).
      * @param {Pointer<Byte>} lpProfileData Pointer to a pointer to a buffer. If successful the function allocates and fills this buffer. The calling application must free this buffer when it is no longer needed. Use the **GlobalFree** function to free this buffer.
-     * @returns {Integer} If the function succeeds, the return value is a nonzero value.
+     * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. If the function is not successful, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmcreatedevicelinkprofile
      */
     static CMCreateDeviceLinkProfile(pahProfiles, nProfiles, padwIntents, nIntents, dwFlags, lpProfileData) {
-        result := DllCall("ICM32.dll\CMCreateDeviceLinkProfile", "ptr*", pahProfiles, "uint", nProfiles, "uint*", padwIntents, "uint", nIntents, "uint", dwFlags, "ptr", lpProfileData, "int")
+        result := DllCall("ICM32.dll\CMCreateDeviceLinkProfile", "ptr*", pahProfiles, "uint", nProfiles, "uint*", padwIntents, "uint", nIntents, "uint", dwFlags, "char*", lpProfileData, "int")
         return result
     }
 
@@ -2135,7 +2169,7 @@ class ColorSystem {
      * Creates a display color profile from a [**LOGCOLORSPACEW**](/windows/win32/api/wingdi/ns-wingdi-logcolorspacew) structure.
      * @param {Pointer<LOGCOLORSPACEW>} lpColorSpace Pointer to a color logical space, of which the **lcsFilename** member will be **NULL**.
      * @param {Pointer<Void>} lpProfileData Pointer to a pointer to a buffer. If successful the function allocates and fills this buffer. It is the calling application's responsibility to free this buffer when it is no longer needed.
-     * @returns {Integer} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
+     * @returns {BOOL} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
      * 
      * **Windows Server 2003, Windows XP and Windows 2000:**
      * 
@@ -2199,7 +2233,7 @@ class ColorSystem {
      *     
      * The results are represented by an array of bytes. Each byte in the array corresponds to an RGB triple and has an unsigned value between 0 and 255. The value 0 denotes that the color is in gamut, while a nonzero value denotes that it is out of gamut. For any integer *n* in the range 0 \< *n* \< 255, a result value of *n* + 1 indicates that the corresponding color is at least as far out of gamut as would be indicated by a result value of *n*.
      * @param {Integer} nCount Specifies the number of elements in the array.
-     * @returns {Integer} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
+     * @returns {BOOL} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
      * 
      * **Windows Server 2003, Windows XP and Windows 2000:**
      * 
@@ -2217,7 +2251,7 @@ class ColorSystem {
      * Creates a display color profile from a [**LOGCOLORSPACEA**](/windows/win32/api/wingdi/ns-wingdi-logcolorspacea) structure.
      * @param {Pointer<LOGCOLORSPACEA>} lpColorSpace Pointer to a color logical space, of which the **lcsFilename** member will be **NULL**.
      * @param {Pointer<Void>} lpProfileData Pointer to a pointer to a buffer. If successful the function allocates and fills this buffer. It is the calling application's responsibility to free this buffer when it is no longer needed.
-     * @returns {Integer} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
+     * @returns {BOOL} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
      * 
      * **Windows Server 2003, Windows XP and Windows 2000:**
      * 
@@ -2234,7 +2268,7 @@ class ColorSystem {
     /**
      * Translates an application-supplied RGBQuad into the device [color space](https://msdn.microsoft.com/en-us/library/dd371818\(v=vs.85\)).
      * @param {Pointer} hcmTransform Specifies the transform to be used.
-     * @param {Integer} ColorRef The RGBQuad to translate.
+     * @param {COLORREF} ColorRef The RGBQuad to translate.
      * @param {Pointer<UInt32>} lpColorRef Points to a buffer in which to place the translation.
      * @param {Integer} dwFlags Specifies how the transform should be used to make the translation. This parameter can take one of the following meanings.
      * 
@@ -2262,7 +2296,7 @@ class ColorSystem {
      * </tr>
      * </tbody>
      * </table>
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. The CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatergb
@@ -2283,7 +2317,7 @@ class ColorSystem {
      * @param {Pointer<Void>} lpDestBits Points to a destination buffer in which to place the translated bitmap.
      * @param {Integer} bmOutput Specifies the output bitmap format.
      * @param {Integer} dwTranslateDirection 
-     * @returns {Integer} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
+     * @returns {BOOL} Beginning with Windows Vista, the default CMM (Icm32.dll) will return **FALSE** and [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) will report ERROR\_NOT\_SUPPORTED.
      * 
      * **Windows Server 2003, Windows XP and Windows 2000:**
      * 
@@ -2316,7 +2350,7 @@ class ColorSystem {
     /**
      * Deletes a specified color transform, and frees any memory associated with it.
      * @param {Pointer} hcmTransform Identifies the color transform to be deleted.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. If the **CMDeleteTransform** function is not successful, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmdeletetransform
@@ -2391,7 +2425,7 @@ class ColorSystem {
      * Retrieves information about the specified named color profile.
      * @param {Pointer} hProfile The handle to the profile from which the information will be retrieved.
      * @param {Pointer<NAMED_PROFILE_INFO>} pNamedProfileInfo A pointer to a **NAMED_PROFILE_INFO** structure.
-     * @returns {Integer} If this function succeeds, the return value is TRUE.
+     * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmgetnamedprofileinfo
@@ -2404,14 +2438,14 @@ class ColorSystem {
     /**
      * Reports whether the given profile is a valid ICC profile that can be used for color management.
      * @param {Pointer} hProfile Specifies the profile to check.
-     * @param {Pointer<Int32>} lpbValid Pointer to a variable that is set on exit to TRUE if the profile is a valid ICC profile, or FALSE if not.
-     * @returns {Integer} If this function succeeds, the return value is TRUE.
+     * @param {Pointer<BOOL>} lpbValid Pointer to a variable that is set on exit to TRUE if the profile is a valid ICC profile, or FALSE if not.
+     * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. If the function fails, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmisprofilevalid
      */
     static CMIsProfileValid(hProfile, lpbValid) {
-        result := DllCall("ICM32.dll\CMIsProfileValid", "ptr", hProfile, "int*", lpbValid, "int")
+        result := DllCall("ICM32.dll\CMIsProfileValid", "ptr", hProfile, "ptr", lpbValid, "int")
         return result
     }
 
@@ -2423,7 +2457,7 @@ class ColorSystem {
      * @param {Integer} ctInput Specifies the color type of the input.
      * @param {Pointer<COLOR>} lpaOutputColors Points to a buffer in which an array of translated **COLOR** structures is to be placed.
      * @param {Integer} ctOutput Specifies the output color type.
-     * @returns {Integer} If this function succeeds, the return value is TRUE.
+     * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. The CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatecolors
@@ -2445,8 +2479,8 @@ class ColorSystem {
      * @param {Integer} bmOutput Specifies the output bitmap format.
      * @param {Integer} dwOutputStride Specifies the number of bytes from the beginning of one scan line to the beginning of the next in the input bitmap. If *dwOutputStride* is set to zero, the CMM should pad scan lines so that they are **DWORD**-aligned.
      * @param {Pointer<LPBMCALLBACKFN>} lpfnCallback Pointer to an application-supplied callback function called periodically by **CMTranslateRGBsExt** to report progress and allow the calling process to cancel the translation. (See [**ICMProgressProcCallback**](https://msdn.microsoft.com/en-us/library/dd372114\(v=vs.85\)).)
-     * @param {Pointer} ulCallbackData Data passed back to the callback function, for example to identify the translation that is reporting progress.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {LPARAM} ulCallbackData Data passed back to the callback function, for example to identify the translation that is reporting progress.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE** and the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmtranslatergbsext
@@ -2519,21 +2553,21 @@ class ColorSystem {
 
     /**
      * Determines whether system management of the display calibration state is enabled.
-     * @param {Pointer<Int32>} pbIsEnabled **TRUE** if system management of the display calibration state is enabled; otherwise **FALSE**.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {Pointer<BOOL>} pbIsEnabled **TRUE** if system management of the display calibration state is enabled; otherwise **FALSE**.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetcalibrationmanagementstate
      */
     static WcsGetCalibrationManagementState(pbIsEnabled) {
-        result := DllCall("mscms.dll\WcsGetCalibrationManagementState", "int*", pbIsEnabled, "int")
+        result := DllCall("mscms.dll\WcsGetCalibrationManagementState", "ptr", pbIsEnabled, "int")
         return result
     }
 
     /**
      * Enables or disables system management of the display calibration state.
-     * @param {Integer} bIsEnabled **TRUE** to enable system management of the display calibration state. **FALSE** to disable system management of the display calibration state.
-     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * @param {BOOL} bIsEnabled **TRUE** to enable system management of the display calibration state. **FALSE** to disable system management of the display calibration state.
+     * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcssetcalibrationmanagementstate
@@ -2546,16 +2580,16 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope Specifies the association as system-wide or the current user.
-     * @param {Pointer<Char>} profileName Identifies the installed profile to associate.
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {PWSTR} profileName Identifies the installed profile to associate.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
-     * @param {Integer} setAsDefault Whether or not to set the newly associated profile as the default.
-     * @param {Integer} associateAsAdvancedColor Specifies to which association list the new profile is added.
+     * @param {BOOL} setAsDefault Whether or not to set the newly associated profile as the default.
+     * @param {BOOL} associateAsAdvancedColor Specifies to which association list the new profile is added.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofileadddisplayassociation
      */
     static ColorProfileAddDisplayAssociation(scope, profileName, targetAdapterID, sourceID, setAsDefault, associateAsAdvancedColor) {
-        profileName := profileName is String? StrPtr(profileName) : profileName
+        profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "int")
         if(result != 0)
@@ -2567,15 +2601,15 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope Specifies the association as system-wide or the current user.
-     * @param {Pointer<Char>} profileName Identifies the installed profile to associate.
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {PWSTR} profileName Identifies the installed profile to associate.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
-     * @param {Integer} dissociateAdvancedColor Specifies to which association list the new profile is added.
+     * @param {BOOL} dissociateAdvancedColor Specifies to which association list the new profile is added.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofileremovedisplayassociation
      */
     static ColorProfileRemoveDisplayAssociation(scope, profileName, targetAdapterID, sourceID, dissociateAdvancedColor) {
-        profileName := profileName is String? StrPtr(profileName) : profileName
+        profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "int")
         if(result != 0)
@@ -2587,16 +2621,16 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope Specifies the association as system-wide or the current user.
-     * @param {Pointer<Char>} profileName Identifies the installed profile to associate.
+     * @param {PWSTR} profileName Identifies the installed profile to associate.
      * @param {Integer} profileType The type of color profile to set as default (currently only CPT_ICC is supported).
      * @param {Integer} profileSubType The subtype of the color profile to set as default.
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilesetdisplaydefaultassociation
      */
     static ColorProfileSetDisplayDefaultAssociation(scope, profileName, profileType, profileSubType, targetAdapterID, sourceID) {
-        profileName := profileName is String? StrPtr(profileName) : profileName
+        profileName := profileName is String ? StrPtr(profileName) : profileName
 
         result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "int")
         if(result != 0)
@@ -2608,9 +2642,9 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope Specifies the association as system-wide or the current user.
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
-     * @param {Pointer<Char>} profileList Pointer to a buffer where the profile names are placed, must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
+     * @param {Pointer<PWSTR>} profileList Pointer to a buffer where the profile names are placed, must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
      * @param {Pointer<UInt32>} profileCount Receives the number of profiles names copied into profileList.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplaylist
@@ -2626,11 +2660,11 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope Specifies the association as system-wide or the current user.
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Integer} profileType The type of color profile to return (currently only CPT_ICC is supported).
      * @param {Integer} profileSubType The subtype of the color profile to return.
-     * @param {Pointer<Char>} profileName Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
+     * @param {Pointer<PWSTR>} profileName Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplaydefault
      */
@@ -2644,7 +2678,7 @@ class ColorSystem {
 
     /**
      * 
-     * @param {Pointer} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
+     * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Pointer<Int32>} scope Returns the scope of the currently selected color profile - either the current user or system.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
@@ -2661,7 +2695,7 @@ class ColorSystem {
     /**
      * 
      * @param {Integer} scope 
-     * @param {Pointer} targetAdapterID 
+     * @param {LUID} targetAdapterID 
      * @param {Integer} sourceID 
      * @param {Integer} capsType 
      * @param {Pointer<Void>} outputCapabilities 

@@ -18,7 +18,7 @@ class HTTP_SERVICE_CONFIG_SSL_KEY_EX extends Win32Struct
     IpPort{
         get {
             if(!this.HasProp("__IpPort"))
-                this.__IpPort := SOCKADDR_STORAGE(this.ptr + 0)
+                this.__IpPort := SOCKADDR_STORAGE(0, this)
             return this.__IpPort
         }
     }

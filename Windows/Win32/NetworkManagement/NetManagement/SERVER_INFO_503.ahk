@@ -158,7 +158,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server maps a request to a normal open request with shared-read access when the server receives a compatibility open request with read access. Mapping such requests allows several MS-DOS computers to open a single file for read access. This member is unused.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enablesoftcompat {
         get => NumGet(this, 52, "int")
@@ -169,7 +169,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server should force a client to disconnect, even if the client has open files, once the client's logon time has expired.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enableforcedlogoff {
         get => NumGet(this, 56, "int")
@@ -180,7 +180,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is a reliable time source.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_timesource {
         get => NumGet(this, 60, "int")
@@ -191,7 +191,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server accepts function calls from previous-generation LAN Manager clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_acceptdownlevelapis {
         get => NumGet(this, 64, "int")
@@ -202,7 +202,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server is visible to LAN Manager 2.x clients.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_lmannounce {
         get => NumGet(this, 68, "int")
@@ -213,7 +213,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>LPWSTR</b>
      * 
      * A pointer to a Unicode character string that specifies the name of the server's domain.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sv503_domain {
         get => NumGet(this, 72, "ptr")
@@ -404,7 +404,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server allows clients to use opportunistic locks on files. Opportunistic locks are a significant performance enhancement, but have the potential to cause lost cached data on some networks, particularly wide-area networks.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enableoplocks {
         get => NumGet(this, 144, "int")
@@ -415,7 +415,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates how the server should behave if a client has an opportunistic lock (oplock) and does not respond to an oplock break. This member indicates whether the server will fail the second open (value of 0), or force close the open instance of a client that has an oplock (value equal to 1). This member is unused.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enableoplockforceclose {
         get => NumGet(this, 148, "int")
@@ -426,7 +426,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether several MS-DOS File Control Blocks (FCBs) are placed in a single location accessible to the server. If enabled, this can save resources on the server.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enablefcbopens {
         get => NumGet(this, 152, "int")
@@ -437,7 +437,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server processes raw Server Message Blocks (SMBs). If enabled, this allows more data to transfer per transaction and also improves performance. However, it is possible that processing raw SMBs can impede performance on certain networks. The server maintains the value of this member.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enableraw {
         get => NumGet(this, 156, "int")
@@ -448,7 +448,7 @@ class SERVER_INFO_503 extends Win32Struct
      * Type: <b>BOOL</b>
      * 
      * A value that indicates whether the server allows redirected server drives to be shared.
-     * @type {Integer}
+     * @type {BOOL}
      */
     sv503_enablesharednetdrives {
         get => NumGet(this, 160, "int")

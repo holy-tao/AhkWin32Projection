@@ -137,12 +137,4 @@ class DIMM_ADDR_VALID_BITS_DDR5 extends Win32Struct
         get => (this._bitfield >> 12) & 0x1
         set => this._bitfield := ((value & 0x1) << 12) | (this._bitfield & ~(0x1 << 12))
     }
-
-    /**
-     * @type {Integer}
-     */
-    Reserved {
-        get => (this._bitfield >> 13) & 0x7FFFF
-        set => this._bitfield := ((value & 0x7FFFF) << 13) | (this._bitfield & ~(0x7FFFF << 13))
-    }
 }

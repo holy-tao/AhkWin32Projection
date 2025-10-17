@@ -35,7 +35,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(this.ptr + 0)
+                this.__dot11Ssid := DOT11_SSID(0, this)
             return this.__dot11Ssid
         }
     }
@@ -105,7 +105,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
      * If the 802.11 Beacon or Probe Response frame received from the AP or peer station does not include a Country information element (IE), this member is set to <b>TRUE</b>. 
      * 
      * If the 802.11 Beacon or Probe Response frame received from the AP or peer station does include a Country IE, this member is set to <b>FALSE</b> if the value of the Country String subfield does not equal the input country string.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     bInRegDomain {
         get => NumGet(this, 64, "char")
@@ -175,7 +175,7 @@ class WLAN_BSS_ENTRY extends Win32Struct
     wlanRateSet{
         get {
             if(!this.HasProp("__wlanRateSet"))
-                this.__wlanRateSet := WLAN_RATE_SET(this.ptr + 96)
+                this.__wlanRateSet := WLAN_RATE_SET(96, this)
             return this.__wlanRateSet
         }
     }

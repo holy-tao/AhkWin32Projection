@@ -36,7 +36,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * Optional. A pointer to a null-terminated Unicode string that contains the value of the <b>Id</b> attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszId {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +45,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains a <b>URI</b> attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszUri {
         get => NumGet(this, 24, "ptr")
@@ -54,7 +54,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the value of the <b>Type</b> attribute.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     wszType {
         get => NumGet(this, 32, "ptr")
@@ -68,7 +68,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
     DigestMethod{
         get {
             if(!this.HasProp("__DigestMethod"))
-                this.__DigestMethod := CRYPT_XML_ALGORITHM(this.ptr + 40)
+                this.__DigestMethod := CRYPT_XML_ALGORITHM(40, this)
             return this.__DigestMethod
         }
     }
@@ -80,7 +80,7 @@ class CRYPT_XML_REFERENCE extends Win32Struct
     DigestValue{
         get {
             if(!this.HasProp("__DigestValue"))
-                this.__DigestValue := CRYPT_INTEGER_BLOB(this.ptr + 72)
+                this.__DigestValue := CRYPT_INTEGER_BLOB(72, this)
             return this.__DigestValue
         }
     }
@@ -103,12 +103,8 @@ class CRYPT_XML_REFERENCE extends Win32Struct
         set => NumPut("ptr", value, this, 96)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 104
     }
 }

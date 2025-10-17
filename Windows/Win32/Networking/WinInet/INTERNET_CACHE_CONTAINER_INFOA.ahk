@@ -21,7 +21,7 @@ class INTERNET_CACHE_CONTAINER_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszName {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class INTERNET_CACHE_CONTAINER_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszCachePrefix {
         get => NumGet(this, 16, "ptr")
@@ -37,7 +37,7 @@ class INTERNET_CACHE_CONTAINER_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszVolumeLabel {
         get => NumGet(this, 24, "ptr")
@@ -45,7 +45,7 @@ class INTERNET_CACHE_CONTAINER_INFOA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszVolumeTitle {
         get => NumGet(this, 32, "ptr")

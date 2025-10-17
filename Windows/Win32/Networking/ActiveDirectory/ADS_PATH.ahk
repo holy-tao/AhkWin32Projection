@@ -29,7 +29,7 @@ class ADS_PATH extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the name of an existing volume in the file system.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     VolumeName {
         get => NumGet(this, 8, "ptr")
@@ -38,7 +38,7 @@ class ADS_PATH extends Win32Struct
 
     /**
      * The null-terminated Unicode string that contains the path of a directory in the file system.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     Path {
         get => NumGet(this, 16, "ptr")

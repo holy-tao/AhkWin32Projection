@@ -22,7 +22,7 @@ class TC_GEN_FLOW extends Win32Struct
     SendingFlowspec{
         get {
             if(!this.HasProp("__SendingFlowspec"))
-                this.__SendingFlowspec := FLOWSPEC(this.ptr + 0)
+                this.__SendingFlowspec := FLOWSPEC(0, this)
             return this.__SendingFlowspec
         }
     }
@@ -34,7 +34,7 @@ class TC_GEN_FLOW extends Win32Struct
     ReceivingFlowspec{
         get {
             if(!this.HasProp("__ReceivingFlowspec"))
-                this.__ReceivingFlowspec := FLOWSPEC(this.ptr + 32)
+                this.__ReceivingFlowspec := FLOWSPEC(32, this)
             return this.__ReceivingFlowspec
         }
     }

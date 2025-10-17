@@ -20,7 +20,7 @@ class SecPkgContext_Target extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Target {
         get => NumGet(this, 8, "ptr")

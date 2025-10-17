@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
@@ -28,23 +29,29 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    AppTitle {
-        get => NumGet(this, 16, "ptr")
-        set => NumPut("ptr", value, this, 16)
+    AppTitle{
+        get {
+            if(!this.HasProp("__AppTitle"))
+                this.__AppTitle := BSTR(16, this)
+            return this.__AppTitle
+        }
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {BSTR}
      */
-    IconPath {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    IconPath{
+        get {
+            if(!this.HasProp("__IconPath"))
+                this.__IconPath := BSTR(24, this)
+            return this.__IconPath
+        }
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsUninstallable {
         get => NumGet(this, 32, "int")
@@ -76,7 +83,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsModern {
         get => NumGet(this, 52, "int")
@@ -84,7 +91,7 @@ class PM_STARTAPPBLOB extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     IsModernLightUp {
         get => NumGet(this, 56, "int")
@@ -99,12 +106,8 @@ class PM_STARTAPPBLOB extends Win32Struct
         set => NumPut("ushort", value, this, 60)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 64
     }
 }

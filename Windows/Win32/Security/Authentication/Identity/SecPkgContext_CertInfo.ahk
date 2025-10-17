@@ -28,7 +28,7 @@ class SecPkgContext_CertInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszSubjectName {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class SecPkgContext_CertInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszIssuerName {
         get => NumGet(this, 24, "ptr")

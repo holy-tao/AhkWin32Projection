@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\LUID.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
  * The SECPKG_CLIENT_INFO structure holds information about a security package's client. This structure is used by the GetClientInfo function.
@@ -21,7 +22,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(this.ptr + 0)
+                this.__LogonId := LUID(0, this)
             return this.__LogonId
         }
     }
@@ -46,7 +47,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if the client has the SeTcbPrivilege privilege; otherwise <b>FALSE</b>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     HasTcbPrivilege {
         get => NumGet(this, 16, "char")
@@ -55,7 +56,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * <b>TRUE</b> if the client is impersonating another <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security principal</a>.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Impersonating {
         get => NumGet(this, 17, "char")
@@ -64,7 +65,7 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * The client is restricted in its ability to access securable objects or perform privileged operations.
-     * @type {Integer}
+     * @type {BOOLEAN}
      */
     Restricted {
         get => NumGet(this, 18, "char")
@@ -91,10 +92,13 @@ class SECPKG_CLIENT_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ClientToken {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    ClientToken{
+        get {
+            if(!this.HasProp("__ClientToken"))
+                this.__ClientToken := HANDLE(24, this)
+            return this.__ClientToken
+        }
     }
 }

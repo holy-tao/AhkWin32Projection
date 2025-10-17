@@ -18,7 +18,7 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     displayAdapterLuid{
         get {
             if(!this.HasProp("__displayAdapterLuid"))
-                this.__displayAdapterLuid := LUID(this.ptr + 0)
+                this.__displayAdapterLuid := LUID(0, this)
             return this.__displayAdapterLuid
         }
     }
@@ -29,7 +29,7 @@ class COMPOSITION_TARGET_ID extends Win32Struct
     renderAdapterLuid{
         get {
             if(!this.HasProp("__renderAdapterLuid"))
-                this.__renderAdapterLuid := LUID(this.ptr + 8)
+                this.__renderAdapterLuid := LUID(8, this)
             return this.__renderAdapterLuid
         }
     }

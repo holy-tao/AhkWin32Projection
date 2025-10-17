@@ -22,7 +22,7 @@ class WS_XML_COMMENT_NODE extends Win32Struct
     node{
         get {
             if(!this.HasProp("__node"))
-                this.__node := WS_XML_NODE(this.ptr + 0)
+                this.__node := WS_XML_NODE(0, this)
             return this.__node
         }
     }
@@ -34,7 +34,7 @@ class WS_XML_COMMENT_NODE extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := WS_XML_STRING(this.ptr + 8)
+                this.__value := WS_XML_STRING(8, this)
             return this.__value
         }
     }

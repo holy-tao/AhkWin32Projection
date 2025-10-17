@@ -27,7 +27,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwSize{
         get {
             if(!this.HasProp("__dwSize"))
-                this.__dwSize := COORD(this.ptr + 4)
+                this.__dwSize := COORD(4, this)
             return this.__dwSize
         }
     }
@@ -38,7 +38,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwCursorPosition{
         get {
             if(!this.HasProp("__dwCursorPosition"))
-                this.__dwCursorPosition := COORD(this.ptr + 8)
+                this.__dwCursorPosition := COORD(8, this)
             return this.__dwCursorPosition
         }
     }
@@ -57,7 +57,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     srWindow{
         get {
             if(!this.HasProp("__srWindow"))
-                this.__srWindow := SMALL_RECT(this.ptr + 16)
+                this.__srWindow := SMALL_RECT(16, this)
             return this.__srWindow
         }
     }
@@ -68,7 +68,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwMaximumWindowSize{
         get {
             if(!this.HasProp("__dwMaximumWindowSize"))
-                this.__dwMaximumWindowSize := COORD(this.ptr + 24)
+                this.__dwMaximumWindowSize := COORD(24, this)
             return this.__dwMaximumWindowSize
         }
     }
@@ -82,7 +82,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bFullscreenSupported {
         get => NumGet(this, 32, "int")
@@ -90,7 +90,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     }
 
     /**
-     * @type {Array<UInt32>}
+     * @type {Array<COLORREF>}
      */
     ColorTable{
         get {
@@ -100,12 +100,8 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
         }
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 104
     }
 }

@@ -18,7 +18,7 @@ class NVME_LBA_RANGE extends Win32Struct
     Attributes{
         get {
             if(!this.HasProp("__Attributes"))
-                this.__Attributes := NVME_CONTEXT_ATTRIBUTES(this.ptr + 0)
+                this.__Attributes := NVME_CONTEXT_ATTRIBUTES(0, this)
             return this.__Attributes
         }
     }

@@ -44,7 +44,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * If the <b>JobType</b> member is equal to the <b>JT_RECEIVE</b> job type, <b>CallerId</b> is a pointer to a null-terminated character string that identifies the calling device that sent the active fax document. This string can include the telephone number of the calling device.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     CallerId {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +55,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the called station identifier of the device.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Csid {
         get => NumGet(this, 16, "ptr")
@@ -88,7 +88,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the fax device of interest.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     DeviceName {
         get => NumGet(this, 32, "ptr")
@@ -99,7 +99,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string to associate with the fax document that the device is currently sending or receiving. This is the user-friendly name that appears in the print spooler.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     DocumentName {
         get => NumGet(this, 40, "ptr")
@@ -121,7 +121,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * If the <b>JobType</b> member is equal to the <b>JT_SEND</b> job type, <b>PhoneNumber</b> is a pointer to a constant null-terminated character string that is the fax number dialed for the outgoing fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     PhoneNumber {
         get => NumGet(this, 56, "ptr")
@@ -138,7 +138,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * <c>Canonical-Phone-Number[|Additional-Routing-Info]</c>
      * 
      * where <c>Canonical-Phone-Number</code> is defined in the <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-ovr">Address</a> topic of the TAPI documentation (see the Canonical Address subheading); and <code>Additional-Routing-Info</c> is the <i>subaddress</i> of a Canonical Address, and uses the subaddress format.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RoutingString {
         get => NumGet(this, 64, "ptr")
@@ -149,7 +149,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the sender who initiated the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     SenderName {
         get => NumGet(this, 72, "ptr")
@@ -160,7 +160,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the recipient of the fax transmission.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     RecipientName {
         get => NumGet(this, 80, "ptr")
@@ -187,7 +187,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
     StartTime{
         get {
             if(!this.HasProp("__StartTime"))
-                this.__StartTime := FILETIME(this.ptr + 96)
+                this.__StartTime := FILETIME(96, this)
             return this.__StartTime
         }
     }
@@ -207,7 +207,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * This member must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     StatusString {
         get => NumGet(this, 112, "ptr")
@@ -223,7 +223,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
     SubmittedTime{
         get {
             if(!this.HasProp("__SubmittedTime"))
-                this.__SubmittedTime := FILETIME(this.ptr + 120)
+                this.__SubmittedTime := FILETIME(120, this)
             return this.__SubmittedTime
         }
     }
@@ -243,7 +243,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the transmitting station identifier (TSID). This identifier is usually a telephone number.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     Tsid {
         get => NumGet(this, 136, "ptr")
@@ -254,7 +254,7 @@ class FAX_DEVICE_STATUSA extends Win32Struct
      * Type: <b>LPCTSTR</b>
      * 
      * Pointer to a constant null-terminated character string that specifies the name of the user who submitted the active fax job.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     UserName {
         get => NumGet(this, 144, "ptr")

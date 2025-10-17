@@ -30,7 +30,7 @@ class PSAPI_WORKING_SET_EX_INFORMATION extends Win32Struct
     VirtualAttributes{
         get {
             if(!this.HasProp("__VirtualAttributes"))
-                this.__VirtualAttributes := PSAPI_WORKING_SET_EX_BLOCK(this.ptr + 8)
+                this.__VirtualAttributes := PSAPI_WORKING_SET_EX_BLOCK(8, this)
             return this.__VirtualAttributes
         }
     }

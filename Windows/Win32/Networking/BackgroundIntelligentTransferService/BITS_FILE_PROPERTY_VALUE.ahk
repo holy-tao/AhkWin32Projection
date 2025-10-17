@@ -16,7 +16,7 @@ class BITS_FILE_PROPERTY_VALUE extends Win32Struct
     /**
      * This value is used when using the property ID 
      *       enum value <b>BITS_FILE_PROPERTY_ID_HTTP_RESPONSE_HEADERS</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     String {
         get => NumGet(this, 0, "ptr")

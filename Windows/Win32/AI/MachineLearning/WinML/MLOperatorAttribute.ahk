@@ -12,7 +12,7 @@ class MLOperatorAttribute extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     name {
         get => NumGet(this, 0, "ptr")

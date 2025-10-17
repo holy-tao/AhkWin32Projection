@@ -22,14 +22,14 @@ class EAP_METHOD_INFO_EX extends Win32Struct
     eaptype{
         get {
             if(!this.HasProp("__eaptype"))
-                this.__eaptype := EAP_METHOD_TYPE(this.ptr + 0)
+                this.__eaptype := EAP_METHOD_TYPE(0, this)
             return this.__eaptype
         }
     }
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the name of the EAP method's author.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszAuthorName {
         get => NumGet(this, 16, "ptr")
@@ -38,7 +38,7 @@ class EAP_METHOD_INFO_EX extends Win32Struct
 
     /**
      * Pointer to a zero-terminated Unicode string that contains the display name of the EAP method.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFriendlyName {
         get => NumGet(this, 24, "ptr")

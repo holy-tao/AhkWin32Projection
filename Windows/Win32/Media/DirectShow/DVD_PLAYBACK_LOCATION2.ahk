@@ -44,7 +44,7 @@ class DVD_PLAYBACK_LOCATION2 extends Win32Struct
     TimeCode{
         get {
             if(!this.HasProp("__TimeCode"))
-                this.__TimeCode := DVD_HMSF_TIMECODE(this.ptr + 8)
+                this.__TimeCode := DVD_HMSF_TIMECODE(8, this)
             return this.__TimeCode
         }
     }

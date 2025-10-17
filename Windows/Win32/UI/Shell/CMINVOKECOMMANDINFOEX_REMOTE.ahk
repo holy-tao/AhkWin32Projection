@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\POINT.ahk
 
 /**
@@ -29,15 +30,18 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hwnd {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hwnd{
+        get {
+            if(!this.HasProp("__hwnd"))
+                this.__hwnd := HWND(8, this)
+            return this.__hwnd
+        }
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpVerbString {
         get => NumGet(this, 16, "ptr")
@@ -45,7 +49,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpParameters {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +57,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpDirectory {
         get => NumGet(this, 32, "ptr")
@@ -77,7 +81,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpTitle {
         get => NumGet(this, 48, "ptr")
@@ -85,7 +89,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpVerbWString {
         get => NumGet(this, 56, "ptr")
@@ -93,7 +97,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpParametersW {
         get => NumGet(this, 64, "ptr")
@@ -101,7 +105,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpDirectoryW {
         get => NumGet(this, 72, "ptr")
@@ -109,7 +113,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpTitleW {
         get => NumGet(this, 80, "ptr")
@@ -122,7 +126,7 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
     ptInvoke{
         get {
             if(!this.HasProp("__ptInvoke"))
-                this.__ptInvoke := POINT(this.ptr + 88)
+                this.__ptInvoke := POINT(88, this)
             return this.__ptInvoke
         }
     }
@@ -143,12 +147,8 @@ class CMINVOKECOMMANDINFOEX_REMOTE extends Win32Struct
         set => NumPut("uint", value, this, 100)
     }
 
-    /**
-     * Initializes the struct. `cbSize` must always contain the size of the struct.
-     * @param {Integer} ptr The location at which to create the struct, or 0 to create a new `Buffer`
-     */
-    __New(ptr := 0){
-        super.__New(ptr)
+    __New(ptrOrObj := 0, parent := ""){
+        super.__New(ptrOrObj, parent)
         this.cbSize := 104
     }
 }

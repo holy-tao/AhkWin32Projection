@@ -45,7 +45,7 @@ class WSAQUERYSETA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional NULL-terminated string  that contains service name. The semantics for using wildcards within the string are not defined, but can be supported by certain namespace providers.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszServiceInstanceName {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class WSAQUERYSETA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * This member is ignored for queries.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszComment {
         get => NumGet(this, 32, "ptr")
@@ -193,7 +193,7 @@ class WSAQUERYSETA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional starting point of the query in a hierarchical namespace.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszContext {
         get => NumGet(this, 56, "ptr")
@@ -227,7 +227,7 @@ class WSAQUERYSETA extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * A pointer to an optional NULL-terminated query string. Some namespaces, such as Whois++, support enriched SQL-like queries that are contained in a simple text string. This parameter is used to specify that string.
-     * @type {Pointer<Byte>}
+     * @type {PSTR}
      */
     lpszQueryString {
         get => NumGet(this, 80, "ptr")

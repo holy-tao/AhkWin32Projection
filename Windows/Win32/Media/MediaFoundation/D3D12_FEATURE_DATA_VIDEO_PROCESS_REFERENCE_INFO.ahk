@@ -60,7 +60,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXGI_RATIONAL(this.ptr + 16)
+                this.__InputFrameRate := DXGI_RATIONAL(16, this)
             return this.__InputFrameRate
         }
     }
@@ -72,14 +72,14 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXGI_RATIONAL(this.ptr + 24)
+                this.__OutputFrameRate := DXGI_RATIONAL(24, this)
             return this.__OutputFrameRate
         }
     }
 
     /**
      * True if autoprocessing will be used; otherwise, false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     EnableAutoProcessing {
         get => NumGet(this, 32, "int")

@@ -38,7 +38,7 @@ class CSADDR_INFO extends Win32Struct
     LocalAddr{
         get {
             if(!this.HasProp("__LocalAddr"))
-                this.__LocalAddr := SOCKET_ADDRESS(this.ptr + 0)
+                this.__LocalAddr := SOCKET_ADDRESS(0, this)
             return this.__LocalAddr
         }
     }
@@ -61,7 +61,7 @@ class CSADDR_INFO extends Win32Struct
     RemoteAddr{
         get {
             if(!this.HasProp("__RemoteAddr"))
-                this.__RemoteAddr := SOCKET_ADDRESS(this.ptr + 16)
+                this.__RemoteAddr := SOCKET_ADDRESS(16, this)
             return this.__RemoteAddr
         }
     }

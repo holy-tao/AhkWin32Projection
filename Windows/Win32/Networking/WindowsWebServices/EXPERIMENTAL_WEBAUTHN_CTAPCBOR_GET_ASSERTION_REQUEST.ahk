@@ -21,7 +21,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszRpId {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     CredentialList{
         get {
             if(!this.HasProp("__CredentialList"))
-                this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(this.ptr + 48)
+                this.__CredentialList := WEBAUTHN_CREDENTIAL_LIST(48, this)
             return this.__CredentialList
         }
     }
@@ -96,7 +96,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     fEmptyPinAuth {
         get => NumGet(this, 88, "int")

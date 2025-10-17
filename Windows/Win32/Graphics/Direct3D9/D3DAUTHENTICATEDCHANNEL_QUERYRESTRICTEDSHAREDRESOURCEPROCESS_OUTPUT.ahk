@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include .\D3D_OMAC.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT.ahk
 
 /**
@@ -19,7 +20,7 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     Output{
         get {
             if(!this.HasProp("__Output"))
-                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(this.ptr + 0)
+                this.__Output := D3DAUTHENTICATEDCHANNEL_QUERY_OUTPUT(0, this)
             return this.__Output
         }
     }
@@ -41,10 +42,13 @@ class D3DAUTHENTICATEDCHANNEL_QUERYRESTRICTEDSHAREDRESOURCEPROCESS_OUTPUT extend
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    ProcessHandle {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    ProcessHandle{
+        get {
+            if(!this.HasProp("__ProcessHandle"))
+                this.__ProcessHandle := HANDLE(48, this)
+            return this.__ProcessHandle
+        }
     }
 }

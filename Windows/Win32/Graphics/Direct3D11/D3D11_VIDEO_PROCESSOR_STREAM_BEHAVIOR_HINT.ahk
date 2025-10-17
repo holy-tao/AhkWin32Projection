@@ -15,7 +15,7 @@ class D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT extends Win32Struct
 
     /**
      * A value indicating whether this input stream should be used to compute behavior hints. Set to true if the stream should be used to compute behavior hints; otherwise, set to false.
-     * @type {Integer}
+     * @type {BOOL}
      */
     Enable {
         get => NumGet(this, 0, "int")

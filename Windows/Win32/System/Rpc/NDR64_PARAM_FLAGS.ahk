@@ -142,14 +142,6 @@ class NDR64_PARAM_FLAGS extends Win32Struct
     /**
      * @type {Integer}
      */
-    Reserved {
-        get => (this._bitfield >> 13) & 0x3
-        set => this._bitfield := ((value & 0x3) << 13) | (this._bitfield & ~(0x3 << 13))
-    }
-
-    /**
-     * @type {Integer}
-     */
     UseCache {
         get => (this._bitfield >> 15) & 0x1
         set => this._bitfield := ((value & 0x1) << 15) | (this._bitfield & ~(0x1 << 15))

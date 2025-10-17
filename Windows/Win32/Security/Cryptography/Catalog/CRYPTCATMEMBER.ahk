@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\CRYPT_INTEGER_BLOB.ahk
 
 /**
@@ -25,7 +26,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the reference tag value.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszReferenceTag {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +35,7 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * A pointer to a null-terminated string that contains the file name.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pwszFileName {
         get => NumGet(this, 16, "ptr")
@@ -88,11 +89,14 @@ class CRYPTCATMEMBER extends Win32Struct
 
     /**
      * Reserved; do not use.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    hReserved {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hReserved{
+        get {
+            if(!this.HasProp("__hReserved"))
+                this.__hReserved := HANDLE(56, this)
+            return this.__hReserved
+        }
     }
 
     /**
@@ -102,7 +106,7 @@ class CRYPTCATMEMBER extends Win32Struct
     sEncodedIndirectData{
         get {
             if(!this.HasProp("__sEncodedIndirectData"))
-                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(this.ptr + 64)
+                this.__sEncodedIndirectData := CRYPT_INTEGER_BLOB(64, this)
             return this.__sEncodedIndirectData
         }
     }
@@ -114,7 +118,7 @@ class CRYPTCATMEMBER extends Win32Struct
     sEncodedMemberInfo{
         get {
             if(!this.HasProp("__sEncodedMemberInfo"))
-                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(this.ptr + 80)
+                this.__sEncodedMemberInfo := CRYPT_INTEGER_BLOB(80, this)
             return this.__sEncodedMemberInfo
         }
     }

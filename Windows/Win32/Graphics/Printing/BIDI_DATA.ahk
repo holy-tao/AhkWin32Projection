@@ -21,7 +21,7 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {Integer}
+     * @type {BOOL}
      */
     bData {
         get => NumGet(this, 8, "int")
@@ -37,7 +37,7 @@ class BIDI_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     sData {
         get => NumGet(this, 8, "ptr")
@@ -58,7 +58,7 @@ class BIDI_DATA extends Win32Struct
     biData{
         get {
             if(!this.HasProp("__biData"))
-                this.__biData := BINARY_CONTAINER(this.ptr + 8)
+                this.__biData := BINARY_CONTAINER(8, this)
             return this.__biData
         }
     }

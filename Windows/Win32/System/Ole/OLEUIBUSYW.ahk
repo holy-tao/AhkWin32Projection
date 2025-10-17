@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\HRSRC.ahk
+#Include ..\..\Foundation\HTASK.ahk
 
 /**
  * Contains information that the OLE User Interface Library uses to initialize the Busy dialog box, and space for the library to return information when the dialog box is dismissed.
@@ -86,16 +90,19 @@ class OLEUIBUSYW extends Win32Struct
 
     /**
      * The window that owns the dialog box. This member should not be <b>NULL</b>.
-     * @type {Pointer<Void>}
+     * @type {HWND}
      */
-    hWndOwner {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hWndOwner{
+        get {
+            if(!this.HasProp("__hWndOwner"))
+                this.__hWndOwner := HWND(8, this)
+            return this.__hWndOwner
+        }
     }
 
     /**
      * A pointer to a string to be used as the title of the dialog box. If <b>NULL</b>, then the library uses <b>Busy</b>.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszCaption {
         get => NumGet(this, 16, "ptr")
@@ -113,7 +120,7 @@ class OLEUIBUSYW extends Win32Struct
 
     /**
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIBUSY</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
-     * @type {Pointer}
+     * @type {LPARAM}
      */
     lCustData {
         get => NumGet(this, 32, "ptr")
@@ -122,16 +129,19 @@ class OLEUIBUSYW extends Win32Struct
 
     /**
      * Instance that contains a dialog box template specified by the <b>lpTemplateName</b> member.
-     * @type {Pointer<Void>}
+     * @type {HINSTANCE}
      */
-    hInstance {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    hInstance{
+        get {
+            if(!this.HasProp("__hInstance"))
+                this.__hInstance := HINSTANCE(40, this)
+            return this.__hInstance
+        }
     }
 
     /**
      * Pointer to a null-terminated string that specifies the name of the resource file for the dialog box template that is to be substituted for the library's <b>Busy</b> dialog box template.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     lpszTemplate {
         get => NumGet(this, 48, "ptr")
@@ -140,25 +150,31 @@ class OLEUIBUSYW extends Win32Struct
 
     /**
      * Customized template handle.
-     * @type {Pointer<Void>}
+     * @type {HRSRC}
      */
-    hResource {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+    hResource{
+        get {
+            if(!this.HasProp("__hResource"))
+                this.__hResource := HRSRC(56, this)
+            return this.__hResource
+        }
     }
 
     /**
      * Input only. Handle to the task that is blocking.
-     * @type {Pointer<Void>}
+     * @type {HTASK}
      */
-    hTask {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+    hTask{
+        get {
+            if(!this.HasProp("__hTask"))
+                this.__hTask := HTASK(64, this)
+            return this.__hTask
+        }
     }
 
     /**
      * Pointer to the dialog box's <b>HWND</b>.
-     * @type {Pointer<Void>}
+     * @type {Pointer<HWND>}
      */
     lphWndDialog {
         get => NumGet(this, 72, "ptr")

@@ -73,7 +73,7 @@ class NCRYPT_UI_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be used in the title of the strong key dialog box when the key is completed. If this member is <b>NULL</b>, a default creation title will be used in the strong key dialog box.  This member is only used on key finalization.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszCreationTitle {
         get => NumGet(this, 8, "ptr")
@@ -82,7 +82,7 @@ class NCRYPT_UI_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the name of the key. If this member is <b>NULL</b>, a default name will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszFriendlyName {
         get => NumGet(this, 16, "ptr")
@@ -91,7 +91,7 @@ class NCRYPT_UI_POLICY extends Win32Struct
 
     /**
      * A pointer to a null-terminated Unicode string that contains the text that will be displayed in the strong key dialog box as the description of the key. If this member is <b>NULL</b>, a default description will be used in the strong key dialog box.  This member is used both when the key is completed and when the key is used.
-     * @type {Pointer<Char>}
+     * @type {PWSTR}
      */
     pszDescription {
         get => NumGet(this, 24, "ptr")

@@ -18,7 +18,7 @@ class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
     ScreenSize{
         get {
             if(!this.HasProp("__ScreenSize"))
-                this.__ScreenSize := COORD(this.ptr + 0)
+                this.__ScreenSize := COORD(0, this)
             return this.__ScreenSize
         }
     }
@@ -29,7 +29,7 @@ class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
     FontSize{
         get {
             if(!this.HasProp("__FontSize"))
-                this.__FontSize := COORD(this.ptr + 4)
+                this.__FontSize := COORD(4, this)
             return this.__FontSize
         }
     }

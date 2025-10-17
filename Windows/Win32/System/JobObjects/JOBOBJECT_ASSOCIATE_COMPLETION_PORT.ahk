@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * Contains information used to associate a completion port with a job.
@@ -189,10 +190,13 @@ class JOBOBJECT_ASSOCIATE_COMPLETION_PORT extends Win32Struct
      * The completion port to use in the <i>CompletionPort</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/FileIO/postqueuedcompletionstatus">PostQueuedCompletionStatus</a> function when messages are sent on behalf of the job.
      * 
      * <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>Specify <b>NULL</b> to remove the association between the current completion port and the job.
-     * @type {Pointer<Void>}
+     * @type {HANDLE}
      */
-    CompletionPort {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    CompletionPort{
+        get {
+            if(!this.HasProp("__CompletionPort"))
+                this.__CompletionPort := HANDLE(8, this)
+            return this.__CompletionPort
+        }
     }
 }

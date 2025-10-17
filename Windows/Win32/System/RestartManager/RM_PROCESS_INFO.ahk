@@ -22,7 +22,7 @@ class RM_PROCESS_INFO extends Win32Struct
     Process{
         get {
             if(!this.HasProp("__Process"))
-                this.__Process := RM_UNIQUE_PROCESS(this.ptr + 0)
+                this.__Process := RM_UNIQUE_PROCESS(0, this)
             return this.__Process
         }
     }
@@ -77,7 +77,7 @@ class RM_PROCESS_INFO extends Win32Struct
     /**
      * <b>TRUE</b> if the application can be restarted by the Restart Manager; otherwise, <b>FALSE</b>.
      * This member is always <b>TRUE</b> if the process is a service. This member is always  <b>FALSE</b> if the process is a critical system process.
-     * @type {Integer}
+     * @type {BOOL}
      */
     bRestartable {
         get => NumGet(this, 668, "int")

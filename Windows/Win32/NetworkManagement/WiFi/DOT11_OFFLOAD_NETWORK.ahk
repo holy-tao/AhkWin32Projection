@@ -19,7 +19,7 @@ class DOT11_OFFLOAD_NETWORK extends Win32Struct
     Ssid{
         get {
             if(!this.HasProp("__Ssid"))
-                this.__Ssid := DOT11_SSID(this.ptr + 0)
+                this.__Ssid := DOT11_SSID(0, this)
             return this.__Ssid
         }
     }
