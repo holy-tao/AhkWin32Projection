@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\Controls\HTHEME.ahk
 #Include .\DPI_AWARENESS_CONTEXT.ahk
+
 /**
  * @namespace Windows.Win32.UI.HiDpi
  * @version v4.0.30319

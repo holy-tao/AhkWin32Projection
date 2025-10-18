@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HBLUETOOTH_RADIO_FIND.ahk
 #Include .\HBLUETOOTH_DEVICE_FIND.ahk
+
 /**
  * @namespace Windows.Win32.Devices.Bluetooth
  * @version v4.0.30319

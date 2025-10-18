@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
+
 /**
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319

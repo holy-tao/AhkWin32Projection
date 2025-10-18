@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HPOWERNOTIFY.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319

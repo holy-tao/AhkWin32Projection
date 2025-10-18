@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+
 /**
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319

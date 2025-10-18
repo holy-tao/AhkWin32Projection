@@ -11,6 +11,7 @@
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
+
 /**
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319

@@ -4,6 +4,7 @@
 #Include .\MEMORY_MAPPED_VIEW_ADDRESS.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\Foundation\HLOCAL.ahk
+
 /**
  * @namespace Windows.Win32.System.Memory
  * @version v4.0.30319

@@ -8,6 +8,7 @@
 #Include ..\WindowsAndMessaging\HICON.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+
 /**
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

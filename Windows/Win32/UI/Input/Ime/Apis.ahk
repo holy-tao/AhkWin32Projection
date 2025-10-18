@@ -4,6 +4,7 @@
 #Include ..\..\..\Foundation\HWND.ahk
 #Include .\HIMC.ahk
 #Include .\HIMCC.ahk
+
 /**
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319

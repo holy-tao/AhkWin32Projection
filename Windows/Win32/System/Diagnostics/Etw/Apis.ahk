@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include .\PROCESSTRACE_HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319

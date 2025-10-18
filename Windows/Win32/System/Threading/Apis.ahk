@@ -7,6 +7,7 @@
 #Include .\PTP_TIMER.ahk
 #Include .\PTP_WAIT.ahk
 #Include .\PTP_IO.ahk
+
 /**
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
