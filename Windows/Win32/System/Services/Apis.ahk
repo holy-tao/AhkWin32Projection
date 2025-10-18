@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\SC_HANDLE.ahk
 #Include .\SERVICE_STATUS_HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319

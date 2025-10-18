@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+
 /**
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319

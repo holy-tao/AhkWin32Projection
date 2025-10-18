@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HGLRC.ahk
 #Include ..\Gdi\HDC.ahk
+
 /**
  * @namespace Windows.Win32.Graphics.OpenGL
  * @version v4.0.30319

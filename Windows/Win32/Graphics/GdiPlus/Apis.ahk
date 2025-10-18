@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\Gdi\HPALETTE.ahk
+
 /**
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319

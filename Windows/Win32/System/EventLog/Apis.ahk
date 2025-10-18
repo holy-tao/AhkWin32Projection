@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\EVT_HANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.EventLog
  * @version v4.0.30319

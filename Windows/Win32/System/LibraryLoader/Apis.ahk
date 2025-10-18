@@ -4,6 +4,7 @@
 #Include ..\..\Foundation\HMODULE.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.LibraryLoader
  * @version v4.0.30319

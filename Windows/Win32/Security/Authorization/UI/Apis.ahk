@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\UI\Controls\HPROPSHEETPAGE.ahk
+
 /**
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319

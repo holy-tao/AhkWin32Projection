@@ -13,6 +13,7 @@
 #Include .\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\HMONITOR.ahk
+
 /**
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319

@@ -3,6 +3,7 @@
 #Include .\BSTR.ahk
 #Include .\HGLOBAL.ahk
 #Include .\HLOCAL.ahk
+
 /**
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319

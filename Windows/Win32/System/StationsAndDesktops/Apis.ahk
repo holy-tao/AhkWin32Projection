@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HDESK.ahk
 #Include .\HWINSTA.ahk
+
 /**
  * @namespace Windows.Win32.System.StationsAndDesktops
  * @version v4.0.30319

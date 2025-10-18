@@ -3,6 +3,7 @@
 #Include .\HCS_OPERATION.ahk
 #Include .\HCS_SYSTEM.ahk
 #Include .\HCS_PROCESS.ahk
+
 /**
  * @namespace Windows.Win32.System.HostComputeSystem
  * @version v4.0.30319

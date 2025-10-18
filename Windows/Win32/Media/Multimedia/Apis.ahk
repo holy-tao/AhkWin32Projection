@@ -8,6 +8,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include ..\..\Foundation\HWND.ahk
+
 /**
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319

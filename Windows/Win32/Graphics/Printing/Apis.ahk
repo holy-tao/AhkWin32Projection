@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Gdi\HDC.ahk
+
 /**
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319

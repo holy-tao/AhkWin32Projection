@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\MSIHANDLE.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
