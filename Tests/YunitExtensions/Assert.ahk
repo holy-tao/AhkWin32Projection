@@ -53,4 +53,13 @@ class Assert {
             throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", expected.Prototype.__Class, Type(obj)))
         }
     }
+
+    static Equals(actual, expected){
+        if(actual != expected){
+            eStr := ((expected is Primitive) || HasMethod(expected, "ToString", 0))? String(expected) : Type(expected)
+            aStr := ((actual is Primitive) || HasMethod(actual, "ToString", 0))? String(actual) : Type(actual)
+
+            throw ValueError(Format("Expected {2} but got {1}", aStr, eStr), -1)
+        }
+    }
 }
