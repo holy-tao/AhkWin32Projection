@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include .\HKL.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+
 /**
  * @namespace Windows.Win32.UI.Input.KeyboardAndMouse
  * @version v4.0.30319

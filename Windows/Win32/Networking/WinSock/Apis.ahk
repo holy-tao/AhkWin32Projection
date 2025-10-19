@@ -3,6 +3,7 @@
 #Include .\SOCKET.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\WSAEVENT.ahk
+
 /**
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319

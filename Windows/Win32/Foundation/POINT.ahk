@@ -35,4 +35,14 @@ class POINT extends Win32Struct
         get => NumGet(this, 4, "int")
         set => NumPut("int", value, this, 4)
     }
+
+    /**
+     * Many Win32 APIs take points as 64-bit integer value types.
+     * This will return the POINT in a compatible format
+     */
+    Value => NumGet(this, "uint64")
+    
+    ToString() {
+        return Format("({1}, {2})", this.x, this.y)
+    }
 }

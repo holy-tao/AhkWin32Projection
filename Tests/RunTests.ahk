@@ -12,8 +12,18 @@
 #Include ./GeneratedApiSmokeTests.ahk
 #Include ./CStyleArrayTests.ahk
 #Include ./Win32Handle.test.ahk
+#Include ./generator-extensions/RectExtensions.test.ahk
+#Include ./generator-extensions/ColorrrefExtensions.test.ahk
+#Include ./generator-extensions/BstrExtensions.test.ahk
 
-tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter)
-tester.Test(Win32StructTest, GeneratedStructSmokeTests, GeneratedApiSmokeTests, CStyleArrayListTests, Win32HandleTests)
+tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
+    Win32StructTest, 
+    GeneratedStructSmokeTests, 
+    GeneratedApiSmokeTests, 
+    CStyleArrayListTests, 
+    Win32HandleTests,
+    RectExtensionTests,
+    COLROREFExtensionTests,
+    BSTRExtensionTests)
 
 ExitApp(YunitResultCounter.failures == 0? 0 : 1)

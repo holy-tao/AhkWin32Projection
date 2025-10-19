@@ -1,7 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
-#Include ..\..\..\..\Win32Handle.ahk
 #Include .\Apis.ahk
+#Include ..\..\..\..\Win32Handle.ahk
 
 /**
  * @namespace Windows.Win32.System.Performance

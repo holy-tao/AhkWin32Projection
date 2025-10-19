@@ -4,6 +4,7 @@
 #Include ..\Windows\Win32\UI\Controls\Dialogs\Apis.ahk
 #Include ..\Windows\Win32\UI\Controls\Dialogs\CHOOSECOLORW.ahk
 #Include ..\Windows\Win32\UI\Controls\Dialogs\CHOOSECOLOR_FLAGS.ahk
+#Include ..\Windows\Win32\Foundation\COLORREF.ahk
 
 ;Demonstrates a color picker as well as the use of CStyleArrayList
 
@@ -36,18 +37,9 @@ ChangeGuiColor(*){
     result := Dialogs.ChooseColorW(chooseColor)
     
     if(result != 0){
-        colorStr := DecodeColorRef(chooseColor.rgbResult)
+        colorStr := COLORREF.ToRGBString(chooseColor.rgbResult)
 
         mainGui.BackColor := colorStr
         btn.Opt("Background" . colorStr)
     }
-}
-
-;Ahk has colors in the order RRGGBB, Win32 is the opposite, BBGGRR
-DecodeColorRef(color){
-    red := color & 0xFF
-    green := (color >> 8) & 0xFF
-    blue := (color >> 16) & 0xFF
-
-    return Format("0x{1:02X}{2:02X}{3:02X}", red, green, blue)
 }

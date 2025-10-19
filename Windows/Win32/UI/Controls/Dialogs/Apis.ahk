@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+
 /**
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319

@@ -3,6 +3,7 @@
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\HWINWATCH.ahk
+
 /**
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319

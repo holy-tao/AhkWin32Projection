@@ -7,6 +7,7 @@
 #Include ..\..\Graphics\Gdi\HENHMETAFILE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+
 /**
  * @namespace Windows.Win32.System.DataExchange
  * @version v4.0.30319

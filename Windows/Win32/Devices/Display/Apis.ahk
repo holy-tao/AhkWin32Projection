@@ -5,6 +5,7 @@
 #Include .\HSURF.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 #Include .\HSEMAPHORE.ahk
+
 /**
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319

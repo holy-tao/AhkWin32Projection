@@ -3,6 +3,7 @@
 #Include .\HDEVINFO.ahk
 #Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
+
 /**
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
