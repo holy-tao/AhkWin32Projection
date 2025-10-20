@@ -1,0 +1,37 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMultisessionSequential.ahk
+
+/**
+ * Use this interface to retrieve information about the size of a writeable unit on sequentially recorded media.
+ * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-imultisessionsequential2
+ * @namespace Windows.Win32.Storage.Imapi
+ * @version v4.0.30319
+ */
+class IMultisessionSequential2 extends IMultisessionSequential{
+    /**
+     * The interface identifier for IMultisessionSequential2
+     * @type {Guid}
+     */
+    static IID => Guid("{b507ca22-2204-11dd-966a-001aa01bbc58}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 16
+
+    /**
+     * 
+     * @param {Pointer<Int32>} value 
+     * @returns {HRESULT} 
+     */
+    get_WriteUnitSize(value) {
+        result := ComCall(16, this, "int*", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

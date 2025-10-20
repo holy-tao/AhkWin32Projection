@@ -1,0 +1,73 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+
+/**
+ * The IWindowsMediaLibrarySharingDeviceProperties interface defines methods that provide access to the collection of all properties for an individual media device.
+ * @remarks
+ * 
+  * To obtain an <b>IWindowsMediaLibrarySharingDeviceProperties</b> interface, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties">get_Properties</a> method of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdevice">IWindowsMediaLibrarySharingDevice</a> interface.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperties
+ * @namespace Windows.Win32.Media.LibrarySharingServices
+ * @version v4.0.30319
+ */
+class IWindowsMediaLibrarySharingDeviceProperties extends IDispatch{
+    /**
+     * The interface identifier for IWindowsMediaLibrarySharingDeviceProperties
+     * @type {Guid}
+     */
+    static IID => Guid("{c4623214-6b06-40c5-a623-b2ff4c076bfd}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Integer} index 
+     * @param {Pointer<IWindowsMediaLibrarySharingDeviceProperty>} property 
+     * @returns {HRESULT} 
+     */
+    get_Item(index, property) {
+        result := ComCall(7, this, "int", index, "ptr", property, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} count 
+     * @returns {HRESULT} 
+     */
+    get_Count(count) {
+        result := ComCall(8, this, "int*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} name 
+     * @param {Pointer<IWindowsMediaLibrarySharingDeviceProperty>} property 
+     * @returns {HRESULT} 
+     */
+    GetProperty(name, property) {
+        name := name is String ? BSTR.Alloc(name).Value : name
+
+        result := ComCall(9, this, "ptr", name, "ptr", property, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

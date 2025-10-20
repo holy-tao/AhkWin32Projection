@@ -1,0 +1,48 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class IMFExtendedCameraIntrinsicsDistortionModel6KT extends IUnknown{
+    /**
+     * The interface identifier for IMFExtendedCameraIntrinsicsDistortionModel6KT
+     * @type {Guid}
+     */
+    static IID => Guid("{74c2653b-5f55-4eb1-9f0f-18b8f68b7d3d}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<MFCameraIntrinsic_DistortionModel6KT>} pDistortionModel 
+     * @returns {HRESULT} 
+     */
+    GetDistortionModel(pDistortionModel) {
+        result := ComCall(3, this, "ptr", pDistortionModel, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<MFCameraIntrinsic_DistortionModel6KT>} pDistortionModel 
+     * @returns {HRESULT} 
+     */
+    SetDistortionModel(pDistortionModel) {
+        result := ComCall(4, this, "ptr", pDistortionModel, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

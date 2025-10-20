@@ -1,0 +1,64 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * Provides access to information about individual callers in a collection of callers.
+ * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-isecuritycallerscoll
+ * @namespace Windows.Win32.System.ComponentServices
+ * @version v4.0.30319
+ */
+class ISecurityCallersColl extends IDispatch{
+    /**
+     * The interface identifier for ISecurityCallersColl
+     * @type {Guid}
+     */
+    static IID => Guid("{cafc823d-b441-11d1-b82b-0000f8757e2a}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<Int32>} plCount 
+     * @returns {HRESULT} 
+     */
+    get_Count(plCount) {
+        result := ComCall(7, this, "int*", plCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} lIndex 
+     * @param {Pointer<ISecurityIdentityColl>} pObj 
+     * @returns {HRESULT} 
+     */
+    get_Item(lIndex, pObj) {
+        result := ComCall(8, this, "int", lIndex, "ptr", pObj, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IUnknown>} ppEnum 
+     * @returns {HRESULT} 
+     */
+    get__NewEnum(ppEnum) {
+        result := ComCall(9, this, "ptr", ppEnum, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

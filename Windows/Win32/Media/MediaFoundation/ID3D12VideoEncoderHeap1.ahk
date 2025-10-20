@@ -1,0 +1,31 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12VideoEncoderHeap.ahk
+
+/**
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class ID3D12VideoEncoderHeap1 extends ID3D12VideoEncoderHeap{
+    /**
+     * The interface identifier for ID3D12VideoEncoderHeap1
+     * @type {Guid}
+     */
+    static IID => Guid("{ea8f1968-4aa0-43a4-9d30-ba86ec84d4f9}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 15
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    GetPow2DownscaleFactor() {
+        result := ComCall(15, this, "uint")
+        return result
+    }
+}

@@ -1,0 +1,65 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaKeys.ahk
+
+/**
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class IMFMediaKeys2 extends IMFMediaKeys{
+    /**
+     * The interface identifier for IMFMediaKeys2
+     * @type {Guid}
+     */
+    static IID => Guid("{45892507-ad66-4de2-83a2-acbb13cd8d43}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Integer} eSessionType 
+     * @param {Pointer<IMFMediaKeySessionNotify2>} pMFMediaKeySessionNotify2 
+     * @param {Pointer<IMFMediaKeySession2>} ppSession 
+     * @returns {HRESULT} 
+     */
+    CreateSession2(eSessionType, pMFMediaKeySessionNotify2, ppSession) {
+        result := ComCall(7, this, "int", eSessionType, "ptr", pMFMediaKeySessionNotify2, "ptr", ppSession, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer} pbServerCertificate 
+     * @param {Integer} cb 
+     * @returns {HRESULT} 
+     */
+    SetServerCertificate(pbServerCertificate, cb) {
+        result := ComCall(8, this, "ptr", pbServerCertificate, "uint", cb, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {HRESULT} systemCode 
+     * @param {Pointer<HRESULT>} code 
+     * @returns {HRESULT} 
+     */
+    GetDOMException(systemCode, code) {
+        result := ComCall(9, this, "int", systemCode, "ptr", code, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

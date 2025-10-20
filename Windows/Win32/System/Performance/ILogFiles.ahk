@@ -1,0 +1,98 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.System.Performance
+ * @version v4.0.30319
+ */
+class ILogFiles extends IDispatch{
+    /**
+     * The interface identifier for ILogFiles
+     * @type {Guid}
+     */
+    static IID => Guid("{6a2a97e6-6851-41ea-87ad-2a8225335865}")
+
+    /**
+     * The class identifier for LogFiles
+     * @type {Guid}
+     */
+    static CLSID => Guid("{2735d9fd-f6b9-4f19-a5d9-e2d068584bc5}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pLong 
+     * @returns {HRESULT} 
+     */
+    get_Count(pLong) {
+        result := ComCall(7, this, "int*", pLong, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IUnknown>} ppIunk 
+     * @returns {HRESULT} 
+     */
+    get__NewEnum(ppIunk) {
+        result := ComCall(8, this, "ptr", ppIunk, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {VARIANT} index 
+     * @param {Pointer<DILogFileItem>} ppI 
+     * @returns {HRESULT} 
+     */
+    get_Item(index, ppI) {
+        result := ComCall(9, this, "ptr", index, "ptr", ppI, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} pathname 
+     * @param {Pointer<DILogFileItem>} ppI 
+     * @returns {HRESULT} 
+     */
+    Add(pathname, ppI) {
+        pathname := pathname is String ? BSTR.Alloc(pathname).Value : pathname
+
+        result := ComCall(10, this, "ptr", pathname, "ptr", ppI, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {VARIANT} index 
+     * @returns {HRESULT} 
+     */
+    Remove(index) {
+        result := ComCall(11, this, "ptr", index, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

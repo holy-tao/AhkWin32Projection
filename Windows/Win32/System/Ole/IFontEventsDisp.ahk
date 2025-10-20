@@ -1,0 +1,22 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.System.Ole
+ * @version v4.0.30319
+ */
+class IFontEventsDisp extends IDispatch{
+    /**
+     * The interface identifier for IFontEventsDisp
+     * @type {Guid}
+     */
+    static IID => Guid("{4ef6100a-af88-11d0-9846-00c04fc29993}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+}

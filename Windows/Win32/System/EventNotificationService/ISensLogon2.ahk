@@ -1,0 +1,105 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * The ISensLogon2 interface handles logon events fired by SENS.
+ * @see https://docs.microsoft.com/windows/win32/api//sensevts/nn-sensevts-isenslogon2
+ * @namespace Windows.Win32.System.EventNotificationService
+ * @version v4.0.30319
+ */
+class ISensLogon2 extends IDispatch{
+    /**
+     * The interface identifier for ISensLogon2
+     * @type {Guid}
+     */
+    static IID => Guid("{d597bab4-5b9f-11d1-8dd2-00aa004abd5e}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {BSTR} bstrUserName 
+     * @param {Integer} dwSessionId 
+     * @returns {HRESULT} 
+     */
+    Logon(bstrUserName, dwSessionId) {
+        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+
+        result := ComCall(7, this, "ptr", bstrUserName, "uint", dwSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} bstrUserName 
+     * @param {Integer} dwSessionId 
+     * @returns {HRESULT} 
+     */
+    Logoff(bstrUserName, dwSessionId) {
+        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+
+        result := ComCall(8, this, "ptr", bstrUserName, "uint", dwSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} bstrUserName 
+     * @param {Integer} dwSessionId 
+     * @returns {HRESULT} 
+     */
+    SessionDisconnect(bstrUserName, dwSessionId) {
+        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+
+        result := ComCall(9, this, "ptr", bstrUserName, "uint", dwSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} bstrUserName 
+     * @param {Integer} dwSessionId 
+     * @returns {HRESULT} 
+     */
+    SessionReconnect(bstrUserName, dwSessionId) {
+        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+
+        result := ComCall(10, this, "ptr", bstrUserName, "uint", dwSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} bstrUserName 
+     * @param {Integer} dwSessionId 
+     * @returns {HRESULT} 
+     */
+    PostShell(bstrUserName, dwSessionId) {
+        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
+
+        result := ComCall(11, this, "ptr", bstrUserName, "uint", dwSessionId, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

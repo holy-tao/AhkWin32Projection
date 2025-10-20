@@ -1,0 +1,179 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * An ID3D10Effect interface manages a set of state objects, resources, and shaders for implementing a rendering effect.
+ * @remarks
+ * 
+  * An effect is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-d3d10createeffectfrommemory">D3D10CreateEffectFromMemory</a>.
+  * 
+  * The effect system groups the information required for rendering into an effect which contains: state objects for assigning state changes in groups, resources for supplying input data and storing output data, and programs that control how the rendering is done called shaders. For more information, see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-effects">Effects (Direct3D 10)</a>.
+  * 
+  * <div class="alert"><b>Note</b>  <p class="note">If you call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on an <b>ID3D10Effect</b> object to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface, <b>QueryInterface</b> returns E_NOINTERFACE. To work around this issue, use the following code:
+  * 
+  * 
+  * ```
+  * IUnknown* pIUnknown = (IUnknown*)pEffect;
+  *     pIUnknown->AddRef();
+  * 
+  * ```
+  * 
+  * 
+  * </div>
+  * <div> </div>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effect
+ * @namespace Windows.Win32.Graphics.Direct3D10
+ * @version v4.0.30319
+ */
+class ID3D10Effect extends IUnknown{
+    /**
+     * The interface identifier for ID3D10Effect
+     * @type {Guid}
+     */
+    static IID => Guid("{51b0ca8b-ec0b-4519-870d-8ee1cb5017c7}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @returns {BOOL} 
+     */
+    IsValid() {
+        result := ComCall(3, this, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @returns {BOOL} 
+     */
+    IsPool() {
+        result := ComCall(4, this, "int")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<ID3D10Device>} ppDevice 
+     * @returns {HRESULT} 
+     */
+    GetDevice(ppDevice) {
+        result := ComCall(5, this, "ptr", ppDevice, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<D3D10_EFFECT_DESC>} pDesc 
+     * @returns {HRESULT} 
+     */
+    GetDesc(pDesc) {
+        result := ComCall(6, this, "ptr", pDesc, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Index 
+     * @returns {Pointer<ID3D10EffectConstantBuffer>} 
+     */
+    GetConstantBufferByIndex(Index) {
+        result := ComCall(7, this, "uint", Index, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} Name 
+     * @returns {Pointer<ID3D10EffectConstantBuffer>} 
+     */
+    GetConstantBufferByName(Name) {
+        result := ComCall(8, this, "ptr", Name, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Index 
+     * @returns {Pointer<ID3D10EffectVariable>} 
+     */
+    GetVariableByIndex(Index) {
+        result := ComCall(9, this, "uint", Index, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} Name 
+     * @returns {Pointer<ID3D10EffectVariable>} 
+     */
+    GetVariableByName(Name) {
+        result := ComCall(10, this, "ptr", Name, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} Semantic 
+     * @returns {Pointer<ID3D10EffectVariable>} 
+     */
+    GetVariableBySemantic(Semantic) {
+        result := ComCall(11, this, "ptr", Semantic, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Index 
+     * @returns {Pointer<ID3D10EffectTechnique>} 
+     */
+    GetTechniqueByIndex(Index) {
+        result := ComCall(12, this, "uint", Index, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} Name 
+     * @returns {Pointer<ID3D10EffectTechnique>} 
+     */
+    GetTechniqueByName(Name) {
+        result := ComCall(13, this, "ptr", Name, "ptr")
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Optimize() {
+        result := ComCall(14, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {BOOL} 
+     */
+    IsOptimized() {
+        result := ComCall(15, this, "int")
+        return result
+    }
+}

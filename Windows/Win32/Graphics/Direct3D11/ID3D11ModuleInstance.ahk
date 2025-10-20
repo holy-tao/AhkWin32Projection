@@ -1,0 +1,184 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * A module-instance interface is used for resource rebinding.
+ * @remarks
+ * 
+  * To get a module-instance interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11module-createinstance">ID3D11Module::CreateInstance</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-createmoduleinstance">ID3D11FunctionLinkingGraph::CreateModuleInstance</a>.
+  *       
+  * 
+  * <div class="alert"><b>Note</b>  <b>ID3D11ModuleInstance</b> requires the D3dcompiler_47.dll or a later version of the DLL.
+  *       </div>
+  * <div> </div>
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11moduleinstance
+ * @namespace Windows.Win32.Graphics.Direct3D11
+ * @version v4.0.30319
+ */
+class ID3D11ModuleInstance extends IUnknown{
+    /**
+     * The interface identifier for ID3D11ModuleInstance
+     * @type {Guid}
+     */
+    static IID => Guid("{469e07f7-045a-48d5-aa12-68a478cdf75d}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Integer} uSrcSlot 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} cbDstOffset 
+     * @returns {HRESULT} 
+     */
+    BindConstantBuffer(uSrcSlot, uDstSlot, cbDstOffset) {
+        result := ComCall(3, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", cbDstOffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} pName 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} cbDstOffset 
+     * @returns {HRESULT} 
+     */
+    BindConstantBufferByName(pName, uDstSlot, cbDstOffset) {
+        result := ComCall(4, this, "ptr", pName, "uint", uDstSlot, "uint", cbDstOffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} uSrcSlot 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindResource(uSrcSlot, uDstSlot, uCount) {
+        result := ComCall(5, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} pName 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindResourceByName(pName, uDstSlot, uCount) {
+        result := ComCall(6, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} uSrcSlot 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindSampler(uSrcSlot, uDstSlot, uCount) {
+        result := ComCall(7, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} pName 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindSamplerByName(pName, uDstSlot, uCount) {
+        result := ComCall(8, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} uSrcSlot 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindUnorderedAccessView(uSrcSlot, uDstSlot, uCount) {
+        result := ComCall(9, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} pName 
+     * @param {Integer} uDstSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindUnorderedAccessViewByName(pName, uDstSlot, uCount) {
+        result := ComCall(10, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} uSrcSrvSlot 
+     * @param {Integer} uDstUavSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindResourceAsUnorderedAccessView(uSrcSrvSlot, uDstUavSlot, uCount) {
+        result := ComCall(11, this, "uint", uSrcSrvSlot, "uint", uDstUavSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PSTR} pSrvName 
+     * @param {Integer} uDstUavSlot 
+     * @param {Integer} uCount 
+     * @returns {HRESULT} 
+     */
+    BindResourceAsUnorderedAccessViewByName(pSrvName, uDstUavSlot, uCount) {
+        result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

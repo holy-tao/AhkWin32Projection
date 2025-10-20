@@ -1,0 +1,63 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * The IVMRMixerBitmap interface enables an application to blend a static image from a bitmap or DirectDraw surface onto the video stream, when using the Video Mixing Renderer Filter 7 (VMR-7).
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrmixerbitmap
+ * @namespace Windows.Win32.Media.DirectShow
+ * @version v4.0.30319
+ */
+class IVMRMixerBitmap extends IUnknown{
+    /**
+     * The interface identifier for IVMRMixerBitmap
+     * @type {Guid}
+     */
+    static IID => Guid("{1e673275-0257-40aa-af20-7c608d4a0428}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms 
+     * @returns {HRESULT} 
+     */
+    SetAlphaBitmap(pBmpParms) {
+        result := ComCall(3, this, "ptr", pBmpParms, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms 
+     * @returns {HRESULT} 
+     */
+    UpdateAlphaBitmapParameters(pBmpParms) {
+        result := ComCall(4, this, "ptr", pBmpParms, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms 
+     * @returns {HRESULT} 
+     */
+    GetAlphaBitmapParameters(pBmpParms) {
+        result := ComCall(5, this, "ptr", pBmpParms, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

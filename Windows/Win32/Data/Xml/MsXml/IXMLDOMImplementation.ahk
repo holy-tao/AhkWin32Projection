@@ -1,0 +1,41 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.Data.Xml.MsXml
+ * @version v4.0.30319
+ */
+class IXMLDOMImplementation extends IDispatch{
+    /**
+     * The interface identifier for IXMLDOMImplementation
+     * @type {Guid}
+     */
+    static IID => Guid("{2933bf8f-7b36-11d2-b20e-00c04f983e60}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {BSTR} feature 
+     * @param {BSTR} version 
+     * @param {Pointer<VARIANT_BOOL>} hasFeature 
+     * @returns {HRESULT} 
+     */
+    hasFeature(feature, version, hasFeature) {
+        feature := feature is String ? BSTR.Alloc(feature).Value : feature
+        version := version is String ? BSTR.Alloc(version).Value : version
+
+        result := ComCall(7, this, "ptr", feature, "ptr", version, "ptr", hasFeature, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

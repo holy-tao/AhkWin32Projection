@@ -1,0 +1,42 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * The IMediaSample2Config interface returns a pointer to a Direct3D surface representing a VRAM capture buffer.
+ * @remarks
+ * 
+  * If a display driver supports VRAM capture, the KsProxy filter allocates samples that expose this interface. Downstream filters can use this interface to access the video data in video memory, without requiring the data to be copied into system memory. The display driver must support the Windows Vista Display Driver Model (WDDM).
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-imediasample2config
+ * @namespace Windows.Win32.Media.DirectShow
+ * @version v4.0.30319
+ */
+class IMediaSample2Config extends IUnknown{
+    /**
+     * The interface identifier for IMediaSample2Config
+     * @type {Guid}
+     */
+    static IID => Guid("{68961e68-832b-41ea-bc91-63593f3e70e3}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<IUnknown>} ppDirect3DSurface9 
+     * @returns {HRESULT} 
+     */
+    GetSurface(ppDirect3DSurface9) {
+        result := ComCall(3, this, "ptr", ppDirect3DSurface9, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

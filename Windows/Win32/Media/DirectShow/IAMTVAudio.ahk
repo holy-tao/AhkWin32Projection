@@ -1,0 +1,103 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * The IAMTVAudio interface controls audio from a television source. The TV Audio filter implements this interface. Applications can use it to control television audio settings, including secondary audio program (SAP) and stereo or mono selection.
+ * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtvaudio
+ * @namespace Windows.Win32.Media.DirectShow
+ * @version v4.0.30319
+ */
+class IAMTVAudio extends IUnknown{
+    /**
+     * The interface identifier for IAMTVAudio
+     * @type {Guid}
+     */
+    static IID => Guid("{83ec1c30-23d1-11d1-99e6-00a0c9560266}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<Int32>} plModes 
+     * @returns {HRESULT} 
+     */
+    GetHardwareSupportedTVAudioModes(plModes) {
+        result := ComCall(3, this, "int*", plModes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} plModes 
+     * @returns {HRESULT} 
+     */
+    GetAvailableTVAudioModes(plModes) {
+        result := ComCall(4, this, "int*", plModes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} plMode 
+     * @returns {HRESULT} 
+     */
+    get_TVAudioMode(plMode) {
+        result := ComCall(5, this, "int*", plMode, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} lMode 
+     * @returns {HRESULT} 
+     */
+    put_TVAudioMode(lMode) {
+        result := ComCall(6, this, "int", lMode, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IAMTunerNotification>} pNotify 
+     * @param {Integer} lEvents 
+     * @returns {HRESULT} 
+     */
+    RegisterNotificationCallBack(pNotify, lEvents) {
+        result := ComCall(7, this, "ptr", pNotify, "int", lEvents, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IAMTunerNotification>} pNotify 
+     * @returns {HRESULT} 
+     */
+    UnRegisterNotificationCallBack(pNotify) {
+        result := ComCall(8, this, "ptr", pNotify, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

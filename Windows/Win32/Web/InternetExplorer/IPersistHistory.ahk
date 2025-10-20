@@ -1,0 +1,75 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IPersist.ahk
+
+/**
+ * @namespace Windows.Win32.Web.InternetExplorer
+ * @version v4.0.30319
+ */
+class IPersistHistory extends IPersist{
+    /**
+     * The interface identifier for IPersistHistory
+     * @type {Guid}
+     */
+    static IID => Guid("{91a565c1-e38f-11d0-94bf-00a0c9055cbf}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 4
+
+    /**
+     * 
+     * @param {Pointer<IStream>} pStream 
+     * @param {Pointer<IBindCtx>} pbc 
+     * @returns {HRESULT} 
+     */
+    LoadHistory(pStream, pbc) {
+        result := ComCall(4, this, "ptr", pStream, "ptr", pbc, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IStream>} pStream 
+     * @returns {HRESULT} 
+     */
+    SaveHistory(pStream) {
+        result := ComCall(5, this, "ptr", pStream, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} dwPositioncookie 
+     * @returns {HRESULT} 
+     */
+    SetPositionCookie(dwPositioncookie) {
+        result := ComCall(6, this, "uint", dwPositioncookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<UInt32>} pdwPositioncookie 
+     * @returns {HRESULT} 
+     */
+    GetPositionCookie(pdwPositioncookie) {
+        result := ComCall(7, this, "uint*", pdwPositioncookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

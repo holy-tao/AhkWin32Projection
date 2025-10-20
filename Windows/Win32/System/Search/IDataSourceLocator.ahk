@@ -1,0 +1,77 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.System.Search
+ * @version v4.0.30319
+ */
+class IDataSourceLocator extends IDispatch{
+    /**
+     * The interface identifier for IDataSourceLocator
+     * @type {Guid}
+     */
+    static IID => Guid("{2206ccb2-19c1-11d1-89e0-00c04fd7a829}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<HWND>} phwndParent 
+     * @returns {HRESULT} 
+     */
+    get_hWnd(phwndParent) {
+        result := ComCall(7, this, "ptr", phwndParent, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} hwndParent 
+     * @returns {HRESULT} 
+     */
+    put_hWnd(hwndParent) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+
+        result := ComCall(8, this, "ptr", hwndParent, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDispatch>} ppADOConnection 
+     * @returns {HRESULT} 
+     */
+    PromptNew(ppADOConnection) {
+        result := ComCall(9, this, "ptr", ppADOConnection, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDispatch>} ppADOConnection 
+     * @param {Pointer<VARIANT_BOOL>} pbSuccess 
+     * @returns {HRESULT} 
+     */
+    PromptEdit(ppADOConnection, pbSuccess) {
+        result := ComCall(10, this, "ptr", ppADOConnection, "ptr", pbSuccess, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

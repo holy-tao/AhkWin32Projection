@@ -1,0 +1,282 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.Media.MediaPlayer
+ * @version v4.0.30319
+ */
+class IFeedFolder extends IDispatch{
+    /**
+     * The interface identifier for IFeedFolder
+     * @type {Guid}
+     */
+    static IID => Guid("{81f04ad1-4194-4d7d-86d6-11813cec163c}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    get_Feeds(disp) {
+        result := ComCall(7, this, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    get_Subfolders(disp) {
+        result := ComCall(8, this, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} feedName 
+     * @param {BSTR} feedUrl 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    CreateFeed(feedName, feedUrl, disp) {
+        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
+        feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
+
+        result := ComCall(9, this, "ptr", feedName, "ptr", feedUrl, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} folderName 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    CreateSubfolder(folderName, disp) {
+        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+
+        result := ComCall(10, this, "ptr", folderName, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} feedName 
+     * @param {Pointer<VARIANT_BOOL>} exists 
+     * @returns {HRESULT} 
+     */
+    ExistsFeed(feedName, exists) {
+        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
+
+        result := ComCall(11, this, "ptr", feedName, "ptr", exists, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} feedName 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    GetFeed(feedName, disp) {
+        feedName := feedName is String ? BSTR.Alloc(feedName).Value : feedName
+
+        result := ComCall(12, this, "ptr", feedName, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} folderName 
+     * @param {Pointer<VARIANT_BOOL>} exists 
+     * @returns {HRESULT} 
+     */
+    ExistsSubfolder(folderName, exists) {
+        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+
+        result := ComCall(13, this, "ptr", folderName, "ptr", exists, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} folderName 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    GetSubfolder(folderName, disp) {
+        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+
+        result := ComCall(14, this, "ptr", folderName, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Delete() {
+        result := ComCall(15, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} folderName 
+     * @returns {HRESULT} 
+     */
+    get_Name(folderName) {
+        result := ComCall(16, this, "ptr", folderName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} folderName 
+     * @returns {HRESULT} 
+     */
+    Rename(folderName) {
+        folderName := folderName is String ? BSTR.Alloc(folderName).Value : folderName
+
+        result := ComCall(17, this, "ptr", folderName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} folderPath 
+     * @returns {HRESULT} 
+     */
+    get_Path(folderPath) {
+        result := ComCall(18, this, "ptr", folderPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} newParentPath 
+     * @returns {HRESULT} 
+     */
+    Move(newParentPath) {
+        newParentPath := newParentPath is String ? BSTR.Alloc(newParentPath).Value : newParentPath
+
+        result := ComCall(19, this, "ptr", newParentPath, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    get_Parent(disp) {
+        result := ComCall(20, this, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<VARIANT_BOOL>} isRoot 
+     * @returns {HRESULT} 
+     */
+    get_IsRoot(isRoot) {
+        result := ComCall(21, this, "ptr", isRoot, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} count 
+     * @returns {HRESULT} 
+     */
+    get_TotalUnreadItemCount(count) {
+        result := ComCall(22, this, "int*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} count 
+     * @returns {HRESULT} 
+     */
+    get_TotalItemCount(count) {
+        result := ComCall(23, this, "int*", count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} scope 
+     * @param {Integer} mask 
+     * @param {Pointer<IDispatch>} disp 
+     * @returns {HRESULT} 
+     */
+    GetWatcher(scope, mask, disp) {
+        result := ComCall(24, this, "int", scope, "int", mask, "ptr", disp, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

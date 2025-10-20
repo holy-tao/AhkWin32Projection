@@ -1,0 +1,78 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IInspectable.ahk
+
+/**
+ * Contains core methods for obtaining tokens from web account providers.
+ * @remarks
+ * 
+  * This interface is implemented by WebAuthenticationCoreManager's [activation factory](../activation/nn-activation-iactivationfactory.md).
+  * To get an object of this interface, get a reference to the activation factory
+  * and then call [IUnknown::QueryInterface](../unknwn/nf-unknwn-iunknown-queryinterface%28refiid_void%29.md)
+  * on it:
+  * 
+  * ```cppwinrt
+  * using winrt::Windows::Security::Authentication::Web::Core::WebAuthenticationCoreManager;
+  * 
+  * auto managerFactory = winrt::get_activation_factory<WebAuthenticationCoreManager>();
+  * winrt::com_ptr<IWebAuthenticationCoreManagerInterop> managerInterop{ managerFactory.as<IWebAuthenticationCoreManagerInterop>() };
+  * 
+  * managerInterop->RequestTokenForWindowAsync(// ... )
+  * ```
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//webauthenticationcoremanagerinterop/nn-webauthenticationcoremanagerinterop-iwebauthenticationcoremanagerinterop
+ * @namespace Windows.Win32.System.WinRT
+ * @version v4.0.30319
+ */
+class IWebAuthenticationCoreManagerInterop extends IInspectable{
+    /**
+     * The interface identifier for IWebAuthenticationCoreManagerInterop
+     * @type {Guid}
+     */
+    static IID => Guid("{f4b8e804-811e-4436-b69c-44cb67b72084}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 6
+
+    /**
+     * 
+     * @param {HWND} appWindow 
+     * @param {Pointer<IInspectable>} request 
+     * @param {Pointer<Guid>} riid 
+     * @param {Pointer<Void>} asyncInfo 
+     * @returns {HRESULT} 
+     */
+    RequestTokenForWindowAsync(appWindow, request, riid, asyncInfo) {
+        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, "ptr", asyncInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {HWND} appWindow 
+     * @param {Pointer<IInspectable>} request 
+     * @param {Pointer<IInspectable>} webAccount 
+     * @param {Pointer<Guid>} riid 
+     * @param {Pointer<Void>} asyncInfo 
+     * @returns {HRESULT} 
+     */
+    RequestTokenWithWebAccountForWindowAsync(appWindow, request, webAccount, riid, asyncInfo) {
+        appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, "ptr", asyncInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

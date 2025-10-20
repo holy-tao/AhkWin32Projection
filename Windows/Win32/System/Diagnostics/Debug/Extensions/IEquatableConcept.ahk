@@ -1,0 +1,37 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
+ * @version v4.0.30319
+ */
+class IEquatableConcept extends IUnknown{
+    /**
+     * The interface identifier for IEquatableConcept
+     * @type {Guid}
+     */
+    static IID => Guid("{c52d5d3d-609d-4d5d-8a82-46b0acdec4f4}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<IModelObject>} contextObject 
+     * @param {Pointer<IModelObject>} otherObject 
+     * @param {Pointer<Boolean>} isEqual 
+     * @returns {HRESULT} 
+     */
+    AreObjectsEqual(contextObject, otherObject, isEqual) {
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", isEqual, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

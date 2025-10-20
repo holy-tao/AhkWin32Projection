@@ -1,0 +1,132 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.Web.MsHtml
+ * @version v4.0.30319
+ */
+class ISVGPathSegCurvetoCubicSmoothRel extends IDispatch{
+    /**
+     * The interface identifier for ISVGPathSegCurvetoCubicSmoothRel
+     * @type {Guid}
+     */
+    static IID => Guid("{3051050d-98b5-11cf-bb82-00aa00bdce0b}")
+
+    /**
+     * The class identifier for SVGPathSegCurvetoCubicSmoothRel
+     * @type {Guid}
+     */
+    static CLSID => Guid("{305105c1-98b5-11cf-bb82-00aa00bdce0b}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Float} v 
+     * @returns {HRESULT} 
+     */
+    put_x(v) {
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} p 
+     * @returns {HRESULT} 
+     */
+    get_x(p) {
+        result := ComCall(8, this, "float*", p, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Float} v 
+     * @returns {HRESULT} 
+     */
+    put_y(v) {
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} p 
+     * @returns {HRESULT} 
+     */
+    get_y(p) {
+        result := ComCall(10, this, "float*", p, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Float} v 
+     * @returns {HRESULT} 
+     */
+    put_x2(v) {
+        result := ComCall(11, this, "float", v, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} p 
+     * @returns {HRESULT} 
+     */
+    get_x2(p) {
+        result := ComCall(12, this, "float*", p, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Float} v 
+     * @returns {HRESULT} 
+     */
+    put_y2(v) {
+        result := ComCall(13, this, "float", v, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} p 
+     * @returns {HRESULT} 
+     */
+    get_y2(p) {
+        result := ComCall(14, this, "float*", p, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

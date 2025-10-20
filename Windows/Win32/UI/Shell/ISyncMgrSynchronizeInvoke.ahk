@@ -1,0 +1,60 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * Exposes methods that enable a registered application to invoke the synchronization manager to update items.
+ * @remarks
+ * 
+  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
+  * This interface is implemented by the synchronization manager.
+  * 
+  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
+  * A registered application calls the methods of this interface to update all items or to update specific items.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mobsync/nn-mobsync-isyncmgrsynchronizeinvoke
+ * @namespace Windows.Win32.UI.Shell
+ * @version v4.0.30319
+ */
+class ISyncMgrSynchronizeInvoke extends IUnknown{
+    /**
+     * The interface identifier for ISyncMgrSynchronizeInvoke
+     * @type {Guid}
+     */
+    static IID => Guid("{6295df2c-35ee-11d1-8707-00c04fd93327}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Integer} dwInvokeFlags 
+     * @param {Pointer<Guid>} clsid 
+     * @param {Integer} cbCookie 
+     * @param {Pointer<Byte>} pCookie 
+     * @returns {HRESULT} 
+     */
+    UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
+        result := ComCall(3, this, "uint", dwInvokeFlags, "ptr", clsid, "uint", cbCookie, "char*", pCookie, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    UpdateAll() {
+        result := ComCall(4, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

@@ -1,0 +1,210 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * Supplies the path to a resource. You can use an IWSManResourceLocator object instead of a resource URI in IWSManSession object operations such as IWSManSession.Get, IWSManSession.Put, or IWSManSession.Enumerate.
+ * @remarks
+ * 
+  * The corresponding scripting object is <a href="https://docs.microsoft.com/windows/desktop/WinRM/resourcelocator">ResourceLocator</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsmanresourcelocator
+ * @namespace Windows.Win32.System.RemoteManagement
+ * @version v4.0.30319
+ */
+class IWSManResourceLocator extends IDispatch{
+    /**
+     * The interface identifier for IWSManResourceLocator
+     * @type {Guid}
+     */
+    static IID => Guid("{a7a1ba28-de41-466a-ad0a-c4059ead7428}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {BSTR} uri 
+     * @returns {HRESULT} 
+     */
+    put_ResourceURI(uri) {
+        uri := uri is String ? BSTR.Alloc(uri).Value : uri
+
+        result := ComCall(7, this, "ptr", uri, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} uri 
+     * @returns {HRESULT} 
+     */
+    get_ResourceURI(uri) {
+        result := ComCall(8, this, "ptr", uri, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} resourceSelName 
+     * @param {VARIANT} selValue 
+     * @returns {HRESULT} 
+     */
+    AddSelector(resourceSelName, selValue) {
+        resourceSelName := resourceSelName is String ? BSTR.Alloc(resourceSelName).Value : resourceSelName
+
+        result := ComCall(9, this, "ptr", resourceSelName, "ptr", selValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    ClearSelectors() {
+        result := ComCall(10, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} text 
+     * @returns {HRESULT} 
+     */
+    get_FragmentPath(text) {
+        result := ComCall(11, this, "ptr", text, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} text 
+     * @returns {HRESULT} 
+     */
+    put_FragmentPath(text) {
+        text := text is String ? BSTR.Alloc(text).Value : text
+
+        result := ComCall(12, this, "ptr", text, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} text 
+     * @returns {HRESULT} 
+     */
+    get_FragmentDialect(text) {
+        result := ComCall(13, this, "ptr", text, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} text 
+     * @returns {HRESULT} 
+     */
+    put_FragmentDialect(text) {
+        text := text is String ? BSTR.Alloc(text).Value : text
+
+        result := ComCall(14, this, "ptr", text, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} OptionName 
+     * @param {VARIANT} OptionValue 
+     * @param {BOOL} mustComply 
+     * @returns {HRESULT} 
+     */
+    AddOption(OptionName, OptionValue, mustComply) {
+        OptionName := OptionName is String ? BSTR.Alloc(OptionName).Value : OptionName
+
+        result := ComCall(15, this, "ptr", OptionName, "ptr", OptionValue, "int", mustComply, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BOOL} mustUnderstand 
+     * @returns {HRESULT} 
+     */
+    put_MustUnderstandOptions(mustUnderstand) {
+        result := ComCall(16, this, "int", mustUnderstand, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} mustUnderstand 
+     * @returns {HRESULT} 
+     */
+    get_MustUnderstandOptions(mustUnderstand) {
+        result := ComCall(17, this, "ptr", mustUnderstand, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    ClearOptions() {
+        result := ComCall(18, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} value 
+     * @returns {HRESULT} 
+     */
+    get_Error(value) {
+        result := ComCall(19, this, "ptr", value, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

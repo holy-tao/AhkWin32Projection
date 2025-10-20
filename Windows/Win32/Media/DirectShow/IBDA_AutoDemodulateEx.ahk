@@ -1,0 +1,72 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IBDA_AutoDemodulate.ahk
+
+/**
+ * The IBDA_AutoDemodulateEx interface extends IBDA_AutoDemodulate.
+ * @remarks
+ * 
+  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_AutoDemodulateEx)</c>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_autodemodulateex
+ * @namespace Windows.Win32.Media.DirectShow
+ * @version v4.0.30319
+ */
+class IBDA_AutoDemodulateEx extends IBDA_AutoDemodulate{
+    /**
+     * The interface identifier for IBDA_AutoDemodulateEx
+     * @type {Guid}
+     */
+    static IID => Guid("{34518d13-1182-48e6-b28f-b24987787326}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 4
+
+    /**
+     * 
+     * @param {Integer} ulcDeviceNodeTypesMax 
+     * @param {Pointer<UInt32>} pulcDeviceNodeTypes 
+     * @param {Pointer<Guid>} pguidDeviceNodeTypes 
+     * @returns {HRESULT} 
+     */
+    get_SupportedDeviceNodeTypes(ulcDeviceNodeTypesMax, pulcDeviceNodeTypes, pguidDeviceNodeTypes) {
+        result := ComCall(4, this, "uint", ulcDeviceNodeTypesMax, "uint*", pulcDeviceNodeTypes, "ptr", pguidDeviceNodeTypes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<UInt32>} pulAMTunerModeType 
+     * @param {Pointer<UInt32>} pulAnalogVideoStandard 
+     * @returns {HRESULT} 
+     */
+    get_SupportedVideoFormats(pulAMTunerModeType, pulAnalogVideoStandard) {
+        result := ComCall(5, this, "uint*", pulAMTunerModeType, "uint*", pulAnalogVideoStandard, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<UInt32>} pulCompositeCount 
+     * @param {Pointer<UInt32>} pulSvideoCount 
+     * @returns {HRESULT} 
+     */
+    get_AuxInputCount(pulCompositeCount, pulSvideoCount) {
+        result := ComCall(6, this, "uint*", pulCompositeCount, "uint*", pulSvideoCount, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}
