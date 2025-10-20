@@ -1,0 +1,47 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
+ * @version v4.0.30319
+ */
+class IDataModelScriptProviderEnumerator extends IUnknown{
+    /**
+     * The interface identifier for IDataModelScriptProviderEnumerator
+     * @type {Guid}
+     */
+    static IID => Guid("{95ba00e2-704a-4fe2-a8f1-a7e7d8fb0941}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Reset() {
+        result := ComCall(3, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDataModelScriptProvider>} provider 
+     * @returns {HRESULT} 
+     */
+    GetNext(provider) {
+        result := ComCall(4, this, "ptr", provider, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

@@ -1,0 +1,192 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10EffectVariable.ahk
+
+/**
+ * A vector-variable interface accesses a four-component vector.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nn-d3d10effect-id3d10effectvectorvariable
+ * @namespace Windows.Win32.Graphics.Direct3D10
+ * @version v4.0.30319
+ */
+class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
+    /**
+     * The interface identifier for ID3D10EffectVectorVariable
+     * @type {Guid}
+     */
+    static IID => Guid("{62b98c44-1f82-4c67-bcd0-72cf8f217e81}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 25
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} pData 
+     * @returns {HRESULT} 
+     */
+    SetBoolVector(pData) {
+        result := ComCall(25, this, "ptr", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pData 
+     * @returns {HRESULT} 
+     */
+    SetIntVector(pData) {
+        result := ComCall(26, this, "int*", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} pData 
+     * @returns {HRESULT} 
+     */
+    SetFloatVector(pData) {
+        result := ComCall(27, this, "float*", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} pData 
+     * @returns {HRESULT} 
+     */
+    GetBoolVector(pData) {
+        result := ComCall(28, this, "ptr", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pData 
+     * @returns {HRESULT} 
+     */
+    GetIntVector(pData) {
+        result := ComCall(29, this, "int*", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} pData 
+     * @returns {HRESULT} 
+     */
+    GetFloatVector(pData) {
+        result := ComCall(30, this, "float*", pData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    SetBoolVectorArray(pData, Offset, Count) {
+        result := ComCall(31, this, "ptr", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    SetIntVectorArray(pData, Offset, Count) {
+        result := ComCall(32, this, "int*", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    SetFloatVectorArray(pData, Offset, Count) {
+        result := ComCall(33, this, "float*", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BOOL>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    GetBoolVectorArray(pData, Offset, Count) {
+        result := ComCall(34, this, "ptr", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    GetIntVectorArray(pData, Offset, Count) {
+        result := ComCall(35, this, "int*", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Single>} pData 
+     * @param {Integer} Offset 
+     * @param {Integer} Count 
+     * @returns {HRESULT} 
+     */
+    GetFloatVectorArray(pData, Offset, Count) {
+        result := ComCall(36, this, "float*", pData, "uint", Offset, "uint", Count, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

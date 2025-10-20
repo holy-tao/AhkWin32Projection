@@ -1,0 +1,133 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IMFClock.ahk
+
+/**
+ * Represents a presentation clock, which is used to schedule when samples are rendered and to synchronize multiple streams.
+ * @remarks
+ * 
+  * To create a new instance of the presentation clock, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfcreatepresentationclock">MFCreatePresentationClock</a> function. The presentation clock must have a time source, which is an object that provides the clock times. For example, the audio renderer is a time source that uses the sound card to drive the clock. Time sources expose the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationtimesource">IMFPresentationTimeSource</a> interface. To set the time source, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-settimesource">SetTimeSource</a>. The presentation clock does not begin running until the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-start">Start</a> method is called.
+  * 
+  * To get the presentation clock from the Media Session, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getclock">IMFMediaSession::GetClock</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfpresentationclock
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class IMFPresentationClock extends IMFClock{
+    /**
+     * The interface identifier for IMFPresentationClock
+     * @type {Guid}
+     */
+    static IID => Guid("{868ce85c-8ea9-4f55-ab82-b009a910a805}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 8
+
+    /**
+     * 
+     * @param {Pointer<IMFPresentationTimeSource>} pTimeSource 
+     * @returns {HRESULT} 
+     */
+    SetTimeSource(pTimeSource) {
+        result := ComCall(8, this, "ptr", pTimeSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMFPresentationTimeSource>} ppTimeSource 
+     * @returns {HRESULT} 
+     */
+    GetTimeSource(ppTimeSource) {
+        result := ComCall(9, this, "ptr", ppTimeSource, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int64>} phnsClockTime 
+     * @returns {HRESULT} 
+     */
+    GetTime(phnsClockTime) {
+        result := ComCall(10, this, "int64*", phnsClockTime, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMFClockStateSink>} pStateSink 
+     * @returns {HRESULT} 
+     */
+    AddClockStateSink(pStateSink) {
+        result := ComCall(11, this, "ptr", pStateSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMFClockStateSink>} pStateSink 
+     * @returns {HRESULT} 
+     */
+    RemoveClockStateSink(pStateSink) {
+        result := ComCall(12, this, "ptr", pStateSink, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} llClockStartOffset 
+     * @returns {HRESULT} 
+     */
+    Start(llClockStartOffset) {
+        result := ComCall(13, this, "int64", llClockStartOffset, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Stop() {
+        result := ComCall(14, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Pause() {
+        result := ComCall(15, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

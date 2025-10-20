@@ -1,0 +1,68 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * This interface accesses connection parameters and preferences stored in Mobile Broadband profiles.
+ * @remarks
+ * 
+  * <b>IMbnConnectionProfile</b> objects are provided by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofile">GetConnectionProfile</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofiles">GetConnectionProfiles</a> methods of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofilemanager">IMbnConnectionProfileManager</a> interface.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectionprofile
+ * @namespace Windows.Win32.NetworkManagement.MobileBroadband
+ * @version v4.0.30319
+ */
+class IMbnConnectionProfile extends IUnknown{
+    /**
+     * The interface identifier for IMbnConnectionProfile
+     * @type {Guid}
+     */
+    static IID => Guid("{dcbbbab6-2010-4bbb-aaee-338e368af6fa}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} profileData 
+     * @returns {HRESULT} 
+     */
+    GetProfileXmlData(profileData) {
+        result := ComCall(3, this, "ptr", profileData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} strProfile 
+     * @returns {HRESULT} 
+     */
+    UpdateProfile(strProfile) {
+        strProfile := strProfile is String ? StrPtr(strProfile) : strProfile
+
+        result := ComCall(4, this, "ptr", strProfile, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Delete() {
+        result := ComCall(5, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

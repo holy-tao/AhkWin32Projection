@@ -1,0 +1,106 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
+ * @version v4.0.30319
+ */
+class IDataModelScriptManager extends IUnknown{
+    /**
+     * The interface identifier for IDataModelScriptManager
+     * @type {Guid}
+     */
+    static IID => Guid("{6fd11e33-e5ad-410b-8011-68c6bc4bf80d}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<IDataModelNameBinder>} ppNameBinder 
+     * @returns {HRESULT} 
+     */
+    GetDefaultNameBinder(ppNameBinder) {
+        result := ComCall(3, this, "ptr", ppNameBinder, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDataModelScriptProvider>} provider 
+     * @returns {HRESULT} 
+     */
+    RegisterScriptProvider(provider) {
+        result := ComCall(4, this, "ptr", provider, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDataModelScriptProvider>} provider 
+     * @returns {HRESULT} 
+     */
+    UnregisterScriptProvider(provider) {
+        result := ComCall(5, this, "ptr", provider, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} scriptType 
+     * @param {Pointer<IDataModelScriptProvider>} provider 
+     * @returns {HRESULT} 
+     */
+    FindProviderForScriptType(scriptType, provider) {
+        scriptType := scriptType is String ? StrPtr(scriptType) : scriptType
+
+        result := ComCall(6, this, "ptr", scriptType, "ptr", provider, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} scriptExtension 
+     * @param {Pointer<IDataModelScriptProvider>} provider 
+     * @returns {HRESULT} 
+     */
+    FindProviderForScriptExtension(scriptExtension, provider) {
+        scriptExtension := scriptExtension is String ? StrPtr(scriptExtension) : scriptExtension
+
+        result := ComCall(7, this, "ptr", scriptExtension, "ptr", provider, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IDataModelScriptProviderEnumerator>} enumerator 
+     * @returns {HRESULT} 
+     */
+    EnumerateScriptProviders(enumerator) {
+        result := ComCall(8, this, "ptr", enumerator, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

@@ -1,0 +1,170 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.Data.Xml.MsXml
+ * @version v4.0.30319
+ */
+class IVBSAXContentHandler extends IDispatch{
+    /**
+     * The interface identifier for IVBSAXContentHandler
+     * @type {Guid}
+     */
+    static IID => Guid("{2ed7290a-4dd5-4b46-bb26-4e4155e77faa}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<IVBSAXLocator>} oLocator 
+     * @returns {HRESULT} 
+     */
+    putref_documentLocator(oLocator) {
+        result := ComCall(7, this, "ptr", oLocator, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    startDocument() {
+        result := ComCall(8, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    endDocument() {
+        result := ComCall(9, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strPrefix 
+     * @param {Pointer<BSTR>} strURI 
+     * @returns {HRESULT} 
+     */
+    startPrefixMapping(strPrefix, strURI) {
+        result := ComCall(10, this, "ptr", strPrefix, "ptr", strURI, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strPrefix 
+     * @returns {HRESULT} 
+     */
+    endPrefixMapping(strPrefix) {
+        result := ComCall(11, this, "ptr", strPrefix, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strNamespaceURI 
+     * @param {Pointer<BSTR>} strLocalName 
+     * @param {Pointer<BSTR>} strQName 
+     * @param {Pointer<IVBSAXAttributes>} oAttributes 
+     * @returns {HRESULT} 
+     */
+    startElement(strNamespaceURI, strLocalName, strQName, oAttributes) {
+        result := ComCall(12, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "ptr", oAttributes, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strNamespaceURI 
+     * @param {Pointer<BSTR>} strLocalName 
+     * @param {Pointer<BSTR>} strQName 
+     * @returns {HRESULT} 
+     */
+    endElement(strNamespaceURI, strLocalName, strQName) {
+        result := ComCall(13, this, "ptr", strNamespaceURI, "ptr", strLocalName, "ptr", strQName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strChars 
+     * @returns {HRESULT} 
+     */
+    characters(strChars) {
+        result := ComCall(14, this, "ptr", strChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strChars 
+     * @returns {HRESULT} 
+     */
+    ignorableWhitespace(strChars) {
+        result := ComCall(15, this, "ptr", strChars, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strTarget 
+     * @param {Pointer<BSTR>} strData 
+     * @returns {HRESULT} 
+     */
+    processingInstruction(strTarget, strData) {
+        result := ComCall(16, this, "ptr", strTarget, "ptr", strData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} strName 
+     * @returns {HRESULT} 
+     */
+    skippedEntity(strName) {
+        result := ComCall(17, this, "ptr", strName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

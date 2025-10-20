@@ -1,0 +1,86 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICertEncodeAltName.ahk
+
+/**
+ * @namespace Windows.Win32.Security.Cryptography.Certificates
+ * @version v4.0.30319
+ */
+class ICertEncodeAltName2 extends ICertEncodeAltName{
+    /**
+     * The interface identifier for ICertEncodeAltName2
+     * @type {Guid}
+     */
+    static IID => Guid("{f67fe177-5ef1-4535-b4ce-29df15e2e0c3}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 14
+
+    /**
+     * 
+     * @param {BSTR} strEncodedData 
+     * @param {Integer} Encoding 
+     * @returns {HRESULT} 
+     */
+    DecodeBlob(strEncodedData, Encoding) {
+        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+
+        result := ComCall(14, this, "ptr", strEncodedData, "int", Encoding, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} Encoding 
+     * @param {Pointer<BSTR>} pstrEncodedData 
+     * @returns {HRESULT} 
+     */
+    EncodeBlob(Encoding, pstrEncodedData) {
+        result := ComCall(15, this, "int", Encoding, "ptr", pstrEncodedData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} NameIndex 
+     * @param {Integer} Encoding 
+     * @param {Pointer<BSTR>} pstrName 
+     * @returns {HRESULT} 
+     */
+    GetNameBlob(NameIndex, Encoding, pstrName) {
+        result := ComCall(16, this, "int", NameIndex, "int", Encoding, "ptr", pstrName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} NameIndex 
+     * @param {Integer} NameChoice 
+     * @param {BSTR} strName 
+     * @param {Integer} Encoding 
+     * @returns {HRESULT} 
+     */
+    SetNameEntryBlob(NameIndex, NameChoice, strName, Encoding) {
+        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+
+        result := ComCall(17, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "int", Encoding, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

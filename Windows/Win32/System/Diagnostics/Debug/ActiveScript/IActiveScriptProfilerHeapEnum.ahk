@@ -1,0 +1,80 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
+ * @version v4.0.30319
+ */
+class IActiveScriptProfilerHeapEnum extends IUnknown{
+    /**
+     * The interface identifier for IActiveScriptProfilerHeapEnum
+     * @type {Guid}
+     */
+    static IID => Guid("{32e4694e-0d37-419b-b93d-fa20ded6e8ea}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Integer} celt 
+     * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObjects 
+     * @param {Pointer<UInt32>} pceltFetched 
+     * @returns {HRESULT} 
+     */
+    Next(celt, heapObjects, pceltFetched) {
+        result := ComCall(3, this, "uint", celt, "ptr", heapObjects, "uint*", pceltFetched, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObject 
+     * @param {Integer} celt 
+     * @param {Pointer<PROFILER_HEAP_OBJECT_OPTIONAL_INFO>} optionalInfo 
+     * @returns {HRESULT} 
+     */
+    GetOptionalInfo(heapObject, celt, optionalInfo) {
+        result := ComCall(4, this, "ptr", heapObject, "uint", celt, "ptr", optionalInfo, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Integer} celt 
+     * @param {Pointer<PROFILER_HEAP_OBJECT>} heapObjects 
+     * @returns {HRESULT} 
+     */
+    FreeObjectAndOptionalInfo(celt, heapObjects) {
+        result := ComCall(5, this, "uint", celt, "ptr", heapObjects, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<PWSTR>} pNameList 
+     * @param {Pointer<UInt32>} pcelt 
+     * @returns {HRESULT} 
+     */
+    GetNameIdMap(pNameList, pcelt) {
+        result := ComCall(6, this, "ptr", pNameList, "uint*", pcelt, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

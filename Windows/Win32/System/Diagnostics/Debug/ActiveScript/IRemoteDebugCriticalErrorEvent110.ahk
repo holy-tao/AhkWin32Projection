@@ -1,0 +1,69 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
+ * @version v4.0.30319
+ */
+class IRemoteDebugCriticalErrorEvent110 extends IUnknown{
+    /**
+     * The interface identifier for IRemoteDebugCriticalErrorEvent110
+     * @type {Guid}
+     */
+    static IID => Guid("{2f69c611-6b14-47e8-9260-4bb7c52f504b}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
+     * @param {Pointer<BSTR>} pbstrSource 
+     * @param {Pointer<Int32>} pMessageId 
+     * @param {Pointer<BSTR>} pbstrMessage 
+     * @param {Pointer<IDebugDocumentContext>} ppLocation 
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was no error object to return.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
+     */
+    GetErrorInfo(pbstrSource, pMessageId, pbstrMessage, ppLocation) {
+        result := ComCall(3, this, "ptr", pbstrSource, "int*", pMessageId, "ptr", pbstrMessage, "ptr", ppLocation, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

@@ -1,0 +1,64 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDispatch.ahk
+
+/**
+ * @namespace Windows.Win32.System.MessageQueuing
+ * @version v4.0.30319
+ */
+class IMSMQPrivateEvent extends IDispatch{
+    /**
+     * The interface identifier for IMSMQPrivateEvent
+     * @type {Guid}
+     */
+    static IID => Guid("{d7ab3341-c9d3-11d1-bb47-0080c7c5a2c0}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<Int32>} phwnd 
+     * @returns {HRESULT} 
+     */
+    get_Hwnd(phwnd) {
+        result := ComCall(7, this, "int*", phwnd, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMSMQQueue>} pq 
+     * @param {Integer} msgcursor 
+     * @returns {HRESULT} 
+     */
+    FireArrivedEvent(pq, msgcursor) {
+        result := ComCall(8, this, "ptr", pq, "int", msgcursor, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMSMQQueue>} pq 
+     * @param {HRESULT} hrStatus 
+     * @param {Integer} msgcursor 
+     * @returns {HRESULT} 
+     */
+    FireArrivedErrorEvent(pq, hrStatus, msgcursor) {
+        result := ComCall(9, this, "ptr", pq, "int", hrStatus, "int", msgcursor, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

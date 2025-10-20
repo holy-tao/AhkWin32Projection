@@ -1,0 +1,101 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Com\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
+ * @version v4.0.30319
+ */
+class IKeyStore extends IUnknown{
+    /**
+     * The interface identifier for IKeyStore
+     * @type {Guid}
+     */
+    static IID => Guid("{0fc7557d-401d-4fca-9365-da1e9850697c}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {PWSTR} key 
+     * @param {Pointer<IModelObject>} object 
+     * @param {Pointer<IKeyStore>} metadata 
+     * @returns {HRESULT} 
+     */
+    GetKey(key, object, metadata) {
+        key := key is String ? StrPtr(key) : key
+
+        result := ComCall(3, this, "ptr", key, "ptr", object, "ptr", metadata, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} key 
+     * @param {Pointer<IModelObject>} object 
+     * @param {Pointer<IKeyStore>} metadata 
+     * @returns {HRESULT} 
+     */
+    SetKey(key, object, metadata) {
+        key := key is String ? StrPtr(key) : key
+
+        result := ComCall(4, this, "ptr", key, "ptr", object, "ptr", metadata, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} key 
+     * @param {Pointer<IModelObject>} object 
+     * @param {Pointer<IKeyStore>} metadata 
+     * @returns {HRESULT} 
+     */
+    GetKeyValue(key, object, metadata) {
+        key := key is String ? StrPtr(key) : key
+
+        result := ComCall(5, this, "ptr", key, "ptr", object, "ptr", metadata, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} key 
+     * @param {Pointer<IModelObject>} object 
+     * @returns {HRESULT} 
+     */
+    SetKeyValue(key, object) {
+        key := key is String ? StrPtr(key) : key
+
+        result := ComCall(6, this, "ptr", key, "ptr", object, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    ClearKeys() {
+        result := ComCall(7, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

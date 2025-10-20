@@ -1,0 +1,230 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICertAdmin.ahk
+
+/**
+ * Provide administration functionality for properly authorized clients.
+ * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-icertadmin2
+ * @namespace Windows.Win32.Security.Cryptography.Certificates
+ * @version v4.0.30319
+ */
+class ICertAdmin2 extends ICertAdmin{
+    /**
+     * The interface identifier for ICertAdmin2
+     * @type {Guid}
+     */
+    static IID => Guid("{f7c3ac41-b8ce-4fb4-aa58-3d1dc0e36b39}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 17
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Float} Date 
+     * @param {Integer} CRLFlags 
+     * @returns {HRESULT} 
+     */
+    PublishCRLs(strConfig, Date, CRLFlags) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(17, this, "ptr", strConfig, "double", Date, "int", CRLFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} PropId 
+     * @param {Integer} PropIndex 
+     * @param {Integer} PropType 
+     * @param {Integer} Flags 
+     * @param {Pointer<VARIANT>} pvarPropertyValue 
+     * @returns {HRESULT} 
+     */
+    GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags, pvarPropertyValue) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(18, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} PropId 
+     * @param {Integer} PropIndex 
+     * @param {Integer} PropType 
+     * @param {Pointer<VARIANT>} pvarPropertyValue 
+     * @returns {HRESULT} 
+     */
+    SetCAProperty(strConfig, PropId, PropIndex, PropType, pvarPropertyValue) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(19, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pvarPropertyValue, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} PropId 
+     * @param {Pointer<Int32>} pPropFlags 
+     * @returns {HRESULT} 
+     */
+    GetCAPropertyFlags(strConfig, PropId, pPropFlags) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(20, this, "ptr", strConfig, "int", PropId, "int*", pPropFlags, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} PropId 
+     * @param {Pointer<BSTR>} pstrDisplayName 
+     * @returns {HRESULT} 
+     */
+    GetCAPropertyDisplayName(strConfig, PropId, pstrDisplayName) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(21, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} RequestId 
+     * @param {Integer} Flags 
+     * @param {Pointer<BSTR>} pstrArchivedKey 
+     * @returns {HRESULT} 
+     */
+    GetArchivedKey(strConfig, RequestId, Flags, pstrArchivedKey) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(22, this, "ptr", strConfig, "int", RequestId, "int", Flags, "ptr", pstrArchivedKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {BSTR} strNodePath 
+     * @param {BSTR} strEntryName 
+     * @param {Pointer<VARIANT>} pvarEntry 
+     * @returns {HRESULT} 
+     */
+    GetConfigEntry(strConfig, strNodePath, strEntryName, pvarEntry) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
+        strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
+
+        result := ComCall(23, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {BSTR} strNodePath 
+     * @param {BSTR} strEntryName 
+     * @param {Pointer<VARIANT>} pvarEntry 
+     * @returns {HRESULT} 
+     */
+    SetConfigEntry(strConfig, strNodePath, strEntryName, pvarEntry) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        strNodePath := strNodePath is String ? BSTR.Alloc(strNodePath).Value : strNodePath
+        strEntryName := strEntryName is String ? BSTR.Alloc(strEntryName).Value : strEntryName
+
+        result := ComCall(24, this, "ptr", strConfig, "ptr", strNodePath, "ptr", strEntryName, "ptr", pvarEntry, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} RequestId 
+     * @param {BSTR} strCertHash 
+     * @param {Integer} Flags 
+     * @param {BSTR} strKey 
+     * @returns {HRESULT} 
+     */
+    ImportKey(strConfig, RequestId, strCertHash, Flags, strKey) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+        strCertHash := strCertHash is String ? BSTR.Alloc(strCertHash).Value : strCertHash
+        strKey := strKey is String ? BSTR.Alloc(strKey).Value : strKey
+
+        result := ComCall(25, this, "ptr", strConfig, "int", RequestId, "ptr", strCertHash, "int", Flags, "ptr", strKey, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Pointer<UInt32>} pRoles 
+     * @returns {HRESULT} 
+     */
+    GetMyRoles(strConfig, pRoles) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(26, this, "ptr", strConfig, "uint*", pRoles, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {BSTR} strConfig 
+     * @param {Integer} Flags 
+     * @param {Float} Date 
+     * @param {Integer} Table 
+     * @param {Integer} RowId 
+     * @param {Pointer<Int32>} pcDeleted 
+     * @returns {HRESULT} 
+     */
+    DeleteRow(strConfig, Flags, Date, Table, RowId, pcDeleted) {
+        strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
+
+        result := ComCall(27, this, "ptr", strConfig, "int", Flags, "double", Date, "int", Table, "int", RowId, "int*", pcDeleted, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

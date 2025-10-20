@@ -1,0 +1,41 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IDispatch.ahk
+
+/**
+ * Can be used to create any of the following objects on a webpage.
+ * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509enrollmentwebclassfactory
+ * @namespace Windows.Win32.Security.Cryptography.Certificates
+ * @version v4.0.30319
+ */
+class IX509EnrollmentWebClassFactory extends IDispatch{
+    /**
+     * The interface identifier for IX509EnrollmentWebClassFactory
+     * @type {Guid}
+     */
+    static IID => Guid("{728ab349-217d-11da-b2a4-000e7bbb2b09}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {BSTR} strProgID 
+     * @param {Pointer<IUnknown>} ppIUnknown 
+     * @returns {HRESULT} 
+     */
+    CreateObject(strProgID, ppIUnknown) {
+        strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID
+
+        result := ComCall(7, this, "ptr", strProgID, "ptr", ppIUnknown, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

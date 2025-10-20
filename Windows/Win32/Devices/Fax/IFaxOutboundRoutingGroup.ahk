@@ -1,0 +1,73 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+
+/**
+ * The IFaxOutboundRoutingGroup interface describes a configuration object that is used by a fax client application to retrieve information about an individual fax outbound routing group.
+ * @remarks
+ * 
+  * A default implementation of <b>IFaxOutboundRoutingGroup</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutinggroup">FaxOutboundRoutingGroup</a> object.
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxoutboundroutinggroup
+ * @namespace Windows.Win32.Devices.Fax
+ * @version v4.0.30319
+ */
+class IFaxOutboundRoutingGroup extends IDispatch{
+    /**
+     * The interface identifier for IFaxOutboundRoutingGroup
+     * @type {Guid}
+     */
+    static IID => Guid("{ca6289a1-7e25-4f87-9a0b-93365734962c}")
+
+    /**
+     * The class identifier for FaxOutboundRoutingGroup
+     * @type {Guid}
+     */
+    static CLSID => Guid("{0213f3e0-6791-4d77-a271-04d2357c50d6}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<BSTR>} pbstrName 
+     * @returns {HRESULT} 
+     */
+    get_Name(pbstrName) {
+        result := ComCall(7, this, "ptr", pbstrName, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Int32>} pStatus 
+     * @returns {HRESULT} 
+     */
+    get_Status(pStatus) {
+        result := ComCall(8, this, "int*", pStatus, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IFaxDeviceIds>} pFaxDeviceIds 
+     * @returns {HRESULT} 
+     */
+    get_DeviceIds(pFaxDeviceIds) {
+        result := ComCall(9, this, "ptr", pFaxDeviceIds, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

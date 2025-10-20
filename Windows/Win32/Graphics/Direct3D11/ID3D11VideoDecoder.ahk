@@ -1,0 +1,56 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11DeviceChild.ahk
+
+/**
+ * Represents a hardware-accelerated video decoder for Microsoft Direct3D 11.
+ * @remarks
+ * 
+  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder">ID3D11VideoDevice::CreateVideoDecoder</a>.
+  * 
+  * 
+ * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11videodecoder
+ * @namespace Windows.Win32.Graphics.Direct3D11
+ * @version v4.0.30319
+ */
+class ID3D11VideoDecoder extends ID3D11DeviceChild{
+    /**
+     * The interface identifier for ID3D11VideoDecoder
+     * @type {Guid}
+     */
+    static IID => Guid("{3c9c5b51-995d-48d1-9b8d-fa5caeded65c}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 7
+
+    /**
+     * 
+     * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pVideoDesc 
+     * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pConfig 
+     * @returns {HRESULT} 
+     */
+    GetCreationParameters(pVideoDesc, pConfig) {
+        result := ComCall(7, this, "ptr", pVideoDesc, "ptr", pConfig, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<HANDLE>} pDriverHandle 
+     * @returns {HRESULT} 
+     */
+    GetDriverHandle(pDriverHandle) {
+        result := ComCall(8, this, "ptr", pDriverHandle, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}

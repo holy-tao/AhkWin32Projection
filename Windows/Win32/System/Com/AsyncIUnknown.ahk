@@ -1,0 +1,96 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\IUnknown.ahk
+
+/**
+ * @namespace Windows.Win32.System.Com
+ * @version v4.0.30319
+ */
+class AsyncIUnknown extends IUnknown{
+    /**
+     * The interface identifier for AsyncIUnknown
+     * @type {Guid}
+     */
+    static IID => Guid("{000e0000-0000-0000-c000-000000000046}")
+
+    /**
+     * The class identifier for AsyncIUnknown
+     * @type {Guid}
+     */
+    static CLSID => Guid("{000e0000-0000-0000-c000-000000000046}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {Pointer<Guid>} riid 
+     * @returns {HRESULT} 
+     */
+    Begin_QueryInterface(riid) {
+        result := ComCall(3, this, "ptr", riid, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<Void>} ppvObject 
+     * @returns {HRESULT} 
+     */
+    Finish_QueryInterface(ppvObject) {
+        result := ComCall(4, this, "ptr", ppvObject, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Begin_AddRef() {
+        result := ComCall(5, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    Finish_AddRef() {
+        result := ComCall(6, this, "uint")
+        return result
+    }
+
+    /**
+     * 
+     * @returns {HRESULT} 
+     */
+    Begin_Release() {
+        result := ComCall(7, this, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @returns {Integer} 
+     */
+    Finish_Release() {
+        result := ComCall(8, this, "uint")
+        return result
+    }
+}

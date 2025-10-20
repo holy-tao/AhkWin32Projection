@@ -1,0 +1,33 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include .\ID3D12Pageable.ahk
+
+/**
+ * A heap is an abstraction of contiguous memory allocation, used to manage physical memory. This heap can be used with ID3D12Resource objects to support placed resources or reserved resources.
+ * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12heap
+ * @namespace Windows.Win32.Graphics.Direct3D12
+ * @version v4.0.30319
+ */
+class ID3D12Heap extends ID3D12Pageable{
+    /**
+     * The interface identifier for ID3D12Heap
+     * @type {Guid}
+     */
+    static IID => Guid("{6b3b2502-6e51-45b3-90ee-9884265e8df3}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 8
+
+    /**
+     * 
+     * @returns {D3D12_HEAP_DESC} 
+     */
+    GetDesc() {
+        result := ComCall(8, this, "ptr")
+        return result
+    }
+}

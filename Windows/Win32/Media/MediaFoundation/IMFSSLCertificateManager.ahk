@@ -1,0 +1,108 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32ComInterface.ahk
+#Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+
+/**
+ * Implemented by a client and called by Microsoft Media Foundation to get the client Secure Sockets Layer (SSL) certificate requested by the server.
+ * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsslcertificatemanager
+ * @namespace Windows.Win32.Media.MediaFoundation
+ * @version v4.0.30319
+ */
+class IMFSSLCertificateManager extends IUnknown{
+    /**
+     * The interface identifier for IMFSSLCertificateManager
+     * @type {Guid}
+     */
+    static IID => Guid("{61f7d887-1230-4a8b-aeba-8ad434d1a64d}")
+
+    /**
+     * The offset into the COM object's virtual function table at which this interface's methods begin.
+     * @type {Integer}
+     */
+    static vTableOffset => 3
+
+    /**
+     * 
+     * @param {PWSTR} pszURL 
+     * @param {Pointer<Byte>} ppbData 
+     * @param {Pointer<UInt32>} pcbData 
+     * @returns {HRESULT} 
+     */
+    GetClientCertificate(pszURL, ppbData, pcbData) {
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
+
+        result := ComCall(3, this, "ptr", pszURL, "char*", ppbData, "uint*", pcbData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} pszURL 
+     * @param {Pointer<IMFAsyncCallback>} pCallback 
+     * @param {Pointer<IUnknown>} pState 
+     * @returns {HRESULT} 
+     */
+    BeginGetClientCertificate(pszURL, pCallback, pState) {
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
+
+        result := ComCall(4, this, "ptr", pszURL, "ptr", pCallback, "ptr", pState, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {Pointer<IMFAsyncResult>} pResult 
+     * @param {Pointer<Byte>} ppbData 
+     * @param {Pointer<UInt32>} pcbData 
+     * @returns {HRESULT} 
+     */
+    EndGetClientCertificate(pResult, ppbData, pcbData) {
+        result := ComCall(5, this, "ptr", pResult, "char*", ppbData, "uint*", pcbData, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} pszURL 
+     * @param {Pointer<BOOL>} pfOverrideAutomaticCheck 
+     * @param {Pointer<BOOL>} pfClientCertificateAvailable 
+     * @returns {HRESULT} 
+     */
+    GetCertificatePolicy(pszURL, pfOverrideAutomaticCheck, pfClientCertificateAvailable) {
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
+
+        result := ComCall(6, this, "ptr", pszURL, "ptr", pfOverrideAutomaticCheck, "ptr", pfClientCertificateAvailable, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+
+    /**
+     * 
+     * @param {PWSTR} pszURL 
+     * @param {Pointer} pbData 
+     * @param {Integer} cbData 
+     * @param {Pointer<BOOL>} pfIsGood 
+     * @returns {HRESULT} 
+     */
+    OnServerCertificate(pszURL, pbData, cbData, pfIsGood) {
+        pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
+
+        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, "ptr", pfIsGood, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return result
+    }
+}
