@@ -24,7 +24,7 @@ class AsnOctetString extends Win32Struct
 
     /**
      * Pointer to the octet stream.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     stream {
         get => NumGet(this, 0, "ptr")

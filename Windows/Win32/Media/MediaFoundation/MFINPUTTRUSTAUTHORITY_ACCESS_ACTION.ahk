@@ -24,7 +24,7 @@ class MFINPUTTRUSTAUTHORITY_ACCESS_ACTION extends Win32Struct
 
     /**
      * Pointer to a buffer that contains a ticket object, provided by the OTA.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbTicket {
         get => NumGet(this, 8, "ptr")

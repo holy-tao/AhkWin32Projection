@@ -37,7 +37,7 @@ class SCH_CRED_PUBLIC_CERTCHAIN extends Win32Struct
 
     /**
      * Pointer to an X.509 leaf certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCertChain {
         get => NumGet(this, 8, "ptr")

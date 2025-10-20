@@ -60,7 +60,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPluginIdKey {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAuthenticatorInfo {
         get => NumGet(this, 64, "ptr")
@@ -92,7 +92,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbNonce {
         get => NumGet(this, 80, "ptr")
@@ -108,7 +108,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_UPDATE_AUTHENTICATOR_DETAILS extends Win32Str
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignature {
         get => NumGet(this, 96, "ptr")

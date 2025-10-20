@@ -76,7 +76,7 @@ class WIA_DITHER_PATTERN_DATA extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * Specifies a pointer to a buffer that contains the dither pattern.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPattern {
         get => NumGet(this, 32, "ptr")

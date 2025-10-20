@@ -12,7 +12,7 @@ class CARD_ENCRYPTED_DATA extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEncryptedData {
         get => NumGet(this, 0, "ptr")

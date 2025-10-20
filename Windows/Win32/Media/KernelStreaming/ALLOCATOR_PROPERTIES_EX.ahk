@@ -157,7 +157,7 @@ class ALLOCATOR_PROPERTIES_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IKsAllocatorEx>}
+     * @type {IKsAllocatorEx}
      */
     PrevSegment {
         get => NumGet(this, 272, "ptr")

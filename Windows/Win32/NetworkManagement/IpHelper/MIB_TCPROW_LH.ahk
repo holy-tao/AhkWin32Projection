@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/tcpmib/ns-tcpmib-mib_tcprow_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

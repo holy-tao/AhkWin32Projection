@@ -50,7 +50,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct
      * Type: <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * The size, in elements, of each dimension in the tensor. Specifying a size of zero in any dimension is invalid, and will result in an error. The *Sizes* member is always specified in the order {N, C, H, W} if *DimensionCount* is 4, and {N, C, D, H, W} if *DimensionCount* is 5.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Sizes {
         get => NumGet(this, 16, "ptr")
@@ -65,7 +65,7 @@ class DML_BUFFER_TENSOR_DESC extends Win32Struct
      * <i>Strides</i> can be used to express broadcasting (by specifying a stride of 0) as well as padding (for example, by using a stride larger than the physical size of a row, to pad the end of a row).
      * 
      * If <i>Strides</i> is not specified, each dimension in the tensor is considered to be contiguously packed, with no additional padding.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 24, "ptr")

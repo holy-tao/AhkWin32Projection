@@ -843,7 +843,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterFind Pointer to a caller-allocated variable that receives a search handle for the filter driver if the call to <b>FilterFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindnext">FilterFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterfindclose">FilterFindClose</a>.
      * @returns {HRESULT} <b>FilterFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
@@ -903,7 +903,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterFindNext</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -979,7 +979,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterVolumeFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindnext">FilterVolumeFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumefindclose">FilterVolumeFindClose</a>.
      * @returns {HRESULT} <b>FilterVolumeFindFirst</b> returns S_OK if it successfully returns information about a volume. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
@@ -1038,7 +1038,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterVolumeFindNext</b> returns S_OK if it successfully returns volume information. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -1114,7 +1114,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to, if the call to <b>FilterInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to, if the call to <b>FilterInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpFilterInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter if the call to <b>FilterInstanceFindFirst</b> succeeds; otherwise, it receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindnext">FilterInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filterinstancefindclose">FilterInstanceFindClose</a>.
      * @returns {HRESULT} <b>FilterInstanceFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
@@ -1175,7 +1175,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterInstanceFindNext</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -1272,7 +1272,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @param {Pointer<HANDLE>} lpVolumeInstanceFind Pointer to a caller-allocated variable that receives a search handle for the minifilter instance or legacy filter (only when <b>InstanceAggregateStandardInformation</b> is specified) if the call to <b>FilterVolumeInstanceFindFirst</b> succeeds. Otherwise, <i>lpVolumeInstanceFind</i> receives INVALID_HANDLE_VALUE. This search handle can be used in subsequent calls to <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindnext">FilterVolumeInstanceFindNext</a> and <a href="https://docs.microsoft.com/windows/desktop/api/fltuser/nf-fltuser-filtervolumeinstancefindclose">FilterVolumeInstanceFindClose</a>.
      * @returns {HRESULT} <b>FilterVolumeInstanceFindFirst</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
@@ -1333,7 +1333,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterVolumeInstanceFindNext</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterVolumeInstanceFindNext</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -1409,7 +1409,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterGetInformation</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -1459,7 +1459,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInformationClass 
      * @param {Pointer} lpBuffer Pointer to a caller-allocated buffer that receives the requested information. The type of the information returned in the buffer is defined by the <i>dwInformationClass</i> parameter.
      * @param {Integer} dwBufferSize Size, in bytes, of the buffer that the <i>lpBuffer</i> parameter points to. The caller should set this parameter according to the given <i>dwInformationClass</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpBuffer</i> points to if the call to <b>FilterInstanceGetInformation</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterInstanceGetInformation</b> returns S_OK if successful. Otherwise, it returns an HRESULT error value, such as one of the following:
      * 
      * <table>
@@ -1547,7 +1547,7 @@ class InstallableFileSystems {
      * @param {Integer} dwInBufferSize Size, in bytes, of the buffer pointed to by <i>lpInBuffer</i>.
      * @param {Pointer} lpOutBuffer Pointer to a caller-allocated buffer that receives the reply (if any) from the minifilter.
      * @param {Integer} dwOutBufferSize Size, in bytes, of the buffer pointed to by <i>lpOutBuffer</i>. This value is ignored if <i>lpOutBuffer</i> is <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpOutBuffer</i> points to if the call to <b>FilterSendMessage</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a caller-allocated variable that receives the number of bytes returned in the buffer that <i>lpOutBuffer</i> points to if the call to <b>FilterSendMessage</b> succeeds. This parameter is required and cannot be <b>NULL</b>.
      * @returns {HRESULT} <b>FilterSendMessage</b> returns S_OK if successful. Otherwise, it returns an error value.
      * @see https://docs.microsoft.com/windows/win32/api//fltuser/nf-fltuser-filtersendmessage
      */

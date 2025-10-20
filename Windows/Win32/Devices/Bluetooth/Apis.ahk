@@ -4960,7 +4960,7 @@ class Bluetooth {
      * The BluetoothEnumerateInstalledServices function enumerates the services GUIDs (Globally Unique Identifiers) enabled on a Bluetooth device.
      * @param {HANDLE} hRadio Handle of the local Bluetooth radio device. If <b>NULL</b>,   all local radios are searched for enabled services that match the radio address in <i>pbtdi</i>.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure.
-     * @param {Pointer<UInt32>} pcServiceInout On input, the number of records pointed to by the <i>pGuidServices</i> parameter. On output, the number of valid records returned in the <i>pGuidServices</i> parameter. If pGuidServices is <b>NULL</b>, on output <i>pcServices</i> contains the number of services enabled.
+     * @param {Pointer<Integer>} pcServiceInout On input, the number of records pointed to by the <i>pGuidServices</i> parameter. On output, the number of valid records returned in the <i>pGuidServices</i> parameter. If pGuidServices is <b>NULL</b>, on output <i>pcServices</i> contains the number of services enabled.
      * @param {Pointer<Guid>} pGuidServices Pointer to a buffer in memory to receive GUIDs for installed services. The buffer must be at least *<i>pcServices</i> *<b>sizeof</b>(GUID) bytes.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion, and the pGuidServices parameter contains a complete list of enabled service GUIDs.
      * 
@@ -5054,7 +5054,7 @@ class Bluetooth {
     /**
      * The BluetoothRegisterForAuthentication function registers a callback function that is called when a particular Bluetooth device requests authentication.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdi Pointer to a  <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure. The Address member is used for comparison.
-     * @param {Pointer<IntPtr>} phRegHandle Pointer to a structure in which the registration HANDLE is stored. Call the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close the handle.
+     * @param {Pointer<Pointer>} phRegHandle Pointer to a structure in which the registration HANDLE is stored. Call the <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close the handle.
      * @param {Pointer<PFN_AUTHENTICATION_CALLBACK>} pfnCallback Function to be called when the authentication event occurs. The function should match the prototype described in PFN_AUTHENTICATION_CALLBACK.
      * @param {Pointer<Void>} pvParam Optional parameter to be passed through the callback function.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion, and a valid registration handle was returned in <i>phRegHandle</i>. Any other return value indicates failure.
@@ -5094,7 +5094,7 @@ class Bluetooth {
     /**
      * The BluetoothRegisterForAuthenticationEx function registers an application for a pin request, numeric comparison and callback function.
      * @param {Pointer<BLUETOOTH_DEVICE_INFO>} pbtdiIn A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bluetoothapis/ns-bluetoothapis-bluetooth_device_info_struct">BLUETOOTH_DEVICE_INFO</a> structure that specifies the bluetooth address to be utilized for comparison.
-     * @param {Pointer<IntPtr>} phRegHandleOut A pointer to a <b>HBLUETOOTH_AUTHENTICATION_REGISTRATION</b> handle associated with the registered application. Call <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close
+     * @param {Pointer<Pointer>} phRegHandleOut A pointer to a <b>HBLUETOOTH_AUTHENTICATION_REGISTRATION</b> handle associated with the registered application. Call <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nf-bluetoothapis-bluetoothunregisterauthentication">BluetoothUnregisterAuthentication</a> to close
      * the handle.
      * @param {Pointer<PFN_AUTHENTICATION_CALLBACK_EX>} pfnCallbackIn The function that will be called when the authentication event          occurs. This function should match the prototype of <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/nc-bluetoothapis-pfn_authentication_callback_ex">PFN_AUTHENTICATION_CALLBACK_EX</a>.
      * @param {Pointer<Void>} pvParam Optional parameter to be passed through to the callback function specified by <i>pfnCallbackIn</i>.          This parameter  can be anything the application is required to define.
@@ -5283,7 +5283,7 @@ class Bluetooth {
      * @param {Pointer} pContainerStream A pointer to valid SDP stream. The first element in the stream must be a sequence
      * or an alternative.
      * @param {Integer} cbContainerLength The size, in bytes, of the <i>pContainerStream</i> parameter.
-     * @param {Pointer<IntPtr>} pElement A value used to track the  location in the stream.  The first
+     * @param {Pointer<Pointer>} pElement A value used to track the  location in the stream.  The first
      *           time the <b>BluetoothSdpGetContainerElementData</b> function is called for a  container, *<i>pElement</i>should be <b>NULL</b>.  For subsequent calls, the value should be
      * unmodified.
      * @param {Pointer<SDP_ELEMENT_DATA>} pData A pointer to a buffer filled with data from  the
@@ -5380,7 +5380,7 @@ class Bluetooth {
      * <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothapis/ns-bluetoothapis-sdp_string_type_data">SDP_STRING_TYPE_DATA</a> structure are used to find the string to convert.
      * @param {Integer} usStringOffset SDP string type offset to convert.  The <i>usStringOffset</i> is added to the base attribute identifier  of the string.   SDP specification-defined offsets are: STRING_NAME_OFFSET, STRING_DESCRIPTION_OFFSET, and STRING_PROVIDER_NAME_OFFSET. These offsets can be found in the bthdef.h header file.
      * @param {PWSTR} pszString If not <b>NULL</b>, contains the converted string on output. When set to <b>NULL</b>, the <i>pcchStringLength</i> parameter is filled with the required number of characters, not bytes, to retrieve the converted string.
-     * @param {Pointer<UInt32>} pcchStringLength On input, contains the length of
+     * @param {Pointer<Integer>} pcchStringLength On input, contains the length of
      * <i>pszString</i> if <i>pszString</i> is not <b>NULL</b>, in characters.
      * 
      * Upon output, contains the
@@ -5590,7 +5590,7 @@ class Bluetooth {
      * @param {HANDLE} hDevice Handle to the Bluetooth device from which to obtain the list of primary services.
      * @param {Integer} ServicesBufferCount The number of elements allocated for the <i>ServicesBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ServicesBuffer Pointer to buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure into which to return services.
-     * @param {Pointer<UInt16>} ServicesBufferActual Pointer to buffer into which the actual number of services were returned in the <i>ServicesBuffer</i> parameter.
+     * @param {Pointer<Integer>} ServicesBufferActual Pointer to buffer into which the actual number of services were returned in the <i>ServicesBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetServices</b>:
      * 
      * <table>
@@ -5732,7 +5732,7 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ParentService Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure that contains the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} IncludedServicesBufferCount The number of elements allocated for the <i>IncludedServicesBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} IncludedServicesBuffer Address of a buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure into which to return included services.
-     * @param {Pointer<UInt16>} IncludedServicesBufferActual Pointer to buffer into which the actual number of included services were returned in the <i>IncludedServicesBuffer</i> parameter.
+     * @param {Pointer<Integer>} IncludedServicesBufferActual Pointer to buffer into which the actual number of included services were returned in the <i>IncludedServicesBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetIncludedServices</b>:
      * 
      * <table>
@@ -5874,7 +5874,7 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_SERVICE>} Service Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure containing the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} CharacteristicsBufferCount The number of elements allocated for the <i>CharacteristicsBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} CharacteristicsBuffer Pointer to buffer into which to return characteristics in a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure.
-     * @param {Pointer<UInt16>} CharacteristicsBufferActual Pointer to buffer into which the actual number of characteristics were returned in the <i>CharacteristicsBuffer</i> parameter.
+     * @param {Pointer<Integer>} CharacteristicsBufferActual Pointer to buffer into which the actual number of characteristics were returned in the <i>CharacteristicsBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetCharacteristics</b>:
      * 
      * <table>
@@ -6004,7 +6004,7 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_characteristic">BTH_LE_GATT_CHARACTERISTIC</a> structure containing the parent characteristic of the descriptors to be retrieved.
      * @param {Integer} DescriptorsBufferCount The number of elements allocated for the <i>DescriptorsBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} DescriptorsBuffer Pointer to buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor">BTH_LE_GATT_DESCRIPTOR</a> structure into which to return descriptors.
-     * @param {Pointer<UInt16>} DescriptorsBufferActual Pointer to buffer into which the actual number of descriptors were returned in the <i>DescriptorsBuffer</i> parameter.
+     * @param {Pointer<Integer>} DescriptorsBufferActual Pointer to buffer into which the actual number of descriptors were returned in the <i>DescriptorsBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetDescriptors</b>:
      * 
      * <table>
@@ -6134,7 +6134,7 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to the parent characteristic of the characteristic value to be retrieved.
      * @param {Integer} CharacteristicValueDataSize The number of bytes allocated for the <i>CharacteristicValue</i> parameter.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC_VALUE>} CharacteristicValue Pointer to buffer into which to return the characteristic value.
-     * @param {Pointer<UInt16>} CharacteristicValueSizeRequired Pointer to buffer into which to store the number of bytes needed to return data in the buffer pointed to by <i>CharacteristicValue</i>.
+     * @param {Pointer<Integer>} CharacteristicValueSizeRequired Pointer to buffer into which to store the number of bytes needed to return data in the buffer pointed to by <i>CharacteristicValue</i>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetCharacteristicValue</b>:
      * 
      * <table>
@@ -6531,7 +6531,7 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} Descriptor Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor">BTH_LE_GATT_DESCRIPTOR</a> structure containing the parent descriptor of the descriptor value to be retrieved.
      * @param {Integer} DescriptorValueDataSize The number of bytes allocated for the <i>DescriptorValue</i> parameter.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR_VALUE>} DescriptorValue Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor_value">BTH_LE_GATT_DESCRIPTOR_VALUE</a> structure into which to return the descriptor value.
-     * @param {Pointer<UInt16>} DescriptorValueSizeRequired Pointer to buffer into which to store the number of additional bytes needed to return data in the buffer pointed to by <i>DescriptorValue</i>.
+     * @param {Pointer<Integer>} DescriptorValueSizeRequired Pointer to buffer into which to store the number of additional bytes needed to return data in the buffer pointed to by <i>DescriptorValue</i>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetDescriptorValue</b>:
      * 
      * <table>
@@ -6926,7 +6926,7 @@ class Bluetooth {
     /**
      * The BluetoothGATTBeginReliableWrite function specifies that reliable writes are about to begin.
      * @param {HANDLE} hDevice Handle to the service.
-     * @param {Pointer<UInt64>} ReliableWriteContext Address of a <b>BTH_LE_GATT_RELIABLE_WRITE_CONTEXT</b> structure containing the context describing the reliable write operation.
+     * @param {Pointer<Integer>} ReliableWriteContext Address of a <b>BTH_LE_GATT_RELIABLE_WRITE_CONTEXT</b> structure containing the context describing the reliable write operation.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTBeginReliableWrite</b>:
      * 
      * <table>
@@ -8312,7 +8312,7 @@ class Bluetooth {
      * @param {Pointer<Void>} EventParameterIn Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration">BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION</a> structure to pass when the event is triggered.
      * @param {Pointer<PFNBLUETOOTH_GATT_EVENT_CALLBACK>} Callback The routine to call when the Characteristic value changes.
      * @param {Pointer<Void>} CallbackContext Context to pass to <i>Callback</i>.
-     * @param {Pointer<IntPtr>} pEventHandle Pointer to buffer to receive a handle for the registration.  Profile drivers must pass this handle when calling <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent">BluetoothGATTUnregisterEvent</a>.
+     * @param {Pointer<Pointer>} pEventHandle Pointer to buffer to receive a handle for the registration.  Profile drivers must pass this handle when calling <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent">BluetoothGATTUnregisterEvent</a>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTRegisterEvent</b>:
      * 
      * <table>

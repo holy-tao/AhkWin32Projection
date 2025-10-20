@@ -24,7 +24,7 @@ class DHCP_CLIENT_INFO_ARRAY_VQ extends Win32Struct
 
     /**
      * Pointer to the first element in the array of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq">DHCP_CLIENT_INFO_VQ</a> structures.
-     * @type {Pointer<DHCP_CLIENT_INFO_VQ>}
+     * @type {Pointer<Pointer<DHCP_CLIENT_INFO_VQ>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

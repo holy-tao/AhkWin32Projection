@@ -5764,7 +5764,7 @@ class Gdi {
     /**
      * The CreatePolyPolygonRgn function creates a region consisting of a series of polygons. The polygons can overlap.
      * @param {Pointer<POINT>} pptl A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that define the vertices of the polygons in logical units. The polygons are specified consecutively. Each polygon is presumed closed and each vertex is specified only once.
-     * @param {Pointer<Int32>} pc A pointer to an array of integers, each of which specifies the number of points in one of the polygons in the array pointed to by <i>lppt</i>.
+     * @param {Pointer<Integer>} pc A pointer to an array of integers, each of which specifies the number of points in one of the polygons in the array pointed to by <i>lppt</i>.
      * @param {Integer} cPoly The total number of integers in the array pointed to by <i>lpPolyCounts</i>.
      * @param {Integer} iMode 
      * @returns {HRGN} If the function succeeds, the return value is the handle to the region.
@@ -6566,7 +6566,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
-     * @param {Pointer<Int32>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
+     * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6585,7 +6585,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
-     * @param {Pointer<Int32>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
+     * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6604,7 +6604,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
-     * @param {Pointer<Int32>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
+     * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6623,7 +6623,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The first character in the group of consecutive characters.
      * @param {Integer} iLast The last character in the group of consecutive characters, which must not precede the specified first character.
-     * @param {Pointer<Int32>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
+     * @param {Pointer<Integer>} lpBuffer A pointer to a buffer that receives the character widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6642,7 +6642,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
-     * @param {Pointer<Single>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
+     * @param {Pointer<Float>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -6661,7 +6661,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} iFirst The code point of the first character in the group of consecutive characters.
      * @param {Integer} iLast The code point of the last character in the group of consecutive characters.
-     * @param {Pointer<Single>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
+     * @param {Pointer<Float>} lpBuffer A pointer to a buffer that receives the character widths, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -7732,8 +7732,8 @@ class Gdi {
      * @param {PSTR} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
-     * @param {Pointer<Int32>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
-     * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
+     * @param {Pointer<Integer>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
+     * @param {Pointer<Integer>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
      * 
      * For complex scripts, where a sequence of characters may be represented by any number of glyphs, the values in the <i>alpDx</i> array up to the number specified by the <i>lpnFit</i> parameter match one-to-one with code points. Again, you should ignore the rest of the values in the <i>alpDx</i> array.
      * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
@@ -7757,8 +7757,8 @@ class Gdi {
      * @param {PWSTR} lpszString A pointer to the null-terminated string for which extents are to be retrieved.
      * @param {Integer} cchString The number of characters in the string pointed to by the <i>lpszStr</i> parameter. For an ANSI call it specifies the string length in bytes and for a Unicode it specifies the string length in WORDs. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
-     * @param {Pointer<Int32>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
-     * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
+     * @param {Pointer<Integer>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
+     * @param {Pointer<Integer>} lpnDx A pointer to an array of integers that receives partial string extents. Each element in the array gives the distance, in logical units, between the beginning of the string and one of the characters that fits in the space specified by the <i>nMaxExtent</i> parameter. This array must have at least as many elements as characters specified by the <i>cchString</i> parameter because the entire array is used internally. The function fills the array with valid extents for as many characters as are specified by the <i>lpnFit</i> parameter. Any values in the rest of the array should be ignored. If <i>alpDx</i> is <b>NULL</b>, the function does not compute partial string widths.
      * 
      * For complex scripts, where a sequence of characters may be represented by any number of glyphs, the values in the <i>alpDx</i> array up to the number specified by the <i>lpnFit</i> parameter match one-to-one with code points. Again, you should ignore the rest of the values in the <i>alpDx</i> array.
      * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units. This parameter cannot be <b>NULL</b>.
@@ -7898,7 +7898,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {PSTR} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
-     * @param {Pointer<UInt16>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
+     * @param {Pointer<Integer>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
      * @param {Integer} fl Specifies how glyphs should be handled if they are not supported. This parameter can be the following value.
      * 
      * <table>
@@ -7936,7 +7936,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {PWSTR} lpstr A pointer to the string to be converted.
      * @param {Integer} c The length of both the <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpstr</i> and the size (in WORDs) of the buffer pointed to by <i>pgi</i>.
-     * @param {Pointer<UInt16>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
+     * @param {Pointer<Integer>} pgi This buffer must be of dimension c. On successful return, contains an array of glyph indices corresponding to the characters in the string.
      * @param {Integer} fl Specifies how glyphs should be handled if they are not supported. This parameter can be the following value.
      * 
      * <table>
@@ -7972,7 +7972,7 @@ class Gdi {
     /**
      * The GetTextExtentPointI function computes the width and height of the specified array of glyph indices.
      * @param {HDC} hdc Handle to the device context.
-     * @param {Pointer<UInt16>} pgiIn Pointer to array of glyph indices.
+     * @param {Pointer<Integer>} pgiIn Pointer to array of glyph indices.
      * @param {Integer} cgi Specifies the number of glyph indices.
      * @param {Pointer<SIZE>} psize Pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the string, in logical units.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -7991,11 +7991,11 @@ class Gdi {
     /**
      * The GetTextExtentExPointI function retrieves the number of characters in a specified string that will fit within a specified space and fills an array with the text extent for each of those characters.
      * @param {HDC} hdc A handle to the device context.
-     * @param {Pointer<UInt16>} lpwszString A pointer to an array of glyph indices for which extents are to be retrieved.
+     * @param {Pointer<Integer>} lpwszString A pointer to an array of glyph indices for which extents are to be retrieved.
      * @param {Integer} cwchString The number of glyphs in the array pointed to by the <i>pgiIn</i> parameter.
      * @param {Integer} nMaxExtent The maximum allowable width, in logical units, of the formatted string.
-     * @param {Pointer<Int32>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
-     * @param {Pointer<Int32>} lpnDx A pointer to an array of integers that receives partial glyph extents. Each element in the array gives the distance, in logical units, between the beginning of the glyph indices array and one of the glyphs that fits in the space specified by the <i>nMaxExtent</i> parameter. Although this array should have at least as many elements as glyph indices specified by the <i>cgi</i> parameter, the function fills the array with extents only for as many glyph indices as are specified by the <i>lpnFit</i> parameter. If <i>lpnFit</i> is <b>NULL</b>, the function does not compute partial string widths.
+     * @param {Pointer<Integer>} lpnFit A pointer to an integer that receives a count of the maximum number of characters that will fit in the space specified by the <i>nMaxExtent</i> parameter. When the <i>lpnFit</i> parameter is <b>NULL</b>, the <i>nMaxExtent</i> parameter is ignored.
+     * @param {Pointer<Integer>} lpnDx A pointer to an array of integers that receives partial glyph extents. Each element in the array gives the distance, in logical units, between the beginning of the glyph indices array and one of the glyphs that fits in the space specified by the <i>nMaxExtent</i> parameter. Although this array should have at least as many elements as glyph indices specified by the <i>cgi</i> parameter, the function fills the array with extents only for as many glyph indices as are specified by the <i>lpnFit</i> parameter. If <i>lpnFit</i> is <b>NULL</b>, the function does not compute partial string widths.
      * @param {Pointer<SIZE>} lpSize A pointer to a <a href="https://docs.microsoft.com/previous-versions/dd145106(v=vs.85)">SIZE</a> structure that receives the dimensions of the glyph indices array, in logical units. This value cannot be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -8015,8 +8015,8 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices.
      * @param {Integer} cgi The number of glyph indices.
-     * @param {Pointer<UInt16>} pgi A pointer to an array of glyph indices. If this parameter is not <b>NULL</b>, it is used instead of the <i>giFirst</i> parameter.
-     * @param {Pointer<Int32>} piWidths A pointer to a buffer that receives the widths, in logical coordinates.
+     * @param {Pointer<Integer>} pgi A pointer to an array of glyph indices. If this parameter is not <b>NULL</b>, it is used instead of the <i>giFirst</i> parameter.
+     * @param {Pointer<Integer>} piWidths A pointer to a buffer that receives the widths, in logical coordinates.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -8035,7 +8035,7 @@ class Gdi {
      * @param {HDC} hdc A handle to the device context.
      * @param {Integer} giFirst The first glyph index in the group of consecutive glyph indices from the current font. This parameter is only used if the <i>pgi</i> parameter is <b>NULL</b>.
      * @param {Integer} cgi The number of glyph indices.
-     * @param {Pointer<UInt16>} pgi A pointer to an array that contains glyph indices. If this parameter is <b>NULL</b>, the <i>giFirst</i> parameter is used instead. The <i>cgi</i> parameter specifies the number of glyph indices in this array.
+     * @param {Pointer<Integer>} pgi A pointer to an array that contains glyph indices. If this parameter is <b>NULL</b>, the <i>giFirst</i> parameter is used instead. The <i>cgi</i> parameter specifies the number of glyph indices in this array.
      * @param {Pointer<ABC>} pabc A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-abc">ABC</a> structures that receives the character widths, in logical units. This array must contain at least as many <b>ABC</b> structures as there are glyph indices specified by the <i>cgi</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -8330,7 +8330,7 @@ class Gdi {
      * The AddFontMemResourceEx function adds the font resource from a memory image to the system.
      * @param {Pointer} pFileView A pointer to a font resource.
      * @param {Integer} cjSize The number of bytes in the font resource that is pointed to by <i>pbFont</i>.
-     * @param {Pointer<UInt32>} pNumFonts A pointer to a variable that specifies the number of fonts installed.
+     * @param {Pointer<Integer>} pNumFonts A pointer to a variable that specifies the number of fonts installed.
      * @returns {HANDLE} If the function succeeds, the return value specifies the handle to the font added. This handle uniquely identifies the fonts that were installed on the system. If the function fails, the return value is zero. No extended error information is available.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-addfontmemresourceex
      * @since windows5.0
@@ -8829,7 +8829,7 @@ class Gdi {
      * The PolyPolygon function draws a series of closed polygons. Each polygon is outlined by using the current pen and filled by using the current brush and polygon fill mode. The polygons drawn by this function can overlap.
      * @param {HDC} hdc A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that define the vertices of the polygons, in logical coordinates. The polygons are specified consecutively. Each polygon is closed automatically by drawing a line from the last vertex to the first. Each vertex should be specified once.
-     * @param {Pointer<Int32>} asz A pointer to an array of integers, each of which specifies the number of points in the corresponding polygon. Each integer must be greater than or equal to 2.
+     * @param {Pointer<Integer>} asz A pointer to an array of integers, each of which specifies the number of points in the corresponding polygon. Each integer must be greater than or equal to 2.
      * @param {Integer} csz The total number of polygons.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -10806,7 +10806,7 @@ class Gdi {
      * The PolyPolyline function draws multiple series of connected line segments.
      * @param {HDC} hdc A handle to the device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the vertices of the polylines, in logical units. The polylines are specified consecutively.
-     * @param {Pointer<UInt32>} asz A pointer to an array of variables specifying the number of points in the <i>lppt</i> array for the corresponding polyline. Each entry must be greater than or equal to two.
+     * @param {Pointer<Integer>} asz A pointer to an array of variables specifying the number of points in the <i>lppt</i> array for the corresponding polyline. Each entry must be greater than or equal to two.
      * @param {Integer} csz The total number of entries in the <i>lpdwPolyPoints</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -10921,7 +10921,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} ppvBits A pointer to a variable that receives a pointer to the location of the DIB bit values.
+     * @param {Pointer<Pointer<Void>>} ppvBits A pointer to a variable that receives a pointer to the location of the DIB bit values.
      * @param {HANDLE} hSection A handle to a file-mapping object that the function will use to create the DIB. This parameter can be <b>NULL</b>.
      * 
      * If <i>hSection</i> is not <b>NULL</b>, it must be a handle to a file-mapping object created by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfilemappinga">CreateFileMapping</a> function with the PAGE_READWRITE or PAGE_WRITECOPY flag. Read-only DIB sections are not supported. Handles created by other means will cause <b>CreateDIBSection</b> to fail.
@@ -10962,7 +10962,7 @@ class Gdi {
 
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, "ptr", ppvBits, "ptr", hSection, "uint", offset, "ptr")
+        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, "ptr*", ppvBits, "ptr", hSection, "uint", offset, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -11181,7 +11181,7 @@ class Gdi {
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
      * @param {HDC} hdc A handle to a device context that contains a closed path.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that receives the line endpoints and curve control points, in logical coordinates.
-     * @param {Pointer<Byte>} aj 
+     * @param {Pointer<Integer>} aj 
      * @param {Integer} cpt The total number of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that can be stored in the array pointed to by <i>lpPoints</i>. This value must be the same as the number of bytes that can be placed in the array pointed to by <i>lpTypes</i>.
      * @returns {Integer} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
@@ -11214,7 +11214,7 @@ class Gdi {
      * The PolyDraw function draws a set of line segments and B�zier curves.
      * @param {HDC} hdc A handle to a device context.
      * @param {Pointer<POINT>} apt A pointer to an array of <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structures that contains the endpoints for each line segment and the endpoints and control points for each Bézier curve, in logical units.
-     * @param {Pointer<Byte>} aj 
+     * @param {Pointer<Integer>} aj 
      * @param {Integer} cpt The total number of points in the <i>lppt</i> array, the same as the number of bytes in the <i>lpbTypes</i> array.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
@@ -11267,7 +11267,7 @@ class Gdi {
      * The SetMiterLimit function sets the limit for the length of miter joins for the specified device context.
      * @param {HDC} hdc Handle to the device context.
      * @param {Float} limit Specifies the new miter limit for the device context.
-     * @param {Pointer<Single>} old Pointer to a floating-point value that receives the previous miter limit. If this parameter is <b>NULL</b>, the previous miter limit is not returned.
+     * @param {Pointer<Float>} old Pointer to a floating-point value that receives the previous miter limit. If this parameter is <b>NULL</b>, the previous miter limit is not returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -11337,7 +11337,7 @@ class Gdi {
      * @param {Integer} cStyle The length, in <b>DWORD</b> units, of the <i>lpStyle</i> array. This value must be zero if <i>dwPenStyle</i> is not PS_USERSTYLE.
      * 
      * The style count is limited to 16.
-     * @param {Pointer<UInt32>} pstyle A pointer to an array. The first value specifies the length of the first dash in a user-defined style, the second value specifies the length of the first space, and so on. This pointer must be <b>NULL</b> if <i>dwPenStyle</i> is not PS_USERSTYLE.
+     * @param {Pointer<Integer>} pstyle A pointer to an array. The first value specifies the length of the first dash in a user-defined style, the second value specifies the length of the first space, and so on. This pointer must be <b>NULL</b> if <i>dwPenStyle</i> is not PS_USERSTYLE.
      * 
      * If the <i>lpStyle</i> array is exceeded during line drawing, the pointer is reset to the beginning of the array. When this happens and <i>dwStyleCount</i> is an even number, the pattern of dashes and spaces repeats. However, if <i>dwStyleCount</i> is odd, the pattern reverses when the pointer is reset -- the first element of <i>lpStyle</i> now refers to spaces, the second refers to dashes, and so forth.
      * @returns {HPEN} If the function succeeds, the return value is a handle that identifies a logical pen.
@@ -11354,7 +11354,7 @@ class Gdi {
     /**
      * The GetMiterLimit function retrieves the miter limit for the specified device context.
      * @param {HDC} hdc Handle to the device context.
-     * @param {Pointer<Single>} plimit Pointer to a floating-point value that receives the current miter limit.
+     * @param {Pointer<Float>} plimit Pointer to a floating-point value that receives the current miter limit.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -11584,7 +11584,7 @@ class Gdi {
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * 
      * This value may not exceed 8192.
-     * @param {Pointer<Int32>} lpDx A pointer to an optional array of values that indicate the distance between origins of adjacent character cells. For example, lpDx[<i>i</i>] logical units separate the origins of character cell <i>i</i> and character cell <i>i</i> + 1.
+     * @param {Pointer<Integer>} lpDx A pointer to an optional array of values that indicate the distance between origins of adjacent character cells. For example, lpDx[<i>i</i>] logical units separate the origins of character cell <i>i</i> and character cell <i>i</i> + 1.
      * @returns {BOOL} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
@@ -11610,7 +11610,7 @@ class Gdi {
      * @param {Integer} c The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * 
      * This value may not exceed 8192.
-     * @param {Pointer<Int32>} lpDx A pointer to an optional array of values that indicate the distance between origins of adjacent character cells. For example, lpDx[<i>i</i>] logical units separate the origins of character cell <i>i</i> and character cell <i>i</i> + 1.
+     * @param {Pointer<Integer>} lpDx A pointer to an optional array of values that indicate the distance between origins of adjacent character cells. For example, lpDx[<i>i</i>] logical units separate the origins of character cell <i>i</i> and character cell <i>i</i> + 1.
      * @returns {BOOL} If the string is drawn, the return value is nonzero. However, if the ANSI version of <b>ExtTextOut</b> is called with ETO_GLYPH_INDEX, the function returns <b>TRUE</b> even though the function does nothing.
      * 
      * If the function fails, the return value is zero.
@@ -12174,11 +12174,11 @@ class Gdi {
 
     /**
      * The CreateFontPackage function creates a subset version of a specified TrueType font, typically in order to pass it to a printer.
-     * @param {Pointer<Byte>} puchSrcBuffer Points to a buffer containing source TTF or TTC data, describing the font that is to be subsetted.
+     * @param {Pointer<Integer>} puchSrcBuffer Points to a buffer containing source TTF or TTC data, describing the font that is to be subsetted.
      * @param {Integer} ulSrcBufferSize Specifies size of *<i>puchSrcBuffer</i>, in bytes.
-     * @param {Pointer<Byte>} ppuchFontPackageBuffer Points to a variable of type unsigned char*. The <b>CreateFontPackage</b> function will allocate a buffer **<i>puchFontPackageBuffer</i>, using <i>lpfnAllocate</i> and <i>lpfnReAllocate</i>. On successful return, the buffer will contain the subset font or font package. The application is responsible for eventually freeing the buffer.
-     * @param {Pointer<UInt32>} pulFontPackageBufferSize Points to an unsigned long, which on successful return will specify the allocated size of buffer **<i>puchFontPackageBuffer</i>.
-     * @param {Pointer<UInt32>} pulBytesWritten Points to an unsigned long, which on successful return will specify the number of bytes actually used in buffer **<i>puchFontPackageBuffer</i>.
+     * @param {Pointer<Pointer<Integer>>} ppuchFontPackageBuffer Points to a variable of type unsigned char*. The <b>CreateFontPackage</b> function will allocate a buffer **<i>puchFontPackageBuffer</i>, using <i>lpfnAllocate</i> and <i>lpfnReAllocate</i>. On successful return, the buffer will contain the subset font or font package. The application is responsible for eventually freeing the buffer.
+     * @param {Pointer<Integer>} pulFontPackageBufferSize Points to an unsigned long, which on successful return will specify the allocated size of buffer **<i>puchFontPackageBuffer</i>.
+     * @param {Pointer<Integer>} pulBytesWritten Points to an unsigned long, which on successful return will specify the number of bytes actually used in buffer **<i>puchFontPackageBuffer</i>.
      * @param {Integer} usFlag Specifies whether this font should be subsetted, compressed, or both; whether it is a TTF or TTC; and whether*pusSubsetKeepListrepresents character codes or glyph indices. Any combination of the following flags may be specified:
      * 
      * <table>
@@ -12269,7 +12269,7 @@ class Gdi {
      * @param {Integer} usSubsetLanguage The language in the Name table to retain. If Set to 0, all languages will be retained. Used only for initial subsetting: that is, used only if <i>usSubsetFormat</i> is either TTFCFP_SUBSET or TTFCFP_SUBSET1, and the TTFCFP_FLAGS_SUBSET flag is set in <i>usFlags</i>.
      * @param {Integer} usSubsetPlatform In conjunction with <i>usSubsetEncoding</i>, specifies which CMAP to use. Used only if *<i>pusSubsetKeepList</i> is a list of characters: that is, used only if TTFCFP_FLAGS_GLYPHLIST is not set in <i>usFlags</i>. In that case, by this CMAP subtable is applied to <i>pusSubsetKeepList</i> to create a list of glyphs to retain in the output font or font package.
      * @param {Integer} usSubsetEncoding In conjunction with <i>usSubsetPlatform</i>, specifies which CMAP to use. Used only if *<i>pusSubsetKeepList</i> is a list of characters: that is, used only if TTFCFP_FLAGS_GLYPHLIST is not set in <i>usFlags</i>.
-     * @param {Pointer<UInt16>} pusSubsetKeepList Points to an array of integers which comprise a list of character codes or glyph indices that should be retained in the output font or font package. If this list contains character codes (that is, if if TTFCFP_FLAGS_GLYPHLIST is not set in <i>usFlags</i>), this list may be either Unicode or some other type of encoding, depending on the Platform-Encoding CMAP specified by <i>usSubsetPlatform</i> and <i>usSubsetEncoding</i>.
+     * @param {Pointer<Integer>} pusSubsetKeepList Points to an array of integers which comprise a list of character codes or glyph indices that should be retained in the output font or font package. If this list contains character codes (that is, if if TTFCFP_FLAGS_GLYPHLIST is not set in <i>usFlags</i>), this list may be either Unicode or some other type of encoding, depending on the Platform-Encoding CMAP specified by <i>usSubsetPlatform</i> and <i>usSubsetEncoding</i>.
      * @param {Integer} usSubsetListCount The number of elements in the list *<i>pusSubsetKeepList</i>.
      * @param {Pointer<CFP_ALLOCPROC>} lpfnAllocate The callback function to allocate initial memory for <i>puchFontPackageBuffer</i> and for temporary buffers.
      * @param {Pointer<CFP_REALLOCPROC>} lpfnReAllocate The callback function to reallocate memory for <i>puchFontPackageBuffer</i> and for temporary buffers.
@@ -12282,19 +12282,19 @@ class Gdi {
      * @since windows5.1.2600
      */
     static CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer, pulFontPackageBufferSize, pulBytesWritten, usFlag, usTTCIndex, usSubsetFormat, usSubsetLanguage, usSubsetPlatform, usSubsetEncoding, pusSubsetKeepList, usSubsetListCount, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
-        result := DllCall("FONTSUB.dll\CreateFontPackage", "char*", puchSrcBuffer, "uint", ulSrcBufferSize, "char*", ppuchFontPackageBuffer, "uint*", pulFontPackageBufferSize, "uint*", pulBytesWritten, "ushort", usFlag, "ushort", usTTCIndex, "ushort", usSubsetFormat, "ushort", usSubsetLanguage, "short", usSubsetPlatform, "short", usSubsetEncoding, "ushort*", pusSubsetKeepList, "ushort", usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, "ptr", lpvReserved, "CDecl uint")
+        result := DllCall("FONTSUB.dll\CreateFontPackage", "char*", puchSrcBuffer, "uint", ulSrcBufferSize, "ptr*", ppuchFontPackageBuffer, "uint*", pulFontPackageBufferSize, "uint*", pulBytesWritten, "ushort", usFlag, "ushort", usTTCIndex, "ushort", usSubsetFormat, "ushort", usSubsetLanguage, "short", usSubsetPlatform, "short", usSubsetEncoding, "ushort*", pusSubsetKeepList, "ushort", usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, "ptr", lpvReserved, "CDecl uint")
         return result
     }
 
     /**
      * The MergeFontPackage function manipulates fonts created by CreateFontPackage.
-     * @param {Pointer<Byte>} puchMergeFontBuffer A pointer to a buffer containing a font to merge with. This is used only when <i>usMode</i> is TTFMFP_DELTA.
+     * @param {Pointer<Integer>} puchMergeFontBuffer A pointer to a buffer containing a font to merge with. This is used only when <i>usMode</i> is TTFMFP_DELTA.
      * @param {Integer} ulMergeFontBufferSize Specifies size of *<i>puchMergeFontBuffer</i>, in bytes.
-     * @param {Pointer<Byte>} puchFontPackageBuffer A pointer to a to buffer containing a font package.
+     * @param {Pointer<Integer>} puchFontPackageBuffer A pointer to a to buffer containing a font package.
      * @param {Integer} ulFontPackageBufferSize Specifies size of *<i>puchMergeFontBuffer</i>, in bytes.
-     * @param {Pointer<Byte>} ppuchDestBuffer A pointer to a variable of type unsigned char*. The <b>MergeFontPackage</b> function will allocate a buffer **<i>ppuchDestBuffer</i>, using <i>lpfnAllocate</i> and <i>lpfnReAllocate</i>. On successful return, that buffer will contain the resulting merged or expanded font. The application is responsible for eventually freeing that buffer.
-     * @param {Pointer<UInt32>} pulDestBufferSize Points to an unsigned long, which on successful return will specify the allocated size of buffer **<i>ppuchDestBuffer</i>.
-     * @param {Pointer<UInt32>} pulBytesWritten Points to an unsigned long, which on successful return will specify the number of bytes actually used in buffer **<i>ppuchDestBuffer</i>.
+     * @param {Pointer<Pointer<Integer>>} ppuchDestBuffer A pointer to a variable of type unsigned char*. The <b>MergeFontPackage</b> function will allocate a buffer **<i>ppuchDestBuffer</i>, using <i>lpfnAllocate</i> and <i>lpfnReAllocate</i>. On successful return, that buffer will contain the resulting merged or expanded font. The application is responsible for eventually freeing that buffer.
+     * @param {Pointer<Integer>} pulDestBufferSize Points to an unsigned long, which on successful return will specify the allocated size of buffer **<i>ppuchDestBuffer</i>.
+     * @param {Pointer<Integer>} pulBytesWritten Points to an unsigned long, which on successful return will specify the number of bytes actually used in buffer **<i>ppuchDestBuffer</i>.
      * @param {Integer} usMode Specifies what kind of process to perform. Select one of these values; they cannot be combined.
      * 
      * <table>
@@ -12350,7 +12350,7 @@ class Gdi {
      * @since windows5.1.2600
      */
     static MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPackageBuffer, ulFontPackageBufferSize, ppuchDestBuffer, pulDestBufferSize, pulBytesWritten, usMode, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
-        result := DllCall("FONTSUB.dll\MergeFontPackage", "char*", puchMergeFontBuffer, "uint", ulMergeFontBufferSize, "char*", puchFontPackageBuffer, "uint", ulFontPackageBufferSize, "char*", ppuchDestBuffer, "uint*", pulDestBufferSize, "uint*", pulBytesWritten, "ushort", usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, "ptr", lpvReserved, "CDecl uint")
+        result := DllCall("FONTSUB.dll\MergeFontPackage", "char*", puchMergeFontBuffer, "uint", ulMergeFontBufferSize, "char*", puchFontPackageBuffer, "uint", ulFontPackageBufferSize, "ptr*", ppuchDestBuffer, "uint*", pulDestBufferSize, "uint*", pulBytesWritten, "ushort", usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, "ptr", lpvReserved, "CDecl uint")
         return result
     }
 
@@ -12359,11 +12359,11 @@ class Gdi {
      * @param {HDC} hDC Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
-     * @param {Pointer<UInt32>} pulPrivStatus 
-     * @param {Pointer<UInt32>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
+     * @param {Pointer<Integer>} pulPrivStatus 
+     * @param {Pointer<Integer>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
      * @param {Pointer<WRITEEMBEDPROC>} lpfnWriteToStream Pointer to the client-defined callback function, which writes the font structure to the document stream. See <a href="https://docs.microsoft.com/previous-versions/dd145225(v=vs.85)">WRITEEMBEDPROC</a>.
      * @param {Pointer<Void>} lpvWriteStream A token to represent the output stream.
-     * @param {Pointer<UInt16>} pusCharCodeSet Pointer to the buffer containing the optional Unicode character codes for subsetting. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
+     * @param {Pointer<Integer>} pusCharCodeSet Pointer to the buffer containing the optional Unicode character codes for subsetting. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Integer} usCharCodeCount The number of characters in the list of characters indicated by <i>pusCharCodeSet</i>. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Integer} usLanguage Specifies which language in the name table to keep when subsetting. Set to 0 to keep all languages. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Pointer<TTEMBEDINFO>} pTTEmbedInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttembedinfo">TTEMBEDINFO</a> structure containing the URLs from which the embedded font object may be legitimately referenced. If <i>pTTEmbedInfo</i> is <b>NULL</b>, no URLs will be added to the embedded font object and no URL checking will occur when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a>.
@@ -12389,11 +12389,11 @@ class Gdi {
      * @param {Integer} usTTCIndex Zero-based index into the font file (TTC) identifying the physical font to embed. If the file contains a single font (such as a TTF or OTF outline file), this parameter should be set to 0.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
-     * @param {Pointer<UInt32>} pulPrivStatus 
-     * @param {Pointer<UInt32>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
+     * @param {Pointer<Integer>} pulPrivStatus 
+     * @param {Pointer<Integer>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
      * @param {Pointer<WRITEEMBEDPROC>} lpfnWriteToStream Pointer to the client-defined callback function that writes the font structure to the document stream.  See <a href="https://docs.microsoft.com/previous-versions/dd145225(v=vs.85)">WRITEEMBEDPROC</a>.
      * @param {Pointer<Void>} lpvWriteStream A token to represent the output stream.
-     * @param {Pointer<UInt16>} pusCharCodeSet Pointer to the buffer containing the optional Unicode character codes for subsetting. This field is only used for subsetting a font and is ignored if theulFlagsfield does not specify TTEMBED_SUBSET.
+     * @param {Pointer<Integer>} pusCharCodeSet Pointer to the buffer containing the optional Unicode character codes for subsetting. This field is only used for subsetting a font and is ignored if theulFlagsfield does not specify TTEMBED_SUBSET.
      * @param {Integer} usCharCodeCount The number of characters in the list of characters indicated by <i>pusCharCodeSet</i>. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Integer} usLanguage Specifies which language in the name table to keep when subsetting. Set to 0 to keep all languages. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Pointer<TTEMBEDINFO>} pTTEmbedInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttembedinfo">TTEMBEDINFO</a> structure containing the URLs from which the embedded font object may be legitimately referenced. If <i>pTTEmbedInfo</i> is <b>NULL</b>, no URLs will be added to the embedded font object and no URL checking will occur when the client calls the <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a> function.
@@ -12434,9 +12434,9 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pulPrivStatus 
+     * @param {Pointer<Integer>} pulPrivStatus 
      * @param {Integer} ulPrivs 
-     * @param {Pointer<UInt32>} pulStatus 
+     * @param {Pointer<Integer>} pulStatus 
      * @param {Pointer<READEMBEDPROC>} lpfnReadFromStream A pointer to the client-defined callback function that reads the font structure from the document stream.
      * @param {Pointer<Void>} lpvReadStream A pointer to the stream (font structure).
      * @param {PWSTR} szWinFamilyName A pointer to the new 16-bit-character Unicode Microsoft Windows family name of the font. Set to <b>NULL</b> to use existing name. When changing the name of a font upon loading, you must supply both this parameter and the <i>szMacFamilyName</i> parameter.
@@ -12461,7 +12461,7 @@ class Gdi {
     /**
      * Retrieves information about an embedded font, such as embedding permissions. TTGetEmbeddedFontInfo performs the same task as TTLoadEmbeddedFont but does not allocate internal data structures for the embedded font.
      * @param {Integer} ulFlags 
-     * @param {Pointer<UInt32>} pulPrivStatus On completion, indicates embedding privileges of the font. A list of possible values follows:
+     * @param {Pointer<Integer>} pulPrivStatus On completion, indicates embedding privileges of the font. A list of possible values follows:
      * 
      * <table>
      * <tr>
@@ -12510,7 +12510,7 @@ class Gdi {
      * </tr>
      * </table>
      * @param {Integer} ulPrivs Flag indicating a further restriction of embedding privileges, imposed by the client. See <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a> for additional information.
-     * @param {Pointer<UInt32>} pulStatus Pointer to a bitfield containing status information, and is filled upon completion of this function. The status can be zero or the following value:
+     * @param {Pointer<Integer>} pulStatus Pointer to a bitfield containing status information, and is filled upon completion of this function. The status can be zero or the following value:
      * 
      * <table>
      * <tr>
@@ -12565,7 +12565,7 @@ class Gdi {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pulStatus Currently undefined.
+     * @param {Pointer<Integer>} pulStatus Currently undefined.
      * @returns {Integer} If successful, <b>TTDeleteEmbeddedFont</b> returns a value of E_NONE.
      * 
      * The memory occupied by the embedded font structure is cleared. By default, the font indicated by <i>hFontReference</i> is also permanently removed (uninstalled and deleted) from the system.
@@ -12584,7 +12584,7 @@ class Gdi {
     /**
      * Obtains the embedding privileges of a font.
      * @param {HDC} hDC Device context handle.
-     * @param {Pointer<UInt32>} pulEmbedType 
+     * @param {Pointer<Integer>} pulEmbedType 
      * @returns {Integer} If successful, returns E_NONE.
      * 
      * This function reads the embedding privileges stored in the font and transfers the privileges to <i>pulPrivStatus</i>.
@@ -12603,9 +12603,9 @@ class Gdi {
     /**
      * Converts an array of 8-bit character code values to 16-bit Unicode values.
      * @param {HDC} hDC A device context handle.
-     * @param {Pointer<Byte>} pucCharCodes A pointer to an array of 8-bit character codes to convert to 16-bit Unicode values. Must be set to a non-null value.
+     * @param {Pointer<Integer>} pucCharCodes A pointer to an array of 8-bit character codes to convert to 16-bit Unicode values. Must be set to a non-null value.
      * @param {Integer} ulCharCodeSize The size of an 8-bit character code array.
-     * @param {Pointer<UInt16>} pusShortCodes A pointer to an array that will be filled by this function with the Unicode equivalents of the 8-bit values in the <i>pucCharCodesarray</i>. This parameter must be set to a non-null value.
+     * @param {Pointer<Integer>} pusShortCodes A pointer to an array that will be filled by this function with the Unicode equivalents of the 8-bit values in the <i>pucCharCodesarray</i>. This parameter must be set to a non-null value.
      * @param {Integer} ulShortCodeSize The size, in wide characters, of the character code array.
      * @param {Integer} ulFlags This parameter is currently unused.
      * @returns {Integer} If successful, returns E_NONE.
@@ -12702,11 +12702,11 @@ class Gdi {
      * @param {HDC} hDC Device context handle.
      * @param {Integer} ulFlags 
      * @param {Integer} ulCharSet 
-     * @param {Pointer<UInt32>} pulPrivStatus 
-     * @param {Pointer<UInt32>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
+     * @param {Pointer<Integer>} pulPrivStatus 
+     * @param {Pointer<Integer>} pulStatus Pointer to a bitfield containing status information about the embedding request. This field is filled upon completion of this function. No bits are currently defined for this parameter.
      * @param {Pointer<WRITEEMBEDPROC>} lpfnWriteToStream Pointer to the client-defined callback function which writes the font structure to the document stream. See <a href="https://docs.microsoft.com/previous-versions/dd145225(v=vs.85)">WRITEEMBEDPROC</a>.
      * @param {Pointer<Void>} lpvWriteStream A token to represent the output stream.
-     * @param {Pointer<UInt32>} pulCharCodeSet Pointer to the buffer containing the optional UCS-4 character codes for subsetting. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
+     * @param {Pointer<Integer>} pulCharCodeSet Pointer to the buffer containing the optional UCS-4 character codes for subsetting. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Integer} usCharCodeCount The number of characters in the list of characters indicated by <i>pulCharCodeSet</i>. This field is only used for subsetting a font and is ignored if the ulFlags field does not specify TTEMBED_SUBSET.
      * @param {Integer} usLanguage Specifies which language in the name table to keep when subsetting. Set to 0 to keep all languages. This field is only used for subsetting a font and is ignored if the <i>ulFlags</i> field does not specify TTEMBED_SUBSET.
      * @param {Pointer<TTEMBEDINFO>} pTTEmbedInfo Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/ns-t2embapi-ttembedinfo">TTEMBEDINFO</a> structure containing the URLs from which the embedded font object may be legitimately referenced. If <i>pTTEmbedInfo</i> is <b>NULL</b>, no URLs will be added to the embedded font object and no URL checking will occur when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/t2embapi/nf-t2embapi-ttloadembeddedfont">TTLoadEmbeddedFont</a>.
@@ -13435,7 +13435,7 @@ class Gdi {
      * @param {PSTR} lpString A pointer to the character string to draw. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} chCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Integer} nTabPositions The number of values in the array of tab-stop positions.
-     * @param {Pointer<Int32>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in logical units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
+     * @param {Pointer<Integer>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in logical units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
      * @param {Integer} nTabOrigin The x-coordinate of the starting position from which tabs are expanded, in logical units.
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
@@ -13459,7 +13459,7 @@ class Gdi {
      * @param {PWSTR} lpString A pointer to the character string to draw. The string does not need to be zero-terminated, since <i>nCount</i> specifies the length of the string.
      * @param {Integer} chCount The <a href="https://docs.microsoft.com/windows/desktop/gdi/specifying-length-of-text-output-string">length of the string</a> pointed to by <i>lpString</i>.
      * @param {Integer} nTabPositions The number of values in the array of tab-stop positions.
-     * @param {Pointer<Int32>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in logical units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
+     * @param {Pointer<Integer>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in logical units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
      * @param {Integer} nTabOrigin The x-coordinate of the starting position from which tabs are expanded, in logical units.
      * @returns {Integer} If the function succeeds, the return value is the dimensions, in logical units, of the string. The height is in the high-order word and the width is in the low-order word.
      * 
@@ -13481,7 +13481,7 @@ class Gdi {
      * @param {PSTR} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nTabPositions The number of tab-stop positions in the array pointed to by the <i>lpnTabStopPositions</i> parameter.
-     * @param {Pointer<Int32>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
+     * @param {Pointer<Integer>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
@@ -13502,7 +13502,7 @@ class Gdi {
      * @param {PWSTR} lpString A pointer to a character string.
      * @param {Integer} chCount The length of the text string. For the ANSI function it is a BYTE count and for the Unicode function it is a WORD count. Note that for the ANSI function, characters in SBCS code pages take one byte each, while most characters in DBCS code pages take two bytes; for the Unicode function, most currently defined Unicode characters (those in the Basic Multilingual Plane (BMP)) are one WORD while Unicode surrogates are two WORDs.
      * @param {Integer} nTabPositions The number of tab-stop positions in the array pointed to by the <i>lpnTabStopPositions</i> parameter.
-     * @param {Pointer<Int32>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
+     * @param {Pointer<Integer>} lpnTabStopPositions A pointer to an array containing the tab-stop positions, in device units. The tab stops must be sorted in increasing order; the smallest x-value should be the first item in the array.
      * @returns {Integer} If the function succeeds, the return value is the dimensions of the string in logical units. The height is in the high-order word and the width is in the low-order word.
      * 
      * If the function fails, the return value is 0. <b>GetTabbedTextExtent</b> will fail if <i>hDC</i> is invalid and if <i>nTabPositions</i> is less than 0.
@@ -14247,7 +14247,7 @@ class Gdi {
      * @param {Integer} cElements Type: <b>int</b>
      * 
      * The number of display elements in the <i>lpaElements</i> array.
-     * @param {Pointer<Int32>} lpaElements Type: <b>const INT*</b>
+     * @param {Pointer<Integer>} lpaElements Type: <b>const INT*</b>
      * 
      * An array of integers that specify the display elements to be changed. For a list of display elements, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getsyscolor">GetSysColor</a>.

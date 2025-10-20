@@ -3391,7 +3391,7 @@ class KernelStreaming {
      * @param {Integer} InLength 
      * @param {Pointer} OutBuffer 
      * @param {Integer} OutLength 
-     * @param {Pointer<UInt32>} BytesReturned 
+     * @param {Pointer<Integer>} BytesReturned 
      * @returns {HRESULT} 
      */
     static KsSynchronousDeviceControl(Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
@@ -3409,13 +3409,13 @@ class KernelStreaming {
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
      * @param {Integer} PropertyId 
-     * @param {Pointer<Void>} Items 
+     * @param {Pointer<Pointer<Void>>} Items 
      * @returns {HRESULT} 
      */
     static KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId, Items) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr", Items, "int")
+        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr*", Items, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3426,7 +3426,7 @@ class KernelStreaming {
      * 
      * @param {HANDLE} FilterHandle 
      * @param {Integer} PinFactoryId 
-     * @param {Pointer<UInt32>} MediaTypeCount 
+     * @param {Pointer<Integer>} MediaTypeCount 
      * @returns {HRESULT} 
      */
     static KsGetMediaTypeCount(FilterHandle, PinFactoryId, MediaTypeCount) {

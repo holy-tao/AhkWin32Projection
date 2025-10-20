@@ -181,7 +181,7 @@ class Magnification {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The magnification window.
-     * @param {Pointer<UInt32>} pdwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @param {Pointer<Integer>} pdwFilterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * The filter mode, as set by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/magnification/nf-magnification-magsetwindowfilterlist">MagSetWindowFilterList</a>.
      * @param {Integer} count Type: <b>int</b>
@@ -308,13 +308,13 @@ class Magnification {
 
     /**
      * Retrieves the magnification settings for the full-screen magnifier.
-     * @param {Pointer<Single>} pMagLevel Type: <b>float*</b>
+     * @param {Pointer<Float>} pMagLevel Type: <b>float*</b>
      * 
      * The current magnification factor for the full-screen magnifier.  A value of 1.0 indicates that the screen content is not being magnified. A value above 1.0 indicates the scale factor for magnification. A value less than 1.0 is not valid.
-     * @param {Pointer<Int32>} pxOffset Type: <b>int*</b>
+     * @param {Pointer<Integer>} pxOffset Type: <b>int*</b>
      * 
      * The x-coordinate offset for the upper-left corner of the unmagnified view.  The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates.
-     * @param {Pointer<Int32>} pyOffset Type: <b>int*</b>
+     * @param {Pointer<Integer>} pyOffset Type: <b>int*</b>
      * 
      * The y-coordinate offset for the upper-left corner of the unmagnified view.  The offset is relative to the upper-left corner of the primary monitor, in unmagnified coordinates.
      * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>

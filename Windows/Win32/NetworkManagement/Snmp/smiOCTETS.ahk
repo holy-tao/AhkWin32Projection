@@ -35,7 +35,7 @@ class smiOCTETS extends Win32Struct
 
     /**
      * Pointer to a byte array that contains the octet string of interest. A <b>NULL</b>-terminating byte is not required.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ptr {
         get => NumGet(this, 8, "ptr")

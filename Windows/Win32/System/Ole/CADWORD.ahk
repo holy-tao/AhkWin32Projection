@@ -24,7 +24,7 @@ class CADWORD extends Win32Struct
 
     /**
      * A pointer to an array of values, each of which can be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedvalue">IPerPropertyBrowsing::GetPredefinedValue</a> method to obtain the corresponding value for one of the property's predefined strings. This array is allocated by the callee using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and is freed by the caller using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

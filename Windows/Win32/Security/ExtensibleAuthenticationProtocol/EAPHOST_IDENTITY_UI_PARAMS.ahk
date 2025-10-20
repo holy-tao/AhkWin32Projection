@@ -41,7 +41,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pConnectionData {
         get => NumGet(this, 24, "ptr")
@@ -57,7 +57,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserData {
         get => NumGet(this, 40, "ptr")
@@ -73,7 +73,7 @@ class EAPHOST_IDENTITY_UI_PARAMS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserDataOut {
         get => NumGet(this, 56, "ptr")

@@ -72,7 +72,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IStream>}
+     * @type {IStream}
      */
     pstm {
         get => NumGet(this, 8, "ptr")
@@ -80,7 +80,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IStorage>}
+     * @type {IStorage}
      */
     pstg {
         get => NumGet(this, 8, "ptr")
@@ -88,7 +88,7 @@ class STGMEDIUM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkForRelease {
         get => NumGet(this, 16, "ptr")

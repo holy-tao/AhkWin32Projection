@@ -4,6 +4,8 @@
 #Include .\MXDC_PRINTTICKET_DATA_T.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcprintticketescape
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

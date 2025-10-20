@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-options-type
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */
@@ -52,7 +54,7 @@ class PRINTER_NOTIFY_OPTIONS_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pFields {
         get => NumGet(this, 16, "ptr")

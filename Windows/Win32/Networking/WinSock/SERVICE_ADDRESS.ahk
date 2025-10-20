@@ -98,7 +98,7 @@ class SERVICE_ADDRESS extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * A pointer to a socket address of the appropriate type.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpAddress {
         get => NumGet(this, 16, "ptr")
@@ -109,7 +109,7 @@ class SERVICE_ADDRESS extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * Reserved for future use. Must be <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpPrincipal {
         get => NumGet(this, 24, "ptr")

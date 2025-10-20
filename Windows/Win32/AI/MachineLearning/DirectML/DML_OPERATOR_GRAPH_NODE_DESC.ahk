@@ -17,7 +17,7 @@ class DML_OPERATOR_GRAPH_NODE_DESC extends Win32Struct
      * Type: <b>[IDMLOperator](/windows/win32/api/directml/nn-directml-idmloperator)*</b>
      * 
      * A DirectML operator defining the behavior of the node.
-     * @type {Pointer<IDMLOperator>}
+     * @type {IDMLOperator}
      */
     Operator {
         get => NumGet(this, 0, "ptr")

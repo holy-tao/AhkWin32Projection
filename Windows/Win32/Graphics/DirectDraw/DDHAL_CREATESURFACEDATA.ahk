@@ -28,7 +28,7 @@ class DDHAL_CREATESURFACEDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
+     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_LCL>>}
      */
     lplpSList {
         get => NumGet(this, 16, "ptr")

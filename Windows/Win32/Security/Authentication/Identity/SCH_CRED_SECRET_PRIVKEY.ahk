@@ -24,7 +24,7 @@ class SCH_CRED_SECRET_PRIVKEY extends Win32Struct
 
     /**
      * Pointer to an encrypted private key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pPrivateKey {
         get => NumGet(this, 8, "ptr")

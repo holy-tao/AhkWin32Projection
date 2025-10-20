@@ -35,7 +35,7 @@ class SERVICE_TRIGGER_INFO extends Win32Struct
 
     /**
      * This member is reserved and must be NULL.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pReserved {
         get => NumGet(this, 16, "ptr")

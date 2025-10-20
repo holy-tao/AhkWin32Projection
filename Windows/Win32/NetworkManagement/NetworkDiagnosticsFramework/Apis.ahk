@@ -172,7 +172,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<HELPER_ATTRIBUTE>} attributes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a>*</b>
      * 
      * The applicable <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> structure.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -236,7 +236,7 @@ class NetworkDiagnosticsFramework {
     static NdfCreateIncident(helperClassName, celt, attributes, handle) {
         helperClassName := helperClassName is String ? StrPtr(helperClassName) : helperClassName
 
-        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -260,7 +260,7 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<SID>} userId Type: <b>SID*</b>
      * 
      * Unique identifier associated with the user.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -326,7 +326,7 @@ class NetworkDiagnosticsFramework {
         appId := appId is String ? StrPtr(appId) : appId
         sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
 
-        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -338,7 +338,7 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -402,7 +402,7 @@ class NetworkDiagnosticsFramework {
     static NdfCreateWebIncident(url, handle) {
         url := url is String ? StrPtr(url) : url
 
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -420,7 +420,7 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} moduleName Type: <b>LPWSTR</b>
      * 
      * The module name to use when checking against application-specific filtering rules (for example, "C:\Program Files\Internet Explorer\iexplorer.exe").  If <b>NULL</b>, the value is autodetected during the diagnosis.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -485,7 +485,7 @@ class NetworkDiagnosticsFramework {
         url := url is String ? StrPtr(url) : url
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -497,7 +497,7 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} UNCPath Type: <b>LPCWSTR</b>
      * 
      * The full UNC string (for example, "\\server\folder\file.ext") for the shared asset with which there is a connectivity issue.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -561,7 +561,7 @@ class NetworkDiagnosticsFramework {
     static NdfCreateSharingIncident(UNCPath, handle) {
         UNCPath := UNCPath is String ? StrPtr(UNCPath) : UNCPath
 
-        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -578,7 +578,7 @@ class NetworkDiagnosticsFramework {
      * The numeric representation of the type of record that was queried when the issue occurred.  For more information and a complete listing of record set types and their numeric representations, see the windns.h header file.
      * 
      * This parameter should be set to  <b>DNS_TYPE_ZERO</b> for generic DNS resolution diagnosis.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -642,7 +642,7 @@ class NetworkDiagnosticsFramework {
     static NdfCreateDNSIncident(hostname, queryType, handle) {
         hostname := hostname is String ? StrPtr(hostname) : hostname
 
-        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -651,7 +651,7 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses generic Internet connectivity problems.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -713,7 +713,7 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateConnectivityIncident(handle) {
-        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -722,10 +722,10 @@ class NetworkDiagnosticsFramework {
 
     /**
      * Diagnoses connectivity issues using the NetConnection helper class.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @param {Pointer<Guid>} id Type: <b>GUID</b>
+     * @param {Guid} id Type: <b>GUID</b>
      * 
      * Identifier of the network interface that the caller would like to create the incident for.  
      * 
@@ -789,7 +789,7 @@ class NetworkDiagnosticsFramework {
      * @since windows8.0
      */
     static NdfCreateNetConnectionIncident(handle, id) {
-        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr", handle, "ptr", id, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr*", handle, "ptr", id, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -810,7 +810,7 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -855,7 +855,7 @@ class NetworkDiagnosticsFramework {
         peername := peername is String ? StrPtr(peername) : peername
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -882,7 +882,7 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @param {Pointer<Void>} handle Type: <b>NDFHANDLE*</b>
+     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -929,7 +929,7 @@ class NetworkDiagnosticsFramework {
         Invitation := Invitation is String ? StrPtr(Invitation) : Invitation
         appId := appId is String ? StrPtr(appId) : appId
 
-        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr", handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr*", handle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1033,10 +1033,10 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
-     * @param {Pointer<UInt32>} RootCauseCount Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} RootCauseCount Type: <b>ULONG*</b>
      * 
      * The number of root causes that could potentially have caused this incident. If diagnosis does not succeed, the contents of this parameter should be ignored.
-     * @param {Pointer<RootCauseInfo>} RootCauses Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-rootcauseinfo">RootCauseInfo</a>**</b>
+     * @param {Pointer<Pointer<RootCauseInfo>>} RootCauses Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-rootcauseinfo">RootCauseInfo</a>**</b>
      * 
      * A collection of <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-rootcauseinfo">RootCauseInfo</a> structures that contain a detailed description of the root cause. If diagnosis succeeds, this parameter contains both the leaf root causes identified in the diagnosis session and any non-leaf root causes that have an available repair. If diagnosis does not succeed, the contents of this parameter should be ignored.
      * 
@@ -1126,7 +1126,7 @@ class NetworkDiagnosticsFramework {
      * @since windows6.1
      */
     static NdfDiagnoseIncident(Handle, RootCauseCount, RootCauses, dwWait, dwFlags) {
-        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "uint*", RootCauseCount, "ptr", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
+        result := DllCall("NDFAPI.dll\NdfDiagnoseIncident", "ptr", Handle, "uint*", RootCauseCount, "ptr*", RootCauses, "uint", dwWait, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -61,7 +61,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkOuter {
         get => NumGet(this, 32, "ptr")
@@ -136,7 +136,7 @@ class DDRAWI_DIRECTDRAW_LCL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pD3DIUnknown {
         get => NumGet(this, 104, "ptr")

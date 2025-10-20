@@ -4827,7 +4827,7 @@ class Registry {
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
      * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
+     * @param {Pointer<Integer>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
      * <table>
      * <tr>
@@ -4916,7 +4916,7 @@ class Registry {
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
      * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
+     * @param {Pointer<Integer>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
      * <table>
      * <tr>
@@ -5005,7 +5005,7 @@ class Registry {
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
      * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
+     * @param {Pointer<Integer>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
      * <table>
      * <tr>
@@ -5096,7 +5096,7 @@ class Registry {
      * The <b>lpSecurityDescriptor</b> member of the structure specifies a security descriptor for the new key. If <i>lpSecurityAttributes</i> is <b>NULL</b>, the key gets a default security descriptor. The ACLs in a default security descriptor for a key are inherited from its direct parent key.
      * @param {Pointer<HKEY>} phkResult A pointer to a variable that receives a handle to the opened or created key. If the key is not one of the predefined registry keys, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regclosekey">RegCloseKey</a> function after you have finished using the handle.
-     * @param {Pointer<UInt32>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
+     * @param {Pointer<Integer>} lpdwDisposition A pointer to a variable that receives one of the following disposition values.
      * 
      * <table>
      * <tr>
@@ -5781,12 +5781,12 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
      * 
      * To determine the required buffer size, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function to determine the size of the largest subkey for the key identified by the <i>hKey</i> parameter.
      * @param {PSTR} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time at which the enumerated subkey was last written. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5838,12 +5838,12 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} lpcchName A pointer to a variable that specifies the size of the buffer specified by the <i>lpName</i> parameter, in characters. This size should include the terminating <b>null</b> character. If the function succeeds, the variable pointed to by <i>lpcName</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character.
      * 
      * To determine the required buffer size, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regqueryinfokeya">RegQueryInfoKey</a> function to determine the size of the largest subkey for the key identified by the <i>hKey</i> parameter.
      * @param {PWSTR} lpClass A pointer to a buffer that receives the user-defined class of the enumerated subkey. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcchClass A pointer to a variable that specifies the size of the buffer specified by the <i>lpClass</i> parameter, in characters. The size should include the terminating <b>null</b> character. If the function succeeds, <i>lpcClass</i> contains the number of characters stored in the buffer, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b> only if <i>lpClass</i> is <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time at which the enumerated subkey was last written. This parameter can be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5898,12 +5898,12 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpcchValueName A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueName</i> parameter, in characters. When the function returns, the variable receives the number of characters stored in the buffer, not including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} lpcchValueName A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueName</i> parameter, in characters. When the function returns, the variable receives the number of characters stored in the buffer, not including the terminating <b>null</b> character.
      * 
      * If the buffer specified by <i>lpValueName</i> is not large enough to hold the data, the function returns ERROR_MORE_DATA and the buffer size in the variable pointed to by <i>lpValueName</i> is not changed. In this case, the contents of <i>lpcchValueName</i> are undefined.
      * 
      * Registry value names are limited to 32,767 bytes. The ANSI version of this function treats this parameter as a <b>SHORT</b> value. Therefore, if you specify a value greater than 32,767 bytes, there is an overflow and the function may return ERROR_MORE_DATA.
-     * @param {Pointer<UInt32>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. The <i>lpType</i> parameter can be <b>NULL</b> if the type code is not required.
      * @param {Pointer} lpData A pointer to a buffer that receives the data for the value entry. This parameter can be <b>NULL</b> if the data is not required. 
      * 
@@ -5911,7 +5911,7 @@ class Registry {
      * 
      * 
      * If <i>lpData</i> is <b>NULL</b> and <i>lpcbData</i> is non-<b>NULL</b>, the function stores the size of the data, in bytes, in the variable pointed to by <i>lpcbData</i>. This enables an application to determine the best way to allocate a buffer for the data.
-     * @param {Pointer<UInt32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, the variable receives the number of bytes stored in the buffer. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, the variable receives the number of bytes stored in the buffer. 
      * 
      * This parameter can be <b>NULL</b> only if <i>lpData</i> is <b>NULL</b>.
      * 
@@ -5970,10 +5970,10 @@ class Registry {
      * 
      * For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpcchValueName A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueName</i> parameter, in characters. When the function returns, the variable receives the number of characters stored in the buffer, not including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} lpcchValueName A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueName</i> parameter, in characters. When the function returns, the variable receives the number of characters stored in the buffer, not including the terminating <b>null</b> character.
      * 
      * Registry value names are limited to 32,767 bytes. The ANSI version of this function treats this parameter as a <b>SHORT</b> value. Therefore, if you specify a value greater than 32,767 bytes, there is an overflow and the function may return ERROR_MORE_DATA.
-     * @param {Pointer<UInt32>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. The <i>lpType</i> parameter can be <b>NULL</b> if the type code is not required.
      * @param {Pointer} lpData A pointer to a buffer that receives the data for the value entry. This parameter can be <b>NULL</b> if the data is not required. 
      * 
@@ -5981,7 +5981,7 @@ class Registry {
      * 
      * 
      * If <i>lpData</i> is <b>NULL</b> and <i>lpcbData</i> is non-<b>NULL</b>, the function stores the size of the data, in bytes, in the variable pointed to by <i>lpcbData</i>. This enables an application to determine the best way to allocate a buffer for the data.
-     * @param {Pointer<UInt32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, the variable receives the number of bytes stored in the buffer. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, the variable receives the number of bytes stored in the buffer. 
      * 
      * This parameter can be <b>NULL</b> only if <i>lpData</i> is <b>NULL</b>.
      * 
@@ -6046,7 +6046,7 @@ class Registry {
      * @param {Integer} SecurityInformation A 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that indicates the requested security information.
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the requested security descriptor.
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter. When the function returns, the variable contains the number of bytes written to the buffer.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor A pointer to a variable that specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter. When the function returns, the variable contains the number of bytes written to the buffer.
      * @returns {Integer} If the function succeeds, the function returns ERROR_SUCCESS.
      * 						
      * 
@@ -6499,20 +6499,20 @@ class Registry {
      *    <b>HKEY_PERFORMANCE_DATA</b>
      *    <b>HKEY_USERS</b></pre>
      * @param {PSTR} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
+     * @param {Pointer<Integer>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
      * 
      * The size should include the terminating <b>null</b> character. When the function returns, this variable contains the size of the class string that is stored in the buffer. The count returned does not include the terminating <b>null</b> character. If the buffer is not big enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string, in characters, without counting the terminating <b>null</b> character.
      * 
      * If <i>lpClass</i> is <b>NULL</b>, <i>lpcClass</i> can be <b>NULL</b>.
      * 
      * If the <i>lpClass</i> parameter is a valid address, but the <i>lpcClass</i> parameter is not, for example, it is <b>NULL</b>, then the  function returns ERROR_INVALID_PARAMETER.
-     * @param {Pointer<UInt32>} lpcSubKeys A pointer to a variable that receives the number of subkeys that are contained by the specified key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in Unicode characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in Unicode characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcValues A pointer to a variable that receives the number of values that are associated with the key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in Unicode characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueLen A pointer to a variable that receives the size of the longest data component among the key's values, in bytes. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor A pointer to a variable that receives the size of the key's security descriptor, in bytes. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcSubKeys A pointer to a variable that receives the number of subkeys that are contained by the specified key. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in Unicode characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in Unicode characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcValues A pointer to a variable that receives the number of values that are associated with the key. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in Unicode characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxValueLen A pointer to a variable that receives the size of the longest data component among the key's values, in bytes. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor A pointer to a variable that receives the size of the key's security descriptor, in bytes. This parameter can be <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the last write time. This parameter can be <b>NULL</b>. 
      * 
@@ -6559,20 +6559,20 @@ class Registry {
      *    <b>HKEY_PERFORMANCE_DATA</b>
      *    <b>HKEY_USERS</b></pre>
      * @param {PWSTR} lpClass A pointer to a buffer that receives the user-defined class of the key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
+     * @param {Pointer<Integer>} lpcchClass A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpClass</i> parameter, in characters. 
      * 
      * The size should include the terminating <b>null</b> character. When the function returns, this variable contains the size of the class string that is stored in the buffer. The count returned does not include the terminating <b>null</b> character. If the buffer is not big enough, the function returns ERROR_MORE_DATA, and the variable contains the size of the string, in characters, without counting the terminating <b>null</b> character.
      * 
      * If <i>lpClass</i> is <b>NULL</b>, <i>lpcClass</i> can be <b>NULL</b>.
      * 
      * If the <i>lpClass</i> parameter is a valid address, but the <i>lpcClass</i> parameter is not, for example, it is <b>NULL</b>, then the  function returns ERROR_INVALID_PARAMETER.
-     * @param {Pointer<UInt32>} lpcSubKeys A pointer to a variable that receives the number of subkeys that are contained by the specified key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in Unicode characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in Unicode characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcValues A pointer to a variable that receives the number of values that are associated with the key. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in Unicode characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueLen A pointer to a variable that receives the size of the longest data component among the key's values, in bytes. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor A pointer to a variable that receives the size of the key's security descriptor, in bytes. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcSubKeys A pointer to a variable that receives the number of subkeys that are contained by the specified key. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxSubKeyLen A pointer to a variable that receives the size of the key's subkey with the longest name, in Unicode characters, not including the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxClassLen A pointer to a variable that receives the size of the longest string that specifies a subkey class, in Unicode characters. The count returned does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcValues A pointer to a variable that receives the number of values that are associated with the key. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxValueNameLen A pointer to a variable that receives the size of the key's longest value name, in Unicode characters. The size does not include the terminating <b>null</b> character. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxValueLen A pointer to a variable that receives the size of the longest data component among the key's values, in bytes. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor A pointer to a variable that receives the size of the key's security descriptor, in bytes. This parameter can be <b>NULL</b>.
      * @param {Pointer<FILETIME>} lpftLastWriteTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the last write time. This parameter can be <b>NULL</b>. 
      * 
@@ -6632,7 +6632,7 @@ class Registry {
      * 
      * 
      * If <i>lpValue</i> is <b>NULL</b>, and <i>lpcbValue</i> is non-<b>NULL</b>, the function returns ERROR_SUCCESS, and stores the size of the data, in bytes, in the variable pointed to by <i>lpcbValue</i>. This enables an application to determine the best way to allocate a buffer for the value's data.
-     * @param {Pointer<Int32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValue</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpValue</i>, including any terminating <b>null</b> characters. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValue</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpValue</i>, including any terminating <b>null</b> characters. 
      * 
      * 
      * 
@@ -6689,7 +6689,7 @@ class Registry {
      * 
      * 
      * If <i>lpValue</i> is <b>NULL</b>, and <i>lpcbValue</i> is non-<b>NULL</b>, the function returns ERROR_SUCCESS, and stores the size of the data, in bytes, in the variable pointed to by <i>lpcbValue</i>. This enables an application to determine the best way to allocate a buffer for the value's data.
-     * @param {Pointer<Int32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValue</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpValue</i>, including any terminating <b>null</b> characters. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValue</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpValue</i>, including any terminating <b>null</b> characters. 
      * 
      * 
      * 
@@ -6750,7 +6750,7 @@ class Registry {
      * 
      * 
      * If <i>lpValueBuf</i> is <b>NULL</b>, the value pointed to by the <i>ldwTotsize</i> parameter must be zero, in which case the function returns ERROR_MORE_DATA and <i>ldwTotsize</i> receives the required size of the buffer, in bytes.
-     * @param {Pointer<UInt32>} ldwTotsize A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueBuf</i> parameter, in bytes. If the function succeeds, <i>ldwTotsize</i> receives the number of bytes copied to the buffer. If the function fails because the buffer is too small, <i>ldwTotsize</i> receives the required size, in bytes.
+     * @param {Pointer<Integer>} ldwTotsize A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueBuf</i> parameter, in bytes. If the function succeeds, <i>ldwTotsize</i> receives the number of bytes copied to the buffer. If the function fails because the buffer is too small, <i>ldwTotsize</i> receives the required size, in bytes.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -6838,7 +6838,7 @@ class Registry {
      * 
      * 
      * If <i>lpValueBuf</i> is <b>NULL</b>, the value pointed to by the <i>ldwTotsize</i> parameter must be zero, in which case the function returns ERROR_MORE_DATA and <i>ldwTotsize</i> receives the required size of the buffer, in bytes.
-     * @param {Pointer<UInt32>} ldwTotsize A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueBuf</i> parameter, in bytes. If the function succeeds, <i>ldwTotsize</i> receives the number of bytes copied to the buffer. If the function fails because the buffer is too small, <i>ldwTotsize</i> receives the required size, in bytes.
+     * @param {Pointer<Integer>} ldwTotsize A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpValueBuf</i> parameter, in bytes. If the function succeeds, <i>ldwTotsize</i> receives the number of bytes copied to the buffer. If the function fails because the buffer is too small, <i>ldwTotsize</i> receives the required size, in bytes.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -6925,10 +6925,10 @@ class Registry {
      * 
      * Keys do not automatically have an unnamed or default value. Unnamed values can be of any type. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. The <i>lpType</i> parameter can be <b>NULL</b> if the type code is not required.
      * @param {Pointer} lpData A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpData</i>. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpData</i>. 
      * 
      * 
      * 
@@ -6999,10 +6999,10 @@ class Registry {
      * 
      * Keys do not automatically have an unnamed or default value. Unnamed values can be of any type. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-element-size-limits">Registry Element Size Limits</a>.
-     * @param {Pointer<UInt32>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} lpType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. The <i>lpType</i> parameter can be <b>NULL</b> if the type code is not required.
      * @param {Pointer} lpData A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
-     * @param {Pointer<UInt32>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpData</i>. 
+     * @param {Pointer<Integer>} lpcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>lpData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>lpData</i>. 
      * 
      * 
      * 
@@ -7886,12 +7886,12 @@ class Registry {
      * 
      * For more information, see [Registry Element Size Limits](/windows/win32/sysinfo/registry-element-size-limits).
      * @param {Integer} dwFlags 
-     * @param {Pointer<UInt32>} pdwType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} pdwType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. This parameter can be <b>NULL</b> if the type is not required.
      * @param {Pointer} pvData A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * 
      * If the data is a string, the function checks for a terminating <b>null</b> character. If one is not found, the string is stored with a <b>null</b> terminator if the buffer is large enough to accommodate the extra character. Otherwise, the function fails and returns ERROR_MORE_DATA.
-     * @param {Pointer<UInt32>} pcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>pvData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>pvData</i>. 
+     * @param {Pointer<Integer>} pcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>pvData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>pvData</i>. 
      * 
      * 
      * 
@@ -7960,12 +7960,12 @@ class Registry {
      * 
      * For more information, see [Registry Element Size Limits](/windows/win32/sysinfo/registry-element-size-limits).
      * @param {Integer} dwFlags 
-     * @param {Pointer<UInt32>} pdwType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
+     * @param {Pointer<Integer>} pdwType A pointer to a variable that receives a code indicating the type of data stored in the specified value. For a list of the possible type codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-value-types">Registry Value Types</a>. This parameter can be <b>NULL</b> if the type is not required.
      * @param {Pointer} pvData A pointer to a buffer that receives the value's data. This parameter can be <b>NULL</b> if the data is not required.
      * 
      * If the data is a string, the function checks for a terminating <b>null</b> character. If one is not found, the string is stored with a <b>null</b> terminator if the buffer is large enough to accommodate the extra character. Otherwise, the function fails and returns ERROR_MORE_DATA.
-     * @param {Pointer<UInt32>} pcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>pvData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>pvData</i>. 
+     * @param {Pointer<Integer>} pcbData A pointer to a variable that specifies the size of the buffer pointed to by the <i>pvData</i> parameter, in bytes. When the function returns, this variable contains the size of the data copied to <i>pvData</i>. 
      * 
      * 
      * 
@@ -8060,7 +8060,7 @@ class Registry {
      * 
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. If the <i>pszDirectory</i> parameter is not <b>NULL</b>, the directory is prepended to the path specified in the registry data. Note that <i>dllname</i> can contain environment variables to be expanded.
      * @param {Integer} cbOutBuf The size of the <i>pszOutBuf</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pcbData A pointer to a variable that receives the size of the data copied to the <i>pszOutBuf</i> buffer, in bytes.
+     * @param {Pointer<Integer>} pcbData A pointer to a variable that receives the size of the data copied to the <i>pszOutBuf</i> buffer, in bytes.
      * 
      * If the buffer is not large enough to hold the data, the function returns ERROR_MORE_DATA and stores the required buffer size in the variable pointed to by <i>pcbData</i>. In this case, the contents of the buffer are undefined.
      * @param {Integer} Flags This parameter can be 0 or the following value.
@@ -8126,7 +8126,7 @@ class Registry {
      * 
      * The string with identifier <i>strID</i> is loaded from <i>dllname</i>; the <i>path</i> is optional. If the <i>pszDirectory</i> parameter is not <b>NULL</b>, the directory is prepended to the path specified in the registry data. Note that <i>dllname</i> can contain environment variables to be expanded.
      * @param {Integer} cbOutBuf The size of the <i>pszOutBuf</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pcbData A pointer to a variable that receives the size of the data copied to the <i>pszOutBuf</i> buffer, in bytes.
+     * @param {Pointer<Integer>} pcbData A pointer to a variable that receives the size of the data copied to the <i>pszOutBuf</i> buffer, in bytes.
      * 
      * If the buffer is not large enough to hold the data, the function returns ERROR_MORE_DATA and stores the required buffer size in the variable pointed to by <i>pcbData</i>. In this case, the contents of the buffer are undefined.
      * @param {Integer} Flags This parameter can be 0 or the following value.
@@ -8295,10 +8295,10 @@ class Registry {
      * @param {PWSTR} pwszFallbackSubKey 
      * @param {PWSTR} pwszValue 
      * @param {Integer} dwFlags 
-     * @param {Pointer<UInt32>} pdwType 
+     * @param {Pointer<Integer>} pdwType 
      * @param {Pointer} pvData 
      * @param {Integer} cbDataIn 
-     * @param {Pointer<UInt32>} pcbDataOut 
+     * @param {Pointer<Integer>} pcbDataOut 
      * @returns {Integer} 
      */
     static GetRegistryValueWithFallbackW(hkeyPrimary, pwszPrimarySubKey, hkeyFallback, pwszFallbackSubKey, pwszValue, dwFlags, pdwType, pvData, cbDataIn, pcbDataOut) {

@@ -33,7 +33,7 @@ class USE_INFO_5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ui4_auth_identity {
         get => NumGet(this, 72, "ptr")
@@ -49,7 +49,7 @@ class USE_INFO_5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ui5_security_descriptor {
         get => NumGet(this, 88, "ptr")
@@ -65,7 +65,7 @@ class USE_INFO_5 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ui5_use_options {
         get => NumGet(this, 104, "ptr")

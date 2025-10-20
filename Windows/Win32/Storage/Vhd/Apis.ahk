@@ -211,7 +211,7 @@ class Vhd {
      * @param {HANDLE} VirtualDiskHandle A handle to the open virtual disk, which must have been opened using the 
      *      <b>VIRTUAL_DISK_ACCESS_GET_INFO</b> flag. For information on how to open a virtual disk, see 
      *      the <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function.
-     * @param {Pointer<UInt32>} DiskPathSizeInBytes The size, in bytes, of the buffer pointed to by the <i>DiskPath</i> parameter.
+     * @param {Pointer<Integer>} DiskPathSizeInBytes The size, in bytes, of the buffer pointed to by the <i>DiskPath</i> parameter.
      * @param {Pointer} DiskPath A target buffer to receive the path of the physical disk device that contains the virtual disk.
      * @returns {Integer} Status of the request.
      * 
@@ -233,7 +233,7 @@ class Vhd {
 
     /**
      * 
-     * @param {Pointer<UInt32>} PathsBufferSizeInBytes 
+     * @param {Pointer<Integer>} PathsBufferSizeInBytes 
      * @param {Pointer} PathsBuffer 
      * @returns {Integer} 
      */
@@ -258,7 +258,7 @@ class Vhd {
      * @param {Pointer<STORAGE_DEPENDENCY_INFO>} StorageDependencyInfo A pointer to a buffer to receive the populated 
      *      [STORAGE_DEPENDENCY_INFO](./ns-virtdisk-storage_dependency_info.md) structure, which is a 
      *      variable-length structure.
-     * @param {Pointer<UInt32>} SizeUsed An optional pointer to a <b>ULONG</b> that receives the size used.
+     * @param {Pointer<Integer>} SizeUsed An optional pointer to a <b>ULONG</b> that receives the size used.
      * @returns {Integer} Status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and the 
@@ -284,12 +284,12 @@ class Vhd {
      *       <i>VirtualDiskAccessMask</i> parameter to the 
      *       <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/nf-virtdisk-openvirtualdisk">OpenVirtualDisk</a> function. For information on how to 
      *       open a VHD, see the <b>OpenVirtualDisk</b> function.
-     * @param {Pointer<UInt32>} VirtualDiskInfoSize A pointer to a <b>ULONG</b> that contains the size of the 
+     * @param {Pointer<Integer>} VirtualDiskInfoSize A pointer to a <b>ULONG</b> that contains the size of the 
      *       <i>VirtualDiskInfo</i> parameter.
      * @param {Pointer} VirtualDiskInfo A pointer to a valid [GET_VIRTUAL_DISK_INFO](./ns-virtdisk-get_virtual_disk_info.md) 
      *       structure. The format of the data returned is dependent on the value passed in the 
      *       <b>Version</b> member by the caller.
-     * @param {Pointer<UInt32>} SizeUsed A pointer to a <b>ULONG</b> that contains the size used.
+     * @param {Pointer<Integer>} SizeUsed A pointer to a <b>ULONG</b> that contains the size used.
      * @returns {Integer} Status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and the 
@@ -334,7 +334,7 @@ class Vhd {
     /**
      * Enumerates the metadata associated with a virtual disk.
      * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
-     * @param {Pointer<UInt32>} NumberOfItems Address of a <b>ULONG</b>. On input, the value indicates the number of elements in 
+     * @param {Pointer<Integer>} NumberOfItems Address of a <b>ULONG</b>. On input, the value indicates the number of elements in 
      *       the buffer pointed to by the <i>Items</i> parameter. On output, the value contains the number 
      *       of items retrieved. If the buffer was too small, the API will fail and return 
      *       <b>ERROR_INSUFFICIENT_BUFFER</b> and the <b>ULONG</b> will contain the 
@@ -365,7 +365,7 @@ class Vhd {
      * Retrieves the specified metadata from the virtual disk.
      * @param {HANDLE} VirtualDiskHandle Handle to an open virtual disk.
      * @param {Pointer<Guid>} Item Address of a <b>GUID</b> identifying the metadata to retrieve.
-     * @param {Pointer<UInt32>} MetaDataSize Address of a <b>ULONG</b>. On input, the value indicates the size, in bytes, of 
+     * @param {Pointer<Integer>} MetaDataSize Address of a <b>ULONG</b>. On input, the value indicates the size, in bytes, of 
      *       the buffer pointed to by the <i>MetaData</i> parameter. On output, the value contains size, 
      *       in bytes, of the retrieved metadata. If the buffer was too small, the API will fail and return 
      *       <b>ERROR_INSUFFICIENT_BUFFER</b>, putting the required size in the 
@@ -670,8 +670,8 @@ class Vhd {
      * @param {Integer} ByteLength An unsigned long integer that specifies the length of the area of the VHD that you want to check for changes, in bytes.
      * @param {Integer} Flags Reserved. Set to <b>QUERY_CHANGES_VIRTUAL_DISK_FLAG_NONE</b>.
      * @param {Pointer<QUERY_CHANGES_VIRTUAL_DISK_RANGE>} Ranges An array of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-query_changes_virtual_disk_range">QUERY_CHANGES_VIRTUAL_DISK_RANGE</a> structures that indicates the areas of the virtual disk within the area that the <i>ByteOffset</i> and <i>ByteLength</i> parameters specify that have changed since the change tracking identifier that the <i>ChangeTrackingId</i>  parameter specifies was sealed.
-     * @param {Pointer<UInt32>} RangeCount An address of an unsigned long integer. On input, the value indicates the number of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-query_changes_virtual_disk_range">QUERY_CHANGES_VIRTUAL_DISK_RANGE</a> structures that the array that the <i>Ranges</i> parameter points to can hold. On output, the value contains the number of <b>QUERY_CHANGES_VIRTUAL_DISK_RANGE</b> structures that the method placed in the array.
-     * @param {Pointer<UInt64>} ProcessedLength A pointer to an unsigned long integer that indicates the total number of bytes that the method processed, which indicates for how much of the area that the <i>BytesLength</i> parameter specifies that changes were captured in the available space of the array that the <i>Ranges</i> parameter specifies.
+     * @param {Pointer<Integer>} RangeCount An address of an unsigned long integer. On input, the value indicates the number of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ns-virtdisk-query_changes_virtual_disk_range">QUERY_CHANGES_VIRTUAL_DISK_RANGE</a> structures that the array that the <i>Ranges</i> parameter points to can hold. On output, the value contains the number of <b>QUERY_CHANGES_VIRTUAL_DISK_RANGE</b> structures that the method placed in the array.
+     * @param {Pointer<Integer>} ProcessedLength A pointer to an unsigned long integer that indicates the total number of bytes that the method processed, which indicates for how much of the area that the <i>BytesLength</i> parameter specifies that changes were captured in the available space of the array that the <i>Ranges</i> parameter specifies.
      * @returns {Integer} The status of the request.
      * 
      * If the function succeeds, the return value is <b>ERROR_SUCCESS</b> and the 

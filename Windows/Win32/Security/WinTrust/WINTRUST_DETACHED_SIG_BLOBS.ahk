@@ -20,7 +20,7 @@ class WINTRUST_DETACHED_SIG_BLOBS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContentObject {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class WINTRUST_DETACHED_SIG_BLOBS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignatureObject {
         get => NumGet(this, 24, "ptr")

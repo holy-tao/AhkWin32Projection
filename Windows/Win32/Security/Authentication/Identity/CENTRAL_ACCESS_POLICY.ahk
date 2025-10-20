@@ -79,7 +79,7 @@ class CENTRAL_ACCESS_POLICY extends Win32Struct
 
     /**
      * Pointer to a buffer of <a href="https://docs.microsoft.com/windows/desktop/api/ntlsa/ns-ntlsa-central_access_policy_entry">CENTRAL_ACCESS_POLICY_ENTRY</a> pointers.
-     * @type {Pointer<CENTRAL_ACCESS_POLICY_ENTRY>}
+     * @type {Pointer<Pointer<CENTRAL_ACCESS_POLICY_ENTRY>>}
      */
     CAPEs {
         get => NumGet(this, 64, "ptr")

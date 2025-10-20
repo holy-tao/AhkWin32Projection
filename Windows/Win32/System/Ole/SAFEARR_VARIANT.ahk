@@ -20,7 +20,7 @@ class SAFEARR_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_wireVARIANT>}
+     * @type {Pointer<Pointer<_wireVARIANT>>}
      */
     aVariant {
         get => NumGet(this, 8, "ptr")

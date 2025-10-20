@@ -44,7 +44,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pdwErrors {
         get => NumGet(this, 24, "ptr")
@@ -132,7 +132,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pcChain {
         get => NumGet(this, 112, "ptr")
@@ -140,7 +140,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<Pointer<CERT_CONTEXT>>>}
      */
     prgChain {
         get => NumGet(this, 120, "ptr")
@@ -148,7 +148,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     prgdwErrors {
         get => NumGet(this, 128, "ptr")
@@ -156,7 +156,7 @@ class CERT_VERIFY_CERTIFICATE_TRUST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
+     * @type {Pointer<Pointer<CRYPT_INTEGER_BLOB>>}
      */
     prgpbTrustInfo {
         get => NumGet(this, 136, "ptr")

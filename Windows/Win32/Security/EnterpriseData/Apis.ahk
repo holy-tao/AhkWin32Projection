@@ -66,9 +66,9 @@ class EnterpriseData {
     /**
      * Gets the list of enterprise identifiers for the given token.
      * @param {HANDLE} tokenHandle Token Handle to be checked.
-     * @param {Pointer<UInt32>} numberOfBytes If <i>enterpriseIds</i> is provided, then this supplies the size of the <i>enterpriseIds</i> buffer. If you provide a buffer size, and it's too small, the output will contain the required size of the <i>enterpriseIds</i> buffer.
+     * @param {Pointer<Integer>} numberOfBytes If <i>enterpriseIds</i> is provided, then this supplies the size of the <i>enterpriseIds</i> buffer. If you provide a buffer size, and it's too small, the output will contain the required size of the <i>enterpriseIds</i> buffer.
      * @param {Pointer} enterpriseIds An array of enterprise ID string pointers.
-     * @param {Pointer<UInt32>} enterpriseIdCount The enterprise ID count on the token. Zero if the token is not explicitly enterprise allowed.
+     * @param {Pointer<Integer>} enterpriseIdCount The enterprise ID count on the token. Zero if the token is not explicitly enterprise allowed.
      * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * 
      * If this function does not provide any enterprise IDs, it returns <b>E_NOT_SUFFICIENT_BUFFER</b>.
@@ -123,7 +123,7 @@ class EnterpriseData {
     /**
      * Policy can be applied on Windows 10, version 1607.Gets information about the enterprise policy of an app.
      * @param {HANDLE} tokenHandle Token Handle to be checked.
-     * @param {Pointer<Int32>} policyFlags A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
+     * @param {Pointer<Integer>} policyFlags A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//srpapi/nf-srpapi-srpgetenterprisepolicy
      * @since windows10.0.10240
@@ -141,7 +141,7 @@ class EnterpriseData {
     /**
      * Identifies whether a service is a token service.
      * @param {HANDLE} TokenHandle Token Handle to be checked.
-     * @param {Pointer<Byte>} IsTokenService A boolean value that indicates whether the service is a token service.
+     * @param {Pointer<Integer>} IsTokenService A boolean value that indicates whether the service is a token service.
      * @returns {NTSTATUS} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//srpapi/nf-srpapi-srpistokenservice
      * @since windows10.0.10240

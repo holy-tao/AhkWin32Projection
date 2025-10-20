@@ -50,7 +50,7 @@ class DML_SLICE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * See *InputWindowOffsets* in [DML_SLICE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowOffsets {
         get => NumGet(this, 24, "ptr")
@@ -61,7 +61,7 @@ class DML_SLICE_GRAD_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * See *InputWindowSizes* in [DML_SLICE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowSizes {
         get => NumGet(this, 32, "ptr")
@@ -74,7 +74,7 @@ class DML_SLICE_GRAD_OPERATOR_DESC extends Win32Struct
      * See *InputWindowStrides* in [DML_SLICE1_OPERATOR_DESC](/windows/win32/api/directml/ns-directml-dml_slice1_operator_desc).
      * 
      * Note that unlike **DML_SLICE1_OPERATOR_DESC**, this operator requires non-zero strides. That's because with a zero stride, it's ambiguous as to which input element should map to each output element, and therefore backpropagation can't be performed. Like **DML_SLICE1_OPERATOR_DESC**, negative strides flip the input window direction along that axis.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowStrides {
         get => NumGet(this, 40, "ptr")

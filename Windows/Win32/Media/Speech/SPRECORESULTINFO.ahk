@@ -88,7 +88,7 @@ class SPRECORESULTINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ISpPhraseBuilder>}
+     * @type {ISpPhraseBuilder}
      */
     pPhrase {
         get => NumGet(this, 56, "ptr")

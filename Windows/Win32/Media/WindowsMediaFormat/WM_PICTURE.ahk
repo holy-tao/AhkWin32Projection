@@ -51,7 +51,7 @@ class WM_PICTURE extends Win32Struct
 
     /**
      * Pointer to a <b>BYTE</b> array containing the picture data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 32, "ptr")

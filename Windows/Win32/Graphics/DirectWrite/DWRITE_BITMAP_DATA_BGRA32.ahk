@@ -28,7 +28,7 @@ class DWRITE_BITMAP_DATA_BGRA32 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pixels {
         get => NumGet(this, 8, "ptr")

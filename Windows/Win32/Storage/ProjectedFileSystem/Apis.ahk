@@ -51,7 +51,7 @@ class ProjectedFileSystem {
     /**
      * Purges the virtualization instance's negative path cache, if it is active.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
-     * @param {Pointer<UInt32>} totalEntryNumber Optional pointer to a variable that receives the number of paths that were in the cache before it was purged.
+     * @param {Pointer<Integer>} totalEntryNumber Optional pointer to a variable that receives the number of paths that were in the cache before it was purged.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjclearnegativepathcache
      * @since windows10.0.17763
@@ -172,7 +172,7 @@ class ProjectedFileSystem {
      * @param {Integer} updateFlags Flags to control updates.
      * 
      * If the item is a dirty placeholder, full file, or tombstone, and the provider does not specify the appropriate flag(s), this routine will fail to update the placeholder
-     * @param {Pointer<Int32>} failureReason Optional pointer to receive a code describing the reason an update failed.
+     * @param {Pointer<Integer>} failureReason Optional pointer to receive a code describing the reason an update failed.
      * @returns {HRESULT} If an HRESULT_FROM_WIN32(ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION) error is returned, the update failed due to the item's state and the value of updateFlags. failureReason, if specified, will describe the reason for the failure.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjupdatefileifneeded
      * @since windows10.0.17763
@@ -193,7 +193,7 @@ class ProjectedFileSystem {
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext An opaque handle for the virtualization instance.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the path, relative to the virtualization root, to the file or directory to be deleted.
      * @param {Integer} updateFlags Flags to control the delete operation should be allowed given the state of the file.
-     * @param {Pointer<Int32>} failureReason Optional pointer to receive a code describing the reason a delete failed.
+     * @param {Pointer<Integer>} failureReason Optional pointer to receive a code describing the reason a delete failed.
      * @returns {HRESULT} If an HRESULT_FROM_WIN32(ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION) error is returned, the update failed due to the item's state and the value of updateFlags. failureReason, if specified, will describe the reason for the failure.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjdeletefile
      * @since windows10.0.17763
@@ -239,7 +239,7 @@ class ProjectedFileSystem {
     /**
      * Gets the on-disk file state for a file or directory.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the full path to the file whose state is to be queried.
-     * @param {Pointer<Int32>} fileState This is a combination of one or more PRJ_FILE_STATE values describing the file state.
+     * @param {Pointer<Integer>} fileState This is a combination of one or more PRJ_FILE_STATE values describing the file state.
      * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) indicates destinationFileName does not exist. HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND) indicates that an intermediate component of the path to destinationFileName does not exist.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjgetondiskfilestate
      * @since windows10.0.17763

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_memory_buffer_size
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

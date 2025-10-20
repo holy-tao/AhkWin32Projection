@@ -9,6 +9,8 @@
 #Include .\AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apo_notification
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */

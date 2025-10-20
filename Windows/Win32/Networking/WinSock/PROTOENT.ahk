@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/winsock/ns-winsock-protoent
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class PROTOENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     p_aliases {
         get => NumGet(this, 8, "ptr")

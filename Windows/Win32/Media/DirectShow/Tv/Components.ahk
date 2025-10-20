@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/cossdk/components
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */

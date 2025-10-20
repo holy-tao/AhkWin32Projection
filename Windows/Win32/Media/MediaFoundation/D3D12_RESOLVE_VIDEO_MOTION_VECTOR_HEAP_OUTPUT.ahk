@@ -19,7 +19,7 @@ class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_OUTPUT extends Win32Struct
 
     /**
      * An [ID3D12Resource](../d3d12/nn-d3d12-id3d12resource.md) representing the output resource for resolved motion vectors. Motion vectors are resolved to [DXGI_FORMAT_R16G16_SINT](../dxgiformat/ne-dxgiformat-dxgi_format.md) 2D textures. The resolved data is a signed 16-byte integer with quarter PEL units with the X vector component stored in the R component and the Y vector component stored in the G component. Motion vectors are stored in a 2D layout that corresponds to the pixel layout of the original input textures.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pMotionVectorTexture2D {
         get => NumGet(this, 0, "ptr")

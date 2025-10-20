@@ -13,7 +13,7 @@ class Variant {
 ;@region Methods
     /**
      * Calculates the wire size of the VARIANT object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -26,10 +26,10 @@ class Variant {
 
     /**
      * Marshals a VARIANT object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
      * 
@@ -97,10 +97,10 @@ class Variant {
 
     /**
      * Unmarshals a VARIANT object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -177,7 +177,7 @@ class Variant {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userfree
@@ -188,7 +188,7 @@ class Variant {
 
     /**
      * Calculates the wire size of the VARIANT object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<VARIANT>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -202,10 +202,10 @@ class Variant {
 
     /**
      * Marshals a VARIANT object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * 
      * 
@@ -274,10 +274,10 @@ class Variant {
 
     /**
      * Unmarshals a VARIANT object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<VARIANT>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -355,7 +355,7 @@ class Variant {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<VARIANT>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-variant_userfree64
@@ -369,7 +369,7 @@ class Variant {
      * Converts the MS-DOS representation of time to the date and time representation stored in a variant.
      * @param {Integer} wDosDate The MS-DOS date to convert. The valid range of MS-DOS dates is January 1, 1980, to December 31, 2099, inclusive.
      * @param {Integer} wDosTime The MS-DOS time to convert.
-     * @param {Pointer<Double>} pvtime The converted time.
+     * @param {Pointer<Float>} pvtime The converted time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dosdatetimetovarianttime
      */
@@ -381,8 +381,8 @@ class Variant {
     /**
      * Converts the variant representation of a date and time to MS-DOS date and time values.
      * @param {Float} vtime The variant time to convert.
-     * @param {Pointer<UInt16>} pwDosDate Receives the converted MS-DOS date.
-     * @param {Pointer<UInt16>} pwDosTime Receives the converted MS-DOS time
+     * @param {Pointer<Integer>} pwDosDate Receives the converted MS-DOS date.
+     * @param {Pointer<Integer>} pwDosTime Receives the converted MS-DOS time
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varianttimetodosdatetime
      */
@@ -394,7 +394,7 @@ class Variant {
     /**
      * Converts a system time to a variant representation.
      * @param {Pointer<SYSTEMTIME>} lpSystemTime The system time.
-     * @param {Pointer<Double>} pvtime The variant time.
+     * @param {Pointer<Float>} pvtime The variant time.
      * @returns {Integer} The function returns TRUE on success and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-systemtimetovarianttime
      */
@@ -1118,7 +1118,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 16-bit integer values.
-     * @param {Pointer<Int16>} prgn Type: <b>const SHORT*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const SHORT*</b>
      * 
      * Pointer to the source array of <b>SHORT</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1143,7 +1143,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 16-bit integer values.
-     * @param {Pointer<UInt16>} prgn Type: <b>const USHORT*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const USHORT*</b>
      * 
      * Pointer to the source array of <b>USHORT</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1168,7 +1168,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 32-bit integer values.
-     * @param {Pointer<Int32>} prgn Type: <b>const LONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const LONG*</b>
      * 
      * Pointer to the source array of <b>LONG</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1193,7 +1193,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 32-bit integer values.
-     * @param {Pointer<UInt32>} prgn Type: <b>const ULONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const ULONG*</b>
      * 
      * Pointer to the source array of <b>ULONG</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1218,7 +1218,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of 64-bit integer values.
-     * @param {Pointer<Int64>} prgn Type: <b>const LONGLONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const LONGLONG*</b>
      * 
      * Pointer to the source array of <b>LONGLONG</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1245,7 +1245,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of unsigned 64-bit integer values.
-     * @param {Pointer<UInt64>} prgn Type: <b>const ULONGLONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>const ULONGLONG*</b>
      * 
      * Pointer to the source array of <b>ULONGLONG</b> values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1270,7 +1270,7 @@ class Variant {
 
     /**
      * Initializes a VARIANT structure with an array of values of type DOUBLE.
-     * @param {Pointer<Double>} prgn Type: <b>const DOUBLE*</b>
+     * @param {Pointer<Float>} prgn Type: <b>const DOUBLE*</b>
      * 
      * Pointer to the source array of DOUBLE values.
      * @param {Integer} cElems Type: <b>ULONG</b>
@@ -1518,7 +1518,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int16>} piRet Type: <b>SHORT*</b>
+     * @param {Pointer<Integer>} piRet Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1540,7 +1540,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt16>} puiRet Type: <b>USHORT*</b>
+     * @param {Pointer<Integer>} puiRet Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1562,7 +1562,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int32>} plRet Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} plRet Type: <b>LONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1584,7 +1584,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt32>} pulRet Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulRet Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1606,7 +1606,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int64>} pllRet Type: <b>LONGLONG*</b>
+     * @param {Pointer<Integer>} pllRet Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1628,7 +1628,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt64>} pullRet Type: <b>ULONGLONG*</b>
+     * @param {Pointer<Integer>} pullRet Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted property value if one exists; otherwise, 0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1650,7 +1650,7 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<Double>} pdblRet Type: <b>DOUBLE*</b>
+     * @param {Pointer<Float>} pdblRet Type: <b>DOUBLE*</b>
      * 
      * When this function returns, contains the extracted value if one exists; otherwise, 0.0.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1808,10 +1808,10 @@ class Variant {
      * @param {Pointer<VARIANT>} varIn Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<UInt16>} pwDate Type: <b>WORD*</b>
+     * @param {Pointer<Integer>} pwDate Type: <b>WORD*</b>
      * 
      * When this function returns, contains the extracted <b>WORD</b> that represents a MS-DOS date.
-     * @param {Pointer<UInt16>} pwTime Type: <b>WORD*</b>
+     * @param {Pointer<Integer>} pwTime Type: <b>WORD*</b>
      * 
      * When this function returns, contains the extracted contains the extracted <b>WORD</b> that represents a MS-DOS time.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1880,7 +1880,7 @@ class Variant {
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * The number of elements in the buffer pointed to by <i>prgf</i>.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * When this function returns, contains a pointer to the count of <b>BOOL</b> elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1931,13 +1931,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int16>} prgn Type: <b>SHORT*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>SHORT*</b>
      * 
      * Pointer to the <b>Int16</b> data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies <b>Int16</b> array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1959,13 +1959,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt16>} prgn Type: <b>USHORT*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>USHORT*</b>
      * 
      * Pointer to the unsigned <b>Int16</b> data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies unsigned <b>Int16</b> array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1987,13 +1987,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int32>} prgn Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>LONG*</b>
      * 
      * Pointer to the <b>Int32</b> data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies <b>Int32</b> array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2015,13 +2015,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt32>} prgn Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>ULONG*</b>
      * 
      * Pointer to the unsigned <b>Int32</b> data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies unsigned <b>Int32</b> array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2043,13 +2043,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int64>} prgn Type: <b>LONGLONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>LONGLONG*</b>
      * 
      * Pointer to the Int64 data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies Int64 array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of Int64 elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2071,13 +2071,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt64>} prgn Type: <b>ULONGLONG*</b>
+     * @param {Pointer<Integer>} prgn Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the unsigned <b>Int64</b> data extracted from source variant structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * Specifies unsigned <b>Int64</b> array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2099,13 +2099,13 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<Double>} prgn Type: <b>DOUBLE*</b>
+     * @param {Pointer<Float>} prgn Type: <b>DOUBLE*</b>
      * 
      * Pointer to a buffer that contains <i>crgn</i> <b>DOUBLE</b> values. When this function returns, the buffer has been initialized with *<i>pcElem</i> <b>DOUBLE</b> elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @param {Integer} crgn Type: <b>ULONG</b>
      * 
      * The number of elements in the buffer pointed to by <i>prgn</i>.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * When this function returns, contains the count of <b>DOUBLE</b> elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2162,7 +2162,7 @@ class Variant {
      * @param {Integer} crgsz Type: <b>ULONG</b>
      * 
      * Specifies string array size.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of string elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2184,10 +2184,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<BOOL>} pprgf Type: <b>BOOL**</b>
+     * @param {Pointer<Pointer<BOOL>>} pprgf Type: <b>BOOL**</b>
      * 
      * When this function returns, contains a pointer to an array of <b>BOOL</b> values extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * When this function returns, contains a pointer to the count of elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2197,7 +2197,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToBooleanArrayAlloc(var, pprgf, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToBooleanArrayAlloc", "ptr", var, "ptr", pprgf, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToBooleanArrayAlloc", "ptr", var, "ptr*", pprgf, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2209,10 +2209,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int16>} pprgn Type: <b>SHORT**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>SHORT**</b>
      * 
      * Pointer to the address of the <b>Int16</b> data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of <b>Int16</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2222,7 +2222,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt16ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt16ArrayAlloc", "ptr", var, "short*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2234,10 +2234,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt16>} pprgn Type: <b>USHORT**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>USHORT**</b>
      * 
      * Pointer to the address of the unsigned <b>Int16</b> data extracted from the source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int16</b> elements extracted from the source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2247,7 +2247,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt16ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt16ArrayAlloc", "ptr", var, "ushort*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToUInt16ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2259,10 +2259,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int32>} pprgn Type: <b>LONG**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>LONG**</b>
      * 
      * Pointer to the address of the <b>Int32</b> data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2272,7 +2272,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt32ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt32ArrayAlloc", "ptr", var, "int*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2284,10 +2284,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt32>} pprgn Type: <b>ULONG**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>ULONG**</b>
      * 
      * The address of a pointer to the unsigned <b>Int32</b> data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int32</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2297,7 +2297,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt32ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt32ArrayAlloc", "ptr", var, "uint*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToUInt32ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2309,10 +2309,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<Int64>} pprgn Type: <b>LONGLONG**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>LONGLONG**</b>
      * 
      * Pointer to the address of the <b>Int64</b> data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2322,7 +2322,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToInt64ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToInt64ArrayAlloc", "ptr", var, "int64*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2334,10 +2334,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<UInt64>} pprgn Type: <b>ULONGLONG**</b>
+     * @param {Pointer<Pointer<Integer>>} pprgn Type: <b>ULONGLONG**</b>
      * 
      * The address of a pointer to the unsigned <b>Int64</b> data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of unsigned <b>Int64</b> elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2347,7 +2347,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToUInt64ArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToUInt64ArrayAlloc", "ptr", var, "uint*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToUInt64ArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2359,10 +2359,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<Double>} pprgn Type: <b>DOUBLE**</b>
+     * @param {Pointer<Pointer<Float>>} pprgn Type: <b>DOUBLE**</b>
      * 
      * When this function returns, contains a pointer to an array of <b>DOUBLE</b> values extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * When this function returns, contains a pointer to the count of elements extracted from the source <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2372,7 +2372,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToDoubleArrayAlloc(var, pprgn, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToDoubleArrayAlloc", "ptr", var, "double*", pprgn, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToDoubleArrayAlloc", "ptr", var, "ptr*", pprgn, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2384,10 +2384,10 @@ class Variant {
      * @param {Pointer<VARIANT>} var Type: <b>REFVARIANT</b>
      * 
      * Reference to a source variant structure.
-     * @param {Pointer<PWSTR>} pprgsz Type: <b>PWSTR**</b>
+     * @param {Pointer<Pointer<PWSTR>>} pprgsz Type: <b>PWSTR**</b>
      * 
      * The address of a pointer to the string data extracted from source variant structure.
-     * @param {Pointer<UInt32>} pcElem Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElem Type: <b>ULONG*</b>
      * 
      * Pointer to the count of string elements extracted from source variant structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2397,7 +2397,7 @@ class Variant {
      * @since windows5.1.2600
      */
     static VariantToStringArrayAlloc(var, pprgsz, pcElem) {
-        result := DllCall("PROPSYS.dll\VariantToStringArrayAlloc", "ptr", var, "ptr", pprgsz, "uint*", pcElem, "int")
+        result := DllCall("PROPSYS.dll\VariantToStringArrayAlloc", "ptr", var, "ptr*", pprgsz, "uint*", pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2437,7 +2437,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Int16>} pnVal Type: <b>SHORT*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>SHORT*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2462,7 +2462,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies a vector or array index; otherwise, value must be 0.
-     * @param {Pointer<UInt16>} pnVal Type: <b>USHORT*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>USHORT*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2487,7 +2487,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Int32>} pnVal Type: <b>LONG*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>LONG*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2512,7 +2512,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<UInt32>} pnVal Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>ULONG*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2537,7 +2537,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Int64>} pnVal Type: <b>LONGLONG*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>LONGLONG*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2562,7 +2562,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<UInt64>} pnVal Type: <b>ULONGLONG*</b>
+     * @param {Pointer<Integer>} pnVal Type: <b>ULONGLONG*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2587,7 +2587,7 @@ class Variant {
      * @param {Integer} iElem Type: <b>ULONG</b>
      * 
      * Specifies vector or array index; otherwise, value must be 0.
-     * @param {Pointer<Double>} pnVal Type: <b>DOUBLE*</b>
+     * @param {Pointer<Float>} pnVal Type: <b>DOUBLE*</b>
      * 
      * Pointer to the extracted element value.
      * @returns {HRESULT} Type: <b>HRESULT</b>

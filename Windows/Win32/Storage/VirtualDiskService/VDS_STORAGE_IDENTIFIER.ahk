@@ -50,7 +50,7 @@ class VDS_STORAGE_IDENTIFIER extends Win32Struct
 
     /**
      * Pointer to the identifier data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_rgbIdentifier {
         get => NumGet(this, 16, "ptr")

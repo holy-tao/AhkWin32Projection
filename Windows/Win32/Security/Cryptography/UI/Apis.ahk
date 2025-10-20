@@ -570,8 +570,8 @@ class UI {
     /**
      * A helper function used to retrieve a serialized certificate BLOB from a CERT_SELECTUI_INPUT structure.
      * @param {Pointer<CERT_SELECTUI_INPUT>} pcsi A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/ns-cryptuiapi-cert_selectui_input">CERT_SELECTUI_INPUT</a> structure that contains the certificate store and certificate context chain information.
-     * @param {Pointer<Void>} ppOutBuffer The address of a pointer to a buffer that receives the serialized certificates BLOB.
-     * @param {Pointer<UInt32>} pulOutBufferSize A pointer to a <b>ULONG</b> to receive the size, in bytes, of the BLOB received in the buffer pointed to by the <i>ppOutBuffer</i> parameter.
+     * @param {Pointer<Pointer<Void>>} ppOutBuffer The address of a pointer to a buffer that receives the serialized certificates BLOB.
+     * @param {Pointer<Integer>} pulOutBufferSize A pointer to a <b>ULONG</b> to receive the size, in bytes, of the BLOB received in the buffer pointed to by the <i>ppOutBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>. 
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. 	If both <b>hStore</b> and <b>prgpChain</b> parameters are not <b>NULL</b>, return <b>E_INVALIDARG</b>. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -579,7 +579,7 @@ class UI {
      * @since windows6.1
      */
     static CertSelectionGetSerializedBlob(pcsi, ppOutBuffer, pulOutBufferSize) {
-        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr", ppOutBuffer, "uint*", pulOutBufferSize, "int")
+        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, "ptr*", ppOutBuffer, "uint*", pulOutBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -622,7 +622,7 @@ class UI {
      * @param {HWND} hwndParent The handle of the window to use as the parent of the dialog box that  this function creates. This parameter is ignored if the <b>CRYPTUI_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>.
      * @param {PWSTR} pwszWizardTitle A pointer to a null-terminated Unicode string that contains the title to use in the dialog box that this function creates. This parameter is ignored if the <b>CRYPT_WIZ_NO_UI</b> flag is set in <i>dwFlags</i>. If this parameter is <b>NULL</b>, a default title is used.
      * @param {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_INFO>} pDigitalSignInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_info">CRYPTUI_WIZ_DIGITAL_SIGN_INFO</a> structure that contains information about the signing process.
-     * @param {Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT>} ppSignContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_context">CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT</a> structure pointer that receives the signed BLOB. When you have finished using this structure, you must free the memory by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext">CryptUIWizFreeDigitalSignContext</a> function. This parameter can be <b>NULL</b> if the signed BLOB is not needed.
+     * @param {Pointer<Pointer<CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT>>} ppSignContext A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/cryptuiapi/ns-cryptuiapi-cryptui_wiz_digital_sign_context">CRYPTUI_WIZ_DIGITAL_SIGN_CONTEXT</a> structure pointer that receives the signed BLOB. When you have finished using this structure, you must free the memory by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/cryptuiapi/nf-cryptuiapi-cryptuiwizfreedigitalsigncontext">CryptUIWizFreeDigitalSignContext</a> function. This parameter can be <b>NULL</b> if the signed BLOB is not needed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero.
@@ -633,7 +633,7 @@ class UI {
         pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr", ppSignContext, "int")
+        result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr*", ppSignContext, "int")
         return result
     }
 

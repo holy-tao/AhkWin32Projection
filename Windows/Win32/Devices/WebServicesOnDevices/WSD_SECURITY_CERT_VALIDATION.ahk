@@ -34,7 +34,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structures that contain certificates to be matched against those provided by the HTTPS server or client.  Only one matching certificate is required for validatation.  This parameter can be NULL.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     certMatchArray {
         get => NumGet(this, 0, "ptr")
@@ -167,7 +167,7 @@ class WSD_SECURITY_CERT_VALIDATION extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCertHash {
         get => NumGet(this, 48, "ptr")

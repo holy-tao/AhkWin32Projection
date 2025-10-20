@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtpage
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class DTPAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszResourceName {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +30,7 @@ class DTPAGE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszComponent {
         get => NumGet(this, 16, "ptr")

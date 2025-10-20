@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/DevIO/pwm-controller-get-actual-period-output
  * @namespace Windows.Win32.Devices.Pwm
  * @version v4.0.30319
  */

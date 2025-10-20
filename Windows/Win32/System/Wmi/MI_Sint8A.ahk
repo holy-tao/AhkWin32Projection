@@ -15,7 +15,7 @@ class MI_Sint8A extends Win32Struct
 
     /**
      * An array of <b>MI_Sint8</b> types.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

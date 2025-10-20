@@ -37,7 +37,7 @@ class SECPKG_SUPPLEMENTAL_CRED extends Win32Struct
 
     /**
      * Pointer to a set of package-specific supplemental credentials.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Credentials {
         get => NumGet(this, 24, "ptr")

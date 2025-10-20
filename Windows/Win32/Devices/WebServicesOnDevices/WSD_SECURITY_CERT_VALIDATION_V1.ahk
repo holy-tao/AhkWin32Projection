@@ -3,6 +3,8 @@
 #Include ..\..\Security\Cryptography\HCERTSTORE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/ns-wsdbase-wsd_security_cert_validation_v1
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -13,7 +15,7 @@ class WSD_SECURITY_CERT_VALIDATION_V1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     certMatchArray {
         get => NumGet(this, 0, "ptr")

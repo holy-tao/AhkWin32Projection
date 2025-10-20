@@ -5,6 +5,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/prsht/ns-prsht-propsheetpagea_v3
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */
@@ -109,7 +111,7 @@ class PROPSHEETPAGEA_V3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pcRefParent {
         get => NumGet(this, 64, "ptr")

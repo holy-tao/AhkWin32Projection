@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/ns-shdeprecated-basebrowserdatalh
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -24,7 +26,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ITravelLog>}
+     * @type {ITravelLog}
      */
     _ptl {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +34,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IHlinkFrame>}
+     * @type {IHlinkFrame}
      */
     _phlf {
         get => NumGet(this, 16, "ptr")
@@ -40,7 +42,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IWebBrowser2>}
+     * @type {IWebBrowser2}
      */
     _pautoWB2 {
         get => NumGet(this, 24, "ptr")
@@ -48,7 +50,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IExpDispSupport>}
+     * @type {IExpDispSupport}
      */
     _pautoEDS {
         get => NumGet(this, 32, "ptr")
@@ -56,7 +58,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IShellService>}
+     * @type {IShellService}
      */
     _pautoSS {
         get => NumGet(this, 40, "ptr")
@@ -106,7 +108,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IOleCommandTarget>}
+     * @type {IOleCommandTarget}
      */
     _pctView {
         get => NumGet(this, 72, "ptr")
@@ -122,7 +124,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IShellView>}
+     * @type {IShellView}
      */
     _psv {
         get => NumGet(this, 88, "ptr")
@@ -130,7 +132,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     _psf {
         get => NumGet(this, 96, "ptr")
@@ -165,7 +167,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IShellView>}
+     * @type {IShellView}
      */
     _psvPending {
         get => NumGet(this, 128, "ptr")
@@ -173,7 +175,7 @@ class BASEBROWSERDATALH extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     _psfPending {
         get => NumGet(this, 136, "ptr")

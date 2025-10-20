@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/cfapi/ne-cfapi-cf_callback_dehydration_reason
  * @namespace Windows.Win32.Storage.CloudFilters
  * @version v4.0.30319
  */

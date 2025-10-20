@@ -13,7 +13,7 @@ class KSSTREAM_SEGMENT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IKsInterfaceHandler>}
+     * @type {IKsInterfaceHandler}
      */
     KsInterfaceHandler {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class KSSTREAM_SEGMENT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IKsDataTypeHandler>}
+     * @type {IKsDataTypeHandler}
      */
     KsDataTypeHandler {
         get => NumGet(this, 8, "ptr")

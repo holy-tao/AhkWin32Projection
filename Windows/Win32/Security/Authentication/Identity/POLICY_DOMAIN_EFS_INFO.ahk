@@ -20,7 +20,7 @@ class POLICY_DOMAIN_EFS_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     EfsBlob {
         get => NumGet(this, 8, "ptr")

@@ -25,7 +25,7 @@ class ENCRYPTION_CERTIFICATE_HASH_LIST extends Win32Struct
     /**
      * A pointer to the first 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate_hash">ENCRYPTION_CERTIFICATE_HASH</a> structure in the list.
-     * @type {Pointer<ENCRYPTION_CERTIFICATE_HASH>}
+     * @type {Pointer<Pointer<ENCRYPTION_CERTIFICATE_HASH>>}
      */
     pUsers {
         get => NumGet(this, 8, "ptr")

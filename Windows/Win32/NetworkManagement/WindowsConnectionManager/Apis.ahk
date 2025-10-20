@@ -52,10 +52,10 @@ class WindowsConnectionManager {
      * @param {Integer} Property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ne-wcmapi-wcm_property">WCM_PROPERTY</a></b>
      * 
      * The WCM property to query.
-     * @param {Pointer<UInt32>} pdwDataSize Type: <b>PDWORD</b>
+     * @param {Pointer<Integer>} pdwDataSize Type: <b>PDWORD</b>
      * 
      * The size of the returned property value.
-     * @param {Pointer<Byte>} ppData Type: <b>PBYTE*</b>
+     * @param {Pointer<Pointer<Integer>>} ppData Type: <b>PBYTE*</b>
      * 
      * The returned property value.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -69,7 +69,7 @@ class WindowsConnectionManager {
 
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
-        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint*", pdwDataSize, "char*", ppData, "uint")
+        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, "uint*", pdwDataSize, "ptr*", ppData, "uint")
         return result
     }
 
@@ -87,7 +87,7 @@ class WindowsConnectionManager {
      * @param {Integer} dwDataSize Type: <b>DWORD</b>
      * 
      * The size of the new property value.
-     * @param {Pointer<Byte>} pbData Type: <b>const BYTE*</b>
+     * @param {Pointer<Integer>} pbData Type: <b>const BYTE*</b>
      * 
      * The new property value.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -107,7 +107,7 @@ class WindowsConnectionManager {
 
     /**
      * Retrieves a list of profiles in preferred order.
-     * @param {Pointer<WCM_PROFILE_INFO_LIST>} ppProfileList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_profile_info_list">PWCM_PROFILE_INFO_LIST</a>*</b>
+     * @param {Pointer<Pointer<WCM_PROFILE_INFO_LIST>>} ppProfileList Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_profile_info_list">PWCM_PROFILE_INFO_LIST</a>*</b>
      * 
      * The list of profiles.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -119,7 +119,7 @@ class WindowsConnectionManager {
     static WcmGetProfileList(ppProfileList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("wcmapi.dll\WcmGetProfileList", "ptr", pReserved, "ptr", ppProfileList, "uint")
+        result := DllCall("wcmapi.dll\WcmGetProfileList", "ptr", pReserved, "ptr*", ppProfileList, "uint")
         return result
     }
 
@@ -161,7 +161,7 @@ class WindowsConnectionManager {
     /**
      * The OnDemandGetRoutingHint function looks up a destination in the Route Request cache and, if a match is found, return the corresponding Interface ID.
      * @param {PWSTR} destinationHostName An PWSTR describing the target host name for a network communication.
-     * @param {Pointer<UInt32>} interfaceIndex The interface index of the network adapter to be used for communicating with the target host.
+     * @param {Pointer<Integer>} interfaceIndex The interface index of the network adapter to be used for communicating with the target host.
      * @returns {HRESULT} This function returns the following to indicate operation results:
      * 
      * <table>
@@ -226,6 +226,7 @@ class WindowsConnectionManager {
      * 
      * @param {HANDLE} registrationHandle 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/ondemandconnroutehelper/nf-ondemandconnroutehelper-ondemandunregisternotification
      * @since windows8.1
      */
     static OnDemandUnRegisterNotification(registrationHandle) {
@@ -263,7 +264,7 @@ class WindowsConnectionManager {
      * </table>
      * @param {Pointer} ConnectionProfileFilterRawData The connection profile filter blog which is a byte cast of wcm_selection_filters.
      * @param {Integer} ConnectionProfileFilterRawDataSize The size of the <i>ConnectionProfileFilterRawData</i> in bytes.
-     * @param {Pointer<NET_INTERFACE_CONTEXT_TABLE>} InterfaceContextTable This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
+     * @param {Pointer<Pointer<NET_INTERFACE_CONTEXT_TABLE>>} InterfaceContextTable This is set to the list of <a href="https://docs.microsoft.com/windows/win32/api/ondemandconnroutehelper/ns-ondemandconnroutehelper-net_interface_context">NET_INTERFACE_CONTEXT</a> structures containing the interface indices and configuration names that can be used for the hostname and filter.
      * @returns {HRESULT} This function returns the following <b>HRESULT</b> values depending on the status.
      * 
      * <table></table>
@@ -325,7 +326,7 @@ class WindowsConnectionManager {
         HostName := HostName is String ? StrPtr(HostName) : HostName
         ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr", InterfaceContextTable, "int")
+        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", InterfaceContextTable, "int")
         if(result != 0)
             throw OSError(result)
 

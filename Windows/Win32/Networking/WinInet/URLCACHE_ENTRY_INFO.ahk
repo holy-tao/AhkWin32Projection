@@ -113,7 +113,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbHeaderInfo {
         get => NumGet(this, 72, "ptr")
@@ -129,7 +129,7 @@ class URLCACHE_ENTRY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbExtraData {
         get => NumGet(this, 88, "ptr")

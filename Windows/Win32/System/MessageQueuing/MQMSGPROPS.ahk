@@ -20,7 +20,7 @@ class MQMSGPROPS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     aPropID {
         get => NumGet(this, 8, "ptr")

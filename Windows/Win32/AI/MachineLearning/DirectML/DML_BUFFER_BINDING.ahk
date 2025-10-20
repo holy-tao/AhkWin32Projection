@@ -18,7 +18,7 @@ class DML_BUFFER_BINDING extends Win32Struct
      * 
      * An optional pointer to an <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> interface representing a buffer. The resource must have dimension <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_resource_dimension">D3D12_RESOURCE_DIMENSION_BUFFER</a>, and the
      *       range described by this struct must lie within the bounds of the buffer. You may supply <b>nullptr</b> for this member to indicate 'no binding'.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     Buffer {
         get => NumGet(this, 0, "ptr")

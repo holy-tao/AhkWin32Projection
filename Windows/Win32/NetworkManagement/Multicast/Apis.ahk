@@ -33,7 +33,7 @@ class Multicast {
 ;@region Methods
     /**
      * The McastApiStartup function facilitates MADCAP-version negotiation between requesting clients and the version of MADCAP implemented on the system.
-     * @param {Pointer<UInt32>} Version Pointer to the version of multicast (MCAST) that the client wishes to use. 
+     * @param {Pointer<Integer>} Version Pointer to the version of multicast (MCAST) that the client wishes to use. 
      * 
      * 
      * 
@@ -93,7 +93,7 @@ class Multicast {
      * 
      * To determine the size of buffer required to hold scope list data, set <i>pScopeList</i> to <b>NULL</b> and <i>pScopeLen</i> to a non-<b>NULL</b> value. The 
      * <b>McastEnumerateScopes</b> function will then return ERROR_SUCCESS and store the size of the scope list data, in bytes, in <i>pScopeLen</i>.
-     * @param {Pointer<UInt32>} pScopeLen Pointer to a value used to communicate the size of data or buffer space in <i>pScopeList</i>. On input, <i>pScopeLen</i> points to the size, in bytes, of the buffer pointed to by <i>pScopeList</i>. On return, <i>pScopeLen</i> points to the size of the data copied to <i>pScopeList</i>. 
+     * @param {Pointer<Integer>} pScopeLen Pointer to a value used to communicate the size of data or buffer space in <i>pScopeList</i>. On input, <i>pScopeLen</i> points to the size, in bytes, of the buffer pointed to by <i>pScopeList</i>. On return, <i>pScopeLen</i> points to the size of the data copied to <i>pScopeList</i>. 
      * 
      * 
      * 
@@ -103,7 +103,7 @@ class Multicast {
      * 
      * To determine the size of buffer required to hold scope list data, set <i>pScopeList</i> to <b>NULL</b> and <i>pScopeLen</i> to a non-<b>NULL</b> value. The 
      * <b>McastEnumerateScopes</b> function will then return ERROR_SUCCESS and store the size of the scope list data, in bytes, in <i>pScopeLen</i>.
-     * @param {Pointer<UInt32>} pScopeCount Pointer to the number of scopes returned in <i>pScopeList</i>.
+     * @param {Pointer<Integer>} pScopeCount Pointer to the number of scopes returned in <i>pScopeList</i>.
      * @returns {Integer} If the function succeeds, it returns ERROR_SUCCESS.
      * 
      * If the buffer pointed to by <i>pScopeList</i> is too small to hold the scope list, the 

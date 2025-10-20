@@ -20,7 +20,7 @@ class D3D12_VIDEO_ENCODER_FRAME_MOTION_VECTORS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOpaqueLayoutBuffer {
         get => NumGet(this, 8, "ptr")

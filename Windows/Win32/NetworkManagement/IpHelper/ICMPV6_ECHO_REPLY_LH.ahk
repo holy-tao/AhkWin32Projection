@@ -3,6 +3,8 @@
 #Include .\IPV6_ADDRESS_EX.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ipexport/ns-ipexport-icmpv6_echo_reply_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

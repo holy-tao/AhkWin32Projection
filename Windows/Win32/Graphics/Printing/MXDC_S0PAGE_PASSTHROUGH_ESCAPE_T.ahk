@@ -4,6 +4,8 @@
 #Include .\MXDC_S0PAGE_DATA_T.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagepassthroughescape
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

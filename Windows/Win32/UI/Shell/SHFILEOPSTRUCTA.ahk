@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/shellapi/ns-shellapi-shfileopstructa
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  * @charset ANSI
@@ -33,7 +35,7 @@ class SHFILEOPSTRUCTA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pFrom {
         get => NumGet(this, 16, "ptr")
@@ -41,7 +43,7 @@ class SHFILEOPSTRUCTA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pTo {
         get => NumGet(this, 24, "ptr")

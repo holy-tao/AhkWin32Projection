@@ -80,7 +80,7 @@ class CPSUICBPARAM extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pOldSel {
         get => NumGet(this, 40, "ptr")

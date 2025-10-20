@@ -77,7 +77,7 @@ class DICONFIGUREDEVICESPARAMSA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     lpUnkDDSTarget {
         get => NumGet(this, 80, "ptr")

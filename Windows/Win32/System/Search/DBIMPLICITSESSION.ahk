@@ -12,7 +12,7 @@ class DBIMPLICITSESSION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkOuter {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class DBIMPLICITSESSION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pSession {
         get => NumGet(this, 16, "ptr")

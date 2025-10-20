@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/uxtheme/ne-uxtheme-themesize
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -52,7 +52,7 @@ class SWbemAnalysisMatrix extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     m_pValues {
         get => NumGet(this, 24, "ptr")

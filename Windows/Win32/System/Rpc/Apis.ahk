@@ -1173,15 +1173,15 @@ class Rpc {
 ;@region Methods
     /**
      * The IUnknown_QueryInterface_Proxy function implements the QueryInterface method for all interface proxies.
-     * @param {Pointer<IUnknown>} This_R 
+     * @param {IUnknown} This_R 
      * @param {Pointer<Guid>} riid IID of the interface to be queried.
-     * @param {Pointer<Void>} ppvObject Address to a pointer whose interface is queried or null when an interface is not supported.
+     * @param {Pointer<Pointer<Void>>} ppvObject Address to a pointer whose interface is queried or null when an interface is not supported.
      * @returns {HRESULT} Returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//unknwnbase/nf-unknwnbase-iunknown_queryinterface_proxy
      * @since windows5.0
      */
     static IUnknown_QueryInterface_Proxy(This_R, riid, ppvObject) {
-        result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr", ppvObject, "int")
+        result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1190,7 +1190,7 @@ class Rpc {
 
     /**
      * The IUnknown_AddRef_Proxy function implements the AddRef method for all interface proxies.
-     * @param {Pointer<IUnknown>} This_R 
+     * @param {IUnknown} This_R 
      * @returns {Integer} Returns an integer from 1 to <i>n</i>, indicating the value of the new reference count.
      * @see https://docs.microsoft.com/windows/win32/api//unknwnbase/nf-unknwnbase-iunknown_addref_proxy
      * @since windows5.0
@@ -1202,7 +1202,7 @@ class Rpc {
 
     /**
      * The IUnknown_Release_Proxy function implements the Release method for all interface proxies.
-     * @param {Pointer<IUnknown>} This_R 
+     * @param {IUnknown} This_R 
      * @returns {Integer} Returns an integer from 1 to <i>n</i>, indicating the value of the new reference count.
      * @see https://docs.microsoft.com/windows/win32/api//unknwnbase/nf-unknwnbase-iunknown_release_proxy
      * @since windows5.0
@@ -1215,7 +1215,7 @@ class Rpc {
     /**
      * The RpcBindingCopy function copies binding information and creates a new binding handle.
      * @param {Pointer<Void>} SourceBinding Server binding handle whose referenced binding information is copied.
-     * @param {Pointer<Void>} DestinationBinding Returns a pointer to the server binding handle that refers to the copied binding information.
+     * @param {Pointer<Pointer<Void>>} DestinationBinding Returns a pointer to the server binding handle that refers to the copied binding information.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -1264,13 +1264,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingCopy(SourceBinding, DestinationBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingCopy", "ptr", SourceBinding, "ptr", DestinationBinding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingCopy", "ptr", SourceBinding, "ptr*", DestinationBinding, "int")
         return result
     }
 
     /**
      * The RpcBindingFree function releases binding-handle resources.
-     * @param {Pointer<Void>} Binding Pointer to the server binding to be freed.
+     * @param {Pointer<Pointer<Void>>} Binding Pointer to the server binding to be freed.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -1319,7 +1319,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingFree(Binding) {
-        result := DllCall("RPCRT4.dll\RpcBindingFree", "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingFree", "ptr*", Binding, "int")
         return result
     }
 
@@ -1375,7 +1375,7 @@ class Rpc {
      * RPC client processes use RpcBindingInqOption to determine current values of the binding options for a given binding handle.
      * @param {Pointer<Void>} hBinding Server binding about which to determine binding-option values.
      * @param {Integer} option Binding handle property to inquire about.
-     * @param {Pointer<UIntPtr>} pOptionValue Memory location to place the value for the specified <i>Option</i>
+     * @param {Pointer<Pointer>} pOptionValue Memory location to place the value for the specified <i>Option</i>
      * 
      * <div class="alert"><b>Note</b>  For a list of binding options and their possible values, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/binding-option-constants">Binding Option Constants</a>.</div>
@@ -1424,7 +1424,7 @@ class Rpc {
     /**
      * Returns a binding handle from a string representation of a binding handle.
      * @param {PSTR} StringBinding Pointer to a string representation of a binding handle.
-     * @param {Pointer<Void>} Binding Returns a pointer to the server binding handle.
+     * @param {Pointer<Pointer<Void>>} Binding Returns a pointer to the server binding handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -1541,14 +1541,14 @@ class Rpc {
     static RpcBindingFromStringBindingA(StringBinding, Binding) {
         StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-        result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingA", "ptr", StringBinding, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingA", "ptr", StringBinding, "ptr*", Binding, "int")
         return result
     }
 
     /**
      * Returns a binding handle from a string representation of a binding handle.
      * @param {PWSTR} StringBinding Pointer to a string representation of a binding handle.
-     * @param {Pointer<Void>} Binding Returns a pointer to the server binding handle.
+     * @param {Pointer<Pointer<Void>>} Binding Returns a pointer to the server binding handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -1665,25 +1665,25 @@ class Rpc {
     static RpcBindingFromStringBindingW(StringBinding, Binding) {
         StringBinding := StringBinding is String ? StrPtr(StringBinding) : StringBinding
 
-        result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingW", "ptr", StringBinding, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingFromStringBindingW", "ptr", StringBinding, "ptr*", Binding, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} ContextHandle 
-     * @param {Pointer<Void>} Binding 
+     * @param {Pointer<Pointer<Void>>} Binding 
      * @returns {Integer} 
      */
     static RpcSsGetContextBinding(ContextHandle, Binding) {
-        result := DllCall("RPCRT4.dll\RpcSsGetContextBinding", "ptr", ContextHandle, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcSsGetContextBinding", "ptr", ContextHandle, "ptr*", Binding, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt32>} MaxCalls 
+     * @param {Pointer<Integer>} MaxCalls 
      * @returns {Integer} 
      */
     static RpcBindingInqMaxCalls(Binding, MaxCalls) {
@@ -1852,7 +1852,7 @@ class Rpc {
     /**
      * The RpcMgmtInqDefaultProtectLevel function returns the default authentication level for an authentication service.
      * @param {Integer} AuthnSvc Authentication service for which to return the default authentication level. Valid values are the constant for any valid security provider.
-     * @param {Pointer<UInt32>} AuthnLevel Returns the default authentication level for the specified authentication service. The authentication level determines the degree to which authenticated communications between the client and server are protected. For more information, see 
+     * @param {Pointer<Integer>} AuthnLevel Returns the default authentication level for the specified authentication service. The authentication level determines the degree to which authenticated communications between the client and server are protected. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication Level Constants</a>.
      * @returns {Integer} <table>
      * <tr>
@@ -2001,7 +2001,7 @@ class Rpc {
 
     /**
      * The RpcBindingVectorFree function frees the binding handles contained in the vector and the vector itself.
-     * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector Pointer to a pointer to a vector of server binding handles. On return, the pointer is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector Pointer to a pointer to a vector of server binding handles. On return, the pointer is set to <b>NULL</b>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2061,7 +2061,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingVectorFree(BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcBindingVectorFree", "ptr", BindingVector, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingVectorFree", "ptr*", BindingVector, "int")
         return result
     }
 
@@ -2584,7 +2584,7 @@ class Rpc {
     /**
      * The RpcMgmtInqComTimeout function returns the binding-communications time-out value in a binding handle.
      * @param {Pointer<Void>} Binding Specifies a binding.
-     * @param {Pointer<UInt32>} Timeout Returns a pointer to the time-out value from the <i>Binding</i> parameter.
+     * @param {Pointer<Integer>} Timeout Returns a pointer to the time-out value from the <i>Binding</i> parameter.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2750,7 +2750,7 @@ class Rpc {
 
     /**
      * The RpcNetworkInqProtseqs function returns all protocol sequences supported by both the RPC run-time library and the operating system.
-     * @param {Pointer<RPC_PROTSEQ_VECTORA>} ProtseqVector Returns a pointer to a pointer to a protocol sequence vector.
+     * @param {Pointer<Pointer<RPC_PROTSEQ_VECTORA>>} ProtseqVector Returns a pointer to a pointer to a protocol sequence vector.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2788,13 +2788,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkInqProtseqsA(ProtseqVector) {
-        result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsA", "ptr", ProtseqVector, "int")
+        result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsA", "ptr*", ProtseqVector, "int")
         return result
     }
 
     /**
      * The RpcNetworkInqProtseqs function returns all protocol sequences supported by both the RPC run-time library and the operating system.
-     * @param {Pointer<RPC_PROTSEQ_VECTORW>} ProtseqVector Returns a pointer to a pointer to a protocol sequence vector.
+     * @param {Pointer<Pointer<RPC_PROTSEQ_VECTORW>>} ProtseqVector Returns a pointer to a pointer to a protocol sequence vector.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -2832,7 +2832,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNetworkInqProtseqsW(ProtseqVector) {
-        result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsW", "ptr", ProtseqVector, "int")
+        result := DllCall("RPCRT4.dll\RpcNetworkInqProtseqsW", "ptr*", ProtseqVector, "int")
         return result
     }
 
@@ -2998,7 +2998,7 @@ class Rpc {
 
     /**
      * The RpcProtseqVectorFree function frees the protocol sequences contained in the vector and the vector itself.
-     * @param {Pointer<RPC_PROTSEQ_VECTORA>} ProtseqVector Pointer to a pointer to a vector of protocol sequences. On return, the pointer is set to NULL.
+     * @param {Pointer<Pointer<RPC_PROTSEQ_VECTORA>>} ProtseqVector Pointer to a pointer to a vector of protocol sequences. On return, the pointer is set to NULL.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -3025,13 +3025,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcProtseqVectorFreeA(ProtseqVector) {
-        result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeA", "ptr", ProtseqVector, "int")
+        result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeA", "ptr*", ProtseqVector, "int")
         return result
     }
 
     /**
      * The RpcProtseqVectorFree function frees the protocol sequences contained in the vector and the vector itself.
-     * @param {Pointer<RPC_PROTSEQ_VECTORW>} ProtseqVector Pointer to a pointer to a vector of protocol sequences. On return, the pointer is set to NULL.
+     * @param {Pointer<Pointer<RPC_PROTSEQ_VECTORW>>} ProtseqVector Pointer to a pointer to a vector of protocol sequences. On return, the pointer is set to NULL.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -3058,13 +3058,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcProtseqVectorFreeW(ProtseqVector) {
-        result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeW", "ptr", ProtseqVector, "int")
+        result := DllCall("RPCRT4.dll\RpcProtseqVectorFreeW", "ptr*", ProtseqVector, "int")
         return result
     }
 
     /**
      * The RpcServerInqBindings function returns the binding handles over which remote procedure calls can be received.
-     * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector Returns a pointer to a pointer to a vector of server binding handles.
+     * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector Returns a pointer to a pointer to a vector of server binding handles.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -3102,18 +3102,18 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerInqBindings(BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcServerInqBindings", "ptr", BindingVector, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInqBindings", "ptr*", BindingVector, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} SecurityDescriptor 
-     * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector 
+     * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector 
      * @returns {Integer} 
      */
     static RpcServerInqBindingsEx(SecurityDescriptor, BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcServerInqBindingsEx", "ptr", SecurityDescriptor, "ptr", BindingVector, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInqBindingsEx", "ptr", SecurityDescriptor, "ptr*", BindingVector, "int")
         return result
     }
 
@@ -3126,7 +3126,7 @@ class Rpc {
      * 
      * 
      * Specifying a parameter value of <b>NULL</b> (or a nil UUID) signifies to return the manager EPV registered with <i>IfSpec</i> and the nil manager type UUID.
-     * @param {Pointer<Void>} MgrEpv Returns a pointer to the manager EPV for the requested interface.
+     * @param {Pointer<Pointer<Void>>} MgrEpv Returns a pointer to the manager EPV for the requested interface.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -3175,7 +3175,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcServerInqIf(IfSpec, MgrTypeUuid, MgrEpv) {
-        result := DllCall("RPCRT4.dll\RpcServerInqIf", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr", MgrEpv, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInqIf", "ptr", IfSpec, "ptr", MgrTypeUuid, "ptr*", MgrEpv, "int")
         return result
     }
 
@@ -5016,7 +5016,7 @@ class Rpc {
 
     /**
      * The RpcMgmtStatsVectorFree function frees a statistics vector.
-     * @param {Pointer<RPC_STATS_VECTOR>} StatsVector Pointer to a pointer to a statistics vector. On return, the pointer is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<RPC_STATS_VECTOR>>} StatsVector Pointer to a pointer to a statistics vector. On return, the pointer is set to <b>NULL</b>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5043,14 +5043,14 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtStatsVectorFree(StatsVector) {
-        result := DllCall("RPCRT4.dll\RpcMgmtStatsVectorFree", "ptr", StatsVector, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtStatsVectorFree", "ptr*", StatsVector, "int")
         return result
     }
 
     /**
      * The RpcMgmtInqStats function returns RPC run-time statistics.
      * @param {Pointer<Void>} Binding To receive statistics about a remote application, specify a server binding handle for that application. To receive statistics about your own (local) application, specify a value of <b>NULL</b>.
-     * @param {Pointer<RPC_STATS_VECTOR>} Statistics Returns a pointer to a pointer to the statistics about the server specified by the <i>Binding</i> parameter. Each statistic is an <b>unsigned long</b> value.
+     * @param {Pointer<Pointer<RPC_STATS_VECTOR>>} Statistics Returns a pointer to a pointer to the statistics about the server specified by the <i>Binding</i> parameter. Each statistic is an <b>unsigned long</b> value.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5099,7 +5099,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqStats(Binding, Statistics) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqStats", "ptr", Binding, "ptr", Statistics, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtInqStats", "ptr", Binding, "ptr*", Statistics, "int")
         return result
     }
 
@@ -5426,7 +5426,7 @@ class Rpc {
     /**
      * The RpcMgmtInqIfIds function returns a vector containing the identifiers of the interfaces offered by the server.
      * @param {Pointer<Void>} Binding To receive interface identifiers about a remote application, specify a server binding handle for that application. To receive interface information about your own application, specify a value of <b>NULL</b>.
-     * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVector Returns the address of an interface identifier vector.
+     * @param {Pointer<Pointer<RPC_IF_ID_VECTOR>>} IfIdVector Returns the address of an interface identifier vector.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5475,13 +5475,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtInqIfIds(Binding, IfIdVector) {
-        result := DllCall("RPCRT4.dll\RpcMgmtInqIfIds", "ptr", Binding, "ptr", IfIdVector, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtInqIfIds", "ptr", Binding, "ptr*", IfIdVector, "int")
         return result
     }
 
     /**
      * The RpcIfIdVectorFree function frees the vector and the interface-identification structures contained in the vector.
-     * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVector Address of a pointer to a vector of interface information. On return, the pointer is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<RPC_IF_ID_VECTOR>>} IfIdVector Address of a pointer to a vector of interface information. On return, the pointer is set to <b>NULL</b>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -5519,7 +5519,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcIfIdVectorFree(IfIdVector) {
-        result := DllCall("RPCNS4.dll\RpcIfIdVectorFree", "ptr", IfIdVector, "int")
+        result := DllCall("RPCNS4.dll\RpcIfIdVectorFree", "ptr*", IfIdVector, "int")
         return result
     }
 
@@ -6000,7 +6000,7 @@ class Rpc {
      * @param {Pointer<RPC_BINDING_HANDLE_OPTIONS_V1>} Options <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_binding_handle_options_v1">RPC_BINDING_HANDLE_OPTIONS</a> structure that describes additional options for the binding handle. This data may be overwritten during the call, so the API does not maintain a reference to this data. The caller must free the memory used by this structure when the API returns.
      * 
      * This parameter is optional. If this parameter is set to <b>NULL</b>, the default options for <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_binding_handle_options_v1">RPC_BINDING_HANDLE_OPTIONS</a> will be used.
-     * @param {Pointer<Void>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that contains the newly-created binding handle. If this function did not return RPC_S_OK, then the contents of this structure are undefined. For non-local RPC calls, this handle must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcbindingbind">RpcBindingBind</a>.
+     * @param {Pointer<Pointer<Void>>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that contains the newly-created binding handle. If this function did not return RPC_S_OK, then the contents of this structure are undefined. For non-local RPC calls, this handle must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcbindingbind">RpcBindingBind</a>.
      * @returns {Integer} This function returns RPC_S_OK on success; otherwise, an RPC_S_* error code is returned. For information on these error codes, see <a href="/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.
      * 
      * <table>
@@ -6042,7 +6042,7 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcBindingCreateA(Template, Security, Options, Binding) {
-        result := DllCall("RPCRT4.dll\RpcBindingCreateA", "ptr", Template, "ptr", Security, "ptr", Options, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingCreateA", "ptr", Template, "ptr", Security, "ptr", Options, "ptr*", Binding, "int")
         return result
     }
 
@@ -6055,7 +6055,7 @@ class Rpc {
      * @param {Pointer<RPC_BINDING_HANDLE_OPTIONS_V1>} Options <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_binding_handle_options_v1">RPC_BINDING_HANDLE_OPTIONS</a> structure that describes additional options for the binding handle. This data may be overwritten during the call, so the API does not maintain a reference to this data. The caller must free the memory used by this structure when the API returns.
      * 
      * This parameter is optional. If this parameter is set to <b>NULL</b>, the default options for <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/ns-rpcdce-rpc_binding_handle_options_v1">RPC_BINDING_HANDLE_OPTIONS</a> will be used.
-     * @param {Pointer<Void>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that contains the newly-created binding handle. If this function did not return RPC_S_OK, then the contents of this structure are undefined. For non-local RPC calls, this handle must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcbindingbind">RpcBindingBind</a>.
+     * @param {Pointer<Pointer<Void>>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that contains the newly-created binding handle. If this function did not return RPC_S_OK, then the contents of this structure are undefined. For non-local RPC calls, this handle must be passed to <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/nf-rpcasync-rpcbindingbind">RpcBindingBind</a>.
      * @returns {Integer} This function returns RPC_S_OK on success; otherwise, an RPC_S_* error code is returned. For information on these error codes, see <a href="/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.
      * 
      * <table>
@@ -6097,13 +6097,13 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcBindingCreateW(Template, Security, Options, Binding) {
-        result := DllCall("RPCRT4.dll\RpcBindingCreateW", "ptr", Template, "ptr", Security, "ptr", Options, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingCreateW", "ptr", Template, "ptr", Security, "ptr", Options, "ptr*", Binding, "int")
         return result
     }
 
     /**
      * Obtains the binding handle for RPC calls serviced by the thread in which RpcServerInqBindingHandle is called.
-     * @param {Pointer<Void>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that, upon success, receives the binding handle for the call serviced by the thread on which <b>RpcServerInqBindingHandle</b> is also called.
+     * @param {Pointer<Pointer<Void>>} Binding <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-binding-handle">RPC_BINDING_HANDLE</a> structure that, upon success, receives the binding handle for the call serviced by the thread on which <b>RpcServerInqBindingHandle</b> is also called.
      * 
      * If the call fails, this parameter is undefined.
      * @returns {Integer} This function returns RPC_S_OK on success; otherwise, an RPC_S_* error code is returned. This function cannot fail unless it is called on a thread that is not currently servicing an RPC call.
@@ -6115,7 +6115,7 @@ class Rpc {
      * @since windows6.0.6000
      */
     static RpcServerInqBindingHandle(Binding) {
-        result := DllCall("RPCRT4.dll\RpcServerInqBindingHandle", "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInqBindingHandle", "ptr*", Binding, "int")
         return result
     }
 
@@ -6398,7 +6398,7 @@ class Rpc {
     /**
      * A server application calls the RpcBindingInqAuthClient function to obtain the principal name or privilege attributes of the authenticated client that made the remote procedure call.
      * @param {Pointer<Void>} ClientBinding Client binding handle of the client that made the remote procedure call. This value can be zero. See Remarks.
-     * @param {Pointer<Void>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
+     * @param {Pointer<Pointer<Void>>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
      * 
      * The data referenced by this parameter is read-only and should not be modified by the server application. If the server wants to preserve any of the returned data, the server must copy the data into server-allocated memory.
      * 
@@ -6410,16 +6410,16 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthnLevel</i> parameter.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthzSvc</i> parameter. This parameter is not used by the RPC_C_AUTHN_WINNT authentication service. The returned value will always be RPC_C_AUTHZ_NONE.
@@ -6482,14 +6482,14 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientA", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
         return result
     }
 
     /**
      * A server application calls the RpcBindingInqAuthClient function to obtain the principal name or privilege attributes of the authenticated client that made the remote procedure call.
      * @param {Pointer<Void>} ClientBinding Client binding handle of the client that made the remote procedure call. This value can be zero. See Remarks.
-     * @param {Pointer<Void>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
+     * @param {Pointer<Pointer<Void>>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
      * 
      * The data referenced by this parameter is read-only and should not be modified by the server application. If the server wants to preserve any of the returned data, the server must copy the data into server-allocated memory.
      * 
@@ -6501,16 +6501,16 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthnLevel</i> parameter.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClient</b> from returning the <i>AuthzSvc</i> parameter. This parameter is not used by the RPC_C_AUTHN_WINNT authentication service. The returned value will always be RPC_C_AUTHZ_NONE.
@@ -6573,14 +6573,14 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientW", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "int")
         return result
     }
 
     /**
      * A server application calls the RpcBindingInqAuthClientEx function to obtain extended information about the client program that made the remote procedure call.
      * @param {Pointer<Void>} ClientBinding Client binding handle of the client that made the remote procedure call. This value can be zero. See Remarks.
-     * @param {Pointer<Void>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
+     * @param {Pointer<Pointer<Void>>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
      * 
      * The server application must cast the <i>Privs</i> parameter to the data type specified by the <i>AuthnSvc</i> parameter. The data referenced by this argument is read-only and should not be modified by the server application. If the server wants to preserve any of the returned data, the server must copy the data into server-allocated memory.
      * 
@@ -6592,12 +6592,12 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClientEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClientEx</b> from returning the <i>AuthnLevel</i> parameter.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
@@ -6605,7 +6605,7 @@ class Rpc {
      * 
      * <div class="alert"><b>Note</b>  <i>AuthnSvc</i> corresponds to the <b>SECURITY_STATUS</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes</a> on each certificate-based SSP for  <b>SECPKG_ATTR_DCE_INFO</b> or<b> SECPKG_ATTR_REMOTE_CERT_CONTEXT</b>.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>Binding</i> binding handle. For a list of the RPC-supported authorization services, see 
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>Binding</i> binding handle. For a list of the RPC-supported authorization services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authorization-service-constants">Authorization-Service Constants </a>.
      * 
      * Specify a null value to prevent 
@@ -6688,14 +6688,14 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExA(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExA", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
         return result
     }
 
     /**
      * A server application calls the RpcBindingInqAuthClientEx function to obtain extended information about the client program that made the remote procedure call.
      * @param {Pointer<Void>} ClientBinding Client binding handle of the client that made the remote procedure call. This value can be zero. See Remarks.
-     * @param {Pointer<Void>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
+     * @param {Pointer<Pointer<Void>>} Privs Returns a pointer to a handle to the privileged information for the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For <b>ncalrpc</b> calls, <i>Privs</i> contains a string with the client's principal name.
      * 
      * The server application must cast the <i>Privs</i> parameter to the data type specified by the <i>AuthnSvc</i> parameter. The data referenced by this argument is read-only and should not be modified by the server application. If the server wants to preserve any of the returned data, the server must copy the data into server-allocated memory.
      * 
@@ -6707,12 +6707,12 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClientEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthClientEx</b> from returning the <i>AuthnLevel</i> parameter.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service requested by the client application that made the remote procedure call on the <i>ClientBinding</i> binding handle. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
@@ -6720,7 +6720,7 @@ class Rpc {
      * 
      * <div class="alert"><b>Note</b>  <i>AuthnSvc</i> corresponds to the <b>SECURITY_STATUS</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-querycontextattributesa">QueryContextAttributes</a> on each certificate-based SSP for  <b>SECPKG_ATTR_DCE_INFO</b> or<b> SECPKG_ATTR_REMOTE_CERT_CONTEXT</b>.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>Binding</i> binding handle. For a list of the RPC-supported authorization services, see 
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on the <i>Binding</i> binding handle. For a list of the RPC-supported authorization services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authorization-service-constants">Authorization-Service Constants </a>.
      * 
      * Specify a null value to prevent 
@@ -6803,7 +6803,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthClientExW(ClientBinding, Privs, ServerPrincName, AuthnLevel, AuthnSvc, AuthzSvc, Flags) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", "ptr", ClientBinding, "ptr", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthClientExW", "ptr", ClientBinding, "ptr*", Privs, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "uint*", AuthzSvc, "uint", Flags, "int")
         return result
     }
 
@@ -6815,21 +6815,21 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. See Note.
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. See Note.
      * 
      * Specify a null value to prevent the function from returning the <i>AuthnLevel</i> parameter.
      * 
      * The level returned in the <i>AuthnLevel</i> parameter may be different from the level specified when the client called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfo">RpcBindingSetAuthInfo</a> function. This discrepancy occurs when the RPC run-time library does not support the authentication level specified by the client and automatically upgrades to the next higher authentication level.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. See Note.
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. See Note.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<Void>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
+     * @param {Pointer<Pointer<Void>>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthIdentity</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i> See Note.
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i> See Note.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthzSvc</i> parameter.
@@ -6896,7 +6896,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr", AuthIdentity, "uint*", AuthzSvc, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "int")
         return result
     }
 
@@ -6908,21 +6908,21 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. See Note.
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. See Note.
      * 
      * Specify a null value to prevent the function from returning the <i>AuthnLevel</i> parameter.
      * 
      * The level returned in the <i>AuthnLevel</i> parameter may be different from the level specified when the client called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfo">RpcBindingSetAuthInfo</a> function. This discrepancy occurs when the RPC run-time library does not support the authentication level specified by the client and automatically upgrades to the next higher authentication level.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. See Note.
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. See Note.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<Void>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
+     * @param {Pointer<Pointer<Void>>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthIdentity</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i> See Note.
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i> See Note.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfo</b> from returning the <i>AuthzSvc</i> parameter.
@@ -6989,7 +6989,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr", AuthIdentity, "uint*", AuthzSvc, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "int")
         return result
     }
 
@@ -7394,21 +7394,21 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>. Specify a null value to prevent the function from returning the <i>AuthnLevel</i> parameter.
      * 
      * The level returned in the <i>AuthnLevel</i> parameter may be different from the level specified when the client called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfoexa">RpcBindingSetAuthInfoEx</a> function. This discrepancy happens when the RPC run-time library does not support the authentication level specified by the client and automatically upgrades to the next higher authentication level.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<Void>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
+     * @param {Pointer<Pointer<Void>>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>AuthIdentity</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i>. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i>. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
@@ -7475,7 +7475,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExA(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExA", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
 
@@ -7487,21 +7487,21 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>ServerPrincName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication levels, see 
+     * @param {Pointer<Integer>} AuthnLevel Returns a pointer set to the level of authentication used for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication levels, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-level-constants">Authentication-Level Constants</a>. Specify a null value to prevent the function from returning the <i>AuthnLevel</i> parameter.
      * 
      * The level returned in the <i>AuthnLevel</i> parameter may be different from the level specified when the client called the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcbindingsetauthinfoexa">RpcBindingSetAuthInfoEx</a> function. This discrepancy happens when the RPC run-time library does not support the authentication level specified by the client and automatically upgrades to the next higher authentication level.
-     * @param {Pointer<UInt32>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthnSvc Returns a pointer set to the authentication service specified for remote procedure calls made using <i>Binding</i>. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>AuthnSvc</i> parameter.
-     * @param {Pointer<Void>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
+     * @param {Pointer<Pointer<Void>>} AuthIdentity Returns a pointer to a handle to the data structure that contains the client's authentication and authorization credentials specified for remote procedure calls made using <i>Binding</i>.
      * 
      * Specify a null value to prevent 
      * <b>RpcBindingInqAuthInfoEx</b> from returning the <i>AuthIdentity</i> parameter.
-     * @param {Pointer<UInt32>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i>. For a list of the RPC-supported authentication services, see 
+     * @param {Pointer<Integer>} AuthzSvc Returns a pointer set to the authorization service requested by the client application that made the remote procedure call on <i>Binding</i>. For a list of the RPC-supported authentication services, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/authentication-service-constants">Authentication-Service Constants</a>.
      * 
      * Specify a null value to prevent 
@@ -7568,7 +7568,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingInqAuthInfoExW(Binding, ServerPrincName, AuthnLevel, AuthnSvc, AuthIdentity, AuthzSvc, RpcQosVersion, SecurityQOS) {
-        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingInqAuthInfoExW", "ptr", Binding, "ptr", ServerPrincName, "uint*", AuthnLevel, "uint*", AuthnSvc, "ptr*", AuthIdentity, "uint*", AuthzSvc, "uint", RpcQosVersion, "ptr", SecurityQOS, "int")
         return result
     }
 
@@ -7887,7 +7887,7 @@ class Rpc {
      * 
      * <div class="alert"><b>Note</b>  This parameter cannot be <b>NULL</b> in Windows NT 4.0.</div>
      * <div> </div>
-     * @param {Pointer<Void>} ServerBinding Returns a server binding handle.
+     * @param {Pointer<Pointer<Void>>} ServerBinding Returns a server binding handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -7947,7 +7947,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcBindingServerFromClient(ClientBinding, ServerBinding) {
-        result := DllCall("RPCRT4.dll\RpcBindingServerFromClient", "ptr", ClientBinding, "ptr", ServerBinding, "int")
+        result := DllCall("RPCRT4.dll\RpcBindingServerFromClient", "ptr", ClientBinding, "ptr*", ServerBinding, "int")
         return result
     }
 
@@ -8487,7 +8487,7 @@ class Rpc {
      * @param {Pointer<Guid>} Uuid1 Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid2</i> parameter.
      * @param {Pointer<Guid>} Uuid2 Pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid1</i> parameter.
-     * @param {Pointer<Int32>} Status Returns any errors that may occur, and will typically be set by the function to RPC_S_OK upon return.
+     * @param {Pointer<Integer>} Status Returns any errors that may occur, and will typically be set by the function to RPC_S_OK upon return.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8562,7 +8562,7 @@ class Rpc {
      * @param {Pointer<Guid>} Uuid1 Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid2</i> parameter.
      * @param {Pointer<Guid>} Uuid2 Pointer to a <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a>. This <b>UUID</b> is compared with the <b>UUID</b> specified in the <i>Uuid1</i> parameter.
-     * @param {Pointer<Int32>} Status Returns RPC_S_OK.
+     * @param {Pointer<Integer>} Status Returns RPC_S_OK.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -8607,7 +8607,7 @@ class Rpc {
     /**
      * An application calls the UuidHash function to generate a hash value for a specified UUID.
      * @param {Pointer<Guid>} Uuid <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> for which a hash value is created.
-     * @param {Pointer<Int32>} Status Returns RPC_S_OK.
+     * @param {Pointer<Integer>} Status Returns RPC_S_OK.
      * @returns {Integer} <div class="alert"><b>Note</b>  For a list of valid error codes, see 
      * <a href="/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
      * <div> </div>
@@ -8622,7 +8622,7 @@ class Rpc {
     /**
      * An application calls the UuidIsNil function to determine whether the specified UUID is a nil-valued UUID.
      * @param {Pointer<Guid>} Uuid <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> to test for nil value.
-     * @param {Pointer<Int32>} Status Returns RPC_S_OK.
+     * @param {Pointer<Integer>} Status Returns RPC_S_OK.
      * @returns {Integer} <div class="alert"><b>Note</b>  For a list of valid error codes, see 
      * <a href="/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.</div>
      * <div> </div>
@@ -9238,7 +9238,7 @@ class Rpc {
      * </table>
      * @param {Pointer<Guid>} ObjectUuid The object UUID that 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtepeltinqnext">RpcMgmtEpEltInqNext</a> looks for in endpoint-map elements. This parameter is used only when <i>InquiryType</i> is either RPC_C_EP_MATCH_BY_OBJ or RPC_C_EP_MATCH_BY_BOTH.
-     * @param {Pointer<Void>} InquiryContext Returns an inquiry context for use with 
+     * @param {Pointer<Pointer<Pointer<Void>>>} InquiryContext Returns an inquiry context for use with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtepeltinqnext">RpcMgmtEpEltInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtepeltinqdone">RpcMgmtEpEltInqDone</a>. See 
      * <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-ep-inq-handle">RPC_EP_INQ_HANDLE</a>.
@@ -9268,13 +9268,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqBegin(EpBinding, InquiryType, IfId, VersOption, ObjectUuid, InquiryContext) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", "ptr", EpBinding, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuid, "ptr", InquiryContext, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqBegin", "ptr", EpBinding, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "ptr", ObjectUuid, "ptr*", InquiryContext, "int")
         return result
     }
 
     /**
      * The RpcMgmtEpEltInqDone function deletes the inquiry context for viewing the elements in an endpoint map.
-     * @param {Pointer<Void>} InquiryContext Inquiry context to delete and returns the value <b>NULL</b>.
+     * @param {Pointer<Pointer<Pointer<Void>>>} InquiryContext Inquiry context to delete and returns the value <b>NULL</b>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -9301,16 +9301,16 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqDone(InquiryContext) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqDone", "ptr", InquiryContext, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqDone", "ptr*", InquiryContext, "int")
         return result
     }
 
     /**
      * The RpcMgmtEpEltInqNext function returns one element from an endpoint map.
-     * @param {Pointer<Void>} InquiryContext Specifies an inquiry context. The inquiry context is returned from 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Specifies an inquiry context. The inquiry context is returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtepeltinqbegin">RpcMgmtEpEltInqBegin</a>.
      * @param {Pointer<RPC_IF_ID>} IfId Returns the interface identifier of the endpoint-map element.
-     * @param {Pointer<Void>} Binding Optional. Returns the binding handle from the endpoint-map element.
+     * @param {Pointer<Pointer<Void>>} Binding Optional. Returns the binding handle from the endpoint-map element.
      * @param {Pointer<Guid>} ObjectUuid Optional. Returns the object UUID from the endpoint-map element.
      * @param {Pointer<PSTR>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
      * @returns {Integer} <table>
@@ -9339,16 +9339,16 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqNextA(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextA", "ptr", InquiryContext, "ptr", IfId, "ptr", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextA", "ptr*", InquiryContext, "ptr", IfId, "ptr*", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
         return result
     }
 
     /**
      * The RpcMgmtEpEltInqNext function returns one element from an endpoint map.
-     * @param {Pointer<Void>} InquiryContext Specifies an inquiry context. The inquiry context is returned from 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Specifies an inquiry context. The inquiry context is returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcmgmtepeltinqbegin">RpcMgmtEpEltInqBegin</a>.
      * @param {Pointer<RPC_IF_ID>} IfId Returns the interface identifier of the endpoint-map element.
-     * @param {Pointer<Void>} Binding Optional. Returns the binding handle from the endpoint-map element.
+     * @param {Pointer<Pointer<Void>>} Binding Optional. Returns the binding handle from the endpoint-map element.
      * @param {Pointer<Guid>} ObjectUuid Optional. Returns the object UUID from the endpoint-map element.
      * @param {Pointer<PWSTR>} Annotation Optional. Returns the annotation string for the endpoint-map element. When there is no annotation string in the endpoint-map element, the empty string ("") is returned.
      * @returns {Integer} <table>
@@ -9377,7 +9377,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcMgmtEpEltInqNextW(InquiryContext, IfId, Binding, ObjectUuid, Annotation) {
-        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextW", "ptr", InquiryContext, "ptr", IfId, "ptr", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
+        result := DllCall("RPCRT4.dll\RpcMgmtEpEltInqNextW", "ptr*", InquiryContext, "ptr", IfId, "ptr*", Binding, "ptr", ObjectUuid, "ptr", Annotation, "int")
         return result
     }
 
@@ -9513,7 +9513,7 @@ class Rpc {
      * @param {Integer} IdlePeriod The length of time in seconds after the interface group becomes idle that the RPC runtime should wait before invoking the idle callback.  0 means the callback is invoked immediately. <b>INFINITE</b> means the server application does not care about the interface group’s idle state.
      * @param {Pointer<RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN>} IdleCallbackFn A <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nc-rpcdce-rpc_interface_group_idle_callback_fn">RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN</a> callback that the RPC runtime will invoke once the interface group is idle for the length of time given in <i>IdlePeriod</i>.  Can be <b>NULL</b> only if <i>IdlePeriod</i> is <b>INFINITE</b>.
      * @param {Pointer<Void>} IdleCallbackContext A user-defined pointer to be passed to the idle callback in <i>IdleCallbackFn</i>.
-     * @param {Pointer<Void>} IfGroup If successful, a pointer to an <b>RPC_INTERFACE_GROUP</b> buffer that receives the handle to the newly created interface group.  If this function fails, <i>IfGroup</i> is undefined.
+     * @param {Pointer<Pointer<Void>>} IfGroup If successful, a pointer to an <b>RPC_INTERFACE_GROUP</b> buffer that receives the handle to the newly created interface group.  If this function fails, <i>IfGroup</i> is undefined.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -9540,7 +9540,7 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupCreateW(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr", IfGroup, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateW", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr*", IfGroup, "int")
         return result
     }
 
@@ -9553,7 +9553,7 @@ class Rpc {
      * @param {Integer} IdlePeriod The length of time in seconds after the interface group becomes idle that the RPC runtime should wait before invoking the idle callback.  0 means the callback is invoked immediately. <b>INFINITE</b> means the server application does not care about the interface group’s idle state.
      * @param {Pointer<RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN>} IdleCallbackFn A <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nc-rpcdce-rpc_interface_group_idle_callback_fn">RPC_INTERFACE_GROUP_IDLE_CALLBACK_FN</a> callback that the RPC runtime will invoke once the interface group is idle for the length of time given in <i>IdlePeriod</i>.  Can be <b>NULL</b> only if <i>IdlePeriod</i> is <b>INFINITE</b>.
      * @param {Pointer<Void>} IdleCallbackContext A user-defined pointer to be passed to the idle callback in <i>IdleCallbackFn</i>.
-     * @param {Pointer<Void>} IfGroup If successful, a pointer to an <b>RPC_INTERFACE_GROUP</b> buffer that receives the handle to the newly created interface group.  If this function fails, <i>IfGroup</i> is undefined.
+     * @param {Pointer<Pointer<Void>>} IfGroup If successful, a pointer to an <b>RPC_INTERFACE_GROUP</b> buffer that receives the handle to the newly created interface group.  If this function fails, <i>IfGroup</i> is undefined.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -9580,7 +9580,7 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupCreateA(Interfaces, NumIfs, Endpoints, NumEndpoints, IdlePeriod, IdleCallbackFn, IdleCallbackContext, IfGroup) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr", IfGroup, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupCreateA", "ptr", Interfaces, "uint", NumIfs, "ptr", Endpoints, "uint", NumEndpoints, "uint", IdlePeriod, "ptr", IdleCallbackFn, "ptr", IdleCallbackContext, "ptr*", IfGroup, "int")
         return result
     }
 
@@ -9764,7 +9764,7 @@ class Rpc {
     /**
      * The RpcServerInterfaceGroupInqBindings function returns the binding handles over which remote procedure calls can be received for the given interface group.
      * @param {Pointer<Void>} IfGroup A <b>RPC_INTERFACE_GROUP</b> from <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcserverinterfacegroupcreate">RpcServerInterfaceGroupCreate</a> that defines the interface group for which the bindings should be queried.
-     * @param {Pointer<RPC_BINDING_VECTOR>} BindingVector Returns a pointer to a pointer to a vector of server binding handles.
+     * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVector Returns a pointer to a pointer to a vector of server binding handles.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -9802,7 +9802,7 @@ class Rpc {
      * @since windows8.0
      */
     static RpcServerInterfaceGroupInqBindings(IfGroup, BindingVector) {
-        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupInqBindings", "ptr", IfGroup, "ptr", BindingVector, "int")
+        result := DllCall("RPCRT4.dll\RpcServerInterfaceGroupInqBindings", "ptr", IfGroup, "ptr*", BindingVector, "int")
         return result
     }
 
@@ -9901,11 +9901,11 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Void>} Mutex 
+     * @param {Pointer<Pointer<Void>>} Mutex 
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcRequestMutex(Mutex) {
-        DllCall("RPCRT4.dll\I_RpcRequestMutex", "ptr", Mutex)
+        DllCall("RPCRT4.dll\I_RpcRequestMutex", "ptr*", Mutex)
     }
 
     /**
@@ -9988,7 +9988,7 @@ class Rpc {
     /**
      * 
      * @param {Integer} EntryNameSyntax 
-     * @param {Pointer<UInt16>} EntryName 
+     * @param {Pointer<Integer>} EntryName 
      * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
      * @returns {Integer} 
      */
@@ -10000,7 +10000,7 @@ class Rpc {
     /**
      * 
      * @param {Integer} EntryNameSyntax 
-     * @param {Pointer<UInt16>} EntryName 
+     * @param {Pointer<Integer>} EntryName 
      * @param {Pointer<RPC_SERVER_INTERFACE>} RpcInterfaceInformation 
      * @returns {Integer} 
      */
@@ -10012,22 +10012,22 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt16>} StringBinding 
+     * @param {Pointer<Pointer<Integer>>} StringBinding 
      * @returns {Integer} 
      */
     static I_RpcBindingToStaticStringBindingW(Binding, StringBinding) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", "ptr", Binding, "ushort*", StringBinding, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingToStaticStringBindingW", "ptr", Binding, "ptr*", StringBinding, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Void>} SecurityContextHandle 
+     * @param {Pointer<Pointer<Void>>} SecurityContextHandle 
      * @returns {Integer} 
      */
     static I_RpcBindingInqSecurityContext(Binding, SecurityContextHandle) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContext", "ptr", Binding, "ptr", SecurityContextHandle, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingInqSecurityContext", "ptr", Binding, "ptr*", SecurityContextHandle, "int")
         return result
     }
 
@@ -10045,7 +10045,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Byte>} WireId 
+     * @param {Pointer<Integer>} WireId 
      * @returns {Integer} 
      */
     static I_RpcBindingInqWireIdForSnego(Binding, WireId) {
@@ -10056,7 +10056,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt32>} MarshalledTargetInfoSize 
+     * @param {Pointer<Integer>} MarshalledTargetInfoSize 
      * @param {Pointer<PSTR>} MarshalledTargetInfo 
      * @returns {Integer} 
      */
@@ -10068,7 +10068,7 @@ class Rpc {
     /**
      * Obtains a client process ID.
      * @param {Pointer<Void>} Binding <b>RPC_BINDING_HANDLE</b> that specifies the binding handle for an explicit RPC binding from the client to a server application.
-     * @param {Pointer<UInt32>} Pid Contains the process ID of the client that issued the call upon return.
+     * @param {Pointer<Integer>} Pid Contains the process ID of the client that issued the call upon return.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -10124,11 +10124,11 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Void>} AsyncHandle 
+     * @param {Pointer<Pointer<Void>>} AsyncHandle 
      * @returns {Integer} 
      */
     static I_RpcBindingHandleToAsyncHandle(Binding, AsyncHandle) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingHandleToAsyncHandle", "ptr", Binding, "ptr", AsyncHandle, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingHandleToAsyncHandle", "ptr", Binding, "ptr*", AsyncHandle, "int")
         return result
     }
 
@@ -10282,7 +10282,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt32>} Type 
+     * @param {Pointer<Integer>} Type 
      * @returns {Integer} 
      */
     static I_RpcBindingInqTransportType(Binding, Type) {
@@ -10295,7 +10295,7 @@ class Rpc {
      * @param {Pointer<Void>} RpcIfHandle 
      * @param {Pointer<RPC_TRANSFER_SYNTAX>} TransferSyntaxes 
      * @param {Integer} TransferSyntaxSize 
-     * @param {Pointer<UInt32>} TransferSyntaxCount 
+     * @param {Pointer<Integer>} TransferSyntaxCount 
      * @returns {Integer} 
      */
     static I_RpcIfInqTransferSyntaxes(RpcIfHandle, TransferSyntaxes, TransferSyntaxSize, TransferSyntaxCount) {
@@ -10316,18 +10316,18 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} SourceBinding 
-     * @param {Pointer<Void>} DestinationBinding 
+     * @param {Pointer<Pointer<Void>>} DestinationBinding 
      * @returns {Integer} 
      */
     static I_RpcBindingCopy(SourceBinding, DestinationBinding) {
-        result := DllCall("RPCRT4.dll\I_RpcBindingCopy", "ptr", SourceBinding, "ptr", DestinationBinding, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingCopy", "ptr", SourceBinding, "ptr*", DestinationBinding, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} BindingHandle 
-     * @param {Pointer<UInt32>} ClientLocalFlag 
+     * @param {Pointer<Integer>} ClientLocalFlag 
      * @returns {Integer} 
      */
     static I_RpcBindingIsClientLocal(BindingHandle, ClientLocalFlag) {
@@ -10340,7 +10340,7 @@ class Rpc {
      * @param {PWSTR} ServerName 
      * @param {PWSTR} ServiceName 
      * @param {PWSTR} NetworkOptions 
-     * @param {Pointer<Void>} Binding 
+     * @param {Pointer<Pointer<Void>>} Binding 
      * @returns {Integer} 
      */
     static I_RpcBindingCreateNP(ServerName, ServiceName, NetworkOptions, Binding) {
@@ -10348,7 +10348,7 @@ class Rpc {
         ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
         NetworkOptions := NetworkOptions is String ? StrPtr(NetworkOptions) : NetworkOptions
 
-        result := DllCall("RPCRT4.dll\I_RpcBindingCreateNP", "ptr", ServerName, "ptr", ServiceName, "ptr", NetworkOptions, "ptr", Binding, "int")
+        result := DllCall("RPCRT4.dll\I_RpcBindingCreateNP", "ptr", ServerName, "ptr", ServiceName, "ptr", NetworkOptions, "ptr*", Binding, "int")
         return result
     }
 
@@ -10362,30 +10362,30 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<RPC_FORWARD_FUNCTION>} pForwardFunction 
+     * @param {Pointer<Pointer<RPC_FORWARD_FUNCTION>>} pForwardFunction 
      * @returns {Integer} 
      */
     static I_RpcServerRegisterForwardFunction(pForwardFunction) {
-        result := DllCall("RPCRT4.dll\I_RpcServerRegisterForwardFunction", "ptr", pForwardFunction, "int")
+        result := DllCall("RPCRT4.dll\I_RpcServerRegisterForwardFunction", "ptr*", pForwardFunction, "int")
         return result
     }
 
     /**
      * 
-     * @returns {Pointer<RPC_ADDRESS_CHANGE_FN>} 
+     * @returns {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} 
      */
     static I_RpcServerInqAddressChangeFn() {
-        result := DllCall("RPCRT4.dll\I_RpcServerInqAddressChangeFn", "ptr")
+        result := DllCall("RPCRT4.dll\I_RpcServerInqAddressChangeFn", "ptr*")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RPC_ADDRESS_CHANGE_FN>} pAddressChangeFn 
+     * @param {Pointer<Pointer<RPC_ADDRESS_CHANGE_FN>>} pAddressChangeFn 
      * @returns {Integer} 
      */
     static I_RpcServerSetAddressChangeFn(pAddressChangeFn) {
-        result := DllCall("RPCRT4.dll\I_RpcServerSetAddressChangeFn", "ptr", pAddressChangeFn, "int")
+        result := DllCall("RPCRT4.dll\I_RpcServerSetAddressChangeFn", "ptr*", pAddressChangeFn, "int")
         return result
     }
 
@@ -10393,8 +10393,8 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} Buffer 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} AddressFormat 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} AddressFormat 
      * @returns {Integer} 
      */
     static I_RpcServerInqLocalConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
@@ -10406,8 +10406,8 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Pointer<Void>} Buffer 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} AddressFormat 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} AddressFormat 
      * @returns {Integer} 
      */
     static I_RpcServerInqRemoteConnAddress(Binding, Buffer, BufferSize, AddressFormat) {
@@ -10434,7 +10434,7 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} Type 
+     * @param {Pointer<Integer>} Type 
      * @returns {Integer} 
      */
     static I_RpcServerInqTransportType(Type) {
@@ -10456,7 +10456,7 @@ class Rpc {
      * 
      * @param {Integer} RpcStatus 
      * @param {Pointer<RDR_CALLOUT_STATE>} CallOutState 
-     * @param {Pointer<UInt16>} DllName 
+     * @param {Pointer<Integer>} DllName 
      * @returns {String} Nothing - always returns an empty string
      */
     static I_RpcRecordCalloutFailure(RpcStatus, CallOutState, DllName) {
@@ -10474,11 +10474,11 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<Void>} ppSecurityDescriptor 
+     * @param {Pointer<Pointer<Void>>} ppSecurityDescriptor 
      * @returns {Integer} 
      */
     static I_RpcGetDefaultSD(ppSecurityDescriptor) {
-        result := DllCall("RPCRT4.dll\I_RpcGetDefaultSD", "ptr", ppSecurityDescriptor, "int")
+        result := DllCall("RPCRT4.dll\I_RpcGetDefaultSD", "ptr*", ppSecurityDescriptor, "int")
         return result
     }
 
@@ -10486,18 +10486,18 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Binding 
      * @param {Integer} DesiredAccess 
-     * @param {Pointer<Void>} ClientProcess 
+     * @param {Pointer<Pointer<Void>>} ClientProcess 
      * @returns {Integer} 
      */
     static I_RpcOpenClientProcess(Binding, DesiredAccess, ClientProcess) {
-        result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", "ptr", Binding, "uint", DesiredAccess, "ptr", ClientProcess, "int")
+        result := DllCall("RPCRT4.dll\I_RpcOpenClientProcess", "ptr", Binding, "uint", DesiredAccess, "ptr*", ClientProcess, "int")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt32>} ServerLocalFlag 
+     * @param {Pointer<Integer>} ServerLocalFlag 
      * @returns {Integer} 
      */
     static I_RpcBindingIsServerLocal(Binding, ServerLocalFlag) {
@@ -10531,7 +10531,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<UInt32>} AssociationID 
+     * @param {Pointer<Integer>} AssociationID 
      * @returns {Integer} 
      */
     static I_RpcServerGetAssociationID(Binding, AssociationID) {
@@ -10563,7 +10563,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<Void>} Binding 
-     * @param {Pointer<Guid>} SubscriptionId 
+     * @param {Guid} SubscriptionId 
      * @returns {Integer} 
      */
     static I_RpcServerUnsubscribeForDisconnectNotification(Binding, SubscriptionId) {
@@ -11661,7 +11661,7 @@ class Rpc {
      * 
      * 
      * Specify a value of zero to use the default count of RPC_C_BINDING_MAX_COUNT_DEFAULT.
-     * @param {Pointer<Void>} LookupContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} LookupContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupnext">RpcNsBindingLookupNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupdone">RpcNsBindingLookupDone</a> functions.
      * @returns {Integer} <table>
@@ -11758,7 +11758,7 @@ class Rpc {
     static RpcNsBindingLookupBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
         return result
     }
 
@@ -11792,7 +11792,7 @@ class Rpc {
      * 
      * 
      * Specify a value of zero to use the default count of RPC_C_BINDING_MAX_COUNT_DEFAULT.
-     * @param {Pointer<Void>} LookupContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} LookupContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupnext">RpcNsBindingLookupNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupdone">RpcNsBindingLookupDone</a> functions.
      * @returns {Integer} <table>
@@ -11889,7 +11889,7 @@ class Rpc {
     static RpcNsBindingLookupBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, BindingMaxCount, LookupContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr", LookupContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "uint", BindingMaxCount, "ptr*", LookupContext, "int")
         return result
     }
 
@@ -11897,7 +11897,7 @@ class Rpc {
      * The RpcNsBindingLookupNext function returns a list of compatible binding handles for a specified interface and optionally an object.
      * @param {Pointer<Void>} LookupContext Name-service handle returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupbegina">RpcNsBindingLookupBegin</a> function.
-     * @param {Pointer<RPC_BINDING_VECTOR>} BindingVec Returns the address of a pointer to a vector of client-compatible server binding handles.
+     * @param {Pointer<Pointer<RPC_BINDING_VECTOR>>} BindingVec Returns the address of a pointer to a vector of client-compatible server binding handles.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -11946,13 +11946,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupNext(LookupContext, BindingVec) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupNext", "ptr", LookupContext, "ptr", BindingVec, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupNext", "ptr", LookupContext, "ptr*", BindingVec, "int")
         return result
     }
 
     /**
      * The RpcNsBindingLookupDone function signifies that a client has finished looking for compatible servers and deletes the lookup context.
-     * @param {Pointer<Void>} LookupContext Pointer to the name-service handle to free. The name-service handle <i>LookupContext</i> points to is created by calling the 
+     * @param {Pointer<Pointer<Void>>} LookupContext Pointer to the name-service handle to free. The name-service handle <i>LookupContext</i> points to is created by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindinglookupbegina">RpcNsBindingLookupBegin</a> function. 
      * 
      * 
@@ -11985,7 +11985,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingLookupDone(LookupContext) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingLookupDone", "ptr", LookupContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingLookupDone", "ptr*", LookupContext, "int")
         return result
     }
 
@@ -12306,7 +12306,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqnexta">RpcNsGroupMbrInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqdone">RpcNsGroupMbrInqDone</a> functions.
      * @returns {Integer} <table>
@@ -12392,7 +12392,7 @@ class Rpc {
     static RpcNsGroupMbrInqBeginA(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
         GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginA", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -12788,7 +12788,7 @@ class Rpc {
      * 
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqnexta">RpcNsGroupMbrInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsgroupmbrinqdone">RpcNsGroupMbrInqDone</a> functions.
      * @returns {Integer} <table>
@@ -12874,7 +12874,7 @@ class Rpc {
     static RpcNsGroupMbrInqBeginW(GroupNameSyntax, GroupName, MemberNameSyntax, InquiryContext) {
         GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
 
-        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqBeginW", "uint", GroupNameSyntax, "ptr", GroupName, "uint", MemberNameSyntax, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -12955,7 +12955,7 @@ class Rpc {
 
     /**
      * The RpcNsGroupMbrInqDone function deletes the inquiry context for a group.
-     * @param {Pointer<Void>} InquiryContext Pointer to a name-service handle to free. A value of NULL is returned.
+     * @param {Pointer<Pointer<Void>>} InquiryContext Pointer to a name-service handle to free. A value of NULL is returned.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -12993,7 +12993,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsGroupMbrInqDone(InquiryContext) {
-        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqDone", "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsGroupMbrInqDone", "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -13455,7 +13455,7 @@ class Rpc {
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PSTR} MemberName Pointer to the member name that the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> function looks for in profile elements. The <i>MemberName</i> parameter is used only when specifying a value of RPC_C_PROFILE_MATCH_BY_MBR or RPC_C_PROFILE_MATCH_BY_BOTH for <i>InquiryType</i>. Otherwise, <i>MemberName</i> is ignored and a null value can be specified.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqdone">RpcNsProfileEltInqDone</a> functions.
      * @returns {Integer} <table>
@@ -13553,7 +13553,7 @@ class Rpc {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
         MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginA", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -13571,7 +13571,7 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcNsProfileEltInqNext</b> from returning the <i>MemberName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} Priority Returns a pointer to the profile-element priority.
+     * @param {Pointer<Integer>} Priority Returns a pointer to the profile-element priority.
      * @param {Pointer<PSTR>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
      * 
      * 
@@ -14101,7 +14101,7 @@ class Rpc {
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PWSTR} MemberName Pointer to the member name that the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> function looks for in profile elements. The <i>MemberName</i> parameter is used only when specifying a value of RPC_C_PROFILE_MATCH_BY_MBR or RPC_C_PROFILE_MATCH_BY_BOTH for <i>InquiryType</i>. Otherwise, <i>MemberName</i> is ignored and a null value can be specified.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqnexta">RpcNsProfileEltInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqdone">RpcNsProfileEltInqDone</a> functions.
      * @returns {Integer} <table>
@@ -14199,7 +14199,7 @@ class Rpc {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
         MemberName := MemberName is String ? StrPtr(MemberName) : MemberName
 
-        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqBeginW", "uint", ProfileNameSyntax, "ptr", ProfileName, "uint", InquiryType, "ptr", IfId, "uint", VersOption, "uint", MemberNameSyntax, "ptr", MemberName, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -14217,7 +14217,7 @@ class Rpc {
      * Specify a null value to prevent 
      * <b>RpcNsProfileEltInqNext</b> from returning the <i>MemberName</i> parameter. In this case, the application does not call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcdce/nf-rpcdce-rpcstringfree">RpcStringFree</a> function.
-     * @param {Pointer<UInt32>} Priority Returns a pointer to the profile-element priority.
+     * @param {Pointer<Integer>} Priority Returns a pointer to the profile-element priority.
      * @param {Pointer<PWSTR>} Annotation Returns a pointer to a pointer to the annotation string for the profile element. If there is no annotation string in the profile element, the string \0 is returned. 
      * 
      * 
@@ -14291,7 +14291,7 @@ class Rpc {
 
     /**
      * The RpcNsProfileEltInqDone function deletes the inquiry context for viewing the elements in a profile.
-     * @param {Pointer<Void>} InquiryContext Pointer to a name-service handle to free. The name-service handle that <i>InquiryContext</i> points to is created by calling the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Pointer to a name-service handle to free. The name-service handle that <i>InquiryContext</i> points to is created by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsprofileeltinqbegina">RpcNsProfileEltInqBegin</a> function. 
      * 
      * 
@@ -14324,7 +14324,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsProfileEltInqDone(InquiryContext) {
-        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqDone", "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsProfileEltInqDone", "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -14337,7 +14337,7 @@ class Rpc {
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PSTR} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqnext">RpcNsEntryObjectInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqdone">RpcNsEntryObjectInqDone</a> functions.
      * @returns {Integer} <table>
@@ -14423,7 +14423,7 @@ class Rpc {
     static RpcNsEntryObjectInqBeginA(EntryNameSyntax, EntryName, InquiryContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -14436,7 +14436,7 @@ class Rpc {
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PWSTR} EntryName Pointer to the name-service database entry name for which object UUIDs are to be viewed.
-     * @param {Pointer<Void>} InquiryContext Returns a pointer to a name-service handle for use with the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Returns a pointer to a name-service handle for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqnext">RpcNsEntryObjectInqNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqdone">RpcNsEntryObjectInqDone</a> functions.
      * @returns {Integer} <table>
@@ -14522,7 +14522,7 @@ class Rpc {
     static RpcNsEntryObjectInqBeginW(EntryNameSyntax, EntryName, InquiryContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -14606,7 +14606,7 @@ class Rpc {
 
     /**
      * The RpcNsEntryObjectInqDone function deletes the inquiry context for a name-service database entry's objects.
-     * @param {Pointer<Void>} InquiryContext Pointer to a name-service handle specifying the object UUIDs exported to the <i>EntryName</i> parameter specified in the 
+     * @param {Pointer<Pointer<Void>>} InquiryContext Pointer to a name-service handle specifying the object UUIDs exported to the <i>EntryName</i> parameter specified in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsentryobjectinqbegina">RpcNsEntryObjectInqBegin</a> function. 
      * 
      * 
@@ -14639,7 +14639,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsEntryObjectInqDone(InquiryContext) {
-        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqDone", "ptr", InquiryContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsEntryObjectInqDone", "ptr*", InquiryContext, "int")
         return result
     }
 
@@ -15104,7 +15104,7 @@ class Rpc {
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PSTR} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
-     * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVec Returns an address of a pointer to the interface-identification vector.
+     * @param {Pointer<Pointer<RPC_IF_ID_VECTOR>>} IfIdVec Returns an address of a pointer to the interface-identification vector.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15188,7 +15188,7 @@ class Rpc {
     static RpcNsMgmtEntryInqIfIdsA(EntryNameSyntax, EntryName, IfIdVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
+        result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr*", IfIdVec, "int")
         return result
     }
 
@@ -15244,7 +15244,7 @@ class Rpc {
 
     /**
      * The RpcNsMgmtInqExpAge function returns the global expiration age for local copies of name-service data.
-     * @param {Pointer<UInt32>} ExpirationAge Pointer to the default expiration age, in seconds. This value is used by all name service next operations.
+     * @param {Pointer<Integer>} ExpirationAge Pointer to the default expiration age, in seconds. This value is used by all name service next operations.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15785,7 +15785,7 @@ class Rpc {
      * 
      * To use the syntax specified in the registry value entry <b>HKEY_LOCAL_MACHINE\Software\Microsoft\Rpc\NameService\DefaultSyntax</b>, provide a value of RPC_C_NS_SYNTAX_DEFAULT.
      * @param {PWSTR} EntryName Pointer to the name service–database entry name for which an interface-identification vector is returned.
-     * @param {Pointer<RPC_IF_ID_VECTOR>} IfIdVec Returns an address of a pointer to the interface-identification vector.
+     * @param {Pointer<Pointer<RPC_IF_ID_VECTOR>>} IfIdVec Returns an address of a pointer to the interface-identification vector.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -15869,7 +15869,7 @@ class Rpc {
     static RpcNsMgmtEntryInqIfIdsW(EntryNameSyntax, EntryName, IfIdVec) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfIdVec, "int")
+        result := DllCall("RPCNS4.dll\RpcNsMgmtEntryInqIfIdsW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr*", IfIdVec, "int")
         return result
     }
 
@@ -15896,7 +15896,7 @@ class Rpc {
      * For a nonzero UUID, compatible binding handles are returned from an entry only if the server has exported the specified object UUID.
      * 
      * When <i>ObjUuid</i> has a null pointer value or a nil UUID, the returned binding handles contain one of the object UUIDs exported by the compatible server. If the server did not export any object UUIDs, the returned compatible binding handles contain a nil object UUID.
-     * @param {Pointer<Void>} ImportContext Name-service handle returned for use with the 
+     * @param {Pointer<Pointer<Void>>} ImportContext Name-service handle returned for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportnext">RpcNsBindingImportNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportdone">RpcNsBindingImportDone</a> functions.
      * @returns {Integer} <table>
@@ -16004,7 +16004,7 @@ class Rpc {
     static RpcNsBindingImportBeginA(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginA", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
         return result
     }
 
@@ -16031,7 +16031,7 @@ class Rpc {
      * For a nonzero UUID, compatible binding handles are returned from an entry only if the server has exported the specified object UUID.
      * 
      * When <i>ObjUuid</i> has a null pointer value or a nil UUID, the returned binding handles contain one of the object UUIDs exported by the compatible server. If the server did not export any object UUIDs, the returned compatible binding handles contain a nil object UUID.
-     * @param {Pointer<Void>} ImportContext Name-service handle returned for use with the 
+     * @param {Pointer<Pointer<Void>>} ImportContext Name-service handle returned for use with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportnext">RpcNsBindingImportNext</a> and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportdone">RpcNsBindingImportDone</a> functions.
      * @returns {Integer} <table>
@@ -16139,7 +16139,7 @@ class Rpc {
     static RpcNsBindingImportBeginW(EntryNameSyntax, EntryName, IfSpec, ObjUuid, ImportContext) {
         EntryName := EntryName is String ? StrPtr(EntryName) : EntryName
 
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr", ImportContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportBeginW", "uint", EntryNameSyntax, "ptr", EntryName, "ptr", IfSpec, "ptr", ObjUuid, "ptr*", ImportContext, "int")
         return result
     }
 
@@ -16147,7 +16147,7 @@ class Rpc {
      * The RpcNsBindingImportNext function looks up an interface (and optionally an object from a name-service database) and returns a binding handle of a compatible server, if found.
      * @param {Pointer<Void>} ImportContext Name-service handle returned from the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportbegina">RpcNsBindingImportBegin</a> function.
-     * @param {Pointer<Void>} Binding Returns a pointer to a client-compatible server binding handle for a server.
+     * @param {Pointer<Pointer<Void>>} Binding Returns a pointer to a client-compatible server binding handle for a server.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16196,13 +16196,13 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportNext(ImportContext, Binding) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportNext", "ptr", ImportContext, "ptr", Binding, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportNext", "ptr", ImportContext, "ptr*", Binding, "int")
         return result
     }
 
     /**
      * The RpcNsBindingImportDone function signals that a client has finished looking for a compatible server and deletes the import context.
-     * @param {Pointer<Void>} ImportContext Pointer to a name-service handle to free. The name-service handle <i>ImportContext</i> points to is created by calling the 
+     * @param {Pointer<Pointer<Void>>} ImportContext Pointer to a name-service handle to free. The name-service handle <i>ImportContext</i> points to is created by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rpcnsi/nf-rpcnsi-rpcnsbindingimportbegina">RpcNsBindingImportBegin</a> function. 
      * 
      * 
@@ -16235,14 +16235,14 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingImportDone(ImportContext) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingImportDone", "ptr", ImportContext, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingImportDone", "ptr*", ImportContext, "int")
         return result
     }
 
     /**
      * The RpcNsBindingSelect function returns a binding handle from a list of compatible binding handles.
      * @param {Pointer<RPC_BINDING_VECTOR>} BindingVec Pointer to the vector of client-compatible server binding handles from which a binding handle is selected. The returned binding vector no longer references the selected binding handle, which is returned separately in the <i>Binding</i> parameter.
-     * @param {Pointer<Void>} Binding Pointer to a selected binding handle.
+     * @param {Pointer<Pointer<Void>>} Binding Pointer to a selected binding handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16280,7 +16280,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcNsBindingSelect(BindingVec, Binding) {
-        result := DllCall("RPCNS4.dll\RpcNsBindingSelect", "ptr", BindingVec, "ptr", Binding, "int")
+        result := DllCall("RPCNS4.dll\RpcNsBindingSelect", "ptr", BindingVec, "ptr*", Binding, "int")
         return result
     }
 
@@ -16673,7 +16673,7 @@ class Rpc {
     /**
      * The RpcErrorGetNumberOfRecords function returns the number of records in the extended error information.
      * @param {Pointer<RPC_ERROR_ENUM_HANDLE>} EnumHandle Pointer to the enumeration handle.
-     * @param {Pointer<Int32>} Records Number of records for the extended error information.
+     * @param {Pointer<Integer>} Records Number of records for the extended error information.
      * @returns {Integer} Successful completion returns RPC_S_OK. The <b>RpcErrorGetNumberOfRecords</b> function call cannot fail unless its parameters are invalid.
      * 
      * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
@@ -16690,8 +16690,8 @@ class Rpc {
     /**
      * The RpcErrorSaveErrorInfo function returns all error information for an enumeration handle as a BLOB.
      * @param {Pointer<RPC_ERROR_ENUM_HANDLE>} EnumHandle Pointer to the enumeration handle.
-     * @param {Pointer<Void>} ErrorBlob Pointer to the BLOB containing the error information.
-     * @param {Pointer<UIntPtr>} BlobSize Size of <i>ErrorBlob</i>, in bytes.
+     * @param {Pointer<Pointer<Void>>} ErrorBlob Pointer to the BLOB containing the error information.
+     * @param {Pointer<Pointer>} BlobSize Size of <i>ErrorBlob</i>, in bytes.
      * @returns {Integer} Successful completion returns RPC_S_OK. The 
      * <b>RpcErrorSaveErrorInfo</b> function call may fail if not enough memory is available.
      * 
@@ -16702,7 +16702,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcErrorSaveErrorInfo(EnumHandle, ErrorBlob, BlobSize) {
-        result := DllCall("RPCRT4.dll\RpcErrorSaveErrorInfo", "ptr", EnumHandle, "ptr", ErrorBlob, "ptr*", BlobSize, "int")
+        result := DllCall("RPCRT4.dll\RpcErrorSaveErrorInfo", "ptr", EnumHandle, "ptr*", ErrorBlob, "ptr*", BlobSize, "int")
         return result
     }
 
@@ -16756,11 +16756,11 @@ class Rpc {
      * @param {Pointer<Void>} ClientBinding Binding handle on the server that represents a binding to a client. The server impersonates the client indicated by this handle. If a value of zero is specified, the server impersonates the client that is being served by this server thread.
      * @param {BOOL} ImpersonateOnReturn Directs the function to impersonate the client on return, and then return an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure. Set this parameter to nonzero to impersonate the client. See Remarks.
      * @param {Pointer<Void>} Reserved1 Reserved. Must be null.
-     * @param {Pointer<Int64>} pExpirationTime Pointer to the expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
+     * @param {Pointer<Integer>} pExpirationTime Pointer to the expiration date and time of the token. If no value is passed, the token never expires. Expiration time is not currently enforced.
      * @param {LUID} Reserved2 Reserved. Must be a <b>LUID</b> structure with each member set to zero.
      * @param {Integer} Reserved3 Reserved. Must be zero.
      * @param {Pointer<Void>} Reserved4 Reserved. Must be null.
-     * @param {Pointer<Void>} pAuthzClientContext Pointer to an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure that can be passed directly to Authz functions. If the function fails, the content of this parameter is undefined.
+     * @param {Pointer<Pointer<Void>>} pAuthzClientContext Pointer to an <b>AUTHZ_CLIENT_CONTEXT_HANDLE</b> structure that can be passed directly to Authz functions. If the function fails, the content of this parameter is undefined.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -16808,13 +16808,13 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcGetAuthorizationContextForClient(ClientBinding, ImpersonateOnReturn, Reserved1, pExpirationTime, Reserved2, Reserved3, Reserved4, pAuthzClientContext) {
-        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", "ptr", ClientBinding, "int", ImpersonateOnReturn, "ptr", Reserved1, "int64*", pExpirationTime, "ptr", Reserved2, "uint", Reserved3, "ptr", Reserved4, "ptr", pAuthzClientContext, "int")
+        result := DllCall("RPCRT4.dll\RpcGetAuthorizationContextForClient", "ptr", ClientBinding, "int", ImpersonateOnReturn, "ptr", Reserved1, "int64*", pExpirationTime, "ptr", Reserved2, "uint", Reserved3, "ptr", Reserved4, "ptr*", pAuthzClientContext, "int")
         return result
     }
 
     /**
      * The RpcFreeAuthorizationContext function frees an Authz context obtained by a previous call to the RpcGetAuthorizationContextForClient function.
-     * @param {Pointer<Void>} pAuthzClientContext Pointer to the previously obtained Authz client context to be freed.
+     * @param {Pointer<Pointer<Void>>} pAuthzClientContext Pointer to the previously obtained Authz client context to be freed.
      * @returns {Integer} Successful completion returns RPC_S_OK. This function does not fail unless an invalid parameter is provided.
      * 
      * <div class="alert"><b>Note</b>  For a list of valid error codes, see 
@@ -16824,7 +16824,7 @@ class Rpc {
      * @since windows5.1.2600
      */
     static RpcFreeAuthorizationContext(pAuthzClientContext) {
-        result := DllCall("RPCRT4.dll\RpcFreeAuthorizationContext", "ptr", pAuthzClientContext, "int")
+        result := DllCall("RPCRT4.dll\RpcFreeAuthorizationContext", "ptr*", pAuthzClientContext, "int")
         return result
     }
 
@@ -16947,7 +16947,7 @@ class Rpc {
      * @param {Integer} Notification A value from the <a href="https://docs.microsoft.com/windows/desktop/api/rpcasync/ne-rpcasync-rpc_notifications">RPC_NOTIFICATIONS</a> enumeration that specifies the type of notification requested from RPC by the server.  Notifications must be unsubscribed individually, multiple values are not supported.
      * 
      * <b>Windows Vista:  </b>Currently, only <b>RpcNotificationClientDisconnect</b> and <b>RpcNotificationCallCancel</b> are supported. If any other value is specified for this parameter, the RPC_S_CANNOT_SUPPORT error code is returned.
-     * @param {Pointer<UInt32>} NotificationsQueued A required pointer to a value that receives the number of notifications that the RPC runtime queued for the specified RPC call. The pointer must be supplied; it is not optional.
+     * @param {Pointer<Integer>} NotificationsQueued A required pointer to a value that receives the number of notifications that the RPC runtime queued for the specified RPC call. The pointer must be supplied; it is not optional.
      * 
      * Your code should keep track of the number of notifications that it receives. When you unsubscribe from RPC notifications, you should check if the number of notifications that the RPC runtime queued matches the number of notifications that you received. If the numbers do not match, some notifications could still be incoming on another thread.  You should delay cleaning up the notification state until you receive all incoming notifications.
      * @returns {Integer} This function returns RPC_S_OK on success; otherwise, an RPC_S_* error code is returned.
@@ -17107,11 +17107,11 @@ class Rpc {
     /**
      * 
      * @param {Pointer<RPC_MESSAGE>} Message 
-     * @param {Pointer<Void>} Handle 
+     * @param {Pointer<Pointer<Void>>} Handle 
      * @returns {Integer} 
      */
     static I_RpcNsSendReceive(Message, Handle) {
-        result := DllCall("RPCNS4.dll\I_RpcNsSendReceive", "ptr", Message, "ptr", Handle, "int")
+        result := DllCall("RPCNS4.dll\I_RpcNsSendReceive", "ptr", Message, "ptr*", Handle, "int")
         return result
     }
 
@@ -17157,7 +17157,7 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<IntPtr>} pCContext 
+     * @param {Pointer<Pointer>} pCContext 
      * @param {Pointer<Void>} hBinding 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} DataRepresentation 
@@ -17243,20 +17243,20 @@ class Rpc {
 
     /**
      * The RpcSsDestroyClientContext function destroys a context handle no longer needed by the client, without contacting the server.
-     * @param {Pointer<Void>} ContextHandle Context handle to be destroyed. The handle is set to <b>NULL</b> before 
+     * @param {Pointer<Pointer<Void>>} ContextHandle Context handle to be destroyed. The handle is set to <b>NULL</b> before 
      * <b>RpcSsDestroyClientContext</b> returns.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-rpcssdestroyclientcontext
      * @since windows5.0
      */
     static RpcSsDestroyClientContext(ContextHandle) {
-        DllCall("RPCRT4.dll\RpcSsDestroyClientContext", "ptr", ContextHandle)
+        DllCall("RPCRT4.dll\RpcSsDestroyClientContext", "ptr*", ContextHandle)
     }
 
     /**
      * The NdrSimpleTypeMarshall function marshalls a simple type.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to the simple type to be marshalled.
+     * @param {Pointer<Integer>} pMemory Pointer to the simple type to be marshalled.
      * @param {Integer} FormatChar Simple type format character.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrsimpletypemarshall
@@ -17269,9 +17269,9 @@ class Rpc {
     /**
      * The NdrPointerMarshall function marshalls a top level pointer to anything. Pointers embedded in structures, arrays, or unions call NdrPointerMarshall directly.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to the pointer to be marshalled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes. 
+     * @param {Pointer<Integer>} pMemory Pointer to the pointer to be marshalled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes. 
      * 
      * <table>
      * <tr>
@@ -17298,9 +17298,9 @@ class Rpc {
     /**
      * The NdrSimpleStructMarshall function marshals the simple structure into a network buffer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the simple structure to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions upon failure.
+     * @param {Pointer<Integer>} pMemory Pointer to the simple structure to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions upon failure.
      * 
      * <table>
      * <tr>
@@ -17327,9 +17327,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantStructMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrConformantStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17339,9 +17339,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingStructMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrConformantVaryingStructMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17351,9 +17351,9 @@ class Rpc {
     /**
      * The NdrComplexStructMarshall function marshals the complex structure into a network buffer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the complex structure to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions upon failure.
+     * @param {Pointer<Integer>} pMemory Pointer to the complex structure to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions upon failure.
      * 
      * <table>
      * <tr>
@@ -17380,9 +17380,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrFixedArrayMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrFixedArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17392,9 +17392,9 @@ class Rpc {
     /**
      * The NdrConformantArrayMarshall function marshals the conformant array into a network buffer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the conformant array to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions upon failure.
+     * @param {Pointer<Integer>} pMemory Pointer to the conformant array to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions upon failure.
      * 
      * <table>
      * <tr>
@@ -17420,9 +17420,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17432,9 +17432,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrVaryingArrayMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrVaryingArrayMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17444,9 +17444,9 @@ class Rpc {
     /**
      * The NdrComplexArrayMarshall function marshals the complex array into a network buffer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the complex array to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions  upon failure.
+     * @param {Pointer<Integer>} pMemory Pointer to the complex array to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions  upon failure.
      * 
      * <table>
      * <tr>
@@ -17473,9 +17473,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNonConformantStringMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrNonConformantStringMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17485,9 +17485,9 @@ class Rpc {
     /**
      * The NdrConformantStringMarshall function marshals the conformant string into a network buffer to be sent to the server.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the null-terminated conformant string to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. If an error occurs, the function throws one of the following exception codes.
+     * @param {Pointer<Integer>} pMemory Pointer to the null-terminated conformant string to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. If an error occurs, the function throws one of the following exception codes.
      * 
      * <table>
      * <tr>
@@ -17514,9 +17514,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17526,9 +17526,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNonEncapsulatedUnionMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17538,9 +17538,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrByteCountPointerMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrByteCountPointerMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17550,9 +17550,9 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
+     * @returns {Pointer<Integer>} 
      */
     static NdrXmitOrRepAsMarshall(pStubMsg, pMemory, pFormat) {
         result := DllCall("RPCRT4.dll\NdrXmitOrRepAsMarshall", "ptr", pStubMsg, "char*", pMemory, "char*", pFormat, "char*")
@@ -17562,9 +17562,9 @@ class Rpc {
     /**
      * The NdrUserMarshalMarshall function marshals the supplied data buffer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to user data object to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer's format string description.
-     * @returns {Pointer<Byte>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes. 
+     * @param {Pointer<Integer>} pMemory Pointer to user data object to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer's format string description.
+     * @returns {Pointer<Integer>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes. 
      * 
      * <table>
      * <tr>
@@ -17591,9 +17591,9 @@ class Rpc {
     /**
      * The NdrInterfacePointerMarshall function marshals the interface pointer into a network buffer to be sent to the server.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the interface pointer to be marshaled.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
-     * @returns {Pointer<Byte>} Returns null upon success. If an error occurs, the function throws one of the following exception codes. In addition, the function can throw exception codes from <a href="/windows/desktop/api/combaseapi/nf-combaseapi-comarshalinterface">CoMarshalInterface</a>.
+     * @param {Pointer<Integer>} pMemory Pointer to the interface pointer to be marshaled.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
+     * @returns {Pointer<Integer>} Returns null upon success. If an error occurs, the function throws one of the following exception codes. In addition, the function can throw exception codes from <a href="/windows/desktop/api/combaseapi/nf-combaseapi-comarshalinterface">CoMarshalInterface</a>.
      * 
      * <table>
      * <tr>
@@ -17644,7 +17644,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<NDR_SCONTEXT>} ContextHandle 
      * @param {Pointer<NDR_RUNDOWN>} RundownRoutine 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrServerContextNewMarshall(pStubMsg, ContextHandle, RundownRoutine, pFormat) {
@@ -17654,7 +17654,7 @@ class Rpc {
     /**
      * The NdrSimpleTypeUnmarshall function unmarshalls a simple type.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to memory to unmarshall.
+     * @param {Pointer<Integer>} pMemory Pointer to memory to unmarshall.
      * @param {Integer} FormatChar Format string of the simple type.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrsimpletypeunmarshall
@@ -17667,13 +17667,13 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrRangeUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrRangeUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
@@ -17710,10 +17710,10 @@ class Rpc {
     /**
      * The NdrPointerUnmarshall function unmarshalls a top level pointer to anything. Pointers embedded in structures, arrays, or unions call NdrPointerUnmarshall directly.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} ppMemory Pointer to memory where pointer will be unmarshalled. Please see MCCP Buffer Protection for information on buffer overrun protections in RPC: <a href="https://docs.microsoft.com/windows/desktop/Rpc/mccp-buffer-protection">http://msdn.microsoft.com/en-us/library/ff621497(VS.85).aspx</a>
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Pointer to memory where pointer will be unmarshalled. Please see MCCP Buffer Protection for information on buffer overrun protections in RPC: <a href="https://docs.microsoft.com/windows/desktop/Rpc/mccp-buffer-protection">http://msdn.microsoft.com/en-us/library/ff621497(VS.85).aspx</a>
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Unused.
-     * @returns {Pointer<Byte>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes.
+     * @returns {Pointer<Integer>} Returns <b>NULL</b> upon success. If an error occurs, the function throws one of the following exception codes.
      * 
      * <table>
      * <tr>
@@ -17741,17 +17741,17 @@ class Rpc {
      * @since windows5.0
      */
     static NdrPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrSimpleStructUnmarshall function unmarshals the simple structure from the network buffer to memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} ppMemory Address to a pointer to the unmarshalled simple structure. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Address to a pointer to the unmarshalled simple structure. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Flag that specifies whether the stub must allocate the memory into which the simple structure is to be marshaled.  Specify <b>TRUE</b> if RPC must allocate <i>ppMemory</i>.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions upon failure.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions upon failure.
      * 
      * <table>
      * <tr>
@@ -17779,43 +17779,43 @@ class Rpc {
      * @since windows5.0
      */
     static NdrSimpleStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrSimpleStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrComplexStructUnmarshall function unmarshals the complex structure from the network buffer to memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} ppMemory Address to a pointer to the unmarshalled complex structure. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Address to a pointer to the unmarshalled complex structure. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Flag that specifies whether the stub must allocate the memory into which the complex structure is to be marshaled.  Specify <b>TRUE</b> if RPC must allocate <i>ppMemory</i>.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions upon failure.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions upon failure.
      * 
      * <table>
      * <tr>
@@ -17843,70 +17843,71 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexStructUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrComplexStructUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrFixedArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrFixedArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/rpcndr/nf-rpcndr-ndrconformantarrayunmarshall
      * @since windows5.0
      */
     static NdrConformantArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrConformantVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrVaryingArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrVaryingArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrComplexArrayUnmarshall function unmarshals the complex array from the network buffer to memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} ppMemory Address to a pointer to the unmarshalled complex array. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Address to a pointer to the unmarshalled complex array. If set to null, or if the <i>fMustAlloc</i> parameter is set to <b>TRUE</b>, the stub will allocate the memory.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Flag that specifies whether the stub must allocate the memory into which the complex array is to be marshaled.  Specify <b>TRUE</b> if RPC must allocate <i>ppMemory</i>.
-     * @returns {Pointer<Byte>} Returns null upon success. Raises one of the following exceptions  upon failure.
+     * @returns {Pointer<Integer>} Returns null upon success. Raises one of the following exceptions  upon failure.
      * 
      * <table>
      * <tr>
@@ -17934,30 +17935,30 @@ class Rpc {
      * @since windows5.0
      */
     static NdrComplexArrayUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrComplexArrayUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNonConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrNonConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrConformantStringUnmarshall function unmarshals the conformant string from the network buffer to memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} ppMemory Address to a pointer to the unmarshalled conformant string. If set to null, or if the <i>fMustAlloc</i> is set to <b>TRUE</b>, the stub will allocate the memory.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Address to a pointer to the unmarshalled conformant string. If set to null, or if the <i>fMustAlloc</i> is set to <b>TRUE</b>, the stub will allocate the memory.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Flag that specifies whether the stub must allocate the memory into which the conformant string is to be marshaled.  Specify <b>TRUE</b> if RPC must allocate <i>ppMemory</i>.
-     * @returns {Pointer<Byte>} Returns null upon success. If an error occurs, the function throws one of the following exception codes.
+     * @returns {Pointer<Integer>} Returns null upon success. If an error occurs, the function throws one of the following exception codes.
      * 
      * <table>
      * <tr>
@@ -17985,69 +17986,69 @@ class Rpc {
      * @since windows5.0
      */
     static NdrConformantStringUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrConformantStringUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNonEncapsulatedUnionUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrNonEncapsulatedUnionUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrByteCountPointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrByteCountPointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Integer>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} fMustAlloc 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrXmitOrRepAsUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrXmitOrRepAsUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrUserMarshalUnmarshall function calls a user-defined unmarshal routine to unmarshal data with the attribute.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The  <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} ppMemory Pointer to user data object to be unmarshalled.
-     * @param {Pointer<Byte>} pFormat Format string description of the pointer.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Pointer to user data object to be unmarshalled.
+     * @param {Pointer<Integer>} pFormat Format string description of the pointer.
      * @param {Integer} fMustAlloc Flag that specifies whether the stub must allocate the memory into which the user data object is to be unmarshalled.  Specify <b>TRUE</b> if RPC must allocate <i>ppMemory</i>.
-     * @returns {Pointer<Byte>} Returns <b>NULL</b> upon success. Returns one of the following exception codes upon error.
+     * @returns {Pointer<Integer>} Returns <b>NULL</b> upon success. Returns one of the following exception codes upon error.
      * 
      * <table>
      * <tr>
@@ -18067,17 +18068,17 @@ class Rpc {
      * @since windows5.0
      */
     static NdrUserMarshalUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrUserMarshalUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * The NdrInterfacePointerUnmarshall function unmarshalls the data referenced by the interface pointer from the network buffer to memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} ppMemory Pointer to a pointer to the unmarshalled interface pointer.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Pointer<Integer>>} ppMemory Pointer to a pointer to the unmarshalled interface pointer.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Integer} fMustAlloc Unused.
-     * @returns {Pointer<Byte>} Returns NULL upon success. If an error occurs, the function throws one of the following exception codes. In addition, the function can throw exception codes from <a href="/windows/desktop/api/combaseapi/nf-combaseapi-counmarshalinterface">CoUnmarshalInterface</a>.
+     * @returns {Pointer<Integer>} Returns NULL upon success. If an error occurs, the function throws one of the following exception codes. In addition, the function can throw exception codes from <a href="/windows/desktop/api/combaseapi/nf-combaseapi-counmarshalinterface">CoUnmarshalInterface</a>.
      * 
      * <table>
      * <tr>
@@ -18105,14 +18106,14 @@ class Rpc {
      * @since windows5.0
      */
     static NdrInterfacePointerUnmarshall(pStubMsg, ppMemory, pFormat, fMustAlloc) {
-        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "char*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
+        result := DllCall("RPCRT4.dll\NdrInterfacePointerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat, "char", fMustAlloc, "char*")
         return result
     }
 
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<IntPtr>} pContextHandle 
+     * @param {Pointer<Pointer>} pContextHandle 
      * @param {Pointer<Void>} BindHandle 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18133,7 +18134,7 @@ class Rpc {
     /**
      * Initializes a new RPC context handle.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that contains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pFormat Pointer to a <b>FORMAT_STRING</b> structure that contains the format of the new context handle.
+     * @param {Pointer<Integer>} pFormat Pointer to a <b>FORMAT_STRING</b> structure that contains the format of the new context handle.
      * @returns {Pointer<NDR_SCONTEXT>} Returns a NDR_SCONTEXT structure that provides a newly initialized context on return or raises exception upon error.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrcontexthandleinitialize
      * @since windows5.1.2600
@@ -18146,7 +18147,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Pointer<NDR_SCONTEXT>} 
      */
     static NdrServerContextNewUnmarshall(pStubMsg, pFormat) {
@@ -18157,8 +18158,8 @@ class Rpc {
     /**
      * The NdrPointerBufferSize function computes the needed buffer size, in bytes, for a top-level pointer to anything.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the data being sized.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the data being sized.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrpointerbuffersize
      * @since windows5.0
@@ -18170,8 +18171,8 @@ class Rpc {
     /**
      * The NdrSimpleStructBufferSize function calculates the required buffer size, in bytes, to marshal the simple structure.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the simple structure to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the simple structure to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrsimplestructbuffersize
      * @since windows5.0
@@ -18183,8 +18184,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18194,8 +18195,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18205,8 +18206,8 @@ class Rpc {
     /**
      * The NdrComplexStructBufferSize function calculates the required buffer size, in bytes, to marshal the complex structure.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the complex structure to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the complex structure to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrcomplexstructbuffersize
      * @since windows5.0
@@ -18218,8 +18219,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18229,8 +18230,8 @@ class Rpc {
     /**
      * The NdrConformantArrayBufferSize function calculates the required buffer size, in bytes, to marshal the conformant array.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the conformant array to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the conformant array to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrconformantarraybuffersize
      */
@@ -18241,8 +18242,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18252,8 +18253,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18263,8 +18264,8 @@ class Rpc {
     /**
      * The NdrComplexArrayBufferSize function calculates the required buffer size, in bytes, to marshal the complex array.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. The <b>MIDL_STUB_MESSAGE</b> structure is for internal use only, and must not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the  complex array to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the  complex array to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrcomplexarraybuffersize
      * @since windows5.0
@@ -18276,8 +18277,8 @@ class Rpc {
     /**
      * The NdrConformantStringBufferSize function calculates the size of the buffer, in bytes, needed to marshal the conformant string.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to the null-terminated conformant string to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the null-terminated conformant string to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrconformantstringbuffersize
      * @since windows5.0
@@ -18289,8 +18290,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonConformantStringBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18300,8 +18301,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18311,8 +18312,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18322,8 +18323,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18333,8 +18334,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsBufferSize(pStubMsg, pMemory, pFormat) {
@@ -18344,8 +18345,8 @@ class Rpc {
     /**
      * The NdrUserMarshalBufferSize function calculates the size of the buffer, in bytes, needed to marshal the user marshal object.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to the user marshal object to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the user marshal object to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrusermarshalbuffersize
      * @since windows5.0
@@ -18357,8 +18358,8 @@ class Rpc {
     /**
      * The NdrInterfacePointerBufferSize function calculates the size of the buffer, in bytes, needed to marshal the interface pointer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the buffer. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the interface pointer to be calculated.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the interface pointer to be calculated.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrinterfacepointerbuffersize
      * @since windows5.0
@@ -18370,8 +18371,8 @@ class Rpc {
     /**
      * The NdrContextHandleSize function returns the size of the supplied RPC context handle.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that contains the current status of the RPC stub. The <b>BufferLength</b> member contains the size of the context handle, in bytes. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to a string buffer that contains an RPC context handle.
-     * @param {Pointer<Byte>} pFormat Pointer to a <b>FORMAT_STRING</b> structure that contains the format of the context handle specified in <i>pMemory</i>.
+     * @param {Pointer<Integer>} pMemory Pointer to a string buffer that contains an RPC context handle.
+     * @param {Pointer<Integer>} pFormat Pointer to a <b>FORMAT_STRING</b> structure that contains the format of the context handle specified in <i>pMemory</i>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrcontexthandlesize
      * @since windows5.1.2600
@@ -18383,7 +18384,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrPointerMemorySize(pStubMsg, pFormat) {
@@ -18394,7 +18395,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrSimpleStructMemorySize(pStubMsg, pFormat) {
@@ -18405,7 +18406,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrConformantStructMemorySize(pStubMsg, pFormat) {
@@ -18416,7 +18417,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrConformantVaryingStructMemorySize(pStubMsg, pFormat) {
@@ -18427,7 +18428,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrComplexStructMemorySize(pStubMsg, pFormat) {
@@ -18438,7 +18439,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrFixedArrayMemorySize(pStubMsg, pFormat) {
@@ -18449,7 +18450,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrConformantArrayMemorySize(pStubMsg, pFormat) {
@@ -18460,7 +18461,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrConformantVaryingArrayMemorySize(pStubMsg, pFormat) {
@@ -18471,7 +18472,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrVaryingArrayMemorySize(pStubMsg, pFormat) {
@@ -18482,7 +18483,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrComplexArrayMemorySize(pStubMsg, pFormat) {
@@ -18493,7 +18494,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrConformantStringMemorySize(pStubMsg, pFormat) {
@@ -18504,7 +18505,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrNonConformantStringMemorySize(pStubMsg, pFormat) {
@@ -18515,7 +18516,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
@@ -18526,7 +18527,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrNonEncapsulatedUnionMemorySize(pStubMsg, pFormat) {
@@ -18537,7 +18538,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrXmitOrRepAsMemorySize(pStubMsg, pFormat) {
@@ -18548,7 +18549,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrUserMarshalMemorySize(pStubMsg, pFormat) {
@@ -18559,7 +18560,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {Integer} 
      */
     static NdrInterfacePointerMemorySize(pStubMsg, pFormat) {
@@ -18570,8 +18571,8 @@ class Rpc {
     /**
      * The NdrPointerFree function frees memory.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub.  This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to memory to be freed.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to memory to be freed.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrpointerfree
      * @since windows5.0
@@ -18583,8 +18584,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrSimpleStructFree(pStubMsg, pMemory, pFormat) {
@@ -18594,8 +18595,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantStructFree(pStubMsg, pMemory, pFormat) {
@@ -18605,8 +18606,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingStructFree(pStubMsg, pMemory, pFormat) {
@@ -18616,8 +18617,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexStructFree(pStubMsg, pMemory, pFormat) {
@@ -18627,8 +18628,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrFixedArrayFree(pStubMsg, pMemory, pFormat) {
@@ -18638,8 +18639,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantArrayFree(pStubMsg, pMemory, pFormat) {
@@ -18649,8 +18650,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrConformantVaryingArrayFree(pStubMsg, pMemory, pFormat) {
@@ -18660,8 +18661,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrVaryingArrayFree(pStubMsg, pMemory, pFormat) {
@@ -18671,8 +18672,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrComplexArrayFree(pStubMsg, pMemory, pFormat) {
@@ -18682,8 +18683,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
@@ -18693,8 +18694,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrNonEncapsulatedUnionFree(pStubMsg, pMemory, pFormat) {
@@ -18704,8 +18705,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrByteCountPointerFree(pStubMsg, pMemory, pFormat) {
@@ -18715,8 +18716,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrXmitOrRepAsFree(pStubMsg, pMemory, pFormat) {
@@ -18730,8 +18731,8 @@ class Rpc {
      * You should never free the top level object, it is freed by the system.
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. Structure is for internal use only; do not modify.
-     * @param {Pointer<Byte>} pMemory Pointer to be freed.
-     * @param {Pointer<Byte>} pFormat Pointer's format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to be freed.
+     * @param {Pointer<Integer>} pFormat Pointer's format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrusermarshalfree
      * @since windows5.0
@@ -18743,8 +18744,8 @@ class Rpc {
     /**
      * The NdrInterfacePointerFree function releases the interface pointer.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pMemory Pointer to the interface pointer to be released.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pMemory Pointer to the interface pointer to be released.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrinterfacepointerfree
      * @since windows5.0
@@ -18756,7 +18757,7 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Integer>} pFormat 
      * @param {Integer} NumberParams 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -18767,7 +18768,7 @@ class Rpc {
     /**
      * The NdrConvert function converts the network buffer from the data representation of the sender to the data representation of the receiver if they are different.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The <b>pRpcMsg</b> member points to a structure whose <b>Buffer</b> member contains the data to convert. This structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pFormat Pointer to type format  of the data to convert.
+     * @param {Pointer<Integer>} pFormat Pointer to type format  of the data to convert.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrconvert
      * @since windows5.0
@@ -18778,10 +18779,10 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} pFlags 
-     * @param {Pointer<Byte>} pBuffer 
+     * @param {Pointer<Integer>} pFlags 
+     * @param {Pointer<Integer>} pBuffer 
      * @param {Integer} FormatChar 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrUserMarshalSimpleTypeConvert(pFlags, pBuffer, FormatChar) {
         result := DllCall("RPCRT4.dll\NdrUserMarshalSimpleTypeConvert", "uint*", pFlags, "char*", pBuffer, "char", FormatChar, "char*")
@@ -18805,7 +18806,7 @@ class Rpc {
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrServerInitializeNew(pRpcMsg, pStubMsg, pStubDescriptor) {
         result := DllCall("RPCRT4.dll\NdrServerInitializeNew", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "char*")
@@ -18841,7 +18842,7 @@ class Rpc {
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrServerInitialize(pRpcMsg, pStubMsg, pStubDescriptor) {
         result := DllCall("RPCRT4.dll\NdrServerInitialize", "ptr", pRpcMsg, "ptr", pStubMsg, "ptr", pStubDescriptor, "char*")
@@ -18853,7 +18854,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrServerInitializeUnmarshall(pStubMsg, pStubDescriptor, pRpcMsg) {
         result := DllCall("RPCRT4.dll\NdrServerInitializeUnmarshall", "ptr", pStubMsg, "ptr", pStubDescriptor, "ptr", pRpcMsg, "char*")
@@ -18875,7 +18876,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Integer} BufferLength 
      * @param {Pointer<Void>} Handle 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrGetBuffer(pStubMsg, BufferLength, Handle) {
         result := DllCall("RPCRT4.dll\NdrGetBuffer", "ptr", pStubMsg, "uint", BufferLength, "ptr", Handle, "char*")
@@ -18887,7 +18888,7 @@ class Rpc {
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
      * @param {Integer} BufferLength 
      * @param {Pointer<Void>} Handle 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNsGetBuffer(pStubMsg, BufferLength, Handle) {
         result := DllCall("RPCRT4.dll\NdrNsGetBuffer", "ptr", pStubMsg, "uint", BufferLength, "ptr", Handle, "char*")
@@ -18897,8 +18898,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pBufferEnd 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pBufferEnd 
+     * @returns {Pointer<Integer>} 
      */
     static NdrSendReceive(pStubMsg, pBufferEnd) {
         result := DllCall("RPCRT4.dll\NdrSendReceive", "ptr", pStubMsg, "char*", pBufferEnd, "char*")
@@ -18908,12 +18909,12 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Byte>} pBufferEnd 
-     * @param {Pointer<Void>} pAutoHandle 
-     * @returns {Pointer<Byte>} 
+     * @param {Pointer<Integer>} pBufferEnd 
+     * @param {Pointer<Pointer<Void>>} pAutoHandle 
+     * @returns {Pointer<Integer>} 
      */
     static NdrNsSendReceive(pStubMsg, pBufferEnd, pAutoHandle) {
-        result := DllCall("RPCRT4.dll\NdrNsSendReceive", "ptr", pStubMsg, "char*", pBufferEnd, "ptr", pAutoHandle, "char*")
+        result := DllCall("RPCRT4.dll\NdrNsSendReceive", "ptr", pStubMsg, "char*", pBufferEnd, "ptr*", pAutoHandle, "char*")
         return result
     }
 
@@ -18943,7 +18944,7 @@ class Rpc {
     /**
      * The NdrClientCall2 function is the client-side entry point for the /Oicf mode stub.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
-     * @param {Pointer<Byte>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
+     * @param {Pointer<Integer>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
      * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
@@ -18958,7 +18959,7 @@ class Rpc {
     /**
      * The NdrAsyncClientCall function is the asynchronous client-side entry point for the /Oi and /Oic mode stub.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Pointer to the MIDL-generated <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_desc">MIDL_STUB_DESC</a> structure that contains information about the description of the remote interface.
-     * @param {Pointer<Byte>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
+     * @param {Pointer<Integer>} pFormat Pointer to the MIDL-generated procedure format string that describes the method and parameters.
      * @returns {CLIENT_CALL_RETURN} Return value of the remote call. The maximum size of a return value is equivalent to the register size of the system. MIDL switches to the <a href="/windows/desktop/Midl/-os">/Os</a> mode stub if the return value size is larger than the register size.
      * 
      * Depending on the method definition, this function can throw an exception if there is a network or server failure.
@@ -18973,7 +18974,7 @@ class Rpc {
     /**
      * NdrDcomAsyncClientCall may be altered or unavailable.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDescriptor Reserved.
-     * @param {Pointer<Byte>} pFormat Reserved.
+     * @param {Pointer<Integer>} pFormat Reserved.
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrdcomasyncclientcall
      * @since windows5.0
@@ -18996,10 +18997,10 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<IRpcStubBuffer>} pThis 
-     * @param {Pointer<IRpcChannelBuffer>} pChannel 
+     * @param {IRpcStubBuffer} pThis 
+     * @param {IRpcChannelBuffer} pChannel 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
-     * @param {Pointer<UInt32>} pdwStubPhase 
+     * @param {Pointer<Integer>} pdwStubPhase 
      * @returns {Integer} 
      */
     static NdrDcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
@@ -19012,7 +19013,7 @@ class Rpc {
      * @param {Pointer<Void>} pThis Pointer to an instance of the CStdStubBuffer object, implementing  <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcstubbuffer">IRpcStubBuffer</a>, for the DCOM interface.  Set to <b>NULL</b> for nonobject RPC interfaces.
      * @param {Pointer<Void>} pChannel Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcchannelbuffer">IRpcChannelBuffer</a> for the DCOM interface, often provided by OLE. Set to <b>NULL</b> for nonobject interfaces.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/rpcdcep/ns-rpcdcep-rpc_message">RPC_MESSAGE</a> structure that  contains information about the RPC request. In nonobject interfaces, <i>pRpcMsg</i> also contains information about the remoting method.
-     * @param {Pointer<UInt32>} pdwStubPhase Pointer to a flag that tracks the current interpreter call's activity.
+     * @param {Pointer<Integer>} pdwStubPhase Pointer to a flag that tracks the current interpreter call's activity.
      * @returns {Integer} Returns S_OK upon success. Raises an exception upon error.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrstubcall2
      * @since windows5.0
@@ -19036,8 +19037,8 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<UInt32>} pCommStatus 
-     * @param {Pointer<UInt32>} pFaultStatus 
+     * @param {Pointer<Integer>} pCommStatus 
+     * @param {Pointer<Integer>} pFaultStatus 
      * @param {Integer} Status 
      * @returns {Integer} 
      */
@@ -19215,20 +19216,20 @@ class Rpc {
      * The RpcSsSwapClientAllocFree function exchanges the memory allocation and release mechanisms used by the client stubs with those supplied by the client.
      * @param {Pointer<RPC_CLIENT_ALLOC>} ClientAlloc New function to allocate memory.
      * @param {Pointer<RPC_CLIENT_FREE>} ClientFree New function to release memory.
-     * @param {Pointer<RPC_CLIENT_ALLOC>} OldClientAlloc Returns the previous memory-allocation function.
-     * @param {Pointer<RPC_CLIENT_FREE>} OldClientFree Returns the previous memory-freeing function.
+     * @param {Pointer<Pointer<RPC_CLIENT_ALLOC>>} OldClientAlloc Returns the previous memory-allocation function.
+     * @param {Pointer<Pointer<RPC_CLIENT_FREE>>} OldClientFree Returns the previous memory-freeing function.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-rpcssswapclientallocfree
      * @since windows5.0
      */
     static RpcSsSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClientFree) {
-        DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr", OldClientAlloc, "ptr", OldClientFree)
+        DllCall("RPCRT4.dll\RpcSsSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr*", OldClientAlloc, "ptr*", OldClientFree)
     }
 
     /**
      * The RpcSmAllocate function allocates memory within the RPC stub memory management function and returns a pointer to the allocated memory or NULL.
      * @param {Pointer} Size Size of memory to allocate, in bytes.
-     * @param {Pointer<Int32>} pStatus Pointer to the returned status.
+     * @param {Pointer<Integer>} pStatus Pointer to the returned status.
      * @returns {Pointer<Void>} <table>
      * <tr>
      * <th>Value</th>
@@ -19305,7 +19306,7 @@ class Rpc {
 
     /**
      * The RpcSmDestroyClientContext function reclaims the client memory resources for a context handle and makes the context handle NULL.
-     * @param {Pointer<Void>} ContextHandle Context handle that can no longer be used. The handle is set to <b>NULL</b> before <b>RpcSMDestroyClientContext</b> returns.
+     * @param {Pointer<Pointer<Void>>} ContextHandle Context handle that can no longer be used. The handle is set to <b>NULL</b> before <b>RpcSMDestroyClientContext</b> returns.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -19343,7 +19344,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmDestroyClientContext(ContextHandle) {
-        result := DllCall("RPCRT4.dll\RpcSmDestroyClientContext", "ptr", ContextHandle, "int")
+        result := DllCall("RPCRT4.dll\RpcSmDestroyClientContext", "ptr*", ContextHandle, "int")
         return result
     }
 
@@ -19462,7 +19463,7 @@ class Rpc {
 
     /**
      * The RpcSmGetThreadHandle function returns a thread handle, or NULL, for the stub memory�management environment.
-     * @param {Pointer<Int32>} pStatus Pointer to the returned status.
+     * @param {Pointer<Integer>} pStatus Pointer to the returned status.
      * @returns {Pointer<Void>} <table>
      * <tr>
      * <th>Value</th>
@@ -19576,8 +19577,8 @@ class Rpc {
      * The RpcSmSwapClientAllocFree function exchanges the client stub's memory-allocation and memory-freeing mechanisms with those supplied by the client.
      * @param {Pointer<RPC_CLIENT_ALLOC>} ClientAlloc New memory-allocation function.
      * @param {Pointer<RPC_CLIENT_FREE>} ClientFree New memory-releasing function.
-     * @param {Pointer<RPC_CLIENT_ALLOC>} OldClientAlloc Returns the previous memory-allocation function before the call to this function.
-     * @param {Pointer<RPC_CLIENT_FREE>} OldClientFree Returns the previous memory-releasing function before the call to this function.
+     * @param {Pointer<Pointer<RPC_CLIENT_ALLOC>>} OldClientAlloc Returns the previous memory-allocation function before the call to this function.
+     * @param {Pointer<Pointer<RPC_CLIENT_FREE>>} OldClientFree Returns the previous memory-releasing function before the call to this function.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -19615,7 +19616,7 @@ class Rpc {
      * @since windows5.0
      */
     static RpcSmSwapClientAllocFree(ClientAlloc, ClientFree, OldClientAlloc, OldClientFree) {
-        result := DllCall("RPCRT4.dll\RpcSmSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr", OldClientAlloc, "ptr", OldClientFree, "int")
+        result := DllCall("RPCRT4.dll\RpcSmSwapClientAllocFree", "ptr", ClientAlloc, "ptr", ClientFree, "ptr*", OldClientAlloc, "ptr*", OldClientFree, "int")
         return result
     }
 
@@ -19718,7 +19719,7 @@ class Rpc {
     /**
      * The NdrClearOutParameters function frees resources of the out parameter and clears its memory if the RPC call to the server fails.
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/rpcndr/ns-rpcndr-midl_stub_message">MIDL_STUB_MESSAGE</a> structure that maintains the current status of the RPC stub. The structure is for internal use only and should not be modified.
-     * @param {Pointer<Byte>} pFormat Pointer to the format string description.
+     * @param {Pointer<Integer>} pFormat Pointer to the format string description.
      * @param {Pointer<Void>} ArgAddr Pointer to the out parameter to be freed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrclearoutparameters
@@ -19753,7 +19754,7 @@ class Rpc {
 
     /**
      * The NdrGetUserMarshalInfo function provides additional information to wire_marshal and user_marshal helper functions.
-     * @param {Pointer<UInt32>} pFlags Pointer by the same name that RPC passed to the helper function.
+     * @param {Pointer<Integer>} pFlags Pointer by the same name that RPC passed to the helper function.
      * @param {Integer} InformationLevel Desired level of detail to be received. Different levels imply different sets of information fields. Only level 1 is currently defined.
      * @param {Pointer<NDR_USER_MARSHAL_INFO>} pMarshalInfo Address of a memory buffer, supplied by the application, to receive the requested information. The buffer must be at least as large as the information structure indicated by <i>InformationLevel</i>.
      * @returns {Integer} <table>
@@ -19805,7 +19806,7 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<IRpcStubBuffer>} pStub 
+     * @param {IRpcStubBuffer} pStub 
      * @param {Pointer<RPC_SERVER_INTERFACE>} pServerIf 
      * @returns {Integer} 
      */
@@ -19876,10 +19877,10 @@ class Rpc {
 
     /**
      * 
-     * @param {Pointer<IRpcStubBuffer>} pThis 
-     * @param {Pointer<IRpcChannelBuffer>} pChannel 
+     * @param {IRpcStubBuffer} pThis 
+     * @param {IRpcChannelBuffer} pChannel 
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg 
-     * @param {Pointer<UInt32>} pdwStubPhase 
+     * @param {Pointer<Integer>} pdwStubPhase 
      * @returns {Integer} 
      */
     static Ndr64DcomAsyncStubCall(pThis, pChannel, pRpcMsg, pdwStubPhase) {
@@ -19892,7 +19893,7 @@ class Rpc {
      * @param {Pointer<Void>} pThis Reserved.
      * @param {Pointer<Void>} pChannel Reserved.
      * @param {Pointer<RPC_MESSAGE>} pRpcMsg Reserved.
-     * @param {Pointer<UInt32>} pdwStubPhase Reserved.
+     * @param {Pointer<Integer>} pdwStubPhase Reserved.
      * @returns {Integer} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//rpcndr/nf-rpcndr-ndrstubcall3
      * @since windows5.1.2600
@@ -19935,11 +19936,11 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Void>} ppMemory 
+     * @param {Pointer<Pointer<Void>>} ppMemory 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreServerUnmarshall(pStubMsg, ppMemory) {
-        DllCall("RPCRT4.dll\NdrPartialIgnoreServerUnmarshall", "ptr", pStubMsg, "ptr", ppMemory)
+        DllCall("RPCRT4.dll\NdrPartialIgnoreServerUnmarshall", "ptr", pStubMsg, "ptr*", ppMemory)
     }
 
     /**
@@ -19955,12 +19956,12 @@ class Rpc {
     /**
      * 
      * @param {Pointer<MIDL_STUB_MESSAGE>} pStubMsg 
-     * @param {Pointer<Void>} ppMemory 
-     * @param {Pointer<Byte>} pFormat 
+     * @param {Pointer<Pointer<Void>>} ppMemory 
+     * @param {Pointer<Integer>} pFormat 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrPartialIgnoreServerInitialize(pStubMsg, ppMemory, pFormat) {
-        DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr", ppMemory, "char*", pFormat)
+        DllCall("RPCRT4.dll\NdrPartialIgnoreServerInitialize", "ptr", pStubMsg, "ptr*", ppMemory, "char*", pFormat)
     }
 
     /**
@@ -19980,7 +19981,7 @@ class Rpc {
      * @param {Pointer<Void>} UserState Pointer to the user-supplied state object that coordinates the user-supplied <b>Alloc</b>, <b>Write</b>, and <b>Read</b> functions.
      * @param {Pointer<MIDL_ES_ALLOC>} AllocFn Pointer to the user-supplied <b>Alloc</b> function.
      * @param {Pointer<MIDL_ES_WRITE>} WriteFn Pointer to the user-supplied <b>Write</b> function.
-     * @param {Pointer<Void>} pHandle Pointer to the newly created handle.
+     * @param {Pointer<Pointer<Void>>} pHandle Pointer to the newly created handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20029,7 +20030,7 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeIncrementalHandleCreate(UserState, AllocFn, WriteFn, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", "ptr", UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesEncodeIncrementalHandleCreate", "ptr", UserState, "ptr", AllocFn, "ptr", WriteFn, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20037,7 +20038,7 @@ class Rpc {
      * The MesDecodeIncrementalHandleCreate function creates a decoding handle for the incremental style of serialization.
      * @param {Pointer<Void>} UserState Pointer to the user-supplied state object that coordinates the user-supplied <b>Alloc</b>, <b>Write</b>, and <b>Read</b> functions.
      * @param {Pointer<MIDL_ES_READ>} ReadFn Pointer to the <b>Read</b> function.
-     * @param {Pointer<Void>} pHandle Pointer to the newly created handle.
+     * @param {Pointer<Pointer<Void>>} pHandle Pointer to the newly created handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20086,7 +20087,7 @@ class Rpc {
      * @since windows5.0
      */
     static MesDecodeIncrementalHandleCreate(UserState, ReadFn, pHandle) {
-        result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", "ptr", UserState, "ptr", ReadFn, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesDecodeIncrementalHandleCreate", "ptr", UserState, "ptr", ReadFn, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20154,8 +20155,8 @@ class Rpc {
      * The MesEncodeFixedBufferHandleCreate function creates an encoding handle and then initializes it for a fixed buffer style of serialization.
      * @param {Pointer} pBuffer Pointer to the user-supplied buffer.
      * @param {Integer} BufferSize Size of the user-supplied buffer, in bytes.
-     * @param {Pointer<UInt32>} pEncodedSize Pointer to the size of the completed encoding. The size will be written to the pointee by the subsequent encoding operation(s).
-     * @param {Pointer<Void>} pHandle Pointer to the newly created handle.
+     * @param {Pointer<Integer>} pEncodedSize Pointer to the size of the completed encoding. The size will be written to the pointee by the subsequent encoding operation(s).
+     * @param {Pointer<Pointer<Void>>} pHandle Pointer to the newly created handle.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20204,15 +20205,15 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeFixedBufferHandleCreate(pBuffer, BufferSize, pEncodedSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, "uint*", pEncodedSize, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesEncodeFixedBufferHandleCreate", "ptr", pBuffer, "uint", BufferSize, "uint*", pEncodedSize, "ptr*", pHandle, "int")
         return result
     }
 
     /**
      * The MesEncodeDynBufferHandleCreate function creates an encoding handle and then initializes it for a dynamic buffer style of serialization.
-     * @param {Pointer<SByte>} pBuffer Pointer to a pointer to the stub-supplied buffer containing the encoding after serialization is complete.
-     * @param {Pointer<UInt32>} pEncodedSize Pointer to the size of the completed encoding. The size will be written to the memory location pointed to by <i>pEncodedSize</i> by subsequent encoding operations.
-     * @param {Pointer<Void>} pHandle Pointer to the address to which the handle will be written.
+     * @param {Pointer<Pointer<Integer>>} pBuffer Pointer to a pointer to the stub-supplied buffer containing the encoding after serialization is complete.
+     * @param {Pointer<Integer>} pEncodedSize Pointer to the size of the completed encoding. The size will be written to the memory location pointed to by <i>pEncodedSize</i> by subsequent encoding operations.
+     * @param {Pointer<Pointer<Void>>} pHandle Pointer to the address to which the handle will be written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20261,7 +20262,7 @@ class Rpc {
      * @since windows5.0
      */
     static MesEncodeDynBufferHandleCreate(pBuffer, pEncodedSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "char*", pBuffer, "uint*", pEncodedSize, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesEncodeDynBufferHandleCreate", "ptr*", pBuffer, "uint*", pEncodedSize, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20269,7 +20270,7 @@ class Rpc {
      * The MesDecodeBufferHandleCreate function creates a decoding handle and initializes it for a (fixed) buffer style of serialization.
      * @param {Pointer} Buffer Pointer to the buffer containing the data to decode.
      * @param {Integer} BufferSize Bytes of data to decode in the buffer.
-     * @param {Pointer<Void>} pHandle Pointer to the address to which the handle will be written.
+     * @param {Pointer<Pointer<Void>>} pHandle Pointer to the address to which the handle will be written.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20329,7 +20330,7 @@ class Rpc {
      * @since windows5.0
      */
     static MesDecodeBufferHandleCreate(Buffer, BufferSize, pHandle) {
-        result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", Buffer, "uint", BufferSize, "ptr", pHandle, "int")
+        result := DllCall("RPCRT4.dll\MesDecodeBufferHandleCreate", "ptr", Buffer, "uint", BufferSize, "ptr*", pHandle, "int")
         return result
     }
 
@@ -20349,7 +20350,7 @@ class Rpc {
      * 
      * For <b>MES_ENCODE_NDR64</b>, pointer to a pointer to the buffer for fixed buffer style, and pointer to a pointer to return the buffer address for dynamic buffer style of serialization, but explicitly uses NDR64 to encode the buffer. The user-provided buffer must be aligned to 16.
      * @param {Integer} BufferSize Bytes of data to be decoded in the buffer. Note that this is used only for the fixed buffer style of serialization.
-     * @param {Pointer<UInt32>} pEncodedSize Pointer to the size of the completed encoding. Note that this is used only when the operation is <b>MES_ENCODE</b> or <b>MES_ENCODE_NDR64</b>.
+     * @param {Pointer<Integer>} pEncodedSize Pointer to the size of the completed encoding. Note that this is used only when the operation is <b>MES_ENCODE</b> or <b>MES_ENCODE_NDR64</b>.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20429,7 +20430,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle An encoding or decoding handle.
      * @param {Pointer<RPC_SYNTAX_IDENTIFIER>} pInterfaceId Pointer to the address in which the identity of the interface used to encode the data will be written. The <i>pInterfaceId</i> consists of the interface universally unique identifier 
      * <a href="https://docs.microsoft.com/windows/win32/rpc/rpcdce/ns-rpcdce-uuid">UUID</a> and the version number.
-     * @param {Pointer<UInt32>} pProcNum Number of the function used to encode the data.
+     * @param {Pointer<Integer>} pProcNum Number of the function used to encode the data.
      * @returns {Integer} <table>
      * <tr>
      * <th>Value</th>
@@ -20574,7 +20575,7 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {Pointer} 
      */
@@ -20587,7 +20588,7 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20599,7 +20600,7 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20612,7 +20613,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {Pointer} 
      */
@@ -20626,7 +20627,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20639,7 +20640,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20652,7 +20653,7 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -20664,7 +20665,7 @@ class Rpc {
      * 
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Byte>} pFormatString 
+     * @param {Pointer<Integer>} pFormatString 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesProcEncodeDecode(Handle, pStubDesc, pFormatString) {
@@ -20675,7 +20676,7 @@ class Rpc {
      * NdrMesProcEncodeDecode2 may be altered or unavailable.
      * @param {Pointer<Void>} Handle Reserved.
      * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
-     * @param {Pointer<Byte>} pFormatString Reserved.
+     * @param {Pointer<Integer>} pFormatString Reserved.
      * @returns {CLIENT_CALL_RETURN} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//midles/nf-midles-ndrmesprocencodedecode2
      * @since windows5.0
@@ -20690,13 +20691,13 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
-     * @param {Pointer<UInt32>} ArrTypeOffset 
+     * @param {Pointer<Pointer<Integer>>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
      * @returns {Pointer} 
      */
     static NdrMesTypeAlignSize3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject, "ptr")
+        result := DllCall("RPCRT4.dll\NdrMesTypeAlignSize3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject, "ptr")
         return result
     }
 
@@ -20705,13 +20706,13 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
-     * @param {Pointer<UInt32>} ArrTypeOffset 
+     * @param {Pointer<Pointer<Integer>>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeEncode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeEncode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -20719,13 +20720,13 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
-     * @param {Pointer<UInt32>} ArrTypeOffset 
+     * @param {Pointer<Pointer<Integer>>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeDecode3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeDecode3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**
@@ -20733,13 +20734,13 @@ class Rpc {
      * @param {Pointer<Void>} Handle 
      * @param {Pointer<MIDL_TYPE_PICKLING_INFO>} pPicklingInfo 
      * @param {Pointer<MIDL_STUBLESS_PROXY_INFO>} pProxyInfo 
-     * @param {Pointer<UInt32>} ArrTypeOffset 
+     * @param {Pointer<Pointer<Integer>>} ArrTypeOffset 
      * @param {Integer} nTypeIndex 
      * @param {Pointer<Void>} pObject 
      * @returns {String} Nothing - always returns an empty string
      */
     static NdrMesTypeFree3(Handle, pPicklingInfo, pProxyInfo, ArrTypeOffset, nTypeIndex, pObject) {
-        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "uint*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
+        DllCall("RPCRT4.dll\NdrMesTypeFree3", "ptr", Handle, "ptr", pPicklingInfo, "ptr", pProxyInfo, "ptr*", ArrTypeOffset, "uint", nTypeIndex, "ptr", pObject)
     }
 
     /**

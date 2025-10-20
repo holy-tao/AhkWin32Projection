@@ -68,7 +68,7 @@ class EventCollector {
      * @param {Pointer} SubscriptionEnum The handle to the enumerator object that is returned from the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecopensubscriptionenum">EcOpenSubscriptionEnum</a> function.
      * @param {Integer} SubscriptionNameBufferSize The size of the user-supplied buffer (in chars) to store the subscription name.
      * @param {PWSTR} SubscriptionNameBuffer The user-supplied buffer to store the subscription name.
-     * @param {Pointer<UInt32>} SubscriptionNameBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the subscription name when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} SubscriptionNameBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the subscription name when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecenumnextsubscription
      * @since windows6.0.6000
@@ -123,7 +123,7 @@ class EventCollector {
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @param {Integer} PropertyValueBufferSize The size of the user-supplied buffer to store the property value into.
      * @param {Pointer<EC_VARIANT>} PropertyValueBuffer The user-supplied buffer to store property value into.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetsubscriptionproperty
      * @since windows6.0.6000
@@ -164,7 +164,7 @@ class EventCollector {
     /**
      * Retrieves the number of indexes of the array of property values for the event sources of a subscription.
      * @param {Pointer} ObjectArray A handle to the array from which to get the size. The array contains property values for the event sources of a subscription. The array handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/nf-evcoll-ecgetsubscriptionproperty">EcGetSubscriptionProperty</a> method when the <b>EcSubscriptionEventSources</b> value is passed into the <i>PropertyId</i> parameter.
-     * @param {Pointer<UInt32>} ObjectArraySize The size of the array (the number of indexes).
+     * @param {Pointer<Integer>} ObjectArraySize The size of the array (the number of indexes).
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetobjectarraysize
      * @since windows6.0.6000
@@ -198,7 +198,7 @@ class EventCollector {
      * @param {Integer} Flags Reserved. Must be 0.
      * @param {Integer} PropertyValueBufferSize The size of the buffer that contains the value of the property. The size must be at least the size of an <a href="https://docs.microsoft.com/windows/desktop/api/evcoll/ns-evcoll-ec_variant">EC_VARIANT</a> value.
      * @param {Pointer<EC_VARIANT>} PropertyValueBuffer The user-supplied buffer to store property value into.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size of the user-supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetobjectarrayproperty
      * @since windows6.0.6000
@@ -242,7 +242,7 @@ class EventCollector {
      * @param {Integer} Flags Reserved. Must be <b>NULL</b>.
      * @param {Integer} StatusValueBufferSize The size of the user-supplied buffer that will hold the run time status information.
      * @param {Pointer<EC_VARIANT>} StatusValueBuffer The user-supplied buffer that will hold the run time status information. The buffer will hold the appropriate value depending on the <a href="https://docs.microsoft.com/windows/win32/api/evcoll/ne-evcoll-ec_subscription_runtime_status_info_id">EC_SUBSCRIPTION_RUNTIME_STATUS_INFO_ID</a> value passed into the <i>StatusInfoId</i> parameter.
-     * @param {Pointer<UInt32>} StatusValueBufferUsed The size of the user supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
+     * @param {Pointer<Integer>} StatusValueBufferUsed The size of the user supplied buffer that is used by the function on successful return, or the size that is necessary to store the property value when function fails with <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} This function returns BOOL.
      * @see https://docs.microsoft.com/windows/win32/api//evcoll/nf-evcoll-ecgetsubscriptionruntimestatus
      * @since windows6.0.6000

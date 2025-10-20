@@ -57,7 +57,7 @@ class FUNCDESC extends Win32Struct
 
     /**
      * The status code.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     lprgscode {
         get => NumGet(this, 8, "ptr")

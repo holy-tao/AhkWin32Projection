@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_profile_desc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class D3D12_VIDEO_ENCODER_PROFILE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pH264Profile {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +30,7 @@ class D3D12_VIDEO_ENCODER_PROFILE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pHEVCProfile {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +38,7 @@ class D3D12_VIDEO_ENCODER_PROFILE_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pAV1Profile {
         get => NumGet(this, 8, "ptr")

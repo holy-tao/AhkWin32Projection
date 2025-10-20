@@ -51,7 +51,7 @@ class NDR_USER_MARSHAL_INFO_LEVEL1 extends Win32Struct
 
     /**
      * If the current call is for a COM interface, this member is a pointer to the channel buffer that RPC uses for the call. Otherwise, this member is null.
-     * @type {Pointer<IRpcChannelBuffer>}
+     * @type {IRpcChannelBuffer}
      */
     pRpcChannelBuffer {
         get => NumGet(this, 32, "ptr")

@@ -37,7 +37,7 @@ class HOSTENT extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated array of alternate names.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     h_aliases {
         get => NumGet(this, 8, "ptr")
@@ -64,7 +64,7 @@ class HOSTENT extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated list of addresses for the host. Addresses are returned in network byte order. The macro <b>h_addr</b> is defined to be <c>h_addr_list[0]</c> for compatibility with older software.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     h_addr_list {
         get => NumGet(this, 24, "ptr")

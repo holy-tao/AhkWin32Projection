@@ -376,7 +376,7 @@ class SecPkgInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the security package.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     Name {
         get => NumGet(this, 16, "ptr")
@@ -385,7 +385,7 @@ class SecPkgInfoA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string. This can be any additional string passed back by the package.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     Comment {
         get => NumGet(this, 24, "ptr")

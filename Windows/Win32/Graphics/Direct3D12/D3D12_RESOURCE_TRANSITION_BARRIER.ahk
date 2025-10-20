@@ -21,7 +21,7 @@ class D3D12_RESOURCE_TRANSITION_BARRIER extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> object that represents the resource used in the transition.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResource {
         get => NumGet(this, 0, "ptr")

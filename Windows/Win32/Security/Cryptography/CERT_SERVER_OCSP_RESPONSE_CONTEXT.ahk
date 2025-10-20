@@ -24,7 +24,7 @@ class CERT_SERVER_OCSP_RESPONSE_CONTEXT extends Win32Struct
 
     /**
      * A pointer to the data buffer that contains the encoded OCSP response.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEncodedOcspResponse {
         get => NumGet(this, 8, "ptr")

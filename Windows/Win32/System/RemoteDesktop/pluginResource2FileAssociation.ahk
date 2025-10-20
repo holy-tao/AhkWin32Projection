@@ -49,7 +49,7 @@ class pluginResource2FileAssociation extends Win32Struct
 
     /**
      * A byte array that contains the icon to display for files with the specified extension.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     iconContents {
         get => NumGet(this, 520, "ptr")

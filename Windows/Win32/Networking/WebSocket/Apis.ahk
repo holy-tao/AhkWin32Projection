@@ -66,10 +66,10 @@ class WebSocket {
      * @param {Integer} ulInitialHeaderCount Type: <b>ULONG</b>
      * 
      * Number of request headers in <i>pInitialHeaders</i>.
-     * @param {Pointer<WEB_SOCKET_HTTP_HEADER>} pAdditionalHeaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">PWEB_SOCKET_HTTP_HEADER</a></b>
+     * @param {Pointer<Pointer<WEB_SOCKET_HTTP_HEADER>>} pAdditionalHeaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">PWEB_SOCKET_HTTP_HEADER</a></b>
      * 
      * On successful output, pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">WEB_SOCKET_HTTP_HEADER</a> structures that contain the request headers to be sent by the application. If any of these headers were specified in <i>pInitialHeaders</i>, the header must be replaced.
-     * @param {Pointer<UInt32>} pulAdditionalHeaderCount Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulAdditionalHeaderCount Type: <b>ULONG*</b>
      * 
      * On successful output, number of response headers in <i>pAdditionalHeaders</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -83,7 +83,7 @@ class WebSocket {
     static WebSocketBeginClientHandshake(hWebSocket, pszSubprotocols, ulSubprotocolCount, pszExtensions, ulExtensionCount, pInitialHeaders, ulInitialHeaderCount, pAdditionalHeaders, pulAdditionalHeaderCount) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
-        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, "ptr", pAdditionalHeaders, "uint*", pulAdditionalHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginClientHandshake", "ptr", hWebSocket, "ptr", pszSubprotocols, "uint", ulSubprotocolCount, "ptr", pszExtensions, "uint", ulExtensionCount, "ptr", pInitialHeaders, "uint", ulInitialHeaderCount, "ptr*", pAdditionalHeaders, "uint*", pulAdditionalHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -101,13 +101,13 @@ class WebSocket {
      * @param {Integer} ulReponseHeaderCount Type: <b>ULONG</b>
      * 
      * Number of response headers in <i>pResponseHeaders</i>.
-     * @param {Pointer<UInt32>} pulSelectedExtensions Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulSelectedExtensions Type: <b>ULONG*</b>
      * 
      * On input, pointer to an array allocated by the application. On successful output, pointer to an array of numbers that represent the extensions chosen by the server during the client-server handshake. These number are the zero-based indices into the extensions array passed to  <i>pszExtensions</i> in <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketbeginclienthandshake">WebSocketBeginClientHandshake</a>.
-     * @param {Pointer<UInt32>} pulSelectedExtensionCount Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulSelectedExtensionCount Type: <b>ULONG*</b>
      * 
      * On input, number of extensions allocated in <i>pulSelectedExtensions</i>. This must be at least equal to the number passed to <i>ulExtensionCount</i> in <b>WebSocketEndClientHandshake</b>. On successful output, number of extensions returned in <i>pulSelectedExtensions</i>.
-     * @param {Pointer<UInt32>} pulSelectedSubprotocol Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulSelectedSubprotocol Type: <b>ULONG*</b>
      * 
      * On successful output, pointer to a number that represents the sub-protocol chosen by the server during the client-server handshake. This number is the zero-based index into the sub-protocols array passed to  <i>pszSubprotocols</i> in <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketbeginclienthandshake">WebSocketBeginClientHandshake</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -215,10 +215,10 @@ class WebSocket {
      * @param {Integer} ulRequestHeaderCount Type: <b>ULONG</b>
      * 
      * Number of request headers in <i>pRequestHeaders</i>.
-     * @param {Pointer<WEB_SOCKET_HTTP_HEADER>} pResponseHeaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">PWEB_SOCKET_HTTP_HEADER</a>*</b>
+     * @param {Pointer<Pointer<WEB_SOCKET_HTTP_HEADER>>} pResponseHeaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">PWEB_SOCKET_HTTP_HEADER</a>*</b>
      * 
      * On successful output, a pointer to an array or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_http_header">WEB_SOCKET_HTTP_HEADER</a> structures that contain the response headers to be sent by the application.
-     * @param {Pointer<UInt32>} pulResponseHeaderCount Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulResponseHeaderCount Type: <b>ULONG*</b>
      * 
      * On successful output, number of response headers in <i>pResponseHeaders</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -251,7 +251,7 @@ class WebSocket {
         pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
-        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, "ptr", pResponseHeaders, "uint*", pulResponseHeaderCount, "int")
+        result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, "ptr*", pResponseHeaders, "uint*", pulResponseHeaderCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -398,19 +398,19 @@ class WebSocket {
      * 
      * <div class="alert"><b>Note</b>  Do not allocate or deallocate memory for <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ns-websocket-web_socket_buffer">WEB_SOCKET_BUFFER</a> structures, because they will be overwritten by <b>WebSocketGetAction</b>. The memory for buffers returned by <b>WebSocketGetAction</b> are managed by the library.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} pulDataBufferCount Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pulDataBufferCount Type: <b>ULONG*</b>
      * 
      * On input, pointer to a value that specifies the number of elements in <i>pDataBuffers</i>. On successful output, number of elements that were actually returned in <i>pDataBuffers</i>.
-     * @param {Pointer<Int32>} pAction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a>*</b>
+     * @param {Pointer<Integer>} pAction Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a>*</b>
      * 
      * On successful output, pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_ACTION</a> enumeration that specifies the action returned from the query to the queue defines in <i>eActionQueue</i>.
-     * @param {Pointer<Int32>} pBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a>*</b>
+     * @param {Pointer<Integer>} pBufferType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a>*</b>
      * 
      * On successful output, pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_buffer_type">WEB_SOCKET_BUFFER_TYPE</a> enumeration that specifies the type of Web Socket buffer data returned in <i>pDataBuffers</i>.
-     * @param {Pointer<Void>} pvApplicationContext Type: <b>PVOID*</b>
+     * @param {Pointer<Pointer<Void>>} pvApplicationContext Type: <b>PVOID*</b>
      * 
      * On successful output, pointer to an application context handle. The context returned here was initially passed to <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketsend">WebSocketSend</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketreceive">WebSocketReceive</a>. <i>pvApplicationContext</i> is not set if <i>pAction</i> is <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_NO_ACTION</a> or <a href="https://docs.microsoft.com/windows/desktop/api/websocket/ne-websocket-web_socket_action">WEB_SOCKET_SEND_TO_NETWORK_ACTION</a> when sending a pong in response to receiving a ping.
-     * @param {Pointer<Void>} pvActionContext Type: <b>PVOID*</b>
+     * @param {Pointer<Pointer<Void>>} pvActionContext Type: <b>PVOID*</b>
      * 
      * On successful output, pointer to an action context handle. This handle is passed into a subsequent call <a href="https://docs.microsoft.com/windows/desktop/api/websocket/nf-websocket-websocketcompleteaction">WebSocketCompleteAction</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -453,7 +453,7 @@ class WebSocket {
     static WebSocketGetAction(hWebSocket, eActionQueue, pDataBuffers, pulDataBufferCount, pAction, pBufferType, pvApplicationContext, pvActionContext) {
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
 
-        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, "uint*", pulDataBufferCount, "int*", pAction, "int*", pBufferType, "ptr", pvApplicationContext, "ptr", pvActionContext, "int")
+        result := DllCall("websocket.dll\WebSocketGetAction", "ptr", hWebSocket, "int", eActionQueue, "ptr", pDataBuffers, "uint*", pulDataBufferCount, "int*", pAction, "int*", pBufferType, "ptr*", pvApplicationContext, "ptr*", pvActionContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -519,7 +519,7 @@ class WebSocket {
      * @param {Pointer<Void>} pvValue Type: <b>PVOID</b>
      * 
      * A pointer to the property value. The pointer must have an alignment compatible with the type of the property.
-     * @param {Pointer<UInt32>} ulSize Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} ulSize Type: <b>ULONG*</b>
      * 
      * The size, in bytes, of the property pointed to by <b>pvValue</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>

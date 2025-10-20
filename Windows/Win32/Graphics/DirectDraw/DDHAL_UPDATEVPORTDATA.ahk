@@ -28,7 +28,7 @@ class DDHAL_UPDATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
+     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_INT>>}
      */
     lplpDDSurface {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class DDHAL_UPDATEVPORTDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_INT>}
+     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_INT>>}
      */
     lplpDDVBISurface {
         get => NumGet(this, 24, "ptr")

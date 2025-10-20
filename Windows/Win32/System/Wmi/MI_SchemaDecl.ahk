@@ -15,7 +15,7 @@ class MI_SchemaDecl extends Win32Struct
 
     /**
      * Qualifiers.
-     * @type {Pointer<MI_QualifierDecl>}
+     * @type {Pointer<Pointer<MI_QualifierDecl>>}
      */
     qualifierDecls {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class MI_SchemaDecl extends Win32Struct
 
     /**
      * Classes in this schema.
-     * @type {Pointer<MI_ClassDecl>}
+     * @type {Pointer<Pointer<MI_ClassDecl>>}
      */
     classDecls {
         get => NumGet(this, 16, "ptr")

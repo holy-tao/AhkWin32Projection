@@ -24,7 +24,7 @@ class WSDXML_TYPE extends Win32Struct
 
     /**
      * The type table that describes the schema of the type and its binary representation.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Table {
         get => NumGet(this, 8, "ptr")

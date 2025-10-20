@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ne-processthreadsapi-thread_information_class
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

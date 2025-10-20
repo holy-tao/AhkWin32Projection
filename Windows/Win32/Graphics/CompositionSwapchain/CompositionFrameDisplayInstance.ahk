@@ -4,6 +4,8 @@
 #Include .\PresentationTransform.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/presentation/ns-presentation-compositionframedisplayinstance
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
  */

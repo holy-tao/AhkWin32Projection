@@ -119,7 +119,7 @@ class BINDINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 104, "ptr")

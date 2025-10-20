@@ -89,7 +89,7 @@ class MCAST_LEASE_REQUEST extends Win32Struct
 
     /**
      * Pointer to a buffer containing the requested IP addresses. For IPv4 addresses, the <b>pAddrBuf</b> member points to 4-byte addresses; for IPv6 addresses, the <b>pAddrBuf</b> member points to 16-byte addresses. If no specific addresses are requested, set <b>pAddrBuf</b> to <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pAddrBuf {
         get => NumGet(this, 40, "ptr")

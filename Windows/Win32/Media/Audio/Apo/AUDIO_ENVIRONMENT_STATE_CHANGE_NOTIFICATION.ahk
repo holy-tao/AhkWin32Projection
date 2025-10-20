@@ -13,7 +13,7 @@ class AUDIO_ENVIRONMENT_STATE_CHANGE_NOTIFICATION extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     propertyStore {
         get => NumGet(this, 0, "ptr")

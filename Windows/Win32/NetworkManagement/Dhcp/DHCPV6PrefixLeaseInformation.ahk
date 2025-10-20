@@ -142,7 +142,7 @@ class DHCPV6PrefixLeaseInformation extends Win32Struct
 
     /**
      * The server DUID from which the prefix is received.  This data is used in subsequent renews.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ServerId {
         get => NumGet(this, 64, "ptr")

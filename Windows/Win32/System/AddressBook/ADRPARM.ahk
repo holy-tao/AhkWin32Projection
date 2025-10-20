@@ -70,7 +70,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Not supported. Must be set to <b>NULL</b>.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszHelpFileName {
         get => NumGet(this, 40, "ptr")
@@ -116,7 +116,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Variable of type <b>LPTSTR</b> that specifies the text to be used as a caption for the address book dialog box.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszCaption {
         get => NumGet(this, 72, "ptr")
@@ -127,7 +127,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Variable of type <b>LPTSTR</b> that specifies the text to be used as a new-entry prompt for an edit box in an address book dialog box.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszNewEntryTitle {
         get => NumGet(this, 80, "ptr")
@@ -138,7 +138,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>LPTSTR</b>
      * 
      * Variable of type <b>LPTSTR</b> that specifies the text to be used as a title for the set of recipient-name edit boxes that appears in the dialog box. This member is used only if the address book dialog box is modal.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszDestWellsTitle {
         get => NumGet(this, 88, "ptr")
@@ -171,7 +171,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>LPTSTR*</b>
      * 
      * Pointer to an array of variables of type <b>LPTSTR</b> that specify the text titles to be displayed in the recipient-name edit boxes of the address book dialog box. The size of the array is the value of <b>cDestFields</b>. If the <b>lppszDestTitles</b> member is <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-ifaxstatus-get-address-vb">Address</a> method chooses default titles.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     lppszDestTitles {
         get => NumGet(this, 104, "ptr")
@@ -182,7 +182,7 @@ class ADRPARM extends Win32Struct
      * Type: <b>ULONG*</b>
      * 
      * Pointer to an array of variables of type <b>ULONG</b> that specify the recipient types—such as MAPI_TO, MAPI_CC, and MAPI_BCC—associated with each recipient-name edit box. The size of the array is the value of <b>cDestFields</b>. If the <b>lpulDestComps</b> member is <b>NULL</b>, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-ifaxstatus-get-address-vb">Address</a> method chooses default recipient types.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpulDestComps {
         get => NumGet(this, 112, "ptr")

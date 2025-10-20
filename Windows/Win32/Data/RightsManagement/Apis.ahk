@@ -393,9 +393,9 @@ class RightsManagement {
      *       manifest, see 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-an-application-manifest">Creating an Application Manifest</a>.
      * @param {PWSTR} wszMachineCredentials The machine certificate.
-     * @param {Pointer<UInt32>} phEnv A pointer to an environment handle. Close the handle by calling 
+     * @param {Pointer<Integer>} phEnv A pointer to an environment handle. Close the handle by calling 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a>.
-     * @param {Pointer<UInt32>} phDefaultLibrary A pointer to the handle of the library used to create the principal object. You must close this handle 
+     * @param {Pointer<Integer>} phDefaultLibrary A pointer to the handle of the library used to create the principal object. You must close this handle 
      *       before closing the environment handle. For more information, see the Remarks section. Close by calling 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
@@ -423,7 +423,7 @@ class RightsManagement {
      * @param {Integer} eSpecification The library provider type.
      * @param {PWSTR} wszLibraryProvider Name and optional path to the DLL. Every DLL must have a unique name. If similarly named DLLs are loaded, even if they are in different paths, only the first item will be included in the manifest and checked.
      * @param {PWSTR} wszCredentials Reserved, must be <b>NULL</b>. The DLL that is loaded must be referenced in the application manifest loaded by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
-     * @param {Pointer<UInt32>} phLibrary A handle to the library.
+     * @param {Pointer<Integer>} phLibrary A handle to the library.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -447,7 +447,7 @@ class RightsManagement {
      * @param {PWSTR} wszObject A pointer to a null-terminated Unicode string that specifies the enabling principal type. An application can use the object constants specified in Msdrmgetinfo.h.
      * @param {Pointer<DRMID>} pidPrincipal A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ns-msdrmdefs-drmid">DRMID</a> structure that identifies the enabling principal. The <b>DRMID</b> members can be <b>NULL</b> to use the first principal in a license.
      * @param {PWSTR} wszCredentials A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/r-gly">rights account certificate</a> of the current user.
-     * @param {Pointer<UInt32>} phEnablingPrincipal A pointer to a <b>DRMHANDLE</b> value that receives the created principal. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phEnablingPrincipal A pointer to a <b>DRMHANDLE</b> value that receives the created principal. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -499,7 +499,7 @@ class RightsManagement {
     /**
      * Creates a copy of a DRMHANDLE.
      * @param {Integer} hToCopy A handle to copy.
-     * @param {Pointer<UInt32>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -516,7 +516,7 @@ class RightsManagement {
     /**
      * Creates a copy of an environment handle.
      * @param {Integer} hToCopy A handle to copy. An environment handle is created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
-     * @param {Pointer<UInt32>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a> to close.
+     * @param {Pointer<Integer>} phCopy A copy of the handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcloseenvironmenthandle">DRMCloseEnvironmentHandle</a> to close.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -590,9 +590,9 @@ class RightsManagement {
      * <div class="alert"><b>Note</b>  If you use the <b>AES</b> key when you sign the issuance license, <i>iPosition</i> can always be set to 0.</div>
      * <div> </div>
      * @param {Integer} cNumInBytes The number of bytes to encrypt.
-     * @param {Pointer<Byte>} pbInData A pointer to a buffer that contains the bytes to encrypt.
-     * @param {Pointer<UInt32>} pcNumOutBytes The number of encrypted bytes.
-     * @param {Pointer<Byte>} pbOutData A pointer to the encrypted bytes.
+     * @param {Pointer<Integer>} pbInData A pointer to a buffer that contains the bytes to encrypt.
+     * @param {Pointer<Integer>} pcNumOutBytes The number of encrypted bytes.
+     * @param {Pointer<Integer>} pbOutData A pointer to the encrypted bytes.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -611,9 +611,9 @@ class RightsManagement {
      * @param {Integer} hCryptoProvider A handle to an AD RMS decrypting object created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingbitsdecryptor">DRMCreateEnablingBitsDecryptor</a>.
      * @param {Integer} iPosition Position in the buffer at which to start decrypting. <b>0</b> corresponds to the first block in a buffer, <b>1</b> corresponds to the second block, and so on. See the example later in this topic.
      * @param {Integer} cNumInBytes Number of bytes to decrypt.
-     * @param {Pointer<Byte>} pbInData Pointer to a buffer that contains the bytes to decrypt.
-     * @param {Pointer<UInt32>} pcNumOutBytes Size, in bytes,  of the decrypted data.
-     * @param {Pointer<Byte>} pbOutData Decrypted data.
+     * @param {Pointer<Integer>} pbInData Pointer to a buffer that contains the bytes to decrypt.
+     * @param {Pointer<Integer>} pcNumOutBytes Size, in bytes,  of the decrypted data.
+     * @param {Pointer<Integer>} pbOutData Decrypted data.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -632,8 +632,8 @@ class RightsManagement {
      * @param {Integer} hEnv A handle to an environment; the handle is created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a> function.
      * @param {Pointer<DRMBOUNDLICENSEPARAMS>} pParams A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ns-msdrmdefs-drmboundlicenseparams">DRMBOUNDLICENSEPARAMS</a> structure that specifies additional options; for more information, see the Remarks section. The principal specified here is the one the application will try to bind to. If you pass in <b>NULL</b> to identify the principal or rights group, the first principal or rights group in the license will be used.
      * @param {PWSTR} wszLicenseChain A pointer to a null-terminated Unicode string that contains the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/e-gly">end-user license</a> (or license chain).
-     * @param {Pointer<UInt32>} phBoundLicense A pointer to a handle that receives the bound license. The <b>DRMHANDLE</b> passed back through <i>phBoundLicense</i> allows an application to navigate through all the license's objects (such as principals or rights) and attributes (such as maximum play count). A bound license consolidates duplicated rights information in the license and removes any rights information that is not available to the current user.
-     * @param {Pointer<UInt32>} phErrorLog This parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} phBoundLicense A pointer to a handle that receives the bound license. The <b>DRMHANDLE</b> passed back through <i>phBoundLicense</i> allows an application to navigate through all the license's objects (such as principals or rights) and attributes (such as maximum play count). A bound license consolidates duplicated rights information in the license and removes any rights information that is not available to the current user.
+     * @param {Pointer<Integer>} phErrorLog This parameter must be <b>NULL</b>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -655,7 +655,7 @@ class RightsManagement {
      * @param {PWSTR} wszRight An optional null-terminated string that contains the right to exercise. A decrypting object can be bound to only one right at a time.
      * @param {Integer} hAuxLib Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {PWSTR} wszAuxPlug Reserved for future use. This parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} phDecryptor A pointer to the decrypting object.
+     * @param {Pointer<Integer>} phDecryptor A pointer to the decrypting object.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -678,7 +678,7 @@ class RightsManagement {
      * @param {PWSTR} wszRight Optional null-terminated string containing a right. If you specify <b>NULL</b>, the AD RMS encrypting object binds to the first valid right in the license.
      * @param {Integer} hAuxLib Reserved for future use. This parameter must be <b>NULL</b>.
      * @param {PWSTR} wszAuxPlug Reserved for future use. This parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} phEncryptor A pointer to the encrypting object.
+     * @param {Pointer<Integer>} phEncryptor A pointer to the encrypting object.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -700,7 +700,7 @@ class RightsManagement {
      * @param {Integer} hEnablingPrincipal A handle to an enabling principal object created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateenablingprincipal">DRMCreateEnablingPrincipal</a>.
      * @param {PWSTR} wszData The data to encode.
      * @param {Integer} eType An enumeration that determines whether to include full environment data or only a hash.
-     * @param {Pointer<UInt32>} pcAttestedBlob Length, in characters, of the string being returned, plus one for a terminating null character.
+     * @param {Pointer<Integer>} pcAttestedBlob Length, in characters, of the string being returned, plus one for a terminating null character.
      * @param {PWSTR} wszAttestedBlob The signed data.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -754,9 +754,9 @@ class RightsManagement {
      * 
      * <div class="alert"><b>Note</b>  You can use <b>g_wszQUERY_SYMMETRICKEY_TYPE</b> only in Windows 7. It is not available for earlier versions of AD RMS.</div>
      * <div> </div>
-     * @param {Pointer<Int32>} peEncoding Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmencodingtype">DRMENCODINGTYPE</a> enumeration that identifies the type of encoding to be applied to the information retrieved.
-     * @param {Pointer<UInt32>} pcBuffer A pointer to a <b>UINT</b> value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
-     * @param {Pointer<Byte>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
+     * @param {Pointer<Integer>} peEncoding Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drmencodingtype">DRMENCODINGTYPE</a> enumeration that identifies the type of encoding to be applied to the information retrieved.
+     * @param {Pointer<Integer>} pcBuffer A pointer to a <b>UINT</b> value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
+     * @param {Pointer<Integer>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
      * 
      * <div class="alert"><b>Important</b>  If the publishing license was signed using the <b>AES_CBC4K</b> value, and the <i>wszAttribute</i> parameter is specified as <b>g_wszQUERY_BLOCKSIZE</b>, <i>pbBuffer</i> returns a value of <b>4096</b>.</div>
      * <div> </div>
@@ -781,9 +781,9 @@ class RightsManagement {
      * Returns information about a secure environment.
      * @param {Integer} handle Environment handle.
      * @param {PWSTR} wszAttribute The attribute to query for. In Rights Management Services client 1.0 SP1, the only supported attribute is <b>g_wszQUERY_BLOCKSIZE</b>. In Rights Management Services client 1.0, the attributes that can be queried are listed in the header file Msdrmgetinfo.h. Attributes include <b>g_wszQUERY_MANIFESTSOURCE</b> and <b>g_wszQUERY_APIVERSION</b>.
-     * @param {Pointer<Int32>} peEncoding Encoding type used.
-     * @param {Pointer<UInt32>} pcBuffer A pointer to a UINT value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
-     * @param {Pointer<Byte>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
+     * @param {Pointer<Integer>} peEncoding Encoding type used.
+     * @param {Pointer<Integer>} pcBuffer A pointer to a UINT value that, on input, contains the size of the buffer pointed to by the <i>pbBuffer</i> parameter. The size of the buffer is expressed as the number of Unicode characters, including the terminating null character. On output, the value contains the number of characters copied to the buffer. The number copied includes the terminating null character.
+     * @param {Pointer<Integer>} pbBuffer A pointer to a null-terminated Unicode string that receives the value associated with the attribute specified by the <i>wszAttribute</i> parameter. The size of this buffer is specified by the <i>pcBuffer</i> parameter. The size is expressed as the number of Unicode characters, including the terminating null character.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -803,7 +803,7 @@ class RightsManagement {
      * Returns the address of a function in a library. It is the secure version of the GetProcAddress function.
      * @param {Integer} hLibrary A handle to the library where the function resides. Output from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmloadlibrary">DRMLoadLibrary</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a>.
      * @param {PWSTR} wszProcName The name of the function to find the address of.
-     * @param {Pointer<FARPROC>} ppfnProcAddress Address of the procedure to run.
+     * @param {Pointer<Pointer<FARPROC>>} ppfnProcAddress Address of the procedure to run.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -812,7 +812,7 @@ class RightsManagement {
     static DRMGetProcAddress(hLibrary, wszProcName, ppfnProcAddress) {
         wszProcName := wszProcName is String ? StrPtr(wszProcName) : wszProcName
 
-        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, "ptr", ppfnProcAddress, "int")
+        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, "ptr*", ppfnProcAddress, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -823,7 +823,7 @@ class RightsManagement {
      * Retrieves the number of occurrences of an object within a specified branch of a license.
      * @param {Integer} hQueryRoot A handle to the branch of the license to query, from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetboundlicenseobject">DRMGetBoundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {PWSTR} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
-     * @param {Pointer<UInt32>} pcSubObjects Number of objects of this type within this branch.
+     * @param {Pointer<Integer>} pcSubObjects Number of objects of this type within this branch.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -844,7 +844,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or license object, from a previous call to this function or from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {PWSTR} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
      * @param {Integer} iWhich Zero-based index specifying which occurrence to retrieve.
-     * @param {Pointer<UInt32>} phSubObject A handle to the returned license object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phSubObject A handle to the returned license object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -864,7 +864,7 @@ class RightsManagement {
      * Retrieves the number of occurrences of an attribute in a license.
      * @param {Integer} hQueryRoot A handle to a license or license object, from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetboundlicenseobject">DRMGetBoundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {PWSTR} wszAttribute Name of the attribute to count.
-     * @param {Pointer<UInt32>} pcAttributes Count of attribute occurrences.
+     * @param {Pointer<Integer>} pcAttributes Count of attribute occurrences.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -885,9 +885,9 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a root query object, from a previous call to this function or from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateboundlicense">DRMCreateBoundLicense</a>.
      * @param {PWSTR} wszAttribute The attribute to retrieve.
      * @param {Integer} iWhich Zero-based index of the occurrence to retrieve.
-     * @param {Pointer<Int32>} peEncoding Encoding type used.
-     * @param {Pointer<UInt32>} pcBuffer Size, in characters, of the attribute retrieved plus one for a terminating null character.
-     * @param {Pointer<Byte>} pbBuffer Pointer to the attribute object.
+     * @param {Pointer<Integer>} peEncoding Encoding type used.
+     * @param {Pointer<Integer>} pcBuffer Size, in characters, of the attribute retrieved plus one for a terminating null character.
+     * @param {Pointer<Integer>} pbBuffer Pointer to the attribute object.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -911,7 +911,7 @@ class RightsManagement {
      * @param {PWSTR} wszGroupID A pointer to a null-terminated Unicode string that contains an email address for the user in the format <i>someone@example.com</i>. Typically, this value already exists in Active Directory (AD) and is the same ID as that supplied in the logon credentials. If it is not the same, later calls to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmisactivated">DRMIsActivated</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmenumeratelicense">DRMEnumerateLicense</a> will fail. For more information, see Remarks.
      * 
      * Set this parameter to  <b>NULL</b> if you intend only to use the client session handle created by this function to retrieve a service location by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetservicelocation">DRMGetServiceLocation</a>.
-     * @param {Pointer<UInt32>} phClient A pointer to a <b>DRMHSESSION</b> value that receives the client session handle. When you have finished using the client session, close it by passing this handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function.
+     * @param {Pointer<Integer>} phClient A pointer to a <b>DRMHSESSION</b> value that receives the client session handle. When you have finished using the client session, close it by passing this handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -975,7 +975,7 @@ class RightsManagement {
      * @param {Integer} uServiceType 
      * @param {Integer} uServiceLocation 
      * @param {PWSTR} wszIssuanceLicense A pointer to a null-terminated Unicode string that contains a signed issuance license. This parameter can be <b>NULL</b>. For more information, see Remarks.
-     * @param {Pointer<UInt32>} puServiceURLLength A pointer to a <b>UINT</b> that, on input, contains the size, in characters, of the <i>wszServiceURL</i> buffer. This value includes the terminating null character.
+     * @param {Pointer<Integer>} puServiceURLLength A pointer to a <b>UINT</b> that, on input, contains the size, in characters, of the <i>wszServiceURL</i> buffer. This value includes the terminating null character.
      * 
      * After the function returns, this <b>UINT</b> contains the number of characters, including the terminating null character, that were copied to the <i>wszServiceURL</i> buffer.
      * 
@@ -1006,7 +1006,7 @@ class RightsManagement {
      * @param {Integer} hClient A handle to a client session. This handle is obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateclientsession">DRMCreateClientSession</a> function.
      * @param {Integer} uFlags This parameter is reserved and must be set to zero.
      * @param {PWSTR} wszIssuanceLicense A pointer to a null-terminated Unicode string that contains a signed issuance license. The created license storage session is associated with this issuance license.
-     * @param {Pointer<UInt32>} phLicenseStorage A pointer to a handle that receives the license storage session handle. This handle must be passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function when the license storage session is no longer needed.
+     * @param {Pointer<Integer>} phLicenseStorage A pointer to a handle that receives the license storage session handle. This handle must be passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> function when the license storage session is no longer needed.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1070,7 +1070,7 @@ class RightsManagement {
      * @param {Integer} uFlags 
      * @param {Integer} uIndex The index number of the certificate or license to retrieve. To begin an enumeration, pass in zero for this parameter. To obtain subsequent licenses, increment this value until the function returns <b>E_DRM_NO_MORE_DATA</b>. For more information, see Remarks.
      * @param {Pointer<BOOL>} pfSharedFlag A pointer to a <b>BOOL</b> value that receives one (1) if the retrieved license is shared or zero (0) if the retrieved license is not shared.
-     * @param {Pointer<UInt32>} puCertificateDataLen A pointer to a UINT value that, on entry, contains the size of the <i>wszCertificateData</i> buffer. This size includes the terminating null character. After the function returns, this value contains the number of characters copied to the buffer, including the terminating null character.
+     * @param {Pointer<Integer>} puCertificateDataLen A pointer to a UINT value that, on entry, contains the size of the <i>wszCertificateData</i> buffer. This size includes the terminating null character. After the function returns, this value contains the number of characters copied to the buffer, including the terminating null character.
      * 
      * To obtain the necessary size of the buffer, pass <b>NULL</b> for <i>wszCertificateData</i>. The required number of characters, including the terminating null character, will be placed in this value.
      * @param {PWSTR} wszCertificateData A pointer to  a null-terminated Unicode string that receives the license, ID, or template depending on which flags were 
@@ -1167,7 +1167,7 @@ class RightsManagement {
     /**
      * Duplicates a client or license storage session.
      * @param {Integer} hSessionIn A handle to a session to duplicate.
-     * @param {Pointer<UInt32>} phSessionOut Pointer to the duplicated session handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> to close the handle.
+     * @param {Pointer<Integer>} phSessionOut Pointer to the duplicated session handle. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosesession">DRMCloseSession</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1184,9 +1184,9 @@ class RightsManagement {
     /**
      * Retrieves the path to a lockbox.
      * @param {Integer} uFlags Reserved.
-     * @param {Pointer<UInt32>} puTypeLen On input, length of the allocated <i>wszType</i> buffer. On output, actual length, in characters, plus one for a null terminator, of the value returned by <i>wszType</i>.
+     * @param {Pointer<Integer>} puTypeLen On input, length of the allocated <i>wszType</i> buffer. On output, actual length, in characters, plus one for a null terminator, of the value returned by <i>wszType</i>.
      * @param {PWSTR} wszType Type of security provider (such as "filename").
-     * @param {Pointer<UInt32>} puPathLen On input, length of the allocated <i>wszPath</i> buffer. On output, actual length, in characters, plus one for a null terminator, of the value returned by <i>wszPath</i>.
+     * @param {Pointer<Integer>} puPathLen On input, length of the allocated <i>wszPath</i> buffer. On output, actual length, in characters, plus one for a null terminator, of the value returned by <i>wszPath</i>.
      * @param {PWSTR} wszPath Path to the lockbox.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -1208,8 +1208,8 @@ class RightsManagement {
      * Encodes data using a public encoding method, such as base64.
      * @param {PWSTR} wszAlgID The encoding algorithm. Currently the only valid value is "base64".
      * @param {Integer} uDataLen Length of the input data, in bytes.
-     * @param {Pointer<Byte>} pbDecodedData Pointer to the data to encode.
-     * @param {Pointer<UInt32>} puEncodedStringLen Length of the output data, in bytes.
+     * @param {Pointer<Integer>} pbDecodedData Pointer to the data to encode.
+     * @param {Pointer<Integer>} puEncodedStringLen Length of the output data, in bytes.
      * @param {PWSTR} wszEncodedString The encoded string.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -1231,8 +1231,8 @@ class RightsManagement {
      * Decodes a string encoded with a common algorithm, such as base64.
      * @param {PWSTR} wszAlgID The encoding algorithm name. Currently "base64" is the only valid value.
      * @param {PWSTR} wszEncodedString The encoded string.
-     * @param {Pointer<UInt32>} puDecodedDataLen The length of the decoded string, in characters, plus one for a null terminator.
-     * @param {Pointer<Byte>} pbDecodedData Pointer to the decoded data.
+     * @param {Pointer<Integer>} puDecodedDataLen The length of the decoded string, in characters, plus one for a null terminator.
+     * @param {Pointer<Integer>} pbDecodedData Pointer to the decoded data.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1253,7 +1253,7 @@ class RightsManagement {
      * Builds a certificate chain from an arbitrary number of certificates.
      * @param {Integer} cCertificates The number of certificates in the <i>rgwszCertificates</i> array.
      * @param {Pointer<PWSTR>} rgwszCertificates An array of null-terminated Unicode string pointers that contain the certificates to construct the chain from. The number of elements in this array is specified by the <i>cCertificates</i> parameter.
-     * @param {Pointer<UInt32>} pcChain A pointer to a <b>UINT</b> that, on input, contains the size, in Unicode characters, of the  <i>wszChain</i> string. This character count must include the terminating null character.
+     * @param {Pointer<Integer>} pcChain A pointer to a <b>UINT</b> that, on input, contains the size, in Unicode characters, of the  <i>wszChain</i> string. This character count must include the terminating null character.
      * 
      * On output, this <b>UINT</b> receives the number of Unicode characters copied into the buffer, including the terminating null character.
      * @param {PWSTR} wszChain A pointer to a null-terminated Unicode string that receives the constructed chain.
@@ -1277,7 +1277,7 @@ class RightsManagement {
     /**
      * Creates a handle to an unbound license, to allow an application to navigate its objects and attributes.
      * @param {PWSTR} wszCertificate The leaf certificate on the license to be examined, in plain text (not encoded).
-     * @param {Pointer<UInt32>} phQueryRoot Pointer to a handle to the root object of the license. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosequeryhandle">DRMCloseQueryHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phQueryRoot Pointer to a handle to the root object of the license. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosequeryhandle">DRMCloseQueryHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1313,7 +1313,7 @@ class RightsManagement {
      * Counts the instances of an object within a specified branch of the license.
      * @param {Integer} hQueryRoot A handle to a license or object in the license, created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {PWSTR} wszSubObjectType The type of XrML object to find. For more information, see Remarks.
-     * @param {Pointer<UInt32>} pcSubObjects Count of object instances one level down within the specified branch.
+     * @param {Pointer<Integer>} pcSubObjects Count of object instances one level down within the specified branch.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1334,7 +1334,7 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or object in the license, created using <b>DRMGetUnboundLicenseObject</b> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {PWSTR} wszSubObjectType Name of the object to find.
      * @param {Integer} iIndex Zero-based index indicating which instance to retrieve, if more than one exists.
-     * @param {Pointer<UInt32>} phSubQuery The retrieved object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the  handle.
+     * @param {Pointer<Integer>} phSubQuery The retrieved object. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosehandle">DRMCloseHandle</a> to close the  handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1354,7 +1354,7 @@ class RightsManagement {
      * Retrieves the number of occurrences of an attribute within an object in an unbound license.
      * @param {Integer} hQueryRoot A handle to a license or an object in the license, created using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {PWSTR} wszAttributeType Name of the attribute to retrieve.
-     * @param {Pointer<UInt32>} pcAttributes Count of attribute occurrences one level down within the specified branch.
+     * @param {Pointer<Integer>} pcAttributes Count of attribute occurrences one level down within the specified branch.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1375,9 +1375,9 @@ class RightsManagement {
      * @param {Integer} hQueryRoot A handle to a license or object in the license, created by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetunboundlicenseobject">DRMGetUnboundLicenseObject</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmparseunboundlicense">DRMParseUnboundLicense</a>.
      * @param {PWSTR} wszAttributeType Name of the attribute to retrieve.
      * @param {Integer} iWhich Zero-based index of the attribute to retrieve.
-     * @param {Pointer<Int32>} peEncoding An enumeration value specifying the encoding type of the return value.
-     * @param {Pointer<UInt32>} pcBuffer Size of the returned data, in characters, plus one for a null terminator.
-     * @param {Pointer<Byte>} pbBuffer Attribute value.
+     * @param {Pointer<Integer>} peEncoding An enumeration value specifying the encoding type of the return value.
+     * @param {Pointer<Integer>} pcBuffer Size of the returned data, in characters, plus one for a null terminator.
+     * @param {Pointer<Integer>} pbBuffer Attribute value.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1396,7 +1396,7 @@ class RightsManagement {
     /**
      * Retrieves the number of certificates in a certificate chain.
      * @param {PWSTR} wszChain The chain to count.
-     * @param {Pointer<UInt32>} pcCertCount The number of certificates in the chain.
+     * @param {Pointer<Integer>} pcCertCount The number of certificates in the chain.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1416,7 +1416,7 @@ class RightsManagement {
      * Retrieves a specified certificate from a certificate chain.
      * @param {PWSTR} wszChain The certificate chain.
      * @param {Integer} iWhich A zero-based index specifying which certificate to retrieve.
-     * @param {Pointer<UInt32>} pcCert The length of the retrieved certificate, in characters, plus one for a null terminator.
+     * @param {Pointer<Integer>} pcCert The length of the retrieved certificate, in characters, plus one for a null terminator.
      * @param {PWSTR} wszCert The certificate requested.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -1437,12 +1437,12 @@ class RightsManagement {
     /**
      * No longer supported and returns E_NOTIMPL.
      * @param {PWSTR} wszData The data to verify (original data).
-     * @param {Pointer<UInt32>} pcAttestedData Length, in characters, of the data to verify, plus one for a terminating null character.
+     * @param {Pointer<Integer>} pcAttestedData Length, in characters, of the data to verify, plus one for a terminating null character.
      * @param {PWSTR} wszAttestedData The signed data.
-     * @param {Pointer<Int32>} peType Whether full environment information,  or just a hash of the environment, is included.
-     * @param {Pointer<UInt32>} pcPrincipal Size, in characters, of the <i>wszPrincipalCredentials</i> parameter, plus one for a terminating null character.
+     * @param {Pointer<Integer>} peType Whether full environment information,  or just a hash of the environment, is included.
+     * @param {Pointer<Integer>} pcPrincipal Size, in characters, of the <i>wszPrincipalCredentials</i> parameter, plus one for a terminating null character.
      * @param {PWSTR} wszPrincipal Certificate chain of the principal attesting the data. This chain is needed to create the principal used to verify the data.
-     * @param {Pointer<UInt32>} pcManifest Size, in characters, of the manifest used to sign the data, plus one for a terminating null character. For information about making a manifest, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-an-application-manifest">Creating an Application Manifest</a>.
+     * @param {Pointer<Integer>} pcManifest Size, in characters, of the manifest used to sign the data, plus one for a terminating null character. For information about making a manifest, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-an-application-manifest">Creating an Application Manifest</a>.
      * @param {PWSTR} wszManifest The manifest used to sign, as a null-terminated string.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -1476,7 +1476,7 @@ class RightsManagement {
      *        Active Directory Rights Management Services system. For more information about possible values for this 
      *        parameter, see the <i>wszUserIdType</i> parameter.
      * @param {PWSTR} wszUserIdType 
-     * @param {Pointer<UInt32>} phUser A pointer to the handle of the created user. Call 
+     * @param {Pointer<Integer>} phUser A pointer to the handle of the created user. Call 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
@@ -1505,7 +1505,7 @@ class RightsManagement {
      * @param {Integer} cExtendedInfo The number of elements in the <i>pwszExtendedInfoName</i> and <i>pwszExtendedInfoValue</i> arrays. If this parameter is zero, then both the <i>pwszExtendedInfoName</i> and <i>pwszExtendedInfoValue</i> parameters must be <b>NULL</b>.
      * @param {Pointer<PWSTR>} pwszExtendedInfoName An array of null-terminated Unicode string pointers that contains the names of extended information data. Each name in this array must be unique. The <b>cExtendedInfo</b> parameter contains the number of elements in this array.
      * @param {Pointer<PWSTR>} pwszExtendedInfoValue An array of null-terminated Unicode string pointers that contains the values of the extended information items.  The <b>cExtendedInfo</b> parameter contains the number of elements in this array.
-     * @param {Pointer<UInt32>} phRight A pointer to a handle that receives the handle of the created right. This handle can be used with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmaddrightwithuser">DRMAddRightWithUser</a> function to bind the right to a user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phRight A pointer to a handle that receives the handle of the created right. This handle can be used with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmaddrightwithuser">DRMAddRightWithUser</a> function to bind the right to a user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1585,7 +1585,7 @@ class RightsManagement {
      * 
      * <div class="alert"><b>Note</b>  If your intent is to create a new issuance license, but you want to use the content key from the original signed issuance license, ensure that the <i>hBoundLicense</i> you pass in to <b>DRMCreateIssuanceLicense</b> is bound to either the OWNER or EDITRIGHTSDATA right. In a subsequent call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmgetsignedissuancelicense">DRMGetSignedIssuanceLicense</a>,  pass in the issuance license handle obtained from <b>DRMCreateIssuanceLicense</b> and  the DRM_REUSE_KEY flag in order to reuse the content key.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} phIssuanceLicense A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drmpubhandle">DRMPUBHANDLE</a> that receives the handle to the new issuance license.
+     * @param {Pointer<Integer>} phIssuanceLicense A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/drmpubhandle">DRMPUBHANDLE</a> that receives the handle to the new issuance license.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1677,7 +1677,7 @@ class RightsManagement {
      * @param {PWSTR} wszMaxVersion A pointer to a null-terminated Unicode string that contains the maximum version of the application that is required to or prohibited from exercising rights. This should be a version string in a form similar to "1.0.1" or "1.00.0000". This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> and optional when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_OSEXCLUSION</b>. It is ignored for all other <i>eUsagePolicyType</i> values. If <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_OSEXCLUSION</b> and this parameter is specified, the version  must be greater than <i>wszMinVersion</i>.
      * @param {PWSTR} wszPublicKey A pointer to a null-terminated Unicode string that contains the public key used to sign the digest of the application required to or prohibited from exercising rights. This string must be a well-formed XrML node. This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYPUBLICKEY</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
      * @param {PWSTR} wszDigestAlgorithm A pointer to a null-terminated Unicode string that contains the algorithm used to create the application digest that is specified by <i>pbDigest</i>.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
-     * @param {Pointer<Byte>} pbDigest A pointer to an array of bytes that contains the application digest required or prohibited from exercising rights. The size of this array is contained in the <i>cbDigest</i> parameter.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
+     * @param {Pointer<Integer>} pbDigest A pointer to an array of bytes that contains the application digest required or prohibited from exercising rights. The size of this array is contained in the <i>cbDigest</i> parameter.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
      * @param {Integer} cbDigest The number of bytes in the <i>pbDigest</i> array.  This parameter is required when <i>eUsagePolicyType</i> contains <b>DRM_USAGEPOLICY_TYPE_BYDIGEST</b>. It is ignored for all other <i>eUsagePolicyType</i> values.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -1792,7 +1792,7 @@ class RightsManagement {
     /**
      * Obtains an issuance license template from an existing issuance license.
      * @param {Integer} hIssuanceLicense The handle of the issuance license to create a template from.
-     * @param {Pointer<UInt32>} puIssuanceLicenseTemplateLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszIssuanceLicenseTemplate</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puIssuanceLicenseTemplateLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszIssuanceLicenseTemplate</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszIssuanceLicenseTemplate</i> buffer.
      * @param {PWSTR} wszIssuanceLicenseTemplate A pointer to a null-terminated Unicode string that receives the issuance license template XrML. The size of this buffer is specified by the <i>puIssuanceLicenseTemplateLength</i> parameter.
@@ -1818,7 +1818,7 @@ class RightsManagement {
      * @param {Integer} hEnv A handle to a secure environment created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drminitenvironment">DRMInitEnvironment</a> function. The handle is required for offline signing and optional for online signing. Applications that do not use a lockbox should pass <b>NULL</b> for this parameter.
      * @param {Integer} hIssuanceLicense A handle to an issuance license to sign, created by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmcreateissuancelicense">DRMCreateIssuanceLicense</a> function.
      * @param {Integer} uFlags 
-     * @param {Pointer<Byte>} pbSymKey The content key used to encrypt the document. If this value is <b>NULL</b>, the <i>uFlags</i> parameter must specify <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>. These <i>uFlags</i> values cause <i>pbSymKey</i> to be ignored.
+     * @param {Pointer<Integer>} pbSymKey The content key used to encrypt the document. If this value is <b>NULL</b>, the <i>uFlags</i> parameter must specify <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>. These <i>uFlags</i> values cause <i>pbSymKey</i> to be ignored.
      * @param {Integer} cbSymKey The size, in bytes, of the content key. Currently, this parameter can only be 16 unless the <i>uFlags</i> parameter specifies <b>DRM_AUTO_GENERATE_KEY</b> or <b>DRM_REUSE_KEY</b>, in which case this parameter can be zero.
      * @param {PWSTR} wszSymKeyType The key type. The value <b>AES</b> specifies the Advanced Encryption Standard (AES) algorithm with the  electronic code book (ECB) cipher mode. If you are using Windows 7, the value <b>AES_CBC4K</b> can be used to specify the AES algorithm with cipher-block chaining (CBC) cipher mode. See the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmencrypt">DRMEncrypt</a> code examples for more information.
      * @param {PWSTR} wszClientLicensorCertificate A pointer to null-terminated Unicode string that contains a client licensor certificate obtained by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmacquirelicense">DRMAcquireLicense</a> function. If you are attempting online signing, this parameter should be <b>NULL</b>. If you are developing a server application that does not use a lockbox and  if you are using the <b>DRM_SERVER_ISSUANCELICENSE</b> flag in <i>uFlags</i>, pass in the server license certificate chain. The server licensor certificate chain can be retrieved by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/-getlicensorcertificate">GetLicensorCertificate</a> SOAP method; however, to make the chain usable, it must be reordered by using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmconstructcertificatechain">DRMConstructCertificateChain</a> function.
@@ -1890,7 +1890,7 @@ class RightsManagement {
     /**
      * Makes a copy of a DRMPUBHANDLE.
      * @param {Integer} hPubIn The <b>DRMPUBHANDLE</b> to make a copy of.
-     * @param {Pointer<UInt32>} phPubOut A pointer to a <b>DRMPUBHANDLE</b> value that receives the duplicate handle. When this handle is no longer needed, release it  by passing it to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> function.
+     * @param {Pointer<Integer>} phPubOut A pointer to a <b>DRMPUBHANDLE</b> value that receives the duplicate handle. When this handle is no longer needed, release it  by passing it to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> function.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -1907,19 +1907,19 @@ class RightsManagement {
     /**
      * Obtains information about a user.
      * @param {Integer} hUser The handle of the user to obtain information for.
-     * @param {Pointer<UInt32>} puUserNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puUserNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszUserName</i> buffer.
      * @param {PWSTR} wszUserName A pointer to a null-terminated Unicode string that receives the user name as a fully qualified SMTP email address. This is not enforced or used to check identities; it is only included to provide a human-readable identification. The size of this buffer is specified by the <i>puUserNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puUserNameLength</i> value.
-     * @param {Pointer<UInt32>} puUserIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserId</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puUserIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserId</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszUserId</i> buffer.
      * @param {PWSTR} wszUserId A pointer to a null-terminated Unicode string that receives the  user's ID. The size of this buffer is specified by the <i>puUserIdLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puUserIdLength</i> value.
-     * @param {Pointer<UInt32>} puUserIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserIdType</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puUserIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszUserIdType</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszUserIdType</i> buffer.
      * @param {PWSTR} wszUserIdType A pointer to a null-terminated Unicode string that receives the type of ID used to identify the user (such as Passport, Windows, or other). The size of this buffer is specified by the <i>puUserIdTypeLength</i> parameter.
@@ -1945,7 +1945,7 @@ class RightsManagement {
     /**
      * Obtains information about a previously created right.
      * @param {Integer} hRight The handle of the right to retrieve information from.
-     * @param {Pointer<UInt32>} puRightNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszRightName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puRightNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszRightName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszRightName</i> buffer.
      * @param {PWSTR} wszRightName A pointer to a null-terminated Unicode string that receives the name of the right. The size of this buffer is specified by the <i>puRightNameLength</i> parameter. If this information is not required, set this parameter to <b>NULL</b>.
@@ -1972,13 +1972,13 @@ class RightsManagement {
      * Retrieves custom name-value pairs attached to a right.
      * @param {Integer} hRight The handle of the right to retrieve information from.
      * @param {Integer} uIndex The zero-based index of the name-value pair to retrieve.
-     * @param {Pointer<UInt32>} puExtendedInfoNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszExtendedInfoName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puExtendedInfoNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszExtendedInfoName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszExtendedInfoName</i> buffer.
      * @param {PWSTR} wszExtendedInfoName A pointer to a null-terminated Unicode string that receives the name of the item. The size of this buffer is specified by the <i>puExtendedInfoNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puExtendedInfoNameLength</i> value.
-     * @param {Pointer<UInt32>} puExtendedInfoValueLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszExtendedInfoValue</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puExtendedInfoValueLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszExtendedInfoValue</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszExtendedInfoValue</i> buffer.
      * @param {PWSTR} wszExtendedInfoValue A pointer to a null-terminated Unicode string that receives the value associated with the name. The size of this buffer is specified by the <i>puExtendedInfoValueLength</i> parameter.
@@ -2004,7 +2004,7 @@ class RightsManagement {
      * Retrieves a specific user from an issuance license.
      * @param {Integer} hIssuanceLicense The handle of the issuance license to retrieve the user from.
      * @param {Integer} uIndex The zero-based index of the user in the issuance license to retrieve. To enumerate all the users in the issuance license, create a loop starting at zero and incrementing by one. When the function returns <b>E_DRM_NO_MORE_DATA</b>, there are no more users in the issuance license.
-     * @param {Pointer<UInt32>} phUser A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phUser A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested user. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -2023,7 +2023,7 @@ class RightsManagement {
      * @param {Integer} hIssuanceLicense The handle of the issuance license to retrieve the user rights from.
      * @param {Integer} hUser The handle of a user in the issuance license to retrieve the rights for.
      * @param {Integer} uIndex The zero-based index that indicates which right to retrieve for the specified user. To enumerate all the rights assigned to a user in the issuance license, create a loop starting at zero and incrementing by one. When the function returns <b>E_DRM_NO_MORE_DATA</b>, there are no more rights assigned to that user.
-     * @param {Pointer<UInt32>} phRight A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested right. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phRight A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle to the requested right. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
@@ -2040,37 +2040,37 @@ class RightsManagement {
     /**
      * Retrieves metadata from an issuance license.
      * @param {Integer} hIssuanceLicense A handle to the issuance license to get the metadata from.
-     * @param {Pointer<UInt32>} puContentIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentId</i> buffer (required). This length must include the terminating null character.
+     * @param {Pointer<Integer>} puContentIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentId</i> buffer (required). This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszContentId</i> buffer.
      * @param {PWSTR} wszContentId A pointer to a null-terminated Unicode string that receives the GUID that identifies the content. The size of this buffer is specified by the <i>puContentIdLength</i> parameter.
      * 
      * To determine the required size of  this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puContentIdLength</i> value.
-     * @param {Pointer<UInt32>} puContentIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentIdType</i> buffer  (required). This length must include the terminating null character.
+     * @param {Pointer<Integer>} puContentIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentIdType</i> buffer  (required). This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszContentIdType</i> buffer.
      * @param {PWSTR} wszContentIdType A pointer to a null-terminated Unicode string that receives the type of GUID used to identify the content. The size of this buffer is specified by the <i>puContentIdTypeLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puContentIdTypeLength</i> value.
-     * @param {Pointer<UInt32>} puSKUIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszSKUId</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puSKUIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszSKUId</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszSKUId</i> buffer.
      * @param {PWSTR} wszSKUId A pointer to a null-terminated Unicode string that receives the GUID that identifies the SKU of the content. The size of this buffer is specified by the <i>puSKUIdLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puSKUIdLength</i> value.
-     * @param {Pointer<UInt32>} puSKUIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszSKUIdType</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puSKUIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszSKUIdType</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszSKUIdType</i> buffer.
      * @param {PWSTR} wszSKUIdType A pointer to a null-terminated Unicode string that receives the type of SKU ID used to identify content. The size of this buffer is specified by the <i>puSKUIdTypeLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puSKUIdTypeLength</i> value.
-     * @param {Pointer<UInt32>} puContentTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentType</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puContentTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentType</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszContentType</i> buffer.
      * @param {PWSTR} wszContentType A pointer to a null-terminated Unicode string that receives the Multipurpose Internet Mail Extensions (MIME) type of the content. The size of this buffer is specified by the <i>puContentTypeLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puContentTypeLength</i> value.
-     * @param {Pointer<UInt32>} puContentNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puContentNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszContentName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszContentName</i> buffer.
      * @param {PWSTR} wszContentName A pointer to a null-terminated Unicode string that receives the name of the content. The size of this buffer is specified by the <i>puContentNameLength</i> parameter.
@@ -2100,13 +2100,13 @@ class RightsManagement {
      * Retrieves a name-value pair of arbitrary application-specific information.
      * @param {Integer} hIssuanceLicense A handle to the issuance license to obtain the data from.
      * @param {Integer} uIndex The zero-based index of the name-value pair in the array of stored name-value pairs to retrieve.
-     * @param {Pointer<UInt32>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszName</i> buffer.
      * @param {PWSTR} wszName A pointer to a Unicode character buffer that receives the name portion of the name-value pair. The size of this buffer is specified by the <i>puNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puNameLength</i> value.
-     * @param {Pointer<UInt32>} puValueLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszValue</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puValueLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszValue</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszValue</i> buffer.
      * @param {PWSTR} wszValue A pointer to a Unicode character buffer that receives the value portion of the name-value pair. The size of this buffer is specified by the <i>puValueLength</i> parameter.
@@ -2134,7 +2134,7 @@ class RightsManagement {
      * @param {Pointer<SYSTEMTIME>} pstTimeFrom A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the starting validity time, in UTC time, of the license. If this information is not required, set this parameter to <b>NULL</b>.
      * @param {Pointer<SYSTEMTIME>} pstTimeUntil A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the ending validity time, in UTC time, of the license. If this information is not required, set this parameter to <b>NULL</b>.
      * @param {Integer} uFlags A value of the <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_distribution_point_info">DRM_DISTRIBUTION_POINT_INFO</a> enumeration that specifies the type of service provided by this distribution point (such as publishing or license acquisition). Only one flag can be used.
-     * @param {Pointer<UInt32>} puDistributionPointNameLength A pointer to a UINT value that, on entry, contains the length, in characters, of the <i>wszDistributionPointName</i> buffer. This size must include the terminating null character.
+     * @param {Pointer<Integer>} puDistributionPointNameLength A pointer to a UINT value that, on entry, contains the length, in characters, of the <i>wszDistributionPointName</i> buffer. This size must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszDistributionPointName</i> buffer.
      * 
@@ -2142,7 +2142,7 @@ class RightsManagement {
      * @param {PWSTR} wszDistributionPointName A pointer to a null-terminated Unicode string that receives the name of a website that can distribute end-user licenses. The size of this buffer is specified by the <i>puDistributionPointNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puDistributionPointNameLength</i> value.
-     * @param {Pointer<UInt32>} puDistributionPointURLLength A pointer to a UINT value that, on entry, contains the length, in characters, of the <i>wszDistributionPointURL</i> buffer. This size must include the terminating null character.
+     * @param {Pointer<Integer>} puDistributionPointURLLength A pointer to a UINT value that, on entry, contains the length, in characters, of the <i>wszDistributionPointURL</i> buffer. This size must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszDistributionPointURL</i> buffer.
      * 
@@ -2150,7 +2150,7 @@ class RightsManagement {
      * @param {PWSTR} wszDistributionPointURL A pointer to a null-terminated Unicode string that receives the URL of a website that can distribute end-user licenses. The size of this buffer is specified by the <i>puDistributionPointURLLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puDistributionPointURLLength</i> value.
-     * @param {Pointer<UInt32>} phOwner A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle of the issuance license owner. If this information is not required, set this parameter to <b>NULL</b>. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
+     * @param {Pointer<Integer>} phOwner A pointer to a <b>DRMPUBHANDLE</b> value that receives the handle of the issuance license owner. If this information is not required, set this parameter to <b>NULL</b>. Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msdrm/nf-msdrm-drmclosepubhandle">DRMClosePubHandle</a> to close the handle.
      * @param {Pointer<BOOL>} pfOfficial A pointer to  a Boolean value that specifies whether the issuance license is based on an official template. A nonzero value indicates that the license is based on an official template. Official templates are created and signed by the AD RMS server. Unofficial templates are created by the client from scratch or by adapting an official template. If this information is not required, set this parameter to <b>NULL</b>. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/creating-a-license-from-a-template">Creating a License From a Template</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -2171,32 +2171,32 @@ class RightsManagement {
     /**
      * Retrieves information about the revocation point for an issuance license.
      * @param {Integer} hIssuanceLicense A handle to the issuance license to get the information from.
-     * @param {Pointer<UInt32>} puIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszId</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puIdLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszId</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszId</i> buffer.
      * @param {PWSTR} wszId A pointer to a null-terminated Unicode string that receives the GUID that identifies the revocation point. The size of this buffer is specified by the <i>puIdLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puIdLength</i> value.
-     * @param {Pointer<UInt32>} puIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszIdType</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puIdTypeLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszIdType</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszIdType</i> buffer.
      * @param {PWSTR} wszIdType A pointer to a null-terminated Unicode string that receives the type of the revocation point identifier. The size of this buffer is specified by the <i>puIdTypeLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puIdTypeLength</i> value.
-     * @param {Pointer<UInt32>} puURLLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszURL</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puURLLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszURL</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszURL</i> buffer.
      * @param {PWSTR} wszRL A pointer to a null-terminated Unicode string that receives the URL where a revocation list can be obtained. The size of this buffer is specified by the <i>puURLLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puURLLength</i> value.
      * @param {Pointer<SYSTEMTIME>} pstFrequency A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the frequency that the revocation list must be refreshed. This parameter is required and cannot be <b>NULL</b>.
-     * @param {Pointer<UInt32>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszName</i> buffer.
      * @param {PWSTR} wszName A pointer to a null-terminated Unicode string that receives the human-readable name for the revocation location. The size of this buffer is specified by the <i>puNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puNameLength</i> value.
-     * @param {Pointer<UInt32>} puPublicKeyLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszPublicKey</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puPublicKeyLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszPublicKey</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszPublicKey</i> buffer.
      * @param {PWSTR} wszPublicKey A pointer to a null-terminated Unicode string that receives the optional public key to identify a revocation list outside the content's chain of trust. The size of this buffer is specified by the <i>puPublicKeyLength</i> parameter.
@@ -2225,15 +2225,15 @@ class RightsManagement {
      * Gets a usage policy that requires, or denies, access to content based on application name, version, or other application characteristics.
      * @param {Integer} hIssuanceLicense The handle of the issuance license that the usage policy is contained in.
      * @param {Integer} uIndex The zero-based index of the policy to retrieve.
-     * @param {Pointer<Int32>} peUsagePolicyType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> value that receives one of the <b>DRM_USAGEPOLICY_TYPE</b> values that specifies the type of usage policy (name, public key, and so on). If a usage policy of type <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> is chosen, then application versions between, and including, the minimum and maximum versions specified in  <i>wszMinVersion</i> and <i>wszMaxVersion</i>, respectively, will be included or excluded.
+     * @param {Pointer<Integer>} peUsagePolicyType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msdrmdefs/ne-msdrmdefs-drm_usagepolicy_type">DRM_USAGEPOLICY_TYPE</a> value that receives one of the <b>DRM_USAGEPOLICY_TYPE</b> values that specifies the type of usage policy (name, public key, and so on). If a usage policy of type <b>DRM_USAGEPOLICY_TYPE_BYNAME</b> is chosen, then application versions between, and including, the minimum and maximum versions specified in  <i>wszMinVersion</i> and <i>wszMaxVersion</i>, respectively, will be included or excluded.
      * @param {Pointer<BOOL>} pfExclusion A pointer to a <b>BOOL</b> value that receives a value the specifies whether the policy is an exclusion policy. <b>TRUE</b> indicates that the application is prohibited from exercising the rights. <b>FALSE</b> indicates that the application is required to exercise the rights.
-     * @param {Pointer<UInt32>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puNameLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszName</i> buffer.
      * @param {PWSTR} wszName A pointer to a null-terminated Unicode string that receives the name of the application required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>puNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puNameLength</i> value.
-     * @param {Pointer<UInt32>} puMinVersionLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszMinVersion</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puMinVersionLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszMinVersion</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszMinVersion</i> buffer.
      * @param {PWSTR} wszMinVersion A pointer to a null-terminated Unicode string that receives the minimum version of the application required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>puMinVersionLength</i> parameter.
@@ -2241,7 +2241,7 @@ class RightsManagement {
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puMinVersionLength</i> value.
      * 
      * This will be a version string in a form similar to "1.0.1" or "1.00.0000".
-     * @param {Pointer<UInt32>} puMaxVersionLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszMaxVersion</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puMaxVersionLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszMaxVersion</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszMaxVersion</i> buffer.
      * @param {PWSTR} wszMaxVersion A pointer to a null-terminated Unicode string that receives the maximum version of the application required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>puMaxVersionLength</i> parameter.
@@ -2249,22 +2249,22 @@ class RightsManagement {
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puMaxVersionLength</i> value.
      * 
      * This will be a version string in a form similar to "1.0.1" or "1.00.0000".
-     * @param {Pointer<UInt32>} puPublicKeyLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszPublicKey</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puPublicKeyLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszPublicKey</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszPublicKey</i> buffer.
      * @param {PWSTR} wszPublicKey A pointer to a null-terminated Unicode string that receives the public key used to sign the digest of the application required to exercise or prohibited from exercising rights. The key is a well-formed XrML node. The size of this buffer is specified by the <i>puPublicKeyLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puPublicKeyLength</i> value.
-     * @param {Pointer<UInt32>} puDigestAlgorithmLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszDigestAlgorithm</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puDigestAlgorithmLength A pointer to a <b>UINT</b> value that, on entry, contains the length, in characters, of the <i>wszDigestAlgorithm</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this value contains the number of characters, including the terminating null character, that were copied to the <i>wszDigestAlgorithm</i> buffer.
      * @param {PWSTR} wszDigestAlgorithm A pointer to a null-terminated Unicode string that receives the algorithm used to create the application digest that was specified in <i>pbDigest</i>. The size of this buffer is specified by the <i>puDigestAlgorithmLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puDigestAlgorithmLength</i> value.
-     * @param {Pointer<UInt32>} pcbDigest A pointer to a <b>UINT</b> value that, on entry, contains the length, in bytes, of the <i>pbDigest</i> buffer.
+     * @param {Pointer<Integer>} pcbDigest A pointer to a <b>UINT</b> value that, on entry, contains the length, in bytes, of the <i>pbDigest</i> buffer.
      * 
      * After the function returns, this value contains the number of bytes copied to the <i>pbDigest</i> buffer.
-     * @param {Pointer<Byte>} pbDigest A pointer to a buffer that receives the application digest that is required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>pcbDigest</i> parameter.
+     * @param {Pointer<Integer>} pbDigest A pointer to a buffer that receives the application digest that is required to exercise or prohibited from exercising rights. The size of this buffer is specified by the <i>pcbDigest</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in bytes, in the <i>pcbDigest</i> value.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
@@ -2290,14 +2290,14 @@ class RightsManagement {
      * Retrieves a language specific name and description from an issuance license.
      * @param {Integer} hIssuanceLicense A handle to the issuance license to get the information from.
      * @param {Integer} uIndex The zero-based index of the name and description pair to retrieve.
-     * @param {Pointer<UInt32>} pulcid A pointer to a <b>UINT</b> that receives the locale ID of the name and description pair.
-     * @param {Pointer<UInt32>} puNameLength A pointer to a <b>UINT</b> that, on input, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} pulcid A pointer to a <b>UINT</b> that receives the locale ID of the name and description pair.
+     * @param {Pointer<Integer>} puNameLength A pointer to a <b>UINT</b> that, on input, contains the length, in characters, of the <i>wszName</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this <b>UINT</b> contains the number of characters, including the terminating null character, that were copied to the <i>wszName</i> buffer.
      * @param {PWSTR} wszName A pointer to a null-terminated Unicode string that receives the name. The size of this buffer is specified by the <i>puNameLength</i> parameter.
      * 
      * To determine the required size of this buffer, pass <b>NULL</b> for this parameter. The function will place the size, in characters, including the terminating null character, in the <i>puNameLength</i> parameter.
-     * @param {Pointer<UInt32>} puDescriptionLength A pointer to a <b>UINT</b> that, on input, contains the length, in characters, of the <i>wszDescription</i> buffer. This length must include the terminating null character.
+     * @param {Pointer<Integer>} puDescriptionLength A pointer to a <b>UINT</b> that, on input, contains the length, in characters, of the <i>wszDescription</i> buffer. This length must include the terminating null character.
      * 
      * After the function returns, this <b>UINT</b> contains the number of characters, including the terminating null character, that were copied to the <i>wszDescription</i> buffer.
      * @param {PWSTR} wszDescription A pointer to a null-terminated Unicode string that receives the description. The size of this buffer is specified by the <i>puDescriptionLength</i> parameter.
@@ -2322,7 +2322,7 @@ class RightsManagement {
     /**
      * Retrieves an owner license created by calling the DRMGetSignedIssuanceLicense.
      * @param {Integer} hIssuanceLicense A handle to a signed issuance license.
-     * @param {Pointer<UInt32>} puOwnerLicenseLength An unsigned integer that contains the length, in characters, of the owner license retrieved by this function. The terminating null character is included in the length.
+     * @param {Pointer<Integer>} puOwnerLicenseLength An unsigned integer that contains the length, in characters, of the owner license retrieved by this function. The terminating null character is included in the length.
      * @param {PWSTR} wszOwnerLicense A null-terminated string that contains the owner license in XrML format. For example XrML owner license, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/adrms_sdk/owner-license-xml-example">Owner License XML Example</a>.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
@@ -2342,7 +2342,7 @@ class RightsManagement {
     /**
      * Retrieves the number of days from issuance that can pass before an end�user license must be renewed.
      * @param {Integer} hIssuanceLicense The handle of the issuance license from which the interval time can be retrieved.
-     * @param {Pointer<UInt32>} pcDays A pointer to a <b>UINT</b> that specifies the interval period, in days. For example, if the value is  30, the end–user license must be renewed within 30 days of the day  it was issued.
+     * @param {Pointer<Integer>} pcDays A pointer to a <b>UINT</b> that specifies the interval period, in days. For example, if the value is  30, the end–user license must be renewed within 30 days of the day  it was issued.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.

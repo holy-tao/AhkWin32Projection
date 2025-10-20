@@ -33,7 +33,7 @@ class CERT_SELECT_CRITERIA extends Win32Struct
 
     /**
      * A pointer to a pointer to one or more selection values.  The data type depends on the selection type specified by the <b>dwType</b> member. If more than one selection value is present, an application must match only one value.
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     ppPara {
         get => NumGet(this, 8, "ptr")

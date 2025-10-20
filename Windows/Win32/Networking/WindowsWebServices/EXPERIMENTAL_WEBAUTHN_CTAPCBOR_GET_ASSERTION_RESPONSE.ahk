@@ -58,7 +58,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLargeBlobKey {
         get => NumGet(this, 160, "ptr")
@@ -74,7 +74,7 @@ class EXPERIMENTAL_WEBAUTHN_CTAPCBOR_GET_ASSERTION_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbUnsignedExtensionOutputs {
         get => NumGet(this, 176, "ptr")

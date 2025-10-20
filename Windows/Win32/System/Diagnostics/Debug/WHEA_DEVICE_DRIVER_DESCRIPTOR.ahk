@@ -77,7 +77,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     PacketBuffer {
         get => NumGet(this, 32, "ptr")
@@ -128,7 +128,7 @@ class WHEA_DEVICE_DRIVER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     PacketStateBuffer {
         get => NumGet(this, 88, "ptr")

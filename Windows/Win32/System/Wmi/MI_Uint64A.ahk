@@ -15,7 +15,7 @@ class MI_Uint64A extends Win32Struct
 
     /**
      * An array of <b>MI_Uint64</b> types.
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

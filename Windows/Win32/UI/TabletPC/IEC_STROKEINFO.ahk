@@ -38,7 +38,7 @@ class IEC_STROKEINFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object that was used to create the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object.
-     * @type {Pointer<IInkCursor>}
+     * @type {IInkCursor}
      */
     Cursor {
         get => NumGet(this, 24, "ptr")
@@ -47,7 +47,7 @@ class IEC_STROKEINFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object that was created.
-     * @type {Pointer<IInkStrokeDisp>}
+     * @type {IInkStrokeDisp}
      */
     Stroke {
         get => NumGet(this, 32, "ptr")

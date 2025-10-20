@@ -25,7 +25,7 @@ class Direct3D9on12 {
      * @returns {HRESULT} 
      */
     static Direct3DCreate9On12Ex(SDKVersion, pOverrideList, NumOverrideEntries, ppOutputInterface) {
-        result := DllCall("d3d9.dll\Direct3DCreate9On12Ex", "uint", SDKVersion, "ptr", pOverrideList, "uint", NumOverrideEntries, "ptr", ppOutputInterface, "int")
+        result := DllCall("d3d9.dll\Direct3DCreate9On12Ex", "uint", SDKVersion, "ptr", pOverrideList, "uint", NumOverrideEntries, "ptr*", ppOutputInterface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -37,7 +37,7 @@ class Direct3D9on12 {
      * @param {Integer} SDKVersion 
      * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
      * @param {Integer} NumOverrideEntries 
-     * @returns {Pointer<IDirect3D9>} 
+     * @returns {IDirect3D9} 
      */
     static Direct3DCreate9On12(SDKVersion, pOverrideList, NumOverrideEntries) {
         result := DllCall("d3d9.dll\Direct3DCreate9On12", "uint", SDKVersion, "ptr", pOverrideList, "uint", NumOverrideEntries, "ptr")

@@ -52,7 +52,7 @@ class GameInput {
      * @returns {HRESULT} 
      */
     static GameInputCreate(gameInput) {
-        result := DllCall("GameInput.dll\GameInputCreate", "ptr", gameInput, "int")
+        result := DllCall("GameInput.dll\GameInputCreate", "ptr*", gameInput, "int")
         if(result != 0)
             throw OSError(result)
 

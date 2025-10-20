@@ -72,7 +72,7 @@ class DDOVERLAYFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSAlphaDest {
         get => NumGet(this, 24, "ptr")
@@ -97,7 +97,7 @@ class DDOVERLAYFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSAlphaSrc {
         get => NumGet(this, 40, "ptr")

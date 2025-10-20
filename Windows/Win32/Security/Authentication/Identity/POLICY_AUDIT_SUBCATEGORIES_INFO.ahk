@@ -20,7 +20,7 @@ class POLICY_AUDIT_SUBCATEGORIES_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EventAuditingOptions {
         get => NumGet(this, 8, "ptr")

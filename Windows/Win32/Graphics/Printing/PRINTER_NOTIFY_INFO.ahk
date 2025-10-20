@@ -3,6 +3,8 @@
 #Include .\PRINTER_NOTIFY_INFO_DATA.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/printer-notify-info
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

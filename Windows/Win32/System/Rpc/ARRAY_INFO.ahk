@@ -20,7 +20,7 @@ class ARRAY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     BufferConformanceMark {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class ARRAY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     BufferVarianceMark {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class ARRAY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     MaxCountArray {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class ARRAY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     OffsetArray {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class ARRAY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ActualCountArray {
         get => NumGet(this, 40, "ptr")

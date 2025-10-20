@@ -367,8 +367,8 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {Pointer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
-     * @param {Pointer<UInt32>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client identified by the access token, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b>, and you can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -405,7 +405,7 @@ class Security {
      * If this parameter is MAXIMUM_ALLOWED, the function sets the <i>GrantedAccess</i> access mask to indicate the maximum access rights the security descriptor allows the client.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation Specifies a flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b>.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw">ObjectCloseAuditAlarm</a> function when the object handle is closed.
@@ -459,8 +459,8 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked. The <b>GenericAll</b> member of the  <b>GENERIC_MAPPING</b> structure should contain all the access rights that can be granted by the resource manager, including STANDARD_RIGHTS_ALL and all of the rights that are set in the <b>GenericRead</b>, <b>GenericWrite</b>, and <b>GenericExecute</b> members.
      * @param {Pointer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
-     * @param {Pointer<UInt32>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} PrivilegeSetLength Specifies the size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client identified by the access token, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b>, and you can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -514,9 +514,9 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {Pointer} PrivilegeSet A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-privilege_set">PRIVILEGE_SET</a> structure that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">privileges</a> used to perform the access validation. If no privileges were used, the function sets the <b>PrivilegeCount</b> member to zero.
-     * @param {Pointer<UInt32>} PrivilegeSetLength The size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
-     * @param {Pointer<UInt32>} GrantedAccessList A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
-     * @param {Pointer<UInt32>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
+     * @param {Pointer<Integer>} PrivilegeSetLength The size, in bytes, of the buffer pointed to by the <i>PrivilegeSet</i> parameter.
+     * @param {Pointer<Integer>} GrantedAccessList A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
+     * @param {Pointer<Integer>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
@@ -559,7 +559,7 @@ class Security {
      * @param {Integer} ObjectTypeListLength The number of elements in the <i>ObjectTypeList</i> array.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b> and you can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectcloseauditalarma">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -602,8 +602,8 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccessList 
-     * @param {Pointer<UInt32>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
+     * @param {Pointer<Integer>} GrantedAccessList 
+     * @param {Pointer<Integer>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -646,8 +646,8 @@ class Security {
      * @param {Integer} ObjectTypeListLength The number of elements in the <i>ObjectTypeList</i> array.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccessList 
-     * @param {Pointer<UInt32>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
+     * @param {Pointer<Integer>} GrantedAccessList 
+     * @param {Pointer<Integer>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-objectcloseauditalarmw">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -1717,7 +1717,7 @@ class Security {
      * @param {Integer} AccessMask Must be zero for Windows 8 and Windows Server 2012.
      * @param {PSID} pSid Must be the Everyone SID (S-1-1-0) for Windows 8 and Windows Server 2012.
      * @param {Pointer<CLAIM_SECURITY_ATTRIBUTES_INFORMATION>} pAttributeInfo Specifies the attribute information that will be appended after the SID in the ACE.
-     * @param {Pointer<UInt32>} pReturnLength The size, in bytes, of the actual ACL buffer used. If the buffer specified by the <i>pAcl</i> parameter is not big enough, the value of this parameter is the total size required for the ACL buffer.
+     * @param {Pointer<Integer>} pReturnLength The size, in bytes, of the actual ACL buffer used. If the buffer specified by the <i>pAcl</i> parameter is not big enough, the value of this parameter is the total size required for the ACL buffer.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -1775,7 +1775,7 @@ class Security {
      * 
      * 
      * If a buffer is specified but it does not contain enough space to receive the complete list of modified groups, no group states are changed and the function fails. In this case, the function sets the variable pointed to by the <i>ReturnLength</i> parameter to the number of bytes required to hold the complete list of modified groups.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the actual number of bytes needed for the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be <b>NULL</b> and is ignored if <i>PreviousState</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the actual number of bytes needed for the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be <b>NULL</b> and is ignored if <i>PreviousState</i> is <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1861,7 +1861,7 @@ class Security {
      * 
      * 
      * If you specify a buffer that is too small to receive the complete list of modified privileges, the function fails and does not adjust any privileges. In this case, the function sets the variable pointed to by the <i>ReturnLength</i> parameter to the number of bytes required to hold the complete list of modified privileges.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the required size, in bytes, of the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be <b>NULL</b> if <i>PreviousState</i> is <b>NULL</b>.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the required size, in bytes, of the buffer pointed to by the <i>PreviousState</i> parameter. This parameter can be <b>NULL</b> if <i>PreviousState</i> is <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. To determine whether the function adjusted all of the specified privileges, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which returns one of the following values when the function succeeds:
      * 
@@ -2060,12 +2060,13 @@ class Security {
      * 
      * @param {Pointer<ACL>} Acl 
      * @param {Integer} StartingAceIndex 
-     * @param {Pointer<Void>} AppContainerAce 
-     * @param {Pointer<UInt32>} AppContainerAceIndex 
+     * @param {Pointer<Pointer<Void>>} AppContainerAce 
+     * @param {Pointer<Integer>} AppContainerAceIndex 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getappcontainerace
      */
     static GetAppContainerAce(Acl, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
-        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, "ptr", AppContainerAce, "uint*", AppContainerAceIndex, "int")
+        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, "ptr*", AppContainerAce, "uint*", AppContainerAceIndex, "int")
         return result
     }
 
@@ -2300,7 +2301,7 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} CreatorDescriptor A pointer to a security descriptor provided by the creator of the object. If the object's creator does not explicitly pass security information for the new object, this parameter can be <b>NULL</b>. Alternatively, this parameter can point to a default security descriptor.
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewDescriptor A pointer to a variable to receive a pointer to the newly allocated self-relative security descriptor. When you have finished using the security descriptor, free it by calling the  
      * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-destroyprivateobjectsecurity">DestroyPrivateObjectSecurity</a> function.
-     * @param {Pointer<Guid>} ObjectTypes An array of pointers to <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structures that identify the object types or classes of the object associated with <i>NewDescriptor</i>. For Active Directory objects, this array contains pointers to the class GUIDs of the object's structural class and all attached auxiliary classes. Set <i>ObjectTypes</i> to <b>NULL</b> if the object does not have a GUID.
+     * @param {Pointer<Pointer<Guid>>} ObjectTypes An array of pointers to <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structures that identify the object types or classes of the object associated with <i>NewDescriptor</i>. For Active Directory objects, this array contains pointers to the class GUIDs of the object's structural class and all attached auxiliary classes. Set <i>ObjectTypes</i> to <b>NULL</b> if the object does not have a GUID.
      * @param {Integer} GuidCount The number of GUIDs present in the <i>ObjectTypes</i> parameter.
      * @param {BOOL} IsContainerObject Specifies whether the new object can contain other objects. A value of <b>TRUE</b> indicates that the new object is a container. A value of <b>FALSE</b> indicates that the new object is not a container.
      * @param {Integer} AutoInheritFlags 
@@ -2387,7 +2388,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr", ObjectTypes, "uint", GuidCount, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
+        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr*", ObjectTypes, "uint", GuidCount, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2462,7 +2463,7 @@ class Security {
      * @param {Integer} WellKnownSidType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WELL_KNOWN_SID_TYPE</a> enumeration that specifies what the SID will identify.
      * @param {PSID} DomainSid A pointer to a SID that identifies the domain to use when creating the SID. Pass <b>NULL</b> to use the local computer.
      * @param {Pointer} pSid A pointer to memory where <b>CreateWellKnownSid</b> will store the new SID.
-     * @param {Pointer<UInt32>} cbSid A pointer to a <b>DWORD</b> that contains the number of bytes available at <i>pSid</i>. The <b>CreateWellKnownSid</b> function stores the number of bytes actually used at this location.
+     * @param {Pointer<Integer>} cbSid A pointer to a <b>DWORD</b> that contains the number of bytes available at <i>pSid</i>. The <b>CreateWellKnownSid</b> function stores the number of bytes actually used at this location.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. For extended error information, call 
@@ -2662,7 +2663,7 @@ class Security {
      * Retrieves a pointer to the first free byte in an access control list (ACL).
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL.
-     * @param {Pointer<Void>} pAce The address of a pointer to the first free position in the ACL created when the function returns. If the ACL is not valid, this parameter is <b>NULL</b>. If the ACL is full, this parameter points to the byte immediately following the ACL.
+     * @param {Pointer<Pointer<Void>>} pAce The address of a pointer to the first free position in the ACL created when the function returns. If the ACL is not valid, this parameter is <b>NULL</b>. If the ACL is full, this parameter points to the byte immediately following the ACL.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      *       
      * 
@@ -2674,7 +2675,7 @@ class Security {
     static FindFirstFreeAce(pAcl, pAce) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\FindFirstFreeAce", "ptr", pAcl, "ptr", pAce, "int")
+        result := DllCall("ADVAPI32.dll\FindFirstFreeAce", "ptr", pAcl, "ptr*", pAce, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2701,7 +2702,7 @@ class Security {
      * @param {Pointer<ACL>} pAcl A pointer to an 
      * ACL that contains the ACE to be retrieved.
      * @param {Integer} dwAceIndex The index of the ACE to be retrieved. A value of zero corresponds to the first ACE in the ACL, a value of one to the second ACE, and so on.
-     * @param {Pointer<Void>} pAce A pointer to a pointer that the function sets to the address of the ACE.
+     * @param {Pointer<Pointer<Void>>} pAce A pointer to a pointer that the function sets to the address of the ACE.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
@@ -2712,7 +2713,7 @@ class Security {
     static GetAce(pAcl, dwAceIndex, pAce) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetAce", "ptr", pAcl, "uint", dwAceIndex, "ptr", pAce, "int")
+        result := DllCall("ADVAPI32.dll\GetAce", "ptr", pAcl, "uint", dwAceIndex, "ptr*", pAce, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2760,7 +2761,7 @@ class Security {
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2782,7 +2783,7 @@ class Security {
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer the function fills with a copy of the security descriptor of the specified object. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have the right to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required for the buffer pointed to by the <i>pSecurityDescriptor</i> parameter. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, none of the security descriptor is copied to the buffer.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable that receives the number of bytes required for the buffer pointed to by the <i>pSecurityDescriptor</i> parameter. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, none of the security descriptor is copied to the buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2827,7 +2828,7 @@ class Security {
      * @param {Pointer} ResultantDescriptor A pointer to a buffer that receives a copy of the requested information from the specified security descriptor. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format.
      * @param {Integer} DescriptorLength Specifies the size, in bytes, of the buffer pointed to by the <i>ResultantDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable the function sets to zero if the descriptor is copied successfully. If the buffer is too small for the security descriptor, this variable receives the number of bytes required. If this variable's value is greater than the value of the <i>DescriptorLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable the function sets to zero if the descriptor is copied successfully. If the buffer is too small for the security descriptor, this variable receives the number of bytes required. If this variable's value is greater than the value of the <i>DescriptorLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2851,9 +2852,9 @@ class Security {
      * Retrieves a security descriptor control and revision information.
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure whose control and revision information the function retrieves.
-     * @param {Pointer<UInt16>} pControl A pointer to a 
+     * @param {Pointer<Integer>} pControl A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-descriptor-control">SECURITY_DESCRIPTOR_CONTROL</a> structure that receives the security descriptor's control information.
-     * @param {Pointer<UInt32>} lpdwRevision A pointer to a variable that receives the security descriptor's revision value. This value is always set, even when <b>GetSecurityDescriptorControl</b> returns an error.
+     * @param {Pointer<Integer>} lpdwRevision A pointer to a variable that receives the security descriptor's revision value. This value is always set, even when <b>GetSecurityDescriptorControl</b> returns an error.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -2880,7 +2881,7 @@ class Security {
      * @param {Pointer<BOOL>} lpbDaclPresent A pointer to a value that indicates the presence of a DACL in the specified security descriptor. If <i>lpbDaclPresent</i> is <b>TRUE</b>, the security descriptor contains a DACL, and the remaining output parameters in this function receive valid values. If <i>lpbDaclPresent</i> is <b>FALSE</b>, the security descriptor does not contain a DACL, and the remaining output parameters do not receive valid values.
      * 
      * A value of <b>TRUE</b> for <i>lpbDaclPresent</i> does not mean that <i>pDacl</i> is not <b>NULL</b>.  That is, <i>lpbDaclPresent</i> can be <b>TRUE</b> while <i>pDacl</i> is <b>NULL</b>, meaning that a <b>NULL</b> DACL is in effect.   A <b>NULL</b> DACL implicitly allows all access to an object and is not the same as an empty DACL. An empty DACL permits no access to an object.  For information about creating a proper DACL, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/creating-a-dacl">Creating a DACL</a>.
-     * @param {Pointer<ACL>} pDacl A pointer to a pointer to an 
+     * @param {Pointer<Pointer<ACL>>} pDacl A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL). If a DACL exists, the function sets the pointer pointed to by <i>pDacl</i> to the address of the security descriptor's DACL. If a DACL does not exist, no value is stored. 
      * 
      * 
@@ -2903,7 +2904,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, "ptr", lpbDaclPresent, "ptr", pDacl, "ptr", lpbDaclDefaulted, "int")
+        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, "ptr", lpbDaclPresent, "ptr*", pDacl, "ptr", lpbDaclDefaulted, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2986,7 +2987,7 @@ class Security {
      * Retrieves the resource manager control bits.
      * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits. The value of the <b>Control</b> member is set to SE_RM_CONTROL_VALID.
-     * @param {Pointer<Byte>} RMControl A pointer to a buffer that receives the resource manager control bits.
+     * @param {Pointer<Integer>} RMControl A pointer to a buffer that receives the resource manager control bits.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the following value is returned.
@@ -3024,7 +3025,7 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the SACL to which the function retrieves a pointer.
      * @param {Pointer<BOOL>} lpbSaclPresent A pointer to a flag the function sets to indicate the presence of a SACL in the specified security descriptor. If this parameter is <b>TRUE</b>, the security descriptor contains a SACL, and the remaining output parameters in this function receive valid values. If this parameter is <b>FALSE</b>, the security descriptor does not contain a SACL, and the remaining output parameters do not receive valid values.
-     * @param {Pointer<ACL>} pSacl A pointer to a pointer to an 
+     * @param {Pointer<Pointer<ACL>>} pSacl A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL). If a SACL exists, the function sets the pointer pointed to by <i>pSacl</i> to the address of the security descriptor's SACL. If a SACL does not exist, no value is stored. 
      * 
      * 
@@ -3046,7 +3047,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, "ptr", lpbSaclPresent, "ptr", pSacl, "ptr", lpbSaclDefaulted, "int")
+        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, "ptr", lpbSaclPresent, "ptr*", pSacl, "ptr", lpbSaclDefaulted, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3098,7 +3099,7 @@ class Security {
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
      * @param {Integer} nSubAuthority Specifies an index value identifying the subauthority array element whose address the function will return. The function performs no validation tests on this value. An application can call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getsidsubauthoritycount">GetSidSubAuthorityCount</a> function to discover the range of acceptable values.
-     * @returns {Pointer<UInt32>} If the function succeeds, the return value is a pointer to the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> subauthority. To get extended error information, call 
+     * @returns {Pointer<Integer>} If the function succeeds, the return value is a pointer to the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> subauthority. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the function fails, the return value is undefined. The function fails if the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid or if the index value specified by the <i>nSubAuthority</i> parameter is out of bounds.
@@ -3121,7 +3122,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure from which a pointer to the subauthority count is returned.
      * 
      * This function does not handle <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structures that are not valid. Call the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the <b>SID</b> structure is valid before you call this function.
-     * @returns {Pointer<Byte>} If the function succeeds, the return value is a pointer to the subauthority count for the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
+     * @returns {Pointer<Integer>} If the function succeeds, the return value is a pointer to the subauthority count for the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure.
      * 
      * If the function fails, the return value is undefined. The function fails if the specified <a href="/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid. To get extended error information, call 
      * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3145,7 +3146,7 @@ class Security {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-token_information_class">TOKEN_INFORMATION_CLASS</a> enumerated type to identify the type of information the function retrieves. Any callers who check the <b>TokenIsAppContainer</b> and have it return 0 should also verify that the caller token is not an identify level impersonation token. If the current token is not an app container but is an identity level token, you should return <b>AccessDenied</b>.
      * @param {Pointer} TokenInformation A pointer to a buffer the function fills with the requested information. The structure put into this buffer depends upon the type of information specified by the <i>TokenInformationClass</i> parameter.
      * @param {Integer} TokenInformationLength Specifies the size, in bytes, of the buffer pointed to by the <i>TokenInformation</i> parameter. If <i>TokenInformation</i> is <b>NULL</b>, this parameter must be zero.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the <i>TokenInformation</i> parameter. If this value is larger than the value specified in the <i>TokenInformationLength</i> parameter, the function fails and stores no data in the buffer.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a variable that receives the number of bytes needed for the buffer pointed to by the <i>TokenInformation</i> parameter. If this value is larger than the value specified in the <i>TokenInformationLength</i> parameter, the function fails and stores no data in the buffer.
      * 
      * If the value of the <i>TokenInformationClass</i> parameter is TokenDefaultDacl and the token has no default DACL, the function sets the variable pointed to by <i>ReturnLength</i> to <c>sizeof(</code><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-token_default_dacl">TOKEN_DEFAULT_DACL</a><code>)</c> and sets the <b>DefaultDacl</b> member of the <b>TOKEN_DEFAULT_DACL</b> structure to <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -3171,7 +3172,7 @@ class Security {
      * Receives a security identifier (SID) and returns a SID representing the domain of that SID.
      * @param {PSID} pSid A pointer to the SID to examine.
      * @param {Pointer} pDomainSid Pointer that <b>GetWindowsAccountDomainSid</b> fills with a pointer to a SID representing the domain.
-     * @param {Pointer<UInt32>} cbDomainSid A pointer to a <b>DWORD</b> that <b>GetWindowsAccountDomainSid</b> fills with the size of the domain SID, in bytes.
+     * @param {Pointer<Integer>} cbDomainSid A pointer to a <b>DWORD</b> that <b>GetWindowsAccountDomainSid</b> fills with the size of the domain SID, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful.
      * 
      * Otherwise, returns <b>FALSE</b>. For extended error information, call 
@@ -3435,15 +3436,15 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} pSelfRelativeSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in self-relative format. The function creates an absolute-format version of this security descriptor without modifying the original security descriptor.
      * @param {Pointer} pAbsoluteSecurityDescriptor A pointer to a buffer that the function fills with the main body of an absolute-format security descriptor. This information is formatted as a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
-     * @param {Pointer<UInt32>} lpdwAbsoluteSecurityDescriptorSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pAbsoluteSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwAbsoluteSecurityDescriptorSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pAbsoluteSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
      * @param {Pointer} pDacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">discretionary access control list</a> (DACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
-     * @param {Pointer<UInt32>} lpdwDaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pDacl</i> parameter. If the buffer is not large enough for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL), the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwDaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pDacl</i> parameter. If the buffer is not large enough for the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control list</a> (ACL), the function fails and sets this variable to the minimum required size.
      * @param {Pointer} pSacl A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">system access control list</a> (SACL) of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
-     * @param {Pointer<UInt32>} lpdwSaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pSacl</i> parameter. If the buffer is not large enough for the ACL, the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwSaclSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pSacl</i> parameter. If the buffer is not large enough for the ACL, the function fails and sets this variable to the minimum required size.
      * @param {Pointer} pOwner A pointer to a buffer the function fills with the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the owner of the absolute-format security descriptor. The main body of the absolute-format security descriptor references this pointer.
-     * @param {Pointer<UInt32>} lpdwOwnerSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pOwner</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwOwnerSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pOwner</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
      * @param {Pointer} pPrimaryGroup A pointer to a buffer the function fills with the SID of the absolute-format security descriptor's primary group. The main body of the absolute-format security descriptor references this pointer.
-     * @param {Pointer<UInt32>} lpdwPrimaryGroupSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pPrimaryGroup</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwPrimaryGroupSize A pointer to a variable that specifies the size of the buffer pointed to by the <i>pPrimaryGroup</i> parameter. If the buffer is not large enough for the SID, the function fails and sets this variable to the minimum required size.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
      * If the function fails, it returns zero. To get extended error information, call 
@@ -3489,7 +3490,7 @@ class Security {
      * @param {PSECURITY_DESCRIPTOR} pAbsoluteSecurityDescriptor A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in absolute format. The function creates a version of this security descriptor in self-relative format without modifying the original.
      * @param {Pointer} pSelfRelativeSecurityDescriptor A pointer to a buffer the function fills with a security descriptor in self-relative format.
-     * @param {Pointer<UInt32>} lpdwBufferLength A pointer to a variable specifying the size of the buffer pointed to by the <i>pSelfRelativeSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
+     * @param {Pointer<Integer>} lpdwBufferLength A pointer to a variable specifying the size of the buffer pointed to by the <i>pSelfRelativeSD</i> parameter. If the buffer is not large enough for the security descriptor, the function fails and sets this variable to the minimum required size.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3538,7 +3539,7 @@ class Security {
      * 
      * 
      * 
-     * @param {Pointer<UInt32>} AccessMask A pointer to an access mask.
+     * @param {Pointer<Integer>} AccessMask A pointer to an access mask.
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure specifying a mapping of generic access types to specific and standard access types.
      * @returns {String} Nothing - always returns an empty string
@@ -3695,7 +3696,7 @@ class Security {
     /**
      * Creates an access mask that represents the access permissions necessary to query the specified object security information.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be queried.
-     * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
+     * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-querysecurityaccessmask
      * @since windows6.0.6000
@@ -3881,7 +3882,7 @@ class Security {
     /**
      * Creates an access mask that represents the access permissions necessary to set the specified object security information.
      * @param {Integer} SecurityInformation A <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that specifies the security information to be set.
-     * @param {Pointer<UInt32>} DesiredAccess A pointer to the access mask that this function creates.
+     * @param {Pointer<Integer>} DesiredAccess A pointer to the access mask that this function creates.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecurityaccessmask
      * @since windows6.0.6000
@@ -4001,7 +4002,7 @@ class Security {
     /**
      * Sets the resource manager control bits in the SECURITY_DESCRIPTOR structure.
      * @param {PSECURITY_DESCRIPTOR} SecurityDescriptor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager</a> control bits.
-     * @param {Pointer<Byte>} RMControl A pointer to the bitfield value that the resource manager control bits in the 
+     * @param {Pointer<Integer>} RMControl A pointer to the bitfield value that the resource manager control bits in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure will be set to. If the value of this parameter is <b>NULL</b>, the resource manager control bits will be cleared.
      * @returns {Integer} The return value is ERROR_SUCCESS.
      * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-setsecuritydescriptorrmcontrol
@@ -4075,6 +4076,7 @@ class Security {
      * @param {Integer} Flags 
      * @param {HANDLE} TargetFile 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-setcachedsigninglevel
      */
     static SetCachedSigningLevel(SourceFiles, SourceFileCount, Flags, TargetFile) {
         TargetFile := TargetFile is Win32Handle ? NumGet(TargetFile, "ptr") : TargetFile
@@ -4086,12 +4088,13 @@ class Security {
     /**
      * 
      * @param {HANDLE} File 
-     * @param {Pointer<UInt32>} Flags 
-     * @param {Pointer<UInt32>} SigningLevel 
+     * @param {Pointer<Integer>} Flags 
+     * @param {Pointer<Integer>} SigningLevel 
      * @param {Pointer} Thumbprint 
-     * @param {Pointer<UInt32>} ThumbprintSize 
-     * @param {Pointer<UInt32>} ThumbprintAlgorithm 
+     * @param {Pointer<Integer>} ThumbprintSize 
+     * @param {Pointer<Integer>} ThumbprintAlgorithm 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getcachedsigninglevel
      */
     static GetCachedSigningLevel(File, Flags, SigningLevel, Thumbprint, ThumbprintSize, ThumbprintAlgorithm) {
         File := File is Win32Handle ? NumGet(File, "ptr") : File
@@ -4103,10 +4106,10 @@ class Security {
     /**
      * This function constructs two arrays of SIDs out of a capability name. One is an array group SID with NT Authority, and the other is an array of capability SIDs with AppAuthority.
      * @param {PWSTR} CapName Name of the capability in string form.
-     * @param {Pointer<PSID>} CapabilityGroupSids The GroupSids with NTAuthority.
-     * @param {Pointer<UInt32>} CapabilityGroupSidCount The count of GroupSids in the array.
-     * @param {Pointer<PSID>} CapabilitySids CapabilitySids with AppAuthority.
-     * @param {Pointer<UInt32>} CapabilitySidCount The count of CapabilitySid with AppAuthority.
+     * @param {Pointer<Pointer<PSID>>} CapabilityGroupSids The GroupSids with NTAuthority.
+     * @param {Pointer<Integer>} CapabilityGroupSidCount The count of GroupSids in the array.
+     * @param {Pointer<Pointer<PSID>>} CapabilitySids CapabilitySids with AppAuthority.
+     * @param {Pointer<Integer>} CapabilitySidCount The count of CapabilitySid with AppAuthority.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
@@ -4118,7 +4121,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, "ptr", CapabilityGroupSids, "uint*", CapabilityGroupSidCount, "ptr", CapabilitySids, "uint*", CapabilitySidCount, "int")
+        result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, "ptr*", CapabilityGroupSids, "uint*", CapabilityGroupSidCount, "ptr*", CapabilitySids, "uint*", CapabilitySidCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4130,7 +4133,7 @@ class Security {
      * @param {Pointer<PSECURITY_DESCRIPTOR>} SecurityDescriptor 
      * @param {Integer} SecurityDescriptorLength 
      * @param {Pointer<PSECURITY_DESCRIPTOR>} NewSecurityDescriptor 
-     * @param {Pointer<UInt32>} NewSecurityDescriptorLength 
+     * @param {Pointer<Integer>} NewSecurityDescriptorLength 
      * @param {BOOLEAN} CheckOnly 
      * @returns {BOOLEAN} 
      */
@@ -4142,7 +4145,7 @@ class Security {
     /**
      * Sets the security of a user object. This can be, for example, a window or a DDE conversation.
      * @param {HANDLE} hObj A handle to a user object for which security information is set.
-     * @param {Pointer<UInt32>} pSIRequested 
+     * @param {Pointer<Integer>} pSIRequested 
      * @param {PSECURITY_DESCRIPTOR} pSID A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure that contains the new security information. 
      * 
@@ -4173,12 +4176,12 @@ class Security {
     /**
      * Retrieves security information for the specified user object.
      * @param {HANDLE} hObj A handle to the user object for which to return security information.
-     * @param {Pointer<UInt32>} pSIRequested A pointer to a 
+     * @param {Pointer<Integer>} pSIRequested A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> value that specifies the security information being requested.
      * @param {Pointer} pSID A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> format that contains the requested information when the function returns. This buffer must be aligned on a 4-byte boundary.
      * @param {Integer} nLength The length, in bytes, of the buffer pointed to by the <i>pSD</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable to receive the number of bytes required to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer. Otherwise, the entire security descriptor is copied.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable to receive the number of bytes required to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns <b>FALSE</b> and none of the security descriptor is copied to the buffer. Otherwise, the entire security descriptor is copied.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 						
      * 
@@ -4217,7 +4220,7 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation Specifies a flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b>.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectcloseauditalarma">ObjectCloseAuditAlarm</a> function when the object handle is closed.
@@ -4279,7 +4282,7 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an access mask that receives the granted access rights. If <i>AccessStatus</i> is set to <b>FALSE</b>, the function sets the access mask to zero. If the function fails, it does not set the access mask.
      * @param {Pointer<BOOL>} AccessStatus A pointer to a variable that receives the results of the access check. If the security descriptor allows the requested access rights to the client, <i>AccessStatus</i> is set to <b>TRUE</b>. Otherwise, <i>AccessStatus</i> is set to <b>FALSE</b> and you can call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to get extended error information.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
@@ -4334,8 +4337,8 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
-     * @param {Pointer<UInt32>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
+     * @param {Pointer<Integer>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectcloseauditalarma">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -4388,8 +4391,8 @@ class Security {
      * @param {Pointer<GENERIC_MAPPING>} GenericMapping A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-generic_mapping">GENERIC_MAPPING</a> structure associated with the object for which access is being checked.
      * @param {BOOL} ObjectCreation A flag that determines whether the calling application will create a new object when access is granted. A value of <b>TRUE</b> indicates the application will create a new object. A value of <b>FALSE</b> indicates the application will open an existing object.
-     * @param {Pointer<UInt32>} GrantedAccess A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
-     * @param {Pointer<UInt32>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
+     * @param {Pointer<Integer>} GrantedAccess A pointer to an array of access masks. The function sets each access mask to indicate the access rights granted to the corresponding element in the object type list. If the function fails, it does not set the access masks.
+     * @param {Pointer<Integer>} AccessStatusList A pointer to an array of status codes for the corresponding elements in the object type list. The function sets an element to zero to indicate success or to a nonzero value to indicate the specific error during the access check. If the function fails, it does not set any of the elements in the array.
      * @param {Pointer<BOOL>} pfGenerateOnClose A pointer to a flag set by the audit-generation routine when the function returns. Pass this flag to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-objectcloseauditalarma">ObjectCloseAuditAlarm</a> function when the object handle is closed.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
@@ -4586,7 +4589,7 @@ class Security {
      * @param {PSID} pSid A pointer to the 
      * SID  that represents a user, group, or logon account being granted access.
      * @param {PWSTR} ConditionStr A string that specifies the conditional statement to be evaluated for the ACE.
-     * @param {Pointer<UInt32>} ReturnLength The size, in bytes, of the ACL. If the buffer specified by the <i>pACL</i> parameter is not of sufficient size, the value of this parameter is the required size.
+     * @param {Pointer<Integer>} ReturnLength The size, in bytes, of the ACL. If the buffer specified by the <i>pACL</i> parameter is not of sufficient size, the value of this parameter is the required size.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
      * 
      * If the function fails, it returns <b>FALSE</b>. For extended error information, call 
@@ -4659,7 +4662,7 @@ class Security {
      * @param {Pointer} pSecurityDescriptor A pointer to a buffer that receives a copy of the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a> of the object specified by the <i>lpFileName</i> parameter. The calling <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">process</a> must have permission to view the specified aspects of the object's security status. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure is returned in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative security descriptor</a> format.
      * @param {Integer} nLength Specifies the size, in bytes, of the buffer pointed to by the <i>pSecurityDescriptor</i> parameter.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to the variable that receives the number of bytes necessary to store the complete <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security descriptor</a>. If the returned number of bytes is less than or equal to <i>nLength</i>, the entire security descriptor is returned in the output buffer; otherwise, none of the descriptor is returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4685,7 +4688,7 @@ class Security {
      * @param {PSID} Sid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
-     * @param {Pointer<UInt32>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
      * @param {PSTR} ReferencedDomainName A pointer to a buffer that receives a <b>null</b>-terminated string that contains the name of the domain where the account name was found.
      * 
      * On a server, the domain name returned for most accounts in the security database of the local computer is the name of the domain for which the server is a domain controller.
@@ -4694,8 +4697,8 @@ class Security {
      * On a workstation, the domain name returned for most accounts in the security database of the local computer is the name of the computer as of the last start of the system (backslashes are excluded). If the name of the computer changes, the old name continues to be returned as the domain name until the system is restarted.
      * 
      * Some accounts are predefined by the system. The domain name returned for these accounts is BUILTIN.
-     * @param {Pointer<UInt32>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
-     * @param {Pointer<Int32>} peUse A pointer to a variable that receives a 
+     * @param {Pointer<Integer>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} peUse A pointer to a variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> value that indicates the type of the account.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -4724,7 +4727,7 @@ class Security {
      * @param {PSID} Sid A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> to look up.
      * @param {PWSTR} Name A pointer to a buffer that receives a <b>null</b>-terminated string that contains the account name that corresponds to the <i>lpSid</i> parameter.
-     * @param {Pointer<UInt32>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} cchName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpName</i> buffer. If the function fails because the buffer is too small or if <i>cchName</i> is zero, <i>cchName</i> receives the required buffer size, including the terminating <b>null</b> character.
      * @param {PWSTR} ReferencedDomainName A pointer to a buffer that receives a <b>null</b>-terminated string that contains the name of the domain where the account name was found.
      * 
      * On a server, the domain name returned for most accounts in the security database of the local computer is the name of the domain for which the server is a domain controller.
@@ -4733,8 +4736,8 @@ class Security {
      * On a workstation, the domain name returned for most accounts in the security database of the local computer is the name of the computer as of the last start of the system (backslashes are excluded). If the name of the computer changes, the old name continues to be returned as the domain name until the system is restarted.
      * 
      * Some accounts are predefined by the system. The domain name returned for these accounts is BUILTIN.
-     * @param {Pointer<UInt32>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
-     * @param {Pointer<Int32>} peUse A pointer to a variable that receives a 
+     * @param {Pointer<Integer>} cchReferencedDomainName On input, specifies the size, in <b>TCHAR</b>s, of the <i>lpReferencedDomainName</i> buffer. If the function fails because the buffer is too small or if <i>cchReferencedDomainName</i> is zero, <i>cchReferencedDomainName</i> receives the required buffer size, including the terminating <b>null</b> character.
+     * @param {Pointer<Integer>} peUse A pointer to a variable that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> value that indicates the type of the account.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -4765,10 +4768,10 @@ class Security {
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
      * @param {Pointer} Sid A pointer to a buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
-     * @param {Pointer<UInt32>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
+     * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
-     * @param {Pointer<UInt32>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
-     * @param {Pointer<Int32>} peUse A pointer to a 
+     * @param {Pointer<Integer>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
+     * @param {Pointer<Integer>} peUse A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumerated type that indicates the type of the account when the function returns.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -4799,10 +4802,10 @@ class Security {
      * Use a fully qualified string in the domain_name\user_name format to ensure that <b>LookupAccountName</b> finds the account in the desired domain.
      * @param {Pointer} Sid A pointer to a buffer that receives the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure that corresponds to the account name pointed to by the <i>lpAccountName</i> parameter. If this parameter is <b>NULL</b>, <i>cbSid</i> must be zero.
-     * @param {Pointer<UInt32>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
+     * @param {Pointer<Integer>} cbSid A pointer to a variable. On input, this value specifies the size, in bytes, of the <i>Sid</i> buffer. If the function fails because the buffer is too small or if <i>cbSid</i> is zero, this variable receives the required buffer size.
      * @param {PWSTR} ReferencedDomainName A pointer to a buffer that receives the name of the domain where the account name is found. For computers that are not joined to a domain, this buffer receives the computer name. If this parameter is <b>NULL</b>, the function returns the required buffer size.
-     * @param {Pointer<UInt32>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
-     * @param {Pointer<Int32>} peUse A pointer to a 
+     * @param {Pointer<Integer>} cchReferencedDomainName A pointer to a variable. On input, this value specifies the size, in <b>TCHAR</b>s, of the <i>ReferencedDomainName</i> buffer. If the function fails because the buffer is too small, this variable receives the required buffer size, including the terminating <b>null</b> character. If the <i>ReferencedDomainName</i> parameter is <b>NULL</b>, this parameter must be zero.
+     * @param {Pointer<Integer>} peUse A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-sid_name_use">SID_NAME_USE</a> enumerated type that indicates the type of the account when the function returns.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 
@@ -4882,7 +4885,7 @@ class Security {
      * @param {PSTR} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<LUID>} lpLuid A pointer to the LUID by which the privilege is known on the target system.
      * @param {PSTR} lpName A pointer to a buffer that receives a null-terminated string that represents the privilege name. For example, this string could be "SeSecurityPrivilege".
-     * @param {Pointer<UInt32>} cchName A pointer to a variable that specifies the size, in a <b>TCHAR</b> value, of the <i>lpName</i> buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the <i>lpName</i> parameter is too small, this variable contains the required size.
+     * @param {Pointer<Integer>} cchName A pointer to a variable that specifies the size, in a <b>TCHAR</b> value, of the <i>lpName</i> buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the <i>lpName</i> parameter is too small, this variable contains the required size.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 						
      * 
@@ -4909,7 +4912,7 @@ class Security {
      * @param {PWSTR} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the privilege name is retrieved. If a null string is specified, the function attempts to find the privilege name on the local system.
      * @param {Pointer<LUID>} lpLuid A pointer to the LUID by which the privilege is known on the target system.
      * @param {PWSTR} lpName A pointer to a buffer that receives a null-terminated string that represents the privilege name. For example, this string could be "SeSecurityPrivilege".
-     * @param {Pointer<UInt32>} cchName A pointer to a variable that specifies the size, in a <b>TCHAR</b> value, of the <i>lpName</i> buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the <i>lpName</i> parameter is too small, this variable contains the required size.
+     * @param {Pointer<Integer>} cchName A pointer to a variable that specifies the size, in a <b>TCHAR</b> value, of the <i>lpName</i> buffer. When the function returns, this parameter contains the length of the privilege name, not including the terminating null character. If the buffer pointed to by the <i>lpName</i> parameter is too small, this variable contains the required size.
      * @returns {BOOL} If the function succeeds, the function returns nonzero.
      * 						
      * 
@@ -4936,8 +4939,8 @@ class Security {
      * @param {PSTR} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the  privilege name is retrieved. If a null string is specified, the function attempts to find the display name on the local system.
      * @param {PSTR} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * @param {PSTR} lpDisplayName A pointer to a buffer that receives a null-terminated string that specifies the privilege display name. For example, if the <i>lpName</i> parameter is SE_REMOTE_SHUTDOWN_NAME, the privilege display name is "Force shutdown from a remote system."
-     * @param {Pointer<UInt32>} cchDisplayName A pointer to a variable that specifies the size, in <b>TCHAR</b>s, of the <i>lpDisplayName</i> buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the <i>lpDisplayName</i> parameter is too small, this variable contains the required size.
-     * @param {Pointer<UInt32>} lpLanguageId A pointer to a variable that receives the language identifier for the returned display name.
+     * @param {Pointer<Integer>} cchDisplayName A pointer to a variable that specifies the size, in <b>TCHAR</b>s, of the <i>lpDisplayName</i> buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the <i>lpDisplayName</i> parameter is too small, this variable contains the required size.
+     * @param {Pointer<Integer>} lpLanguageId A pointer to a variable that receives the language identifier for the returned display name.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -4965,8 +4968,8 @@ class Security {
      * @param {PWSTR} lpSystemName A pointer to a null-terminated string that specifies the name of the system on which the  privilege name is retrieved. If a null string is specified, the function attempts to find the display name on the local system.
      * @param {PWSTR} lpName A pointer to a null-terminated string that specifies the name of the privilege, as defined in Winnt.h. For example, this parameter could specify the constant, SE_REMOTE_SHUTDOWN_NAME, or its corresponding string, "SeRemoteShutdownPrivilege". For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/privilege-constants">Privilege Constants</a>.
      * @param {PWSTR} lpDisplayName A pointer to a buffer that receives a null-terminated string that specifies the privilege display name. For example, if the <i>lpName</i> parameter is SE_REMOTE_SHUTDOWN_NAME, the privilege display name is "Force shutdown from a remote system."
-     * @param {Pointer<UInt32>} cchDisplayName A pointer to a variable that specifies the size, in <b>TCHAR</b>s, of the <i>lpDisplayName</i> buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the <i>lpDisplayName</i> parameter is too small, this variable contains the required size.
-     * @param {Pointer<UInt32>} lpLanguageId A pointer to a variable that receives the language identifier for the returned display name.
+     * @param {Pointer<Integer>} cchDisplayName A pointer to a variable that specifies the size, in <b>TCHAR</b>s, of the <i>lpDisplayName</i> buffer. When the function returns, this parameter contains the length of the privilege display name, not including the terminating null character. If the buffer pointed to by the <i>lpDisplayName</i> parameter is too small, this variable contains the required size.
+     * @param {Pointer<Integer>} lpLanguageId A pointer to a variable that receives the language identifier for the returned display name.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -5085,8 +5088,8 @@ class Security {
      * @param {Pointer<PSID>} ppLogonSid A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that receives the SID of the user logged on.
      * 
      * When you have finished using the SID, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @param {Pointer<Void>} ppProfileBuffer A pointer to a pointer that receives the address of a buffer that contains the logged on user's profile.
-     * @param {Pointer<UInt32>} pdwProfileLength A pointer to a <b>DWORD</b> that receives the length of the profile buffer.
+     * @param {Pointer<Pointer<Void>>} ppProfileBuffer A pointer to a pointer that receives the address of a buffer that contains the logged on user's profile.
+     * @param {Pointer<Integer>} pdwProfileLength A pointer to a <b>DWORD</b> that receives the length of the profile buffer.
      * @param {Pointer<QUOTA_LIMITS>} pQuotaLimits A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-quota_limits">QUOTA_LIMITS</a> structure that receives information about the quotas for the logged on user.
      * @returns {BOOL} If the function succeeds, the function returns  nonzero.
      * 
@@ -5102,7 +5105,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr", ppProfileBuffer, "uint*", pdwProfileLength, "ptr", pQuotaLimits, "int")
+        result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr*", ppProfileBuffer, "uint*", pdwProfileLength, "ptr", pQuotaLimits, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5129,8 +5132,8 @@ class Security {
      * @param {Pointer<PSID>} ppLogonSid A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) that receives the SID of the user logged on.
      * 
      * When you have finished using the SID, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @param {Pointer<Void>} ppProfileBuffer A pointer to a pointer that receives the address of a buffer that contains the logged on user's profile.
-     * @param {Pointer<UInt32>} pdwProfileLength A pointer to a <b>DWORD</b> that receives the length of the profile buffer.
+     * @param {Pointer<Pointer<Void>>} ppProfileBuffer A pointer to a pointer that receives the address of a buffer that contains the logged on user's profile.
+     * @param {Pointer<Integer>} pdwProfileLength A pointer to a <b>DWORD</b> that receives the length of the profile buffer.
      * @param {Pointer<QUOTA_LIMITS>} pQuotaLimits A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-quota_limits">QUOTA_LIMITS</a> structure that receives information about the quotas for the logged on user.
      * @returns {BOOL} If the function succeeds, the function returns  nonzero.
      * 
@@ -5146,7 +5149,7 @@ class Security {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr", ppProfileBuffer, "uint*", pdwProfileLength, "ptr", pQuotaLimits, "int")
+        result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr*", ppProfileBuffer, "uint*", pdwProfileLength, "ptr", pQuotaLimits, "int")
         if(A_LastError)
             throw OSError()
 

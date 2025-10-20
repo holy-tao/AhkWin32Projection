@@ -3,6 +3,8 @@
 #Include .\D3D12_VIDEO_ENCODER_ENCODE_OPERATION_METADATA_BUFFER.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_resolve_metadata_output_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

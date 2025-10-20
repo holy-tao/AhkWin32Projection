@@ -4,6 +4,8 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_make_credential_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -164,7 +166,7 @@ class WEBAUTHN_AUTHENTICATOR_MAKE_CREDENTIAL_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbJsonExt {
         get => NumGet(this, 120, "ptr")

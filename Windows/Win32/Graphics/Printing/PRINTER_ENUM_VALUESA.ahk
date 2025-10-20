@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/printer-enum-values
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset ANSI
@@ -37,7 +39,7 @@ class PRINTER_ENUM_VALUESA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 16, "ptr")

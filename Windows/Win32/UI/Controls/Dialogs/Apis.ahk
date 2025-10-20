@@ -652,6 +652,7 @@ class Dialogs {
      * 
      * @param {Pointer<CHOOSECOLORW>} param0 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosecolorw
      */
     static ChooseColorW(param0) {
         result := DllCall("COMDLG32.dll\ChooseColorW", "ptr", param0, "int")
@@ -726,6 +727,7 @@ class Dialogs {
      * 
      * @param {Pointer<CHOOSEFONTA>} param0 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosefonta
      */
     static ChooseFontA(param0) {
         result := DllCall("COMDLG32.dll\ChooseFontA", "ptr", param0, "int")
@@ -736,6 +738,7 @@ class Dialogs {
      * 
      * @param {Pointer<CHOOSEFONTW>} param0 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-choosefontw
      */
     static ChooseFontW(param0) {
         result := DllCall("COMDLG32.dll\ChooseFontW", "ptr", param0, "int")
@@ -746,6 +749,7 @@ class Dialogs {
      * 
      * @param {Pointer<PRINTDLGA>} pPD 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlga
      */
     static PrintDlgA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgA", "ptr", pPD, "int")
@@ -756,6 +760,7 @@ class Dialogs {
      * 
      * @param {Pointer<PRINTDLGW>} pPD 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgw
      */
     static PrintDlgW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgW", "ptr", pPD, "int")
@@ -766,6 +771,7 @@ class Dialogs {
      * 
      * @param {Pointer<PRINTDLGEXA>} pPD 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexa
      */
     static PrintDlgExA(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExA", "ptr", pPD, "int")
@@ -779,6 +785,7 @@ class Dialogs {
      * 
      * @param {Pointer<PRINTDLGEXW>} pPD 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-printdlgexw
      */
     static PrintDlgExW(pPD) {
         result := DllCall("COMDLG32.dll\PrintDlgExW", "ptr", pPD, "int")
@@ -1234,6 +1241,7 @@ class Dialogs {
      * 
      * @param {Pointer<PAGESETUPDLGA>} param0 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-pagesetupdlga
      */
     static PageSetupDlgA(param0) {
         result := DllCall("COMDLG32.dll\PageSetupDlgA", "ptr", param0, "int")
@@ -1244,6 +1252,7 @@ class Dialogs {
      * 
      * @param {Pointer<PAGESETUPDLGW>} param0 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/commdlg/nc-commdlg-pagesetupdlgw
      */
     static PageSetupDlgW(param0) {
         result := DllCall("COMDLG32.dll\PageSetupDlgW", "ptr", param0, "int")

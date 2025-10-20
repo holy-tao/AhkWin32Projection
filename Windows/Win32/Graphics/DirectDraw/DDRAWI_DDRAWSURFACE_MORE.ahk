@@ -176,7 +176,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpGammaRamp {
         get => NumGet(this, 152, "ptr")
@@ -184,7 +184,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     lpOriginalGammaRamp {
         get => NumGet(this, 160, "ptr")
@@ -243,7 +243,7 @@ class DDRAWI_DDRAWSURFACE_MORE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<DDRAWI_DDRAWSURFACE_LCL>}
+     * @type {Pointer<Pointer<DDRAWI_DDRAWSURFACE_LCL>>}
      */
     slist {
         get => NumGet(this, 216, "ptr")

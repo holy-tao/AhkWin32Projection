@@ -29,7 +29,7 @@ class D3D12_FEATURE_DATA_FEATURE_LEVELS extends Win32Struct
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>s that the application is requesting for the driver and hardware to evaluate.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pFeatureLevelsRequested {
         get => NumGet(this, 8, "ptr")

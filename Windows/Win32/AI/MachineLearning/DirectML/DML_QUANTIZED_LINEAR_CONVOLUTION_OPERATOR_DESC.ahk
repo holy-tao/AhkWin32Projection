@@ -138,7 +138,7 @@ class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The strides of the convolution operation. These strides are applied to the convolution filter. They are separate from the tensor strides included in [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 88, "ptr")
@@ -149,7 +149,7 @@ class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The Dilations of the convolution operation. Dilations are strides applied to the elements of the filter kernel. This has the effect of simulating a larger filter kernel by padding the internal filter kernel elements with zeros.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Dilations {
         get => NumGet(this, 96, "ptr")
@@ -160,7 +160,7 @@ class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The padding values to be applied to the beginning of each spatial dimension of the filter and input tensor of the convolution operation.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 104, "ptr")
@@ -171,7 +171,7 @@ class DML_QUANTIZED_LINEAR_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The padding values to be applied to the end of each spatial dimension of the filter and input tensor of the convolution operation.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 112, "ptr")

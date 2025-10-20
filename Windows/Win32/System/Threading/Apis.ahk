@@ -1194,8 +1194,8 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<UIntPtr>} lpMinimumWorkingSetSize A pointer to a variable that receives the minimum working set size of the specified process, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the process whenever the process is active.
-     * @param {Pointer<UIntPtr>} lpMaximumWorkingSetSize A pointer to a variable that receives the maximum working set size of the specified process, in bytes. The virtual memory manager attempts to keep no more than this much memory resident in the process whenever the process is active when memory is in short supply.
+     * @param {Pointer<Pointer>} lpMinimumWorkingSetSize A pointer to a variable that receives the minimum working set size of the specified process, in bytes. The virtual memory manager attempts to keep at least this much memory resident in the process whenever the process is active.
+     * @param {Pointer<Pointer>} lpMaximumWorkingSetSize A pointer to a variable that receives the maximum working set size of the specified process, in bytes. The virtual memory manager attempts to keep no more than this much memory resident in the process whenever the process is active when memory is in short supply.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1679,7 +1679,7 @@ class Threading {
      * @param {Pointer<INIT_ONCE>} InitOnce A pointer to the one-time initialization structure.
      * @param {Pointer<PINIT_ONCE_FN>} InitFn A pointer to an application-defined <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nc-synchapi-pinit_once_fn">InitOnceCallback</a> function.
      * @param {Pointer<Void>} Parameter A parameter to be passed to the callback function.
-     * @param {Pointer<Void>} Context A parameter that receives data stored with the one-time initialization structure upon success. The low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> bits of the data are always zero.
+     * @param {Pointer<Pointer<Void>>} Context A parameter that receives data stored with the one-time initialization structure upon success. The low-order <b>INIT_ONCE_CTX_RESERVED_BITS</b> bits of the data are always zero.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1690,7 +1690,7 @@ class Threading {
     static InitOnceExecuteOnce(InitOnce, InitFn, Parameter, Context) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr", Context, "int")
+        result := DllCall("KERNEL32.dll\InitOnceExecuteOnce", "ptr", InitOnce, "ptr", InitFn, "ptr", Parameter, "ptr*", Context, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1737,7 +1737,7 @@ class Threading {
      * If this parameter is **FALSE**, initialization has already completed and the caller can retrieve the context data from the *lpContext* parameter.
      * 
      * If this parameter is **TRUE** and *dwFlags* does not contain **INIT_ONCE_CHECK_ONLY**, initialization has been started and the caller can perform the initialization tasks.
-     * @param {Pointer<Void>} lpContext An optional parameter that receives the data stored with the one-time initialization structure upon success. The low-order **INIT_ONCE_CTX_RESERVED_BITS** bits of the data are always zero.
+     * @param {Pointer<Pointer<Void>>} lpContext An optional parameter that receives the data stored with the one-time initialization structure upon success. The low-order **INIT_ONCE_CTX_RESERVED_BITS** bits of the data are always zero.
      * @returns {BOOL} If **INIT_ONCE_CHECK_ONLY** is not specified and the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If **INIT_ONCE_CHECK_ONLY** is specified and initialization has completed, the return value is <b>TRUE</b>.
@@ -1751,7 +1751,7 @@ class Threading {
     static InitOnceBeginInitialize(lpInitOnce, dwFlags, fPending, lpContext) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr", lpContext, "int")
+        result := DllCall("KERNEL32.dll\InitOnceBeginInitialize", "ptr", lpInitOnce, "uint", dwFlags, "ptr", fPending, "ptr*", lpContext, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1984,7 +1984,7 @@ class Threading {
      * This handle must have the <b>SEMAPHORE_MODIFY_STATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
      * @param {Integer} lReleaseCount The amount by which the semaphore object's current count is to be increased. The value must be greater than zero. If the specified amount would cause the semaphore's count to exceed the maximum count that was specified when the semaphore was created, the count is not changed and the function returns <b>FALSE</b>.
-     * @param {Pointer<Int32>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
+     * @param {Pointer<Integer>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -2759,7 +2759,7 @@ class Threading {
      * 
      * The handle must have the <b>TIMER_MODIFY_STATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Pointer<Int64>} lpDueTime The time after which the state of the timer is to be set to signaled, in 100 nanosecond intervals. Use the format described by the 
+     * @param {Pointer<Integer>} lpDueTime The time after which the state of the timer is to be set to signaled, in 100 nanosecond intervals. Use the format described by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. Positive values indicate absolute time. Be sure to use a UTC-based absolute time, as the system uses UTC-based time internally. Negative values indicate relative time. The actual timer accuracy depends on the capability of your hardware. For more information about UTC-based time, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/system-time">System Time</a>.
      * @param {Integer} lPeriod The period of the timer, in milliseconds. If <i>lPeriod</i> is zero, the timer is signaled once. If <i>lPeriod</i> is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled using the 
@@ -2800,7 +2800,7 @@ class Threading {
      * 
      * The handle must have the <b>TIMER_MODIFY_STATE</b> access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
-     * @param {Pointer<Int64>} lpDueTime The time after which the state of the timer is to be set to signaled, in 100 nanosecond intervals. Use the format described by the 
+     * @param {Pointer<Integer>} lpDueTime The time after which the state of the timer is to be set to signaled, in 100 nanosecond intervals. Use the format described by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure. Positive values indicate absolute time. Be sure to use a UTC-based absolute time, as the system uses UTC-based time internally. Negative values indicate relative time. The actual timer accuracy depends on the capability of your hardware. For more information about UTC-based time, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SysInfo/system-time">System Time</a>.
      * @param {Integer} lPeriod The period of the timer, in milliseconds. If <i>lPeriod</i> is zero, the timer is signaled once. If <i>lPeriod</i> is greater than zero, the timer is periodic. A periodic timer automatically reactivates each time the period elapses, until the timer is canceled using the 
@@ -3699,6 +3699,7 @@ class Threading {
      * @param {Pointer} Data 
      * @param {Integer} Flags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-queueuserapc2
      */
     static QueueUserAPC2(ApcRoutine, Thread, Data, Flags) {
         Thread := Thread is Win32Handle ? NumGet(Thread, "ptr") : Thread
@@ -3839,7 +3840,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<UInt32>} lpExitCode A pointer to a variable to receive the process termination status. For more information, see Remarks.
+     * @param {Pointer<Integer>} lpExitCode A pointer to a variable to receive the process termination status. For more information, see Remarks.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3927,7 +3928,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lpThreadId A pointer to a variable that receives the  thread identifier. If this parameter is 
+     * @param {Pointer<Integer>} lpThreadId A pointer to a variable that receives the  thread identifier. If this parameter is 
      *       <b>NULL</b>, the thread identifier is not returned.
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the new thread.
      * 
@@ -4008,7 +4009,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} lpThreadId A pointer to a variable that receives the thread identifier. 
+     * @param {Pointer<Integer>} lpThreadId A pointer to a variable that receives the thread identifier. 
      * 
      * 
      * 
@@ -4376,7 +4377,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/thread-security-and-access-rights">Thread Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>THREAD_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<UInt32>} lpExitCode A pointer to a variable to receive the thread termination status. For more information, see Remarks.
+     * @param {Pointer<Integer>} lpExitCode A pointer to a variable to receive the thread termination status. For more information, see Remarks.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -5336,7 +5337,7 @@ class Threading {
 
     /**
      * Sets the minimum size of the stack associated with the calling thread or fiber that will be available during any stack overflow exceptions.
-     * @param {Pointer<UInt32>} StackSizeInBytes The size of the stack, in bytes. On return, this value is set to the size of the previous stack, in bytes.
+     * @param {Pointer<Integer>} StackSizeInBytes The size of the stack, in bytes. On return, this value is set to the size of the previous stack, in bytes.
      * 
      * If this parameter is 0 (zero), the function succeeds and the parameter contains the size of the current stack.
      * 
@@ -5452,7 +5453,7 @@ class Threading {
      * Initializes the specified list of attributes for process and thread creation.
      * @param {Pointer} lpAttributeList The attribute list. This parameter can be NULL to determine the buffer size required to support the specified number of attributes.
      * @param {Integer} dwAttributeCount The count of attributes to be added to the list.
-     * @param {Pointer<UIntPtr>} lpSize If <i>lpAttributeList</i> is not NULL, this parameter specifies the size in bytes of the <i>lpAttributeList</i> buffer on input. On output, this parameter receives the size in bytes of the initialized attribute list. 
+     * @param {Pointer<Pointer>} lpSize If <i>lpAttributeList</i> is not NULL, this parameter specifies the size in bytes of the <i>lpAttributeList</i> buffer on input. On output, this parameter receives the size in bytes of the initialized attribute list. 
      * 
      * If <i>lpAttributeList</i> is NULL, this parameter receives the required buffer size in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -5495,7 +5496,7 @@ class Threading {
      * @param {Pointer} lpValue A pointer to the attribute value. This value should persist until the attribute is destroyed using the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-deleteprocthreadattributelist">DeleteProcThreadAttributeList</a> function.
      * @param {Pointer} cbSize The size of the attribute value specified by the <i>lpValue</i> parameter.
      * @param {Pointer} lpPreviousValue This parameter is reserved and must be NULL.
-     * @param {Pointer<UIntPtr>} lpReturnSize This parameter is reserved and must be NULL.
+     * @param {Pointer<Pointer>} lpReturnSize This parameter is reserved and must be NULL.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -5589,7 +5590,7 @@ class Threading {
      * Retrieves the affinity update mode of the specified process.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt32>} lpdwFlags 
+     * @param {Pointer<Integer>} lpdwFlags 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -5663,7 +5664,7 @@ class Threading {
      * </tr>
      * </table>
      * @param {LPPROC_THREAD_ATTRIBUTE_LIST} lpAttributeList An attribute list that contains additional parameters for the new thread. This list is created by the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-initializeprocthreadattributelist">InitializeProcThreadAttributeList</a> function.
-     * @param {Pointer<UInt32>} lpThreadId A pointer to a variable that receives the thread identifier. 
+     * @param {Pointer<Integer>} lpThreadId A pointer to a variable that receives the thread identifier. 
      * 
      * 
      * 
@@ -5702,8 +5703,8 @@ class Threading {
      * To compile an application that uses this function, set _WIN32_WINNT &gt;= 0x0602. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * 
      * 
-     * @param {Pointer<UIntPtr>} LowLimit A pointer variable that receives the lower boundary of the current thread stack.
-     * @param {Pointer<UIntPtr>} HighLimit A pointer variable that receives the upper boundary of the current thread stack.
+     * @param {Pointer<Pointer>} LowLimit A pointer variable that receives the lower boundary of the current thread stack.
+     * @param {Pointer<Pointer>} HighLimit A pointer variable that receives the upper boundary of the current thread stack.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getcurrentthreadstacklimits
      * @since windows8.0
@@ -5880,7 +5881,7 @@ class Threading {
      *         or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the PROCESS_QUERY_INFORMATION access right.
-     * @param {Pointer<UInt32>} pdwHandleCount A pointer to a variable that receives the number of open handles that belong to the specified process.
+     * @param {Pointer<Integer>} pdwHandleCount A pointer to a variable that receives the number of open handles that belong to the specified process.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error  information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -6149,7 +6150,7 @@ class Threading {
      * Sets a protected policy.
      * @param {Pointer<Guid>} PolicyGuid The globally-unique identifier of the policy to set.
      * @param {Pointer} PolicyValue The value to set the policy to.
-     * @param {Pointer<UIntPtr>} OldPolicyValue Optionally receives the original value that was associated with the supplied policy.
+     * @param {Pointer<Pointer>} OldPolicyValue Optionally receives the original value that was associated with the supplied policy.
      * @returns {BOOL} True if the function succeeds; otherwise, false. To retrieve error values for this function, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprotectedpolicy
      * @since windows8.1
@@ -6167,7 +6168,7 @@ class Threading {
     /**
      * Queries the value associated with a protected policy.
      * @param {Pointer<Guid>} PolicyGuid The globally-unique identifier of the policy to query.
-     * @param {Pointer<UIntPtr>} PolicyValue Receives the value that the supplied policy is set to.
+     * @param {Pointer<Pointer>} PolicyValue Receives the value that the supplied policy is set to.
      * @returns {BOOL} True if the function succeeds; otherwise, false.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-queryprotectedpolicy
      * @since windows8.1
@@ -6324,9 +6325,9 @@ class Threading {
     /**
      * Retrieves the list of CPU Sets in the process default set that was set by SetProcessDefaultCpuSets.
      * @param {HANDLE} Process Specifies a process handle for the process to query. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) can also be specified here.
-     * @param {Pointer<UInt32>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
+     * @param {Pointer<Integer>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
      * @param {Integer} CpuSetIdCount Specifies the capacity of the buffer specified in **CpuSetIds**. If the buffer is NULL, this must be 0.
-     * @param {Pointer<UInt32>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of process default CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
+     * @param {Pointer<Integer>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of process default CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
      * @returns {BOOL} This API returns TRUE on success. If the buffer is not large enough the API returns FALSE, and the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessdefaultcpusets
      */
@@ -6340,7 +6341,7 @@ class Threading {
     /**
      * Sets the default CPU Sets assignment for threads in the specified process.
      * @param {HANDLE} Process Specifies the process for which to set the default CPU Sets. This handle must have the PROCESS\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
-     * @param {Pointer<UInt32>} CpuSetIds Specifies the list of CPU Set IDs to set as the process default CPU set. If this is NULL, the **SetProcessDefaultCpuSets** clears out any assignment.
+     * @param {Pointer<Integer>} CpuSetIds Specifies the list of CPU Set IDs to set as the process default CPU set. If this is NULL, the **SetProcessDefaultCpuSets** clears out any assignment.
      * @param {Integer} CpuSetIdCount Specifies the number of IDs in the list passed in the **CpuSetIds** argument. If that value is NULL, this should be 0.
      * @returns {BOOL} This function cannot fail when passed valid parameters
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setprocessdefaultcpusets
@@ -6355,9 +6356,9 @@ class Threading {
     /**
      * Returns the explicit CPU Set assignment of the specified thread, if any assignment was set using the SetThreadSelectedCpuSets API.
      * @param {HANDLE} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the THREAD\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be specified here.
-     * @param {Pointer<UInt32>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
+     * @param {Pointer<Integer>} CpuSetIds Specifies an optional buffer to retrieve the list of CPU Set identifiers.
      * @param {Integer} CpuSetIdCount Specifies the capacity of the buffer specified in **CpuSetIds**. If the buffer is NULL, this must be 0.
-     * @param {Pointer<UInt32>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of thread selected CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
+     * @param {Pointer<Integer>} RequiredIdCount Specifies the required capacity of the buffer to hold the entire list of thread selected CPU Sets. On successful return, this specifies the number of IDs filled into the buffer.
      * @returns {BOOL} This API returns TRUE on success. If the buffer is not large enough, the **GetLastError** value is ERROR\_INSUFFICIENT\_BUFFER. This API cannot fail when passed valid parameters and the return buffer is large enough.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadselectedcpusets
      */
@@ -6371,7 +6372,7 @@ class Threading {
     /**
      * Sets the selected CPU Sets assignment for the specified thread. This assignment overrides the process default assignment, if one is set.
      * @param {HANDLE} Thread Specifies the thread on which to set the CPU Set assignment. This handle must have the THREAD\_SET\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentThread**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentthread) can also be used.
-     * @param {Pointer<UInt32>} CpuSetIds Specifies the list of CPU Set IDs to set as the thread selected CPU set. If this is NULL, the API clears out any assignment, reverting to process default assignment if one is set.
+     * @param {Pointer<Integer>} CpuSetIds Specifies the list of CPU Set IDs to set as the thread selected CPU set. If this is NULL, the API clears out any assignment, reverting to process default assignment if one is set.
      * @param {Integer} CpuSetIdCount Specifies the number of IDs in the list passed in the **CpuSetIds** argument. If that value is NULL, this should be 0.
      * @returns {BOOL} This function cannot fail when passed valid parameters.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-setthreadselectedcpusets
@@ -6534,7 +6535,7 @@ class Threading {
 
     /**
      * Retrieves the shutdown parameters for the currently calling process.
-     * @param {Pointer<UInt32>} lpdwLevel A pointer to a variable that receives the shutdown priority level. Higher levels shut down first. System level shutdown orders are reserved for system components. Higher numbers shut down first. Following are the level conventions.
+     * @param {Pointer<Integer>} lpdwLevel A pointer to a variable that receives the shutdown priority level. Higher levels shut down first. System level shutdown orders are reserved for system components. Higher numbers shut down first. Following are the level conventions.
      * 
      * <table>
      * <tr>
@@ -6600,7 +6601,7 @@ class Threading {
      *  
      * 
      * All processes start at shutdown level 0x280.
-     * @param {Pointer<UInt32>} lpdwFlags A pointer to a variable that receives the shutdown flags. This parameter can be the following value.
+     * @param {Pointer<Integer>} lpdwFlags A pointer to a variable that receives the shutdown flags. This parameter can be the following value.
      * 
      * <table>
      * <tr>
@@ -6641,7 +6642,7 @@ class Threading {
      * @param {HANDLE} Process Specifies a process handle for the process to query. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer to retrieve a list of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the process default CPU Sets.
      * @param {Integer} CpuSetMaskCount Specifies the size of the *CpuSetMasks* array, in elements.
-     * @param {Pointer<UInt16>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array. If the *CpuSetMasks* array is too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required. The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
+     * @param {Pointer<Integer>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array. If the *CpuSetMasks* array is too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required. The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero and extended error information can be retrieved by calling [GetLastError](../errhandlingapi/nf-errhandlingapi-getlasterror.md). 
@@ -6676,7 +6677,7 @@ class Threading {
      * @param {HANDLE} Thread Specifies the thread for which to query the selected CPU Sets. This handle must have the [PROCESS_QUERY_LIMITED_INFORMATION](/windows/win32/procthread/process-security-and-access-rights) access right. The value returned by [GetCurrentProcess](nf-processthreadsapi-getcurrentprocess.md) can also be specified here.
      * @param {Pointer<GROUP_AFFINITY>} CpuSetMasks Specifies an optional buffer to retrieve a list of [GROUP_AFFINITY](../winnt/ns-winnt-group_affinity.md) structures representing the thread selected CPU Sets.
      * @param {Integer} CpuSetMaskCount Specifies the size of the *CpuSetMasks* array, in elements.
-     * @param {Pointer<UInt16>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array.
+     * @param {Pointer<Integer>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array.
      * If the array is too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required.
      * The number of required elements is always less than or equal to the maximum group count returned by [GetMaximumProcessorGroupCount](../winbase/nf-winbase-getmaximumprocessorgroupcount.md).
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -6713,8 +6714,9 @@ class Threading {
     /**
      * 
      * @param {Integer} Machine 
-     * @param {Pointer<Int32>} MachineTypeAttributes 
+     * @param {Pointer<Integer>} MachineTypeAttributes 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getmachinetypeattributes
      */
     static GetMachineTypeAttributes(Machine, MachineTypeAttributes) {
         result := DllCall("KERNEL32.dll\GetMachineTypeAttributes", "ushort", Machine, "int*", MachineTypeAttributes, "int")
@@ -7903,6 +7905,7 @@ class Threading {
      * 
      * @param {Integer} Machine 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/wow64apiset/nf-wow64apiset-wow64setthreaddefaultguestmachine
      */
     static Wow64SetThreadDefaultGuestMachine(Machine) {
         result := DllCall("api-ms-win-core-wow64-l1-1-1.dll\Wow64SetThreadDefaultGuestMachine", "ushort", Machine, "ushort")
@@ -7912,8 +7915,8 @@ class Threading {
     /**
      * Determines whether the specified process is running under WOW64; also returns additional machine process and architecture information.
      * @param {HANDLE} hProcess A handle to the process. The handle must have the <b>PROCESS_QUERY_INFORMATION</b> or <b>PROCESS_QUERY_LIMITED_INFORMATION</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt16>} pProcessMachine On success, returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value. The value will be  <b>IMAGE_FILE_MACHINE_UNKNOWN</b> if the target process is not a <a href="https://docs.microsoft.com/windows/desktop/WinProg64/running-32-bit-applications">WOW64</a> process; otherwise, it will identify the type of WoW process.
-     * @param {Pointer<UInt16>} pNativeMachine On success, returns a pointer to a possible <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value identifying the native architecture of host system.
+     * @param {Pointer<Integer>} pProcessMachine On success, returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value. The value will be  <b>IMAGE_FILE_MACHINE_UNKNOWN</b> if the target process is not a <a href="https://docs.microsoft.com/windows/desktop/WinProg64/running-32-bit-applications">WOW64</a> process; otherwise, it will identify the type of WoW process.
+     * @param {Pointer<Integer>} pNativeMachine On success, returns a pointer to a possible <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value identifying the native architecture of host system.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -8072,7 +8075,7 @@ class Threading {
 
     /**
      * Retrieves the node that currently has the highest number.
-     * @param {Pointer<UInt32>} HighestNodeNumber The number of the highest node.
+     * @param {Pointer<Integer>} HighestNodeNumber The number of the highest node.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -8114,7 +8117,7 @@ class Threading {
      * 
      * Each element in the array describes a set of processors that belong to the node within a single processor group. There will be one element in the resulting array for each processor group this node has active processors in.
      * @param {Integer} ProcessorMaskCount Specifies the size of the *ProcessorMasks* array, in elements.
-     * @param {Pointer<UInt16>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array.
+     * @param {Pointer<Integer>} RequiredMaskCount On successful return, specifies the number of affinity structures written to the array.
      * 
      * If the input array was too small, the function fails with **ERROR_INSUFFICIENT_BUFFER** and sets the *RequiredMaskCount* parameter to the number of elements required. 
      * 
@@ -8136,7 +8139,7 @@ class Threading {
     /**
      * Retrieves the NUMA node number that corresponds to the specified proximity identifier as a USHORT value.
      * @param {Integer} ProximityId The proximity identifier of the node.
-     * @param {Pointer<UInt16>} NodeNumber Points to a variable to receive the node number for the specified proximity identifier.
+     * @param {Pointer<Integer>} NodeNumber Points to a variable to receive the node number for the specified proximity identifier.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
@@ -8154,8 +8157,8 @@ class Threading {
      * 
      * This handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt16>} GroupCount On input, specifies the number of elements in <i>GroupArray</i> array. On output, specifies the number of processor groups written to the array. If the array is too small, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>GroupCount</i> parameter to the number of elements required.
-     * @param {Pointer<UInt16>} GroupArray An array of processor group numbers. A group number is included in the array if a thread in the process is assigned to a processor in the group.
+     * @param {Pointer<Integer>} GroupCount On input, specifies the number of elements in <i>GroupArray</i> array. On output, specifies the number of processor groups written to the array. If the array is too small, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>GroupCount</i> parameter to the number of elements required.
+     * @param {Pointer<Integer>} GroupArray An array of processor group numbers. A group number is included in the array if a thread in the process is assigned to a processor in the group.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">GetLastError</a>.
@@ -8215,7 +8218,7 @@ class Threading {
     /**
      * Associates the calling thread with the specified task.
      * @param {PSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
+     * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
      * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8282,7 +8285,7 @@ class Threading {
     /**
      * Associates the calling thread with the specified task.
      * @param {PWSTR} TaskName The name of the task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
+     * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
      * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8350,7 +8353,7 @@ class Threading {
      * Associates the calling thread with the specified tasks.
      * @param {PSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {PSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
+     * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
      * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8419,7 +8422,7 @@ class Threading {
      * Associates the calling thread with the specified tasks.
      * @param {PWSTR} FirstTask The name of the first task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
      * @param {PWSTR} SecondTask The name of the second task to be performed. This name must match the name of one of the subkeys of the following key <b>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks</b>.
-     * @param {Pointer<UInt32>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
+     * @param {Pointer<Integer>} TaskIndex The unique task identifier. The first time this function is called, this value must be 0 on input. The index value is returned on output and can be used as input in subsequent calls.
      * @returns {HANDLE} If the function succeeds, it returns a handle to the task. 
      * 
      * If the function fails, it returns 0. To retrieve extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -8532,13 +8535,13 @@ class Threading {
     /**
      * Creates a thread ordering group.
      * @param {Pointer<HANDLE>} Context A pointer to a context handle.
-     * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
+     * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group to be created. If this value is not unique to the thread ordering service, the function fails.
      * 
      * If the identifier is GUID_NULL on input, the thread ordering service generates and returns a unique identifier.
-     * @param {Pointer<Int64>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
+     * @param {Pointer<Integer>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
      * 
      * If a thread fails to complete its processing within the period plus this time-out interval, it is removed from the thread ordering group. If the parent fails to complete its processing within the period plus the time-out interval, the thread ordering group is destroyed.
      * 
@@ -8569,13 +8572,13 @@ class Threading {
     /**
      * Creates a thread ordering group and associates the server thread with a task.
      * @param {Pointer<HANDLE>} Context A pointer to a context handle.
-     * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
+     * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group to be created. If this value is not unique to the thread ordering service, the function fails.
      * 
      * If the identifier is GUID_NULL on input, the thread ordering service generates and returns a unique identifier.
-     * @param {Pointer<Int64>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
+     * @param {Pointer<Integer>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
      * 
      * If a thread fails to complete its processing within the period plus this time-out interval, it is removed from the thread ordering group. If the parent fails to complete its processing within the period plus the time-out interval, the thread ordering group is destroyed.
      * 
@@ -8609,13 +8612,13 @@ class Threading {
     /**
      * Creates a thread ordering group and associates the server thread with a task.
      * @param {Pointer<HANDLE>} Context A pointer to a context handle.
-     * @param {Pointer<Int64>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
+     * @param {Pointer<Integer>} Period A pointer to a value, in 100-nanosecond increments, that specifies the period for the thread ordering group. Each thread in the thread ordering group runs one time during this period. If all threads complete their execution before a period ends, all threads wait until the remainder of the period elapses before any are executed again.
      * 
      * The possible values for this parameter depend on the platform, but this parameter can be as low as 500 microseconds or as high as 0x1FFFFFFFFFFFFFFF. If this parameter is less than 500 microseconds, then it is set to 500 microseconds. If this parameter is greater than the maximum, then it is set to 0x1FFFFFFFFFFFFFFF.
      * @param {Pointer<Guid>} ThreadOrderingGuid A pointer to the unique identifier for the thread ordering group to be created. If this value is not unique to the thread ordering service, the function fails.
      * 
      * If the identifier is GUID_NULL on input, the thread ordering service generates and returns a unique identifier.
-     * @param {Pointer<Int64>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
+     * @param {Pointer<Integer>} Timeout A pointer to a time-out value. All threads within the group should complete their execution within <i>Period</i> plus <i>Timeout</i>.
      * 
      * If a thread fails to complete its processing within the period plus this time-out interval, it is removed from the thread ordering group. If the parent fails to complete its processing within the period plus the time-out interval, the thread ordering group is destroyed.
      * 
@@ -8737,7 +8740,7 @@ class Threading {
     /**
      * Retrieves the system responsiveness setting used by the multimedia class scheduler service.
      * @param {HANDLE} AvrtHandle A handle to the task. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadcharacteristicsa">AvSetMmThreadCharacteristics</a> or <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmmaxthreadcharacteristicsa">AvSetMmMaxThreadCharacteristics</a> function.
-     * @param {Pointer<UInt32>} SystemResponsivenessValue The system responsiveness value. This value can range from 10 to 100 percent.
+     * @param {Pointer<Integer>} SystemResponsivenessValue The system responsiveness value. This value can range from 10 to 100 percent.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -8819,8 +8822,8 @@ class Threading {
      * Obtains and locks a shared work queue.
      * @param {PWSTR} usageClass The name of the Multimedia Class Scheduler Service (MMCSS) task.
      * @param {Integer} basePriority The base priority of the work-queue threads. If the regular-priority queue is being used (<c>usageClass=""</c>), then the value 0 must be passed in.
-     * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. If the regular priority queue is being used (<c>usageClass=""</c>), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
-     * @param {Pointer<UInt32>} id Receives an identifier for the new work queue. Use this identifier when queuing work items.
+     * @param {Pointer<Integer>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. If the regular priority queue is being used (<c>usageClass=""</c>), then <b>NULL</b> must be passed in. On output, receives the actual task group ID.
+     * @param {Pointer<Integer>} id Receives an identifier for the new work queue. Use this identifier when queuing work items.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqlocksharedworkqueue
      * @since windows8.1
@@ -8874,16 +8877,16 @@ class Threading {
 
     /**
      * Creates an asynchronous result object. Use this function if you are implementing an asynchronous method.
-     * @param {Pointer<IUnknown>} appObject Pointer to the object stored in the asynchronous result. This pointer is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasyncresult-getobject">IRtwqAsyncResult::GetObject</a> method. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IRtwqAsyncCallback>} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
-     * @param {Pointer<IUnknown>} appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
+     * @param {IUnknown} appObject Pointer to the object stored in the asynchronous result. This pointer is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasyncresult-getobject">IRtwqAsyncResult::GetObject</a> method. This parameter can be <b>NULL</b>.
+     * @param {IRtwqAsyncCallback} callback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface. This interface is implemented by the caller of the asynchronous method.
+     * @param {IUnknown} appState Pointer to the <b>IUnknown</b> interface of a state object. This value is provided by the caller of the asynchronous method. This parameter can be <b>NULL</b>.
      * @param {Pointer<IRtwqAsyncResult>} asyncResult Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. The caller must release the interface.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqcreateasyncresult
      * @since windows8.1
      */
     static RtwqCreateAsyncResult(appObject, callback, appState, asyncResult) {
-        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr", asyncResult, "int")
+        result := DllCall("RTWorkQ.dll\RtwqCreateAsyncResult", "ptr", appObject, "ptr", callback, "ptr", appState, "ptr*", asyncResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -8892,7 +8895,7 @@ class Threading {
 
     /**
      * Invokes a callback method to complete an asynchronous operation.
-     * @param {Pointer<IRtwqAsyncResult>} result The asynchronous result. To create this object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
+     * @param {IRtwqAsyncResult} result The asynchronous result. To create this object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqinvokecallback
      * @since windows8.1
@@ -8936,7 +8939,7 @@ class Threading {
     /**
      * Registers the standard platform work queues with the Multimedia Class Scheduler Service (MMCSS).
      * @param {PWSTR} usageClass The name of the MMCSS task.
-     * @param {Pointer<UInt32>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. On output, receives the actual task group ID.
+     * @param {Pointer<Integer>} taskId The MMCSS task identifier. On input, specify an existing MCCSS task group ID, or use the value zero to create a new task group. On output, receives the actual task group ID.
      * @param {Integer} lPriority The base priority of the work-queue threads.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqregisterplatformwithmmcss
@@ -8970,7 +8973,7 @@ class Threading {
      * Puts an asynchronous operation on a work queue.
      * @param {Integer} dwQueue The identifier for the work queue. This value can specify one of the standard work queues, or a work queue created by the app. To access to a work queue, call [RtwqLockSharedWorkQueue](./nf-rtworkq-rtwqlocksharedworkqueue.md).
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority. This value should be -1, 0, or 1, where -1 is the lowest priority and 1 is the highest priority.
-     * @param {Pointer<IRtwqAsyncResult>} result A pointer to the callback .  The caller must implement this interface.
+     * @param {IRtwqAsyncResult} result A pointer to the callback .  The caller must implement this interface.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqputworkitem
      * @since windows8.1
@@ -8987,8 +8990,8 @@ class Threading {
      * Queues a work item that waits for an event to be signaled.
      * @param {HANDLE} hEvent A handle to an event object, such as an event or timer. To create an event object, call <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventexa">CreateEventEx</a>.
      * @param {Integer} lPriority The priority of the work item. Work items are performed in order of priority.
-     * @param {Pointer<IRtwqAsyncResult>} result A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
-     * @param {Pointer<UInt64>} key Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
+     * @param {IRtwqAsyncResult} result A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface of an asynchronous result object. To create the result object, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcreateasyncresult">RtwqCreateAsyncResult</a>.
+     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the wait. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqputwaitingworkitem
      * @since windows8.1
@@ -9013,7 +9016,7 @@ class Threading {
      * <li>A multithreaded queue returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqlocksharedworkqueue">RtwqLockSharedWorkQueue</a>  function.</li>
      * <li>A serial queue created by the <b>RtwqAllocateSerialWorkQueue</b> function.</li>
      * </ul>
-     * @param {Pointer<UInt32>} workQueueIdOut Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
+     * @param {Pointer<Integer>} workQueueIdOut Receives an identifier for the new serial work queue. Use this identifier when queuing work items.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9071,9 +9074,9 @@ class Threading {
 
     /**
      * Schedules an asynchronous operation to be completed after a specified interval.
-     * @param {Pointer<IRtwqAsyncResult>} result A pointer to the callback. The caller must implement this interface.
+     * @param {IRtwqAsyncResult} result A pointer to the callback. The caller must implement this interface.
      * @param {Integer} Timeout Time-out interval, in milliseconds. Set this parameter to a negative value. The callback is invoked after <i>−Timeout</i> milliseconds. For example, if <i>Timeout</i> is −5000, the callback is invoked after 5000 milliseconds.
-     * @param {Pointer<UInt64>} key Receives a key that can be used to cancel the timer. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
+     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the timer. To cancel the wait, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqcancelworkitem">RtwqCancelWorkItem</a> and pass this key in the <i>Key</i> parameter.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqscheduleworkitem
      * @since windows8.1
@@ -9089,8 +9092,8 @@ class Threading {
     /**
      * Sets a callback function to be called at a fixed interval.
      * @param {Pointer<RTWQPERIODICCALLBACK>} Callback Pointer to the callback function.
-     * @param {Pointer<IUnknown>} context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
-     * @param {Pointer<UInt32>} key Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
+     * @param {IUnknown} context Pointer to a caller-provided object that implements <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>, or <b>NULL</b>. This parameter is passed to the callback function.
+     * @param {Pointer<Integer>} key Receives a key that can be used to cancel the callback. To cancel the callback, call <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqremoveperiodiccallback">RtwqRemovePeriodicCallback</a> and pass this key as the <i>dwKey</i> parameter.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqaddperiodiccallback
      * @since windows8.1
@@ -9173,7 +9176,7 @@ class Threading {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} workQueueId Receives an identifier for the work queue that was created.
+     * @param {Pointer<Integer>} workQueueId Receives an identifier for the work queue that was created.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqallocateworkqueue
      * @since windows8.1
@@ -9192,8 +9195,8 @@ class Threading {
      * @param {PWSTR} usageClass The name of the MMCSS task.
      * @param {Integer} dwTaskId The unique task identifier. To obtain a new task identifier, set this value to zero.
      * @param {Integer} lPriority The base relative priority for the work-queue threads. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/avrt/nf-avrt-avsetmmthreadpriority">AvSetMmThreadPriority</a>.
-     * @param {Pointer<IRtwqAsyncCallback>} doneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
-     * @param {Pointer<IUnknown>} doneState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @param {IRtwqAsyncCallback} doneCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} doneState A pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqbeginregisterworkqueuewithmmcss
      * @since windows8.1
@@ -9211,8 +9214,8 @@ class Threading {
     /**
      * Unregisters a work queue from a Multimedia Class Scheduler Service (MMCSS) task.
      * @param {Integer} workQueueId The identifier of the work queue.  For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<IRtwqAsyncCallback>} doneCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
-     * @param {Pointer<IUnknown>} doneState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @param {IRtwqAsyncCallback} doneCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasynccallback">IRtwqAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} doneState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqbeginunregisterworkqueuewithmmcss
      * @since windows8.1
@@ -9227,8 +9230,8 @@ class Threading {
 
     /**
      * Completes an asynchronous request to associate a work queue with a Multimedia Class Scheduler Service (MMCSS) task.
-     * @param {Pointer<IRtwqAsyncResult>} result Pointer to the asynchronous result. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasynccallback-invoke">IRtwqAsyncCallback::Invoke</a> method.
-     * @param {Pointer<UInt32>} taskId The unique task identifier.
+     * @param {IRtwqAsyncResult} result Pointer to the asynchronous result. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasynccallback-invoke">IRtwqAsyncCallback::Invoke</a> method.
+     * @param {Pointer<Integer>} taskId The unique task identifier.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqendregisterworkqueuewithmmcss
      * @since windows8.1
@@ -9245,7 +9248,7 @@ class Threading {
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) class currently associated with this work queue.
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
      * @param {PWSTR} usageClass Pointer to a buffer that receives the name of the MMCSS class. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} usageClassLength On input, specifies the size of the <i>usageClass</i> buffer, in characters. On output, receives the required size of the buffer, in characters. The size includes the terminating null character.
+     * @param {Pointer<Integer>} usageClassLength On input, specifies the size of the <i>usageClass</i> buffer, in characters. On output, receives the required size of the buffer, in characters. The size includes the terminating null character.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcssclass
      * @since windows8.1
@@ -9263,7 +9266,7 @@ class Threading {
     /**
      * Retrieves the Multimedia Class Scheduler Service (MMCSS) task identifier currently associated with this work queue.
      * @param {Integer} workQueueId Identifier for the work queue. The identifier is retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<UInt32>} taskId Receives the task identifier.
+     * @param {Pointer<Integer>} taskId Receives the task identifier.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsstaskid
      * @since windows8.1
@@ -9279,7 +9282,7 @@ class Threading {
     /**
      * Gets the relative thread priority of a work queue.
      * @param {Integer} workQueueId The identifier of the work queue. For private work queues, the identifier is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-rtwqallocateworkqueue">RtwqAllocateWorkQueue</a> function.
-     * @param {Pointer<Int32>} priority Receives the relative thread priority.
+     * @param {Pointer<Integer>} priority Receives the relative thread priority.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqgetworkqueuemmcsspriority
      * @since windows8.1
@@ -9294,7 +9297,7 @@ class Threading {
 
     /**
      * Enables an app to listen to the RtwqStartup and RtwqShutdown functions.
-     * @param {Pointer<IRtwqPlatformEvents>} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a> object which provides the events.
+     * @param {IRtwqPlatformEvents} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a> object which provides the events.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqregisterplatformevents
      * @since windows8.1
@@ -9309,7 +9312,7 @@ class Threading {
 
     /**
      * Unregisters a listener event from the callback platform.
-     * @param {Pointer<IRtwqPlatformEvents>} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a>  object which provides the events.
+     * @param {IRtwqPlatformEvents} platformEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqplatformevents">IRtwqPlatformEvents</a>  object which provides the events.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-rtwqunregisterplatformevents
      * @since windows8.1
@@ -9393,6 +9396,7 @@ class Threading {
      * 
      * @param {HWND} hwnd 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/WinAuto/getprocesshandlefromhwnd
      */
     static GetProcessHandleFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -9558,8 +9562,8 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * 
      * <b>Windows Server 2003 and Windows XP:  </b>The handle must have the <b>PROCESS_QUERY_INFORMATION</b> access right.
-     * @param {Pointer<UIntPtr>} lpProcessAffinityMask A pointer to a variable that receives the affinity mask for the specified process.
-     * @param {Pointer<UIntPtr>} lpSystemAffinityMask A pointer to a variable that receives the affinity mask for the system.
+     * @param {Pointer<Pointer>} lpProcessAffinityMask A pointer to a variable that receives the affinity mask for the specified process.
+     * @param {Pointer<Pointer>} lpSystemAffinityMask A pointer to a variable that receives the affinity mask for the system.
      * @returns {BOOL} If the function succeeds, the return value is nonzero and the function sets the variables pointed to by <i>lpProcessAffinityMask</i> and <i>lpSystemAffinityMask</i> to the appropriate affinity masks.
      * 
      * On a system with more than 64 processors, if the threads of the calling process are in a single <a href="/windows/desktop/ProcThread/processor-groups">processor group</a>, the function sets the variables pointed to by <i>lpProcessAffinityMask</i> and <i>lpSystemAffinityMask</i> to the process affinity mask and the processor mask of active logical processors for that group. If the calling process contains threads in multiple groups, the function returns zero for both affinity masks.
@@ -9812,7 +9816,7 @@ class Threading {
 
     /**
      * Creates a user-mode scheduling (UMS) completion list.
-     * @param {Pointer<Void>} UmsCompletionList A <b>PUMS_COMPLETION_LIST</b> variable. On output, this parameter receives a pointer 
+     * @param {Pointer<Pointer<Void>>} UmsCompletionList A <b>PUMS_COMPLETION_LIST</b> variable. On output, this parameter receives a pointer 
      *       to an empty UMS completion list.
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
@@ -9843,7 +9847,7 @@ class Threading {
     static CreateUmsCompletionList(UmsCompletionList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr", UmsCompletionList, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsCompletionList", "ptr*", UmsCompletionList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -9856,7 +9860,7 @@ class Threading {
      * @param {Integer} WaitTimeOut The time-out interval for the retrieval operation, in milliseconds. The function returns if the interval elapses, even if no worker threads are queued to the completion list.
      * 
      * If the <i>WaitTimeOut</i> parameter is zero, the completion list is checked for available worker threads without waiting for worker threads to become available. If the <i>WaitTimeOut</i> parameter is INFINITE, the function's time-out interval never elapses. This is not recommended, however, because it causes the function to block until one or more worker threads become available.
-     * @param {Pointer<Void>} UmsThreadList A pointer to a UMS_CONTEXT variable. On output, this parameter receives a pointer to the first UMS thread context in a list of UMS thread contexts. 
+     * @param {Pointer<Pointer<Void>>} UmsThreadList A pointer to a UMS_CONTEXT variable. On output, this parameter receives a pointer to the first UMS thread context in a list of UMS thread contexts. 
      * 
      * If no worker threads are available before the time-out specified by the <i>WaitTimeOut</i> parameter, this parameter is set to NULL.
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
@@ -9886,7 +9890,7 @@ class Threading {
     static DequeueUmsCompletionListItems(UmsCompletionList, WaitTimeOut, UmsThreadList) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr", UmsThreadList, "int")
+        result := DllCall("KERNEL32.dll\DequeueUmsCompletionListItems", "ptr", UmsCompletionList, "uint", WaitTimeOut, "ptr*", UmsThreadList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10035,7 +10039,7 @@ class Threading {
      * 
      * If the information class is <b>UmsThreadIsSuspended</b> or <b>UmsThreadIsTerminated</b>, the buffer must be <c>sizeof(BOOLEAN)</c>.
      * @param {Integer} UmsThreadInformationLength The size of the <i>UmsThreadInformation</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} ReturnLength A pointer to a ULONG variable. On output, this parameter receives the number of bytes written to the <i>UmsThreadInformation</i> buffer.
+     * @param {Pointer<Integer>} ReturnLength A pointer to a ULONG variable. On output, this parameter receives the number of bytes written to the <i>UmsThreadInformation</i> buffer.
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
@@ -10153,7 +10157,7 @@ class Threading {
 
     /**
      * Creates a user-mode scheduling (UMS) thread context to represent a UMS worker thread.
-     * @param {Pointer<Void>} lpUmsThread A PUMS_CONTEXT variable. On output, this parameter receives a pointer to a UMS thread context.
+     * @param {Pointer<Pointer<Void>>} lpUmsThread A PUMS_CONTEXT variable. On output, this parameter receives a pointer to a UMS thread context.
      * @returns {BOOL} If the function succeeds, it returns a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Possible error values include the following.
@@ -10181,7 +10185,7 @@ class Threading {
     static CreateUmsThreadContext(lpUmsThread) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr", lpUmsThread, "int")
+        result := DllCall("KERNEL32.dll\CreateUmsThreadContext", "ptr*", lpUmsThread, "int")
         if(A_LastError)
             throw OSError()
 
@@ -10278,7 +10282,7 @@ class Threading {
      * @param {HANDLE} hProcess A handle to the process. <b>PROCESS_QUERY_INFORMATION</b> privilege is required to get the DEP policy of a process. 
      * 
      * <b>Windows XP with SP3:  </b>The <i>hProcess</i> parameter is ignored.
-     * @param {Pointer<UInt32>} lpFlags A <b>DWORD</b> that receives one or more of the following flags.
+     * @param {Pointer<Integer>} lpFlags A <b>DWORD</b> that receives one or more of the following flags.
      * 
      * <table>
      * <tr>
@@ -10605,6 +10609,7 @@ class Threading {
      * @param {BOOL} bManualReset 
      * @param {PSTR} lpTimerName 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createwaitabletimerw
      */
     static CreateWaitableTimerA(lpTimerAttributes, bManualReset, lpTimerName) {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
@@ -10619,6 +10624,7 @@ class Threading {
      * @param {BOOL} bInheritHandle 
      * @param {PSTR} lpTimerName 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openwaitabletimerw
      */
     static OpenWaitableTimerA(dwDesiredAccess, bInheritHandle, lpTimerName) {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
@@ -10682,6 +10688,7 @@ class Threading {
      * @param {Integer} dwFlags 
      * @param {Integer} dwDesiredAccess 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-createwaitabletimerexw
      */
     static CreateWaitableTimerExA(lpTimerAttributes, lpTimerName, dwFlags, dwDesiredAccess) {
         lpTimerName := lpTimerName is String ? StrPtr(lpTimerName) : lpTimerName
@@ -10696,7 +10703,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwFlags 
      * @param {PSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
-     * @param {Pointer<UInt32>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
+     * @param {Pointer<Integer>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10723,7 +10730,7 @@ class Threading {
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
      * @param {Integer} dwFlags 
      * @param {PWSTR} lpExeName The path to the executable image. If the function succeeds, this string is null-terminated.
-     * @param {Pointer<UInt32>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
+     * @param {Pointer<Integer>} lpdwSize On input, specifies the size of the <i>lpExeName</i> buffer, in characters. On success, receives the number of characters written to the buffer, not including the null-terminating character.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -10748,6 +10755,7 @@ class Threading {
      * 
      * @param {Pointer<STARTUPINFOA>} lpStartupInfo 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getstartupinfow
      */
     static GetStartupInfoA(lpStartupInfo) {
         DllCall("KERNEL32.dll\GetStartupInfoA", "ptr", lpStartupInfo)
@@ -11272,7 +11280,7 @@ class Threading {
      * @param {Integer} Processor The processor number.
      * 
      * On a system with more than 64 logical processors, the processor number is relative to the <a href="https://docs.microsoft.com/windows/desktop/ProcThread/processor-groups">processor group</a> that contains the processor on which the calling thread is running.
-     * @param {Pointer<Byte>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
+     * @param {Pointer<Integer>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11293,7 +11301,7 @@ class Threading {
     /**
      * Retrieves the NUMA node associated with the file or I/O device represented by the specified file handle.
      * @param {HANDLE} hFile A handle to a file or I/O device. Examples of I/O devices include files, file streams, volumes, physical disks, and sockets. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
-     * @param {Pointer<UInt16>} NodeNumber A pointer to a variable to receive the number of the NUMA node associated with the specified file handle.
+     * @param {Pointer<Integer>} NodeNumber A pointer to a variable to receive the number of the NUMA node associated with the specified file handle.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11315,7 +11323,7 @@ class Threading {
     /**
      * Retrieves the node number as a USHORT value for the specified logical processor.
      * @param {Pointer<PROCESSOR_NUMBER>} Processor A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure that represents the logical processor and the processor group to which it is assigned.
-     * @param {Pointer<UInt16>} NodeNumber A pointer  to a variable to receive the node number. If the specified processor does not exist, this parameter is set to MAXUSHORT.
+     * @param {Pointer<Integer>} NodeNumber A pointer  to a variable to receive the node number. If the specified processor does not exist, this parameter is set to MAXUSHORT.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11335,7 +11343,7 @@ class Threading {
     /**
      * Retrieves the processor mask for the specified node.
      * @param {Integer} Node The number of the node.
-     * @param {Pointer<UInt64>} ProcessorMask The processor mask for the node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
+     * @param {Pointer<Integer>} ProcessorMask The processor mask for the node. A processor mask is a bit vector in which each bit represents a processor and whether it is in the node.
      * 
      * If the node has no processors configured, the processor mask is zero.
      * 
@@ -11360,7 +11368,7 @@ class Threading {
     /**
      * Retrieves the amount of memory available in the specified node.
      * @param {Integer} Node The number of the node.
-     * @param {Pointer<UInt64>} AvailableBytes The amount of available memory for the node, in bytes.
+     * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -11381,7 +11389,7 @@ class Threading {
     /**
      * Retrieves the amount of memory that is available in a node specified as a USHORT value.
      * @param {Integer} Node The number of the node.
-     * @param {Pointer<UInt64>} AvailableBytes The amount of available memory for the node, in bytes.
+     * @param {Pointer<Integer>} AvailableBytes The amount of available memory for the node, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -11401,7 +11409,7 @@ class Threading {
     /**
      * Retrieves the NUMA node number that corresponds to the specified proximity domain identifier.
      * @param {Integer} ProximityId The proximity domain identifier of the node.
-     * @param {Pointer<Byte>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
+     * @param {Pointer<Integer>} NodeNumber The node number. If the processor does not exist, this parameter is 0xFF.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error  information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.

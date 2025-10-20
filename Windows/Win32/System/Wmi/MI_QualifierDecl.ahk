@@ -15,7 +15,7 @@ class MI_QualifierDecl extends Win32Struct
 
     /**
      * Name of this qualifier.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 0, "ptr")

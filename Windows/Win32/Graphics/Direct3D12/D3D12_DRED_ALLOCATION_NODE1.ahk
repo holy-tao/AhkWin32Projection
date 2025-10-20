@@ -12,7 +12,7 @@ class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ObjectNameA {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class D3D12_DRED_ALLOCATION_NODE1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pObject {
         get => NumGet(this, 32, "ptr")

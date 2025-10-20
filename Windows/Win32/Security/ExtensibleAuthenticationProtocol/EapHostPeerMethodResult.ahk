@@ -51,7 +51,7 @@ class EapHostPeerMethodResult extends Win32Struct
 
     /**
      * A pointer to a byte buffer that contains information on the connection over which the EAP authentication session is held.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pConnectionData {
         get => NumGet(this, 16, "ptr")
@@ -78,7 +78,7 @@ class EapHostPeerMethodResult extends Win32Struct
 
     /**
      * A pointer to a  byte buffer that contains information on the supplicant user that requested the EAP authentication session.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserData {
         get => NumGet(this, 32, "ptr")

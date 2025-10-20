@@ -352,7 +352,7 @@ class Pnp {
     /**
      * Gets the lifetime of a software device.
      * @param {HSWDEVICE} hSwDevice The <b>HSWDEVICE</b> handle to the software device to retrieve.
-     * @param {Pointer<Int32>} pLifetime A pointer to a variable that receives a <b>SW_DEVICE_LIFETIME</b>-typed value that indicates the current lifetime value for the software device. Here are possible values:
+     * @param {Pointer<Integer>} pLifetime A pointer to a variable that receives a <b>SW_DEVICE_LIFETIME</b>-typed value that indicates the current lifetime value for the software device. Here are possible values:
      * 
      * <table>
      * <tr>

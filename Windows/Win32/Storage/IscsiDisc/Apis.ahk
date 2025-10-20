@@ -935,6 +935,7 @@ class IscsiDisc {
      * 
      * @param {Pointer<ISCSI_VERSION_INFO>} VersionInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiversioninformation
      * @since windows6.0.6000
      */
     static GetIScsiVersionInformation(VersionInfo) {
@@ -947,9 +948,10 @@ class IscsiDisc {
      * @param {PWSTR} TargetName 
      * @param {PWSTR} DiscoveryMechanism 
      * @param {Integer} InfoClass 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {Pointer<Void>} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationw
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationW(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
@@ -965,9 +967,10 @@ class IscsiDisc {
      * @param {PSTR} TargetName 
      * @param {PSTR} DiscoveryMechanism 
      * @param {Integer} InfoClass 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {Pointer<Void>} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsitargetinformationa
      * @since windows6.0.6000
      */
     static GetIScsiTargetInformationA(TargetName, DiscoveryMechanism, InfoClass, BufferSize, Buffer) {
@@ -990,6 +993,7 @@ class IscsiDisc {
      * @param {PSTR} Key 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectionw
      * @since windows6.0.6000
      */
     static AddIScsiConnectionW(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1011,6 +1015,7 @@ class IscsiDisc {
      * @param {PSTR} Key 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsiconnectiona
      * @since windows6.0.6000
      */
     static AddIScsiConnectionA(UniqueSessionId, Reserved, InitiatorPortNumber, TargetPortal, SecurityFlags, LoginOptions, KeySize, Key, ConnectionId) {
@@ -1025,6 +1030,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} ConnectionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsiconnection
      * @since windows6.0.6000
      */
     static RemoveIScsiConnection(UniqueSessionId, ConnectionId) {
@@ -1035,9 +1041,10 @@ class IscsiDisc {
     /**
      * 
      * @param {BOOLEAN} ForceUpdate 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {PWSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsw
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsW(ForceUpdate, BufferSize, Buffer) {
@@ -1050,9 +1057,10 @@ class IscsiDisc {
     /**
      * 
      * @param {BOOLEAN} ForceUpdate 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {PSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetsa
      * @since windows6.0.6000
      */
     static ReportIScsiTargetsA(ForceUpdate, BufferSize, Buffer) {
@@ -1072,6 +1080,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
      * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPW>} PortalGroup 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargetw
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetW(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1092,6 +1101,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_LOGIN_OPTIONS>} LoginOptions 
      * @param {Pointer<ISCSI_TARGET_PORTAL_GROUPA>} PortalGroup 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsistatictargeta
      * @since windows6.0.6000
      */
     static AddIScsiStaticTargetA(TargetName, TargetAlias, TargetFlags, Persist, Mappings, LoginOptions, PortalGroup) {
@@ -1106,6 +1116,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} TargetName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargetw
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetW(TargetName) {
@@ -1119,6 +1130,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} TargetName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsistatictargeta
      * @since windows6.0.6000
      */
     static RemoveIScsiStaticTargetA(TargetName) {
@@ -1136,6 +1148,7 @@ class IscsiDisc {
      * @param {Integer} SecurityFlags 
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1153,6 +1166,7 @@ class IscsiDisc {
      * @param {Integer} SecurityFlags 
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addiscsisendtargetportala
      * @since windows6.0.6000
      */
     static AddIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, LoginOptions, SecurityFlags, Portal) {
@@ -1168,6 +1182,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber 
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1183,6 +1198,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber 
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsisendtargetportala
      * @since windows6.0.6000
      */
     static RemoveIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1198,6 +1214,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber 
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportalw
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalW(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1213,6 +1230,7 @@ class IscsiDisc {
      * @param {Integer} InitiatorPortNumber 
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      * @since windows6.0.6000
      */
     static RefreshIScsiSendTargetPortalA(InitiatorInstance, InitiatorPortNumber, Portal) {
@@ -1224,9 +1242,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<Integer>} PortalCount 
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFOW>} PortalInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsw
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsW(PortalCount, PortalInfo) {
@@ -1236,9 +1255,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} PortalCount 
+     * @param {Pointer<Integer>} PortalCount 
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFOA>} PortalInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsa
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsA(PortalCount, PortalInfo) {
@@ -1248,10 +1268,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} PortalCount 
-     * @param {Pointer<UInt32>} PortalInfoSize 
+     * @param {Pointer<Integer>} PortalCount 
+     * @param {Pointer<Integer>} PortalInfoSize 
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXW>} PortalInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexw
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExW(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1261,10 +1282,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} PortalCount 
-     * @param {Pointer<UInt32>} PortalInfoSize 
+     * @param {Pointer<Integer>} PortalCount 
+     * @param {Pointer<Integer>} PortalInfoSize 
      * @param {Pointer<ISCSI_TARGET_PORTAL_INFO_EXA>} PortalInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsisendtargetportalsexa
      * @since windows6.0.6000
      */
     static ReportIScsiSendTargetPortalsExA(PortalCount, PortalInfoSize, PortalInfo) {
@@ -1288,6 +1310,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargetw
      * @since windows6.0.6000
      */
     static LoginIScsiTargetW(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -1315,6 +1338,7 @@ class IscsiDisc {
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueConnectionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-loginiscsitargeta
      * @since windows6.0.6000
      */
     static LoginIScsiTargetA(TargetName, IsInformationalSession, InitiatorInstance, InitiatorPortNumber, TargetPortal, SecurityFlags, Mappings, LoginOptions, KeySize, Key, IsPersistent, UniqueSessionId, UniqueConnectionId) {
@@ -1328,10 +1352,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} Count 
+     * @param {Pointer<Integer>} Count 
      * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOW>} PersistentLoginInfo 
-     * @param {Pointer<UInt32>} BufferSizeInBytes 
+     * @param {Pointer<Integer>} BufferSizeInBytes 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsw
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsW(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -1341,10 +1366,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} Count 
+     * @param {Pointer<Integer>} Count 
      * @param {Pointer<PERSISTENT_ISCSI_LOGIN_INFOA>} PersistentLoginInfo 
-     * @param {Pointer<UInt32>} BufferSizeInBytes 
+     * @param {Pointer<Integer>} BufferSizeInBytes 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsipersistentloginsa
      * @since windows6.0.6000
      */
     static ReportIScsiPersistentLoginsA(Count, PersistentLoginInfo, BufferSizeInBytes) {
@@ -1356,6 +1382,7 @@ class IscsiDisc {
      * 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-logoutiscsitarget
      * @since windows6.0.6000
      */
     static LogoutIScsiTarget(UniqueSessionId) {
@@ -1370,6 +1397,7 @@ class IscsiDisc {
      * @param {PWSTR} TargetName 
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargetw
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetW(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -1387,6 +1415,7 @@ class IscsiDisc {
      * @param {PSTR} TargetName 
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeiscsipersistenttargeta
      * @since windows6.0.6000
      */
     static RemoveIScsiPersistentTargetA(InitiatorInstance, InitiatorPortNumber, TargetName, Portal) {
@@ -1404,11 +1433,11 @@ class IscsiDisc {
      * @param {Integer} EvpdCmddt The values to assign to the EVP (enable the vital product data) and CmdDt (command support data) bits in the INQUIRY command. Bits 0 (EVP) and 1 (CmdDt) of the <i>EvpdCmddt</i> parameter 
      * are inserted into bits 0 and 1, respectively, of the second byte of the Command Descriptor Block (CDB) of the <b>INQUIRY</b> command.
      * @param {Integer} PageCode The page code. This code is inserted into the third byte of the CDB of the <b>INQUIRY</b> command.
-     * @param {Pointer<Byte>} ScsiStatus A pointer to a location that reports the execution status of the CDB.
-     * @param {Pointer<UInt32>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
-     * @param {Pointer<Byte>} ResponseBuffer The buffer that holds the inquiry data.
-     * @param {Pointer<UInt32>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
-     * @param {Pointer<Byte>} SenseBuffer The buffer that holds the sense data.
+     * @param {Pointer<Integer>} ScsiStatus A pointer to a location that reports the execution status of the CDB.
+     * @param {Pointer<Integer>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
+     * @param {Pointer<Integer>} ResponseBuffer The buffer that holds the inquiry data.
+     * @param {Pointer<Integer>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
+     * @param {Pointer<Integer>} SenseBuffer The buffer that holds the sense data.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>ResponseBuffer</i> is insufficient to contain the sense data.
      * 
      * 
@@ -1430,11 +1459,11 @@ class IscsiDisc {
      * SendScsiReadCapacity function sends a SCSI READ CAPACITY command to the indicated target.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> structure containing the session identifier for the login session specific to the target to which the READ CAPACITY command is sent.
      * @param {Integer} Lun The logical unit on the target to query with the READ CAPACITY command.
-     * @param {Pointer<Byte>} ScsiStatus A pointer to a location that contains the execution status of the CDB.
-     * @param {Pointer<UInt32>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
-     * @param {Pointer<Byte>} ResponseBuffer The buffer that receives the response data from the READ CAPACITY command.
-     * @param {Pointer<UInt32>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
-     * @param {Pointer<Byte>} SenseBuffer The buffer that receives the sense data.
+     * @param {Pointer<Integer>} ScsiStatus A pointer to a location that contains the execution status of the CDB.
+     * @param {Pointer<Integer>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
+     * @param {Pointer<Integer>} ResponseBuffer The buffer that receives the response data from the READ CAPACITY command.
+     * @param {Pointer<Integer>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
+     * @param {Pointer<Integer>} SenseBuffer The buffer that receives the sense data.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>ResponseBuffer</i> is insufficient to contain the sense data.
      * 
      * 
@@ -1455,11 +1484,11 @@ class IscsiDisc {
     /**
      * SendScsiReportLuns function sends a SCSI REPORT LUNS command to a specified target.
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/iscsidsc/ns-iscsidsc-iscsi_unique_session_id">ISCSI_UNIQUE_SESSION_ID</a> structure that contains the session identifier for the login session of the target to query with the SCSI REPORT LUNS command.
-     * @param {Pointer<Byte>} ScsiStatus A pointer to the location that receives the execution status of the CDB.
-     * @param {Pointer<UInt32>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
-     * @param {Pointer<Byte>} ResponseBuffer The buffer that receives  response data for the READ CAPACITY command.
-     * @param {Pointer<UInt32>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
-     * @param {Pointer<Byte>} SenseBuffer The buffer that receives the sense data.
+     * @param {Pointer<Integer>} ScsiStatus A pointer to the location that receives the execution status of the CDB.
+     * @param {Pointer<Integer>} ResponseSize A pointer to the location that, on input, specifies the byte-size of  <i>ResponseBuffer</i>. On output, this location specifies the number of bytes required to contain the response data for the READ CAPACITY command in the <i>ResponseBuffer</i>.
+     * @param {Pointer<Integer>} ResponseBuffer The buffer that receives  response data for the READ CAPACITY command.
+     * @param {Pointer<Integer>} SenseSize A pointer to a location that, on input, contains the byte-size of <i>SenseBuffer</i>. On output, the location pointed to receives the byte-size required for  <i>SenseBuffer</i>  to contain the sense data. This value will always be greater than or equal to 18 bytes.
+     * @param {Pointer<Integer>} SenseBuffer The buffer that receives the sense data.
      * @returns {Integer} Returns ERROR_SUCCESS if the operation succeeds and ERROR_INSUFFICIENT_BUFFER if the buffer specified by <i>ResponseBuffer</i> is insufficient to hold the sense data.
      * 
      * 
@@ -1479,9 +1508,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {PWSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlistw
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListW(BufferSize, Buffer) {
@@ -1493,9 +1523,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
+     * @param {Pointer<Integer>} BufferSize 
      * @param {PSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsiinitiatorlista
      * @since windows6.0.6000
      */
     static ReportIScsiInitiatorListA(BufferSize, Buffer) {
@@ -1507,10 +1538,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} MappingCount 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} MappingCount 
      * @param {Pointer<ISCSI_TARGET_MAPPINGW>} Mappings 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsw
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsW(BufferSize, MappingCount, Mappings) {
@@ -1520,10 +1552,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} MappingCount 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} MappingCount 
      * @param {Pointer<ISCSI_TARGET_MAPPINGA>} Mappings 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportactiveiscsitargetmappingsa
      * @since windows6.0.6000
      */
     static ReportActiveIScsiTargetMappingsA(BufferSize, MappingCount, Mappings) {
@@ -1539,6 +1572,7 @@ class IscsiDisc {
      * @param {PWSTR} OuterModeAddress 
      * @param {BOOLEAN} Persist 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressw
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressW(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -1558,6 +1592,7 @@ class IscsiDisc {
      * @param {PSTR} OuterModeAddress 
      * @param {BOOLEAN} Persist 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsitunnelmodeouteraddressa
      * @since windows6.0.6000
      */
     static SetIScsiTunnelModeOuterAddressA(InitiatorName, InitiatorPortNumber, DestinationAddress, OuterModeAddress, Persist) {
@@ -1576,6 +1611,7 @@ class IscsiDisc {
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
      * @param {BOOLEAN} Persist 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfow
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -1592,6 +1628,7 @@ class IscsiDisc {
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
      * @param {BOOLEAN} Persist 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiikeinfoa
      * @since windows6.0.6000
      */
     static SetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, AuthInfo, Persist) {
@@ -1605,9 +1642,10 @@ class IscsiDisc {
      * 
      * @param {PWSTR} InitiatorName 
      * @param {Integer} InitiatorPortNumber 
-     * @param {Pointer<UInt32>} Reserved 
+     * @param {Pointer<Integer>} Reserved 
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfow
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoW(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -1621,9 +1659,10 @@ class IscsiDisc {
      * 
      * @param {PSTR} InitiatorName 
      * @param {Integer} InitiatorPortNumber 
-     * @param {Pointer<UInt32>} Reserved 
+     * @param {Pointer<Integer>} Reserved 
      * @param {Pointer<IKE_AUTHENTICATION_INFORMATION>} AuthInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiikeinfoa
      * @since windows6.0.6000
      */
     static GetIScsiIKEInfoA(InitiatorName, InitiatorPortNumber, Reserved, AuthInfo) {
@@ -1636,9 +1675,10 @@ class IscsiDisc {
     /**
      * 
      * @param {Integer} KeyLength 
-     * @param {Pointer<Byte>} Key 
+     * @param {Pointer<Integer>} Key 
      * @param {BOOLEAN} Persist 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsigrouppresharedkey
      * @since windows6.0.6000
      */
     static SetIScsiGroupPresharedKey(KeyLength, Key, Persist) {
@@ -1649,8 +1689,9 @@ class IscsiDisc {
     /**
      * 
      * @param {Integer} SharedSecretLength 
-     * @param {Pointer<Byte>} SharedSecret 
+     * @param {Pointer<Integer>} SharedSecret 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorchapsharedsecret
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorCHAPSharedSecret(SharedSecretLength, SharedSecret) {
@@ -1661,8 +1702,9 @@ class IscsiDisc {
     /**
      * 
      * @param {Integer} SharedSecretLength 
-     * @param {Pointer<Byte>} SharedSecret 
+     * @param {Pointer<Integer>} SharedSecret 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatorradiussharedsecret
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorRADIUSSharedSecret(SharedSecretLength, SharedSecret) {
@@ -1674,6 +1716,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} InitiatorNodeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamew
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -1687,6 +1730,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} InitiatorNodeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setiscsiinitiatornodenamea
      * @since windows6.0.6000
      */
     static SetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -1700,6 +1744,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} InitiatorNodeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamew
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameW(InitiatorNodeName) {
@@ -1713,6 +1758,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} InitiatorNodeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsiinitiatornodenamea
      * @since windows6.0.6000
      */
     static GetIScsiInitiatorNodeNameA(InitiatorNodeName) {
@@ -1726,6 +1772,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsserverw
      * @since windows6.0.6000
      */
     static AddISNSServerW(Address) {
@@ -1739,6 +1786,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addisnsservera
      * @since windows6.0.6000
      */
     static AddISNSServerA(Address) {
@@ -1752,6 +1800,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsserverw
      * @since windows6.0.6000
      */
     static RemoveISNSServerW(Address) {
@@ -1765,6 +1814,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removeisnsservera
      * @since windows6.0.6000
      */
     static RemoveISNSServerA(Address) {
@@ -1778,6 +1828,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsserverw
      * @since windows6.0.6000
      */
     static RefreshISNSServerW(Address) {
@@ -1791,6 +1842,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} Address 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshisnsservera
      * @since windows6.0.6000
      */
     static RefreshISNSServerA(Address) {
@@ -1802,9 +1854,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Integer>} BufferSizeInChar 
      * @param {PWSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlistw
      * @since windows6.0.6000
      */
     static ReportISNSServerListW(BufferSizeInChar, Buffer) {
@@ -1816,9 +1869,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Integer>} BufferSizeInChar 
      * @param {PSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportisnsserverlista
      * @since windows6.0.6000
      */
     static ReportISNSServerListA(BufferSizeInChar, Buffer) {
@@ -1830,10 +1884,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} SessionCount 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} SessionCount 
      * @param {Pointer<ISCSI_SESSION_INFOW>} SessionInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlistw
      * @since windows6.0.6000
      */
     static GetIScsiSessionListW(BufferSize, SessionCount, SessionInfo) {
@@ -1843,10 +1898,11 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} SessionCount 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} SessionCount 
      * @param {Pointer<ISCSI_SESSION_INFOA>} SessionInfo 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getiscsisessionlista
      * @since windows6.0.6000
      */
     static GetIScsiSessionListA(BufferSize, SessionCount, SessionInfo) {
@@ -1856,8 +1912,8 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSize 
-     * @param {Pointer<UInt32>} SessionCountPtr 
+     * @param {Pointer<Integer>} BufferSize 
+     * @param {Pointer<Integer>} SessionCountPtr 
      * @param {Pointer<ISCSI_SESSION_INFO_EX>} SessionInfo 
      * @returns {Integer} 
      */
@@ -1869,9 +1925,10 @@ class IscsiDisc {
     /**
      * 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
-     * @param {Pointer<UInt32>} DeviceCount 
+     * @param {Pointer<Integer>} DeviceCount 
      * @param {Pointer<ISCSI_DEVICE_ON_SESSIONW>} Devices 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessionw
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionW(UniqueSessionId, DeviceCount, Devices) {
@@ -1882,9 +1939,10 @@ class IscsiDisc {
     /**
      * 
      * @param {Pointer<ISCSI_UNIQUE_SESSION_ID>} UniqueSessionId 
-     * @param {Pointer<UInt32>} DeviceCount 
+     * @param {Pointer<Integer>} DeviceCount 
      * @param {Pointer<ISCSI_DEVICE_ON_SESSIONA>} Devices 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-getdevicesforiscsisessiona
      * @since windows6.0.6000
      */
     static GetDevicesForIScsiSessionA(UniqueSessionId, DeviceCount, Devices) {
@@ -1904,6 +1962,7 @@ class IscsiDisc {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-setuppersistentiscsidevices
      * @since windows6.0.6000
      */
     static SetupPersistentIScsiDevices() {
@@ -1915,6 +1974,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} DevicePath 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicew
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceW(DevicePath) {
@@ -1928,6 +1988,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} DevicePath 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-addpersistentiscsidevicea
      * @since windows6.0.6000
      */
     static AddPersistentIScsiDeviceA(DevicePath) {
@@ -1941,6 +2002,7 @@ class IscsiDisc {
      * 
      * @param {PWSTR} DevicePath 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicew
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceW(DevicePath) {
@@ -1954,6 +2016,7 @@ class IscsiDisc {
      * 
      * @param {PSTR} DevicePath 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-removepersistentiscsidevicea
      * @since windows6.0.6000
      */
     static RemovePersistentIScsiDeviceA(DevicePath) {
@@ -1966,6 +2029,7 @@ class IscsiDisc {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-clearpersistentiscsidevices
      * @since windows6.0.6000
      */
     static ClearPersistentIScsiDevices() {
@@ -1975,9 +2039,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Integer>} BufferSizeInChar 
      * @param {PWSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesw
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesW(BufferSizeInChar, Buffer) {
@@ -1989,9 +2054,10 @@ class IscsiDisc {
 
     /**
      * 
-     * @param {Pointer<UInt32>} BufferSizeInChar 
+     * @param {Pointer<Integer>} BufferSizeInChar 
      * @param {PSTR} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportpersistentiscsidevicesa
      * @since windows6.0.6000
      */
     static ReportPersistentIScsiDevicesA(BufferSizeInChar, Buffer) {
@@ -2005,10 +2071,11 @@ class IscsiDisc {
      * 
      * @param {PWSTR} InitiatorName 
      * @param {PWSTR} TargetName 
-     * @param {Pointer<UInt16>} TargetPortalTag 
-     * @param {Pointer<UInt32>} ElementCount 
+     * @param {Pointer<Integer>} TargetPortalTag 
+     * @param {Pointer<Integer>} ElementCount 
      * @param {Pointer<ISCSI_TARGET_PORTALW>} Portals 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsw
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsW(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -2023,10 +2090,11 @@ class IscsiDisc {
      * 
      * @param {PSTR} InitiatorName 
      * @param {PSTR} TargetName 
-     * @param {Pointer<UInt16>} TargetPortalTag 
-     * @param {Pointer<UInt32>} ElementCount 
+     * @param {Pointer<Integer>} TargetPortalTag 
+     * @param {Pointer<Integer>} ElementCount 
      * @param {Pointer<ISCSI_TARGET_PORTALA>} Portals 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-reportiscsitargetportalsa
      * @since windows6.0.6000
      */
     static ReportIScsiTargetPortalsA(InitiatorName, TargetName, TargetPortalTag, ElementCount, Portals) {
@@ -2131,7 +2199,7 @@ class IscsiDisc {
 
     /**
      * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
+     * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
      * @param {PWSTR} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlistw
@@ -2146,7 +2214,7 @@ class IscsiDisc {
 
     /**
      * ReportRadiusServerList function retrieves the list of Remote Authentication Dail-In Service (RADIUS) servers the iSCSI initiator service uses during authentication.
-     * @param {Pointer<UInt32>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
+     * @param {Pointer<Integer>} BufferSizeInChar A <b>ULONG</b> value that specifies the number of list elements contained by the <i>Buffer</i> parameter.
      * @param {PSTR} Buffer Pointer to a buffer that receives the list of Remote Authentication Dail-In Service (RADIUS) servers on output. Each server name is null terminated, except for the last server name, which is double null-terminated.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation is successful. If the operation fails due to a socket connection error, this function will return a Winsock error code.
      * @see https://docs.microsoft.com/windows/win32/api//iscsidsc/nf-iscsidsc-reportradiusserverlista

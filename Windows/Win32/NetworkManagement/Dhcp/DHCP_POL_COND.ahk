@@ -69,7 +69,7 @@ class DHCP_POL_COND extends Win32Struct
 
     /**
      * Pointer to an array of bytes that contains the value to be used for the comparison.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 32, "ptr")

@@ -99,7 +99,7 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pInterfaceAddressList {
         get => NumGet(this, 40, "ptr")
@@ -115,7 +115,7 @@ class DOT11_WFD_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSupportedCountryOrRegionStrings {
         get => NumGet(this, 56, "ptr")

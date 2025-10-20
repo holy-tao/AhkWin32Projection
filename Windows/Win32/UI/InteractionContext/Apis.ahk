@@ -152,7 +152,7 @@ class InteractionContext {
      * Gets Interaction Context object properties.
      * @param {HINTERACTIONCONTEXT} interactionContext Handle to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a> object.
      * @param {Integer} contextProperty One of the constants identified by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_context_property">INTERACTION_CONTEXT_PROPERTY</a>.
-     * @param {Pointer<UInt32>} value The value of the property.
+     * @param {Pointer<Integer>} value The value of the property.
      * 
      * Valid values for <i>contextProperty</i> are:
      * 
@@ -296,7 +296,7 @@ class InteractionContext {
      * Gets the inertia behavior of a manipulation (translation, rotation, scaling).
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} inertiaParameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-inertia_parameter">INERTIA_PARAMETER</a>.
-     * @param {Pointer<Single>} value The value of <i>inertiaParameter</i>. This value is one of the following:
+     * @param {Pointer<Float>} value The value of <i>inertiaParameter</i>. This value is one of the following:
      * 
      * <ul>
      * <li>The rate of deceleration, in radians/ms².</li>
@@ -345,7 +345,7 @@ class InteractionContext {
      * Gets the cross-slide interaction behavior.
      * @param {HINTERACTIONCONTEXT} interactionContext The handle of the interaction context.
      * @param {Integer} threshold One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-cross_slide_threshold">CROSS_SLIDE_THRESHOLD</a>.
-     * @param {Pointer<Single>} distance The distance threshold of <i>threshold</i>.
+     * @param {Pointer<Float>} distance The distance threshold of <i>threshold</i>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
@@ -383,7 +383,7 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Single>} value 
+     * @param {Pointer<Float>} value 
      * @returns {HRESULT} 
      */
     static GetTapParameterInteractionContext(interactionContext, parameter, value) {
@@ -417,7 +417,7 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Single>} value 
+     * @param {Pointer<Float>} value 
      * @returns {HRESULT} 
      */
     static GetHoldParameterInteractionContext(interactionContext, parameter, value) {
@@ -451,7 +451,7 @@ class InteractionContext {
      * 
      * @param {HINTERACTIONCONTEXT} interactionContext 
      * @param {Integer} parameter 
-     * @param {Pointer<Single>} value 
+     * @param {Pointer<Float>} value 
      * @returns {HRESULT} 
      */
     static GetTranslationParameterInteractionContext(interactionContext, parameter, value) {
@@ -489,7 +489,7 @@ class InteractionContext {
      * Gets the mouse wheel state for the Interaction Context object.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Integer} parameter One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-mouse_wheel_parameter">MOUSE_WHEEL_PARAMETER</a>.
-     * @param {Pointer<Single>} value The value of <i>parameter</i>.
+     * @param {Pointer<Float>} value The value of <i>parameter</i>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.
@@ -529,7 +529,7 @@ class InteractionContext {
      * Gets current Interaction Context state and the time when the context will return to idle state.
      * @param {HINTERACTIONCONTEXT} interactionContext Pointer to a handle for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/input_intcontext/interaction-context-portal">Interaction Context</a>.
      * @param {Pointer<POINTER_INFO>} pointerInfo Basic pointer information common to all pointer types.
-     * @param {Pointer<Int32>} state One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
+     * @param {Pointer<Integer>} state One of the constants from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/ne-interactioncontext-interaction_state">INTERACTION_STATE</a>.
      * @returns {HRESULT} If this function succeeds, it returns S_OK.
      *  
      * Otherwise, it returns an HRESULT error code.

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

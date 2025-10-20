@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-subject-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class SIGNER_SUBJECT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pdwIndex {
         get => NumGet(this, 8, "ptr")

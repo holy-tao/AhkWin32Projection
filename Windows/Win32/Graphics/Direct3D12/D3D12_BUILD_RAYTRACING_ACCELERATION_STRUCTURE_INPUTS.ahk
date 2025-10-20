@@ -72,7 +72,7 @@ class D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<D3D12_RAYTRACING_GEOMETRY_DESC>}
+     * @type {Pointer<Pointer<D3D12_RAYTRACING_GEOMETRY_DESC>>}
      */
     ppGeometryDescs {
         get => NumGet(this, 16, "ptr")

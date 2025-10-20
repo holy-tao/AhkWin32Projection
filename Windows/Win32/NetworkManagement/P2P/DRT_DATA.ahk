@@ -24,7 +24,7 @@ class DRT_DATA extends Win32Struct
 
     /**
      * Pointer to a byte array that contains the common data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pb {
         get => NumGet(this, 8, "ptr")

@@ -12,7 +12,7 @@ class KSRTAUDIO_PACKETVREGISTER extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     CompletedPacketCount {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class KSRTAUDIO_PACKETVREGISTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     CompletedPacketQPC {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class KSRTAUDIO_PACKETVREGISTER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     CompletedPacketHash {
         get => NumGet(this, 16, "ptr")

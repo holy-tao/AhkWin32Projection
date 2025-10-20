@@ -36,7 +36,7 @@ class DNS_QUERY_RAW_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     dnsQueryRaw {
         get => NumGet(this, 16, "ptr")

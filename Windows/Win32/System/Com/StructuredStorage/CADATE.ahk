@@ -20,7 +20,7 @@ class CADATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

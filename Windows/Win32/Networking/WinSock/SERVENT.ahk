@@ -24,7 +24,7 @@ class SERVENT extends Win32Struct
 
     /**
      * A <b>NULL</b>-terminated array of alternate names.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     s_aliases {
         get => NumGet(this, 8, "ptr")

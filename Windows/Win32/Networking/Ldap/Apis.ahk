@@ -2158,9 +2158,9 @@ class Ldap {
      * @param {PSTR} DistName The distinguished name of the entry used to bind.
      * @param {PSTR} AuthMechanism Indicates the authentication method to use.
      * @param {Pointer<LDAP_BERVAL>} cred The credentials to use for authentication. Arbitrary credentials can be passed using this parameter. The format and content of the credentials depend on the value of the <i>AuthMechanism</i> argument passed. For more information, see Remarks.
-     * @param {Pointer<LDAPControlA>} ServerCtrls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientCtrls A list of LDAP client controls.
-     * @param {Pointer<Int32>} MessageNumber The message ID for the bind operation.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerCtrls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientCtrls A list of LDAP client controls.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the bind operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2172,7 +2172,7 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "int*", MessageNumber, "CDecl int")
         return result
     }
 
@@ -2182,9 +2182,9 @@ class Ldap {
      * @param {PWSTR} DistName The distinguished name of the entry used to bind.
      * @param {PWSTR} AuthMechanism Indicates the authentication method to use.
      * @param {Pointer<LDAP_BERVAL>} cred The credentials to use for authentication. Arbitrary credentials can be passed using this parameter. The format and content of the credentials depend on the value of the <i>AuthMechanism</i> argument passed. For more information, see Remarks.
-     * @param {Pointer<LDAPControlW>} ServerCtrls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientCtrls A list of LDAP client controls.
-     * @param {Pointer<Int32>} MessageNumber The message ID for the bind operation.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerCtrls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientCtrls A list of LDAP client controls.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the bind operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2196,7 +2196,7 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "int*", MessageNumber, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bindW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "int*", MessageNumber, "CDecl int")
         return result
     }
 
@@ -2206,9 +2206,9 @@ class Ldap {
      * @param {PSTR} DistName The distinguished name of the entry used to bind.
      * @param {PSTR} AuthMechanism Indicates the authentication method to use.
      * @param {Pointer<LDAP_BERVAL>} cred The credentials to use for authentication. Arbitrary credentials can be passed using this parameter. The format and content of the credentials depend on the value of the <i>AuthMechanism</i> argument passed. For more information, see Remarks.
-     * @param {Pointer<LDAPControlA>} ServerCtrls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientCtrls A list of LDAP client controls.
-     * @param {Pointer<LDAP_BERVAL>} ServerData Authentication data returned by the server in response to the bind request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerCtrls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientCtrls A list of LDAP client controls.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ServerData Authentication data returned by the server in response to the bind request.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2220,7 +2220,7 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sA", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "ptr*", ServerData, "CDecl int")
         return result
     }
 
@@ -2230,9 +2230,9 @@ class Ldap {
      * @param {PWSTR} DistName The distinguished name of the entry used to bind.
      * @param {PWSTR} AuthMechanism Indicates the authentication method to use.
      * @param {Pointer<LDAP_BERVAL>} cred The credentials to use for authentication. Arbitrary credentials can be passed using this parameter. The format and content of the credentials depend on the value of the <i>AuthMechanism</i> argument passed. For more information, see Remarks.
-     * @param {Pointer<LDAPControlW>} ServerCtrls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientCtrls A list of LDAP client controls.
-     * @param {Pointer<LDAP_BERVAL>} ServerData Authentication data returned by the server in response to the bind request.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerCtrls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientCtrls A list of LDAP client controls.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ServerData Authentication data returned by the server in response to the bind request.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2244,7 +2244,7 @@ class Ldap {
         DistName := DistName is String ? StrPtr(DistName) : DistName
         AuthMechanism := AuthMechanism is String ? StrPtr(AuthMechanism) : AuthMechanism
 
-        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr", ServerCtrls, "ptr", ClientCtrls, "ptr", ServerData, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_sasl_bind_sW", "ptr", ExternalHandle, "ptr", DistName, "ptr", AuthMechanism, "ptr", cred, "ptr*", ServerCtrls, "ptr*", ClientCtrls, "ptr*", ServerData, "CDecl int")
         return result
     }
 
@@ -2336,7 +2336,7 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PWSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
@@ -2348,7 +2348,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_searchW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ushort*", attrs, "uint", attrsonly, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_searchW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2359,7 +2359,7 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
@@ -2371,7 +2371,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_searchA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_searchA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2382,9 +2382,9 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PWSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2396,7 +2396,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ushort*", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2407,9 +2407,9 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2421,7 +2421,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2432,10 +2432,10 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PWSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that must be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @param {Pointer<LDAP_TIMEVAL>} timeout The local search time-out value, in seconds.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2447,7 +2447,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_stW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ushort*", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_stW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2458,10 +2458,10 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that must be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @param {Pointer<LDAP_TIMEVAL>} timeout The local search time-out value, in seconds.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2473,7 +2473,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_stA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_stA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2484,13 +2484,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PWSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
      * @param {Integer} attrsonly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls.
      * @param {Integer} TimeLimit Specifies both the local search time-out value in seconds and the operation time limit sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<UInt32>} MessageNumber The request  message ID.
+     * @param {Pointer<Integer>} MessageNumber The request  message ID.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2502,7 +2502,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_extW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ushort*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_extW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2513,13 +2513,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
      * @param {Integer} attrsonly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Integer} TimeLimit Specifies both the local search time-out value in seconds and the operation time limit sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<UInt32>} MessageNumber The request  message ID.
+     * @param {Pointer<Integer>} MessageNumber The request  message ID.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2531,7 +2531,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_extA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_extA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2542,13 +2542,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PWSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls.
      * @param {Pointer<LDAP_TIMEVAL>} timeout Specifies both the local search time-out value, in seconds, and the operation time limit that is sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2560,7 +2560,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ushort*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_ext_sW", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2571,13 +2571,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Pointer<LDAP_TIMEVAL>} timeout Specifies both the local search time-out value, in seconds, and the operation time limit that is sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2589,7 +2589,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_ext_sA", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2600,7 +2600,7 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @returns {Integer} If the function succeeds, it returns the message ID of the search operation.
      * 
@@ -2612,7 +2612,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "CDecl uint")
         return result
     }
 
@@ -2623,9 +2623,9 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings indicating the attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free results returned with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when they are no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails it returns an error code, however <b>ldap_search_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2637,7 +2637,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2648,10 +2648,10 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that must be zero if both attribute types and values are to be returned, nonzero if only types are required.
      * @param {Pointer<LDAP_TIMEVAL>} timeout The local search time-out value, in seconds.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Any results returned must be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when  no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_st</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2663,7 +2663,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_st", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", timeout, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_st", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr", timeout, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2674,13 +2674,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of null-terminated strings that indicate which attributes to return for each matching entry. To retrieve all available attributes, pass <b>NULL</b>.
      * @param {Integer} attrsonly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Integer} TimeLimit Specifies both the local search time-out value in seconds and the operation time limit sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<UInt32>} MessageNumber The request  message ID.
+     * @param {Pointer<Integer>} MessageNumber The request  message ID.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -2692,7 +2692,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_ext", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", TimeLimit, "uint", SizeLimit, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2703,13 +2703,13 @@ class Ldap {
      * @param {Integer} scope 
      * @param {PSTR} filter Pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} attrs A null-terminated array of pointers to null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} attrsonly Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are required.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Pointer<LDAP_TIMEVAL>} timeout Specifies both the local search time-out value, in seconds, and the operation time limit that is sent to the server within the search request.
      * @param {Integer} SizeLimit A limit on the number of entries to return from the search. A value of zero indicates no limit.
-     * @param {Pointer<LDAPMessage>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the results of the search upon completion of the call. Can also contain partial results or extended data when the function call fails with an error code. Free returned results with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>when no longer required by the application.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code, however <b>ldap_search_ext_s</b> can fail and can still allocate <i>pMsg</i>. For example, both <b>LDAP_PARTIAL_RESULTS</b> and <b>LDAP_REFERRAL</b> error code will allocate <i>pMsg</i>. For more information, see the following code example. For more information, see 
@@ -2721,7 +2721,7 @@ class Ldap {
         base := base is String ? StrPtr(base) : base
         filter := filter is String ? StrPtr(filter) : filter
 
-        result := DllCall("WLDAP32.dll\ldap_search_ext_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "char*", attrs, "uint", attrsonly, "ptr", ServerControls, "ptr", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_search_ext_s", "ptr", ld, "ptr", base, "uint", scope, "ptr", filter, "ptr*", attrs, "uint", attrsonly, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", timeout, "uint", SizeLimit, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -2765,7 +2765,7 @@ class Ldap {
      * The ldap_modify function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModW>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModW>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
@@ -2776,7 +2776,7 @@ class Ldap {
     static ldap_modifyW(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modifyW", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modifyW", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2784,7 +2784,7 @@ class Ldap {
      * The ldap_modify function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
@@ -2795,7 +2795,7 @@ class Ldap {
     static ldap_modifyA(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modifyA", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modifyA", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2803,7 +2803,7 @@ class Ldap {
      * The ldap_modify_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModW>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModW>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2814,7 +2814,7 @@ class Ldap {
     static ldap_modify_sW(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_sW", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_sW", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2822,7 +2822,7 @@ class Ldap {
      * The ldap_modify_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2833,7 +2833,7 @@ class Ldap {
     static ldap_modify_sA(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_sA", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_sA", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2841,10 +2841,10 @@ class Ldap {
      * The ldap_modify_ext function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModW>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls
-     * @param {Pointer<UInt32>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
+     * @param {Pointer<Pointer<LDAPModW>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls
+     * @param {Pointer<Integer>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2855,7 +2855,7 @@ class Ldap {
     static ldap_modify_extW(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_extW", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_extW", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2863,10 +2863,10 @@ class Ldap {
      * The ldap_modify_ext function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls
-     * @param {Pointer<UInt32>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls
+     * @param {Pointer<Integer>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2877,7 +2877,7 @@ class Ldap {
     static ldap_modify_extA(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_extA", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_extA", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2885,9 +2885,9 @@ class Ldap {
      * The ldap_modify_ext_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModW>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPModW>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2898,7 +2898,7 @@ class Ldap {
     static ldap_modify_ext_sW(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_sW", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_sW", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -2906,9 +2906,9 @@ class Ldap {
      * The ldap_modify_ext_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2919,7 +2919,7 @@ class Ldap {
     static ldap_modify_ext_sA(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_sA", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_sA", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -2927,7 +2927,7 @@ class Ldap {
      * The ldap_modify function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, it returns the message ID of the modify operation.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the 
@@ -2938,7 +2938,7 @@ class Ldap {
     static ldap_modify(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2946,7 +2946,7 @@ class Ldap {
      * The ldap_modify_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2957,7 +2957,7 @@ class Ldap {
     static ldap_modify_s(ld, dn, mods) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_s", "ptr", ld, "ptr", dn, "ptr", mods, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_s", "ptr", ld, "ptr", dn, "ptr*", mods, "CDecl uint")
         return result
     }
 
@@ -2965,10 +2965,10 @@ class Ldap {
      * The ldap_modify_ext function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls
-     * @param {Pointer<UInt32>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls
+     * @param {Pointer<Integer>} MessageNumber This result parameter is set to the message ID of the request if the call succeeds.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -2979,7 +2979,7 @@ class Ldap {
     static ldap_modify_ext(ld, dn, mods, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_ext", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -2987,9 +2987,9 @@ class Ldap {
      * The ldap_modify_ext_s function changes an existing entry.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the name of the entry to modify.
-     * @param {Pointer<LDAPModA>} mods A null-terminated array of modifications to make to the entry.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPModA>>} mods A null-terminated array of modifications to make to the entry.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -3000,7 +3000,7 @@ class Ldap {
     static ldap_modify_ext_s(ld, dn, mods, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_modify_ext_s", "ptr", ld, "ptr", dn, "ptr", mods, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_modify_ext_s", "ptr", ld, "ptr", dn, "ptr*", mods, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3251,9 +3251,9 @@ class Ldap {
      * @param {PWSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name for the entry.
      * @param {PWSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlW>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> function to retrieve the results of the operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3267,7 +3267,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_extW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_extW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3278,9 +3278,9 @@ class Ldap {
      * @param {PSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name for the entry.
      * @param {PSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> function to retrieve the results of the operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3294,7 +3294,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_extA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_extA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3305,8 +3305,8 @@ class Ldap {
      * @param {PWSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name.
      * @param {PWSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlW>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls List of client controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls List of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -3319,7 +3319,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_sW", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3330,8 +3330,8 @@ class Ldap {
      * @param {PSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name.
      * @param {PSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -3344,7 +3344,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_sA", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3355,9 +3355,9 @@ class Ldap {
      * @param {PSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name for the entry.
      * @param {PSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber Pointer to a variable that receives the message identifier for this asynchronous operation. Use this identifier with the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> function to retrieve the results of the operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3371,7 +3371,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_ext", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3382,8 +3382,8 @@ class Ldap {
      * @param {PSTR} NewRDN A pointer to a wide, null-terminated string that contains the new relative distinguished name.
      * @param {PSTR} NewParent A pointer to a wide, null-terminated string that contains the distinguished name of the new parent for this entry. This parameter enables you to move the entry to a new parent container.
      * @param {Integer} DeleteOldRdn <b>TRUE</b> if the old relative distinguished name should be deleted; <b>FALSE</b> if the old relative distinguished name should be retained.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -3396,7 +3396,7 @@ class Ldap {
         NewRDN := NewRDN is String ? StrPtr(NewRDN) : NewRDN
         NewParent := NewParent is String ? StrPtr(NewParent) : NewParent
 
-        result := DllCall("WLDAP32.dll\ldap_rename_ext_s", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_rename_ext_s", "ptr", ld, "ptr", dn, "ptr", NewRDN, "ptr", NewParent, "int", DeleteOldRdn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3404,7 +3404,7 @@ class Ldap {
      * Initiates an asynchronous add operation to a directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModW>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModW>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute.
      * @returns {Integer} If the function succeeds, the message ID of the add operation is returned.
      * 
@@ -3416,7 +3416,7 @@ class Ldap {
     static ldap_addW(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_addW", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_addW", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3424,7 +3424,7 @@ class Ldap {
      * Initiates an asynchronous add operation to a directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute.
      * @returns {Integer} If the function succeeds, the message ID of the add operation is returned.
      * 
@@ -3436,7 +3436,7 @@ class Ldap {
     static ldap_addA(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_addA", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_addA", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3444,7 +3444,7 @@ class Ldap {
      * The ldap_add_s function initiates a synchronous add operation that adds an entry to a tree. The parent of the entry being added must already exist or the parent must be empty (equal to the root distinguished name) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModW>} attrs A null-terminated array of pointers to 
+     * @param {Pointer<Pointer<LDAPModW>>} attrs A null-terminated array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. See Remarks for more information.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3456,7 +3456,7 @@ class Ldap {
     static ldap_add_sW(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_sW", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_sW", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3464,7 +3464,7 @@ class Ldap {
      * The ldap_add_s function initiates a synchronous add operation that adds an entry to a tree. The parent of the entry being added must already exist or the parent must be empty (equal to the root distinguished name) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs A null-terminated array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs A null-terminated array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. See Remarks for more information.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3476,7 +3476,7 @@ class Ldap {
     static ldap_add_sA(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_sA", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_sA", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3484,11 +3484,11 @@ class Ldap {
      * The ldap_add_ext function initiates an asynchronous add operation to a tree. The parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModW>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModW>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the Remarks section.
-     * @param {Pointer<LDAPControlW>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
@@ -3498,7 +3498,7 @@ class Ldap {
     static ldap_add_extW(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_extW", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_extW", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3506,11 +3506,11 @@ class Ldap {
      * The ldap_add_ext function initiates an asynchronous add operation to a tree. The parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the Remarks section.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
@@ -3520,7 +3520,7 @@ class Ldap {
     static ldap_add_extA(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_extA", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_extA", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3528,10 +3528,10 @@ class Ldap {
      * The ldap_add_ext_s function initiates a synchronous add operation to a tree. For an add operation to succeed, the parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root).
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModW>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModW>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the  Remarks section.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -3541,7 +3541,7 @@ class Ldap {
     static ldap_add_ext_sW(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_sW", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_ext_sW", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3549,10 +3549,10 @@ class Ldap {
      * The ldap_add_ext_s function initiates a synchronous add operation to a tree. For an add operation to succeed, the parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root).
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the  Remarks section.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -3562,7 +3562,7 @@ class Ldap {
     static ldap_add_ext_sA(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_sA", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_ext_sA", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3570,7 +3570,7 @@ class Ldap {
      * Initiates an asynchronous add operation to a directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute.
      * @returns {Integer} If the function succeeds, the message ID of the add operation is returned.
      * 
@@ -3582,7 +3582,7 @@ class Ldap {
     static ldap_add(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3590,7 +3590,7 @@ class Ldap {
      * The ldap_add_s function initiates a synchronous add operation that adds an entry to a tree. The parent of the entry being added must already exist or the parent must be empty (equal to the root distinguished name) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs A null-terminated array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs A null-terminated array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. See Remarks for more information.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -3602,7 +3602,7 @@ class Ldap {
     static ldap_add_s(ld, dn, attrs) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_s", "ptr", ld, "ptr", dn, "ptr", attrs, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_s", "ptr", ld, "ptr", dn, "ptr*", attrs, "CDecl uint")
         return result
     }
 
@@ -3610,11 +3610,11 @@ class Ldap {
      * The ldap_add_ext function initiates an asynchronous add operation to a tree. The parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root) for an add operation to succeed.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the Remarks section.
-     * @param {Pointer<LDAPControlA>} ServerControls List of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls List of client controls.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls List of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls List of client controls.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/functions">Error Handling</a>.
@@ -3624,7 +3624,7 @@ class Ldap {
     static ldap_add_ext(ld, dn, attrs, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_ext", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3632,10 +3632,10 @@ class Ldap {
      * The ldap_add_ext_s function initiates a synchronous add operation to a tree. For an add operation to succeed, the parent of the entry added must exist, or the parent must be empty (equal to the distinguished name of the root).
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to add.
-     * @param {Pointer<LDAPModA>} attrs An array of pointers to 
+     * @param {Pointer<Pointer<LDAPModA>>} attrs An array of pointers to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapmoda">LDAPMod</a> structures. Each structure specifies a single attribute. For more information, see the  Remarks section.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see <a href="/previous-versions/windows/desktop/ldap/return-values">Return Values</a>.
@@ -3645,7 +3645,7 @@ class Ldap {
     static ldap_add_ext_s(ld, dn, attrs, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_add_ext_s", "ptr", ld, "ptr", dn, "ptr", attrs, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_add_ext_s", "ptr", ld, "ptr", dn, "ptr*", attrs, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3795,9 +3795,9 @@ class Ldap {
      * @param {PWSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the compare operation.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the compare operation.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3810,7 +3810,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_extW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_extW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3822,9 +3822,9 @@ class Ldap {
      * @param {PSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the compare operation.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the compare operation.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3837,7 +3837,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_extA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_extA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3849,8 +3849,8 @@ class Ldap {
      * @param {PWSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, and the attribute and known values match, <b>LDAP_COMPARE_TRUE</b> is returned; if the values do not match, <b>LDAP_COMPARE_FALSE</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3863,7 +3863,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_sW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_sW", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3875,8 +3875,8 @@ class Ldap {
      * @param {PSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, and the attribute and known values match, <b>LDAP_COMPARE_TRUE</b> is returned; if the values do not match, <b>LDAP_COMPARE_FALSE</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3889,7 +3889,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_sA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_sA", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -3901,9 +3901,9 @@ class Ldap {
      * @param {PSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the compare operation.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of client controls. This parameter should be set to <b>NULL</b> if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the compare operation.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3916,7 +3916,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_ext", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -3928,8 +3928,8 @@ class Ldap {
      * @param {PSTR} Value A pointer to a null-terminated string that contains the string attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
      * @param {Pointer<LDAP_BERVAL>} Data The 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> attribute value to be compared to the attribute value. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. Set to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of LDAP client controls. Set to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, and the attribute and known values match, <b>LDAP_COMPARE_TRUE</b> is returned; if the values do not match, <b>LDAP_COMPARE_FALSE</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -3942,7 +3942,7 @@ class Ldap {
         Attr := Attr is String ? StrPtr(Attr) : Attr
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := DllCall("WLDAP32.dll\ldap_compare_ext_s", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_compare_ext_s", "ptr", ld, "ptr", dn, "ptr", Attr, "ptr", Value, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -4022,9 +4022,9 @@ class Ldap {
      * The ldap_delete_ext function is an extended routine that removes a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
-     * @param {Pointer<UInt32>} MessageNumber Message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Integer>} MessageNumber Message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4035,7 +4035,7 @@ class Ldap {
     static ldap_delete_extW(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_extW", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_extW", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4043,9 +4043,9 @@ class Ldap {
      * The ldap_delete_ext function is an extended routine that removes a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
-     * @param {Pointer<UInt32>} MessageNumber Message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Integer>} MessageNumber Message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4056,7 +4056,7 @@ class Ldap {
     static ldap_delete_extA(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_extA", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_extA", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4064,8 +4064,8 @@ class Ldap {
      * The ldap_delete_ext_s function is an extended routine that performs a synchronous operation to remove a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4076,7 +4076,7 @@ class Ldap {
     static ldap_delete_ext_sW(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_sW", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_sW", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -4084,8 +4084,8 @@ class Ldap {
      * The ldap_delete_ext_s function is an extended routine that performs a synchronous operation to remove a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4096,7 +4096,7 @@ class Ldap {
     static ldap_delete_ext_sA(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_sA", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_sA", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -4140,9 +4140,9 @@ class Ldap {
      * The ldap_delete_ext function is an extended routine that removes a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
-     * @param {Pointer<UInt32>} MessageNumber Message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. List of LDAP server controls. If not used, set this parameter to NULL.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. List of client controls. If not used, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Integer>} MessageNumber Message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4153,7 +4153,7 @@ class Ldap {
     static ldap_delete_ext(ld, dn, ServerControls, ClientControls, MessageNumber) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_ext", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -4161,8 +4161,8 @@ class Ldap {
      * The ldap_delete_ext_s function is an extended routine that performs a synchronous operation to remove a leaf entry from the directory tree.
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} dn A pointer to a null-terminated string that contains the distinguished name of the entry to delete.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. List of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. List of client controls. Set this parameter to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4173,7 +4173,7 @@ class Ldap {
     static ldap_delete_ext_s(ld, dn, ServerControls, ClientControls) {
         dn := dn is String ? StrPtr(dn) : dn
 
-        result := DllCall("WLDAP32.dll\ldap_delete_ext_s", "ptr", ld, "ptr", dn, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_delete_ext_s", "ptr", ld, "ptr", dn, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -4198,7 +4198,7 @@ class Ldap {
      * @param {Integer} msgid The message ID of the operation, or the constant LDAP_RES_ANY if any result is required.
      * @param {Integer} all Specifies how many messages are retrieved in a single call to <b>ldap_result</b>. This parameter only has meaning for search results. Pass the constant LDAP_MSG_ONE (0x00) to retrieve one message at a time. Pass LDAP_MSG_ALL (0x01) to request that all results of a search be received before returning all results in a single chain. Pass LDAP_MSG_RECEIVED (0x02) to indicate that all results retrieved so far should be returned in the result chain.
      * @param {Pointer<LDAP_TIMEVAL>} timeout A timeout that specifies how long, in seconds, to wait for results to be returned. A <b>NULL</b> value causes <b>ldap_result</b> to block until results are available. A timeout value of zero seconds specifies a polling behavior.
-     * @param {Pointer<LDAPMessage>} res Contains the result(s) of the operation. Any results returned should be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>once they are no longer required by the application.
+     * @param {Pointer<Pointer<LDAPMessage>>} res Contains the result(s) of the operation. Any results returned should be freed with a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a>once they are no longer required by the application.
      * @returns {Integer} If the function succeeds, it returns one of the following values to indicate the type of the first result in the <i>res</i> parameter. If the time-out expires, the function returns 0.
      * 
      * If the function fails, it returns –1 and sets the session error parameters in the LDAP data structure.
@@ -4206,7 +4206,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_result(ld, msgid, all, timeout, res) {
-        result := DllCall("WLDAP32.dll\ldap_result", "ptr", ld, "uint", msgid, "uint", all, "ptr", timeout, "ptr", res, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_result", "ptr", ld, "uint", msgid, "uint", all, "ptr", timeout, "ptr*", res, "CDecl uint")
         return result
     }
 
@@ -4248,11 +4248,11 @@ class Ldap {
      * @param {Pointer<LDAP>} Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
-     * @param {Pointer<UInt32>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PWSTR>} MatchedDNs A pointer to a wide, null-terminated string. In the case of a return of <b>LDAP_NO_SUCH_OBJECT</b>, this result parameter is filled in with a distinguished name indicating how much of the name in the request was recognized. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PWSTR>} ErrorMessage A pointer to a wide, null-terminated string that contains the contents of the error message field from the <i>ResultMessage</i> parameter. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<UInt16>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<LDAPControlW>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
+     * @param {Pointer<Pointer<Pointer<Integer>>>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Pointer<Pointer<LDAPControlW>>>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
      * @param {BOOLEAN} Freeit Determines whether the <i>ResultMessage</i> parameter is freed. You can pass any nonzero value to the <i>Freeit</i> parameter to free the <i>ResultMessage</i> pointer when it is no longer needed, or you can call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a> to free the result later.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -4263,7 +4263,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultW(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ushort*", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultW", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4272,11 +4272,11 @@ class Ldap {
      * @param {Pointer<LDAP>} Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
-     * @param {Pointer<UInt32>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PSTR>} MatchedDNs A pointer to a wide, null-terminated string. In the case of a return of <b>LDAP_NO_SUCH_OBJECT</b>, this result parameter is filled in with a distinguished name indicating how much of the name in the request was recognized. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PSTR>} ErrorMessage A pointer to a wide, null-terminated string that contains the contents of the error message field from the <i>ResultMessage</i> parameter. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<SByte>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<LDAPControlA>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
+     * @param {Pointer<Pointer<Pointer<Integer>>>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Pointer<Pointer<LDAPControlA>>>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
      * @param {BOOLEAN} Freeit Determines whether the <i>ResultMessage</i> parameter is freed. You can pass any nonzero value to the <i>Freeit</i> parameter to free the <i>ResultMessage</i> pointer when it is no longer needed, or you can call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a> to free the result later.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -4287,7 +4287,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_resultA(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "char*", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_resultA", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4299,7 +4299,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
      * @param {Pointer<PSTR>} ResultOID A pointer to a null-terminated string that contains the dotted object identifier (OID) text string of the server's response message.  This is normally the same OID as the one naming the request that was originally passed to the server by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_extended_operation">ldap_extended_operation</a>.
-     * @param {Pointer<LDAP_BERVAL>} ResultData The arbitrary data returned by the extended operation (if <b>NULL</b>, no data is returned by the server).
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ResultData The arbitrary data returned by the extended operation (if <b>NULL</b>, no data is returned by the server).
      * @param {BOOLEAN} Freeit Determines whether the <i>ResultMessage</i> parameter is freed. You can pass any nonzero value to the <i>Freeit</i> parameter to free the <i>ResultMessage</i> pointer when it is no longer needed, or you can call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a> to free the result later.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -4310,7 +4310,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultA(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultA", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr*", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
@@ -4322,7 +4322,7 @@ class Ldap {
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> in response to an extended operation request.
      * @param {Pointer<PWSTR>} ResultOID A pointer to a null-terminated string that contains the dotted object identifier (OID) text string of the server's response message.  This is normally the same OID as the one naming the request that was originally passed to the server by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_extended_operation">ldap_extended_operation</a>.
-     * @param {Pointer<LDAP_BERVAL>} ResultData The arbitrary data returned by the extended operation (if <b>NULL</b>, no data is returned by the server).
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ResultData The arbitrary data returned by the extended operation (if <b>NULL</b>, no data is returned by the server).
      * @param {BOOLEAN} Freeit Determines whether the <i>ResultMessage</i> parameter is freed. You can pass any nonzero value to the <i>Freeit</i> parameter to free the <i>ResultMessage</i> pointer when it is no longer needed, or you can call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a> to free the result later.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -4333,13 +4333,13 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_extended_resultW(Connection, ResultMessage, ResultOID, ResultData, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr", ResultData, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_extended_resultW", "ptr", Connection, "ptr", ResultMessage, "ptr", ResultOID, "ptr*", ResultData, "char", Freeit, "CDecl uint")
         return result
     }
 
     /**
      * Frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlA>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4348,7 +4348,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_freeA(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_controls_freeA", "ptr", Controls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_controls_freeA", "ptr*", Controls, "CDecl uint")
         return result
     }
 
@@ -4369,7 +4369,7 @@ class Ldap {
 
     /**
      * Frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlW>} Control TBD
+     * @param {Pointer<Pointer<LDAPControlW>>} Control TBD
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4378,7 +4378,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_freeW(Control) {
-        result := DllCall("WLDAP32.dll\ldap_controls_freeW", "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_controls_freeW", "ptr*", Control, "CDecl uint")
         return result
     }
 
@@ -4399,7 +4399,7 @@ class Ldap {
 
     /**
      * Obsolete function which frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlW>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
+     * @param {Pointer<Pointer<LDAPControlW>>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4408,13 +4408,13 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controlsW(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controlsW", "ptr", Controls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_free_controlsW", "ptr*", Controls, "CDecl uint")
         return result
     }
 
     /**
      * Obsolete function which frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlA>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4423,7 +4423,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controlsA(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controlsA", "ptr", Controls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_free_controlsA", "ptr*", Controls, "CDecl uint")
         return result
     }
 
@@ -4432,11 +4432,11 @@ class Ldap {
      * @param {Pointer<LDAP>} Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage The result of an LDAP operation as returned by one of the synchronous operation calls or by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_result">ldap_result</a> for an asynchronous operation.
-     * @param {Pointer<UInt32>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Integer>} ReturnCode Indicates the outcome of the server operation that generated the original result message. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PSTR>} MatchedDNs A pointer to a wide, null-terminated string. In the case of a return of <b>LDAP_NO_SUCH_OBJECT</b>, this result parameter is filled in with a distinguished name indicating how much of the name in the request was recognized. Pass <b>NULL</b> to ignore this field.
      * @param {Pointer<PSTR>} ErrorMessage A pointer to a wide, null-terminated string that contains the contents of the error message field from the <i>ResultMessage</i> parameter. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<PSTR>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
-     * @param {Pointer<LDAPControlA>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
+     * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to a wide, null-terminated string that contains the contents of the referrals field from the <i>ResultMessage</i> parameter, indicating zero or more alternate LDAP servers where the request should be retried. Pass <b>NULL</b> to ignore this field.
+     * @param {Pointer<Pointer<Pointer<LDAPControlA>>>} ServerControls This result parameter is filled in with an allocated array of controls copied from the <i>ResultMessage</i> parameter.
      * @param {BOOLEAN} Freeit Determines whether the <i>ResultMessage</i> parameter is freed. You can pass any nonzero value to the <i>Freeit</i> parameter to free the <i>ResultMessage</i> pointer when it is no longer needed, or you can call 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_msgfree">ldap_msgfree</a> to free the result later.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -4447,13 +4447,13 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_result(Connection, ResultMessage, ReturnCode, MatchedDNs, ErrorMessage, Referrals, ServerControls, Freeit) {
-        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr", Referrals, "ptr", ServerControls, "char", Freeit, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_result", "ptr", Connection, "ptr", ResultMessage, "uint*", ReturnCode, "ptr", MatchedDNs, "ptr", ErrorMessage, "ptr*", Referrals, "ptr*", ServerControls, "char", Freeit, "CDecl uint")
         return result
     }
 
     /**
      * Frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlA>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4462,7 +4462,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_controls_free(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_controls_free", "ptr", Controls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_controls_free", "ptr*", Controls, "CDecl uint")
         return result
     }
 
@@ -4483,7 +4483,7 @@ class Ldap {
 
     /**
      * Obsolete function which frees an array of LDAPControl structures.
-     * @param {Pointer<LDAPControlA>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} Controls The array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures to free.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -4492,7 +4492,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_free_controls(Controls) {
-        result := DllCall("WLDAP32.dll\ldap_free_controls", "ptr", Controls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_free_controls", "ptr*", Controls, "CDecl uint")
         return result
     }
 
@@ -4602,7 +4602,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} entry The entry whose attributes are to be stepped through, as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_entry">ldap_first_entry</a> or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_next_entry">ldap_next_entry</a>.
-     * @param {Pointer<BerElement>} ptr The address of a pointer used internally to track the current position in the entry.
+     * @param {Pointer<Pointer<BerElement>>} ptr The address of a pointer used internally to track the current position in the entry.
      * @returns {PWSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
@@ -4610,7 +4610,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeW(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
+        result := DllCall("WLDAP32.dll\ldap_first_attributeW", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
         return result
     }
 
@@ -4620,7 +4620,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} entry The entry whose attributes are to be stepped through, as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_entry">ldap_first_entry</a> or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_next_entry">ldap_next_entry</a>.
-     * @param {Pointer<BerElement>} ptr The address of a pointer used internally to track the current position in the entry.
+     * @param {Pointer<Pointer<BerElement>>} ptr The address of a pointer used internally to track the current position in the entry.
      * @returns {PSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
@@ -4628,7 +4628,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attributeA(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
+        result := DllCall("WLDAP32.dll\ldap_first_attributeA", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
         return result
     }
 
@@ -4638,7 +4638,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} entry The entry whose attributes are to be stepped through, as returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_first_entry">ldap_first_entry</a> or 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_next_entry">ldap_next_entry</a>.
-     * @param {Pointer<BerElement>} ptr The address of a pointer used internally to track the current position in the entry.
+     * @param {Pointer<Pointer<BerElement>>} ptr The address of a pointer used internally to track the current position in the entry.
      * @returns {PSTR} A pointer to a null-terminated string. If the function succeeds, it returns a pointer to an allocated buffer that contains the current attribute name. When there are no more attributes to step through, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and sets the session error parameter in the LDAP data structure to the LDAP error code.
@@ -4646,7 +4646,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_first_attribute(ld, entry, ptr) {
-        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr", ptr, "CDecl char*")
+        result := DllCall("WLDAP32.dll\ldap_first_attribute", "ptr", ld, "ptr", entry, "ptr*", ptr, "CDecl char*")
         return result
     }
 
@@ -4764,7 +4764,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} Message Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure.
      * @param {PWSTR} attr A pointer to a null-terminated string that contains the attribute whose values are to be retrieved.
-     * @returns {Pointer<LDAP_BERVAL>} If the function succeeds, it returns a null-terminated list of pointers to 
+     * @returns {Pointer<Pointer<LDAP_BERVAL>>} If the function succeeds, it returns a null-terminated list of pointers to 
      * <a href="/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
@@ -4774,7 +4774,7 @@ class Ldap {
     static ldap_get_values_lenW(ExternalHandle, Message, attr) {
         attr := attr is String ? StrPtr(attr) : attr
 
-        result := DllCall("WLDAP32.dll\ldap_get_values_lenW", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_values_lenW", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr*")
         return result
     }
 
@@ -4784,7 +4784,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} Message Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure.
      * @param {PSTR} attr A pointer to a null-terminated string that contains the attribute whose values are to be retrieved.
-     * @returns {Pointer<LDAP_BERVAL>} If the function succeeds, it returns a null-terminated list of pointers to 
+     * @returns {Pointer<Pointer<LDAP_BERVAL>>} If the function succeeds, it returns a null-terminated list of pointers to 
      * <a href="/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
@@ -4794,7 +4794,7 @@ class Ldap {
     static ldap_get_values_lenA(ExternalHandle, Message, attr) {
         attr := attr is String ? StrPtr(attr) : attr
 
-        result := DllCall("WLDAP32.dll\ldap_get_values_lenA", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_values_lenA", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr*")
         return result
     }
 
@@ -4804,7 +4804,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} Message Handle to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure.
      * @param {PSTR} attr A pointer to a null-terminated string that contains the attribute whose values are to be retrieved.
-     * @returns {Pointer<LDAP_BERVAL>} If the function succeeds, it returns a null-terminated list of pointers to 
+     * @returns {Pointer<Pointer<LDAP_BERVAL>>} If the function succeeds, it returns a null-terminated list of pointers to 
      * <a href="/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures that contain the values of the specified attribute. If no attribute values were found, it returns <b>NULL</b>. The session error parameter in the LDAP data structure is set to 0 in either case.
      * 
      * If the function fails, it returns <b>NULL</b> and the session error parameter in the LDAP data structure is set to the LDAP error code.
@@ -4814,7 +4814,7 @@ class Ldap {
     static ldap_get_values_len(ExternalHandle, Message, attr) {
         attr := attr is String ? StrPtr(attr) : attr
 
-        result := DllCall("WLDAP32.dll\ldap_get_values_len", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_get_values_len", "ptr", ExternalHandle, "ptr", Message, "ptr", attr, "CDecl ptr*")
         return result
     }
 
@@ -4865,7 +4865,7 @@ class Ldap {
 
     /**
      * Counts the number of values in a list.
-     * @param {Pointer<LDAP_BERVAL>} vals An array of values returned by 
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} vals An array of values returned by 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_get_values_len">ldap_get_values_len</a>.
      * @returns {Integer} This function returns the number of values in the array. There is no error return.
      * 
@@ -4874,7 +4874,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_count_values_len(vals) {
-        result := DllCall("WLDAP32.dll\ldap_count_values_len", "ptr", vals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_count_values_len", "ptr*", vals, "CDecl uint")
         return result
     }
 
@@ -4922,7 +4922,7 @@ class Ldap {
 
     /**
      * The ldap_value_free_len frees berval structures that were returned by ldap_get_values_len.
-     * @param {Pointer<LDAP_BERVAL>} vals The structure to free.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} vals The structure to free.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -4931,7 +4931,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_value_free_len(vals) {
-        result := DllCall("WLDAP32.dll\ldap_value_free_len", "ptr", vals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_value_free_len", "ptr*", vals, "CDecl uint")
         return result
     }
 
@@ -5345,41 +5345,41 @@ class Ldap {
     /**
      * The ldap_create_sort_control function is used to format a list of sort keys into a search control. Support for controls is available effective with LDAP 3, but whether the sort control is supported or not is dependent on the particular server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPSortKeyA>} SortKeys Pointer to an array of 
+     * @param {Pointer<Pointer<LDAPSortKeyA>>} SortKeys Pointer to an array of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structures. Each structure in the array specifies the name of an attribute to use as a sort key, the matching rule for that key, and whether the sort order is ascending or descending.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
-     * @param {Pointer<LDAPControlA>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_sort_controla
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlA(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", "ptr", ExternalHandle, "ptr", SortKeys, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_sort_controlA", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_create_sort_control function is used to format a list of sort keys into a search control. Support for controls is available effective with LDAP 3, but whether the sort control is supported or not is dependent on the particular server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPSortKeyW>} SortKeys Pointer to an array of 
+     * @param {Pointer<Pointer<LDAPSortKeyW>>} SortKeys Pointer to an array of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structures. Each structure in the array specifies the name of an attribute to use as a sort key, the matching rule for that key, and whether the sort order is ascending or descending.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
-     * @param {Pointer<LDAPControlW>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlW>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_sort_controlw
      * @since windows6.0.6000
      */
     static ldap_create_sort_controlW(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", "ptr", ExternalHandle, "ptr", SortKeys, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_sort_controlW", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_sort_control function parses the sort control returned by the server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlA>} Control The control returned from the server, as obtained from a call to 
+     * @param {Pointer<Pointer<LDAPControlA>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<UInt32>} Result The result code.
+     * @param {Pointer<Integer>} Result The result code.
      * @param {Pointer<PSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -5389,16 +5389,16 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlA(ExternalHandle, Control, Result, Attribute) {
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, "ptr", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlA", "ptr", ExternalHandle, "ptr*", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_sort_control function parses the sort control returned by the server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlW>} Control The control returned from the server, as obtained from a call to 
+     * @param {Pointer<Pointer<LDAPControlW>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<UInt32>} Result The result code.
+     * @param {Pointer<Integer>} Result The result code.
      * @param {Pointer<PWSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -5408,32 +5408,32 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_controlW(ExternalHandle, Control, Result, Attribute) {
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, "ptr", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_controlW", "ptr", ExternalHandle, "ptr*", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_create_sort_control function is used to format a list of sort keys into a search control. Support for controls is available effective with LDAP 3, but whether the sort control is supported or not is dependent on the particular server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPSortKeyA>} SortKeys Pointer to an array of 
+     * @param {Pointer<Pointer<LDAPSortKeyA>>} SortKeys Pointer to an array of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structures. Each structure in the array specifies the name of an attribute to use as a sort key, the matching rule for that key, and whether the sort order is ascending or descending.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search. 0 ==&gt; FALSE, !0 ==&gt; TRUE.
-     * @param {Pointer<LDAPControlA>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_sort_control
      * @since windows6.0.6000
      */
     static ldap_create_sort_control(ExternalHandle, SortKeys, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_sort_control", "ptr", ExternalHandle, "ptr", SortKeys, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_sort_control", "ptr", ExternalHandle, "ptr*", SortKeys, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_sort_control function parses the sort control returned by the server.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlA>} Control The control returned from the server, as obtained from a call to 
+     * @param {Pointer<Pointer<LDAPControlA>>} Control The control returned from the server, as obtained from a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<UInt32>} Result The result code.
+     * @param {Pointer<Integer>} Result The result code.
      * @param {Pointer<PSTR>} Attribute A pointer to a null-terminated string that contains the name of the attribute that caused the operation to fail.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
@@ -5443,14 +5443,14 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_sort_control(ExternalHandle, Control, Result, Attribute) {
-        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, "ptr", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_sort_control", "ptr", ExternalHandle, "ptr*", Control, "uint*", Result, "ptr", Attribute, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_encode_sort_control function formats a list of sort keys into a search control. This function is obsolete. Instead, use ldap_create_sort_control.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPSortKeyW>} SortKeys A list of 
+     * @param {Pointer<Pointer<LDAPSortKeyW>>} SortKeys A list of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structures.
      * @param {Pointer<LDAPControlW>} Control Pointer to the new control.
      * @param {BOOLEAN} Criticality Notifies the server whether this control is critical to the search.
@@ -5459,14 +5459,14 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlW(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlW", "ptr", ExternalHandle, "ptr*", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_encode_sort_control function formats a list of sort keys into a search control. This function is obsolete. Instead, use ldap_create_sort_control.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPSortKeyA>} SortKeys A list of 
+     * @param {Pointer<Pointer<LDAPSortKeyA>>} SortKeys A list of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structures.
      * @param {Pointer<LDAPControlA>} Control Pointer to the new control.
      * @param {BOOLEAN} Criticality Notifies the server whether this control is critical to the search.
@@ -5475,7 +5475,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_encode_sort_controlA(ExternalHandle, SortKeys, Control, Criticality) {
-        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, "ptr", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_encode_sort_controlA", "ptr", ExternalHandle, "ptr*", SortKeys, "ptr", Control, "char", Criticality, "CDecl uint")
         return result
     }
 
@@ -5486,13 +5486,13 @@ class Ldap {
      * @param {Pointer<LDAP_BERVAL>} Cookie Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure that the server uses to determine its location in the result set. This is an opaque structure that you should not access directly. Set to <b>NULL</b> for the first call to <b>ldap_create_page_control</b>.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
-     * @param {Pointer<LDAPControlW>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlW>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_page_controlw
      * @since windows6.0.6000
      */
     static ldap_create_page_controlW(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_controlW", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_page_controlW", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
@@ -5503,22 +5503,22 @@ class Ldap {
      * @param {Pointer<LDAP_BERVAL>} Cookie Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure that the server uses to determine its location in the result set. This is an opaque structure that you should not access directly. Set to <b>NULL</b> for the first call to <b>ldap_create_page_control</b>.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
-     * @param {Pointer<LDAPControlA>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_page_controla
      * @since windows6.0.6000
      */
     static ldap_create_page_controlA(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_controlA", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_page_controlA", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_page_control parses the results of a search into pages.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlW>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
-     * @param {Pointer<UInt32>} TotalCount A pointer to the total count of entries returned in this page (optional).
-     * @param {Pointer<LDAP_BERVAL>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
+     * @param {Pointer<Integer>} TotalCount A pointer to the total count of entries returned in this page (optional).
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -5527,16 +5527,16 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlW(ExternalHandle, ServerControls, TotalCount, Cookie) {
-        result := DllCall("WLDAP32.dll\ldap_parse_page_controlW", "ptr", ExternalHandle, "ptr", ServerControls, "uint*", TotalCount, "ptr", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_controlW", "ptr", ExternalHandle, "ptr*", ServerControls, "uint*", TotalCount, "ptr*", Cookie, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_page_control parses the results of a search into pages.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlA>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
-     * @param {Pointer<UInt32>} TotalCount A pointer to the total count of entries returned in this page (optional).
-     * @param {Pointer<LDAP_BERVAL>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
+     * @param {Pointer<Integer>} TotalCount A pointer to the total count of entries returned in this page (optional).
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -5545,7 +5545,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_controlA(ExternalHandle, ServerControls, TotalCount, Cookie) {
-        result := DllCall("WLDAP32.dll\ldap_parse_page_controlA", "ptr", ExternalHandle, "ptr", ServerControls, "uint*", TotalCount, "ptr", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_controlA", "ptr", ExternalHandle, "ptr*", ServerControls, "uint*", TotalCount, "ptr*", Cookie, "CDecl uint")
         return result
     }
 
@@ -5556,22 +5556,22 @@ class Ldap {
      * @param {Pointer<LDAP_BERVAL>} Cookie Pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure that the server uses to determine its location in the result set. This is an opaque structure that you should not access directly. Set to <b>NULL</b> for the first call to <b>ldap_create_page_control</b>.
      * @param {Integer} IsCritical Notifies the server whether this control is critical to the search.
-     * @param {Pointer<LDAPControlA>} Control Pointer to the newly created control.
+     * @param {Pointer<Pointer<LDAPControlA>>} Control Pointer to the newly created control.
      * @returns {Integer} This function returns WINLDAPAPI ULONG LDAPAPI.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_page_control
      * @since windows6.0.6000
      */
     static ldap_create_page_control(ExternalHandle, PageSize, Cookie, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_page_control", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr", Control, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_create_page_control", "ptr", ExternalHandle, "uint", PageSize, "ptr", Cookie, "char", IsCritical, "ptr*", Control, "CDecl uint")
         return result
     }
 
     /**
      * The ldap_parse_page_control parses the results of a search into pages.
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
-     * @param {Pointer<LDAPControlA>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
-     * @param {Pointer<UInt32>} TotalCount A pointer to the total count of entries returned in this page (optional).
-     * @param {Pointer<LDAP_BERVAL>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls An array of controls that includes a page control. The page control contains the cookie and total count fields returned by the server.
+     * @param {Pointer<Integer>} TotalCount A pointer to the total count of entries returned in this page (optional).
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Cookie An opaque cookie, used by the server to determine its location in the result set. Use ber_bvfree to free.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -5580,7 +5580,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_page_control(ExternalHandle, ServerControls, TotalCount, Cookie) {
-        result := DllCall("WLDAP32.dll\ldap_parse_page_control", "ptr", ExternalHandle, "ptr", ServerControls, "uint*", TotalCount, "ptr", Cookie, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_page_control", "ptr", ExternalHandle, "ptr*", ServerControls, "uint*", TotalCount, "ptr*", Cookie, "CDecl uint")
         return result
     }
 
@@ -5591,13 +5591,13 @@ class Ldap {
      * @param {Integer} ScopeOfSearch 
      * @param {PWSTR} SearchFilter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<UInt16>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} AttributesOnly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlW>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlW>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls A list of client controls.
      * @param {Integer} PageTimeLimit The time value, in seconds, that the client will wait for the server to return a page.
      * @param {Integer} TotalSizeLimit The maximum number of entries the client will accept.  The <i>TotalSizeLimit</i> value affects only the individual pages within the paged search (not the overall paged search).  So if <i>TotalSizeLimit</i> is greater than page size, then <i>TotalSizeLimit</i> will have no effect.
-     * @param {Pointer<LDAPSortKeyW>} SortKeys A pointer to an 
+     * @param {Pointer<Pointer<LDAPSortKeyW>>} SortKeys A pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structure, which specifies the attribute type, the ordering rule, and the direction for the search.
      * @returns {PLDAPSearch} If the function succeeds, it returns a pointer to an 
      * <a href="/previous-versions/windows/desktop/legacy/aa366129(v=vs.85)">LDAPSearch</a> structure.
@@ -5616,7 +5616,7 @@ class Ldap {
 
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ushort*", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5630,13 +5630,13 @@ class Ldap {
      * @param {Integer} ScopeOfSearch 
      * @param {PSTR} SearchFilter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} AttributesOnly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Integer} PageTimeLimit The time value, in seconds, that the client will wait for the server to return a page.
      * @param {Integer} TotalSizeLimit The maximum number of entries the client will accept.  The <i>TotalSizeLimit</i> value affects only the individual pages within the paged search (not the overall paged search).  So if <i>TotalSizeLimit</i> is greater than page size, then <i>TotalSizeLimit</i> will have no effect.
-     * @param {Pointer<LDAPSortKeyA>} SortKeys A pointer to an 
+     * @param {Pointer<Pointer<LDAPSortKeyA>>} SortKeys A pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structure, which specifies the attribute type, the ordering rule, and the direction for the search.
      * @returns {PLDAPSearch} If the function succeeds, it returns a pointer to an 
      * <a href="/previous-versions/windows/desktop/legacy/aa366129(v=vs.85)">LDAPSearch</a> structure.
@@ -5655,7 +5655,7 @@ class Ldap {
 
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "char*", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5669,13 +5669,13 @@ class Ldap {
      * @param {Integer} ScopeOfSearch 
      * @param {PSTR} SearchFilter A pointer to a null-terminated string that specifies the search filter. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ADSI/search-filter-syntax">Search Filter Syntax</a>.
-     * @param {Pointer<SByte>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
+     * @param {Pointer<Pointer<Integer>>} AttributeList A null-terminated array of null-terminated strings indicating which attributes to return for each matching entry. Pass <b>NULL</b> to retrieve all available attributes.
      * @param {Integer} AttributesOnly A Boolean value that should be zero if both attribute types and values are to be returned, nonzero if only types are to be returned.
-     * @param {Pointer<LDAPControlA>} ServerControls A list of LDAP server controls.
-     * @param {Pointer<LDAPControlA>} ClientControls A list of client controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls A list of LDAP server controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls A list of client controls.
      * @param {Integer} PageTimeLimit The time value, in seconds, that the client will wait for the server to return a page.
      * @param {Integer} TotalSizeLimit The maximum number of entries the client will accept.  The <i>TotalSizeLimit</i> value affects only the individual pages within the paged search (not the overall paged search).  So if <i>TotalSizeLimit</i> is greater than page size, then <i>TotalSizeLimit</i> will have no effect.
-     * @param {Pointer<LDAPSortKeyA>} SortKeys A pointer to an 
+     * @param {Pointer<Pointer<LDAPSortKeyA>>} SortKeys A pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapsortkeya">LDAPSortKey</a> structure, which specifies the attribute type, the ordering rule, and the direction for the search.
      * @returns {PLDAPSearch} If the function succeeds, it returns a pointer to an 
      * <a href="/previous-versions/windows/desktop/legacy/aa366129(v=vs.85)">LDAPSearch</a> structure.
@@ -5694,7 +5694,7 @@ class Ldap {
 
         A_LastError := 0
 
-        result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "char*", AttributeList, "uint", AttributesOnly, "ptr", ServerControls, "ptr", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr", SortKeys, "CDecl ptr")
+        result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, "ptr*", AttributeList, "uint", AttributesOnly, "ptr*", ServerControls, "ptr*", ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, "ptr*", SortKeys, "CDecl ptr")
         if(A_LastError)
             throw OSError()
 
@@ -5706,7 +5706,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle Session handle.
      * @param {PLDAPSearch} SearchHandle Search block handle.
      * @param {Integer} PageSize The number of entries to return in a single page.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code return value. For more information, see 
@@ -5725,8 +5725,8 @@ class Ldap {
      * @param {PLDAPSearch} SearchHandle Search block handle.
      * @param {Pointer<LDAP_TIMEVAL>} timeout The time value, in seconds, that the client will wait for the call to return.
      * @param {Integer} PageSize The number of entries to return in a single page.
-     * @param {Pointer<UInt32>} TotalCount The server estimate of the total number of entries in the entire result set. A value of zero indicates that the server cannot provide an estimate.
-     * @param {Pointer<LDAPMessage>} Results A pointer to the 
+     * @param {Pointer<Integer>} TotalCount The server estimate of the total number of entries in the entire result set. A value of zero indicates that the server cannot provide an estimate.
+     * @param {Pointer<Pointer<LDAPMessage>>} Results A pointer to the 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure that contains the results.
      * @returns {Integer} If the server returns a null cookie (non-continuation), the value is <b>LDAP_NO_RESULTS_RETURNED</b>. Otherwise, the client signals a continuation (more data available) by returning <b>LDAP_SUCCESS</b>.
      * 
@@ -5736,7 +5736,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_get_next_page_s(ExternalHandle, SearchHandle, timeout, PageSize, TotalCount, Results) {
-        result := DllCall("WLDAP32.dll\ldap_get_next_page_s", "ptr", ExternalHandle, "ptr", SearchHandle, "ptr", timeout, "uint", PageSize, "uint*", TotalCount, "ptr", Results, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_get_next_page_s", "ptr", ExternalHandle, "ptr", SearchHandle, "ptr", timeout, "uint", PageSize, "uint*", TotalCount, "ptr*", Results, "CDecl uint")
         return result
     }
 
@@ -5745,7 +5745,7 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {PLDAPSearch} SearchBlock Handle to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366129(v=vs.85)">LDAPSearch</a> structure.
-     * @param {Pointer<UInt32>} TotalCount The total pages in the search results.
+     * @param {Pointer<Integer>} TotalCount The total pages in the search results.
      * @param {Pointer<LDAPMessage>} Results A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure that contains the results of the operation.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
@@ -5781,14 +5781,14 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle An LDAP session handle, as obtained from a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_init">ldap_init</a>.
      * @param {Pointer<LDAPVLVInfo>} VlvInfo The address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapvlvinfo">LDAPVLVInfo</a> structure whose contents are used to construct the value of the control created.
      * @param {Integer} IsCritical If this value is not zero, the control created will have its criticality set to <b>TRUE</b>.
-     * @param {Pointer<LDAPControlW>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
+     * @param {Pointer<Pointer<LDAPControlW>>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
      * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_vlv_controlw
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlW(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlW", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr*", Control, "CDecl int")
         return result
     }
 
@@ -5797,26 +5797,26 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle An LDAP session handle, as obtained from a call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_init">ldap_init</a>.
      * @param {Pointer<LDAPVLVInfo>} VlvInfo The address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapvlvinfo">LDAPVLVInfo</a> structure whose contents are used to construct the value of the control created.
      * @param {Integer} IsCritical If this value is not zero, the control created will have its criticality set to <b>TRUE</b>.
-     * @param {Pointer<LDAPControlA>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
+     * @param {Pointer<Pointer<LDAPControlA>>} Control A result parameter assigned the address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structure that contains the request control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvrequest">LDAP_CONTROL_VLVREQUEST</a>) created by this function.
      * @returns {Integer} The <b>ldap_create_vlv_control</b> function returns an 
      * <a href="/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> to indicate failure, or LDAP_SUCCESS if successful.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_create_vlv_controla
      * @since windows6.0.6000
      */
     static ldap_create_vlv_controlA(ExternalHandle, VlvInfo, IsCritical, Control) {
-        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr", Control, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_create_vlv_controlA", "ptr", ExternalHandle, "ptr", VlvInfo, "char", IsCritical, "ptr*", Control, "CDecl int")
         return result
     }
 
     /**
      * Used to find and parse VLV search results.
      * @param {Pointer<LDAP>} ExternalHandle The LDAP session handle.
-     * @param {Pointer<LDAPControlW>} Control The address of a NULL-terminated array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures, typically obtained by a call to 
+     * @param {Pointer<Pointer<LDAPControlW>>} Control The address of a NULL-terminated array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures, typically obtained by a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<UInt32>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
-     * @param {Pointer<UInt32>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<LDAP_BERVAL>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
-     * @param {Pointer<Int32>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
+     * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
+     * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
      * 
@@ -5841,19 +5841,19 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlW(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlW", "ptr", ExternalHandle, "ptr*", Control, "uint*", TargetPos, "uint*", ListCount, "ptr*", Context, "int*", ErrCode, "CDecl int")
         return result
     }
 
     /**
      * Used to find and parse VLV search results.
      * @param {Pointer<LDAP>} ExternalHandle The LDAP session handle.
-     * @param {Pointer<LDAPControlA>} Control The address of a NULL-terminated array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures, typically obtained by a call to 
+     * @param {Pointer<Pointer<LDAPControlA>>} Control The address of a NULL-terminated array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures, typically obtained by a call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_parse_result">ldap_parse_result</a>.
-     * @param {Pointer<UInt32>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
-     * @param {Pointer<UInt32>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
-     * @param {Pointer<LDAP_BERVAL>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
-     * @param {Pointer<Int32>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
+     * @param {Pointer<Integer>} TargetPos The numeric position of the target entry in the result set list, as provided by the targetPosition element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the target position is not returned.
+     * @param {Pointer<Integer>} ListCount The server estimate of the number of entries in the list as provided by the contentCount element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the size is not returned.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} Context The server-generated context identifier. If the server does not return a context identifier, this parameter will be set to <b>NULL</b>. If <b>NULL</b> is passed for contextp, the context identifier is not returned.
+     * @param {Pointer<Integer>} ErrCode The VLV result code, as provided by the virtualListViewResult element of the BER-encoded response control (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>). If this parameter is <b>NULL</b>, the result code is not returned.
      * @returns {Integer} This function returns an 
      * <a href="/previous-versions/windows/desktop/ldap/return-values">LDAP error code</a> that indicates whether a VLV result control was found and parsed successfully. <b>LDAP_SUCCESS</b> is returned if all goes well, <b>LDAP_CONTROL_MISSING</b> is returned if the <i>ctrls</i> array does not include a response control (<a href="/previous-versions/windows/desktop/ldap/ldap-control-vlvresponse">LDAP_CONTROL_VLVRESPONSE</a>), and another LDAP error code is returned if a parsing error or other issue occurs.
      * 
@@ -5878,39 +5878,39 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_vlv_controlA(ExternalHandle, Control, TargetPos, ListCount, Context, ErrCode) {
-        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, "ptr", Control, "uint*", TargetPos, "uint*", ListCount, "ptr", Context, "int*", ErrCode, "CDecl int")
+        result := DllCall("WLDAP32.dll\ldap_parse_vlv_controlA", "ptr", ExternalHandle, "ptr*", Control, "uint*", TargetPos, "uint*", ListCount, "ptr*", Context, "int*", ErrCode, "CDecl int")
         return result
     }
 
     /**
      * Used in an active LDAP session to begin using TLS encryption.
      * @param {Pointer<LDAP>} ExternalHandle A pointer to an <b>LDAP</b> structure that represents the current session.
-     * @param {Pointer<UInt32>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<LDAPMessage>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
+     * @param {Pointer<Integer>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPMessage>>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
      * @returns {Integer} If the function call succeeds, <b>LDAP_SUCCESS</b> is returned. <b>LDAP_UNWILLING_TO_PERFORM</b> is returned if a TLD/SSL session is already in progress, or if a bind is currently in progress, or if there is an outstanding LDAP request on the connection. If the server rejects the extended operation, <b>LDAP_OTHER</b> is returned and the <i>ServerReturnValue</i> parameter should be checked for the server error code.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_start_tls_sw
      * @since windows6.0.6000
      */
     static ldap_start_tls_sW(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, "uint*", ServerReturnValue, "ptr", result, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sW", "ptr", ExternalHandle, "uint*", ServerReturnValue, "ptr*", result, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
     /**
      * Used in an active LDAP session to begin using TLS encryption.
      * @param {Pointer<LDAP>} ExternalHandle A pointer to an <b>LDAP</b> structure that represents the current session.
-     * @param {Pointer<UInt32>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<LDAPMessage>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
+     * @param {Pointer<Integer>} ServerReturnValue Optional. A pointer to a <b>ULONG</b> that may contain a server error code. This parameter should be consulted if <b>LDAP_OTHER</b> is returned in the return value.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPMessage>>} result Optional. A pointer to a pointer for an <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a>  structure that may contain a server referral message.  Pass in <b>NULL</b> if you do not wish to use it.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A NULL-terminated array of pointers to  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent server controls.  Pass in <b>NULL</b> if you do not want to specify server  controls.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A NULL-terminated array of pointers to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-ldapcontrola">LDAPControl</a> structures that represent client controls.  Pass in <b>NULL</b> if you do not want to specify client controls.
      * @returns {Integer} If the function call succeeds, <b>LDAP_SUCCESS</b> is returned. <b>LDAP_UNWILLING_TO_PERFORM</b> is returned if a TLD/SSL session is already in progress, or if a bind is currently in progress, or if there is an outstanding LDAP request on the connection. If the server rejects the extended operation, <b>LDAP_OTHER</b> is returned and the <i>ServerReturnValue</i> parameter should be checked for the server error code.
      * @see https://docs.microsoft.com/windows/win32/api//winldap/nf-winldap-ldap_start_tls_sa
      * @since windows6.0.6000
      */
     static ldap_start_tls_sA(ExternalHandle, ServerReturnValue, result, ServerControls, ClientControls) {
-        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, "uint*", ServerReturnValue, "ptr", result, "ptr", ServerControls, "ptr", ClientControls, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_start_tls_sA", "ptr", ExternalHandle, "uint*", ServerReturnValue, "ptr*", result, "ptr*", ServerControls, "ptr*", ClientControls, "CDecl uint")
         return result
     }
 
@@ -5975,7 +5975,7 @@ class Ldap {
      * @param {Pointer<LDAP>} Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
-     * @param {Pointer<PWSTR>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
+     * @param {Pointer<Pointer<PWSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -5984,7 +5984,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceW(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceW", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
         return result
     }
 
@@ -5994,7 +5994,7 @@ class Ldap {
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
-     * @param {Pointer<PSTR>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
+     * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -6004,7 +6004,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_referenceA(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_referenceA", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
         return result
     }
 
@@ -6013,7 +6013,7 @@ class Ldap {
      * @param {Pointer<LDAP>} Connection The session handle.
      * @param {Pointer<LDAPMessage>} ResultMessage A pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldapmessage">LDAPMessage</a> structure containing the search response.
-     * @param {Pointer<PSTR>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
+     * @param {Pointer<Pointer<PSTR>>} Referrals A pointer to the list of subordinate referrals. Free with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/nf-winldap-ldap_value_free">ldap_value_free</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>LDAP_SUCCESS</b>.
      * 
      * If the function fails, it returns an error code. See 
@@ -6022,7 +6022,7 @@ class Ldap {
      * @since windows6.0.6000
      */
     static ldap_parse_reference(Connection, ResultMessage, Referrals) {
-        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, "ptr", Referrals, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_parse_reference", "ptr", Connection, "ptr", ResultMessage, "ptr*", Referrals, "CDecl uint")
         return result
     }
 
@@ -6031,9 +6031,9 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PWSTR} Oid A pointer to a null-terminated string that contains the dotted object identifier  text string that names the request.
      * @param {Pointer<LDAP_BERVAL>} Data The arbitrary data required by the operation. If <b>NULL</b>, no data is sent to the server.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -6044,7 +6044,7 @@ class Ldap {
     static ldap_extended_operationW(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operationW", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operationW", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6053,9 +6053,9 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} Oid A pointer to a null-terminated string that contains the dotted object identifier  text string that names the request.
      * @param {Pointer<LDAP_BERVAL>} Data The arbitrary data required by the operation. If <b>NULL</b>, no data is sent to the server.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -6066,7 +6066,7 @@ class Ldap {
     static ldap_extended_operationA(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operationA", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operationA", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6075,10 +6075,10 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {PSTR} Oid A pointer to a null-terminated string that contains the dotted object identifier (OID) text string that names the request.
      * @param {Pointer<LDAP_BERVAL>} Data The arbitrary data required by the operation. If <b>NULL</b>, no data is sent to the server.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b> if not used.
      * @param {Pointer<PSTR>} ReturnedOid Optional. A pointer to a null-terminated string that contains the dotted OID text string of the server response message.  This is normally the same OID  as that which names the request passed to the server in the <i>Oid</i> parameter. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAP_BERVAL>} ReturnedData Optional. The arbitrary data returned by the extended operation. If <b>NULL</b>, no data is returned by the server. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ReturnedData Optional. The arbitrary data returned by the extended operation. If <b>NULL</b>, no data is returned by the server. Set this parameter to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -6089,7 +6089,7 @@ class Ldap {
     static ldap_extended_operation_sA(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation_sA", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", ReturnedOid, "ptr", ReturnedData, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operation_sA", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", ReturnedOid, "ptr*", ReturnedData, "CDecl uint")
         return result
     }
 
@@ -6098,10 +6098,10 @@ class Ldap {
      * @param {Pointer<LDAP>} ExternalHandle The session handle.
      * @param {PWSTR} Oid A pointer to a null-terminated string that contains the dotted object identifier (OID) text string that names the request.
      * @param {Pointer<LDAP_BERVAL>} Data The arbitrary data required by the operation. If <b>NULL</b>, no data is sent to the server.
-     * @param {Pointer<LDAPControlW>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
-     * @param {Pointer<LDAPControlW>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAPControlW>>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b> if not used.
      * @param {Pointer<PWSTR>} ReturnedOid Optional. A pointer to a null-terminated string that contains the dotted OID text string of the server response message.  This is normally the same OID  as that which names the request passed to the server in the <i>Oid</i> parameter. Set to <b>NULL</b> if not used.
-     * @param {Pointer<LDAP_BERVAL>} ReturnedData Optional. The arbitrary data returned by the extended operation. If <b>NULL</b>, no data is returned by the server. Set this parameter to <b>NULL</b> if not used.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} ReturnedData Optional. The arbitrary data returned by the extended operation. If <b>NULL</b>, no data is returned by the server. Set this parameter to <b>NULL</b> if not used.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -6112,7 +6112,7 @@ class Ldap {
     static ldap_extended_operation_sW(ExternalHandle, Oid, Data, ServerControls, ClientControls, ReturnedOid, ReturnedData) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation_sW", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "ptr", ReturnedOid, "ptr", ReturnedData, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operation_sW", "ptr", ExternalHandle, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "ptr", ReturnedOid, "ptr*", ReturnedData, "CDecl uint")
         return result
     }
 
@@ -6121,9 +6121,9 @@ class Ldap {
      * @param {Pointer<LDAP>} ld The session handle.
      * @param {PSTR} Oid A pointer to a null-terminated string that contains the dotted object identifier  text string that names the request.
      * @param {Pointer<LDAP_BERVAL>} Data The arbitrary data required by the operation. If <b>NULL</b>, no data is sent to the server.
-     * @param {Pointer<LDAPControlA>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<LDAPControlA>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
-     * @param {Pointer<UInt32>} MessageNumber The message ID for the request.
+     * @param {Pointer<Pointer<LDAPControlA>>} ServerControls Optional. A list of LDAP server controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Pointer<LDAPControlA>>} ClientControls Optional. A list of client controls. Set this parameter to <b>NULL</b>, if not used.
+     * @param {Pointer<Integer>} MessageNumber The message ID for the request.
      * @returns {Integer} If the function succeeds, <b>LDAP_SUCCESS</b> is returned.
      * 
      * If the function fails, an error code is returned. For more information, see 
@@ -6134,7 +6134,7 @@ class Ldap {
     static ldap_extended_operation(ld, Oid, Data, ServerControls, ClientControls, MessageNumber) {
         Oid := Oid is String ? StrPtr(Oid) : Oid
 
-        result := DllCall("WLDAP32.dll\ldap_extended_operation", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr", ServerControls, "ptr", ClientControls, "uint*", MessageNumber, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ldap_extended_operation", "ptr", ld, "ptr", Oid, "ptr", Data, "ptr*", ServerControls, "ptr*", ClientControls, "uint*", MessageNumber, "CDecl uint")
         return result
     }
 
@@ -6221,13 +6221,13 @@ class Ldap {
 
     /**
      * The ber_bvecfree function frees an array of berval structures.
-     * @param {Pointer<LDAP_BERVAL>} pBerVal Pointer to a NULL-terminated array of <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures to be deallocated.
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} pBerVal Pointer to a NULL-terminated array of <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structures to be deallocated.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winber/nf-winber-ber_bvecfree
      * @since windows6.0.6000
      */
     static ber_bvecfree(pBerVal) {
-        DllCall("WLDAP32.dll\ber_bvecfree", "ptr", pBerVal, "CDecl ")
+        DllCall("WLDAP32.dll\ber_bvecfree", "ptr*", pBerVal, "CDecl ")
     }
 
     /**
@@ -6263,7 +6263,7 @@ class Ldap {
     /**
      * The ber_skip_tag function skips the current tag and returns the tag of the next element in the supplied BerElement structure.
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
-     * @param {Pointer<UInt32>} pLen Returns the length of the skipped element.
+     * @param {Pointer<Integer>} pLen Returns the length of the skipped element.
      * @returns {Integer} Returns the tag of the next element in the <a href="/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to read.
      * @see https://docs.microsoft.com/windows/win32/api//winber/nf-winber-ber_skip_tag
      * @since windows6.0.6000
@@ -6276,7 +6276,7 @@ class Ldap {
     /**
      * Returns the tag of the next element to be parsed in the supplied BerElement structure.
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
-     * @param {Pointer<UInt32>} pLen Returns the length of the next element to be parsed.
+     * @param {Pointer<Integer>} pLen Returns the length of the next element to be parsed.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
      * @see https://docs.microsoft.com/windows/win32/api//winber/nf-winber-ber_peek_tag
      * @since windows6.0.6000
@@ -6289,22 +6289,22 @@ class Ldap {
     /**
      * The ber_first_element function is used to begin the traversal of a SET, SET OF, SEQUENCE or SEQUENCE OF data value stored in the supplied BerElement structure. It returns the tag and length of the first element.
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
-     * @param {Pointer<UInt32>} pLen Returns the length of the next element to be parsed.
-     * @param {Pointer<CHAR>} ppOpaque Returns a pointer to a cookie that is passed to subsequent calls of the 
+     * @param {Pointer<Integer>} pLen Returns the length of the next element to be parsed.
+     * @param {Pointer<Pointer<CHAR>>} ppOpaque Returns a pointer to a cookie that is passed to subsequent calls of the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_next_element">ber_next_element</a> function.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
      * @see https://docs.microsoft.com/windows/win32/api//winber/nf-winber-ber_first_element
      * @since windows6.0.6000
      */
     static ber_first_element(pBerElement, pLen, ppOpaque) {
-        result := DllCall("WLDAP32.dll\ber_first_element", "ptr", pBerElement, "uint*", pLen, "ptr", ppOpaque, "CDecl uint")
+        result := DllCall("WLDAP32.dll\ber_first_element", "ptr", pBerElement, "uint*", pLen, "ptr*", ppOpaque, "CDecl uint")
         return result
     }
 
     /**
      * The ber_next_element function is used along with ber_first_element to traverse a SET, SET OF, SEQUENCE or SEQUENCE OF data value stored in the supplied BerElement structure. It returns the tag and length of the next element in the constructed type.
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
-     * @param {Pointer<UInt32>} pLen Returns the length of the next element to be parsed.
+     * @param {Pointer<Integer>} pLen Returns the length of the next element to be parsed.
      * @param {PSTR} opaque An opaque cookie used internally that was returned by the initial call to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_first_element">ber_first_element</a> function.
      * @returns {Integer} Returns the tag of the next element to be read in the <a href="/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure. LBER_DEFAULT is returned if there is no further data to be read.
@@ -6321,14 +6321,14 @@ class Ldap {
     /**
      * The ber_flatten function allocates a new berval structure containing the data taken from the supplied BerElement structure.
      * @param {Pointer<BerElement>} pBerElement Pointer to the source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winldap/ns-winldap-berelement">BerElement</a> structure.
-     * @param {Pointer<LDAP_BERVAL>} pBerVal Pointer to the newly allocated <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure, which should be freed using 
+     * @param {Pointer<Pointer<LDAP_BERVAL>>} pBerVal Pointer to the newly allocated <a href="https://docs.microsoft.com/windows/win32/api/winldap/ns-winldap-ldap_berval">berval</a> structure, which should be freed using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winber/nf-winber-ber_bvfree">ber_bvfree</a>.
      * @returns {Integer} The function returns 0 on success and -1 on failure.
      * @see https://docs.microsoft.com/windows/win32/api//winber/nf-winber-ber_flatten
      * @since windows6.0.6000
      */
     static ber_flatten(pBerElement, pBerVal) {
-        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr", pBerVal, "CDecl int")
+        result := DllCall("WLDAP32.dll\ber_flatten", "ptr", pBerElement, "ptr*", pBerVal, "CDecl int")
         return result
     }
 

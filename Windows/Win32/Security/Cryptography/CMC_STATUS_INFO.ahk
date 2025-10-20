@@ -99,7 +99,7 @@ class CMC_STATUS_INFO extends Win32Struct
 
     /**
      * A <b>DWORD</b> array.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rgdwBodyList {
         get => NumGet(this, 8, "ptr")

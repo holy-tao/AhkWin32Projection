@@ -21,7 +21,7 @@ class DML_BINDING_TABLE_DESC extends Win32Struct
      * A pointer to an [IDMLDispatchable](/windows/win32/api/directml/nn-directml-idmldispatchable) interface representing the dispatchable object (an operator initializer, or a compiled operator) for which this binding table will represent the bindings—either an
      *         [IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator) or an [IDMLOperatorInitializer](/windows/win32/api/directml/nn-directml-idmloperatorinitializer). The binding table maintains a strong reference to this
      *         interface pointer. This value may not be null.
-     * @type {Pointer<IDMLDispatchable>}
+     * @type {IDMLDispatchable}
      */
     Dispatchable {
         get => NumGet(this, 0, "ptr")

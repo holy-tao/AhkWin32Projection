@@ -107,7 +107,7 @@ class VMRALPHABITMAP extends Win32Struct
     /**
      * Pointer to a DirectDraw surface that contains the bitmap. Specify <b>NULL</b> if the bitmap is to be obtained from a GDI device context. If a DirectDraw surface is specified, 
      *           the pixel format must be ARGB-32 or RGB-32. If the surface contains per-pixel alpha, do not set the VMRBITMAP_SRCCOLORKEY flag in <b>dwFlags</b>.
-     * @type {Pointer<IDirectDrawSurface7>}
+     * @type {IDirectDrawSurface7}
      */
     pDDS {
         get => NumGet(this, 16, "ptr")

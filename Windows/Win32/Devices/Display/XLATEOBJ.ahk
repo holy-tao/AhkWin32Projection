@@ -67,7 +67,7 @@ class XLATEOBJ extends Win32Struct
 
     /**
      * Pointer to an array of translation entries.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulXlate {
         get => NumGet(this, 16, "ptr")

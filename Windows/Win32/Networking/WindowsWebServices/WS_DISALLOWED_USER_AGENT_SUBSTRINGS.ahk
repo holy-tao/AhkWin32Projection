@@ -24,7 +24,7 @@ class WS_DISALLOWED_USER_AGENT_SUBSTRINGS extends Win32Struct
 
     /**
      * An array of WS_STRING*. Each WS_STRING* would be searched as a sub-string in the UserAgent HTTP header value.
-     * @type {Pointer<WS_STRING>}
+     * @type {Pointer<Pointer<WS_STRING>>}
      */
     subStrings {
         get => NumGet(this, 8, "ptr")

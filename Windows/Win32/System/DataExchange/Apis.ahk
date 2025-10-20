@@ -487,11 +487,11 @@ class DataExchange {
      * The 
      * 					<i>lParam</i> parameter of the posted DDE message that was received. The application must free the memory object specified by the 
      * 					<i>lParam</i> parameter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/dde/nf-dde-freeddelparam">FreeDDElParam</a> function.
-     * @param {Pointer<UIntPtr>} puiLo Type: <b>PUINT_PTR</b>
+     * @param {Pointer<Pointer>} puiLo Type: <b>PUINT_PTR</b>
      * 
      * A pointer to a variable that receives the low-order word of 
      * 					<i>lParam</i>.
-     * @param {Pointer<UIntPtr>} puiHi Type: <b>PUINT_PTR</b>
+     * @param {Pointer<Pointer>} puiHi Type: <b>PUINT_PTR</b>
      * 
      * A pointer to a variable that receives the high-order word of 
      * 					<i>lParam</i>.
@@ -565,7 +565,7 @@ class DataExchange {
 
     /**
      * Registers an application with the Dynamic Data Exchange Management Library (DDEML). An application must call this function before calling any other Dynamic Data Exchange Management Library (DDEML) function.
-     * @param {Pointer<UInt32>} pidInst Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pidInst Type: <b>LPDWORD</b>
      * 
      * The application instance identifier. At initialization, this parameter should point to 0. If the function succeeds, this parameter points to the instance identifier for the application. This value should be passed as the 
      * 					<i>idInst</i> parameter in all other DDEML functions that require it. If an application uses multiple instances of the DDEML dynamic-link library (DLL), the application should provide a different callback function for each instance. 
@@ -596,7 +596,7 @@ class DataExchange {
 
     /**
      * Registers an application with the Dynamic Data Exchange Management Library (DDEML). An application must call this function before calling any other Dynamic Data Exchange Management Library (DDEML) function.
-     * @param {Pointer<UInt32>} pidInst Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pidInst Type: <b>LPDWORD</b>
      * 
      * The application instance identifier. At initialization, this parameter should point to 0. If the function succeeds, this parameter points to the instance identifier for the application. This value should be passed as the 
      * 					<i>idInst</i> parameter in all other DDEML functions that require it. If an application uses multiple instances of the DDEML dynamic-link library (DLL), the application should provide a different callback function for each instance. 
@@ -1007,7 +1007,7 @@ class DataExchange {
 
     /**
      * Begins a data transaction between a client and a server. Only a Dynamic Data Exchange (DDE) client application can call this function, and the application can use it only after establishing a conversation with the server.
-     * @param {Pointer<Byte>} pData Type: <b>LPBYTE</b>
+     * @param {Pointer<Integer>} pData Type: <b>LPBYTE</b>
      * 
      * The beginning of the data the client must pass to the server. 
      * 
@@ -1047,7 +1047,7 @@ class DataExchange {
      * @param {Integer} dwTimeout Type: <b>DWORD</b>
      * 
      * The maximum amount of time, in milliseconds, that the client will wait for a response from the server application in a synchronous transaction. This parameter should be <b>TIMEOUT_ASYNC</b> for asynchronous transactions.
-     * @param {Pointer<UInt32>} pdwResult Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pdwResult Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the result of the transaction. An application that does not check the result can use <b>NULL</b> for this value. For synchronous transactions, the low-order word of this variable contains any applicable DDE_ flags resulting from the transaction. This provides support for applications dependent on <b>DDE_APPSTATUS</b> bits. It is, however, recommended that applications no longer use these bits because they may not be supported in future versions of the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/dynamic-data-exchange-management-library">Dynamic Data Exchange Management Library</a> (DDEML). For asynchronous transactions, this variable is filled with a unique transaction identifier for use with the <a href="https://docs.microsoft.com/windows/desktop/api/ddeml/nf-ddeml-ddeabandontransaction">DdeAbandonTransaction</a> function and the <a href="https://docs.microsoft.com/windows/desktop/dataxchg/xtyp-xact-complete">XTYP_XACT_COMPLETE</a> transaction.
      * @returns {HDDEDATA} Type: <b>HDDEDATA</b>
@@ -1181,11 +1181,11 @@ class DataExchange {
      * @param {HDDEDATA} hData Type: <b>HDDEDATA</b>
      * 
      * A handle to the DDE object to be accessed.
-     * @param {Pointer<UInt32>} pcbDataSize Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} pcbDataSize Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that receives the size, in bytes, of the DDE object identified by the 
      * 					<i>hData</i> parameter. If this parameter is <b>NULL</b>, no size information is returned.
-     * @returns {Pointer<Byte>} Type: <b>LPBYTE</b>
+     * @returns {Pointer<Integer>} Type: <b>LPBYTE</b>
      * 
      * If the function succeeds, the return value is a pointer to the first byte of data in the DDE object.
      * 
@@ -2166,7 +2166,7 @@ class DataExchange {
 
     /**
      * Retrieves the first available clipboard format in the specified list.
-     * @param {Pointer<UInt32>} paFormatPriorityList Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} paFormatPriorityList Type: <b>UINT*</b>
      * 
      * The clipboard formats, in priority order. For a description of the standard clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a> .
      * @param {Integer} cFormats Type: <b>int</b>
@@ -2255,13 +2255,13 @@ class DataExchange {
 
     /**
      * Retrieves the currently supported clipboard formats.
-     * @param {Pointer<UInt32>} lpuiFormats Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} lpuiFormats Type: <b>PUINT</b>
      * 
      * An array of clipboard formats. For a description of the standard clipboard formats, see <a href="https://docs.microsoft.com/windows/desktop/dataxchg/standard-clipboard-formats">Standard Clipboard Formats</a>.
      * @param {Integer} cFormats Type: <b>UINT</b>
      * 
      * The number of entries in the array pointed to by <i>lpuiFormats</i>.
-     * @param {Pointer<UInt32>} pcFormatsOut Type: <b>PUINT</b>
+     * @param {Pointer<Integer>} pcFormatsOut Type: <b>PUINT</b>
      * 
      * The actual number of clipboard formats in the array pointed to by <i>lpuiFormats</i>.
      * @returns {BOOL} Type: <b>BOOL</b>

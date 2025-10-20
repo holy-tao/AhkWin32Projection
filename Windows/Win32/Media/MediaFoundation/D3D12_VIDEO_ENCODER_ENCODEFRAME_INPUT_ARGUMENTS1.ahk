@@ -49,7 +49,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pInputFrame {
         get => NumGet(this, 224, "ptr")

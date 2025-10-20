@@ -13,6 +13,8 @@
 #Include .\D3D12_VIDEO_ENCODER_PICTURE_CONTROL_DESC.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_encodeframe_input_arguments
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -45,7 +47,7 @@ class D3D12_VIDEO_ENCODER_ENCODEFRAME_INPUT_ARGUMENTS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pInputFrame {
         get => NumGet(this, 144, "ptr")

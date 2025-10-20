@@ -12,7 +12,7 @@ class GOPHER_VIEW_ATTRIBUTE_TYPE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     ContentType {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class GOPHER_VIEW_ATTRIBUTE_TYPE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     Language {
         get => NumGet(this, 8, "ptr")

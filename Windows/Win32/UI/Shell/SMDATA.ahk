@@ -98,7 +98,7 @@ class SMDATA extends Win32Struct
      * Type: <b>IUknown*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the <a href="https://docs.microsoft.com/windows/desktop/shell/profiles-directory">MenuBand</a> object.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punk {
         get => NumGet(this, 40, "ptr")
@@ -131,7 +131,7 @@ class SMDATA extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface for the folder associated with the shell folder portion of the menu.
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     psf {
         get => NumGet(this, 64, "ptr")

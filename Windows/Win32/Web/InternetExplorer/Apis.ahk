@@ -2487,7 +2487,7 @@ class InternetExplorer {
      * @param {PWSTR} lpszURL 
      * @param {PWSTR} lpszCookieName 
      * @param {PWSTR} lpszCookieData 
-     * @param {Pointer<UInt32>} pcchCookieData 
+     * @param {Pointer<Integer>} pcchCookieData 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
      */
@@ -2525,7 +2525,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
+     * @param {Guid} guid 
      * @param {PWSTR} lpSubkey 
      * @param {BOOL} fSubkeyAllowed 
      * @returns {HRESULT} 
@@ -2542,7 +2542,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
+     * @param {Guid} guid 
      * @param {PWSTR} lpPath 
      * @param {PWSTR} lpValueName 
      * @param {Integer} dwType 
@@ -2563,7 +2563,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
+     * @param {Guid} guid 
      * @returns {HRESULT} 
      */
     static IEUnregisterWritableRegistry(guid) {
@@ -2583,7 +2583,7 @@ class InternetExplorer {
      * @param {Integer} samDesired 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @param {Pointer<HKEY>} phkResult 
-     * @param {Pointer<UInt32>} lpdwDisposition 
+     * @param {Pointer<Integer>} lpdwDisposition 
      * @returns {HRESULT} 
      */
     static IERegCreateKeyEx(lpSubKey, Reserved, lpClass, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
@@ -2759,7 +2759,7 @@ class InternetExplorer {
      * @param {PSTR} pszRatingInfo 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<Void>} ppRatingDetails 
+     * @param {Pointer<Pointer<Void>>} ppRatingDetails 
      * @returns {HRESULT} 
      */
     static RatingCheckUserAccess(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
@@ -2767,7 +2767,7 @@ class InternetExplorer {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr", ppRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingCheckUserAccess", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", ppRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2781,7 +2781,7 @@ class InternetExplorer {
      * @param {PWSTR} pszRatingInfo 
      * @param {Pointer} pData 
      * @param {Integer} cbData 
-     * @param {Pointer<Void>} ppRatingDetails 
+     * @param {Pointer<Pointer<Void>>} ppRatingDetails 
      * @returns {HRESULT} 
      */
     static RatingCheckUserAccessW(pszUsername, pszURL, pszRatingInfo, pData, cbData, ppRatingDetails) {
@@ -2789,7 +2789,7 @@ class InternetExplorer {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
         pszRatingInfo := pszRatingInfo is String ? StrPtr(pszRatingInfo) : pszRatingInfo
 
-        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr", ppRatingDetails, "int")
+        result := DllCall("MSRATING.dll\RatingCheckUserAccessW", "ptr", pszUsername, "ptr", pszURL, "ptr", pszRatingInfo, "ptr", pData, "uint", cbData, "ptr*", ppRatingDetails, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3062,7 +3062,7 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static CreateMIMEMap(ppMap) {
-        result := DllCall("ImgUtil.dll\CreateMIMEMap", "ptr", ppMap, "int")
+        result := DllCall("ImgUtil.dll\CreateMIMEMap", "ptr*", ppMap, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3071,9 +3071,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<IStream>} pStream 
-     * @param {Pointer<IMapMIMEToCLSID>} pMap 
-     * @param {Pointer<IUnknown>} pEventSink 
+     * @param {IStream} pStream 
+     * @param {IMapMIMEToCLSID} pMap 
+     * @param {IUnknown} pEventSink 
      * @returns {HRESULT} 
      */
     static DecodeImage(pStream, pMap, pEventSink) {
@@ -3086,13 +3086,13 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<IStream>} pInStream 
-     * @param {Pointer<UInt32>} pnFormat 
+     * @param {IStream} pInStream 
+     * @param {Pointer<Integer>} pnFormat 
      * @param {Pointer<IStream>} ppOutStream 
      * @returns {HRESULT} 
      */
     static SniffStream(pInStream, pnFormat, ppOutStream) {
-        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, "uint*", pnFormat, "ptr", ppOutStream, "int")
+        result := DllCall("ImgUtil.dll\SniffStream", "ptr", pInStream, "uint*", pnFormat, "ptr*", ppOutStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3101,7 +3101,7 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<UInt32>} pnMaxBytes 
+     * @param {Pointer<Integer>} pnMaxBytes 
      * @returns {HRESULT} 
      */
     static GetMaxMIMEIDBytes(pnMaxBytes) {
@@ -3114,9 +3114,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<Byte>} pbBytes 
+     * @param {Pointer<Integer>} pbBytes 
      * @param {Integer} nBytes 
-     * @param {Pointer<UInt32>} pnFormat 
+     * @param {Pointer<Integer>} pnFormat 
      * @returns {HRESULT} 
      */
     static IdentifyMIMEType(pbBytes, nBytes, pnFormat) {
@@ -3131,7 +3131,7 @@ class InternetExplorer {
      * 
      * @param {Pointer<RGBQUAD>} pRGBColors 
      * @param {Integer} nColors 
-     * @param {Pointer<Byte>} pInvTable 
+     * @param {Pointer<Integer>} pInvTable 
      * @param {Integer} cbTable 
      * @returns {HRESULT} 
      */
@@ -3145,14 +3145,14 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<Byte>} pDestBits 
+     * @param {Pointer<Integer>} pDestBits 
      * @param {Integer} nDestPitch 
-     * @param {Pointer<Byte>} pSrcBits 
+     * @param {Pointer<Integer>} pSrcBits 
      * @param {Integer} nSrcPitch 
      * @param {Pointer<Guid>} bfidSrc 
      * @param {Pointer<RGBQUAD>} prgbDestColors 
      * @param {Pointer<RGBQUAD>} prgbSrcColors 
-     * @param {Pointer<Byte>} pbDestInvMap 
+     * @param {Pointer<Integer>} pbDestInvMap 
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} cx 
@@ -3178,7 +3178,7 @@ class InternetExplorer {
     static CreateDDrawSurfaceOnDIB(hbmDib, ppSurface) {
         hbmDib := hbmDib is Win32Handle ? NumGet(hbmDib, "ptr") : hbmDib
 
-        result := DllCall("ImgUtil.dll\CreateDDrawSurfaceOnDIB", "ptr", hbmDib, "ptr", ppSurface, "int")
+        result := DllCall("ImgUtil.dll\CreateDDrawSurfaceOnDIB", "ptr", hbmDib, "ptr*", ppSurface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3187,9 +3187,9 @@ class InternetExplorer {
 
     /**
      * 
-     * @param {Pointer<IStream>} pStream 
-     * @param {Pointer<IMapMIMEToCLSID>} pMap 
-     * @param {Pointer<IUnknown>} pEventSink 
+     * @param {IStream} pStream 
+     * @param {IMapMIMEToCLSID} pMap 
+     * @param {IUnknown} pEventSink 
      * @param {PWSTR} pszMIMETypeParam 
      * @returns {HRESULT} 
      */

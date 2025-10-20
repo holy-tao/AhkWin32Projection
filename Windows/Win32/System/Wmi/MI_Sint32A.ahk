@@ -15,7 +15,7 @@ class MI_Sint32A extends Win32Struct
 
     /**
      * An array of <b>MI_Sint32</b> types.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

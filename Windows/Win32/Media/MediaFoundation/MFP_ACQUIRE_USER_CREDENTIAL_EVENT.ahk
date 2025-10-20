@@ -134,7 +134,7 @@ class MFP_ACQUIRE_USER_CREDENTIAL_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetcredential">IMFNetCredential</a> interface. The application uses this interface to set the user's credentials.
-     * @type {Pointer<IMFNetCredential>}
+     * @type {IMFNetCredential}
      */
     pCredential {
         get => NumGet(this, 88, "ptr")

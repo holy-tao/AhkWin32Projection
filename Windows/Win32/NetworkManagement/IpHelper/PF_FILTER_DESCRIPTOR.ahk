@@ -36,7 +36,7 @@ class PF_FILTER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SrcAddr {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class PF_FILTER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SrcMask {
         get => NumGet(this, 24, "ptr")
@@ -52,7 +52,7 @@ class PF_FILTER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     DstAddr {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class PF_FILTER_DESCRIPTOR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     DstMask {
         get => NumGet(this, 40, "ptr")

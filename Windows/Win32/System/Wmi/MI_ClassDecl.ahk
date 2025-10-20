@@ -33,7 +33,7 @@ class MI_ClassDecl extends Win32Struct
 
     /**
      * Name of this feature.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class MI_ClassDecl extends Win32Struct
 
     /**
      * Describes extra metadata for classes, properties, methods, and parameters.
-     * @type {Pointer<MI_Qualifier>}
+     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
     qualifiers {
         get => NumGet(this, 16, "ptr")
@@ -60,7 +60,7 @@ class MI_ClassDecl extends Win32Struct
 
     /**
      * The properties of this object.
-     * @type {Pointer<MI_PropertyDecl>}
+     * @type {Pointer<Pointer<MI_PropertyDecl>>}
      */
     properties {
         get => NumGet(this, 32, "ptr")
@@ -87,7 +87,7 @@ class MI_ClassDecl extends Win32Struct
 
     /**
      * Parent class name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     superClass {
         get => NumGet(this, 48, "ptr")
@@ -105,7 +105,7 @@ class MI_ClassDecl extends Win32Struct
 
     /**
      * The methods of this class.
-     * @type {Pointer<MI_MethodDecl>}
+     * @type {Pointer<Pointer<MI_MethodDecl>>}
      */
     methods {
         get => NumGet(this, 64, "ptr")

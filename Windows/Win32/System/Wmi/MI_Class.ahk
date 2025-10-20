@@ -38,7 +38,7 @@ class MI_Class extends Win32Struct
 
     /**
      * The namespace name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     namespaceName {
         get => NumGet(this, 16, "ptr")
@@ -47,7 +47,7 @@ class MI_Class extends Win32Struct
 
     /**
      * The server name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     serverName {
         get => NumGet(this, 24, "ptr")

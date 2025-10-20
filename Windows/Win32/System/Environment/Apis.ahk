@@ -390,6 +390,7 @@ class Environment {
      * 
      * @param {PSTR} lpPathName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryA(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -402,6 +403,7 @@ class Environment {
      * 
      * @param {PWSTR} lpPathName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setcurrentdirectory
      */
     static SetCurrentDirectoryW(lpPathName) {
         lpPathName := lpPathName is String ? StrPtr(lpPathName) : lpPathName
@@ -415,6 +417,7 @@ class Environment {
      * @param {Integer} nBufferLength 
      * @param {PSTR} lpBuffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryA(nBufferLength, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
@@ -428,6 +431,7 @@ class Environment {
      * @param {Integer} nBufferLength 
      * @param {PWSTR} lpBuffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getcurrentdirectory
      */
     static GetCurrentDirectoryW(nBufferLength, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
@@ -466,7 +470,7 @@ class Environment {
 
     /**
      * Retrieves the environment variables for the specified user. This block can then be passed to the CreateProcessAsUser function.
-     * @param {Pointer<Void>} lpEnvironment Type: <b>LPVOID*</b>
+     * @param {Pointer<Pointer<Void>>} lpEnvironment Type: <b>LPVOID*</b>
      * 
      * When this function returns, receives a pointer to the new environment block. The environment block is an array of null-terminated Unicode strings. The list ends with two nulls (\0\0).
      * @param {HANDLE} hToken Type: <b>HANDLE</b>
@@ -492,7 +496,7 @@ class Environment {
 
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr", lpEnvironment, "ptr", hToken, "int", bInherit, "int")
+        result := DllCall("USERENV.dll\CreateEnvironmentBlock", "ptr*", lpEnvironment, "ptr", hToken, "int", bInherit, "int")
         if(A_LastError)
             throw OSError()
 
@@ -711,7 +715,7 @@ class Environment {
      * 
      * For the <b>ENCLAVE_TYPE_VBS</b> enclave type, you must specify a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-enclave_create_info_vbs">ENCLAVE_CREATE_INFO_VBS</a> structure.
      * @param {Integer} dwInfoLength The length of the structure that the <i>lpEnclaveInformation</i> parameter points to, in bytes. For the <b>ENCLAVE_TYPE_SGX</b> enclave type, this value must be 4096.  For the <b>ENCLAVE_TYPE_VBS</b> enclave type, this value must be <c>sizeof(ENCLAVE_CREATE_INFO_VBS)</c>, which is 36 bytes.
-     * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. For the <b>ENCLAVE_TYPE_SGX</b> and <b>ENCLAVE_TYPE_VBS</b>  enclave types, the <i>lpEnclaveError</i> parameter is not used.
+     * @param {Pointer<Integer>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. For the <b>ENCLAVE_TYPE_SGX</b> and <b>ENCLAVE_TYPE_VBS</b>  enclave types, the <i>lpEnclaveError</i> parameter is not used.
      * @returns {Pointer<Void>} If the function succeeds, the return value is the base address of the created enclave.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
@@ -794,8 +798,8 @@ class Environment {
      * </table>
      * @param {Pointer} lpPageInformation A pointer to information that describes the pages that you want to add to the enclave. The <i>lpPageInformation</i> parameter is not used.
      * @param {Integer} dwInfoLength The length of the structure that the <i>lpPageInformation</i> parameter points to, in bytes. This value must be 0.
-     * @param {Pointer<UIntPtr>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes that <b>LoadEnclaveData</b> copied into the enclave.
-     * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. The <i>lpEnclaveError</i> parameter is not used.
+     * @param {Pointer<Pointer>} lpNumberOfBytesWritten A pointer to a variable that receives the number of bytes that <b>LoadEnclaveData</b> copied into the enclave.
+     * @param {Pointer<Integer>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific. The <i>lpEnclaveError</i> parameter is not used.
      * @returns {BOOL} If all of the data is loaded into the enclave successfully, the return value is nonzero. Otherwise, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * For a list of common error codes, see <a href="/windows/desktop/Debug/system-error-codes">System Error Codes</a>. The following error codes also apply for this function.
@@ -842,7 +846,7 @@ class Environment {
      * 
      * For the <b>ENCLAVE_TYPE_VBS</b> enclave type, specify a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-enclave_init_info_vbs">ENCLAVE_INIT_INFO_VBS</a> structure.
      * @param {Integer} dwInfoLength The length of the structure that the <i>lpEnclaveInformation</i> parameter points to, in bytes. For the <b>ENCLAVE_TYPE_SGX</b> enclave type, this value must be 4096. For the <b>ENCLAVE_TYPE_VBS</b> enclave type, this value must be <c>sizeof(ENCLAVE_INIT_INFO_VBS)</c>, which is 8 bytes.
-     * @param {Pointer<UInt32>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific.
+     * @param {Pointer<Integer>} lpEnclaveError An optional pointer to  a variable that receives an enclave error code that is architecture-specific.
      * 
      * For the <b>ENCLAVE_TYPE_SGX</b> enclave type, the <i>lpEnclaveError</i> parameter contains the error that the EINIT instruction generated if the function fails and .<a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ENCLAVE_FAILURE</b>.
      * 
@@ -953,7 +957,7 @@ class Environment {
      * 
      * 
      * This parameter is ignored when you use <b>CallEnclave</b> within an enclave to call a function that is not in any enclave.
-     * @param {Pointer<Void>} lpReturnValue The return value of the function, if it is called successfully.
+     * @param {Pointer<Pointer<Void>>} lpReturnValue The return value of the function, if it is called successfully.
      * @returns {BOOL} <b>TRUE</b> if the specified function was called successfully; otherwise <b>FALSE</b>. To get extended error information, 
      *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//enclaveapi/nf-enclaveapi-callenclave
@@ -962,7 +966,7 @@ class Environment {
     static CallEnclave(lpRoutine, lpParameter, fWaitForThread, lpReturnValue) {
         A_LastError := 0
 
-        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "int", fWaitForThread, "ptr", lpReturnValue, "int")
+        result := DllCall("vertdll.dll\CallEnclave", "ptr", lpRoutine, "ptr", lpParameter, "int", fWaitForThread, "ptr*", lpReturnValue, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1028,10 +1032,10 @@ class Environment {
 
     /**
      * Gets an enclave attestation report that describes the current enclave and is signed by the authority that is responsible for the type of the enclave.
-     * @param {Pointer<Byte>} EnclaveData A pointer to a 64-byte buffer of data that the enclave wants to insert into its signed report.  For example, this buffer could include a 256-bit nonce that the relying party supplied, followed by a SHA-256 hash of additional data that the enclave wants to convey, such as a public key that corresponds to a private key that the enclave owns.  If this parameter is NULL, the corresponding field of the report is  filled with zeroes.
+     * @param {Pointer<Integer>} EnclaveData A pointer to a 64-byte buffer of data that the enclave wants to insert into its signed report.  For example, this buffer could include a 256-bit nonce that the relying party supplied, followed by a SHA-256 hash of additional data that the enclave wants to convey, such as a public key that corresponds to a private key that the enclave owns.  If this parameter is NULL, the corresponding field of the report is  filled with zeroes.
      * @param {Pointer} Report A pointer to a buffer where the report should be placed.  This report may be stored either within the address range of the enclave or within the address space of the host process.  Specify NULL to indicate that only the size of the buffer required for the output should be calculated, and not the report itself.
      * @param {Integer} BufferSize The size of the buffer to which the <i>Report</i> parameter points.  If <i>Report</i> is NULL, <i>BufferSize</i> must be zero.  If <i>Report</i> is not NULL, and if the size of the report is larger than this value, an error is returned.
-     * @param {Pointer<UInt32>} OutputSize A pointer to a variable that receives the size of the report.
+     * @param {Pointer<Integer>} OutputSize A pointer to a variable that receives the size of the report.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//winenclaveapi/nf-winenclaveapi-enclavegetattestationreport
      * @since windows10.0.16299
@@ -1100,7 +1104,7 @@ class Environment {
      * </table>
      * @param {Pointer} ProtectedBlob A pointer to a buffer where the sealed data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this parameter is NULL, only the size of the protected blob is calculated.
      * @param {Integer} BufferSize A pointer to a variable that holds the size of the buffer to which the <i>ProtectedBlob</i> parameter points.  If <i>ProtectedBlob</i> is NULL, this value must be zero.  If <i>ProtectedBlob</i> is not NULL, and if the size of the encrypted data is larger than this value, an error occurs.
-     * @param {Pointer<UInt32>} ProtectedBlobSize A pointer to a variable that receives the actual size of the encrypted blob.
+     * @param {Pointer<Integer>} ProtectedBlobSize A pointer to a variable that receives the actual size of the encrypted blob.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//winenclaveapi/nf-winenclaveapi-enclavesealdata
      * @since windows10.0.16299
@@ -1119,9 +1123,9 @@ class Environment {
      * @param {Integer} ProtectedBlobSize The size of the sealed data to unseal, in bytes.
      * @param {Pointer} DecryptedData A pointer to a buffer where the unencrypted data should be placed.  This data may be stored either within the address range of the enclave or within the address space of the host process.  If this  parameter is NULL, only the size of the decrypted data is calculated.
      * @param {Integer} BufferSize The size of the buffer to which the <i>DecryptedData</i> parameter points, in bytes. If <i>DecryptedData</i> is NULL, <i>BufferSize</i> must be zero.  If <i>DecryptedData</i> is not NULL, and if the size of the decrypted data is larger than this value, an error is returned.
-     * @param {Pointer<UInt32>} DecryptedDataSize A pointer to a variable that receives the actual size of the decrypted data, in bytes.
+     * @param {Pointer<Integer>} DecryptedDataSize A pointer to a variable that receives the actual size of the decrypted data, in bytes.
      * @param {Pointer<ENCLAVE_IDENTITY>} SealingIdentity An optional pointer to a buffer that should be filled with the identity of the enclave that sealed the data.  If this pointer is NULL, the  identity of the sealing enclave is  not returned.
-     * @param {Pointer<UInt32>} UnsealingFlags An optional pointer to a variable that receives zero or more of the following flags that describe the encrypted binary large object.
+     * @param {Pointer<Integer>} UnsealingFlags An optional pointer to a variable that receives zero or more of the following flags that describe the encrypted binary large object.
      * 
      * <table>
      * <tr>
@@ -1159,7 +1163,7 @@ class Environment {
      * @param {Pointer<TRUSTLET_BINDING_DATA>} TrustletBindingData 
      * @param {Pointer} EncryptedData 
      * @param {Integer} BufferSize 
-     * @param {Pointer<UInt32>} EncryptedDataSize 
+     * @param {Pointer<Integer>} EncryptedDataSize 
      * @returns {HRESULT} 
      */
     static EnclaveEncryptDataForTrustlet(DataToEncrypt, DataToEncryptSize, TrustletBindingData, EncryptedData, BufferSize, EncryptedDataSize) {

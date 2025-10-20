@@ -162,7 +162,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rax {
         get => NumGet(this, 128, "ptr")
@@ -170,7 +170,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rcx {
         get => NumGet(this, 136, "ptr")
@@ -178,7 +178,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rdx {
         get => NumGet(this, 144, "ptr")
@@ -186,7 +186,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rbx {
         get => NumGet(this, 152, "ptr")
@@ -194,7 +194,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rsp {
         get => NumGet(this, 160, "ptr")
@@ -202,7 +202,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rbp {
         get => NumGet(this, 168, "ptr")
@@ -210,7 +210,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rsi {
         get => NumGet(this, 176, "ptr")
@@ -218,7 +218,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     Rdi {
         get => NumGet(this, 184, "ptr")
@@ -226,7 +226,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R8 {
         get => NumGet(this, 192, "ptr")
@@ -234,7 +234,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R9 {
         get => NumGet(this, 200, "ptr")
@@ -242,7 +242,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R10 {
         get => NumGet(this, 208, "ptr")
@@ -250,7 +250,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R11 {
         get => NumGet(this, 216, "ptr")
@@ -258,7 +258,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R12 {
         get => NumGet(this, 224, "ptr")
@@ -266,7 +266,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R13 {
         get => NumGet(this, 232, "ptr")
@@ -274,7 +274,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R14 {
         get => NumGet(this, 240, "ptr")
@@ -282,7 +282,7 @@ class KNONVOLATILE_CONTEXT_POINTERS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     R15 {
         get => NumGet(this, 248, "ptr")

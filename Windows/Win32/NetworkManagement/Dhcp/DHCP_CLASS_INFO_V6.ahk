@@ -69,7 +69,7 @@ class DHCP_CLASS_INFO_V6 extends Win32Struct
 
     /**
      * Pointer to a BYTE blob that contains an array of bytes of length specified by <b>ClassDataLength</b>. This contains opaque data regarding a user class or a vendor class.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClassData {
         get => NumGet(this, 32, "ptr")

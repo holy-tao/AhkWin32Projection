@@ -83,7 +83,7 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         SenseInfo {
             get => NumGet(this, 24, "ptr")
@@ -91,7 +91,7 @@ class RAW_SCSI_VIRTUAL_DISK_PARAMETERS extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         Cdb {
             get => NumGet(this, 32, "ptr")

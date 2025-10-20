@@ -36,7 +36,7 @@ class MD_CHANGE_OBJECT_W extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pdwMDDataIDs {
         get => NumGet(this, 16, "ptr")

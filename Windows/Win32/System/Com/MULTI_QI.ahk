@@ -29,7 +29,7 @@ class MULTI_QI extends Win32Struct
 
     /**
      * A pointer to the interface requested in <b>pIID</b>. This member must be <b>NULL</b> on input.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pItf {
         get => NumGet(this, 8, "ptr")

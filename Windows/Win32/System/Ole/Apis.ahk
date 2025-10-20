@@ -2397,7 +2397,7 @@ class Ole {
     /**
      * Allocates memory for a safe array descriptor.
      * @param {Integer} cDims The number of dimensions of the array.
-     * @param {Pointer<SAFEARRAY>} ppsaOut The safe array descriptor.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -2442,7 +2442,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptor
      */
     static SafeArrayAllocDescriptor(cDims, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr", ppsaOut, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr*", ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2453,7 +2453,7 @@ class Ole {
      * Creates a safe array descriptor for an array of any valid variant type, including VT_RECORD, without allocating the array data.
      * @param {Integer} vt The variant type.
      * @param {Integer} cDims The number of dimensions in the array.
-     * @param {Pointer<SAFEARRAY>} ppsaOut The safe array descriptor.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -2487,7 +2487,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptorex
      */
     static SafeArrayAllocDescriptorEx(vt, cDims, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, "ptr", ppsaOut, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, "ptr*", ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2773,13 +2773,13 @@ class Ole {
     /**
      * Increases the pinning reference count of the descriptor for the specified safe array by one, and may increase the pinning reference count of the data for the specified safe array by one if that data was dynamically allocated, as determined by the descriptor of the safe array.
      * @param {Pointer<SAFEARRAY>} psa The safe array for which the pinning reference count of the descriptor should increase. While that count remains greater than 0, the memory for the descriptor is prevented from being freed by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraydestroydescriptor">SafeArrayDestroyDescriptor</a> functions.
-     * @param {Pointer<Void>} ppDataToRelease Returns the safe array data for which a pinning reference was added, if <b>SafeArrayAddRef</b> also added  a pinning reference for the  safe array data.  This parameter is NULL if <b>SafeArrayAddRef</b> did not add a pinning reference for the safe array data. <b>SafeArrayAddRef</b> does not add a pinning reference for the safe array data if that safe array data was not dynamically allocated.
+     * @param {Pointer<Pointer<Void>>} ppDataToRelease Returns the safe array data for which a pinning reference was added, if <b>SafeArrayAddRef</b> also added  a pinning reference for the  safe array data.  This parameter is NULL if <b>SafeArrayAddRef</b> did not add a pinning reference for the safe array data. <b>SafeArrayAddRef</b> does not add a pinning reference for the safe array data if that safe array data was not dynamically allocated.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayaddref
      * @since windows5.1.2600
      */
     static SafeArrayAddRef(psa, ppDataToRelease) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, "ptr", ppDataToRelease, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, "ptr*", ppDataToRelease, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2921,7 +2921,7 @@ class Ole {
      * Gets the upper bound for any dimension of the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Integer} nDim The array dimension for which to get the upper bound.
-     * @param {Pointer<Int32>} plUbound The upper bound.
+     * @param {Pointer<Integer>} plUbound The upper bound.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -2988,7 +2988,7 @@ class Ole {
      * Gets the lower bound for any dimension of the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Integer} nDim The array dimension for which to get the lower bound.
-     * @param {Pointer<Int32>} plLbound The lower bound.
+     * @param {Pointer<Integer>} plLbound The lower bound.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3151,7 +3151,7 @@ class Ole {
     /**
      * Increments the lock count of an array, and retrieves a pointer to the array data.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Void>} ppvData The array data.
+     * @param {Pointer<Pointer<Void>>} ppvData The array data.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3196,7 +3196,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayaccessdata
      */
     static SafeArrayAccessData(psa, ppvData) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, "ptr", ppvData, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, "ptr*", ppvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3260,7 +3260,7 @@ class Ole {
     /**
      * Retrieves a single element of the array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Int32>} rgIndices A vector of indexes for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]. The left-most dimension is stored at <c>rgIndices[psa-&gt;cDims – 1]</c>.
+     * @param {Pointer<Integer>} rgIndices A vector of indexes for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]. The left-most dimension is stored at <c>rgIndices[psa-&gt;cDims – 1]</c>.
      * @param {Pointer<Void>} pv The element of the array.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -3327,7 +3327,7 @@ class Ole {
     /**
      * Stores the data element at the specified location in the array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Int32>} rgIndices A vector of indexes for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]. The left-most dimension is stored at <c>rgIndices[psa-&gt;cDims – 1]</c>.
+     * @param {Pointer<Integer>} rgIndices A vector of indexes for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]. The left-most dimension is stored at <c>rgIndices[psa-&gt;cDims – 1]</c>.
      * @param {Pointer<Void>} pv The data to assign to the array. The variant types VT_DISPATCH, VT_UNKNOWN, and VT_BSTR are pointers, and do not require another level of indirection.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -3394,7 +3394,7 @@ class Ole {
     /**
      * Creates a copy of an existing safe array.
      * @param {Pointer<SAFEARRAY>} psa A safe array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<SAFEARRAY>} ppsaOut The safe array descriptor.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3439,7 +3439,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraycopy
      */
     static SafeArrayCopy(psa, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, "ptr", ppsaOut, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, "ptr*", ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3449,8 +3449,8 @@ class Ole {
     /**
      * Gets a pointer to an array element.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Int32>} rgIndices An array of index values that identify an element of the array. All indexes for the element must be specified.
-     * @param {Pointer<Void>} ppvData The array element.
+     * @param {Pointer<Integer>} rgIndices An array of index values that identify an element of the array. All indexes for the element must be specified.
+     * @param {Pointer<Pointer<Void>>} ppvData The array element.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3495,7 +3495,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayptrofindex
      */
     static SafeArrayPtrOfIndex(psa, rgIndices, ppvData) {
-        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, "int*", rgIndices, "ptr", ppvData, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, "int*", rgIndices, "ptr*", ppvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3505,7 +3505,7 @@ class Ole {
     /**
      * Sets the record info in the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa The array descriptor.
-     * @param {Pointer<IRecordInfo>} prinfo The record info.
+     * @param {IRecordInfo} prinfo The record info.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3583,7 +3583,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetrecordinfo
      */
     static SafeArrayGetRecordInfo(psa, prinfo) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetRecordInfo", "ptr", psa, "ptr", prinfo, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetRecordInfo", "ptr", psa, "ptr*", prinfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3681,7 +3681,7 @@ class Ole {
     /**
      * Gets the VARTYPE stored in the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<UInt16>} pvt The VARTYPE.
+     * @param {Pointer<Integer>} pvt The VARTYPE.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3752,7 +3752,7 @@ class Ole {
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
      * @param {BSTR} bstr The BSTR to be converted to a vector.
-     * @param {Pointer<SAFEARRAY>} ppsa A one-dimensional safearray containing the characters in the BSTR.
+     * @param {Pointer<Pointer<SAFEARRAY>>} ppsa A one-dimensional safearray containing the characters in the BSTR.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3801,7 +3801,7 @@ class Ole {
     static VectorFromBstr(bstr, ppsa) {
         bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
 
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr", ppsa, "int")
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr*", ppsa, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3881,7 +3881,7 @@ class Ole {
     /**
      * Converts a short value to an unsigned char value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -3971,7 +3971,7 @@ class Ole {
     /**
      * Converts a long value to an unsigned char value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4061,7 +4061,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a byte value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4151,7 +4151,7 @@ class Ole {
     /**
      * Converts a float value to an unsigned char value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4241,7 +4241,7 @@ class Ole {
     /**
      * Converts a double value to an unsigned char value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4331,7 +4331,7 @@ class Ole {
     /**
      * Converts a currency value to an unsigned char value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4421,7 +4421,7 @@ class Ole {
     /**
      * Converts a date value to an unsigned char value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4530,7 +4530,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4621,9 +4621,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned char value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4713,7 +4713,7 @@ class Ole {
     /**
      * Converts a Boolean value to an unsigned char value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4803,7 +4803,7 @@ class Ole {
     /**
      * Converts a char value to an unsigned char value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4893,7 +4893,7 @@ class Ole {
     /**
      * Converts an unsigned short value to an unsigned char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -4983,7 +4983,7 @@ class Ole {
     /**
      * Converts an unsigned long value to an unsigned char value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5073,7 +5073,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a byte value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5163,7 +5163,7 @@ class Ole {
     /**
      * Converts a decimal value to an unsigned char value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Byte>} pbOut The resulting value.
+     * @param {Pointer<Integer>} pbOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5253,7 +5253,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a short value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5343,7 +5343,7 @@ class Ole {
     /**
      * Converts a long value to a short value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5433,7 +5433,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5523,7 +5523,7 @@ class Ole {
     /**
      * Converts a float value to a short value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5613,7 +5613,7 @@ class Ole {
     /**
      * Converts a double value to a short value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5703,7 +5703,7 @@ class Ole {
     /**
      * Converts a currency value to a short value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5793,7 +5793,7 @@ class Ole {
     /**
      * Converts a date value to a short value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -5922,7 +5922,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6013,9 +6013,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a short value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6105,7 +6105,7 @@ class Ole {
     /**
      * Converts a Boolean value to a short value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6195,7 +6195,7 @@ class Ole {
     /**
      * Converts a char value to a short value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6285,7 +6285,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a short value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6375,7 +6375,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a short value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6465,7 +6465,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a short value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6555,7 +6555,7 @@ class Ole {
     /**
      * Converts a decimal value to a short value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Int16>} psOut The resulting value.
+     * @param {Pointer<Integer>} psOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6645,7 +6645,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a long value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6735,7 +6735,7 @@ class Ole {
     /**
      * Converts a short value to a long value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6825,7 +6825,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a long value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -6915,7 +6915,7 @@ class Ole {
     /**
      * Converts a float value to a long value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7005,7 +7005,7 @@ class Ole {
     /**
      * Converts a double value to a long value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7095,7 +7095,7 @@ class Ole {
     /**
      * Converts a currency value to a long value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7185,7 +7185,7 @@ class Ole {
     /**
      * Converts a date value to a long value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7314,7 +7314,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7405,9 +7405,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a long value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7497,7 +7497,7 @@ class Ole {
     /**
      * Converts a Boolean value to a long value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7587,7 +7587,7 @@ class Ole {
     /**
      * Converts a char value to a long value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7677,7 +7677,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7767,7 +7767,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a long value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7857,7 +7857,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a long.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -7947,7 +7947,7 @@ class Ole {
     /**
      * Converts a decimal value to a long value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Int32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8037,7 +8037,7 @@ class Ole {
     /**
      * Onverts an unsigned byte value to an 8-byte integer value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8127,7 +8127,7 @@ class Ole {
     /**
      * Converts a short value to an 8-byte integer value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8217,7 +8217,7 @@ class Ole {
     /**
      * Converts a float value to an 8-byte integer value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8307,7 +8307,7 @@ class Ole {
     /**
      * Converts a double value to an 8-byte integer value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8397,7 +8397,7 @@ class Ole {
     /**
      * Converts a currency value to an 8-byte integer value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8487,7 +8487,7 @@ class Ole {
     /**
      * Converts a date value to an 8-byte integer value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8596,7 +8596,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8687,9 +8687,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to an 8-byte integer value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8779,7 +8779,7 @@ class Ole {
     /**
      * Converts a Boolean value to an 8-byte integer value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8869,7 +8869,7 @@ class Ole {
     /**
      * Converts a char value to an 8-byte integer value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -8959,7 +8959,7 @@ class Ole {
     /**
      * Converts an unsigned short value to an 8-byte integer value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9049,7 +9049,7 @@ class Ole {
     /**
      * Converts an unsigned long value to an 8-byte integer value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9139,7 +9139,7 @@ class Ole {
     /**
      * Converts an unsigned 8-byte integer value to an 8-byte integer value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9229,7 +9229,7 @@ class Ole {
     /**
      * Converts a decimal value to an 8-byte integer value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Int64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9319,7 +9319,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a float value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9409,7 +9409,7 @@ class Ole {
     /**
      * Converts a short value to a float value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9499,7 +9499,7 @@ class Ole {
     /**
      * Converts a long value to a float value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9589,7 +9589,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a float value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9679,7 +9679,7 @@ class Ole {
     /**
      * Converts a double value to a float value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9769,7 +9769,7 @@ class Ole {
     /**
      * Converts a currency value to a float value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9859,7 +9859,7 @@ class Ole {
     /**
      * Converts a date value to a float value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -9988,7 +9988,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10079,9 +10079,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a float value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10171,7 +10171,7 @@ class Ole {
     /**
      * Converts a Boolean value to a float value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10261,7 +10261,7 @@ class Ole {
     /**
      * Onverts a char value to a float value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10351,7 +10351,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a float value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10441,7 +10441,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a float value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10531,7 +10531,7 @@ class Ole {
     /**
      * Converts an unsigned 8-byte integer value to a float value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10621,7 +10621,7 @@ class Ole {
     /**
      * Converts a decimal value to a float value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Single>} pfltOut The resulting value.
+     * @param {Pointer<Float>} pfltOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10711,7 +10711,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a double value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10801,7 +10801,7 @@ class Ole {
     /**
      * Converts a short value to a double value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10891,7 +10891,7 @@ class Ole {
     /**
      * Converts a long value to a double value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -10981,7 +10981,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to a double value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11071,7 +11071,7 @@ class Ole {
     /**
      * Converts a float value to a double value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11161,7 +11161,7 @@ class Ole {
     /**
      * Converts a currency value to a double value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11251,7 +11251,7 @@ class Ole {
     /**
      * Converts a date value to a double value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11380,7 +11380,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11471,9 +11471,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a double value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11563,7 +11563,7 @@ class Ole {
     /**
      * Converts a Boolean value to a double value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11653,7 +11653,7 @@ class Ole {
     /**
      * Converts a char value to a double value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11743,7 +11743,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a double value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11833,7 +11833,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a double value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -11923,7 +11923,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a double value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12013,7 +12013,7 @@ class Ole {
     /**
      * Converts a decimal value to a double value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Double>} pdblOut The resulting value.
+     * @param {Pointer<Float>} pdblOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12103,7 +12103,7 @@ class Ole {
     /**
      * Converts an unsigned char value to a date value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12193,7 +12193,7 @@ class Ole {
     /**
      * Converts a short value to a date value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12283,7 +12283,7 @@ class Ole {
     /**
      * Converts a long value to a date value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12373,7 +12373,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to a date value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12463,7 +12463,7 @@ class Ole {
     /**
      * Converts a float value to a date value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12553,7 +12553,7 @@ class Ole {
     /**
      * Converts a double value to a date value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12643,7 +12643,7 @@ class Ole {
     /**
      * Converts a currency value to a date value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12783,7 +12783,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12874,9 +12874,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a date value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -12966,7 +12966,7 @@ class Ole {
     /**
      * Converts a Boolean value to a date value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13056,7 +13056,7 @@ class Ole {
     /**
      * Converts a char value to a date value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13146,7 +13146,7 @@ class Ole {
     /**
      * Converts an unsigned short value to a date value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13236,7 +13236,7 @@ class Ole {
     /**
      * Converts an unsigned long value to a date value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13326,7 +13326,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned value to a date value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -13416,7 +13416,7 @@ class Ole {
     /**
      * Converts a decimal value to a date value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Double>} pdateOut The resulting value.
+     * @param {Pointer<Float>} pdateOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -14266,7 +14266,7 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a currency value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Pointer<CY>} pcyOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
@@ -15791,7 +15791,7 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a BSTR value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
      * @param {Pointer<BSTR>} pbstrOut The resulting value.
@@ -17359,7 +17359,7 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a Boolean value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
@@ -18748,7 +18748,7 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a char value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {PSTR} pcOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
@@ -19302,7 +19302,7 @@ class Ole {
     /**
      * Converts an unsigned char value to an unsigned short value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19392,7 +19392,7 @@ class Ole {
     /**
      * Converts a short value to an unsigned short value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19482,7 +19482,7 @@ class Ole {
     /**
      * Converts a long value to an unsigned short value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19572,7 +19572,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to an unsigned short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19662,7 +19662,7 @@ class Ole {
     /**
      * Converts a float value to an unsigned short value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19752,7 +19752,7 @@ class Ole {
     /**
      * Converts a double value to an unsigned short value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19842,7 +19842,7 @@ class Ole {
     /**
      * Converts a date value to an unsigned short value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -19932,7 +19932,7 @@ class Ole {
     /**
      * Converts a currency value to an unsigned short value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20061,7 +20061,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20152,9 +20152,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned short value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20244,7 +20244,7 @@ class Ole {
     /**
      * Converts a Boolean value to an unsigned short value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20334,7 +20334,7 @@ class Ole {
     /**
      * Converts a char value to an unsigned short value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20424,7 +20424,7 @@ class Ole {
     /**
      * Converts an unsigned long value to an unsigned short value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20514,7 +20514,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to an unsigned short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20604,7 +20604,7 @@ class Ole {
     /**
      * Converts a decimal value to an unsigned short value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<UInt16>} puiOut The resulting value.
+     * @param {Pointer<Integer>} puiOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20694,7 +20694,7 @@ class Ole {
     /**
      * Converts an unsigned char value to an unsigned long value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20784,7 +20784,7 @@ class Ole {
     /**
      * Converts a short value to an unsigned long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20874,7 +20874,7 @@ class Ole {
     /**
      * Converts a long value to an unsigned long value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -20964,7 +20964,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to an unsigned long value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<UInt32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21054,7 +21054,7 @@ class Ole {
     /**
      * Converts a float value to an unsigned long value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21144,7 +21144,7 @@ class Ole {
     /**
      * Converts a double value to an unsigned long value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21234,7 +21234,7 @@ class Ole {
     /**
      * Converts a date value to an unsigned long value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21324,7 +21324,7 @@ class Ole {
     /**
      * Converts a currency value to an unsigned long value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21453,7 +21453,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21544,9 +21544,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned long value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21636,7 +21636,7 @@ class Ole {
     /**
      * Converts a Boolean value to an unsigned long value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21726,7 +21726,7 @@ class Ole {
     /**
      * Converts a char value to an unsigned long value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21816,7 +21816,7 @@ class Ole {
     /**
      * Converts an unsigned short value to an unsigned long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21906,7 +21906,7 @@ class Ole {
     /**
      * Converts an 8-byte unsigned integer value to an unsigned long value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<UInt32>} plOut The resulting value.
+     * @param {Pointer<Integer>} plOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -21996,7 +21996,7 @@ class Ole {
     /**
      * Converts a decimal value to an unsigned long value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<UInt32>} pulOut The resulting value.
+     * @param {Pointer<Integer>} pulOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22086,7 +22086,7 @@ class Ole {
     /**
      * Converts a byte value to an 8-byte unsigned integer value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22176,7 +22176,7 @@ class Ole {
     /**
      * Converts a short value to an 8-byte unsigned integer value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22266,7 +22266,7 @@ class Ole {
     /**
      * Converts an 8-byte integer value to an 8-byte unsigned integer value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22356,7 +22356,7 @@ class Ole {
     /**
      * Converts a float value to an 8-byte unsigned integer value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22446,7 +22446,7 @@ class Ole {
     /**
      * Converts a double value to an 8-byte unsigned integer value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22536,7 +22536,7 @@ class Ole {
     /**
      * Converts a currency value to an 8-byte unsigned integer value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22626,7 +22626,7 @@ class Ole {
     /**
      * Converts a date value to an 8-byte unsigned integer value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22735,7 +22735,7 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22826,9 +22826,9 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to an 8-byte unsigned integer value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -22918,7 +22918,7 @@ class Ole {
     /**
      * Converts a VARIANT_BOOL value to an 8-byte unsigned integer value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -23008,7 +23008,7 @@ class Ole {
     /**
      * Converts a char value to an 8-byte unsigned integer value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -23098,7 +23098,7 @@ class Ole {
     /**
      * Converts an unsigned short value to an 8-byte unsigned integer value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -23188,7 +23188,7 @@ class Ole {
     /**
      * Converts an unsigned long value to an 8-byte unsigned integer value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -23278,7 +23278,7 @@ class Ole {
     /**
      * Converts a decimal value to an 8-byte unsigned integer value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<UInt64>} pi64Out The resulting value.
+     * @param {Pointer<Integer>} pi64Out The resulting value.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -24218,7 +24218,7 @@ class Ole {
 
     /**
      * Converts the default property of an IDispatch instance to a decimal value.
-     * @param {Pointer<IDispatch>} pdispIn The value to convert.
+     * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Pointer<DECIMAL>} pdecOut The resulting value.
      * @returns {HRESULT} This function can return one of these values.
@@ -24763,7 +24763,7 @@ class Ole {
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Enables the caller to control parsing, therefore defining the acceptable syntax of a number. If this field is set to zero, the input string must contain nothing but decimal digits. Setting each defined flag bit enables parsing of that syntactic feature. Standard Automation parsing (for example, as used by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vari2fromstr">VarI2FromStr</a>) has all flags set (NUMPRS_STD).
      * @param {Pointer<NUMPARSE>} pnumprs The parsed results.
-     * @param {Pointer<Byte>} rgbDig The values for the digits in the range 0–7, 0–9, or 0–15, depending on whether the number is octal, decimal, or hexadecimal. All leading zeros have been stripped off. For decimal numbers, trailing zeros are also stripped off, unless the number is zero, in which case a single zero digit will be present.
+     * @param {Pointer<Integer>} rgbDig The values for the digits in the range 0–7, 0–9, or 0–15, depending on whether the number is octal, decimal, or hexadecimal. All leading zeros have been stripped off. For decimal numbers, trailing zeros are also stripped off, unless the number is zero, in which case a single zero digit will be present.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -24834,7 +24834,7 @@ class Ole {
     /**
      * Converts parsed results to a variant.
      * @param {Pointer<NUMPARSE>} pnumprs The parsed results. The <b>cDig</b> member of this argument specifies the number of digits present in <i>rgbDig</i>.
-     * @param {Pointer<Byte>} rgbDig The values of the digits. The <b>cDig</b> field of <i>pnumprs</i> contains the number of digits.
+     * @param {Pointer<Integer>} rgbDig The values of the digits. The <b>cDig</b> field of <i>pnumprs</i> contains the number of digits.
      * @param {Integer} dwVtBits One bit set for each type that is acceptable as a return value (in many cases, just one bit).
      * 
      * <a id="VTBIT_I1"></a>
@@ -26064,7 +26064,7 @@ class Ole {
      * Performs the power function for variants of type double.
      * @param {Float} dblLeft The first variant.
      * @param {Float} dblRight The second variant.
-     * @param {Pointer<Double>} pdblResult The result.
+     * @param {Pointer<Float>} pdblResult The result.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8pow
      */
@@ -26149,7 +26149,7 @@ class Ole {
      * Rounds a variant of type double to the specified number of decimal places.
      * @param {Float} dblIn The variant.
      * @param {Integer} cDecimals The number of decimal places.
-     * @param {Pointer<Double>} pdblResult The result.
+     * @param {Pointer<Float>} pdblResult The result.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8round
      */
@@ -26165,7 +26165,7 @@ class Ole {
      * Converts a time and date converted from MS-DOS format to variant format.
      * @param {Pointer<UDATE>} pudateIn The unpacked date.
      * @param {Integer} dwFlags VAR_VALIDDATE if the date is valid.
-     * @param {Pointer<Double>} pdateOut The packed date.
+     * @param {Pointer<Float>} pdateOut The packed date.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -26222,7 +26222,7 @@ class Ole {
      * @param {Pointer<UDATE>} pudateIn The unpacked date.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags VAR_VALIDDATE if the date is valid.
-     * @param {Pointer<Double>} pdateOut The packed date.
+     * @param {Pointer<Float>} pdateOut The packed date.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -26333,12 +26333,12 @@ class Ole {
     /**
      * Retrieves the secondary (alternate) month names.
      * @param {Integer} lcid The locale identifier to be used in retrieving the alternate month names.
-     * @param {Pointer<PWSTR>} prgp An array of pointers to strings containing the alternate month names.
+     * @param {Pointer<Pointer<PWSTR>>} prgp An array of pointers to strings containing the alternate month names.
      * @returns {HRESULT} The function returns TRUE on success and FALSE otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getaltmonthnames
      */
     static GetAltMonthNames(lcid, prgp) {
-        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr", prgp, "int")
+        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr*", prgp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27464,7 +27464,7 @@ class Ole {
      * Takes a tokenized format string and applies it to a variant to produce a formatted output string.
      * @param {Pointer<VARIANT>} pvarIn The variant containing the value to format.
      * @param {PWSTR} pstrFormat The original format string.
-     * @param {Pointer<Byte>} pbTokCur The tokenized format string from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a>.
+     * @param {Pointer<Integer>} pbTokCur The tokenized format string from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a>.
      * @param {Integer} dwFlags The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
      * @param {Pointer<BSTR>} pbstrOut The formatted output string.
      * @param {Integer} lcid The locale to use for the formatted output string.
@@ -27538,7 +27538,7 @@ class Ole {
     /**
      * Parses the actual format string into a series of tokens which can be used to format variants using VarFormatFromTokens.
      * @param {PWSTR} pstrFormat The format string. For example "mm-dd-yy".
-     * @param {Pointer<Byte>} rgbTok The destination token buffer.
+     * @param {Pointer<Integer>} rgbTok The destination token buffer.
      * @param {Integer} cbTok The size of the destination token buffer.
      * @param {Integer} iFirstDay First day of the week.
      * 
@@ -27691,7 +27691,7 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} lcid The locale to interpret format string in.
-     * @param {Pointer<Int32>} pcbActual Points to the integer which is set to the first generated token. This parameter can be NULL.
+     * @param {Pointer<Integer>} pcbActual Points to the integer which is set to the first generated token. This parameter can be NULL.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -27905,7 +27905,7 @@ class Ole {
     static LoadTypeLib(szFile, pptlib) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr", pptlib, "int")
+        result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr*", pptlib, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28016,7 +28016,7 @@ class Ole {
     static LoadTypeLibEx(szFile, regkind, pptlib) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr", pptlib, "int")
+        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr*", pptlib, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28153,7 +28153,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadregtypelib
      */
     static LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid, pptlib) {
-        result := DllCall("OLEAUT32.dll\LoadRegTypeLib", "ptr", rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr", pptlib, "int")
+        result := DllCall("OLEAUT32.dll\LoadRegTypeLib", "ptr", rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr*", pptlib, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28180,7 +28180,7 @@ class Ole {
 
     /**
      * Adds information about a type library to the system registry.
-     * @param {Pointer<ITypeLib>} ptlib The type library.
+     * @param {ITypeLib} ptlib The type library.
      * @param {PWSTR} szFullPath The fully qualified path specification for the type library.
      * @param {PWSTR} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {HRESULT} This function can return one of these values.
@@ -28381,7 +28381,7 @@ class Ole {
 
     /**
      * Registers a type library for use by the calling user.
-     * @param {Pointer<ITypeLib>} ptlib The type library.
+     * @param {ITypeLib} ptlib The type library.
      * @param {PWSTR} szFullPath The fully qualified path specification for the type library.
      * @param {PWSTR} szHelpDir The directory in which the Help file for the library being registered can be found. This parameter can be null.
      * @returns {HRESULT} This function can return one of these values.
@@ -28659,7 +28659,7 @@ class Ole {
     static CreateTypeLib(syskind, szFile, ppctlib) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr*", ppctlib, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28677,7 +28677,7 @@ class Ole {
     static CreateTypeLib2(syskind, szFile, ppctlib) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr", ppctlib, "int")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr*", ppctlib, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -28690,7 +28690,7 @@ class Ole {
      * @param {Integer} position The position of the parameter in the parameter list. <b>DispGetParam</b> starts at the end of the array, so if position is 0, the last parameter in the array is returned.
      * @param {Integer} vtTarg The type the argument should be coerced to.
      * @param {Pointer<VARIANT>} pvarResult the variant to pass the parameter into.
-     * @param {Pointer<UInt32>} puArgErr On return, the index of the argument that caused a DISP_E_TYPEMISMATCH error. This pointer is returned to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> to indicate the position of the argument in DISPPARAMS that caused the error.
+     * @param {Pointer<Integer>} puArgErr On return, the index of the argument that caused a DISP_E_TYPEMISMATCH error. This pointer is returned to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> to indicate the position of the argument in DISPPARAMS that caused the error.
      * @returns {HRESULT} This function can return one of these values.
      * 
      * <table>
@@ -28793,10 +28793,10 @@ class Ole {
 
     /**
      * Low-level helper for Invoke that provides machine independence for customized Invoke.
-     * @param {Pointer<ITypeInfo>} ptinfo The type information for an interface. This type information is specific to one interface and language code, so it is not necessary to pass an interface identifier (IID) or LCID to this function.
+     * @param {ITypeInfo} ptinfo The type information for an interface. This type information is specific to one interface and language code, so it is not necessary to pass an interface identifier (IID) or LCID to this function.
      * @param {Pointer<PWSTR>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
      * @param {Integer} cNames The number of elements in <i>rgszNames</i>.
-     * @param {Pointer<Int32>} rgdispid An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
+     * @param {Pointer<Integer>} rgdispid An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -28854,7 +28854,7 @@ class Ole {
     /**
      * Automatically calls member functions on an interface, given the type information for the interface.
      * @param {Pointer<Void>} _this An implementation of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface described by <i>ptinfo</i>.
-     * @param {Pointer<ITypeInfo>} ptinfo The type information that describes the interface.
+     * @param {ITypeInfo} ptinfo The type information that describes the interface.
      * @param {Integer} dispidMember The member to be invoked. Use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-getidsofnames">GetIDsOfNames</a> or the object's documentation to obtain the DISPID.
      * @param {Integer} wFlags Flags describing the context of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> call.
      * 
@@ -28911,7 +28911,7 @@ class Ole {
      * @param {Pointer<DISPPARAMS>} pparams Pointer to a structure containing an array of arguments, an array of argument DISPIDs for named arguments, and counts for number of elements in the arrays.
      * @param {Pointer<VARIANT>} pvarResult Pointer to where the result is to be stored, or Null if the caller expects no result. This argument is ignored if DISPATCH_PROPERTYPUT or DISPATCH_PROPERTYPUTREF is specified.
      * @param {Pointer<EXCEPINFO>} pexcepinfo Pointer to a structure containing exception information. This structure should be filled in if DISP_E_EXCEPTION is returned.
-     * @param {Pointer<UInt32>} puArgErr The index within rgvarg of the first argument that has an error. Arguments are stored in pdispparams-&gt;rgvarg in reverse order, so the first argument is the one with the highest index in the array. This parameter is returned only when the resulting return value is DISP_E_TYPEMISMATCH or DISP_E_PARAMNOTFOUND.
+     * @param {Pointer<Integer>} puArgErr The index within rgvarg of the first argument that has an error. Arguments are stored in pdispparams-&gt;rgvarg in reverse order, so the first argument is the one with the highest index in the array. This parameter is returned only when the resulting return value is DISP_E_TYPEMISMATCH or DISP_E_PARAMNOTFOUND.
      * @returns {HRESULT} <table>
      * <tr>
      * <th>Return code</th>
@@ -29123,7 +29123,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createdisptypeinfo
      */
     static CreateDispTypeInfo(pidata, lcid, pptinfo) {
-        result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", "ptr", pidata, "uint", lcid, "ptr", pptinfo, "int")
+        result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", "ptr", pidata, "uint", lcid, "ptr*", pptinfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29132,9 +29132,9 @@ class Ole {
 
     /**
      * Creates a standard implementation of the IDispatch interface through a single function call. This simplifies exposing objects through Automation.
-     * @param {Pointer<IUnknown>} punkOuter The object's <b>IUnknown</b> implementation.
+     * @param {IUnknown} punkOuter The object's <b>IUnknown</b> implementation.
      * @param {Pointer<Void>} pvThis The object to expose.
-     * @param {Pointer<ITypeInfo>} ptinfo The type information that describes the exposed object.
+     * @param {ITypeInfo} ptinfo The type information that describes the exposed object.
      * @param {Pointer<IUnknown>} ppunkStdDisp The private unknown for the object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface QueryInterface call. This pointer is null if the function fails.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -29183,7 +29183,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createstddispatch
      */
     static CreateStdDispatch(punkOuter, pvThis, ptinfo, ppunkStdDisp) {
-        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, "ptr", pvThis, "ptr", ptinfo, "ptr", ppunkStdDisp, "int")
+        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, "ptr", pvThis, "ptr", ptinfo, "ptr*", ppunkStdDisp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29197,14 +29197,14 @@ class Ole {
      * @param {Integer} cc The calling convention. One of the CALLCONV values, such as CC_STDCALL.
      * @param {Integer} vtReturn The variant type of the function return value. Use VT_EMPTY to represent void.
      * @param {Integer} cActuals The number of function parameters.
-     * @param {Pointer<UInt16>} prgvt An array of variant types of the function parameters.
-     * @param {Pointer<VARIANT>} prgpvarg The function parameters.
+     * @param {Pointer<Integer>} prgvt An array of variant types of the function parameters.
+     * @param {Pointer<Pointer<VARIANT>>} prgpvarg The function parameters.
      * @param {Pointer<VARIANT>} pvargResult The function result.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispcallfunc
      */
     static DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, pvargResult) {
-        result := DllCall("OLEAUT32.dll\DispCallFunc", "ptr", pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, "ushort*", prgvt, "ptr", prgpvarg, "ptr", pvargResult, "int")
+        result := DllCall("OLEAUT32.dll\DispCallFunc", "ptr", pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, "ushort*", prgvt, "ptr*", prgpvarg, "ptr", pvargResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29213,10 +29213,10 @@ class Ole {
 
     /**
      * Registers an object as the active object for its class.
-     * @param {Pointer<IUnknown>} punk The active object.
+     * @param {IUnknown} punk The active object.
      * @param {Pointer<Guid>} rclsid The CLSID of the active object.
      * @param {Integer} dwFlags Flags controlling registration of the object. Possible values are ACTIVEOBJECT_STRONG and ACTIVEOBJECT_WEAK.
-     * @param {Pointer<UInt32>} pdwRegister Receives a handle. This handle must be passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-revokeactiveobject">RevokeActiveObject</a> to end the object's active status.
+     * @param {Pointer<Integer>} pdwRegister Receives a handle. This handle must be passed to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-revokeactiveobject">RevokeActiveObject</a> to end the object's active status.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-registeractiveobject
      */
@@ -29254,7 +29254,7 @@ class Ole {
     static GetActiveObject(rclsid, ppunk) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLEAUT32.dll\GetActiveObject", "ptr", rclsid, "ptr", pvReserved, "ptr", ppunk, "int")
+        result := DllCall("OLEAUT32.dll\GetActiveObject", "ptr", rclsid, "ptr", pvReserved, "ptr*", ppunk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29298,7 +29298,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createerrorinfo
      */
     static CreateErrorInfo(pperrinfo) {
-        result := DllCall("OLEAUT32.dll\CreateErrorInfo", "ptr", pperrinfo, "int")
+        result := DllCall("OLEAUT32.dll\CreateErrorInfo", "ptr*", pperrinfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29307,7 +29307,7 @@ class Ole {
 
     /**
      * Returns a pointer to the IRecordInfo interface of the UDT by passing its type information.
-     * @param {Pointer<ITypeInfo>} pTypeInfo The type information of a record.
+     * @param {ITypeInfo} pTypeInfo The type information of a record.
      * @param {Pointer<IRecordInfo>} ppRecInfo The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -29369,7 +29369,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getrecordinfofromtypeinfo
      */
     static GetRecordInfoFromTypeInfo(pTypeInfo, ppRecInfo) {
-        result := DllCall("OLEAUT32.dll\GetRecordInfoFromTypeInfo", "ptr", pTypeInfo, "ptr", ppRecInfo, "int")
+        result := DllCall("OLEAUT32.dll\GetRecordInfoFromTypeInfo", "ptr", pTypeInfo, "ptr*", ppRecInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29419,7 +29419,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getrecordinfofromguids
      */
     static GetRecordInfoFromGuids(rGuidTypeLib, uVerMajor, uVerMinor, lcid, rGuidTypeInfo, ppRecInfo) {
-        result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", "ptr", rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, "ptr", rGuidTypeInfo, "ptr", ppRecInfo, "int")
+        result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", "ptr", rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, "ptr", rGuidTypeInfo, "ptr*", ppRecInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29584,7 +29584,7 @@ class Ole {
 
     /**
      * Determines whether an OLE linked object (rather than an OLE embedded object) can be created from a clipboard data object.
-     * @param {Pointer<IDataObject>} pSrcDataObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the clipboard data object from which the object is to be created.
+     * @param {IDataObject} pSrcDataObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the clipboard data object from which the object is to be created.
      * @returns {HRESULT} Returns S_OK if the <a href="/windows/desktop/api/ole2/nf-ole2-olecreatelinkfromdata">OleCreateLinkFromData</a> function can be used to create the linked object; otherwise S_FALSE.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olequerylinkfromdata
      * @since windows5.0
@@ -29599,7 +29599,7 @@ class Ole {
 
     /**
      * Checks whether a data object has one of the formats that would allow it to become an embedded object through a call to either the OleCreateFromData or OleCreateStaticFromData function.
-     * @param {Pointer<IDataObject>} pSrcDataObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object to be queried.
+     * @param {IDataObject} pSrcDataObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object to be queried.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29647,9 +29647,9 @@ class Ole {
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, usually IID_IOleObject (defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>), through which the caller will communicate with the new object.
      * @param {Integer} renderopt A value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a>, indicating the locally cached drawing capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
      * @param {Pointer<FORMATETC>} pFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of renderopt, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer to the <b>OLERENDER</b> enumeration for restrictions. This parameter, along with the <i>renderopt</i> parameter, specifies what the new object can cache initially.
-     * @param {Pointer<IOleClientSite>} pClientSite If you want <b>OleCreate</b> to call <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>, pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the container. The value may be <b>NULL</b>, in which case you must specifically call <b>IOleObject::SetClientSite</b> before attempting operations.
-     * @param {Pointer<IStorage>} pStg Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObject</i> contains the requested interface pointer.
+     * @param {IOleClientSite} pClientSite If you want <b>OleCreate</b> to call <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>, pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the container. The value may be <b>NULL</b>, in which case you must specifically call <b>IOleObject::SetClientSite</b> before attempting operations.
+     * @param {IStorage} pStg Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObject</i> contains the requested interface pointer.
      * @returns {HRESULT} This function returns S_OK on success and supports the standard return value E_OUTOFMEMORY.
      * 
      * <table>
@@ -29673,7 +29673,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29687,13 +29687,13 @@ class Ole {
      * @param {Integer} dwFlags This value can be 0 or OLECREATE_LEAVERUNNING    (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When renderopt is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When renderopt is OLERENDER_FORMAT, points to an array of cFormats DWORD elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When renderopt is OLERENDER_FORMAT, points to an array of cFormats DWORD elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When renderopt is OLERENDER_FORMAT, points to an array of cFormats <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the objects in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object. In all other cases, this parameter must be <b>NULL</b>.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats. In all other cases, this parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. Must be <b>NULL</b>, if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it. This parameter may not be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats. In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. Must be <b>NULL</b>, if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it. This parameter may not be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29717,7 +29717,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29726,13 +29726,13 @@ class Ole {
 
     /**
      * Creates an embedded object from a data transfer object retrieved either from the clipboard or as part of an OLE drag-and-drop operation. It is intended to be used to implement a paste from an OLE drag-and-drop operation.
-     * @param {Pointer<IDataObject>} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object that holds the data from which the object is created.
+     * @param {IDataObject} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object that holds the data from which the object is created.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the following Remarks section.
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29767,7 +29767,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29776,18 +29776,18 @@ class Ole {
 
     /**
      * Extends OleCreateFromData functionality by supporting more efficient instantiation of objects in containers requiring caching of multiple formats of presentation or data, instead of the single format supported by OleCreateFromData.
-     * @param {Pointer<IDataObject>} pSrcDataObj Pointer to the data transfer object holding the new data used to create the new object. (see <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatefromdata">OleCreateFromData</a>).
+     * @param {IDataObject} pSrcDataObj Pointer to the data transfer object holding the new data used to create the new object. (see <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatefromdata">OleCreateFromData</a>).
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the advf parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the advf parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the object's in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When renderopt is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of dwConnection values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When renderopt is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of dwConnection values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29822,7 +29822,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29831,13 +29831,13 @@ class Ole {
 
     /**
      * Creates a linked object from a data transfer object retrieved either from the clipboard or as part of an OLE drag-and-drop operation.
-     * @param {Pointer<IDataObject>} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object from which the linked object is to be created.
+     * @param {IDataObject} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object from which the linked object is to be created.
      * @param {Pointer<Guid>} riid Reference to the identifier of interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the following Remarks section.
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return,   <i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return,   <i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29884,7 +29884,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29893,18 +29893,18 @@ class Ole {
 
     /**
      * Extends OleCreateLinkFromData functionality by supporting more efficient instantiation of objects in containers requiring caching of multiple formats of presentations or data, instead of the single format supported by OleCreateLinkFromData.
-     * @param {Pointer<IDataObject>} pSrcDataObj Pointer to the data object to create a link object from.
+     * @param {IDataObject} pSrcDataObj Pointer to the data object to create a link object from.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the objects in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29939,7 +29939,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29948,19 +29948,19 @@ class Ole {
 
     /**
      * Creates a static object, that contains only a representation, with no native data, from a data transfer object.
-     * @param {Pointer<IDataObject>} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object that holds the data from which the object will be created.
+     * @param {IDataObject} pSrcDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data transfer object that holds the data from which the object will be created.
      * @param {Pointer<Guid>} iid Reference to the identifier of the interface with which the caller is to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> indicating the locally cached drawing or data-retrieval capabilities that the container wants in the newly created component. It is an error to pass the render options OLERENDER_NONE or OLERENDER_ASIS to this function.
      * @param {Pointer<FORMATETC>} pFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, may be a pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer to the <b>OLERENDER</b> enumeration for restrictions.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface for storage for the object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface for storage for the object. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatestaticfromdata
      * @since windows5.0
      */
     static OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29969,13 +29969,13 @@ class Ole {
 
     /**
      * Creates an OLE compound-document linked object.
-     * @param {Pointer<IMoniker>} pmkLinkSrc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker that can be used to locate the source of the linked object.
+     * @param {IMoniker} pmkLinkSrc Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker that can be used to locate the source of the linked object.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Specifies a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the Remarks section below.
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>lpFormatEtc</i> parameter.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -29999,7 +29999,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30008,18 +30008,18 @@ class Ole {
 
     /**
      * Extends OleCreateLink functionality by supporting more efficient instantiation of objects in containers requiring caching of multiple formats of presentations or data, instead of the single format supported by OleCreateLink.
-     * @param {Pointer<IMoniker>} pmkLinkSrc Pointer to a moniker to the object to create a link to.
+     * @param {IMoniker} pmkLinkSrc Pointer to a moniker to the object to create a link to.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface of the object to return.
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the objects in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30054,7 +30054,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30067,9 +30067,9 @@ class Ole {
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface identifier for <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. Additional considerations are described in the following Remarks section.
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30106,7 +30106,7 @@ class Ole {
     static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30120,13 +30120,13 @@ class Ole {
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the objects in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30163,7 +30163,7 @@ class Ole {
     static OleCreateLinkToFileEx(lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30177,9 +30177,9 @@ class Ole {
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface the caller later uses to communicate with the new object (usually IID_IOleObject, defined in the OLE headers as the interface ID of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>).
      * @param {Integer} renderopt Value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>lpFormatEtc</i> parameter.
      * @param {Pointer<FORMATETC>} lpFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer also to the <b>OLERENDER</b> enumeration for restrictions.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30260,7 +30260,7 @@ class Ole {
     static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30275,13 +30275,13 @@ class Ole {
      * @param {Integer} dwFlags This parameter can be 0 or OLECREATE_LEAVERUNNING (0x00000001).
      * @param {Integer} renderopt Value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> enumeration.
      * @param {Integer} cFormats When <i>renderopt</i> is OLERENDER_FORMAT, indicates the number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures in the <i>rgFormatEtc</i> array, which must be at least one. In all other cases, this parameter must be zero.
-     * @param {Pointer<UInt32>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
+     * @param {Pointer<Integer>} rgAdvf When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <b>DWORD</b> elements, each of which is a combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-advf">ADVF</a> enumeration. Each element of this array is passed in as the <i>advf</i> parameter to a call to either <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, depending on whether <i>pAdviseSink</i> is <b>NULL</b> or non-<b>NULL</b> (see below). In all other cases, this parameter must be <b>NULL</b>.
      * @param {Pointer<FORMATETC>} rgFormatEtc When <i>renderopt</i> is OLERENDER_FORMAT, points to an array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures. When <i>pAdviseSink</i> is <b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iolecache-cache">IOleCache::Cache</a>. This populates the data and presentation cache managed by the objects in-process handler (typically the default handler) with presentation or other cacheable data. When <i>pAdviseSink</i> is non-<b>NULL</b>, each element of this array is passed as the <i>pFormatEtc</i> parameter to a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>. This allows the caller (typically an OLE Container) to do its own caching or processing of data received from the object.
-     * @param {Pointer<IAdviseSink>} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
-     * @param {Pointer<UInt32>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
-     * @param {Pointer<IStorage>} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Void>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
+     * @param {IAdviseSink} lpAdviseSink When <i>renderopt</i> is OLERENDER_FORMAT, may be either a valid <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> pointer, indicating custom caching or processing of data advises, or <b>NULL</b>, indicating default caching of data formats.
+     * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
+     * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter may be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
+     * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30318,7 +30318,7 @@ class Ole {
     static OleCreateFromFileEx(rclsid, lpszFileName, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, "uint*", rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, "uint*", rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30327,10 +30327,10 @@ class Ole {
 
     /**
      * Loads into memory an object nested within a specified storage object.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object from which to load the specified object.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object from which to load the specified object.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface that the caller wants to use to communicate with the object after it is loaded.
-     * @param {Pointer<IOleClientSite>} pClientSite Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the client site object being loaded.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
+     * @param {IOleClientSite} pClientSite Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the client site object being loaded.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30357,7 +30357,7 @@ class Ole {
      * @since windows5.0
      */
     static OleLoad(pStg, riid, pClientSite, ppvObj) {
-        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30366,8 +30366,8 @@ class Ole {
 
     /**
      * Saves an object opened in transacted mode into the specified storage object.
-     * @param {Pointer<IPersistStorage>} pPS Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststorage">IPersistStorage</a> interface on the object to be saved.
-     * @param {Pointer<IStorage>} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the destination storage object to which the object indicated in <i>pPS</i> is to be saved.
+     * @param {IPersistStorage} pPS Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststorage">IPersistStorage</a> interface on the object to be saved.
+     * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the destination storage object to which the object indicated in <i>pPS</i> is to be saved.
      * @param {BOOL} fSameAsLoad <b>TRUE</b> indicates that <i>pStg</i> is the same storage object from which the object was loaded or created; <b>FALSE</b> indicates that <i>pStg</i> was loaded or created from a different storage object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -30403,9 +30403,9 @@ class Ole {
 
     /**
      * Loads an object from the stream.
-     * @param {Pointer<IStream>} pStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream from which the object is to be loaded.
+     * @param {IStream} pStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream from which the object is to be loaded.
      * @param {Pointer<Guid>} iidInterface Interface identifier (IID) the caller wants to use to communicate with the object after it is loaded.
-     * @param {Pointer<Void>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
+     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30443,7 +30443,7 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadFromStream(pStm, iidInterface, ppvObj) {
-        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, "ptr", ppvObj, "int")
+        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, "ptr*", ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30452,8 +30452,8 @@ class Ole {
 
     /**
      * Saves an object with the IPersistStream interface on it to the specified stream.
-     * @param {Pointer<IPersistStream>} pPStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a> interface on the object to be saved to the stream. The <i>pPStm</i> parameter cannot be <b>NULL</b>.
-     * @param {Pointer<IStream>} pStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream in which the object is to be saved.
+     * @param {IPersistStream} pPStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a> interface on the object to be saved to the stream. The <i>pPStm</i> parameter cannot be <b>NULL</b>.
+     * @param {IStream} pStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream in which the object is to be saved.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30500,7 +30500,7 @@ class Ole {
 
     /**
      * Notifies an object that it is embedded in an OLE container, which ensures that reference counting is done correctly for containers that support links to embedded objects.
-     * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object.
+     * @param {IUnknown} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object.
      * @param {BOOL} fContained <b>TRUE</b> if the object is an embedded object; <b>FALSE</b> otherwise.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -30556,7 +30556,7 @@ class Ole {
 
     /**
      * Increments or decrements an external reference that keeps an object in the running state.
-     * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that is to be locked or unlocked.
+     * @param {IUnknown} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object that is to be locked or unlocked.
      * @param {BOOL} fVisible Whether the object is visible. If <b>TRUE</b>, OLE increments the reference count to hold the object visible and alive regardless of external or internal <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> and <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> operations, registrations, or revocation. If <b>FALSE</b>, OLE releases its hold (decrements the reference count) and the object can be closed.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
@@ -30613,7 +30613,7 @@ class Ole {
     /**
      * Registers the specified window as one that can be the target of an OLE drag-and-drop operation and specifies the IDropTarget instance to use for drop operations.
      * @param {HWND} hwnd Handle to a window that can be a target for an OLE drag-and-drop operation.
-     * @param {Pointer<IDropTarget>} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
+     * @param {IDropTarget} pDropTarget Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a> interface on the object that is to be the target of a drag-and-drop operation in a specified window. This interface is used to communicate OLE drag-and-drop information for that window.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30731,10 +30731,10 @@ class Ole {
 
     /**
      * Carries out an OLE drag and drop operation.
-     * @param {Pointer<IDataObject>} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
-     * @param {Pointer<IDropSource>} pDropSource Pointer to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a> interface, which is used to communicate with the source during the drag operation.
+     * @param {IDataObject} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
+     * @param {IDropSource} pDropSource Pointer to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a> interface, which is used to communicate with the source during the drag operation.
      * @param {Integer} dwOKEffects Effects the source allows in the OLE drag-and-drop operation. Most significant is whether it permits a move. The <i>dwOKEffect</i> and <i>pdwEffect</i> parameters obtain values from the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> enumeration. For a list of values, see <b>DROPEFFECT</b>.
-     * @param {Pointer<UInt32>} pdwEffect Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
+     * @param {Pointer<Integer>} pdwEffect Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30781,15 +30781,12 @@ class Ole {
      */
     static DoDragDrop(pDataObj, pDropSource, dwOKEffects, pdwEffect) {
         result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, "uint*", pdwEffect, "int")
-        if(result != 0)
-            throw OSError(result)
-
         return result
     }
 
     /**
      * Places a pointer to a specific data object onto the clipboard. This makes the data object accessible to the OleGetClipboard function.
-     * @param {Pointer<IDataObject>} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object from which the data to be placed on the clipboard can be obtained. This parameter can be <b>NULL</b>; in which case the clipboard is emptied.
+     * @param {IDataObject} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object from which the data to be placed on the clipboard can be obtained. This parameter can be <b>NULL</b>; in which case the clipboard is emptied.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -30890,7 +30887,7 @@ class Ole {
      * @since windows5.0
      */
     static OleGetClipboard(ppDataObj) {
-        result := DllCall("OLE32.dll\OleGetClipboard", "ptr", ppDataObj, "int")
+        result := DllCall("OLE32.dll\OleGetClipboard", "ptr*", ppDataObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30939,7 +30936,7 @@ class Ole {
      * @since windows10.0.10240
      */
     static OleGetClipboardWithEnterpriseInfo(dataObject, dataEnterpriseId, sourceDescription, targetDescription, dataDescription) {
-        result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr", dataObject, "ptr", dataEnterpriseId, "ptr", sourceDescription, "ptr", targetDescription, "ptr", dataDescription, "int")
+        result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr*", dataObject, "ptr", dataEnterpriseId, "ptr", sourceDescription, "ptr", targetDescription, "ptr", dataDescription, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30991,7 +30988,7 @@ class Ole {
 
     /**
      * Determines whether the data object pointer previously placed on the clipboard by the OleSetClipboard function is still on the clipboard.
-     * @param {Pointer<IDataObject>} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object containing clipboard data of interest, which the caller previously placed on the clipboard.
+     * @param {IDataObject} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the data object containing clipboard data of interest, which the caller previously placed on the clipboard.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31043,8 +31040,8 @@ class Ole {
      * @param {Pointer} holemenu Handle to the composite menu descriptor returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ole2/nf-ole2-olecreatemenudescriptor">OleCreateMenuDescriptor</a> function. If <b>NULL</b>, the dispatching code is unhooked.
      * @param {HWND} hwndFrame Handle to the container's frame window where the in-place composite menu is to be installed.
      * @param {HWND} hwndActiveObject Handle to the object's in-place activation window. OLE dispatches menu messages and commands to this window.
-     * @param {Pointer<IOleInPlaceFrame>} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface on the container's frame window.
-     * @param {Pointer<IOleInPlaceActiveObject>} lpActiveObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> interface on the active in-place object.
+     * @param {IOleInPlaceFrame} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface on the container's frame window.
+     * @param {IOleInPlaceActiveObject} lpActiveObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceactiveobject">IOleInPlaceActiveObject</a> interface on the active in-place object.
      * @returns {HRESULT} This function returns S_OK on success.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olesetmenudescriptor
      * @since windows5.0
@@ -31077,7 +31074,7 @@ class Ole {
 
     /**
      * Called by the object application, allows an object's container to translate accelerators according to the container's accelerator table.
-     * @param {Pointer<IOleInPlaceFrame>} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface to which the keystroke might be sent.
+     * @param {IOleInPlaceFrame} lpFrame Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface to which the keystroke might be sent.
      * @param {Pointer<OLEINPLACEFRAMEINFO>} lpFrameInfo Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/oleidl/ns-oleidl-oleinplaceframeinfo">OLEINPLACEFRAMEINFO</a> structure containing the accelerator table obtained from the container.
      * @param {Pointer<MSG>} lpmsg Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure containing the keystroke.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
@@ -31129,7 +31126,7 @@ class Ole {
 
     /**
      * Enables drawing objects more easily. You can use it instead of calling IViewObject::Draw directly.
-     * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the view object that is to be drawn.
+     * @param {IUnknown} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the view object that is to be drawn.
      * @param {Integer} dwAspect How the object is to be represented. Representations include content, an icon, a thumbnail, or a printed document. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
      * @param {HDC} hdcDraw Device context on which to draw. Cannot be a metafile device context.
      * @param {Pointer<RECT>} lprcBounds Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure specifying the rectangle in which the object should be drawn. This parameter is converted to a <a href="https://docs.microsoft.com/previous-versions/dd162907(v=vs.85)">RECTL</a> structure and passed to <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-iviewobject-draw">IViewObject::Draw</a>.
@@ -31233,7 +31230,7 @@ class Ole {
 
     /**
      * Puts an OLE compound document object into the running state.
-     * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object, with which it will query for a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunnableobject">IRunnableObject</a> interface, and then call its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irunnableobject-run">Run</a> method.
+     * @param {IUnknown} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object, with which it will query for a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunnableobject">IRunnableObject</a> interface, and then call its <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-irunnableobject-run">Run</a> method.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31266,7 +31263,7 @@ class Ole {
 
     /**
      * Determines whether a compound document object is currently in the running state.
-     * @param {Pointer<IOleObject>} pObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the object of interest.
+     * @param {IOleObject} pObject Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the object of interest.
      * @returns {BOOL} The return value is <b>TRUE</b> if the object is running; otherwise, it is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleisrunning
      * @since windows5.0
@@ -31278,7 +31275,7 @@ class Ole {
 
     /**
      * Locks an already running object into its running state or unlocks it from its running state.
-     * @param {Pointer<IUnknown>} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object, which the function uses to query for a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunnableobject">IRunnableObject</a>.
+     * @param {IUnknown} pUnknown Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the object, which the function uses to query for a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunnableobject">IRunnableObject</a>.
      * @param {BOOL} fLock <b>TRUE</b> locks the object into its running state. <b>FALSE</b> unlocks the object from its running state.
      * @param {BOOL} fLastUnlockCloses <b>TRUE</b> specifies that if the connection being released is the last external lock on the object, the object should close. <b>FALSE</b> specifies that the object should remain open until closed by the user or another process.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
@@ -31437,7 +31434,7 @@ class Ole {
      * @since windows5.0
      */
     static CreateOleAdviseHolder(ppOAHolder) {
-        result := DllCall("OLE32.dll\CreateOleAdviseHolder", "ptr", ppOAHolder, "int")
+        result := DllCall("OLE32.dll\CreateOleAdviseHolder", "ptr*", ppOAHolder, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31447,15 +31444,15 @@ class Ole {
     /**
      * Creates a new instance of the default embedding handler. This instance is initialized so it creates a local server when the embedded object enters the running state.
      * @param {Pointer<Guid>} clsid CLSID identifying the OLE server to be loaded when the embedded object enters the running state.
-     * @param {Pointer<IUnknown>} pUnkOuter Pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface if the handler is to be aggregated; <b>NULL</b> if it is not to be aggregated.
+     * @param {IUnknown} pUnkOuter Pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface if the handler is to be aggregated; <b>NULL</b> if it is not to be aggregated.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, usually IID_IOleObject, through which the caller will communicate with the handler.
-     * @param {Pointer<Void>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created handler.
+     * @param {Pointer<Pointer<Void>>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created handler.
      * @returns {HRESULT} This function returns NOERROR on success and supports the standard return value E_OUTOFMEMORY.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatedefaulthandler
      * @since windows5.0
      */
     static OleCreateDefaultHandler(clsid, pUnkOuter, riid, lplpObj) {
-        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr", lplpObj, "int")
+        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", lplpObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31465,11 +31462,11 @@ class Ole {
     /**
      * Creates an OLE embedding helper object using application-supplied code aggregated with pieces of the OLE default object handler. This helper object can be created and used in a specific context and role, as determined by the caller.
      * @param {Pointer<Guid>} clsid CLSID of the class to be helped.
-     * @param {Pointer<IUnknown>} pUnkOuter If the embedding helper is to be aggregated, pointer to the outer object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If it is not to be aggregated, although this is rare, the value should be <b>NULL</b>.
+     * @param {IUnknown} pUnkOuter If the embedding helper is to be aggregated, pointer to the outer object's controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If it is not to be aggregated, although this is rare, the value should be <b>NULL</b>.
      * @param {Integer} flags DWORD containing flags that specify the role and creation context for the embedding helper. For legal values, see the following Remarks section.
-     * @param {Pointer<IClassFactory>} pCF Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nn-unknwnbase-iclassfactory">IClassFactory</a> interface on the class object the function uses to create the secondary object. In some situations, this value may be <b>NULL</b>. For more information, see the following Remarks section.
+     * @param {IClassFactory} pCF Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nn-unknwnbase-iclassfactory">IClassFactory</a> interface on the class object the function uses to create the secondary object. In some situations, this value may be <b>NULL</b>. For more information, see the following Remarks section.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface desired by the caller.
-     * @param {Pointer<Void>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created embedding helper.
+     * @param {Pointer<Pointer<Void>>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created embedding helper.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -31526,7 +31523,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid, lplpObj) {
-        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, "ptr", lplpObj, "int")
+        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, "ptr*", lplpObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31538,7 +31535,7 @@ class Ole {
      * @param {HACCEL} hAccel A handle to the accelerator table.
      * @param {Integer} cAccelEntries The number of entries in the accelerator table.
      * @param {Pointer<MSG>} lpMsg A pointer to the keystroke message to be translated.
-     * @param {Pointer<UInt16>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpwCmd A pointer to a variable  to receive the corresponding command identifier if there is an accelerator for the keystroke. This parameter may be <b>NULL</b>.
      * @returns {BOOL} If the message is for the object application, the return value is <b>TRUE</b>. If the message is not for the object and should be forwarded to the container, the return value is <b>FALSE</b>.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-isaccelerator
      * @since windows5.0
@@ -31680,7 +31677,7 @@ class Ole {
      * Returns miscellaneous information about the presentation and behaviors supported by the specified CLSID from the registry.
      * @param {Pointer<Guid>} clsid The CLSID of the class for which status information is to be requested.
      * @param {Integer} dwAspect The presentation aspect of the class for which information is requested. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
-     * @param {Pointer<UInt32>} pdwStatus A pointer to the variable that receives the status information.
+     * @param {Pointer<Integer>} pdwStatus A pointer to the variable that receives the status information.
      * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
      * 
      * <table>
@@ -31807,7 +31804,7 @@ class Ole {
      * @since windows5.0
      */
     static OleRegEnumFormatEtc(clsid, dwDirection, ppenum) {
-        result := DllCall("ole32.dll\OleRegEnumFormatEtc", "ptr", clsid, "uint", dwDirection, "ptr", ppenum, "int")
+        result := DllCall("ole32.dll\OleRegEnumFormatEtc", "ptr", clsid, "uint", dwDirection, "ptr*", ppenum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31875,7 +31872,7 @@ class Ole {
      * @since windows5.0
      */
     static OleRegEnumVerbs(clsid, ppenum) {
-        result := DllCall("OLE32.dll\OleRegEnumVerbs", "ptr", clsid, "ptr", ppenum, "int")
+        result := DllCall("OLE32.dll\OleRegEnumVerbs", "ptr", clsid, "ptr*", ppenum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31885,7 +31882,7 @@ class Ole {
     /**
      * 
      * @param {Pointer<OLESTREAM>} lpolestream 
-     * @param {Pointer<IStorage>} pstg 
+     * @param {IStorage} pstg 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
      * @param {Integer} opt 
      * @param {Pointer<Void>} pvCallbackContext 
@@ -31902,7 +31899,7 @@ class Ole {
 
     /**
      * Automatically converts an object to a new class if automatic conversion for that object class is set in the registry.
-     * @param {Pointer<IStorage>} pStg A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object to be converted.
+     * @param {IStorage} pStg A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object to be converted.
      * @param {Pointer<Guid>} pClsidNew A pointer to the new CLSID for the object being converted. If there was no automatic conversion, this may be the same as the original class.
      * @returns {HRESULT} This function can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
@@ -32097,11 +32094,11 @@ class Ole {
     /**
      * 
      * @param {Pointer<OLESTREAM>} polestm 
-     * @param {Pointer<IStorage>} pstg 
-     * @param {Pointer<UInt16>} pcfFormat 
-     * @param {Pointer<Int32>} plwWidth 
-     * @param {Pointer<Int32>} plHeight 
-     * @param {Pointer<UInt32>} pdwSize 
+     * @param {IStorage} pstg 
+     * @param {Pointer<Integer>} pcfFormat 
+     * @param {Pointer<Integer>} plwWidth 
+     * @param {Pointer<Integer>} plHeight 
+     * @param {Pointer<Integer>} pdwSize 
      * @param {Pointer<STGMEDIUM>} pmedium 
      * @param {Integer} opt 
      * @param {Pointer<Void>} pvCallbackContext 
@@ -32118,7 +32115,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRGN>} param2 
      * @returns {Integer} 
@@ -32130,10 +32127,10 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HRGN_UserMarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HRGN_UserMarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -32142,10 +32139,10 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HRGN_UserUnmarshal(param0, param1, param2) {
         result := DllCall("OLE32.dll\HRGN_UserUnmarshal", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -32154,7 +32151,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -32164,7 +32161,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HRGN>} param2 
      * @returns {Integer} 
@@ -32176,10 +32173,10 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HRGN_UserMarshal64(param0, param1, param2) {
         result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -32188,10 +32185,10 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HRGN>} param2 
-     * @returns {Pointer<Byte>} 
+     * @returns {Pointer<Integer>} 
      */
     static HRGN_UserUnmarshal64(param0, param1, param2) {
         result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", "uint*", param0, "char*", param1, "ptr", param2, "char*")
@@ -32200,7 +32197,7 @@ class Ole {
 
     /**
      * 
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HRGN>} param1 
      * @returns {String} Nothing - always returns an empty string
      */
@@ -32258,7 +32255,7 @@ class Ole {
         lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
+        result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr*", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32350,7 +32347,7 @@ class Ole {
      * Creates and initializes a standard font object using an initial description of the font's properties in a FONTDESC structure.
      * @param {Pointer<FONTDESC>} lpFontDesc Address of a caller-allocated, <a href="https://docs.microsoft.com/windows/desktop/api/olectl/ns-olectl-fontdesc">FONTDESC</a> structure containing the initial state of the font. This value must not be <b>NULL</b>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>lplpvObj</i>.
-     * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created font object. If successful, the caller is responsible to call Release through this interface pointer when the new object is no longer needed. If unsuccessful, the value of is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created font object. If successful, the caller is responsible to call Release through this interface pointer when the new object is no longer needed. If unsuccessful, the value of is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -32418,7 +32415,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFontIndirect(lpFontDesc, riid, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, "ptr", lplpvObj, "int")
+        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, "ptr*", lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32430,7 +32427,7 @@ class Ole {
      * @param {Pointer<PICTDESC>} lpPictDesc Pointer to a caller-allocated structure containing the initial state of the picture. The specified structure can be <b>NULL</b> to create an uninitialized object, in the event the picture needs to initialize via <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersiststream-load">IPersistStream::Load</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>lplpvObj</i>.
      * @param {BOOL} fOwn If <b>TRUE</b>, the picture object is to destroy its picture when the object is destroyed. If <b>FALSE</b>, the caller is responsible for destroying the picture.
-     * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created object. If the call is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through this interface pointer when the new object is no longer needed. If the call fails, the value is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created object. If the call is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through this interface pointer when the new object is no longer needed. If the call fails, the value is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -32466,7 +32463,7 @@ class Ole {
      * @since windows5.0
      */
     static OleCreatePictureIndirect(lpPictDesc, riid, fOwn, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, "ptr", lplpvObj, "int")
+        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, "ptr*", lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32475,11 +32472,11 @@ class Ole {
 
     /**
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect with NULL as the first parameter, followed by a call to IPersistStream::Load.
-     * @param {Pointer<IStream>} lpstream Pointer to the stream that contains the picture's data.
+     * @param {IStream} lpstream Pointer to the stream that contains the picture's data.
      * @param {Integer} lSize The number of bytes that should be read from the stream, or zero if the entire stream should be read.
      * @param {BOOL} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice-versa.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
-     * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -32515,7 +32512,7 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadPicture(lpstream, lSize, fRunmode, riid, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "ptr", lplpvObj, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "ptr*", lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32524,14 +32521,14 @@ class Ole {
 
     /**
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect with NULL as the first parameter, followed by a call to IPersistStream::Load.
-     * @param {Pointer<IStream>} lpstream Pointer to the stream that contains the picture's data.
+     * @param {IStream} lpstream Pointer to the stream that contains the picture's data.
      * @param {Integer} lSize The number of bytes that should be read from the stream, or zero if the entire stream should be read.
      * @param {BOOL} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice versa.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
      * @param {Integer} xSizeDesired Desired width of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} ySizeDesired Desired height of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} dwFlags Desired color depth for icon or cursor. Values are LP_MONOCHROME (monochrome), LP_VGACOLOR (16 colors), LP_COLOR (256 colors), or LP_DEFAULT (selects best depth for current display).
-     * @param {Pointer<Void>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
      * 
      * <table>
@@ -32567,7 +32564,7 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr", lplpvObj, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32577,10 +32574,10 @@ class Ole {
     /**
      * Creates a new picture object and initializes it from the contents of a stream. This is equivalent to calling OleCreatePictureIndirect(NULL, ...) followed by IPersistStream::Load.
      * @param {PWSTR} szURLorPath The path or URL to the file you want to open.
-     * @param {Pointer<IUnknown>} punkCaller Points to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> for COM aggregation.
+     * @param {IUnknown} punkCaller Points to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> for COM aggregation.
      * @param {Integer} clrReserved The color you want to reserve to be transparent.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in ppvRet.
-     * @param {Pointer<Void>} ppvRet Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvRet</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvRet</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvRet</i> is set to <b>NULL</b>.
+     * @param {Pointer<Pointer<Void>>} ppvRet Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvRet</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvRet</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvRet</i> is set to <b>NULL</b>.
      * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following: 
      * 
      * 
@@ -32643,7 +32640,7 @@ class Ole {
 
         szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
-        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr", ppvRet, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr*", ppvRet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32690,7 +32687,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicturefile
      */
     static OleLoadPictureFile(varFileName, lplpdispPicture) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureFile", "ptr", varFileName, "ptr", lplpdispPicture, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPictureFile", "ptr", varFileName, "ptr*", lplpdispPicture, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32791,7 +32788,7 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicturefileex
      */
     static OleLoadPictureFileEx(varFileName, xSizeDesired, ySizeDesired, dwFlags, lplpdispPicture) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", "ptr", varFileName, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr", lplpdispPicture, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", "ptr", varFileName, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", lplpdispPicture, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32800,7 +32797,7 @@ class Ole {
 
     /**
      * Saves a picture to a file.
-     * @param {Pointer<IDispatch>} lpdispPicture Points to the <b>IPictureDisp</b> picture object.
+     * @param {IDispatch} lpdispPicture Points to the <b>IPictureDisp</b> picture object.
      * @param {BSTR} bstrFileName The name of the file to save the picture to.
      * @returns {HRESULT} This method returns standard COM error codes in addition to the following values.
      * 
@@ -32877,7 +32874,7 @@ class Ole {
 
     /**
      * Adds the Verb menu for the specified object to the specified menu.
-     * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
+     * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PWSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
      * @param {HMENU} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
@@ -32900,7 +32897,7 @@ class Ole {
 
     /**
      * Adds the Verb menu for the specified object to the specified menu.
-     * @param {Pointer<IOleObject>} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
+     * @param {IOleObject} lpOleObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface on the selected object. If this is <b>NULL</b>, then a default disabled menu item is created.
      * @param {PSTR} lpszShortType Pointer to the short name defined in the registry (AuxName==2) for the object identified with <i>lpOleObj</i>. If the string is not known, then <b>NULL</b> may be passed. If <b>NULL</b> is passed, <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-getusertype">IOleObject::GetUserType</a> is called to retrieve it. If the caller has easy access to the string, it is faster to pass it in.
      * @param {HMENU} hMenu Handle to the menu in which to make modifications.
      * @param {Integer} uPos Position of the menu item.
@@ -39527,7 +39524,7 @@ class Ole {
 
     /**
      * Updates all links in the link container and displays a dialog box that shows the progress of the updating process. The process is stopped if the user presses the Stop button or when all links are processed.
-     * @param {Pointer<IOleUILinkContainerW>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
+     * @param {IOleUILinkContainerW} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
      * @param {HWND} hwndParent Parent window of the dialog box.
      * @param {PWSTR} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.
@@ -39545,7 +39542,7 @@ class Ole {
 
     /**
      * Updates all links in the link container and displays a dialog box that shows the progress of the updating process. The process is stopped if the user presses the Stop button or when all links are processed.
-     * @param {Pointer<IOleUILinkContainerA>} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
+     * @param {IOleUILinkContainerA} lpOleUILinkCntr Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oledlg/nn-oledlg-ioleuilinkcontainera">IOleUILinkContainer</a> interface on the link container.
      * @param {HWND} hwndParent Parent window of the dialog box.
      * @param {PSTR} lpszTitle Pointer to the title of the dialog box.
      * @param {Integer} cLinks Total number of links.

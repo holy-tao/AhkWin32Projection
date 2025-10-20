@@ -75,7 +75,7 @@ class ADS_VLV extends Win32Struct
 
     /**
      * Optional. Indicates the server-generated context identifier. This parameter may be sent to clients. If a client receives this parameter, it should return it unchanged in a subsequent request which relates to the same list. This interaction may enhance the performance and effectiveness of the servers. If not passing a context identifier to the server, this member must be set to <b>NULL</b> value. On output, if this member contains a non-<b>NULL</b> value, this points to the context ID returned by the server.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpContextID {
         get => NumGet(this, 32, "ptr")

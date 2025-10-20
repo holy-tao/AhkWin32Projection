@@ -56,7 +56,7 @@ class LVTILEINFO extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">PUINT</a></b>
      * 
      * A pointer to an array of column indices, specifying which columns are displayed for this item, and the order of those columns. When retrieving information, allocate an array large enough to hold the greatest number of columns expected.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     puColumns {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +67,7 @@ class LVTILEINFO extends Win32Struct
      * Type: <b>int*</b>
      * 
      * A pointer to an array of column formats (for example, LVCFMT_LEFT), one for each of the columns specified in <b>puColumns</b>. When retrieving information, allocate an array large enough to hold the greatest number of column formats expected.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     piColFmt {
         get => NumGet(this, 24, "ptr")

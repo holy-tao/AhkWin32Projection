@@ -4,6 +4,8 @@
 #Include ..\..\..\Foundation\HINSTANCE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/cryptdlg/ns-cryptdlg-cert_viewproperties_struct_w
  * @namespace Windows.Win32.Security.Cryptography.UI
  * @version v4.0.30319
  * @charset Unicode

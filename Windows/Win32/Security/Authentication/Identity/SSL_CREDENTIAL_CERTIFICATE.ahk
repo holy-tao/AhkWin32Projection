@@ -20,7 +20,7 @@ class SSL_CREDENTIAL_CERTIFICATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pPrivateKey {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class SSL_CREDENTIAL_CERTIFICATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCertificate {
         get => NumGet(this, 24, "ptr")

@@ -57,7 +57,7 @@ class DML_SLICE1_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the beginning (in elements) of the input window in each dimension. Values in the array must satisfy the constraint `InputWindowOffsets[i] + InputWindowSizes[i] <= InputTensor.Sizes[i]`
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowOffsets {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class DML_SLICE1_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the extent (in elements) of the input window in each dimension. Values in the array must satisfy the constraint `InputWindowOffsets[i] + InputWindowSizes[i] <= InputTensor.Sizes[i]`
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowSizes {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class DML_SLICE1_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the slice's stride along each dimension of the input tensor, in elements. The magnitude of the stride indicates how many elements to advance when copying within the input window. The sign of the stride determines if elements are copied starting at the beginning of the window (positive stride) or end of the window (negative stride). Strides may not be 0.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     InputWindowStrides {
         get => NumGet(this, 40, "ptr")

@@ -12,7 +12,7 @@ class D3D12_COMPILER_EXISTING_COLLECTION_DESC extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<ID3D12CompilerStateObject>}
+     * @type {ID3D12CompilerStateObject}
      */
     pExistingCollection {
         get => NumGet(this, 0, "ptr")

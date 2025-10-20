@@ -127,7 +127,7 @@ class UIAutomationPatternInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iuiautomationpatternhandler">IUIAutomationPatternHandler</a>*</b>
      * 
      * A pointer to the object that makes the control pattern available to clients.
-     * @type {Pointer<IUIAutomationPatternHandler>}
+     * @type {IUIAutomationPatternHandler}
      */
     pPatternHandler {
         get => NumGet(this, 80, "ptr")

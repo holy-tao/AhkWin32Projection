@@ -8,6 +8,8 @@
 #Include .\FOCUS_EVENT_RECORD.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/console/input-record-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

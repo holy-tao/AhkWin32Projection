@@ -60,7 +60,7 @@ class METADATA_GETALL_INTERNAL_RECORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMDData {
         get => NumGet(this, 24, "ptr")

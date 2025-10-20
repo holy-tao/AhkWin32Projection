@@ -33,7 +33,7 @@ class MSV1_0_SUBAUTH_RESPONSE extends Win32Struct
 
     /**
      * Contains the subauthentication package response. The format and content of this buffer is specific to the subauthentication package. For more information, see the documentation for specific subauthentication packages.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SubAuthReturnBuffer {
         get => NumGet(this, 8, "ptr")

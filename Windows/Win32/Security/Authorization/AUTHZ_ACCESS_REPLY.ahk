@@ -25,7 +25,7 @@ class AUTHZ_ACCESS_REPLY extends Win32Struct
 
     /**
      * An array of granted access masks. Memory for this array is allocated by the application before calling <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-accesscheck">AccessCheck</a>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     GrantedAccessMask {
         get => NumGet(this, 8, "ptr")
@@ -34,7 +34,7 @@ class AUTHZ_ACCESS_REPLY extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     SaclEvaluationResults {
         get => NumGet(this, 16, "ptr")
@@ -93,7 +93,7 @@ class AUTHZ_ACCESS_REPLY extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Error {
         get => NumGet(this, 24, "ptr")

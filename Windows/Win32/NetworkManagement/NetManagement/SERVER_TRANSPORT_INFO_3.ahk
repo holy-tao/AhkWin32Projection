@@ -67,7 +67,7 @@ class SERVER_TRANSPORT_INFO_3 extends Win32Struct
      * A pointer to a variable that contains the address the server is using on the transport device specified by the <b>svti3_transportname</b> member.
      * 
      * This member is usually the NetBIOS name that the server is using. In these instances, the name must be 16 characters long, and the last character must be a blank character (0x20).
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     svti3_transportaddress {
         get => NumGet(this, 16, "ptr")

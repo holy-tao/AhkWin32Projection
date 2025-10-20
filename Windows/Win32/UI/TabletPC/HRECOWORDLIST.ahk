@@ -4,6 +4,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/tablet/hrecowordlist-handle
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

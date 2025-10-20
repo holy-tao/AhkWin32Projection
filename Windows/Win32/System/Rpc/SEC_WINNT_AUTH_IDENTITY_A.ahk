@@ -22,7 +22,7 @@ class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct
 
     /**
      * String containing the user name.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     User {
         get => NumGet(this, 0, "ptr")
@@ -40,7 +40,7 @@ class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct
 
     /**
      * String containing the domain  or workgroup name.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Domain {
         get => NumGet(this, 16, "ptr")
@@ -58,7 +58,7 @@ class SEC_WINNT_AUTH_IDENTITY_A extends Win32Struct
 
     /**
      * String containing the user's password in the domain or workgroup.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Password {
         get => NumGet(this, 32, "ptr")

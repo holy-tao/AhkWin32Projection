@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecCrypto/vtableprovstruc
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  * @charset Unicode
@@ -45,7 +47,7 @@ class VTableProvStrucW extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbContextInfo {
         get => NumGet(this, 32, "ptr")

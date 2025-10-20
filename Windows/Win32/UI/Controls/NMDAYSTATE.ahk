@@ -64,7 +64,7 @@ class NMDAYSTATE extends Win32Struct
      * Address of an array of <a href="https://docs.microsoft.com/windows/desktop/Controls/monthdaystate">MONTHDAYSTATE</a> values. The buffer at this address must be large enough to contain at least 
      * 					<b>cDayState</b> elements. The first element in the array corresponds to the date in 
      * 					<b>stStart</b>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     prgDayState {
         get => NumGet(this, 48, "ptr")

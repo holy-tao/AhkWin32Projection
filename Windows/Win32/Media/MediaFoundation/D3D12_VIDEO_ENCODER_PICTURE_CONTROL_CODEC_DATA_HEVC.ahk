@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_picture_control_codec_data_hevc
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -60,7 +62,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pList0ReferenceFrames {
         get => NumGet(this, 24, "ptr")
@@ -76,7 +78,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pList1ReferenceFrames {
         get => NumGet(this, 40, "ptr")
@@ -108,7 +110,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pList0RefPicModifications {
         get => NumGet(this, 72, "ptr")
@@ -124,7 +126,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pList1RefPicModifications {
         get => NumGet(this, 88, "ptr")
@@ -140,7 +142,7 @@ class D3D12_VIDEO_ENCODER_PICTURE_CONTROL_CODEC_DATA_HEVC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pRateControlQPMap {
         get => NumGet(this, 104, "ptr")

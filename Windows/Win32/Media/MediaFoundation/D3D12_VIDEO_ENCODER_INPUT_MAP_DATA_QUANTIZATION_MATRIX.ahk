@@ -12,7 +12,7 @@ class D3D12_VIDEO_ENCODER_INPUT_MAP_DATA_QUANTIZATION_MATRIX extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pQuantizationMap {
         get => NumGet(this, 0, "ptr")

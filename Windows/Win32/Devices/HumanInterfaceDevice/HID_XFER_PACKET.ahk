@@ -12,7 +12,7 @@ class HID_XFER_PACKET extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     reportBuffer {
         get => NumGet(this, 0, "ptr")

@@ -26,7 +26,7 @@ class VMR9PresentationInfo extends Win32Struct
 
     /**
      * Pointer to the DirectDraw surface that contains the video frame.
-     * @type {Pointer<IDirect3DSurface9>}
+     * @type {IDirect3DSurface9}
      */
     lpSurf {
         get => NumGet(this, 8, "ptr")

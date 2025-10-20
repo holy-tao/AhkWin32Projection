@@ -24,7 +24,7 @@ class DHCPCAPI_CLASSID extends Win32Struct
 
     /**
      * Class ID binary data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Data {
         get => NumGet(this, 8, "ptr")

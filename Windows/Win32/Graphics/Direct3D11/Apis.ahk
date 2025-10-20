@@ -2618,7 +2618,7 @@ class Direct3D11 {
 ;@region Methods
     /**
      * Creates a device that represents the display adapter.
-     * @param {Pointer<IDXGIAdapter>} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
+     * @param {IDXGIAdapter} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
      * 
      * A pointer to the video adapter to use when creating a <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-intro">device</a>. Pass <b>NULL</b> to use the default adapter, which is the first adapter that is enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory1::EnumAdapters</a>. 
      * 
@@ -2640,7 +2640,7 @@ class Direct3D11 {
      * 
      * The runtime <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">layers</a> to enable (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_FLAG</a>);
      *             values can be bitwise OR'd together.
-     * @param {Pointer<Int32>} pFeatureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @param {Pointer<Integer>} pFeatureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>s, which determine the order of feature levels to attempt to create.
      *               If <i>pFeatureLevels</i> is set to <b>NULL</b>,
@@ -2672,7 +2672,7 @@ class Direct3D11 {
      * @param {Pointer<ID3D11Device>} ppDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>**</b>
      * 
      * Returns the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> object that represents the device created. If this parameter is <b>NULL</b>, no ID3D11Device will be returned.
-     * @param {Pointer<Int32>} pFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @param {Pointer<Integer>} pFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * If successful, returns the first <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a> from the <i>pFeatureLevels</i> array which succeeded. Supply <b>NULL</b> as an input if you don't need to determine which feature level is supported.
      * @param {Pointer<ID3D11DeviceContext>} ppImmediateContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>**</b>
@@ -2692,7 +2692,7 @@ class Direct3D11 {
     static D3D11CreateDevice(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
+        result := DllCall("d3d11.dll\D3D11CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr*", ppDevice, "int*", pFeatureLevel, "ptr*", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2701,7 +2701,7 @@ class Direct3D11 {
 
     /**
      * Creates a device that represents the display adapter and a swap chain used for rendering.
-     * @param {Pointer<IDXGIAdapter>} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
+     * @param {IDXGIAdapter} pAdapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>*</b>
      * 
      * A pointer to the video adapter to use when creating a <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-intro">device</a>. Pass <b>NULL</b> to use the default adapter, which is the first adapter enumerated
      *             by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory1::EnumAdapters</a>. 
@@ -2723,7 +2723,7 @@ class Direct3D11 {
      * 
      * The runtime <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">layers</a> to enable (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_FLAG</a>);
      *             values can be bitwise OR'd together.
-     * @param {Pointer<Int32>} pFeatureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @param {Pointer<Integer>} pFeatureLevels Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>s, which determine the order of feature levels to attempt to create.
      *               If <i>pFeatureLevels</i> is set to <b>NULL</b>,
@@ -2763,7 +2763,7 @@ class Direct3D11 {
      * @param {Pointer<ID3D11Device>} ppDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a>**</b>
      * 
      * Returns the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11device">ID3D11Device</a> object that represents the device created. If this parameter is  <b>NULL</b>, no ID3D11Device will be returned'.
-     * @param {Pointer<Int32>} pFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
+     * @param {Pointer<Integer>} pFeatureLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>*</b>
      * 
      * Returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_feature_level">D3D_FEATURE_LEVEL</a>, which represents the first element in an array of feature levels supported
      *             by the device. Supply <b>NULL</b> as an input if you don't need to determine which feature level is supported.
@@ -2787,7 +2787,7 @@ class Direct3D11 {
     static D3D11CreateDeviceAndSwapChain(pAdapter, DriverType, Software, Flags, pFeatureLevels, FeatureLevels, SDKVersion, pSwapChainDesc, ppSwapChain, ppDevice, pFeatureLevel, ppImmediateContext) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr", ppSwapChain, "ptr", ppDevice, "int*", pFeatureLevel, "ptr", ppImmediateContext, "int")
+        result := DllCall("d3d11.dll\D3D11CreateDeviceAndSwapChain", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "uint", SDKVersion, "ptr", pSwapChainDesc, "ptr*", ppSwapChain, "ptr*", ppDevice, "int*", pFeatureLevel, "ptr*", ppImmediateContext, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2802,7 +2802,7 @@ class Direct3D11 {
      * @param {Pointer} SrcDataSize Type: <b>SIZE_T</b>
      * 
      * The size, in bytes, of the block of memory that pSrcData points to.
-     * @param {Pointer<ID3D11ShaderTrace>} pTrace Type: <b>ID3D11ShaderTrace*</b>
+     * @param {ID3D11ShaderTrace} pTrace Type: <b>ID3D11ShaderTrace*</b>
      * 
      * A pointer to the ID3D11ShaderTrace interface for the shader trace information object.
      * @param {Integer} StartStep Type: <b>UINT</b>
@@ -2865,7 +2865,7 @@ class Direct3D11 {
      * @since windows8.0
      */
     static D3DDisassemble11Trace(pSrcData, SrcDataSize, pTrace, StartStep, NumSteps, Flags, ppDisassembly) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr", ppDisassembly, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble11Trace", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pTrace, "uint", StartStep, "uint", NumSteps, "uint", Flags, "ptr*", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2874,7 +2874,7 @@ class Direct3D11 {
 
     /**
      * Creates a scan context.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> the scan is associated with.
      * @param {Integer} MaxElementScanSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2892,7 +2892,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createscan
      */
     static D3DX11CreateScan(pDeviceContext, MaxElementScanSize, MaxScanCount, ppScan) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr", ppScan, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "uint", MaxScanCount, "ptr*", ppScan, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2901,7 +2901,7 @@ class Direct3D11 {
 
     /**
      * Creates a segmented scan context.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface.
      * @param {Integer} MaxElementScanSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2916,7 +2916,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createsegmentedscan
      */
     static D3DX11CreateSegmentedScan(pDeviceContext, MaxElementScanSize, ppScan) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr", ppScan, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateSegmentedScan", "ptr", pDeviceContext, "uint", MaxElementScanSize, "ptr*", ppScan, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2925,7 +2925,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Pointer<D3DX11_FFT_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcsx/ns-d3dcsx-d3dx11_fft_desc">D3DX11_FFT_DESC</a>*</b>
@@ -2947,7 +2947,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft
      */
     static D3DX11CreateFFT(pDeviceContext, pDesc, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT", "ptr", pDeviceContext, "ptr", pDesc, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2956,7 +2956,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -2977,7 +2977,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft1dreal
      */
     static D3DX11CreateFFT1DReal(pDeviceContext, X, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DReal", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2986,7 +2986,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -3007,7 +3007,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft1dcomplex
      */
     static D3DX11CreateFFT1DComplex(pDeviceContext, X, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT1DComplex", "ptr", pDeviceContext, "uint", X, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3016,7 +3016,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -3040,7 +3040,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft2dreal
      */
     static D3DX11CreateFFT2DReal(pDeviceContext, X, Y, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3049,7 +3049,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -3073,7 +3073,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft2dcomplex
      */
     static D3DX11CreateFFT2DComplex(pDeviceContext, X, Y, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT2DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3082,7 +3082,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -3109,7 +3109,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft3dreal
      */
     static D3DX11CreateFFT3DReal(pDeviceContext, X, Y, Z, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DReal", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3118,7 +3118,7 @@ class Direct3D11 {
 
     /**
      * Creates an ID3DX11FFT COM interface object.
-     * @param {Pointer<ID3D11DeviceContext>} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
+     * @param {ID3D11DeviceContext} pDeviceContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a> interface to use for the FFT.
      * @param {Integer} X Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -3145,7 +3145,7 @@ class Direct3D11 {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcsx/nf-d3dcsx-d3dx11createfft3dcomplex
      */
     static D3DX11CreateFFT3DComplex(pDeviceContext, X, Y, Z, Flags, pBufferInfo, ppFFT) {
-        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr", ppFFT, "int")
+        result := DllCall("d3dcsx.dll\D3DX11CreateFFT3DComplex", "ptr", pDeviceContext, "uint", X, "uint", Y, "uint", Z, "uint", Flags, "ptr", pBufferInfo, "ptr*", ppFFT, "int")
         if(result != 0)
             throw OSError(result)
 

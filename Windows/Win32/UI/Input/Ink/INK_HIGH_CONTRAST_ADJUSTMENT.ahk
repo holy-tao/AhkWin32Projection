@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/inkrenderer/ne-inkrenderer-ink_high_contrast_adjustment
  * @namespace Windows.Win32.UI.Input.Ink
  * @version v4.0.30319
  */

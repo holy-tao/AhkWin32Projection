@@ -36,7 +36,7 @@ class SecPkgContext_TokenBinding extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     KeyParameters {
         get => NumGet(this, 8, "ptr")

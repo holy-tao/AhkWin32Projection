@@ -4,6 +4,8 @@
 #Include .\DDSCAPS2.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/ns-ddraw-ddcaps_dx6
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */

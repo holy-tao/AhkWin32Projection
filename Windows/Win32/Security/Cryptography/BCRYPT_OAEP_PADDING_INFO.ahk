@@ -24,7 +24,7 @@ class BCRYPT_OAEP_PADDING_INFO extends Win32Struct
 
     /**
      * The address of a buffer that contains the data to use to create the padding. The <b>cbLabel</b> member contains the size of this buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLabel {
         get => NumGet(this, 8, "ptr")

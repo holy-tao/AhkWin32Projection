@@ -15,7 +15,7 @@ class VSS_DIFF_VOLUME_PROP extends Win32Struct
 
     /**
      * The shadow copy storage area volume name, in <b>\\\\?\\</b><i>Volume</i><b>{</b><i>GUID</i><b>}\\</b> format.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszVolumeName {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class VSS_DIFF_VOLUME_PROP extends Win32Struct
     /**
      * Points to a null-terminated Unicode string that can be displayed to a user, for example 
      *       <i>C</i><b>:\\</b>, for the shadow copy storage area volume.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszVolumeDisplayName {
         get => NumGet(this, 8, "ptr")

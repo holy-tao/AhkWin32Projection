@@ -2494,7 +2494,7 @@ class Etw {
 ;@region Methods
     /**
      * The StartTrace function registers and starts an event tracing session.
-     * @param {Pointer<UInt64>} TraceId 
+     * @param {Pointer<Integer>} TraceId 
      * @param {PWSTR} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
      *        1,024 characters, is case-insensitive, and must be unique.
      * 
@@ -2664,7 +2664,7 @@ class Etw {
 
     /**
      * The StartTrace function registers and starts an event tracing session.
-     * @param {Pointer<UInt64>} TraceId 
+     * @param {Pointer<Integer>} TraceId 
      * @param {PSTR} InstanceName Null-terminated string that contains the name of the event tracing session. The session name is limited to 
      *        1,024 characters, is case-insensitive, and must be unique.
      * 
@@ -3898,7 +3898,7 @@ class Etw {
 
     /**
      * The QueryAllTraces function retrieves the properties and statistics for all event tracing sessions started on the computer for which the caller has permissions to query.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} PropertyArray An array of pointers to 
+     * @param {Pointer<Pointer<EVENT_TRACE_PROPERTIES>>} PropertyArray An array of pointers to 
      *        <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> structures that receive 
      *        session properties and statistics for the event tracing sessions.
      * 
@@ -3908,7 +3908,7 @@ class Etw {
      *        members should all be set to zero.
      * @param {Integer} PropertyArrayCount Number of structures in the <i>PropertyArray</i> array. This value must be less than or 
      *       equal to 64, the maximum number of event tracing sessions that ETW supports.
-     * @param {Pointer<UInt32>} LoggerCount Actual number of event tracing sessions started on the computer.
+     * @param {Pointer<Integer>} LoggerCount Actual number of event tracing sessions started on the computer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the 
@@ -3954,13 +3954,13 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesW(PropertyArray, PropertyArrayCount, LoggerCount) {
-        result := DllCall("ADVAPI32.dll\QueryAllTracesW", "ptr", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
+        result := DllCall("ADVAPI32.dll\QueryAllTracesW", "ptr*", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
         return result
     }
 
     /**
      * The QueryAllTraces function retrieves the properties and statistics for all event tracing sessions started on the computer for which the caller has permissions to query.
-     * @param {Pointer<EVENT_TRACE_PROPERTIES>} PropertyArray An array of pointers to 
+     * @param {Pointer<Pointer<EVENT_TRACE_PROPERTIES>>} PropertyArray An array of pointers to 
      *        <a href="https://docs.microsoft.com/windows/desktop/ETW/event-trace-properties">EVENT_TRACE_PROPERTIES</a> structures that receive 
      *        session properties and statistics for the event tracing sessions.
      * 
@@ -3970,7 +3970,7 @@ class Etw {
      *        members should all be set to zero.
      * @param {Integer} PropertyArrayCount Number of structures in the <i>PropertyArray</i> array. This value must be less than or 
      *       equal to 64, the maximum number of event tracing sessions that ETW supports.
-     * @param {Pointer<UInt32>} LoggerCount Actual number of event tracing sessions started on the computer.
+     * @param {Pointer<Integer>} LoggerCount Actual number of event tracing sessions started on the computer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the 
@@ -4016,7 +4016,7 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesA(PropertyArray, PropertyArrayCount, LoggerCount) {
-        result := DllCall("ADVAPI32.dll\QueryAllTracesA", "ptr", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
+        result := DllCall("ADVAPI32.dll\QueryAllTracesA", "ptr*", PropertyArray, "uint", PropertyArrayCount, "uint*", LoggerCount, "uint")
         return result
     }
 
@@ -4571,7 +4571,7 @@ class Etw {
      * @param {Integer} InBufferSize Size, in bytes, of the data <i>InBuffer</i>.
      * @param {Pointer} OutBuffer Application-allocated buffer that contains the enumerated information. The format of the information depends on the value of <i>TraceQueryInfoClass</i>. For details, see Remarks.
      * @param {Integer} OutBufferSize Size, in bytes, of the <i>OutBuffer</i> buffer. If the function succeeds, the <i>ReturnLength</i> parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and the <i>ReturnLength</i> parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and the <i>ReturnLength</i> parameter receives the required buffer size.
-     * @param {Pointer<UInt32>} ReturnLength Actual size of the data in <i>OutBuffer</i>, in bytes.
+     * @param {Pointer<Integer>} ReturnLength Actual size of the data in <i>OutBuffer</i>, in bytes.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
@@ -4709,7 +4709,7 @@ class Etw {
      * @param {Integer} InformationLength The size, in bytes, of the data returned in the <i>TraceInformation</i> buffer. If the 
      *       function fails, this value indicates the required size of the <i>TraceInformation</i> buffer 
      *       that is needed.
-     * @param {Pointer<UInt32>} ReturnLength A pointer a value that receives the size, in bytes, of the specific data returned in the 
+     * @param {Pointer<Integer>} ReturnLength A pointer a value that receives the size, in bytes, of the specific data returned in the 
      *       <i>TraceInformation</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
@@ -5106,7 +5106,7 @@ class Etw {
      * @param {PWSTR} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the string resource of <i>MofImagePath</i>. The string resource contains the name of the binary MOF file that describes the event trace classes supported by the provider.
-     * @param {Pointer<UInt64>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
+     * @param {Pointer<Integer>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/ETW/unregistertraceguids">UnregisterTraceGuids</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
@@ -5179,7 +5179,7 @@ class Etw {
      * @param {PSTR} MofResourceName This parameter is not supported, set to <b>NULL</b>. You should use Mofcomp.exe to register the MOF resource during the setup of your application. For more information see, <a href="https://docs.microsoft.com/windows/desktop/ETW/publishing-your-event-schema">Publishing Your Event Schema</a>.
      * 
      * <b>Windows XP with SP1, Windows XP and Windows 2000:  </b>Pointer to an optional string that specifies the string resource of <i>MofImagePath</i>. The string resource contains the name of the binary MOF file that describes the event trace classes supported by the provider.
-     * @param {Pointer<UInt64>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
+     * @param {Pointer<Integer>} RegistrationHandle Pointer to the provider's registration handle. Use this handle when you call the 
      * <a href="https://docs.microsoft.com/windows/desktop/ETW/unregistertraceguids">UnregisterTraceGuids</a> function.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
@@ -5229,10 +5229,10 @@ class Etw {
 
     /**
      * The EnumerateTraceGuids function retrieves information about registered event trace providers that are running on the computer.
-     * @param {Pointer<TRACE_GUID_PROPERTIES>} GuidPropertiesArray An array of pointers to 
+     * @param {Pointer<Pointer<TRACE_GUID_PROPERTIES>>} GuidPropertiesArray An array of pointers to 
      * <a href="https://docs.microsoft.com/windows/desktop/ETW/trace-guid-properties">TRACE_GUID_PROPERTIES</a> structures.
      * @param {Integer} PropertyArrayCount Number of elements in the <i>GuidPropertiesArray</i> array.
-     * @param {Pointer<UInt32>} GuidCount Actual number of event tracing providers registered on the computer.
+     * @param {Pointer<Integer>} GuidCount Actual number of event tracing providers registered on the computer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
@@ -5275,7 +5275,7 @@ class Etw {
      * @since windows5.1.2600
      */
     static EnumerateTraceGuids(GuidPropertiesArray, PropertyArrayCount, GuidCount) {
-        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", "ptr", GuidPropertiesArray, "uint", PropertyArrayCount, "uint*", GuidCount, "uint")
+        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", "ptr*", GuidPropertiesArray, "uint", PropertyArrayCount, "uint*", GuidCount, "uint")
         return result
     }
 
@@ -5697,6 +5697,7 @@ class Etw {
      * @param {Pointer<PETW_BUFFER_COMPLETION_CALLBACK>} BufferCompletionCallback 
      * @param {Pointer<Void>} BufferCompletionContext 
      * @returns {PROCESSTRACE_HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefrombufferstream
      */
     static OpenTraceFromBufferStream(Options, BufferCompletionCallback, BufferCompletionContext) {
         result := DllCall("ADVAPI32.dll\OpenTraceFromBufferStream", "ptr", Options, "ptr", BufferCompletionCallback, "ptr", BufferCompletionContext, "ptr")
@@ -5709,6 +5710,7 @@ class Etw {
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
      * @returns {PROCESSTRACE_HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromrealtimelogger
      */
     static OpenTraceFromRealTimeLogger(LoggerName, Options, LogFileHeader) {
         LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
@@ -5725,6 +5727,7 @@ class Etw {
      * @param {HANDLE} MemoryPartitionHandle 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
      * @returns {PROCESSTRACE_HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromrealtimeloggerwithallocationoptions
      */
     static OpenTraceFromRealTimeLoggerWithAllocationOptions(LoggerName, Options, AllocationSize, MemoryPartitionHandle, LogFileHeader) {
         LoggerName := LoggerName is String ? StrPtr(LoggerName) : LoggerName
@@ -5740,6 +5743,7 @@ class Etw {
      * @param {Pointer<ETW_OPEN_TRACE_OPTIONS>} Options 
      * @param {Pointer<TRACE_LOGFILE_HEADER>} LogFileHeader 
      * @returns {PROCESSTRACE_HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-opentracefromfile
      */
     static OpenTraceFromFile(LogFileName, Options, LogFileHeader) {
         LogFileName := LogFileName is String ? StrPtr(LogFileName) : LogFileName
@@ -5753,6 +5757,7 @@ class Etw {
      * @param {PROCESSTRACE_HANDLE} TraceHandle 
      * @param {Pointer<ETW_BUFFER_HEADER>} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferincrementreference
      */
     static ProcessTraceBufferIncrementReference(TraceHandle, Buffer) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
@@ -5765,6 +5770,7 @@ class Etw {
      * 
      * @param {Pointer<ETW_BUFFER_HEADER>} Buffer 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtracebufferdecrementreference
      */
     static ProcessTraceBufferDecrementReference(Buffer) {
         result := DllCall("ADVAPI32.dll\ProcessTraceBufferDecrementReference", "ptr", Buffer, "uint")
@@ -5777,6 +5783,7 @@ class Etw {
      * @param {Pointer} Buffer 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/evntrace/nf-evntrace-processtraceaddbuffertobufferstream
      */
     static ProcessTraceAddBufferToBufferStream(TraceHandle, Buffer, BufferSize) {
         TraceHandle := TraceHandle is Win32Handle ? NumGet(TraceHandle, "ptr") : TraceHandle
@@ -5793,7 +5800,7 @@ class Etw {
      * @param {Integer} InBufferSize Size in bytes of the <i>InBuffer</i>.
      * @param {Pointer<Void>} OutBuffer Buffer provided by the caller to contain output data.
      * @param {Integer} OutBufferSize Size in bytes of <i>OutBuffer.</i>
-     * @param {Pointer<UInt32>} ReturnLength The size in bytes of the data that the API wrote into <i>OutBuffer</i>.  Important for variable length returns.
+     * @param {Pointer<Integer>} ReturnLength The size in bytes of the data that the API wrote into <i>OutBuffer</i>.  Important for variable length returns.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 						
      * 
@@ -6091,7 +6098,7 @@ class Etw {
      * @param {Integer} MessageFlags 
      * @param {Pointer<Guid>} MessageGuid Class GUID that identifies the event trace message.
      * @param {Integer} MessageNumber Number that uniquely identifies each occurrence of the message. You must define the value specified for this parameter; the value should be meaningful to the application.
-     * @param {Pointer<SByte>} MessageArgList List of variable arguments to be appended to the message. The list must be composed of pairs of arguments, as described in the following table. 
+     * @param {Pointer<Integer>} MessageArgList List of variable arguments to be appended to the message. The list must be composed of pairs of arguments, as described in the following table. 
      * 
      * 
      * 
@@ -6809,7 +6816,7 @@ class Etw {
      * Retrieves the permissions for the specified controller or provider.
      * @param {Pointer<Guid>} Guid GUID that uniquely identifies the provider or session.
      * @param {Pointer} Buffer Application-allocated buffer that will contain the security descriptor of the controller or provider.
-     * @param {Pointer<UInt32>} BufferSize Size of the security descriptor buffer, in bytes. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_MORE_DATA and this parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize Size of the security descriptor buffer, in bytes. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_MORE_DATA and this parameter receives the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful.
      * 
      * The function returns the following return code if an error occurs:
@@ -6866,7 +6873,7 @@ class Etw {
      * @param {Integer} PayloadPredicateCount The number of conditions specified in the filter.
      *         This value must be less than or equal to the <b>ETW_MAX_PAYLOAD_PREDICATES</b> constant defined in the <i>Tdh.h</i> header file.
      * @param {Pointer<PAYLOAD_FILTER_PREDICATE>} PayloadPredicates A pointer to an array of  <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-payload_filter_predicate">PAYLOAD_FILTER_PREDICATE</a> structures that contain the list conditions that the filter specifies.
-     * @param {Pointer<Void>} PayloadFilter On success, this parameter returns a pointer to a single payload filter that is properly sized and built for the specified conditions.
+     * @param {Pointer<Pointer<Void>>} PayloadFilter On success, this parameter returns a pointer to a single payload filter that is properly sized and built for the specified conditions.
      * 
      * When the caller is finished using the returned payload filter with the <a href="https://docs.microsoft.com/windows/desktop/ETW/enabletraceex2">EnableTraceEx2</a> function,  the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhdeletepayloadfilter">TdhDeletePayloadFilter</a> function should be called to free the allocated memory.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
@@ -6939,13 +6946,13 @@ class Etw {
      * @since windows8.1
      */
     static TdhCreatePayloadFilter(ProviderGuid, EventDescriptor, EventMatchANY, PayloadPredicateCount, PayloadPredicates, PayloadFilter) {
-        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "char", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, "ptr", PayloadFilter, "uint")
+        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "char", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, "ptr*", PayloadFilter, "uint")
         return result
     }
 
     /**
      * Frees the memory allocated for a single payload filter by the TdhCreatePayloadFilter function.
-     * @param {Pointer<Void>} PayloadFilter A pointer to a single payload filter allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a> function.
+     * @param {Pointer<Pointer<Void>>} PayloadFilter A pointer to a single payload filter allocated by the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a> function.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -6969,14 +6976,14 @@ class Etw {
      * @since windows8.1
      */
     static TdhDeletePayloadFilter(PayloadFilter) {
-        result := DllCall("tdh.dll\TdhDeletePayloadFilter", "ptr", PayloadFilter, "uint")
+        result := DllCall("tdh.dll\TdhDeletePayloadFilter", "ptr*", PayloadFilter, "uint")
         return result
     }
 
     /**
      * Aggregates multiple payload filters for a single provider into a single data structure for use with the EnableTraceEx2 function.
      * @param {Integer} PayloadFilterCount The count of payload filters.
-     * @param {Pointer<Void>} PayloadFilterPtrs An array of event payload single filters,
+     * @param {Pointer<Pointer<Void>>} PayloadFilterPtrs An array of event payload single filters,
      *         each created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhcreatepayloadfilter">TdhCreatePayloadFilter</a>  function.
      * @param {Pointer<BOOLEAN>} EventMatchALLFlags An array of Boolean values  that correspond to
      *         each payload filter passed in the <i>PayloadFilterPtrs</i> parameter and indicates how events are handled when multiple conditions are specified..  This parameter only affects situations where multiple
@@ -7032,7 +7039,7 @@ class Etw {
      * @since windows8.1
      */
     static TdhAggregatePayloadFilters(PayloadFilterCount, PayloadFilterPtrs, EventMatchALLFlags, EventFilterDescriptor) {
-        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, "ptr", PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
+        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, "ptr*", PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
         return result
     }
 
@@ -7074,7 +7081,7 @@ class Etw {
      * @param {Integer} TdhContextCount Number of elements in <i>pTdhContext</i>.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Array of context values for WPP or classic ETW events only; otherwise, <b>NULL</b>. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-tdh_context">TDH_CONTEXT</a> structure.  The array must not contain duplicate context types.
      * @param {Pointer} Buffer User-allocated buffer to receive the event information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
-     * @param {Pointer<UInt32>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7151,7 +7158,7 @@ class Etw {
      * @param {Pointer<EVENT_RECORD>} pEvent The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">EVENT_RECORD</a> structure.
      * @param {PWSTR} pMapName Null-terminated Unicode string that contains the name of the map attribute value. The name comes from the <b>MapNameOffset</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure.
      * @param {Pointer} pBuffer User-allocated buffer to receive the event map. The map could be a value map, bitmap, or pattern map. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_map_info">EVENT_MAP_INFO</a> structure.
-     * @param {Pointer<UInt32>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7236,7 +7243,7 @@ class Etw {
      * You can pass this same array  to the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetproperty">TdhGetProperty</a> function to retrieve the property data.
      * 
      * If you are retrieving the size of a property that is not a member of a structure, you can specify a single data descriptor. If you are retrieving the size of a property that is a member of a structure, specify an array of two  data descriptors (structures cannot contain or reference other structures). For more information on specifying this parameter, see the example code below.
-     * @param {Pointer<UInt32>} pPropertySize Size of the property, in bytes. Use this value to allocate the buffer passed in the <i>pBuffer</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetproperty">TdhGetProperty</a> function.
+     * @param {Pointer<Integer>} pPropertySize Size of the property, in bytes. Use this value to allocate the buffer passed in the <i>pBuffer</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/nf-tdh-tdhgetproperty">TdhGetProperty</a> function.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7386,7 +7393,7 @@ class Etw {
     /**
      * Retrieves a list of providers that have registered a MOF class or manifest file on the computer.
      * @param {Pointer} pBuffer Array of providers that publicly define  their events on the computer. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_enumeration_info">PROVIDER_ENUMERATION_INFO</a> structure.
-     * @param {Pointer<UInt32>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7430,8 +7437,9 @@ class Etw {
      * @param {Integer} filter 
      * @param {Pointer} buffer 
      * @param {Integer} bufferSize 
-     * @param {Pointer<UInt32>} bufferRequired 
+     * @param {Pointer<Integer>} bufferRequired 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhenumerateprovidersfordecodingsource
      */
     static TdhEnumerateProvidersForDecodingSource(filter, buffer, bufferSize, bufferRequired) {
         result := DllCall("tdh.dll\TdhEnumerateProvidersForDecodingSource", "int", filter, "ptr", buffer, "uint", bufferSize, "uint*", bufferRequired, "uint")
@@ -7444,7 +7452,7 @@ class Etw {
      * @param {Integer} EventFieldValue Retrieve information about the field if the field's value matches this value. If the field type is a keyword, the information is retrieved for each event keyword bit contained in the mask.
      * @param {Integer} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
      * @param {Pointer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
-     * @param {Pointer<UInt32>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7521,7 +7529,7 @@ class Etw {
      * @param {Pointer<Guid>} pGuid GUID that identifies the provider whose information you want to retrieve.
      * @param {Integer} EventFieldType Specify the type of field for which you want to retrieve information. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ne-tdh-event_field_type">EVENT_FIELD_TYPE</a> enumeration.
      * @param {Pointer} pBuffer User-allocated buffer to receive the field information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_field_infoarray">PROVIDER_FIELD_INFOARRAY</a> structure.
-     * @param {Pointer<UInt32>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} pBufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7598,9 +7606,9 @@ class Etw {
      * @param {Pointer<Guid>} Guid GUID that identifies the provider whose filters you want to retrieve.
      * @param {Integer} TdhContextCount Not used.
      * @param {Pointer<TDH_CONTEXT>} TdhContext Not used.
-     * @param {Pointer<UInt32>} FilterCount The number of filter structures that the <i>pBuffer</i> buffer contains. Is zero if the <i>pBuffer</i> buffer is insufficient.
+     * @param {Pointer<Integer>} FilterCount The number of filter structures that the <i>pBuffer</i> buffer contains. Is zero if the <i>pBuffer</i> buffer is insufficient.
      * @param {Pointer} Buffer User-allocated buffer to receive the filter information. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_filter_info">PROVIDER_FILTER_INFO</a> structure.
-     * @param {Pointer<UInt32>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize Size, in bytes, of the <i>pBuffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -7720,6 +7728,7 @@ class Etw {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhloadmanifestfrommemory
      */
     static TdhLoadManifestFromMemory(pData, cbData) {
         result := DllCall("TDH.dll\TdhLoadManifestFromMemory", "ptr", pData, "uint", cbData, "uint")
@@ -7785,6 +7794,7 @@ class Etw {
      * @param {Pointer} pData 
      * @param {Integer} cbData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/tdh/nf-tdh-tdhunloadmanifestfrommemory
      */
     static TdhUnloadManifestFromMemory(pData, cbData) {
         result := DllCall("TDH.dll\TdhUnloadManifestFromMemory", "ptr", pData, "uint", cbData, "uint")
@@ -7801,9 +7811,9 @@ class Etw {
      * @param {Integer} PropertyLength The length, in bytes, of the property. Use the <b>Length</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-event_property_info">EVENT_PROPERTY_INFO</a> structure to set this parameter.
      * @param {Integer} UserDataLength The size, in bytes, of the <i>UserData</i> buffer. See Remarks.
      * @param {Pointer} UserData The buffer that contains the event data. See Remarks.
-     * @param {Pointer<UInt32>} BufferSize The size, in bytes, of the <i>Buffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize The size, in bytes, of the <i>Buffer</i> buffer. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns ERROR_INSUFFICIENT_BUFFER and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @param {Pointer} Buffer A caller-allocated buffer that contains the formatted property value. To determine the required buffer size, set this parameterto <b>NULL</b> and <i>BufferSize</i> to zero.
-     * @param {Pointer<UInt16>} UserDataConsumed The length, in bytes, of the consumed event data. Use this value to adjust the values of the <i>UserData</i> and <i>UserDataLength</i> parameters. See Remarks.
+     * @param {Pointer<Integer>} UserDataConsumed The length, in bytes, of the consumed event data. Use this value to adjust the values of the <i>UserData</i> and <i>UserDataLength</i> parameters. See Remarks.
      * @returns {Integer} Returns ERROR_SUCCESS if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -8011,7 +8021,7 @@ class Etw {
      * The name of the property to retrieve.
      * 
      * For a list of  possible values, see <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-property_data_descriptor">PROPERTY_DATA_DESCRIPTOR</a>.
-     * @param {Pointer<UInt32>} BufferSize Type: <b>PULONG</b>
+     * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
      * @param {Pointer} Buffer Type: <b>PBYTE</b>
@@ -8079,7 +8089,7 @@ class Etw {
      * @param {Pointer<EVENT_RECORD>} EventRecord Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a></b>
      * 
      * The event record passed to your <a href="https://docs.microsoft.com/windows/desktop/ETW/eventrecordcallback">EventRecordCallback</a> callback.
-     * @param {Pointer<UInt32>} BufferSize Type: <b>PULONG</b>
+     * @param {Pointer<Integer>} BufferSize Type: <b>PULONG</b>
      * 
      * Size of the <i>Buffer</i> parameter, in bytes.
      * @param {Pointer} Buffer Type: <b>PBYTE</b>
@@ -8229,7 +8239,7 @@ class Etw {
      * Retrieves the list of events present in the provider manifest.
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose list of events you want to retrieve.
      * @param {Pointer} Buffer A user-allocated buffer to receive the list of events. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-provider_event_info">PROVIDER_EVENT_INFO</a>  structure.
-     * @param {Pointer<UInt32>} BufferSize The size, in bytes, of the buffer pointed to by the <i>ProviderInfo</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>ProviderInfo</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>
@@ -8306,7 +8316,7 @@ class Etw {
      * @param {Pointer<Guid>} ProviderGuid A GUID that identifies the manifest provider whose event metadata you want to retrieve.
      * @param {Pointer<EVENT_DESCRIPTOR>} EventDescriptor A pointer to the event descriptor that contains information such as event id, version, op-code, and keyword. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/evntprov/ns-evntprov-event_descriptor">EVENT_DESCRIPTOR</a> structure
      * @param {Pointer} Buffer A user-allocated buffer to receive the metadata about an event in  a provider manifest. For details, see the <a href="https://docs.microsoft.com/windows/desktop/api/tdh/ns-tdh-trace_event_info">TRACE_EVENT_INFO</a> structure.
-     * @param {Pointer<UInt32>} BufferSize The size, in bytes, of the buffer pointed to by the <i>Buffer</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
+     * @param {Pointer<Integer>} BufferSize The size, in bytes, of the buffer pointed to by the <i>Buffer</i> parameter. If the function succeeds, this parameter receives the size of the buffer used. If the buffer is too small, the function returns <b>ERROR_INSUFFICIENT_BUFFER</b> and sets this parameter to the required buffer size. If the buffer size is zero on input, no data is returned in the buffer and this parameter receives the required buffer size.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful. Otherwise, this function returns one of the following return codes in addition to others.
      * 
      * <table>

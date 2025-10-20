@@ -45,7 +45,7 @@ class WCRUN extends Win32Struct
      * ```
      * HGLYPH hg = (HGLYPH) wc;
      * ```
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     phg {
         get => NumGet(this, 8, "ptr")

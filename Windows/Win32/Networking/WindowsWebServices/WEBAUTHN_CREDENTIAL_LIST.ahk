@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_list
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class WEBAUTHN_CREDENTIAL_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WEBAUTHN_CREDENTIAL_EX>}
+     * @type {Pointer<Pointer<WEBAUTHN_CREDENTIAL_EX>>}
      */
     ppCredentials {
         get => NumGet(this, 8, "ptr")

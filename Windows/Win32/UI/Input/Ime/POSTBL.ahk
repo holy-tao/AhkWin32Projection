@@ -24,7 +24,7 @@ class POSTBL extends Win32Struct
 
     /**
      * The name of the part of speech.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     szName {
         get => NumGet(this, 8, "ptr")

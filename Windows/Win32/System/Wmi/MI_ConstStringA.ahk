@@ -15,7 +15,7 @@ class MI_ConstStringA extends Win32Struct
 
     /**
      * An array of <b>MI_Char</b> types.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     data {
         get => NumGet(this, 0, "ptr")

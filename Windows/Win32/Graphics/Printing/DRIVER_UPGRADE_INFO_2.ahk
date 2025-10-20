@@ -12,7 +12,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pPrinterName {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pOldDriverDirectory {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pName {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pEnvironment {
         get => NumGet(this, 32, "ptr")
@@ -52,7 +52,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDriverPath {
         get => NumGet(this, 40, "ptr")
@@ -60,7 +60,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDataFile {
         get => NumGet(this, 48, "ptr")
@@ -68,7 +68,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pConfigFile {
         get => NumGet(this, 56, "ptr")
@@ -76,7 +76,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pHelpFile {
         get => NumGet(this, 64, "ptr")
@@ -84,7 +84,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDependentFiles {
         get => NumGet(this, 72, "ptr")
@@ -92,7 +92,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pMonitorName {
         get => NumGet(this, 80, "ptr")
@@ -100,7 +100,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDefaultDataType {
         get => NumGet(this, 88, "ptr")
@@ -108,7 +108,7 @@ class DRIVER_UPGRADE_INFO_2 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszzPreviousNames {
         get => NumGet(this, 96, "ptr")

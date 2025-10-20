@@ -34,7 +34,7 @@ class CTL_CONTEXT extends Win32Struct
 
     /**
      * A pointer to the encoded CTL.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCtlEncoded {
         get => NumGet(this, 8, "ptr")
@@ -83,7 +83,7 @@ class CTL_CONTEXT extends Win32Struct
 
     /**
      * The encoded <a href="https://docs.microsoft.com/windows/desktop/SecGloss/i-gly">inner content</a> of the signed message.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCtlContent {
         get => NumGet(this, 48, "ptr")

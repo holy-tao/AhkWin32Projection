@@ -12,7 +12,7 @@ class GOPHER_LOCATION_ATTRIBUTE_TYPE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     Location {
         get => NumGet(this, 0, "ptr")

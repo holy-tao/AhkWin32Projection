@@ -4,6 +4,8 @@
 #Include .\IP_ADDR_STRING.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

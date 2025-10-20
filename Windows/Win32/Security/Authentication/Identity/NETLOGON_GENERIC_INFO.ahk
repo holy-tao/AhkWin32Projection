@@ -44,7 +44,7 @@ class NETLOGON_GENERIC_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     LogonData {
         get => NumGet(this, 88, "ptr")

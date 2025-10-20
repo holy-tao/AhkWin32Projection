@@ -52,7 +52,7 @@ class SPPHRASEALTREQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ISpPhrase>}
+     * @type {ISpPhrase}
      */
     pPhrase {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class SPPHRASEALTREQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ISpRecoContext>}
+     * @type {ISpRecoContext}
      */
     pRecoContext {
         get => NumGet(this, 40, "ptr")

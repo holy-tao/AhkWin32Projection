@@ -108,7 +108,7 @@ class PROPSHEETPAGEA_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pcRefParent {
         get => NumGet(this, 64, "ptr")

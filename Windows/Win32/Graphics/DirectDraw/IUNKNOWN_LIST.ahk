@@ -28,7 +28,7 @@ class IUNKNOWN_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     lpIUnknown {
         get => NumGet(this, 16, "ptr")

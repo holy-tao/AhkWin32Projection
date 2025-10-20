@@ -24,7 +24,7 @@ class WS_BYTES extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     bytes {
         get => NumGet(this, 8, "ptr")

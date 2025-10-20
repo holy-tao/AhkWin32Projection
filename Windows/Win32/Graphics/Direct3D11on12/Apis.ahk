@@ -13,13 +13,13 @@ class Direct3D11on12 {
 ;@region Methods
     /**
      * Creates a device that uses Direct3D 11 functionality in Direct3D 12, specifying a pre-existing Direct3D 12 device to use for Direct3D 11 interop.
-     * @param {Pointer<IUnknown>} pDevice Type: <b>IUnknown*</b>
+     * @param {IUnknown} pDevice Type: <b>IUnknown*</b>
      * 
      * Specifies a pre-existing Direct3D 12 device to use for Direct3D 11 interop. May not be NULL.
      * @param {Integer} Flags Type: <b>UINT</b>
      * 
      * One or more bitwise OR'd flags from <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_create_device_flag">D3D11_CREATE_DEVICE_FLAG</a>. These are the same flags as those used by <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-d3d11createdeviceandswapchain">D3D11CreateDeviceAndSwapChain</a>. Specifies which runtime <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-layers">layers</a> to enable. <i>Flags</i> must be compatible with device flags, and its <i>NodeMask</i> must be a subset of the <i>NodeMask</i> provided to the present API.
-     * @param {Pointer<Int32>} pFeatureLevels Type: <b>const D3D_FEATURE_LEVEL*</b>
+     * @param {Pointer<Integer>} pFeatureLevels Type: <b>const D3D_FEATURE_LEVEL*</b>
      * 
      * An array of any of the following:
      * 
@@ -54,7 +54,7 @@ class Direct3D11on12 {
      * @param {Pointer<ID3D11DeviceContext>} ppImmediateContext Type: <b>ID3D11DeviceContext**</b>
      * 
      * A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11devicecontext">ID3D11DeviceContext</a>. May be NULL.
-     * @param {Pointer<Int32>} pChosenFeatureLevel Type: <b>D3D_FEATURE_LEVEL*</b>
+     * @param {Pointer<Integer>} pChosenFeatureLevel Type: <b>D3D_FEATURE_LEVEL*</b>
      * 
      * A pointer to the returned feature level. May be NULL.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -65,7 +65,7 @@ class Direct3D11on12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d11on12/nf-d3d11on12-d3d11on12createdevice
      */
     static D3D11On12CreateDevice(pDevice, Flags, pFeatureLevels, FeatureLevels, ppCommandQueues, NumQueues, NodeMask, ppDevice, ppImmediateContext, pChosenFeatureLevel) {
-        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "ptr", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr", ppDevice, "ptr", ppImmediateContext, "int*", pChosenFeatureLevel, "int")
+        result := DllCall("d3d11.dll\D3D11On12CreateDevice", "ptr", pDevice, "uint", Flags, "int*", pFeatureLevels, "uint", FeatureLevels, "ptr*", ppCommandQueues, "uint", NumQueues, "uint", NodeMask, "ptr*", ppDevice, "ptr*", ppImmediateContext, "int*", pChosenFeatureLevel, "int")
         if(result != 0)
             throw OSError(result)
 

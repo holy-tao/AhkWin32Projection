@@ -1141,7 +1141,7 @@ class XAudio2 {
      * @see https://docs.microsoft.com/windows/win32/api//xapofx/nf-xapofx-createfx
      */
     static CreateFX(clsid, pEffect, pInitDat, InitDataByteSize) {
-        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr", pEffect, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
+        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", pEffect, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
@@ -1157,7 +1157,7 @@ class XAudio2 {
      * @returns {HRESULT} 
      */
     static XAudio2CreateWithVersionInfo(ppXAudio2, Flags, XAudio2Processor, ntddiVersion) {
-        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr", ppXAudio2, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
+        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", ppXAudio2, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1170,7 +1170,7 @@ class XAudio2 {
      * @returns {HRESULT} 
      */
     static CreateAudioVolumeMeter(ppApo) {
-        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr", ppApo, "int")
+        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr*", ppApo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1183,7 +1183,7 @@ class XAudio2 {
      * @returns {HRESULT} 
      */
     static CreateAudioReverb(ppApo) {
-        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr", ppApo, "int")
+        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr*", ppApo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1227,7 +1227,7 @@ class XAudio2 {
      * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/nf-hrtfapoapi-createhrtfapo
      */
     static CreateHrtfApo(init, xApo) {
-        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr", xApo, "int")
+        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", xApo, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -20,7 +20,7 @@ class SPSHORTCUTPAIRLIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pvBuffer {
         get => NumGet(this, 8, "ptr")

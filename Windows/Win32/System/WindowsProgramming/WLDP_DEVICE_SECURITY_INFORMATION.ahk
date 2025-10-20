@@ -20,7 +20,7 @@ class WLDP_DEVICE_SECURITY_INFORMATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     UnlockId {
         get => NumGet(this, 8, "ptr")

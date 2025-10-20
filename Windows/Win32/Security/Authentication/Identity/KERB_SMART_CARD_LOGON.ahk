@@ -46,7 +46,7 @@ class KERB_SMART_CARD_LOGON extends Win32Struct
 
     /**
      * A pointer to a <b>KERB_SMARTCARD_CSP_INFO</b> structure that contains information about the smart card cryptographic service provider (CSP) or a pointer to a marshaled <b>KERB_CERTIFICATE_INFO</b> structure when updating certificate credentials.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     CspData {
         get => NumGet(this, 32, "ptr")

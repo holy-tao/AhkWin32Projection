@@ -15,7 +15,7 @@ class MI_Uint16A extends Win32Struct
 
     /**
      * An array of <b>MI_Uint16</b> types.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

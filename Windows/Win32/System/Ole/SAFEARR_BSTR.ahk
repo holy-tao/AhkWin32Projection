@@ -20,7 +20,7 @@ class SAFEARR_BSTR extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FLAGGED_WORD_BLOB>}
+     * @type {Pointer<Pointer<FLAGGED_WORD_BLOB>>}
      */
     aBstr {
         get => NumGet(this, 8, "ptr")

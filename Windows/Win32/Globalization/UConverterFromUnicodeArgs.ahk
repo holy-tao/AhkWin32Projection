@@ -36,7 +36,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     source {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     sourceLimit {
         get => NumGet(this, 24, "ptr")
@@ -68,7 +68,7 @@ class UConverterFromUnicodeArgs extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     offsets {
         get => NumGet(this, 48, "ptr")

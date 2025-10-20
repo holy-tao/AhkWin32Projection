@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_ex
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -28,7 +30,7 @@ class WEBAUTHN_CREDENTIAL_EX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbId {
         get => NumGet(this, 8, "ptr")

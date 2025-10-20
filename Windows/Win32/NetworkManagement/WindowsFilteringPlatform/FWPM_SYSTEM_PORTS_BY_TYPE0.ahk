@@ -38,7 +38,7 @@ class FWPM_SYSTEM_PORTS_BY_TYPE0 extends Win32Struct
 
     /**
      * Array of IP port numbers for the specified type.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ports {
         get => NumGet(this, 8, "ptr")

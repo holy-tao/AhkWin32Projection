@@ -77,7 +77,7 @@ class DML_PADDING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * The sizes of the padding regions to add at the beginning of each dimension. For each dimension `i`, `StartPadding[i] = OutputTensor.Sizes[i] - InputTensor.Sizes[i] - EndPadding[i]`.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 32, "ptr")
@@ -88,7 +88,7 @@ class DML_PADDING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * The sizes of the padding regions to add at the end of each dimension. For each dimension `i`, `EndPadding[i] = OutputTensor.Sizes[i] - InputTensor.Sizes[i] - StartPadding[i]`.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 40, "ptr")

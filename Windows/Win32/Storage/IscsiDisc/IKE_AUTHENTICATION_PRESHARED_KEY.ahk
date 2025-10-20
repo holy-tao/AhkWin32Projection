@@ -166,7 +166,7 @@ class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct
 
     /**
      * The identifier of the preshared key used in the IKE protocol.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Id {
         get => NumGet(this, 16, "ptr")
@@ -184,7 +184,7 @@ class IKE_AUTHENTICATION_PRESHARED_KEY extends Win32Struct
 
     /**
      * The preshared key.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Key {
         get => NumGet(this, 32, "ptr")

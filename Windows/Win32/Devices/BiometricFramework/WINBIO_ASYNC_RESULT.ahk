@@ -345,7 +345,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         SubFactorArray {
             get => NumGet(this, 88, "ptr")
@@ -569,7 +569,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         SendBuffer {
             get => NumGet(this, 16, "ptr")
@@ -585,7 +585,7 @@ class WINBIO_ASYNC_RESULT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         ReceiveBuffer {
             get => NumGet(this, 32, "ptr")

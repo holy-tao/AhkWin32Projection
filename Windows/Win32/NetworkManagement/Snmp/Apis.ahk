@@ -785,7 +785,7 @@ class Snmp {
 
     /**
      * The SnmpUtilIdsToA function converts an object identifier (OID) to a null-terminated string. This function is an element of the SNMP Utility API.
-     * @param {Pointer<UInt32>} Ids Pointer to an array of unsigned integers. The array contains the sequence of numbers that the OID contains. The <i>IdLength</i> parameter specifies the array's length. 
+     * @param {Pointer<Integer>} Ids Pointer to an array of unsigned integers. The array contains the sequence of numbers that the OID contains. The <i>IdLength</i> parameter specifies the array's length. 
      * 
      * 
      * 
@@ -927,7 +927,7 @@ class Snmp {
      * When you specify the MGMCTL_SETAGENTPORT control code, this parameter is equal to sizeof(UINT).
      * @param {Pointer<Void>} lpvOUTBuffer Pointer to the buffer that receives the operation's output data.
      * @param {Integer} cbOUTBuffer Specifies the size, in bytes, of the buffer pointed to by the <i>lpvOutBuffer</i> parameter.
-     * @param {Pointer<UInt32>} lpcbBytesReturned Pointer to a variable that receives the actual size, in bytes, of the data stored in the buffer pointed to by the <i>lpvOutBuffer</i> parameter.
+     * @param {Pointer<Integer>} lpcbBytesReturned Pointer to a variable that receives the actual size, in bytes, of the data stored in the buffer pointed to by the <i>lpvOutBuffer</i> parameter.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1017,8 +1017,8 @@ class Snmp {
      * 
      * <div class="alert"><b>Note</b>  The <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbind">SnmpVarBind</a> array pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure must be allocated using the <a href="https://docs.microsoft.com/windows/desktop/api/snmp/nf-snmp-snmputilmemalloc">SnmpUtilMemAlloc</a> function.</div>
      * <div> </div>
-     * @param {Pointer<UInt32>} errorStatus 
-     * @param {Pointer<Int32>} errorIndex Pointer to a variable in which the error index result will be returned.
+     * @param {Pointer<Integer>} errorStatus 
+     * @param {Pointer<Integer>} errorIndex Pointer to a variable in which the error index result will be returned.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
@@ -1167,9 +1167,9 @@ class Snmp {
      * @param {Pointer<AsnObjectIdentifier>} enterprise Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} IPAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap.
-     * @param {Pointer<UInt32>} genericTrap 
-     * @param {Pointer<Int32>} specificTrap Pointer to a variable to receive an indication of the specific trap generated.
-     * @param {Pointer<UInt32>} timeStamp Pointer to a variable to receive the time stamp.
+     * @param {Pointer<Integer>} genericTrap 
+     * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indication of the specific trap generated.
+     * @param {Pointer<Integer>} timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is <b>TRUE</b>. The code for the error can be retrieved by calling <a href="/windows/desktop/api/winsnmp/nf-winsnmp-snmpgetlasterror">SnmpGetLastError</a> immediately after the call.
@@ -1230,11 +1230,11 @@ class Snmp {
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnobjectidentifier">AsnObjectIdentifier</a> structure to receive the enterprise that generated the SNMP trap.
      * @param {Pointer<AsnOctetString>} agentAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap; this information is retrieved from the SNMP protocol data unit (PDU).
      * @param {Pointer<AsnOctetString>} sourceAddress Pointer to a variable to receive the address of the agent that generated the SNMP trap; this information is retrieved from the network transport.
-     * @param {Pointer<UInt32>} genericTrap 
-     * @param {Pointer<Int32>} specificTrap Pointer to a variable to receive an indicator of the specific trap generated.
+     * @param {Pointer<Integer>} genericTrap 
+     * @param {Pointer<Integer>} specificTrap Pointer to a variable to receive an indicator of the specific trap generated.
      * @param {Pointer<AsnOctetString>} community Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-asnoctetstring">AsnOctetString</a> structure to receive the community string of the generated SNMP trap.
-     * @param {Pointer<UInt32>} timeStamp Pointer to a variable to receive the time stamp.
+     * @param {Pointer<Integer>} timeStamp Pointer to a variable to receive the time stamp.
      * @param {Pointer<SnmpVarBindList>} variableBindings Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/snmp/ns-snmp-snmpvarbindlist">SnmpVarBindList</a> structure to receive the variable bindings list.
      * @returns {BOOL} If the function returns a trap, the return value is nonzero.
@@ -1291,7 +1291,7 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetTranslateMode function returns the current setting of the entity and context translation mode to a WinSNMP application.
-     * @param {Pointer<UInt32>} nTranslateMode 
+     * @param {Pointer<Integer>} nTranslateMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
@@ -1417,7 +1417,7 @@ class Snmp {
 
     /**
      * The WinSNMP SnmpGetRetransmitMode function returns the current setting of the retransmission mode to a WinSNMP application.
-     * @param {Pointer<UInt32>} nRetransmitMode 
+     * @param {Pointer<Integer>} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If 
@@ -1544,8 +1544,8 @@ class Snmp {
     /**
      * The WinSNMP SnmpGetTimeout function returns the time-out value, in hundredths of a second, for the transmission of SNMP message requests.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
-     * @param {Pointer<UInt32>} nPolicyTimeout Pointer to an integer variable to receive the time-out value, in hundredths of a second, for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
-     * @param {Pointer<UInt32>} nActualTimeout Pointer to an integer variable to receive the last actual or estimated response interval for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
+     * @param {Pointer<Integer>} nPolicyTimeout Pointer to an integer variable to receive the time-out value, in hundredths of a second, for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
+     * @param {Pointer<Integer>} nActualTimeout Pointer to an integer variable to receive the last actual or estimated response interval for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -1699,8 +1699,8 @@ class Snmp {
     /**
      * The WinSNMP SnmpGetRetry function returns the retry count value, in units, for the retransmission of SNMP message requests. The retry count applies to calls that a WinSNMP application makes to the SnmpSendMsg function for a specified management entity.
      * @param {Pointer} hEntity Handle to the destination management entity of interest.
-     * @param {Pointer<UInt32>} nPolicyRetry Pointer to an unsigned long integer variable to receive the retry count value for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
-     * @param {Pointer<UInt32>} nActualRetry Pointer to an unsigned long integer variable to receive the last actual or estimated retry count for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
+     * @param {Pointer<Integer>} nPolicyRetry Pointer to an unsigned long integer variable to receive the retry count value for the specified management entity. This is a value that the Microsoft WinSNMP implementation stores in a database. If you do not need the information returned in this parameter, <i>nPolicyRetry</i> must be a <b>NULL</b> pointer.
+     * @param {Pointer<Integer>} nActualRetry Pointer to an unsigned long integer variable to receive the last actual or estimated retry count for the destination entity, as reported by the implementation. If you do not need the information returned in this parameter, <i>nActualRetry</i> must be a <b>NULL</b> pointer. If this parameter is a valid pointer, the function returns 0. For additional information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -1922,13 +1922,13 @@ class Snmp {
 
     /**
      * The SnmpStartup function notifies the Microsoft WinSNMP implementation that the WinSNMP application requires the implementation's services.
-     * @param {Pointer<UInt32>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 2.
-     * @param {Pointer<UInt32>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 0.
-     * @param {Pointer<UInt32>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
+     * @param {Pointer<Integer>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 2.
+     * @param {Pointer<Integer>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 0.
+     * @param {Pointer<Integer>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a>.
-     * @param {Pointer<UInt32>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for the implementation. The translation mode applies to the implementation's interpretation of the <i>entity</i> parameter that the WinSNMP application passes to the 
+     * @param {Pointer<Integer>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for the implementation. The translation mode applies to the implementation's interpretation of the <i>entity</i> parameter that the WinSNMP application passes to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. The translation mode also applies to the <i>string</i> parameter that the WinSNMP application passes to the
-     * @param {Pointer<UInt32>} nRetransmitMode 
+     * @param {Pointer<Integer>} nRetransmitMode 
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the parameters contain appropriate values, as indicated in the preceding parameter descriptions.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -2391,12 +2391,12 @@ class Snmp {
     /**
      * The WinSNMP SnmpRecvMsg function retrieves the results of a completed asynchronous request submitted by a call to the SnmpSendMsg function, in the form of an SNMP message.
      * @param {Pointer} session Handle to the WinSNMP session.
-     * @param {Pointer<IntPtr>} srcEntity Pointer to a variable that receives a handle to the entity that sends the message. Note that the <i>srcEntity</i> parameter to the 
+     * @param {Pointer<Pointer>} srcEntity Pointer to a variable that receives a handle to the entity that sends the message. Note that the <i>srcEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that registers for trap notification.
-     * @param {Pointer<IntPtr>} dstEntity Pointer to a variable that receives a handle to the entity that receives the message. Note that the <i>dstEntity</i> parameter to the 
+     * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the entity that receives the message. Note that the <i>dstEntity</i> parameter to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpregister">SnmpRegister</a> function specifies a handle to the management entity that sends traps.
-     * @param {Pointer<IntPtr>} context Pointer to a variable that receives a handle to the context, which is a set of managed object resources. The entity specified by the <i>srcEntity</i> parameter issues the message from this context.
-     * @param {Pointer<IntPtr>} PDU Pointer to a variable that receives a handle to the protocol data unit (PDU) component of the message.
+     * @param {Pointer<Pointer>} context Pointer to a variable that receives a handle to the context, which is a set of managed object resources. The entity specified by the <i>srcEntity</i> parameter issues the message from this context.
+     * @param {Pointer<Pointer>} PDU Pointer to a variable that receives a handle to the protocol data unit (PDU) component of the message.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the output parameters contain the values indicated in the preceding parameter descriptions.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. If the function fails with an extended error code that indicates a network transport layer error, that is, one that begins with SNMPAPI_TL_, the output parameters also contain the values indicated preceding to enable the WinSNMP application to recover gracefully.
@@ -3076,21 +3076,21 @@ class Snmp {
 
     /**
      * The SnmpStartupEx function notifies the Microsoft WinSNMP implementation that the WinSNMP application requires the implementation's services.
-     * @param {Pointer<UInt32>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that 
+     * @param {Pointer<Integer>} nMajorVersion Pointer to an unsigned long integer variable to receive the major version number of the WinSNMP API that 
      *       the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the 
      *       function returns a value of 2.
-     * @param {Pointer<UInt32>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that 
+     * @param {Pointer<Integer>} nMinorVersion Pointer to an unsigned long integer variable to receive the minor version number of the WinSNMP API that 
      *       the implementation supports. For example, to indicate that the implementation supports WinSNMP version 2.0, the function returns a value of 0.
-     * @param {Pointer<UInt32>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the 
+     * @param {Pointer<Integer>} nLevel Pointer to an unsigned long integer variable to receive the highest level of SNMP communications the 
      *       implementation supports. Upon successful return, this parameter contains a value of 2. For a description of level 2 support, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/SNMP/levels-of-snmp-support">Levels of SNMP Support</a>.
-     * @param {Pointer<UInt32>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for 
+     * @param {Pointer<Integer>} nTranslateMode Pointer to an unsigned long integer variable to receive the default translation mode in effect for 
      *       the implementation. The translation mode applies to how the implementation interprets the 
      *       <i>entity</i> parameter, that the WinSNMP application passes to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtoentity">SnmpStrToEntity</a> function. The translation mode also 
      *       applies to the <i>string</i> parameter that the WinSNMP application passes to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/nf-winsnmp-snmpstrtocontext">SnmpStrToContext</a> function. This parameter can be
-     * @param {Pointer<UInt32>} nRetransmitMode Pointer to an unsigned long integer variable to receive the default retransmission mode in effect for the
+     * @param {Pointer<Integer>} nRetransmitMode Pointer to an unsigned long integer variable to receive the default retransmission mode in effect for the
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS, and the parameters contain appropriate values, 
      *        as indicated in the preceding parameter descriptions.
      * 
@@ -3924,16 +3924,16 @@ class Snmp {
     /**
      * The WinSNMP SnmpGetPduData function returns selected data fields from a specified SNMP protocol data unit (PDU).
      * @param {Pointer} PDU Handle to the SNMP PDU.
-     * @param {Pointer<UInt32>} PDU_type 
-     * @param {Pointer<Int32>} request_id Pointer to a variable that receives the <b>request_id</b> field of the specified PDU. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} error_status Pointer to a variable that receives the <b>error_status</b> field of the specified PDU. If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter receives the value of the <b>non_repeaters</b> field of the PDU.
-     * @param {Pointer<Int32>} error_index Pointer to a variable that receives the <b>error_index</b> field of the specified PDU. 
+     * @param {Pointer<Integer>} PDU_type 
+     * @param {Pointer<Integer>} request_id Pointer to a variable that receives the <b>request_id</b> field of the specified PDU. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} error_status Pointer to a variable that receives the <b>error_status</b> field of the specified PDU. If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter receives the value of the <b>non_repeaters</b> field of the PDU.
+     * @param {Pointer<Integer>} error_index Pointer to a variable that receives the <b>error_index</b> field of the specified PDU. 
      * 
      * 
      * 
      * 
      * If the <i>PDU_type</i> parameter is equal to <b>SNMP_PDU_GETBULK</b>, this parameter receives the value of the <b>max_repetitions</b> field of the specified PDU. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IntPtr>} varbindlist Pointer to a variable that receives a handle to the variable bindings list field of the specified PDU. This parameter can be <b>NULL</b>. For additional information, see the following Remarks section.
+     * @param {Pointer<Pointer>} varbindlist Pointer to a variable that receives a handle to the variable bindings list field of the specified PDU. This parameter can be <b>NULL</b>. For additional information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -4013,11 +4013,11 @@ class Snmp {
     /**
      * The WinSNMP SnmpSetPduData function updates selected data fields in the specified SNMP protocol data unit (PDU).
      * @param {Pointer} PDU Handle to an SNMP PDU.
-     * @param {Pointer<Int32>} PDU_type Pointer to a variable with a value to update the <b>PDU_type</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<Int32>} request_id Pointer to a variable with a value to update the <b>request_id</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<Int32>} non_repeaters If the <i>PDU_type</i> parameter is equal to <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_GETBULK</a>, this parameter points to a variable with a value to update the <b>non_repeaters</b> field of the specified PDU. The Microsoft WinSNMP implementation ignores this parameter for other PDU types. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<Int32>} max_repetitions If the <i>PDU_type</i> parameter is equal to <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_GETBULK</a>, this parameter points to a variable with a value to update the <b>max_repetitions</b> field of the specified PDU. The implementation ignores this parameter for other PDU types. This parameter can also be <b>NULL</b>.
-     * @param {Pointer<IntPtr>} varbindlist Pointer to a variable with a value that updates the handle to the variable bindings list field of the specified PDU. This parameter can also be <b>NULL</b>.
+     * @param {Pointer<Integer>} PDU_type Pointer to a variable with a value to update the <b>PDU_type</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
+     * @param {Pointer<Integer>} request_id Pointer to a variable with a value to update the <b>request_id</b> field of the specified PDU. This parameter can also be <b>NULL</b>.
+     * @param {Pointer<Integer>} non_repeaters If the <i>PDU_type</i> parameter is equal to <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_GETBULK</a>, this parameter points to a variable with a value to update the <b>non_repeaters</b> field of the specified PDU. The Microsoft WinSNMP implementation ignores this parameter for other PDU types. This parameter can also be <b>NULL</b>.
+     * @param {Pointer<Integer>} max_repetitions If the <i>PDU_type</i> parameter is equal to <a href="https://docs.microsoft.com/windows/desktop/SNMP/snmp-variable-types-and-request-pdu-types">SNMP_PDU_GETBULK</a>, this parameter points to a variable with a value to update the <b>max_repetitions</b> field of the specified PDU. The implementation ignores this parameter for other PDU types. This parameter can also be <b>NULL</b>.
+     * @param {Pointer<Pointer>} varbindlist Pointer to a variable with a value that updates the handle to the variable bindings list field of the specified PDU. This parameter can also be <b>NULL</b>.
      * @returns {Integer} If the function succeeds, the return value is SNMPAPI_SUCCESS.
      * 
      * If the function fails, the return value is SNMPAPI_FAILURE. To get extended error information, call 
@@ -5293,7 +5293,7 @@ class Snmp {
      * @param {Pointer<smiOID>} yOID Pointer to the second 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioid">smiOID</a> object identifier to compare. The length of the object identifier can be zero.
      * @param {Integer} maxlen If not equal to zero, specifies the number of subidentifiers to compare. This parameter must be less than MAXOBJIDSIZE: 128 subidentifiers, the maximum number of components in an object identifier. For additional information, see the following Remarks section.
-     * @param {Pointer<Int32>} result Pointer to an integer variable to receive the result of the comparison. The variable can receive one of the following results. 
+     * @param {Pointer<Integer>} result Pointer to an integer variable to receive the result of the comparison. The variable can receive one of the following results. 
      * 
      * 
      * 
@@ -5523,10 +5523,10 @@ class Snmp {
     /**
      * The WinSNMP SnmpDecodeMsg function decodes an encoded SNMP message into its components. This function performs the opposite action of the WinSNMP SnmpEncodeMsg function.
      * @param {Pointer} session Handle to the WinSNMP session. This parameter is required. For additional information, see the following Remarks section.
-     * @param {Pointer<IntPtr>} srcEntity Pointer to a variable that receives a handle to the source management entity. For more information, see the following Remarks section.
-     * @param {Pointer<IntPtr>} dstEntity Pointer to a variable that receives a handle to the target management entity. For more information, see the following Remarks section.
-     * @param {Pointer<IntPtr>} context Pointer to a variable that receives a handle to the context (a set of managed object resources) that the target management entity controls.
-     * @param {Pointer<IntPtr>} pdu Pointer to a variable that receives a handle to the SNMP protocol data unit (PDU).
+     * @param {Pointer<Pointer>} srcEntity Pointer to a variable that receives a handle to the source management entity. For more information, see the following Remarks section.
+     * @param {Pointer<Pointer>} dstEntity Pointer to a variable that receives a handle to the target management entity. For more information, see the following Remarks section.
+     * @param {Pointer<Pointer>} context Pointer to a variable that receives a handle to the context (a set of managed object resources) that the target management entity controls.
+     * @param {Pointer<Pointer>} pdu Pointer to a variable that receives a handle to the SNMP protocol data unit (PDU).
      * @param {Pointer<smiOCTETS>} msgBufDesc Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winsnmp/ns-winsnmp-smioctets">smiOCTETS</a> structure that contains the SNMP message to decode into its components. The <b>len</b> member of the structure specifies the maximum number of bytes to process; the <b>ptr</b> member points to the encoded SNMP message.
      * @returns {Integer} If the function succeeds, the return value is the number of decoded bytes. This value can be equal to, or less than, the <b>len</b> member of the 

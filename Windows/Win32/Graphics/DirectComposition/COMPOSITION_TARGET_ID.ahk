@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\LUID.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/dcomptypes/ns-dcomptypes-composition_target_id
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */

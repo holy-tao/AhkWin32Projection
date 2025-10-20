@@ -65,7 +65,7 @@ class RECO_LATTICE extends Win32Struct
 
     /**
      * An array containing the indexes of the columns in the <i>pLatticeColumns</i> array that makes up the best result.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulBestResultColumns {
         get => NumGet(this, 40, "ptr")
@@ -74,7 +74,7 @@ class RECO_LATTICE extends Win32Struct
 
     /**
      * An array of indexes of the elements in the <i>pLatticeElements</i> array of the corresponding column designated by <i>pulBestResultColumn</i>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulBestResultIndexes {
         get => NumGet(this, 48, "ptr")

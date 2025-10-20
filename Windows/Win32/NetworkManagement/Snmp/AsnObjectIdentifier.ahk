@@ -24,7 +24,7 @@ class AsnObjectIdentifier extends Win32Struct
 
     /**
      * Pointer to an array of integers that represents the object identifier.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ids {
         get => NumGet(this, 8, "ptr")

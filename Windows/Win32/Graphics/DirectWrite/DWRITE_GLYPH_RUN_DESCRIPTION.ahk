@@ -50,7 +50,7 @@ class DWRITE_GLYPH_RUN_DESCRIPTION extends Win32Struct
      * Type: <b>const UINT16*</b>
      * 
      * An array of indices to the glyph indices array, of the first glyphs of all the glyph clusters of the glyphs to render.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     clusterMap {
         get => NumGet(this, 24, "ptr")

@@ -28,7 +28,7 @@ class CERT_POLICY_QUALIFIER_NOTICE_REFERENCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     rgNoticeNumbers {
         get => NumGet(this, 16, "ptr")

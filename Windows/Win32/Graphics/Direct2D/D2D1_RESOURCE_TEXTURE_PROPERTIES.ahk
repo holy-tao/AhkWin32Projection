@@ -15,7 +15,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * The extents of the resource table in each dimension.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     extents {
         get => NumGet(this, 0, "ptr")
@@ -60,7 +60,7 @@ class D2D1_RESOURCE_TEXTURE_PROPERTIES extends Win32Struct
 
     /**
      * Specifies how pixel values beyond the extent of the texture will be sampled, in every dimension.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     extendModes {
         get => NumGet(this, 24, "ptr")

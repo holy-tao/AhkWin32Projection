@@ -1113,9 +1113,10 @@ class AddressBook {
      * @param {Pointer<SPropTagArray>} lpSPropTagArrayColumns 
      * @param {Pointer<ITableData>} lppTableData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
      */
     static CreateTable(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, ulTableType, ulPropTagIndexColumn, lpSPropTagArrayColumns, lppTableData) {
-        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr", lppTableData, "int")
+        result := DllCall("rtm.dll\CreateTable", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "uint", ulTableType, "uint", ulPropTagIndexColumn, "ptr", lpSPropTagArrayColumns, "ptr*", lppTableData, "int")
         return result
     }
 
@@ -1128,9 +1129,10 @@ class AddressBook {
      * @param {Pointer<Void>} lpvReserved 
      * @param {Pointer<IPropData>} lppPropData 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createiprop
      */
     static CreateIProp(lpInterface, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpvReserved, lppPropData) {
-        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "ptr", lppPropData, "int")
+        result := DllCall("MAPI32.dll\CreateIProp", "ptr", lpInterface, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpvReserved, "ptr*", lppPropData, "int")
         return result
     }
 
@@ -1138,6 +1140,7 @@ class AddressBook {
      * 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapiinitidle
      */
     static MAPIInitIdle(lpvReserved) {
         result := DllCall("MAPI32.dll\MAPIInitIdle", "ptr", lpvReserved, "int")
@@ -1160,6 +1163,7 @@ class AddressBook {
      * @param {Integer} csecIdle 
      * @param {Integer} iroIdle 
      * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftgregisteridleroutine
      */
     static FtgRegisterIdleRoutine(lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle) {
         result := DllCall("MAPI32.dll\FtgRegisterIdleRoutine", "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ptr")
@@ -1170,6 +1174,7 @@ class AddressBook {
      * 
      * @param {Pointer<Void>} ftg 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deregisteridleroutine
      */
     static DeregisterIdleRoutine(ftg) {
         DllCall("MAPI32.dll\DeregisterIdleRoutine", "ptr", ftg)
@@ -1180,6 +1185,7 @@ class AddressBook {
      * @param {Pointer<Void>} ftg 
      * @param {BOOL} fEnable 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/enableidleroutine
      */
     static EnableIdleRoutine(ftg, fEnable) {
         DllCall("MAPI32.dll\EnableIdleRoutine", "ptr", ftg, "int", fEnable)
@@ -1195,6 +1201,7 @@ class AddressBook {
      * @param {Integer} iroIdle 
      * @param {Integer} ircIdle 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/changeidleroutine
      */
     static ChangeIdleRoutine(ftg, lpfnIdle, lpvIdleParam, priIdle, csecIdle, iroIdle, ircIdle) {
         DllCall("MAPI32.dll\ChangeIdleRoutine", "ptr", ftg, "ptr", lpfnIdle, "ptr", lpvIdleParam, "short", priIdle, "uint", csecIdle, "ushort", iroIdle, "ushort", ircIdle)
@@ -1202,7 +1209,8 @@ class AddressBook {
 
     /**
      * 
-     * @returns {Pointer<IMalloc>} 
+     * @returns {IMalloc} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapigetdefaultmalloc
      */
     static MAPIGetDefaultMalloc() {
         result := DllCall("MAPI32.dll\MAPIGetDefaultMalloc", "ptr")
@@ -1214,13 +1222,14 @@ class AddressBook {
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
      * @param {Integer} ulFlags 
-     * @param {Pointer<SByte>} lpszFileName 
-     * @param {Pointer<SByte>} lpszPrefix 
+     * @param {Pointer<Integer>} lpszFileName 
+     * @param {Pointer<Integer>} lpszPrefix 
      * @param {Pointer<IStream>} lppStream 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openstreamonfile
      */
     static OpenStreamOnFile(lpAllocateBuffer, lpFreeBuffer, ulFlags, lpszFileName, lpszPrefix, lppStream) {
-        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, "char*", lpszFileName, "char*", lpszPrefix, "ptr", lppStream, "int")
+        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, "char*", lpszFileName, "char*", lpszPrefix, "ptr*", lppStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1234,6 +1243,7 @@ class AddressBook {
      * @param {Pointer<LPALLOCATEMORE>} lpfAllocMore 
      * @param {Pointer<Void>} lpvObject 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/propcopymore
      */
     static PropCopyMore(lpSPropValueDest, lpSPropValueSrc, lpfAllocMore, lpvObject) {
         result := DllCall("MAPI32.dll\PropCopyMore", "ptr", lpSPropValueDest, "ptr", lpSPropValueSrc, "ptr", lpfAllocMore, "ptr", lpvObject, "int")
@@ -1244,6 +1254,7 @@ class AddressBook {
      * 
      * @param {Pointer<SPropValue>} lpSPropValue 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ulpropsize
      */
     static UlPropSize(lpSPropValue) {
         result := DllCall("MAPI32.dll\UlPropSize", "ptr", lpSPropValue, "uint")
@@ -1255,6 +1266,7 @@ class AddressBook {
      * @param {Pointer<MAPINAMEID>} lpName1 
      * @param {Pointer<MAPINAMEID>} lpName2 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/fequalnames
      */
     static FEqualNames(lpName1, lpName2) {
         result := DllCall("MAPI32.dll\FEqualNames", "ptr", lpName1, "ptr", lpName2, "int")
@@ -1267,6 +1279,7 @@ class AddressBook {
      * @param {Pointer<SPropValue>} lpSPropValueSrc 
      * @param {Integer} ulFuzzyLevel 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/fpropcontainsprop
      */
     static FPropContainsProp(lpSPropValueDst, lpSPropValueSrc, ulFuzzyLevel) {
         result := DllCall("MAPI32.dll\FPropContainsProp", "ptr", lpSPropValueDst, "ptr", lpSPropValueSrc, "uint", ulFuzzyLevel, "int")
@@ -1279,6 +1292,7 @@ class AddressBook {
      * @param {Integer} ulRelOp 
      * @param {Pointer<SPropValue>} lpSPropValue2 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/fpropcompareprop
      */
     static FPropCompareProp(lpSPropValue1, ulRelOp, lpSPropValue2) {
         result := DllCall("MAPI32.dll\FPropCompareProp", "ptr", lpSPropValue1, "uint", ulRelOp, "ptr", lpSPropValue2, "int")
@@ -1290,6 +1304,7 @@ class AddressBook {
      * @param {Pointer<SPropValue>} lpSPropValueA 
      * @param {Pointer<SPropValue>} lpSPropValueB 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/lpropcompareprop
      */
     static LPropCompareProp(lpSPropValueA, lpSPropValueB) {
         result := DllCall("MAPI32.dll\LPropCompareProp", "ptr", lpSPropValueA, "ptr", lpSPropValueB, "int")
@@ -1298,11 +1313,12 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPITable>} lptbl 
+     * @param {IMAPITable} lptbl 
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew 
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumns
      */
     static HrAddColumns(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer) {
         result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "int")
@@ -1314,12 +1330,13 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPITable>} lptbl 
+     * @param {IMAPITable} lptbl 
      * @param {Pointer<SPropTagArray>} lpproptagColumnsNew 
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
      * @param {Pointer} lpfnFilterColumns 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumnsex
      */
     static HrAddColumnsEx(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer, lpfnFilterColumns) {
         result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "ptr", lpfnFilterColumns, "int")
@@ -1335,9 +1352,10 @@ class AddressBook {
      * @param {Pointer<Void>} lpvContext 
      * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrallocadvisesink
      */
     static HrAllocAdviseSink(lpfnCallback, lpvContext, lppAdviseSink) {
-        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, "ptr", lpvContext, "ptr", lppAdviseSink, "int")
+        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, "ptr", lpvContext, "ptr*", lppAdviseSink, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1346,12 +1364,13 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPIAdviseSink>} lpAdviseSink 
+     * @param {IMAPIAdviseSink} lpAdviseSink 
      * @param {Pointer<IMAPIAdviseSink>} lppAdviseSink 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrthisthreadadvisesink
      */
     static HrThisThreadAdviseSink(lpAdviseSink, lppAdviseSink) {
-        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr", lppAdviseSink, "int")
+        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr*", lppAdviseSink, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1362,6 +1381,7 @@ class AddressBook {
      * 
      * @param {Integer} ulFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrdispatchnotifications
      */
     static HrDispatchNotifications(ulFlags) {
         result := DllCall("MAPI32.dll\HrDispatchNotifications", "uint", ulFlags, "int")
@@ -1376,7 +1396,7 @@ class AddressBook {
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
-     * @param {Pointer<IMalloc>} lpMalloc 
+     * @param {IMalloc} lpMalloc 
      * @param {HINSTANCE} hInstance 
      * @param {Integer} cPages 
      * @param {Pointer<DTPAGE>} lpPage 
@@ -1384,11 +1404,12 @@ class AddressBook {
      * @param {Pointer<IMAPITable>} lppTable 
      * @param {Pointer<ITableData>} lppTblData 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/builddisplaytable
      */
     static BuildDisplayTable(lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
-        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr", lppTable, "ptr", lppTblData, "int")
+        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr*", lppTable, "ptr*", lppTblData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1399,8 +1420,9 @@ class AddressBook {
      * 
      * @param {Integer} cNotifications 
      * @param {Pointer<NOTIFICATION>} lpNotifications 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountnotifications
      */
     static ScCountNotifications(cNotifications, lpNotifications, lpcb) {
         result := DllCall("MAPI32.dll\ScCountNotifications", "int", cNotifications, "ptr", lpNotifications, "uint*", lpcb, "int")
@@ -1412,8 +1434,9 @@ class AddressBook {
      * @param {Integer} cNotification 
      * @param {Pointer<NOTIFICATION>} lpNotifications 
      * @param {Pointer<Void>} lpvDst 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopynotifications
      */
     static ScCopyNotifications(cNotification, lpNotifications, lpvDst, lpcb) {
         result := DllCall("MAPI32.dll\ScCopyNotifications", "int", cNotification, "ptr", lpNotifications, "ptr", lpvDst, "uint*", lpcb, "int")
@@ -1426,8 +1449,9 @@ class AddressBook {
      * @param {Pointer<NOTIFICATION>} lpNotifications 
      * @param {Pointer<Void>} lpvBaseOld 
      * @param {Pointer<Void>} lpvBaseNew 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocnotifications
      */
     static ScRelocNotifications(cNotification, lpNotifications, lpvBaseOld, lpvBaseNew, lpcb) {
         result := DllCall("MAPI32.dll\ScRelocNotifications", "int", cNotification, "ptr", lpNotifications, "ptr", lpvBaseOld, "ptr", lpvBaseNew, "uint*", lpcb, "int")
@@ -1438,8 +1462,9 @@ class AddressBook {
      * 
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccountprops
      */
     static ScCountProps(cValues, lpPropArray, lpcb) {
         result := DllCall("MAPI32.dll\ScCountProps", "int", cValues, "ptr", lpPropArray, "uint*", lpcb, "int")
@@ -1452,6 +1477,7 @@ class AddressBook {
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
      * @returns {Pointer<SPropValue>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/lpvalfindprop
      */
     static LpValFindProp(ulPropTag, cValues, lpPropArray) {
         result := DllCall("MAPI32.dll\LpValFindProp", "uint", ulPropTag, "uint", cValues, "ptr", lpPropArray, "ptr")
@@ -1463,8 +1489,9 @@ class AddressBook {
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
      * @param {Pointer<Void>} lpvDst 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccopyprops
      */
     static ScCopyProps(cValues, lpPropArray, lpvDst, lpcb) {
         result := DllCall("MAPI32.dll\ScCopyProps", "int", cValues, "ptr", lpPropArray, "ptr", lpvDst, "uint*", lpcb, "int")
@@ -1477,8 +1504,9 @@ class AddressBook {
      * @param {Pointer<SPropValue>} lpPropArray 
      * @param {Pointer<Void>} lpvBaseOld 
      * @param {Pointer<Void>} lpvBaseNew 
-     * @param {Pointer<UInt32>} lpcb 
+     * @param {Pointer<Integer>} lpcb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/screlocprops
      */
     static ScRelocProps(cValues, lpPropArray, lpvBaseOld, lpvBaseNew, lpcb) {
         result := DllCall("MAPI32.dll\ScRelocProps", "int", cValues, "ptr", lpPropArray, "ptr", lpvBaseOld, "ptr", lpvBaseNew, "uint*", lpcb, "int")
@@ -1490,11 +1518,12 @@ class AddressBook {
      * @param {Integer} cValues 
      * @param {Pointer<SPropValue>} lpPropArray 
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
-     * @param {Pointer<SPropValue>} lppPropArray 
+     * @param {Pointer<Pointer<SPropValue>>} lppPropArray 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scduppropset
      */
     static ScDupPropset(cValues, lpPropArray, lpAllocateBuffer, lppPropArray) {
-        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", lpAllocateBuffer, "ptr", lppPropArray, "int")
+        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", lpAllocateBuffer, "ptr*", lppPropArray, "int")
         return result
     }
 
@@ -1502,6 +1531,7 @@ class AddressBook {
      * 
      * @param {Pointer<Void>} lpunk 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/uladdref
      */
     static UlAddRef(lpunk) {
         result := DllCall("MAPI32.dll\UlAddRef", "ptr", lpunk, "uint")
@@ -1512,6 +1542,7 @@ class AddressBook {
      * 
      * @param {Pointer<Void>} lpunk 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ulrelease
      */
     static UlRelease(lpunk) {
         result := DllCall("MAPI32.dll\UlRelease", "ptr", lpunk, "uint")
@@ -1520,13 +1551,14 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPIProp>} lpMapiProp 
+     * @param {IMAPIProp} lpMapiProp 
      * @param {Integer} ulPropTag 
-     * @param {Pointer<SPropValue>} lppProp 
+     * @param {Pointer<Pointer<SPropValue>>} lppProp 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrgetoneprop
      */
     static HrGetOneProp(lpMapiProp, ulPropTag, lppProp) {
-        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, "ptr", lppProp, "int")
+        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, "ptr*", lppProp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1535,9 +1567,10 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPIProp>} lpMapiProp 
+     * @param {IMAPIProp} lpMapiProp 
      * @param {Pointer<SPropValue>} lpProp 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrsetoneprop
      */
     static HrSetOneProp(lpMapiProp, lpProp) {
         result := DllCall("MAPI32.dll\HrSetOneProp", "ptr", lpMapiProp, "ptr", lpProp, "int")
@@ -1549,9 +1582,10 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPIProp>} lpMapiProp 
+     * @param {IMAPIProp} lpMapiProp 
      * @param {Integer} ulPropTag 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/fpropexists
      */
     static FPropExists(lpMapiProp, ulPropTag) {
         result := DllCall("MAPI32.dll\FPropExists", "ptr", lpMapiProp, "uint", ulPropTag, "int")
@@ -1564,6 +1598,7 @@ class AddressBook {
      * @param {Integer} cValues 
      * @param {Integer} ulPropTag 
      * @returns {Pointer<SPropValue>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ppropfindprop
      */
     static PpropFindProp(lpPropArray, cValues, ulPropTag) {
         result := DllCall("MAPI32.dll\PpropFindProp", "ptr", lpPropArray, "uint", cValues, "uint", ulPropTag, "ptr")
@@ -1574,6 +1609,7 @@ class AddressBook {
      * 
      * @param {Pointer<ADRLIST>} lpAdrlist 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/freepadrlist
      */
     static FreePadrlist(lpAdrlist) {
         DllCall("MAPI32.dll\FreePadrlist", "ptr", lpAdrlist)
@@ -1583,6 +1619,7 @@ class AddressBook {
      * 
      * @param {Pointer<SRowSet>} lpRows 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/freeprows
      */
     static FreeProws(lpRows) {
         DllCall("MAPI32.dll\FreeProws", "ptr", lpRows)
@@ -1590,16 +1627,17 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMAPITable>} lpTable 
+     * @param {IMAPITable} lpTable 
      * @param {Pointer<SPropTagArray>} lpPropTags 
      * @param {Pointer<SRestriction>} lpRestriction 
      * @param {Pointer<SSortOrderSet>} lpSortOrderSet 
      * @param {Integer} crowsMax 
-     * @param {Pointer<SRowSet>} lppRows 
+     * @param {Pointer<Pointer<SRowSet>>} lppRows 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrqueryallrows
      */
     static HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsMax, lppRows) {
-        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, "ptr", lppRows, "int")
+        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, "ptr*", lppRows, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1608,9 +1646,10 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<SByte>} lpsz 
+     * @param {Pointer<Integer>} lpsz 
      * @param {Integer} ch 
-     * @returns {Pointer<SByte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindch
      */
     static SzFindCh(lpsz, ch) {
         result := DllCall("MAPI32.dll\SzFindCh", "char*", lpsz, "ushort", ch, "char*")
@@ -1619,9 +1658,10 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<SByte>} lpsz 
+     * @param {Pointer<Integer>} lpsz 
      * @param {Integer} ch 
-     * @returns {Pointer<SByte>} 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindlastch
      */
     static SzFindLastCh(lpsz, ch) {
         result := DllCall("MAPI32.dll\SzFindLastCh", "char*", lpsz, "ushort", ch, "char*")
@@ -1630,9 +1670,10 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<SByte>} lpsz 
-     * @param {Pointer<SByte>} lpszKey 
-     * @returns {Pointer<SByte>} 
+     * @param {Pointer<Integer>} lpsz 
+     * @param {Pointer<Integer>} lpszKey 
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/szfindsz
      */
     static SzFindSz(lpsz, lpszKey) {
         result := DllCall("MAPI32.dll\SzFindSz", "char*", lpsz, "char*", lpszKey, "char*")
@@ -1641,8 +1682,9 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<SByte>} lpsz 
+     * @param {Pointer<Integer>} lpsz 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ufromsz
      */
     static UFromSz(lpsz) {
         result := DllCall("MAPI32.dll\UFromSz", "char*", lpsz, "uint")
@@ -1655,6 +1697,7 @@ class AddressBook {
      * @param {PSTR} lpszUNC 
      * @param {Integer} cchUNC 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scuncfromlocalpath
      */
     static ScUNCFromLocalPath(lpszLocal, lpszUNC, cchUNC) {
         lpszLocal := lpszLocal is String ? StrPtr(lpszLocal) : lpszLocal
@@ -1670,6 +1713,7 @@ class AddressBook {
      * @param {PSTR} lpszLocal 
      * @param {Integer} cchLocal 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sclocalpathfromunc
      */
     static ScLocalPathFromUNC(lpszUNC, lpszLocal, cchLocal) {
         lpszUNC := lpszUNC is String ? StrPtr(lpszUNC) : lpszUNC
@@ -1684,6 +1728,7 @@ class AddressBook {
      * @param {FILETIME} ftAddend1 
      * @param {FILETIME} ftAddend2 
      * @returns {FILETIME} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftaddft
      */
     static FtAddFt(ftAddend1, ftAddend2) {
         result := DllCall("MAPI32.dll\FtAddFt", "ptr", ftAddend1, "ptr", ftAddend2, "ptr")
@@ -1695,6 +1740,7 @@ class AddressBook {
      * @param {Integer} ftMultiplicand 
      * @param {Integer} ftMultiplier 
      * @returns {FILETIME} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftmuldwdw
      */
     static FtMulDwDw(ftMultiplicand, ftMultiplier) {
         result := DllCall("MAPI32.dll\FtMulDwDw", "uint", ftMultiplicand, "uint", ftMultiplier, "ptr")
@@ -1706,6 +1752,7 @@ class AddressBook {
      * @param {Integer} ftMultiplier 
      * @param {FILETIME} ftMultiplicand 
      * @returns {FILETIME} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftmuldw
      */
     static FtMulDw(ftMultiplier, ftMultiplicand) {
         result := DllCall("MAPI32.dll\FtMulDw", "uint", ftMultiplier, "ptr", ftMultiplicand, "ptr")
@@ -1717,6 +1764,7 @@ class AddressBook {
      * @param {FILETIME} ftMinuend 
      * @param {FILETIME} ftSubtrahend 
      * @returns {FILETIME} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftsubft
      */
     static FtSubFt(ftMinuend, ftSubtrahend) {
         result := DllCall("MAPI32.dll\FtSubFt", "ptr", ftMinuend, "ptr", ftSubtrahend, "ptr")
@@ -1727,6 +1775,7 @@ class AddressBook {
      * 
      * @param {FILETIME} ft 
      * @returns {FILETIME} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/ftnegft
      */
     static FtNegFt(ft) {
         result := DllCall("MAPI32.dll\FtNegFt", "ptr", ft, "ptr")
@@ -1736,25 +1785,27 @@ class AddressBook {
     /**
      * 
      * @param {Integer} cbParent 
-     * @param {Pointer<Byte>} lpbParent 
-     * @param {Pointer<UInt32>} lpcbConvIndex 
-     * @param {Pointer<Byte>} lppbConvIndex 
+     * @param {Pointer<Integer>} lpbParent 
+     * @param {Pointer<Integer>} lpcbConvIndex 
+     * @param {Pointer<Pointer<Integer>>} lppbConvIndex 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/sccreateconversationindex
      */
     static ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
-        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, "char*", lpbParent, "uint*", lpcbConvIndex, "char*", lppbConvIndex, "int")
+        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, "char*", lpbParent, "uint*", lpcbConvIndex, "ptr*", lppbConvIndex, "int")
         return result
     }
 
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<SByte>} lpszDLLName 
+     * @param {Pointer<Integer>} lpszDLLName 
      * @param {Integer} cbOrigEntry 
      * @param {Pointer} lpOrigEntry 
-     * @param {Pointer<UInt32>} lpcbWrappedEntry 
+     * @param {Pointer<Integer>} lpcbWrappedEntry 
      * @param {Pointer} lppWrappedEntry 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapstoreentryid
      */
     static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lpcbWrappedEntry, lppWrappedEntry) {
         result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, "char*", lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", lpcbWrappedEntry, "ptr", lppWrappedEntry, "int")
@@ -1766,10 +1817,11 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IMessage>} lpMessage 
+     * @param {IMessage} lpMessage 
      * @param {Integer} ulFlags 
      * @param {Pointer<BOOL>} lpfMessageUpdated 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/rtfsync
      */
     static RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
         result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, "ptr", lpfMessageUpdated, "int")
@@ -1781,13 +1833,14 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IStream>} lpCompressedRTFStream 
+     * @param {IStream} lpCompressedRTFStream 
      * @param {Integer} ulFlags 
      * @param {Pointer<IStream>} lpUncompressedRTFStream 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapcompressedrtfstream
      */
     static WrapCompressedRTFStream(lpCompressedRTFStream, ulFlags, lpUncompressedRTFStream) {
-        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr", lpUncompressedRTFStream, "int")
+        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr*", lpUncompressedRTFStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1796,14 +1849,15 @@ class AddressBook {
 
     /**
      * 
-     * @param {Pointer<IUnknown>} lpUnkIn 
+     * @param {IUnknown} lpUnkIn 
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer<IStorage>} lppStorageOut 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hristoragefromstream
      */
     static HrIStorageFromStream(lpUnkIn, lpInterface, ulFlags, lppStorageOut) {
-        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr", lppStorageOut, "int")
+        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr*", lppStorageOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1814,6 +1868,7 @@ class AddressBook {
      * 
      * @param {Integer} ulFlags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scinitmapiutil
      */
     static ScInitMapiUtil(ulFlags) {
         result := DllCall("MAPI32.dll\ScInitMapiUtil", "uint", ulFlags, "int")
@@ -1823,6 +1878,7 @@ class AddressBook {
     /**
      * 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/deinitmapiutil
      */
     static DeinitMapiUtil() {
         DllCall("MAPI32.dll\DeinitMapiUtil")

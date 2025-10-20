@@ -13,13 +13,14 @@ class CompositionSwapchain {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<IUnknown>} d3dDevice 
+     * @param {IUnknown} d3dDevice 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} presentationFactory 
+     * @param {Pointer<Pointer<Void>>} presentationFactory 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-createpresentationfactory
      */
     static CreatePresentationFactory(d3dDevice, riid, presentationFactory) {
-        result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, "ptr", presentationFactory, "int")
+        result := DllCall("dcomp.dll\CreatePresentationFactory", "ptr", d3dDevice, "ptr", riid, "ptr*", presentationFactory, "int")
         if(result != 0)
             throw OSError(result)
 

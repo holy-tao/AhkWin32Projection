@@ -29,7 +29,7 @@ class NET_VALIDATE_PASSWORD_HASH extends Win32Struct
 
     /**
      * Password hash.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Hash {
         get => NumGet(this, 8, "ptr")

@@ -4,6 +4,8 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_authenticator_get_assertion_options
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -124,7 +126,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCredLargeBlob {
         get => NumGet(this, 96, "ptr")
@@ -172,7 +174,7 @@ class WEBAUTHN_AUTHENTICATOR_GET_ASSERTION_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbJsonExt {
         get => NumGet(this, 136, "ptr")

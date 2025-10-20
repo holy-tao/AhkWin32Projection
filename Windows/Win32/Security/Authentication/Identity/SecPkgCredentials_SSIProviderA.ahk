@@ -21,7 +21,7 @@ class SecPkgCredentials_SSIProviderA extends Win32Struct
 
     /**
      * Pointer to a null-terminated string that contains the name of the provider represented by the credential.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     sProviderName {
         get => NumGet(this, 0, "ptr")

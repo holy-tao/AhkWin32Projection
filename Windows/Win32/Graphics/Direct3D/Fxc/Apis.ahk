@@ -251,7 +251,7 @@ class Fxc {
     static D3DReadFileToBlob(pFileName, ppContents) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr", ppContents, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DReadFileToBlob", "ptr", pFileName, "ptr*", ppContents, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -260,7 +260,7 @@ class Fxc {
 
     /**
      * Writes a memory blob to a file on disk.
-     * @param {Pointer<ID3DBlob>} pBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>*</b>
+     * @param {ID3DBlob} pBlob Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that contains the memory blob to write to the file that the <i>pFileName</i> parameter specifies.
      * @param {PWSTR} pFileName Type: <b>LPCWSTR</b>
@@ -298,7 +298,7 @@ class Fxc {
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
      * 
      *  An array of NULL-terminated macro definitions (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>).
-     * @param {Pointer<ID3DInclude>} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
+     * @param {ID3DInclude} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
      * 
      * Optional. A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> for handling include files. Setting this to <b>NULL</b> will cause a compile error if a shader contains a #include. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory and files that are relative to the directory of the initial source file. When you use <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b>, you must specify the source file name in the <i>pSourceName</i> parameter; the compiler will derive the initial relative directory from <i>pSourceName</i>.
      * 
@@ -332,7 +332,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompile", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -353,7 +353,7 @@ class Fxc {
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
      * 
      * An optional array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a> structures that define shader macros. Each macro definition contains a name and a NULL-terminated definition. If not used, set to <b>NULL</b>.
-     * @param {Pointer<ID3DInclude>} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
+     * @param {ID3DInclude} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
      * 
      *  A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> interface that the compiler uses to handle include files. If you set this parameter to <b>NULL</b> and the shader contains a #include, a compile error occurs. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory and files that are relative to the directory of the initial source file. When you use <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b>, you must specify the source file name in the <i>pSourceName</i> parameter; the compiler will derive the initial relative directory from <i>pSourceName</i>.
      * 
@@ -418,7 +418,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompile2", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "uint", SecondaryDataFlags, "ptr", pSecondaryData, "ptr", SecondaryDataSize, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -429,7 +429,7 @@ class Fxc {
      * Compiles Microsoft High Level Shader Language (HLSL) code into bytecode for a given target.
      * @param {PWSTR} pFileName A pointer to a constant null-terminated string that contains  the name of the file that contains the shader code.
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines An optional array of <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a> structures that define shader macros. Each macro definition contains a name and a NULL-terminated definition. If not used, set to <b>NULL</b>.
-     * @param {Pointer<ID3DInclude>} pInclude An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> interface that the compiler uses to handle include files. If you set this parameter to <b>NULL</b> and the shader contains a #include, a compile error occurs. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory.
+     * @param {ID3DInclude} pInclude An optional pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> interface that the compiler uses to handle include files. If you set this parameter to <b>NULL</b> and the shader contains a #include, a compile error occurs. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory.
      * 
      * 
      * ```
@@ -447,7 +447,7 @@ class Fxc {
         pEntrypoint := pEntrypoint is String ? StrPtr(pEntrypoint) : pEntrypoint
         pTarget := pTarget is String ? StrPtr(pTarget) : pTarget
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr", ppCode, "ptr", ppErrorMsgs, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompileFromFile", "ptr", pFileName, "ptr", pDefines, "ptr", pInclude, "ptr", pEntrypoint, "ptr", pTarget, "uint", Flags1, "uint", Flags2, "ptr*", ppCode, "ptr*", ppErrorMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -468,7 +468,7 @@ class Fxc {
      * @param {Pointer<D3D_SHADER_MACRO>} pDefines Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>*</b>
      * 
      *  An array of NULL-terminated macro definitions (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ns-d3dcommon-d3d_shader_macro">D3D_SHADER_MACRO</a>).
-     * @param {Pointer<ID3DInclude>} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
+     * @param {ID3DInclude} pInclude Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a>*</b>
      * 
      *  A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> for handling include files. Setting this to <b>NULL</b> will cause a compile error if a shader contains a #include. You can pass the <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b> macro, which is a pointer to a default include handler. This default include handler includes files that are relative to the current directory and files that are relative to the directory of the initial source file. When you use <b>D3D_COMPILE_STANDARD_FILE_INCLUDE</b>, you must specify the source file name in the <i>pSourceName</i> parameter; the compiler will derive the initial relative directory from <i>pSourceName</i>.
      * 
@@ -488,7 +488,7 @@ class Fxc {
     static D3DPreprocess(pSrcData, SrcDataSize, pSourceName, pDefines, pInclude, ppCodeText, ppErrorMsgs) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr", ppCodeText, "ptr", ppErrorMsgs, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DPreprocess", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pSourceName, "ptr", pDefines, "ptr", pInclude, "ptr*", ppCodeText, "ptr*", ppErrorMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -512,7 +512,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgetdebuginfo
      */
     static D3DGetDebugInfo(pSrcData, SrcDataSize, ppDebugInfo) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", ppDebugInfo, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetDebugInfo", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", ppDebugInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -530,7 +530,7 @@ class Fxc {
      * @param {Pointer<Guid>} pInterface Type: <b>REFIID</b>
      * 
      * The reference GUID of the COM interface to use. For example, <b>IID_ID3D11ShaderReflection</b>.
-     * @param {Pointer<Void>} ppReflector Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppReflector Type: <b>void**</b>
      * 
      * A pointer to a reflection interface.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -539,7 +539,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dreflect
      */
     static D3DReflect(pSrcData, SrcDataSize, pInterface, ppReflector) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr", ppReflector, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflect", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", pInterface, "ptr*", ppReflector, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -557,7 +557,7 @@ class Fxc {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The reference GUID of the COM interface to use. For example, <b>IID_ID3D11LibraryReflection</b>.
-     * @param {Pointer<Void>} ppReflector Type: <b>LPVOID*</b>
+     * @param {Pointer<Pointer<Void>>} ppReflector Type: <b>LPVOID*</b>
      * 
      * A pointer to a variable that receives a pointer to a library-reflection interface, <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11libraryreflection">ID3D11LibraryReflection</a>.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -566,7 +566,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dreflectlibrary
      */
     static D3DReflectLibrary(pSrcData, SrcDataSize, riid, ppReflector) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr", ppReflector, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DReflectLibrary", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", riid, "ptr*", ppReflector, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -596,7 +596,7 @@ class Fxc {
     static D3DDisassemble(pSrcData, SrcDataSize, Flags, szComments, ppDisassembly) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", ppDisassembly, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr*", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -646,7 +646,7 @@ class Fxc {
      * @param {PSTR} szComments A pointer to a constant null-terminated string at the top of the shader that identifies the shader constants and variables.
      * @param {Pointer} StartByteOffset The number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> starts the disassembly.
      * @param {Pointer} NumInsts The number of instructions to disassemble.
-     * @param {Pointer<UIntPtr>} pFinishByteOffset A pointer to a variable that receives the number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> finishes the disassembly.
+     * @param {Pointer<Pointer>} pFinishByteOffset A pointer to a variable that receives the number of bytes offset into the compiled shader data where <b>D3DDisassembleRegion</b> finishes the disassembly.
      * @param {Pointer<ID3DBlob>} ppDisassembly A pointer to a buffer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that accesses the disassembled HLSL code.
      * @returns {HRESULT} Returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddisassembleregion
@@ -654,7 +654,7 @@ class Fxc {
     static D3DDisassembleRegion(pSrcData, SrcDataSize, Flags, szComments, StartByteOffset, NumInsts, pFinishByteOffset, ppDisassembly) {
         szComments := szComments is String ? StrPtr(szComments) : szComments
 
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, "ptr*", pFinishByteOffset, "ptr", ppDisassembly, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassembleRegion", "ptr", pSrcData, "ptr", SrcDataSize, "uint", Flags, "ptr", szComments, "ptr", StartByteOffset, "ptr", NumInsts, "ptr*", pFinishByteOffset, "ptr*", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -672,7 +672,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcreatelinker
      */
     static D3DCreateLinker(ppLinker) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateLinker", "ptr", ppLinker, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateLinker", "ptr*", ppLinker, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -696,7 +696,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dloadmodule
      */
     static D3DLoadModule(pSrcData, cbSrcDataSize, ppModule) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", "ptr", pSrcData, "ptr", cbSrcDataSize, "ptr", ppModule, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DLoadModule", "ptr", pSrcData, "ptr", cbSrcDataSize, "ptr*", ppModule, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -717,7 +717,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcreatefunctionlinkinggraph
      */
     static D3DCreateFunctionLinkingGraph(uFlags, ppFunctionLinkingGraph) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr", ppFunctionLinkingGraph, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateFunctionLinkingGraph", "uint", uFlags, "ptr*", ppFunctionLinkingGraph, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -742,8 +742,8 @@ class Fxc {
      * </table>
      * @param {Pointer} StartInstIndex The index of the instruction in the compiled shader data for which <b>D3DGetTraceInstructionOffsets</b> starts to retrieve the byte offsets.
      * @param {Pointer} NumInsts The number of instructions for which <b>D3DGetTraceInstructionOffsets</b> retrieves the byte offsets.
-     * @param {Pointer<UIntPtr>} pOffsets A pointer to a variable that receives the actual number of offsets.
-     * @param {Pointer<UIntPtr>} pTotalInsts A pointer to a variable that receives the total number of instructions in the section of shader code.
+     * @param {Pointer<Pointer>} pOffsets A pointer to a variable that receives the actual number of offsets.
+     * @param {Pointer<Pointer>} pTotalInsts A pointer to a variable that receives the total number of instructions in the section of shader code.
      * @returns {HRESULT} Returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 return codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgettraceinstructionoffsets
      */
@@ -772,7 +772,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgetinputsignatureblob
      */
     static D3DGetInputSignatureBlob(pSrcData, SrcDataSize, ppSignatureBlob) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", ppSignatureBlob, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", ppSignatureBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -796,7 +796,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgetoutputsignatureblob
      */
     static D3DGetOutputSignatureBlob(pSrcData, SrcDataSize, ppSignatureBlob) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", ppSignatureBlob, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", ppSignatureBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -820,7 +820,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgetinputandoutputsignatureblob
      */
     static D3DGetInputAndOutputSignatureBlob(pSrcData, SrcDataSize, ppSignatureBlob) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr", ppSignatureBlob, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetInputAndOutputSignatureBlob", "ptr", pSrcData, "ptr", SrcDataSize, "ptr*", ppSignatureBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -847,7 +847,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dstripshader
      */
     static D3DStripShader(pShaderBytecode, BytecodeLength, uStripFlags, ppStrippedBlob) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr", ppStrippedBlob, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DStripShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "uint", uStripFlags, "ptr*", ppStrippedBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -877,7 +877,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dgetblobpart
      */
     static D3DGetBlobPart(pSrcData, SrcDataSize, Part, Flags, ppPart) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", ppPart, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DGetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr*", ppPart, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -913,7 +913,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dsetblobpart
      */
     static D3DSetBlobPart(pSrcData, SrcDataSize, Part, Flags, pPart, PartSize, ppNewShader) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr", ppNewShader, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DSetBlobPart", "ptr", pSrcData, "ptr", SrcDataSize, "int", Part, "uint", Flags, "ptr", pPart, "ptr", PartSize, "ptr*", ppNewShader, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -934,7 +934,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcreateblob
      */
     static D3DCreateBlob(Size, ppBlob) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size, "ptr", ppBlob, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCreateBlob", "ptr", Size, "ptr*", ppBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -961,7 +961,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3dcompressshaders
      */
     static D3DCompressShaders(uNumShaders, pShaderData, uFlags, ppCompressedData) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, "ptr", pShaderData, "uint", uFlags, "ptr", ppCompressedData, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DCompressShaders", "uint", uNumShaders, "ptr", pShaderData, "uint", uFlags, "ptr*", ppCompressedData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -982,7 +982,7 @@ class Fxc {
      * @param {Integer} uStartIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The index of the first shader to decompress.
-     * @param {Pointer<UInt32>} pIndices Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * @param {Pointer<Integer>} pIndices Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * An array of indexes that represent the shaders to decompress.
      * @param {Integer} uFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -991,7 +991,7 @@ class Fxc {
      * @param {Pointer<ID3DBlob>} ppShaders Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that is used to retrieve the decompressed shader data.
-     * @param {Pointer<UInt32>} pTotalShaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * @param {Pointer<Integer>} pTotalShaders Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * A pointer to a variable that receives the total number of shaders that  <b>D3DDecompressShaders</b> decompressed.
      * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
@@ -1000,7 +1000,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddecompressshaders
      */
     static D3DDecompressShaders(pSrcData, SrcDataSize, uNumShaders, uStartIndex, pIndices, uFlags, ppShaders, pTotalShaders) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, "uint*", pIndices, "uint", uFlags, "ptr", ppShaders, "uint*", pTotalShaders, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DDecompressShaders", "ptr", pSrcData, "ptr", SrcDataSize, "uint", uNumShaders, "uint", uStartIndex, "uint*", pIndices, "uint", uFlags, "ptr*", ppShaders, "uint*", pTotalShaders, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1009,7 +1009,7 @@ class Fxc {
 
     /**
      * Disassembles compiled HLSL code from a Direct3D10 effect.
-     * @param {Pointer<ID3D10Effect>} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
+     * @param {ID3D10Effect} pEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>*</b>
      * 
      * A pointer to source data as compiled HLSL code.
      * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -1024,7 +1024,7 @@ class Fxc {
      * @see https://docs.microsoft.com/windows/win32/api//d3dcompiler/nf-d3dcompiler-d3ddisassemble10effect
      */
     static D3DDisassemble10Effect(pEffect, Flags, ppDisassembly) {
-        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr", ppDisassembly, "int")
+        result := DllCall("D3DCOMPILER_47.dll\D3DDisassemble10Effect", "ptr", pEffect, "uint", Flags, "ptr*", ppDisassembly, "int")
         if(result != 0)
             throw OSError(result)
 

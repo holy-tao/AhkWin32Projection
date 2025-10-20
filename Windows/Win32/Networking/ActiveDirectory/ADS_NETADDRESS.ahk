@@ -33,7 +33,7 @@ class ADS_NETADDRESS extends Win32Struct
 
     /**
      * A network address.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Address {
         get => NumGet(this, 8, "ptr")

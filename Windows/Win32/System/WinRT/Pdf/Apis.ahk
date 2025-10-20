@@ -13,12 +13,13 @@ class Pdf {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<IDXGIDevice>} pDevice 
+     * @param {IDXGIDevice} pDevice 
      * @param {Pointer<IPdfRendererNative>} ppRenderer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer
      */
     static PdfCreateRenderer(pDevice, ppRenderer) {
-        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr", ppRenderer, "int")
+        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", ppRenderer, "int")
         if(result != 0)
             throw OSError(result)
 

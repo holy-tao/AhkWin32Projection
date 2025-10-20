@@ -3038,7 +3038,7 @@ class IpHelper {
 
     /**
      * The GetNumberOfInterfaces functions retrieves the number of interfaces on the local computer.
-     * @param {Pointer<UInt32>} pdwNumIf Pointer to a <b>DWORD</b> variable that receives the number of interfaces on the local computer.
+     * @param {Pointer<Integer>} pdwNumIf Pointer to a <b>DWORD</b> variable that receives the number of interfaces on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, use 
@@ -3144,7 +3144,7 @@ class IpHelper {
      * The GetIfTable function retrieves the MIB-II interface table.
      * @param {Pointer} pIfTable A pointer to a buffer that receives the interface table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ifmib/ns-ifmib-mib_iftable">MIB_IFTABLE</a> structure.
-     * @param {Pointer<UInt32>} pdwSize On input, specifies the size in bytes of the buffer pointed to by the <i>pIfTable</i> parameter.
+     * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes of the buffer pointed to by the <i>pIfTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned interface table, the function sets this parameter equal to the required buffer size in bytes.
      * @param {BOOL} bOrder A Boolean value that specifies whether the returned interface table should be sorted in ascending order by interface index. If this parameter is <b>TRUE</b>, the table is sorted.
@@ -3216,7 +3216,7 @@ class IpHelper {
      * The GetIpAddrTable function retrieves the interface�to�IPv4 address mapping table.
      * @param {Pointer} pIpAddrTable A pointer to a buffer that receives the interface–to–IPv4 address mapping table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipaddrtable">MIB_IPADDRTABLE</a> structure.
-     * @param {Pointer<UInt32>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpAddrTable</i> parameter. 
+     * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpAddrTable</i> parameter. 
      * 
      * 
      * 
@@ -3295,7 +3295,7 @@ class IpHelper {
      * The GetIpNetTable function retrieves the IPv4 to physical address mapping table.
      * @param {Pointer} IpNetTable A pointer to a buffer that receives the IPv4 to physical address mapping table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipnettable">MIB_IPNETTABLE</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>pIpNetTable</i> parameter.
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>pIpNetTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned mapping table, the function sets this parameter equal to the required buffer size in bytes.
      * @param {BOOL} Order A Boolean value that specifies whether the returned mapping table should be sorted in ascending order by IP address. If this parameter is <b>TRUE</b>, the table is sorted.
@@ -3378,7 +3378,7 @@ class IpHelper {
      * The GetIpForwardTable function retrieves the IPv4 routing table.
      * @param {Pointer} pIpForwardTable A pointer to a buffer that receives the IPv4 routing table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mib_ipforwardtable">MIB_IPFORWARDTABLE</a> structure.
-     * @param {Pointer<UInt32>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpForwardTable</i> parameter. 
+     * @param {Pointer<Integer>} pdwSize On input, specifies the size in bytes  of the buffer pointed to by the <i>pIpForwardTable</i> parameter. 
      * 
      * 
      * 
@@ -3472,7 +3472,7 @@ class IpHelper {
      * Retrieves the IPv4 TCP connection table.
      * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable">MIB_TCPTABLE</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size in  bytes  of the buffer pointed to by the <i>pTcpTable</i> parameter.
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size in  bytes  of the buffer pointed to by the <i>pTcpTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned connection table, the function sets this parameter equal to the required buffer size in bytes.
      * 
@@ -3566,7 +3566,7 @@ class IpHelper {
     /**
      * Retrieves a table that contains a list of TCP endpoints available to the application.
      * @param {Pointer} pTcpTable A pointer to the table structure that contains the filtered TCP endpoints available to the application. For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
-     * @param {Pointer<UInt32>} pdwSize The estimated size of the structure returned in <i>pTcpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
+     * @param {Pointer<Integer>} pdwSize The estimated size of the structure returned in <i>pTcpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
      * @param {BOOL} bOrder A value that specifies whether the TCP connection table should be sorted. If this parameter is set to <b>TRUE</b>, the TCP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the TCP endpoints in the table appear in the order in which they were retrieved.
      * 
      * The following values are compared (as listed) when ordering the TCP endpoints:<ol>
@@ -3675,7 +3675,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwSize The estimated size, in  bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the buffer. The size required is the size of the corresponding structure plus an additional number of bytes equal to the length of data pointed to in the structure (for example, the name and path strings).
+     * @param {Pointer<Integer>} pdwSize The estimated size, in  bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the buffer. The size required is the size of the corresponding structure plus an additional number of bytes equal to the length of data pointed to in the structure (for example, the name and path strings).
      * @returns {Integer} If the function call is successful, the value <b>NO_ERROR</b> is returned. 
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -3755,7 +3755,7 @@ class IpHelper {
      * Retrieves the IPv4 User Datagram Protocol (UDP) listener table.
      * @param {Pointer} UdpTable A pointer to a buffer that receives the IPv4 UDP listener table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udptable">MIB_UDPTABLE</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>UdpTable</i> parameter. 
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>UdpTable</i> parameter. 
      * 
      * 
      * 
@@ -3839,7 +3839,7 @@ class IpHelper {
     /**
      * Retrieves a table that contains a list of UDP endpoints available to the application.
      * @param {Pointer} pUdpTable A pointer to the table structure that contains the filtered UDP endpoints available to the application.   For information about how to determine the type of table returned based on specific input parameter combinations, see the Remarks section later in this document.
-     * @param {Pointer<UInt32>} pdwSize The estimated size of the structure returned in <i>pUdpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
+     * @param {Pointer<Integer>} pdwSize The estimated size of the structure returned in <i>pUdpTable</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
      * @param {BOOL} bOrder A value that specifies whether the UDP endpoint table should be sorted. If this parameter is set to <b>TRUE</b>, the UDP endpoints in the table are sorted in ascending order, starting with the lowest local IP address. If this parameter is set to <b>FALSE</b>, the UDP endpoints in the table appear in the order in which they were retrieved.
      * 
      * The following values are compared as listed when ordering the UDP endpoints: <ol>
@@ -3943,7 +3943,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwSize The estimated size, in bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct structure size.
+     * @param {Pointer<Integer>} pdwSize The estimated size, in bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct structure size.
      * @returns {Integer} If the call is successful, the value <b>NO_ERROR</b> is returned. Otherwise, the following error is returned.
      * 
      * <table>
@@ -3975,7 +3975,7 @@ class IpHelper {
      * Retrieves the IPv4 TCP connection table.
      * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcptable2">MIB_TCPTABLE2</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
      * 
      * 
      * 
@@ -4062,7 +4062,7 @@ class IpHelper {
      * Retrieves the TCP connection table for IPv6.
      * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table">MIB_TCP6TABLE</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>TcpTable</i> parameter.
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>TcpTable</i> parameter.
      * 
      * On output, if the buffer is not large enough to hold the returned TCP connection table, the function sets this parameter equal to the required buffer size in bytes.
      * @param {BOOL} Order A Boolean value that specifies whether the TCP connection table should be sorted. If this parameter is <b>TRUE</b>, the table is sorted in ascending order, starting with the lowest local IP address.  If this parameter is <b>FALSE</b>, the table appears in the order in which they were retrieved.
@@ -4146,7 +4146,7 @@ class IpHelper {
      * Retrieves the TCP connection table for IPv6.
      * @param {Pointer} TcpTable A pointer to a buffer that receives the TCP connection table for IPv6 as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6table2">MIB_TCP6TABLE2</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size of the buffer pointed to by the <i>TcpTable</i> parameter. 
      * 
      * 
      * 
@@ -5073,7 +5073,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwSize The estimated size of the structure returned in <i>Buffer</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct structure size.
+     * @param {Pointer<Integer>} pdwSize The estimated size of the structure returned in <i>Buffer</i>, in bytes. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct structure size.
      * @returns {Integer} If the function call is successful, the value <b>NO_ERROR</b> is returned. 
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -5153,7 +5153,7 @@ class IpHelper {
      * Retrieves the IPv6 User Datagram Protocol (UDP) listener table.
      * @param {Pointer} Udp6Table A pointer to a buffer that receives the IPv6 UDP listener table as a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6table">MIB_UDP6TABLE</a> structure.
-     * @param {Pointer<UInt32>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>Udp6Table</i> parameter. 
+     * @param {Pointer<Integer>} SizePointer On input, specifies the size in bytes of the buffer pointed to by the <i>Udp6Table</i> parameter. 
      * 
      * 
      * 
@@ -5251,7 +5251,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwSize The estimated size, in bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
+     * @param {Pointer<Integer>} pdwSize The estimated size, in bytes, of the structure returned in <i>Buffer</i>. If this value is set too small, <b>ERROR_INSUFFICIENT_BUFFER</b> is returned by this function, and this field will contain the correct size of the structure.
      * @returns {Integer} If the call is successful, the value <b>NO_ERROR</b> is returned. Otherwise, the following error is returned.
      * 
      * <table>
@@ -5282,10 +5282,10 @@ class IpHelper {
     /**
      * 
      * @param {Integer} ulPid 
-     * @param {Pointer<UInt64>} pInfo 
+     * @param {Pointer<Integer>} pInfo 
      * @param {Integer} Class 
      * @param {Pointer} pBuffer 
-     * @param {Pointer<UInt32>} pdwSize 
+     * @param {Pointer<Integer>} pdwSize 
      * @returns {Integer} 
      */
     static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class, pBuffer, pdwSize) {
@@ -6839,7 +6839,7 @@ class IpHelper {
      * The GetInterfaceInfo function obtains the list of the network interface adapters with IPv4 enabled on the local system.
      * @param {Pointer} pIfTable A pointer to a buffer that specifies an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_interface_info">IP_INTERFACE_INFO</a> structure that receives the list of adapters. This buffer must be allocated by the caller.
-     * @param {Pointer<UInt32>} dwOutBufLen A pointer to a <b>DWORD</b> variable that specifies the size of the 
+     * @param {Pointer<Integer>} dwOutBufLen A pointer to a <b>DWORD</b> variable that specifies the size of the 
      * buffer pointed to by <i>pIfTable</i> parameter to receive the <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_interface_info">IP_INTERFACE_INFO</a> structure. If this size is insufficient to hold the IPv4 interface information, 
      * <b>GetInterfaceInfo</b> fills in this variable with the required size, and returns an error code of <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>NO_ERROR</b>.
@@ -6920,7 +6920,7 @@ class IpHelper {
      * The GetUniDirectionalAdapterInfo function retrieves information about the unidirectional adapters installed on the local computer. A unidirectional adapter is an adapter that can receive datagrams, but not transmit them.
      * @param {Pointer} pIPIfInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/win32/api/ipexport/ns-ipexport-ip_unidirectional_adapter_address">IP_UNIDIRECTIONAL_ADAPTER_ADDRESS</a> structure that receives information about the unidirectional adapters installed on the local computer.
-     * @param {Pointer<UInt32>} dwOutBufLen Pointer to a <b>ULONG</b> variable that receives the size of the structure pointed to by the <i>pIPIfInfo</i> parameter.
+     * @param {Pointer<Integer>} dwOutBufLen Pointer to a <b>ULONG</b> variable that receives the size of the structure pointed to by the <i>pIPIfInfo</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, use 
@@ -6934,8 +6934,8 @@ class IpHelper {
 
     /**
      * The NhpAllocateAndGetInterfaceInfoFromStack function obtains adapter information about the local computer.
-     * @param {Pointer<IP_INTERFACE_NAME_INFO_W2KSP1>} ppTable An array of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1">IP_INTERFACE_NAME_INFO</a> structures that contains information about each adapter on the local system. The array contains one element for each adapter on the system.
-     * @param {Pointer<UInt32>} pdwCount The number of elements in the <i>ppTable</i> array.
+     * @param {Pointer<Pointer<IP_INTERFACE_NAME_INFO_W2KSP1>>} ppTable An array of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_interface_name_info_w2ksp1">IP_INTERFACE_NAME_INFO</a> structures that contains information about each adapter on the local system. The array contains one element for each adapter on the system.
+     * @param {Pointer<Integer>} pdwCount The number of elements in the <i>ppTable</i> array.
      * @param {BOOL} bOrder When <b>TRUE</b>, elements in the <i>ppTable</i> array are sorted by increasing index value.
      * @param {HANDLE} hHeap A handle that specifies the heap from which <i>ppTable</i> should be allocated. This parameter can be the process heap returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function, or a private heap created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function.
      * @param {Integer} dwFlags A set of flags to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> function when allocating memory for <i>ppTable</i>. See the <b>HeapAlloc</b> function for more information.
@@ -6946,14 +6946,14 @@ class IpHelper {
     static NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap, dwFlags) {
         hHeap := hHeap is Win32Handle ? NumGet(hHeap, "ptr") : hHeap
 
-        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr", ppTable, "uint*", pdwCount, "int", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
+        result := DllCall("IPHLPAPI.dll\NhpAllocateAndGetInterfaceInfoFromStack", "ptr*", ppTable, "uint*", pdwCount, "int", bOrder, "ptr", hHeap, "uint", dwFlags, "uint")
         return result
     }
 
     /**
      * The GetBestInterface function retrieves the index of the interface that has the best route to the specified IPv4 address.
      * @param {Integer} dwDestAddr The destination IPv4 address for which to retrieve the interface that has the best route, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
-     * @param {Pointer<UInt32>} pdwBestIfIndex A pointer to a <b>DWORD</b> variable that receives the index of the interface that has the best route to the IPv4 address specified by <i>dwDestAddr</i>.
+     * @param {Pointer<Integer>} pdwBestIfIndex A pointer to a <b>DWORD</b> variable that receives the index of the interface that has the best route to the IPv4 address specified by <i>dwDestAddr</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -7020,7 +7020,7 @@ class IpHelper {
     /**
      * The GetBestInterfaceEx function retrieves the index of the interface that has the best route to the specified IPv4 or IPv6 address.
      * @param {Pointer<SOCKADDR>} pDestAddr The destination IPv6 or IPv4 address for which to retrieve the interface with the best route, in the form of a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.
-     * @param {Pointer<UInt32>} pdwBestIfIndex A pointer to the index of the interface with the best route to the IPv6 or IPv4 address specified by <i>pDestAddr</i>.
+     * @param {Pointer<Integer>} pdwBestIfIndex A pointer to the index of the interface with the best route to the IPv6 or IPv4 address specified by <i>pDestAddr</i>.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -7271,7 +7271,7 @@ class IpHelper {
     /**
      * The GetAdapterIndex function obtains the index of an adapter, given its name.
      * @param {PWSTR} AdapterName A pointer to a Unicode string that specifies the name of the adapter.
-     * @param {Pointer<UInt32>} IfIndex A pointer to a <b>ULONG</b> variable that points to the index of the adapter.
+     * @param {Pointer<Integer>} IfIndex A pointer to a <b>ULONG</b> variable that points to the index of the adapter.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, use 
@@ -7291,9 +7291,9 @@ class IpHelper {
      * @param {Integer} Address The IPv4 address to add to the adapter, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IpMask The subnet mask for the IPv4 address specified in the <i>Address</i> parameter.   The <b>IPMask</b> parameter uses the same format as an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IfIndex The index of the adapter on which to add the IPv4 address.
-     * @param {Pointer<UInt32>} NTEContext A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the Net Table Entry (NTE) context for the IPv4 address that was added. The caller can later use this context in a call to 
+     * @param {Pointer<Integer>} NTEContext A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the Net Table Entry (NTE) context for the IPv4 address that was added. The caller can later use this context in a call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-deleteipaddress">DeleteIPAddress</a> function.
-     * @param {Pointer<UInt32>} NTEInstance A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the NTE instance for the IPv4 address that was added.
+     * @param {Pointer<Integer>} NTEInstance A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the NTE instance for the IPv4 address that was added.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -7461,7 +7461,7 @@ class IpHelper {
      * The GetNetworkParams function retrieves network parameters for the local computer.
      * @param {Pointer} pFixedInfo A pointer to a 
      * buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-fixed_info_w2ksp1">FIXED_INFO</a> structure that receives the network parameters for the local computer, if the function was successful. This buffer must be allocated by the caller prior to calling the <b>GetNetworkParams</b> function.
-     * @param {Pointer<UInt32>} pOutBufLen A pointer to a <b>ULONG</b> variable that specifies the size of the 
+     * @param {Pointer<Integer>} pOutBufLen A pointer to a <b>ULONG</b> variable that specifies the size of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-fixed_info_w2ksp1">FIXED_INFO</a> structure. If this size is insufficient to hold the information, 
      * <b>GetNetworkParams</b> fills in this variable with the required size, and returns an error code of <b>ERROR_BUFFER_OVERFLOW</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
@@ -7542,7 +7542,7 @@ class IpHelper {
      * The GetAdaptersInfo function retrieves adapter information for the local computer.
      * @param {Pointer} AdapterInfo A pointer to a buffer that receives a linked list of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_info">IP_ADAPTER_INFO</a> structures.
-     * @param {Pointer<UInt32>} SizePointer A pointer to a <b>ULONG</b> variable that specifies the size of the buffer pointed to by the <i>pAdapterInfo</i> parameter. If this size is insufficient to hold the adapter information, 
+     * @param {Pointer<Integer>} SizePointer A pointer to a <b>ULONG</b> variable that specifies the size of the buffer pointed to by the <i>pAdapterInfo</i> parameter. If this size is insufficient to hold the adapter information, 
      * <b>GetAdaptersInfo</b> fills in this variable with the required size, and returns an error code of <b>ERROR_BUFFER_OVERFLOW</b>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> (defined to the same value as <b>NO_ERROR</b>).
      * 
@@ -7645,7 +7645,7 @@ class IpHelper {
      * @param {Integer} Family 
      * @param {Integer} Flags The type of addresses to retrieve. The possible values are defined in the <i>Iptypes.h</i> header file. Note that the <i>Iptypes.h</i> header file is automatically included in <i>Iphlpapi.h</i>, and should never be used directly.
      * @param {Pointer} AdapterAddresses A pointer to a buffer that contains a linked list of <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_adapter_addresses_lh">IP_ADAPTER_ADDRESSES</a> structures on successful return.
-     * @param {Pointer<UInt32>} SizePointer A pointer to a variable that specifies the size of the buffer pointed to by <i>AdapterAddresses</i>.
+     * @param {Pointer<Integer>} SizePointer A pointer to a variable that specifies the size of the buffer pointed to by <i>AdapterAddresses</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b> (defined to the same value as <b>NO_ERROR</b>).
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -7739,7 +7739,7 @@ class IpHelper {
      * The <b>GetPerAdapterInfo</b> function retrieves information for the adapter corresponding to this interface.
      * @param {Pointer} pPerAdapterInfo Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1">IP_PER_ADAPTER_INFO</a> structure that receives information about the adapter.
-     * @param {Pointer<UInt32>} pOutBufLen Pointer to a <b>ULONG</b> variable that specifies the size of the 
+     * @param {Pointer<Integer>} pOutBufLen Pointer to a <b>ULONG</b> variable that specifies the size of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/iptypes/ns-iptypes-ip_per_adapter_info_w2ksp1">IP_PER_ADAPTER_INFO</a> structure. If this size is insufficient to hold the information, 
      * <b>GetPerAdapterInfo</b> fills in this variable with the required size, and returns an error code of ERROR_BUFFER_OVERFLOW.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
@@ -8067,7 +8067,7 @@ class IpHelper {
      * @param {Integer} DestIP The destination IPv4 address, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure. The ARP request attempts to obtain the physical address that corresponds to this IPv4 address.
      * @param {Integer} SrcIP The source IPv4 address of the sender, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure. This parameter is optional and is used to select the interface to send the request on for the ARP entry. The caller may specify zero corresponding to the <b>INADDR_ANY</b> IPv4 address for this parameter.
      * @param {Pointer} pMacAddr A pointer to an array of <b>ULONG</b> variables. This array must have at least two <b>ULONG</b> elements to hold an  Ethernet or token ring physical address. The first six bytes of this array receive the physical address that corresponds to the IPv4 address specified by the <i>DestIP</i> parameter.
-     * @param {Pointer<UInt32>} PhyAddrLen On input, a pointer to a <b>ULONG</b> value that specifies the maximum buffer size, in bytes, the application has set aside to receive the physical address or MAC address. The buffer size should be at least 6 bytes for an Ethernet or token ring physical address 
+     * @param {Pointer<Integer>} PhyAddrLen On input, a pointer to a <b>ULONG</b> value that specifies the maximum buffer size, in bytes, the application has set aside to receive the physical address or MAC address. The buffer size should be at least 6 bytes for an Ethernet or token ring physical address 
      * 
      * The buffer to receive the physical address is pointed to by the <i>pMacAddr</i> parameter. 
      * 
@@ -8182,9 +8182,9 @@ class IpHelper {
     /**
      * The GetRTTAndHopCount function determines the round-trip time (RTT) and hop count to the specified destination.
      * @param {Integer} DestIpAddress IP address of the destination for which to determine the RTT and hop count, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
-     * @param {Pointer<UInt32>} HopCount Pointer to a <b>ULONG</b> variable. This variable receives the hop count to the destination specified by the <i>DestIpAddress</i> parameter.
+     * @param {Pointer<Integer>} HopCount Pointer to a <b>ULONG</b> variable. This variable receives the hop count to the destination specified by the <i>DestIpAddress</i> parameter.
      * @param {Integer} MaxHops Maximum number of hops to search for the destination. If the number of hops to the destination exceeds this number, the function terminates the search and returns <b>FALSE</b>.
-     * @param {Pointer<UInt32>} RTT Round-trip time, in milliseconds, to the destination specified by <i>DestIpAddress</i>.
+     * @param {Pointer<Integer>} RTT Round-trip time, in milliseconds, to the destination specified by <i>DestIpAddress</i>.
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>.
      * 
      * If the function fails, the return value is <b>FALSE</b>. Call 
@@ -8265,7 +8265,7 @@ class IpHelper {
      * The UnenableRouter function decrements the reference count that tracks the number of requests to enable IPv4 forwarding. When this reference count reaches zero, UnenableRouter turns off IPv4 forwarding on the local computer.
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This structure should be the same as the one used in the call to 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-enablerouter">EnableRouter</a> function.
-     * @param {Pointer<UInt32>} lpdwEnableCount An optional pointer to a <b>DWORD</b> variable. This variable receives the number of references remaining.
+     * @param {Pointer<Integer>} lpdwEnableCount An optional pointer to a <b>DWORD</b> variable. This variable receives the number of references remaining.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, use 
@@ -8365,7 +8365,7 @@ class IpHelper {
      * @param {Pointer<OVERLAPPED>} pOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. Except for the <b>hEvent</b> member, all members of this structure must be set to zero. The <b>hEvent</b> member should contain a handle to a valid event object. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> function to create this event object.
-     * @param {Pointer<UInt32>} lpdwEnableCount An optional pointer to a DWORD variable that receives the number of references remaining if the <b>RestoreMediaSense</b> function succeeds. The variable is also used by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-enablerouter">EnableRouter</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-unenablerouter">UnenableRouter</a> functions.
+     * @param {Pointer<Integer>} lpdwEnableCount An optional pointer to a DWORD variable that receives the number of references remaining if the <b>RestoreMediaSense</b> function succeeds. The variable is also used by the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-enablerouter">EnableRouter</a> and <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-unenablerouter">UnenableRouter</a> functions.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -8444,7 +8444,7 @@ class IpHelper {
      * The GetIpErrorString function retrieves an IP Helper error string.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
      * @param {PWSTR} Buffer A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
-     * @param {Pointer<UInt32>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
+     * @param {Pointer<Integer>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
      * If the function fails, use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
@@ -8462,7 +8462,7 @@ class IpHelper {
      * Resolves the physical address for a neighbor IP address entry on the local computer.
      * @param {Pointer<SOCKADDR>} NetworkAddress A pointer to a   <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">SOCKADDR</a> structure that contains the neighbor IP address entry and address family.
      * @param {Pointer} PhysicalAddress A pointer to a byte array buffer that will receive the physical address that corresponds to the IP address specified by the <i>NetworkAddress</i> parameter if the function is successful. The length of the byte array is passed in the <i>PhysicalAddressLength</i> parameter.
-     * @param {Pointer<UInt32>} PhysicalAddressLength On input, this parameter specifies the maximum length, in bytes, of the buffer passed in the <i>PhysicalAddress</i> parameter to receive the physical address. If the function is successful, this parameter will receive the length of the physical address returned in the buffer pointed to by the <i>PhysicalAddress</i> parameter. If <b>ERROR_BUFFER_OVERFLOW</b> is returned, this parameter contains the number of bytes
+     * @param {Pointer<Integer>} PhysicalAddressLength On input, this parameter specifies the maximum length, in bytes, of the buffer passed in the <i>PhysicalAddress</i> parameter to receive the physical address. If the function is successful, this parameter will receive the length of the physical address returned in the buffer pointed to by the <i>PhysicalAddress</i> parameter. If <b>ERROR_BUFFER_OVERFLOW</b> is returned, this parameter contains the number of bytes
      *         required to hold the physical address.
      * @returns {Integer} The <b>ResolveNeighbor</b> function always fails and returns the following error code.
      * 
@@ -8495,7 +8495,7 @@ class IpHelper {
      * Creates a persistent TCP port reservation for a consecutive block of TCP ports on the local computer.
      * @param {Integer} StartPort The starting TCP port number in network byte order.
      * @param {Integer} NumberOfPorts The number of TCP port numbers to reserve.
-     * @param {Pointer<UInt64>} Token A pointer to a port reservation token that is returned if the function succeeds.
+     * @param {Pointer<Integer>} Token A pointer to a port reservation token that is returned if the function succeeds.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -8565,7 +8565,7 @@ class IpHelper {
      * Creates a persistent UDP port reservation for a consecutive block of UDP ports on the local computer.
      * @param {Integer} StartPort The starting UDP port number in network byte order.
      * @param {Integer} NumberOfPorts The number of UDP port numbers to reserve.
-     * @param {Pointer<UInt64>} Token A pointer to a port reservation token that is returned if the function succeeds.
+     * @param {Pointer<Integer>} Token A pointer to a port reservation token that is returned if the function succeeds.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -8769,7 +8769,7 @@ class IpHelper {
      * Looks up the token for a persistent TCP port reservation for a consecutive block of TCP ports on the local computer.
      * @param {Integer} StartPort The starting TCP port number in network byte order.
      * @param {Integer} NumberOfPorts The number of TCP port numbers  that were reserved.
-     * @param {Pointer<UInt64>} Token A pointer to a port reservation token that is returned if the function succeeds.
+     * @param {Pointer<Integer>} Token A pointer to a port reservation token that is returned if the function succeeds.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -8826,7 +8826,7 @@ class IpHelper {
      * Looks up the token for a persistent UDP port reservation for a consecutive block of TCP ports on the local computer.
      * @param {Integer} StartPort The starting UDP port number in network byte order.
      * @param {Integer} NumberOfPorts The number of UDP port numbers that were reserved.
-     * @param {Pointer<UInt64>} Token A pointer to a port reservation token that is returned if the function succeeds.
+     * @param {Pointer<Integer>} Token A pointer to a port reservation token that is returned if the function succeeds.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9177,8 +9177,8 @@ class IpHelper {
      * </tr>
      * </table>
      * @param {Pointer<NET_ADDRESS_INFO>} AddressInfo On success, the function returns a pointer to a <b>NET_ADDRESS_INFO</b> structure that contains the parsed IP address information if a <b>NULL</b> pointer was not passed in this parameter.
-     * @param {Pointer<UInt16>} PortNumber On success, the function returns a pointer to the parsed network port in host order if a <b>NULL</b> pointer was not passed in this parameter. If a network port was not present in the <i>NetworkString</i> parameter, then a pointer to a value of zero is returned.
-     * @param {Pointer<Byte>} PrefixLength On success, the function returns a pointer to the parsed prefix length if a <b>NULL</b> pointer was not passed in this parameter. If a prefix was not present in the <i>NetworkString</i> parameter, then a pointer to a value of -1 is returned.
+     * @param {Pointer<Integer>} PortNumber On success, the function returns a pointer to the parsed network port in host order if a <b>NULL</b> pointer was not passed in this parameter. If a network port was not present in the <i>NetworkString</i> parameter, then a pointer to a value of zero is returned.
+     * @param {Pointer<Integer>} PrefixLength On success, the function returns a pointer to the parsed prefix length if a <b>NULL</b> pointer was not passed in this parameter. If a prefix was not present in the <i>NetworkString</i> parameter, then a pointer to a value of -1 is returned.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9366,7 +9366,7 @@ class IpHelper {
 
     /**
      * Retrieves the MIB-II interface table.
-     * @param {Pointer<MIB_IF_TABLE2>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
+     * @param {Pointer<Pointer<MIB_IF_TABLE2>>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9404,7 +9404,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIfTable2(Table) {
-        result := DllCall("IPHLPAPI.dll\GetIfTable2", "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIfTable2", "ptr*", Table, "uint")
         return result
     }
 
@@ -9438,7 +9438,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_IF_TABLE2>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
+     * @param {Pointer<Pointer<MIB_IF_TABLE2>>} Table A pointer to a buffer that receives the table of interfaces in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_if_table2">MIB_IF_TABLE2</a> structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9487,13 +9487,13 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIfTable2Ex(Level, Table) {
-        result := DllCall("IPHLPAPI.dll\GetIfTable2Ex", "int", Level, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIfTable2Ex", "int", Level, "ptr*", Table, "uint")
         return result
     }
 
     /**
      * Retrieves a table of network interface stack row entries that specify the relationship of the network interfaces on an interface stack.
-     * @param {Pointer<MIB_IFSTACK_TABLE>} Table A pointer to a buffer that receives the table of interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_table">MIB_IFSTACK_TABLE</a> structure.
+     * @param {Pointer<Pointer<MIB_IFSTACK_TABLE>>} Table A pointer to a buffer that receives the table of interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ifstack_table">MIB_IFSTACK_TABLE</a> structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9553,13 +9553,13 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIfStackTable(Table) {
-        result := DllCall("IPHLPAPI.dll\GetIfStackTable", "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIfStackTable", "ptr*", Table, "uint")
         return result
     }
 
     /**
      * Retrieves a table of inverted network interface stack row entries that specify the relationship of the network interfaces on an interface stack.
-     * @param {Pointer<MIB_INVERTEDIFSTACK_TABLE>} Table A pointer to a buffer that receives the table of inverted interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_table">MIB_INVERTEDIFSTACK_TABLE</a> structure.
+     * @param {Pointer<Pointer<MIB_INVERTEDIFSTACK_TABLE>>} Table A pointer to a buffer that receives the table of inverted interface stack row entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_invertedifstack_table">MIB_INVERTEDIFSTACK_TABLE</a> structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9619,7 +9619,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetInvertedIfStackTable(Table) {
-        result := DllCall("IPHLPAPI.dll\GetInvertedIfStackTable", "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetInvertedIfStackTable", "ptr*", Table, "uint")
         return result
     }
 
@@ -9739,7 +9739,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_IPINTERFACE_TABLE>} Table A pointer to a buffer that receives the table of IP interface entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_table">MIB_IPINTERFACE_TABLE</a> structure.
+     * @param {Pointer<Pointer<MIB_IPINTERFACE_TABLE>>} Table A pointer to a buffer that receives the table of IP interface entries in a <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipinterface_table">MIB_IPINTERFACE_TABLE</a> structure.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -9810,7 +9810,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIpInterfaceTable(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetIpInterfaceTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpInterfaceTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -10423,7 +10423,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_UNICASTIPADDRESS_TABLE>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_UNICASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_table">MIB_UNICASTIPADDRESS_TABLE</a> structure that contains a table of unicast IP address entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -10495,7 +10495,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetUnicastIpAddressTable(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetUnicastIpAddressTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetUnicastIpAddressTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -10676,7 +10676,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_UNICASTIPADDRESS_TABLE>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_UNICASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_table">MIB_UNICASTIPADDRESS_TABLE</a> structure. When <b>NotifyStableUnicastIpAddressTable</b> is successful, this parameter returns the stable unicast IP address table on the local computer.  
      * 
      * When <b>NotifyStableUnicastIpAddressTable</b> returns <b>ERROR_IO_PENDING</b> indicating that the I/O request is pending, then the  stable unicast IP address table is returned to the function in the <i>CallerCallback</i>  parameter.
@@ -10747,7 +10747,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerContext, NotificationHandle) {
-        result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", "ushort", Family, "ptr", Table, "ptr", CallerCallback, "ptr", CallerContext, "ptr", NotificationHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\NotifyStableUnicastIpAddressTable", "ushort", Family, "ptr*", Table, "ptr", CallerCallback, "ptr", CallerContext, "ptr", NotificationHandle, "uint")
         return result
     }
 
@@ -11125,7 +11125,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_ANYCASTIPADDRESS_TABLE>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_ANYCASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_anycastipaddress_table">MIB_ANYCASTIPADDRESS_TABLE</a> structure that contains a table of anycast IP address entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -11197,7 +11197,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetAnycastIpAddressTable(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetAnycastIpAddressTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetAnycastIpAddressTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -11328,7 +11328,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_MULTICASTIPADDRESS_TABLE>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_MULTICASTIPADDRESS_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_multicastipaddress_table">MIB_MULTICASTIPADDRESS_TABLE</a> structure that contains a table of anycast IP address entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -11400,7 +11400,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetMulticastIpAddressTable(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetMulticastIpAddressTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetMulticastIpAddressTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -11759,7 +11759,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_IPFORWARD_TABLE2>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_IPFORWARD_TABLE2>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_table2">MIB_IPFORWARD_TABLE2</a> structure that contains a table of IP route entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -11831,7 +11831,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIpForwardTable2(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetIpForwardTable2", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpForwardTable2", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -12269,7 +12269,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_IPPATH_TABLE>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_IPPATH_TABLE>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ippath_table">MIB_IPPATH_TABLE</a> structure that contains a table of IP path entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
@@ -12341,7 +12341,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIpPathTable(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetIpPathTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpPathTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -12754,7 +12754,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<MIB_IPNET_TABLE2>} Table A pointer to a 
+     * @param {Pointer<Pointer<MIB_IPNET_TABLE2>>} Table A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipnet_table2">MIB_IPNET_TABLE2</a> structure that contains a table of neighbor IP address entries on the local computer.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR or ERROR_NOT_FOUND.
      * 
@@ -12830,7 +12830,7 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static GetIpNetTable2(Family, Table) {
-        result := DllCall("IPHLPAPI.dll\GetIpNetTable2", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpNetTable2", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -13066,7 +13066,7 @@ class IpHelper {
 
     /**
      * Retrieves the dynamic UDP port number used by the Teredo client on the local computer.
-     * @param {Pointer<UInt16>} Port A pointer to the  UDP port number. On successful return, this parameter will be filled with the port number used by the Teredo client.
+     * @param {Pointer<Integer>} Port A pointer to the  UDP port number. On successful return, this parameter will be filled with the port number used by the Teredo client.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -13196,9 +13196,9 @@ class IpHelper {
      *         Any IPv4 addresses must be represented in the IPv4-mapped IPv6 address format which enables an IPv6 only application to communicate with an IPv4 node.
      * @param {Integer} DestinationAddressCount The number of destination addresses pointed to by the <i>DestinationAddressList</i> parameter.
      * @param {Integer} AddressSortOptions Reserved for future use.
-     * @param {Pointer<SOCKADDR_IN6_PAIR>} SortedAddressPairList A pointer to store an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair">SOCKADDR_IN6_PAIR</a> structures that contain a list of pairs of IPv6 addresses
+     * @param {Pointer<Pointer<SOCKADDR_IN6_PAIR>>} SortedAddressPairList A pointer to store an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2ipdef/ns-ws2ipdef-sockaddr_in6_pair">SOCKADDR_IN6_PAIR</a> structures that contain a list of pairs of IPv6 addresses
      *         sorted in the preferred order of communication, if the function call is successful.
-     * @param {Pointer<UInt32>} SortedAddressPairCount A pointer to store the number of address pairs pointed to by the <i>SortedAddressPairList</i> parameter, if the function call is successful.
+     * @param {Pointer<Integer>} SortedAddressPairCount A pointer to store the number of address pairs pointed to by the <i>SortedAddressPairList</i> parameter, if the function call is successful.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR.
      * 
      * If the function fails, the return value is one of the following error codes.
@@ -13258,14 +13258,14 @@ class IpHelper {
      * @since windows6.0.6000
      */
     static CreateSortedAddressPairs(SourceAddressList, SourceAddressCount, DestinationAddressList, DestinationAddressCount, AddressSortOptions, SortedAddressPairList, SortedAddressPairCount) {
-        result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", "ptr", SourceAddressList, "uint", SourceAddressCount, "ptr", DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, "ptr", SortedAddressPairList, "uint*", SortedAddressPairCount, "uint")
+        result := DllCall("IPHLPAPI.dll\CreateSortedAddressPairs", "ptr", SourceAddressList, "uint", SourceAddressCount, "ptr", DestinationAddressList, "uint", DestinationAddressCount, "uint", AddressSortOptions, "ptr*", SortedAddressPairList, "uint*", SortedAddressPairCount, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Guid>} CompartmentGuid 
-     * @param {Pointer<UInt32>} CompartmentId 
+     * @param {Pointer<Integer>} CompartmentId 
      * @returns {Integer} 
      */
     static ConvertCompartmentGuidToId(CompartmentGuid, CompartmentId) {
@@ -13484,7 +13484,7 @@ class IpHelper {
     /**
      * Converts a locally unique identifier (LUID) for a network interface to the local index for the interface.
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ifdef/ns-ifdef-net_luid_lh">NET_LUID</a> for a network interface.
-     * @param {Pointer<UInt32>} InterfaceIndex The local index  value for the interface.
+     * @param {Pointer<Integer>} InterfaceIndex The local index  value for the interface.
      * @returns {Integer} On success, 
      * <b>ConvertInterfaceLuidToIndex</b> returns NO_ERROR. Any nonzero return value indicates failure and a <b>NET_IFINDEX_UNSPECIFIED</b> is returned in the <i>InterfaceIndex</i> parameter. 
      * 
@@ -13756,8 +13756,8 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<UInt32>} CompartmentScope 
-     * @param {Pointer<UInt32>} CompartmentId 
+     * @param {Pointer<Integer>} CompartmentScope 
+     * @param {Pointer<Integer>} CompartmentId 
      * @returns {String} Nothing - always returns an empty string
      */
     static GetCurrentThreadCompartmentScope(CompartmentScope, CompartmentId) {
@@ -13856,8 +13856,8 @@ class IpHelper {
     /**
      * Reserved for future use. Do not use this function.
      * @param {Pointer<Guid>} NetworkGuid Reserved.
-     * @param {Pointer<UInt32>} CompartmentId Reserved.
-     * @param {Pointer<UInt32>} SiteId Reserved.
+     * @param {Pointer<Integer>} CompartmentId Reserved.
+     * @param {Pointer<Integer>} SiteId Reserved.
      * @param {PWSTR} NetworkName Reserved.
      * @param {Integer} Length Reserved.
      * @returns {Integer} 
@@ -13888,7 +13888,7 @@ class IpHelper {
     /**
      * Converts an IPv4 prefix length to an IPv4 subnet mask.
      * @param {Integer} MaskLength The IPv4 prefix length, in bits.
-     * @param {Pointer<UInt32>} Mask A pointer to a <b>LONG</b> value to hold the IPv4 subnet mask when the function returns successfully.
+     * @param {Pointer<Integer>} Mask A pointer to a <b>LONG</b> value to hold the IPv4 subnet mask when the function returns successfully.
      * @returns {Integer} On success, 
      * <b>ConvertLengthToIpv4Mask</b> returns <b>NO_ERROR</b>. Any nonzero return value indicates failure and the <i>Mask</i> parameter is set to <b>INADDR_NONE</b> defined in the <i>Ws2def.h</i> header file. 
      * 
@@ -13920,7 +13920,7 @@ class IpHelper {
     /**
      * Converts an IPv4 subnet mask to an IPv4 prefix length.
      * @param {Integer} Mask The IPv4 subnet mask.
-     * @param {Pointer<Byte>} MaskLength A pointer to a <b>UINT8</b> value to hold the IPv4 prefix length, in bits, when the function returns successfully.
+     * @param {Pointer<Integer>} MaskLength A pointer to a <b>UINT8</b> value to hold the IPv4 prefix length, in bits, when the function returns successfully.
      * @returns {Integer} On success, 
      * <b>ConvertIpv4MaskToLength</b> returns <b>NO_ERROR</b>. Any nonzero return value indicates failure. 
      * 
@@ -13980,9 +13980,10 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<Guid>} Interface 
+     * @param {Guid} Interface 
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings
      */
     static GetInterfaceDnsSettings(Interface, Settings) {
         result := DllCall("IPHLPAPI.dll\GetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
@@ -13993,6 +13994,7 @@ class IpHelper {
      * 
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-freeinterfacednssettings
      */
     static FreeInterfaceDnsSettings(Settings) {
         DllCall("IPHLPAPI.dll\FreeInterfaceDnsSettings", "ptr", Settings)
@@ -14000,9 +14002,10 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<Guid>} Interface 
+     * @param {Guid} Interface 
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings
      */
     static SetInterfaceDnsSettings(Interface, Settings) {
         result := DllCall("IPHLPAPI.dll\SetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
@@ -14101,11 +14104,11 @@ class IpHelper {
     /**
      * 
      * @param {Integer} Family 
-     * @param {Pointer<MIB_FL_VIRTUAL_INTERFACE_TABLE>} Table 
+     * @param {Pointer<Pointer<MIB_FL_VIRTUAL_INTERFACE_TABLE>>} Table 
      * @returns {Integer} 
      */
     static GetFlVirtualInterfaceTable(Family, Table) {
-        result := DllCall("IPHLPAPI.DLL\GetFlVirtualInterfaceTable", "ushort", Family, "ptr", Table, "uint")
+        result := DllCall("IPHLPAPI.DLL\GetFlVirtualInterfaceTable", "ushort", Family, "ptr*", Table, "uint")
         return result
     }
 
@@ -14116,11 +14119,11 @@ class IpHelper {
      * @param {Integer} outAction 
      * @param {BOOL} bUseLog 
      * @param {BOOL} bMustBeUnique 
-     * @param {Pointer<Void>} ppInterface 
+     * @param {Pointer<Pointer<Void>>} ppInterface 
      * @returns {Integer} 
      */
     static PfCreateInterface(dwName, inAction, outAction, bUseLog, bMustBeUnique, ppInterface) {
-        result := DllCall("IPHLPAPI.dll\PfCreateInterface", "uint", dwName, "int", inAction, "int", outAction, "int", bUseLog, "int", bMustBeUnique, "ptr", ppInterface, "uint")
+        result := DllCall("IPHLPAPI.dll\PfCreateInterface", "uint", dwName, "int", inAction, "int", outAction, "int", bUseLog, "int", bMustBeUnique, "ptr*", ppInterface, "uint")
         return result
     }
 
@@ -14141,11 +14144,11 @@ class IpHelper {
      * @param {Pointer<PF_FILTER_DESCRIPTOR>} pfiltIn 
      * @param {Integer} cOutFilters 
      * @param {Pointer<PF_FILTER_DESCRIPTOR>} pfiltOut 
-     * @param {Pointer<Void>} pfHandle 
+     * @param {Pointer<Pointer<Void>>} pfHandle 
      * @returns {Integer} 
      */
     static PfAddFiltersToInterface(ih, cInFilters, pfiltIn, cOutFilters, pfiltOut, pfHandle) {
-        result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", "ptr", ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "ptr", pfHandle, "uint")
+        result := DllCall("IPHLPAPI.dll\PfAddFiltersToInterface", "ptr", ih, "uint", cInFilters, "ptr", pfiltIn, "uint", cOutFilters, "ptr", pfiltOut, "ptr*", pfHandle, "uint")
         return result
     }
 
@@ -14167,11 +14170,11 @@ class IpHelper {
      * 
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} cFilters 
-     * @param {Pointer<Void>} pvHandles 
+     * @param {Pointer<Pointer<Void>>} pvHandles 
      * @returns {Integer} 
      */
     static PfRemoveFilterHandles(pInterface, cFilters, pvHandles) {
-        result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", "ptr", pInterface, "uint", cFilters, "ptr", pvHandles, "uint")
+        result := DllCall("IPHLPAPI.dll\PfRemoveFilterHandles", "ptr", pInterface, "uint", cFilters, "ptr*", pvHandles, "uint")
         return result
     }
 
@@ -14190,7 +14193,7 @@ class IpHelper {
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} dwIndex 
      * @param {Integer} pfatLinkType 
-     * @param {Pointer<Byte>} LinkIPAddress 
+     * @param {Pointer<Integer>} LinkIPAddress 
      * @returns {Integer} 
      */
     static PfBindInterfaceToIndex(pInterface, dwIndex, pfatLinkType, LinkIPAddress) {
@@ -14202,7 +14205,7 @@ class IpHelper {
      * 
      * @param {Pointer<Void>} pInterface 
      * @param {Integer} pfatType 
-     * @param {Pointer<Byte>} IPAddress 
+     * @param {Pointer<Integer>} IPAddress 
      * @returns {Integer} 
      */
     static PfBindInterfaceToIPAddress(pInterface, pfatType, IPAddress) {
@@ -14257,13 +14260,13 @@ class IpHelper {
 
     /**
      * 
-     * @param {Pointer<Byte>} pbBuffer 
+     * @param {Pointer<Integer>} pbBuffer 
      * @param {Integer} dwSize 
      * @param {Integer} dwThreshold 
      * @param {Integer} dwEntries 
-     * @param {Pointer<UInt32>} pdwLoggedEntries 
-     * @param {Pointer<UInt32>} pdwLostEntries 
-     * @param {Pointer<UInt32>} pdwSizeUsed 
+     * @param {Pointer<Integer>} pdwLoggedEntries 
+     * @param {Pointer<Integer>} pdwLostEntries 
+     * @param {Pointer<Integer>} pdwSizeUsed 
      * @returns {Integer} 
      */
     static PfSetLogBuffer(pbBuffer, dwSize, dwThreshold, dwEntries, pdwLoggedEntries, pdwLostEntries, pdwSizeUsed) {
@@ -14284,7 +14287,7 @@ class IpHelper {
      * 
      * @param {Pointer<Void>} pInterface 
      * @param {Pointer<PF_INTERFACE_STATS>} ppfStats 
-     * @param {Pointer<UInt32>} pdwBufferSize 
+     * @param {Pointer<Integer>} pdwBufferSize 
      * @param {BOOL} fResetCounters 
      * @returns {Integer} 
      */
@@ -14298,8 +14301,8 @@ class IpHelper {
      * @param {Pointer<Void>} pInInterface 
      * @param {Pointer<Void>} pOutInterface 
      * @param {Integer} cBytes 
-     * @param {Pointer<Byte>} pbPacket 
-     * @param {Pointer<Int32>} ppAction 
+     * @param {Pointer<Integer>} pbPacket 
+     * @param {Pointer<Integer>} ppAction 
      * @returns {Integer} 
      */
     static PfTestPacket(pInInterface, pOutInterface, cBytes, pbPacket, ppAction) {

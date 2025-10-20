@@ -69,7 +69,7 @@ class SWbemQueryQualifiedName extends Win32Struct
 
     /**
      * Unused. Always <b>NULL</b>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     m_puArrayIndex {
         get => NumGet(this, 40, "ptr")

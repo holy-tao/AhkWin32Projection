@@ -153,7 +153,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkVal {
         get => NumGet(this, 16, "ptr")
@@ -161,7 +161,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDispatch>}
+     * @type {IDispatch}
      */
     pdispVal {
         get => NumGet(this, 16, "ptr")
@@ -169,7 +169,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_wireSAFEARRAY>}
+     * @type {Pointer<Pointer<_wireSAFEARRAY>>}
      */
     parray {
         get => NumGet(this, 16, "ptr")
@@ -185,7 +185,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbVal {
         get => NumGet(this, 16, "ptr")
@@ -193,7 +193,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<Integer>}
      */
     piVal {
         get => NumGet(this, 16, "ptr")
@@ -201,7 +201,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     plVal {
         get => NumGet(this, 16, "ptr")
@@ -209,7 +209,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pllVal {
         get => NumGet(this, 16, "ptr")
@@ -217,7 +217,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pfltVal {
         get => NumGet(this, 16, "ptr")
@@ -225,7 +225,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pdblVal {
         get => NumGet(this, 16, "ptr")
@@ -241,7 +241,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pscode {
         get => NumGet(this, 16, "ptr")
@@ -257,7 +257,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pdate {
         get => NumGet(this, 16, "ptr")
@@ -265,7 +265,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<FLAGGED_WORD_BLOB>}
+     * @type {Pointer<Pointer<FLAGGED_WORD_BLOB>>}
      */
     pbstrVal {
         get => NumGet(this, 16, "ptr")
@@ -289,7 +289,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_wireSAFEARRAY>}
+     * @type {Pointer<Pointer<Pointer<_wireSAFEARRAY>>>}
      */
     pparray {
         get => NumGet(this, 16, "ptr")
@@ -297,7 +297,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<_wireVARIANT>}
+     * @type {Pointer<Pointer<_wireVARIANT>>}
      */
     pvarVal {
         get => NumGet(this, 16, "ptr")
@@ -380,7 +380,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     puiVal {
         get => NumGet(this, 16, "ptr")
@@ -388,7 +388,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulVal {
         get => NumGet(this, 16, "ptr")
@@ -396,7 +396,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     pullVal {
         get => NumGet(this, 16, "ptr")
@@ -404,7 +404,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pintVal {
         get => NumGet(this, 16, "ptr")
@@ -412,7 +412,7 @@ class _wireVARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     puintVal {
         get => NumGet(this, 16, "ptr")

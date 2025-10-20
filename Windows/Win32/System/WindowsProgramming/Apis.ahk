@@ -2886,8 +2886,8 @@ class WindowsProgramming {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<UInt16>} String1 
-     * @param {Pointer<UInt16>} String2 
+     * @param {Pointer<Integer>} String1 
+     * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
      */
     static uaw_lstrcmpW(String1, String2) {
@@ -2897,8 +2897,8 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} String1 
-     * @param {Pointer<UInt16>} String2 
+     * @param {Pointer<Integer>} String1 
+     * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
      */
     static uaw_lstrcmpiW(String1, String2) {
@@ -2908,7 +2908,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} String 
+     * @param {Pointer<Integer>} String 
      * @returns {Integer} 
      */
     static uaw_lstrlenW(String) {
@@ -2918,9 +2918,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} String 
+     * @param {Pointer<Integer>} String 
      * @param {Integer} Character 
-     * @returns {Pointer<UInt16>} 
+     * @returns {Pointer<Integer>} 
      */
     static uaw_wcschr(String, Character) {
         result := DllCall("KERNEL32.dll\uaw_wcschr", "ushort*", String, "char", Character, "ushort*")
@@ -2929,9 +2929,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} Destination 
-     * @param {Pointer<UInt16>} Source 
-     * @returns {Pointer<UInt16>} 
+     * @param {Pointer<Integer>} Destination 
+     * @param {Pointer<Integer>} Source 
+     * @returns {Pointer<Integer>} 
      */
     static uaw_wcscpy(Destination, Source) {
         result := DllCall("KERNEL32.dll\uaw_wcscpy", "ushort*", Destination, "ushort*", Source, "ushort*")
@@ -2940,8 +2940,8 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} String1 
-     * @param {Pointer<UInt16>} String2 
+     * @param {Pointer<Integer>} String1 
+     * @param {Pointer<Integer>} String2 
      * @returns {Integer} 
      */
     static uaw_wcsicmp(String1, String2) {
@@ -2951,7 +2951,7 @@ class WindowsProgramming {
 
     /**
      * Retrieves the number of characters in a null-terminated Unicode string.
-     * @param {Pointer<UInt16>} String A pointer to a null-terminated Unicode string.
+     * @param {Pointer<Integer>} String A pointer to a null-terminated Unicode string.
      * @returns {Pointer} The return value is the number of characters in <i>String</i>, not including the terminating null character.
      * @see https://docs.microsoft.com/windows/win32/api//stralign/nf-stralign-uaw_wcslen
      */
@@ -2962,9 +2962,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<UInt16>} String 
+     * @param {Pointer<Integer>} String 
      * @param {Integer} Character 
-     * @returns {Pointer<UInt16>} 
+     * @returns {Pointer<Integer>} 
      */
     static uaw_wcsrchr(String, Character) {
         result := DllCall("KERNEL32.dll\uaw_wcsrchr", "ushort*", String, "char", Character, "ushort*")
@@ -3009,7 +3009,7 @@ class WindowsProgramming {
      * Retrieves the cycle time for the specified thread.
      * @param {HANDLE} ThreadHandle A handle to the thread. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt64>} CycleTime The number of CPU clock cycles used by the thread. This value includes cycles spent in both user mode and kernel mode.
+     * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the thread. This value includes cycles spent in both user mode and kernel mode.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3033,7 +3033,7 @@ class WindowsProgramming {
      * Retrieves the sum of the cycle time of all threads of the specified process.
      * @param {HANDLE} ProcessHandle A handle to the process. The handle must have the PROCESS_QUERY_INFORMATION or PROCESS_QUERY_LIMITED_INFORMATION access right. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/process-security-and-access-rights">Process Security and Access Rights</a>.
-     * @param {Pointer<UInt64>} CycleTime The number of CPU clock cycles used by the threads of the process. This value includes cycles spent in both user mode and kernel mode.
+     * @param {Pointer<Integer>} CycleTime The number of CPU clock cycles used by the threads of the process. This value includes cycles spent in both user mode and kernel mode.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3055,7 +3055,7 @@ class WindowsProgramming {
 
     /**
      * Retrieves the cycle time for the idle thread of each processor in the system.
-     * @param {Pointer<UInt32>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
+     * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group.
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
      * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. This buffer must be 8  times the number of processors in the system in size.
@@ -3079,7 +3079,7 @@ class WindowsProgramming {
     /**
      * Retrieves the accumulated cycle time for the idle thread on each logical processor in the specified processor group.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
-     * @param {Pointer<UInt32>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
+     * @param {Pointer<Integer>} BufferLength On input, specifies the size of the <i>ProcessorIdleCycleTime</i> buffer, in bytes. This buffer is expected to be 8 times the number of processors in the group. 
      * 
      * On output, specifies the number of elements written to the buffer. If the buffer size is not sufficient, the function fails and this parameter receives the required length of the buffer.
      * @param {Pointer} ProcessorIdleCycleTime The number of CPU clock cycles used by each idle thread. If this parameter is NULL, the function updates the <i>BufferLength</i> parameter with the required length.
@@ -3112,7 +3112,7 @@ class WindowsProgramming {
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * 
      * 
-     * @param {Pointer<UInt64>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+     * @param {Pointer<Integer>} lpInterruptTimePrecise A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryinterrupttimeprecise
      * @since windows10.0.10240
@@ -3139,7 +3139,7 @@ class WindowsProgramming {
      * 				<a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * 
      * 
-     * @param {Pointer<UInt64>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+     * @param {Pointer<Integer>} lpUnbiasedInterruptTimePrecise A pointer to a ULONGLONG in which to receive the unbiased interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttimeprecise
      * @since windows10.0.10240
@@ -3164,7 +3164,7 @@ class WindowsProgramming {
      * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * 
      * 
-     * @param {Pointer<UInt64>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
+     * @param {Pointer<Integer>} lpInterruptTime A pointer to a ULONGLONG in which to receive the interrupt-time count in system time units of 100 nanoseconds. Divide by ten million, or 1e7, to get seconds (there are 1e9 nanoseconds in a second, so there are 1e7 100-nanoseconds in a second).
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryinterrupttime
      * @since windows10.0.10240
@@ -3175,7 +3175,7 @@ class WindowsProgramming {
 
     /**
      * Gets the current unbiased interrupt-time count, in units of 100 nanoseconds. The unbiased interrupt-time count does not include time the system spends in sleep or hibernation.
-     * @param {Pointer<UInt64>} UnbiasedTime TBD
+     * @param {Pointer<Integer>} UnbiasedTime TBD
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails because it is called with a null parameter, the return value is zero.
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryunbiasedinterrupttime
      * @since windows6.1
@@ -3187,7 +3187,7 @@ class WindowsProgramming {
 
     /**
      * Queries the auxiliary counter frequency.
-     * @param {Pointer<UInt64>} lpAuxiliaryCounterFrequency Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
+     * @param {Pointer<Integer>} lpAuxiliaryCounterFrequency Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
      * @returns {HRESULT} Returns <b>S_OK</b> if the auxiliary counter is supported and <b>E_NOTIMPL</b> if the auxiliary counter is not supported.
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
      * @since windows10.0.15063
@@ -3203,8 +3203,8 @@ class WindowsProgramming {
     /**
      * Converts the specified auxiliary counter value to the corresponding performance counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
      * @param {Integer} ullAuxiliaryCounterValue The auxiliary counter value to convert.
-     * @param {Pointer<UInt64>} lpPerformanceCounterValue On success, contains the converted performance counter value. Will be undefined if the function fails.
-     * @param {Pointer<UInt64>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
+     * @param {Pointer<Integer>} lpPerformanceCounterValue On success, contains the converted performance counter value. Will be undefined if the function fails.
+     * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
      * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
      * 
      * <table>
@@ -3260,8 +3260,8 @@ class WindowsProgramming {
     /**
      * Converts the specified performance counter value to the corresponding auxiliary counter value; optionally provides the estimated conversion error in nanoseconds due to latencies and maximum possible drift.
      * @param {Integer} ullPerformanceCounterValue The performance counter value to convert.
-     * @param {Pointer<UInt64>} lpAuxiliaryCounterValue On success, contains the converted auxiliary counter value. Will be undefined if the function fails.
-     * @param {Pointer<UInt64>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
+     * @param {Pointer<Integer>} lpAuxiliaryCounterValue On success, contains the converted auxiliary counter value. Will be undefined if the function fails.
+     * @param {Pointer<Integer>} lpConversionError On success, contains the estimated conversion error, in nanoseconds. Will be undefined if the function fails.
      * @returns {HRESULT} Returns <b>S_OK</b> if the conversion succeeds; otherwise, returns another <b>HRESULT</b> specifying the error. 
      * 
      * <table>
@@ -3482,8 +3482,8 @@ class WindowsProgramming {
 
     /**
      * Retrieves the current size of the registry and the maximum size that the registry is allowed to attain on the system.
-     * @param {Pointer<UInt32>} pdwQuotaAllowed A pointer to a variable that receives the maximum size that the registry is allowed to attain on this system, in bytes.
-     * @param {Pointer<UInt32>} pdwQuotaUsed A pointer to a variable that receives the current size of  the registry, in bytes.
+     * @param {Pointer<Integer>} pdwQuotaAllowed A pointer to a variable that receives the maximum size that the registry is allowed to attain on this system, in bytes.
+     * @param {Pointer<Integer>} pdwQuotaUsed A pointer to a variable that receives the current size of  the registry, in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. 
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -3504,7 +3504,7 @@ class WindowsProgramming {
      * Converts a file time to MS-DOS date and time values.
      * @param {Pointer<FILETIME>} lpFileTime A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure containing the file time to convert to MS-DOS date and time format.
-     * @param {Pointer<UInt16>} lpFatDate A pointer to a variable to receive the MS-DOS date. The date is a packed value with the following format. 
+     * @param {Pointer<Integer>} lpFatDate A pointer to a variable to receive the MS-DOS date. The date is a packed value with the following format. 
      * 
      * 
      * 
@@ -3526,7 +3526,7 @@ class WindowsProgramming {
      * <td>Year offset from 1980 (add 1980 to get actual year)</td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt16>} lpFatTime A pointer to a variable to receive the MS-DOS time. The time is a packed value with the following format. 
+     * @param {Pointer<Integer>} lpFatTime A pointer to a variable to receive the MS-DOS time. The time is a packed value with the following format. 
      * 
      * 
      * 
@@ -3753,6 +3753,7 @@ class WindowsProgramming {
      * @param {BOOL} bInheritHandle 
      * @param {PSTR} lpName 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-openmutexw
      */
     static OpenMutexA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -3767,6 +3768,7 @@ class WindowsProgramming {
      * @param {BOOL} bInheritHandle 
      * @param {PSTR} lpName 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/win32/api/synchapi/nf-synchapi-opensemaphorew
      */
     static OpenSemaphoreA(dwDesiredAccess, bInheritHandle, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -3833,7 +3835,7 @@ class WindowsProgramming {
      * @param {PSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
      * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
+     * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -3860,7 +3862,7 @@ class WindowsProgramming {
      * @param {PWSTR} lpGuid The GUID that represents the namespace of the firmware environment variable. The GUID must be  a string in the format  "{<i>xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx</i>}" where 'x' represents a hexadecimal value. The pointer must not be <b>NULL</b>.
      * @param {Pointer} pBuffer A pointer to a buffer that receives the value of the specified firmware environment variable.
      * @param {Integer} nSize The size of the <i>pValue</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
+     * @param {Pointer<Integer>} pdwAttribubutes Bitmask identifying UEFI variable attributes associated with the variable. See <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setfirmwareenvironmentvariableexa">SetFirmwareEnvironmentVariableEx</a> for the bitmask definition.
      * @returns {Integer} If the function succeeds, the return value is the number of bytes stored in the <i>pValue</i> buffer.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -4884,7 +4886,7 @@ class WindowsProgramming {
     /**
      * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry.
      * @param {PSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
      * 
@@ -4912,7 +4914,7 @@ class WindowsProgramming {
     /**
      * Retrieves the NetBIOS name of the local computer. This name is established at system startup, when the system reads it from the registry.
      * @param {PWSTR} lpBuffer A pointer to a buffer that receives the computer name or the cluster virtual server name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
      * 
@@ -4941,7 +4943,7 @@ class WindowsProgramming {
      * Converts a DNS-style host name to a NetBIOS-style computer name.
      * @param {PSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
      * @param {PSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
      * 
@@ -4989,7 +4991,7 @@ class WindowsProgramming {
      * Converts a DNS-style host name to a NetBIOS-style computer name.
      * @param {PWSTR} Hostname The DNS name. If the DNS name is not a valid, translatable name, the function fails. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/computer-names">Computer Names</a>.
      * @param {PWSTR} ComputerName A pointer to a buffer that receives the computer name. The buffer size should be large enough to contain MAX_COMPUTERNAME_LENGTH + 1 characters.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating null character. 
      * 
      * 
      * 
@@ -5036,7 +5038,7 @@ class WindowsProgramming {
     /**
      * Retrieves the name of the user associated with the current thread.
      * @param {PSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
-     * @param {Pointer<UInt32>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
+     * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
      * 
      * 
      * 
@@ -5064,7 +5066,7 @@ class WindowsProgramming {
     /**
      * Retrieves the name of the user associated with the current thread.
      * @param {PWSTR} lpBuffer A pointer to the buffer to receive the user's logon name. If this buffer is not large enough to contain the entire user name, the function fails. A buffer size of (UNLEN + 1) characters will hold the maximum length user name including the terminating null character. UNLEN is defined in Lmcons.h.
-     * @param {Pointer<UInt32>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
+     * @param {Pointer<Integer>} pcbBuffer On input, this variable specifies the size of the <i>lpBuffer</i> buffer, in <b>TCHARs</b>. On output, the variable receives the number of <b>TCHARs</b> copied to the buffer, including the terminating null character. 
      * 
      * 
      * 
@@ -5161,6 +5163,7 @@ class WindowsProgramming {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getthreadenabledxstatefeatures
      */
     static GetThreadEnabledXStateFeatures() {
         result := DllCall("KERNEL32.dll\GetThreadEnabledXStateFeatures", "uint")
@@ -5171,6 +5174,7 @@ class WindowsProgramming {
      * 
      * @param {Integer} Features 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-enableprocessoptionalxstatefeatures
      */
     static EnableProcessOptionalXStateFeatures(Features) {
         result := DllCall("KERNEL32.dll\EnableProcessOptionalXStateFeatures", "uint", Features, "int")
@@ -5208,8 +5212,8 @@ class WindowsProgramming {
 
     /**
      * Converts the specified local time to system time.
-     * @param {Pointer<Int64>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
-     * @param {Pointer<Int64>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
+     * @param {Pointer<Integer>} LocalTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the local time.
+     * @param {Pointer<Integer>} SystemTime A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that receives the returned system time.
      * @returns {NTSTATUS} If the function succeeds, it returns STATUS_SUCCESS.  If it fails, it will return the appropriate status code.
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtllocaltimetosystemtime
      */
@@ -5220,8 +5224,8 @@ class WindowsProgramming {
 
     /**
      * Converts the specified 64-bit system time to the number of seconds since the beginning of January 1, 1970.
-     * @param {Pointer<Int64>} Time A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the system time. The valid years for this value are 1970 to  2105 inclusive.
-     * @param {Pointer<UInt32>} ElapsedSeconds A pointer to a variable that receives the number of seconds.
+     * @param {Pointer<Integer>} Time A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-large_integer-r1">LARGE_INTEGER</a> structure that specifies the system time. The valid years for this value are 1970 to  2105 inclusive.
+     * @param {Pointer<Integer>} ElapsedSeconds A pointer to a variable that receives the number of seconds.
      * @returns {BOOLEAN} If the function succeeds, it returns <b>TRUE</b>. If it fails, it returns <b>FALSE</b>. Typically, this function will fail if the specified value of the  <i>Time</i> parameter is not within the valid timeframe specified in the parameter description.
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtltimetosecondssince1970
      */
@@ -5295,7 +5299,7 @@ class WindowsProgramming {
      * <div> </div>
      * 
      * @param {Pointer<STRING>} DestinationString The counted string to be initialized. The <i>DestinationString</i> is initialized to point to the <i>SourceString</i>. The <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to the length of the <i>SourceString</i>.
-     * @param {Pointer<SByte>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
+     * @param {Pointer<Integer>} SourceString A pointer to a null-terminated string. If the <i>SourceString</i> is not specified, the <b>Length</b> and <b>MaximumLength</b> fields of the <i>DestinationString</i> are initialized to zero.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlinitstring
      */
@@ -5306,7 +5310,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<SByte>} SourceString 
+     * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
      */
     static RtlInitStringEx(DestinationString, SourceString) {
@@ -5317,7 +5321,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<SByte>} SourceString 
+     * @param {Pointer<Integer>} SourceString 
      * @returns {String} Nothing - always returns an empty string
      */
     static RtlInitAnsiString(DestinationString, SourceString) {
@@ -5327,7 +5331,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<STRING>} DestinationString 
-     * @param {Pointer<SByte>} SourceString 
+     * @param {Pointer<Integer>} SourceString 
      * @returns {NTSTATUS} 
      */
     static RtlInitAnsiStringEx(DestinationString, SourceString) {
@@ -5450,7 +5454,7 @@ class WindowsProgramming {
 
     /**
      * Determines how many bytes are needed to represent a Unicode string as an ANSI string.
-     * @param {Pointer<UInt32>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
+     * @param {Pointer<Integer>} BytesInMultiByteString Returns the number of bytes for the ANSI equivalent of the Unicode string pointed to by <i>UnicodeString</i>. This number does not include the terminating <b>NULL</b> character.
      * @param {Pointer} UnicodeString The Unicode source string for which the ANSI length is calculated.
      * @param {Integer} BytesInUnicodeString The number of bytes in the string pointed to by
      *         <i>UnicodeString</i>.
@@ -5481,11 +5485,11 @@ class WindowsProgramming {
 
     /**
      * Converts a character string to an integer.
-     * @param {Pointer<SByte>} String A pointer to the string to convert. The format of the string is as follows: 
+     * @param {Pointer<Integer>} String A pointer to the string to convert. The format of the string is as follows: 
      * 
      * [whitespace] [{+ | -}] [0 [{x | o | b}]] [digits]
      * @param {Integer} Base <b>ULONG</b> that contains the number base to use for the conversion, such as base 10. Only base 2, 8, 10, and 16 are supported.
-     * @param {Pointer<UInt32>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
+     * @param {Pointer<Integer>} Value A pointer to a <b>ULONG</b> that receives the integer that resulted from the conversion.
      * @returns {NTSTATUS} If the function succeeds, the function returns <b>STATUS_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlchartointeger
      * @since windows5.0
@@ -5497,7 +5501,7 @@ class WindowsProgramming {
 
     /**
      * Generates a uniform random number using D.H. Lehmer's 1948 algorithm.
-     * @param {Pointer<UInt32>} Seed The seed value.
+     * @param {Pointer<Integer>} Seed The seed value.
      * @returns {Integer} The function returns a random number uniformly distributed over [0..MAXLONG].
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtluniform
      */
@@ -5572,7 +5576,7 @@ class WindowsProgramming {
      * This function is intended for infrastructure use only.
      * @param {Integer} featureId Infrastructure use only.
      * @param {Integer} changeTime Infrastructure use only.
-     * @param {Pointer<UInt32>} payloadId Infrastructure use only.
+     * @param {Pointer<Integer>} payloadId Infrastructure use only.
      * @param {Pointer<BOOL>} hasNotification Infrastructure use only.
      * @returns {Integer} Infrastructure use only.
      * @see https://docs.microsoft.com/windows/win32/api//featurestagingapi/nf-featurestagingapi-getfeaturevariant
@@ -5609,7 +5613,7 @@ class WindowsProgramming {
     /**
      * Creates a primary surface and obtains surface information.
      * @param {HDC} hdc The device context handle of the device for the primary surface to be created.
-     * @param {Pointer<DCISURFACEINFO>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
+     * @param {Pointer<Pointer<DCISURFACEINFO>>} lplpSurface A pointer to a <b>DCISURFACEINFO</b> structure.
      * @returns {Integer} If the function succeeds, DCI_OK is returned.  Otherwise, it returns one of the DCI errors.
      * @see https://docs.microsoft.com/windows/win32/api//dciman/nf-dciman-dcicreateprimary
      * @since windows5.0
@@ -5617,7 +5621,7 @@ class WindowsProgramming {
     static DCICreatePrimary(hdc, lplpSurface) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr", lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreatePrimary", "ptr", hdc, "ptr*", lplpSurface, "int")
         return result
     }
 
@@ -5632,13 +5636,13 @@ class WindowsProgramming {
      * @param {Integer} dwHeight 
      * @param {Integer} dwDCICaps 
      * @param {Integer} dwBitCount 
-     * @param {Pointer<DCIOFFSCREEN>} lplpSurface 
+     * @param {Pointer<Pointer<DCIOFFSCREEN>>} lplpSurface 
      * @returns {Integer} 
      */
     static DCICreateOffscreen(hdc, dwCompression, dwRedMask, dwGreenMask, dwBlueMask, dwWidth, dwHeight, dwDCICaps, dwBitCount, lplpSurface) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr", lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOffscreen", "ptr", hdc, "uint", dwCompression, "uint", dwRedMask, "uint", dwGreenMask, "uint", dwBlueMask, "uint", dwWidth, "uint", dwHeight, "uint", dwDCICaps, "uint", dwBitCount, "ptr*", lplpSurface, "int")
         return result
     }
 
@@ -5646,13 +5650,13 @@ class WindowsProgramming {
      * 
      * @param {HDC} hdc 
      * @param {Pointer<Void>} lpOffscreenSurf 
-     * @param {Pointer<DCIOVERLAY>} lplpSurface 
+     * @param {Pointer<Pointer<DCIOVERLAY>>} lplpSurface 
      * @returns {Integer} 
      */
     static DCICreateOverlay(hdc, lpOffscreenSurf, lplpSurface) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr", lplpSurface, "int")
+        result := DllCall("DCIMAN32.dll\DCICreateOverlay", "ptr", hdc, "ptr", lpOffscreenSurf, "ptr*", lplpSurface, "int")
         return result
     }
 
@@ -5851,6 +5855,7 @@ class WindowsProgramming {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/ddrawgdi/nf-ddrawgdi-ddquerydisplaysettingsuniqueness
      */
     static GdiEntry13() {
         result := DllCall("api-ms-win-dx-d3dkmt-l1-1-0.dll\GdiEntry13", "uint")
@@ -5976,7 +5981,7 @@ class WindowsProgramming {
      * @param {PSTR} pszTranslateKey 
      * @param {PSTR} pszBuffer 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<UInt32>} pdwRequiredSize 
+     * @param {Pointer<Integer>} pdwRequiredSize 
      * @returns {HRESULT} 
      */
     static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
@@ -6003,7 +6008,7 @@ class WindowsProgramming {
      * @param {PWSTR} pszTranslateKey 
      * @param {PWSTR} pszBuffer 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<UInt32>} pdwRequiredSize 
+     * @param {Pointer<Integer>} pdwRequiredSize 
      * @returns {HRESULT} 
      */
     static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
@@ -6463,8 +6468,8 @@ class WindowsProgramming {
     /**
      * 
      * @param {PSTR} lpszFilename 
-     * @param {Pointer<UInt32>} pdwMSVer 
-     * @param {Pointer<UInt32>} pdwLSVer 
+     * @param {Pointer<Integer>} pdwMSVer 
+     * @param {Pointer<Integer>} pdwLSVer 
      * @param {BOOL} bVersion 
      * @returns {HRESULT} 
      */
@@ -6481,8 +6486,8 @@ class WindowsProgramming {
     /**
      * 
      * @param {PWSTR} lpszFilename 
-     * @param {Pointer<UInt32>} pdwMSVer 
-     * @param {Pointer<UInt32>} pdwLSVer 
+     * @param {Pointer<Integer>} pdwMSVer 
+     * @param {Pointer<Integer>} pdwLSVer 
      * @param {BOOL} bVersion 
      * @returns {HRESULT} 
      */
@@ -6499,8 +6504,8 @@ class WindowsProgramming {
     /**
      * 
      * @param {PSTR} lpszFilename 
-     * @param {Pointer<UInt32>} pdwMSVer 
-     * @param {Pointer<UInt32>} pdwLSVer 
+     * @param {Pointer<Integer>} pdwMSVer 
+     * @param {Pointer<Integer>} pdwLSVer 
      * @param {BOOL} bVersion 
      * @returns {HRESULT} 
      */
@@ -6517,8 +6522,8 @@ class WindowsProgramming {
     /**
      * 
      * @param {PWSTR} lpszFilename 
-     * @param {Pointer<UInt32>} pdwMSVer 
-     * @param {Pointer<UInt32>} pdwLSVer 
+     * @param {Pointer<Integer>} pdwMSVer 
+     * @param {Pointer<Integer>} pdwLSVer 
      * @param {BOOL} bVersion 
      * @returns {HRESULT} 
      */
@@ -6535,7 +6540,7 @@ class WindowsProgramming {
     /**
      * 
      * @param {Integer} dwReserved 
-     * @param {Pointer<UInt32>} lpdwReserved 
+     * @param {Pointer<Integer>} lpdwReserved 
      * @returns {BOOL} 
      */
     static IsNTAdmin(dwReserved, lpdwReserved) {
@@ -6600,7 +6605,7 @@ class WindowsProgramming {
      * @param {PSTR} pszInfFilename 
      * @param {PSTR} pszInstallSection 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} phInf 
+     * @param {Pointer<Pointer<Void>>} phInf 
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
@@ -6608,7 +6613,7 @@ class WindowsProgramming {
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
-        result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\OpenINFEngineA", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr*", phInf, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6620,7 +6625,7 @@ class WindowsProgramming {
      * @param {PWSTR} pszInfFilename 
      * @param {PWSTR} pszInstallSection 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Void>} phInf 
+     * @param {Pointer<Pointer<Void>>} phInf 
      * @param {Pointer<Void>} pvReserved 
      * @returns {HRESULT} 
      */
@@ -6628,7 +6633,7 @@ class WindowsProgramming {
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
         pszInstallSection := pszInstallSection is String ? StrPtr(pszInstallSection) : pszInstallSection
 
-        result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr", phInf, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\OpenINFEngineW", "ptr", pszInfFilename, "ptr", pszInstallSection, "uint", dwFlags, "ptr*", phInf, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -6643,7 +6648,7 @@ class WindowsProgramming {
      * @param {PSTR} pszTranslateKey 
      * @param {PSTR} pszBuffer 
      * @param {Integer} dwBufferSize 
-     * @param {Pointer<UInt32>} pdwRequiredSize 
+     * @param {Pointer<Integer>} pdwRequiredSize 
      * @returns {HRESULT} 
      */
     static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
@@ -6669,7 +6674,7 @@ class WindowsProgramming {
      * @param {PWSTR} pszTranslateKey 
      * @param {PWSTR} pszBuffer 
      * @param {Integer} dwBufferSize 
-     * @param {Pointer<UInt32>} pdwRequiredSize 
+     * @param {Pointer<Integer>} pdwRequiredSize 
      * @returns {HRESULT} 
      */
     static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
@@ -7246,7 +7251,7 @@ class WindowsProgramming {
      * Enables applications to detect bad extension objects and either block them from running or fix them.
      * @param {Pointer<Guid>} ObjectCLSID The GUID of a register class.
      * @param {BOOL} bShimIfNecessary This parameter is <b>TRUE</b> if a shim is needed; <b>FALSE</b> otherwise.
-     * @param {Pointer<UInt64>} pullFlags This parameter is filled with a 64-bit flag mask that can be used to turn on application modification flags in Explorer/IE. These are located in the application compatibility database.
+     * @param {Pointer<Integer>} pullFlags This parameter is filled with a 64-bit flag mask that can be used to turn on application modification flags in Explorer/IE. These are located in the application compatibility database.
      * @returns {BOOL} <b>FALSE</b> if the object should be blocked from instantiating; <b>TRUE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//appcompatapi/nf-appcompatapi-apphelpcheckshellobject
      */
@@ -7258,9 +7263,10 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation 
-     * @param {Pointer<UInt32>} lockdownState 
+     * @param {Pointer<Integer>} lockdownState 
      * @param {Integer} lockdownFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
      */
     static WldpGetLockdownPolicy(hostInformation, lockdownState, lockdownFlags) {
         result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", lockdownState, "uint", lockdownFlags, "int")
@@ -7277,6 +7283,7 @@ class WindowsProgramming {
      * @param {Pointer<BOOL>} isApproved 
      * @param {Integer} optionalFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
      */
     static WldpIsClassInApprovedList(classID, hostInformation, isApproved, optionalFlags) {
         result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "ptr", isApproved, "uint", optionalFlags, "int")
@@ -7291,9 +7298,9 @@ class WindowsProgramming {
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
      * @param {Pointer<UNICODE_STRING>} valueName 
-     * @param {Pointer<Int32>} valueType 
+     * @param {Pointer<Integer>} valueType 
      * @param {Pointer} valueAddress 
-     * @param {Pointer<UInt32>} valueSize 
+     * @param {Pointer<Integer>} valueSize 
      * @returns {HRESULT} 
      */
     static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueType, valueAddress, valueSize) {
@@ -7308,6 +7315,7 @@ class WindowsProgramming {
      * 
      * @param {HANDLE} fileHandle 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpsetdynamiccodetrust
      */
     static WldpSetDynamicCodeTrust(fileHandle) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
@@ -7323,6 +7331,7 @@ class WindowsProgramming {
      * 
      * @param {Pointer<BOOL>} isEnabled 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
      */
     static WldpIsDynamicCodePolicyEnabled(isEnabled) {
         result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "ptr", isEnabled, "int")
@@ -7338,6 +7347,7 @@ class WindowsProgramming {
      * @param {Pointer} baseImage 
      * @param {Integer} imageSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerydynamiccodetrust
      */
     static WldpQueryDynamicCodeTrust(fileHandle, baseImage, imageSize) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
@@ -7351,8 +7361,9 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Int32>} lockdownMode 
+     * @param {Pointer<Integer>} lockdownMode 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
      */
     static WldpQueryWindowsLockdownMode(lockdownMode) {
         result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", lockdownMode, "int")
@@ -7366,7 +7377,7 @@ class WindowsProgramming {
      * 
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
-     * @param {Pointer<UInt32>} returnLength 
+     * @param {Pointer<Integer>} returnLength 
      * @returns {HRESULT} 
      */
     static WldpQueryDeviceSecurityInformation(information, informationLength, returnLength) {
@@ -7379,7 +7390,7 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Int32>} LockdownRestriction 
+     * @param {Pointer<Integer>} LockdownRestriction 
      * @returns {HRESULT} 
      */
     static WldpQueryWindowsLockdownRestriction(LockdownRestriction) {
@@ -7505,8 +7516,9 @@ class WindowsProgramming {
      * @param {Integer} options 
      * @param {HANDLE} fileHandle 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Int32>} result 
+     * @param {Pointer<Integer>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
@@ -7523,11 +7535,12 @@ class WindowsProgramming {
      * 
      * @param {Pointer<Guid>} host 
      * @param {Integer} options 
-     * @param {Pointer<Byte>} buffer 
+     * @param {Pointer<Integer>} buffer 
      * @param {Integer} bufferSize 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Int32>} result 
+     * @param {Pointer<Integer>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
     static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo, result) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
@@ -7543,10 +7556,11 @@ class WindowsProgramming {
      * 
      * @param {Pointer<Guid>} host 
      * @param {Integer} options 
-     * @param {Pointer<IStream>} stream 
+     * @param {IStream} stream 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Int32>} result 
+     * @param {Pointer<Integer>} result 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
      */
     static WldpCanExecuteStream(host, options, stream, auditInfo, result) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
@@ -7565,7 +7579,7 @@ class WindowsProgramming {
      * @param {HANDLE} contentFileHandle 
      * @param {HANDLE} signatureFileHandle 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Int32>} result 
+     * @param {Pointer<Integer>} result 
      * @returns {HRESULT} 
      */
     static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo, result) {
@@ -7603,7 +7617,7 @@ class WindowsProgramming {
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
-     * @param {Pointer<UIntPtr>} requiredCount 
+     * @param {Pointer<Pointer>} requiredCount 
      * @param {PWSTR} result 
      * @returns {HRESULT} 
      */
@@ -7624,7 +7638,7 @@ class WindowsProgramming {
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
-     * @param {Pointer<UIntPtr>} requiredCount 
+     * @param {Pointer<Pointer>} requiredCount 
      * @param {PWSTR} result 
      * @returns {HRESULT} 
      */

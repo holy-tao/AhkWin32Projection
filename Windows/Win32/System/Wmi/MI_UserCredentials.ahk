@@ -16,7 +16,7 @@ class MI_UserCredentials extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     authenticationType {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class MI_UserCredentials extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     certificateThumbprint {
         get => NumGet(this, 8, "ptr")

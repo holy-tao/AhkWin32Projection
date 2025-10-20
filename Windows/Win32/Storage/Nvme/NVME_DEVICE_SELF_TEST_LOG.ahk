@@ -3,6 +3,8 @@
 #Include .\NVME_DEVICE_SELF_TEST_RESULT_DATA.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_device_self_test_log
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

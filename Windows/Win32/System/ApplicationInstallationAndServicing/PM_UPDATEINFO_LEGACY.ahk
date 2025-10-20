@@ -40,7 +40,7 @@ class PM_UPDATEINFO_LEGACY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbLicense {
         get => NumGet(this, 24, "ptr")

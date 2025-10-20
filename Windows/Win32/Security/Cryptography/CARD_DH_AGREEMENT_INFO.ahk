@@ -44,7 +44,7 @@ class CARD_DH_AGREEMENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPublicKey {
         get => NumGet(this, 16, "ptr")
@@ -52,7 +52,7 @@ class CARD_DH_AGREEMENT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbReserved {
         get => NumGet(this, 24, "ptr")

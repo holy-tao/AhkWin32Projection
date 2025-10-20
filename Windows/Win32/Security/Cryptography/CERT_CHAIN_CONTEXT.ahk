@@ -52,7 +52,7 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
 
     /**
      * An array of pointers to simple chain structures. <b>rgpChain</b>[0] is the end certificate simple chain, and <b>rgpChain</b>[<b>cChain</b>–1] is the final chain. If the end certificate is to be considered valid, the final chain must begin with a certificate contained in the root store or an otherwise trusted, self-signed certificate. If the original chain begins with a trusted certificate, there will be only a single simple chain in the array.
-     * @type {Pointer<CERT_SIMPLE_CHAIN>}
+     * @type {Pointer<Pointer<CERT_SIMPLE_CHAIN>>}
      */
     rgpChain {
         get => NumGet(this, 24, "ptr")
@@ -70,7 +70,7 @@ class CERT_CHAIN_CONTEXT extends Win32Struct
 
     /**
      * An array of pointers to CERT_CHAIN_CONTEXT structures. Returned when CERT_CHAIN_RETURN_LOWER_QUALITY_CONTEXTS is set in dwFlags.
-     * @type {Pointer<CERT_CHAIN_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CHAIN_CONTEXT>>}
      */
     rgpLowerQualityChainContext {
         get => NumGet(this, 40, "ptr")

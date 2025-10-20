@@ -24,7 +24,7 @@ class DHCP_CLIENT_INFO_PB_ARRAY extends Win32Struct
 
     /**
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_pb">DHCP_CLIENT_INFO_PB</a> structures that contain DHCPv4 client information.
-     * @type {Pointer<DHCP_CLIENT_INFO_PB>}
+     * @type {Pointer<Pointer<DHCP_CLIENT_INFO_PB>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

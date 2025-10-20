@@ -22,7 +22,7 @@ class D2D1_EFFECT_INPUT_DESCRIPTION extends Win32Struct
 
     /**
      * The effect whose input connection is being specified.
-     * @type {Pointer<ID2D1Effect>}
+     * @type {ID2D1Effect}
      */
     effect {
         get => NumGet(this, 0, "ptr")

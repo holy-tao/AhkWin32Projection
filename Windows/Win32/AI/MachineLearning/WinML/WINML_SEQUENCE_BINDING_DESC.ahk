@@ -40,7 +40,7 @@ class WINML_SEQUENCE_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pInts {
         get => NumGet(this, 8, "ptr")
@@ -48,7 +48,7 @@ class WINML_SEQUENCE_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pFloats {
         get => NumGet(this, 8, "ptr")
@@ -56,7 +56,7 @@ class WINML_SEQUENCE_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pDoubles {
         get => NumGet(this, 8, "ptr")

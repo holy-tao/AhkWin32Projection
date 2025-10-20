@@ -3,6 +3,8 @@
 #Include .\COORD.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/console/console-font-infoex
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

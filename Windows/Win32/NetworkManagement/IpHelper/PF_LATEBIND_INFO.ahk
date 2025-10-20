@@ -12,7 +12,7 @@ class PF_LATEBIND_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SrcAddr {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class PF_LATEBIND_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     DstAddr {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class PF_LATEBIND_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Mask {
         get => NumGet(this, 16, "ptr")

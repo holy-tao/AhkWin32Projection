@@ -12,7 +12,7 @@ class DBBINDEXT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pExtension {
         get => NumGet(this, 0, "ptr")

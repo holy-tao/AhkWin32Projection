@@ -57,7 +57,7 @@ class DOT11_MSSECURITY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pEapConnectionData {
         get => NumGet(this, 40, "ptr")

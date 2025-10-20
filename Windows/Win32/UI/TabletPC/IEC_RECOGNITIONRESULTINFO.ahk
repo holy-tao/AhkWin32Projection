@@ -38,7 +38,7 @@ class IEC_RECOGNITIONRESULTINFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionresult">IInkRecognitionResult</a> object that contains recognition results.
-     * @type {Pointer<IInkRecognitionResult>}
+     * @type {IInkRecognitionResult}
      */
     RecognitionResult {
         get => NumGet(this, 24, "ptr")

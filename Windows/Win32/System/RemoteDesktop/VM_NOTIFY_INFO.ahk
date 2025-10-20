@@ -20,7 +20,7 @@ class VM_NOTIFY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<VM_NOTIFY_ENTRY>}
+     * @type {Pointer<Pointer<VM_NOTIFY_ENTRY>>}
      */
     ppVmEntries {
         get => NumGet(this, 8, "ptr")

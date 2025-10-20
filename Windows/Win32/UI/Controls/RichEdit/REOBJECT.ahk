@@ -56,7 +56,7 @@ class REOBJECT extends Win32Struct
      * Type: <b>LPOLEOBJECT</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface for the object.
-     * @type {Pointer<IOleObject>}
+     * @type {IOleObject}
      */
     poleobj {
         get => NumGet(this, 16, "ptr")
@@ -67,7 +67,7 @@ class REOBJECT extends Win32Struct
      * Type: <b>LPSTORAGE</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface. This is the storage object associated with the object.
-     * @type {Pointer<IStorage>}
+     * @type {IStorage}
      */
     pstg {
         get => NumGet(this, 24, "ptr")
@@ -78,7 +78,7 @@ class REOBJECT extends Win32Struct
      * Type: <b>LPOLECLIENTSITE</b>
      * 
      * An instance of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface. This is the object's client site in the rich edit control. This address must have been obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/richole/nf-richole-iricheditole-getclientsite">GetClientSite</a> method.
-     * @type {Pointer<IOleClientSite>}
+     * @type {IOleClientSite}
      */
     polesite {
         get => NumGet(this, 32, "ptr")

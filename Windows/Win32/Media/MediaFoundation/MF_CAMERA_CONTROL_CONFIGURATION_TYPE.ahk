@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_camera_control_configuration_type
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

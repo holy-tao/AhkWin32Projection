@@ -39,7 +39,7 @@ class APPX_PACKAGE_SETTINGS extends Win32Struct
      * Type: <b><b>IUri</b>*</b>
      * 
      * The hash algorithm URI to use for the block map of the package.
-     * @type {Pointer<IUri>}
+     * @type {IUri}
      */
     hashMethod {
         get => NumGet(this, 8, "ptr")

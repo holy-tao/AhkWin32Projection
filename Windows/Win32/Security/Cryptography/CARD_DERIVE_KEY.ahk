@@ -52,7 +52,7 @@ class CARD_DERIVE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbDerivedKey {
         get => NumGet(this, 32, "ptr")

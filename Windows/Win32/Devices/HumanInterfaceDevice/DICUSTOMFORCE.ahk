@@ -36,7 +36,7 @@ class DICUSTOMFORCE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     rglForceData {
         get => NumGet(this, 16, "ptr")

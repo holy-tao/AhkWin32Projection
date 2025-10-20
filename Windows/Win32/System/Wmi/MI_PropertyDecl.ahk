@@ -33,7 +33,7 @@ class MI_PropertyDecl extends Win32Struct
 
     /**
      * Name of this property.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class MI_PropertyDecl extends Win32Struct
 
     /**
      * Qualifier set for this property.
-     * @type {Pointer<MI_Qualifier>}
+     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
     qualifiers {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class MI_PropertyDecl extends Win32Struct
 
     /**
      * Name of reference class or embedded instance class name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     className {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class MI_PropertyDecl extends Win32Struct
 
     /**
      * Ancestor class that first defined a property with this name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     origin {
         get => NumGet(this, 48, "ptr")
@@ -105,7 +105,7 @@ class MI_PropertyDecl extends Win32Struct
 
     /**
      * Ancestor class that last defined a property with this name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     propagator {
         get => NumGet(this, 56, "ptr")

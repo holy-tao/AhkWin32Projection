@@ -24,7 +24,7 @@ class SecPkgCredentials_Cert extends Win32Struct
 
     /**
      * The encoded certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     EncodedCert {
         get => NumGet(this, 8, "ptr")

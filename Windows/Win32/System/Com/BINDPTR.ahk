@@ -33,7 +33,7 @@ class BINDPTR extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> that binds the pointer.
-     * @type {Pointer<ITypeComp>}
+     * @type {ITypeComp}
      */
     lptcomp {
         get => NumGet(this, 0, "ptr")

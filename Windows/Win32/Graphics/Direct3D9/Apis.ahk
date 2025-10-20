@@ -3491,7 +3491,7 @@ class Direct3D9 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The value of this parameter should be D3D_SDK_VERSION. See Remarks.
-     * @returns {Pointer<IDirect3D9>} Type: <b><a href="/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a>*</b>
+     * @returns {IDirect3D9} Type: <b><a href="/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a>*</b>
      * 
      * If successful, this function returns a pointer to an <a href="/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3d9">IDirect3D9</a> interface; otherwise, a <b>NULL</b> pointer is returned.
      * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-direct3dcreate9
@@ -3506,6 +3506,7 @@ class Direct3D9 {
      * @param {Integer} col 
      * @param {PWSTR} wszName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_beginevent
      */
     static D3DPERF_BeginEvent(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3517,6 +3518,7 @@ class Direct3D9 {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_endevent
      */
     static D3DPERF_EndEvent() {
         result := DllCall("d3d9.dll\D3DPERF_EndEvent", "int")
@@ -3528,6 +3530,7 @@ class Direct3D9 {
      * @param {Integer} col 
      * @param {PWSTR} wszName 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setmarker
      */
     static D3DPERF_SetMarker(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3540,6 +3543,7 @@ class Direct3D9 {
      * @param {Integer} col 
      * @param {PWSTR} wszName 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setregion
      */
     static D3DPERF_SetRegion(col, wszName) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -3550,6 +3554,7 @@ class Direct3D9 {
     /**
      * 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_queryrepeatframe
      */
     static D3DPERF_QueryRepeatFrame() {
         result := DllCall("d3d9.dll\D3DPERF_QueryRepeatFrame", "int")
@@ -3560,6 +3565,7 @@ class Direct3D9 {
      * 
      * @param {Integer} dwOptions 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_setoptions
      */
     static D3DPERF_SetOptions(dwOptions) {
         DllCall("d3d9.dll\D3DPERF_SetOptions", "uint", dwOptions)
@@ -3568,6 +3574,7 @@ class Direct3D9 {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/direct3d9/d3d9/nf-d3d9-d3dperf_getstatus
      */
     static D3DPERF_GetStatus() {
         result := DllCall("d3d9.dll\D3DPERF_GetStatus", "uint")
@@ -3592,7 +3599,7 @@ class Direct3D9 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-direct3dcreate9ex
      */
     static Direct3DCreate9Ex(SDKVersion, param1) {
-        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr", param1, "int")
+        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", param1, "int")
         if(result != 0)
             throw OSError(result)
 

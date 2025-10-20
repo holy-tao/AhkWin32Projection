@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_x5c
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -20,7 +22,7 @@ class WEBAUTHN_X5C extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

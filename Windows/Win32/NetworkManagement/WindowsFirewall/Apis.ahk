@@ -205,7 +205,7 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationEnumerateAppContainerRules(newEnum) {
-        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr", newEnum, "int")
+        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr*", newEnum, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -236,10 +236,10 @@ class WindowsFirewall {
      * 
      * 
      * See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/ne-netfw-netiso_flag">NETISO_FLAG</a> for more information.
-     * @param {Pointer<UInt32>} pdwNumPublicAppCs Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwNumPublicAppCs Type: <b>DWORD*</b>
      * 
      * The number of app containers in the <b>ppPublicAppCs</b> member.
-     * @param {Pointer<INET_FIREWALL_APP_CONTAINER>} ppPublicAppCs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/netfw/ns-netfw-inet_firewall_app_container">PINET_FIREWALL_APP_CONTAINER</a>*</b>
+     * @param {Pointer<Pointer<INET_FIREWALL_APP_CONTAINER>>} ppPublicAppCs Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/netfw/ns-netfw-inet_firewall_app_container">PINET_FIREWALL_APP_CONTAINER</a>*</b>
      * 
      * The list of app container structure elements.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -251,16 +251,16 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs) {
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, "uint*", pdwNumPublicAppCs, "ptr", ppPublicAppCs, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, "uint*", pdwNumPublicAppCs, "ptr*", ppPublicAppCs, "uint")
         return result
     }
 
     /**
      * Is used to retrieve configuration information about one or more app containers.
-     * @param {Pointer<UInt32>} pdwNumPublicAppCs Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} pdwNumPublicAppCs Type: <b>DWORD*</b>
      * 
      * The number of app containers in the <b>appContainerSids</b> member.
-     * @param {Pointer<SID_AND_ATTRIBUTES>} appContainerSids Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">PSID_AND_ATTRIBUTES</a>*</b>
+     * @param {Pointer<Pointer<SID_AND_ATTRIBUTES>>} appContainerSids Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid_and_attributes">PSID_AND_ATTRIBUTES</a>*</b>
      * 
      * The security identifiers (SIDs) of app containers that are allowed to send loopback traffic. Used for debugging purposes.
      * @returns {Integer} Type: <b>DWORD</b>
@@ -270,7 +270,7 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs, appContainerSids) {
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", "uint*", pdwNumPublicAppCs, "ptr", appContainerSids, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", "uint*", pdwNumPublicAppCs, "ptr*", appContainerSids, "uint")
         return result
     }
 
@@ -298,7 +298,7 @@ class WindowsFirewall {
      * @param {PWSTR} wszServerName Type: <b>LPCWSTR</b>
      * 
      * Name (or IP address literal string) of the server to which a connection was attempted.
-     * @param {Pointer<Int32>} netIsoError Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-netiso_error_type">NETISO_ERROR_TYPE</a>*</b>
+     * @param {Pointer<Integer>} netIsoError Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/ne-networkisolation-netiso_error_type">NETISO_ERROR_TYPE</a>*</b>
      * 
      * The error that has occurred, indicating which network capability was missing and thus caused the failure.
      * @returns {Integer} Type: <b>DWORD</b>

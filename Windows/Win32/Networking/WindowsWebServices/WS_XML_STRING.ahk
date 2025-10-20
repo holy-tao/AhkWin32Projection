@@ -35,7 +35,7 @@ class WS_XML_STRING extends Win32Struct
 
     /**
      * The string encoded as UTF-8 bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     bytes {
         get => NumGet(this, 8, "ptr")

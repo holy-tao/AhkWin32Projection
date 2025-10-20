@@ -117,7 +117,7 @@ class DDBLTFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSZBufferDest {
         get => NumGet(this, 40, "ptr")
@@ -142,7 +142,7 @@ class DDBLTFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSZBufferSrc {
         get => NumGet(this, 56, "ptr")
@@ -194,7 +194,7 @@ class DDBLTFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSAlphaDest {
         get => NumGet(this, 80, "ptr")
@@ -219,7 +219,7 @@ class DDBLTFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSAlphaSrc {
         get => NumGet(this, 96, "ptr")
@@ -251,7 +251,7 @@ class DDBLTFX extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDirectDrawSurface>}
+     * @type {IDirectDrawSurface}
      */
     lpDDSPattern {
         get => NumGet(this, 104, "ptr")

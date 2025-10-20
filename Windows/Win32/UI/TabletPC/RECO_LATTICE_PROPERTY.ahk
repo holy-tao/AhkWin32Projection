@@ -86,7 +86,7 @@ class RECO_LATTICE_PROPERTY extends Win32Struct
 
     /**
      * Byte array that points to the property data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pPropertyValue {
         get => NumGet(this, 16, "ptr")

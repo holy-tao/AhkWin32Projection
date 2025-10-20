@@ -132,7 +132,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pInt64 {
         get => NumGet(this, 24, "ptr")
@@ -140,7 +140,7 @@ class CLAIM_SECURITY_ATTRIBUTE_V1 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     pUint64 {
         get => NumGet(this, 24, "ptr")

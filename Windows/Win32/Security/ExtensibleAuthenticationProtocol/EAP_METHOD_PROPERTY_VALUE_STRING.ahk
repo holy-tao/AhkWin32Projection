@@ -24,7 +24,7 @@ class EAP_METHOD_PROPERTY_VALUE_STRING extends Win32Struct
 
     /**
      * Pointer to a byte buffer than contains the data value of an EAP method property.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     value {
         get => NumGet(this, 8, "ptr")

@@ -174,7 +174,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
 
     /**
      * Pointer to an array of public Internet facing interface identifiers for which DOS protection should be enabled.
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     publicIFLuids {
         get => NumGet(this, 72, "ptr")
@@ -192,7 +192,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
 
     /**
      * Pointer to an array of internal network facing interface identifiers for which DOS protection should be enabled.
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     internalIFLuids {
         get => NumGet(this, 88, "ptr")

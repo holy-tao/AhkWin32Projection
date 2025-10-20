@@ -60,7 +60,7 @@ class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the strides for the sliding window dimensions of sizes `{ Height, Width }` when the *DimensionCount* is set to 2, or `{ Depth, Height, Width }` when set to 3.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 24, "ptr")
@@ -71,7 +71,7 @@ class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the dimensions of the sliding window in `{ Height, Width }`when *DimensionCount* is set to 2, or `{ Depth, Height, Width }` when set to 3.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     WindowSize {
         get => NumGet(this, 32, "ptr")
@@ -82,7 +82,7 @@ class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the number of padding elements to be applied to the beginning of each spatial dimension of the input tensor *InputTensor*. The values are in `{ Height, Width }` when *DimensionCount* is set to 2, or `{ Depth, Height, Width }` when set to 3.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 40, "ptr")
@@ -93,7 +93,7 @@ class DML_LP_POOLING_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the number of padding elements to be applied to the end of each spatial dimension of the input tensor *InputTensor*. The values are in `{ Height, Width }` when *DimensionCount* is set to 2, or `{ Depth, Height, Width }` when set to 3.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 48, "ptr")

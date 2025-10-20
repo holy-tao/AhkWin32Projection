@@ -28,7 +28,7 @@ class ContextProperty extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 16, "ptr")

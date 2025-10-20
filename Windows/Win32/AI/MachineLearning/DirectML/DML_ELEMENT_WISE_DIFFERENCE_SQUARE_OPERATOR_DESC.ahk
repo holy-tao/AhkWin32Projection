@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_difference_square_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

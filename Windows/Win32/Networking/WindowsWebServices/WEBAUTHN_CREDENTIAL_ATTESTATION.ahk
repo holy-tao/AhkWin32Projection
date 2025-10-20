@@ -3,6 +3,8 @@
 #Include .\WEBAUTHN_EXTENSIONS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_attestation
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -37,7 +39,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAuthenticatorData {
         get => NumGet(this, 24, "ptr")
@@ -53,7 +55,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAttestation {
         get => NumGet(this, 40, "ptr")
@@ -85,7 +87,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAttestationObject {
         get => NumGet(this, 72, "ptr")
@@ -101,7 +103,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCredentialId {
         get => NumGet(this, 88, "ptr")
@@ -168,7 +170,7 @@ class WEBAUTHN_CREDENTIAL_ATTESTATION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbUnsignedExtensionOutputs {
         get => NumGet(this, 136, "ptr")

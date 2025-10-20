@@ -12,7 +12,7 @@ class JET_UNICODEINDEX2 extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     szLocaleName {
         get => NumGet(this, 0, "ptr")

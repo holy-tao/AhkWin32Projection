@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/bcrypt/ns-bcrypt-bcryptbuffer
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

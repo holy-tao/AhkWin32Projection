@@ -28,7 +28,7 @@ class NCRYPT_CIPHER_PADDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbIV {
         get => NumGet(this, 8, "ptr")
@@ -44,7 +44,7 @@ class NCRYPT_CIPHER_PADDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbOtherInfo {
         get => NumGet(this, 24, "ptr")

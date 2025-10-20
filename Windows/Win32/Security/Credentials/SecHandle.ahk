@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sechandle
  * @namespace Windows.Win32.Security.Credentials
  * @version v4.0.30319
  */

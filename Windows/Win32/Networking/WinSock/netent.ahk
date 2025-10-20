@@ -20,7 +20,7 @@ class netent extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Pointer<Integer>>}
      */
     n_aliases {
         get => NumGet(this, 8, "ptr")

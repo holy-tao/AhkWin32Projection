@@ -30,7 +30,7 @@ class INTERNET_PROXY_INFO extends Win32Struct
 
     /**
      * Pointer to a string that contains the proxy server list.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszProxy {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class INTERNET_PROXY_INFO extends Win32Struct
 
     /**
      * Pointer to a string that contains the proxy bypass list.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     lpszProxyBypass {
         get => NumGet(this, 16, "ptr")

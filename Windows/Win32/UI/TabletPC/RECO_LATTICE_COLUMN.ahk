@@ -51,7 +51,7 @@ class RECO_LATTICE_COLUMN extends Win32Struct
 
     /**
      * An array of stroke indices in the order in which they were fed to the recognizer. For example, imagine you have two strokes, stroke one containing the word "back" and stroke two containing the word "door". The column containing "back" will have a strokes array containing one ULONG {0}. The column for "door" will have a strokes array containing two ULONG items {1,2}.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pStrokes {
         get => NumGet(this, 32, "ptr")

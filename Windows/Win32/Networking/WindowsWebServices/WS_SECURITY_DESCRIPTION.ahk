@@ -23,7 +23,7 @@ class WS_SECURITY_DESCRIPTION extends Win32Struct
      * The array of pointers to security bindings.  The set of security
      * bindings supplies determines the kind of security applied to the
      * channel.  Each security binding specifies one security token.
-     * @type {Pointer<WS_SECURITY_BINDING>}
+     * @type {Pointer<Pointer<WS_SECURITY_BINDING>>}
      */
     securityBindings {
         get => NumGet(this, 0, "ptr")

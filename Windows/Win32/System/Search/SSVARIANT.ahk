@@ -174,7 +174,7 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         prgbBinaryVal {
             get => NumGet(this, 8, "ptr")
@@ -215,7 +215,7 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         pUnknownData {
             get => NumGet(this, 24, "ptr")
@@ -240,7 +240,7 @@ class SSVARIANT extends Win32Struct
         }
     
         /**
-         * @type {Pointer<IUnknown>}
+         * @type {IUnknown}
          */
         pUnk {
             get => NumGet(this, 16, "ptr")

@@ -43,7 +43,7 @@ class DirectML {
 ;@region Methods
     /**
      * Creates a DirectML device for a given Direct3D 12 device.
-     * @param {Pointer<ID3D12Device>} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
+     * @param {ID3D12Device} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
      * 
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
      * 
@@ -54,7 +54,7 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @param {Pointer<Void>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
@@ -66,7 +66,7 @@ class DirectML {
      * @since windows10.0.10240
      */
     static DMLCreateDevice(d3d12Device, flags, riid, ppv) {
-        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -75,7 +75,7 @@ class DirectML {
 
     /**
      * Creates a DirectML device for a given Direct3D 12 device.
-     * @param {Pointer<ID3D12Device>} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
+     * @param {ID3D12Device} d3d12Device Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a>*</b>
      * 
      * A pointer to an [ID3D12Device](/windows/win32/api/d3d12/nn-d3d12-id3d12device) representing the Direct3D 12 device to create the DirectML device over. DirectML supports any D3D feature level, and Direct3D 12 devices created on any adapter, including WARP. However, not all features in DirectML may be available depending on the capabilities of the Direct3D 12 device. See [IDMLDevice::CheckFeatureSupport](/windows/win32/api/directml/nf-directml-idmldevice-checkfeaturesupport) for more info.
      * 
@@ -95,7 +95,7 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @param {Pointer<Void>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
      * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
@@ -108,7 +108,7 @@ class DirectML {
      * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice1
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid, ppv) {
-        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 

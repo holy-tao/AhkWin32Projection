@@ -84,7 +84,7 @@ class HTTP_CHANNEL_BIND_INFO extends Win32Struct
 
     /**
      * Pointer to a buffer holding an array of 1 or more service names.  Each service name is represented by either an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_a">HTTP_SERVICE_BINDING_A</a> structure or an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_w">HTTP_SERVICE_BINDING_W</a> structure, dependent upon whether the name is ASCII or Unicode.  Regardless of which structure type is used, the array is cast into a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/http/ns-http-http_service_binding_base">HTTP_SERVICE_BINDING_BASE</a> structure.
-     * @type {Pointer<HTTP_SERVICE_BINDING_BASE>}
+     * @type {Pointer<Pointer<HTTP_SERVICE_BINDING_BASE>>}
      */
     ServiceNames {
         get => NumGet(this, 8, "ptr")

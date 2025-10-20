@@ -8,6 +8,8 @@
 #Include .\sockaddr_gen.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ws2ipdef/ns-ws2ipdef-interface_info
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

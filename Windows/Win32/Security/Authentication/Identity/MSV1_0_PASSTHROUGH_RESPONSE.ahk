@@ -36,7 +36,7 @@ class MSV1_0_PASSTHROUGH_RESPONSE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ValidationData {
         get => NumGet(this, 16, "ptr")

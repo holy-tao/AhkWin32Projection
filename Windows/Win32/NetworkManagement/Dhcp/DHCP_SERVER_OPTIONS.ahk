@@ -15,7 +15,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * DHCP message type.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     MessageType {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Subnet mask.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     SubnetMask {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Requested IP address.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     RequestedAddress {
         get => NumGet(this, 16, "ptr")
@@ -42,7 +42,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Requested duration of the IP address lease, in seconds.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     RequestLeaseTime {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Overlay fields to apply to the request.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     OverlayFields {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * IP address of the default gateway.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     RouterAddress {
         get => NumGet(this, 40, "ptr")
@@ -69,7 +69,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * IP address of the DHCP Server.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Server {
         get => NumGet(this, 48, "ptr")
@@ -78,7 +78,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * List of requested parameters.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ParameterRequestList {
         get => NumGet(this, 56, "ptr")
@@ -132,7 +132,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Client hardware address.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ClientHardwareAddress {
         get => NumGet(this, 88, "ptr")
@@ -159,7 +159,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Vendor class, if applicable.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     VendorClass {
         get => NumGet(this, 112, "ptr")
@@ -195,7 +195,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Pointer to the DNS name.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     DNSName {
         get => NumGet(this, 136, "ptr")
@@ -231,7 +231,7 @@ class DHCP_SERVER_OPTIONS extends Win32Struct
 
     /**
      * Scope identifier for the IP address.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ScopeId {
         get => NumGet(this, 168, "ptr")

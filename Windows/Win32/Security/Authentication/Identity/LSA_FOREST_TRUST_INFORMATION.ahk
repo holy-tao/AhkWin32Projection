@@ -24,7 +24,7 @@ class LSA_FOREST_TRUST_INFORMATION extends Win32Struct
 
     /**
      * Pointer to a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_record">LSA_FOREST_TRUST_RECORD</a> structures, each of which contains one piece of forest trust information.
-     * @type {Pointer<LSA_FOREST_TRUST_RECORD>}
+     * @type {Pointer<Pointer<LSA_FOREST_TRUST_RECORD>>}
      */
     Entries {
         get => NumGet(this, 8, "ptr")

@@ -120,7 +120,7 @@ class WINHTTP_PROXY_SETTINGS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pdwDetectedInterfaceIp {
         get => NumGet(this, 96, "ptr")

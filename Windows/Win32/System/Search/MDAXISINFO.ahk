@@ -44,7 +44,7 @@ class MDAXISINFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<Pointer>}
      */
     rgcColumns {
         get => NumGet(this, 32, "ptr")

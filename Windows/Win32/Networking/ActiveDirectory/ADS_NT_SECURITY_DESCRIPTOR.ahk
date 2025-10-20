@@ -29,7 +29,7 @@ class ADS_NT_SECURITY_DESCRIPTOR extends Win32Struct
 
     /**
      * Pointer to the security descriptor, represented as a byte array.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpValue {
         get => NumGet(this, 8, "ptr")

@@ -3,6 +3,8 @@
 #Include .\D3D12_VIDEO_ENCODER_PROFILE_DESC.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_input_format
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

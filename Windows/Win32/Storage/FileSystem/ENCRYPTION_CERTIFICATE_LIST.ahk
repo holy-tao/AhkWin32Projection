@@ -25,7 +25,7 @@ class ENCRYPTION_CERTIFICATE_LIST extends Win32Struct
     /**
      * A pointer to the first 
      * 						<a href="https://docs.microsoft.com/windows/desktop/api/winefs/ns-winefs-encryption_certificate">ENCRYPTION_CERTIFICATE</a> structure in the list.
-     * @type {Pointer<ENCRYPTION_CERTIFICATE>}
+     * @type {Pointer<Pointer<ENCRYPTION_CERTIFICATE>>}
      */
     pUsers {
         get => NumGet(this, 8, "ptr")

@@ -4,6 +4,8 @@
 #Include .\WS_STRING.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_netpipe_url
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

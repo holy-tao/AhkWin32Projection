@@ -13,7 +13,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDocName {
         get => NumGet(this, 0, "ptr")
@@ -21,7 +21,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pOutputFile {
         get => NumGet(this, 8, "ptr")
@@ -29,7 +29,7 @@ class DOC_INFO_INTERNAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pDatatype {
         get => NumGet(this, 16, "ptr")

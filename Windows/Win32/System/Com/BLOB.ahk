@@ -36,7 +36,7 @@ class BLOB extends Win32Struct
 
     /**
      * Pointer to a block of data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pBlobData {
         get => NumGet(this, 8, "ptr")

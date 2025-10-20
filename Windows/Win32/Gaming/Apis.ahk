@@ -37,7 +37,7 @@ class Gaming {
 
     /**
      * Gets the expected number of exclusive CPU sets that are available to the app when in Game Mode.
-     * @param {Pointer<UInt32>} exclusiveCpuCount The expected number of exclusive CPU sets that are available to the app when in Game Mode.
+     * @param {Pointer<Integer>} exclusiveCpuCount The expected number of exclusive CPU sets that are available to the app when in Game Mode.
      * @returns {HRESULT} The result of the operation.
      * @see https://docs.microsoft.com/windows/win32/api//expandedresources/nf-expandedresources-getexpandedresourceexclusivecpucount
      */
@@ -333,7 +333,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {HSTRING} serviceConfigurationId 
      * @param {HSTRING} sessionTemplateName 
      * @param {HSTRING} sessionId 
@@ -357,7 +357,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {HSTRING} promptDisplayText 
      * @param {Pointer<HSTRING>} xuids 
      * @param {Pointer} xuidsCount 
@@ -381,7 +381,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
@@ -399,7 +399,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {HSTRING} targetUserXuid 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
@@ -417,7 +417,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
@@ -433,7 +433,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
      * @param {HSTRING} policy 
@@ -456,7 +456,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Integer} privilegeId 
      * @param {HSTRING} scope 
      * @param {HSTRING} policy 
@@ -501,7 +501,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {HSTRING} serviceConfigurationId 
      * @param {HSTRING} sessionTemplateName 
      * @param {HSTRING} sessionId 
@@ -542,7 +542,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Integer} titleId 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
@@ -572,7 +572,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
@@ -601,7 +601,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 
@@ -630,7 +630,7 @@ class Gaming {
 
     /**
      * 
-     * @param {Pointer<IInspectable>} user 
+     * @param {IInspectable} user 
      * @param {Pointer<GameUICompletionRoutine>} completionRoutine 
      * @param {Pointer<Void>} context 
      * @returns {HRESULT} 

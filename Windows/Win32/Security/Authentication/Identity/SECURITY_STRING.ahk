@@ -33,7 +33,7 @@ class SECURITY_STRING extends Win32Struct
 
     /**
      * Pointer to a wide-character string. Note that the strings returned by the various LSA functions might not be <b>null</b>-terminated.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Buffer {
         get => NumGet(this, 8, "ptr")

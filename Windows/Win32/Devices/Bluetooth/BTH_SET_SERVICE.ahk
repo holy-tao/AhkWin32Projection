@@ -62,7 +62,7 @@ class BTH_SET_SERVICE extends Win32Struct
     /**
      * Version of the SDP. Clients set this member to 
      * BTH_SDP_VERSION.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pSdpVersion {
         get => NumGet(this, 0, "ptr")

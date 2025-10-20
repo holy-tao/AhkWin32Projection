@@ -51,7 +51,7 @@ class VMR9AlphaBitmap extends Win32Struct
 
     /**
      * Pointer to the <b>IDirect3DSurface9</b> interface of a Direct3D surface that contains the bitmap. If this member contains a valid pointer, set the <b>hdc</b> member to <b>NULL</b>. The surface format must be <b>D3DFMT_X8R8G8B8</b> (32-bit RGB) or <b>D3DFMT_A8R8G8B8</b> (32-bit RGB with per-pixel alpha). The surface must be allocated from the <b>D3DPOOL_SYSTEMMEM</b> pool.
-     * @type {Pointer<IDirect3DSurface9>}
+     * @type {IDirect3DSurface9}
      */
     pDDS {
         get => NumGet(this, 16, "ptr")

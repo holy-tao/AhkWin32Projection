@@ -130,7 +130,7 @@ class CloudFilters {
     /**
      * Initiates a transfer of data into a placeholder file or folder.
      * @param {HANDLE} FileHandle The file handle of the placeholder.
-     * @param {Pointer<Int64>} TransferKey An opaque handle to the placeholder to be serviced.
+     * @param {Pointer<Integer>} TransferKey An opaque handle to the placeholder to be serviced.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfgettransferkey
      * @since windows10.0.16299
@@ -148,7 +148,7 @@ class CloudFilters {
     /**
      * Releases a transfer key obtained by CfGetTransferKey.
      * @param {HANDLE} FileHandle The file handle of the placeholder.
-     * @param {Pointer<Int64>} TransferKey An opaque handle to the placeholder.
+     * @param {Pointer<Integer>} TransferKey An opaque handle to the placeholder.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfreleasetransferkey
      * @since windows10.0.16299
@@ -196,7 +196,7 @@ class CloudFilters {
     /**
      * Queries a sync provider to get the status of the provider.
      * @param {CF_CONNECTION_KEY} ConnectionKey A connection key representing a communication channel with the sync filter.
-     * @param {Pointer<UInt32>} ProviderStatus The current status of the sync provider.
+     * @param {Pointer<Integer>} ProviderStatus The current status of the sync provider.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfquerysyncproviderstatus
      * @since windows10.0.16299
@@ -235,7 +235,7 @@ class CloudFilters {
      * @param {Pointer<CF_PLACEHOLDER_CREATE_INFO>} PlaceholderArray On successful creation, the <i>PlaceholderArray</i> contains the final USN value and a STATUS_OK message. On return, this array contains an HRESULT value describing whether the placeholder was created or not.
      * @param {Integer} PlaceholderCount The count of placeholders in the <i>PlaceholderArray</i>.
      * @param {Integer} CreateFlags Flags for configuring the  creation of a placeholder.
-     * @param {Pointer<UInt32>} EntriesProcessed The number of entries processed, including failed entries.
+     * @param {Pointer<Integer>} EntriesProcessed The number of entries processed, including failed entries.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfcreateplaceholders
      * @since windows10.0.16299
@@ -329,7 +329,7 @@ class CloudFilters {
      * @param {Pointer} FileIdentity A user mode buffer that contains the opaque file or directory information supplied by the caller. Optional if the caller is not dehydrating the file at the same time, or if the caller is converting a directory. Cannot exceed 4KB in size.
      * @param {Integer} FileIdentityLength Length, in bytes, of the <i>FileIdentity</i>.
      * @param {Integer} ConvertFlags Placeholder conversion flags.
-     * @param {Pointer<Int64>} ConvertUsn The final USN value after convert actions are performed.
+     * @param {Pointer<Integer>} ConvertUsn The final USN value after convert actions are performed.
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous <i>FileHandle</i>, <i>Overlapped</i> allows the platform to perform the <b>CfConvertToPlaceholder</b> call asynchronously. See the Remarks for more details.
      * 
      * If not specified, the platform will perform the API call synchronously, regardless of how the handle was created.
@@ -356,7 +356,7 @@ class CloudFilters {
      * @param {Pointer<CF_FILE_RANGE>} DehydrateRangeArray A range of an existing placeholder that will no longer be considered valid after the call to <b>CfUpdatePlaceholder</b>.
      * @param {Integer} DehydrateRangeCount The count of a series of discrete <i>DehydrateRangeArray</i> partitions of placeholder data.
      * @param {Integer} UpdateFlags Update flags for placeholders.
-     * @param {Pointer<Int64>} UpdateUsn On input, <i>UpdateUsn</i> instructs the platform to only perform the update if the file still has the same USN value as the one passed in.  This serves a similar purpose to <b>CF_UPDATE_FLAG_VERIFY_IN_SYNC</b> but also encompasses local metadata changes.  
+     * @param {Pointer<Integer>} UpdateUsn On input, <i>UpdateUsn</i> instructs the platform to only perform the update if the file still has the same USN value as the one passed in.  This serves a similar purpose to <b>CF_UPDATE_FLAG_VERIFY_IN_SYNC</b> but also encompasses local metadata changes.  
      * 
      * On return, <i>UpdateUsn</i> receives the final USN value after update actions were performed.
      * @param {Pointer<OVERLAPPED>} Overlapped When specified and combined with an asynchronous <i>FileHandle</i>, <i>Overlapped</i> allows the platform to perform the <b>CfUpdatePlaceholder</b> call asynchronously. See the Remarks for more details.
@@ -464,7 +464,7 @@ class CloudFilters {
      * @param {HANDLE} FileHandle A handle to the placeholder.	The caller must have WRITE_DATA or WRITE_DAC access to the placeholder.
      * @param {Integer} InSyncState The in-sync state. See <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ne-cfapi-cf_in_sync_state">CF_IN_SYNC_STATE</a> for more details.
      * @param {Integer} InSyncFlags The in-sync state flags. See <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ne-cfapi-cf_set_in_sync_flags">CF_SET_IN_SYNC_FLAGS</a> for more details.
-     * @param {Pointer<Int64>} InSyncUsn This parameter needs to be a NULL pointer.
+     * @param {Pointer<Integer>} InSyncUsn This parameter needs to be a NULL pointer.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfsetinsyncstate
      * @since windows10.0.16299
@@ -559,7 +559,7 @@ class CloudFilters {
      * @param {Integer} InfoClass Placeholder information. This can be set to either <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ns-cfapi-cf_placeholder_standard_info">CF_PLACEHOLDER_STANDARD_INFO</a> or <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/ns-cfapi-cf_placeholder_basic_info">CF_PLACEHOLDER_BASIC_INFO</a>.
      * @param {Pointer} InfoBuffer A pointer to a buffer that will receive information.
      * @param {Integer} InfoBufferLength The length of the <i>InfoBuffer</i>, in bytes.
-     * @param {Pointer<UInt32>} ReturnedLength The number of bytes returned in the <i>InfoBuffer</i>.
+     * @param {Pointer<Integer>} ReturnedLength The number of bytes returned in the <i>InfoBuffer</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfgetplaceholderinfo
      * @since windows10.0.16299
@@ -580,7 +580,7 @@ class CloudFilters {
      * @param {Integer} InfoClass Types of sync root information.
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the <i>InfoBuffer</i>.
-     * @param {Pointer<UInt32>} ReturnedLength Length, in bytes, of the returned sync root information. Refer to <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfregistersyncroot">CfRegisterSyncRoot</a> for details about the sync root information.
+     * @param {Pointer<Integer>} ReturnedLength Length, in bytes, of the returned sync root information. Refer to <a href="https://docs.microsoft.com/windows/desktop/api/cfapi/nf-cfapi-cfregistersyncroot">CfRegisterSyncRoot</a> for details about the sync root information.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfgetsyncrootinfobypath
      * @since windows10.0.16299
@@ -601,7 +601,7 @@ class CloudFilters {
      * @param {Integer} InfoClass Types of sync root information.
      * @param {Pointer<Void>} InfoBuffer A pointer to a buffer that will receive the sync root information.
      * @param {Integer} InfoBufferLength Length, in bytes, of the <i>InfoBuffer</i>.
-     * @param {Pointer<UInt32>} ReturnedLength The number of bytes returned in the <i>InfoBuffer</i>.
+     * @param {Pointer<Integer>} ReturnedLength The number of bytes returned in the <i>InfoBuffer</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfgetsyncrootinfobyhandle
      * @since windows10.0.16299
@@ -624,7 +624,7 @@ class CloudFilters {
      * @param {Integer} Length Length of the range of data.
      * @param {Pointer} InfoBuffer Pointer to a buffer to receive the data.
      * @param {Integer} InfoBufferLength Length, in bytes, of <i>InfoBuffer</i>.
-     * @param {Pointer<UInt32>} ReturnedLength The length of the returned range of placeholder data in the <i>InfoBuffer</i>.
+     * @param {Pointer<Integer>} ReturnedLength The length of the returned range of placeholder data in the <i>InfoBuffer</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//cfapi/nf-cfapi-cfgetplaceholderrangeinfo
      * @since windows10.0.16299
@@ -649,8 +649,9 @@ class CloudFilters {
      * @param {Integer} RangeLength 
      * @param {Pointer} InfoBuffer 
      * @param {Integer} InfoBufferSize 
-     * @param {Pointer<UInt32>} InfoBufferWritten 
+     * @param {Pointer<Integer>} InfoBufferWritten 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfgetplaceholderrangeinfoforhydration
      */
     static CfGetPlaceholderRangeInfoForHydration(ConnectionKey, TransferKey, FileId, InfoClass, StartingOffset, RangeLength, InfoBuffer, InfoBufferSize, InfoBufferWritten) {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey
@@ -691,6 +692,7 @@ class CloudFilters {
      * @param {Integer} ProviderProgressCompleted 
      * @param {Integer} TargetSessionId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/cfapi/nf-cfapi-cfreportproviderprogress2
      */
     static CfReportProviderProgress2(ConnectionKey, TransferKey, RequestKey, ProviderProgressTotal, ProviderProgressCompleted, TargetSessionId) {
         ConnectionKey := ConnectionKey is Win32Handle ? NumGet(ConnectionKey, "ptr") : ConnectionKey

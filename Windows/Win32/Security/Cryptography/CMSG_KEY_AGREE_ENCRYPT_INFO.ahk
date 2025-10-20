@@ -120,7 +120,7 @@ class CMSG_KEY_AGREE_ENCRYPT_INFO extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cmsg_key_agree_key_encrypt_info">CMSG_KEY_AGREE_KEY_ENCRYPT_INFO</a> structures that contain the encrypted key for each recipient.
-     * @type {Pointer<CMSG_KEY_AGREE_KEY_ENCRYPT_INFO>}
+     * @type {Pointer<Pointer<CMSG_KEY_AGREE_KEY_ENCRYPT_INFO>>}
      */
     rgpKeyAgreeKeyEncryptInfo {
         get => NumGet(this, 112, "ptr")

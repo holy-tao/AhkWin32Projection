@@ -20,7 +20,7 @@ class DYNAMIC_RENDERER_CACHED_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IDynamicRenderer>}
+     * @type {IDynamicRenderer}
      */
     dynamicRenderer {
         get => NumGet(this, 8, "ptr")

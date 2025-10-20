@@ -37,7 +37,7 @@ class USER_INFO_1020 extends Win32Struct
      * 
      * 
      * Each bit in the string represents a unique hour in the week, in Greenwich Mean Time (GMT). The first bit (bit 0, word 0) is Sunday, 0:00 to 0:59; the second bit (bit 1, word 0) is Sunday, 1:00 to 1:59; and so on. Note that bit 0 in word 0 represents Sunday from 0:00 to 0:59 only if you are in the GMT time zone. In all other cases you must adjust the bits according to your time zone offset (for example, GMT minus 8 hours for Pacific Standard Time).
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     usri1020_logon_hours {
         get => NumGet(this, 8, "ptr")

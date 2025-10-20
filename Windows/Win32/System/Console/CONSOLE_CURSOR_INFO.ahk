@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/console/console-cursor-info-str
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

@@ -40,7 +40,7 @@ class MS_ADDINFO_DETACHEDSIG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignatureObject {
         get => NumGet(this, 24, "ptr")

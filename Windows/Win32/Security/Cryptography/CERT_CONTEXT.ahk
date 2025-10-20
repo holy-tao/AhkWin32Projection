@@ -32,7 +32,7 @@ class CERT_CONTEXT extends Win32Struct
 
     /**
      * A pointer to a buffer that contains the encoded certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCertEncoded {
         get => NumGet(this, 8, "ptr")

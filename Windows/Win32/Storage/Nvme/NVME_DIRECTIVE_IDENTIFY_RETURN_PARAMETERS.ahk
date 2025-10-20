@@ -3,6 +3,8 @@
 #Include .\NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_directive_identify_return_parameters
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

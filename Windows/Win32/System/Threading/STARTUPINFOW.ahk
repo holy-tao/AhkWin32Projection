@@ -189,7 +189,7 @@ class STARTUPINFOW extends Win32Struct
 
     /**
      * Reserved for use by the C Run-time; must be NULL.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpReserved2 {
         get => NumGet(this, 72, "ptr")

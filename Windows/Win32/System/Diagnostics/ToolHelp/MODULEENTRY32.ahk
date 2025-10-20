@@ -70,7 +70,7 @@ class MODULEENTRY32 extends Win32Struct
 
     /**
      * The base address of the module in the context of the owning process.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     modBaseAddr {
         get => NumGet(this, 24, "ptr")

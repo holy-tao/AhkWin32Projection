@@ -34,7 +34,7 @@ class EFS_CERTIFICATE_BLOB extends Win32Struct
     /**
      * The binary certificate. The  
      *       <b>dwCertEncodingType</b> member specifies the format for this certificate.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

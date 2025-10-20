@@ -343,7 +343,7 @@ class ProcessSnapshotting {
     /**
      * Returns the current position of a walk marker.
      * @param {HPSSWALK} WalkMarkerHandle A  handle to the walk marker.
-     * @param {Pointer<UIntPtr>} Position The walk marker position that this function returns.
+     * @param {Pointer<Pointer>} Position The walk marker position that this function returns.
      * @returns {Integer} This function returns <b>ERROR_SUCCESS</b> on success.
      * 
      * All error codes are defined in winerror.h. Use <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> with the <b>FORMAT_MESSAGE_FROM_SYSTEM</b> flag to get a message for an error code.

@@ -69,7 +69,7 @@ class DML_RESAMPLE_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(ScaleCount) **const [FLOAT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * The scales to apply when resampling the input, where scales > 1 scale up the image and scales < 1 scale down the image for that dimension. Note that the scales don't need to be exactly `OutputSize / InputSize`. If the input after scaling is larger than the output bound, then we crop it to the output size. On the other hand, if the input after scaling is smaller than the output bound, the output edges are clamped.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     Scales {
         get => NumGet(this, 24, "ptr")

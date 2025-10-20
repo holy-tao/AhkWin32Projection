@@ -20,7 +20,7 @@ class EFS_RPC_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

@@ -696,7 +696,7 @@ class SystemInformation {
     /**
      * 
      * @param {Pointer<BOOL>} Enabled 
-     * @param {Pointer<UInt32>} Flags 
+     * @param {Pointer<Integer>} Flags 
      * @returns {BOOL} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
@@ -769,8 +769,8 @@ class SystemInformation {
 
     /**
      * Determines whether the system is applying periodic time adjustments to its time-of-day clock, and obtains the value and period of any such adjustments.
-     * @param {Pointer<UInt32>} lpTimeAdjustment A pointer to a variable that the function sets to the number of <i>lpTimeIncrement</i>100-nanosecond units added to the time-of-day clock for every  period of time which actually passes as counted by the system. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
-     * @param {Pointer<UInt32>} lpTimeIncrement A pointer to a variable that the function sets to the interval in 100-nanosecond units at which the system will add <i>lpTimeAdjustment</i> to the time-of-day clock. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
+     * @param {Pointer<Integer>} lpTimeAdjustment A pointer to a variable that the function sets to the number of <i>lpTimeIncrement</i>100-nanosecond units added to the time-of-day clock for every  period of time which actually passes as counted by the system. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
+     * @param {Pointer<Integer>} lpTimeIncrement A pointer to a variable that the function sets to the interval in 100-nanosecond units at which the system will add <i>lpTimeAdjustment</i> to the time-of-day clock. This value only has meaning if <i>lpTimeAdjustmentDisabled</i> is <b>FALSE</b>.
      * @param {Pointer<BOOL>} lpTimeAdjustmentDisabled A pointer to a variable that the function sets to indicate whether periodic time adjustment is in effect. 
      * 
      * 
@@ -797,8 +797,8 @@ class SystemInformation {
 
     /**
      * Determines whether the system is applying periodic, programmed time adjustments to its time-of-day clock, and obtains the value and period of any such adjustments.
-     * @param {Pointer<UInt64>} lpTimeAdjustment Returns the adjusted clock update frequency.
-     * @param {Pointer<UInt64>} lpTimeIncrement Returns the clock update frequency.
+     * @param {Pointer<Integer>} lpTimeAdjustment Returns the adjusted clock update frequency.
+     * @param {Pointer<Integer>} lpTimeIncrement Returns the clock update frequency.
      * @param {Pointer<BOOL>} lpTimeAdjustmentDisabled Returns an indicator which specifies whether the time adjustment is enabled.
      * 
      * A value of <b>TRUE</b> indicates that periodic adjustment is disabled. In this case, the system may attempt to keep the time-of-day clock in sync using its own internal mechanisms. This may cause time-of-day to periodically jump to the "correct time."
@@ -1086,7 +1086,7 @@ class SystemInformation {
      * 
      * 
      * The length of the name may be greater than MAX_COMPUTERNAME_LENGTH characters because DNS allows longer names. To ensure that this buffer is large enough, set this parameter to <b>NULL</b> and use the required buffer size returned in the <i>lpnSize</i> parameter.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating <b>null</b> character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating <b>null</b> character. 
      * 
      * 
      * 
@@ -1235,7 +1235,7 @@ class SystemInformation {
      * 
      * 
      * The length of the name may be greater than MAX_COMPUTERNAME_LENGTH characters because DNS allows longer names. To ensure that this buffer is large enough, set this parameter to <b>NULL</b> and use the required buffer size returned in the <i>lpnSize</i> parameter.
-     * @param {Pointer<UInt32>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating <b>null</b> character. 
+     * @param {Pointer<Integer>} nSize On input, specifies the size of the buffer, in <b>TCHARs</b>. On output, receives the number of <b>TCHARs</b> copied to the destination buffer, not including the terminating <b>null</b> character. 
      * 
      * 
      * 
@@ -1393,7 +1393,7 @@ class SystemInformation {
     /**
      * Retrieves information about logical processors and related hardware.
      * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structures. If the function fails, the contents of this buffer are undefined.
-     * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
+     * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/desktop/api/winnt/ns-winnt-system_logical_processor_information">SYSTEM_LOGICAL_PROCESSOR_INFORMATION</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
@@ -1488,7 +1488,7 @@ class SystemInformation {
      * </tr>
      * </table>
      * @param {Pointer} Buffer A pointer to a buffer that receives  an array of <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structures. If the function fails, the contents of this buffer are undefined.
-     * @param {Pointer<UInt32>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
+     * @param {Pointer<Integer>} ReturnedLength On input, specifies the length of the buffer pointed to by  <i>Buffer</i>, in bytes. If the buffer is large enough to contain all of the data, this function succeeds and <i>ReturnedLength</i> is set to the number of bytes returned. If the buffer is not large enough to contain all of the data, the function fails, <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, and <i>ReturnedLength</i> is set to the buffer length required to contain all of the data. If the function fails with an error other than ERROR_INSUFFICIENT_BUFFER, the value of <i>ReturnedLength</i> is undefined.
      * @returns {BOOL} If the function succeeds, the return value is TRUE and at least one <a href="/windows/win32/api/winnt/ns-winnt-system_logical_processor_information_ex">SYSTEM_LOGICAL_PROCESSOR_INFORMATION_EX</a> structure is written to the output buffer.
      * 
      * If the function fails, the return value is FALSE. To get extended error information, call 
@@ -1555,7 +1555,7 @@ class SystemInformation {
      * @param {Integer} dwOSMinorVersion The minor version number of the operating system. The minimum value is 0.
      * @param {Integer} dwSpMajorVersion The major version number of the operating system service pack. The minimum value is 0.
      * @param {Integer} dwSpMinorVersion The minor version number of the operating system service pack. The minimum value is 0.
-     * @param {Pointer<UInt32>} pdwReturnedProductType The product type. This parameter cannot be <b>NULL</b>. If the specified operating system  is less than the current operating system, this information is mapped to the types supported by the specified operating system. If the specified operating system is greater than the highest supported operating system, this information is mapped to the types supported by the current operating system.
+     * @param {Pointer<Integer>} pdwReturnedProductType The product type. This parameter cannot be <b>NULL</b>. If the specified operating system  is less than the current operating system, this information is mapped to the types supported by the specified operating system. If the specified operating system is greater than the highest supported operating system, this information is mapped to the types supported by the current operating system.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. This function fails if one of the input parameters is invalid.
@@ -1591,7 +1591,7 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<UInt32>} Flags 
+     * @param {Pointer<Integer>} Flags 
      * @returns {BOOL} 
      */
     static GetOsSafeBootMode(Flags) {
@@ -1660,7 +1660,7 @@ class SystemInformation {
      * 
      * @param {PWSTR} Hostname 
      * @param {PWSTR} ComputerName 
-     * @param {Pointer<UInt32>} nSize 
+     * @param {Pointer<Integer>} nSize 
      * @returns {BOOL} 
      */
     static DnsHostnameToComputerNameExW(Hostname, ComputerName, nSize) {
@@ -1673,7 +1673,7 @@ class SystemInformation {
 
     /**
      * Retrieves the amount of RAM that is physically installed on the computer.
-     * @param {Pointer<UInt64>} TotalMemoryInKilobytes A pointer to a 
+     * @param {Pointer<Integer>} TotalMemoryInKilobytes A pointer to a 
      * variable that receives the amount of physically installed RAM, in kilobytes.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b> and sets the 
      *                    <i>TotalMemoryInKilobytes</i> parameter to a nonzero value.
@@ -1798,7 +1798,7 @@ class SystemInformation {
      * Retrieves the cycle time each processor in the specified processor group spent executing deferred procedure calls (DPCs) and interrupt service routines (ISRs) since the processor became active.
      * @param {Integer} Group The number of the processor group for which to retrieve the cycle time.
      * @param {Pointer} Buffer A pointer to a buffer to receive a SYSTEM_PROCESSOR_CYCLE_TIME_INFORMATION structure for each processor in the group. On output, the DWORD64 <b>CycleTime</b> member of this structure is set to the cycle time for one processor.
-     * @param {Pointer<UInt32>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
+     * @param {Pointer<Integer>} ReturnedLength The size of the buffer, in bytes. When the function returns, this parameter contains the number of bytes written to <i>Buffer</i>. If the buffer is too small for the data, the function fails with ERROR_INSUFFICIENT_BUFFER and sets the <i>ReturnedLength</i> parameter to the required buffer size.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If the function fails, the return value is zero. To get extended error information, use <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. 
@@ -1829,7 +1829,7 @@ class SystemInformation {
 
     /**
      * Retrieves the best estimate of the diagonal size of the built-in screen, in inches.
-     * @param {Pointer<Double>} sizeInInches The best estimate of the diagonal size of the built-in screen, in inches.
+     * @param {Pointer<Float>} sizeInInches The best estimate of the diagonal size of the built-in screen, in inches.
      * @returns {HRESULT} The result code indicating if the function succeeded or failed.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getintegrateddisplaysize
      * @since windows10.0.10240
@@ -1934,7 +1934,7 @@ class SystemInformation {
      * Allows an application to query the available CPU Sets on the system, and their current state.
      * @param {Pointer} Information A pointer to a [**SYSTEM\_CPU\_SET\_INFORMATION**](/windows/desktop/api/winnt/ns-winnt-system_cpu_set_information) structure that receives the CPU Set data. Pass NULL with a buffer length of 0 to determine the required buffer size.
      * @param {Integer} BufferLength The length, in bytes, of the output buffer passed as the Information argument.
-     * @param {Pointer<UInt32>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
+     * @param {Pointer<Integer>} ReturnedLength The length, in bytes, of the valid data in the output buffer if the buffer is large enough, or the required size of the output buffer. If no CPU Sets exist, this value will be 0.
      * @param {HANDLE} Process An optional handle to a process. This process is used to determine the value of the **AllocatedToTargetProcess** flag in the SYSTEM\_CPU\_SET\_INFORMATION structure. If a CPU Set is allocated to the specified process, the flag is set. Otherwise, it is clear. This handle must have the PROCESS\_QUERY\_LIMITED\_INFORMATION access right. The value returned by [**GetCurrentProcess**](/windows/win32/api/processthreadsapi/nf-processthreadsapi-getcurrentprocess) may also be specified here.
      * @returns {BOOL} If the API succeeds it returns TRUE. If it fails, the error reason is available through **GetLastError**. If the Information buffer was NULL or not large enough, the error code ERROR\_INSUFFICIENT\_BUFFER is returned. This API cannot fail when passed valid parameters and a buffer that is large enough to hold all of the return data.
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getsystemcpusetinformation
@@ -2073,7 +2073,7 @@ class SystemInformation {
      * @param {Integer} OSMinorVersion 
      * @param {Integer} SpMajorVersion 
      * @param {Integer} SpMinorVersion 
-     * @param {Pointer<UInt32>} ReturnedProductType 
+     * @param {Pointer<Integer>} ReturnedProductType 
      * @returns {BOOLEAN} 
      */
     static RtlGetProductInfo(OSMajorVersion, OSMinorVersion, SpMajorVersion, SpMinorVersion, ReturnedProductType) {
@@ -2105,10 +2105,11 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<UInt64>} pullUAPInfo 
-     * @param {Pointer<UInt32>} pulDeviceFamily 
-     * @param {Pointer<UInt32>} pulDeviceForm 
+     * @param {Pointer<Integer>} pullUAPInfo 
+     * @param {Pointer<Integer>} pulDeviceFamily 
+     * @param {Pointer<Integer>} pulDeviceForm 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/rtlgetdevicefamilyinfoenum
      */
     static RtlGetDeviceFamilyInfoEnum(pullUAPInfo, pulDeviceFamily, pulDeviceForm) {
         DllCall("ntdll.dll\RtlGetDeviceFamilyInfoEnum", "uint*", pullUAPInfo, "uint*", pulDeviceFamily, "uint*", pulDeviceForm)
@@ -2116,11 +2117,12 @@ class SystemInformation {
 
     /**
      * 
-     * @param {Pointer<UInt32>} pulDeviceFamilyBufferSize 
-     * @param {Pointer<UInt32>} pulDeviceFormBufferSize 
+     * @param {Pointer<Integer>} pulDeviceFamilyBufferSize 
+     * @param {Pointer<Integer>} pulDeviceFormBufferSize 
      * @param {Pointer} DeviceFamily 
      * @param {Pointer} DeviceForm 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winnt/nf-winnt-rtlconvertdevicefamilyinfotostring
      */
     static RtlConvertDeviceFamilyInfoToString(pulDeviceFamilyBufferSize, pulDeviceFormBufferSize, DeviceFamily, DeviceForm) {
         result := DllCall("ntdll.dll\RtlConvertDeviceFamilyInfoToString", "uint*", pulDeviceFamilyBufferSize, "uint*", pulDeviceFormBufferSize, "ptr", DeviceFamily, "ptr", DeviceForm, "uint")
@@ -2236,7 +2238,7 @@ class SystemInformation {
 
     /**
      * Retrieves the firmware type of the local computer.
-     * @param {Pointer<Int32>} FirmwareType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-firmware_type">FIRMWARE_TYPE</a> enumeration.
+     * @param {Pointer<Integer>} FirmwareType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-firmware_type">FIRMWARE_TYPE</a> enumeration.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.

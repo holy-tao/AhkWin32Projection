@@ -24,7 +24,7 @@ class SecPkgContext_SupportedSignatures extends Win32Struct
 
     /**
      * An array of values that specify supported algorithms. These values are in the following format.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pSignatureAndHashAlgorithms {
         get => NumGet(this, 8, "ptr")

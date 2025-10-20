@@ -644,8 +644,8 @@ class BiometricFramework {
     /**
      * Retrieves information about installed biometric service providers. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @param {Pointer<WINBIO_BSP_SCHEMA>} BspSchemaArray Address of a variable that receives a pointer  to an array of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bsp-schema">WINBIO_BSP_SCHEMA</a> structures that contain information about each of the available service providers.  If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
-     * @param {Pointer<UIntPtr>} BspCount Pointer to a value that specifies the number of structures pointed to by the <i>BspSchemaArray</i> parameter.
+     * @param {Pointer<Pointer<WINBIO_BSP_SCHEMA>>} BspSchemaArray Address of a variable that receives a pointer  to an array of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bsp-schema">WINBIO_BSP_SCHEMA</a> structures that contain information about each of the available service providers.  If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
+     * @param {Pointer<Pointer>} BspCount Pointer to a value that specifies the number of structures pointed to by the <i>BspSchemaArray</i> parameter.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -691,7 +691,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumServiceProviders(Factor, BspSchemaArray, BspCount) {
-        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr", BspSchemaArray, "ptr*", BspCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumServiceProviders", "uint", Factor, "ptr*", BspSchemaArray, "ptr*", BspCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -701,8 +701,8 @@ class BiometricFramework {
     /**
      * Enumerates all attached biometric units that match the input type.
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated. Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @param {Pointer<WINBIO_UNIT_SCHEMA>} UnitSchemaArray Address of a variable that receives a pointer to an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-unit-schema">WINBIO_UNIT_SCHEMA</a> structures that contain information about each enumerated biometric unit. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
-     * @param {Pointer<UIntPtr>} UnitCount Pointer to a value that specifies the number of structures pointed to by the <i>UnitSchemaArray</i> parameter.
+     * @param {Pointer<Pointer<WINBIO_UNIT_SCHEMA>>} UnitSchemaArray Address of a variable that receives a pointer to an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-unit-schema">WINBIO_UNIT_SCHEMA</a> structures that contain information about each enumerated biometric unit. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
+     * @param {Pointer<Pointer>} UnitCount Pointer to a value that specifies the number of structures pointed to by the <i>UnitSchemaArray</i> parameter.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -759,7 +759,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumBiometricUnits(Factor, UnitSchemaArray, UnitCount) {
-        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr", UnitSchemaArray, "ptr*", UnitCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumBiometricUnits", "uint", Factor, "ptr*", UnitSchemaArray, "ptr*", UnitCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -769,8 +769,8 @@ class BiometricFramework {
     /**
      * Enumerates all registered databases that match a specified type.
      * @param {Integer} Factor A bitmask of WINBIO_BIOMETRIC_TYPE flags that specifies the biometric unit types to be enumerated.  Only <b>WINBIO_TYPE_FINGERPRINT</b> is currently supported.
-     * @param {Pointer<WINBIO_STORAGE_SCHEMA>} StorageSchemaArray Address of a variable that receives a pointer to  an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-storage-schema">WINBIO_STORAGE_SCHEMA</a> structures that contain information about each database. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
-     * @param {Pointer<UIntPtr>} StorageCount Pointer to a value that specifies the number of structures pointed to by the <i>StorageSchemaArray</i> parameter.
+     * @param {Pointer<Pointer<WINBIO_STORAGE_SCHEMA>>} StorageSchemaArray Address of a variable that receives a pointer to  an array of   <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-storage-schema">WINBIO_STORAGE_SCHEMA</a> structures that contain information about each database. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
+     * @param {Pointer<Pointer>} StorageCount Pointer to a value that specifies the number of structures pointed to by the <i>StorageSchemaArray</i> parameter.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -816,7 +816,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumDatabases(Factor, StorageSchemaArray, StorageCount) {
-        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr", StorageSchemaArray, "ptr*", StorageCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumDatabases", "uint", Factor, "ptr*", StorageSchemaArray, "ptr*", StorageCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -837,7 +837,7 @@ class BiometricFramework {
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
      * If you specify <b>TRUE</b> to open the framework session asynchronously, the first asynchronous completion notice received will be for opening the framework. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, operation results are delivered to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure in the callback function specified by the <i>CallbackRoutine</i> parameter. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, operation results are delivered to the <b>WINBIO_ASYNC_RESULT</b> structure pointed to by the <b>LPARAM</b> field of the window message.
-     * @param {Pointer<UInt32>} FrameworkHandle If the function does not succeed, this parameter will be <b>NULL</b>.
+     * @param {Pointer<Integer>} FrameworkHandle If the function does not succeed, this parameter will be <b>NULL</b>.
      * 
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
@@ -1281,7 +1281,7 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} UnitArray Pointer to an array of biometric unit identifiers to be included in the session. You can call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenumbiometricunits">WinBioEnumBiometricUnits</a> to enumerate the biometric units. Set this value to <b>NULL</b> if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
+     * @param {Pointer<Integer>} UnitArray Pointer to an array of biometric unit identifiers to be included in the session. You can call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenumbiometricunits">WinBioEnumBiometricUnits</a> to enumerate the biometric units. Set this value to <b>NULL</b> if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
      * @param {Pointer} UnitCount A value that specifies the number of elements in the array pointed to by the <i>UnitArray</i> parameter. Set this value to zero if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
      * @param {Pointer<Guid>} DatabaseId A value that specifies the database(s) to be used by the session. If the <i>PoolType</i> parameter is <b>WINBIO_POOL_PRIVATE</b>, you must specify the GUID of an installed database.  If the <i>PoolType</i> parameter is not <b>WINBIO_POOL_PRIVATE</b>, you can specify one of the following common values.
      * 
@@ -1321,7 +1321,7 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} SessionHandle Pointer to the new session handle. If the function does not succeed, the handle is set to zero.
+     * @param {Pointer<Integer>} SessionHandle Pointer to the new session handle. If the function does not succeed, the handle is set to zero.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -1490,7 +1490,7 @@ class BiometricFramework {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} UnitArray Pointer to an array of biometric unit identifiers to be included in the session. You can call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenumbiometricunits">WinBioEnumBiometricUnits</a> to enumerate the biometric units. Set this value to <b>NULL</b> if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
+     * @param {Pointer<Integer>} UnitArray Pointer to an array of biometric unit identifiers to be included in the session. You can call <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioenumbiometricunits">WinBioEnumBiometricUnits</a> to enumerate the biometric units. Set this value to <b>NULL</b> if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
      * @param {Pointer} UnitCount A value that specifies the number of elements in the array pointed to by the <i>UnitArray</i> parameter. Set this value to zero if the <i>PoolType</i> parameter is <b>WINBIO_POOL_SYSTEM</b>.
      * @param {Pointer<Guid>} DatabaseId A value that specifies the database(s) to be used by the session. If the <i>PoolType</i> parameter is <b>WINBIO_POOL_PRIVATE</b>, you must specify the GUID of an installed database.  If the <i>PoolType</i> parameter is not <b>WINBIO_POOL_PRIVATE</b>, you can specify one of the following common values.
      * 
@@ -1542,7 +1542,7 @@ class BiometricFramework {
      * If you specify <b>FALSE</b> to open the framework session synchronously, success or failure is returned to the caller directly by this function in the  <b>HRESULT</b> return value. If the session is opened successfully, the first  asynchronous completion event your application receives will be for an asynchronous operation requested after the framework has been open.
      * 
      * If you specify <b>TRUE</b> to open the framework session asynchronously, the first asynchronous completion notice received will be for opening the framework. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_CALLBACK</b>, operation results are delivered to the <a href="https://docs.microsoft.com/windows/desktop/api/winbio/ns-winbio-winbio_async_result">WINBIO_ASYNC_RESULT</a> structure in the callback function specified by the <i>CallbackRoutine</i> parameter. If the <i>NotificationMethod</i> parameter is set to <b>WINBIO_ASYNC_NOTIFY_MESSAGE</b>, operation results are delivered to the <b>WINBIO_ASYNC_RESULT</b> structure pointed to by the LPARAM field of the window message.
-     * @param {Pointer<UInt32>} SessionHandle If the function does not succeed, this parameter will be <b>NULL</b>.
+     * @param {Pointer<Integer>} SessionHandle If the function does not succeed, this parameter will be <b>NULL</b>.
      * 
      * If the session is opened synchronously and successfully, this parameter will contain a pointer to the  session handle.
      * 
@@ -1712,9 +1712,9 @@ class BiometricFramework {
      * <li>WINBIO_ANSI_381_POS_LH_FOUR_FINGERS</li>
      * <li>WINBIO_SUBTYPE_ANY</li>
      * </ul>
-     * @param {Pointer<UInt32>} UnitId A pointer to a  <b>WINBIO_UNIT_ID</b> value that specifies the biometric unit that performed the verification.
-     * @param {Pointer<Byte>} Match Pointer to a Boolean value that specifies whether the captured sample matched the user identity specified by the <i>Identity</i> parameter.
-     * @param {Pointer<UInt32>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information about the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
+     * @param {Pointer<Integer>} UnitId A pointer to a  <b>WINBIO_UNIT_ID</b> value that specifies the biometric unit that performed the verification.
+     * @param {Pointer<Integer>} Match Pointer to a Boolean value that specifies whether the captured sample matched the user identity specified by the <i>Identity</i> parameter.
+     * @param {Pointer<Integer>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information about the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
      * 
      * <ul>
      * <li>WINBIO_FP_TOO_HIGH</li>
@@ -1875,10 +1875,10 @@ class BiometricFramework {
     /**
      * Captures a biometric sample and determines whether it matches an existing biometric template. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @param {Pointer<UInt32>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit used to perform the identification.
+     * @param {Pointer<Integer>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit used to perform the identification.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that receives the GUID or SID of the user providing the biometric sample.
-     * @param {Pointer<Byte>} SubFactor Pointer to a <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that receives the sub-factor associated with the biometric sample. See the Remarks section for more details.
-     * @param {Pointer<UInt32>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information about the failure, if any, to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
+     * @param {Pointer<Integer>} SubFactor Pointer to a <b>WINBIO_BIOMETRIC_SUBTYPE</b> value that receives the sub-factor associated with the biometric sample. See the Remarks section for more details.
+     * @param {Pointer<Integer>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information about the failure, if any, to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
      * 
      * <ul>
      * <li>WINBIO_FP_TOO_HIGH</li>
@@ -2081,7 +2081,7 @@ class BiometricFramework {
     /**
      * Retrieves the ID number of a biometric unit selected interactively by a user.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @param {Pointer<UInt32>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit.
+     * @param {Pointer<Integer>} UnitId A pointer to a <b>ULONG</b> value that specifies the biometric unit.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -2320,7 +2320,7 @@ class BiometricFramework {
     /**
      * Captures a biometric sample and adds it to a template. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
-     * @param {Pointer<UInt32>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
+     * @param {Pointer<Integer>} RejectDetail A pointer to a <b>ULONG</b> value that contains additional information the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
      * 
      * <ul>
      * <li>WINBIO_FP_TOO_HIGH</li>
@@ -2480,7 +2480,7 @@ class BiometricFramework {
      * Finalizes a pending biometric template and saves it to the database associated with the biometric unit used for enrollment. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that receives the identifier (GUID or SID) of the template.
-     * @param {Pointer<Byte>} IsNewTemplate Pointer to a Boolean value that specifies whether the template being added to the database is new.
+     * @param {Pointer<Integer>} IsNewTemplate Pointer to a Boolean value that specifies whether the template being added to the database is new.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -2615,8 +2615,8 @@ class BiometricFramework {
      * @param {Integer} SessionHandle A <b>WINBIO_SESSION_HANDLE</b> value that identifies an open biometric session.  Open a synchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioopensession">WinBioOpenSession</a>. Open an asynchronous session handle by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbioasyncopensession">WinBioAsyncOpenSession</a>.
      * @param {Integer} UnitId A <b>WINBIO_UNIT_ID</b> value that specifies the biometric unit.
      * @param {Pointer<WINBIO_IDENTITY>} Identity Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the GUID or SID of the template from which the sub-factors are to be retrieved.
-     * @param {Pointer<Byte>} SubFactorArray Address of a variable that receives a pointer to an array of sub-factors. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
-     * @param {Pointer<UIntPtr>} SubFactorCount Pointer to a value that specifies the number of elements in the array pointed to by the <i>SubFactorArray</i> parameter. If the function does not succeed, this value is set to zero.
+     * @param {Pointer<Pointer<Integer>>} SubFactorArray Address of a variable that receives a pointer to an array of sub-factors. If the function does not succeed, the pointer is set to <b>NULL</b>. If the function succeeds, you must pass the pointer to <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release memory allocated internally for the array.
+     * @param {Pointer<Pointer>} SubFactorCount Pointer to a value that specifies the number of elements in the array pointed to by the <i>SubFactorArray</i> parameter. If the function does not succeed, this value is set to zero.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -2684,7 +2684,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioEnumEnrollments(SessionHandle, UnitId, Identity, SubFactorArray, SubFactorCount) {
-        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "char*", SubFactorArray, "ptr*", SubFactorCount, "int")
+        result := DllCall("winbio.dll\WinBioEnumEnrollments", "uint", SessionHandle, "uint", UnitId, "ptr", Identity, "ptr*", SubFactorArray, "ptr*", SubFactorCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2930,10 +2930,10 @@ class BiometricFramework {
      * * **WINBIO_DATA_FLAG_PROCESSED**
      *    
      * Return the sample after it is ready to be used for the purpose specified by the Purpose parameter.
-     * @param {Pointer<UInt32>} UnitId A pointer to a <b>WINBIO_UNIT_ID</b> value that contains the ID of  the biometric unit that generated the sample.
-     * @param {Pointer<WINBIO_BIR>} Sample Address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure that contains the sample. When you have finished using the structure, you must pass the pointer to  <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the memory allocated for the sample.
-     * @param {Pointer<UIntPtr>} SampleSize A pointer to a <b>SIZE_T</b> value that contains the size, in bytes,  of the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure returned in the <i>Sample</i> parameter.
-     * @param {Pointer<UInt32>} RejectDetail A pointer to a <b>WINBIO_REJECT_DETAIL</b> value that contains additional information about the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
+     * @param {Pointer<Integer>} UnitId A pointer to a <b>WINBIO_UNIT_ID</b> value that contains the ID of  the biometric unit that generated the sample.
+     * @param {Pointer<Pointer<WINBIO_BIR>>} Sample Address of a variable that receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure that contains the sample. When you have finished using the structure, you must pass the pointer to  <a href="https://docs.microsoft.com/windows/desktop/api/winbio/nf-winbio-winbiofree">WinBioFree</a> to release the memory allocated for the sample.
+     * @param {Pointer<Pointer>} SampleSize A pointer to a <b>SIZE_T</b> value that contains the size, in bytes,  of the <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-bir">WINBIO_BIR</a> structure returned in the <i>Sample</i> parameter.
+     * @param {Pointer<Integer>} RejectDetail A pointer to a <b>WINBIO_REJECT_DETAIL</b> value that contains additional information about the failure to capture a biometric sample. If the capture succeeded, this parameter is set to zero. The following values are defined for fingerprint capture:
      * 
      * <ul>
      * <li><b>WINBIO_FP_TOO_HIGH</b></li>
@@ -3025,7 +3025,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioCaptureSample(SessionHandle, Purpose, Flags, UnitId, Sample, SampleSize, RejectDetail) {
-        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, "uint*", UnitId, "ptr", Sample, "ptr*", SampleSize, "uint*", RejectDetail, "int")
+        result := DllCall("winbio.dll\WinBioCaptureSample", "uint", SessionHandle, "char", Purpose, "char", Flags, "uint*", UnitId, "ptr*", Sample, "ptr*", SampleSize, "uint*", RejectDetail, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3339,8 +3339,8 @@ class BiometricFramework {
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
      * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
+     * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
+     * @param {Pointer<Integer>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3425,8 +3425,8 @@ class BiometricFramework {
      * @param {Pointer} SendBufferSize Size, in bytes, of the buffer specified by the <i>SendBuffer</i> parameter.
      * @param {Pointer} ReceiveBuffer Address of the buffer that receives information sent by the adapter specified by the <i>Component</i> parameter. The format and content of the buffer is vendor-defined.
      * @param {Pointer} ReceiveBufferSize Size, in bytes, of the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<UIntPtr>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
-     * @param {Pointer<UInt32>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
+     * @param {Pointer<Pointer>} ReceiveDataSize Pointer to a <b>SIZE_T</b> value that contains the size, in bytes, of the data written to the buffer specified by the <i>ReceiveBuffer</i> parameter.
+     * @param {Pointer<Integer>} OperationStatus Pointer to an integer that contains a vendor-defined status code that specifies the outcome of the control operation.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3601,8 +3601,8 @@ class BiometricFramework {
      * 
      * If you specify any other value for the <i>PropertyId</i> parameter,  the <i>Identity</i> parameter  must be <b>NULL</b>.
      * @param {Integer} SubFactor Reserved. This must be <b>WINBIO_SUBTYPE_NO_INFORMATION</b>.
-     * @param {Pointer<Void>} PropertyBuffer Address of a pointer to a buffer that receives the property value. For information about the contents of this buffer for different properties, see the descriptions of the property values for the <i>PropertyId</i> parameter.
-     * @param {Pointer<UIntPtr>} PropertyBufferSize Pointer to a variable that receives the size, in bytes, of the buffer pointed to by the <i>PropertyBuffer</i> parameter.
+     * @param {Pointer<Pointer<Void>>} PropertyBuffer Address of a pointer to a buffer that receives the property value. For information about the contents of this buffer for different properties, see the descriptions of the property values for the <i>PropertyId</i> parameter.
+     * @param {Pointer<Pointer>} PropertyBufferSize Pointer to a variable that receives the size, in bytes, of the buffer pointed to by the <i>PropertyBuffer</i> parameter.
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -3703,7 +3703,7 @@ class BiometricFramework {
      * @since windows6.1
      */
     static WinBioGetProperty(SessionHandle, PropertyType, PropertyId, UnitId, Identity, SubFactor, PropertyBuffer, PropertyBufferSize) {
-        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr", PropertyBuffer, "ptr*", PropertyBufferSize, "int")
+        result := DllCall("winbio.dll\WinBioGetProperty", "uint", SessionHandle, "uint", PropertyType, "uint", PropertyId, "uint", UnitId, "ptr", Identity, "char", SubFactor, "ptr*", PropertyBuffer, "ptr*", PropertyBufferSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4043,7 +4043,7 @@ class BiometricFramework {
      * Retrieves a value that specifies whether credentials have been set for the specified user. Starting with Windows 10, build 1607, this function is available to use with a mobile image.
      * @param {WINBIO_IDENTITY} Identity A  <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-identity">WINBIO_IDENTITY</a> structure that contains the SID of the user account for which the credential is being queried.
      * @param {Integer} Type 
-     * @param {Pointer<Int32>} CredentialState 
+     * @param {Pointer<Integer>} CredentialState 
      * @returns {HRESULT} If the function succeeds, it returns S_OK. If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
@@ -4209,7 +4209,7 @@ class BiometricFramework {
      * <pre class="syntax" xml:space="preserve"><code>WINBIO_IDENTITY identity = {};
      * identity.Type = WINBIO_ID_TYPE_WILDCARD;
      * </code></pre>
-     * @param {Pointer<UInt32>} EnrolledFactors A set of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-biometric-type-constants">WINBIO_BIOMETRIC_TYPE</a> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.
+     * @param {Pointer<Integer>} EnrolledFactors A set of <a href="https://docs.microsoft.com/windows/desktop/SecBioMet/winbio-biometric-type-constants">WINBIO_BIOMETRIC_TYPE</a> flags that indicate the biometric enrollments that the specified user has on the computer. A value of 0 indicates that the user has no biometric enrollments.
      * 
      * These enrollments represent system pool enrollments only, such as enrollments that you can use to authenticate a user for sign-in, unlock, and so on.          This value does not include private pool enrollments.
      * 
@@ -4257,8 +4257,8 @@ class BiometricFramework {
 
     /**
      * Retrieves a value that specifies whether the Windows Biometric Framework is currently enabled.
-     * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether the Windows Biometric Framework is currently enabled.
-     * @param {Pointer<UInt32>} Source 
+     * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether the Windows Biometric Framework is currently enabled.
+     * @param {Pointer<Integer>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiogetenabledsetting
      * @since windows6.1
@@ -4269,8 +4269,8 @@ class BiometricFramework {
 
     /**
      * Retrieves a value that indicates whether users can log on by using biometric information.
-     * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric logons are enabled.
-     * @param {Pointer<UInt32>} Source 
+     * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether biometric logons are enabled.
+     * @param {Pointer<Integer>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiogetlogonsetting
      * @since windows6.1
@@ -4281,8 +4281,8 @@ class BiometricFramework {
 
     /**
      * Retrieves a value that specifies whether users can log on to a domain by using biometric information.
-     * @param {Pointer<Byte>} Value Pointer to a Boolean value that specifies whether biometric domain logons are enabled.
-     * @param {Pointer<UInt32>} Source 
+     * @param {Pointer<Integer>} Value Pointer to a Boolean value that specifies whether biometric domain logons are enabled.
+     * @param {Pointer<Integer>} Source 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//winbio/nf-winbio-winbiogetdomainlogonsetting
      * @since windows6.1
@@ -4293,7 +4293,7 @@ class BiometricFramework {
 
     /**
      * 
-     * @param {Pointer<Byte>} Value 
+     * @param {Pointer<Integer>} Value 
      * @returns {HRESULT} 
      */
     static WinBioIsESSCapable(Value) {

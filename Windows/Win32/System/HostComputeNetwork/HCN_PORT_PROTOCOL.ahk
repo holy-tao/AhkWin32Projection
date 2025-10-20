@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HCN_PORT_PROTOCOL
  * @namespace Windows.Win32.System.HostComputeNetwork
  * @version v4.0.30319
  */

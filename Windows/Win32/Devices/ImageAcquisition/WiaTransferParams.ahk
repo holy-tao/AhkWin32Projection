@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/wia/-wia-wiatransferparams
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

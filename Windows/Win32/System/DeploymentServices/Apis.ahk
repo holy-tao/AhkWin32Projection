@@ -1091,7 +1091,7 @@ class DeploymentServices {
     /**
      * Returns the image enumeration flag for the current image handle.
      * @param {HANDLE} Handle A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<UInt32>} pdwFlags A pointer to a value that receives the enumeration flag value.
+     * @param {Pointer<Integer>} pdwFlags A pointer to a value that receives the enumeration flag value.
      * 
      * 
      * This parameter can have the following values
@@ -1401,7 +1401,7 @@ class DeploymentServices {
     /**
      * 
      * @param {HANDLE} hIfh 
-     * @param {Pointer<Int32>} pImageType 
+     * @param {Pointer<Integer>} pImageType 
      * @returns {HRESULT} 
      */
     static WdsCliGetImageType(hIfh, pImageType) {
@@ -1417,14 +1417,14 @@ class DeploymentServices {
     /**
      * 
      * @param {HANDLE} hIfh 
-     * @param {Pointer<PWSTR>} pppwszFiles 
-     * @param {Pointer<UInt32>} pdwCount 
+     * @param {Pointer<Pointer<PWSTR>>} pppwszFiles 
+     * @param {Pointer<Integer>} pdwCount 
      * @returns {HRESULT} 
      */
     static WdsCliGetImageFiles(hIfh, pppwszFiles, pdwCount) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr", pppwszFiles, "uint*", pdwCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, "ptr*", pppwszFiles, "uint*", pdwCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1453,10 +1453,10 @@ class DeploymentServices {
     /**
      * Returns an array of languages supported by the current image.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<SByte>} pppszValues A pointer to a pointer to an array of null-terminated string values. Each element in the 
+     * @param {Pointer<Pointer<Pointer<Integer>>>} pppszValues A pointer to a pointer to an array of null-terminated string values. Each element in the 
      *       array contains a language of the current 
      *       image.
-     * @param {Pointer<UInt32>} pdwNumValues Pointer to a value that contains the number of languages in the <i>pppszValues</i> parameter.
+     * @param {Pointer<Integer>} pdwNumValues Pointer to a value that contains the number of languages in the <i>pppszValues</i> parameter.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligetimagelanguages
      * @since windows6.0.6000
@@ -1464,7 +1464,7 @@ class DeploymentServices {
     static WdsCliGetImageLanguages(hIfh, pppszValues, pdwNumValues) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "char*", pppszValues, "uint*", pdwNumValues, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, "ptr*", pppszValues, "uint*", pdwNumValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1510,7 +1510,7 @@ class DeploymentServices {
     /**
      * Returns the index within the Windows Imaging Format(WIM) file for the current image.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<UInt32>} pdwValue A pointer to a 
+     * @param {Pointer<Integer>} pdwValue A pointer to a 
      *       value that contains the image index for the current image WIM file.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligetimageindex
@@ -1529,7 +1529,7 @@ class DeploymentServices {
     /**
      * Returns the processor architecture for the current image.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<UInt32>} pdwValue Pointer to a value that describes the processor architecture of the current image.
+     * @param {Pointer<Integer>} pdwValue Pointer to a value that describes the processor architecture of the current image.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligetimagearchitecture
      * @since windows6.0.6000
@@ -1547,7 +1547,7 @@ class DeploymentServices {
     /**
      * Returns the last-modification time of the current image.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<SYSTEMTIME>} ppSysTimeValue A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the last-modified time of the current image.
+     * @param {Pointer<Pointer<SYSTEMTIME>>} ppSysTimeValue A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that contains the last-modified time of the current image.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligetimagelastmodifiedtime
      * @since windows6.0.6000
@@ -1555,7 +1555,7 @@ class DeploymentServices {
     static WdsCliGetImageLastModifiedTime(hIfh, ppSysTimeValue) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr", ppSysTimeValue, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr*", ppSysTimeValue, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1565,7 +1565,7 @@ class DeploymentServices {
     /**
      * Returns the size of the current image.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current image.
+     * @param {Pointer<Integer>} pullValue A pointer to a value that contains the size of the current image.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligetimagesize
      * @since windows6.0.6000
@@ -1658,7 +1658,7 @@ class DeploymentServices {
     /**
      * Returns the size of the current file transfer.
      * @param {HANDLE} hIfh A find handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindfirstimage">WdsCliFindFirstImage</a> function. The image referenced by the find handle can be advanced using the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclifindnextimage">WdsCliFindNextImage</a> function.
-     * @param {Pointer<UInt64>} pullValue A pointer to a value that contains the size of the current transfer.
+     * @param {Pointer<Integer>} pullValue A pointer to a value that contains the size of the current transfer.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscligettransfersize
      * @since windows6.0.6000
@@ -1806,10 +1806,10 @@ class DeploymentServices {
      * This function obtains from a WDS image, the driver packages (INF files) that can be used on this computer.
      * @param {HANDLE} hImage A handle to a WDS image.
      * @param {Pointer<PWSTR>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
-     * @param {Pointer<PWSTR>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
+     * @param {Pointer<Pointer<PWSTR>>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
      * 
      * <div class="code"></div>
-     * @param {Pointer<UInt32>} pulCount The number of driver packages returned by <i>pppwszDriverPackages</i>.
+     * @param {Pointer<Integer>} pulCount The number of driver packages returned by <i>pppwszDriverPackages</i>.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscliobtaindriverpackages
      * @since windows6.1
@@ -1817,7 +1817,7 @@ class DeploymentServices {
     static WdsCliObtainDriverPackages(hImage, ppwszServerName, pppwszDriverPackages, pulCount) {
         hImage := hImage is Win32Handle ? NumGet(hImage, "ptr") : hImage
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, "uint*", pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1829,8 +1829,8 @@ class DeploymentServices {
      * @param {HANDLE} hSession A handle to a session with the WDS server. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdsclicreatesession">WdsCliCreateSession</a> function.
      * @param {PWSTR} pwszMachineInfo A pointer to a string containing WDS driver query XML which can be generated by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wdsclientapi/nf-wdsclientapi-wdscligetdriverqueryxml">WdsCliGetDriverQueryXml</a> function.
      * @param {Pointer<PWSTR>} ppwszServerName A pointer to a pointer to a string value that receives the IP address of the server hosting the driver packages.
-     * @param {Pointer<PWSTR>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
-     * @param {Pointer<UInt32>} pulCount The number of driver packages returned by pppwszDriverPackages.
+     * @param {Pointer<Pointer<PWSTR>>} pppwszDriverPackages An array of string values that are the full paths for the driver packages (INF files.) The Internet Protocol (IP) address, rather than a computer name, is returned as part of the path.  For example, a string value <b>\\172.31.224.245\REMINST\Stores\Drivers\driver.inf</b> in the array gives the full path to driver.inf.
+     * @param {Pointer<Integer>} pulCount The number of driver packages returned by pppwszDriverPackages.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsclientapi/nf-wdsclientapi-wdscliobtaindriverpackagesex
      * @since windows8.0
@@ -1839,7 +1839,7 @@ class DeploymentServices {
         pwszMachineInfo := pwszMachineInfo is String ? StrPtr(pwszMachineInfo) : pwszMachineInfo
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr", pppwszDriverPackages, "uint*", pulCount, "int")
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, "uint*", pulCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1936,7 +1936,7 @@ class DeploymentServices {
      * Returns the index of the specified provider in the list of registered providers.
      * @param {PWSTR} pszProviderName Friendly name for the provider from the call to the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderregister">PxeProviderRegister</a> function.
-     * @param {Pointer<UInt32>} puIndex Address of a <b>ULONG</b> that will receive the index of the provider.
+     * @param {Pointer<Integer>} puIndex Address of a <b>ULONG</b> that will receive the index of the provider.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxeproviderqueryindex
      * @since windowsserver2008
@@ -1968,7 +1968,7 @@ class DeploymentServices {
      * Enumerates registered providers.
      * @param {HANDLE} hEnum <b>HANDLE</b> returned by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderenumfirst">PxeProviderEnumFirst</a> function.
-     * @param {Pointer<PXE_PROVIDER>} ppProvider Address of a <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_provider">PXE_PROVIDER</a> structure with the 
+     * @param {Pointer<Pointer<PXE_PROVIDER>>} ppProvider Address of a <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_provider">PXE_PROVIDER</a> structure with the 
      *       <b>uSizeOfStruct</b> member filled in with the size of the structure. On return this 
      *       structure is filled in with provider information. This structure can be freed with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxeproviderfreeinfo">PxeProviderFreeInfo</a> function.
@@ -1979,7 +1979,7 @@ class DeploymentServices {
     static PxeProviderEnumNext(hEnum, ppProvider) {
         hEnum := hEnum is Win32Handle ? NumGet(hEnum, "ptr") : hEnum
 
-        result := DllCall("WDSPXE.dll\PxeProviderEnumNext", "ptr", hEnum, "ptr", ppProvider, "uint")
+        result := DllCall("WDSPXE.dll\PxeProviderEnumNext", "ptr", hEnum, "ptr*", ppProvider, "uint")
         return result
     }
 
@@ -2271,7 +2271,7 @@ class DeploymentServices {
      * @param {HANDLE} hProvider 
      * @param {Integer} Severity 
      * @param {PWSTR} pszFormat 
-     * @param {Pointer<SByte>} Params 
+     * @param {Pointer<Integer>} Params 
      * @returns {Integer} 
      */
     static PxeTraceV(hProvider, Severity, pszFormat, Params) {
@@ -2394,7 +2394,7 @@ class DeploymentServices {
      * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
-     * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
+     * @param {Pointer<Integer>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
      *       the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxedhcpinitialize
@@ -2413,7 +2413,7 @@ class DeploymentServices {
      * @param {Pointer} pReply Pointer to a reply packet allocated with 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply Allocated length of the packet pointed to by the <i>pReply</i> parameter.
-     * @param {Pointer<UInt32>} pcbReplyUsed Address of a <b>ULONG</b> that on successful completion will receive the length of 
+     * @param {Pointer<Integer>} pcbReplyUsed Address of a <b>ULONG</b> that on successful completion will receive the length of 
      *       the packet pointed to by the <i>pReply</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxedhcpv6initialize
@@ -2429,7 +2429,7 @@ class DeploymentServices {
      * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
-     * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
+     * @param {Pointer<Integer>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
      *       the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} bOption DHCP option to add to the packet.
      * @param {Integer} bOptionLen Length of the option value pointed to by the <i>pValue</i> parameter. This parameter is 
@@ -2450,7 +2450,7 @@ class DeploymentServices {
      * @param {Pointer} pReply Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply The total size in bytes allocated for the buffer that is pointed to by <i>pReply</i>.
-     * @param {Pointer<UInt32>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
+     * @param {Pointer<Integer>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
      * @param {Integer} wOptionType DHCPv6 option to add to the packet.
      * @param {Integer} cbOption Length of the option value pointed to by the <i>pOption</i> parameter.
      * @param {Pointer} pOption Address of the buffer that contains the DHCPv6 option value.
@@ -2468,7 +2468,7 @@ class DeploymentServices {
      * @param {Pointer} pReplyPacket Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} uMaxReplyPacketLen Allocated length of the packet pointed to by the <i>pReplyPacket</i> parameter.
-     * @param {Pointer<UInt32>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
+     * @param {Pointer<Integer>} puReplyPacketLen Address of a <b>ULONG</b> that on successful completion will receive the length of 
      *       the packet pointed to by the <i>pReplyPacket</i> parameter.
      * @param {Integer} uBufferLen Length of the option value pointed to by the <i>pBuffer</i> parameter.
      * @param {Pointer} pBuffer Address of the buffer that contains the DHCP option value.
@@ -2486,7 +2486,7 @@ class DeploymentServices {
      * @param {Pointer} pReply Pointer to a reply packet allocated with the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/nf-wdspxe-pxepacketallocate">PxePacketAllocate</a> function.
      * @param {Integer} cbReply Allocated length of the packet pointed to by the <i>pReply</i> parameter.
-     * @param {Pointer<UInt32>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
+     * @param {Pointer<Integer>} pcbReplyUsed On entry, this is the number of bytes of the buffer pointed to by <i>pReply</i> that are currently used.  On success of the function, this is updated to the number of bytes used after appending the option.
      * @param {Integer} cbBuffer Length of the option value pointed to by the <i>pBuffer</i> parameter.
      * @param {Pointer} pBuffer Address of the buffer that contains the DHCPv6 option value. The buffer must contain the encoded option code and option size.
      * 
@@ -2601,8 +2601,8 @@ class DeploymentServices {
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>bOption</i> parameter to 
      *       retrieve.
      * @param {Integer} bOption Option whose value will be retrieved.
-     * @param {Pointer<Byte>} pbOptionLen Address of <b>BYTE</b> which will receive the length of the option value.
-     * @param {Pointer<Void>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
+     * @param {Pointer<Integer>} pbOptionLen Address of <b>BYTE</b> which will receive the length of the option value.
+     * @param {Pointer<Pointer<Void>>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
      *       packet.
      * @returns {Integer} Common return values are listed in the following table. For all other failures, an appropriate Windows 
      *       error code is returned.
@@ -2655,7 +2655,7 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetOptionValue(pPacket, uPacketLen, uInstance, bOption, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, "char*", pbOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "char", bOption, "char*", pbOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2667,8 +2667,8 @@ class DeploymentServices {
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>wOption</i> parameter to 
      *       retrieve.
      * @param {Integer} wOption Option whose value will be retrieved.
-     * @param {Pointer<UInt16>} pwOptionLen Address of <b>WORD</b> which will receive the length of the option value.
-     * @param {Pointer<Void>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
+     * @param {Pointer<Integer>} pwOptionLen Address of <b>WORD</b> which will receive the length of the option value.
+     * @param {Pointer<Pointer<Void>>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
      *       packet.
      * @returns {Integer} Common return values are listed in the following table. For all other failures, an appropriate Windows 
      *       error code is returned.
@@ -2721,7 +2721,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetOptionValue(pPacket, uPacketLen, uInstance, wOption, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, "ushort*", pwOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", uInstance, "ushort", wOption, "ushort*", pwOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2733,8 +2733,8 @@ class DeploymentServices {
      * @param {Integer} bOption Option whose value will be retrieved.
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>bOption</i> parameter to 
      *       retrieve.
-     * @param {Pointer<Byte>} pbOptionLen Address of <b>BYTE</b> which will receive the length of the option value.
-     * @param {Pointer<Void>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
+     * @param {Pointer<Integer>} pbOptionLen Address of <b>BYTE</b> which will receive the length of the option value.
+     * @param {Pointer<Pointer<Void>>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
      *       packet.
      * @returns {Integer} Common return values are listed in the following table. For all other failures, an appropriate Windows 
      *       error code is returned.
@@ -2787,7 +2787,7 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeDhcpGetVendorOptionValue(pPacket, uPacketLen, bOption, uInstance, pbOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, "char*", pbOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpGetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "char", bOption, "uint", uInstance, "char*", pbOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2802,8 +2802,8 @@ class DeploymentServices {
      * @param {Integer} wOption Option whose value will be retrieved.
      * @param {Integer} uInstance One-based index that specifies which instance of the <i>wOption</i> parameter to 
      *       retrieve.
-     * @param {Pointer<UInt16>} pwOptionLen Address of <b>WORD</b> which will receive the length of the option value.
-     * @param {Pointer<Void>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
+     * @param {Pointer<Integer>} pwOptionLen Address of <b>WORD</b> which will receive the length of the option value.
+     * @param {Pointer<Pointer<Void>>} ppOptionValue Address of <b>PVOID</b> which will receive the address of the option value inside the 
      *       packet.
      * @returns {Integer} Common return values are listed in the following table. For all other failures, an appropriate Windows 
      *       error code is returned.
@@ -2856,7 +2856,7 @@ class DeploymentServices {
      * @since windows8.0
      */
     static PxeDhcpv6GetVendorOptionValue(pPacket, uPacketLen, dwEnterpriseNumber, wOption, uInstance, pwOptionLen, ppOptionValue) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, "ushort*", pwOptionLen, "ptr", ppOptionValue, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6GetVendorOptionValue", "ptr", pPacket, "uint", uPacketLen, "uint", dwEnterpriseNumber, "ushort", wOption, "uint", uInstance, "ushort*", pwOptionLen, "ptr*", ppOptionValue, "uint")
         return result
     }
 
@@ -2866,15 +2866,15 @@ class DeploymentServices {
      * @param {Integer} uRelayForwPacketLen The size in bytes of the RELAY-FORW message pointed to by the <i>pRelayForwPacket</i> parameter.
      * @param {Pointer<PXE_DHCPV6_NESTED_RELAY_MESSAGE>} pRelayMessages An array of <a href="https://docs.microsoft.com/windows/desktop/api/wdspxe/ns-wdspxe-pxe_dhcpv6_nested_relay_message">PXE_DHCPV6_NESTED_RELAY_MESSAGE</a> structures initialized by this routine.  The array’s size is specified by <i>nRelayMessages</i>.  Elements of this array are initialized to point to the nested chain of relay packets encoded in OPTION_RELAY_MSG.  Index 0 is the outermost nested OPTION_RELAY_MSG packet. As the index increases the pointers correspond to more deeply nested OPTION_RELAY_MSG packets.
      * @param {Integer} nRelayMessages The size of the array, in number of array elements, pointed to by the <i>pRelayMessages</i> parameter.
-     * @param {Pointer<UInt32>} pnRelayMessages Specifies a pointer to a <b>ULONG</b> value which on success receives the actual number of elements written into the <i>pRelayMessages</i> array.
-     * @param {Pointer<Byte>} ppInnerPacket Specifies a pointer to a <b>PVOID</b> value which on success is set to the start of the innermost packet in the relay chain. This is the original client request packet.
-     * @param {Pointer<UInt32>} pcbInnerPacket Specifies a pointer to a <b>ULONG</b> value which on success will be set to the size, in bytes, of the innermost packet in the relay chain which is the original client request packet.
+     * @param {Pointer<Integer>} pnRelayMessages Specifies a pointer to a <b>ULONG</b> value which on success receives the actual number of elements written into the <i>pRelayMessages</i> array.
+     * @param {Pointer<Pointer<Integer>>} ppInnerPacket Specifies a pointer to a <b>PVOID</b> value which on success is set to the start of the innermost packet in the relay chain. This is the original client request packet.
+     * @param {Pointer<Integer>} pcbInnerPacket Specifies a pointer to a <b>ULONG</b> value which on success will be set to the size, in bytes, of the innermost packet in the relay chain which is the original client request packet.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxedhcpv6parserelayforw
      * @since windows8.0
      */
     static PxeDhcpv6ParseRelayForw(pRelayForwPacket, uRelayForwPacketLen, pRelayMessages, nRelayMessages, pnRelayMessages, ppInnerPacket, pcbInnerPacket) {
-        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, "uint*", pnRelayMessages, "char*", ppInnerPacket, "uint*", pcbInnerPacket, "uint")
+        result := DllCall("WDSPXE.dll\PxeDhcpv6ParseRelayForw", "ptr", pRelayForwPacket, "uint", uRelayForwPacketLen, "ptr", pRelayMessages, "uint", nRelayMessages, "uint*", pnRelayMessages, "ptr*", ppInnerPacket, "uint*", pcbInnerPacket, "uint")
         return result
     }
 
@@ -2886,7 +2886,7 @@ class DeploymentServices {
      * @param {Integer} cbInnerPacket The size of the packet pointed to by the <i>pInnerPacket</i> argument.
      * @param {Pointer} pReplyBuffer A pointer to a buffer used to construct the outer RELAY-REPL packet. This buffer receives the nested response packet and the nested RELAY-REPL chain specified by the <i>pRelayMessages</i> parameter.
      * @param {Integer} cbReplyBuffer The size of the buffer in bytes  pointed to by <i>pRelyBuffer</i>.
-     * @param {Pointer<UInt32>} pcbReplyBuffer On success, this is set to the actual size of the RELAY-REPL packet in the buffer pointed to by <i>pRelyBuffer</i>.
+     * @param {Pointer<Integer>} pcbReplyBuffer On success, this is set to the actual size of the RELAY-REPL packet in the buffer pointed to by <i>pRelyBuffer</i>.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxedhcpv6createrelayrepl
      * @since windows8.0
@@ -2966,7 +2966,7 @@ class DeploymentServices {
      * @param {Pointer} pBuffer Address of a buffer that will receive the results of the query. The size and format of the results depends 
      *       on the value of the <i>uInfoType</i> parameter.
      * @param {Integer} uBufferLen Size of buffer pointed to by the <i>pBuffer</i> parameter.
-     * @param {Pointer<UInt32>} puBufferUsed Size of buffer pointed to by the <i>pBuffer</i> parameter.
+     * @param {Pointer<Integer>} puBufferUsed Size of buffer pointed to by the <i>pBuffer</i> parameter.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdspxe/nf-wdspxe-pxegetserverinfoex
      * @since windows8.0
@@ -3040,7 +3040,7 @@ class DeploymentServices {
      * @param {HANDLE} hProvider Handle to the provider. This handle was given to the provider in the <a href="https://docs.microsoft.com/windows/desktop/api/wdstpdi/nf-wdstpdi-wdstransportproviderinitialize">WdsTransportProviderInitialize</a> function.
      * @param {Integer} Severity Severity level of the message.
      * @param {PWSTR} pwszFormat A pointer to a null-terminated string value that contains a formatted string.
-     * @param {Pointer<SByte>} Params A list of parameters used by the formatted string.
+     * @param {Pointer<Integer>} Params A list of parameters used by the formatted string.
      * @returns {HRESULT} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdstpdi/nf-wdstpdi-wdstransportservertracev
      * @since windowsserver2008
@@ -3199,7 +3199,7 @@ class DeploymentServices {
      * Indicates that all processing on a block of data is finished, and that the multicast client may purge this block of data from its cache to make room for further receives.
      * @param {HANDLE} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
      * @param {Integer} ulSize The size of the block being released.
-     * @param {Pointer<UInt64>} pullOffset The offset of the block being released.
+     * @param {Pointer<Integer>} pullOffset The offset of the block being released.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdstci/nf-wdstci-wdstransportclientcompletereceive
      * @since windows6.0.6000
@@ -3256,8 +3256,8 @@ class DeploymentServices {
     /**
      * Retrieves the current status of an ongoing or complete multicast transmission from the multicast client.
      * @param {HANDLE} hSessionKey Unique handle returned by the call to <a href="https://docs.microsoft.com/windows/desktop/api/wdstci/nf-wdstci-wdstransportclientinitializesession">WdsTransportClientInitializeSession</a>.
-     * @param {Pointer<UInt32>} puStatus 
-     * @param {Pointer<UInt32>} puErrorCode If puStatus is set to <b>WDS_TRANSPORTCLIENT_STATUS_FAILURE</b>, this field will be set to the error code of the session.
+     * @param {Pointer<Integer>} puStatus 
+     * @param {Pointer<Integer>} puErrorCode If puStatus is set to <b>WDS_TRANSPORTCLIENT_STATUS_FAILURE</b>, this field will be set to the error code of the session.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdstci/nf-wdstci-wdstransportclientquerystatus
      * @since windows6.0.6000
@@ -3322,7 +3322,7 @@ class DeploymentServices {
      * Receives a handle to the packet sent by the network boot program.
      * @param {Pointer} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCP packet.
      * @param {Integer} uPacketLen The length of the packet, in bytes.
-     * @param {Pointer<Byte>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined.
+     * @param {Pointer<Integer>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined.
      * 
      * <table>
      * <tr>
@@ -3377,7 +3377,7 @@ class DeploymentServices {
      * Receives a handle to the packet sent by the network boot program.
      * @param {Pointer} pPacket A pointer to the packet received from the WDS client. The packet must be a valid DHCPv6 packet.
      * @param {Integer} uPacketLen The length of the packet, in bytes.
-     * @param {Pointer<Byte>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined except <b>WDSBP_PK_TYPE_DHCP</b> and <b>WDSBP_PK_TYPE_DHCPV6</b> are mutually exclusive.
+     * @param {Pointer<Integer>} pbPacketType A value that indicates the type of boot program that sent the packet. The bit flags in the following table can be combined except <b>WDSBP_PK_TYPE_DHCP</b> and <b>WDSBP_PK_TYPE_DHCPV6</b> are mutually exclusive.
      * 
      * <table>
      * <tr>
@@ -3472,7 +3472,7 @@ class DeploymentServices {
      * @param {Integer} uOption Specifies the option to add to the packet.
      * @param {Integer} uValueLen The total number of bytes of memory pointed to by the <i>pValue</i> parameter. To determine the number of bytes required to store the value for the option, set <i>uValueLen</i> to zero and <i>pValue</i> to <b>NULL</b>; the <b>WdsBpQueryOption</b> function returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the location pointed to by the <i>puBytes</i> parameter receives the number of bytes required for the value.
      * @param {Pointer} pValue The value of the option is returned in this buffer.
-     * @param {Pointer<UInt32>} puBytes If the buffer is large enough for the value, this parameter receives the number of bytes copied to <i>pValue</i>. If not enough space is available, this parameter receives the total number of bytes required to store the value.
+     * @param {Pointer<Integer>} puBytes If the buffer is large enough for the value, this parameter receives the number of bytes copied to <i>pValue</i>. If not enough space is available, this parameter receives the total number of bytes required to store the value.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsbp/nf-wdsbp-wdsbpqueryoption
      * @since windows6.0.6000
@@ -3506,7 +3506,7 @@ class DeploymentServices {
      * @param {HANDLE} hHandle A handle to the packet. This handle must have been returned by the <a href="https://docs.microsoft.com/windows/desktop/api/wdsbp/nf-wdsbp-wdsbpinitialize">WdsBpInitialize</a> function.
      * @param {Integer} uBufferLen The total number of bytes of memory pointed to by the <i>pBuffer</i> parameter.  To determine the amount of memory required, call the <b>WdsBpGetOptionBuffer</b> function with <i>uBufferLen</i> set to zero and  <i>pBuffer</i> set to <b>NULL</b>. The location pointed to by  the <i>puBytes</i> parameter then receives the size required.
      * @param {Pointer} pBuffer A pointer to a location in memory that receives the information that is being sent to the network boot program.
-     * @param {Pointer<UInt32>} puBytes The number of bytes copied to the buffer.
+     * @param {Pointer<Integer>} puBytes The number of bytes copied to the buffer.
      * @returns {Integer} If the function succeeds, the return is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wdsbp/nf-wdsbp-wdsbpgetoptionbuffer
      * @since windows6.0.6000

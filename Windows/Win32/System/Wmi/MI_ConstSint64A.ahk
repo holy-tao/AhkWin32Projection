@@ -15,7 +15,7 @@ class MI_ConstSint64A extends Win32Struct
 
     /**
      * An array of <b>MI_Sint64</b> types.
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

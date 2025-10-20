@@ -36,7 +36,7 @@ class CARD_RSA_DECRYPT_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 16, "ptr")

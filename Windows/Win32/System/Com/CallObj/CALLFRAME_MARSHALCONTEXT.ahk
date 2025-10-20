@@ -42,7 +42,7 @@ class CALLFRAME_MARSHALCONTEXT extends Win32Struct
 
     /**
      * This parameter should be <b>NULL</b>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkReserved {
         get => NumGet(this, 16, "ptr")

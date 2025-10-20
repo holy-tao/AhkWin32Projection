@@ -15,7 +15,7 @@ class MI_ConstInstanceA extends Win32Struct
 
     /**
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_instance">MI_Instance</a> types.
-     * @type {Pointer<MI_Instance>}
+     * @type {Pointer<Pointer<MI_Instance>>}
      */
     data {
         get => NumGet(this, 0, "ptr")

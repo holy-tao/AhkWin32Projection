@@ -60,7 +60,7 @@ class D3D12_VIDEO_DECODE_OUTPUT_HISTOGRAM extends Win32Struct
 
     /**
      * And [ID3D12Resource](../d3d12/nn-d3d12-id3d12resource.md) representing the target buffer for hardware to write the components histogram.  Set to a nullptr when the component histogram is disabled.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pBuffer {
         get => NumGet(this, 8, "ptr")

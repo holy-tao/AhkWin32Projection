@@ -4,6 +4,8 @@
 #Include .\DISPLAYCONFIG_DEVICE_INFO_HEADER.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_sdr_white_level
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

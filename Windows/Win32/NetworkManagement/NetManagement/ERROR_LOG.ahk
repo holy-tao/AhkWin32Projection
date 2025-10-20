@@ -60,7 +60,7 @@ class ERROR_LOG extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     el_data {
         get => NumGet(this, 32, "ptr")

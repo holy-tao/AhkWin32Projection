@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/DevIO/storage-read-capacity
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

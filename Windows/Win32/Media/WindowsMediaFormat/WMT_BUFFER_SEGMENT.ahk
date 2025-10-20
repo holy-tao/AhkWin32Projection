@@ -15,7 +15,7 @@ class WMT_BUFFER_SEGMENT extends Win32Struct
 
     /**
      * Pointer to a buffer object containing the buffer segment.
-     * @type {Pointer<INSSBuffer>}
+     * @type {INSSBuffer}
      */
     pBuffer {
         get => NumGet(this, 0, "ptr")

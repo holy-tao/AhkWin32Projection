@@ -19,18 +19,18 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @param {Pointer<IDebugApplication64>} debugApplication 
-     * @param {Pointer<Void>} newContext 
+     * @param {IDebugApplication64} debugApplication 
+     * @param {Pointer<Pointer<Void>>} newContext 
      * @returns {Integer} 
      */
     static JsCreateContext(runtime, debugApplication, newContext) {
-        result := DllCall("chakra.dll\JsCreateContext", "ptr", runtime, "ptr", debugApplication, "ptr", newContext, "uint")
+        result := DllCall("chakra.dll\JsCreateContext", "ptr", runtime, "ptr", debugApplication, "ptr*", newContext, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplication64>} debugApplication 
+     * @param {IDebugApplication64} debugApplication 
      * @returns {Integer} 
      */
     static JsStartDebugging(debugApplication) {
@@ -43,11 +43,11 @@ class Js {
      * @param {Integer} attributes 
      * @param {Integer} runtimeVersion 
      * @param {Pointer<JsThreadServiceCallback>} threadService 
-     * @param {Pointer<Void>} runtime 
+     * @param {Pointer<Pointer<Void>>} runtime 
      * @returns {Integer} 
      */
     static JsCreateRuntime(attributes, runtimeVersion, threadService, runtime) {
-        result := DllCall("chakra.dll\JsCreateRuntime", "int", attributes, "int", runtimeVersion, "ptr", threadService, "ptr", runtime, "uint")
+        result := DllCall("chakra.dll\JsCreateRuntime", "int", attributes, "int", runtimeVersion, "ptr", threadService, "ptr*", runtime, "uint")
         return result
     }
 
@@ -74,7 +74,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @param {Pointer<UIntPtr>} memoryUsage 
+     * @param {Pointer<Pointer>} memoryUsage 
      * @returns {Integer} 
      */
     static JsGetRuntimeMemoryUsage(runtime, memoryUsage) {
@@ -85,7 +85,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} runtime 
-     * @param {Pointer<UIntPtr>} memoryLimit 
+     * @param {Pointer<Pointer>} memoryLimit 
      * @returns {Integer} 
      */
     static JsGetRuntimeMemoryLimit(runtime, memoryLimit) {
@@ -131,7 +131,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} ref 
-     * @param {Pointer<UInt32>} count 
+     * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
     static JsAddRef(ref, count) {
@@ -142,7 +142,7 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} ref 
-     * @param {Pointer<UInt32>} count 
+     * @param {Pointer<Integer>} count 
      * @returns {Integer} 
      */
     static JsRelease(ref, count) {
@@ -152,11 +152,11 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Void>} currentContext 
+     * @param {Pointer<Pointer<Void>>} currentContext 
      * @returns {Integer} 
      */
     static JsGetCurrentContext(currentContext) {
-        result := DllCall("chakra.dll\JsGetCurrentContext", "ptr", currentContext, "uint")
+        result := DllCall("chakra.dll\JsGetCurrentContext", "ptr*", currentContext, "uint")
         return result
     }
 
@@ -173,17 +173,17 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} context 
-     * @param {Pointer<Void>} runtime 
+     * @param {Pointer<Pointer<Void>>} runtime 
      * @returns {Integer} 
      */
     static JsGetRuntime(context, runtime) {
-        result := DllCall("chakra.dll\JsGetRuntime", "ptr", context, "ptr", runtime, "uint")
+        result := DllCall("chakra.dll\JsGetRuntime", "ptr", context, "ptr*", runtime, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<UInt32>} nextIdleTick 
+     * @param {Pointer<Integer>} nextIdleTick 
      * @returns {Integer} 
      */
     static JsIdle(nextIdleTick) {
@@ -196,14 +196,14 @@ class Js {
      * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsParseScript(script, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsParseScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsParseScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
@@ -212,22 +212,22 @@ class Js {
      * @param {PWSTR} script 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsRunScript(script, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsRunScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsRunScript", "ptr", script, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Byte>} buffer 
-     * @param {Pointer<UInt32>} bufferSize 
+     * @param {Pointer<Integer>} buffer 
+     * @param {Pointer<Integer>} bufferSize 
      * @returns {Integer} 
      */
     static JsSerializeScript(script, buffer, bufferSize) {
@@ -240,109 +240,109 @@ class Js {
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Byte>} buffer 
+     * @param {Pointer<Integer>} buffer 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsParseSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsParseSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} script 
-     * @param {Pointer<Byte>} buffer 
+     * @param {Pointer<Integer>} buffer 
      * @param {Pointer} sourceContext 
      * @param {PWSTR} sourceUrl 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsRunSerializedScript(script, buffer, sourceContext, sourceUrl, result) {
         script := script is String ? StrPtr(script) : script
         sourceUrl := sourceUrl is String ? StrPtr(sourceUrl) : sourceUrl
 
-        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsRunSerializedScript", "ptr", script, "char*", buffer, "ptr", sourceContext, "ptr", sourceUrl, "ptr*", result, "uint")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<Void>} propertyId 
+     * @param {Pointer<Pointer<Void>>} propertyId 
      * @returns {Integer} 
      */
     static JsGetPropertyIdFromName(name, propertyId) {
         name := name is String ? StrPtr(name) : name
 
-        result := DllCall("chakra.dll\JsGetPropertyIdFromName", "ptr", name, "ptr", propertyId, "uint")
+        result := DllCall("chakra.dll\JsGetPropertyIdFromName", "ptr", name, "ptr*", propertyId, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} propertyId 
-     * @param {Pointer<UInt16>} name 
+     * @param {Pointer<Pointer<Integer>>} name 
      * @returns {Integer} 
      */
     static JsGetPropertyNameFromId(propertyId, name) {
-        result := DllCall("chakra.dll\JsGetPropertyNameFromId", "ptr", propertyId, "ushort*", name, "uint")
+        result := DllCall("chakra.dll\JsGetPropertyNameFromId", "ptr", propertyId, "ptr*", name, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} undefinedValue 
+     * @param {Pointer<Pointer<Void>>} undefinedValue 
      * @returns {Integer} 
      */
     static JsGetUndefinedValue(undefinedValue) {
-        result := DllCall("chakra.dll\JsGetUndefinedValue", "ptr", undefinedValue, "uint")
+        result := DllCall("chakra.dll\JsGetUndefinedValue", "ptr*", undefinedValue, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} nullValue 
+     * @param {Pointer<Pointer<Void>>} nullValue 
      * @returns {Integer} 
      */
     static JsGetNullValue(nullValue) {
-        result := DllCall("chakra.dll\JsGetNullValue", "ptr", nullValue, "uint")
+        result := DllCall("chakra.dll\JsGetNullValue", "ptr*", nullValue, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} trueValue 
+     * @param {Pointer<Pointer<Void>>} trueValue 
      * @returns {Integer} 
      */
     static JsGetTrueValue(trueValue) {
-        result := DllCall("chakra.dll\JsGetTrueValue", "ptr", trueValue, "uint")
+        result := DllCall("chakra.dll\JsGetTrueValue", "ptr*", trueValue, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} falseValue 
+     * @param {Pointer<Pointer<Void>>} falseValue 
      * @returns {Integer} 
      */
     static JsGetFalseValue(falseValue) {
-        result := DllCall("chakra.dll\JsGetFalseValue", "ptr", falseValue, "uint")
+        result := DllCall("chakra.dll\JsGetFalseValue", "ptr*", falseValue, "uint")
         return result
     }
 
     /**
      * 
      * @param {Integer} value 
-     * @param {Pointer<Void>} booleanValue 
+     * @param {Pointer<Pointer<Void>>} booleanValue 
      * @returns {Integer} 
      */
     static JsBoolToBoolean(value, booleanValue) {
-        result := DllCall("chakra.dll\JsBoolToBoolean", "char", value, "ptr", booleanValue, "uint")
+        result := DllCall("chakra.dll\JsBoolToBoolean", "char", value, "ptr*", booleanValue, "uint")
         return result
     }
 
@@ -360,18 +360,18 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Void>} booleanValue 
+     * @param {Pointer<Pointer<Void>>} booleanValue 
      * @returns {Integer} 
      */
     static JsConvertValueToBoolean(value, booleanValue) {
-        result := DllCall("chakra.dll\JsConvertValueToBoolean", "ptr", value, "ptr", booleanValue, "uint")
+        result := DllCall("chakra.dll\JsConvertValueToBoolean", "ptr", value, "ptr*", booleanValue, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Int32>} type 
+     * @param {Pointer<Integer>} type 
      * @returns {Integer} 
      */
     static JsGetValueType(value, type) {
@@ -382,29 +382,29 @@ class Js {
     /**
      * 
      * @param {Float} doubleValue 
-     * @param {Pointer<Void>} value 
+     * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
     static JsDoubleToNumber(doubleValue, value) {
-        result := DllCall("chakra.dll\JsDoubleToNumber", "double", doubleValue, "ptr", value, "uint")
+        result := DllCall("chakra.dll\JsDoubleToNumber", "double", doubleValue, "ptr*", value, "uint")
         return result
     }
 
     /**
      * 
      * @param {Integer} intValue 
-     * @param {Pointer<Void>} value 
+     * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
     static JsIntToNumber(intValue, value) {
-        result := DllCall("chakra.dll\JsIntToNumber", "int", intValue, "ptr", value, "uint")
+        result := DllCall("chakra.dll\JsIntToNumber", "int", intValue, "ptr*", value, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Double>} doubleValue 
+     * @param {Pointer<Float>} doubleValue 
      * @returns {Integer} 
      */
     static JsNumberToDouble(value, doubleValue) {
@@ -415,18 +415,18 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Void>} numberValue 
+     * @param {Pointer<Pointer<Void>>} numberValue 
      * @returns {Integer} 
      */
     static JsConvertValueToNumber(value, numberValue) {
-        result := DllCall("chakra.dll\JsConvertValueToNumber", "ptr", value, "ptr", numberValue, "uint")
+        result := DllCall("chakra.dll\JsConvertValueToNumber", "ptr", value, "ptr*", numberValue, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} stringValue 
-     * @param {Pointer<Int32>} length 
+     * @param {Pointer<Integer>} length 
      * @returns {Integer} 
      */
     static JsGetStringLength(stringValue, length) {
@@ -438,47 +438,47 @@ class Js {
      * 
      * @param {PWSTR} stringValue 
      * @param {Pointer} stringLength 
-     * @param {Pointer<Void>} value 
+     * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
     static JsPointerToString(stringValue, stringLength, value) {
         stringValue := stringValue is String ? StrPtr(stringValue) : stringValue
 
-        result := DllCall("chakra.dll\JsPointerToString", "ptr", stringValue, "ptr", stringLength, "ptr", value, "uint")
+        result := DllCall("chakra.dll\JsPointerToString", "ptr", stringValue, "ptr", stringLength, "ptr*", value, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<UInt16>} stringValue 
-     * @param {Pointer<UIntPtr>} stringLength 
+     * @param {Pointer<Pointer<Integer>>} stringValue 
+     * @param {Pointer<Pointer>} stringLength 
      * @returns {Integer} 
      */
     static JsStringToPointer(value, stringValue, stringLength) {
-        result := DllCall("chakra.dll\JsStringToPointer", "ptr", value, "ushort*", stringValue, "ptr*", stringLength, "uint")
+        result := DllCall("chakra.dll\JsStringToPointer", "ptr", value, "ptr*", stringValue, "ptr*", stringLength, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Void>} stringValue 
+     * @param {Pointer<Pointer<Void>>} stringValue 
      * @returns {Integer} 
      */
     static JsConvertValueToString(value, stringValue) {
-        result := DllCall("chakra.dll\JsConvertValueToString", "ptr", value, "ptr", stringValue, "uint")
+        result := DllCall("chakra.dll\JsConvertValueToString", "ptr", value, "ptr*", stringValue, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} variant 
-     * @param {Pointer<Void>} value 
+     * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
     static JsVariantToValue(variant, value) {
-        result := DllCall("chakra.dll\JsVariantToValue", "ptr", variant, "ptr", value, "uint")
+        result := DllCall("chakra.dll\JsVariantToValue", "ptr", variant, "ptr*", value, "uint")
         return result
     }
 
@@ -495,21 +495,21 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Void>} globalObject 
+     * @param {Pointer<Pointer<Void>>} globalObject 
      * @returns {Integer} 
      */
     static JsGetGlobalObject(globalObject) {
-        result := DllCall("chakra.dll\JsGetGlobalObject", "ptr", globalObject, "uint")
+        result := DllCall("chakra.dll\JsGetGlobalObject", "ptr*", globalObject, "uint")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Pointer<Void>>} object 
      * @returns {Integer} 
      */
     static JsCreateObject(object) {
-        result := DllCall("chakra.dll\JsCreateObject", "ptr", object, "uint")
+        result := DllCall("chakra.dll\JsCreateObject", "ptr*", object, "uint")
         return result
     }
 
@@ -517,33 +517,33 @@ class Js {
      * 
      * @param {Pointer<Void>} data 
      * @param {Pointer<JsFinalizeCallback>} finalizeCallback 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Pointer<Void>>} object 
      * @returns {Integer} 
      */
     static JsCreateExternalObject(data, finalizeCallback, object) {
-        result := DllCall("chakra.dll\JsCreateExternalObject", "ptr", data, "ptr", finalizeCallback, "ptr", object, "uint")
+        result := DllCall("chakra.dll\JsCreateExternalObject", "ptr", data, "ptr", finalizeCallback, "ptr*", object, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} value 
-     * @param {Pointer<Void>} object 
+     * @param {Pointer<Pointer<Void>>} object 
      * @returns {Integer} 
      */
     static JsConvertValueToObject(value, object) {
-        result := DllCall("chakra.dll\JsConvertValueToObject", "ptr", value, "ptr", object, "uint")
+        result := DllCall("chakra.dll\JsConvertValueToObject", "ptr", value, "ptr*", object, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} object 
-     * @param {Pointer<Void>} prototypeObject 
+     * @param {Pointer<Pointer<Void>>} prototypeObject 
      * @returns {Integer} 
      */
     static JsGetPrototype(object, prototypeObject) {
-        result := DllCall("chakra.dll\JsGetPrototype", "ptr", object, "ptr", prototypeObject, "uint")
+        result := DllCall("chakra.dll\JsGetPrototype", "ptr", object, "ptr*", prototypeObject, "uint")
         return result
     }
 
@@ -583,11 +583,11 @@ class Js {
      * 
      * @param {Pointer<Void>} object 
      * @param {Pointer<Void>} propertyId 
-     * @param {Pointer<Void>} value 
+     * @param {Pointer<Pointer<Void>>} value 
      * @returns {Integer} 
      */
     static JsGetProperty(object, propertyId, value) {
-        result := DllCall("chakra.dll\JsGetProperty", "ptr", object, "ptr", propertyId, "ptr", value, "uint")
+        result := DllCall("chakra.dll\JsGetProperty", "ptr", object, "ptr", propertyId, "ptr*", value, "uint")
         return result
     }
 
@@ -595,22 +595,22 @@ class Js {
      * 
      * @param {Pointer<Void>} object 
      * @param {Pointer<Void>} propertyId 
-     * @param {Pointer<Void>} propertyDescriptor 
+     * @param {Pointer<Pointer<Void>>} propertyDescriptor 
      * @returns {Integer} 
      */
     static JsGetOwnPropertyDescriptor(object, propertyId, propertyDescriptor) {
-        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", "ptr", object, "ptr", propertyId, "ptr", propertyDescriptor, "uint")
+        result := DllCall("chakra.dll\JsGetOwnPropertyDescriptor", "ptr", object, "ptr", propertyId, "ptr*", propertyDescriptor, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} object 
-     * @param {Pointer<Void>} propertyNames 
+     * @param {Pointer<Pointer<Void>>} propertyNames 
      * @returns {Integer} 
      */
     static JsGetOwnPropertyNames(object, propertyNames) {
-        result := DllCall("chakra.dll\JsGetOwnPropertyNames", "ptr", object, "ptr", propertyNames, "uint")
+        result := DllCall("chakra.dll\JsGetOwnPropertyNames", "ptr", object, "ptr*", propertyNames, "uint")
         return result
     }
 
@@ -644,11 +644,11 @@ class Js {
      * @param {Pointer<Void>} object 
      * @param {Pointer<Void>} propertyId 
      * @param {Integer} useStrictRules 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsDeleteProperty(object, propertyId, useStrictRules, result) {
-        result := DllCall("chakra.dll\JsDeleteProperty", "ptr", object, "ptr", propertyId, "char", useStrictRules, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsDeleteProperty", "ptr", object, "ptr", propertyId, "char", useStrictRules, "ptr*", result, "uint")
         return result
     }
 
@@ -681,11 +681,11 @@ class Js {
      * 
      * @param {Pointer<Void>} object 
      * @param {Pointer<Void>} index 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsGetIndexedProperty(object, index, result) {
-        result := DllCall("chakra.dll\JsGetIndexedProperty", "ptr", object, "ptr", index, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsGetIndexedProperty", "ptr", object, "ptr", index, "ptr*", result, "uint")
         return result
     }
 
@@ -750,11 +750,11 @@ class Js {
     /**
      * 
      * @param {Pointer<Void>} object 
-     * @param {Pointer<Void>} externalData 
+     * @param {Pointer<Pointer<Void>>} externalData 
      * @returns {Integer} 
      */
     static JsGetExternalData(object, externalData) {
-        result := DllCall("chakra.dll\JsGetExternalData", "ptr", object, "ptr", externalData, "uint")
+        result := DllCall("chakra.dll\JsGetExternalData", "ptr", object, "ptr*", externalData, "uint")
         return result
     }
 
@@ -772,37 +772,37 @@ class Js {
     /**
      * 
      * @param {Integer} length 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsCreateArray(length, result) {
-        result := DllCall("chakra.dll\JsCreateArray", "uint", length, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsCreateArray", "uint", length, "ptr*", result, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} function 
-     * @param {Pointer<Void>} arguments 
+     * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsCallFunction(function, arguments, argumentCount, result) {
-        result := DllCall("chakra.dll\JsCallFunction", "ptr", function, "ptr", arguments, "ushort", argumentCount, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsCallFunction", "ptr", function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} function 
-     * @param {Pointer<Void>} arguments 
+     * @param {Pointer<Pointer<Void>>} arguments 
      * @param {Integer} argumentCount 
-     * @param {Pointer<Void>} result 
+     * @param {Pointer<Pointer<Void>>} result 
      * @returns {Integer} 
      */
     static JsConstructObject(function, arguments, argumentCount, result) {
-        result := DllCall("chakra.dll\JsConstructObject", "ptr", function, "ptr", arguments, "ushort", argumentCount, "ptr", result, "uint")
+        result := DllCall("chakra.dll\JsConstructObject", "ptr", function, "ptr*", arguments, "ushort", argumentCount, "ptr*", result, "uint")
         return result
     }
 
@@ -810,77 +810,77 @@ class Js {
      * 
      * @param {Pointer<JsNativeFunction>} nativeFunction 
      * @param {Pointer<Void>} callbackState 
-     * @param {Pointer<Void>} function 
+     * @param {Pointer<Pointer<Void>>} function 
      * @returns {Integer} 
      */
     static JsCreateFunction(nativeFunction, callbackState, function) {
-        result := DllCall("chakra.dll\JsCreateFunction", "ptr", nativeFunction, "ptr", callbackState, "ptr", function, "uint")
+        result := DllCall("chakra.dll\JsCreateFunction", "ptr", nativeFunction, "ptr", callbackState, "ptr*", function, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateError(message, error) {
-        result := DllCall("chakra.dll\JsCreateError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateRangeError(message, error) {
-        result := DllCall("chakra.dll\JsCreateRangeError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateRangeError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateReferenceError(message, error) {
-        result := DllCall("chakra.dll\JsCreateReferenceError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateReferenceError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateSyntaxError(message, error) {
-        result := DllCall("chakra.dll\JsCreateSyntaxError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateSyntaxError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateTypeError(message, error) {
-        result := DllCall("chakra.dll\JsCreateTypeError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateTypeError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
     /**
      * 
      * @param {Pointer<Void>} message 
-     * @param {Pointer<Void>} error 
+     * @param {Pointer<Pointer<Void>>} error 
      * @returns {Integer} 
      */
     static JsCreateURIError(message, error) {
-        result := DllCall("chakra.dll\JsCreateURIError", "ptr", message, "ptr", error, "uint")
+        result := DllCall("chakra.dll\JsCreateURIError", "ptr", message, "ptr*", error, "uint")
         return result
     }
 
@@ -896,11 +896,11 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<Void>} exception 
+     * @param {Pointer<Pointer<Void>>} exception 
      * @returns {Integer} 
      */
     static JsGetAndClearException(exception) {
-        result := DllCall("chakra.dll\JsGetAndClearException", "ptr", exception, "uint")
+        result := DllCall("chakra.dll\JsGetAndClearException", "ptr*", exception, "uint")
         return result
     }
 
@@ -947,7 +947,7 @@ class Js {
 
     /**
      * 
-     * @param {Pointer<IActiveScriptProfilerCallback>} callback 
+     * @param {IActiveScriptProfilerCallback} callback 
      * @param {Integer} eventMask 
      * @param {Integer} context 
      * @returns {Integer} 
@@ -973,7 +973,7 @@ class Js {
      * @returns {Integer} 
      */
     static JsEnumerateHeap(enumerator) {
-        result := DllCall("chakra.dll\JsEnumerateHeap", "ptr", enumerator, "uint")
+        result := DllCall("chakra.dll\JsEnumerateHeap", "ptr*", enumerator, "uint")
         return result
     }
 

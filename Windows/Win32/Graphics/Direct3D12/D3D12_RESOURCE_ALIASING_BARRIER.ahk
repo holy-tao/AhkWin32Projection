@@ -26,7 +26,7 @@ class D3D12_RESOURCE_ALIASING_BARRIER extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> object that represents the before resource used in the transition.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResourceBefore {
         get => NumGet(this, 0, "ptr")
@@ -35,7 +35,7 @@ class D3D12_RESOURCE_ALIASING_BARRIER extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> object that represents the after resource used in the transition.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResourceAfter {
         get => NumGet(this, 8, "ptr")

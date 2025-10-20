@@ -21,7 +21,7 @@ class SecPkgContext_ProtoInfoW extends Win32Struct
 
     /**
      * Pointer to a string containing the name of the protocol.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     sProtocolName {
         get => NumGet(this, 0, "ptr")

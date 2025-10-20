@@ -135,7 +135,7 @@ class CRYPTCATATTRIBUTE extends Win32Struct
 
     /**
      * A pointer to the encoded bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbValue {
         get => NumGet(this, 24, "ptr")

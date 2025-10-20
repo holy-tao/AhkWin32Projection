@@ -33,7 +33,7 @@ class USE_INFO_4 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ui4_auth_identity {
         get => NumGet(this, 72, "ptr")

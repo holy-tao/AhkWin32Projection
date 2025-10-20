@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SysMon/logfiles
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

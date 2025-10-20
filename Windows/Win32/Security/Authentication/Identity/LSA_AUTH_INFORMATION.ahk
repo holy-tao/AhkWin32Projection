@@ -44,7 +44,7 @@ class LSA_AUTH_INFORMATION extends Win32Struct
 
     /**
      * Pointer to an array of bytes that contains the type of authentication information indicated by the <b>AuthType</b> member.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     AuthInfo {
         get => NumGet(this, 16, "ptr")

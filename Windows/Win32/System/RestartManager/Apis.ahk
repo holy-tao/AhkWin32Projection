@@ -38,7 +38,7 @@ class RestartManager {
 ;@region Methods
     /**
      * Starts a new Restart Manager session.
-     * @param {Pointer<UInt32>} pSessionHandle A pointer to the handle of a Restart Manager session. The session handle can be passed in subsequent calls to the Restart Manager API.
+     * @param {Pointer<Integer>} pSessionHandle A pointer to the handle of a Restart Manager session. The session handle can be passed in subsequent calls to the Restart Manager API.
      * @param {PWSTR} strSessionKey A <b>null</b>-terminated string that contains the session key to the new session. The string must be allocated before calling  the <b>RmStartSession</b> function.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
@@ -134,7 +134,7 @@ class RestartManager {
 
     /**
      * Joins a secondary installer to an existing Restart Manager session.
-     * @param {Pointer<UInt32>} pSessionHandle A pointer to the handle of an existing Restart Manager Session.
+     * @param {Pointer<Integer>} pSessionHandle A pointer to the handle of an existing Restart Manager Session.
      * @param {PWSTR} strSessionKey A <b>null</b>-terminated string that contains the session key of an existing session.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h. 
      * 
@@ -417,10 +417,10 @@ class RestartManager {
     /**
      * Gets a list of all applications and services that are currently using resources that have been registered with the Restart Manager session.
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
-     * @param {Pointer<UInt32>} pnProcInfoNeeded A pointer to an array size necessary to receive <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures required to return information for all affected applications and services.
-     * @param {Pointer<UInt32>} pnProcInfo A pointer to the total number of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures in an array and number of structures filled.
+     * @param {Pointer<Integer>} pnProcInfoNeeded A pointer to an array size necessary to receive <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures required to return information for all affected applications and services.
+     * @param {Pointer<Integer>} pnProcInfo A pointer to the total number of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures in an array and number of structures filled.
      * @param {Pointer<RM_PROCESS_INFO>} rgAffectedApps An array of <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_process_info">RM_PROCESS_INFO</a> structures that list the applications and services  using resources that have been registered with the session.
-     * @param {Pointer<UInt32>} lpdwRebootReasons Pointer to location that receives a value of the  <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_reboot_reason">RM_REBOOT_REASON</a> enumeration that describes the reason a system restart is needed.
+     * @param {Pointer<Integer>} lpdwRebootReasons Pointer to location that receives a value of the  <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ne-restartmanager-rm_reboot_reason">RM_REBOOT_REASON</a> enumeration that describes the reason a system restart is needed.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>
@@ -1016,7 +1016,7 @@ class RestartManager {
      * @param {Integer} dwSessionHandle A handle to an existing Restart Manager session.
      * @param {Pointer} pbFilterBuf A pointer to a buffer that contains modification information.
      * @param {Integer} cbFilterBuf The size of the buffer that contains modification information in bytes.
-     * @param {Pointer<UInt32>} cbFilterBufNeeded The number of bytes needed in the buffer.
+     * @param {Pointer<Integer>} cbFilterBufNeeded The number of bytes needed in the buffer.
      * @returns {Integer} This is the most recent error received. The function can return one of the <a href="/windows/desktop/Debug/system-error-codes">system error codes</a> that are defined in Winerror.h.
      * 
      * <table>

@@ -28,7 +28,7 @@ class WS_XML_UTF16_TEXT extends Win32Struct
 
     /**
      * The bytes that point to UTF-16 encoded data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     bytes {
         get => NumGet(this, 8, "ptr")

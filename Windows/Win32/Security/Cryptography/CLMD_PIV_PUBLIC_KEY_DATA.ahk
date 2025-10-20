@@ -28,7 +28,7 @@ class CLMD_PIV_PUBLIC_KEY_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPublicKey {
         get => NumGet(this, 8, "ptr")

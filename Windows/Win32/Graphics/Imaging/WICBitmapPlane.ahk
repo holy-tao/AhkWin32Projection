@@ -28,7 +28,7 @@ class WICBitmapPlane extends Win32Struct
      * Type: <b>BYTE*</b>
      * 
      * Pointer to the buffer that holds the plane’s pixel components.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbBuffer {
         get => NumGet(this, 8, "ptr")

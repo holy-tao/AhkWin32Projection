@@ -20,7 +20,7 @@ class MQCOLUMNSET extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     aCol {
         get => NumGet(this, 8, "ptr")

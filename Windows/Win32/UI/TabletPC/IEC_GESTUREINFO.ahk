@@ -42,7 +42,7 @@ class IEC_GESTUREINFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object that was used to create the gesture.
-     * @type {Pointer<IInkCursor>}
+     * @type {IInkCursor}
      */
     Cursor {
         get => NumGet(this, 24, "ptr")
@@ -51,7 +51,7 @@ class IEC_GESTUREINFO extends Win32Struct
 
     /**
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection that makes up the gesture.
-     * @type {Pointer<IInkStrokes>}
+     * @type {IInkStrokes}
      */
     Strokes {
         get => NumGet(this, 32, "ptr")

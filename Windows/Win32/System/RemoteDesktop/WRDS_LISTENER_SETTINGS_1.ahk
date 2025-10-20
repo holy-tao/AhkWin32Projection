@@ -33,7 +33,7 @@ class WRDS_LISTENER_SETTINGS_1 extends Win32Struct
 
     /**
      * The address of a buffer that contains the security descriptor for the protocol listener.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSecurityDescriptor {
         get => NumGet(this, 8, "ptr")

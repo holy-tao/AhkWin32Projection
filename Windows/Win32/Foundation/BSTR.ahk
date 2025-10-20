@@ -20,7 +20,7 @@ class BSTR extends Win32Handle
     static invalidValues => []
 
     /**
-     * @type {Pointer<Char>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 0, "ptr")

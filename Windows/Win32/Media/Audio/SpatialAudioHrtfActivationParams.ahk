@@ -73,7 +73,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 
     /**
      * The object that provides notifications for spatial audio clients to respond to changes in the state of an  <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectrenderstreamforhrtf">ISpatialAudioRenderStreamForHrtf</a>. This object is used to notify clients that the number of dynamic spatial audio objects that can be activated concurrently is about to change.
-     * @type {Pointer<ISpatialAudioObjectRenderStreamNotify>}
+     * @type {ISpatialAudioObjectRenderStreamNotify}
      */
     NotifyObject {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +100,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 
     /**
      * Optional default value for the type of environment that is simulated when audio is processed for <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     Environment {
         get => NumGet(this, 56, "ptr")
@@ -109,7 +109,7 @@ class SpatialAudioHrtfActivationParams extends Win32Struct
 
     /**
      * Optional default value for the orientation of <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiohrtf/nn-spatialaudiohrtf-ispatialaudioobjectforhrtf">ISpatialAudioObjectForHrtf</a> objects associated with the stream. <b>nullptr</b> if unused.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     Orientation {
         get => NumGet(this, 64, "ptr")

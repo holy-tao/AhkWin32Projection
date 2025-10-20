@@ -47,7 +47,7 @@ class ADSPROPINITPARAMS extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-idirectoryobject">IDirectoryObject</a> interface that represents the directory object that the display specifier applies to. Do not release this interface.
-     * @type {Pointer<IDirectoryObject>}
+     * @type {IDirectoryObject}
      */
     pDsObj {
         get => NumGet(this, 16, "ptr")

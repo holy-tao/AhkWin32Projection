@@ -33,7 +33,7 @@ class TTEMBEDINFO extends Win32Struct
 
     /**
      * One or more full URLs that the embedded font object may be referenced from. Multiple URLs, separated by NULL terminators, can be specified.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pusRootStr {
         get => NumGet(this, 8, "ptr")

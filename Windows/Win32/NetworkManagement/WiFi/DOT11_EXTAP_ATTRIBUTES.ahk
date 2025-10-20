@@ -88,7 +88,7 @@ class DOT11_EXTAP_ATTRIBUTES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pSupportedCountryOrRegionStrings {
         get => NumGet(this, 40, "ptr")

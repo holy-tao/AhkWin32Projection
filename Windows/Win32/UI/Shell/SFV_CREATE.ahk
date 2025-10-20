@@ -28,7 +28,7 @@ class SFV_CREATE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface of the folder for which to create the view.
-     * @type {Pointer<IShellFolder>}
+     * @type {IShellFolder}
      */
     pshf {
         get => NumGet(this, 8, "ptr")
@@ -39,7 +39,7 @@ class SFV_CREATE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
      * A pointer to the parent <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface. This parameter may be <b>NULL</b>. This parameter is used only when the view created by <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shcreateshellfolderview">SHCreateShellFolderView</a> is hosted in a common dialog box.
-     * @type {Pointer<IShellView>}
+     * @type {IShellView}
      */
     psvOuter {
         get => NumGet(this, 16, "ptr")
@@ -50,7 +50,7 @@ class SFV_CREATE extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a> interface that handles the view's callbacks when various events occur. This parameter may be <b>NULL</b>.
-     * @type {Pointer<IShellFolderViewCB>}
+     * @type {IShellFolderViewCB}
      */
     psfvcb {
         get => NumGet(this, 24, "ptr")

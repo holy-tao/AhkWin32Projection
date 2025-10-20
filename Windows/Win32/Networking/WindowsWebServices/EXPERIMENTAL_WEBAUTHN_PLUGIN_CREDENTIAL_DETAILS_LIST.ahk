@@ -28,7 +28,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>}
+     * @type {Pointer<Pointer<EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS>>}
      */
     pCredentialDetails {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbNonce {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_CREDENTIAL_DETAILS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbSignature {
         get => NumGet(this, 48, "ptr")

@@ -12,7 +12,7 @@ class D3D12_VIDEO_ENCODER_QUANTIZATION_OPAQUE_MAP extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pOpaqueQuantizationMap {
         get => NumGet(this, 0, "ptr")

@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkrecoguide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

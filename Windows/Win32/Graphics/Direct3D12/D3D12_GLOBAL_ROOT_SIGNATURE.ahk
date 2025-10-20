@@ -23,7 +23,7 @@ class D3D12_GLOBAL_ROOT_SIGNATURE extends Win32Struct
 
     /**
      * The root signature that will function as a global root signature.  A state object holds a reference to this signature.
-     * @type {Pointer<ID3D12RootSignature>}
+     * @type {ID3D12RootSignature}
      */
     pGlobalRootSignature {
         get => NumGet(this, 0, "ptr")

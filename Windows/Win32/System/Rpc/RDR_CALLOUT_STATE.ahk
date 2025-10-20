@@ -38,7 +38,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ServerName {
         get => NumGet(this, 24, "ptr")
@@ -46,7 +46,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ServerPort {
         get => NumGet(this, 32, "ptr")
@@ -54,7 +54,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     RemoteUser {
         get => NumGet(this, 40, "ptr")
@@ -62,7 +62,7 @@ class RDR_CALLOUT_STATE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     AuthType {
         get => NumGet(this, 48, "ptr")

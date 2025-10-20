@@ -20,7 +20,7 @@ class MIDL_STUBLESS_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ProcFormatString {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MIDL_STUBLESS_PROXY_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     FormatStringOffset {
         get => NumGet(this, 16, "ptr")

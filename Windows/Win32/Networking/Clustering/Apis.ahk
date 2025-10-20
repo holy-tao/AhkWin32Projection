@@ -3261,7 +3261,7 @@ class Clustering {
      * Determines whether the Cluster service is installed and running on a node.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node to query. If 
      *        <i>lpszNodeName</i> is <b>NULL</b>, the local node is queried.
-     * @param {Pointer<UInt32>} pdwClusterState Pointer to a value describing the state of the Cluster service on the node. A node will be described by one 
+     * @param {Pointer<Integer>} pdwClusterState Pointer to a value describing the state of the Cluster service on the node. A node will be described by one 
      *        of the following <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-node_cluster_state">NODE_CLUSTER_STATE</a> enumeration 
      *        values.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b> (0). If the operation 
@@ -3324,7 +3324,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-opencluster">OpenCluster</a>.
-     * @param {Pointer<UInt32>} GrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} GrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -3419,7 +3419,7 @@ class Clustering {
      * @param {HCLUSTER} hCluster Handle to a cluster.
      * @param {PWSTR} lpszClusterName Pointer to a null-terminated Unicode string containing the name of the cluster identified by 
      *       <i>hCluster</i>.
-     * @param {Pointer<UInt32>} lpcchClusterName Pointer to the size of the <i>lpszClusterName</i> buffer as a count of characters. On 
+     * @param {Pointer<Integer>} lpcchClusterName Pointer to the size of the <i>lpszClusterName</i> buffer as a count of characters. On 
      *       input, specify the maximum number of characters the buffer can hold, including the terminating 
      *       <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *       the terminating <b>NULL</b>.
@@ -3468,10 +3468,10 @@ class Clustering {
      * Returns the name of a cluster's quorum resource.
      * @param {HCLUSTER} hCluster Handle to an existing <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>.
      * @param {PWSTR} lpszResourceName Pointer to a null-terminated Unicode string containing the name of the cluster's quorum resource. The name is read from the quorum resource's  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources-name">Name</a> common property. Do not pass <b>NULL</b> for this parameter.
-     * @param {Pointer<UInt32>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcchResourceName Pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @param {PWSTR} lpszDeviceName Pointer to a null-terminated Unicode string containing the path to the location of the quorum log files maintained by the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-service">Cluster service</a>. Do not pass <b>NULL</b> for this parameter.
-     * @param {Pointer<UInt32>} lpcchDeviceName Pointer to the size of the <i>lpszDeviceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpdwMaxQuorumLogSize Pointer to the maximum size (in bytes) of the log being maintained by the quorum resource. Do not pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Integer>} lpcchDeviceName Pointer to the size of the <i>lpszDeviceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpdwMaxQuorumLogSize Pointer to the maximum size (in bytes) of the log being maintained by the quorum resource. Do not pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -3737,7 +3737,7 @@ class Clustering {
      *        to the required size for the output buffer. If this parameter is <b>NULL</b>, no password 
      *        update will be performed; the function will set <i>lpcbReturnStatusBufferSize</i> to the 
      *        required buffer size and return <b>ERROR_SUCCESS</b>.
-     * @param {Pointer<UInt32>} lpcbReturnStatusBufferSize On input, pointer to a value specifying the size (in bytes) of the output buffer. On output, pointer to a 
+     * @param {Pointer<Integer>} lpcbReturnStatusBufferSize On input, pointer to a value specifying the size (in bytes) of the output buffer. On output, pointer to a 
      *        value specifying the actual size (in bytes) of the resulting data. The output size is always specified, even if 
      *        <i>lpReturnStatusBuffer</i> is <b>NULL</b>. This parameter cannot be 
      *        <b>NULL</b>.
@@ -3869,7 +3869,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpcbBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -3939,7 +3939,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -4044,32 +4044,32 @@ class Clustering {
      * Retrieves information about the next notification event for a notification port.
      * @param {HCHANGE} hChange A handle to the notification port. This handle is created by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyportv2">CreateClusterNotifyPortV2</a> function.
-     * @param {Pointer<UIntPtr>} lpdwNotifyKey A pointer to the notification key for the notification port.
+     * @param {Pointer<Pointer>} lpdwNotifyKey A pointer to the notification key for the notification port.
      * @param {Pointer<NOTIFY_FILTER_AND_TYPE>} pFilterAndType A  pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-notify_filter_and_type">NOTIFY_FILTER_AND_TYPE</a> 
      *       structure that describes the next notification event for the notification port.
      * @param {Pointer} buffer A pointer to a buffer for the notification event.
-     * @param {Pointer<UInt32>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} lpbBufferSize A pointer to  the size of the <i>buffer</i> parameter, in bytes.
      * @param {PWSTR} lpszObjectId A pointer to a  Unicode string   with  the ID of the 
      *        cluster object that triggered the event. The string ends with a  terminating null character.
-     * @param {Pointer<UInt32>} lpcchObjectId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
+     * @param {Pointer<Integer>} lpcchObjectId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       that the <i>lpszObjectId</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszObjectId</i> received, excluding the terminating null character.
      * @param {PWSTR} lpszParentId A pointer to a Unicode string with the ID of the parent to the cluster object that triggered the event. The 
      *       string ends with a terminating null character.
-     * @param {Pointer<UInt32>} lpcchParentId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
+     * @param {Pointer<Integer>} lpcchParentId On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       the <i>lpszParentId</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszParentId</i> received, excluding the terminating null character.
      * @param {PWSTR} lpszName A pointer to a Unicode string that contains the name of the cluster object that triggered the event. The 
      *       string ends with a terminating null character.
-     * @param {Pointer<UInt32>} lpcchName On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
+     * @param {Pointer<Integer>} lpcchName On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       that  the <i>lpszName</i> parameter can hold, including the terminating null character. On 
      *       output, a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszName</i> received, excluding the terminating null character.
      * @param {PWSTR} lpszType A pointer to a  Unicode string that contains the type of  cluster object that triggered the event. The 
      *       string ends with a  terminating null character.
-     * @param {Pointer<UInt32>} lpcchType On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
+     * @param {Pointer<Integer>} lpcchType On input, a pointer to a <b>DWORD</b> that specifies the maximum number of characters 
      *       the <i>lpszType</i> parameter can hold, including the terminating null character. On output, 
      *       a pointer to a <b>DWORD</b> that specifies the number of characters that 
      *       <i>lpszType</i> received, excluding the terminating null character.
@@ -4206,14 +4206,14 @@ class Clustering {
      * Information relating to the next notification event that is stored for a notification port.
      * @param {HCHANGE} hChange The handle to a notification port that is created with the 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-createclusternotifyport">CreateClusterNotifyPort</a> function.
-     * @param {Pointer<UIntPtr>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
-     * @param {Pointer<UInt32>} lpdwFilterType 
+     * @param {Pointer<Pointer>} lpdwNotifyKey A  pointer to the notification key for the port that is  identified by the  <i>hChange</i> parameter.
+     * @param {Pointer<Integer>} lpdwFilterType 
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster object</a> that triggered the event. The 
      *        following list describes the content of <i>lpszName</i> by event type. Note that 
      *        <b>CLUSTER_CHANGE_REGISTRY_SUBTREE</b> is not included in the table; this event type is 
      *        never handled by <b>GetClusterNotify</b>.
-     * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters that the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -4335,9 +4335,9 @@ class Clustering {
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
      *        to <b>ClusterEnum</b> and then incremented for subsequent 
      *        calls.
-     * @param {Pointer<UInt32>} lpdwType 
+     * @param {Pointer<Integer>} lpdwType 
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -4457,7 +4457,7 @@ class Clustering {
      * @param {HCLUSENUMEX} hClusterEnum A handle to the enumerator that is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusteropenenumex">ClusterOpenEnumEx</a> function.
      * @param {Integer} dwIndex The index that identifies the next cluster object to enumerate. This parameter should be zero for the first call to the  <b>ClusterEnumEx</b>  function and then be  incremented for subsequent calls.
      * @param {Pointer<CLUSTER_ENUM_ITEM>} pItem A pointer that receives the returned cluster object properties.
-     * @param {Pointer<UInt32>} cbItem On input, the size of the  <i>pItem</i>   parameter.
+     * @param {Pointer<Integer>} cbItem On input, the size of the  <i>pItem</i>   parameter.
      * 
      * On output, either the required size in bytes of the buffer if the buffer is too small, or the number of bytes that are  written into the buffer.
      * @returns {Integer} <table>
@@ -4758,7 +4758,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -4828,7 +4828,7 @@ class Clustering {
      * @param {Integer} cbInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -5123,8 +5123,9 @@ class Clustering {
      * @param {HGROUPSETENUM} hGroupSetEnum 
      * @param {Integer} dwIndex 
      * @param {PWSTR} lpszName 
-     * @param {Pointer<UInt32>} lpcchName 
+     * @param {Pointer<Integer>} lpcchName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/clusapi/nf-clusapi-clustergroupsetenum
      * @since windowsserver2016
      */
     static ClusterGroupSetEnum(hGroupSetEnum, dwIndex, lpszName, lpcchName) {
@@ -5273,7 +5274,7 @@ class Clustering {
      * @param {Integer} cbInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @returns {Integer} 
      */
     static ClusterAffinityRuleControl(hCluster, affinityRuleName, hHostNode, dwControlCode, lpInBuffer, cbInBufferSize, lpOutBuffer, cbOutBufferSize, lpBytesReturned) {
@@ -5342,7 +5343,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternode">OpenClusterNode</a>.
-     * @param {Pointer<UInt32>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -5541,7 +5542,7 @@ class Clustering {
      *        which the application is running is returned in the content of <i>lpszNodeId</i>.
      * @param {PWSTR} lpszNodeId This parameter points to a buffer that receives the unique ID of <i>hNode</i>, including 
      *        the terminating <b>NULL</b> character.
-     * @param {Pointer<UInt32>} lpcchName On input, pointer to the count of characters in the buffer pointed to by the 
+     * @param {Pointer<Integer>} lpcchName On input, pointer to the count of characters in the buffer pointed to by the 
      *        <i>lpszNodeId</i> parameter, including the <b>NULL</b> terminator. On 
      *        output, pointer to the count of characters stored in the buffer excluding the <b>NULL</b> 
      *        terminator.
@@ -5690,7 +5691,7 @@ class Clustering {
      * @param {Integer} dwIndex Index used to identify the entry to be enumerated. This parameter should be zero for the first call and then incremented for each subsequent 
      *        call.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName Pointer to the size, in characters, of the <i>lpszName</i> buffer. On input, 
+     * @param {Pointer<Integer>} lpcchName Pointer to the size, in characters, of the <i>lpszName</i> buffer. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, indicates the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -5832,7 +5833,7 @@ class Clustering {
      * @param {HNODEENUMEX} hNodeEnum A handle to the <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/ns-clusapi-cluster_enum_item">CLUSTER_ENUM_ITEM</a> enumeration that contains the cluster node to retrieve.
      * @param {Integer} dwIndex The index that identifies the next object to enumerate. This parameter should be zero for the first call to the  <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterenumex">ClusterEnumEx</a>  function and then be incremented for subsequent calls.
      * @param {Pointer<CLUSTER_ENUM_ITEM>} pItem A pointer that receives the returned cluster node.
-     * @param {Pointer<UInt32>} cbItem On input, the size of the  <i>pItem</i>    parameter.
+     * @param {Pointer<Integer>} cbItem On input, the size of the  <i>pItem</i>    parameter.
      * 
      * On output, either the required size in bytes of the buffer if the buffer is too small, or the number of bytes written into the buffer.
      * @returns {Integer} <table>
@@ -5929,11 +5930,11 @@ class Clustering {
      * @param {Integer} dwIndex Index used to identify the next entry to be enumerated. This parameter should be zero for the first call to 
      *        <b>ClusterNodeEnum</b> and then incremented for subsequent 
      *        calls.
-     * @param {Pointer<UInt32>} lpdwType Pointer to the type of object returned. The following value of the 
+     * @param {Pointer<Integer>} lpdwType Pointer to the type of object returned. The following value of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_node_enum">CLUSTER_NODE_ENUM</a> enumeration is returned with each 
      *        call.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -6144,7 +6145,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclustergroup">OpenClusterGroup</a>.
-     * @param {Pointer<UInt32>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -6310,7 +6311,7 @@ class Clustering {
      * @param {HGROUPENUMEX} hGroupEnumEx The handle to the enumeration from which the item will be retrieved.
      * @param {Integer} dwIndex The zero-based index of the item in the enumeration.
      * @param {Pointer<CLUSTER_GROUP_ENUM_ITEM>} pItem A pointer to the buffer to be filled.
-     * @param {Pointer<UInt32>} cbItem On input, the size of <i>pItem</i>.
+     * @param {Pointer<Integer>} cbItem On input, the size of <i>pItem</i>.
      * 
      * On output, either the required size in bytes of the buffer if the buffer is too small, or the number of bytes written into the buffer.
      * @returns {Integer} <table>
@@ -6418,7 +6419,7 @@ class Clustering {
      *        <b>ClusterResourceEnumEx</b> function and then be  
      *        incremented for subsequent calls.
      * @param {Pointer<CLUSTER_RESOURCE_ENUM_ITEM>} pItem A pointer that receives the returned object.
-     * @param {Pointer<UInt32>} cbItem On input, the size of the  <i>pItem</i> parameter.
+     * @param {Pointer<Integer>} cbItem On input, the size of the  <i>pItem</i> parameter.
      * 
      * On output, either the required size in bytes of the buffer if the buffer is too small, or the number of bytes written into the buffer.
      * @returns {Integer} The function returns one of the following values.
@@ -6596,7 +6597,7 @@ class Clustering {
      * 
      * @param {HGROUP} hGroup 
      * @param {Integer} dwOfflineFlags 
-     * @param {Pointer<Byte>} lpInBuffer 
+     * @param {Pointer<Integer>} lpInBuffer 
      * @param {Integer} cbInBufferSize 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -6849,7 +6850,7 @@ class Clustering {
      * Returns the current state of a group.
      * @param {HGROUP} hGroup Handle to the group for which state information should be returned.
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node that currently owns the group.
-     * @param {Pointer<UInt32>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -7235,11 +7236,11 @@ class Clustering {
      * @param {Integer} dwIndex The index of the resource or node to return. This parameter should be zero for the first call to 
      *        <b>ClusterGroupEnum</b> and then incremented for 
      *        subsequent calls.
-     * @param {Pointer<UInt32>} lpdwType A pointer to the type of object returned by 
+     * @param {Pointer<Integer>} lpdwType A pointer to the type of object returned by 
      *        <b>ClusterGroupEnum</b>. The following are valid values 
      *        of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_group_enum">CLUSTER_GROUP_ENUM</a> enumeration.
      * @param {PWSTR} lpszResourceName A pointer to a null-terminated Unicode string containing the name of the returned resource or node.
-     * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On 
+     * @param {Pointer<Integer>} lpcchName A pointer to the size of the <i>lpszResourceName</i> buffer as a count of characters. On 
      *        input, specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -7425,7 +7426,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>.
-     * @param {Pointer<UInt32>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -7597,7 +7598,7 @@ class Clustering {
      * @param {PWSTR} lpszNodeName Pointer to a buffer that receives the name of the specified resource's current owner node as a 
      *        <b>NULL</b>-terminated Unicode string. Pass <b>NULL</b> if the node name 
      *        is not required.
-     * @param {Pointer<UInt32>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. This 
+     * @param {Pointer<Integer>} lpcchNodeName Pointer to the size of the <i>lpszNodeName</i> buffer as a count of characters. This 
      *        pointer cannot be <b>NULL</b> unless <i>lpszNodeName</i> is also 
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
@@ -7605,7 +7606,7 @@ class Clustering {
      * @param {PWSTR} lpszGroupName Pointer to a buffer that receives the name of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/groups">group</a> that 
      *        contains the specified resource. The name is returned as a <b>NULL</b>-terminated Unicode 
      *        string. Pass <b>NULL</b> if the group name is not required.
-     * @param {Pointer<UInt32>} lpcchGroupName Pointer to the size of the <i>lpszGroupName</i> buffer as a count of characters. This 
+     * @param {Pointer<Integer>} lpcchGroupName Pointer to the size of the <i>lpszGroupName</i> buffer as a count of characters. This 
      *        pointer cannot be <b>NULL</b> unless <i>lpszNodeName</i> is also 
      *        <b>NULL</b>. On input, specifies the maximum number of characters the buffer can hold, 
      *        including the terminating <b>NULL</b>. On output, specifies the number of characters in the 
@@ -8147,7 +8148,7 @@ class Clustering {
      * Retrieves the dependency expression associated with the specified resource.
      * @param {HRESOURCE} hResource Handle to the resource.
      * @param {PWSTR} lpszDependencyExpression Address of buffer that will receive the dependency expression.
-     * @param {Pointer<UInt32>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
+     * @param {Pointer<Integer>} lpcchDependencyExpression Size in characters of the buffer pointed to by the <i>lpszDependencyExpression</i> 
      *       parameter.
      * @returns {Integer} <b>ERROR_SUCCESS</b> (0) if successful.
      * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-getclusterresourcedependencyexpression
@@ -8212,7 +8213,7 @@ class Clustering {
 
     /**
      * Updates the state of a snapshot of a cluster shared volume.
-     * @param {Pointer<Guid>} guidSnapshotSet The <b>GUID</b> of the snapshot.
+     * @param {Guid} guidSnapshotSet The <b>GUID</b> of the snapshot.
      * @param {PWSTR} lpszVolumeName A pointer to the name of the cluster shared volume.
      * @param {Integer} state A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_shared_volume_snapshot_state">CLUSTER_SHARED_VOLUME_SNAPSHOT_STATE</a> enumeration value that specifies the state of the snapshot.
      * @returns {Integer} If the operation succeeds, the function returns a resource handle.
@@ -8527,7 +8528,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -8635,7 +8636,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} cbOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -8821,7 +8822,7 @@ class Clustering {
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to the number of bytes in the buffer pointed to by <i>lpOutBuffer</i> that were 
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to the number of bytes in the buffer pointed to by <i>lpOutBuffer</i> that were 
      *        actually filled in as a result of the operation. The caller can pass <b>NULL</b> for 
      *        <i>lpBytesReturned</i> if 
      *        <b>ClusterResourceTypeControl</b> does not need 
@@ -8904,7 +8905,7 @@ class Clustering {
      *       <b>NULL</b> if nothing will be returned.
      * @param {Integer} nOutBufferSize Number of bytes in the output buffer pointed to by <i>lpOutBuffer</i>, or zero if the 
      *        caller does not know how much data will be returned.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to the number of bytes in the buffer pointed to by <i>lpOutBuffer</i> that were 
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to the number of bytes in the buffer pointed to by <i>lpOutBuffer</i> that were 
      *        actually filled in as a result of the operation. The caller can pass <b>NULL</b> for 
      *        <i>lpBytesReturned</i> if 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/nf-clusapi-clusterresourcetypecontrol">ClusterResourceTypeControl</a> does not need 
@@ -9043,7 +9044,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -9113,7 +9114,7 @@ class Clustering {
      * @param {Integer} cbInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9133,7 +9134,7 @@ class Clustering {
      * @param {Integer} cbInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} cbOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9154,7 +9155,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9176,7 +9177,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9197,7 +9198,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9278,7 +9279,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -9348,7 +9349,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -9365,7 +9366,7 @@ class Clustering {
      * @param {PWSTR} lpBuffer Buffer containing a null-terminated Unicode string that contains the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-names-name">Name</a> private property of the Network Name 
      *       resource on which the resource depends.
-     * @param {Pointer<UInt32>} nSize On input, pointer to a count of characters in the buffer pointed to by <i>lpBuffer</i>. 
+     * @param {Pointer<Integer>} nSize On input, pointer to a count of characters in the buffer pointed to by <i>lpBuffer</i>. 
      *       On output, pointer to a count of characters in the network name of the Network Name resource contained in the 
      *       buffer pointed to by <i>lpBuffer</i>, excluding the null-terminating character.
      * @returns {BOOL} If the operation succeeds, the function returns <b>TRUE</b>.
@@ -9432,13 +9433,13 @@ class Clustering {
      * @param {Integer} dwIndex The index of the resource or node object to return. This parameter should be zero for the first call to the 
      *        <b>ClusterResourceEnum</b> function and then 
      *        incremented for subsequent calls.
-     * @param {Pointer<UInt32>} lpdwType The type of object returned by 
+     * @param {Pointer<Integer>} lpdwType The type of object returned by 
      *        <b>ClusterResourceEnum</b>.
      * 
      * 
      * The possible values are one of the following <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_enum">CLUSTER_RESOURCE_ENUM</a> enumeration values:
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating null character. On 
      *        output, specifies the number of characters in the resulting name, excluding the terminating null character.
      * @returns {Integer} The function returns one of the following values.
@@ -9647,12 +9648,12 @@ class Clustering {
      *        parameter should be zero for the first call to 
      *        <b>ClusterResourceTypeEnum</b> and then 
      *        incremented for subsequent calls.
-     * @param {Pointer<UInt32>} lpdwType Type of object returned by 
+     * @param {Pointer<Integer>} lpdwType Type of object returned by 
      *        <b>ClusterResourceTypeEnum</b>. The following 
      *        values of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_resource_type_enum">CLUSTER_RESOURCE_TYPE_ENUM</a> 
      *        enumeration are valid.
      * @param {PWSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -9788,7 +9789,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetwork">OpenClusterNetwork</a>.
-     * @param {Pointer<UInt32>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -9943,11 +9944,11 @@ class Clustering {
      * @param {Integer} dwIndex The index used to identify the next entry to be enumerated. This parameter should be zero for the first call 
      *        to <b>ClusterNetworkEnum</b> and then incremented for 
      *        subsequent calls.
-     * @param {Pointer<UInt32>} lpdwType A pointer to the type of object returned. The following value of the 
+     * @param {Pointer<Integer>} lpdwType A pointer to the type of object returned. The following value of the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ne-clusapi-cluster_network_enum">CLUSTER_NETWORK_ENUM</a> enumeration is returned with 
      *        each call.
      * @param {PWSTR} lpszName A pointer to a null-terminated Unicode string containing the name of the returned object.
-     * @param {Pointer<UInt32>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName A pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -10151,7 +10152,7 @@ class Clustering {
      * Returns the identifier of a network.
      * @param {HNETWORK} hNetwork Handle to a network.
      * @param {PWSTR} lpszNetworkId Pointer to the identifier of the network associated with <i>hNetwork</i>, including the null-terminating character.
-     * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszNetworkID</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -10255,7 +10256,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -10324,7 +10325,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -10385,7 +10386,7 @@ class Clustering {
      *       (0x02000000). If this value is zero (0) and undefined error may be returned. Using 
      *       <b>GENERIC_ALL</b> is the same as calling 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusternetinterface">OpenClusterNetInterface</a>.
-     * @param {Pointer<UInt32>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
+     * @param {Pointer<Integer>} lpdwGrantedAccess Optional parameter that contains the address of a <b>DWORD</b> that will receive the 
      *       access rights granted. If the <i>DesiredAccess</i> parameter is 
      *       <b>MAXIMUM_ALLOWED</b> (0x02000000) then the <b>DWORD</b> pointed to by 
      *       this parameter will contain the maximum privileges granted to this user.
@@ -10436,7 +10437,7 @@ class Clustering {
      * @param {PWSTR} lpszNodeName Pointer to a null-terminated Unicode string containing the name of the node in the cluster.
      * @param {PWSTR} lpszNetworkName Pointer to a null-terminated Unicode string containing the name of the network.
      * @param {PWSTR} lpszInterfaceName Pointer to an output buffer holding the name of the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-interfaces">network interface</a>.
-     * @param {Pointer<UInt32>} lpcchInterfaceName Pointer to the size of the <i>lpszInterfaceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcchInterfaceName Pointer to the size of the <i>lpszInterfaceName</i> buffer as a count of characters. On input, specify the maximum number of characters the buffer can hold, including the terminating <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding the terminating <b>NULL</b>.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -10700,7 +10701,7 @@ class Clustering {
      * @param {Pointer} lpOutBuffer Pointer to an output buffer to receive the data resulting from the operation, or 
      *        <b>NULL</b> if no data will be returned.
      * @param {Integer} nOutBufferSize The allocated size (in bytes) of the output buffer.
-     * @param {Pointer<UInt32>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
+     * @param {Pointer<Integer>} lpBytesReturned Returns the actual size (in bytes) of the data resulting from the operation. If this information is not 
      *        needed, pass <b>NULL</b> for <i>lpBytesReturned</i>.
      * @returns {Integer} The function returns one of the following values.
      * 
@@ -10769,7 +10770,7 @@ class Clustering {
      * @param {Integer} nInBufferSize 
      * @param {Pointer} lpOutBuffer 
      * @param {Integer} nOutBufferSize 
-     * @param {Pointer<UInt32>} lpBytesReturned 
+     * @param {Pointer<Integer>} lpBytesReturned 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -10933,7 +10934,7 @@ class Clustering {
      *        <b>ClusterRegCreateKey</b> has returned 
      *        successfully.
      * @param {Pointer<HKEY>} phkResult Pointer to the handle of the opened or created key.
-     * @param {Pointer<UInt32>} lpdwDisposition Pointer to a value that describes whether the key pointed to by <i>lpszSubKey</i> was 
+     * @param {Pointer<Integer>} lpdwDisposition Pointer to a value that describes whether the key pointed to by <i>lpszSubKey</i> was 
      *        opened or created. The following values are valid.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -10958,7 +10959,7 @@ class Clustering {
      * @param {Integer} samDesired 
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @param {Pointer<HKEY>} phkResult 
-     * @param {Pointer<UInt32>} lpdwDisposition 
+     * @param {Pointer<Integer>} lpdwDisposition 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
      */
@@ -11066,7 +11067,7 @@ class Clustering {
      *        order.
      * @param {PWSTR} lpszName Pointer to a buffer that receives the name of the subkey, including the null-terminating character. The 
      *        function copies only the name of the subkey, not the full key hierarchy, to the buffer.
-     * @param {Pointer<UInt32>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchName Pointer to the size of the <i>lpszName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
@@ -11146,7 +11147,7 @@ class Clustering {
      *        name is not already present in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resources">resource</a>, 
      *        <b>ClusterRegSetValue</b> adds it to the resource.
      * @param {Integer} dwType 
-     * @param {Pointer<Byte>} lpData Pointer to the data to be stored with the name pointed to by <i>lpszValueName</i>.
+     * @param {Pointer<Integer>} lpData Pointer to the data to be stored with the name pointed to by <i>lpszValueName</i>.
      * @param {Integer} cbData Count of bytes in the data pointed to by the <i>lpbData</i> parameter. If the data is of 
      *        type <b>REG_SZ</b>, <b>REG_EXPAND_SZ</b> or 
      *        <b>REG_MULTI_SZ</b>, <i>cbData</i> must include the size of the 
@@ -11195,7 +11196,7 @@ class Clustering {
      * @param {HKEY} hKey 
      * @param {PWSTR} lpszValueName 
      * @param {Integer} dwType 
-     * @param {Pointer<Byte>} lpData 
+     * @param {Pointer<Integer>} lpData 
      * @param {Integer} cbData 
      * @param {PWSTR} lpszReason 
      * @returns {Integer} 
@@ -11229,11 +11230,11 @@ class Clustering {
      * Returns the name, type, and data components associated with a value for an open cluster database key.
      * @param {HKEY} hKey Handle of the cluster database key to query.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the value to be queried.
-     * @param {Pointer<UInt32>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
+     * @param {Pointer<Integer>} lpdwValueType Pointer to the key's value type. This parameter can be <b>NULL</b> if the type is not 
      *        required; otherwise, the value returned through this parameter is one of the following.
      * @param {Pointer} lpData Pointer to the value's data. This parameter can be <b>NULL</b> if the data is not 
      *        required.
-     * @param {Pointer<UInt32>} lpcbData On input, pointer to the count of bytes in the buffer pointed to by the <i>lpbData</i> 
+     * @param {Pointer<Integer>} lpcbData On input, pointer to the count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to the count of bytes in the value's data, which is placed in the content of 
      *        <i>lpbData</i> if the caller passes in a valid pointer.
      * 
@@ -11295,14 +11296,14 @@ class Clustering {
      *        <b>ClusterRegEnumValue</b> may return values in any 
      *        order.
      * @param {PWSTR} lpszValueName Pointer to a null-terminated Unicode string containing the name of the returned value.
-     * @param {Pointer<UInt32>} lpcchValueName Pointer to the size of the <i>lpszValueName</i> buffer as a count of characters. On input, 
+     * @param {Pointer<Integer>} lpcchValueName Pointer to the size of the <i>lpszValueName</i> buffer as a count of characters. On input, 
      *        specify the maximum number of characters the buffer can hold, including the terminating 
      *        <b>NULL</b>. On output, specifies the number of characters in the resulting name, excluding 
      *        the terminating <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpdwType Pointer to the type code for the value entry, or <b>NULL</b> if the type code is not
+     * @param {Pointer<Integer>} lpdwType Pointer to the type code for the value entry, or <b>NULL</b> if the type code is not
      * @param {Pointer} lpData Pointer to the data for the value entry. This parameter can be <b>NULL</b> if the data is 
      *        not required.
-     * @param {Pointer<UInt32>} lpcbData On input, pointer to a count of bytes in the buffer pointed to by the <i>lpbData</i> 
+     * @param {Pointer<Integer>} lpcbData On input, pointer to a count of bytes in the buffer pointed to by the <i>lpbData</i> 
      *        parameter. On output, pointer to a count of bytes resulting from the operation. This parameter can be 
      *        <b>NULL</b> only if <i>lpbData</i> is <b>NULL</b>.
      * @returns {Integer} The function returns one of the following values.
@@ -11378,12 +11379,12 @@ class Clustering {
     /**
      * Returns information about a cluster database key.
      * @param {HKEY} hKey Handle to a cluster database key. All subsequent parameters describe the contents of the key.
-     * @param {Pointer<UInt32>} lpcSubKeys If not <b>NULL</b>, pointer to the number of subkeys in the specified key.
-     * @param {Pointer<UInt32>} lpcchMaxSubKeyLen If not <b>NULL</b>, pointer to the number of characters in the longest subkey name in the specified key. The number does not include the terminating <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcValues If not <b>NULL</b>, pointer to the number of values in the specified key.
-     * @param {Pointer<UInt32>} lpcchMaxValueNameLen If not <b>NULL</b>, pointer to the number of characters in the longest value name in the specified key. The number does not include the terminating <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpcbMaxValueLen If not <b>NULL</b>, pointer to the byte size of the largest data value in the specified key.
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor If not <b>NULL</b>, pointer to the byte size of the specified key's security descriptor.
+     * @param {Pointer<Integer>} lpcSubKeys If not <b>NULL</b>, pointer to the number of subkeys in the specified key.
+     * @param {Pointer<Integer>} lpcchMaxSubKeyLen If not <b>NULL</b>, pointer to the number of characters in the longest subkey name in the specified key. The number does not include the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcValues If not <b>NULL</b>, pointer to the number of values in the specified key.
+     * @param {Pointer<Integer>} lpcchMaxValueNameLen If not <b>NULL</b>, pointer to the number of characters in the longest value name in the specified key. The number does not include the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} lpcbMaxValueLen If not <b>NULL</b>, pointer to the byte size of the largest data value in the specified key.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor If not <b>NULL</b>, pointer to the byte size of the specified key's security descriptor.
      * @param {Pointer<FILETIME>} lpftLastWriteTime If not <b>NULL</b>, pointer to the time of the most recent modification to the specified key or any of its contents.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -11404,7 +11405,7 @@ class Clustering {
      * @param {HKEY} hKey Handle to a cluster database key.
      * @param {Integer} RequestedInformation A  <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/security-information">SECURITY_INFORMATION</a> structure that indicates the requested security descriptor.
      * @param {Pointer} pSecurityDescriptor Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure containing a copy of the requested security descriptor.
-     * @param {Pointer<UInt32>} lpcbSecurityDescriptor On input, pointer to a count of the number of bytes in the buffer pointed to by <i>pSecurityDescriptor</i>. On output, pointer to a count of the number of bytes written to the buffer.
+     * @param {Pointer<Integer>} lpcbSecurityDescriptor On input, pointer to a count of the number of bytes in the buffer pointed to by <i>pSecurityDescriptor</i>. On output, pointer to a count of the number of bytes written to the buffer.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -11663,7 +11664,7 @@ class Clustering {
      *        of <b>ClusterRegCloseBatch</b>, this handle is no 
      *        longer valid and memory associated with it is freed.
      * @param {BOOL} bCommit If the value this parameter takes is true, then a batch is sent for execution to a cluster server.
-     * @param {Pointer<Int32>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
+     * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
      *        second has number 1, and so on.
      * @returns {Integer} The function returns one of the following 
@@ -11715,7 +11716,7 @@ class Clustering {
      *        of <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-clusterregclosebatch">ClusterRegCloseBatch</a>, this handle is no 
      *        longer valid and memory associated with it is freed.
      * @param {Integer} flags 
-     * @param {Pointer<Int32>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
+     * @param {Pointer<Integer>} failedCommandNumber If execution of the batch is not successful, the number of the command that failed is returned in the form of 
      *        a <i>failedCommandNumber</i> argument. The first command in the batch has number 0, the 
      *        second has number 1, and so on.
      * @returns {Integer} The function returns one of the following 
@@ -12400,7 +12401,7 @@ class Clustering {
      * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
-     * @param {Pointer<Int32>} pCNOResType 
+     * @param {Pointer<Integer>} pCNOResType 
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromNodelist(cNodes, ppszNodeNames, pCNOResType) {
@@ -12411,7 +12412,7 @@ class Clustering {
     /**
      * 
      * @param {HCLUSTER} hCluster 
-     * @param {Pointer<Int32>} pCNOResType 
+     * @param {Pointer<Integer>} pCNOResType 
      * @returns {Integer} 
      */
     static DetermineCNOResTypeFromCluster(hCluster, pCNOResType) {
@@ -12423,7 +12424,7 @@ class Clustering {
      * 
      * @param {Integer} cNodes 
      * @param {Pointer<PWSTR>} ppszNodeNames 
-     * @param {Pointer<Int32>} pCloudType 
+     * @param {Pointer<Integer>} pCloudType 
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromNodelist(cNodes, ppszNodeNames, pCloudType) {
@@ -12434,7 +12435,7 @@ class Clustering {
     /**
      * 
      * @param {HCLUSTER} hCluster 
-     * @param {Pointer<Int32>} pCloudType 
+     * @param {Pointer<Integer>} pCloudType 
      * @returns {Integer} 
      */
     static DetermineClusterCloudTypeFromCluster(hCluster, pCloudType) {
@@ -12445,7 +12446,7 @@ class Clustering {
     /**
      * 
      * @param {PWSTR} ppszNodeName 
-     * @param {Pointer<UInt32>} NodeCloudType 
+     * @param {Pointer<Integer>} NodeCloudType 
      * @returns {Integer} 
      */
     static GetNodeCloudTypeDW(ppszNodeName, NodeCloudType) {
@@ -12877,8 +12878,8 @@ class Clustering {
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing properties to enumerate.
      * @param {Pointer} pszOutProperties Pointer to the output buffer in which to return the names of all of the properties in multiple string format. Each property name is stored as a null-terminated Unicode string. The last property name is followed by a final null-terminating character.
      * @param {Integer} cbOutPropertiesSize Size in bytes of the output buffer pointed to by <i>pszOutProperties</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pszOutProperties</i>.
-     * @param {Pointer<UInt32>} pcbRequired Number of bytes required if the output buffer is too small.
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pszOutProperties</i>.
+     * @param {Pointer<Integer>} pcbRequired Number of bytes required if the output buffer is too small.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -12936,8 +12937,8 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Key identifying the location of the private properties in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a>.
      * @param {Pointer} pszOutProperties Pointer to an output buffer in which to receive the names of the enumerated properties.
      * @param {Integer} cbOutPropertiesSize Size of the output buffer pointed to by <i>pszOutProperties</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes returned in the output buffer.
-     * @param {Pointer<UInt32>} pcbRequired Pointer to the required number of bytes if the output buffer is too small to hold all of the enumerated properties.
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes returned in the output buffer.
+     * @param {Pointer<Integer>} pcbRequired Pointer to the required number of bytes if the output buffer is too small to hold all of the enumerated properties.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -12998,8 +12999,8 @@ class Clustering {
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>pOutPropertyList</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
-     * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small.
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
+     * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13060,8 +13061,8 @@ class Clustering {
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describe the properties to retrieve.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer in which to return the property list.
      * @param {Integer} cbOutPropertyListSize Size in bytes of the output buffer pointed to by <i>OutBuffer</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>OutBuffer</i>.
-     * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>OutBuffer</i> is too small.
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>OutBuffer</i>.
+     * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>OutBuffer</i> is too small.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13121,8 +13122,8 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">cluster database</a> key that identifies the location of the private properties to retrieve.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer in which a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> with the names and values of the private properties is returned.
      * @param {Integer} cbOutPropertyListSize Size of the output buffer pointed to by <i>pOutPropertyList</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
-     * @param {Pointer<UInt32>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small to hold all of the private properties.
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
+     * @param {Pointer<Integer>} pcbRequired Pointer to the number of bytes that is required if <i>pOutPropertyList</i> is too small to hold all of the private properties.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13181,8 +13182,8 @@ class Clustering {
      * Returns the total number of bytes required for a specified property.
      * @param {HKEY} hkeyClusterKey <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-database">Cluster database</a> key identifying the location of the property to size.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structure describing the property to size.
-     * @param {Pointer<UInt32>} pcbOutPropertyListSize Pointer to the total number of bytes required for the property value, which includes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure and the data.
-     * @param {Pointer<UInt32>} pnPropertyCount Pointer to the total number of properties. This value is incremented to include this property if  <b>ResUtilGetPropertySize</b> is successful.
+     * @param {Pointer<Integer>} pcbOutPropertyListSize Pointer to the total number of bytes required for the property value, which includes the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure and the data.
+     * @param {Pointer<Integer>} pnPropertyCount Pointer to the total number of properties. This value is incremented to include this property if  <b>ResUtilGetPropertySize</b> is successful.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13231,7 +13232,7 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key identifying the location of the property to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTableItem Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structure that describes the property to retrieve.
      * @param {Pointer} pOutPropertyItem Pointer to an output buffer in which to return the requested property. It is assumed that the buffer is part of a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a>.
-     * @param {Pointer<UInt32>} pcbOutPropertyItemSize Pointer to the size in bytes of the output buffer pointed to by <i>pOutPropertyItem</i>.
+     * @param {Pointer<Integer>} pcbOutPropertyItemSize Pointer to the size in bytes of the output buffer pointed to by <i>pOutPropertyItem</i>.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13270,7 +13271,7 @@ class Clustering {
      * @param {BOOL} bAllowUnknownProperties If <b>TRUE</b>, the function ignores all properties in the property list that are not included in the property table. If <b>FALSE</b>, any property in the property list that is not included in the property table causes the function to return <b>ERROR_INVALID_PARAMETER</b>.
      * @param {Pointer} pInPropertyList Pointer to the input buffer containing the property list to validate.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
-     * @param {Pointer<Byte>} pOutParams Pointer to a parameter block.
+     * @param {Pointer<Integer>} pOutParams Pointer to a parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13336,7 +13337,7 @@ class Clustering {
      *       <b>FALSE</b> if not.
      * @param {Pointer} pInPropertyList Pointer to the input buffer containing a property list.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>cbInPropertyList</i>.
-     * @param {Pointer<Byte>} pOutParams Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. 
+     * @param {Pointer<Integer>} pOutParams Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. 
      *       If specified, parameters are only written if they differ from those in the input buffer.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -13419,7 +13420,7 @@ class Clustering {
      * @param {Pointer<Void>} pInPropertyList Pointer to the input buffer containing a property list.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>cbInPropertyList</i>.
      * @param {BOOL} bForceWrite Forces the property values to be written to the cluster database even if the new values are identical to the existing values
-     * @param {Pointer<Byte>} pOutParams Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. When this is pointer is specified, only parameters that differ from those in the input buffer are written to the parameter block.
+     * @param {Pointer<Integer>} pOutParams Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/parameter-blocks">parameter block</a> to hold returned data. When this is pointer is specified, only parameters that differ from those in the input buffer are written to the parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13490,10 +13491,10 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
-     * @param {Pointer<Byte>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
+     * @param {Pointer<Integer>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
      * @param {Pointer<Void>} pInPropertyList Pointer to the input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> or <b>NULL</b>. If <i>pInPropertyList</i> is not <b>NULL</b>, any properties listed in the property list that are not listed in the property table are also set in the cluster database.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
-     * @param {Pointer<Byte>} pOutParams Pointer to a parameter block to receive data copied from the <i>pInParams</i> parameter.
+     * @param {Pointer<Integer>} pOutParams Pointer to a parameter block to receive data copied from the <i>pInParams</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13542,11 +13543,11 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Cluster database key identifying the location for the properties to set.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties to set.
      * @param {Pointer<Void>} Reserved Reserved.
-     * @param {Pointer<Byte>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
+     * @param {Pointer<Integer>} pInParams Pointer to an input parameter block containing the data for the properties described in the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> pointed to by <i>pPropertyTable</i>.
      * @param {Pointer<Void>} pInPropertyList Pointer to the input buffer containing a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-lists">property list</a> or <b>NULL</b>. If <i>pInPropertyList</i> is not <b>NULL</b>, any properties listed in the property list that are not listed in the property table are also set in the cluster database.
      * @param {Integer} cbInPropertyListSize Size in bytes of the input buffer pointed to by <i>pInPropertyList</i>.
      * @param {BOOL} bForceWrite Forces the property values to be written to the cluster database even if the new values are identical to the existing values
-     * @param {Pointer<Byte>} pOutParams Pointer to a parameter block to receive data copied from the <i>pInParams</i> parameter.
+     * @param {Pointer<Integer>} pOutParams Pointer to a parameter block to receive data copied from the <i>pInParams</i> parameter.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13614,7 +13615,7 @@ class Clustering {
      * Retrieves properties specified by a property table from the cluster database and returns them in a parameter block.
      * @param {HKEY} hkeyClusterKey Pointer to the cluster database key that identifies the location of the properties to retrieve.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures that describes the properties to process.
-     * @param {Pointer<Byte>} pOutParams Pointer to the output parameter block to fill.
+     * @param {Pointer<Integer>} pOutParams Pointer to the output parameter block to fill.
      * @param {BOOL} bCheckForRequiredProperties Specifies whether an error should be generated if required properties are missing.
      * @param {Pointer<PWSTR>} pszNameOfPropInError Address of the string pointer in which to return the name of the error generated by a missing required property. The <i>ppszNameOfPropInError</i> property is optional.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -13664,10 +13665,10 @@ class Clustering {
      * Constructs a property list from a property table and a parameter block.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a property table describing the properties that will be included in the resulting property list.
      * @param {Pointer} pOutPropertyList Pointer to an output buffer that receives the property list.
-     * @param {Pointer<UInt32>} pcbOutPropertyListSize Pointer to the size of the output buffer in bytes.
-     * @param {Pointer<Byte>} pInParams Pointer to the parameter block in which the property values are stored.
-     * @param {Pointer<UInt32>} pcbBytesReturned If the function returns <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to the actual byte size of the property list pointed to by <i>pOutPropertyList</i>. If the function does not return <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to a value of zero.
-     * @param {Pointer<UInt32>} pcbRequired If the function returns <b>ERROR_MORE_DATA</b>, <i>pcbRequired</i> points to the byte size required to contain the property list. If the function does not return <b>ERROR_MORE_DATA</b>, <i>pcbBytesReturned</i> points to a value of zero.
+     * @param {Pointer<Integer>} pcbOutPropertyListSize Pointer to the size of the output buffer in bytes.
+     * @param {Pointer<Integer>} pInParams Pointer to the parameter block in which the property values are stored.
+     * @param {Pointer<Integer>} pcbBytesReturned If the function returns <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to the actual byte size of the property list pointed to by <i>pOutPropertyList</i>. If the function does not return <b>ERROR_SUCCESS</b>, <i>pcbBytesReturned</i> points to a value of zero.
+     * @param {Pointer<Integer>} pcbRequired If the function returns <b>ERROR_MORE_DATA</b>, <i>pcbRequired</i> points to the byte size required to contain the property list. If the function does not return <b>ERROR_MORE_DATA</b>, <i>pcbBytesReturned</i> points to a value of zero.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -13723,8 +13724,8 @@ class Clustering {
 
     /**
      * Performs a member-wise copy of the data from one parameter block to another.
-     * @param {Pointer<Byte>} pOutParams Pointer to the duplicated parameter block.
-     * @param {Pointer<Byte>} pInParams Pointer to the original parameter block.
+     * @param {Pointer<Integer>} pOutParams Pointer to the duplicated parameter block.
+     * @param {Pointer<Integer>} pInParams Pointer to the original parameter block.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing properties in the original parameter block.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -13751,8 +13752,8 @@ class Clustering {
      * Do not use this function with parameter blocks that have not been allocated with  <a href="https://docs.microsoft.com/windows/desktop/api/resapi/nf-resapi-resutildupparameterblock">ResUtilDupParameterBlock</a>.
      * 
      * 
-     * @param {Pointer<Byte>} pOutParams Pointer to the parameter block to deallocate.
-     * @param {Pointer<Byte>} pInParams Pointer to the parameter block to use as a reference.
+     * @param {Pointer<Integer>} pOutParams Pointer to the parameter block to deallocate.
+     * @param {Pointer<Integer>} pInParams Pointer to the parameter block to use as a reference.
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to an array of  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-resutil_property_item">RESUTIL_PROPERTY_ITEM</a> structures describing the properties in the input parameter block.
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilfreeparameterblock
@@ -13768,8 +13769,8 @@ class Clustering {
      * @param {Pointer<RESUTIL_PROPERTY_ITEM>} pPropertyTable Pointer to a  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/property-tables">property table</a> describing the common and private properties of an object. Any properties found in the cluster database that are not in this property table are added to the property list.
      * @param {Pointer<Void>} pOutPropertyList Pointer to a buffer in which to receive the returned properties. On input, the buffer can contain an existing property list, or it can be empty. On output, the retrieved properties will be appended to the end of the existing list, or, if the buffer is empty, will return as a new property list.
      * @param {Integer} pcbOutPropertyListSize Total byte size of the buffer pointed to by <i>pOutPropertyList</i>. The size of the buffer must be large enough to contain the existing property list and the property list to be returned.
-     * @param {Pointer<UInt32>} pcbBytesReturned On input, pointer to the byte size of the property list contained by the pOutPropertyList buffer. On output, pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
-     * @param {Pointer<UInt32>} pcbRequired On output, points to the total number of bytes required to hold the returned property list. If the <i>pOutPropertyList</i> buffer was too small, it can be reallocated to the required size.
+     * @param {Pointer<Integer>} pcbBytesReturned On input, pointer to the byte size of the property list contained by the pOutPropertyList buffer. On output, pointer to the total number of bytes in the property list pointed to by <i>pOutPropertyList</i>.
+     * @param {Pointer<Integer>} pcbRequired On output, points to the total number of bytes required to hold the returned property list. If the <i>pOutPropertyList</i> buffer was too small, it can be reallocated to the required size.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13914,8 +13915,8 @@ class Clustering {
      * Returns a binary value from the cluster database.
      * @param {HKEY} hkeyClusterKey Key in the cluster database that identifies the location of the value to retrieve.
      * @param {PWSTR} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
-     * @param {Pointer<Byte>} ppbOutValue Address of the pointer to the retrieved value.
-     * @param {Pointer<UInt32>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the buffer pointed to by <i>ppbOutValue</i> is returned.
+     * @param {Pointer<Pointer<Integer>>} ppbOutValue Address of the pointer to the retrieved value.
+     * @param {Pointer<Integer>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the buffer pointed to by <i>ppbOutValue</i> is returned.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -13945,7 +13946,7 @@ class Clustering {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "char*", ppbOutValue, "uint*", pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr*", ppbOutValue, "uint*", pcbOutValueSize, "uint")
         return result
     }
 
@@ -13978,7 +13979,7 @@ class Clustering {
      * Returns a numeric value from the cluster database.
      * @param {HKEY} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
      * @param {PWSTR} pszValueName Pointer to a null-terminated Unicode string containing the name of the value to retrieve.
-     * @param {Pointer<UInt32>} pdwOutValue Pointer to the retrieved value.
+     * @param {Pointer<Integer>} pdwOutValue Pointer to the retrieved value.
      * @param {Integer} dwDefaultValue Value to return if the value pointed to by <i>pszValueName</i> is not found.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14017,7 +14018,7 @@ class Clustering {
      * TBD.
      * @param {HKEY} hkeyClusterKey TBD
      * @param {PWSTR} pszValueName TBD
-     * @param {Pointer<UInt64>} pqwOutValue TBD
+     * @param {Pointer<Integer>} pqwOutValue TBD
      * @param {Integer} qwDefaultValue TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetqwordvalue
@@ -14038,7 +14039,7 @@ class Clustering {
      * @param {Pointer} pbNewValue Pointer to the new binary value.
      * @param {Integer} cbNewValueSize Size of the new binary value.
      * @param {Pointer} ppbOutValue Address of a pointer to the new binary value.
-     * @param {Pointer<UInt32>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the value pointed to by <i>ppbOutValue</i> is returned.
+     * @param {Pointer<Integer>} pcbOutValueSize Pointer to a <b>DWORD</b> in which the size in bytes of the value pointed to by <i>ppbOutValue</i> is returned.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14159,7 +14160,7 @@ class Clustering {
      * @param {Pointer} pszNewValue Pointer to the new multiple string value.
      * @param {Integer} cbNewValueSize Size of the new value.
      * @param {Pointer<PWSTR>} ppszOutValue Pointer to a string pointer that receives a copy of the updated value. If used, callers must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> on *<i>ppszOutValue</i>.
-     * @param {Pointer<UInt32>} pcbOutValueSize Pointer that receives the size of the new value.
+     * @param {Pointer<Integer>} pcbOutValueSize Pointer that receives the size of the new value.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14198,7 +14199,7 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey Key identifying the location of the numeric value in the cluster database.
      * @param {PWSTR} pszValueName A null-terminated Unicode string containing the name of the value to update.
      * @param {Integer} dwNewValue New <b>DWORD</b> value.
-     * @param {Pointer<UInt32>} pdwOutValue Optional. Pointer to where the updated value should be copied.
+     * @param {Pointer<Integer>} pdwOutValue Optional. Pointer to where the updated value should be copied.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14219,7 +14220,7 @@ class Clustering {
      * @param {HKEY} hkeyClusterKey 
      * @param {PWSTR} pszValueName 
      * @param {Integer} qwNewValue 
-     * @param {Pointer<UInt64>} pqwOutValue 
+     * @param {Pointer<Integer>} pqwOutValue 
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilsetqwordvalue
      * @since windowsserver2008
@@ -14254,15 +14255,15 @@ class Clustering {
 
     /**
      * Retrieves a binary property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_BINARY_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<Byte>} ppbOutValue Address of a pointer in which the binary value from the property list will be returned.
-     * @param {Pointer<UInt32>} pcbOutValueSize Pointer to the size of the output value.
+     * @param {Pointer<Pointer<Integer>>} ppbOutValue Address of a pointer in which the binary value from the property list will be returned.
+     * @param {Pointer<Integer>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_BINARY>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_binary">CLUSPROP_BINARY</a> structure specifying 
      *       the binary value to retrieve from the property list.
      * @param {Pointer} pbOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
      * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the binary property. This pointer will be 
      *       advanced to the beginning of the next property.
-     * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
+     * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14291,7 +14292,7 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "char*", ppbOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr*", ppbOutValue, "uint*", pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14303,7 +14304,7 @@ class Clustering {
      * @param {PWSTR} pszOldValue Pointer to the previous value of the property.
      * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the string property. This pointer will be 
      *       advanced to the beginning of the next property.
-     * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
+     * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14341,14 +14342,14 @@ class Clustering {
     /**
      * Retrieves a multiple string property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_MULTI_SZ_PROPERTY type defines a pointer to this function.
      * @param {Pointer<PWSTR>} ppszOutValue Address of a pointer in which the multiple string value from the property list will be returned.
-     * @param {Pointer<UInt32>} pcbOutValueSize Pointer to the size of the output value.
+     * @param {Pointer<Integer>} pcbOutValueSize Pointer to the size of the output value.
      * @param {Pointer<CLUSPROP_SZ>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_sz">CLUSPROP_MULTI_SZ</a> structure 
      *       specifying the multiple string value to retrieve from the property list.
      * @param {Pointer} pszOldValue Pointer to the previous value of the property.
      * @param {Integer} cbOldValueSize Pointer to the length of the previous value of the property.
      * @param {Pointer} ppPropertyList Address of the pointer to the property list buffer containing the multiple string property. This pointer 
      *       will be advanced to the beginning of the next property.
-     * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
+     * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14383,16 +14384,16 @@ class Clustering {
 
     /**
      * Retrieves a DWORD property from a property list and advances a pointer to the next property in the list. The PRESUTIL_GET_DWORD_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<UInt32>} pdwOutValue Address of a pointer in which the <b>DWORD</b> value from the property list will be 
+     * @param {Pointer<Integer>} pdwOutValue Address of a pointer in which the <b>DWORD</b> value from the property list will be 
      *       returned.
      * @param {Pointer<CLUSPROP_DWORD>} pValueStruct Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa368375(v=vs.85)">CLUSPROP_DWORD</a> structure specifying 
      *       the <b>DWORD</b> value to retrieve from the property list.
      * @param {Integer} dwOldValue Specifies the previous value of the property.
      * @param {Integer} dwMinimum Specifies the minimum value allowed for the property.
      * @param {Integer} dwMaximum Specifies the maximum value allowed for the property.
-     * @param {Pointer<Byte>} ppPropertyList Address of the pointer to the property list buffer containing the <b>DWORD</b> 
+     * @param {Pointer<Pointer<Integer>>} ppPropertyList Address of the pointer to the property list buffer containing the <b>DWORD</b> 
      *       property. This pointer will be advanced to the beginning of the next property.
-     * @param {Pointer<UInt32>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
+     * @param {Pointer<Integer>} pcbPropertyListSize Pointer to the size of the property list buffer. The size will be decremented to account for the advance of 
      *       the <i>ppPropertyList</i> pointer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
@@ -14421,25 +14422,25 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", "uint*", pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "char*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", "uint*", pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
     /**
      * TBD. The PRESUTIL_GET_LONG_PROPERTY type defines a pointer to this function.
-     * @param {Pointer<Int32>} plOutValue TBD
+     * @param {Pointer<Integer>} plOutValue TBD
      * @param {Pointer<CLUSPROP_LONG>} pValueStruct TBD
      * @param {Integer} lOldValue TBD
      * @param {Integer} lMinimum TBD
      * @param {Integer} lMaximum TBD
-     * @param {Pointer<Byte>} ppPropertyList TBD
-     * @param {Pointer<UInt32>} pcbPropertyListSize TBD
+     * @param {Pointer<Pointer<Integer>>} ppPropertyList TBD
+     * @param {Pointer<Integer>} pcbPropertyListSize TBD
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetlongproperty
      * @since windowsserver2008
      */
     static ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", "int*", plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "char*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", "int*", plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14450,14 +14451,14 @@ class Clustering {
      * @param {FILETIME} ftOldValue 
      * @param {FILETIME} ftMinimum 
      * @param {FILETIME} ftMaximum 
-     * @param {Pointer<Byte>} ppPropertyList 
-     * @param {Pointer<UInt32>} pcbPropertyListSize 
+     * @param {Pointer<Pointer<Integer>>} ppPropertyList 
+     * @param {Pointer<Integer>} pcbPropertyListSize 
      * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-resutilgetfiletimeproperty
      * @since windowsserver2008
      */
     static ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
-        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "char*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr*", ppPropertyList, "uint*", pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14761,7 +14762,7 @@ class Clustering {
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<UInt32>} pdwPropertyValue Pointer to the actual value of the data stored in the property list buffer.
+     * @param {Pointer<Integer>} pdwPropertyValue Pointer to the actual value of the data stored in the property list buffer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14810,8 +14811,8 @@ class Clustering {
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size, in bytes, of the property list specified by <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the property to locate.
-     * @param {Pointer<Byte>} pbPropertyValue Pointer to a <b>BYTE</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
-     * @param {Pointer<UInt32>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Pointer<Integer>>} pbPropertyValue Pointer to a <b>BYTE</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Integer>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14862,7 +14863,7 @@ class Clustering {
     static ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
-        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "char*", pbPropertyValue, "uint*", pcbPropertyValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr*", pbPropertyValue, "uint*", pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -14872,7 +14873,7 @@ class Clustering {
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
      * @param {Pointer<PWSTR>} pszPropertyValue Pointer to a <b>WCHAR</b> pointer to a buffer (allocated by the function) containing a copy of the property value. You must call <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> (on *<i>pbPropertyValue</i>) to free the allocated memory. If no value is required, pass <b>NULL</b> for this parameter.
-     * @param {Pointer<UInt32>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
+     * @param {Pointer<Integer>} pcbPropertyValueSize Pointer to the size, in bytes, of the value returned. If no size is required, pass <b>NULL</b> for this parameter.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14932,7 +14933,7 @@ class Clustering {
      * @param {Pointer} pPropertyList Pointer to the property list in which to locate the value.
      * @param {Integer} cbPropertyListSize Size in bytes of the data included in <i>pPropertyList</i>.
      * @param {PWSTR} pszPropertyName Pointer to a null-terminated Unicode string containing the name of the value to locate.
-     * @param {Pointer<Int32>} plPropertyValue Pointer to the actual value of the data stored in the property list buffer.
+     * @param {Pointer<Integer>} plPropertyValue Pointer to the actual value of the data stored in the property list buffer.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, 
@@ -14981,7 +14982,7 @@ class Clustering {
      * @param {Pointer} pPropertyList A pointer to the property list.
      * @param {Integer} cbPropertyListSize The size of the data in <i>pPropertyList</i>, in bytes.
      * @param {PWSTR} pszPropertyName The name of the property.
-     * @param {Pointer<UInt64>} plPropertyValue The value of the property.
+     * @param {Pointer<Integer>} plPropertyValue The value of the property.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b>.
      * 
      * If the operation fails, the function returns a 
@@ -15140,7 +15141,7 @@ class Clustering {
 
     /**
      * Waits for multiple worker threads to terminate up to the specified timeout.
-     * @param {Pointer<CLUS_WORKER>} ClusWorkers Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structures describing the 
+     * @param {Pointer<Pointer<CLUS_WORKER>>} ClusWorkers Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/resapi/ns-resapi-clus_worker">CLUS_WORKER</a> structures describing the 
      *        threads to terminate.
      * @param {Pointer} ClusWorkersCount The number of structures in the <i>ClusWorkers</i> parameter.
      * @param {Integer} TimeoutInMilliseconds The timeout in milliseconds.
@@ -15180,7 +15181,7 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusWorkersTerminate(ClusWorkers, ClusWorkersCount, TimeoutInMilliseconds, WaitOnly) {
-        result := DllCall("RESUTILS.dll\ClusWorkersTerminate", "ptr", ClusWorkers, "ptr", ClusWorkersCount, "uint", TimeoutInMilliseconds, "int", WaitOnly, "uint")
+        result := DllCall("RESUTILS.dll\ClusWorkersTerminate", "ptr*", ClusWorkers, "ptr", ClusWorkersCount, "uint", TimeoutInMilliseconds, "int", WaitOnly, "uint")
         return result
     }
 
@@ -15437,17 +15438,17 @@ class Clustering {
      * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszAddress Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-address">Address</a> private property.
-     * @param {Pointer<UInt32>} pcchAddress On input, specifies the size of the <i>pszAddress</i> buffer as a count of 
+     * @param {Pointer<Integer>} pcchAddress On input, specifies the size of the <i>pszAddress</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *       <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
      * @param {PWSTR} pszSubnetMask Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-subnetmask">SubnetMask</a> private property.
-     * @param {Pointer<UInt32>} pcchSubnetMask On input, specifies the size of the <i>pszSubnetMask</i> buffer as a count of 
+     * @param {Pointer<Integer>} pcchSubnetMask On input, specifies the size of the <i>pszSubnetMask</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *       <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
      * @param {PWSTR} pszNetwork Output buffer for returning the value of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/ip-addresses-network">Network</a> private property.
-     * @param {Pointer<UInt32>} pcchNetwork On input, specifies the size of the <i>pszNetwork</i> buffer as a count of 
+     * @param {Pointer<Integer>} pcchNetwork On input, specifies the size of the <i>pszNetwork</i> buffer as a count of 
      *       <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *       <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
      * 
@@ -15517,7 +15518,7 @@ class Clustering {
      * @param {HCLUSTER} hCluster Cluster handle.
      * @param {HRESOURCE} hResource Handle to the resource to query for dependencies.
      * @param {PWSTR} pszDriveLetter Buffer in which to store the drive letter.
-     * @param {Pointer<UInt32>} pcchDriveLetter On input, specifies the size of the <i>pszDriveLetter</i> buffer as a count of 
+     * @param {Pointer<Integer>} pcchDriveLetter On input, specifies the size of the <i>pszDriveLetter</i> buffer as a count of 
      *        <b>WCHAR</b>s. On output, specifies the size of the resulting data as a count of 
      *        <b>WCHAR</b>s that includes the terminating <b>NULL</b>.
      * @returns {Integer} If the operations succeeds, the function returns <b>ERROR_SUCCESS</b> (0).
@@ -15588,7 +15589,7 @@ class Clustering {
      *        <b>TRUE</b> if calling from the Offline entry point or from a worker thread created to take 
      *        the resource offline. Otherwise specify <b>FALSE</b> and the function will assume you are 
      *        terminating the resource.
-     * @param {Pointer<UInt32>} pdwResourceState Optional pointer to a <b>DWORD</b> which returns the resulting state of the resource, 
+     * @param {Pointer<Integer>} pdwResourceState Optional pointer to a <b>DWORD</b> which returns the resulting state of the resource, 
      *        which will be either <b>ClusterResourceFailed</b> or 
      *        <b>ClusterResourceOffline</b> (for a complete list of resource states see 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-getclusterresourcestate">GetClusterResourceState</a>). Pass 
@@ -15625,8 +15626,8 @@ class Clustering {
      *        format of each property specified by <i>pPropertyTable</i>.
      * @param {Integer} cbPropertyFormatListSize Specifies the allocated size (in bytes) of the buffer pointed to by 
      *        <i>pOutPropertyFormatList</i>.
-     * @param {Pointer<UInt32>} pcbBytesReturned Pointer to the actual size (in bytes) of the property format list that results from the operation.
-     * @param {Pointer<UInt32>} pcbRequired If the buffer pointed to by the <i>pOutPropertyFormatList</i> parameter is too small to 
+     * @param {Pointer<Integer>} pcbBytesReturned Pointer to the actual size (in bytes) of the property format list that results from the operation.
+     * @param {Pointer<Integer>} pcbRequired If the buffer pointed to by the <i>pOutPropertyFormatList</i> parameter is too small to 
      *        hold the resulting data, <i>pcbRequired</i> points to the required buffer size (in 
      *        bytes).
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if the operation was successful.
@@ -15664,7 +15665,7 @@ class Clustering {
      * @param {HRESOURCE} hResource Resource handle (see 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/clusapi/nf-clusapi-openclusterresource">OpenClusterResource</a>).
      * @param {PWSTR} pszResourceName Pointer to a buffer that receives the resource name.
-     * @param {Pointer<UInt32>} pcchResourceNameInOut On input, specifies the size of the buffer pointed to by <i>pszResourceName</i>, in wide 
+     * @param {Pointer<Integer>} pcchResourceNameInOut On input, specifies the size of the buffer pointed to by <i>pszResourceName</i>, in wide 
      *       characters. On output, specifies the actual size of the resource name returned as a count of wide 
      *       characters.
      * @returns {Integer} If the operation succeeds, the function returns <b>ERROR_SUCCESS</b>.
@@ -15828,13 +15829,13 @@ class Clustering {
      * ClusterPrepareSharedVolumeForBackup may be altered or unavailable.
      * @param {PWSTR} lpszFileName Path to a directory or file on a cluster shared volume.
      * @param {PWSTR} lpszVolumePathName Address of buffer that will receive the CSV reparse point.
-     * @param {Pointer<UInt32>} lpcchVolumePathName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
+     * @param {Pointer<Integer>} lpcchVolumePathName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
      *       <b>WCHAR</b> characters) pointed to by the <i>lpszVolumePathName</i> 
      *       parameter and on output contains the size of the string written to that buffer. If size on input is not large 
      *       enough then the function will fail and return <b>ERROR_MORE_DATA</b> and set the 
      *       <b>DWORD</b> to the required size.
      * @param {PWSTR} lpszVolumeName Address of buffer that will receive the volume GUID path for the CSV.
-     * @param {Pointer<UInt32>} lpcchVolumeName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
+     * @param {Pointer<Integer>} lpcchVolumeName Address of a <b>DWORD</b> that on input contains the size of the buffer (in 
      *       <b>WCHAR</b> characters) pointed to by the <i>lpszVolumeName</i> 
      *       parameter and on output contains the size of the string written to that buffer. If size on input is not large 
      *       enough then the function will fail and return <b>ERROR_MORE_DATA</b> and set the 
@@ -16088,7 +16089,7 @@ class Clustering {
     /**
      * Opens a handle to a Cryptographic Service Provider (CSP) in order to manage the encryption of Checkpointing data for a cluster resource. The POPEN_CLUSTER_CRYPT_PROVIDER type defines a pointer to this function.
      * @param {PWSTR} lpszResource A pointer to a null-terminated Unicode string that contains the name of the cluster resource that is associated with the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/checkpointing">Checkpointing</a> data.
-     * @param {Pointer<SByte>} lpszProvider A pointer to a null-terminated Unicode string that contains the name of the CSP.
+     * @param {Pointer<Integer>} lpszProvider A pointer to a null-terminated Unicode string that contains the name of the CSP.
      * @param {Integer} dwType A bitmask that specifies the CSP type.
      * @param {Integer} dwFlags The flags that specify the settings for the operation. This parameter can be set to the default value "0", or <b>CLUS_CREATE_CRYPT_CONTAINER_NOT_FOUND</b> (0x0001).
      * @returns {HCLUSCRYPTPROVIDER} If the operation completes successfully, this function returns a <a href="/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure containing a handle to the CSP.
@@ -16106,7 +16107,7 @@ class Clustering {
      * 
      * @param {PWSTR} lpszResource 
      * @param {PWSTR} lpszKeyname 
-     * @param {Pointer<SByte>} lpszProvider 
+     * @param {Pointer<Integer>} lpszProvider 
      * @param {Integer} dwType 
      * @param {Integer} dwFlags 
      * @returns {HCLUSCRYPTPROVIDER} 
@@ -16134,32 +16135,32 @@ class Clustering {
     /**
      * Encrypts Checkpointing data for a Cryptographic Service Provider (CSP).
      * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
-     * @param {Pointer<Byte>} pData A pointer to the data to encrypt.
+     * @param {Pointer<Integer>} pData A pointer to the data to encrypt.
      * @param {Integer} cbData The total number of bytes in the data pointed to by the <i>pDta</i> parameter.
-     * @param {Pointer<Byte>} ppData A pointer to a buffer that receives the encrypted data.
-     * @param {Pointer<UInt32>} pcbData The total number of bytes in the data pointed to by the <i>pcbData</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} ppData A pointer to a buffer that receives the encrypted data.
+     * @param {Pointer<Integer>} pcbData The total number of bytes in the data pointed to by the <i>pcbData</i> parameter.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterencrypt
      * @since windowsserver2012
      */
     static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
-        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, "char*", pData, "uint", cbData, "char*", ppData, "uint*", pcbData, "uint")
+        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, "char*", pData, "uint", cbData, "ptr*", ppData, "uint*", pcbData, "uint")
         return result
     }
 
     /**
      * Decrypts Checkpointing data for a Cryptographic Service Provider (CSP).
      * @param {HCLUSCRYPTPROVIDER} hClusCryptProvider A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dn823545(v=vs.85)">HCLUSCRYPTPROVIDER</a> structure that contains a handle to the CSP.
-     * @param {Pointer<Byte>} pCryptInput A pointer to the data to decrypt.
+     * @param {Pointer<Integer>} pCryptInput A pointer to the data to decrypt.
      * @param {Integer} cbCryptInput The total number of bytes in the data pointed to by the <i>pCryptInput</i> parameter.
-     * @param {Pointer<Byte>} ppCryptOutput A pointer to a buffer that receives the decrypted data.
-     * @param {Pointer<UInt32>} pcbCryptOutput The total number of bytes in the data pointed to by the <i>ppCryptOutput</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} ppCryptOutput A pointer to a buffer that receives the decrypted data.
+     * @param {Pointer<Integer>} pcbCryptOutput The total number of bytes in the data pointed to by the <i>ppCryptOutput</i> parameter.
      * @returns {Integer} If the operation completes successfully, this function returns <b>ERROR_SUCCESS</b>; otherwise, it returns a system error code.
      * @see https://docs.microsoft.com/windows/win32/api//resapi/nf-resapi-clusterdecrypt
      * @since windowsserver2012
      */
     static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
-        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, "char*", pCryptInput, "uint", cbCryptInput, "char*", ppCryptOutput, "uint*", pcbCryptOutput, "uint")
+        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, "char*", pCryptInput, "uint", cbCryptInput, "ptr*", ppCryptOutput, "uint*", pcbCryptOutput, "uint")
         return result
     }
 
@@ -16179,7 +16180,7 @@ class Clustering {
      * 
      * @param {Integer} flags 
      * @param {Integer} reason 
-     * @param {Pointer<UInt32>} pResult 
+     * @param {Pointer<Integer>} pResult 
      * @returns {Integer} 
      */
     static ResUtilVerifyShutdownSafe(flags, reason, pResult) {
@@ -16281,7 +16282,7 @@ class Clustering {
     /**
      * 
      * @param {HGROUP} hGroup 
-     * @param {Pointer<Int32>} groupType 
+     * @param {Pointer<Integer>} groupType 
      * @returns {Integer} 
      */
     static ResUtilGetClusterGroupType(hGroup, groupType) {
@@ -16445,8 +16446,8 @@ class Clustering {
     /**
      * 
      * @param {Pointer<Guid>} AppInstanceId 
-     * @param {Pointer<UInt64>} InstanceVersionHigh 
-     * @param {Pointer<UInt64>} InstanceVersionLow 
+     * @param {Pointer<Integer>} InstanceVersionHigh 
+     * @param {Pointer<Integer>} InstanceVersionLow 
      * @param {Pointer<NTSTATUS>} VersionStatus 
      * @returns {Integer} 
      */

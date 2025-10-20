@@ -167,7 +167,7 @@ class WS_UNION_DESCRIPTION extends Win32Struct
      * 
      * See the Remarks section for information about ordering of the fields
      *                     in this array.
-     * @type {Pointer<WS_UNION_FIELD_DESCRIPTION>}
+     * @type {Pointer<Pointer<WS_UNION_FIELD_DESCRIPTION>>}
      */
     fields {
         get => NumGet(this, 8, "ptr")
@@ -231,7 +231,7 @@ class WS_UNION_DESCRIPTION extends Win32Struct
      *                     value in ascending order.
      *                 </li>
      * </ul>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     valueIndices {
         get => NumGet(this, 32, "ptr")

@@ -61,7 +61,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cryptnet_url_cache_response_info">PCRYPTNET_URL_CACHE_RESPONSE_INFO</a> structure. To get response information, set the pointer to the address of a <b>CRYPTNET_URL_CACHE_RESPONSE_INFO</b> pointer updated with the allocated structure. For no response information, <b>ppResponseInfo</b> is set to <b>NULL</b>. If it is not <b>NULL</b>, it must be freed by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptmemfree">CryptMemFree</a> function.
-     * @type {Pointer<CRYPTNET_URL_CACHE_RESPONSE_INFO>}
+     * @type {Pointer<Pointer<CRYPTNET_URL_CACHE_RESPONSE_INFO>>}
      */
     ppResponseInfo {
         get => NumGet(this, 40, "ptr")
@@ -115,7 +115,7 @@ class CRYPT_RETRIEVE_AUX_INFO extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<CRYPT_INTEGER_BLOB>}
+     * @type {Pointer<Pointer<CRYPT_INTEGER_BLOB>>}
      */
     ppErrorContentBlob {
         get => NumGet(this, 80, "ptr")

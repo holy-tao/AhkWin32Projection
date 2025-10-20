@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\RECT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/Multimedia/mci-ovly-rect-parms
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */

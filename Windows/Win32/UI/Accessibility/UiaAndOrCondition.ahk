@@ -28,7 +28,7 @@ class UiaAndOrCondition extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a>**</b>
      * 
      * The address of an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/ns-uiautomationcoreapi-uiacondition">UiaCondition</a> structures containing information about the complex condition.
-     * @type {Pointer<UiaCondition>}
+     * @type {Pointer<Pointer<UiaCondition>>}
      */
     ppConditions {
         get => NumGet(this, 8, "ptr")

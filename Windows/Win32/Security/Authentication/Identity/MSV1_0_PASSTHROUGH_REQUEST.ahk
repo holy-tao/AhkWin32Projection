@@ -51,7 +51,7 @@ class MSV1_0_PASSTHROUGH_REQUEST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     LogonData {
         get => NumGet(this, 48, "ptr")

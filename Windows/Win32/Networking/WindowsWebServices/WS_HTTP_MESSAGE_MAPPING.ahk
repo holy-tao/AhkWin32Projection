@@ -86,7 +86,7 @@ class WS_HTTP_MESSAGE_MAPPING extends Win32Struct
      * An array of pointers to mappings which describe which
      *                     HTTP headers are mapped to/from headers in the message object
      *                     for an HTTP request.  The pointers in the array may not be <b>NULL</b>.
-     * @type {Pointer<WS_HTTP_HEADER_MAPPING>}
+     * @type {Pointer<Pointer<WS_HTTP_HEADER_MAPPING>>}
      */
     requestHeaderMappings {
         get => NumGet(this, 8, "ptr")
@@ -106,7 +106,7 @@ class WS_HTTP_MESSAGE_MAPPING extends Win32Struct
      * An array of pointers to mappings which describe which
      *                     HTTP headers are mapped to/from headers in the message object
      *                     for an HTTP response.  The pointers in the array may not be <b>NULL</b>.
-     * @type {Pointer<WS_HTTP_HEADER_MAPPING>}
+     * @type {Pointer<Pointer<WS_HTTP_HEADER_MAPPING>>}
      */
     responseHeaderMappings {
         get => NumGet(this, 24, "ptr")

@@ -4,6 +4,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WinRT/hstring-buffer
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

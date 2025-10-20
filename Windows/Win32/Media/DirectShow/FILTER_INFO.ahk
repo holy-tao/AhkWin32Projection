@@ -29,7 +29,7 @@ class FILTER_INFO extends Win32Struct
 
     /**
      * If the filter is member of a filter graph, contains a pointer to the filter graph's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ifiltergraph">IFilterGraph</a> interface. If the filter is not a member of a filter graph, this value of this member is <b>NULL</b>.
-     * @type {Pointer<IFilterGraph>}
+     * @type {IFilterGraph}
      */
     pGraph {
         get => NumGet(this, 256, "ptr")

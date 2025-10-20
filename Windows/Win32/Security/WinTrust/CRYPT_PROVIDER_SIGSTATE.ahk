@@ -24,7 +24,7 @@ class CRYPT_PROVIDER_SIGSTATE extends Win32Struct
 
     /**
      * Pointer to an array of secondary signature handles.
-     * @type {Pointer<Void>}
+     * @type {Pointer<Pointer<Void>>}
      */
     rhSecondarySigs {
         get => NumGet(this, 8, "ptr")

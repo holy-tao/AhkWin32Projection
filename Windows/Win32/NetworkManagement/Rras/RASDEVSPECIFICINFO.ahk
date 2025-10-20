@@ -24,7 +24,7 @@ class RASDEVSPECIFICINFO extends Win32Struct
 
     /**
      * A pointer to a BLOB that contains the authentication cookie.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbDevSpecificInfo {
         get => NumGet(this, 8, "ptr")

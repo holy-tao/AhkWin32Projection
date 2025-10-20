@@ -99,10 +99,10 @@ class Sip {
     /**
      * Retrieves an Authenticode signature from the file.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
-     * @param {Pointer<UInt32>} pdwEncodingType The encoding type of the Authenticode signature.
+     * @param {Pointer<Integer>} pdwEncodingType The encoding type of the Authenticode signature.
      * @param {Integer} dwIndex This parameter is reserved and should be set to zero.
-     * @param {Pointer<UInt32>} pcbSignedDataMsg The length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
-     * @param {Pointer<Byte>} pbSignedDataMsg A pointer to a buffer to receive the returned Authenticode signature. 
+     * @param {Pointer<Integer>} pcbSignedDataMsg The length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
+     * @param {Pointer<Integer>} pbSignedDataMsg A pointer to a buffer to receive the returned Authenticode signature. 
      * 
      * To determine the size of the buffer needed, set the <i>pbSignedDataMsg</i> parameter to <b>NULL</b> and call the <b>CryptSIPGetSignedDataMsg</b> function. This function will place the required size of the buffer, in bytes, in the value pointed to by <i>pcbSignedDataMsg</i>. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/retrieving-data-of-unknown-length">Retrieving Data of Unknown Length</a>.
@@ -190,9 +190,9 @@ class Sip {
      * Stores an Authenticode signature in the target file.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo Pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains information about the message subject.
      * @param {Integer} dwEncodingType 
-     * @param {Pointer<UInt32>} pdwIndex Pointer to the message index.
+     * @param {Pointer<Integer>} pdwIndex Pointer to the message index.
      * @param {Integer} cbSignedDataMsg Length, in bytes, of the buffer pointed to by the <i>pbSignedDataMsg</i> parameter.
-     * @param {Pointer<Byte>} pbSignedDataMsg Pointer to the buffer that contains the message.
+     * @param {Pointer<Integer>} pbSignedDataMsg Pointer to the buffer that contains the message.
      * @returns {BOOL} If the function succeeds, the function returns <b>TRUE</b>.
      * 
      * If the function fails, it returns  <b>FALSE</b>. For extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. Some possible error codes follow.
@@ -262,7 +262,7 @@ class Sip {
     /**
      * Returns a SIP_INDIRECT_DATA structure that contains a hash of the supplied SIP_SUBJECTINFO structure, the digest algorithm, and an encoding attribute. The hash can be used as an indirect reference to the data.
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo A pointer to a [SIP_SUBJECTINFO](/windows/desktop/api/mssip/ns-mssip-sip_subjectinfo) structure that contains the subject to which the indirect data reference will point.
-     * @param {Pointer<UInt32>} pcbIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure.
+     * @param {Pointer<Integer>} pcbIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure.
      * @param {Pointer<SIP_INDIRECT_DATA>} pIndirectData A pointer to a [SIP_INDIRECT_DATA](/windows/desktop/api/mssip/ns-mssip-sip_indirect_data) structure to receive the catalog item.
      * @returns {BOOL} The return value is <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
@@ -562,10 +562,10 @@ class Sip {
     /**
      * 
      * @param {Pointer<SIP_SUBJECTINFO>} pSubjectInfo 
-     * @param {Pointer<Byte>} pSig 
+     * @param {Pointer<Integer>} pSig 
      * @param {Integer} dwSig 
-     * @param {Pointer<Byte>} pbDigest 
-     * @param {Pointer<UInt32>} pcbDigest 
+     * @param {Pointer<Integer>} pbDigest 
+     * @param {Pointer<Integer>} pcbDigest 
      * @returns {BOOL} 
      */
     static CryptSIPGetSealedDigest(pSubjectInfo, pSig, dwSig, pbDigest, pcbDigest) {

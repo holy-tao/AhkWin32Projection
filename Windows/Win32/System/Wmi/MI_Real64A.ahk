@@ -19,7 +19,7 @@ class MI_Real64A extends Win32Struct
 
     /**
      * An array of <b>MI_Real64</b> types.
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     data {
         get => NumGet(this, 0, "ptr")

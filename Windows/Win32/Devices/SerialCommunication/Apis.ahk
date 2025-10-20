@@ -516,7 +516,7 @@ class SerialCommunication {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} MaxPortsReported Pointer to the value that the routine uses to return the number of ports for which the routine returns information at <i>Buffer</i>. See the Remarks section for more information.
+     * @param {Pointer<Integer>} MaxPortsReported Pointer to the value that the routine uses to return the number of ports for which the routine returns information at <i>Buffer</i>. See the Remarks section for more information.
      * @returns {Integer} <b>ComDBGetCurrentPortUsage</b> returns one of the following status values.
      * 
      * <table>
@@ -570,7 +570,7 @@ class SerialCommunication {
     /**
      * ComDBClaimNextFreePort returns the lowest COM port number that is not already in use.
      * @param {HCOMDB} HComDB Handle to the COM port database that is returned by <a href="https://docs.microsoft.com/windows/desktop/api/msports/nf-msports-comdbopen">ComDBOpen</a>.
-     * @param {Pointer<UInt32>} ComNumber Pointer to the COM port number that the routine returns to the caller. This pointer must be non-NULL. A port number is an integer that ranges from 1 to COMDB_MAX_PORTS_ARBITRATED.
+     * @param {Pointer<Integer>} ComNumber Pointer to the COM port number that the routine returns to the caller. This pointer must be non-NULL. A port number is an integer that ranges from 1 to COMDB_MAX_PORTS_ARBITRATED.
      * @returns {Integer} <b>ComDBClaimNextFreePort</b> returns one of the following status values.
      * 
      * <table>

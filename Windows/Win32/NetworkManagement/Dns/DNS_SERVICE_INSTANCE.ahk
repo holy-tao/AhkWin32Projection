@@ -45,7 +45,7 @@ class DNS_SERVICE_INSTANCE extends Win32Struct
 
     /**
      * A pointer to an **IP4_ADDRESS** structure that represents the service-associated IPv4 address.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ip4Address {
         get => NumGet(this, 16, "ptr")

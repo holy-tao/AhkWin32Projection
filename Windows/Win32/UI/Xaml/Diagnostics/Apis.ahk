@@ -22,7 +22,7 @@ class Diagnostics {
      * @param {Integer} pid 
      * @param {PWSTR} wszDllXamlDiagnostics 
      * @param {PWSTR} wszTAPDllName 
-     * @param {Pointer<Guid>} tapClsid 
+     * @param {Guid} tapClsid 
      * @returns {HRESULT} 
      */
     static InitializeXamlDiagnostic(endPointName, pid, wszDllXamlDiagnostics, wszTAPDllName, tapClsid) {
@@ -43,7 +43,7 @@ class Diagnostics {
      * @param {Integer} pid The pid of the process to connect to.
      * @param {PWSTR} wszDllXamlDiagnostics The path to XamlDiagnostics.dll.
      * @param {PWSTR} wszTAPDllName The name of the DLL to be injected in the process.
-     * @param {Pointer<Guid>} tapClsid The COM CLSID of the DLL to be injected in the process.
+     * @param {Guid} tapClsid The COM CLSID of the DLL to be injected in the process.
      * @param {PWSTR} wszInitializationData Initialization data for Xaml Diagnostics.
      * @returns {HRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-initializexamldiagnosticsex

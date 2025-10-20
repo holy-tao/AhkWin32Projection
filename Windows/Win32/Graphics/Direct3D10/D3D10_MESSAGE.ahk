@@ -55,7 +55,7 @@ class D3D10_MESSAGE extends Win32Struct
      * Type: <b>const char*</b>
      * 
      * The message string.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDescription {
         get => NumGet(this, 16, "ptr")

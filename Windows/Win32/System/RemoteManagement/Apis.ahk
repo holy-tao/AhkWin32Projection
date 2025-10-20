@@ -2781,7 +2781,7 @@ class RemoteManagement {
      * @param {Integer} errorCode Specifies the error code for the requested error message. This error code can be a hexadecimal or decimal error code from a WinRM, WinHTTP, or other Windows operating system feature.
      * @param {Integer} messageLength Specifies the number of characters that can be stored in the output message buffer, including the <b>null</b> terminator. If this parameter is zero, the <i>message</i> parameter must be <b>NULL</b>.
      * @param {PWSTR} message Specifies the output buffer to store the message in. This buffer must be allocated and deallocated by the client. The buffer must be large enough to store the message and the <b>null</b> terminator. If this parameter is <b>NULL</b>, the <i>messageLength</i> parameter must be <b>NULL</b>.
-     * @param {Pointer<UInt32>} messageLengthUsed Specifies the actual number of characters written to the output buffer, including the <b>null</b> terminator. This parameter cannot be <b>NULL</b>. If either the <i>messageLength</i> or <i>message</i> parameters are zero, the function will return <b>ERROR_INSUFFICIENT_BUFFER</b> and this parameter will be set to the number of characters needed to store the message, including the <b>null</b> terminator.
+     * @param {Pointer<Integer>} messageLengthUsed Specifies the actual number of characters written to the output buffer, including the <b>null</b> terminator. This parameter cannot be <b>NULL</b>. If either the <i>messageLength</i> or <i>message</i> parameters are zero, the function will return <b>ERROR_INSUFFICIENT_BUFFER</b> and this parameter will be set to the number of characters needed to store the message, including the <b>null</b> terminator.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://docs.microsoft.com/windows/win32/api//wsman/nf-wsman-wsmangeterrormessage
      * @since windows6.1
@@ -2899,7 +2899,7 @@ class RemoteManagement {
      * Gets the value of a session option.
      * @param {WSMAN_SESSION_HANDLE} session Specifies the handle returned by a <a href="https://docs.microsoft.com/windows/desktop/api/wsman/nf-wsman-wsmancreatesession">WSManCreateSession</a> call.  This parameter cannot be <b>NULL</b>.
      * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
-     * @param {Pointer<UInt32>} value Specifies the value of specified session option.
+     * @param {Pointer<Integer>} value Specifies the value of specified session option.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://docs.microsoft.com/windows/win32/api//wsman/nf-wsman-wsmangetsessionoptionasdword
      * @since windows6.1
@@ -2915,7 +2915,7 @@ class RemoteManagement {
      * @param {Integer} option Specifies the option to get. Not all session options can be retrieved. The values for the options are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/wsman/ne-wsman-wsmansessionoption">WSManSessionOption</a> enumeration.
      * @param {Integer} stringLength Specifies the length of the storage location for <i>string</i> parameter.
      * @param {PWSTR} string A pointer to the storage location for the value of the specified session option.
-     * @param {Pointer<UInt32>} stringLengthUsed Specifies the length of the string returned in the <i>string</i> parameter.
+     * @param {Pointer<Integer>} stringLengthUsed Specifies the length of the string returned in the <i>string</i> parameter.
      * @returns {Integer} This method returns zero on success. Otherwise, this method returns an error code.
      * @see https://docs.microsoft.com/windows/win32/api//wsman/nf-wsman-wsmangetsessionoptionasstring
      * @since windows6.1

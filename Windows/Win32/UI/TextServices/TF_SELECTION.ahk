@@ -16,7 +16,7 @@ class TF_SELECTION extends Win32Struct
 
     /**
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that specifies the selected text.
-     * @type {Pointer<ITfRange>}
+     * @type {ITfRange}
      */
     range {
         get => NumGet(this, 0, "ptr")

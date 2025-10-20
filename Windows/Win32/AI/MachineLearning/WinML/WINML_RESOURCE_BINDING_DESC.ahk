@@ -33,7 +33,7 @@ class WINML_RESOURCE_BINDING_DESC extends Win32Struct
 
     /**
      * A pointer to the shape of the resource.
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pShape {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class WINML_RESOURCE_BINDING_DESC extends Win32Struct
 
     /**
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> describing the D3D12 resource.
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResource {
         get => NumGet(this, 16, "ptr")

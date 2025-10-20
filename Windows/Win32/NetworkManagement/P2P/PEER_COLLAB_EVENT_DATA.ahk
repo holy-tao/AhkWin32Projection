@@ -9,6 +9,8 @@
 #Include .\PEER_EVENT_REQUEST_STATUS_CHANGED_DATA.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_collab_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

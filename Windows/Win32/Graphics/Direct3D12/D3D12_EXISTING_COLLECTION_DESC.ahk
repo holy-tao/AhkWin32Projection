@@ -15,7 +15,7 @@ class D3D12_EXISTING_COLLECTION_DESC extends Win32Struct
 
     /**
      * The collection to include in a state object.   The enclosing state object holds a reference to the existing collection.
-     * @type {Pointer<ID3D12StateObject>}
+     * @type {ID3D12StateObject}
      */
     pExistingCollection {
         get => NumGet(this, 0, "ptr")

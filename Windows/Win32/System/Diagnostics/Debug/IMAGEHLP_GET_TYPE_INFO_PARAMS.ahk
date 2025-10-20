@@ -42,7 +42,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * An array of type indexes.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     TypeIds {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * An array of information types to be requested. Each element is one of the enumeration values in the <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a> enumeration type.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     ReqKinds {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * An array of offsets that specify where to store the data for each request within each element of <b>Buffer</b> array.
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<Pointer>}
      */
     ReqOffsets {
         get => NumGet(this, 48, "ptr")
@@ -87,7 +87,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * The size of each data request, in bytes. The required sizes are described in <a href="https://docs.microsoft.com/windows/desktop/api/dbghelp/ne-dbghelp-imagehlp_symbol_type_info">IMAGEHLP_SYMBOL_TYPE_INFO</a>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ReqSizes {
         get => NumGet(this, 56, "ptr")
@@ -168,7 +168,7 @@ class IMAGEHLP_GET_TYPE_INFO_PARAMS extends Win32Struct
 
     /**
      * A bitmask indexed by <b>Buffer</b> element index that indicates which request data is valid. This member can be <b>NULL</b>.
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     ReqsValid {
         get => NumGet(this, 120, "ptr")

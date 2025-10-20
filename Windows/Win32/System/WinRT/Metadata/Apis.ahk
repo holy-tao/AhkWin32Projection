@@ -979,7 +979,7 @@ class Metadata {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The interface to implement. This parameter can be either <b>IID_IMetaDataDispenser</b> or <b>IID_IMetaDataDispenserEx</b>.
-     * @param {Pointer<Void>} ppv Type: <b>LPVOID*</b>
+     * @param {Pointer<Pointer<Void>>} ppv Type: <b>LPVOID*</b>
      * 
      * The dispenser class. The class implements <b>IMetaDataDispenser</b> or <b>IMetaDataDispenserEx.</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -989,7 +989,7 @@ class Metadata {
      * @since windows8.0
      */
     static MetaDataGetDispenser(rclsid, riid, ppv) {
-        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1001,7 +1001,7 @@ class Metadata {
      * @param {HSTRING} name Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name to resolve, either a typename or a namespace. The name input string must be non-empty and must not contain embedded NUL characters. If the name is a dot-separated string, then the substring to the left of the last dot and the substring to the right of the last dot must be non-empty.
-     * @param {Pointer<IMetaDataDispenserEx>} metaDataDispenser Type: <b>IMetaDataDispenserEx*</b>
+     * @param {IMetaDataDispenserEx} metaDataDispenser Type: <b>IMetaDataDispenserEx*</b>
      * 
      * A metadata dispenser that the caller can optionally pass in for the <b>RoGetMetaDataFile</b> function to be able to open the metadata files through the provided <b>IMetaDataDispenserEx::OpenScope</b> method. If the metadata dispenser parameter is set to <b>nullptr</b>, the function creates an internal instance of the refactored metadata reader (RoMetadata.dll) and uses its <b>IMetaDataDispenserEx::OpenScope</b> method.
      * @param {Pointer<HSTRING>} metaDataFilePath Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
@@ -1010,7 +1010,7 @@ class Metadata {
      * @param {Pointer<IMetaDataImport2>} metaDataImport Type: <b>IMetaDataImport2**</b>
      * 
      * A pointer to the metadata file reader object. If the caller passes in a <b>nullptr</b> ,  the function releases the <b>IMetaDataImport2</b> reference, otherwise the caller must release the reference. The value is set to <b>nullptr</b> on failure.
-     * @param {Pointer<UInt32>} typeDefToken Type: <b>mdTypeDef*</b>
+     * @param {Pointer<Integer>} typeDefToken Type: <b>mdTypeDef*</b>
      * 
      * If the name input string is resolved successfully as a typename, this parameter is set to the  token of the typename.
      * 
@@ -1080,7 +1080,7 @@ class Metadata {
     static RoGetMetaDataFile(name, metaDataDispenser, metaDataFilePath, metaDataImport, typeDefToken) {
         name := name is Win32Handle ? NumGet(name, "ptr") : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr", metaDataImport, "uint*", typeDefToken, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoGetMetaDataFile", "ptr", name, "ptr", metaDataDispenser, "ptr", metaDataFilePath, "ptr*", metaDataImport, "uint*", typeDefToken, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1092,10 +1092,10 @@ class Metadata {
      * @param {HSTRING} typeName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * String-encoded typename. The typename can be a non-namespace-qualified type, a non-parameterized namespace-qualified type or a fully instantiated namespace-qualified parameterized type.
-     * @param {Pointer<UInt32>} partsCount Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} partsCount Type: <b>DWORD*</b>
      * 
      * Number of elements in the <i>typenameParts</i> array.
-     * @param {Pointer<HSTRING>} typeNameParts Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<Pointer<HSTRING>>} typeNameParts Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * The first element of the array is the specified type, and the remaining array elements are the type parameters (if any) in prewalk tree order.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1147,7 +1147,7 @@ class Metadata {
     static RoParseTypeName(typeName, partsCount, typeNameParts) {
         typeName := typeName is Win32Handle ? NumGet(typeName, "ptr") : typeName
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, "uint*", partsCount, "ptr", typeNameParts, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, "uint*", partsCount, "ptr*", typeNameParts, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1172,16 +1172,16 @@ class Metadata {
      * @param {Pointer<HSTRING>} packageGraphDirs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * Count of package paths in the explicit package dependency graph array. The count is ignored if <i>packageGraphDirs</i> is <b>nullptr</b>.
-     * @param {Pointer<UInt32>} metaDataFilePathsCount Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} metaDataFilePathsCount Type: <b>DWORD*</b>
      * 
      * Count of metadata files in the <i>metaDataFilePaths</i> array.
-     * @param {Pointer<HSTRING>} metaDataFilePaths Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<Pointer<HSTRING>>} metaDataFilePaths Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * Optional output parameter that contains callee-allocated array of absolute file paths of all metadata (.winmd) files that could possibly contain direct children of <i>name</i>.
-     * @param {Pointer<UInt32>} subNamespacesCount Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} subNamespacesCount Type: <b>DWORD*</b>
      * 
      * Count of metadata files in the <i>subNamespaces</i> array.
-     * @param {Pointer<HSTRING>} subNamespaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<Pointer<HSTRING>>} subNamespaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * Optional output parameter that contains a callee-allocated array of names of direct children of the given namespace. This list is a hint of other subnamespaces and is not necessarily complete.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1245,7 +1245,7 @@ class Metadata {
         name := name is Win32Handle ? NumGet(name, "ptr") : name
         windowsMetaDataDir := windowsMetaDataDir is Win32Handle ? NumGet(windowsMetaDataDir, "ptr") : windowsMetaDataDir
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, "uint*", metaDataFilePathsCount, "ptr", metaDataFilePaths, "uint*", subNamespacesCount, "ptr", subNamespaces, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, "uint*", metaDataFilePathsCount, "ptr*", metaDataFilePaths, "uint*", subNamespacesCount, "ptr*", subNamespaces, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1389,7 +1389,7 @@ class Metadata {
      * @returns {HRESULT} 
      */
     static RoCreateNonAgilePropertySet(ppPropertySet) {
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr", ppPropertySet, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", ppPropertySet, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1402,7 +1402,7 @@ class Metadata {
      * @returns {HRESULT} 
      */
     static RoCreatePropertySetSerializer(ppPropertySetSerializer) {
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr", ppPropertySetSerializer, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", ppPropertySetSerializer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1418,7 +1418,7 @@ class Metadata {
      * 
      * A parsed Windows Runtime type name, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataresolution/nf-rometadataresolution-roparsetypename">RoParseTypeName</a> function.
      * For example, "Windows.Foundation.Collections.IVector`1", and "N1.N2.IFoo".
-     * @param {Pointer<IRoMetaDataLocator>} metaDataLocator Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/roparameterizediid/ns-roparameterizediid-irometadatalocator">IRoMetaDataLocator</a></b>
+     * @param {IRoMetaDataLocator} metaDataLocator Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/roparameterizediid/ns-roparameterizediid-irometadatalocator">IRoMetaDataLocator</a></b>
      * 
      * A callback to use for resolving metadata. 
      *                                                                   

@@ -12,7 +12,7 @@ class alljoyn_certificateid extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     serial {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class alljoyn_certificateid extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     issuerPublicKey {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class alljoyn_certificateid extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     issuerAki {
         get => NumGet(this, 24, "ptr")

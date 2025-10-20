@@ -43,7 +43,7 @@ class UiaWindowClosedEventArgs extends Win32Struct
      * Type: <b>int*</b>
      * 
      * The address of an array of the UI Automation runtime identifiers of windows that have closed.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pRuntimeId {
         get => NumGet(this, 8, "ptr")

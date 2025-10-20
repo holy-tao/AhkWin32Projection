@@ -1448,10 +1448,11 @@ class Imapi {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<IMalloc>} lpMalloc 
+     * @param {IMalloc} lpMalloc 
      * @param {Integer} ulFlags 
      * @param {Pointer<LPMSGSESS>} lppMsgSess 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgsession
      */
     static OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
         result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr", lppMsgSess, "int")
@@ -1462,6 +1463,7 @@ class Imapi {
      * 
      * @param {LPMSGSESS} lpMsgSess 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/closeimsgsession
      */
     static CloseIMsgSession(lpMsgSess) {
         DllCall("MAPI32.dll\CloseIMsgSession", "ptr", lpMsgSess)
@@ -1473,17 +1475,18 @@ class Imapi {
      * @param {Pointer<LPALLOCATEBUFFER>} lpAllocateBuffer 
      * @param {Pointer<LPALLOCATEMORE>} lpAllocateMore 
      * @param {Pointer<LPFREEBUFFER>} lpFreeBuffer 
-     * @param {Pointer<IMalloc>} lpMalloc 
+     * @param {IMalloc} lpMalloc 
      * @param {Pointer<Void>} lpMapiSup 
-     * @param {Pointer<IStorage>} lpStg 
-     * @param {Pointer<MSGCALLRELEASE>} lpfMsgCallRelease 
+     * @param {IStorage} lpStg 
+     * @param {Pointer<Pointer<MSGCALLRELEASE>>} lpfMsgCallRelease 
      * @param {Integer} ulCallerData 
      * @param {Integer} ulFlags 
      * @param {Pointer<IMessage>} lppMsg 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgonistg
      */
     static OpenIMsgOnIStg(lpMsgSess, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, lpMapiSup, lpStg, lpfMsgCallRelease, ulCallerData, ulFlags, lppMsg) {
-        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", lpMsgSess, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", lpMapiSup, "ptr", lpStg, "ptr", lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr", lppMsg, "int")
+        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", lpMsgSess, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", lpMapiSup, "ptr", lpStg, "ptr*", lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr*", lppMsg, "int")
         return result
     }
 
@@ -1491,11 +1494,12 @@ class Imapi {
      * 
      * @param {Pointer<Void>} lpObject 
      * @param {Pointer<SPropTagArray>} lpPropTagArray 
-     * @param {Pointer<SPropAttrArray>} lppPropAttrArray 
+     * @param {Pointer<Pointer<SPropAttrArray>>} lppPropAttrArray 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/getattribimsgonistg
      */
     static GetAttribIMsgOnIStg(lpObject, lpPropTagArray, lppPropAttrArray) {
-        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTagArray, "ptr", lppPropAttrArray, "int")
+        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTagArray, "ptr*", lppPropAttrArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1507,11 +1511,12 @@ class Imapi {
      * @param {Pointer<Void>} lpObject 
      * @param {Pointer<SPropTagArray>} lpPropTags 
      * @param {Pointer<SPropAttrArray>} lpPropAttrs 
-     * @param {Pointer<SPropProblemArray>} lppPropProblems 
+     * @param {Pointer<Pointer<SPropProblemArray>>} lppPropProblems 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/setattribimsgonistg
      */
     static SetAttribIMsgOnIStg(lpObject, lpPropTags, lpPropAttrs, lppPropProblems) {
-        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, "ptr", lppPropProblems, "int")
+        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", "ptr", lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, "ptr*", lppPropProblems, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1522,6 +1527,7 @@ class Imapi {
      * 
      * @param {Integer} StgSCode 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/mapstoragescode
      */
     static MapStorageSCode(StgSCode) {
         result := DllCall("MAPI32.dll\MapStorageSCode", "int", StgSCode, "int")

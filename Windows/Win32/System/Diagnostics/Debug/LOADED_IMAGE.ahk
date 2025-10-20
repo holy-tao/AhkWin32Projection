@@ -51,7 +51,7 @@ class LOADED_IMAGE extends Win32Struct
 
     /**
      * The base address of the mapped file.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     MappedAddress {
         get => NumGet(this, 16, "ptr")

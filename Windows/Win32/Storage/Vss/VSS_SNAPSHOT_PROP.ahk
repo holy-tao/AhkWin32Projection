@@ -77,7 +77,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
      *       
      * 
      * The device name does not contain a trailing "\".
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszSnapshotDeviceObject {
         get => NumGet(this, 24, "ptr")
@@ -86,7 +86,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
 
     /**
      * Null-terminated wide character string containing the name of the volume that had been shadow copied.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszOriginalVolumeName {
         get => NumGet(this, 32, "ptr")
@@ -96,7 +96,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * Null-terminated wide character string containing the name of the machine containing the original 
      *       volume.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszOriginatingMachine {
         get => NumGet(this, 40, "ptr")
@@ -106,7 +106,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
     /**
      * Null-terminated wide character string containing the name of the machine running the Volume Shadow Copy 
      *       Service that created the shadow copy.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszServiceMachine {
         get => NumGet(this, 48, "ptr")
@@ -119,7 +119,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
      *       the <i>wszExpose</i> parameter of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-exposesnapshot">IVssBackupComponents::ExposeSnapshot</a> 
      *       method.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszExposedName {
         get => NumGet(this, 56, "ptr")
@@ -131,7 +131,7 @@ class VSS_SNAPSHOT_PROP extends Win32Struct
      *       if it is exposed as a share. Corresponds to the <i>wszPathFromRoot</i> parameter of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-exposesnapshot">IVssBackupComponents::ExposeSnapshot</a> 
      *       method.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     m_pwszExposedPath {
         get => NumGet(this, 64, "ptr")

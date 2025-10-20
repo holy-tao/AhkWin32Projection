@@ -40,7 +40,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pIntKeys {
         get => NumGet(this, 8, "ptr")
@@ -65,7 +65,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     pIntFields {
         get => NumGet(this, 24, "ptr")
@@ -73,7 +73,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     pFloatFields {
         get => NumGet(this, 24, "ptr")
@@ -81,7 +81,7 @@ class WINML_MAP_BINDING_DESC extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     pDoubleFields {
         get => NumGet(this, 24, "ptr")

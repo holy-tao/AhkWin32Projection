@@ -106,7 +106,7 @@ class DRMBOUNDLICENSEPARAMS extends Win32Struct
 
     /**
      * Reserved for future use. This member must be set to <b>NULL</b>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     rghAuthenticators {
         get => NumGet(this, 64, "ptr")

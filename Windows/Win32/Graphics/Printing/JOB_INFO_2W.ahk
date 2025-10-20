@@ -4,6 +4,8 @@
 #Include ..\..\Foundation\SYSTEMTIME.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/printdocs/job-info-2
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  * @charset Unicode

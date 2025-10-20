@@ -33,7 +33,7 @@ class D3D10_INFO_QUEUE_FILTER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category">D3D10_MESSAGE_CATEGORY</a>*</b>
      * 
      * Array of message categories to allow or deny. Array must have at least NumCategories members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_category">D3D10_MESSAGE_CATEGORY</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pCategoryList {
         get => NumGet(this, 8, "ptr")
@@ -55,7 +55,7 @@ class D3D10_INFO_QUEUE_FILTER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_severity">D3D10_MESSAGE_SEVERITY</a>*</b>
      * 
      * Array of message severity levels to allow or deny. Array must have at least NumSeverities members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_severity">D3D10_MESSAGE_SEVERITY</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pSeverityList {
         get => NumGet(this, 24, "ptr")
@@ -77,7 +77,7 @@ class D3D10_INFO_QUEUE_FILTER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_id">D3D10_MESSAGE_ID</a>*</b>
      * 
      * Array of message IDs to allow or deny. Array must have at least NumIDs members (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10sdklayers/ne-d3d10sdklayers-d3d10_message_id">D3D10_MESSAGE_ID</a>).
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pIDList {
         get => NumGet(this, 40, "ptr")

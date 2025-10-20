@@ -44,7 +44,7 @@ class DBBINDING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ITypeInfo>}
+     * @type {ITypeInfo}
      */
     pTypeInfo {
         get => NumGet(this, 32, "ptr")

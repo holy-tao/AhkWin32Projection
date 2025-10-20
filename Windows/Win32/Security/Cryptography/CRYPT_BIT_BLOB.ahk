@@ -29,7 +29,7 @@ class CRYPT_BIT_BLOB extends Win32Struct
 
     /**
      * A pointer to an array of bytes that represents the bits.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

@@ -140,9 +140,9 @@ class Mailslots {
      * Retrieves information about the specified mailslot.
      * @param {HANDLE} hMailslot A handle to a mailslot. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createmailslota">CreateMailslot</a> function must create this handle.
-     * @param {Pointer<UInt32>} lpMaxMessageSize The maximum message size, in bytes, allowed for this mailslot. This value can be greater than or equal to the value specified in the <i>cbMaxMsg</i> parameter of the 
+     * @param {Pointer<Integer>} lpMaxMessageSize The maximum message size, in bytes, allowed for this mailslot. This value can be greater than or equal to the value specified in the <i>cbMaxMsg</i> parameter of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createmailslota">CreateMailslot</a> function that created the mailslot. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpNextSize The size of the next message, in bytes. The following value has special meaning.
+     * @param {Pointer<Integer>} lpNextSize The size of the next message, in bytes. The following value has special meaning.
      * 
      * <table>
      * <tr>
@@ -164,8 +164,8 @@ class Mailslots {
      *  
      * 
      * This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpMessageCount The total number of messages waiting to be read, when the function returns. This parameter can be <b>NULL</b>.
-     * @param {Pointer<UInt32>} lpReadTimeout The amount of time, in milliseconds, a read operation can wait for a message to be written to the mailslot before a time-out occurs. This parameter is filled in when the function returns. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpMessageCount The total number of messages waiting to be read, when the function returns. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} lpReadTimeout The amount of time, in milliseconds, a read operation can wait for a message to be written to the mailslot before a time-out occurs. This parameter is filled in when the function returns. This parameter can be <b>NULL</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 

@@ -33,7 +33,7 @@ class ADS_FAXNUMBER extends Win32Struct
 
     /**
      * Optional parameters for the fax machine.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Parameters {
         get => NumGet(this, 16, "ptr")

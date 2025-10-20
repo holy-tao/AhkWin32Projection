@@ -2441,7 +2441,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12serializerootsignature
      */
     static D3D12SerializeRootSignature(pRootSignature, Version, ppBlob, ppErrorBlob) {
-        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr", ppBlob, "ptr", ppErrorBlob, "int")
+        result := DllCall("d3d12.dll\D3D12SerializeRootSignature", "ptr", pRootSignature, "int", Version, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2459,7 +2459,7 @@ class Direct3D12 {
      * @param {Pointer<Guid>} pRootSignatureDeserializerInterface Type: <b><b>REFIID</b></b>
      * 
      * The globally unique identifier (<b>GUID</b>) for the root signature deserializer interface. See remarks.
-     * @param {Pointer<Void>} ppRootSignatureDeserializer Type: <b><b>void</b>**</b>
+     * @param {Pointer<Pointer<Void>>} ppRootSignatureDeserializer Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -2468,7 +2468,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
      */
     static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr", ppRootSignatureDeserializer, "int")
+        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", ppRootSignatureDeserializer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2492,7 +2492,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12serializeversionedrootsignature
      */
     static D3D12SerializeVersionedRootSignature(pRootSignature, ppBlob, ppErrorBlob) {
-        result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", "ptr", pRootSignature, "ptr", ppBlob, "ptr", ppErrorBlob, "int")
+        result := DllCall("d3d12.dll\D3D12SerializeVersionedRootSignature", "ptr", pRootSignature, "ptr*", ppBlob, "ptr*", ppErrorBlob, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2510,7 +2510,7 @@ class Direct3D12 {
      * @param {Pointer<Guid>} pRootSignatureDeserializerInterface Type: <b>REFIID</b>
      * 
      * The globally unique identifier (<b>GUID</b>) for the root signature deserializer interface. See remarks.
-     * @param {Pointer<Void>} ppRootSignatureDeserializer Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppRootSignatureDeserializer Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -2519,7 +2519,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
      */
     static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr", ppRootSignatureDeserializer, "int")
+        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", ppRootSignatureDeserializer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2528,7 +2528,7 @@ class Direct3D12 {
 
     /**
      * Creates a device that represents the display adapter.
-     * @param {Pointer<IUnknown>} pAdapter Type: <b>IUnknown*</b>
+     * @param {IUnknown} pAdapter Type: <b>IUnknown*</b>
      * 
      * A pointer to the video adapter to use when creating a <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-intro">device</a>.
      *             Pass <b>NULL</b> to use the default adapter, which is the first adapter that is enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory1::EnumAdapters</a>.
@@ -2546,7 +2546,7 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the device interface.
      *             This parameter, and <i>ppDevice</i>, can be addressed with the single macro
      *           <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a>.
-     * @param {Pointer<Void>} ppDevice Type: <b><b>void</b>**</b>
+     * @param {Pointer<Pointer<Void>>} ppDevice Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. Pass **NULL** to test if device creation would succeed, but to not actually create the device. If **NULL** is passed and device creation would succeed, **S_FALSE** is returned.
      * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
@@ -2560,7 +2560,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createdevice
      */
     static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid, ppDevice) {
-        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr", ppDevice, "int")
+        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr*", ppDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2574,7 +2574,7 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the debug interface.
      *             The <b>REFIID</b>, or <b>GUID</b>, of the debug interface can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(<a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a>) will get the <b>GUID</b> of the debug interface.
-     * @param {Pointer<Void>} ppvDebug Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} ppvDebug Type: <b>void**</b>
      * 
      * The debug interface, as a pointer to pointer to void.
      *             See
@@ -2586,7 +2586,7 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12getdebuginterface
      */
     static D3D12GetDebugInterface(riid, ppvDebug) {
-        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr", ppvDebug, "int")
+        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr*", ppvDebug, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2608,7 +2608,7 @@ class Direct3D12 {
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015">SAL</a>: <c>__in_ecount(NumFeatures)</c>
      * 
      * Structures that contain additional configuration details that some experimental features might need to be enabled.
-     * @param {Pointer<UInt32>} pConfigurationStructSizes Type: <b>UINT*</b>
+     * @param {Pointer<Integer>} pConfigurationStructSizes Type: <b>UINT*</b>
      * 
      * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015">SAL</a>: <c>__in_ecount(NumFeatures)</c>
      * 
@@ -2630,11 +2630,12 @@ class Direct3D12 {
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Void>} ppvDebug 
+     * @param {Pointer<Pointer<Void>>} ppvDebug 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface
      */
     static D3D12GetInterface(rclsid, riid, ppvDebug) {
-        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr", ppvDebug, "int")
+        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr*", ppvDebug, "int")
         if(result != 0)
             throw OSError(result)
 

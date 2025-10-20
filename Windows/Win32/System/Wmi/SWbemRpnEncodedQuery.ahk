@@ -51,7 +51,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Unused. Value is always <b>NULL</b>.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     m_puDetectedFeatures {
         get => NumGet(this, 24, "ptr")
@@ -69,7 +69,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * Structure used to store property names. This field is used  with the  <b>m_uSelectListSize</b> field. For example, in the statement <c>SELECT a,b,c FROM d</c>, <b>m_uSelectListSize</b> is 3, and the <b>m_ppszNameList</b> field of the <b>m_ppSelectList</b> structure contains the strings "a", "b" and "c". For more information, see <a href="https://docs.microsoft.com/windows/win32/api/wmiutils/ns-wmiutils-swbemqueryqualifiedname">SWbemQueryQualifiedName</a>.
-     * @type {Pointer<SWbemQueryQualifiedName>}
+     * @type {Pointer<Pointer<SWbemQueryQualifiedName>>}
      */
     m_ppSelectList {
         get => NumGet(this, 40, "ptr")
@@ -127,7 +127,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
      * <c>c &lt; 1000</c>
      * <c>d ISA e</c>
      * <c>AND</c>
-     * @type {Pointer<SWbemRpnQueryToken>}
+     * @type {Pointer<Pointer<SWbemRpnQueryToken>>}
      */
     m_ppRpnWhereClause {
         get => NumGet(this, 88, "ptr")
@@ -172,7 +172,7 @@ class SWbemRpnEncodedQuery extends Win32Struct
 
     /**
      * 
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     m_uOrderDirectionEl {
         get => NumGet(this, 128, "ptr")

@@ -33,7 +33,7 @@ class MI_ParameterDecl extends Win32Struct
 
     /**
      * Name of this parameter.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -42,7 +42,7 @@ class MI_ParameterDecl extends Win32Struct
 
     /**
      * Set of qualifiers for this parameter.
-     * @type {Pointer<MI_Qualifier>}
+     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
     qualifiers {
         get => NumGet(this, 16, "ptr")
@@ -69,7 +69,7 @@ class MI_ParameterDecl extends Win32Struct
 
     /**
      * Name of reference class or strongly typed embedded instance.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     className {
         get => NumGet(this, 32, "ptr")

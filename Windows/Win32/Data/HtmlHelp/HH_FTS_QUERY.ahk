@@ -33,7 +33,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * String containing the search query.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszSearchQuery {
         get => NumGet(this, 8, "ptr")
@@ -78,7 +78,7 @@ class HH_FTS_QUERY extends Win32Struct
 
     /**
      * Window to display in.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszWindow {
         get => NumGet(this, 32, "ptr")

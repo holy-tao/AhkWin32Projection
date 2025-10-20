@@ -20,7 +20,7 @@ class MIDL_INTERFACE_METHOD_PROPERTIES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<MIDL_METHOD_PROPERTY_MAP>}
+     * @type {Pointer<Pointer<MIDL_METHOD_PROPERTY_MAP>>}
      */
     MethodProperties {
         get => NumGet(this, 8, "ptr")

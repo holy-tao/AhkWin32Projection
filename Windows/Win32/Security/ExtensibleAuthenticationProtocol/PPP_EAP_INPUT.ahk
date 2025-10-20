@@ -268,7 +268,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * Pointer to data received from the authentication protocol's interactive user interface. This pointer is non-<b>NULL</b> if the <b>fDataReceivedFromInteractiveUI</b> member is <b>TRUE</b> and the interactive user interface did, in fact, return data. Otherwise, this pointer is <b>NULL</b>.
      * 
      * If non-<b>NULL</b>, the authentication protocol should make a copy of the data in its own memory space. RAS frees the memory occupied by this data on return from the call in which the <b>PPP_EAP_INPUT</b> structure was passed. To free the memory, RAS calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapfreememory">RasEapFreeMemory</a> function.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDataFromInteractiveUI {
         get => NumGet(this, 72, "ptr")
@@ -290,7 +290,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * The authentication protocol should make a copy of this data in its own memory space. RAS frees the memory occupied by this data on return from the call in which the <b>PPP_EAP_INPUT</b> structure was passed. To free the memory, RAS calls the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapfreememory">RasEapFreeMemory</a> function. 
      * 
      * If the authentication protocol's configuration user interface does not return any data, this member is <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pConnectionData {
         get => NumGet(this, 88, "ptr")
@@ -316,7 +316,7 @@ class PPP_EAP_INPUT extends Win32Struct
      * 
      * 
      * If the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapgetidentity">RasEapGetIdentity</a> function is not implemented or did not return any data, and no data exists for the user in the registry, this member is <b>NULL</b>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserData {
         get => NumGet(this, 104, "ptr")

@@ -29,7 +29,7 @@ class D2D1_MAPPED_RECT extends Win32Struct
 
     /**
      * The data inside the bitmap.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     bits {
         get => NumGet(this, 8, "ptr")

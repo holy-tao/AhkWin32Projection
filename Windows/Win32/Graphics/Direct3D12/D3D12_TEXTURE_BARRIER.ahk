@@ -3,6 +3,8 @@
 #Include .\D3D12_BARRIER_SUBRESOURCE_RANGE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_texture_barrier
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -61,7 +63,7 @@ class D3D12_TEXTURE_BARRIER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pResource {
         get => NumGet(this, 24, "ptr")

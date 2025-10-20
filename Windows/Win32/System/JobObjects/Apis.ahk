@@ -250,7 +250,7 @@ class JobObjects {
      * @param {Integer} JobObjectInformationClass 
      * @param {Pointer} lpJobObjectInformation The limit or job state information. The format of this data depends on the value of the <i>JobObjectInfoClass</i> parameter.
      * @param {Integer} cbJobObjectInformationLength The count of the job information being queried, in bytes. This value depends on the value of the <i>JobObjectInfoClass</i> parameter.
-     * @param {Pointer<UInt32>} lpReturnLength A pointer to a variable that receives the length of data written to the structure pointed to by the <i>lpJobObjectInfo</i> parameter. Specify <b>NULL</b>  to not receive this information.
+     * @param {Pointer<Integer>} lpReturnLength A pointer to a variable that receives the length of data written to the structure pointed to by the <i>lpJobObjectInfo</i> parameter. Specify <b>NULL</b>  to not receive this information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -276,8 +276,8 @@ class JobObjects {
      * 
      * If this value is NULL and the process that calls <b>QueryIoRateControlInformationJobObject</b> is associated with a job, the function uses job that is associated with the process. If the job is nested within another job, the function uses the immediate job for the process.
      * @param {PWSTR} VolumeName The name of the volume to query. If this value is NULL, the function gets the information about I/O rate control for the job for all of the volumes for the system.
-     * @param {Pointer<JOBOBJECT_IO_RATE_CONTROL_INFORMATION>} InfoBlocks A pointer to array of <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information">JOBOBJECT_IO_RATE_CONTROL_INFORMATION</a> structures that contain the information about I/O rate control for the job. Your code must free the memory for this array by calling the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-freememoryjobobject">FreeMemoryJobObject</a> function with the address of the array.
-     * @param {Pointer<UInt32>} InfoBlockCount The number of <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information">JOBOBJECT_IO_RATE_CONTROL_INFORMATION</a> structures that the function allocated in the array to which the <i>InfoBlocks</i> parameter points.
+     * @param {Pointer<Pointer<JOBOBJECT_IO_RATE_CONTROL_INFORMATION>>} InfoBlocks A pointer to array of <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information">JOBOBJECT_IO_RATE_CONTROL_INFORMATION</a> structures that contain the information about I/O rate control for the job. Your code must free the memory for this array by calling the <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-freememoryjobobject">FreeMemoryJobObject</a> function with the address of the array.
+     * @param {Pointer<Integer>} InfoBlockCount The number of <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/ns-jobapi2-jobobject_io_rate_control_information">JOBOBJECT_IO_RATE_CONTROL_INFORMATION</a> structures that the function allocated in the array to which the <i>InfoBlocks</i> parameter points.
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -291,7 +291,7 @@ class JobObjects {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, "ptr", InfoBlocks, "uint*", InfoBlockCount, "uint")
+        result := DllCall("KERNEL32.dll\QueryIoRateControlInformationJobObject", "ptr", hJob, "ptr", VolumeName, "ptr*", InfoBlocks, "uint*", InfoBlockCount, "uint")
         if(A_LastError)
             throw OSError()
 

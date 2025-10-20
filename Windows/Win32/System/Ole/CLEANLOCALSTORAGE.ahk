@@ -12,7 +12,7 @@ class CLEANLOCALSTORAGE extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pInterface {
         get => NumGet(this, 0, "ptr")

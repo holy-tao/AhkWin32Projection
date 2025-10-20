@@ -20,7 +20,7 @@ class UCPTrieData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     ptr16 {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class UCPTrieData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ptr32 {
         get => NumGet(this, 0, "ptr")
@@ -36,7 +36,7 @@ class UCPTrieData extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ptr8 {
         get => NumGet(this, 0, "ptr")

@@ -60,7 +60,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAuthenticatorInfo {
         get => NumGet(this, 48, "ptr")
@@ -76,7 +76,7 @@ class EXPERIMENTAL_WEBAUTHN_PLUGIN_ADD_AUTHENTICATOR_OPTIONS extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPluginIdKey {
         get => NumGet(this, 64, "ptr")

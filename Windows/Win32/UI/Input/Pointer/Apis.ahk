@@ -71,7 +71,7 @@ class Pointer {
     /**
      * Retrieves the pointer type for a specified pointer.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve pointer type.
-     * @param {Pointer<Int32>} pointerType An address of a <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> type to receive a pointer input type.
+     * @param {Pointer<Integer>} pointerType An address of a <a href="https://docs.microsoft.com/windows/win32/api/winuser/ne-winuser-tagpointer_input_type">POINTER_INPUT_TYPE</a> type to receive a pointer input type.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -91,7 +91,7 @@ class Pointer {
     /**
      * Retrieves the cursor identifier associated with the specified pointer.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve the cursor identifier.
-     * @param {Pointer<UInt32>} cursorId An address of a <b>UINT32</b> to receive the tablet cursor identifier, if any, associated with the specified pointer.
+     * @param {Pointer<Integer>} cursorId An address of a <b>UINT32</b> to receive the tablet cursor identifier, if any, associated with the specified pointer.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
@@ -131,7 +131,7 @@ class Pointer {
     /**
      * Gets the information associated with the individual inputs, if any, that were coalesced into the current message for the specified pointer.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If <b>GetPointerInfoHistory</b> succceeds, <i>entriesCount</i>  is updated with the total count of structures available. The total count of structures available is the same as the <b>historyCount</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a>.
+     * @param {Pointer<Integer>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If <b>GetPointerInfoHistory</b> succceeds, <i>entriesCount</i>  is updated with the total count of structures available. The total count of structures available is the same as the <b>historyCount</b> field of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a>.
      * @param {Pointer<POINTER_INFO>} pointerInfo Address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structures to receive the pointer information. This parameter can be NULL if <i>*entriesCount</i> is zero.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
@@ -152,7 +152,7 @@ class Pointer {
     /**
      * Gets the entire frame of information for the specified pointers associated with the current message.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If <b>GetPointerFrameInfo</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in the frame.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which pointerInfo points. If <b>GetPointerFrameInfo</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in the frame.
      * @param {Pointer<POINTER_INFO>} pointerInfo Address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structures to receive the pointer information. This parameter can be <b>NULL</b> if <i>*pointerCount</i> is zero.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
@@ -173,8 +173,8 @@ class Pointer {
     /**
      * Gets the entire frame of information (including coalesced input frames) for the specified pointers associated with the current message.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to a variable that specifies the count of rows in the two-dimensional array to which pointerInfo points. If <b>GetPointerFrameInfoHistory</b> succeeds, <i>entriesCount</i> is updated with the total count of frames available in the history.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variable that specifies the count of columns in the two-dimensional array to which pointerInfo points. If <b>GetPointerFrameInfoHistory</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in each frame.
+     * @param {Pointer<Integer>} entriesCount A pointer to a variable that specifies the count of rows in the two-dimensional array to which pointerInfo points. If <b>GetPointerFrameInfoHistory</b> succeeds, <i>entriesCount</i> is updated with the total count of frames available in the history.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variable that specifies the count of columns in the two-dimensional array to which pointerInfo points. If <b>GetPointerFrameInfoHistory</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in each frame.
      * @param {Pointer<POINTER_INFO>} pointerInfo Address of a two-dimensional array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structures to receive the pointer information. This parameter can be NULL if <i>*entriesCount</i> and <i>*pointerCount</i> are both zero.
      * 
      * This array is interpreted as <c>POINTER_INFO[*entriesCount][*pointerCount]</c>.
@@ -217,7 +217,7 @@ class Pointer {
     /**
      * Gets the touch-based information associated with the individual inputs, if any, that were coalesced into the current message for the specified pointer (of type PT_TOUCH).
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If <b>GetPointerTouchInfoHistory</b> succeeds, <i>entriesCount</i> is updated with the total count of structures available. The total count of structures available is the same as the <i>historyCount</i> field in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointertouchinfo">GetPointerTouchInfo</a>.
+     * @param {Pointer<Integer>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If <b>GetPointerTouchInfoHistory</b> succeeds, <i>entriesCount</i> is updated with the total count of structures available. The total count of structures available is the same as the <i>historyCount</i> field in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_info">POINTER_INFO</a> structure returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointertouchinfo">GetPointerTouchInfo</a>.
      * @param {Pointer<POINTER_TOUCH_INFO>} touchInfo Address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_touch_info">POINTER_TOUCH_INFO</a> structures to receive the pointer information. This parameter can be NULL if *entriesCount is zero.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
@@ -238,7 +238,7 @@ class Pointer {
     /**
      * Gets the entire frame of touch-based information for the specified pointers (of type PT_TOUCH) associated with the current message.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If <b>GetPointerFrameTouchInfo</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in the frame.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which touchInfo points. If <b>GetPointerFrameTouchInfo</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in the frame.
      * @param {Pointer<POINTER_TOUCH_INFO>} touchInfo Address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_touch_info">POINTER_TOUCH_INFO</a> structures to receive the pointer information. This parameter can be NULL if <i>*pointerCount</i> is zero.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
@@ -259,8 +259,8 @@ class Pointer {
     /**
      * Gets the entire frame of touch-based information (including coalesced input frames) for the specified pointers (of type PT_TOUCH) associated with the current message.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to variable that specifies the count of rows in the two-dimensional array to which touchInfo points. If <b>GetPointerFrameTouchInfoHistory</b> succeeds,  <i>entriesCount</i> is updated with the total count of frames available in the history.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variable that specifies the count of columns in the two-dimensional array to which touchInfo points. If <b>GetPointerFrameTouchInfoHistory</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in each frame.
+     * @param {Pointer<Integer>} entriesCount A pointer to variable that specifies the count of rows in the two-dimensional array to which touchInfo points. If <b>GetPointerFrameTouchInfoHistory</b> succeeds,  <i>entriesCount</i> is updated with the total count of frames available in the history.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variable that specifies the count of columns in the two-dimensional array to which touchInfo points. If <b>GetPointerFrameTouchInfoHistory</b> succeeds, <i>pointerCount</i> is updated with the total count of pointers in each frame.
      * @param {Pointer<POINTER_TOUCH_INFO>} touchInfo Address of a two-dimensional array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_touch_info">POINTER_TOUCH_INFO</a> structures to receive the pointer information. This parameter can be NULL if <i>*entriesCount</i> and <i>*pointerCount</i> are both zero.
      * 
      * This array is interpreted as <c>POINTER_TOUCH_INFO[*entriesCount][*pointerCount]</c>.
@@ -303,7 +303,7 @@ class Pointer {
     /**
      * Gets the pen-based information associated with the individual inputs, if any, that were coalesced into the current message for the specified pointer (of type PT_PEN).
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which 
+     * @param {Pointer<Integer>} entriesCount A pointer to a variable that specifies the count of structures in the buffer to which 
      *        <i>penInfo</i> points. If 
      *        <b>GetPointerPenInfoHistory</b> succeeds, 
      *        <i>entriesCount</i> is updated with the total count of structures available. The total 
@@ -333,7 +333,7 @@ class Pointer {
     /**
      * Gets the entire frame of pen-based information for the specified pointers (of type PT_PEN) associated with the current message.
      * @param {Integer} pointerId An identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which penInfo points. If <b>GetPointerFramePenInfo</b> succeeds, <i>pointerCount</i>  is updated with the total count of pointers in the frame.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variable that specifies the count of structures in the buffer to which penInfo points. If <b>GetPointerFramePenInfo</b> succeeds, <i>pointerCount</i>  is updated with the total count of pointers in the frame.
      * @param {Pointer<POINTER_PEN_INFO>} penInfo Address of an array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_pen_info">POINTER_PEN_INFO</a> structures to receive the pointer information. This parameter can be NULL if <i>*pointerCount</i> is zero.
      * @returns {BOOL} If the function succeeds, the return value is non-zero.
      * 
@@ -354,8 +354,8 @@ class Pointer {
     /**
      * Gets the entire frame of pen-based information (including coalesced input frames) for the specified pointers (of type PT_PEN) associated with the current message.
      * @param {Integer} pointerId The identifier of the pointer for which to retrieve frame information.
-     * @param {Pointer<UInt32>} entriesCount A pointer to a variable that specifies the count of rows in the two-dimensional array to which penInfo points. If <b>GetPointerFramePenInfoHistory</b> succeeds,  <i>entriesCount</i> is updated with the total count of frames available in the history.
-     * @param {Pointer<UInt32>} pointerCount A pointer to a variaable that specifies the count of columns in the two-dimensional array to which penInfo points. If <b>GetPointerFramePenInfoHistory</b> succeeds, <i>pointerCount</i> is updated with  the total count of pointers in each frame.
+     * @param {Pointer<Integer>} entriesCount A pointer to a variable that specifies the count of rows in the two-dimensional array to which penInfo points. If <b>GetPointerFramePenInfoHistory</b> succeeds,  <i>entriesCount</i> is updated with the total count of frames available in the history.
+     * @param {Pointer<Integer>} pointerCount A pointer to a variaable that specifies the count of columns in the two-dimensional array to which penInfo points. If <b>GetPointerFramePenInfoHistory</b> succeeds, <i>pointerCount</i> is updated with  the total count of pointers in each frame.
      * @param {Pointer<POINTER_PEN_INFO>} penInfo Address of a two-dimensional array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_pen_info">POINTER_PEN_INFO</a> structures to receive the pointer information. This parameter can be NULL if *entriesCount and *pointerCount are both zero.
      * 
      * 
@@ -500,7 +500,7 @@ class Pointer {
 
     /**
      * Gets information about the pointer devices attached to the system.
-     * @param {Pointer<UInt32>} deviceCount If <i>pointerDevices</i> is NULL, <i>deviceCount</i> returns the total number of attached pointer devices. Otherwise, <i>deviceCount</i> specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_info">POINTER_DEVICE_INFO</a> structures pointed to by <i>pointerDevices</i>.
+     * @param {Pointer<Integer>} deviceCount If <i>pointerDevices</i> is NULL, <i>deviceCount</i> returns the total number of attached pointer devices. Otherwise, <i>deviceCount</i> specifies the number of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_info">POINTER_DEVICE_INFO</a> structures pointed to by <i>pointerDevices</i>.
      * @param {Pointer<POINTER_DEVICE_INFO>} pointerDevices Array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_info">POINTER_DEVICE_INFO</a> structures for the pointer devices attached to the system. If NULL, the total number of attached pointer devices is returned in <i>deviceCount</i>.
      * @returns {BOOL} If this function succeeds, it returns TRUE.
      *  
@@ -545,7 +545,7 @@ class Pointer {
      * @param {HANDLE} device The pointer device to query properties from. 
      * 
      * A call to the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerdevices">GetPointerDevices</a> function returns this handle in the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_info">POINTER_DEVICE_INFO</a> structure.
-     * @param {Pointer<UInt32>} propertyCount The number  of properties. 
+     * @param {Pointer<Integer>} propertyCount The number  of properties. 
      * 
      * Returns the count that's written or needed if <i>pointerProperties</i> is NULL.
      * 
@@ -591,7 +591,7 @@ class Pointer {
     /**
      * Gets the cursor IDs that are mapped to the cursors associated with a pointer device.
      * @param {HANDLE} device The device handle.
-     * @param {Pointer<UInt32>} cursorCount The number of cursors associated with the pointer device.
+     * @param {Pointer<Integer>} cursorCount The number of cursors associated with the pointer device.
      * @param {Pointer<POINTER_DEVICE_CURSOR_INFO>} deviceCursors An array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_cursor_info">POINTER_DEVICE_CURSOR_INFO</a> structures that contain info about the cursors. If NULL, <i>cursorCount</i> returns the number of cursors associated with the pointer device.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getpointerdevicecursors
@@ -615,7 +615,7 @@ class Pointer {
      * @param {Integer} historyCount The pointer history.
      * @param {Integer} propertiesCount Number of properties to retrieve.
      * @param {Pointer<POINTER_DEVICE_PROPERTY>} pProperties Array of <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-pointer_device_property">POINTER_DEVICE_PROPERTY</a> structures that contain raw data reported by the device.
-     * @param {Pointer<Int32>} pValues The values for <i>pProperties</i>.
+     * @param {Pointer<Integer>} pValues The values for <i>pProperties</i>.
      * @returns {BOOL} TRUE if the function succeeds; otherwise, FALSE. If the function fails, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for more information.
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getrawpointerdevicedata
      * @since windows8.0

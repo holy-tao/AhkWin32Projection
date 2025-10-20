@@ -4,6 +4,8 @@
 #Include ..\..\..\Graphics\Direct2D\Common\D2D_COLOR_F.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/ns-windows-data-pdf-interop-pdf_render_params
  * @namespace Windows.Win32.System.WinRT.Pdf
  * @version v4.0.30319
  */

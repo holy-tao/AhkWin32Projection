@@ -4,6 +4,8 @@
 #Include .\TDIObjectID.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/tdiinfo/ns-tdiinfo-tcp_request_query_information_ex_xp
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

@@ -96,7 +96,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * An array containing the strides of the convolution operation. These strides are applied to the convolution filter. They are separate from the tensor strides included in [DML_TENSOR_DESC](/windows/win32/api/directml/ns-directml-dml_tensor_desc).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 48, "ptr")
@@ -107,7 +107,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * An array containing the dilations of the convolution operation. Dilations are strides applied to the elements of the filter kernel. This has the effect of simulating a larger filter kernel by padding the internal filter kernel elements with zeros.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Dilations {
         get => NumGet(this, 56, "ptr")
@@ -118,7 +118,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * An array containing the padding values to be applied to the beginning of each spatial dimension of the filter and input tensor of the convolution operation. The start padding values are interpreted according to the *Direction* field.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     StartPadding {
         get => NumGet(this, 64, "ptr")
@@ -129,7 +129,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * An array containing the padding values to be applied to the end of each spatial dimension of the filter and input tensor of the convolution operation. The end padding values are interpreted according to the *Direction* field.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     EndPadding {
         get => NumGet(this, 72, "ptr")
@@ -140,7 +140,7 @@ class DML_CONVOLUTION_OPERATOR_DESC extends Win32Struct
      * Type: \_Field_size\_(DimensionCount) **const [UINT](/windows/desktop/WinProg/windows-data-types)\***
      * 
      * An array containing the output padding of the convolution operation. *OutputPadding* applies a zero padding to the result of the convolution. This padding is applied to the end of each spatial dimension of the output tensor.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     OutputPadding {
         get => NumGet(this, 80, "ptr")

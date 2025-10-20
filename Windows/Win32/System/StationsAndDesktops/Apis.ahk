@@ -833,7 +833,7 @@ class StationsAndDesktops {
      * @param {Integer} nIndex 
      * @param {Pointer} pvInfo A pointer to a buffer to receive the object information.
      * @param {Integer} nLength The size of the buffer pointed to by the <i>pvInfo</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -863,7 +863,7 @@ class StationsAndDesktops {
      * @param {Integer} nIndex 
      * @param {Pointer} pvInfo A pointer to a buffer to receive the object information.
      * @param {Integer} nLength The size of the buffer pointed to by the <i>pvInfo</i> parameter, in bytes.
-     * @param {Pointer<UInt32>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
+     * @param {Pointer<Integer>} lpnLengthNeeded A pointer to a variable receiving the number of bytes required to store the requested information. If this variable's value is greater than the value of the <i>nLength</i> parameter when the function returns, the function returns FALSE, and none of the information is copied to the <i>pvInfo</i> buffer. If the value of the variable pointed to by <i>lpnLengthNeeded</i> is less than or equal to the value of <i>nLength</i>, the entire information block is copied.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -1012,7 +1012,7 @@ class StationsAndDesktops {
     /**
      * Sends a message to the specified recipients.
      * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<UInt32>} lpInfo Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message.  
      * 					
@@ -1057,7 +1057,7 @@ class StationsAndDesktops {
     /**
      * Sends a message to the specified recipients.
      * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<UInt32>} lpInfo Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message.  
      * 					
@@ -1102,7 +1102,7 @@ class StationsAndDesktops {
     /**
      * Sends a message to the specified recipients.
      * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<UInt32>} lpInfo Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message.
      * 
@@ -1137,7 +1137,7 @@ class StationsAndDesktops {
     /**
      * Sends a message to the specified recipients.
      * @param {Integer} flags Type: <b>DWORD</b>
-     * @param {Pointer<UInt32>} lpInfo Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpInfo Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable that contains and receives information about the recipients of the message. 
      *                     

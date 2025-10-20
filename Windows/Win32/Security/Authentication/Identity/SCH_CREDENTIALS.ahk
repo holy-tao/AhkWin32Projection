@@ -81,7 +81,7 @@ class SCH_CREDENTIALS extends Win32Struct
      * An array of pointers to CERT_CONTEXT structures. Each pointer specifies a certificate that contains a private key to be used in authenticating the application. 
      * 
      * Client applications often pass in an empty list and either depend on Schannel to find an appropriate certificate or create a certificate later if needed.
-     * @type {Pointer<CERT_CONTEXT>}
+     * @type {Pointer<Pointer<CERT_CONTEXT>>}
      */
     paCred {
         get => NumGet(this, 16, "ptr")
@@ -111,7 +111,7 @@ class SCH_CREDENTIALS extends Win32Struct
 
     /**
      * Reserved.
-     * @type {Pointer<_HMAPPER>}
+     * @type {Pointer<Pointer<_HMAPPER>>}
      */
     aphMappers {
         get => NumGet(this, 40, "ptr")

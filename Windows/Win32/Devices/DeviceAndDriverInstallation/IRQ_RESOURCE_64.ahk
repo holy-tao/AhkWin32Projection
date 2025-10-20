@@ -4,6 +4,8 @@
 #Include .\IRQ_RANGE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_resource_64
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

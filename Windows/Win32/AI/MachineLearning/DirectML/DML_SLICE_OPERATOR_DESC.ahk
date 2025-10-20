@@ -54,7 +54,7 @@ class DML_SLICE_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the slice's start along each dimension of the input tensor, in elements.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Offsets {
         get => NumGet(this, 24, "ptr")
@@ -65,7 +65,7 @@ class DML_SLICE_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the slice's size along each dimension, in elements. The values in this array must match the sizes specified in the output tensor.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Sizes {
         get => NumGet(this, 32, "ptr")
@@ -76,7 +76,7 @@ class DML_SLICE_OPERATOR_DESC extends Win32Struct
      * Type: \_Field\_size\_(DimensionCount) <b>const [UINT](/windows/desktop/winprog/windows-data-types)*</b>
      * 
      * An array containing the slice's stride along each dimension of the input tensor, in elements. A stride larger than 1 indicates that elements of the input tensor may be skipped (for example, a stride of 2 will select every second element along the dimension).
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Strides {
         get => NumGet(this, 40, "ptr")

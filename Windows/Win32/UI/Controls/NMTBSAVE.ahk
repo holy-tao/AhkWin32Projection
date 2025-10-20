@@ -37,7 +37,7 @@ class NMTBSAVE extends Win32Struct
      * 					<b>pData</b>. The format and length of the application-defined blocks are determined by the application. When the save starts, the Shell will pass the amount of memory it needs in 
      * 					<b>cbData</b>, but no memory will be allocated. You must allocate enough memory for 
      * 					<b>pData</b> to hold your data, plus the Shell's.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 24, "ptr")
@@ -50,7 +50,7 @@ class NMTBSAVE extends Win32Struct
      * A pointer to the start of the unused portion of the data stream. You should load your data here, and then advance 
      * 					<b>pCurrent</b> to the start of the remaining unused portion. The Shell will then load the information for the next button, advance 
      * 					<b>pCurrent</b>, and so on.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pCurrent {
         get => NumGet(this, 32, "ptr")

@@ -24,7 +24,7 @@ class SecPkgContext_SessionKey extends Win32Struct
 
     /**
      * The session key for the security context.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SessionKey {
         get => NumGet(this, 8, "ptr")

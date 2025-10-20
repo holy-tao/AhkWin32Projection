@@ -15,7 +15,7 @@ class MI_BooleanA extends Win32Struct
 
     /**
      * An array of <b>MI_Boolean</b> types.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 0, "ptr")

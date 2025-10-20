@@ -20,7 +20,7 @@ class NODERESTRICTION extends Win32Struct
     }
 
     /**
-     * @type {Pointer<RESTRICTION>}
+     * @type {Pointer<Pointer<RESTRICTION>>}
      */
     paRes {
         get => NumGet(this, 8, "ptr")

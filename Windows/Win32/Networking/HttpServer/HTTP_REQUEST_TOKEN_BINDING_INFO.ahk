@@ -12,7 +12,7 @@ class HTTP_REQUEST_TOKEN_BINDING_INFO extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TokenBinding {
         get => NumGet(this, 0, "ptr")
@@ -28,7 +28,7 @@ class HTTP_REQUEST_TOKEN_BINDING_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     EKM {
         get => NumGet(this, 16, "ptr")

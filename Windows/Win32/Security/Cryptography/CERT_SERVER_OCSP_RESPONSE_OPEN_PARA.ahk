@@ -28,7 +28,7 @@ class CERT_SERVER_OCSP_RESPONSE_OPEN_PARA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pcbUsedSize {
         get => NumGet(this, 8, "ptr")

@@ -15,7 +15,7 @@ class MI_UsernamePasswordCreds extends Win32Struct
 
     /**
      * The Domain <b>username</b> resides in.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     domain {
         get => NumGet(this, 0, "ptr")
@@ -24,7 +24,7 @@ class MI_UsernamePasswordCreds extends Win32Struct
 
     /**
      * The <b>username</b> in <b>domain</b>.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     username {
         get => NumGet(this, 8, "ptr")
@@ -33,7 +33,7 @@ class MI_UsernamePasswordCreds extends Win32Struct
 
     /**
      * The password for <b>username</b>.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     password {
         get => NumGet(this, 16, "ptr")

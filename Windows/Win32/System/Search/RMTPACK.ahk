@@ -12,7 +12,7 @@ class RMTPACK extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<ISequentialStream>}
+     * @type {ISequentialStream}
      */
     pISeqStream {
         get => NumGet(this, 0, "ptr")

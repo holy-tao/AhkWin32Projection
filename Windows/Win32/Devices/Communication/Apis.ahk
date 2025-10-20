@@ -519,7 +519,7 @@ class Communication {
      * Retrieves information about a communications error and reports the current status of a communications device.
      * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpErrors 
+     * @param {Pointer<Integer>} lpErrors 
      * @param {Pointer<COMSTAT>} lpStat A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-comstat">COMSTAT</a> structure in which the device's status information is returned. If this parameter is <b>NULL</b>, no status information is returned.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
@@ -596,7 +596,7 @@ class Communication {
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
-     * @param {Pointer<UInt32>} lpdwSize The size, in bytes, of the buffer pointed to by <i>lpCC</i>. When the function returns, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
+     * @param {Pointer<Integer>} lpdwSize The size, in bytes, of the buffer pointed to by <i>lpCC</i>. When the function returns, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
@@ -620,7 +620,7 @@ class Communication {
      * Retrieves the value of the event mask for a specified communications device.
      * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpEvtMask 
+     * @param {Pointer<Integer>} lpEvtMask 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -672,7 +672,7 @@ class Communication {
      * Retrieves the modem control-register values.
      * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpModemStat 
+     * @param {Pointer<Integer>} lpModemStat 
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
@@ -917,7 +917,7 @@ class Communication {
      * Waits for an event to occur for a specified communications device. The set of events that are monitored by this function is contained in the event mask associated with the device handle.
      * @param {HANDLE} hFile A handle to the communications device. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function returns this handle.
-     * @param {Pointer<UInt32>} lpEvtMask 
+     * @param {Pointer<Integer>} lpEvtMask 
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure. This structure is required if <i>hFile</i> was opened with <b>FILE_FLAG_OVERLAPPED</b>. 
      * 
@@ -993,9 +993,9 @@ class Communication {
 
     /**
      * Gets an array that contains the well-formed COM ports.
-     * @param {Pointer<UInt32>} lpPortNumbers An array for the port numbers.
+     * @param {Pointer<Integer>} lpPortNumbers An array for the port numbers.
      * @param {Integer} uPortNumbersCount The length of the array in the <i>lpPortNumbers</i> parameter.
-     * @param {Pointer<UInt32>} puPortNumbersFound The number of port numbers written to the <i>lpPortNumbers</i> or the length of the array required for the port numbers.
+     * @param {Pointer<Integer>} puPortNumbersFound The number of port numbers written to the <i>lpPortNumbers</i> or the length of the array required for the port numbers.
      * @returns {Integer} <table>
      * <tr>
      * <th>Return code</th>
@@ -1274,7 +1274,7 @@ class Communication {
      * @param {PSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
-     * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
+     * @param {Pointer<Integer>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 
@@ -1299,7 +1299,7 @@ class Communication {
      * @param {PWSTR} lpszName The name of the device. For example, COM1 through COM9 are serial ports and LPT1 through LPT9 are parallel ports.
      * @param {Pointer} lpCC A pointer to a buffer that receives a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-commconfig">COMMCONFIG</a> structure.
-     * @param {Pointer<UInt32>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
+     * @param {Pointer<Integer>} lpdwSize A pointer to a variable that specifies the size of the buffer pointed to by <i>lpCC</i>, in bytes. Upon return, the variable contains the number of bytes copied if the function succeeds, or the number of bytes required if the buffer was too small.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, use the 

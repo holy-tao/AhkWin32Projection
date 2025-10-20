@@ -4,6 +4,8 @@
 #Include ..\..\System\Com\BLOB.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/pnrpns/ns-pnrpns-pnrpinfo_v2
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

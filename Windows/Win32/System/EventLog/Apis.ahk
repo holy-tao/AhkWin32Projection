@@ -191,7 +191,7 @@ class EventLog {
      * Gets a text message that contains the extended error information for the current error.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
      * @param {PWSTR} Buffer A caller-allocated string buffer that will receive the extended error information. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} BufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {Integer} The return value is ERROR_SUCCESS if the call succeeded; otherwise, a Win32 error code.
      * @see https://docs.microsoft.com/windows/win32/api//winevt/nf-winevt-evtgetextendedstatus
      * @since windows6.0.6000
@@ -231,10 +231,10 @@ class EventLog {
      * Gets the next event from the query or subscription results.
      * @param {EVT_HANDLE} ResultSet The handle to a query or subscription result set that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtquery">EvtQuery</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtsubscribe">EvtSubscribe</a> function returns.
      * @param {Integer} EventsSize The number of elements in the <i>EventArray</i> array. The function will try to retrieve this number of elements from the result set.
-     * @param {Pointer<IntPtr>} Events A pointer to an array of handles that will be set to the handles to the events from the result set.
+     * @param {Pointer<Pointer>} Events A pointer to an array of handles that will be set to the handles to the events from the result set.
      * @param {Integer} Timeout The number of milliseconds that you are willing to wait for a result.  Set to INFINITE to indicate no time-out value. If the time-out expires, the last error is set to ERROR_TIMEOUT.
      * @param {Integer} Flags Reserved. Must be zero.
-     * @param {Pointer<UInt32>} Returned The number of handles in the array that are set.
+     * @param {Pointer<Integer>} Returned The number of handles in the array that are set.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -398,8 +398,8 @@ class EventLog {
      * @param {Pointer} Buffer A caller-allocated buffer that will receive the rendered output. The contents is a <b>null</b>-terminated Unicode string if the <i>Flags</i> parameter is set to EvtRenderEventXml or EvtRenderBookmark. Otherwise, if <i>Flags</i> is set to EvtRenderEventValues, the buffer contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> structures; one for each property specified by the rendering context. The <i>PropertyCount</i> parameter contains the number of elements in the array.
      * 
      *  You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
-     * @param {Pointer<UInt32>} PropertyCount The number of the properties in the <i>Buffer</i> parameter if the <i>Flags</i> parameter is set to EvtRenderEventValues; otherwise, zero.
+     * @param {Pointer<Integer>} BufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyCount The number of the properties in the <i>Buffer</i> parameter if the <i>Flags</i> parameter is set to EvtRenderEventValues; otherwise, zero.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -460,7 +460,7 @@ class EventLog {
      * @param {Integer} Flags A flag that specifies the message string in the event to format. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_format_message_flags">EVT_FORMAT_MESSAGE_FLAGS</a> enumeration.
      * @param {Integer} BufferSize The size of the <i>Buffer</i> buffer, in characters.
      * @param {PWSTR} Buffer A caller-allocated buffer that will receive the formatted message string. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} BufferUsed The size, in characters of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -536,7 +536,7 @@ class EventLog {
      * @param {Integer} PropertyId The identifier of the property to retrieve. For a list of property identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_log_property_id">EVT_LOG_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
      * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the property value. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -767,7 +767,7 @@ class EventLog {
      * @param {EVT_HANDLE} ChannelEnum A handle to the enumerator that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenchannelenum">EvtOpenChannelEnum</a> function returns.
      * @param {Integer} ChannelPathBufferSize The size of the <i>ChannelPathBuffer</i> buffer, in characters.
      * @param {PWSTR} ChannelPathBuffer A caller-allocated buffer that will receive the name of the channel. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} ChannelPathBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} ChannelPathBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -945,7 +945,7 @@ class EventLog {
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
      * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the configuration property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1016,7 +1016,7 @@ class EventLog {
      * @param {EVT_HANDLE} PublisherEnum A handle to the registered providers enumerator that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtopenpublisherenum">EvtOpenPublisherEnum</a> function returns.
      * @param {Integer} PublisherIdBufferSize The size of the <i>PublisherIdBuffer</i> buffer, in characters.
      * @param {PWSTR} PublisherIdBuffer A caller-allocated buffer that will receive the name of the registered provider. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PublisherIdBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PublisherIdBufferUsed The size, in characters, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1095,7 +1095,7 @@ class EventLog {
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PublisherMetadataPropertyBufferSize The size of the <i>PublisherMetadataPropertyBuffer</i> buffer, in bytes.
      * @param {Pointer} PublisherMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PublisherMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PublisherMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1188,7 +1188,7 @@ class EventLog {
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} EventMetadataPropertyBufferSize The size of the <i>EventMetadataPropertyBuffer</i> buffer, in bytes.
      * @param {Pointer} EventMetadataPropertyBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} EventMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} EventMetadataPropertyBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1237,7 +1237,7 @@ class EventLog {
     /**
      * Gets the number of elements in the array of objects.
      * @param {Pointer} ObjectArray A handle to an array of objects that the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/nf-winevt-evtgetpublishermetadataproperty">EvtGetPublisherMetadataProperty</a> function returns.
-     * @param {Pointer<UInt32>} ObjectArraySize The number of elements in the array.
+     * @param {Pointer<Integer>} ObjectArraySize The number of elements in the array.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1289,7 +1289,7 @@ class EventLog {
      * @param {Integer} Flags Reserved. Must be zero.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
      * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the metadata property. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1339,7 +1339,7 @@ class EventLog {
      * @param {Integer} PropertyId The identifier of the query information to retrieve. For a list of identifiers, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_query_property_id">EVT_QUERY_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
      * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the query information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1460,7 +1460,7 @@ class EventLog {
      * @param {Integer} PropertyId A flag that identifies the information to retrieve. For example, the query identifier or the path. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ne-winevt-evt_event_property_id">EVT_EVENT_PROPERTY_ID</a> enumeration.
      * @param {Integer} PropertyValueBufferSize The size of the <i>PropertyValueBuffer</i> buffer, in bytes.
      * @param {Pointer} PropertyValueBuffer A caller-allocated buffer that will receive the information. The buffer contains an <a href="https://docs.microsoft.com/windows/desktop/api/winevt/ns-winevt-evt_variant">EVT_VARIANT</a> object. You can set this parameter to <b>NULL</b> to determine the required buffer size.
-     * @param {Pointer<UInt32>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
+     * @param {Pointer<Integer>} PropertyValueBufferUsed The size, in bytes, of the caller-allocated buffer that the function used or the required buffer size if the function fails with ERROR_INSUFFICIENT_BUFFER.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code/value</th>
@@ -1697,7 +1697,7 @@ class EventLog {
      * @param {HANDLE} hEventLog A handle to the open event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openbackupeventloga">OpenBackupEventLog</a> function returns this handle.
-     * @param {Pointer<UInt32>} NumberOfRecords A pointer to a variable that receives the number of records in the specified event log.
+     * @param {Pointer<Integer>} NumberOfRecords A pointer to a variable that receives the number of records in the specified event log.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -1723,7 +1723,7 @@ class EventLog {
      * @param {HANDLE} hEventLog A handle to the open event log. The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openeventloga">OpenEventLog</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-openbackupeventloga">OpenBackupEventLog</a> function returns this handle.
-     * @param {Pointer<UInt32>} OldestRecord A pointer to a variable that receives the absolute record number of the oldest record in the specified event log.
+     * @param {Pointer<Integer>} OldestRecord A pointer to a variable that receives the absolute record number of the oldest record in the specified event log.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 
@@ -1923,8 +1923,8 @@ class EventLog {
      * 
      * The maximum size of this buffer is 0x7ffff bytes.
      * @param {Integer} nNumberOfBytesToRead The size of the <i>lpBuffer</i> buffer, in bytes. This function will read as many log entries as will fit in the buffer; the function will not return partial entries.
-     * @param {Pointer<UInt32>} pnBytesRead A pointer to a variable that receives the number of bytes read by the function.
-     * @param {Pointer<UInt32>} pnMinNumberOfBytesNeeded A pointer to a variable that receives the required size of the <i>lpBuffer</i> buffer. This value is valid only if this function returns zero and 
+     * @param {Pointer<Integer>} pnBytesRead A pointer to a variable that receives the number of bytes read by the function.
+     * @param {Pointer<Integer>} pnMinNumberOfBytesNeeded A pointer to a variable that receives the required size of the <i>lpBuffer</i> buffer. This value is valid only if this function returns zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -1959,8 +1959,8 @@ class EventLog {
      * 
      * The maximum size of this buffer is 0x7ffff bytes.
      * @param {Integer} nNumberOfBytesToRead The size of the <i>lpBuffer</i> buffer, in bytes. This function will read as many log entries as will fit in the buffer; the function will not return partial entries.
-     * @param {Pointer<UInt32>} pnBytesRead A pointer to a variable that receives the number of bytes read by the function.
-     * @param {Pointer<UInt32>} pnMinNumberOfBytesNeeded A pointer to a variable that receives the required size of the <i>lpBuffer</i> buffer. This value is valid only this function returns zero and 
+     * @param {Pointer<Integer>} pnBytesRead A pointer to a variable that receives the number of bytes read by the function.
+     * @param {Pointer<Integer>} pnMinNumberOfBytesNeeded A pointer to a variable that receives the required size of the <i>lpBuffer</i> buffer. This value is valid only this function returns zero and 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_INSUFFICIENT_BUFFER</b>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
@@ -2224,7 +2224,7 @@ class EventLog {
      * </table>
      * @param {Pointer} lpBuffer An application-allocated buffer that receives the event log information. The format of this data depends on the value of the <i>dwInfoLevel</i> parameter.
      * @param {Integer} cbBufSize The size of the <i>lpBuffer</i> buffer, in bytes.
-     * @param {Pointer<UInt32>} pcbBytesNeeded The function sets this parameter to the required buffer size for the requested information, regardless of whether the function succeeds. Use this value if the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b> to allocate a buffer of the correct size.
+     * @param {Pointer<Integer>} pcbBytesNeeded The function sets this parameter to the required buffer size for the requested information, regardless of whether the function succeeds. Use this value if the function fails with <b>ERROR_INSUFFICIENT_BUFFER</b> to allocate a buffer of the correct size.
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 						
      * 

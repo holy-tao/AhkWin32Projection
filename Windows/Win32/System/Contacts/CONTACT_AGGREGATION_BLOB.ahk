@@ -20,7 +20,7 @@ class CONTACT_AGGREGATION_BLOB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpb {
         get => NumGet(this, 8, "ptr")

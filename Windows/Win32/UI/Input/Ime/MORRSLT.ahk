@@ -68,7 +68,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pchInputPos {
         get => NumGet(this, 40, "ptr")
@@ -76,7 +76,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pchOutputIdxWDD {
         get => NumGet(this, 48, "ptr")
@@ -84,7 +84,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pchReadIdxWDD {
         get => NumGet(this, 56, "ptr")
@@ -92,7 +92,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     pchCompIdxWDD {
         get => NumGet(this, 56, "ptr")
@@ -100,7 +100,7 @@ class MORRSLT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     paMonoRubyPos {
         get => NumGet(this, 64, "ptr")

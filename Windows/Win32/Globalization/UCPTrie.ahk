@@ -13,7 +13,7 @@ class UCPTrie extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     index {
         get => NumGet(this, 0, "ptr")

@@ -52,7 +52,7 @@ class RADIUS_ATTRIBUTE extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpValue {
         get => NumGet(this, 16, "ptr")

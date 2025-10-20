@@ -3,6 +3,8 @@
 #Include ..\..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/ETW/wnode-header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

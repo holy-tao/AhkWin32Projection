@@ -69,7 +69,7 @@ class TTVALIDATIONTESTSPARAMSEX extends Win32Struct
 
     /**
      * Pointer to array of UCS-4 characters.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pulCharCodeSet {
         get => NumGet(this, 24, "ptr")

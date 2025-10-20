@@ -109,7 +109,7 @@ class WS_STRUCT_DESCRIPTION extends Win32Struct
      * 
      * See the Remarks section for information about ordering of the fields
      *                     in this array.
-     * @type {Pointer<WS_FIELD_DESCRIPTION>}
+     * @type {Pointer<Pointer<WS_FIELD_DESCRIPTION>>}
      */
     fields {
         get => NumGet(this, 8, "ptr")
@@ -160,7 +160,7 @@ class WS_STRUCT_DESCRIPTION extends Win32Struct
     /**
      * An array of pointers to derived types.  This is only used when 
      *                     structures derive from other structures, and may be <b>NULL</b> otherwise.
-     * @type {Pointer<WS_STRUCT_DESCRIPTION>}
+     * @type {Pointer<Pointer<WS_STRUCT_DESCRIPTION>>}
      */
     subTypes {
         get => NumGet(this, 48, "ptr")

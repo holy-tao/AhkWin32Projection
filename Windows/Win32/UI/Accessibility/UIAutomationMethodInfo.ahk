@@ -61,7 +61,7 @@ class UIAutomationMethodInfo extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-uiautomationtype">UIAutomationType</a>*</b>
      * 
      * A pointer to an array of values indicating the data types of the parameters of the method. The data types of the In parameters should be first, followed by those of the Out parameters.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pParameterTypes {
         get => NumGet(this, 24, "ptr")

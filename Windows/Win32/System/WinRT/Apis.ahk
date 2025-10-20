@@ -91,7 +91,7 @@ class WinRT {
      * Creates an agile reference for an object specified by the given interface.
      * @param {Integer} options The registration options.
      * @param {Pointer<Guid>} riid The interface ID of the object for which an agile reference is being obtained.
-     * @param {Pointer<IUnknown>} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
+     * @param {IUnknown} pUnk Pointer to the interface to be encapsulated in an agile reference. It must be the same type as <i>riid</i>. It may be a pointer to an in-process object or a pointer to a proxy of an object.
      * @param {Pointer<IAgileReference>} ppAgileReference The agile reference for the object. Call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/iagilereference-resolve">Resolve</a> method to localize the object into the apartment in which <b>Resolve</b> is called.
      * @returns {HRESULT} This function can return one of these values.
      * 
@@ -160,7 +160,7 @@ class WinRT {
      * @since windows8.1
      */
     static RoGetAgileReference(options, riid, pUnk, ppAgileReference) {
-        result := DllCall("OLE32.dll\RoGetAgileReference", "int", options, "ptr", riid, "ptr", pUnk, "ptr", ppAgileReference, "int")
+        result := DllCall("OLE32.dll\RoGetAgileReference", "int", options, "ptr", riid, "ptr", pUnk, "ptr*", ppAgileReference, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -169,7 +169,7 @@ class WinRT {
 
     /**
      * Calculates the wire size of the HSTRING object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -183,10 +183,10 @@ class WinRT {
 
     /**
      * Marshals an HSTRING object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usermarshal
      * @since windows8.0
      */
@@ -197,10 +197,10 @@ class WinRT {
 
     /**
      * Unmarshals an HSTRING object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -240,7 +240,7 @@ class WinRT {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HSTRING>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userfree
@@ -252,7 +252,7 @@ class WinRT {
 
     /**
      * Calculates the wire size of the HSTRING object, and gets its handle and data.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Integer} param1 
      * @param {Pointer<HSTRING>} param2 
      * @returns {Integer} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
@@ -266,10 +266,10 @@ class WinRT {
 
     /**
      * Marshals an HSTRING object into the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is <b>S_OK</b>.
      * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_usermarshal64
      * @since windows8.0
      */
@@ -280,10 +280,10 @@ class WinRT {
 
     /**
      * Unmarshals an HSTRING object from the RPC buffer.
-     * @param {Pointer<UInt32>} param0 
-     * @param {Pointer<Byte>} param1 
+     * @param {Pointer<Integer>} param0 
+     * @param {Pointer<Integer>} param1 
      * @param {Pointer<HSTRING>} param2 
-     * @returns {Pointer<Byte>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
+     * @returns {Pointer<Integer>} The value obtained from the returned <b>HRESULT</b> value is one of the following.
      * 
      * <table>
      * <tr>
@@ -323,7 +323,7 @@ class WinRT {
 
     /**
      * Frees resources on the server side when called by RPC stub files.
-     * @param {Pointer<UInt32>} param0 
+     * @param {Pointer<Integer>} param0 
      * @param {Pointer<HSTRING>} param1 
      * @returns {String} Nothing - always returns an empty string
      * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-hstring_userfree64
@@ -602,7 +602,7 @@ class WinRT {
      * @param {HSTRING} string Type: [in, optional] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * An optional string for which the backing buffer is to be retrieved. Can be **NULL**.
-     * @param {Pointer<UInt32>} length Type: [out, optional] **UINT32 \***
+     * @param {Pointer<Integer>} length Type: [out, optional] **UINT32 \***
      * 
      * An optional pointer to a **UINT32**. If **NULL** is passed for *length*, then it is ignored. If *length* is a valid pointer to a **UINT32**, and *string* is a valid [**HSTRING**](/windows/win32/winrt/hstring), then on successful completion the function sets the value pointed to by *length* to the number of Unicode characters in the backing buffer for *string* (including embedded null characters, but excluding the terminating null). If *length* is a valid pointer to a **UINT32**, and *string* is **NULL**, then the value pointed to by *length* is set to 0.
      * @returns {PWSTR} Type: <b>PCWSTR</b>
@@ -697,7 +697,7 @@ class WinRT {
      * @param {HSTRING} string2 Type: [in] **[HSTRING](/windows/win32/winrt/hstring)**
      * 
      * The second string to compare.
-     * @param {Pointer<Int32>} result Type: [out] <b>INT32*</b>
+     * @param {Pointer<Integer>} result Type: [out] <b>INT32*</b>
      * 
      * A value that indicates the lexical relationship between <i>string1</i> and <i>string2</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1187,7 +1187,7 @@ class WinRT {
      * @param {Integer} length Type: [in] <b>UINT32</b>
      * 
      * The size of the buffer to allocate. A value of zero corresponds to the empty string.
-     * @param {Pointer<UInt16>} charBuffer Type: [out] <b>WCHAR**</b>
+     * @param {Pointer<Pointer<Integer>>} charBuffer Type: [out] <b>WCHAR**</b>
      * 
      * The mutable buffer that holds the characters. Note that the buffer already contains a terminating <b>NULL</b> character.
      * @param {Pointer<HSTRING_BUFFER>} bufferHandle Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring-buffer">HSTRING_BUFFER</a>*</b>
@@ -1251,7 +1251,7 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, "ushort*", charBuffer, "ptr", bufferHandle, "int")
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, "ptr*", charBuffer, "ptr", bufferHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1384,10 +1384,10 @@ class WinRT {
      * @param {Pointer<Void>} context [in, optional]
      * 
      * Custom context data passed to the callback.
-     * @param {Pointer<UInt32>} length [out]
+     * @param {Pointer<Integer>} length [out]
      * 
      * The length of the string in the target address space, if the call to <i>callback</i> is successful; otherwise, 0.
-     * @param {Pointer<UIntPtr>} targetStringAddress [out]
+     * @param {Pointer<Pointer>} targetStringAddress [out]
      * 
      * The target address of the raw <b>PCWSTR</b>, if the call to <i>callback</i> is successful; otherwise, <b>NULL</b>.
      * @returns {HRESULT} This function can return one of these values.
@@ -1437,10 +1437,10 @@ class WinRT {
      * @param {Pointer<Void>} context [in, optional]
      * 
      * Custom context data passed to the callback.
-     * @param {Pointer<UInt32>} length [out]
+     * @param {Pointer<Integer>} length [out]
      * 
      * The length of the string in the target address space, if the call to <i>callback</i> is successful; otherwise, 0.
-     * @param {Pointer<UInt64>} targetStringAddress [out]
+     * @param {Pointer<Integer>} targetStringAddress [out]
      * 
      * The target address of the raw <b>PCWSTR</b>, if the call to <i>callback</i> is successful; otherwise, <b>NULL</b>.
      * @returns {HRESULT} This function can return one of these values.
@@ -1661,7 +1661,7 @@ class WinRT {
     static RoActivateInstance(activatableClassId, instance) {
         activatableClassId := activatableClassId is Win32Handle ? NumGet(activatableClassId, "ptr") : activatableClassId
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoActivateInstance", "ptr", activatableClassId, "ptr", instance, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoActivateInstance", "ptr", activatableClassId, "ptr*", instance, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1673,7 +1673,7 @@ class WinRT {
      * @param {Pointer<HSTRING>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * An array of class identifiers that are associated with activatable runtime classes.
-     * @param {Pointer<PFNGETACTIVATIONFACTORY>} activationFactoryCallbacks Type: <b><a href="https://docs.microsoft.com/previous-versions/br205771(v=vs.85)">PFNGETACTIVATIONFACTORY</a>*</b>
+     * @param {Pointer<Pointer<PFNGETACTIVATIONFACTORY>>} activationFactoryCallbacks Type: <b><a href="https://docs.microsoft.com/previous-versions/br205771(v=vs.85)">PFNGETACTIVATIONFACTORY</a>*</b>
      * 
      * An array of callback functions that you can use to retrieve the activation factories that correspond with  <i>activatableClassIds</i>.
      * @param {Integer} count Type: <b>UINT32</b>
@@ -1762,7 +1762,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count, cookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr", activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr*", activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1793,7 +1793,7 @@ class WinRT {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * The reference ID of the interface.
-     * @param {Pointer<Void>} factory Type: <b>void**</b>
+     * @param {Pointer<Pointer<Void>>} factory Type: <b>void**</b>
      * 
      * The activation factory.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -1805,7 +1805,7 @@ class WinRT {
     static RoGetActivationFactory(activatableClassId, iid, factory) {
         activatableClassId := activatableClassId is Win32Handle ? NumGet(activatableClassId, "ptr") : activatableClassId
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr", factory, "int")
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr*", factory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1814,8 +1814,8 @@ class WinRT {
 
     /**
      * Registers an IApartmentShutdown callback to be invoked when the current apartment shuts down.
-     * @param {Pointer<IApartmentShutdown>} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
-     * @param {Pointer<UInt64>} apartmentIdentifier The identifier for the current apartment.
+     * @param {IApartmentShutdown} callbackObject The application-supplied <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iapartmentshutdown">IApartmentShutdown</a> interface.
+     * @param {Pointer<Integer>} apartmentIdentifier The identifier for the current apartment.
      * @param {Pointer<APARTMENT_SHUTDOWN_REGISTRATION_COOKIE>} regCookie A cookie that you can use to unregister the callback.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-roregisterforapartmentshutdown
@@ -1848,7 +1848,7 @@ class WinRT {
 
     /**
      * Gets a unique identifier for the current apartment.
-     * @param {Pointer<UInt64>} apartmentIdentifier A process-unique identifier for the current apartment.
+     * @param {Pointer<Integer>} apartmentIdentifier A process-unique identifier for the current apartment.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-rogetapartmentidentifier
      * @since windows8.0
@@ -1869,7 +1869,7 @@ class WinRT {
      * @since windows8.0
      */
     static RoGetBufferMarshaler(bufferMarshaler) {
-        result := DllCall("api-ms-win-core-winrt-robuffer-l1-1-0.dll\RoGetBufferMarshaler", "ptr", bufferMarshaler, "int")
+        result := DllCall("api-ms-win-core-winrt-robuffer-l1-1-0.dll\RoGetBufferMarshaler", "ptr*", bufferMarshaler, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1878,7 +1878,7 @@ class WinRT {
 
     /**
      * Gets the current reporting behavior of Windows Runtime error functions.
-     * @param {Pointer<UInt32>} pflags Type: <b>UINT32*</b>
+     * @param {Pointer<Integer>} pflags Type: <b>UINT32*</b>
      * 
      * A pointer to the bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/ne-roerrorapi-roerrorreportingflags">RO_ERROR_REPORTING_FLAGS</a> values that represents the current error-reporting behavior.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2031,7 +2031,7 @@ class WinRT {
     static RoResolveRestrictedErrorInfoReference(reference, ppRestrictedErrorInfo) {
         reference := reference is String ? StrPtr(reference) : reference
 
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr", ppRestrictedErrorInfo, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\RoResolveRestrictedErrorInfoReference", "ptr", reference, "ptr*", ppRestrictedErrorInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2040,7 +2040,7 @@ class WinRT {
 
     /**
      * Sets the restricted error information object for the current thread.
-     * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The restricted error information object associated with the current thread.
+     * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The restricted error information object associated with the current thread.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-setrestrictederrorinfo
      * @since windows8.0
@@ -2090,7 +2090,7 @@ class WinRT {
      * @since windows8.0
      */
     static GetRestrictedErrorInfo(ppRestrictedErrorInfo) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\GetRestrictedErrorInfo", "ptr", ppRestrictedErrorInfo, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-0.dll\GetRestrictedErrorInfo", "ptr*", ppRestrictedErrorInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2378,7 +2378,7 @@ class WinRT {
      * This function does not support embedded <b>NUL</b> characters, so only the characters before the first <b>NUL</b> are reported.
      * 
      * The <i>message</i> string should be localized.
-     * @param {Pointer<IUnknown>} languageException An error object that's apartment-agile, in-proc, and marshal-by-value across processes. This object should implement <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionstackbacktrace">ILanguageExceptionStackBackTrace</a> and <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptiontransform">ILanguageExceptionTransform</a> if necessary.
+     * @param {IUnknown} languageException An error object that's apartment-agile, in-proc, and marshal-by-value across processes. This object should implement <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionstackbacktrace">ILanguageExceptionStackBackTrace</a> and <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptiontransform">ILanguageExceptionTransform</a> if necessary.
      * @returns {BOOL} <table>
      * <tr>
      * <th>Return code</th>
@@ -2434,7 +2434,7 @@ class WinRT {
 
     /**
      * Triggers the Global Error Handler when an unhandled exception occurs.
-     * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
+     * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roreportunhandlederror
      */
@@ -2452,7 +2452,7 @@ class WinRT {
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
      * @param {Pointer<Void>} context Custom context data.
-     * @param {Pointer<UIntPtr>} targetErrorInfoAddress The address of the error object.
+     * @param {Pointer<Pointer>} targetErrorInfoAddress The address of the error object.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roinspectthreaderrorinfo
      * @since windows8.1
@@ -2471,8 +2471,8 @@ class WinRT {
      * @param {Integer} machine The machine to debug.
      * @param {Pointer<PINSPECT_MEMORY_CALLBACK>} readMemoryCallback A callback function to read the buffer from the target TEB address space.
      * @param {Pointer<Void>} context Custom context data.
-     * @param {Pointer<UInt32>} frameCount The number of stack frames stored in the error object.
-     * @param {Pointer<UIntPtr>} targetBackTraceAddress The stack back trace address in the target process.
+     * @param {Pointer<Integer>} frameCount The number of stack frames stored in the error object.
+     * @param {Pointer<Pointer>} targetBackTraceAddress The stack back trace address in the target process.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roinspectcapturedstackbacktrace
      * @since windows8.1
@@ -2490,9 +2490,10 @@ class WinRT {
      * @param {HRESULT} hrIn 
      * @param {Pointer<IRestrictedErrorInfo>} ppRestrictedErrorInfo 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/roerrorapi/nf-roerrorapi-rogetmatchingrestrictederrorinfo
      */
     static RoGetMatchingRestrictedErrorInfo(hrIn, ppRestrictedErrorInfo) {
-        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr", ppRestrictedErrorInfo, "int")
+        result := DllCall("api-ms-win-core-winrt-error-l1-1-1.dll\RoGetMatchingRestrictedErrorInfo", "int", hrIn, "ptr*", ppRestrictedErrorInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2501,8 +2502,8 @@ class WinRT {
 
     /**
      * Triggers the Global Error Handler when a delegate failure occurs.
-     * @param {Pointer<IUnknown>} punkDelegate The delegate to report.
-     * @param {Pointer<IRestrictedErrorInfo>} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
+     * @param {IUnknown} punkDelegate The delegate to report.
+     * @param {IRestrictedErrorInfo} pRestrictedErrorInfo The error to report. Call the <a href="https://docs.microsoft.com/windows/desktop/api/roerrorapi/nf-roerrorapi-getrestrictederrorinfo">GetRestrictedErrorInfo</a> function to get the <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-irestrictederrorinfo">IRestrictedErrorInfo</a> that represents the error.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//roerrorapi/nf-roerrorapi-roreportfaileddelegate
      */
@@ -2558,10 +2559,10 @@ class WinRT {
      * @param {HSTRING} serverName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a></b>
      * 
      * The name of the server to retrieve class registrations for. This server name is passed on the command line when the server is activated.
-     * @param {Pointer<HSTRING>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
+     * @param {Pointer<Pointer<HSTRING>>} activatableClassIds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>**</b>
      * 
      * A callee-allocated array of activatable class ID strings which the server is registered to serve. The strings must be released by the caller using the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function. The buffer must then be released using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. The server (caller) is responsible for registering the activation factories for these classes.
-     * @param {Pointer<UInt32>} count Type: <b>DWORD*</b>
+     * @param {Pointer<Integer>} count Type: <b>DWORD*</b>
      * 
      * The count of activatable class IDs returned in the <i>activatableClassIds</i> array.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -2602,7 +2603,7 @@ class WinRT {
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
         serverName := serverName is Win32Handle ? NumGet(serverName, "ptr") : serverName
 
-        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr", activatableClassIds, "uint*", count, "int")
+        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr*", activatableClassIds, "uint*", count, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2614,7 +2615,7 @@ class WinRT {
      * @param {PWSTR} filePath The fully qualified path of the file to encapsulate.
      * @param {Integer} accessMode An <a href="https://docs.microsoft.com/uwp/api/Windows.Storage.FileAccessMode">AccessMode</a> value that specifies the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates the file.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
-     * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
+     * @param {Pointer<Pointer<Void>>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically the <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a> that encapsulates the file.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createrandomaccessstreamonfile
      * @since windows8.0
@@ -2622,7 +2623,7 @@ class WinRT {
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid, ppv) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2631,16 +2632,16 @@ class WinRT {
 
     /**
      * Creates a Windows Runtime random access stream around an IStream base implementation.
-     * @param {Pointer<IStream>} stream The COM stream to encapsulate.
+     * @param {IStream} stream The COM stream to encapsulate.
      * @param {Integer} options One of the <a href="https://docs.microsoft.com/windows/desktop/api/shcore/ne-shcore-bsos_options">BSOS_OPTIONS</a> options that specify the behavior of the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_RandomAccessStream.
-     * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
+     * @param {Pointer<Pointer<Void>>} ppv When this method returns successfully, contains the interface pointer to the <a href="https://docs.microsoft.com/uwp/api/windows.storage.streams.randomaccessstream">RandomAccessStream</a> that encapsulates <i>stream</i> requested in <i>riid</i>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createrandomaccessstreamoverstream
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid, ppv) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2649,15 +2650,15 @@ class WinRT {
 
     /**
      * Creates an IStream around a Windows Runtime IRandomAccessStream object.
-     * @param {Pointer<IUnknown>} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
+     * @param {IUnknown} randomAccessStream The source <a href="https://docs.microsoft.com/previous-versions/hh438400(v=vs.85)">IRandomAccessStream</a>.
      * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStream. This object encapsulates <i>randomAccessStream</i>.
-     * @param {Pointer<Void>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
+     * @param {Pointer<Pointer<Void>>} ppv When this method returns successfully, contains the interface pointer requested in <i>riid</i>, typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shcore/nf-shcore-createstreamoverrandomaccessstream
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid, ppv) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr", ppv, "int")
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr*", ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2667,12 +2668,12 @@ class WinRT {
     /**
      * Creates a ICoreInputSourceBase object in the caller’s UI thread.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
-     * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
+     * @param {Pointer<Pointer<Void>>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid, ppv) {
-        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr", ppv, "CDecl int")
+        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr*", ppv, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
@@ -2681,14 +2682,14 @@ class WinRT {
 
     /**
      * Creates a ICoreInputSourceBase object in a worker thread or the UI thread.
-     * @param {Pointer<IUnknown>} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
+     * @param {IUnknown} pCoreWindow Pointer to the parent <a href="https://msdn.microsoft.com/60b1c8c6-c136-4c4c-8e46-69a792d58ed0">CoreWindow</a> to which the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object will be attached. This parameter can’t be NULL.
      * @param {Pointer<Guid>} riid Interface ID of the object. Must to be set to the UUID for  <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a>, which is 9F488807-4580-4BE8-BE68-92A9311713BB.
-     * @param {Pointer<Void>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
+     * @param {Pointer<Pointer<Void>>} ppv Pointer to receive the <a href="https://docs.microsoft.com/uwp/api/windows.ui.core.icoreinputsourcebase">ICoreInputSourceBase</a> object.
      * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid, ppv) {
-        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr", ppv, "CDecl int")
+        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr*", ppv, "CDecl int")
         if(result != 0)
             throw OSError(result)
 

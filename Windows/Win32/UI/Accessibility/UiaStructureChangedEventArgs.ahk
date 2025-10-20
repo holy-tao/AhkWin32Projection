@@ -50,7 +50,7 @@ class UiaStructureChangedEventArgs extends Win32Struct
      * Type: <b>int*</b>
      * 
      * The address of an array of runtime identifiers for elements involved in the change.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pRuntimeId {
         get => NumGet(this, 16, "ptr")

@@ -33,7 +33,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ProcString {
         get => NumGet(this, 24, "ptr")
@@ -41,7 +41,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     FmtStringOffset {
         get => NumGet(this, 32, "ptr")
@@ -49,7 +49,7 @@ class MIDL_SYNTAX_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TypeString {
         get => NumGet(this, 40, "ptr")

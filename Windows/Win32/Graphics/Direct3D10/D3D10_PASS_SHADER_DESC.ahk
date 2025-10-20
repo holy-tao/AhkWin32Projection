@@ -22,7 +22,7 @@ class D3D10_PASS_SHADER_DESC extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectshadervariable">ID3D10EffectShaderVariable</a>*</b>
      * 
      * A pointer to the variable that the shader came from. If it is an inline shader assignment, the returned interface will be an anonymous shader variable, which is not retrievable any other way.  Its name in the variable description will be "$Anonymous". If there is no assignment of this type in the pass block, this will point to a shader variable that returns false when IsValid is called.
-     * @type {Pointer<ID3D10EffectShaderVariable>}
+     * @type {ID3D10EffectShaderVariable}
      */
     pShaderVariable {
         get => NumGet(this, 0, "ptr")

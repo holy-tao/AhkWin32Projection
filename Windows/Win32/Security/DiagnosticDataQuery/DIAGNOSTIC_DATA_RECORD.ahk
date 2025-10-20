@@ -85,7 +85,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[INT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * A list of privacy tag IDs for this event.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     privacyTags {
         get => NumGet(this, 48, "ptr")
@@ -105,7 +105,7 @@ class DIAGNOSTIC_DATA_RECORD extends Win32Struct
     /**
      * Type: **[INT32\*](/windows/desktop/com/structure-of-com-error-codes)**
      * A list of the categories associated with this event.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     categoryIds {
         get => NumGet(this, 64, "ptr")

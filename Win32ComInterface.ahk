@@ -1,4 +1,8 @@
-#Requires AutoHotkey v2.0
+#Requires AutoHotkey v2.0 64-bit
+#Include Win32Struct.ahk
+#Include Guid.ahk
+
+#Include ./Windows/Win32/System/Com/Apis.ahk
 
 /**
  * Win32ComInterface is the base class from which all generated COM Interfaces
@@ -6,17 +10,26 @@
  * 
  * @see https://www.autohotkey.com/docs/v2/lib/ComValue.htm
  */
-class Win32ComInterface {
+class Win32ComInterface extends Win32Struct {
 
     /**
-     * Pointer to the beginning of this interface's function table
-     * @type {ComValue}
+     * If this interface is implemented by the script, refCount contains the
+     * reference count. Otherwise, its value is -1
+     * @type {Integer}
      */
-    ptr := unset
+    refCount := -1
+
+    static sizef := A_PtrSize
+
+    ptr => super.ptr
 
     /**
      * Initializes a new `Win32ComInterface` object
-     * @param {Integer} ptr the interface pointer to wrap
+     * @param {Integer} ptrOrImpl the interface pointer to wrap, or an object containing
+     *          the interface implementation
+     * @param {String} callbackCreateFlags if ptrOrImpl is an implementation object, flags 
+     *          to use when creating the callback addresses. Otherwise, this parameter is
+     *          ignored
      */
     __New(ptrOrImpl := 0, callbackCreateFlags := ""){
         if(IsObject(ptrOrImpl)){
@@ -125,8 +138,6 @@ class Win32ComInterface {
                 throw MemoryError("Interface implementation object released with references remaining", , this.refCount)
             }
 
-            MsgBox(A_ThisFunc . " called for " . type(this))
-
             for(ptr in this.__vTable){
                 CallbackFree(ptr)
             }
@@ -160,7 +171,6 @@ class Win32ComInterface {
                 ComCall(1, this, "uint")    ; Call AddRef()
                 return S_OK
             }
-
             obj := obj.base
         }
 

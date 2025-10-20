@@ -28,7 +28,7 @@ class WS_XML_BASE64_TEXT extends Win32Struct
 
     /**
      * The bytes of data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     bytes {
         get => NumGet(this, 8, "ptr")

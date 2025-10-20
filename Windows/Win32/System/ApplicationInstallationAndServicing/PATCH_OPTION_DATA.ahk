@@ -68,7 +68,7 @@ class PATCH_OPTION_DATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<PATCH_INTERLEAVE_MAP>}
+     * @type {Pointer<Pointer<PATCH_INTERLEAVE_MAP>>}
      */
     InterleaveMapArray {
         get => NumGet(this, 48, "ptr")

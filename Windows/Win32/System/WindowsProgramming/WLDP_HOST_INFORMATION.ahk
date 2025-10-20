@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/ns-wldp-wldp_host_information
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

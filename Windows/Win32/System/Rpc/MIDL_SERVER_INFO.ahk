@@ -20,7 +20,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SERVER_ROUTINE>}
+     * @type {Pointer<Pointer<SERVER_ROUTINE>>}
      */
     DispatchTable {
         get => NumGet(this, 8, "ptr")
@@ -28,7 +28,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ProcString {
         get => NumGet(this, 16, "ptr")
@@ -36,7 +36,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     FmtStringOffset {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class MIDL_SERVER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<STUB_THUNK>}
+     * @type {Pointer<Pointer<STUB_THUNK>>}
      */
     ThunkTable {
         get => NumGet(this, 32, "ptr")

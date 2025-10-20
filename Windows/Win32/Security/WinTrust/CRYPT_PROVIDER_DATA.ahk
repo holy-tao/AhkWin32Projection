@@ -119,7 +119,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
 
     /**
      * An array of <b>DWORD</b> values that specify trust step errors.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     padwTrustStepErrors {
         get => NumGet(this, 80, "ptr")

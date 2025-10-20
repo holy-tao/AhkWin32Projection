@@ -154,7 +154,7 @@ class UI {
 ;@region Methods
     /**
      * Creates a basic security property page that enables the user to view and edit the access rights allowed or denied by the access control entries (ACEs) in an object's discretionary access control list (DACL).
-     * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
+     * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @returns {HPROPSHEETPAGE} If the function succeeds, the function returns a handle to a basic security property page.
      * 						
@@ -177,7 +177,7 @@ class UI {
     /**
      * Displays a property sheet that contains a basic security property page. This property page enables the user to view and edit the access rights allowed or denied by the ACEs in an object's DACL.
      * @param {HWND} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
-     * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
+     * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
@@ -201,7 +201,7 @@ class UI {
     /**
      * Extends the EditSecurity function to include the security page type when displaying the property sheet that contains a basic security property page.
      * @param {HWND} hwndOwner A handle to the window that owns the property sheet. This parameter can be <b>NULL</b>.
-     * @param {Pointer<ISecurityInformation>} psi A pointer to your implementation of the 
+     * @param {ISecurityInformation} psi A pointer to your implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nn-aclui-isecurityinformation">ISecurityInformation</a> interface. The system calls the interface methods to retrieve information about the object being edited and to return the user's input.
      * @param {Integer} uSIPage A value of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ne-aclui-si_page_type">SI_PAGE_TYPE</a> enumeration that indicates the page type on which to display the elevated access control editor.

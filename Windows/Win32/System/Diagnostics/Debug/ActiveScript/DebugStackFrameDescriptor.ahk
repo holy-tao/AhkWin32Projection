@@ -12,7 +12,7 @@ class DebugStackFrameDescriptor extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<IDebugStackFrame>}
+     * @type {IDebugStackFrame}
      */
     pdsf {
         get => NumGet(this, 0, "ptr")
@@ -44,7 +44,7 @@ class DebugStackFrameDescriptor extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkFinal {
         get => NumGet(this, 24, "ptr")

@@ -29,7 +29,7 @@ class ADS_DN_WITH_BINARY extends Win32Struct
 
     /**
      * Pointer to an array of bytes that contains the binary data for the attribute. The <b>dwLength</b> member contains the number of bytes in this array.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpBinaryValue {
         get => NumGet(this, 8, "ptr")

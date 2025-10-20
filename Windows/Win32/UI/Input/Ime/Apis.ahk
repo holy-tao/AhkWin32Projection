@@ -3466,7 +3466,7 @@ class Ime {
     /**
      * Retrieves the size of the candidate lists.
      * @param {HIMC} param0 
-     * @param {Pointer<UInt32>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
+     * @param {Pointer<Integer>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcounta
      * @since windows5.1.2600
@@ -3481,7 +3481,7 @@ class Ime {
     /**
      * Retrieves the size of the candidate lists.
      * @param {HIMC} param0 
-     * @param {Pointer<UInt32>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
+     * @param {Pointer<Integer>} lpdwListCount Pointer to the buffer in which this function retrieves the size of the candidate lists.
      * @returns {Integer} Returns the number of bytes required for all candidate lists if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetcandidatelistcountw
      * @since windows5.1.2600
@@ -3756,8 +3756,8 @@ class Ime {
     /**
      * Retrieves the current conversion status.
      * @param {HIMC} param0 
-     * @param {Pointer<UInt32>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
-     * @param {Pointer<UInt32>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
+     * @param {Pointer<Integer>} lpfdwConversion Pointer to a variable in which the function retrieves a combination of conversion mode values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-conversion-mode-values">IME Conversion Mode Values</a>.
+     * @param {Pointer<Integer>} lpfdwSentence Pointer to a variable in which the function retrieves a sentence mode value. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Intl/ime-sentence-mode-values">IME Sentence Mode Values</a>.
      * @returns {BOOL} Returns a nonzero value if successful, or 0 otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//imm/nf-imm-immgetconversionstatus
      * @since windows5.1.2600
@@ -4373,6 +4373,7 @@ class Ime {
     /**
      * 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/api/immdev/nf-immdev-immdisablelegacyime
      * @since windows8.0
      */
     static ImmDisableLegacyIME() {
@@ -4383,8 +4384,8 @@ class Ime {
     /**
      * 
      * @param {Integer} param0 
-     * @param {Pointer<UInt32>} lpuModifiers 
-     * @param {Pointer<UInt32>} lpuVKey 
+     * @param {Pointer<Integer>} lpuModifiers 
+     * @param {Pointer<Integer>} lpuVKey 
      * @param {Pointer<HKL>} phKL 
      * @returns {BOOL} 
      */

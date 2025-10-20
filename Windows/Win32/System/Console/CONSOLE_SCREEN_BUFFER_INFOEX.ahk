@@ -4,6 +4,8 @@
 #Include .\SMALL_RECT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/console/console-screen-buffer-infoex
  * @namespace Windows.Win32.System.Console
  * @version v4.0.30319
  */

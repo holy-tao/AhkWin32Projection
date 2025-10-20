@@ -33,7 +33,7 @@ class DXGI_MAPPED_RECT extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>*</b>
      * 
      * A pointer to the image buffer of the surface.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pBits {
         get => NumGet(this, 8, "ptr")

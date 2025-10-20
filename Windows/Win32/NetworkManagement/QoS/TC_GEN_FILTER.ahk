@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/traffic/ns-traffic-tc_gen_filter
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

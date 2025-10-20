@@ -43,7 +43,7 @@ class WINBIO_STORAGE_RECORD extends Win32Struct
 
     /**
      * Pointer to a contiguous array of <b>ULONG</b> values. These values represent the bucket address assigned to the biometric template by the engine adapter.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     IndexVector {
         get => NumGet(this, 16, "ptr")
@@ -61,7 +61,7 @@ class WINBIO_STORAGE_RECORD extends Win32Struct
 
     /**
      * Pointer to an array of bytes that contains the biometric template data.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     TemplateBlob {
         get => NumGet(this, 32, "ptr")
@@ -79,7 +79,7 @@ class WINBIO_STORAGE_RECORD extends Win32Struct
 
     /**
      * Pointer to an array of bytes that contains integrity checking data. This field is used only by adapters for removable devices that contain embedded storage.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     PayloadBlob {
         get => NumGet(this, 48, "ptr")

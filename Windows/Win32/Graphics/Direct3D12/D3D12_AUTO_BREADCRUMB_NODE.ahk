@@ -15,7 +15,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the ANSI debug name of the outstanding command list (if any).
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCommandListDebugNameA {
         get => NumGet(this, 0, "ptr")
@@ -33,7 +33,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the ANSI debug name of the outstanding command queue (if any).
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pCommandQueueDebugNameA {
         get => NumGet(this, 16, "ptr")
@@ -51,7 +51,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the [ID3D12GraphicsCommandList interface](nn-d3d12-id3d12graphicscommandlist.md) representing the outstanding command list at the time of execution.
-     * @type {Pointer<ID3D12GraphicsCommandList>}
+     * @type {ID3D12GraphicsCommandList}
      */
     pCommandList {
         get => NumGet(this, 32, "ptr")
@@ -60,7 +60,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to the [ID3D12CommandQueue interface](nn-d3d12-id3d12commandqueue.md) representing the outstanding command queue.
-     * @type {Pointer<ID3D12CommandQueue>}
+     * @type {ID3D12CommandQueue}
      */
     pCommandQueue {
         get => NumGet(this, 40, "ptr")
@@ -78,7 +78,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to a constant **UINT32** containing the index (within the array pointed to by `pCommandHistory`) of the last render/compute operation that was completed by the GPU while executing the associated command list.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pLastBreadcrumbValue {
         get => NumGet(this, 56, "ptr")
@@ -87,7 +87,7 @@ class D3D12_AUTO_BREADCRUMB_NODE extends Win32Struct
 
     /**
      * A pointer to a constant array of [D3D12_AUTO_BREADCRUMB_OP](ne-d3d12-d3d12_auto_breadcrumb_op.md) values representing all of the render/compute operations recorded into the associated command list.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     pCommandHistory {
         get => NumGet(this, 64, "ptr")

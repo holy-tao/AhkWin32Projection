@@ -52,7 +52,7 @@ class POINTER_SEARCH_PHYSICAL extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     MatchOffsets {
         get => NumGet(this, 40, "ptr")

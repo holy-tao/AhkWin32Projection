@@ -96,7 +96,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A extends Win32Struct
      * 
      * <a id="RPC_C_HTTP_AUTHN_SCHEME_BASIC"></a>
      * <a id="rpc_c_http_authn_scheme_basic"></a>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     AuthnSchemes {
         get => NumGet(this, 24, "ptr")
@@ -105,7 +105,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A extends Win32Struct
 
     /**
      * Contains an optional string with the expected server principal name. The principal name is in the same format as that generated for <a href="https://docs.microsoft.com/windows/desktop/api/rpcssl/nf-rpcssl-rpccertgenerateprincipalname">RpcCertGeneratePrincipalName</a> (see <a href="https://docs.microsoft.com/windows/desktop/Rpc/principal-names">Principal Names</a> for more information). This member is used only when SSL is used. In such cases, the server certificate is checked against the generated principal name. If they do not match, an error is returned. This member enables clients to authenticate the RPC Proxy.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ServerCertificateSubject {
         get => NumGet(this, 32, "ptr")
@@ -135,7 +135,7 @@ class RPC_HTTP_TRANSPORT_CREDENTIALS_V3_A extends Win32Struct
      * 
      * <a id="RPC_C_HTTP_AUTHN_SCHEME_BASIC"></a>
      * <a id="rpc_c_http_authn_scheme_basic"></a>
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     ProxyAuthnSchemes {
         get => NumGet(this, 56, "ptr")

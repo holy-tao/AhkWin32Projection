@@ -886,7 +886,7 @@ class Credentials {
      * Prerequisite API to call to determine if the operation will be successful prior.
      * @param {Integer} keyCredentialManagerOperationType The intended operation from the <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationtype.md">KeyCredentialManagerOperationType</a>.
      * @param {Pointer<BOOL>} isReady If the operational prerequisite will succeed (True) or (False).
-     * @param {Pointer<Int32>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
+     * @param {Pointer<Integer>} keyCredentialManagerOperationErrorStates Additional feedback about isReady represented by <a href="../keycredmgr/ne-keycredmgr-keycredentialmanageroperationerrorstates.md">KeyCredentialManagerOperationErrorStates</a>.
      * @returns {HRESULT} Returns an HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetoperationerrorstates
      */
@@ -917,12 +917,12 @@ class Credentials {
 
     /**
      * API to get a unique identifier of the users enrollment.
-     * @param {Pointer<KeyCredentialManagerInfo>} keyCredentialManagerInfo Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
+     * @param {Pointer<Pointer<KeyCredentialManagerInfo>>} keyCredentialManagerInfo Pointer to a pointer variable that receives a <a href="../keycredmgr/nf-keycredmgr-keycredentialmanagerfreeinformation.md">KeyCredentialManagerFreeInformation</a> function.
      * @returns {HRESULT} Returns an HRESULT.
      * @see https://docs.microsoft.com/windows/win32/api//keycredmgr/nf-keycredmgr-keycredentialmanagergetinformation
      */
     static KeyCredentialManagerGetInformation(keyCredentialManagerInfo) {
-        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr", keyCredentialManagerInfo, "int")
+        result := DllCall("KeyCredMgr.dll\KeyCredentialManagerGetInformation", "ptr*", keyCredentialManagerInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1229,7 +1229,7 @@ class Credentials {
      * Reads a credential from the user's credential set.
      * @param {PWSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
      * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
-     * @param {Pointer<CREDENTIALW>} Credential Pointer to a single allocated block buffer to return the credential.
+     * @param {Pointer<Pointer<CREDENTIALW>>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
@@ -1264,7 +1264,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1275,7 +1275,7 @@ class Credentials {
      * Reads a credential from the user's credential set.
      * @param {PSTR} TargetName Pointer to a null-terminated string that contains the name of the credential to read.
      * @param {Integer} Type Type of the credential to read. <i>Type</i> must be one of the CRED_TYPE_* defined types.
-     * @param {Pointer<CREDENTIALA>} Credential Pointer to a single allocated block buffer to return the credential.
+     * @param {Pointer<Pointer<CREDENTIALA>>} Credential Pointer to a single allocated block buffer to return the credential.
      * Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned:
      * 
@@ -1310,7 +1310,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1323,8 +1323,8 @@ class Credentials {
      * 
      * 
      * If <b>NULL</b> is specified, all credentials will be returned.
-     * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
-     * @param {Pointer<CREDENTIALW>} Credential Pointer to an array of pointers to credentials.
+     * @param {Pointer<Integer>} Count Count of the credentials returned in the <i>Credentials</i> array.
+     * @param {Pointer<Pointer<Pointer<CREDENTIALW>>>} Credential Pointer to an array of pointers to credentials.
      * The returned credential is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
      * 
@@ -1380,7 +1380,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredEnumerateW", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1393,8 +1393,8 @@ class Credentials {
      * 
      * 
      * If <b>NULL</b> is specified, all credentials will be returned.
-     * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
-     * @param {Pointer<CREDENTIALA>} Credential Pointer to an array of pointers to credentials.
+     * @param {Pointer<Integer>} Count Count of the credentials returned in the <i>Credentials</i> array.
+     * @param {Pointer<Pointer<Pointer<CREDENTIALA>>>} Credential Pointer to an array of pointers to credentials.
      * The returned credential is a single allocated block. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status codes can be returned.
      * 
@@ -1450,7 +1450,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredEnumerateA", "ptr", Filter, "uint", Flags, "uint*", Count, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1752,8 +1752,8 @@ class Credentials {
      * CRED_CACHE_TARGET_INFORMATION
      * 
      * Cache the TargetInfo for a subsequent read using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>.
-     * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
-     * @param {Pointer<CREDENTIALW>} Credential Pointer to an array of pointers to credentials. The most specific existing credential matching the <i>TargetInfo</i> is returned. If credentials of various types (for example, CRED_TYPE_DOMAIN_PASSWORD and CRED_TYPE_DOMAIN_CERTIFICATE credentials) exist, one of each type is returned. If a connection were to be made to the named target, this most-specific credential would be used. 
+     * @param {Pointer<Integer>} Count Count of the credentials returned in the <i>Credentials</i> array.
+     * @param {Pointer<Pointer<Pointer<CREDENTIALW>>>} Credential Pointer to an array of pointers to credentials. The most specific existing credential matching the <i>TargetInfo</i> is returned. If credentials of various types (for example, CRED_TYPE_DOMAIN_PASSWORD and CRED_TYPE_DOMAIN_CERTIFICATE credentials) exist, one of each type is returned. If a connection were to be made to the named target, this most-specific credential would be used. 
      * 
      * 
      * 
@@ -1801,7 +1801,7 @@ class Credentials {
     static CredReadDomainCredentialsW(TargetInfo, Flags, Count, Credential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsW", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1821,8 +1821,8 @@ class Credentials {
      * CRED_CACHE_TARGET_INFORMATION
      * 
      * Cache the TargetInfo for a subsequent read using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credgettargetinfoa">CredGetTargetInfo</a>.
-     * @param {Pointer<UInt32>} Count Count of the credentials returned in the <i>Credentials</i> array.
-     * @param {Pointer<CREDENTIALA>} Credential Pointer to an array of pointers to credentials. The most specific existing credential matching the <i>TargetInfo</i> is returned. If credentials of various types (for example, CRED_TYPE_DOMAIN_PASSWORD and CRED_TYPE_DOMAIN_CERTIFICATE credentials) exist, one of each type is returned. If a connection were to be made to the named target, this most-specific credential would be used. 
+     * @param {Pointer<Integer>} Count Count of the credentials returned in the <i>Credentials</i> array.
+     * @param {Pointer<Pointer<Pointer<CREDENTIALA>>>} Credential Pointer to an array of pointers to credentials. The most specific existing credential matching the <i>TargetInfo</i> is returned. If credentials of various types (for example, CRED_TYPE_DOMAIN_PASSWORD and CRED_TYPE_DOMAIN_CERTIFICATE credentials) exist, one of each type is returned. If a connection were to be made to the named target, this most-specific credential would be used. 
      * 
      * 
      * 
@@ -1870,7 +1870,7 @@ class Credentials {
     static CredReadDomainCredentialsA(TargetInfo, Flags, Count, Credential) {
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredReadDomainCredentialsA", "ptr", TargetInfo, "uint", Flags, "uint*", Count, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2086,7 +2086,7 @@ class Credentials {
      * If no target information can be found for <i>TargetName</i> name resolution is done on <i>TargetName</i> to convert it to other forms. If target information exists for any of those other forms, it is returned. Currently only DNS name resolution is done.
      * 
      * This is useful if the application does not call an authentication package directly. The application can pass the <i>TargetName</i> to another layer of software to authenticate to the server, and that layer of software might resolve the name and pass the resolved name to the authentication package. As such, there will be no target information for the original <i>TargetName</i>.
-     * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONW>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
+     * @param {Pointer<Pointer<CREDENTIAL_TARGET_INFORMATIONW>>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * <ul>
@@ -2105,7 +2105,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoW", "ptr", TargetName, "uint", Flags, "ptr*", TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2125,7 +2125,7 @@ class Credentials {
      * If no target information can be found for <i>TargetName</i> name resolution is done on <i>TargetName</i> to convert it to other forms. If target information exists for any of those other forms, it is returned. Currently only DNS name resolution is done.
      * 
      * This is useful if the application does not call an authentication package directly. The application can pass the <i>TargetName</i> to another layer of software to authenticate to the server, and that layer of software might resolve the name and pass the resolved name to the authentication package. As such, there will be no target information for the original <i>TargetName</i>.
-     * @param {Pointer<CREDENTIAL_TARGET_INFORMATIONA>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
+     * @param {Pointer<Pointer<CREDENTIAL_TARGET_INFORMATIONA>>} TargetInfo Pointer to a single allocated block buffer to contain the target information. At least one of the returned members of <i>TargetInfo</i> will be non-NULL. Any pointers contained within the buffer are pointers to locations within this single allocated block. The single returned buffer must be freed by calling <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} The function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
      * 
      * <ul>
@@ -2144,7 +2144,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr", TargetInfo, "int")
+        result := DllCall("ADVAPI32.dll\CredGetTargetInfoA", "ptr", TargetName, "uint", Flags, "ptr*", TargetInfo, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2216,11 +2216,11 @@ class Credentials {
     /**
      * The CredUnmarshalCredential function transforms a marshaled credential back into its original form.
      * @param {PWSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
-     * @param {Pointer<Int32>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
+     * @param {Pointer<Integer>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
      * 
      * This is one of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_marshal_type">CRED_MARSHAL_TYPE</a> values.
-     * @param {Pointer<Void>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
+     * @param {Pointer<Pointer<Void>>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * 
      * The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
@@ -2236,7 +2236,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialW", "ptr", MarshaledCredential, "int*", CredType, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2246,11 +2246,11 @@ class Credentials {
     /**
      * The CredUnmarshalCredential function transforms a marshaled credential back into its original form.
      * @param {PSTR} MarshaledCredential Pointer to a null-terminated string that contains the marshaled credential.
-     * @param {Pointer<Int32>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
+     * @param {Pointer<Integer>} CredType Type of credential specified by <i>MarshaledCredential</i>. 
      * 
      * 
      * This is one of the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_marshal_type">CRED_MARSHAL_TYPE</a> values.
-     * @param {Pointer<Void>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
+     * @param {Pointer<Pointer<Void>>} Credential Pointer to the unmarshaled credential. If <i>CredType</i> returns <i>CertCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-cert_credential_info">CERT_CREDENTIAL_INFO</a> structure. If <i>CredType</i> returns <i>UsernameTargetCredential</i>, the returned pointer is to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-username_target_credential_info">USERNAME_TARGET_CREDENTIAL_INFO</a> structure.
      * 
      * The caller should free the returned buffer using <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a>.
      * @returns {BOOL} This function returns <b>TRUE</b> on success and <b>FALSE</b> on failure. The <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function can be called to get a more specific status code. The following status code can be returned:
@@ -2266,7 +2266,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, "int*", CredType, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredUnmarshalCredentialA", "ptr", MarshaledCredential, "int*", CredType, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2322,11 +2322,11 @@ class Credentials {
      * @param {PWSTR} pszUserName A pointer to a null-terminated string that receives the user name.
      * 
      * This string can be a marshaled credential. See Remarks.
-     * @param {Pointer<UInt32>} pcchMaxUserName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszUserName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszUserName</i> buffer. The size includes terminating null character.
+     * @param {Pointer<Integer>} pcchMaxUserName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszUserName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszUserName</i> buffer. The size includes terminating null character.
      * @param {PWSTR} pszDomainName A pointer to a null-terminated string that receives the name of the user's domain.
-     * @param {Pointer<UInt32>} pcchMaxDomainName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszDomainName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszDomainName</i> buffer. The size includes the terminating null character. The required size can be zero if there is no domain name.
+     * @param {Pointer<Integer>} pcchMaxDomainName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszDomainName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszDomainName</i> buffer. The size includes the terminating null character. The required size can be zero if there is no domain name.
      * @param {PWSTR} pszPassword A pointer to a null-terminated string that receives the password.
-     * @param {Pointer<UInt32>} pcchMaxPassword A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszPassword</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszPassword</i> buffer. The size includes the terminating null character.  
+     * @param {Pointer<Integer>} pcchMaxPassword A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszPassword</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszPassword</i> buffer. The size includes the terminating null character.  
      * 
      * This string can be a marshaled credential. See Remarks.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
@@ -2414,11 +2414,11 @@ class Credentials {
      * @param {PSTR} pszUserName A pointer to a null-terminated string that receives the user name.
      * 
      * This string can be a marshaled credential. See Remarks.
-     * @param {Pointer<UInt32>} pcchlMaxUserName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszUserName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszUserName</i> buffer. The size includes terminating null character.
+     * @param {Pointer<Integer>} pcchlMaxUserName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszUserName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszUserName</i> buffer. The size includes terminating null character.
      * @param {PSTR} pszDomainName A pointer to a null-terminated string that receives the name of the user's domain.
-     * @param {Pointer<UInt32>} pcchMaxDomainName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszDomainName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszDomainName</i> buffer. The size includes the terminating null character. The required size can be zero if there is no domain name.
+     * @param {Pointer<Integer>} pcchMaxDomainName A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszDomainName</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszDomainName</i> buffer. The size includes the terminating null character. The required size can be zero if there is no domain name.
      * @param {PSTR} pszPassword A pointer to a null-terminated string that receives the password.
-     * @param {Pointer<UInt32>} pcchMaxPassword A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszPassword</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszPassword</i> buffer. The size includes the terminating null character.  
+     * @param {Pointer<Integer>} pcchMaxPassword A pointer to a <b>DWORD</b> value that specifies the size, in characters, of the <i>pszPassword</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in characters, of the  <i>pszPassword</i> buffer. The size includes the terminating null character.  
      * 
      * This string can be a marshaled credential. See Remarks.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
@@ -2554,7 +2554,7 @@ class Credentials {
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>Online identities are not supported.
      * @param {Pointer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
-     * @param {Pointer<UInt32>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
+     * @param {Pointer<Integer>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2662,7 +2662,7 @@ class Credentials {
      * 
      * <b>Windows Server 2008 R2, Windows 7, Windows Server 2008 and Windows Vista:  </b>Online identities are not supported.
      * @param {Pointer} pPackedCredentials A pointer to an array of bytes that, on output, receives the packed authentication buffer. This parameter can be <b>NULL</b> to receive the required buffer size in the <i>pcbPackedCredentials</i> parameter.
-     * @param {Pointer<UInt32>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
+     * @param {Pointer<Integer>} pcbPackedCredentials A pointer to a <b>DWORD</b> value that specifies the size, in bytes, of the <i>pPackedCredentials</i> buffer. On output, if the buffer is not of sufficient size, specifies the required size, in bytes, of the  <i>pPackedCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2707,8 +2707,8 @@ class Credentials {
      * @param {PWSTR} pszCredentials A pointer to a string that specifies the credentials to encrypt. The function encrypts the number of characters provided in the <i>cchCredentials</i> parameter.
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
      * @param {PWSTR} pszProtectedCredentials A pointer to a string that, on output, receives the encrypted credentials.
-     * @param {Pointer<UInt32>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
-     * @param {Pointer<Int32>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
+     * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
+     * @param {Pointer<Integer>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2735,8 +2735,8 @@ class Credentials {
      * @param {PSTR} pszCredentials A pointer to a string that specifies the credentials to encrypt. The function encrypts the number of characters provided in the <i>cchCredentials</i> parameter.
      * @param {Integer} cchCredentials The size, in characters, of the <i>pszCredentials</i> buffer.
      * @param {PSTR} pszProtectedCredentials A pointer to a string that, on output, receives the encrypted credentials.
-     * @param {Pointer<UInt32>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
-     * @param {Pointer<Int32>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
+     * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszProtectedCredentials</i> buffer. On output, if the <i>pszProtectedCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszProtectedCredentials</i> buffer.
+     * @param {Pointer<Integer>} ProtectionType A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration type that, on output, specifies the type of protection provided.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2763,7 +2763,7 @@ class Credentials {
      * @param {PWSTR} pszProtectedCredentials A pointer to a string that specifies the encrypted credentials.
      * @param {Integer} cchProtectedCredentials The size, in characters, of the <i>pszProtectedCredentials</i> buffer.
      * @param {PWSTR} pszCredentials A pointer to a string that, on output, receives the decrypted credentials.
-     * @param {Pointer<UInt32>} pcchMaxChars The size, in characters of the <i>pszCredentials</i> buffer. On output, if the <i>pszCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszCredentials</i> buffer.
+     * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszCredentials</i> buffer. On output, if the <i>pszCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2821,7 +2821,7 @@ class Credentials {
      * @param {PSTR} pszProtectedCredentials A pointer to a string that specifies the encrypted credentials.
      * @param {Integer} cchProtectedCredentials The size, in characters, of the <i>pszProtectedCredentials</i> buffer.
      * @param {PSTR} pszCredentials A pointer to a string that, on output, receives the decrypted credentials.
-     * @param {Pointer<UInt32>} pcchMaxChars The size, in characters of the <i>pszCredentials</i> buffer. On output, if the <i>pszCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszCredentials</i> buffer.
+     * @param {Pointer<Integer>} pcchMaxChars The size, in characters of the <i>pszCredentials</i> buffer. On output, if the <i>pszCredentials</i> is not of sufficient size to receive the encrypted credentials, this parameter specifies the required size, in characters, of the <i>pszCredentials</i> buffer.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2876,7 +2876,7 @@ class Credentials {
     /**
      * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function.
      * @param {PWSTR} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
-     * @param {Pointer<Int32>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
+     * @param {Pointer<Integer>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2899,7 +2899,7 @@ class Credentials {
     /**
      * Specifies whether the specified credentials are encrypted by a previous call to the CredProtect function.
      * @param {PSTR} pszProtectedCredentials A pointer to a null-terminated string that specifies the credentials to test.
-     * @param {Pointer<Int32>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
+     * @param {Pointer<Integer>} pProtectionType A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ne-wincred-cred_protection_type">CRED_PROTECTION_TYPE</a> enumeration that specifies whether the credentials specified in the <i>pszProtectedCredentials</i> parameter are protected.
      * @returns {BOOL} <b>TRUE</b> if the function succeeds; otherwise, <b>FALSE</b>.
      * 
      * For extended error information, call the 
@@ -2924,7 +2924,7 @@ class Credentials {
      * @param {PWSTR} TargetName A pointer to a null-terminated string that contains the name of the target resource for which to find credentials.
      * @param {Integer} Type The type of credentials to search for. Currently, this function supports only <b>CRED_TYPE_GENERIC</b>.
      * @param {Integer} Flags Reserved.
-     * @param {Pointer<CREDENTIALW>} Credential The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure that specifies the set of credentials this function finds.
+     * @param {Pointer<Pointer<CREDENTIALW>>} Credential The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure that specifies the set of credentials this function finds.
      * 
      * When you have finished using this structure, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a> function.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2939,7 +2939,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialW", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2951,7 +2951,7 @@ class Credentials {
      * @param {PSTR} TargetName A pointer to a null-terminated string that contains the name of the target resource for which to find credentials.
      * @param {Integer} Type The type of credentials to search for. Currently, this function supports only <b>CRED_TYPE_GENERIC</b>.
      * @param {Integer} Flags Reserved.
-     * @param {Pointer<CREDENTIALA>} Credential The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure that specifies the set of credentials this function finds.
+     * @param {Pointer<Pointer<CREDENTIALA>>} Credential The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wincred/ns-wincred-credentiala">CREDENTIAL</a> structure that specifies the set of credentials this function finds.
      * 
      * When you have finished using this structure, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credfree">CredFree</a> function.
      * @returns {BOOL} If the function succeeds, it returns <b>TRUE</b>.
@@ -2966,7 +2966,7 @@ class Credentials {
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr", Credential, "int")
+        result := DllCall("ADVAPI32.dll\CredFindBestCredentialA", "ptr", TargetName, "uint", Type, "uint", Flags, "ptr*", Credential, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2976,7 +2976,7 @@ class Credentials {
     /**
      * The CredGetSessionTypes function returns the maximum persistence supported by the current logon session. A separate maximum persistence is returned for each credential type.
      * @param {Integer} MaximumPersistCount Number of elements in the <i>MaximumPersist</i> array. Use CRED_TYPE_MAXIMUM to return all of the currently defined credential types.
-     * @param {Pointer<UInt32>} MaximumPersist Pointer to an array to return the persistence values in. The passed in array should be <i>MaximumPersistCount</i> elements long. On return, each element specifies the maximum persistence supported by the corresponding credential type.
+     * @param {Pointer<Integer>} MaximumPersist Pointer to an array to return the persistence values in. The passed in array should be <i>MaximumPersistCount</i> elements long. On return, each element specifies the maximum persistence supported by the corresponding credential type.
      * 
      * The caller should use one of the following defines to index into the array:
      * 
@@ -3325,7 +3325,7 @@ class Credentials {
      * 
      * This function ignores the  <b>hbmBanner</b> member of the <b>CREDUI_INFO</b> structure.
      * @param {Integer} dwAuthError A Windows error code, defined in Winerror.h, that is displayed in the dialog box. If credentials previously collected were not valid, the caller uses this parameter to pass the error message from the API that collected the credentials (for example, Winlogon) to this function. The corresponding error message is formatted and displayed in the dialog box. Set the  value of this parameter to zero to display no error message.
-     * @param {Pointer<UInt32>} pulAuthPackage On input, the value of this parameter is used to specify the authentication package for which the credentials in the <i>pvInAuthBuffer</i> buffer are serialized. If the value of <i>pvInAuthBuffer</i> is <b>NULL</b> and the <b>CREDUIWIN_AUTHPACKAGE_ONLY</b> flag is set in the <i>dwFlags</i> parameter, only credential providers capable of serializing credentials for the specified authentication package are to be enumerated. 
+     * @param {Pointer<Integer>} pulAuthPackage On input, the value of this parameter is used to specify the authentication package for which the credentials in the <i>pvInAuthBuffer</i> buffer are serialized. If the value of <i>pvInAuthBuffer</i> is <b>NULL</b> and the <b>CREDUIWIN_AUTHPACKAGE_ONLY</b> flag is set in the <i>dwFlags</i> parameter, only credential providers capable of serializing credentials for the specified authentication package are to be enumerated. 
      * 
      * 
      * 
@@ -3334,10 +3334,10 @@ class Credentials {
      * On output, this parameter specifies the authentication package for which the credentials in the <i>ppvOutAuthBuffer</i> buffer are serialized.
      * @param {Pointer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
      * @param {Integer} ulInAuthBufferSize The size, in bytes, of the <i>pvInAuthBuffer</i> buffer.
-     * @param {Pointer<Void>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
+     * @param {Pointer<Pointer<Void>>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
      * 
      * When you have finished using the credential BLOB, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function, and free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @param {Pointer<UInt32>} pulOutAuthBufferSize The size, in bytes, of the <i>ppvOutAuthBuffer</i> buffer.
+     * @param {Pointer<Integer>} pulOutAuthBufferSize The size, in bytes, of the <i>ppvOutAuthBuffer</i> buffer.
      * @param {Pointer<BOOL>} pfSave A pointer to a Boolean value that, on input, specifies whether the <b>Save</b> check box is selected in the dialog box that this function displays. On output, the value of this parameter specifies whether the <b>Save</b> check box was selected when the user clicks the <b>Submit</b> button in the dialog box. Set this parameter to <b>NULL</b> to ignore the <b>Save</b> check box.
      * 
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
@@ -3347,7 +3347,7 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsW(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, "uint*", pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr", ppvOutAuthBuffer, "uint*", pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsW", "ptr", pUiInfo, "uint", dwAuthError, "uint*", pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr*", ppvOutAuthBuffer, "uint*", pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3363,7 +3363,7 @@ class Credentials {
      * 
      * This function ignores the  <b>hbmBanner</b> member of the <b>CREDUI_INFO</b> structure.
      * @param {Integer} dwAuthError A Windows error code, defined in Winerror.h, that is displayed in the dialog box. If credentials previously collected were not valid, the caller uses this parameter to pass the error message from the API that collected the credentials (for example, Winlogon) to this function. The corresponding error message is formatted and displayed in the dialog box. Set the  value of this parameter to zero to display no error message.
-     * @param {Pointer<UInt32>} pulAuthPackage On input, the value of this parameter is used to specify the authentication package for which the credentials in the <i>pvInAuthBuffer</i> buffer are serialized. If the value of <i>pvInAuthBuffer</i> is <b>NULL</b> and the <b>CREDUIWIN_AUTHPACKAGE_ONLY</b> flag is set in the <i>dwFlags</i> parameter, only credential providers capable of serializing credentials for the specified authentication package are to be enumerated. 
+     * @param {Pointer<Integer>} pulAuthPackage On input, the value of this parameter is used to specify the authentication package for which the credentials in the <i>pvInAuthBuffer</i> buffer are serialized. If the value of <i>pvInAuthBuffer</i> is <b>NULL</b> and the <b>CREDUIWIN_AUTHPACKAGE_ONLY</b> flag is set in the <i>dwFlags</i> parameter, only credential providers capable of serializing credentials for the specified authentication package are to be enumerated. 
      * 
      * 
      * 
@@ -3372,10 +3372,10 @@ class Credentials {
      * On output, this parameter specifies the authentication package for which the credentials in the <i>ppvOutAuthBuffer</i> buffer are serialized.
      * @param {Pointer} pvInAuthBuffer A pointer to a credential BLOB that is used to populate the credential fields in the dialog box. Set the value of this parameter to <b>NULL</b> to leave the credential fields empty.
      * @param {Integer} ulInAuthBufferSize The size, in bytes, of the <i>pvInAuthBuffer</i> buffer.
-     * @param {Pointer<Void>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
+     * @param {Pointer<Pointer<Void>>} ppvOutAuthBuffer The address of a pointer that, on output, specifies the credential BLOB. For Kerberos, NTLM, or Negotiate credentials, call the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credunpackauthenticationbuffera">CredUnPackAuthenticationBuffer</a> function to convert this BLOB to string representations of the credentials.  
      * 
      * When you have finished using the credential BLOB, clear it from memory by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function, and free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @param {Pointer<UInt32>} pulOutAuthBufferSize The size, in bytes, of the <i>ppvOutAuthBuffer</i> buffer.
+     * @param {Pointer<Integer>} pulOutAuthBufferSize The size, in bytes, of the <i>ppvOutAuthBuffer</i> buffer.
      * @param {Pointer<BOOL>} pfSave A pointer to a Boolean value that, on input, specifies whether the <b>Save</b> check box is selected in the dialog box that this function displays. On output, the value of this parameter specifies whether the <b>Save</b> check box was selected when the user clicks the <b>Submit</b> button in the dialog box. Set this parameter to <b>NULL</b> to ignore the <b>Save</b> check box.
      * 
      * This parameter is ignored if the <b>CREDUIWIN_CHECKBOX</b> flag is not set in the <i>dwFlags</i> parameter.
@@ -3385,7 +3385,7 @@ class Credentials {
      * @since windows6.0.6000
      */
     static CredUIPromptForWindowsCredentialsA(pUiInfo, dwAuthError, pulAuthPackage, pvInAuthBuffer, ulInAuthBufferSize, ppvOutAuthBuffer, pulOutAuthBufferSize, pfSave, dwFlags) {
-        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, "uint*", pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr", ppvOutAuthBuffer, "uint*", pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
+        result := DllCall("credui.dll\CredUIPromptForWindowsCredentialsA", "ptr", pUiInfo, "uint", dwAuthError, "uint*", pulAuthPackage, "ptr", pvInAuthBuffer, "uint", ulInAuthBufferSize, "ptr*", ppvOutAuthBuffer, "uint*", pulOutAuthBufferSize, "ptr", pfSave, "uint", dwFlags, "uint")
         return result
     }
 
@@ -3911,7 +3911,7 @@ class Credentials {
     /**
      * Establishes the resource manager context (the scope) within which database operations are performed.
      * @param {Integer} dwScope 
-     * @param {Pointer<UIntPtr>} phContext A handle to the established <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. This handle can now be supplied to other functions attempting to do work within this context.
+     * @param {Pointer<Pointer>} phContext A handle to the established <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a>. This handle can now be supplied to other functions attempting to do work within this context.
      * @returns {Integer} If the function succeeds, the function returns SCARD_S_SUCCESS. 
      * 
      * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
@@ -4078,7 +4078,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchGroups Length of the <i>mszGroups</i> buffer in characters, and receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszGroups</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcchGroups Length of the <i>mszGroups</i> buffer in characters, and receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszGroups</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4178,7 +4178,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pcchGroups Length of the <i>mszGroups</i> buffer in characters, and receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszGroups</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcchGroups Length of the <i>mszGroups</i> buffer in characters, and receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszGroups</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4279,7 +4279,7 @@ class Credentials {
      * </tr>
      * </table>
      * @param {PSTR} mszReaders Multi-string that lists the card readers within the supplied reader groups. If this value is <b>NULL</b>, <b>SCardListReaders</b> ignores the buffer length supplied in <i>pcchReaders</i>, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchReaders Length of the <i>mszReaders</i> buffer in characters. This parameter receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
+     * @param {Pointer<Integer>} pcchReaders Length of the <i>mszReaders</i> buffer in characters. This parameter receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -4405,7 +4405,7 @@ class Credentials {
      * </tr>
      * </table>
      * @param {PWSTR} mszReaders Multi-string that lists the card readers within the supplied reader groups. If this value is <b>NULL</b>, <b>SCardListReaders</b> ignores the buffer length supplied in <i>pcchReaders</i>, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchReaders Length of the <i>mszReaders</i> buffer in characters. This parameter receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
+     * @param {Pointer<Integer>} pcchReaders Length of the <i>mszReaders</i> buffer in characters. This parameter receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -4478,11 +4478,11 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * 
      * If this parameter is set to <b>NULL</b>, the search for cards is not limited to any context.
-     * @param {Pointer<Byte>} pbAtr Address of an ATR string to compare to known cards, or <b>NULL</b> if no ATR matching is to be performed.
+     * @param {Pointer<Integer>} pbAtr Address of an ATR string to compare to known cards, or <b>NULL</b> if no ATR matching is to be performed.
      * @param {Pointer<Guid>} rgquidInterfaces Array of identifiers (GUIDs), or <b>NULL</b> if no interface matching is to be performed. When an array is supplied, a card name will be returned only if all the specified identifiers are supported by the card.
      * @param {Integer} cguidInterfaceCount Number of entries in the <i>rgguidInterfaces</i> array. If <i>rgguidInterfaces</i> is <b>NULL</b>, then this value is ignored.
      * @param {PSTR} mszCards Multi-string that lists the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart cards</a> found. If this value is <b>NULL</b>, <b>SCardListCards</b> ignores the buffer length supplied in <i>pcchCards</i>, returning the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchCards</i> and a success code.
-     * @param {Pointer<UInt32>} pcchCards Length of the <i>mszCards</i> buffer in characters. Receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszCards</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcchCards Length of the <i>mszCards</i> buffer in characters. Receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszCards</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4530,11 +4530,11 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>.
      * 
      * If this parameter is set to <b>NULL</b>, the search for cards is not limited to any context.
-     * @param {Pointer<Byte>} pbAtr Address of an ATR string to compare to known cards, or <b>NULL</b> if no ATR matching is to be performed.
+     * @param {Pointer<Integer>} pbAtr Address of an ATR string to compare to known cards, or <b>NULL</b> if no ATR matching is to be performed.
      * @param {Pointer<Guid>} rgquidInterfaces Array of identifiers (GUIDs), or <b>NULL</b> if no interface matching is to be performed. When an array is supplied, a card name will be returned only if all the specified identifiers are supported by the card.
      * @param {Integer} cguidInterfaceCount Number of entries in the <i>rgguidInterfaces</i> array. If <i>rgguidInterfaces</i> is <b>NULL</b>, then this value is ignored.
      * @param {PWSTR} mszCards Multi-string that lists the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart cards</a> found. If this value is <b>NULL</b>, <b>SCardListCards</b> ignores the buffer length supplied in <i>pcchCards</i>, returning the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchCards</i> and a success code.
-     * @param {Pointer<UInt32>} pcchCards Length of the <i>mszCards</i> buffer in characters. Receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszCards</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcchCards Length of the <i>mszCards</i> buffer in characters. Receives the actual length of the multi-string structure, including all trailing <b>null</b> characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszCards</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the multi-string structure. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4582,7 +4582,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szCard Name of the smart card already introduced to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a>.
      * @param {Pointer<Guid>} pguidInterfaces Array of interface identifiers (GUIDs) that indicate the interfaces supported by the smart card. If this value is <b>NULL</b>, <b>SCardListInterfaces</b> ignores the array length supplied in <i>pcguidInterfaces</i>, returning the size of the array that would have been returned if this parameter had not been <b>NULL</b> to <i>pcguidInterfaces</i> and a success code.
-     * @param {Pointer<UInt32>} pcguidInterfaces Size of the <i>pcguidInterfaces</i> array, and receives the actual size of the returned array. If the array size is specified as SCARD_AUTOALLOCATE, then <i>pcguidInterfaces</i> is converted to a pointer to a GUID pointer, and receives the address of a block of memory containing the array. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcguidInterfaces Size of the <i>pcguidInterfaces</i> array, and receives the actual size of the returned array. If the array size is specified as SCARD_AUTOALLOCATE, then <i>pcguidInterfaces</i> is converted to a pointer to a GUID pointer, and receives the address of a block of memory containing the array. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4630,7 +4630,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/r-gly">resource manager context</a> for the query. The resource manager context can be set by a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a>. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szCard Name of the smart card already introduced to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card subsystem</a>.
      * @param {Pointer<Guid>} pguidInterfaces Array of interface identifiers (GUIDs) that indicate the interfaces supported by the smart card. If this value is <b>NULL</b>, <b>SCardListInterfaces</b> ignores the array length supplied in <i>pcguidInterfaces</i>, returning the size of the array that would have been returned if this parameter had not been <b>NULL</b> to <i>pcguidInterfaces</i> and a success code.
-     * @param {Pointer<UInt32>} pcguidInterfaces Size of the <i>pcguidInterfaces</i> array, and receives the actual size of the returned array. If the array size is specified as SCARD_AUTOALLOCATE, then <i>pcguidInterfaces</i> is converted to a pointer to a GUID pointer, and receives the address of a block of memory containing the array. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcguidInterfaces Size of the <i>pcguidInterfaces</i> array, and receives the actual size of the returned array. If the array size is specified as SCARD_AUTOALLOCATE, then <i>pcguidInterfaces</i> is converted to a pointer to a GUID pointer, and receives the address of a block of memory containing the array. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -4826,7 +4826,7 @@ class Credentials {
      * </tr>
      * </table>
      * @param {PSTR} szProvider String variable to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">provider name</a> upon successful completion of this function.
-     * @param {Pointer<UInt32>} pcchProvider Pointer to <b>DWORD</b> value. On input, <i>pcchProvider</i> supplies the length of the <i>szProvider</i> buffer in characters. If this value is SCARD_AUTOALLOCATE, then <i>szProvider</i> is converted to a pointer to a byte pointer and receives the address of a block of memory containing the string. This block of memory must be deallocated by calling 
+     * @param {Pointer<Integer>} pcchProvider Pointer to <b>DWORD</b> value. On input, <i>pcchProvider</i> supplies the length of the <i>szProvider</i> buffer in characters. If this value is SCARD_AUTOALLOCATE, then <i>szProvider</i> is converted to a pointer to a byte pointer and receives the address of a block of memory containing the string. This block of memory must be deallocated by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>. 
      * 
      * 
@@ -4934,7 +4934,7 @@ class Credentials {
      * </tr>
      * </table>
      * @param {PWSTR} szProvider String variable to receive the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">provider name</a> upon successful completion of this function.
-     * @param {Pointer<UInt32>} pcchProvider Pointer to <b>DWORD</b> value. On input, <i>pcchProvider</i> supplies the length of the <i>szProvider</i> buffer in characters. If this value is SCARD_AUTOALLOCATE, then <i>szProvider</i> is converted to a pointer to a byte pointer and receives the address of a block of memory containing the string. This block of memory must be deallocated by calling 
+     * @param {Pointer<Integer>} pcchProvider Pointer to <b>DWORD</b> value. On input, <i>pcchProvider</i> supplies the length of the <i>szProvider</i> buffer in characters. If this value is SCARD_AUTOALLOCATE, then <i>szProvider</i> is converted to a pointer to a byte pointer and receives the address of a block of memory containing the string. This block of memory must be deallocated by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>. 
      * 
      * 
@@ -5963,9 +5963,9 @@ class Credentials {
      * @param {Pointer<Guid>} pguidPrimaryProvider Pointer to the identifier (GUID) for the smart card's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary service provider</a>.
      * @param {Pointer<Guid>} rgguidInterfaces Array of identifiers (GUIDs) that identify the interfaces supported by the smart card.
      * @param {Integer} dwInterfaceCount Number of identifiers in the <i>rgguidInterfaces</i> array.
-     * @param {Pointer<Byte>} pbAtr <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> that can be used for matching purposes when querying the smart card database (for more information, see 
+     * @param {Pointer<Integer>} pbAtr <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> that can be used for matching purposes when querying the smart card database (for more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistcardsa">SCardListCards</a>). The length of this string is determined by normal ATR parsing.
-     * @param {Pointer<Byte>} pbAtrMask Optional bitmask to use when comparing the ATRs of smart cards to the ATR supplied in <i>pbAtr</i>. If this value is non-<b>NULL</b>, it must point to a string of bytes the same length as the ATR string supplied in <i>pbAtr</i>. When a given ATR string <i>A</i> is compared to the ATR supplied in <i>pbAtr</i>, it matches if and only if <i>A &amp; M</i> = <i>pbAtr</i>, where <i>M</i> is the supplied mask, and <i>&amp;</i> represents bitwise AND.
+     * @param {Pointer<Integer>} pbAtrMask Optional bitmask to use when comparing the ATRs of smart cards to the ATR supplied in <i>pbAtr</i>. If this value is non-<b>NULL</b>, it must point to a string of bytes the same length as the ATR string supplied in <i>pbAtr</i>. When a given ATR string <i>A</i> is compared to the ATR supplied in <i>pbAtr</i>, it matches if and only if <i>A &amp; M</i> = <i>pbAtr</i>, where <i>M</i> is the supplied mask, and <i>&amp;</i> represents bitwise AND.
      * @param {Integer} cbAtrLen Length of the ATR and optional ATR mask. If this value is zero, then the length of the ATR is determined by normal ATR parsing. This value cannot be zero if a <i>pbAtr</i> value is supplied.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -6016,9 +6016,9 @@ class Credentials {
      * @param {Pointer<Guid>} pguidPrimaryProvider Pointer to the identifier (GUID) for the smart card's <a href="https://docs.microsoft.com/windows/desktop/SecGloss/p-gly">primary service provider</a>.
      * @param {Pointer<Guid>} rgguidInterfaces Array of identifiers (GUIDs) that identify the interfaces supported by the smart card.
      * @param {Integer} dwInterfaceCount Number of identifiers in the <i>rgguidInterfaces</i> array.
-     * @param {Pointer<Byte>} pbAtr <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> that can be used for matching purposes when querying the smart card database (for more information, see 
+     * @param {Pointer<Integer>} pbAtr <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> that can be used for matching purposes when querying the smart card database (for more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistcardsa">SCardListCards</a>). The length of this string is determined by normal ATR parsing.
-     * @param {Pointer<Byte>} pbAtrMask Optional bitmask to use when comparing the ATRs of smart cards to the ATR supplied in <i>pbAtr</i>. If this value is non-<b>NULL</b>, it must point to a string of bytes the same length as the ATR string supplied in <i>pbAtr</i>. When a given ATR string <i>A</i> is compared to the ATR supplied in <i>pbAtr</i>, it matches if and only if <i>A &amp; M</i> = <i>pbAtr</i>, where <i>M</i> is the supplied mask, and <i>&amp;</i> represents bitwise AND.
+     * @param {Pointer<Integer>} pbAtrMask Optional bitmask to use when comparing the ATRs of smart cards to the ATR supplied in <i>pbAtr</i>. If this value is non-<b>NULL</b>, it must point to a string of bytes the same length as the ATR string supplied in <i>pbAtr</i>. When a given ATR string <i>A</i> is compared to the ATR supplied in <i>pbAtr</i>, it matches if and only if <i>A &amp; M</i> = <i>pbAtr</i>, where <i>M</i> is the supplied mask, and <i>&amp;</i> represents bitwise AND.
      * @param {Integer} cbAtrLen Length of the ATR and optional ATR mask. If this value is zero, then the length of the ATR is determined by normal ATR parsing. This value cannot be zero if a <i>pbAtr</i> value is supplied.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -6843,8 +6843,8 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UIntPtr>} phCard A handle that identifies the connection to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in the designated reader.
-     * @param {Pointer<UInt32>} pdwActiveProtocol A flag that indicates the established active protocol.
+     * @param {Pointer<Pointer>} phCard A handle that identifies the connection to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in the designated reader.
+     * @param {Pointer<Integer>} pdwActiveProtocol A flag that indicates the established active protocol.
      * 
      * <table>
      * <tr>
@@ -7015,8 +7015,8 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UIntPtr>} phCard A handle that identifies the connection to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in the designated reader.
-     * @param {Pointer<UInt32>} pdwActiveProtocol A flag that indicates the established active protocol.
+     * @param {Pointer<Pointer>} phCard A handle that identifies the connection to the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">smart card</a> in the designated reader.
+     * @param {Pointer<Integer>} pdwActiveProtocol A flag that indicates the established active protocol.
      * 
      * <table>
      * <tr>
@@ -7208,7 +7208,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwActiveProtocol Flag that indicates the established active protocol.
+     * @param {Pointer<Integer>} pdwActiveProtocol Flag that indicates the established active protocol.
      * 
      * <table>
      * <tr>
@@ -7475,10 +7475,10 @@ class Credentials {
     /**
      * 
      * @param {Pointer} hCard 
-     * @param {Pointer<UInt32>} pdwState 
-     * @param {Pointer<UInt32>} pdwProtocol 
+     * @param {Pointer<Integer>} pdwState 
+     * @param {Pointer<Integer>} pdwProtocol 
      * @param {Pointer} pbAtr 
-     * @param {Pointer<UInt32>} pcbAtrLen 
+     * @param {Pointer<Integer>} pcbAtrLen 
      * @returns {Integer} 
      */
     static SCardState(hCard, pdwState, pdwProtocol, pbAtr, pcbAtrLen) {
@@ -7491,13 +7491,13 @@ class Credentials {
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {PSTR} mszReaderNames List of display names (multiple string) by which the currently connected reader is known.
-     * @param {Pointer<UInt32>} pcchReaderLen On input, supplies the length of the <i>szReaderName</i> buffer. 
+     * @param {Pointer<Integer>} pcchReaderLen On input, supplies the length of the <i>szReaderName</i> buffer. 
      * 
      * 
      * 
      * 
      * On output, receives the actual length (in characters) of the reader name list, including the trailing <b>NULL</b> character. If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>szReaderName</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
-     * @param {Pointer<UInt32>} pdwState Current <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">state</a> of the smart card in the reader. Upon success, it receives one of the following state indicators. 
+     * @param {Pointer<Integer>} pdwState Current <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">state</a> of the smart card in the reader. Upon success, it receives one of the following state indicators. 
      * 
      * 
      * 
@@ -7570,7 +7570,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwProtocol Current protocol, if any. The returned value is meaningful only if the returned value of <i>pdwState</i> is SCARD_SPECIFICMODE.
+     * @param {Pointer<Integer>} pdwProtocol Current protocol, if any. The returned value is meaningful only if the returned value of <i>pdwState</i> is SCARD_SPECIFICMODE.
      * 
      * <table>
      * <tr>
@@ -7608,8 +7608,8 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
-     * @param {Pointer<UInt32>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
+     * @param {Pointer<Integer>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
+     * @param {Pointer<Integer>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
      * @returns {Integer} If the function successfully provides the current status of a <a href="/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -7629,13 +7629,13 @@ class Credentials {
      * @param {Pointer} hCard Reference value returned from 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
      * @param {PWSTR} mszReaderNames List of display names (multiple string) by which the currently connected reader is known.
-     * @param {Pointer<UInt32>} pcchReaderLen On input, supplies the length of the <i>szReaderName</i> buffer. 
+     * @param {Pointer<Integer>} pcchReaderLen On input, supplies the length of the <i>szReaderName</i> buffer. 
      * 
      * 
      * 
      * 
      * On output, receives the actual length (in characters) of the reader name list, including the trailing <b>NULL</b> character. If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>szReaderName</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
-     * @param {Pointer<UInt32>} pdwState Current <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">state</a> of the smart card in the reader. Upon success, it receives one of the following state indicators. 
+     * @param {Pointer<Integer>} pdwState Current <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">state</a> of the smart card in the reader. Upon success, it receives one of the following state indicators. 
      * 
      * 
      * 
@@ -7708,7 +7708,7 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} pdwProtocol Current protocol, if any. The returned value is meaningful only if the returned value of <i>pdwState</i> is SCARD_SPECIFICMODE.
+     * @param {Pointer<Integer>} pdwProtocol Current protocol, if any. The returned value is meaningful only if the returned value of <i>pdwState</i> is SCARD_SPECIFICMODE.
      * 
      * <table>
      * <tr>
@@ -7746,8 +7746,8 @@ class Credentials {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Byte>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
-     * @param {Pointer<UInt32>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
+     * @param {Pointer<Integer>} pbAtr Pointer to a 32-byte buffer that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">ATR string</a> from the currently inserted card, if available.
+     * @param {Pointer<Integer>} pcbAtrLen On input, supplies the length of the <i>pbAtr</i> buffer. On output, receives the number of bytes in the ATR string (32 bytes maximum). If this buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAtr</i> is converted to a pointer to a byte pointer, and it receives the address of a block of memory that contains the multiple-string structure.
      * @returns {Integer} If the function successfully provides the current status of a <a href="/windows/desktop/SecGloss/s-gly">smart card</a> in a <a href="/windows/desktop/SecGloss/r-gly">reader</a>, the return value is SCARD_S_SUCCESS.
      * 
      * If the function fails, it returns an error code. For more information, see 
@@ -7854,7 +7854,7 @@ class Credentials {
      * 
      * 
      * For T=0, the data is immediately followed by the SW1 and SW2 status bytes. If no data is returned from the card, then this buffer will only contain the SW1 and SW2 status bytes.
-     * @param {Pointer<UInt32>} pcbRecvLength Supplies the length, in bytes, of the <i>pbRecvBuffer</i> parameter and receives the actual number of bytes received from the smart card. 
+     * @param {Pointer<Integer>} pcbRecvLength Supplies the length, in bytes, of the <i>pbRecvBuffer</i> parameter and receives the actual number of bytes received from the smart card. 
      * 
      * 
      * This value cannot be SCARD_AUTOALLOCATE because <b>SCardTransmit</b> does not support SCARD_AUTOALLOCATE.
@@ -7876,7 +7876,7 @@ class Credentials {
      * Retrieves the number of transmit operations that have completed since the specified card reader was inserted.
      * @param {Pointer} hCard A handle to a smart card obtained from a previous call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardconnecta">SCardConnect</a>.
-     * @param {Pointer<UInt32>} pcTransmitCount A pointer to the number of transmit operations that have completed since the specified card reader was inserted.
+     * @param {Pointer<Integer>} pcTransmitCount A pointer to the number of transmit operations that have completed since the specified card reader was inserted.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>. 
      * 
      * If the function fails, it returns an error code. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
@@ -7897,7 +7897,7 @@ class Credentials {
      * @param {Integer} cbInBufferSize Size, in bytes, of the buffer pointed to by <i>lpInBuffer</i>.
      * @param {Pointer} lpOutBuffer Pointer to a buffer that receives the operation's output data. This parameter can be <b>NULL</b> if the <i>dwControlCode</i> parameter specifies an operation that does not produce output data.
      * @param {Integer} cbOutBufferSize Size, in bytes, of the buffer pointed to by <i>lpOutBuffer</i>.
-     * @param {Pointer<UInt32>} lpBytesReturned Pointer to a <b>DWORD</b> that receives the size, in bytes, of the data stored into the buffer pointed to by <i>lpOutBuffer</i>.
+     * @param {Pointer<Integer>} lpBytesReturned Pointer to a <b>DWORD</b> that receives the size, in bytes, of the data stored into the buffer pointed to by <i>lpOutBuffer</i>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -8326,7 +8326,7 @@ class Credentials {
      * </tr>
      * </table>
      * @param {Pointer} pbAttr Pointer to a buffer that receives the attribute whose ID is supplied in <i>dwAttrId</i>. If this value is <b>NULL</b>, <b>SCardGetAttrib</b> ignores the buffer length supplied in <i>pcbAttrLen</i>, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcbAttrLen</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcbAttrLen Length of the <i>pbAttr</i> buffer in bytes, and receives the actual length of the received attribute If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAttr</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the attribute. This block of memory must be deallocated with 
+     * @param {Pointer<Integer>} pcbAttrLen Length of the <i>pbAttr</i> buffer in bytes, and receives the actual length of the received attribute If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbAttr</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the attribute. This block of memory must be deallocated with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a>.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
@@ -8585,7 +8585,7 @@ class Credentials {
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair for which to retrieve the value portion.
      * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
-     * @param {Pointer<UInt32>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
+     * @param {Pointer<Integer>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
@@ -8638,7 +8638,7 @@ class Credentials {
      * @param {Integer} FreshnessCounter The current revision of the cached data.
      * @param {PWSTR} LookupName A pointer to a null-terminated string that contains the name portion of the name-value pair for which to retrieve the value portion.
      * @param {Pointer} Data A pointer to an array of byte values that contain the value portion of the name-value pair specified by the <i>LookupName</i> parameter.
-     * @param {Pointer<UInt32>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
+     * @param {Pointer<Integer>} DataLen A pointer to the size, in bytes, of the <i>Data</i> buffer.
      * @returns {Integer} If the function succeeds, it returns <b>SCARD_S_SUCCESS</b>.
      * 
      * If the function fails, it returns one of the following error codes. For more information, see <a href="/windows/desktop/SecAuthN/authentication-return-values">Smart Card Return Values</a>.
@@ -8770,7 +8770,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
-     * @param {Pointer<UInt32>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -8817,7 +8817,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {Pointer} pbIcon Pointer to a buffer that contains a BLOB of the smart card reader icon as read from the icon file. If this value is <b>NULL</b>, the function ignores the buffer length supplied in the <i>pcbIcon</i> parameter, writes the length of the buffer that would have been returned to <i>pcbIcon</i> if this parameter had not been NULL, and returns a success code.
-     * @param {Pointer<UInt32>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcbIcon Length, in characters, of the <i>pbIcon</i> buffer. This parameter receives the actual length of the received attribute. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>pbIcon</i> is converted from a pointer to a byte pointer and receives the address of a block of memory that contains the attribute. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -8863,7 +8863,7 @@ class Credentials {
      * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be NULL.
      * @param {PSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
-     * @param {Pointer<UInt32>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
+     * @param {Pointer<Integer>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -8909,7 +8909,7 @@ class Credentials {
      * Gets the device type identifier of the card reader for the given reader name. This function does not affect the state of the reader.
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be NULL.
      * @param {PWSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
-     * @param {Pointer<UInt32>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
+     * @param {Pointer<Integer>} pdwDeviceTypeId The actual device type identifier. The list of reader types returned by this function are listed under <b>ReaderType</b> member in the <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/smclib/ns-smclib-_scard_reader_capabilities">SCARD_READER_CAPABILITIES</a> structure.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -8956,7 +8956,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {PSTR} szDeviceInstanceId Buffer that receives the device instance ID of the reader. If this value is <b>NULL</b>, the function ignores the buffer length supplied in <i>cchDeviceInstanceId</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>cchDeviceInstanceId</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchDeviceInstanceId Length, in characters, of the <i>szDeviceInstanceId</i> buffer, including the <b>NULL</b> terminator. If the buffer length is specified as SCARD_AUTOALLOCATE, then the <i>szDeviceInstanceId</i> parameter is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the instance id. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcchDeviceInstanceId Length, in characters, of the <i>szDeviceInstanceId</i> buffer, including the <b>NULL</b> terminator. If the buffer length is specified as SCARD_AUTOALLOCATE, then the <i>szDeviceInstanceId</i> parameter is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the instance id. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -9004,7 +9004,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szReaderName Reader name. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardlistreadersa">SCardListReaders</a> function.
      * @param {PWSTR} szDeviceInstanceId Buffer that receives the device instance ID of the reader. If this value is <b>NULL</b>, the function ignores the buffer length supplied in <i>cchDeviceInstanceId</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>cchDeviceInstanceId</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchDeviceInstanceId Length, in characters, of the <i>szDeviceInstanceId</i> buffer, including the <b>NULL</b> terminator. If the buffer length is specified as SCARD_AUTOALLOCATE, then the <i>szDeviceInstanceId</i> parameter is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the instance id. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcchDeviceInstanceId Length, in characters, of the <i>szDeviceInstanceId</i> buffer, including the <b>NULL</b> terminator. If the buffer length is specified as SCARD_AUTOALLOCATE, then the <i>szDeviceInstanceId</i> parameter is converted to a pointer to a byte pointer, and receives the address of a block of memory containing the instance id. This block of memory must be deallocated with the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -9052,7 +9052,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PSTR} szDeviceInstanceId Device instance ID of the reader. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida">SCardGetReaderDeviceInstanceId</a> function with the reader name or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceinstanceida">SetupDiGetDeviceInstanceId</a> function from the DDK.
      * @param {PSTR} mszReaders A multi-string that contain the smart card readers within the supplied device instance identifier. If this value is <b>NULL</b>, then the function ignores the buffer length supplied in the <i>pcchReaders</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchReaders The length, in characters, of the <i>mszReaders</i> buffer. This parameter receives the actual length of the multiple-string structure, including all terminating null characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory that contains the multiple-string structure. When you have finished using this memory, deallocated it by using the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcchReaders The length, in characters, of the <i>mszReaders</i> buffer. This parameter receives the actual length of the multiple-string structure, including all terminating null characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory that contains the multiple-string structure. When you have finished using this memory, deallocated it by using the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>
@@ -9100,7 +9100,7 @@ class Credentials {
      * @param {Pointer} hContext Handle that identifies the resource manager context for the query. You can set the resource manager context by a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardestablishcontext">SCardEstablishContext</a> function. This parameter cannot be <b>NULL</b>.
      * @param {PWSTR} szDeviceInstanceId Device instance ID of the reader. You can get this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardgetreaderdeviceinstanceida">SCardGetReaderDeviceInstanceId</a> function with the reader name or by calling the <a href="https://docs.microsoft.com/windows/desktop/api/setupapi/nf-setupapi-setupdigetdeviceinstanceida">SetupDiGetDeviceInstanceId</a> function from the DDK.
      * @param {PWSTR} mszReaders A multi-string that contain the smart card readers within the supplied device instance identifier. If this value is <b>NULL</b>, then the function ignores the buffer length supplied in the <i>pcchReaders</i> parameter, writes the length of the buffer that would have been returned if this parameter had not been <b>NULL</b> to <i>pcchReaders</i>, and returns a success code.
-     * @param {Pointer<UInt32>} pcchReaders The length, in characters, of the <i>mszReaders</i> buffer. This parameter receives the actual length of the multiple-string structure, including all terminating null characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory that contains the multiple-string structure. When you have finished using this memory, deallocated it by using the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
+     * @param {Pointer<Integer>} pcchReaders The length, in characters, of the <i>mszReaders</i> buffer. This parameter receives the actual length of the multiple-string structure, including all terminating null characters. If the buffer length is specified as SCARD_AUTOALLOCATE, then <i>mszReaders</i> is converted to a pointer to a byte pointer, and receives the address of a block of memory that contains the multiple-string structure. When you have finished using this memory, deallocated it by using the <a href="https://docs.microsoft.com/windows/desktop/api/winscard/nf-winscard-scardfreememory">SCardFreeMemory</a> function.
      * @returns {Integer} This function returns different values depending on whether it succeeds or fails.
      * 
      * <table>

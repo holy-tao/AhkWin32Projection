@@ -36,7 +36,7 @@ class D3D12_NODE_OUTPUT_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pMaxRecords {
         get => NumGet(this, 24, "ptr")
@@ -44,7 +44,7 @@ class D3D12_NODE_OUTPUT_OVERRIDES extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pMaxRecordsSharedWithOutputIndex {
         get => NumGet(this, 32, "ptr")

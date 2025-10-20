@@ -66,7 +66,7 @@ class D3D12_GRAPHICS_PIPELINE_STATE_DESC extends Win32Struct
 
     /**
      * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12rootsignature">ID3D12RootSignature</a> object.
-     * @type {Pointer<ID3D12RootSignature>}
+     * @type {ID3D12RootSignature}
      */
     pRootSignature {
         get => NumGet(this, 0, "ptr")

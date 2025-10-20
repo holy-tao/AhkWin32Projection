@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/tdh/ne-tdh-payload_operator
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

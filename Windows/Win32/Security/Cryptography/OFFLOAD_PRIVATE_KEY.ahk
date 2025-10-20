@@ -36,7 +36,7 @@ class OFFLOAD_PRIVATE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPrime1 {
         get => NumGet(this, 16, "ptr")
@@ -44,7 +44,7 @@ class OFFLOAD_PRIVATE_KEY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbPrime2 {
         get => NumGet(this, 24, "ptr")

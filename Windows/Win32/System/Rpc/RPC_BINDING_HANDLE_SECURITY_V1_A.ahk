@@ -113,7 +113,7 @@ class RPC_BINDING_HANDLE_SECURITY_V1_A extends Win32Struct
 
     /**
      * Pointer to a string that contains the server principal name referenced by the binding handle. The content of the name and its syntax are defined by the authentication service in use.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ServerPrincName {
         get => NumGet(this, 8, "ptr")

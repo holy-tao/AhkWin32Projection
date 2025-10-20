@@ -3,6 +3,8 @@
 #Include .\APOInitBaseStruct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/ns-audioengineextensionapo-apoinitsystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
  */
@@ -24,7 +26,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IPropertyStore>}
+     * @type {IPropertyStore}
      */
     pAPOEndpointProperties {
         get => NumGet(this, 16, "ptr")
@@ -32,7 +34,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IServiceProvider>}
+     * @type {IServiceProvider}
      */
     pServiceProvider {
         get => NumGet(this, 24, "ptr")
@@ -40,7 +42,7 @@ class APOInitSystemEffects3 extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IMMDeviceCollection>}
+     * @type {IMMDeviceCollection}
      */
     pDeviceCollection {
         get => NumGet(this, 32, "ptr")

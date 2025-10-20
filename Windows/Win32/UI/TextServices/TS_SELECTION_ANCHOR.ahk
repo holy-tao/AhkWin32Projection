@@ -16,7 +16,7 @@ class TS_SELECTION_ANCHOR extends Win32Struct
 
     /**
      * Contains the start anchor of the selection.
-     * @type {Pointer<IAnchor>}
+     * @type {IAnchor}
      */
     paStart {
         get => NumGet(this, 0, "ptr")
@@ -25,7 +25,7 @@ class TS_SELECTION_ANCHOR extends Win32Struct
 
     /**
      * Contains the end anchor of the selection.
-     * @type {Pointer<IAnchor>}
+     * @type {IAnchor}
      */
     paEnd {
         get => NumGet(this, 8, "ptr")

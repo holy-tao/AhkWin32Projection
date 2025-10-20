@@ -48,7 +48,7 @@ class HH_POPUP extends Win32Struct
 
     /**
      * Specifies the text to display if <i>idString</i> is zero.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszText {
         get => NumGet(this, 24, "ptr")
@@ -108,7 +108,7 @@ class HH_POPUP extends Win32Struct
      * To omit an attribute, enter a comma. For example, to specify bold, 10-pt, MS Sans Serif font, <i>pszFont</i> would be:
      * 
      * MS Sans Serif, 10, , BOLD
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszFont {
         get => NumGet(this, 64, "ptr")

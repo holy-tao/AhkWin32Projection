@@ -102,7 +102,7 @@ class WebDav {
      * <li>&#92;&#92;<i>server</i></li>
      * </ul>
      * @param {PWSTR} UncPath A pointer to a caller-allocated buffer  that receives the UNC path as a <b>null</b>-terminated Unicode string.
-     * @param {Pointer<UInt32>} lpSize A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>UncPath</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer, including the terminating <b>NULL</b> character. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the UNC path, including the terminating <b>NULL</b> character.
+     * @param {Pointer<Integer>} lpSize A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>UncPath</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer, including the terminating <b>NULL</b> character. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the UNC path, including the terminating <b>NULL</b> character.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as the following value.
@@ -148,7 +148,7 @@ class WebDav {
      * <li><i>path</i> is optional and specifies a path to a remote file or directory on the server.</li>
      * </ul>
      * @param {PWSTR} Url A pointer to a caller-allocated buffer  that receives the HTTP path as a <b>null</b>-terminated Unicode string.
-     * @param {Pointer<UInt32>} lpSize A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>HttpPath</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the HTTP path, including the "http://" or "https://" prefix and the terminating <b>NULL</b> character.
+     * @param {Pointer<Integer>} lpSize A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>HttpPath</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the HTTP path, including the "http://" or "https://" prefix and the terminating <b>NULL</b> character.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as the following value.
@@ -191,7 +191,7 @@ class WebDav {
      * </ul>
      * where <i>server</i> is the name of a server, <i>path</i> is the path to a remote file on the server, <i>filename</i> is a valid file name, and <i>drive</i> is the drive letter that a remote share is mapped to on the local computer. (A <i>share</i> is a directory on a server that is made available to users over the network.)
      * @param {Pointer} LockOwnerName A pointer to a caller-allocated buffer  that receives the name of the owner of the file lock. This parameter is optional and can be <b>NULL</b>. If it is <b>NULL</b>, the <i>LockOwnerNameLengthInBytes</i> parameter must point to zero on input.
-     * @param {Pointer<UInt32>} LockOwnerNameLengthInBytes A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>LockOwnerName</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the lock owner name, including the terminating <b>NULL</b> character.
+     * @param {Pointer<Integer>} LockOwnerNameLengthInBytes A pointer to a variable that on input specifies the maximum size, in Unicode characters, of the buffer that the <i>LockOwnerName</i> parameter points to. If the function succeeds, on output the variable receives the number of characters that were copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, on output the variable receives the number of characters needed to store the lock owner name, including the terminating <b>NULL</b> character.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the function fails, the return value is a <a href="/windows/desktop/Debug/system-error-codes">system error code</a>, such as one of the following values.
@@ -237,9 +237,9 @@ class WebDav {
     /**
      * Retrieves the extended error code information that the WebDAV server returned for the previous failed I/O operation.
      * @param {HANDLE} hFile A handle to an open file for which the previous I/O operation has failed. If the previous operation is a failed create operation, in which case there is no open file handle, specify INVALID_HANDLE_VALUE for this parameter.
-     * @param {Pointer<UInt32>} ExtError Pointer to a variable that receives the extended error code.
+     * @param {Pointer<Integer>} ExtError Pointer to a variable that receives the extended error code.
      * @param {PWSTR} ExtErrorString Pointer to a buffer  that receives the extended error information as a null-terminated Unicode string.
-     * @param {Pointer<UInt32>} cChSize A pointer to a variable that on input specifies the size, in Unicode characters, of the buffer that the <i>ExtErrorString</i> parameter points to. This value must be at least 1024 characters.
+     * @param {Pointer<Integer>} cChSize A pointer to a variable that on input specifies the size, in Unicode characters, of the buffer that the <i>ExtErrorString</i> parameter points to. This value must be at least 1024 characters.
      * 
      *  If the function succeeds, on output the variable receives the number of characters that are actually copied into the buffer. If the function fails with ERROR_INSUFFICIENT_BUFFER, the variable receives 1024, but no characters are copied into the <i>ExtErrorString</i> buffer.
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.

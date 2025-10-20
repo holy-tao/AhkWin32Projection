@@ -30,7 +30,7 @@ class ADS_OCTET_STRING extends Win32Struct
     /**
      * Pointer to an array of single byte characters 
      * not interpreted by the underlying directory.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     lpValue {
         get => NumGet(this, 8, "ptr")

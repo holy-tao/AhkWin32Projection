@@ -96,7 +96,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
      * Pointer to context data that RAS should pass in the call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/raseapif/nf-raseapif-raseapinvokeinteractiveui">RasEapInvokeInteractiveUI</a>. The authentication protocol should free this memory in its implementation of 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363521(v=vs.85)">RasEapEnd</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUIContextData {
         get => NumGet(this, 32, "ptr")
@@ -125,7 +125,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
     /**
      * Identifies data specific to the connection, that is, data not specific to any particular user. If the <b>fSaveConnectionData</b> member is <b>TRUE</b>, RAS saves the connection data in the phone book. The authentication protocol should free the memory occupied by this data during the call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363521(v=vs.85)">RasEapEnd</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pConnectionData {
         get => NumGet(this, 48, "ptr")
@@ -153,7 +153,7 @@ class PPP_EAP_OUTPUT extends Win32Struct
     /**
      * Pointer to user data that RAS should save in the registry. RAS saves this data in the registry under <b>HKEY_CURRENT_USER</b>. The authentication protocol should free this memory during the call to 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa363521(v=vs.85)">RasEapEnd</a>.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pUserData {
         get => NumGet(this, 64, "ptr")

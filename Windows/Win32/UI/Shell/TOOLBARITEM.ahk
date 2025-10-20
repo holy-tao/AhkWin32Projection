@@ -19,7 +19,7 @@ class TOOLBARITEM extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a> of the item's particular toolbar.
-     * @type {Pointer<IDockingWindow>}
+     * @type {IDockingWindow}
      */
     ptbar {
         get => NumGet(this, 0, "ptr")

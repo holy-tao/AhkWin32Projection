@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-disk_space_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

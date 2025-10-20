@@ -3,6 +3,8 @@
 #Include .\D3DCOLORVALUE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dmaterial9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

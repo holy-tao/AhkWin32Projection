@@ -33,7 +33,7 @@ class D3D12_VIDEO_DECODE_CONVERSION_ARGUMENTS extends Win32Struct
 
     /**
      * A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) containing the native decoding output. When downsampling is enabled, the output at native decode resolution, color space, and format may be required for future decode submissions (as reference frames, for instance).
-     * @type {Pointer<ID3D12Resource>}
+     * @type {ID3D12Resource}
      */
     pReferenceTexture2D {
         get => NumGet(this, 8, "ptr")

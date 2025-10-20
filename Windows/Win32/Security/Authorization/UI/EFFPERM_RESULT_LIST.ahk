@@ -42,7 +42,7 @@ class EFFPERM_RESULT_LIST extends Win32Struct
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-mask">ACCESS_MASK</a> values that specifies the access rights granted for each corresponding object type.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pGrantedAccessList {
         get => NumGet(this, 16, "ptr")

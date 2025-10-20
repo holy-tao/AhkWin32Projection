@@ -3,6 +3,8 @@
 #Include .\JOYREGHWSETTINGS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/dinputd/ns-dinputd-dijoytypeinfo
  * @namespace Windows.Win32.Devices.HumanInterfaceDevice
  * @version v4.0.30319
  */

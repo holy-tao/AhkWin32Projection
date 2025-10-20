@@ -3540,7 +3540,7 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Interface identifier for a specified interface on this object.
-     * @param {Pointer<Void>} ppObject Type: <b>VOID**</b>
+     * @param {Pointer<Pointer<Void>>} ppObject Type: <b>VOID**</b>
      * 
      * Pointer to a pointer to the requested Interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3554,7 +3554,7 @@ class ActiveDirectory {
     static ADsGetObject(lpszPathName, riid, ppObject) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, "ptr", ppObject, "int")
+        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, "ptr*", ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3563,7 +3563,7 @@ class ActiveDirectory {
 
     /**
      * The ADsBuildEnumerator function creates an enumerator object for the specified ADSI container object.
-     * @param {Pointer<IADsContainer>} pADsContainer Type: <b>IADsContainer*</b>
+     * @param {IADsContainer} pADsContainer Type: <b>IADsContainer*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscontainer">IADsContainer</a> interface for the object to enumerate.
      * @param {Pointer<IEnumVARIANT>} ppEnumVariant Type: <b>IEnumVARIANT**</b>
@@ -3576,7 +3576,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static ADsBuildEnumerator(pADsContainer, ppEnumVariant) {
-        result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr", ppEnumVariant, "int")
+        result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr*", ppEnumVariant, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3585,7 +3585,7 @@ class ActiveDirectory {
 
     /**
      * Frees an enumerator object created with the ADsBuildEnumerator function.
-     * @param {Pointer<IEnumVARIANT>} pEnumVariant Type: <b>IEnumVARIANT*</b>
+     * @param {IEnumVARIANT} pEnumVariant Type: <b>IEnumVARIANT*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object to be freed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3604,7 +3604,7 @@ class ActiveDirectory {
 
     /**
      * The ADsEnumerateNext function enumerates through a specified number of elements from the current cursor position of the enumerator.
-     * @param {Pointer<IEnumVARIANT>} pEnumVariant Type: <b>IEnumVARIANT*</b>
+     * @param {IEnumVARIANT} pEnumVariant Type: <b>IEnumVARIANT*</b>
      * 
      * Pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on the enumerator object.
      * @param {Integer} cElements Type: <b>ULONG</b>
@@ -3613,7 +3613,7 @@ class ActiveDirectory {
      * @param {Pointer<VARIANT>} pvar Type: <b>VARIANT*</b>
      * 
      * Pointer to the array of elements retrieved.
-     * @param {Pointer<UInt32>} pcElementsFetched Type: <b>ULONG*</b>
+     * @param {Pointer<Integer>} pcElementsFetched Type: <b>ULONG*</b>
      * 
      * Actual number of elements retrieved, which can be smaller than the number of elements requested.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3661,7 +3661,7 @@ class ActiveDirectory {
 
     /**
      * The ADsBuildVarArrayInt function builds a variant array of integers from an array of DWORD values.
-     * @param {Pointer<UInt32>} lpdwObjectTypes Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpdwObjectTypes Type: <b>LPDWORD</b>
      * 
      * Array of <b>DWORD</b> values.
      * @param {Integer} dwObjectTypes Type: <b>DWORD</b>
@@ -3703,7 +3703,7 @@ class ActiveDirectory {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Interface identifier for the requested interface on this object.
-     * @param {Pointer<Void>} ppObject Type: <b>VOID**</b>
+     * @param {Pointer<Pointer<Void>>} ppObject Type: <b>VOID**</b>
      * 
      * Pointer to a  pointer to the requested interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -3719,7 +3719,7 @@ class ActiveDirectory {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, "ptr", ppObject, "int")
+        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, "ptr*", ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3728,7 +3728,7 @@ class ActiveDirectory {
 
     /**
      * The ADsGetLastError function retrieves the calling thread's last-error code value.
-     * @param {Pointer<UInt32>} lpError Type: <b>LPDWORD</b>
+     * @param {Pointer<Integer>} lpError Type: <b>LPDWORD</b>
      * 
      * Pointer to the location that receives the error code.
      * @param {PWSTR} lpErrorBuf Type: <b>LPWSTR</b>
@@ -3964,7 +3964,7 @@ class ActiveDirectory {
 
     /**
      * The ADsEncodeBinaryData function converts a binary large object (BLOB) to the Unicode format suitable to be embedded in a search filter.
-     * @param {Pointer<Byte>} pbSrcData Type: <b>PBYTE</b>
+     * @param {Pointer<Integer>} pbSrcData Type: <b>PBYTE</b>
      * 
      * BLOB to be converted.
      * @param {Integer} dwSrcLen Type: <b>DWORD</b>
@@ -3990,14 +3990,14 @@ class ActiveDirectory {
     /**
      * 
      * @param {PWSTR} szSrcData 
-     * @param {Pointer<Byte>} ppbDestData 
-     * @param {Pointer<UInt32>} pdwDestLen 
+     * @param {Pointer<Pointer<Integer>>} ppbDestData 
+     * @param {Pointer<Integer>} pdwDestLen 
      * @returns {HRESULT} 
      */
     static ADsDecodeBinaryData(szSrcData, ppbDestData, pdwDestLen) {
         szSrcData := szSrcData is String ? StrPtr(szSrcData) : szSrcData
 
-        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, "char*", ppbDestData, "uint*", pdwDestLen, "int")
+        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, "ptr*", ppbDestData, "uint*", pdwDestLen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4008,12 +4008,12 @@ class ActiveDirectory {
      * 
      * @param {Pointer<VARIANT>} pVariant 
      * @param {Integer} dwNumVariant 
-     * @param {Pointer<ADSVALUE>} ppAdsValues 
-     * @param {Pointer<UInt32>} pdwNumValues 
+     * @param {Pointer<Pointer<ADSVALUE>>} ppAdsValues 
+     * @param {Pointer<Integer>} pdwNumValues 
      * @returns {HRESULT} 
      */
     static PropVariantToAdsType(pVariant, dwNumVariant, ppAdsValues, pdwNumValues) {
-        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, "ptr", ppAdsValues, "uint*", pdwNumValues, "int")
+        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, "ptr*", ppAdsValues, "uint*", pdwNumValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4094,7 +4094,7 @@ class ActiveDirectory {
      * @param {Pointer<PSECURITY_DESCRIPTOR>} ppSecurityDescriptor Type: <b>PSECURITY_DESCRIPTOR*</b>
      * 
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> pointer that receives the binary security descriptor data. The caller must free this memory by passing this pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a> function.
-     * @param {Pointer<UInt32>} pdwSDLength Type: <b>PDWORD</b>
+     * @param {Pointer<Integer>} pdwSDLength Type: <b>PDWORD</b>
      * 
      * Address of a <b>DWORD</b> value that receives the length, in bytes of the binary security descriptor data.
      * @param {PWSTR} pszServerName Type: <b>LPCWSTR</b>
@@ -4190,7 +4190,7 @@ class ActiveDirectory {
 
     /**
      * The ADsPropCreateNotifyObj function is used to create, or obtain, a notification object for use by an Active Directory Domain Services property sheet extension.
-     * @param {Pointer<IDataObject>} pAppThdDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object that represents the directory object that the property page applies to. This is the <b>IDataObject</b> passed to the property page <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize">IShellExtInit::Initialize</a> method.
+     * @param {IDataObject} pAppThdDataObj A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> object that represents the directory object that the property page applies to. This is the <b>IDataObject</b> passed to the property page <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellextinit-initialize">IShellExtInit::Initialize</a> method.
      * @param {PWSTR} pwzADsObjName The Active Directory Domain Services object name obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> method for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cfstr-dsobjectnames-clipboard-format">CFSTR_DSOBJECTNAMES</a> clipboard format on the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> represented by <i>pAppThdDataObj</i>.
      * @param {Pointer<HWND>} phNotifyObj Pointer to an <b>HWND</b> value that receives the handle of the notification object.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an OLE-defined error value otherwise.
@@ -4226,7 +4226,7 @@ class ActiveDirectory {
      * Used to notify the notification object of the property page window handle.
      * @param {HWND} hNotifyObj The handle of the notification object. To obtain this handle, call <a href="https://docs.microsoft.com/windows/desktop/api/adsprop/nf-adsprop-adspropcreatenotifyobj">ADsPropCreateNotifyObj</a>.
      * @param {HWND} hPage A window handle of the property page.
-     * @param {Pointer<SByte>} ptzTitle Pointer to a NULL-terminated string that contains the property page title.
+     * @param {Pointer<Integer>} ptzTitle Pointer to a NULL-terminated string that contains the property page title.
      * @returns {BOOL} Returns zero if the notification object does not exist or nonzero otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//adsprop/nf-adsprop-adspropsethwndwithtitle
      * @since windows6.0.6000
@@ -4314,7 +4314,7 @@ class ActiveDirectory {
      * If <i>ServiceName</i> specifies a DNS domain name, the name of a DNS SRV record, or a distinguished name, such as the DN of a service connection point, the <i>InstanceName</i> parameter must specify the DNS or NetBIOS name of the service host computer.
      * @param {Integer} InstancePort Port number for an instance of the service. Use 0 for the default port. If this parameter is zero, the SPN does not include a port number.
      * @param {PWSTR} Referrer Pointer to a constant null-terminated string that specifies the DNS name of the host that gave an IP address referral. This parameter is ignored unless the <i>ServiceName</i> parameter specifies an IP address.
-     * @param {Pointer<UInt32>} pcSpnLength Pointer to a variable that contains the length, in characters, of the buffer that will receive the new constructed SPN. This value may be 0 to request the final buffer size in advance.
+     * @param {Pointer<Integer>} pcSpnLength Pointer to a variable that contains the length, in characters, of the buffer that will receive the new constructed SPN. This value may be 0 to request the final buffer size in advance.
      * 
      * The <i>pcSpnLength</i> parameter also receives the actual length of the SPN created, including the terminating null character.
      * @param {PWSTR} pszSpn Pointer to a null-terminated string that receives the constructed SPN. This buffer should be the length specified by <i>pcSpnLength</i>. The <i>pszSpn</i> parameter may be <b>NULL</b> to request the final buffer size in advance.
@@ -4346,7 +4346,7 @@ class ActiveDirectory {
      * If <i>ServiceName</i> specifies a DNS domain name, the name of a DNS SRV record, or a distinguished name, such as the DN of a service connection point, the <i>InstanceName</i> parameter must specify the DNS or NetBIOS name of the service host computer.
      * @param {Integer} InstancePort Port number for an instance of the service. Use 0 for the default port. If this parameter is zero, the SPN does not include a port number.
      * @param {PSTR} Referrer Pointer to a constant null-terminated string that specifies the DNS name of the host that gave an IP address referral. This parameter is ignored unless the <i>ServiceName</i> parameter specifies an IP address.
-     * @param {Pointer<UInt32>} pcSpnLength Pointer to a variable that contains the length, in characters, of the buffer that will receive the new constructed SPN. This value may be 0 to request the final buffer size in advance.
+     * @param {Pointer<Integer>} pcSpnLength Pointer to a variable that contains the length, in characters, of the buffer that will receive the new constructed SPN. This value may be 0 to request the final buffer size in advance.
      * 
      * The <i>pcSpnLength</i> parameter also receives the actual length of the SPN created, including the terminating null character.
      * @param {PSTR} pszSpn Pointer to a null-terminated string that receives the constructed SPN. This buffer should be the length specified by <i>pcSpnLength</i>. The <i>pszSpn</i> parameter may be <b>NULL</b> to request the final buffer size in advance.
@@ -4373,25 +4373,25 @@ class ActiveDirectory {
      * ```cpp
      * <service class>/<instance name>:<port number>/<service name>
      * ```
-     * @param {Pointer<UInt32>} pcServiceClass Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceClass</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceClass</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcServiceClass Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceClass</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceClass</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>ServiceClass</i> is <b>NULL</b>, this parameter and  <i>ServiceClass</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>ServiceClass</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>ServiceClass</i> and this parameter set to 1.
      * @param {PSTR} ServiceClass Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;service class&gt; component of the SPN. This buffer must be at least <i>*pcServiceClass </i><b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the service class is not required.
-     * @param {Pointer<UInt32>} pcServiceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceName</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcServiceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceName</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>ServiceName</i> is <b>NULL</b>, this parameter and  <i>ServiceName</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>ServiceName</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>ServiceName</i> and this parameter set to 1.
      * @param {PSTR} ServiceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;service name&gt; component of the SPN. This buffer must be at least <i>*pcServiceName </i><b>TCHARs</b> in size. If the &lt;service name&gt; component is not present in the SPN, this buffer  receives the &lt;instance name&gt; component. This parameter may be <b>NULL</b> if the service name is not required.
-     * @param {Pointer<UInt32>} pcInstanceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>InstanceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>InstanceName</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcInstanceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>InstanceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>InstanceName</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>InstanceName</i> is <b>NULL</b>, this parameter and <i>InstanceName</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>InstanceName</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>InstanceName</i> and this parameter set to 1.
      * @param {PSTR} InstanceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;instance name&gt; component of the SPN. This buffer must be at least <i>*pcInstanceName </i> <b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the instance name is not required.
-     * @param {Pointer<UInt16>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
+     * @param {Pointer<Integer>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
      * @returns {Integer} Returns a Win32 error code, including the following.
      * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackspna
      * @since windows6.0.6000
@@ -4414,25 +4414,25 @@ class ActiveDirectory {
      * ```cpp
      * <service class>/<instance name>:<port number>/<service name>
      * ```
-     * @param {Pointer<UInt32>} pcServiceClass Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceClass</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceClass</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcServiceClass Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceClass</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceClass</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>ServiceClass</i> is <b>NULL</b>, this parameter and  <i>ServiceClass</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>ServiceClass</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>ServiceClass</i> and this parameter set to 1.
      * @param {PWSTR} ServiceClass Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;service class&gt; component of the SPN. This buffer must be at least <i>*pcServiceClass </i><b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the service class is not required.
-     * @param {Pointer<UInt32>} pcServiceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceName</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcServiceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>ServiceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>ServiceName</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>ServiceName</i> is <b>NULL</b>, this parameter and  <i>ServiceName</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>ServiceName</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>ServiceName</i> and this parameter set to 1.
      * @param {PWSTR} ServiceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;service name&gt; component of the SPN. This buffer must be at least <i>*pcServiceName </i><b>TCHARs</b> in size. If the &lt;service name&gt; component is not present in the SPN, this buffer  receives the &lt;instance name&gt; component. This parameter may be <b>NULL</b> if the service name is not required.
-     * @param {Pointer<UInt32>} pcInstanceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>InstanceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>InstanceName</i> string, including the terminating null character.
+     * @param {Pointer<Integer>} pcInstanceName Pointer to a <b>DWORD</b> value that, on entry, contains the size, in <b>TCHARs</b>, of the <i>InstanceName</i> buffer, including the terminating null character. On exit, this parameter contains the number of <b>TCHARs</b> in the <i>InstanceName</i> string, including the terminating null character.
      * 
      * If this parameter is <b>NULL</b>, contains zero, or <i>InstanceName</i> is <b>NULL</b>, this parameter and <i>InstanceName</i> are ignored.
      * 
      * To obtain the number of characters required for the <i>InstanceName</i> string, including the null terminator, call this function with a valid SPN, a non-<b>NULL</b> <i>InstanceName</i> and this parameter set to 1.
      * @param {PWSTR} InstanceName Pointer to a <b>TCHAR</b> buffer that receives a null-terminated string containing the &lt;instance name&gt; component of the SPN. This buffer must be at least <i>*pcInstanceName </i> <b>TCHARs</b> in size. This parameter may be  <b>NULL</b> if the instance name is not required.
-     * @param {Pointer<UInt16>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
+     * @param {Pointer<Integer>} pInstancePort Pointer to a <b>DWORD</b> value that receives the integer value of the &lt;port number&gt; component of the SPN. If the SPN does not contain a &lt;port number&gt; component, this parameter receives zero. This parameter may be  <b>NULL</b> if the port number is not required.
      * @returns {Integer} Returns a Win32 error code, including the following.
      * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackspnw
      * @since windows6.0.6000
@@ -4451,7 +4451,7 @@ class ActiveDirectory {
      * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes.
      * @param {Integer} cUnquotedRdnValueLength The number of characters in the <i>psUnquotedRdnValue</i> string.
      * @param {PWSTR} psUnquotedRdnValue The string that specifies the unquoted RDN value.
-     * @param {Pointer<UInt32>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
+     * @param {Pointer<Integer>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
      * 
      * The following flags are the output for this parameter.
      * @param {PWSTR} psQuotedRdnValue The string that receives the converted, and perhaps quoted, RDN value.
@@ -4471,7 +4471,7 @@ class ActiveDirectory {
      * Converts an RDN into a quoted RDN value, if the RDN value contains characters that require quotes.
      * @param {Integer} cUnquotedRdnValueLength The number of characters in the <i>psUnquotedRdnValue</i> string.
      * @param {PSTR} psUnquotedRdnValue The string that specifies the unquoted RDN value.
-     * @param {Pointer<UInt32>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
+     * @param {Pointer<Integer>} pcQuotedRdnValueLength The maximum number of characters in the <i>psQuotedRdnValue</i> string.
      * 
      * The following flags are the output for this parameter.
      * @param {PSTR} psQuotedRdnValue The string that receives the converted, and perhaps quoted, RDN value.
@@ -4491,7 +4491,7 @@ class ActiveDirectory {
      * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value.
      * @param {Integer} cQuotedRdnValueLength The number of characters in the <i>psQuotedRdnValue</i> string.
      * @param {PWSTR} psQuotedRdnValue The RDN value that may be quoted and escaped.
-     * @param {Pointer<UInt32>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
+     * @param {Pointer<Integer>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
      * 
      * The output value for this argument includes the following flags.
      * @param {PWSTR} psUnquotedRdnValue The converted, unquoted RDN value.
@@ -4511,7 +4511,7 @@ class ActiveDirectory {
      * The DsUnquoteRdnValue function is a client call that converts a quoted RDN value back to an unquoted RDN value.
      * @param {Integer} cQuotedRdnValueLength The number of characters in the <i>psQuotedRdnValue</i> string.
      * @param {PSTR} psQuotedRdnValue The RDN value that may be quoted and escaped.
-     * @param {Pointer<UInt32>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
+     * @param {Pointer<Integer>} pcUnquotedRdnValueLength The input value for this argument is the maximum length, in characters, of <i>psQuotedRdnValue</i>.
      * 
      * The output value for this argument includes the following flags.
      * @param {PSTR} psUnquotedRdnValue The converted, unquoted RDN value.
@@ -4530,11 +4530,11 @@ class ActiveDirectory {
     /**
      * Retrieves the key and value of the first relative distinguished name and a pointer to the next relative distinguished name from a distinguished name string.
      * @param {Pointer<PWSTR>} ppDN Address of a Unicode string pointer that, on entry, contains the distinguished name string to be parsed. The length of this string is specified in the <i>pcDN</i> parameter. If the function succeeds, this parameter is adjusted to point to the remainder of the distinguished name exclusive of current relative distinguished name. For example, if this parameter points to the string "dc=corp,dc=fabrikam,dc=com", after the function is complete this parameter points to the string ",dc=fabrikam,dc=com".
-     * @param {Pointer<UInt32>} pcDN Pointer to a <b>DWORD</b> value that, on entry, contains the number of characters in the <i>ppDN</i> string. If the function succeeds, this parameter receives the number of characters in the remainder of the distinguished name. These values do not include the null-terminated character.
+     * @param {Pointer<Integer>} pcDN Pointer to a <b>DWORD</b> value that, on entry, contains the number of characters in the <i>ppDN</i> string. If the function succeeds, this parameter receives the number of characters in the remainder of the distinguished name. These values do not include the null-terminated character.
      * @param {Pointer<PWSTR>} ppKey Pointer to a <b>LPCWCH</b> value that, if the function succeeds, receives a pointer to the key in the relative distinguished name string. This pointer is within the <i>ppDN</i> string and is not null-terminated. The <i>pcKey</i> parameter receives the number of characters in the key. This parameter is undefined if <i>pcKey</i> receives zero.
-     * @param {Pointer<UInt32>} pcKey Pointer to a <b>DWORD</b> value that, if the function succeeds, receives the number of characters in the key string represented by the <i>ppKey</i> parameter. If this parameter receives zero, <i>ppKey</i> is undefined.
+     * @param {Pointer<Integer>} pcKey Pointer to a <b>DWORD</b> value that, if the function succeeds, receives the number of characters in the key string represented by the <i>ppKey</i> parameter. If this parameter receives zero, <i>ppKey</i> is undefined.
      * @param {Pointer<PWSTR>} ppVal Pointer to a <b>LPCWCH</b> value that, if the function is successful, receives a pointer to the value in the relative distinguished name string. This pointer is within the <i>ppDN</i> string and is not null-terminated. The <i>pcVal</i> parameter receives the number of characters in the value. This parameter is undefined if <i>pcVal</i> receives zero.
-     * @param {Pointer<UInt32>} pcVal Pointer to a <b>DWORD</b> value that, if the function succeeds, receives the number of characters in the value string represented by the <i>ppVal</i> parameter. If this parameter receives zero, <i>ppVal</i> is undefined.
+     * @param {Pointer<Integer>} pcVal Pointer to a <b>DWORD</b> value that, if the function succeeds, receives the number of characters in the value string represented by the <i>ppVal</i> parameter. If this parameter receives zero, <i>ppVal</i> is undefined.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include the following values.
      * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dsgetrdnw
      * @since windows6.0.6000
@@ -4550,7 +4550,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
      * @param {Pointer<Guid>} pGuid Pointer to <b>GUID</b> value that receives the GUID of the unmangled relative distinguished name.  This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} peDsMangleFor Pointer 
+     * @param {Pointer<Integer>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
      * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackunquotedmangledrdnw
@@ -4569,7 +4569,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/nf-dsparse-dsunquoterdnvaluea">DsUnquoteRdnValue</a>.
      * @param {Integer} cchRDN Contains the length, in characters, of the <i>pszRDN</i> string.
      * @param {Pointer<Guid>} pGuid Pointer to <b>GUID</b> value that receives the GUID of the unmangled relative distinguished name.  This parameter can be <b>NULL</b>.
-     * @param {Pointer<Int32>} peDsMangleFor Pointer 
+     * @param {Pointer<Integer>} peDsMangleFor Pointer 
      * to a <a href="https://docs.microsoft.com/windows/desktop/api/dsparse/ne-dsparse-ds_mangle_for">DS_MANGLE_FOR</a> value that receives the type of mangling used in the mangled relative distinguished name.  This parameter can be <b>NULL</b>.
      * @returns {BOOL} This function returns <b>TRUE</b> if the relative distinguished name is mangled or <b>FALSE</b> otherwise. If this function returns <b>FALSE</b>, neither <i>pGuid</i> or <i>peDsMangleFor</i> receive any data.
      * @see https://docs.microsoft.com/windows/win32/api//dsparse/nf-dsparse-dscrackunquotedmangledrdna
@@ -4648,13 +4648,13 @@ class ActiveDirectory {
      * 
      * @param {PSTR} pszSpn 
      * @param {Integer} cSpn 
-     * @param {Pointer<UInt32>} pcServiceClass 
+     * @param {Pointer<Integer>} pcServiceClass 
      * @param {PSTR} ServiceClass 
-     * @param {Pointer<UInt32>} pcServiceName 
+     * @param {Pointer<Integer>} pcServiceName 
      * @param {PSTR} ServiceName 
-     * @param {Pointer<UInt32>} pcInstanceName 
+     * @param {Pointer<Integer>} pcInstanceName 
      * @param {PSTR} InstanceName 
-     * @param {Pointer<UInt16>} pInstancePort 
+     * @param {Pointer<Integer>} pInstancePort 
      * @returns {Integer} 
      */
     static DsCrackSpn2A(pszSpn, cSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceName, pcInstanceName, InstanceName, pInstancePort) {
@@ -4671,13 +4671,13 @@ class ActiveDirectory {
      * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
-     * @param {Pointer<UInt32>} pcServiceClass 
+     * @param {Pointer<Integer>} pcServiceClass 
      * @param {PWSTR} ServiceClass 
-     * @param {Pointer<UInt32>} pcServiceName 
+     * @param {Pointer<Integer>} pcServiceName 
      * @param {PWSTR} ServiceName 
-     * @param {Pointer<UInt32>} pcInstanceName 
+     * @param {Pointer<Integer>} pcInstanceName 
      * @param {PWSTR} InstanceName 
-     * @param {Pointer<UInt16>} pInstancePort 
+     * @param {Pointer<Integer>} pInstancePort 
      * @returns {Integer} 
      */
     static DsCrackSpn2W(pszSpn, cSpn, pcServiceClass, ServiceClass, pcServiceName, ServiceName, pcInstanceName, InstanceName, pInstancePort) {
@@ -4694,14 +4694,14 @@ class ActiveDirectory {
      * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
-     * @param {Pointer<UInt32>} pcHostName 
+     * @param {Pointer<Integer>} pcHostName 
      * @param {PWSTR} HostName 
-     * @param {Pointer<UInt32>} pcInstanceName 
+     * @param {Pointer<Integer>} pcInstanceName 
      * @param {PWSTR} InstanceName 
-     * @param {Pointer<UInt16>} pPortNumber 
-     * @param {Pointer<UInt32>} pcDomainName 
+     * @param {Pointer<Integer>} pPortNumber 
+     * @param {Pointer<Integer>} pcDomainName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<UInt32>} pcRealmName 
+     * @param {Pointer<Integer>} pcRealmName 
      * @param {PWSTR} RealmName 
      * @returns {Integer} 
      */
@@ -4720,15 +4720,15 @@ class ActiveDirectory {
      * 
      * @param {PWSTR} pszSpn 
      * @param {Integer} cSpn 
-     * @param {Pointer<UInt32>} pcHostName 
+     * @param {Pointer<Integer>} pcHostName 
      * @param {PWSTR} HostName 
-     * @param {Pointer<UInt32>} pcInstanceName 
+     * @param {Pointer<Integer>} pcInstanceName 
      * @param {PWSTR} InstanceName 
-     * @param {Pointer<UInt32>} pcPortName 
+     * @param {Pointer<Integer>} pcPortName 
      * @param {PWSTR} PortName 
-     * @param {Pointer<UInt32>} pcDomainName 
+     * @param {Pointer<Integer>} pcDomainName 
      * @param {PWSTR} DomainName 
-     * @param {Pointer<UInt32>} pcRealmName 
+     * @param {Pointer<Integer>} pcRealmName 
      * @param {PWSTR} RealmName 
      * @returns {Integer} 
      */
@@ -5122,7 +5122,7 @@ class ActiveDirectory {
      * @param {PWSTR} User Pointer to a null-terminated string that contains the user name to use for the credentials.
      * @param {PWSTR} Domain Pointer to a null-terminated string that contains the domain that the user is a member of.
      * @param {PWSTR} Password Pointer to a null-terminated string that contains the password to use for the credentials.
-     * @param {Pointer<Void>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
+     * @param {Pointer<Pointer<Void>>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function when it is no longer required.
      * @returns {Integer} Returns a Windows error code, including the following.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsw
@@ -5133,7 +5133,7 @@ class ActiveDirectory {
         Domain := Domain is String ? StrPtr(Domain) : Domain
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", "ptr", User, "ptr", Domain, "ptr", Password, "ptr", pAuthIdentity, "uint")
+        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", "ptr", User, "ptr", Domain, "ptr", Password, "ptr*", pAuthIdentity, "uint")
         return result
     }
 
@@ -5142,7 +5142,7 @@ class ActiveDirectory {
      * @param {PSTR} User Pointer to a null-terminated string that contains the user name to use for the credentials.
      * @param {PSTR} Domain Pointer to a null-terminated string that contains the domain that the user is a member of.
      * @param {PSTR} Password Pointer to a null-terminated string that contains the password to use for the credentials.
-     * @param {Pointer<Void>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
+     * @param {Pointer<Pointer<Void>>} pAuthIdentity Pointer to an <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-auth-identity-handle">RPC_AUTH_IDENTITY_HANDLE</a> value that receives the credential handle. This handle is used in a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DsBindWithCred</a>.   This handle must be freed with the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreepasswordcredentials">DsFreePasswordCredentials</a> function when it is no longer required.
      * @returns {Integer} Returns a Windows error code, including the following.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsmakepasswordcredentialsa
@@ -5153,7 +5153,7 @@ class ActiveDirectory {
         Domain := Domain is String ? StrPtr(Domain) : Domain
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", "ptr", User, "ptr", Domain, "ptr", Password, "ptr", pAuthIdentity, "uint")
+        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", "ptr", User, "ptr", Domain, "ptr", Password, "ptr*", pAuthIdentity, "uint")
         return result
     }
 
@@ -5187,7 +5187,7 @@ class ActiveDirectory {
      * @param {Integer} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
      * @param {Integer} cNames Contains the number of elements in the <i>rpNames</i> array.
      * @param {Pointer<PWSTR>} rpNames Pointer to an array of pointers to null-terminated strings that contain names to be converted.
-     * @param {Pointer<DS_NAME_RESULTW>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
      *     that contains the converted names. The caller must free this memory, when it is no longer required, by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * @returns {Integer} Returns a Win32 error value, an RPC error value, or one of the following.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dscracknamesw
@@ -5196,7 +5196,7 @@ class ActiveDirectory {
     static DsCrackNamesW(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsCrackNamesW", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr", ppResult, "uint")
+        result := DllCall("NTDSAPI.dll\DsCrackNamesW", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr*", ppResult, "uint")
         return result
     }
 
@@ -5219,7 +5219,7 @@ class ActiveDirectory {
      * @param {Integer} formatDesired Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_name_format">DS_NAME_FORMAT</a> values that identifies the format of the output names. The <b>DS_SID_OR_SID_HISTORY_NAME</b> value is not supported.
      * @param {Integer} cNames Contains the number of elements in the <i>rpNames</i> array.
      * @param {Pointer<PSTR>} rpNames Pointer to an array of pointers to null-terminated strings that contain names to be converted.
-     * @param {Pointer<DS_NAME_RESULTA>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppResult Pointer to a <b>PDS_NAME_RESULT</b> value that receives a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure
      *     that contains the converted names. The caller must free this memory, when it is no longer required, by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * @returns {Integer} Returns a Win32 error value, an RPC error value, or one of the following.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dscracknamesa
@@ -5228,7 +5228,7 @@ class ActiveDirectory {
     static DsCrackNamesA(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsCrackNamesA", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr", ppResult, "uint")
+        result := DllCall("NTDSAPI.dll\DsCrackNamesA", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr*", ppResult, "uint")
         return result
     }
 
@@ -5272,9 +5272,9 @@ class ActiveDirectory {
      * @param {Integer} InstancePort Specifies the port number of the service instance. If this value is zero, the SPN does not include a port number.
      * @param {Integer} cInstanceNames Specifies the number of elements in the <i>pInstanceNames</i> and <i>pInstancePorts</i> arrays. If this value is zero, <i>pInstanceNames</i> must point to an array of <i>cInstanceNames</i> strings, and <i>pInstancePorts</i> can be either <b>NULL</b> or a pointer to an array of <i>cInstanceNames</i> port numbers. If this value is zero, <b>DsGetSpn</b> returns only one SPN in the <i>prpszSpn</i> array and <i>pInstanceNames</i> and <i>pInstancePorts</i> are ignored.
      * @param {Pointer<PSTR>} pInstanceNames Pointer to an array of null-terminated strings that specify extra instance names (not used for host names). This parameter is ignored if <i>cInstanceNames</i> is zero. In that case, the <i>InstanceName</i> component of the SPN defaults to the fully qualified DNS name of the local computer or the NetBIOS name if <b>DS_SPN_NB_HOST</b> or <b>DS_SPN_NB_DOMAIN</b> is specified.
-     * @param {Pointer<UInt16>} pInstancePorts Pointer to an array of extra instance ports. If this value is non-<b>NULL</b>, it must point to an array of <i>cInstanceNames</i> port numbers. If this value is <b>NULL</b>, the SPNs do not include a port number. This parameter is ignored if <i>cInstanceNames</i> is zero.
-     * @param {Pointer<UInt32>} pcSpn Pointer to a variable that receives the number of SPNs contained in <i>prpszSpn</i>.
-     * @param {Pointer<PSTR>} prpszSpn Pointer to a variable that receives a pointer to an array of SPNs. This array must be freed with 
+     * @param {Pointer<Integer>} pInstancePorts Pointer to an array of extra instance ports. If this value is non-<b>NULL</b>, it must point to an array of <i>cInstanceNames</i> port numbers. If this value is <b>NULL</b>, the SPNs do not include a port number. This parameter is ignored if <i>cInstanceNames</i> is zero.
+     * @param {Pointer<Integer>} pcSpn Pointer to a variable that receives the number of SPNs contained in <i>prpszSpn</i>.
+     * @param {Pointer<Pointer<PSTR>>} prpszSpn Pointer to a variable that receives a pointer to an array of SPNs. This array must be freed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreespnarraya">DsFreeSpnArray</a>.
      * @returns {Integer} If the function returns an array of SPNs, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5286,7 +5286,7 @@ class ActiveDirectory {
         ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
         ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
 
-        result := DllCall("NTDSAPI.dll\DsGetSpnA", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, "ushort*", pInstancePorts, "uint*", pcSpn, "ptr", prpszSpn, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetSpnA", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, "ushort*", pInstancePorts, "uint*", pcSpn, "ptr*", prpszSpn, "uint")
         return result
     }
 
@@ -5298,9 +5298,9 @@ class ActiveDirectory {
      * @param {Integer} InstancePort Specifies the port number of the service instance. If this value is zero, the SPN does not include a port number.
      * @param {Integer} cInstanceNames Specifies the number of elements in the <i>pInstanceNames</i> and <i>pInstancePorts</i> arrays. If this value is zero, <i>pInstanceNames</i> must point to an array of <i>cInstanceNames</i> strings, and <i>pInstancePorts</i> can be either <b>NULL</b> or a pointer to an array of <i>cInstanceNames</i> port numbers. If this value is zero, <b>DsGetSpn</b> returns only one SPN in the <i>prpszSpn</i> array and <i>pInstanceNames</i> and <i>pInstancePorts</i> are ignored.
      * @param {Pointer<PWSTR>} pInstanceNames Pointer to an array of null-terminated strings that specify extra instance names (not used for host names). This parameter is ignored if <i>cInstanceNames</i> is zero. In that case, the <i>InstanceName</i> component of the SPN defaults to the fully qualified DNS name of the local computer or the NetBIOS name if <b>DS_SPN_NB_HOST</b> or <b>DS_SPN_NB_DOMAIN</b> is specified.
-     * @param {Pointer<UInt16>} pInstancePorts Pointer to an array of extra instance ports. If this value is non-<b>NULL</b>, it must point to an array of <i>cInstanceNames</i> port numbers. If this value is <b>NULL</b>, the SPNs do not include a port number. This parameter is ignored if <i>cInstanceNames</i> is zero.
-     * @param {Pointer<UInt32>} pcSpn Pointer to a variable that receives the number of SPNs contained in <i>prpszSpn</i>.
-     * @param {Pointer<PWSTR>} prpszSpn Pointer to a variable that receives a pointer to an array of SPNs. This array must be freed with 
+     * @param {Pointer<Integer>} pInstancePorts Pointer to an array of extra instance ports. If this value is non-<b>NULL</b>, it must point to an array of <i>cInstanceNames</i> port numbers. If this value is <b>NULL</b>, the SPNs do not include a port number. This parameter is ignored if <i>cInstanceNames</i> is zero.
+     * @param {Pointer<Integer>} pcSpn Pointer to a variable that receives the number of SPNs contained in <i>prpszSpn</i>.
+     * @param {Pointer<Pointer<PWSTR>>} prpszSpn Pointer to a variable that receives a pointer to an array of SPNs. This array must be freed with 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreespnarraya">DsFreeSpnArray</a>.
      * @returns {Integer} If the function returns an array of SPNs, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5312,7 +5312,7 @@ class ActiveDirectory {
         ServiceClass := ServiceClass is String ? StrPtr(ServiceClass) : ServiceClass
         ServiceName := ServiceName is String ? StrPtr(ServiceName) : ServiceName
 
-        result := DllCall("NTDSAPI.dll\DsGetSpnW", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, "ushort*", pInstancePorts, "uint*", pcSpn, "ptr", prpszSpn, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetSpnW", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, "ushort*", pInstancePorts, "uint*", pcSpn, "ptr*", prpszSpn, "uint")
         return result
     }
 
@@ -5398,7 +5398,7 @@ class ActiveDirectory {
      * @param {PWSTR} ServiceName Pointer to a null-terminated string that contains the distinguished name service (DNS) host name. This can either be a fully qualified name or an IP address in the Internet standard  format.
      * 
      * Use of an IP address for <i>ServiceName</i> is not recommended because this can create a security issue. Before the SPN is constructed, the IP address must be translated to a computer name through DNS name resolution. It is possible for the DNS name resolution to be spoofed, replacing the  intended computer name with an unauthorized computer name.
-     * @param {Pointer<UInt32>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
      * @param {PWSTR} pszSpn Pointer to a string buffer that receives the SPN.
      * @returns {Integer} This function returns standard Windows error codes.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsclientmakespnfortargetserverw
@@ -5419,7 +5419,7 @@ class ActiveDirectory {
      * @param {PSTR} ServiceName Pointer to a null-terminated string that contains the distinguished name service (DNS) host name. This can either be a fully qualified name or an IP address in the Internet standard  format.
      * 
      * Use of an IP address for <i>ServiceName</i> is not recommended because this can create a security issue. Before the SPN is constructed, the IP address must be translated to a computer name through DNS name resolution. It is possible for the DNS name resolution to be spoofed, replacing the  intended computer name with an unauthorized computer name.
-     * @param {Pointer<UInt32>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
+     * @param {Pointer<Integer>} pcSpnLength Pointer to a <b>DWORD</b> value that, on entry, contains the size of the <i>pszSpn</i> buffer, in characters. On output, this parameter receives the number of characters copied to the  <i>pszSpn</i> buffer, including the terminating <b>NULL</b>.
      * @param {PSTR} pszSpn Pointer to a string buffer that receives the SPN.
      * @returns {Integer} This function returns standard Windows error codes.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dsclientmakespnfortargetservera
@@ -5730,7 +5730,7 @@ class ActiveDirectory {
      * @param {Integer} ulFlags 
      * @param {Pointer} pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
-     * @param {Pointer<DS_REPSYNCALL_ERRINFOA>} pErrors A NULL-terminated array of pointers to  
+     * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOA>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5742,7 +5742,7 @@ class ActiveDirectory {
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr", pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr*", pErrors, "uint")
         return result
     }
 
@@ -5755,7 +5755,7 @@ class ActiveDirectory {
      * @param {Integer} ulFlags 
      * @param {Pointer} pFnCallBack Pointer to an application-defined <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> function called by the <b>DsReplicaSyncAll</b> function when it encounters an error, initiates synchronization of two servers, completes synchronization of two servers, or finishes synchronization of all the servers in the site.
      * @param {Pointer<Void>} pCallbackData Pointer to application-defined data passed as the first argument of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms677968(v=vs.85)">SyncUpdateProc</a> callback function pointed to by the <i>pFnCallBack</i> parameter.
-     * @param {Pointer<DS_REPSYNCALL_ERRINFOW>} pErrors A NULL-terminated array of pointers to  
+     * @param {Pointer<Pointer<Pointer<DS_REPSYNCALL_ERRINFOW>>>} pErrors A NULL-terminated array of pointers to  
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_repsyncall_errinfoa">DS_REPSYNCALL_ERRINFO</a> structures that contain errors that occurred during synchronization. The memory used to hold both the array of pointers and the MsCS\mscs\clusctl_resource_type_get_private_property_fmts.xml data is allocated as a single block of memory and should be freed when no longer required  by a single call to <b>LocalFree</b> with the pointer value returned in <i>pErrors</i> used as the argument.
      * @returns {Integer} If the function succeeds, the return value is <b>ERROR_SUCCESS</b>.
      * 
@@ -5767,7 +5767,7 @@ class ActiveDirectory {
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr", pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr*", pErrors, "uint")
         return result
     }
 
@@ -5856,7 +5856,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of sites, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistsitesa
@@ -5865,7 +5865,7 @@ class ActiveDirectory {
     static DsListSitesA(hDs, ppSites) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListSitesA", "ptr", hDs, "ptr", ppSites, "uint")
+        result := DllCall("NTDSAPI.dll\DsListSitesA", "ptr", hDs, "ptr*", ppSites, "uint")
         return result
     }
 
@@ -5874,7 +5874,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppSites Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of sites in the enterprise. The site name is returned in the distinguished name (DN) format. The returned structure must be freed using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of sites, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
      * @see https://docs.microsoft.com/windows/win32/api//ntdsapi/nf-ntdsapi-dslistsitesw
@@ -5883,7 +5883,7 @@ class ActiveDirectory {
     static DsListSitesW(hDs, ppSites) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListSitesW", "ptr", hDs, "ptr", ppSites, "uint")
+        result := DllCall("NTDSAPI.dll\DsListSitesW", "ptr", hDs, "ptr*", ppSites, "uint")
         return result
     }
 
@@ -5893,7 +5893,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} site Pointer to a null-terminated string that specifies the site name. The site name uses a distinguished name format. It is taken from the list of sites returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppServers Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppServers Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the site. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -5904,7 +5904,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListServersInSiteA", "ptr", hDs, "ptr", site, "ptr", ppServers, "uint")
+        result := DllCall("NTDSAPI.dll\DsListServersInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
         return result
     }
 
@@ -5914,7 +5914,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} site Pointer to a null-terminated string that specifies the site name. The site name uses a distinguished name format. It is taken from the list of sites returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppServers Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppServers Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the site. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -5925,7 +5925,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListServersInSiteW", "ptr", hDs, "ptr", site, "ptr", ppServers, "uint")
+        result := DllCall("NTDSAPI.dll\DsListServersInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
         return result
     }
 
@@ -5935,7 +5935,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} site Pointer to a null-terminated string that specifies the site name. This string is taken from the list of site names returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppDomains Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppDomains Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of domains in the site. To free the returned structure, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of domains, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -5946,7 +5946,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", "ptr", hDs, "ptr", site, "ptr", ppDomains, "uint")
+        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
         return result
     }
 
@@ -5956,7 +5956,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} site Pointer to a null-terminated string that specifies the site name. This string is taken from the list of site names returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppDomains Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppDomains Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of domains in the site. To free the returned structure, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of domains, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -5967,7 +5967,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", "ptr", hDs, "ptr", site, "ptr", ppDomains, "uint")
+        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
         return result
     }
 
@@ -5978,7 +5978,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} domain Pointer to a null-terminated string that specifies the domain name. This string must be the same as one of the strings returned by <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistdomainsinsitea">DsListDomainsInSite</a> function.
      * @param {PSTR} site Pointer to a null-terminated string that specifies the site name. This string is taken from the list of site names returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppServers Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppServers Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the domain. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -5990,7 +5990,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", "ptr", hDs, "ptr", domain, "ptr", site, "ptr", ppServers, "uint")
+        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
         return result
     }
 
@@ -6001,7 +6001,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} domain Pointer to a null-terminated string that specifies the domain name. This string must be the same as one of the strings returned by <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistdomainsinsitea">DsListDomainsInSite</a> function.
      * @param {PWSTR} site Pointer to a null-terminated string that specifies the site name. This string is taken from the list of site names returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistsitesa">DsListSites</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppServers Pointer to a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppServers Pointer to a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that receives the list of servers in the domain. The returned structure must be freed using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a> function.
      * @returns {Integer} If the function returns a list of servers, the return value is <b>NO_ERROR</b>. If the function fails, the return value can be one of the following error codes.
@@ -6013,7 +6013,7 @@ class ActiveDirectory {
         site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", "ptr", hDs, "ptr", domain, "ptr", site, "ptr", ppServers, "uint")
+        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
         return result
     }
 
@@ -6023,7 +6023,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} server Pointer to a null-terminated string that specifies the server name. This name must be the same as one of the strings returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistserversfordomaininsitea">DsListServersForDomainInSite</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistserversinsitea">DsListServersInSite</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppInfo Pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppInfo Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that contains the server data. The returned structure must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * 
@@ -6038,7 +6038,7 @@ class ActiveDirectory {
         server := server is String ? StrPtr(server) : server
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListInfoForServerA", "ptr", hDs, "ptr", server, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsListInfoForServerA", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6048,7 +6048,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} server Pointer to a null-terminated string that specifies the server name. This name must be the same as one of the strings returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistserversfordomaininsitea">DsListServersForDomainInSite</a> or <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dslistserversinsitea">DsListServersInSite</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppInfo Pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppInfo Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure that contains the server data. The returned structure must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * 
@@ -6063,7 +6063,7 @@ class ActiveDirectory {
         server := server is String ? StrPtr(server) : server
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListInfoForServerW", "ptr", hDs, "ptr", server, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsListInfoForServerW", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6072,7 +6072,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Pointer<DS_NAME_RESULTA>} ppRoles Pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTA>>} ppRoles Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure containing the roles the server recognizes. The returned structure must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * 
@@ -6088,7 +6088,7 @@ class ActiveDirectory {
     static DsListRolesA(hDs, ppRoles) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListRolesA", "ptr", hDs, "ptr", ppRoles, "uint")
+        result := DllCall("NTDSAPI.dll\DsListRolesA", "ptr", hDs, "ptr*", ppRoles, "uint")
         return result
     }
 
@@ -6097,7 +6097,7 @@ class ActiveDirectory {
      * @param {HANDLE} hDs Contains a directory service handle obtained from either the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbinda">DSBind</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
-     * @param {Pointer<DS_NAME_RESULTW>} ppRoles Pointer to a variable that receives a pointer to a 
+     * @param {Pointer<Pointer<DS_NAME_RESULTW>>} ppRoles Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_name_resulta">DS_NAME_RESULT</a> structure containing the roles the server recognizes. The returned structure must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreenameresulta">DsFreeNameResult</a>.
      * 
@@ -6113,7 +6113,7 @@ class ActiveDirectory {
     static DsListRolesW(hDs, ppRoles) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListRolesW", "ptr", hDs, "ptr", ppRoles, "uint")
+        result := DllCall("NTDSAPI.dll\DsListRolesW", "ptr", hDs, "ptr*", ppRoles, "uint")
         return result
     }
 
@@ -6123,7 +6123,7 @@ class ActiveDirectory {
      * @param {PWSTR} pwszFromSite Pointer to a null-terminated string that contains the relative distinguished name of the site the costs are measured from.
      * @param {Pointer<PWSTR>} rgwszToSites Contains an array of null-terminated string pointers that contain the relative distinguished names of the sites the costs are measured to.
      * @param {Integer} cToSites Contains the number of elements in the <i>rgwszToSites</i> array.
-     * @param {Pointer<DS_SITE_COST_INFO>} prgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures that receives the cost data. Each element in this array contains the cost data between the site identified by the <i>pwszFromSite</i> parameter and the site identified by the corresponding <i>rgwszToSites</i> element.
+     * @param {Pointer<Pointer<DS_SITE_COST_INFO>>} prgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures that receives the cost data. Each element in this array contains the cost data between the site identified by the <i>pwszFromSite</i> parameter and the site identified by the corresponding <i>rgwszToSites</i> element.
      * 
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesfree">DsQuerySitesFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
@@ -6137,7 +6137,7 @@ class ActiveDirectory {
         pwszFromSite := pwszFromSite is String ? StrPtr(pwszFromSite) : pwszFromSite
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", "ptr", hDS, "ptr", pwszFromSite, "ptr", rgwszToSites, "uint", cToSites, "uint", dwFlags, "ptr", prgSiteInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", "ptr", hDS, "ptr", pwszFromSite, "ptr", rgwszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
         return result
     }
 
@@ -6147,7 +6147,7 @@ class ActiveDirectory {
      * @param {PSTR} pszFromSite Pointer to a null-terminated string that contains the relative distinguished name of the site the costs are measured from.
      * @param {Pointer<PSTR>} rgszToSites Contains an array of null-terminated string pointers that contain the relative distinguished names of the sites the costs are measured to.
      * @param {Integer} cToSites Contains the number of elements in the <i>rgwszToSites</i> array.
-     * @param {Pointer<DS_SITE_COST_INFO>} prgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures that receives the cost data. Each element in this array contains the cost data between the site identified by the <i>pwszFromSite</i> parameter and the site identified by the corresponding <i>rgwszToSites</i> element.
+     * @param {Pointer<Pointer<DS_SITE_COST_INFO>>} prgSiteInfo Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_site_cost_info">DS_SITE_COST_INFO</a> structures that receives the cost data. Each element in this array contains the cost data between the site identified by the <i>pwszFromSite</i> parameter and the site identified by the corresponding <i>rgwszToSites</i> element.
      * 
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsquerysitesfree">DsQuerySitesFree</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error code otherwise.
@@ -6161,7 +6161,7 @@ class ActiveDirectory {
         pszFromSite := pszFromSite is String ? StrPtr(pszFromSite) : pszFromSite
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", "ptr", hDS, "ptr", pszFromSite, "ptr", rgszToSites, "uint", cToSites, "uint", dwFlags, "ptr", prgSiteInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", "ptr", hDS, "ptr", pszFromSite, "ptr", rgszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
         return result
     }
 
@@ -6183,7 +6183,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {Integer} cGuids Indicates the number of elements in <i>rGuids</i>.
      * @param {Pointer<Guid>} rGuids Pointer to an array of <b>GUID</b> values for the objects to be mapped.
-     * @param {Pointer<DS_SCHEMA_GUID_MAPA>} ppGuidMap Pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<DS_SCHEMA_GUID_MAPA>>} ppGuidMap Pointer to a variable that receives a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structures that contain the display names of the objects in <i>rGuids</i>. This array must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa">DsFreeSchemaGuidMap</a>.
      * @returns {Integer} Returns a standard error code that includes the following values.
@@ -6193,7 +6193,7 @@ class ActiveDirectory {
     static DsMapSchemaGuidsA(hDs, cGuids, rGuids, ppGuidMap) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsA", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr", ppGuidMap, "uint")
+        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsA", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr*", ppGuidMap, "uint")
         return result
     }
 
@@ -6215,7 +6215,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {Integer} cGuids Indicates the number of elements in <i>rGuids</i>.
      * @param {Pointer<Guid>} rGuids Pointer to an array of <b>GUID</b> values for the objects to be mapped.
-     * @param {Pointer<DS_SCHEMA_GUID_MAPW>} ppGuidMap Pointer to a variable that receives a pointer to an array of 
+     * @param {Pointer<Pointer<DS_SCHEMA_GUID_MAPW>>} ppGuidMap Pointer to a variable that receives a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ns-ntdsapi-ds_schema_guid_mapa">DS_SCHEMA_GUID_MAP</a> structures that contain the display names of the objects in <i>rGuids</i>. This array must be deallocated using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreeschemaguidmapa">DsFreeSchemaGuidMap</a>.
      * @returns {Integer} Returns a standard error code that includes the following values.
@@ -6225,7 +6225,7 @@ class ActiveDirectory {
     static DsMapSchemaGuidsW(hDs, cGuids, rGuids, ppGuidMap) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsW", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr", ppGuidMap, "uint")
+        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsW", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr*", ppGuidMap, "uint")
         return result
     }
 
@@ -6247,8 +6247,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PSTR} DomainName Pointer to a null-terminated string that specifies the domain name.
      * @param {Integer} InfoLevel 
-     * @param {Pointer<UInt32>} pcOut Pointer to a <b>DWORD</b> variable that receives the number of items returned in <i>ppInfo</i> array.
-     * @param {Pointer<Void>} ppInfo Pointer to a pointer variable that receives an array of  <b>DS_DOMAIN_CONTROLLER_INFO_*</b> structures. The type of structures in this array is defined by the <i>InfoLevel</i> parameter. The caller must free this array, when it is no longer required, by using 
+     * @param {Pointer<Integer>} pcOut Pointer to a <b>DWORD</b> variable that receives the number of items returned in <i>ppInfo</i> array.
+     * @param {Pointer<Pointer<Void>>} ppInfo Pointer to a pointer variable that receives an array of  <b>DS_DOMAIN_CONTROLLER_INFO_*</b> structures. The type of structures in this array is defined by the <i>InfoLevel</i> parameter. The caller must free this array, when it is no longer required, by using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfoa">DsFreeDomainControllerInfo</a> function.
      * @returns {Integer} If the function returns domain controller data, the return value is <b>ERROR_SUCCESS</b>. If the caller does not have the privileges to access the server objects, the return value is <b>ERROR_SUCCESS</b>, but the <b>DS_DOMAIN_CONTROLLER_INFO</b> structures could be empty.
      * 
@@ -6260,7 +6260,7 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6271,8 +6271,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsbindwithcreda">DSBindWithCred</a> function.
      * @param {PWSTR} DomainName Pointer to a null-terminated string that specifies the domain name.
      * @param {Integer} InfoLevel 
-     * @param {Pointer<UInt32>} pcOut Pointer to a <b>DWORD</b> variable that receives the number of items returned in <i>ppInfo</i> array.
-     * @param {Pointer<Void>} ppInfo Pointer to a pointer variable that receives an array of  <b>DS_DOMAIN_CONTROLLER_INFO_*</b> structures. The type of structures in this array is defined by the <i>InfoLevel</i> parameter. The caller must free this array, when it is no longer required, by using 
+     * @param {Pointer<Integer>} pcOut Pointer to a <b>DWORD</b> variable that receives the number of items returned in <i>ppInfo</i> array.
+     * @param {Pointer<Pointer<Void>>} ppInfo Pointer to a pointer variable that receives an array of  <b>DS_DOMAIN_CONTROLLER_INFO_*</b> structures. The type of structures in this array is defined by the <i>InfoLevel</i> parameter. The caller must free this array, when it is no longer required, by using 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsfreedomaincontrollerinfoa">DsFreeDomainControllerInfo</a> function.
      * @returns {Integer} If the function returns domain controller data, the return value is <b>ERROR_SUCCESS</b>. If the caller does not have the privileges to access the server objects, the return value is <b>ERROR_SUCCESS</b>, but the <b>DS_DOMAIN_CONTROLLER_INFO</b> structures could be empty.
      * 
@@ -6284,7 +6284,7 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6385,7 +6385,7 @@ class ActiveDirectory {
      * <a id="ds_repl_info_neighbors"></a>
      * @param {PWSTR} pszObject Pointer to a constant null-terminated Unicode string that identifies the object to retrieve replication data for. The meaning of this parameter depends on the value of the <i>InfoType</i> parameter. The following are possible value codes.
      * @param {Pointer<Guid>} puuidForSourceDsaObjGuid Pointer to a <b>GUID</b> value that identifies a specific replication source. If this parameter is not <b>NULL</b> and the <i>InfoType</i> parameter contains <b>DS_REPL_INFO_NEIGHBORS</b>, only neighbor data for the source corresponding to the nTDSDSA object with the given <b>objectGuid</b> in the directory is returned. This parameter is ignored if <b>NULL</b> or if the <i>InfoType</i> parameter is anything other than <b>DS_REPL_INFO_NEIGHBORS</b>.
-     * @param {Pointer<Void>} ppInfo Address of a structure pointer that receives the requested data. The value of the <i>InfoType</i> parameter determines the format of this structure. For more information and list of possible <i>InfoType</i> values and the corresponding structure types, see <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a>.
+     * @param {Pointer<Pointer<Void>>} ppInfo Address of a structure pointer that receives the requested data. The value of the <i>InfoType</i> parameter determines the format of this structure. For more information and list of possible <i>InfoType</i> values and the corresponding structure types, see <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a>.
      * 
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo">DsReplicaFreeInfo</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise.
@@ -6397,7 +6397,7 @@ class ActiveDirectory {
         pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6413,7 +6413,7 @@ class ActiveDirectory {
      * @param {PWSTR} pszValue Pointer to a null-terminated Unicode string that contains the distinguished name value to match. If the requested attribute is a distinguished name type value, this function return the attributes that contain the specified value.
      * @param {Integer} dwFlags Contains a set of flags that modify the behavior of the function. This parameter can be zero or the following value.
      * @param {Integer} dwEnumerationContext Contains the index of the next entry to retrieve.  This parameter must be set to zero the first time this function is called.
-     * @param {Pointer<Void>} ppInfo Address of a structure pointer that receives the requested data. The value of the <i>InfoType</i> parameter determines the format of this structure. For more information and a list of possible <i>InfoType</i> values and the corresponding structure types, see <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a>.
+     * @param {Pointer<Pointer<Void>>} ppInfo Address of a structure pointer that receives the requested data. The value of the <i>InfoType</i> parameter determines the format of this structure. For more information and a list of possible <i>InfoType</i> values and the corresponding structure types, see <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/ne-ntdsapi-ds_repl_info_type">DS_REPL_INFO_TYPE</a>.
      * 
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/ntdsapi/nf-ntdsapi-dsreplicafreeinfo">DsReplicaFreeInfo</a>.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 or RPC error otherwise.
@@ -6427,7 +6427,7 @@ class ActiveDirectory {
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, "uint", dwFlags, "uint", dwEnumerationContext, "ptr", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, "uint", dwFlags, "uint", dwEnumerationContext, "ptr*", ppInfo, "uint")
         return result
     }
 
@@ -6567,7 +6567,7 @@ class ActiveDirectory {
      * Retrieves state data for the computer.
      * @param {PWSTR} lpServer Pointer to null-terminated Unicode string that contains the name of the computer on which to call the function. If this parameter is <b>NULL</b>, the local computer is used.
      * @param {Integer} InfoLevel Contains one of the <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/ne-dsrole-dsrole_primary_domain_info_level">DSROLE_PRIMARY_DOMAIN_INFO_LEVEL</a> values that specify the type of data to retrieve. This parameter also determines the format of the data supplied in <i>Buffer</i>.
-     * @param {Pointer<Byte>} Buffer Pointer to the address of a buffer that receives the requested data. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} Buffer Pointer to the address of a buffer that receives the requested data. The format of this data depends on the value of the <i>InfoLevel</i> parameter.
      * 
      * The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/dsrole/nf-dsrole-dsrolefreememory">DsRoleFreeMemory</a>.
      * @returns {Integer} If the function is successful, the return value is <b>ERROR_SUCCESS</b>.
@@ -6579,7 +6579,7 @@ class ActiveDirectory {
     static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, "char*", Buffer, "uint")
+        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, "ptr*", Buffer, "uint")
         return result
     }
 
@@ -6630,7 +6630,7 @@ class ActiveDirectory {
      *       site closest to the site of the computer specified by <i>ComputerName</i>. This parameter 
      *       should be <b>NULL</b>, by default.
      * @param {Integer} Flags Contains a set of flags that provide additional data used to process the request. This parameter can be a
-     * @param {Pointer<DOMAIN_CONTROLLER_INFOA>} DomainControllerInfo Pointer to a <b>PDOMAIN_CONTROLLER_INFO</b> value that receives a pointer to a 
+     * @param {Pointer<Pointer<DOMAIN_CONTROLLER_INFOA>>} DomainControllerInfo Pointer to a <b>PDOMAIN_CONTROLLER_INFO</b> value that receives a pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-domain_controller_infoa">DOMAIN_CONTROLLER_INFO</a> structure that contains 
      *       data  about the domain controller selected. This structure is allocated by 
      *       <b>DsGetDcName</b>. The caller must free the structure using the 
@@ -6648,7 +6648,7 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-        result := DllCall("NETAPI32.dll\DsGetDcNameA", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr", DomainControllerInfo, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNameA", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr*", DomainControllerInfo, "uint")
         return result
     }
 
@@ -6688,7 +6688,7 @@ class ActiveDirectory {
      *       site closest to the site of the computer specified by <i>ComputerName</i>. This parameter 
      *       should be <b>NULL</b>, by default.
      * @param {Integer} Flags Contains a set of flags that provide additional data used to process the request. This parameter can be a
-     * @param {Pointer<DOMAIN_CONTROLLER_INFOW>} DomainControllerInfo Pointer to a <b>PDOMAIN_CONTROLLER_INFO</b> value that receives a pointer to a 
+     * @param {Pointer<Pointer<DOMAIN_CONTROLLER_INFOW>>} DomainControllerInfo Pointer to a <b>PDOMAIN_CONTROLLER_INFO</b> value that receives a pointer to a 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-domain_controller_infoa">DOMAIN_CONTROLLER_INFO</a> structure that contains 
      *       data  about the domain controller selected. This structure is allocated by 
      *       <b>DsGetDcName</b>. The caller must free the structure using the 
@@ -6706,7 +6706,7 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-        result := DllCall("NETAPI32.dll\DsGetDcNameW", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr", DomainControllerInfo, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNameW", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr*", DomainControllerInfo, "uint")
         return result
     }
 
@@ -6784,7 +6784,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
-     * @param {Pointer<PWSTR>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Pointer<PWSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following list lists possible error codes.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesw
      * @since windows6.0.6000
@@ -6792,7 +6792,7 @@ class ActiveDirectory {
     static DsAddressToSiteNamesW(ComputerName, EntryCount, SocketAddresses, SiteNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "uint")
         return result
     }
 
@@ -6802,7 +6802,7 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
-     * @param {Pointer<PSTR>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Pointer<PSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following list lists possible error codes.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsaddresstositenamesa
      * @since windows6.0.6000
@@ -6810,7 +6810,7 @@ class ActiveDirectory {
     static DsAddressToSiteNamesA(ComputerName, EntryCount, SocketAddresses, SiteNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "uint")
         return result
     }
 
@@ -6820,8 +6820,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
-     * @param {Pointer<PWSTR>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
-     * @param {Pointer<PWSTR>} SubnetNames Receives an array of null-terminated string pointers that contain the subnet names used to perform the address to site name mappings. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address to site name mapping was not determined or if no subnet was used to perform the
+     * @param {Pointer<Pointer<PWSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Pointer<PWSTR>>} SubnetNames Receives an array of null-terminated string pointers that contain the subnet names used to perform the address to site name mappings. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address to site name mapping was not determined or if no subnet was used to perform the
      *         corresponding address to site mapping. The latter will be the case when there is exactly
      *         one site in the enterprise with no subnet objects mapped to it. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following are possible error codes.
@@ -6831,7 +6831,7 @@ class ActiveDirectory {
     static DsAddressToSiteNamesExW(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr", SiteNames, "ptr", SubnetNames, "uint")
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "ptr*", SubnetNames, "uint")
         return result
     }
 
@@ -6841,8 +6841,8 @@ class ActiveDirectory {
      * <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcnamea">DsGetDcName</a> to find the domain controller.
      * @param {Integer} EntryCount Contains the number of elements in the <i>SocketAddresses</i> array.
      * @param {Pointer<SOCKET_ADDRESS>} SocketAddresses Contains an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that contain the addresses to convert. Each address in this array must be of the type <b>AF_INET</b>. <i>EntryCount</i> contains the number of elements in this array.
-     * @param {Pointer<PSTR>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
-     * @param {Pointer<PSTR>} SubnetNames Receives an array of null-terminated string pointers that contain the subnet names used to perform the address to site name mappings. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address to site name mapping was not determined or if no subnet was used to perform the
+     * @param {Pointer<Pointer<PSTR>>} SiteNames Receives an array of null-terminated string pointers that contain the site names for the addresses. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address does not map to any known site or if the address entry is not of the proper form. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Pointer<PSTR>>} SubnetNames Receives an array of null-terminated string pointers that contain the subnet names used to perform the address to site name mappings. Each element in this array corresponds to the same element in the <i>SocketAddresses</i> array. An element is <b>NULL</b> if the corresponding address to site name mapping was not determined or if no subnet was used to perform the
      *         corresponding address to site mapping. The latter will be the case when there is exactly
      *         one site in the enterprise with no subnet objects mapped to it. The caller must free this array when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Win32 or RPC error otherwise. The following are possible error codes.
@@ -6852,7 +6852,7 @@ class ActiveDirectory {
     static DsAddressToSiteNamesExA(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr", SiteNames, "ptr", SubnetNames, "uint")
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "ptr*", SubnetNames, "uint")
         return result
     }
 
@@ -6862,8 +6862,8 @@ class ActiveDirectory {
      * 
      * If this computer is a domain controller, this function returns the trust data immediately. If this computer is not a domain controller, this function  obtains the trust data  from cached data if the cached data is not expired. If the cached data is expired, this function obtains the trust data from a domain controller in the domain that this computer is a member of and updates the cache. The cached data automatically expires after five minutes.
      * @param {Integer} Flags 
-     * @param {Pointer<DS_DOMAIN_TRUSTSW>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
-     * @param {Pointer<UInt32>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
+     * @param {Pointer<Pointer<DS_DOMAIN_TRUSTSW>>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Integer>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include those listed in the following list.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsw
      * @since windows6.0.6000
@@ -6871,7 +6871,7 @@ class ActiveDirectory {
     static DsEnumerateDomainTrustsW(ServerName, Flags, Domains, DomainCount) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", "ptr", ServerName, "uint", Flags, "ptr", Domains, "uint*", DomainCount, "uint")
+        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", "ptr", ServerName, "uint", Flags, "ptr*", Domains, "uint*", DomainCount, "uint")
         return result
     }
 
@@ -6881,8 +6881,8 @@ class ActiveDirectory {
      * 
      * If this computer is a domain controller, this function returns the trust data immediately. If this computer is not a domain controller, this function  obtains the trust data  from cached data if the cached data is not expired. If the cached data is expired, this function obtains the trust data from a domain controller in the domain that this computer is a member of and updates the cache. The cached data automatically expires after five minutes.
      * @param {Integer} Flags 
-     * @param {Pointer<DS_DOMAIN_TRUSTSA>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
-     * @param {Pointer<UInt32>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
+     * @param {Pointer<Pointer<DS_DOMAIN_TRUSTSA>>} Domains Pointer to a <b>PDS_DOMAIN_TRUSTS</b> value that receives an array of <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/ns-dsgetdc-ds_domain_trustsa">DS_DOMAIN_TRUSTS</a> structures. Each structure in this array contains trust data about a domain. The caller must free this memory when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
+     * @param {Pointer<Integer>} DomainCount Pointer to a <b>ULONG</b> value that receives the number of elements returned in the <i>Domains</i> array.
      * @returns {Integer} Returns <b>ERROR_SUCCESS</b> if successful or a Win32 error code otherwise. Possible error codes include those listed in the following list.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsenumeratedomaintrustsa
      * @since windows6.0.6000
@@ -6890,7 +6890,7 @@ class ActiveDirectory {
     static DsEnumerateDomainTrustsA(ServerName, Flags, Domains, DomainCount) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", "ptr", ServerName, "uint", Flags, "ptr", Domains, "uint*", DomainCount, "uint")
+        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", "ptr", ServerName, "uint", Flags, "ptr*", Domains, "uint*", DomainCount, "uint")
         return result
     }
 
@@ -6906,7 +6906,7 @@ class ActiveDirectory {
      * If this parameter is <b>NULL</b>, the forest trust
      *         data for the domain hosted by <i>ServerName</i> is retrieved.
      * @param {Integer} Flags Contains a set of flags that modify the behavior of this function. This can be zero or the following value.
-     * @param {Pointer<LSA_FOREST_TRUST_INFORMATION>} ForestTrustInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_information">LSA_FOREST_TRUST_INFORMATION</a> structure pointer that receives the forest trust data that describes the namespaces claimed by the
+     * @param {Pointer<Pointer<LSA_FOREST_TRUST_INFORMATION>>} ForestTrustInfo Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ntsecapi/ns-ntsecapi-lsa_forest_trust_information">LSA_FOREST_TRUST_INFORMATION</a> structure pointer that receives the forest trust data that describes the namespaces claimed by the
      *         domain specified by <i>TrustedDomainName</i>. The <b>Time</b>member of all returned records will be zero.
      * 
      * The caller must free this structure when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
@@ -6918,7 +6918,7 @@ class ActiveDirectory {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         TrustedDomainName := TrustedDomainName is String ? StrPtr(TrustedDomainName) : TrustedDomainName
 
-        result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", "ptr", ServerName, "ptr", TrustedDomainName, "uint", Flags, "ptr", ForestTrustInfo, "uint")
+        result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", "ptr", ServerName, "ptr", TrustedDomainName, "uint", Flags, "ptr*", ForestTrustInfo, "uint")
         return result
     }
 
@@ -6929,7 +6929,7 @@ class ActiveDirectory {
      *         The <b>Flags</b> and <b>Time</b> members of the entries are ignored.
      * @param {Pointer<LSA_FOREST_TRUST_INFORMATION>} OldForestTrustInfo Pointer to an <b>LSA_FOREST_TRUST_INFORMATION</b> structure that contains the old forest trust data to be merged.
      *         This parameter may be <b>NULL</b> if no records exist.
-     * @param {Pointer<LSA_FOREST_TRUST_INFORMATION>} MergedForestTrustInfo Pointer to an <b>LSA_FOREST_TRUST_INFORMATION</b> structure pointer that receives the merged forest trust data.
+     * @param {Pointer<Pointer<LSA_FOREST_TRUST_INFORMATION>>} MergedForestTrustInfo Pointer to an <b>LSA_FOREST_TRUST_INFORMATION</b> structure pointer that receives the merged forest trust data.
      * 
      * The caller must free this structure when it is no longer required by calling <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a>.
      * @returns {Integer} Returns <b>NO_ERROR</b> if successful or a Windows error code otherwise.
@@ -6939,15 +6939,15 @@ class ActiveDirectory {
     static DsMergeForestTrustInformationW(DomainName, NewForestTrustInfo, OldForestTrustInfo, MergedForestTrustInfo) {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, "ptr", NewForestTrustInfo, "ptr", OldForestTrustInfo, "ptr", MergedForestTrustInfo, "uint")
+        result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, "ptr", NewForestTrustInfo, "ptr", OldForestTrustInfo, "ptr*", MergedForestTrustInfo, "uint")
         return result
     }
 
     /**
      * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller.
      * @param {PWSTR} ServerName The null-terminated string value that specifies the name of the remote domain controller.
-     * @param {Pointer<UInt32>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
-     * @param {Pointer<PWSTR>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
+     * @param {Pointer<Integer>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
+     * @param {Pointer<Pointer<PWSTR>>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcsitecoveragew
      * @since windows6.0.6000
@@ -6955,15 +6955,15 @@ class ActiveDirectory {
     static DsGetDcSiteCoverageW(ServerName, EntryCount, SiteNames) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", "ptr", ServerName, "uint*", EntryCount, "ptr", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", "ptr", ServerName, "uint*", EntryCount, "ptr*", SiteNames, "uint")
         return result
     }
 
     /**
      * The DsGetDcSiteCoverage function returns the site names of all sites covered by a domain controller.
      * @param {PSTR} ServerName The null-terminated string value that specifies the name of the remote domain controller.
-     * @param {Pointer<UInt32>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
-     * @param {Pointer<PSTR>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
+     * @param {Pointer<Integer>} EntryCount Pointer to a <b>ULONG</b> value that receives  the number of sites covered by the domain controller.
+     * @param {Pointer<Pointer<PSTR>>} SiteNames Pointer to an array of pointers to null-terminated strings that receives the site names. To free the returned buffer, call the <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @returns {Integer} This function returns DSGETDCAPI DWORD.
      * @see https://docs.microsoft.com/windows/win32/api//dsgetdc/nf-dsgetdc-dsgetdcsitecoveragea
      * @since windows6.0.6000
@@ -6971,7 +6971,7 @@ class ActiveDirectory {
     static DsGetDcSiteCoverageA(ServerName, EntryCount, SiteNames) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
-        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", "ptr", ServerName, "uint*", EntryCount, "ptr", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", "ptr", ServerName, "uint*", EntryCount, "ptr*", SiteNames, "uint")
         return result
     }
 
@@ -7066,9 +7066,9 @@ class ActiveDirectory {
     /**
      * Retrieves the next domain controller in a domain controller enumeration operation.
      * @param {HANDLE} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
-     * @param {Pointer<UInt32>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
+     * @param {Pointer<Integer>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
      *         If this parameter is <b>NULL</b>, socket addresses are not retrieved.
-     * @param {Pointer<SOCKET_ADDRESS>} SockAddresses Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that receives the socket address data for the domain controller. <i>SockAddressCount</i> receives the number of elements in this array.
+     * @param {Pointer<Pointer<SOCKET_ADDRESS>>} SockAddresses Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that receives the socket address data for the domain controller. <i>SockAddressCount</i> receives the number of elements in this array.
      * 
      * All returned addresses will be of type <b>AF_INET</b> or <b>AF_INET6</b>.
      *         The <b>sin_port</b> member contains the port from the server record.
@@ -7086,16 +7086,16 @@ class ActiveDirectory {
     static DsGetDcNextW(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
         GetDcContextHandle := GetDcContextHandle is Win32Handle ? NumGet(GetDcContextHandle, "ptr") : GetDcContextHandle
 
-        result := DllCall("NETAPI32.dll\DsGetDcNextW", "ptr", GetDcContextHandle, "uint*", SockAddressCount, "ptr", SockAddresses, "ptr", DnsHostName, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNextW", "ptr", GetDcContextHandle, "uint*", SockAddressCount, "ptr*", SockAddresses, "ptr", DnsHostName, "uint")
         return result
     }
 
     /**
      * Retrieves the next domain controller in a domain controller enumeration operation.
      * @param {HANDLE} GetDcContextHandle Contains the domain controller enumeration context handle provided by the <a href="https://docs.microsoft.com/windows/desktop/api/dsgetdc/nf-dsgetdc-dsgetdcopena">DsGetDcOpen</a> function.
-     * @param {Pointer<UInt32>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
+     * @param {Pointer<Integer>} SockAddressCount Pointer to a <b>ULONG</b> value that receives the number of elements in the <i>SockAddresses</i> array.
      *         If this parameter is <b>NULL</b>, socket addresses are not retrieved.
-     * @param {Pointer<SOCKET_ADDRESS>} SockAddresses Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that receives the socket address data for the domain controller. <i>SockAddressCount</i> receives the number of elements in this array.
+     * @param {Pointer<Pointer<SOCKET_ADDRESS>>} SockAddresses Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ws2def/ns-ws2def-socket_address">SOCKET_ADDRESS</a> structures that receives the socket address data for the domain controller. <i>SockAddressCount</i> receives the number of elements in this array.
      * 
      * All returned addresses will be of type <b>AF_INET</b> or <b>AF_INET6</b>.
      *         The <b>sin_port</b> member contains the port from the server record.
@@ -7113,7 +7113,7 @@ class ActiveDirectory {
     static DsGetDcNextA(GetDcContextHandle, SockAddressCount, SockAddresses, DnsHostName) {
         GetDcContextHandle := GetDcContextHandle is Win32Handle ? NumGet(GetDcContextHandle, "ptr") : GetDcContextHandle
 
-        result := DllCall("NETAPI32.dll\DsGetDcNextA", "ptr", GetDcContextHandle, "uint*", SockAddressCount, "ptr", SockAddresses, "ptr", DnsHostName, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNextA", "ptr", GetDcContextHandle, "uint*", SockAddressCount, "ptr*", SockAddresses, "ptr", DnsHostName, "uint")
         return result
     }
 

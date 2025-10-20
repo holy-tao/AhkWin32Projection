@@ -24,7 +24,7 @@ class DHCP_CLIENT_INFO_ARRAY extends Win32Struct
 
     /**
      * Pointer to a list of <a href="https://docs.microsoft.com/windows/desktop/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info">DHCP_CLIENT_INFO</a> structures that contain information on specific DHCP subnet clients.).
-     * @type {Pointer<DHCP_CLIENT_INFO>}
+     * @type {Pointer<Pointer<DHCP_CLIENT_INFO>>}
      */
     Clients {
         get => NumGet(this, 8, "ptr")

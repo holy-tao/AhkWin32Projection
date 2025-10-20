@@ -102,7 +102,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SigPattern {
         get => NumGet(this, 72, "ptr")
@@ -110,7 +110,7 @@ class ImageCodecInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     SigMask {
         get => NumGet(this, 80, "ptr")

@@ -61,7 +61,7 @@ class SecurityCenter {
     /**
      * Gets the aggregate health state of the security provider categories represented by the specified WSC_SECURITY_PROVIDER enumeration values.
      * @param {Integer} Providers One or more of the values in the <a href="https://docs.microsoft.com/windows/desktop/api/wscapi/ne-wscapi-wsc_security_provider">WSC_SECURITY_PROVIDER</a> enumeration. To specify more than one value, combine the individual values by performing a bitwise OR operation.
-     * @param {Pointer<Int32>} pHealth A pointer to a variable that takes the value of one of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/wscapi/ne-wscapi-wsc_security_provider_health">WSC_SECURITY_PROVIDER_HEALTH</a> enumeration. If more than one provider is specified in the <i>Providers</i> parameter, the value of this parameter is the health of the least healthy of the specified provider categories.
+     * @param {Pointer<Integer>} pHealth A pointer to a variable that takes the value of one of the members of the <a href="https://docs.microsoft.com/windows/desktop/api/wscapi/ne-wscapi-wsc_security_provider_health">WSC_SECURITY_PROVIDER_HEALTH</a> enumeration. If more than one provider is specified in the <i>Providers</i> parameter, the value of this parameter is the health of the least healthy of the specified provider categories.
      * @returns {HRESULT} Returns <b>S_OK</b> if the function succeeds, otherwise returns an error code. If the WSC service is not running, the return value is always <b>S_FALSE</b> and the <i>pHealth</i> out parameter is always set to <b>WSC_SECURITY_PROVIDER_HEALTH_POOR</b>.
      * @see https://docs.microsoft.com/windows/win32/api//wscapi/nf-wscapi-wscgetsecurityproviderhealth
      * @since windows6.0.6000

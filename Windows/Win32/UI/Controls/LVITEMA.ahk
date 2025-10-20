@@ -323,7 +323,7 @@ class LVITEMA extends Win32Struct
      * 
      * 
      * <a href="https://docs.microsoft.com/windows/desktop/Controls/common-control-versions">Version 6.0 </a> A pointer to an array of column indices, specifying which columns are displayed for this item, and the order of those columns.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     puColumns {
         get => NumGet(this, 64, "ptr")
@@ -391,7 +391,7 @@ class LVITEMA extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     piColFmt {
         get => NumGet(this, 72, "ptr")

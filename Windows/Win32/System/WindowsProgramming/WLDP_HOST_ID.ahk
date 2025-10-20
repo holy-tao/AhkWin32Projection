@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/wldp/ne-wldp-wldp_host_id
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */

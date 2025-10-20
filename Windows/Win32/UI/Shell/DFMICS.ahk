@@ -83,7 +83,7 @@ class DFMICS extends Win32Struct
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the site of the context menu handler.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     punkSite {
         get => NumGet(this, 32, "ptr")

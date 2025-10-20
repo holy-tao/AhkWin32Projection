@@ -43,7 +43,7 @@ class PEER_PNRP_REGISTRATION_INFO extends Win32Struct
 
     /**
      * Pointer to an array of pointers to SOCKADDR structures that contain the IP addresses bound to the network interface of the peer identity requesting registration.
-     * @type {Pointer<SOCKADDR>}
+     * @type {Pointer<Pointer<SOCKADDR>>}
      */
     ppAddresses {
         get => NumGet(this, 24, "ptr")

@@ -3,6 +3,8 @@
 #Include .\WINBIO_REGISTERED_FORMAT.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-bir-header
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

@@ -3,6 +3,8 @@
 #Include .\WMDMDATETIME.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WMDM/wmdmrights
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

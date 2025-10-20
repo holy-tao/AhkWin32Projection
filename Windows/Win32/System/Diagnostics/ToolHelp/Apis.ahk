@@ -145,7 +145,7 @@ class ToolHelp {
      * @param {Pointer<Void>} lpBaseAddress The base address in the specified process to read. Before transferring any data, the system verifies that all data in the base address and memory of the specified size is accessible for read access. If this is the case, the function proceeds. Otherwise, the function fails.
      * @param {Pointer<Void>} lpBuffer A pointer to a buffer that receives the contents of the address space of the specified process.
      * @param {Pointer} cbRead The number of bytes to read from the specified process.
-     * @param {Pointer<UIntPtr>} lpNumberOfBytesRead The number of bytes copied to the specified buffer. If this parameter is <b>NULL</b>, it is ignored.
+     * @param {Pointer<Pointer>} lpNumberOfBytesRead The number of bytes copied to the specified buffer. If this parameter is <b>NULL</b>, it is ignored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful.
      * @see https://docs.microsoft.com/windows/win32/api//tlhelp32/nf-tlhelp32-toolhelp32readprocessmemory
      * @since windows5.1.2600

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/tablet/inkrenderer-class
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

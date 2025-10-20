@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/medfound/codecapi-avencvideousage
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

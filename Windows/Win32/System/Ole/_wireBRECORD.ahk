@@ -28,7 +28,7 @@ class _wireBRECORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IRecordInfo>}
+     * @type {IRecordInfo}
      */
     pRecInfo {
         get => NumGet(this, 8, "ptr")
@@ -36,7 +36,7 @@ class _wireBRECORD extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pRecord {
         get => NumGet(this, 16, "ptr")

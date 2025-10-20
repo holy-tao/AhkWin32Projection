@@ -35,7 +35,7 @@ class RdcBufferPointer extends Win32Struct
 
     /**
      * Pointer to the buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     m_Data {
         get => NumGet(this, 8, "ptr")

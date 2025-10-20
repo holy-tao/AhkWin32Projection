@@ -18,7 +18,7 @@ class D3D12_RESOLVE_VIDEO_MOTION_VECTOR_HEAP_INPUT extends Win32Struct
 
     /**
      * The [ID3D12VideoMotionVectorHeap](nn-d3d12video-id3d12videomotionvectorheap.md) containing the hardware-dependent data layout of the motion search.
-     * @type {Pointer<ID3D12VideoMotionVectorHeap>}
+     * @type {ID3D12VideoMotionVectorHeap}
      */
     pMotionVectorHeap {
         get => NumGet(this, 0, "ptr")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-lgpos-structure2
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

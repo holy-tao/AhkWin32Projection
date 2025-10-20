@@ -69,10 +69,10 @@ class IO {
      * Attempts to dequeue an I/O completion packet from the specified I/O completion port.
      * @param {HANDLE} CompletionPort A handle to the completion port. To create a completion port, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/createiocompletionport">CreateIoCompletionPort</a> function.
-     * @param {Pointer<UInt32>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes transferred in a completed I/O operation.
-     * @param {Pointer<UIntPtr>} lpCompletionKey A pointer to a variable that receives the completion key value associated with the file handle whose I/O operation has completed. A completion key is a per-file key that is specified in a call to 
+     * @param {Pointer<Integer>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes transferred in a completed I/O operation.
+     * @param {Pointer<Pointer>} lpCompletionKey A pointer to a variable that receives the completion key value associated with the file handle whose I/O operation has completed. A completion key is a per-file key that is specified in a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/FileIO/createiocompletionport">CreateIoCompletionPort</a>.
-     * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to a variable that receives the address of the 
+     * @param {Pointer<Pointer<OVERLAPPED>>} lpOverlapped A pointer to a variable that receives the address of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that was specified when the completed I/O operation was started. 
      * 
      * Even if you have passed the function a file handle associated with a completion port and a valid 
@@ -94,7 +94,7 @@ class IO {
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, "uint*", lpNumberOfBytesTransferred, "ptr*", lpCompletionKey, "ptr", lpOverlapped, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, "uint*", lpNumberOfBytesTransferred, "ptr*", lpCompletionKey, "ptr*", lpOverlapped, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 
@@ -116,7 +116,7 @@ class IO {
      *        occurred, and the overlapped structure address used in each original I/O are all returned in the 
      *        <i>lpCompletionPortEntries</i> array.
      * @param {Integer} ulCount The maximum number of entries to remove.
-     * @param {Pointer<UInt32>} ulNumEntriesRemoved A pointer to a variable that receives the number of entries actually removed.
+     * @param {Pointer<Integer>} ulNumEntriesRemoved A pointer to a variable that receives the number of entries actually removed.
      * @param {Integer} dwMilliseconds The number of milliseconds that the caller is willing to wait for a completion packet to appear at the 
      *        completion port. If a completion packet does not appear within the specified time, the function times out and 
      *        returns <b>FALSE</b>.
@@ -206,7 +206,7 @@ class IO {
      * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
      *        an operation that does not return data.
      * @param {Integer} nOutBufferSize The size of the output buffer, in bytes.
-     * @param {Pointer<UInt32>} lpBytesReturned A pointer to a variable that receives the size of the data stored in the output buffer, in bytes.
+     * @param {Pointer<Integer>} lpBytesReturned A pointer to a variable that receives the size of the data stored in the output buffer, in bytes.
      * 
      * If the output buffer is too small to receive any data,  the call fails, 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns 
@@ -284,7 +284,7 @@ class IO {
      * - [ReadDirectoryChangesW](../winbase/nf-winbase-readdirectorychangesw.md)
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that was specified when the overlapped operation was started.
-     * @param {Pointer<UInt32>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation. For a 
+     * @param {Pointer<Integer>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-transactnamedpipe">TransactNamedPipe</a> operation, this is the number of bytes that were read from the pipe. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> operation, this is the number of bytes of output data returned by the device driver. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-connectnamedpipe">ConnectNamedPipe</a> or 
@@ -387,7 +387,7 @@ class IO {
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-waitcommevent">WaitCommEvent</a> function.
      * @param {Pointer<OVERLAPPED>} lpOverlapped A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that was specified when the overlapped operation was started.
-     * @param {Pointer<UInt32>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation. For a 
+     * @param {Pointer<Integer>} lpNumberOfBytesTransferred A pointer to a variable that receives the number of bytes that were actually transferred by a read or write operation. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-transactnamedpipe">TransactNamedPipe</a> operation, this is the number of bytes that were read from the pipe. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-deviceiocontrol">DeviceIoControl</a> operation, this is the number of bytes of output data returned by the device driver. For a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/namedpipeapi/nf-namedpipeapi-connectnamedpipe">ConnectNamedPipe</a> or 

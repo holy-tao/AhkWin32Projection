@@ -29,7 +29,7 @@ class SecPkgContext_NegotiatedTlsExtensions extends Win32Struct
 
     /**
      * A pointer to the array of 2-byte TLS extension IDs as defined in the [IANA (D)TLS extensions registry](https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml).
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     Extensions {
         get => NumGet(this, 8, "ptr")

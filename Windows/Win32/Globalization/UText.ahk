@@ -92,7 +92,7 @@ class UText extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     chunkContents {
         get => NumGet(this, 48, "ptr")

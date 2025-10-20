@@ -40,7 +40,7 @@ class D2D1_VERTEX_BUFFER_PROPERTIES extends Win32Struct
 
     /**
      * The initial contents of the vertex buffer.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     data {
         get => NumGet(this, 8, "ptr")

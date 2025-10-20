@@ -143,7 +143,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     BinaryVal {
         get => NumGet(this, 0, "ptr")
@@ -175,7 +175,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     SByteArr {
         get => NumGet(this, 0, "ptr")
@@ -183,7 +183,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int16>}
+     * @type {Pointer<Integer>}
      */
     Int16Arr {
         get => NumGet(this, 0, "ptr")
@@ -191,7 +191,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     Int32Arr {
         get => NumGet(this, 0, "ptr")
@@ -199,7 +199,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Int64>}
+     * @type {Pointer<Integer>}
      */
     Int64Arr {
         get => NumGet(this, 0, "ptr")
@@ -207,7 +207,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     ByteArr {
         get => NumGet(this, 0, "ptr")
@@ -215,7 +215,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     UInt16Arr {
         get => NumGet(this, 0, "ptr")
@@ -223,7 +223,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     UInt32Arr {
         get => NumGet(this, 0, "ptr")
@@ -231,7 +231,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt64>}
+     * @type {Pointer<Integer>}
      */
     UInt64Arr {
         get => NumGet(this, 0, "ptr")
@@ -239,7 +239,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     SingleArr {
         get => NumGet(this, 0, "ptr")
@@ -247,7 +247,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Double>}
+     * @type {Pointer<Float>}
      */
     DoubleArr {
         get => NumGet(this, 0, "ptr")
@@ -303,7 +303,7 @@ class EVT_VARIANT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UIntPtr>}
+     * @type {Pointer<Pointer>}
      */
     SizeTArr {
         get => NumGet(this, 0, "ptr")

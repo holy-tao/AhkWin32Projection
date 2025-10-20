@@ -73,7 +73,7 @@ class WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO>}
+     * @type {Pointer<Pointer<WTD_GENERIC_CHAIN_POLICY_SIGNER_INFO>>}
      */
     rgpCounterSigner {
         get => NumGet(this, 40, "ptr")

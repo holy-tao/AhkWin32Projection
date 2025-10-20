@@ -167,7 +167,7 @@ class VMEMHEAP extends Win32Struct
 
     /**
      * Reserved for system use and should be ignored by the driver.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pAgpCommitMask {
         get => NumGet(this, 240, "ptr")

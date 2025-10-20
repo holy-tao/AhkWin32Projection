@@ -35,7 +35,7 @@ class NMTBRESTORE extends Win32Struct
      * 
      * Pointer to the data stream with the stored save information. It contains Shell-defined blocks of information for each button, alternating with application-defined blocks. Applications may also place a block of global data at the start of 
      * 					<b>pData</b>. The format and length of the application-defined blocks are determined by the application.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pData {
         get => NumGet(this, 24, "ptr")
@@ -47,7 +47,7 @@ class NMTBRESTORE extends Win32Struct
      * 
      * Pointer to the current block of application-defined data. After extracting the data, the application must advance 
      * 					<b>pCurrent</b> to the end of the block, so it is pointing to the next block of Shell-defined data.
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     pCurrent {
         get => NumGet(this, 32, "ptr")

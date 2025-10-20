@@ -51,7 +51,7 @@ class CRYPT_XML_DOC_CTXT extends Win32Struct
 
     /**
      * A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/cryptxml/ns-cryptxml-crypt_xml_signature">CRYPT_XML_SIGNATURE</a> structures that contain XML signature information.
-     * @type {Pointer<CRYPT_XML_SIGNATURE>}
+     * @type {Pointer<Pointer<CRYPT_XML_SIGNATURE>>}
      */
     rgpSignature {
         get => NumGet(this, 32, "ptr")

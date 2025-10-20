@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/netioapi/ns-netioapi-dns_server_property_types
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

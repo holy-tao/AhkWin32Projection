@@ -48,7 +48,7 @@ class SPWORDENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     aPhoneId {
         get => NumGet(this, 32, "ptr")

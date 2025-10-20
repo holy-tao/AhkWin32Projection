@@ -20,7 +20,7 @@ class DOT11_BSS_LIST extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pucBuffer {
         get => NumGet(this, 8, "ptr")

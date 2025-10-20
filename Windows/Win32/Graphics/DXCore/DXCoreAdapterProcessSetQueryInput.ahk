@@ -20,7 +20,7 @@ class DXCoreAdapterProcessSetQueryInput extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     processIds {
         get => NumGet(this, 8, "ptr")

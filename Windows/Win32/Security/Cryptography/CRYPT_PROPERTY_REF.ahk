@@ -33,7 +33,7 @@ class CRYPT_PROPERTY_REF extends Win32Struct
 
     /**
      * A pointer to a memory buffer that contains the value of the property. The format and type of this data depend on the property.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbValue {
         get => NumGet(this, 16, "ptr")

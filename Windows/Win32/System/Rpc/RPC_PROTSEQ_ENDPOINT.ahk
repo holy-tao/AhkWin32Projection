@@ -12,7 +12,7 @@ class RPC_PROTSEQ_ENDPOINT extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     RpcProtocolSequence {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class RPC_PROTSEQ_ENDPOINT extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Endpoint {
         get => NumGet(this, 8, "ptr")

@@ -37,7 +37,7 @@ class STATDATA extends Win32Struct
 
     /**
      * The pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iadvisesink">IAdviseSink</a> interface that will receive change notifications.
-     * @type {Pointer<IAdviseSink>}
+     * @type {IAdviseSink}
      */
     pAdvSink {
         get => NumGet(this, 40, "ptr")

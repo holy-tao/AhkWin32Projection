@@ -24,7 +24,7 @@ class TRANSPORT_SETTING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<UInt32>}
+     * @type {Pointer<Integer>}
      */
     Length {
         get => NumGet(this, 8, "ptr")
@@ -32,7 +32,7 @@ class TRANSPORT_SETTING extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     Value {
         get => NumGet(this, 16, "ptr")

@@ -36,7 +36,7 @@ class DNS_CONNECTION_POLICY_ENTRY extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbAppSid {
         get => NumGet(this, 24, "ptr")

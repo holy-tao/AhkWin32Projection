@@ -15,7 +15,7 @@ class MI_ConstReal32A extends Win32Struct
 
     /**
      * An array of  MI_Real32 types.
-     * @type {Pointer<Single>}
+     * @type {Pointer<Float>}
      */
     data {
         get => NumGet(this, 0, "ptr")

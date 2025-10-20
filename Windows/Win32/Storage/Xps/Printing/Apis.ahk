@@ -52,7 +52,7 @@ class Printing {
      * @param {HANDLE} completionEvent An event handle that is signaled when the  print job finishes.  This event is guaranteed to be signaled exactly once per <b>StartXpsPrintJob</b> call.  The XPS Print API does not reset this event—that is the caller's responsibility.
      * 
      * If no completion notification is required, this parameter can be set to <b>NULL</b>.
-     * @param {Pointer<Byte>} printablePagesOn The parameter references a UINT8 array whose elements specify a subset of a document's pages to be printed. As shown in the table that follows, the value of each element indicates whether the page is to be printed.
+     * @param {Pointer<Integer>} printablePagesOn The parameter references a UINT8 array whose elements specify a subset of a document's pages to be printed. As shown in the table that follows, the value of each element indicates whether the page is to be printed.
      * 
      * <table>
      * <tr>
@@ -202,7 +202,7 @@ class Printing {
         progressEvent := progressEvent is Win32Handle ? NumGet(progressEvent, "ptr") : progressEvent
         completionEvent := completionEvent is Win32Handle ? NumGet(completionEvent, "ptr") : completionEvent
 
-        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "char*", printablePagesOn, "uint", printablePagesOnCount, "ptr", xpsPrintJob, "ptr", documentStream, "ptr", printTicketStream, "int")
+        result := DllCall("XPSPRINT.dll\StartXpsPrintJob", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "char*", printablePagesOn, "uint", printablePagesOnCount, "ptr*", xpsPrintJob, "ptr*", documentStream, "ptr*", printTicketStream, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -291,7 +291,7 @@ class Printing {
         progressEvent := progressEvent is Win32Handle ? NumGet(progressEvent, "ptr") : progressEvent
         completionEvent := completionEvent is Win32Handle ? NumGet(completionEvent, "ptr") : completionEvent
 
-        result := DllCall("XPSPRINT.dll\StartXpsPrintJob1", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr", xpsPrintJob, "ptr", printContentReceiver, "int")
+        result := DllCall("XPSPRINT.dll\StartXpsPrintJob1", "ptr", printerName, "ptr", jobName, "ptr", outputFileName, "ptr", progressEvent, "ptr", completionEvent, "ptr*", xpsPrintJob, "ptr*", printContentReceiver, "int")
         if(result != 0)
             throw OSError(result)
 

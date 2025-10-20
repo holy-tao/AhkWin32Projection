@@ -33,7 +33,7 @@ class MFP_POSITION_SET_EVENT extends Win32Struct
 
     /**
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfplay/nn-mfplay-imfpmediaitem">IMFPMediaItem</a> interface of the current media item.
-     * @type {Pointer<IMFPMediaItem>}
+     * @type {IMFPMediaItem}
      */
     pMediaItem {
         get => NumGet(this, 32, "ptr")

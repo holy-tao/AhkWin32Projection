@@ -2614,7 +2614,7 @@ class QoS {
     /**
      * Enumerates all existing flows.
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
-     * @param {Pointer<UInt32>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
@@ -2748,7 +2748,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} FlowId Pointer to a buffer that receives a flow identifier. On input, this value must be 0.  On output, the buffer contains a flow identifier if the call succeeds.  
+     * @param {Pointer<Integer>} FlowId Pointer to a buffer that receives a flow identifier. On input, this value must be 0.  On output, the buffer contains a flow identifier if the call succeeds.  
      * 
      * If a socket is being added to an existing flow, this parameter will be the identifier of that flow.
      * 
@@ -3296,7 +3296,7 @@ class QoS {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<UInt32>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
@@ -3524,7 +3524,7 @@ class QoS {
      * @param {HANDLE} QOSHandle Handle to the QOS subsystem returned by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/qos2/nf-qos2-qoscreatehandle">QOSCreateHandle</a>.
      * @param {Integer} FlowId Specifies the flow identifier from which the application wishes to receive notifications. A <b>QOS_FLOWID</b> is an unsigned 32-bit integer.
      * @param {Integer} Operation A <a href="https://docs.microsoft.com/windows/desktop/api/qos2/ne-qos2-qos_notify_flow">QOS_NOTIFY_FLOW</a> value that indicates what the type of  notification being requested.
-     * @param {Pointer<UInt32>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
+     * @param {Pointer<Integer>} Size Indicates the size of the <i>Buffer</i> parameter, in bytes.
      * 
      * On function return, if successful, this parameter will specify the number of bytes copied into <i>Buffer</i>.
      * 
@@ -3913,7 +3913,7 @@ class QoS {
      * The TcEnumerateInterfaces function enumerates all traffic control�enabled network interfaces. Clients are notified of interface changes through the ClNotifyHandler function.
      * @param {HANDLE} ClientHandle Handle used by traffic control to identify the client. Clients receive handles when registering with traffic control through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nf-traffic-tcregisterclient">TcRegisterClient</a> function.
-     * @param {Pointer<UInt32>} pBufferSize Pointer to a value indicating the size of the buffer. For input, this value is the size of the buffer, in bytes, allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used or needed by traffic control. A value of zero on output indicates that no traffic control interfaces are available, indicating that the QOS Packet Scheduler is not installed.
+     * @param {Pointer<Integer>} pBufferSize Pointer to a value indicating the size of the buffer. For input, this value is the size of the buffer, in bytes, allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used or needed by traffic control. A value of zero on output indicates that no traffic control interfaces are available, indicating that the QOS Packet Scheduler is not installed.
      * @param {Pointer<TC_IFC_DESCRIPTOR>} InterfaceBuffer Pointer to the buffer containing the returned list of interface descriptors.
      * @returns {Integer} Successful completion returns the device name of the interface.
      * 
@@ -4210,7 +4210,7 @@ class QoS {
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the traffic control parameter being queried.
      * @param {BOOLEAN} NotifyChange Used to request notifications from traffic control for the parameter being queried. If <b>TRUE</b>, traffic control will notify the client, through the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/traffic/nc-traffic-tci_notify_handler">ClNotifyHandler</a> function, upon changes to the parameter corresponding to the GUID provided in <i>pGuidParam</i>. Notifications are off by default.
-     * @param {Pointer<UInt32>} pBufferSize Indicates the size of the buffer, in bytes. For input, this value is the size of the buffer allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used by traffic control.
+     * @param {Pointer<Integer>} pBufferSize Indicates the size of the buffer, in bytes. For input, this value is the size of the buffer allocated by the caller. For output, this value is the actual size of the buffer, in bytes, used by traffic control.
      * @param {Pointer} Buffer Pointer to a client-allocated buffer into which returned data will be written.
      * @returns {Integer} Note that, with regard to a requested notification state, only a return value of NO_ERROR will result in the application of the requested notification state. If a return value other than NO_ERROR is returned from a call to the 
      * <b>TcQueryInterface</b> function, the requested change in notification state will not be accepted.
@@ -4403,7 +4403,7 @@ class QoS {
      * @param {PSTR} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
-     * @param {Pointer<UInt32>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
+     * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
      * @param {Pointer} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
@@ -4492,7 +4492,7 @@ class QoS {
      * @param {PWSTR} pFlowName Name of the flow being queried.
      * @param {Pointer<Guid>} pGuidParam Pointer to the globally unique identifier (GUID) that corresponds to the flow parameter of interest. A list of traffic control's GUIDs can be found in 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/qos/guid">GUID</a>.
-     * @param {Pointer<UInt32>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
+     * @param {Pointer<Integer>} pBufferSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space written with returned flow-parameter data, in bytes.
      * @param {Pointer} Buffer Pointer to the client-provided buffer in which the returned flow parameter is written.
      * @returns {Integer} <table>
      * <tr>
@@ -5695,8 +5695,8 @@ class QoS {
      * 
      * For output, <i>pEnumToken</i> is the refreshed enumeration token that must be used in the following call to 
      * <b>TcEnumerateFlows</b>.
-     * @param {Pointer<UInt32>} pFlowCount Pointer to the number of requested or returned flows. For input, this parameter designates the number of requested flows or it can be set to <b>0xFFFF</b> to request all flows. For output, <i>pFlowCount</i> returns the number of flows actually returned in <i>Buffer</i>.
-     * @param {Pointer<UInt32>} pBufSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space, in bytes, written or needed with flow enumerations.
+     * @param {Pointer<Integer>} pFlowCount Pointer to the number of requested or returned flows. For input, this parameter designates the number of requested flows or it can be set to <b>0xFFFF</b> to request all flows. For output, <i>pFlowCount</i> returns the number of flows actually returned in <i>Buffer</i>.
+     * @param {Pointer<Integer>} pBufSize Pointer to the size of the client-provided buffer or the number of bytes used by traffic control. For input, points to the size of <i>Buffer</i>, in bytes. For output, points to the actual amount of buffer space, in bytes, written or needed with flow enumerations.
      * @param {Pointer<ENUMERATION_BUFFER>} Buffer Pointer to the buffer containing flow enumerations. See 
      * <a href="https://docs.microsoft.com/windows/desktop/api/traffic/ns-traffic-enumeration_buffer">ENUMERATION_BUFFER</a> for more information about flow enumerations.
      * @returns {Integer} <table>

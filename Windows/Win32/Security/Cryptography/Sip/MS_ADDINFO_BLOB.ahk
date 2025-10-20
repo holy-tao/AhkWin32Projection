@@ -33,7 +33,7 @@ class MS_ADDINFO_BLOB extends Win32Struct
 
     /**
      * A pointer to the in-memory BLOB subject.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMemObject {
         get => NumGet(this, 8, "ptr")
@@ -51,7 +51,7 @@ class MS_ADDINFO_BLOB extends Win32Struct
 
     /**
      * A pointer to the signed message.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbMemSignedMsg {
         get => NumGet(this, 24, "ptr")

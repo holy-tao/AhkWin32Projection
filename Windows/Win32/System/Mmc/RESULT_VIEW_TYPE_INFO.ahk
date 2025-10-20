@@ -73,7 +73,7 @@ class RESULT_VIEW_TYPE_INFO extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnkControl {
         get => NumGet(this, 24, "ptr")

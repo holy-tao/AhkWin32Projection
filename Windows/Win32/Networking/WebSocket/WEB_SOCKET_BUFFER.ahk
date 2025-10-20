@@ -23,7 +23,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         pbBuffer {
             get => NumGet(this, 0, "ptr")
@@ -45,7 +45,7 @@ class WEB_SOCKET_BUFFER extends Win32Struct
         static packingSize => 8
 
         /**
-         * @type {Pointer<Byte>}
+         * @type {Pointer<Integer>}
          */
         pbReason {
             get => NumGet(this, 0, "ptr")

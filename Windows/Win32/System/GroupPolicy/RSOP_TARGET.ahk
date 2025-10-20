@@ -65,7 +65,7 @@ class RSOP_TARGET extends Win32Struct
 
     /**
      * Specifies the WMI services pointer to the namespace to which the planning mode policy data should be written.
-     * @type {Pointer<IWbemServices>}
+     * @type {IWbemServices}
      */
     pWbemServices {
         get => NumGet(this, 40, "ptr")

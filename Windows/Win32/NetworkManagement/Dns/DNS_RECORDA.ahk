@@ -640,7 +640,7 @@ class DNS_RECORDA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pDataPtr {
         get => NumGet(this, 32, "ptr")

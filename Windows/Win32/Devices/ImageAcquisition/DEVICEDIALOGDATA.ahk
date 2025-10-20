@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HWND.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/wia/-wia-devicedialogdata
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -32,7 +34,7 @@ class DEVICEDIALOGDATA extends Win32Struct
     }
 
     /**
-     * @type {Pointer<IWiaItem>}
+     * @type {IWiaItem}
      */
     pIWiaItemRoot {
         get => NumGet(this, 16, "ptr")

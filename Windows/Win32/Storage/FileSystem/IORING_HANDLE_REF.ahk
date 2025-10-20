@@ -3,6 +3,8 @@
 #Include ..\..\Foundation\HANDLE.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/ioringapi/ns-ioringapi-ioring_handle_ref
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

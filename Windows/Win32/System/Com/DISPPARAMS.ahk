@@ -24,7 +24,7 @@ class DISPPARAMS extends Win32Struct
 
     /**
      * The dispatch IDs of the named arguments.
-     * @type {Pointer<Int32>}
+     * @type {Pointer<Integer>}
      */
     rgdispidNamedArgs {
         get => NumGet(this, 8, "ptr")

@@ -20,7 +20,7 @@ class CAUB extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pElems {
         get => NumGet(this, 8, "ptr")

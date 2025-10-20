@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/setupapi/ns-setupapi-file_in_cabinet_info_w
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  * @charset Unicode

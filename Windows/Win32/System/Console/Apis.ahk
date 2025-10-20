@@ -482,6 +482,7 @@ class Console {
     /**
      * 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/allocconsole
      */
     static AllocConsole() {
         A_LastError := 0
@@ -496,7 +497,7 @@ class Console {
     /**
      * 
      * @param {Pointer<ALLOC_CONSOLE_OPTIONS>} options 
-     * @param {Pointer<Int32>} result 
+     * @param {Pointer<Integer>} result 
      * @returns {HRESULT} 
      */
     static AllocConsoleWithOptions(options, result) {
@@ -510,6 +511,7 @@ class Console {
     /**
      * 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/freeconsole
      */
     static FreeConsole() {
         A_LastError := 0
@@ -525,6 +527,7 @@ class Console {
      * 
      * @param {Integer} dwProcessId 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/attachconsole
      */
     static AttachConsole(dwProcessId) {
         A_LastError := 0
@@ -539,6 +542,7 @@ class Console {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolecp
      */
     static GetConsoleCP() {
         A_LastError := 0
@@ -553,6 +557,7 @@ class Console {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoleoutputcp
      */
     static GetConsoleOutputCP() {
         A_LastError := 0
@@ -567,8 +572,9 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleHandle 
-     * @param {Pointer<UInt32>} lpMode 
+     * @param {Pointer<Integer>} lpMode 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsolemode
      */
     static GetConsoleMode(hConsoleHandle, lpMode) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
@@ -587,6 +593,7 @@ class Console {
      * @param {HANDLE} hConsoleHandle 
      * @param {Integer} dwMode 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolemode
      */
     static SetConsoleMode(hConsoleHandle, dwMode) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
@@ -603,8 +610,9 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleInput 
-     * @param {Pointer<UInt32>} lpNumberOfEvents 
+     * @param {Pointer<Integer>} lpNumberOfEvents 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getnumberofconsoleinputevents
      */
     static GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -623,8 +631,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleinput
      */
     static ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -643,8 +652,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleinput
      */
     static ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -663,8 +673,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     static PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -683,8 +694,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
      */
     static PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -703,9 +715,10 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfCharsToRead 
-     * @param {Pointer<UInt32>} lpNumberOfCharsRead 
+     * @param {Pointer<Integer>} lpNumberOfCharsRead 
      * @param {Pointer<CONSOLE_READCONSOLE_CONTROL>} pInputControl 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsole
      */
     static ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -724,9 +737,10 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<Void>} lpBuffer 
      * @param {Integer} nNumberOfCharsToRead 
-     * @param {Pointer<UInt32>} lpNumberOfCharsRead 
+     * @param {Pointer<Integer>} lpNumberOfCharsRead 
      * @param {Pointer<CONSOLE_READCONSOLE_CONTROL>} pInputControl 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsole
      */
     static ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -745,8 +759,9 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {PSTR} lpBuffer 
      * @param {Integer} nNumberOfCharsToWrite 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsole
      */
     static WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
@@ -768,8 +783,9 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {PWSTR} lpBuffer 
      * @param {Integer} nNumberOfCharsToWrite 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsole
      */
     static WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
@@ -791,6 +807,7 @@ class Console {
      * @param {Pointer<PHANDLER_ROUTINE>} HandlerRoutine 
      * @param {BOOL} Add 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolectrlhandler
      */
     static SetConsoleCtrlHandler(HandlerRoutine, Add) {
         A_LastError := 0
@@ -810,6 +827,7 @@ class Console {
      * @param {Integer} dwFlags 
      * @param {Pointer<HPCON>} phPC 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
     static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
@@ -827,6 +845,7 @@ class Console {
      * @param {HPCON} hPC 
      * @param {COORD} size 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/console/resizepseudoconsole
      */
     static ResizePseudoConsole(hPC, size) {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
@@ -842,6 +861,7 @@ class Console {
      * 
      * @param {HPCON} hPC 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/console/closepseudoconsole
      */
     static ClosePseudoConsole(hPC) {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
@@ -870,8 +890,9 @@ class Console {
      * @param {CHAR} cCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
      */
     static FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -891,8 +912,9 @@ class Console {
      * @param {Integer} cCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
      */
     static FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -912,8 +934,9 @@ class Console {
      * @param {Integer} wAttribute 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfAttrsWritten 
+     * @param {Pointer<Integer>} lpNumberOfAttrsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputattribute
      */
     static FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -932,6 +955,7 @@ class Console {
      * @param {Integer} dwCtrlEvent 
      * @param {Integer} dwProcessGroupId 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/generateconsolectrlevent
      */
     static GenerateConsoleCtrlEvent(dwCtrlEvent, dwProcessGroupId) {
         A_LastError := 0
@@ -950,6 +974,7 @@ class Console {
      * @param {Pointer<SECURITY_ATTRIBUTES>} lpSecurityAttributes 
      * @param {Integer} dwFlags 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/console/createconsolescreenbuffer
      */
     static CreateConsoleScreenBuffer(dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlags) {
         static lpScreenBufferData := 0 ;Reserved parameters must always be NULL
@@ -967,6 +992,7 @@ class Console {
      * 
      * @param {HANDLE} hConsoleOutput 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoleactivescreenbuffer
      */
     static SetConsoleActiveScreenBuffer(hConsoleOutput) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -984,6 +1010,7 @@ class Console {
      * 
      * @param {HANDLE} hConsoleInput 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/flushconsoleinputbuffer
      */
     static FlushConsoleInputBuffer(hConsoleInput) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -1001,6 +1028,7 @@ class Console {
      * 
      * @param {Integer} wCodePageID 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolecp
      */
     static SetConsoleCP(wCodePageID) {
         A_LastError := 0
@@ -1016,6 +1044,7 @@ class Console {
      * 
      * @param {Integer} wCodePageID 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoleoutputcp
      */
     static SetConsoleOutputCP(wCodePageID) {
         A_LastError := 0
@@ -1032,6 +1061,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<CONSOLE_CURSOR_INFO>} lpConsoleCursorInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsolecursorinfo
      */
     static GetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1050,6 +1080,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<CONSOLE_CURSOR_INFO>} lpConsoleCursorInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolecursorinfo
      */
     static SetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1068,6 +1099,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFO>} lpConsoleScreenBufferInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsolescreenbufferinfo
      */
     static GetConsoleScreenBufferInfo(hConsoleOutput, lpConsoleScreenBufferInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1086,6 +1118,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFOEX>} lpConsoleScreenBufferInfoEx 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsolescreenbufferinfoex
      */
     static GetConsoleScreenBufferInfoEx(hConsoleOutput, lpConsoleScreenBufferInfoEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1104,6 +1137,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Pointer<CONSOLE_SCREEN_BUFFER_INFOEX>} lpConsoleScreenBufferInfoEx 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolescreenbufferinfoex
      */
     static SetConsoleScreenBufferInfoEx(hConsoleOutput, lpConsoleScreenBufferInfoEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1122,6 +1156,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {COORD} dwSize 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolescreenbuffersize
      */
     static SetConsoleScreenBufferSize(hConsoleOutput, dwSize) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1140,6 +1175,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {COORD} dwCursorPosition 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolecursorposition
      */
     static SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1157,6 +1193,7 @@ class Console {
      * 
      * @param {HANDLE} hConsoleOutput 
      * @returns {COORD} 
+     * @see https://learn.microsoft.com/windows/console/getlargestconsolewindowsize
      */
     static GetLargestConsoleWindowSize(hConsoleOutput) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1175,6 +1212,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Integer} wAttributes 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoletextattribute
      */
     static SetConsoleTextAttribute(hConsoleOutput, wAttributes) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1194,6 +1232,7 @@ class Console {
      * @param {BOOL} bAbsolute 
      * @param {Pointer<SMALL_RECT>} lpConsoleWindow 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolewindowinfo
      */
     static SetConsoleWindowInfo(hConsoleOutput, bAbsolute, lpConsoleWindow) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1213,8 +1252,9 @@ class Console {
      * @param {PSTR} lpCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
@@ -1235,8 +1275,9 @@ class Console {
      * @param {PWSTR} lpCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsWritten 
+     * @param {Pointer<Integer>} lpNumberOfCharsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
@@ -1254,11 +1295,12 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleOutput 
-     * @param {Pointer<UInt16>} lpAttribute 
+     * @param {Pointer<Integer>} lpAttribute 
      * @param {Integer} nLength 
      * @param {COORD} dwWriteCoord 
-     * @param {Pointer<UInt32>} lpNumberOfAttrsWritten 
+     * @param {Pointer<Integer>} lpNumberOfAttrsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputattribute
      */
     static WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1278,8 +1320,9 @@ class Console {
      * @param {PSTR} lpCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwReadCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsRead 
+     * @param {Pointer<Integer>} lpNumberOfCharsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
         lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
@@ -1300,8 +1343,9 @@ class Console {
      * @param {PWSTR} lpCharacter 
      * @param {Integer} nLength 
      * @param {COORD} dwReadCoord 
-     * @param {Pointer<UInt32>} lpNumberOfCharsRead 
+     * @param {Pointer<Integer>} lpNumberOfCharsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
         lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
@@ -1319,11 +1363,12 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleOutput 
-     * @param {Pointer<UInt16>} lpAttribute 
+     * @param {Pointer<Integer>} lpAttribute 
      * @param {Integer} nLength 
      * @param {COORD} dwReadCoord 
-     * @param {Pointer<UInt32>} lpNumberOfAttrsRead 
+     * @param {Pointer<Integer>} lpNumberOfAttrsRead 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleoutputattribute
      */
     static ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1342,8 +1387,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsWritten 
+     * @param {Pointer<Integer>} lpNumberOfEventsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleinput
      */
     static WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -1362,8 +1408,9 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsWritten 
+     * @param {Pointer<Integer>} lpNumberOfEventsWritten 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleinput
      */
     static WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -1385,6 +1432,7 @@ class Console {
      * @param {COORD} dwDestinationOrigin 
      * @param {Pointer<CHAR_INFO>} lpFill 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
      */
     static ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1406,6 +1454,7 @@ class Console {
      * @param {COORD} dwDestinationOrigin 
      * @param {Pointer<CHAR_INFO>} lpFill 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
      */
     static ScrollConsoleScreenBufferW(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1427,6 +1476,7 @@ class Console {
      * @param {COORD} dwBufferCoord 
      * @param {Pointer<SMALL_RECT>} lpWriteRegion 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleoutput
      */
     static WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1448,6 +1498,7 @@ class Console {
      * @param {COORD} dwBufferCoord 
      * @param {Pointer<SMALL_RECT>} lpWriteRegion 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/writeconsoleoutput
      */
     static WriteConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1469,6 +1520,7 @@ class Console {
      * @param {COORD} dwBufferCoord 
      * @param {Pointer<SMALL_RECT>} lpReadRegion 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleoutput
      */
     static ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1490,6 +1542,7 @@ class Console {
      * @param {COORD} dwBufferCoord 
      * @param {Pointer<SMALL_RECT>} lpReadRegion 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleoutput
      */
     static ReadConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1508,6 +1561,7 @@ class Console {
      * @param {PSTR} lpConsoleTitle 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoletitle
      */
     static GetConsoleTitleA(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1526,6 +1580,7 @@ class Console {
      * @param {PWSTR} lpConsoleTitle 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoletitle
      */
     static GetConsoleTitleW(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1544,6 +1599,7 @@ class Console {
      * @param {PSTR} lpConsoleTitle 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleA(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1562,6 +1618,7 @@ class Console {
      * @param {PWSTR} lpConsoleTitle 
      * @param {Integer} nSize 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleW(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1579,6 +1636,7 @@ class Console {
      * 
      * @param {PSTR} lpConsoleTitle 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoletitle
      */
     static SetConsoleTitleA(lpConsoleTitle) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1596,6 +1654,7 @@ class Console {
      * 
      * @param {PWSTR} lpConsoleTitle 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoletitle
      */
     static SetConsoleTitleW(lpConsoleTitle) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -1611,8 +1670,9 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<UInt32>} lpNumberOfMouseButtons 
+     * @param {Pointer<Integer>} lpNumberOfMouseButtons 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getnumberofconsolemousebuttons
      */
     static GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
         A_LastError := 0
@@ -1629,6 +1689,7 @@ class Console {
      * @param {HANDLE} hConsoleOutput 
      * @param {Integer} nFont 
      * @returns {COORD} 
+     * @see https://learn.microsoft.com/windows/console/getconsolefontsize
      */
     static GetConsoleFontSize(hConsoleOutput, nFont) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1648,6 +1709,7 @@ class Console {
      * @param {BOOL} bMaximumWindow 
      * @param {Pointer<CONSOLE_FONT_INFO>} lpConsoleCurrentFont 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getcurrentconsolefont
      */
     static GetCurrentConsoleFont(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFont) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1667,6 +1729,7 @@ class Console {
      * @param {BOOL} bMaximumWindow 
      * @param {Pointer<CONSOLE_FONT_INFOEX>} lpConsoleCurrentFontEx 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getcurrentconsolefontex
      */
     static GetCurrentConsoleFontEx(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFontEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1686,6 +1749,7 @@ class Console {
      * @param {BOOL} bMaximumWindow 
      * @param {Pointer<CONSOLE_FONT_INFOEX>} lpConsoleCurrentFontEx 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setcurrentconsolefontex
      */
     static SetCurrentConsoleFontEx(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFontEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1703,6 +1767,7 @@ class Console {
      * 
      * @param {Pointer<CONSOLE_SELECTION_INFO>} lpConsoleSelectionInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsoleselectioninfo
      */
     static GetConsoleSelectionInfo(lpConsoleSelectionInfo) {
         A_LastError := 0
@@ -1718,6 +1783,7 @@ class Console {
      * 
      * @param {Pointer<CONSOLE_HISTORY_INFO>} lpConsoleHistoryInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsolehistoryinfo
      */
     static GetConsoleHistoryInfo(lpConsoleHistoryInfo) {
         A_LastError := 0
@@ -1733,6 +1799,7 @@ class Console {
      * 
      * @param {Pointer<CONSOLE_HISTORY_INFO>} lpConsoleHistoryInfo 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsolehistoryinfo
      */
     static SetConsoleHistoryInfo(lpConsoleHistoryInfo) {
         A_LastError := 0
@@ -1746,8 +1813,9 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<UInt32>} lpModeFlags 
+     * @param {Pointer<Integer>} lpModeFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/getconsoledisplaymode
      */
     static GetConsoleDisplayMode(lpModeFlags) {
         A_LastError := 0
@@ -1765,6 +1833,7 @@ class Console {
      * @param {Integer} dwFlags 
      * @param {Pointer<COORD>} lpNewScreenBufferDimensions 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setconsoledisplaymode
      */
     static SetConsoleDisplayMode(hConsoleOutput, dwFlags, lpNewScreenBufferDimensions) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1781,6 +1850,7 @@ class Console {
     /**
      * 
      * @returns {HWND} 
+     * @see https://learn.microsoft.com/windows/console/getconsolewindow
      */
     static GetConsoleWindow() {
         result := DllCall("KERNEL32.dll\GetConsoleWindow", "ptr")
@@ -1793,6 +1863,7 @@ class Console {
      * @param {PSTR} Target 
      * @param {PSTR} ExeName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/addconsolealias
      */
     static AddConsoleAliasA(Source, Target, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -1814,6 +1885,7 @@ class Console {
      * @param {PWSTR} Target 
      * @param {PWSTR} ExeName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/addconsolealias
      */
     static AddConsoleAliasW(Source, Target, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -1836,6 +1908,7 @@ class Console {
      * @param {Integer} TargetBufferLength 
      * @param {PSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealias
      */
     static GetConsoleAliasA(Source, TargetBuffer, TargetBufferLength, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -1858,6 +1931,7 @@ class Console {
      * @param {Integer} TargetBufferLength 
      * @param {PWSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealias
      */
     static GetConsoleAliasW(Source, TargetBuffer, TargetBufferLength, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -1877,6 +1951,7 @@ class Console {
      * 
      * @param {PSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthA(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
@@ -1889,6 +1964,7 @@ class Console {
      * 
      * @param {PWSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthW(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
@@ -1900,6 +1976,7 @@ class Console {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiasexeslength
      */
     static GetConsoleAliasExesLengthA() {
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesLengthA", "uint")
@@ -1909,6 +1986,7 @@ class Console {
     /**
      * 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiasexeslength
      */
     static GetConsoleAliasExesLengthW() {
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesLengthW", "uint")
@@ -1921,6 +1999,7 @@ class Console {
      * @param {Integer} AliasBufferLength 
      * @param {PSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiases
      */
     static GetConsoleAliasesA(AliasBuffer, AliasBufferLength, ExeName) {
         AliasBuffer := AliasBuffer is String ? StrPtr(AliasBuffer) : AliasBuffer
@@ -1941,6 +2020,7 @@ class Console {
      * @param {Integer} AliasBufferLength 
      * @param {PWSTR} ExeName 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiases
      */
     static GetConsoleAliasesW(AliasBuffer, AliasBufferLength, ExeName) {
         AliasBuffer := AliasBuffer is String ? StrPtr(AliasBuffer) : AliasBuffer
@@ -1960,6 +2040,7 @@ class Console {
      * @param {PSTR} ExeNameBuffer 
      * @param {Integer} ExeNameBufferLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
      */
     static GetConsoleAliasExesA(ExeNameBuffer, ExeNameBufferLength) {
         ExeNameBuffer := ExeNameBuffer is String ? StrPtr(ExeNameBuffer) : ExeNameBuffer
@@ -1978,6 +2059,7 @@ class Console {
      * @param {PWSTR} ExeNameBuffer 
      * @param {Integer} ExeNameBufferLength 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
      */
     static GetConsoleAliasExesW(ExeNameBuffer, ExeNameBufferLength) {
         ExeNameBuffer := ExeNameBuffer is String ? StrPtr(ExeNameBuffer) : ExeNameBuffer
@@ -2093,9 +2175,10 @@ class Console {
 
     /**
      * 
-     * @param {Pointer<UInt32>} lpdwProcessList 
+     * @param {Pointer<Integer>} lpdwProcessList 
      * @param {Integer} dwProcessCount 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/console/getconsoleprocesslist
      */
     static GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
         A_LastError := 0
@@ -2274,10 +2357,10 @@ class Console {
      * @param {HANDLE} hStartHardwareEvent 
      * @param {HANDLE} hEndHardwareEvent 
      * @param {HANDLE} hErrorhardwareEvent 
-     * @param {Pointer<UInt32>} lpStateLength 
-     * @param {Pointer<Void>} lpState 
+     * @param {Pointer<Integer>} lpStateLength 
+     * @param {Pointer<Pointer<Void>>} lpState 
      * @param {COORD} VDMBufferSize 
-     * @param {Pointer<Void>} lpVDMBuffer 
+     * @param {Pointer<Pointer<Void>>} lpVDMBuffer 
      * @returns {BOOL} 
      */
     static RegisterConsoleVDM(dwRegisterFlags, hStartHardwareEvent, hEndHardwareEvent, hErrorhardwareEvent, lpStateLength, lpState, VDMBufferSize, lpVDMBuffer) {
@@ -2287,7 +2370,7 @@ class Console {
         hEndHardwareEvent := hEndHardwareEvent is Win32Handle ? NumGet(hEndHardwareEvent, "ptr") : hEndHardwareEvent
         hErrorhardwareEvent := hErrorhardwareEvent is Win32Handle ? NumGet(hErrorhardwareEvent, "ptr") : hErrorhardwareEvent
 
-        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, "uint*", lpStateLength, "ptr", lpState, "ptr", VDMBufferSize, "ptr", lpVDMBuffer, "int")
+        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, "uint*", lpStateLength, "ptr*", lpState, "ptr", VDMBufferSize, "ptr*", lpVDMBuffer, "int")
         return result
     }
 
@@ -2397,9 +2480,10 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @param {Integer} wFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleinputex
      */
     static ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -2413,9 +2497,10 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsRead 
+     * @param {Pointer<Integer>} lpNumberOfEventsRead 
      * @param {Integer} wFlags 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/readconsoleinputex
      */
     static ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -2429,7 +2514,7 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsWritten 
+     * @param {Pointer<Integer>} lpNumberOfEventsWritten 
      * @returns {BOOL} 
      */
     static WriteConsoleInputVDMA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
@@ -2444,7 +2529,7 @@ class Console {
      * @param {HANDLE} hConsoleInput 
      * @param {Pointer<INPUT_RECORD>} lpBuffer 
      * @param {Integer} nLength 
-     * @param {Pointer<UInt32>} lpNumberOfEventsWritten 
+     * @param {Pointer<Integer>} lpNumberOfEventsWritten 
      * @returns {BOOL} 
      */
     static WriteConsoleInputVDMW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
@@ -2457,7 +2542,7 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsole 
-     * @param {Pointer<UInt32>} lpdwNlsMode 
+     * @param {Pointer<Integer>} lpdwNlsMode 
      * @returns {BOOL} 
      */
     static GetConsoleNlsMode(hConsole, lpdwNlsMode) {
@@ -2484,7 +2569,7 @@ class Console {
      * 
      * @param {HANDLE} hConsole 
      * @param {COORD} coordCheck 
-     * @param {Pointer<UInt32>} pdwType 
+     * @param {Pointer<Integer>} pdwType 
      * @returns {BOOL} 
      */
     static GetConsoleCharType(hConsole, coordCheck, pdwType) {
@@ -2561,7 +2646,7 @@ class Console {
     /**
      * 
      * @param {HWND} hWndConsoleIME 
-     * @param {Pointer<UInt32>} lpdwConsoleThreadId 
+     * @param {Pointer<Integer>} lpdwConsoleThreadId 
      * @returns {BOOL} 
      */
     static RegisterConsoleIME(hWndConsoleIME, lpdwConsoleThreadId) {
@@ -2659,6 +2744,7 @@ class Console {
      * 
      * @param {Integer} nStdHandle 
      * @returns {HANDLE} 
+     * @see https://learn.microsoft.com/windows/console/getstdhandle
      */
     static GetStdHandle(nStdHandle) {
         A_LastError := 0
@@ -2675,6 +2761,7 @@ class Console {
      * @param {Integer} nStdHandle 
      * @param {HANDLE} hHandle 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/console/setstdhandle
      */
     static SetStdHandle(nStdHandle, hHandle) {
         hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle

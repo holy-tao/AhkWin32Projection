@@ -57,7 +57,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * Specifies one or more ALink names or KLink keywords to look up. Multiple entries are delimited by a semicolon.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszKeywords {
         get => NumGet(this, 8, "ptr")
@@ -66,7 +66,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * Specifies the topic file to navigate to if the lookup fails. <i>pszURL</i> refers to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/htmlhelp/about-html-help-urls">valid topic</a> within the specified compiled help (.chm) file and does not support Internet protocols that point to an HTML file.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszUrl {
         get => NumGet(this, 16, "ptr")
@@ -75,7 +75,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * Specifies the text to display in a message box if the lookup fails and <i>fIndexOnFail</i> is FALSE and <i>pszURL</i> is NULL.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszMsgText {
         get => NumGet(this, 24, "ptr")
@@ -84,7 +84,7 @@ class HH_AKLINK extends Win32Struct
 
     /**
      * Specifies the caption of the message box in which the <i>pszMsgText</i> parameter appears.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszMsgTitle {
         get => NumGet(this, 32, "ptr")
@@ -100,7 +100,7 @@ class HH_AKLINK extends Win32Struct
      * <li>The topic specified in <i>pszURL</i>, if the lookup fails and a topic is specified in <i>pszURL</i>.</li>
      * </ul>
      * The Index tab, if the lookup fails and <i>fIndexOnFail</i> is specified as TRUE.
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pszWindow {
         get => NumGet(this, 40, "ptr")

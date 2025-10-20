@@ -36,7 +36,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The method name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     name {
         get => NumGet(this, 8, "ptr")
@@ -45,7 +45,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The qualifiers of the method.
-     * @type {Pointer<MI_Qualifier>}
+     * @type {Pointer<Pointer<MI_Qualifier>>}
      */
     qualifiers {
         get => NumGet(this, 16, "ptr")
@@ -63,7 +63,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The parameters of the method.
-     * @type {Pointer<MI_ParameterDecl>}
+     * @type {Pointer<Pointer<MI_ParameterDecl>>}
      */
     parameters {
         get => NumGet(this, 32, "ptr")
@@ -99,7 +99,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The ancestor class that first defined a method with this name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     origin {
         get => NumGet(this, 56, "ptr")
@@ -108,7 +108,7 @@ class MI_MethodDecl extends Win32Struct
 
     /**
      * The ancestor class that last defined a method with this name.
-     * @type {Pointer<UInt16>}
+     * @type {Pointer<Integer>}
      */
     propagator {
         get => NumGet(this, 64, "ptr")

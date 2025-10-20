@@ -33,7 +33,7 @@ class EAP_ATTRIBUTE extends Win32Struct
 
     /**
      * Pointer to a byte buffer that contains the data value of the attribute.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pValue {
         get => NumGet(this, 8, "ptr")

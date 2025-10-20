@@ -24,7 +24,7 @@ class CRYPT_XML_DATA_BLOB extends Win32Struct
 
     /**
      * A pointer to the XML data. The maximum length in the buffer cannot exceed <b>CRYPT_XML_BLOB_MAX</b>              bytes.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbData {
         get => NumGet(this, 8, "ptr")

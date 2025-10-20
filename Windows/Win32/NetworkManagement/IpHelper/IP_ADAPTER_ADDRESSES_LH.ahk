@@ -4,6 +4,8 @@
 #Include ..\..\Networking\WinSock\SOCKET_ADDRESS.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api/iptypes/ns-iptypes-ip_adapter_addresses_lh
  * @namespace Windows.Win32.NetworkManagement.IpHelper
  * @version v4.0.30319
  */

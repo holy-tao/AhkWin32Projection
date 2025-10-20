@@ -62,7 +62,7 @@ class CERT_OR_CRL_BLOB extends Win32Struct
 
     /**
      * A pointer to a buffer that contains a certificate or a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_or_crl_bundle">CERT_OR_CRL_BUNDLE</a> structure that contains an array of certificates as specified by the <b>dwChoice</b> member.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbEncoded {
         get => NumGet(this, 8, "ptr")

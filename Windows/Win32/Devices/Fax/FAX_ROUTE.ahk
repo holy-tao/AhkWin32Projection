@@ -173,7 +173,7 @@ class FAX_ROUTE extends Win32Struct
      * Type: <b>LPBYTE</b>
      * 
      * Pointer to a buffer that contains additional routing data defined by the routing extension. For more information, see the following Remarks section.
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     RoutingInfoData {
         get => NumGet(this, 96, "ptr")

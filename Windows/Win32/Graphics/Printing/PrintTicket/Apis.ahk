@@ -49,7 +49,7 @@ class PrintTicket {
     /**
      * Retrieves the highest (latest) version of the Print Schema that the specified printer supports.
      * @param {PWSTR} pszPrinterName A pointer to the full name of a print queue.
-     * @param {Pointer<UInt32>} pMaxVersion A pointer to the highest version.
+     * @param {Pointer<Integer>} pMaxVersion A pointer to the highest version.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
      * 
      * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
@@ -93,7 +93,7 @@ class PrintTicket {
      * @param {Integer} dwMaxVersion The latest version of the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema</a> that the caller supports.
      * @param {Integer} dwPrefVersion The version of the Print Schema requested by the caller.
      * @param {Pointer<HPTPROVIDER>} phProvider A pointer to a handle for the provider.
-     * @param {Pointer<UInt32>} pUsedVersion A pointer to the version of the Print Schema that the print ticket provider will use.
+     * @param {Pointer<Integer>} pUsedVersion A pointer to the version of the Print Schema that the print ticket provider will use.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
      * 
      * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
@@ -151,8 +151,8 @@ class PrintTicket {
     /**
      * Retrieves the printer's capabilities formatted in compliance with the XML Print Schema.
      * @param {HPTPROVIDER} hProvider A handle to an open provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
-     * @param {Pointer<IStream>} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStream>} pCapabilities A pointer to the stream where the print capabilities will be written, starting at the current seek position.
+     * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
+     * @param {IStream} pCapabilities A pointer to the stream where the print capabilities will be written, starting at the current seek position.
      * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK.
      * 
@@ -181,8 +181,8 @@ class PrintTicket {
     /**
      * Retrieves the device printer's capabilities formatted in compliance with the XML Print Schema.
      * @param {HPTPROVIDER} hProvider A handle to an open device provider whose print capabilities are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
-     * @param {Pointer<IStream>} pPrintTicket An optional pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStream>} pDeviceCapabilities A pointer to the stream where the device print capabilities will be written, starting at the current seek position.
+     * @param {IStream} pPrintTicket An optional pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
+     * @param {IStream} pDeviceCapabilities A pointer to the stream where the device print capabilities will be written, starting at the current seek position.
      * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.The function uses this parameter only used if <i>pPrintTicket</i> is used.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK. Otherwise, returns an error message.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptgetprintdevicecapabilities
@@ -202,8 +202,8 @@ class PrintTicket {
      * It retrieves the print devices resources for a printer formatted in compliance with the XML Print Schema.
      * @param {HPTPROVIDER} hProvider A handle to an open device provider whose print device resources are to be retrieved. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
      * @param {PWSTR} pszLocaleName Optional pointer to the locale name. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStream>} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStream>} pDeviceResources A pointer to the stream where the device print resources will be written, starting at the current seek position.
+     * @param {IStream} pPrintTicket A pointer to a stream with its seek position at the beginning of the print ticket content. This parameter can be <b>NULL</b>.
+     * @param {IStream} pDeviceResources A pointer to the stream where the device print resources will be written, starting at the current seek position.
      * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a PDC file or string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this value is <b>NULL</b>.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK. Otherwise, returns an error message.
      * @see https://docs.microsoft.com/windows/win32/api//prntvpt/nf-prntvpt-ptgetprintdeviceresources
@@ -223,16 +223,16 @@ class PrintTicket {
     /**
      * Merges two print tickets and returns a valid, viable print ticket.
      * @param {HPTPROVIDER} hProvider A handle to an open print ticket provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
-     * @param {Pointer<IStream>} pBaseTicket A pointer to a print ticket. The stream's seek position must be at the beginning of the print ticket content. 
+     * @param {IStream} pBaseTicket A pointer to a print ticket. The stream's seek position must be at the beginning of the print ticket content. 
      * 
      * <div class="alert"><b>Note</b>  <b>PTMergeAndValidatePrintTicket</b> will validate the base ticket against the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema Framework</a> before merging.</div>
      * <div> </div>
-     * @param {Pointer<IStream>} pDeltaTicket A pointer to a print ticket. The stream's seek position must be at the beginning of the print ticket content. <b>NULL</b> can be passed to this parameter. See Remarks. 
+     * @param {IStream} pDeltaTicket A pointer to a print ticket. The stream's seek position must be at the beginning of the print ticket content. <b>NULL</b> can be passed to this parameter. See Remarks. 
      * 
      * <div class="alert"><b>Note</b>  <b>PTMergeAndValidatePrintTicket</b> will validate the delta ticket against the <a href="https://docs.microsoft.com/windows/desktop/printdocs/printschema">Print Schema Framework</a> before merging.</div>
      * <div> </div>
      * @param {Integer} scope A value specifying whether the scope of <i>pDeltaTicket</i> and <i>pResultTicket</i> is a single page, an entire document, or all documents in the print job. See Remarks.
-     * @param {Pointer<IStream>} pResultTicket A pointer to the stream where the viable, merged ticket will be written. The seek position will be at the end of the print ticket. See Remarks.
+     * @param {IStream} pResultTicket A pointer to the stream where the viable, merged ticket will be written. The seek position will be at the end of the print ticket. See Remarks.
      * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a string that specifies what, if anything, is invalid about <i>pBaseTicket</i> or <i>pDeltaTicket</i>. If both are valid, this is <b>NULL</b>. Viability problems are not reported in <i>pbstrErrorMessage</i>.
      * @returns {HRESULT} If the operation succeeds with no conflict between the settings of the merged ticket and the capabilities of the printer, the <b>HRESULT</b> is S_PT_NO_CONFLICT.
      * 
@@ -261,11 +261,11 @@ class PrintTicket {
     /**
      * Converts a print ticket into a DEVMODE structure.
      * @param {HPTPROVIDER} hProvider A handle to an opened print ticket provider. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenprovider">PTOpenProvider</a> or the <a href="https://docs.microsoft.com/windows/desktop/api/prntvpt/nf-prntvpt-ptopenproviderex">PTOpenProviderEx</a> function.
-     * @param {Pointer<IStream>} pPrintTicket A pointer to an <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> with its seek position at the beginning of the print ticket.
+     * @param {IStream} pPrintTicket A pointer to an <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> with its seek position at the beginning of the print ticket.
      * @param {Integer} baseDevmodeType A value indicating whether the user's default <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> or the print queue's default <b>DEVMODE</b> is used to provide values to the output <b>DEVMODE</b> when <i>pPrintTicket</i> does not specify every possible setting for a <b>DEVMODE</b>.
      * @param {Integer} scope A value that specifies the scope of <i>pPrintTicket</i>. This value can specify a single page, an entire document, or all documents in the print job. Settings in <i>pPrintTicket</i> that are outside of the specified scope are ignored. See Remarks.
-     * @param {Pointer<UInt32>} pcbDevmode A pointer to the size of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> in bytes.
-     * @param {Pointer<DEVMODEA>} ppDevmode A pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>.
+     * @param {Pointer<Integer>} pcbDevmode A pointer to the size of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> in bytes.
+     * @param {Pointer<Pointer<DEVMODEA>>} ppDevmode A pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>.
      * @param {Pointer<BSTR>} pbstrErrorMessage A pointer to a string that specifies what, if anything, is invalid about <i>pPrintTicket</i>. If it is valid, this is <b>NULL</b>.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK.
      * 
@@ -280,7 +280,7 @@ class PrintTicket {
     static PTConvertPrintTicketToDevMode(hProvider, pPrintTicket, baseDevmodeType, scope, pcbDevmode, ppDevmode, pbstrErrorMessage) {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
-        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, "uint*", pcbDevmode, "ptr", ppDevmode, "ptr", pbstrErrorMessage, "int")
+        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, "uint*", pcbDevmode, "ptr*", ppDevmode, "ptr", pbstrErrorMessage, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -293,7 +293,7 @@ class PrintTicket {
      * @param {Integer} cbDevmode The size of the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a> in bytes.
      * @param {Pointer<DEVMODEA>} pDevmode A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/wingdi/ns-wingdi-devmodea">DEVMODE</a>.
      * @param {Integer} scope A value that specifies the scope of <i>pPrintTicket</i>. This value can specify a single page, an entire document, or all documents in the print job. Settings in <i>pDevmode</i> that are outside the specified scope will not be included in <i>pPrintTicket</i>. See Remarks.
-     * @param {Pointer<IStream>} pPrintTicket A pointer to an <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> with its seek position at the beginning of the print ticket.
+     * @param {IStream} pPrintTicket A pointer to an <a href="https://docs.microsoft.com/windows/desktop/Stg/istream-compound-file-implementation">IStream</a> with its seek position at the beginning of the print ticket.
      * @returns {HRESULT} If the operation succeeds, the return value is S_OK, otherwise the <b>HRESULT</b> contains an error code.
      * 
      * If <i>hProvider</i> was opened in a different thread, the <b>HRESULT</b> is E_INVALIDARG.

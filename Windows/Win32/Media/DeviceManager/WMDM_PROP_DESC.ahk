@@ -33,6 +33,8 @@
 #Include .\WMDM_PROP_VALUES_ENUM.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/WMDM/wmdm-prop-desc
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */

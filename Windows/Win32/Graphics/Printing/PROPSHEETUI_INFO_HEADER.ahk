@@ -31,7 +31,7 @@ class PROPSHEETUI_INFO_HEADER extends Win32Struct
     }
 
     /**
-     * @type {Pointer<SByte>}
+     * @type {Pointer<Integer>}
      */
     pTitle {
         get => NumGet(this, 8, "ptr")

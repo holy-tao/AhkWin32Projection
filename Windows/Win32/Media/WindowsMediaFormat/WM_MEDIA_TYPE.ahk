@@ -74,7 +74,7 @@ class WM_MEDIA_TYPE extends Win32Struct
 
     /**
      * Not used. Should be <b>NULL</b>.
-     * @type {Pointer<IUnknown>}
+     * @type {IUnknown}
      */
     pUnk {
         get => NumGet(this, 40, "ptr")
@@ -127,7 +127,7 @@ class WM_MEDIA_TYPE extends Win32Struct
      * </td>
      * </tr>
      * </table>
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbFormat {
         get => NumGet(this, 56, "ptr")

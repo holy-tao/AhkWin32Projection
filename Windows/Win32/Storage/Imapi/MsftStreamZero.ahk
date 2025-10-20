@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * 
+ * @see https://learn.microsoft.com/windows/win32/imapi/msftstreamzero
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */

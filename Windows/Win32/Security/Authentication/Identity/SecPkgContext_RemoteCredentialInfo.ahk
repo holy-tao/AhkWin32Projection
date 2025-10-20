@@ -20,7 +20,7 @@ class SecPkgContext_RemoteCredentialInfo extends Win32Struct
     }
 
     /**
-     * @type {Pointer<Byte>}
+     * @type {Pointer<Integer>}
      */
     pbCertificateChain {
         get => NumGet(this, 8, "ptr")
