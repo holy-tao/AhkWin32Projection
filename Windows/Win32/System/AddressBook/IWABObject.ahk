@@ -83,6 +83,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-backup
      */
     Backup(lpFileName) {
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
+
         result := ComCall(7, this, "ptr", lpFileName, "HRESULT")
         return result
     }
@@ -94,6 +96,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-import
      */
     Import(lpWIP) {
+        lpWIP := lpWIP is String ? StrPtr(lpWIP) : lpWIP
+
         result := ComCall(8, this, "ptr", lpWIP, "HRESULT")
         return result
     }
@@ -122,6 +126,7 @@ class IWABObject extends IUnknown{
      */
     VCardDisplay(lpIAB, hWnd, lpszFileName) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := ComCall(10, this, "ptr", lpIAB, "ptr", hWnd, "ptr", lpszFileName, "HRESULT")
         return result
@@ -139,6 +144,7 @@ class IWABObject extends IUnknown{
      */
     LDAPUrl(lpIAB, hWnd, ulFlags, lpszURL, lppMailUser) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
         result := ComCall(11, this, "ptr", lpIAB, "ptr", hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", lppMailUser, "HRESULT")
         return result
@@ -154,6 +160,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcardcreate
      */
     VCardCreate(lpIAB, ulFlags, lpszVCard, lpMailUser) {
+        lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
+
         result := ComCall(12, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr", lpMailUser, "HRESULT")
         return result
     }
@@ -168,6 +176,8 @@ class IWABObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcardretrieve
      */
     VCardRetrieve(lpIAB, ulFlags, lpszVCard, lppMailUser) {
+        lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
+
         result := ComCall(13, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr*", lppMailUser, "HRESULT")
         return result
     }

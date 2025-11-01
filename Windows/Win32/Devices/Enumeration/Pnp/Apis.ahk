@@ -429,8 +429,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceRegister(hSwDevice, pInterfaceClassGuid, pszReferenceString, cPropertyCount, pProperties, fEnabled, ppszDeviceInterfaceId) {
-        pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszReferenceString := pszReferenceString is String ? StrPtr(pszReferenceString) : pszReferenceString
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceRegister", "ptr", hSwDevice, "ptr", pInterfaceClassGuid, "ptr", pszReferenceString, "uint", cPropertyCount, "ptr", pProperties, "int", fEnabled, "ptr", ppszDeviceInterfaceId, "int")
         if(result != 0)
@@ -460,8 +460,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfaceSetState(hSwDevice, pszDeviceInterfaceId, fEnabled) {
-        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfaceSetState", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "int", fEnabled, "int")
         if(result != 0)
@@ -481,8 +481,8 @@ class Pnp {
      * @since windows8.0
      */
     static SwDeviceInterfacePropertySet(hSwDevice, pszDeviceInterfaceId, cPropertyCount, pProperties) {
-        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
         hSwDevice := hSwDevice is Win32Handle ? NumGet(hSwDevice, "ptr") : hSwDevice
+        pszDeviceInterfaceId := pszDeviceInterfaceId is String ? StrPtr(pszDeviceInterfaceId) : pszDeviceInterfaceId
 
         result := DllCall("CFGMGR32.dll\SwDeviceInterfacePropertySet", "ptr", hSwDevice, "ptr", pszDeviceInterfaceId, "uint", cPropertyCount, "ptr", pProperties, "int")
         if(result != 0)

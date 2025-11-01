@@ -1229,9 +1229,9 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliInitializeLog(hSession, ulClientArchitecture, pwszClientId, pwszClientAddress) {
+        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         pwszClientId := pwszClientId is String ? StrPtr(pwszClientId) : pwszClientId
         pwszClientAddress := pwszClientAddress is String ? StrPtr(pwszClientAddress) : pwszClientAddress
-        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliInitializeLog", "ptr", hSession, "uint", ulClientArchitecture, "ptr", pwszClientId, "ptr", pwszClientAddress, "int")
         if(result != 0)
@@ -1713,8 +1713,8 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliTransferImage(hImage, pwszLocalPath, dwFlags, dwReserved, pfnWdsCliCallback, pvUserData, phTransfer) {
-        pwszLocalPath := pwszLocalPath is String ? StrPtr(pwszLocalPath) : pwszLocalPath
         hImage := hImage is Win32Handle ? NumGet(hImage, "ptr") : hImage
+        pwszLocalPath := pwszLocalPath is String ? StrPtr(pwszLocalPath) : pwszLocalPath
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, "ptr", pvUserData, "ptr", phTransfer, "int")
         if(result != 0)
@@ -1836,8 +1836,8 @@ class DeploymentServices {
      * @since windows8.0
      */
     static WdsCliObtainDriverPackagesEx(hSession, pwszMachineInfo, ppwszServerName, pppwszDriverPackages, pulCount) {
-        pwszMachineInfo := pwszMachineInfo is String ? StrPtr(pwszMachineInfo) : pwszMachineInfo
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
+        pwszMachineInfo := pwszMachineInfo is String ? StrPtr(pwszMachineInfo) : pwszMachineInfo
 
         result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, "ptr", ppwszServerName, "ptr*", pppwszDriverPackages, "uint*", pulCount, "int")
         if(result != 0)
@@ -2259,8 +2259,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static PxeTrace(hProvider, Severity, pszFormat) {
-        pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
         result := DllCall("WDSPXE.dll\PxeTrace", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "CDecl uint")
         return result
@@ -2275,8 +2275,8 @@ class DeploymentServices {
      * @returns {Integer} 
      */
     static PxeTraceV(hProvider, Severity, pszFormat, Params) {
-        pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pszFormat := pszFormat is String ? StrPtr(pszFormat) : pszFormat
 
         result := DllCall("WDSPXE.dll\PxeTraceV", "ptr", hProvider, "uint", Severity, "ptr", pszFormat, "char*", Params, "uint")
         return result
@@ -3025,8 +3025,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static WdsTransportServerTrace(hProvider, Severity, pwszFormat) {
-        pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
         result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl int")
         if(result != 0)
@@ -3046,8 +3046,8 @@ class DeploymentServices {
      * @since windowsserver2008
      */
     static WdsTransportServerTraceV(hProvider, Severity, pwszFormat, Params) {
-        pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
         result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "char*", Params, "int")
         if(result != 0)

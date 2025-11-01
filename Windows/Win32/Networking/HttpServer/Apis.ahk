@@ -1796,8 +1796,8 @@ class HttpServer {
     static HttpAddUrl(RequestQueueHandle, FullyQualifiedUrl) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
 
         result := DllCall("HTTPAPI.dll\HttpAddUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "ptr", Reserved, "uint")
         return result
@@ -1881,8 +1881,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpRemoveUrl(RequestQueueHandle, FullyQualifiedUrl) {
-        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        FullyQualifiedUrl := FullyQualifiedUrl is String ? StrPtr(FullyQualifiedUrl) : FullyQualifiedUrl
 
         result := DllCall("HTTPAPI.dll\HttpRemoveUrl", "ptr", RequestQueueHandle, "ptr", FullyQualifiedUrl, "uint")
         return result
@@ -3058,9 +3058,9 @@ class HttpServer {
      * @since windows10.0.10240
      */
     static HttpDeclarePush(RequestQueueHandle, RequestId, Verb, Path, Query, Headers) {
+        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
         Path := Path is String ? StrPtr(Path) : Path
         Query := Query is String ? StrPtr(Query) : Query
-        RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
 
         result := DllCall("HTTPAPI.dll\HttpDeclarePush", "ptr", RequestQueueHandle, "uint", RequestId, "int", Verb, "ptr", Path, "ptr", Query, "ptr", Headers, "uint")
         return result
@@ -3361,8 +3361,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpFlushResponseCache(RequestQueueHandle, UrlPrefix, Flags, Overlapped) {
-        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         result := DllCall("HTTPAPI.dll\HttpFlushResponseCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "uint", Flags, "ptr", Overlapped, "uint")
         return result
@@ -3429,8 +3429,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpAddFragmentToCache(RequestQueueHandle, UrlPrefix, DataChunk, CachePolicy, Overlapped) {
-        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         result := DllCall("HTTPAPI.dll\HttpAddFragmentToCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", DataChunk, "ptr", CachePolicy, "ptr", Overlapped, "uint")
         return result
@@ -3512,8 +3512,8 @@ class HttpServer {
      * @since windows6.0.6000
      */
     static HttpReadFragmentFromCache(RequestQueueHandle, UrlPrefix, ByteRange, Buffer, BufferLength, BytesRead, Overlapped) {
-        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
         RequestQueueHandle := RequestQueueHandle is Win32Handle ? NumGet(RequestQueueHandle, "ptr") : RequestQueueHandle
+        UrlPrefix := UrlPrefix is String ? StrPtr(UrlPrefix) : UrlPrefix
 
         result := DllCall("HTTPAPI.dll\HttpReadFragmentFromCache", "ptr", RequestQueueHandle, "ptr", UrlPrefix, "ptr", ByteRange, "ptr", Buffer, "uint", BufferLength, "uint*", BytesRead, "ptr", Overlapped, "uint")
         return result

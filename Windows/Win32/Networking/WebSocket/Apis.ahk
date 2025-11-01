@@ -248,8 +248,8 @@ class WebSocket {
      * @since windows8.0
      */
     static WebSocketBeginServerHandshake(hWebSocket, pszSubprotocolSelected, pszExtensionSelected, ulExtensionSelectedCount, pRequestHeaders, ulRequestHeaderCount, pResponseHeaders, pulResponseHeaderCount) {
-        pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
         hWebSocket := hWebSocket is Win32Handle ? NumGet(hWebSocket, "ptr") : hWebSocket
+        pszSubprotocolSelected := pszSubprotocolSelected is String ? StrPtr(pszSubprotocolSelected) : pszSubprotocolSelected
 
         result := DllCall("websocket.dll\WebSocketBeginServerHandshake", "ptr", hWebSocket, "ptr", pszSubprotocolSelected, "ptr", pszExtensionSelected, "uint", ulExtensionSelectedCount, "ptr", pRequestHeaders, "uint", ulRequestHeaderCount, "ptr*", pResponseHeaders, "uint*", pulResponseHeaderCount, "int")
         if(result != 0)

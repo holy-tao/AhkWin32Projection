@@ -274,6 +274,8 @@ class IDebugBreakpoint3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCommand(Buffer, BufferSize, CommandSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(19, this, "ptr", Buffer, "uint", BufferSize, "uint*", CommandSize, "HRESULT")
         return result
     }
@@ -284,6 +286,8 @@ class IDebugBreakpoint3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCommand(Command) {
+        Command := Command is String ? StrPtr(Command) : Command
+
         result := ComCall(20, this, "ptr", Command, "HRESULT")
         return result
     }
@@ -296,6 +300,8 @@ class IDebugBreakpoint3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOffsetExpression(Buffer, BufferSize, ExpressionSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(21, this, "ptr", Buffer, "uint", BufferSize, "uint*", ExpressionSize, "HRESULT")
         return result
     }
@@ -306,6 +312,8 @@ class IDebugBreakpoint3 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOffsetExpression(Expression) {
+        Expression := Expression is String ? StrPtr(Expression) : Expression
+
         result := ComCall(22, this, "ptr", Expression, "HRESULT")
         return result
     }

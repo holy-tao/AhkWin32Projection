@@ -852,8 +852,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonCreate(hWnd, pwszReason) {
-        pwszReason := pwszReason is String ? StrPtr(pwszReason) : pwszReason
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pwszReason := pwszReason is String ? StrPtr(pwszReason) : pwszReason
 
         A_LastError := 0
 
@@ -877,8 +877,8 @@ class Shutdown {
      * @since windows6.0.6000
      */
     static ShutdownBlockReasonQuery(hWnd, pwszBuff, pcchBuff) {
-        pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pwszBuff := pwszBuff is String ? StrPtr(pwszBuff) : pwszBuff
 
         A_LastError := 0
 

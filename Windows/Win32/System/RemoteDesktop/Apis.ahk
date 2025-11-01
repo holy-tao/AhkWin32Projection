@@ -2251,8 +2251,8 @@ class RemoteDesktop {
     static WTSVirtualChannelOpen(SessionId, pVirtualName) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pVirtualName := pVirtualName is String ? StrPtr(pVirtualName) : pVirtualName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pVirtualName := pVirtualName is String ? StrPtr(pVirtualName) : pVirtualName
 
         A_LastError := 0
 
@@ -2816,8 +2816,8 @@ class RemoteDesktop {
     static WTSQueryListenerConfigW(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -2844,8 +2844,8 @@ class RemoteDesktop {
     static WTSQueryListenerConfigA(pReserved, Reserved, pListenerName, pBuffer) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -2873,8 +2873,8 @@ class RemoteDesktop {
     static WTSCreateListenerW(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -2902,8 +2902,8 @@ class RemoteDesktop {
     static WTSCreateListenerA(pReserved, Reserved, pListenerName, pBuffer, flag) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
 
         A_LastError := 0
 
@@ -2933,8 +2933,8 @@ class RemoteDesktop {
     static WTSSetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
@@ -2965,8 +2965,8 @@ class RemoteDesktop {
     static WTSSetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
@@ -2999,8 +2999,8 @@ class RemoteDesktop {
     static WTSGetListenerSecurityW(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0
@@ -3033,8 +3033,8 @@ class RemoteDesktop {
     static WTSGetListenerSecurityA(pReserved, Reserved, pListenerName, SecurityInformation, pSecurityDescriptor, nLength, lpnLengthNeeded) {
         static hServer := 0 ;Reserved parameters must always be NULL
 
-        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         hServer := hServer is Win32Handle ? NumGet(hServer, "ptr") : hServer
+        pListenerName := pListenerName is String ? StrPtr(pListenerName) : pListenerName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         A_LastError := 0

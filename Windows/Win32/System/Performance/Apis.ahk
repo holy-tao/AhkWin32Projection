@@ -1304,8 +1304,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfCreateInstance(ProviderHandle, CounterSetGuid, Name, Id) {
-        Name := Name is String ? StrPtr(Name) : Name
         ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -1354,8 +1354,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PerfQueryInstance(ProviderHandle, CounterSetGuid, Name, Id) {
-        Name := Name is String ? StrPtr(Name) : Name
         ProviderHandle := ProviderHandle is Win32Handle ? NumGet(ProviderHandle, "ptr") : ProviderHandle
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -2233,8 +2233,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhAddCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
         result := DllCall("pdh.dll\PdhAddCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2364,8 +2364,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhAddCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
         result := DllCall("pdh.dll\PdhAddCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2495,8 +2495,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterW(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
         result := DllCall("pdh.dll\PdhAddEnglishCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2626,8 +2626,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhAddEnglishCounterA(hQuery, szFullCounterPath, dwUserData, phCounter) {
-        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
         result := DllCall("pdh.dll\PdhAddEnglishCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
         return result
@@ -2775,8 +2775,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhValidatePathExW(hDataSource, szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhValidatePathExW", "ptr", hDataSource, "ptr", szFullPathBuffer, "uint")
         return result
@@ -2871,8 +2871,8 @@ class Performance {
      * @since windows6.0.6000
      */
     static PdhValidatePathExA(hDataSource, szFullPathBuffer) {
-        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+        szFullPathBuffer := szFullPathBuffer is String ? StrPtr(szFullPathBuffer) : szFullPathBuffer
 
         result := DllCall("pdh.dll\PdhValidatePathExA", "ptr", hDataSource, "ptr", szFullPathBuffer, "uint")
         return result
@@ -5840,8 +5840,8 @@ class Performance {
      */
     static PdhOpenLogW(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
         szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
-        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
 
         result := DllCall("pdh.dll\PdhOpenLogW", "ptr", szLogFileName, "uint", dwAccessFlags, "uint*", lpdwLogType, "ptr", hQuery, "uint", dwMaxSize, "ptr", szUserCaption, "ptr", phLog, "uint")
         return result
@@ -5880,8 +5880,8 @@ class Performance {
      */
     static PdhOpenLogA(szLogFileName, dwAccessFlags, lpdwLogType, hQuery, dwMaxSize, szUserCaption, phLog) {
         szLogFileName := szLogFileName is String ? StrPtr(szLogFileName) : szLogFileName
-        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
+        szUserCaption := szUserCaption is String ? StrPtr(szUserCaption) : szUserCaption
 
         result := DllCall("pdh.dll\PdhOpenLogA", "ptr", szLogFileName, "uint", dwAccessFlags, "uint*", lpdwLogType, "ptr", hQuery, "uint", dwMaxSize, "ptr", szUserCaption, "ptr", phLog, "uint")
         return result
@@ -5931,8 +5931,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhUpdateLogW(hLog, szUserString) {
-        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
         result := DllCall("pdh.dll\PdhUpdateLogW", "ptr", hLog, "ptr", szUserString, "uint")
         return result
@@ -5982,8 +5982,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhUpdateLogA(hLog, szUserString) {
-        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        szUserString := szUserString is String ? StrPtr(szUserString) : szUserString
 
         result := DllCall("pdh.dll\PdhUpdateLogA", "ptr", hLog, "ptr", szUserString, "uint")
         return result
@@ -6204,8 +6204,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceW(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
-        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhSelectDataSourceW", "ptr", hWndOwner, "uint", dwFlags, "ptr", szDataSource, "uint*", pcchBufferLength, "uint")
         return result
@@ -6258,8 +6258,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhSelectDataSourceA(hWndOwner, dwFlags, szDataSource, pcchBufferLength) {
-        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
+        szDataSource := szDataSource is String ? StrPtr(szDataSource) : szDataSource
 
         result := DllCall("pdh.dll\PdhSelectDataSourceA", "ptr", hWndOwner, "uint", dwFlags, "ptr", szDataSource, "uint*", pcchBufferLength, "uint")
         return result
@@ -6799,8 +6799,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHW(hDataSource, mszMachineList, pcchBufferSize) {
-        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
         result := DllCall("pdh.dll\PdhEnumMachinesHW", "ptr", hDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -6851,8 +6851,8 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumMachinesHA(hDataSource, mszMachineList, pcchBufferSize) {
-        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
         hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
+        mszMachineList := mszMachineList is String ? StrPtr(mszMachineList) : mszMachineList
 
         result := DllCall("pdh.dll\PdhEnumMachinesHA", "ptr", hDataSource, "ptr", mszMachineList, "uint*", pcchBufferSize, "uint")
         return result
@@ -6935,9 +6935,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHW(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -7020,9 +7020,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectsHA(hDataSource, szMachineName, mszObjectList, pcchBufferSize, dwDetailLevel, bRefresh) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         mszObjectList := mszObjectList is String ? StrPtr(mszObjectList) : mszObjectList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", mszObjectList, "uint*", pcchBufferSize, "uint", dwDetailLevel, "int", bRefresh, "uint")
         return result
@@ -7119,11 +7119,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHW(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
         mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -7220,11 +7220,11 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhEnumObjectItemsHA(hDataSource, szMachineName, szObjectName, mszCounterList, pcchCounterListLength, mszInstanceList, pcchInstanceListLength, dwDetailLevel, dwFlags) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         mszCounterList := mszCounterList is String ? StrPtr(mszCounterList) : mszCounterList
         mszInstanceList := mszInstanceList is String ? StrPtr(mszInstanceList) : mszInstanceList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhEnumObjectItemsHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", mszCounterList, "uint*", pcchCounterListLength, "ptr", mszInstanceList, "uint*", pcchInstanceListLength, "uint", dwDetailLevel, "uint", dwFlags, "uint")
         return result
@@ -7333,9 +7333,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHW(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
         mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathHW", "ptr", hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -7444,9 +7444,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhExpandWildCardPathHA(hDataSource, szWildCardPath, mszExpandedPathList, pcchPathListLength, dwFlags) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szWildCardPath := szWildCardPath is String ? StrPtr(szWildCardPath) : szWildCardPath
         mszExpandedPathList := mszExpandedPathList is String ? StrPtr(mszExpandedPathList) : mszExpandedPathList
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhExpandWildCardPathHA", "ptr", hDataSource, "ptr", szWildCardPath, "ptr", mszExpandedPathList, "uint*", pcchPathListLength, "uint", dwFlags, "uint")
         return result
@@ -7598,9 +7598,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHW(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7688,9 +7688,9 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfObjectHA(hDataSource, szMachineName, szDefaultObjectName, pcchBufferSize) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szDefaultObjectName := szDefaultObjectName is String ? StrPtr(szDefaultObjectName) : szDefaultObjectName
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfObjectHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szDefaultObjectName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7799,10 +7799,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHW(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHW", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result
@@ -7911,10 +7911,10 @@ class Performance {
      * @since windows5.1.2600
      */
     static PdhGetDefaultPerfCounterHA(hDataSource, szMachineName, szObjectName, szDefaultCounterName, pcchBufferSize) {
+        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
         szMachineName := szMachineName is String ? StrPtr(szMachineName) : szMachineName
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szDefaultCounterName := szDefaultCounterName is String ? StrPtr(szDefaultCounterName) : szDefaultCounterName
-        hDataSource := hDataSource is Win32Handle ? NumGet(hDataSource, "ptr") : hDataSource
 
         result := DllCall("pdh.dll\PdhGetDefaultPerfCounterHA", "ptr", hDataSource, "ptr", szMachineName, "ptr", szObjectName, "ptr", szDefaultCounterName, "uint*", pcchBufferSize, "uint")
         return result

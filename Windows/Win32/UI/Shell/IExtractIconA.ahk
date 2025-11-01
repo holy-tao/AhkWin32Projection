@@ -70,6 +70,8 @@ class IExtractIconA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iextracticona-geticonlocation
      */
     GetIconLocation(uFlags, pszIconFile, cchMax, piIndex, pwFlags) {
+        pszIconFile := pszIconFile is String ? StrPtr(pszIconFile) : pszIconFile
+
         result := ComCall(3, this, "uint", uFlags, "ptr", pszIconFile, "uint", cchMax, "int*", piIndex, "uint*", pwFlags, "HRESULT")
         return result
     }
@@ -85,6 +87,8 @@ class IExtractIconA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iextracticona-extract
      */
     Extract(pszFile, nIconIndex, phiconLarge, phiconSmall, nIconSize) {
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
+
         result := ComCall(4, this, "ptr", pszFile, "uint", nIconIndex, "ptr", phiconLarge, "ptr", phiconSmall, "uint", nIconSize, "HRESULT")
         return result
     }

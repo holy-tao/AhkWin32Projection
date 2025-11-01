@@ -2881,8 +2881,8 @@ class Power {
      * @since windows6.0.6000
      */
     static PowerImportPowerScheme(RootPowerKey, ImportFileNamePath, DestinationSchemeGuid) {
-        ImportFileNamePath := ImportFileNamePath is String ? StrPtr(ImportFileNamePath) : ImportFileNamePath
         RootPowerKey := RootPowerKey is Win32Handle ? NumGet(RootPowerKey, "ptr") : RootPowerKey
+        ImportFileNamePath := ImportFileNamePath is String ? StrPtr(ImportFileNamePath) : ImportFileNamePath
 
         result := DllCall("POWRPROF.dll\PowerImportPowerScheme", "ptr", RootPowerKey, "ptr", ImportFileNamePath, "ptr*", DestinationSchemeGuid, "uint")
         return result

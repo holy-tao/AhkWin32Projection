@@ -19624,8 +19624,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
-        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
+        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
         DllCall("rtutils.dll\RouterLogEventExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
@@ -19641,8 +19641,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExA(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
-        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
+        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
         DllCall("rtutils.dll\RouterLogEventValistExA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
     }
@@ -19741,8 +19741,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat) {
-        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
+        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
         DllCall("rtutils.dll\RouterLogEventExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "CDecl ")
     }
@@ -19758,8 +19758,8 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static RouterLogEventValistExW(hLogHandle, dwEventType, dwErrorCode, dwMessageId, ptszFormat, arglist) {
-        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
+        ptszFormat := ptszFormat is String ? StrPtr(ptszFormat) : ptszFormat
 
         DllCall("rtutils.dll\RouterLogEventValistExW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwErrorCode, "uint", dwMessageId, "ptr", ptszFormat, "char*", arglist)
     }

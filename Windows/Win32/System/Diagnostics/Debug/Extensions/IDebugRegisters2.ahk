@@ -48,6 +48,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDescription(Register, NameBuffer, NameBufferSize, NameSize, Desc) {
+        NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
+
         result := ComCall(4, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, "uint*", NameSize, "ptr", Desc, "HRESULT")
         return result
     }
@@ -59,6 +61,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIndexByName(Name, Index) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(5, this, "ptr", Name, "uint*", Index, "HRESULT")
         return result
     }
@@ -202,6 +206,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPseudoDescription(Register, NameBuffer, NameBufferSize, NameSize, TypeModule, TypeId) {
+        NameBuffer := NameBuffer is String ? StrPtr(NameBuffer) : NameBuffer
+
         result := ComCall(17, this, "uint", Register, "ptr", NameBuffer, "uint", NameBufferSize, "uint*", NameSize, "uint*", TypeModule, "uint*", TypeId, "HRESULT")
         return result
     }
@@ -230,6 +236,8 @@ class IDebugRegisters2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPseudoIndexByName(Name, Index) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(19, this, "ptr", Name, "uint*", Index, "HRESULT")
         return result
     }

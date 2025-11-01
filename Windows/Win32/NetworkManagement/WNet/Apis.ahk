@@ -2077,9 +2077,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection3A(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("MPR.dll\WNetAddConnection3A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
@@ -2464,9 +2464,9 @@ class WNet {
      * @since windows5.0
      */
     static WNetAddConnection3W(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("MPR.dll\WNetAddConnection3W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result
@@ -3507,10 +3507,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetUseConnectionA(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserId := lpUserId is String ? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("MPR.dll\WNetUseConnectionA", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
@@ -3837,10 +3837,10 @@ class WNet {
      * @since windows5.0
      */
     static WNetUseConnectionW(hwndOwner, lpNetResource, lpPassword, lpUserId, dwFlags, lpAccessName, lpBufferSize, lpResult) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserId := lpUserId is String ? StrPtr(lpUserId) : lpUserId
         lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("MPR.dll\WNetUseConnectionW", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserId, "uint", dwFlags, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
@@ -3861,8 +3861,8 @@ class WNet {
      * @returns {Integer} 
      */
     static WNetUseConnection4A(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
-        lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
         result := DllCall("MPR.dll\WNetUseConnection4A", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
@@ -3883,8 +3883,8 @@ class WNet {
      * @returns {Integer} 
      */
     static WNetUseConnection4W(hwndOwner, lpNetResource, pAuthBuffer, cbAuthBuffer, dwFlags, lpUseOptions, cbUseOptions, lpAccessName, lpBufferSize, lpResult) {
-        lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpAccessName := lpAccessName is String ? StrPtr(lpAccessName) : lpAccessName
 
         result := DllCall("MPR.dll\WNetUseConnection4W", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", pAuthBuffer, "uint", cbAuthBuffer, "uint", dwFlags, "ptr", lpUseOptions, "uint", cbUseOptions, "ptr", lpAccessName, "uint*", lpBufferSize, "uint*", lpResult, "uint")
         return result
@@ -6758,9 +6758,9 @@ class WNet {
      * @since windows5.1.2600
      */
     static NPAddConnection3(hwndOwner, lpNetResource, lpPassword, lpUserName, dwFlags) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("davclnt.dll\NPAddConnection3", "ptr", hwndOwner, "ptr", lpNetResource, "ptr", lpPassword, "ptr", lpUserName, "uint", dwFlags, "uint")
         return result

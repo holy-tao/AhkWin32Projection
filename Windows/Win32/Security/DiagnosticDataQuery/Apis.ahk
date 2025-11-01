@@ -147,8 +147,8 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqGetDiagnosticRecordLocaleTags(hSession, locale, hTagDescription) {
-        locale := locale is String ? StrPtr(locale) : locale
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
+        locale := locale is String ? StrPtr(locale) : locale
 
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordLocaleTags", "ptr", hSession, "ptr", locale, "ptr", hTagDescription, "int")
         if(result != 0)
@@ -318,8 +318,8 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqGetDiagnosticRecordProducerCategories(hSession, producerName, hCategoryDescription) {
-        producerName := producerName is String ? StrPtr(producerName) : producerName
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
+        producerName := producerName is String ? StrPtr(producerName) : producerName
 
         result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordProducerCategories", "ptr", hSession, "ptr", producerName, "ptr", hCategoryDescription, "int")
         if(result != 0)
@@ -417,9 +417,9 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqIsDiagnosticRecordSampledIn(hSession, providerGroup, providerId, providerName, eventId, eventName, eventVersion, eventKeywords, isSampledIn) {
+        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         providerName := providerName is String ? StrPtr(providerName) : providerName
         eventName := eventName is String ? StrPtr(eventName) : eventName
-        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
         result := DllCall("DiagnosticDataQuery.dll\DdqIsDiagnosticRecordSampledIn", "ptr", hSession, "ptr", providerGroup, "ptr", providerId, "ptr", providerName, "uint*", eventId, "ptr", eventName, "uint*", eventVersion, "uint*", eventKeywords, "ptr", isSampledIn, "int")
         if(result != 0)
@@ -664,9 +664,9 @@ class DiagnosticDataQuery {
      * @since windows10.0.19041
      */
     static DdqExtractDiagnosticReport(hSession, reportStoreType, reportKey, destinationPath) {
+        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
         reportKey := reportKey is String ? StrPtr(reportKey) : reportKey
         destinationPath := destinationPath is String ? StrPtr(destinationPath) : destinationPath
-        hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
         result := DllCall("DiagnosticDataQuery.dll\DdqExtractDiagnosticReport", "ptr", hSession, "uint", reportStoreType, "ptr", reportKey, "ptr", destinationPath, "int")
         if(result != 0)

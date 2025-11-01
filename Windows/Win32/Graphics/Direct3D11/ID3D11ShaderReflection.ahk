@@ -75,6 +75,8 @@ class ID3D11ShaderReflection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(5, this, "ptr", Name, "ptr")
         return result
     }
@@ -134,6 +136,8 @@ class ID3D11ShaderReflection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getvariablebyname
      */
     GetVariableByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(10, this, "ptr", Name, "ptr")
         return result
     }
@@ -146,6 +150,8 @@ class ID3D11ShaderReflection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11shaderreflection-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name, pDesc) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(11, this, "ptr", Name, "ptr", pDesc, "HRESULT")
         return result
     }

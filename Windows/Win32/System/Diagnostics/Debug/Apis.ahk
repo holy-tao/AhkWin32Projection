@@ -3970,9 +3970,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfinddebuginfofile
      */
     static SymFindDebugInfoFile(hProcess, FileName, DebugFilePath, Callback, CallerData) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileName := FileName is String ? StrPtr(FileName) : FileName
         DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4004,9 +4004,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfinddebuginfofilew
      */
     static SymFindDebugInfoFileW(hProcess, FileName, DebugFilePath, Callback, CallerData) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileName := FileName is String ? StrPtr(FileName) : FileName
         DebugFilePath := DebugFilePath is String ? StrPtr(DebugFilePath) : DebugFilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4129,10 +4129,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindfileinpath
      */
     static SymFindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FoundFile, callback, context) {
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
         SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         FileName := FileName is String ? StrPtr(FileName) : FileName
         FoundFile := FoundFile is String ? StrPtr(FoundFile) : FoundFile
-        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         A_LastError := 0
 
@@ -4161,10 +4161,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindfileinpathw
      */
     static SymFindFileInPathW(hprocess, SearchPathA, FileName, id, two, three, flags, FoundFile, callback, context) {
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
         SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         FileName := FileName is String ? StrPtr(FileName) : FileName
         FoundFile := FoundFile is String ? StrPtr(FoundFile) : FoundFile
-        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         A_LastError := 0
 
@@ -4196,9 +4196,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindexecutableimage
      */
     static SymFindExecutableImage(hProcess, FileName, ImageFilePath, Callback, CallerData) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileName := FileName is String ? StrPtr(FileName) : FileName
         ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4230,9 +4230,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfindexecutableimagew
      */
     static SymFindExecutableImageW(hProcess, FileName, ImageFilePath, Callback, CallerData) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileName := FileName is String ? StrPtr(FileName) : FileName
         ImageFilePath := ImageFilePath is String ? StrPtr(ImageFilePath) : ImageFilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4456,10 +4456,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumdirtree
      */
     static EnumDirTree(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, data) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
         InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
         OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -4489,10 +4489,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-enumdirtreew
      */
     static EnumDirTreeW(hProcess, RootPath, InputPathName, OutputPathBuffer, cb, data) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         RootPath := RootPath is String ? StrPtr(RootPath) : RootPath
         InputPathName := InputPathName is String ? StrPtr(InputPathName) : InputPathName
         OutputPathBuffer := OutputPathBuffer is String ? StrPtr(OutputPathBuffer) : OutputPathBuffer
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -5421,8 +5421,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsethomedirectory
      */
     static SymSetHomeDirectory(hProcess, dir) {
-        dir := dir is String ? StrPtr(dir) : dir
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        dir := dir is String ? StrPtr(dir) : dir
 
         A_LastError := 0
 
@@ -5444,8 +5444,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsethomedirectoryw
      */
     static SymSetHomeDirectoryW(hProcess, dir) {
-        dir := dir is String ? StrPtr(dir) : dir
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        dir := dir is String ? StrPtr(dir) : dir
 
         A_LastError := 0
 
@@ -6045,8 +6045,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcefiles
      */
     static SymEnumSourceFiles(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -6077,8 +6077,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcefilesw
      */
     static SymEnumSourceFilesW(hProcess, ModBase, Mask, cbSrcFiles, UserContext) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -6535,9 +6535,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumlines
      */
     static SymEnumLines(hProcess, Base, Obj, File, EnumLinesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Obj := Obj is String ? StrPtr(Obj) : Obj
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -6565,9 +6565,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumlinesw
      */
     static SymEnumLinesW(hProcess, Base, Obj, File, EnumLinesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Obj := Obj is String ? StrPtr(Obj) : Obj
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -6714,9 +6714,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcelines
      */
     static SymEnumSourceLines(hProcess, Base, Obj, File, Line, Flags, EnumLinesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Obj := Obj is String ? StrPtr(Obj) : Obj
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -6747,9 +6747,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsourcelinesw
      */
     static SymEnumSourceLinesW(hProcess, Base, Obj, File, Line, Flags, EnumLinesCallback, UserContext) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Obj := Obj is String ? StrPtr(Obj) : Obj
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -6950,9 +6950,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromname64
      */
     static SymGetLineFromName64(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         FileName := FileName is String ? StrPtr(FileName) : FileName
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -6980,9 +6980,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromnamew64
      */
     static SymGetLineFromNameW64(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         FileName := FileName is String ? StrPtr(FileName) : FileName
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7010,9 +7010,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetlinefromname
      */
     static SymGetLineFromName(hProcess, ModuleName, FileName, dwLineNumber, plDisplacement, Line) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         FileName := FileName is String ? StrPtr(FileName) : FileName
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7183,9 +7183,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetfilelineoffsets64
      */
     static SymGetFileLineOffsets64(hProcess, ModuleName, FileName, Buffer, BufferLines) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         FileName := FileName is String ? StrPtr(FileName) : FileName
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7264,10 +7264,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefile
      */
     static SymGetSourceFile(hProcess, Base, Params, FileSpec, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7296,10 +7296,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilew
      */
     static SymGetSourceFileW(hProcess, Base, Params, FileSpec, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7327,8 +7327,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefiletoken
      */
     static SymGetSourceFileToken(hProcess, Base, FileSpec, Token, Size) {
-        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
         A_LastError := 0
 
@@ -7351,10 +7351,10 @@ class Debug {
      * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenName(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenName", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, "uint*", Size, "int")
         return result
@@ -7378,8 +7378,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilechecksumw
      */
     static SymGetSourceFileChecksumW(hProcess, Base, FileSpec, pCheckSumType, pChecksum, checksumSize, pActualBytesWritten) {
-        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
         A_LastError := 0
 
@@ -7408,8 +7408,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilechecksum
      */
     static SymGetSourceFileChecksum(hProcess, Base, FileSpec, pCheckSumType, pChecksum, checksumSize, pActualBytesWritten) {
-        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
         A_LastError := 0
 
@@ -7437,8 +7437,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefiletokenw
      */
     static SymGetSourceFileTokenW(hProcess, Base, FileSpec, Token, Size) {
-        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
         A_LastError := 0
 
@@ -7461,10 +7461,10 @@ class Debug {
      * @returns {BOOL} 
      */
     static SymGetSourceFileTokenByTokenNameW(hProcess, Base, FileSpec, TokenName, TokenParameters, Token, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         TokenParameters := TokenParameters is String ? StrPtr(TokenParameters) : TokenParameters
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("dbghelp.dll\SymGetSourceFileTokenByTokenNameW", "ptr", hProcess, "uint", Base, "ptr", FileSpec, "ptr", TokenName, "ptr", TokenParameters, "ptr*", Token, "uint*", Size, "int")
         return result
@@ -7487,9 +7487,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilefromtoken
      */
     static SymGetSourceFileFromToken(hProcess, Token, Params, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7511,10 +7511,10 @@ class Debug {
      * @returns {BOOL} 
      */
     static SymGetSourceFileFromTokenByTokenName(hProcess, Token, TokenName, Params, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         Params := Params is String ? StrPtr(Params) : Params
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenName", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         return result
@@ -7537,9 +7537,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcefilefromtokenw
      */
     static SymGetSourceFileFromTokenW(hProcess, Token, Params, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7561,10 +7561,10 @@ class Debug {
      * @returns {BOOL} 
      */
     static SymGetSourceFileFromTokenByTokenNameW(hProcess, Token, TokenName, Params, FilePath, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         TokenName := TokenName is String ? StrPtr(TokenName) : TokenName
         Params := Params is String ? StrPtr(Params) : Params
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         result := DllCall("dbghelp.dll\SymGetSourceFileFromTokenByTokenNameW", "ptr", hProcess, "ptr", Token, "ptr", TokenName, "ptr", Params, "ptr", FilePath, "uint", Size, "int")
         return result
@@ -7587,10 +7587,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcevarfromtoken
      */
     static SymGetSourceVarFromToken(hProcess, Token, Params, VarName, Value, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         VarName := VarName is String ? StrPtr(VarName) : VarName
         Value := Value is String ? StrPtr(Value) : Value
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7618,10 +7618,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsourcevarfromtokenw
      */
     static SymGetSourceVarFromTokenW(hProcess, Token, Params, VarName, Value, Size) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         Params := Params is String ? StrPtr(Params) : Params
         VarName := VarName is String ? StrPtr(VarName) : VarName
         Value := Value is String ? StrPtr(Value) : Value
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -7685,8 +7685,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-syminitialize
      */
     static SymInitialize(hProcess, UserSearchPath, fInvadeProcess) {
-        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
 
         A_LastError := 0
 
@@ -7725,8 +7725,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-syminitializew
      */
     static SymInitializeW(hProcess, UserSearchPath, fInvadeProcess) {
-        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        UserSearchPath := UserSearchPath is String ? StrPtr(UserSearchPath) : UserSearchPath
 
         A_LastError := 0
 
@@ -7750,8 +7750,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsearchpath
      */
     static SymGetSearchPath(hProcess, SearchPathA, SearchPathLength) {
-        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
 
         A_LastError := 0
 
@@ -7775,8 +7775,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsearchpathw
      */
     static SymGetSearchPathW(hProcess, SearchPathA, SearchPathLength) {
-        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
 
         A_LastError := 0
 
@@ -7799,8 +7799,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetsearchpath
      */
     static SymSetSearchPath(hProcess, SearchPathA) {
-        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
 
         A_LastError := 0
 
@@ -7823,8 +7823,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsetsearchpathw
      */
     static SymSetSearchPathW(hProcess, SearchPathA) {
-        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
 
         A_LastError := 0
 
@@ -7860,10 +7860,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmoduleex
      */
     static SymLoadModuleEx(hProcess, hFile, ImageName, ModuleName, BaseOfDll, DllSize, Data, Flags) {
-        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
         A_LastError := 0
 
@@ -7899,10 +7899,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmoduleexw
      */
     static SymLoadModuleExW(hProcess, hFile, ImageName, ModuleName, BaseOfDll, DllSize, Data, Flags) {
-        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
         A_LastError := 0
 
@@ -8527,8 +8527,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromname
      */
     static SymFromName(hProcess, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -8553,8 +8553,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symfromnamew
      */
     static SymFromNameW(hProcess, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -8657,8 +8657,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbols
      */
     static SymEnumSymbols(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -8793,8 +8793,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsex
      */
     static SymEnumSymbolsEx(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -8897,8 +8897,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsw
      */
     static SymEnumSymbolsW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -9033,8 +9033,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumsymbolsexw
      */
     static SymEnumSymbolsExW(hProcess, BaseOfDll, Mask, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -9172,8 +9172,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsearch
      */
     static SymSearch(hProcess, BaseOfDll, Index, SymTag, Mask, Address, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -9259,8 +9259,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsearchw
      */
     static SymSearchW(hProcess, BaseOfDll, Index, SymTag, Mask, Address, EnumSymbolsCallback, UserContext, Options) {
-        Mask := Mask is String ? StrPtr(Mask) : Mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Mask := Mask is String ? StrPtr(Mask) : Mask
 
         A_LastError := 0
 
@@ -9498,8 +9498,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypesbyname
      */
     static SymEnumTypesByName(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserContext) {
-        mask := mask is String ? StrPtr(mask) : mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        mask := mask is String ? StrPtr(mask) : mask
 
         A_LastError := 0
 
@@ -9526,8 +9526,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symenumtypesbynamew
      */
     static SymEnumTypesByNameW(hProcess, BaseOfDll, mask, EnumSymbolsCallback, UserContext) {
-        mask := mask is String ? StrPtr(mask) : mask
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        mask := mask is String ? StrPtr(mask) : mask
 
         A_LastError := 0
 
@@ -9553,8 +9553,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypefromname
      */
     static SymGetTypeFromName(hProcess, BaseOfDll, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9580,8 +9580,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgettypefromnamew
      */
     static SymGetTypeFromNameW(hProcess, BaseOfDll, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9608,8 +9608,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsymbol
      */
     static SymAddSymbol(hProcess, BaseOfDll, Name, Address, Size, Flags) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9636,8 +9636,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsymbolw
      */
     static SymAddSymbolW(hProcess, BaseOfDll, Name, Address, Size, Flags) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9663,8 +9663,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symdeletesymbol
      */
     static SymDeleteSymbol(hProcess, BaseOfDll, Name, Address, Flags) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9690,8 +9690,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symdeletesymbolw
      */
     static SymDeleteSymbolW(hProcess, BaseOfDll, Name, Address, Flags) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -9740,8 +9740,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestream
      */
     static SymAddSourceStream(hProcess, Base, StreamFile, Buffer, Size) {
-        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
 
         A_LastError := 0
 
@@ -9766,8 +9766,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestreama
      */
     static SymAddSourceStreamA(hProcess, Base, StreamFile, Buffer, Size) {
-        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        StreamFile := StreamFile is String ? StrPtr(StreamFile) : StreamFile
 
         result := DllCall("dbghelp.dll\SymAddSourceStreamA", "ptr", hProcess, "uint", Base, "ptr", StreamFile, "ptr", Buffer, "ptr", Size, "int")
         return result
@@ -9788,8 +9788,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symaddsourcestreamw
      */
     static SymAddSourceStreamW(hProcess, Base, FileSpec, Buffer, Size) {
-        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        FileSpec := FileSpec is String ? StrPtr(FileSpec) : FileSpec
 
         A_LastError := 0
 
@@ -9809,8 +9809,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvisstorew
      */
     static SymSrvIsStoreW(hProcess, path) {
-        path := path is String ? StrPtr(path) : path
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        path := path is String ? StrPtr(path) : path
 
         A_LastError := 0
 
@@ -9830,8 +9830,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvisstore
      */
     static SymSrvIsStore(hProcess, path) {
-        path := path is String ? StrPtr(path) : path
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        path := path is String ? StrPtr(path) : path
 
         A_LastError := 0
 
@@ -9859,11 +9859,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvdeltaname
      */
     static SymSrvDeltaName(hProcess, SymPath, Type, File1, File2) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         Type := Type is String ? StrPtr(Type) : Type
         File1 := File1 is String ? StrPtr(File1) : File1
         File2 := File2 is String ? StrPtr(File2) : File2
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -9891,11 +9891,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvdeltanamew
      */
     static SymSrvDeltaNameW(hProcess, SymPath, Type, File1, File2) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         Type := Type is String ? StrPtr(Type) : Type
         File1 := File1 is String ? StrPtr(File1) : File1
         File2 := File2 is String ? StrPtr(File2) : File2
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -9922,10 +9922,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetsupplement
      */
     static SymSrvGetSupplement(hProcess, SymPath, Node, File) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         Node := Node is String ? StrPtr(Node) : Node
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -9952,10 +9952,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetsupplementw
      */
     static SymSrvGetSupplementW(hProcess, SymPath, Node, File) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         Node := Node is String ? StrPtr(Node) : Node
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10035,10 +10035,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexstringw
      */
     static SymSrvGetFileIndexStringW(hProcess, SrvPath, File, Index, Size, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
         File := File is String ? StrPtr(File) : File
         Index := Index is String ? StrPtr(Index) : Index
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10068,10 +10068,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvgetfileindexstring
      */
     static SymSrvGetFileIndexString(hProcess, SrvPath, File, Index, Size, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
         File := File is String ? StrPtr(File) : File
         Index := Index is String ? StrPtr(Index) : Index
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10146,10 +10146,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstoresupplement
      */
     static SymSrvStoreSupplement(hProcess, SrvPath, Node, File, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
         Node := Node is String ? StrPtr(Node) : Node
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10176,10 +10176,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstoresupplementw
      */
     static SymSrvStoreSupplementW(hProcess, SymPath, Node, File, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         Node := Node is String ? StrPtr(Node) : Node
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10205,9 +10205,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstorefile
      */
     static SymSrvStoreFile(hProcess, SrvPath, File, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10233,9 +10233,9 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symsrvstorefilew
      */
     static SymSrvStoreFileW(hProcess, SrvPath, File, Flags) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SrvPath := SrvPath is String ? StrPtr(SrvPath) : SrvPath
         File := File is String ? StrPtr(File) : File
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10265,11 +10265,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymbolfile
      */
     static SymGetSymbolFile(hProcess, SymPath, ImageFile, Type, SymbolFile, cSymbolFile, DbgFile, cDbgFile) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         ImageFile := ImageFile is String ? StrPtr(ImageFile) : ImageFile
         SymbolFile := SymbolFile is String ? StrPtr(SymbolFile) : SymbolFile
         DbgFile := DbgFile is String ? StrPtr(DbgFile) : DbgFile
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10299,11 +10299,11 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymbolfilew
      */
     static SymGetSymbolFileW(hProcess, SymPath, ImageFile, Type, SymbolFile, cSymbolFile, DbgFile, cDbgFile) {
+        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         SymPath := SymPath is String ? StrPtr(SymPath) : SymPath
         ImageFile := ImageFile is String ? StrPtr(ImageFile) : ImageFile
         SymbolFile := SymbolFile is String ? StrPtr(SymbolFile) : SymbolFile
         DbgFile := DbgFile is String ? StrPtr(DbgFile) : DbgFile
-        hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
         A_LastError := 0
 
@@ -10408,8 +10408,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromname64
      */
     static SymGetSymFromName64(hProcess, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -10434,8 +10434,8 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symgetsymfromname
      */
     static SymGetSymFromName(hProcess, Name, Symbol) {
-        Name := Name is String ? StrPtr(Name) : Name
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -10460,10 +10460,10 @@ class Debug {
      * @deprecated
      */
     static FindFileInPath(hprocess, SearchPathA, FileName, id, two, three, flags, FilePath) {
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
         SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         FileName := FileName is String ? StrPtr(FileName) : FileName
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         result := DllCall("dbghelp.dll\FindFileInPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "ptr", id, "uint", two, "uint", three, "uint", flags, "ptr", FilePath, "int")
         return result
@@ -10482,10 +10482,10 @@ class Debug {
      * @deprecated
      */
     static FindFileInSearchPath(hprocess, SearchPathA, FileName, one, two, three, FilePath) {
+        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
         SearchPathA := SearchPathA is String ? StrPtr(SearchPathA) : SearchPathA
         FileName := FileName is String ? StrPtr(FileName) : FileName
         FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
-        hprocess := hprocess is Win32Handle ? NumGet(hprocess, "ptr") : hprocess
 
         result := DllCall("dbghelp.dll\FindFileInSearchPath", "ptr", hprocess, "ptr", SearchPathA, "ptr", FileName, "uint", one, "uint", two, "uint", three, "ptr", FilePath, "int")
         return result
@@ -10637,10 +10637,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmodule64
      */
     static SymLoadModule64(hProcess, hFile, ImageName, ModuleName, BaseOfDll, SizeOfDll) {
-        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
         A_LastError := 0
 
@@ -10673,10 +10673,10 @@ class Debug {
      * @see https://docs.microsoft.com/windows/win32/api//dbghelp/nf-dbghelp-symloadmodule
      */
     static SymLoadModule(hProcess, hFile, ImageName, ModuleName, BaseOfDll, SizeOfDll) {
-        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
-        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
 
         A_LastError := 0
 
@@ -10820,8 +10820,8 @@ class Debug {
      * @returns {BOOL} 
      */
     static ReportSymbolLoadSummary(hProcess, pLoadModule, pSymbolData) {
-        pLoadModule := pLoadModule is String ? StrPtr(pLoadModule) : pLoadModule
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        pLoadModule := pLoadModule is String ? StrPtr(pLoadModule) : pLoadModule
 
         result := DllCall("dbghelp.dll\ReportSymbolLoadSummary", "ptr", hProcess, "ptr", pLoadModule, "ptr", pSymbolData, "int")
         return result

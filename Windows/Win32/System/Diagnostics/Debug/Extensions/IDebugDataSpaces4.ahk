@@ -494,6 +494,8 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadMultiByteStringVirtual(Offset, MaxBytes, Buffer, BufferSize, StringBytes) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(38, this, "uint", Offset, "uint", MaxBytes, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
         return result
     }
@@ -526,6 +528,8 @@ class IDebugDataSpaces4 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReadUnicodeStringVirtual(Offset, MaxBytes, CodePage, Buffer, BufferSize, StringBytes) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(40, this, "uint", Offset, "uint", MaxBytes, "uint", CodePage, "ptr", Buffer, "uint", BufferSize, "uint*", StringBytes, "HRESULT")
         return result
     }

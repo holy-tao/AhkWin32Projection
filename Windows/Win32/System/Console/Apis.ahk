@@ -766,8 +766,8 @@ class Console {
     static WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -790,8 +790,8 @@ class Console {
     static WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
         A_LastError := 0
 
@@ -1257,8 +1257,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
         A_LastError := 0
 
@@ -1280,8 +1280,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
         A_LastError := 0
 
@@ -1325,8 +1325,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
         A_LastError := 0
 
@@ -1348,8 +1348,8 @@ class Console {
      * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
-        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
+        lpCharacter := lpCharacter is String ? StrPtr(lpCharacter) : lpCharacter
 
         A_LastError := 0
 
@@ -2588,8 +2588,8 @@ class Console {
      * @returns {BOOL} 
      */
     static SetConsoleLocalEUDC(hConsoleHandle, wCodePoint, cFontSize, lpSB) {
-        lpSB := lpSB is String ? StrPtr(lpSB) : lpSB
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
+        lpSB := lpSB is String ? StrPtr(lpSB) : lpSB
 
         result := DllCall("KERNEL32.dll\SetConsoleLocalEUDC", "ptr", hConsoleHandle, "ushort", wCodePoint, "ptr", cFontSize, "ptr", lpSB, "int")
         return result

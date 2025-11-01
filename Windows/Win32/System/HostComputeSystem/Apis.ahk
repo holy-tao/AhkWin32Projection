@@ -213,8 +213,8 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsAddResourceToOperation(operation, type, uri, handle) {
-        uri := uri is String ? StrPtr(uri) : uri
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        uri := uri is String ? StrPtr(uri) : uri
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
         result := DllCall("computecore.dll\HcsAddResourceToOperation", "ptr", operation, "int", type, "ptr", uri, "ptr", handle, "int")
@@ -320,8 +320,8 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsGetOperationProperties(operation, options, resultDocument) {
-        options := options is String ? StrPtr(options) : options
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsGetOperationProperties", "ptr", operation, "ptr", options, "ptr", resultDocument, "int")
         if(result != 0)
@@ -433,9 +433,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsStartComputeSystem
      */
     static HcsStartComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -453,9 +453,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsShutDownComputeSystem
      */
     static HcsShutDownComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsShutDownComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -473,9 +473,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateComputeSystem
      */
     static HcsTerminateComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsTerminateComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -493,9 +493,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCrashComputeSystem
      */
     static HcsCrashComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsCrashComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -513,9 +513,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsPauseComputeSystem
      */
     static HcsPauseComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsPauseComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -533,9 +533,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsResumeComputeSystem
      */
     static HcsResumeComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsResumeComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -553,9 +553,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSaveComputeSystem
      */
     static HcsSaveComputeSystem(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsSaveComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -573,9 +573,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetComputeSystemProperties
      */
     static HcsGetComputeSystemProperties(computeSystem, operation, propertyQuery) {
-        propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
         result := DllCall("computecore.dll\HcsGetComputeSystemProperties", "ptr", computeSystem, "ptr", operation, "ptr", propertyQuery, "int")
         if(result != 0)
@@ -594,9 +594,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyComputeSystem
      */
     static HcsModifyComputeSystem(computeSystem, operation, configuration, identity) {
-        configuration := configuration is String ? StrPtr(configuration) : configuration
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        configuration := configuration is String ? StrPtr(configuration) : configuration
         identity := identity is Win32Handle ? NumGet(identity, "ptr") : identity
 
         result := DllCall("computecore.dll\HcsModifyComputeSystem", "ptr", computeSystem, "ptr", operation, "ptr", configuration, "ptr", identity, "int")
@@ -651,9 +651,9 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsInitializeLiveMigrationOnSource(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsInitializeLiveMigrationOnSource", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -670,9 +670,9 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsStartLiveMigrationOnSource(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartLiveMigrationOnSource", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -689,9 +689,9 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsStartLiveMigrationTransfer(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsStartLiveMigrationTransfer", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -708,9 +708,9 @@ class HostComputeSystem {
      * @returns {HRESULT} 
      */
     static HcsFinalizeLiveMigration(computeSystem, operation, options) {
-        options := options is String ? StrPtr(options) : options
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsFinalizeLiveMigration", "ptr", computeSystem, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -730,8 +730,8 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
     static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor, process) {
-        processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
+        processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
         result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", securityDescriptor, "ptr", process, "int")
@@ -781,9 +781,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsTerminateProcess
      */
     static HcsTerminateProcess(process, operation, options) {
-        options := options is String ? StrPtr(options) : options
         process := process is Win32Handle ? NumGet(process, "ptr") : process
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsTerminateProcess", "ptr", process, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -801,9 +801,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsSignalProcess
      */
     static HcsSignalProcess(process, operation, options) {
-        options := options is String ? StrPtr(options) : options
         process := process is Win32Handle ? NumGet(process, "ptr") : process
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computecore.dll\HcsSignalProcess", "ptr", process, "ptr", operation, "ptr", options, "int")
         if(result != 0)
@@ -839,9 +839,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessProperties
      */
     static HcsGetProcessProperties(process, operation, propertyQuery) {
-        propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
         process := process is Win32Handle ? NumGet(process, "ptr") : process
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
         result := DllCall("computecore.dll\HcsGetProcessProperties", "ptr", process, "ptr", operation, "ptr", propertyQuery, "int")
         if(result != 0)
@@ -859,9 +859,9 @@ class HostComputeSystem {
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyProcess
      */
     static HcsModifyProcess(process, operation, settings) {
-        settings := settings is String ? StrPtr(settings) : settings
         process := process is Win32Handle ? NumGet(process, "ptr") : process
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
+        settings := settings is String ? StrPtr(settings) : settings
 
         result := DllCall("computecore.dll\HcsModifyProcess", "ptr", process, "ptr", operation, "ptr", settings, "int")
         if(result != 0)
@@ -1146,8 +1146,8 @@ class HostComputeSystem {
      */
     static HcsSetupBaseOSLayer(layerPath, vhdHandle, options) {
         layerPath := layerPath is String ? StrPtr(layerPath) : layerPath
-        options := options is String ? StrPtr(options) : options
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
+        options := options is String ? StrPtr(options) : options
 
         result := DllCall("computestorage.dll\HcsSetupBaseOSLayer", "ptr", layerPath, "ptr", vhdHandle, "ptr", options, "int")
         if(result != 0)

@@ -334,6 +334,8 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentProcessExecutableName(Buffer, BufferSize, ExeSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(31, this, "ptr", Buffer, "uint", BufferSize, "uint*", ExeSize, "HRESULT")
         return result
     }
@@ -483,6 +485,8 @@ class IDebugSystemObjects3 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentSystemServerName(Buffer, BufferSize, NameSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(45, this, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
         return result
     }

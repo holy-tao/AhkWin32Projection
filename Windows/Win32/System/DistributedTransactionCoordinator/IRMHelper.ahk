@@ -48,6 +48,9 @@ class IRMHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     RMInfo(pXa_Switch, fCDeclCallingConv, pszOpenString, pszCloseString, guidRMRecovery) {
+        pszOpenString := pszOpenString is String ? StrPtr(pszOpenString) : pszOpenString
+        pszCloseString := pszCloseString is String ? StrPtr(pszCloseString) : pszCloseString
+
         result := ComCall(4, this, "ptr", pXa_Switch, "int", fCDeclCallingConv, "ptr", pszOpenString, "ptr", pszCloseString, "ptr", guidRMRecovery, "HRESULT")
         return result
     }

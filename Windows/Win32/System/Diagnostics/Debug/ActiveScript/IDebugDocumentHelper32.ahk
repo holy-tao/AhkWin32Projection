@@ -81,6 +81,8 @@ class IDebugDocumentHelper32 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDBCSText(pszText) {
+        pszText := pszText is String ? StrPtr(pszText) : pszText
+
         result := ComCall(7, this, "ptr", pszText, "HRESULT")
         return result
     }

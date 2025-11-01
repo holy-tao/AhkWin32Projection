@@ -5875,11 +5875,11 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RunSetupCommandA(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("ADVPACK.dll\RunSetupCommandA", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
         if(result != 0)
@@ -5901,11 +5901,11 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RunSetupCommandW(hWnd, szCmdName, szInfSection, szDir, lpszTitle, phEXE, dwFlags, pvReserved) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szCmdName := szCmdName is String ? StrPtr(szCmdName) : szCmdName
         szInfSection := szInfSection is String ? StrPtr(szInfSection) : szInfSection
         szDir := szDir is String ? StrPtr(szDir) : szDir
         lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("ADVPACK.dll\RunSetupCommandW", "ptr", hWnd, "ptr", szCmdName, "ptr", szInfSection, "ptr", szDir, "ptr", lpszTitle, "ptr", phEXE, "uint", dwFlags, "ptr", pvReserved, "int")
         if(result != 0)
@@ -5942,9 +5942,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RebootCheckOnInstallA(hwnd, pszINF, pszSec, dwReserved) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallA", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         if(result != 0)
@@ -5962,9 +5962,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RebootCheckOnInstallW(hwnd, pszINF, pszSec, dwReserved) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSec := pszSec is String ? StrPtr(pszSec) : pszSec
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("ADVPACK.dll\RebootCheckOnInstallW", "ptr", hwnd, "ptr", pszINF, "ptr", pszSec, "uint", dwReserved, "int")
         if(result != 0)
@@ -6037,8 +6037,8 @@ class WindowsProgramming {
      * @since windows10.0.10240
      */
     static RegInstallA(hmod, pszSection, pstTable) {
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
+        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegInstallA", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
         if(result != 0)
@@ -6057,8 +6057,8 @@ class WindowsProgramming {
      * @since windows10.0.10240
      */
     static RegInstallW(hmod, pszSection, pstTable) {
-        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         hmod := hmod is Win32Handle ? NumGet(hmod, "ptr") : hmod
+        pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
 
         result := DllCall("ADVPACK.dll\RegInstallW", "ptr", hmod, "ptr", pszSection, "ptr", pstTable, "int")
         if(result != 0)
@@ -6076,9 +6076,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static LaunchINFSectionExW(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\LaunchINFSectionExW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -6133,11 +6133,11 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static AdvInstallFileA(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("ADVPACK.dll\AdvInstallFileA", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         if(result != 0)
@@ -6158,11 +6158,11 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static AdvInstallFileW(hwnd, lpszSourceDir, lpszSourceFile, lpszDestDir, lpszDestFile, dwFlags, dwReserved) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszSourceDir := lpszSourceDir is String ? StrPtr(lpszSourceDir) : lpszSourceDir
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
         lpszDestDir := lpszDestDir is String ? StrPtr(lpszDestDir) : lpszDestDir
         lpszDestFile := lpszDestFile is String ? StrPtr(lpszDestFile) : lpszDestFile
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("ADVPACK.dll\AdvInstallFileW", "ptr", hwnd, "ptr", lpszSourceDir, "ptr", lpszSourceFile, "ptr", lpszDestDir, "ptr", lpszDestFile, "uint", dwFlags, "uint", dwReserved, "int")
         if(result != 0)
@@ -6183,12 +6183,12 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegSaveRestoreA(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         if(result != 0)
@@ -6209,12 +6209,12 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegSaveRestoreW(hWnd, pszTitleString, hkBckupKey, pcszRootKey, pcszSubKey, pcszValueName, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
+        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
         pcszRootKey := pcszRootKey is String ? StrPtr(pcszRootKey) : pcszRootKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValueName := pcszValueName is String ? StrPtr(pcszValueName) : pcszValueName
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
         result := DllCall("ADVPACK.dll\RegSaveRestoreW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "ptr", pcszRootKey, "ptr", pcszSubKey, "ptr", pcszValueName, "uint", dwFlags, "int")
         if(result != 0)
@@ -6235,10 +6235,10 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
@@ -6261,10 +6261,10 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, hHKLMBackKey, hHKCUBackKey, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hHKLMBackKey := hHKLMBackKey is Win32Handle ? NumGet(hHKLMBackKey, "ptr") : hHKLMBackKey
         hHKCUBackKey := hHKCUBackKey is Win32Handle ? NumGet(hHKCUBackKey, "ptr") : hHKCUBackKey
 
@@ -6283,8 +6283,8 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegRestoreAllA(hWnd, pszTitleString, hkBckupKey) {
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
         result := DllCall("ADVPACK.dll\RegRestoreAllA", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
@@ -6302,8 +6302,8 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static RegRestoreAllW(hWnd, pszTitleString, hkBckupKey) {
-        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszTitleString := pszTitleString is String ? StrPtr(pszTitleString) : pszTitleString
         hkBckupKey := hkBckupKey is Win32Handle ? NumGet(hkBckupKey, "ptr") : hkBckupKey
 
         result := DllCall("ADVPACK.dll\RegRestoreAllW", "ptr", hWnd, "ptr", pszTitleString, "ptr", hkBckupKey, "int")
@@ -6323,10 +6323,10 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static FileSaveRestoreW(hDlg, lpFileList, lpDir, lpBaseName, dwFlags) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         lpFileList := lpFileList is String ? StrPtr(lpFileList) : lpFileList
         lpDir := lpDir is String ? StrPtr(lpDir) : lpDir
         lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreW", "ptr", hDlg, "ptr", lpFileList, "ptr", lpDir, "ptr", lpBaseName, "uint", dwFlags, "int")
         if(result != 0)
@@ -6347,12 +6347,12 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static FileSaveRestoreOnINFA(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFA", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         if(result != 0)
@@ -6373,12 +6373,12 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static FileSaveRestoreOnINFW(hWnd, pszTitle, pszINF, pszSection, pszBackupDir, pszBaseBackupFile, dwFlags) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszINF := pszINF is String ? StrPtr(pszINF) : pszINF
         pszSection := pszSection is String ? StrPtr(pszSection) : pszSection
         pszBackupDir := pszBackupDir is String ? StrPtr(pszBackupDir) : pszBackupDir
         pszBaseBackupFile := pszBaseBackupFile is String ? StrPtr(pszBaseBackupFile) : pszBaseBackupFile
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("ADVPACK.dll\FileSaveRestoreOnINFW", "ptr", hWnd, "ptr", pszTitle, "ptr", pszINF, "ptr", pszSection, "ptr", pszBackupDir, "ptr", pszBaseBackupFile, "uint", dwFlags, "int")
         if(result != 0)
@@ -6589,9 +6589,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static DelNodeRunDLL32W(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\DelNodeRunDLL32W", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -6758,9 +6758,9 @@ class WindowsProgramming {
      * @returns {Integer} 
      */
     static LaunchINFSectionW(hwndOwner, hInstance, pszParams, nShow) {
-        pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParams := pszParams is String ? StrPtr(pszParams) : pszParams
 
         result := DllCall("ADVPACK.dll\LaunchINFSectionW", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszParams, "int", nShow, "int")
         return result
@@ -6775,9 +6775,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static UserInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -6795,9 +6795,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static UserInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -6815,9 +6815,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static UserUnInstStubWrapperA(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperA", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -6835,9 +6835,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static UserUnInstStubWrapperW(hwnd, hInstance, pszParms, nShow) {
-        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        pszParms := pszParms is String ? StrPtr(pszParms) : pszParms
 
         result := DllCall("ADVPACK.dll\UserUnInstStubWrapperW", "ptr", hwnd, "ptr", hInstance, "ptr", pszParms, "int", nShow, "int")
         if(result != 0)
@@ -7521,8 +7521,8 @@ class WindowsProgramming {
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
     static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
+        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", result, "int")
         if(result != 0)
@@ -7583,9 +7583,9 @@ class WindowsProgramming {
      * @returns {HRESULT} 
      */
     static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo, result) {
-        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
         contentFileHandle := contentFileHandle is Win32Handle ? NumGet(contentFileHandle, "ptr") : contentFileHandle
         signatureFileHandle := signatureFileHandle is Win32Handle ? NumGet(signatureFileHandle, "ptr") : signatureFileHandle
+        auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
         result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", result, "int")
         if(result != 0)

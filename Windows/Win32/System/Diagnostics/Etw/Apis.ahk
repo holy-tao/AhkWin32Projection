@@ -6652,8 +6652,8 @@ class Etw {
      * @since windows6.0.6000
      */
     static EventWriteString(RegHandle, Level, Keyword, String) {
-        String := String is String ? StrPtr(String) : String
         RegHandle := RegHandle is Win32Handle ? NumGet(RegHandle, "ptr") : RegHandle
+        String := String is String ? StrPtr(String) : String
 
         result := DllCall("ADVAPI32.dll\EventWriteString", "ptr", RegHandle, "char", Level, "uint", Keyword, "ptr", String, "uint")
         return result
@@ -8074,8 +8074,8 @@ class Etw {
      * @since windows8.0
      */
     static TdhGetWppProperty(Handle, EventRecord, PropertyName, BufferSize, Buffer) {
-        PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+        PropertyName := PropertyName is String ? StrPtr(PropertyName) : PropertyName
 
         result := DllCall("tdh.dll\TdhGetWppProperty", "ptr", Handle, "ptr", EventRecord, "ptr", PropertyName, "uint*", BufferSize, "ptr", Buffer, "uint")
         return result

@@ -3348,8 +3348,8 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManPluginAuthzUserComplete(senderDetails, flags, userAuthorizationContext, impersonationToken, userIsAdministrator, errorCode, extendedErrorInformation) {
-        extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
         impersonationToken := impersonationToken is Win32Handle ? NumGet(impersonationToken, "ptr") : impersonationToken
+        extendedErrorInformation := extendedErrorInformation is String ? StrPtr(extendedErrorInformation) : extendedErrorInformation
 
         result := DllCall("WsmSvc.dll\WSManPluginAuthzUserComplete", "ptr", senderDetails, "uint", flags, "ptr", userAuthorizationContext, "ptr", impersonationToken, "int", userIsAdministrator, "uint", errorCode, "ptr", extendedErrorInformation, "uint")
         return result

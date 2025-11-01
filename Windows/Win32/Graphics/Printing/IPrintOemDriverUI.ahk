@@ -39,6 +39,8 @@ class IPrintOemDriverUI extends IUnknown{
      * @returns {HRESULT} 
      */
     DrvGetDriverSetting(pci, Feature, pOutput, cbSize, pcbNeeded, pdwOptionsReturned) {
+        Feature := Feature is String ? StrPtr(Feature) : Feature
+
         result := ComCall(3, this, "ptr", pci, "ptr", Feature, "ptr", pOutput, "uint", cbSize, "uint*", pcbNeeded, "uint*", pdwOptionsReturned, "HRESULT")
         return result
     }
@@ -52,6 +54,8 @@ class IPrintOemDriverUI extends IUnknown{
      */
     DrvUpgradeRegistrySetting(hPrinter, pFeature, pOption) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFeature := pFeature is String ? StrPtr(pFeature) : pFeature
+        pOption := pOption is String ? StrPtr(pOption) : pOption
 
         result := ComCall(4, this, "ptr", hPrinter, "ptr", pFeature, "ptr", pOption, "HRESULT")
         return result

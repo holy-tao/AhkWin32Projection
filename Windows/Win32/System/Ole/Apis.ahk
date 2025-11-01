@@ -31591,9 +31591,9 @@ class Ole {
      * @since windows5.0
      */
     static OleMetafilePictFromIconAndLabel(hIcon, lpszLabel, lpszSourceFile, iIconIndex) {
+        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
         lpszLabel := lpszLabel is String ? StrPtr(lpszLabel) : lpszLabel
         lpszSourceFile := lpszSourceFile is String ? StrPtr(lpszSourceFile) : lpszSourceFile
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         A_LastError := 0
 
@@ -32252,8 +32252,8 @@ class Ole {
     static OleCreatePropertyFrame(hwndOwner, x, y, lpszCaption, cObjects, ppUnk, cPages, pPageClsID, lcid) {
         static dwReserved := 0, pvReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszCaption := lpszCaption is String ? StrPtr(lpszCaption) : lpszCaption
 
         result := DllCall("OLEAUT32.dll\OleCreatePropertyFrame", "ptr", hwndOwner, "uint", x, "uint", y, "ptr", lpszCaption, "uint", cObjects, "ptr*", ppUnk, "uint", cPages, "ptr", pPageClsID, "uint", lcid, "uint", dwReserved, "ptr", pvReserved, "int")
         if(result != 0)
@@ -39533,8 +39533,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksW(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksW", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result
@@ -39551,8 +39551,8 @@ class Ole {
      * @since windows5.0
      */
     static OleUIUpdateLinksA(lpOleUILinkCntr, hwndParent, lpszTitle, cLinks) {
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("oledlg.dll\OleUIUpdateLinksA", "ptr", lpOleUILinkCntr, "ptr", hwndParent, "ptr", lpszTitle, "int", cLinks, "int")
         return result

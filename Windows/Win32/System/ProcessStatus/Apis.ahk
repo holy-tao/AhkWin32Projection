@@ -106,9 +106,9 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
@@ -135,9 +135,9 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         A_LastError := 0
 
@@ -166,9 +166,9 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -197,9 +197,9 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -361,8 +361,8 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -387,8 +387,8 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         A_LastError := 0
 
@@ -686,8 +686,8 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
-        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
         A_LastError := 0
 
@@ -713,8 +713,8 @@ class ProcessStatus {
      * @since windows5.1.2600
      */
     static GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
-        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
         A_LastError := 0
 
@@ -781,9 +781,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
     static K32GetModuleBaseNameA(hProcess, hModule, lpBaseName, nSize) {
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         result := DllCall("KERNEL32.dll\K32GetModuleBaseNameA", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
@@ -799,9 +799,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulebasenamew
      */
     static K32GetModuleBaseNameW(hProcess, hModule, lpBaseName, nSize) {
-        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpBaseName := lpBaseName is String ? StrPtr(lpBaseName) : lpBaseName
 
         result := DllCall("KERNEL32.dll\K32GetModuleBaseNameW", "ptr", hProcess, "ptr", hModule, "ptr", lpBaseName, "uint", nSize, "uint")
         return result
@@ -817,9 +817,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
     static K32GetModuleFileNameExA(hProcess, hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         result := DllCall("KERNEL32.dll\K32GetModuleFileNameExA", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
         return result
@@ -835,9 +835,9 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmodulefilenameexw
      */
     static K32GetModuleFileNameExW(hProcess, hModule, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         result := DllCall("KERNEL32.dll\K32GetModuleFileNameExW", "ptr", hProcess, "ptr", hModule, "ptr", lpFilename, "uint", nSize, "uint")
         return result
@@ -926,8 +926,8 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameW(hProcess, lpv, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         result := DllCall("KERNEL32.dll\K32GetMappedFileNameW", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
         return result
@@ -943,8 +943,8 @@ class ProcessStatus {
      * @see https://learn.microsoft.com/windows/win32/api/psapi/nf-psapi-getmappedfilenamew
      */
     static K32GetMappedFileNameA(hProcess, lpv, lpFilename, nSize) {
-        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpFilename := lpFilename is String ? StrPtr(lpFilename) : lpFilename
 
         result := DllCall("KERNEL32.dll\K32GetMappedFileNameA", "ptr", hProcess, "ptr", lpv, "ptr", lpFilename, "uint", nSize, "uint")
         return result
@@ -1112,8 +1112,8 @@ class ProcessStatus {
      * @returns {Integer} 
      */
     static K32GetProcessImageFileNameA(hProcess, lpImageFileName, nSize) {
-        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
         result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameA", "ptr", hProcess, "ptr", lpImageFileName, "uint", nSize, "uint")
         return result
@@ -1127,8 +1127,8 @@ class ProcessStatus {
      * @returns {Integer} 
      */
     static K32GetProcessImageFileNameW(hProcess, lpImageFileName, nSize) {
-        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpImageFileName := lpImageFileName is String ? StrPtr(lpImageFileName) : lpImageFileName
 
         result := DllCall("KERNEL32.dll\K32GetProcessImageFileNameW", "ptr", hProcess, "ptr", lpImageFileName, "uint", nSize, "uint")
         return result

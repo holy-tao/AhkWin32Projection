@@ -322,9 +322,9 @@ class NetworkDiagnosticsFramework {
      * @since windows6.0.6000
      */
     static NdfCreateWinSockIncident(sock, host, port, appId, userId, handle) {
+        sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
         host := host is String ? StrPtr(host) : host
         appId := appId is String ? StrPtr(appId) : appId
-        sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
 
         result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", handle, "int")
         if(result != 0)

@@ -257,6 +257,8 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-invokeverbonselection
      */
     InvokeVerbOnSelection(pszVerb) {
+        pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
+
         result := ComCall(34, this, "ptr", pszVerb, "HRESULT")
         return result
     }

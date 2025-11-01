@@ -5910,8 +5910,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialog
      */
     static lineConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialog", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -5928,8 +5928,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialoga
      */
     static lineConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialogA", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -5946,8 +5946,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialogw
      */
     static lineConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialogW", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -5977,8 +5977,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialogedit
      */
     static lineConfigDialogEdit(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialogEdit", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "ptr", lpDeviceConfigIn, "uint", dwSize, "ptr", lpDeviceConfigOut, "int")
         return result
@@ -6008,8 +6008,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialogedita
      */
     static lineConfigDialogEditA(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialogEditA", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "ptr", lpDeviceConfigIn, "uint", dwSize, "ptr", lpDeviceConfigOut, "int")
         return result
@@ -6039,8 +6039,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineconfigdialogeditw
      */
     static lineConfigDialogEditW(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\lineConfigDialogEditW", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "ptr", lpDeviceConfigIn, "uint", dwSize, "ptr", lpDeviceConfigOut, "int")
         return result
@@ -8153,8 +8153,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineinitialize
      */
     static lineInitialize(lphLineApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         result := DllCall("TAPI32.dll\lineInitialize", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "uint*", lpdwNumDevs, "int")
         return result
@@ -8180,8 +8180,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineinitializeexa
      */
     static lineInitializeExA(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         result := DllCall("TAPI32.dll\lineInitializeExA", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
@@ -8207,8 +8207,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-lineinitializeexw
      */
     static lineInitializeExW(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         result := DllCall("TAPI32.dll\lineInitializeExW", "uint*", lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
@@ -9836,8 +9836,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-linetranslatedialog
      */
     static lineTranslateDialog(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
-        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
         result := DllCall("TAPI32.dll\lineTranslateDialog", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", hwndOwner, "ptr", lpszAddressIn, "int")
         return result
@@ -9859,8 +9859,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-linetranslatedialoga
      */
     static lineTranslateDialogA(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
-        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
         result := DllCall("TAPI32.dll\lineTranslateDialogA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", hwndOwner, "ptr", lpszAddressIn, "int")
         return result
@@ -9882,8 +9882,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-linetranslatedialogw
      */
     static lineTranslateDialogW(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
-        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
 
         result := DllCall("TAPI32.dll\lineTranslateDialogW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "ptr", hwndOwner, "ptr", lpszAddressIn, "int")
         return result
@@ -9998,8 +9998,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneconfigdialog
      */
     static phoneConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\phoneConfigDialog", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -10016,8 +10016,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneconfigdialoga
      */
     static phoneConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\phoneConfigDialogA", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -10034,8 +10034,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneconfigdialogw
      */
     static phoneConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
-        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
 
         result := DllCall("TAPI32.dll\phoneConfigDialogW", "uint", dwDeviceID, "ptr", hwndOwner, "ptr", lpszDeviceClass, "int")
         return result
@@ -10478,8 +10478,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneinitialize
      */
     static phoneInitialize(lphPhoneApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         result := DllCall("TAPI32.dll\phoneInitialize", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, "uint*", lpdwNumDevs, "int")
         return result
@@ -10505,8 +10505,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneinitializeexa
      */
     static phoneInitializeExA(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         result := DllCall("TAPI32.dll\phoneInitializeExA", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
@@ -10532,8 +10532,8 @@ class Tapi {
      * @see https://docs.microsoft.com/windows/win32/api//tapi/nf-tapi-phoneinitializeexw
      */
     static phoneInitializeExW(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         result := DllCall("TAPI32.dll\phoneInitializeExW", "uint*", lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, "uint*", lpdwNumDevs, "uint*", lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
@@ -10945,13 +10945,13 @@ class Tapi {
      * @returns {Integer} 
      */
     static tapiRequestMediaCall(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("TAPI32.dll\tapiRequestMediaCall", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
@@ -10972,13 +10972,13 @@ class Tapi {
      * @returns {Integer} 
      */
     static tapiRequestMediaCallA(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("TAPI32.dll\tapiRequestMediaCallA", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
@@ -10999,13 +10999,13 @@ class Tapi {
      * @returns {Integer} 
      */
     static tapiRequestMediaCallW(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("TAPI32.dll\tapiRequestMediaCallW", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result

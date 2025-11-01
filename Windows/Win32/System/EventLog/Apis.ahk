@@ -214,9 +214,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtQuery(Session, Path, Query, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         Path := Path is String ? StrPtr(Path) : Path
         Query := Query is String ? StrPtr(Query) : Query
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -349,10 +349,10 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtSubscribe(Session, SignalEvent, ChannelPath, Query, Bookmark, Context, Callback, Flags) {
-        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
-        Query := Query is String ? StrPtr(Query) : Query
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         SignalEvent := SignalEvent is Win32Handle ? NumGet(SignalEvent, "ptr") : SignalEvent
+        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
+        Query := Query is String ? StrPtr(Query) : Query
         Bookmark := Bookmark is Win32Handle ? NumGet(Bookmark, "ptr") : Bookmark
 
         A_LastError := 0
@@ -495,9 +495,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtFormatMessage(PublisherMetadata, Event, MessageId, ValueCount, Values, Flags, BufferSize, Buffer, BufferUsed) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
         PublisherMetadata := PublisherMetadata is Win32Handle ? NumGet(PublisherMetadata, "ptr") : PublisherMetadata
         Event := Event is Win32Handle ? NumGet(Event, "ptr") : Event
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
         A_LastError := 0
 
@@ -518,8 +518,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenLog(Session, Path, Flags) {
-        Path := Path is String ? StrPtr(Path) : Path
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        Path := Path is String ? StrPtr(Path) : Path
 
         A_LastError := 0
 
@@ -622,9 +622,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtClearLog(Session, ChannelPath, TargetFilePath, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -676,10 +676,10 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtExportLog(Session, Path, Query, TargetFilePath, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         Path := Path is String ? StrPtr(Path) : Path
         Query := Query is String ? StrPtr(Query) : Query
         TargetFilePath := TargetFilePath is String ? StrPtr(TargetFilePath) : TargetFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -730,8 +730,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtArchiveExportedLog(Session, LogFilePath, Locale, Flags) {
-        LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
 
         A_LastError := 0
 
@@ -802,8 +802,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextChannelPath(ChannelEnum, ChannelPathBufferSize, ChannelPathBuffer, ChannelPathBufferUsed) {
-        ChannelPathBuffer := ChannelPathBuffer is String ? StrPtr(ChannelPathBuffer) : ChannelPathBuffer
         ChannelEnum := ChannelEnum is Win32Handle ? NumGet(ChannelEnum, "ptr") : ChannelEnum
+        ChannelPathBuffer := ChannelPathBuffer is String ? StrPtr(ChannelPathBuffer) : ChannelPathBuffer
 
         A_LastError := 0
 
@@ -824,8 +824,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenChannelConfig(Session, ChannelPath, Flags) {
-        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
         Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
+        ChannelPath := ChannelPath is String ? StrPtr(ChannelPath) : ChannelPath
 
         A_LastError := 0
 
@@ -1051,8 +1051,8 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtNextPublisherId(PublisherEnum, PublisherIdBufferSize, PublisherIdBuffer, PublisherIdBufferUsed) {
-        PublisherIdBuffer := PublisherIdBuffer is String ? StrPtr(PublisherIdBuffer) : PublisherIdBuffer
         PublisherEnum := PublisherEnum is Win32Handle ? NumGet(PublisherEnum, "ptr") : PublisherEnum
+        PublisherIdBuffer := PublisherIdBuffer is String ? StrPtr(PublisherIdBuffer) : PublisherIdBuffer
 
         A_LastError := 0
 
@@ -1075,9 +1075,9 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtOpenPublisherMetadata(Session, PublisherId, LogFilePath, Locale, Flags) {
+        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
         PublisherId := PublisherId is String ? StrPtr(PublisherId) : PublisherId
         LogFilePath := LogFilePath is String ? StrPtr(LogFilePath) : LogFilePath
-        Session := Session is Win32Handle ? NumGet(Session, "ptr") : Session
 
         A_LastError := 0
 
@@ -1524,8 +1524,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogA(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1554,8 +1554,8 @@ class EventLog {
      * @since windows5.0
      */
     static ClearEventLogW(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1579,8 +1579,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogA(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 
@@ -1604,8 +1604,8 @@ class EventLog {
      * @since windows5.0
      */
     static BackupEventLogW(hEventLog, lpBackupFileName) {
-        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
+        lpBackupFileName := lpBackupFileName is String ? StrPtr(lpBackupFileName) : lpBackupFileName
 
         A_LastError := 0
 

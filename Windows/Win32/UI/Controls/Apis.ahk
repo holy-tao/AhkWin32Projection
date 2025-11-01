@@ -11500,8 +11500,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_LoadImageA(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
-        lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
         hi := hi is Win32Handle ? NumGet(hi, "ptr") : hi
+        lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
 
         result := DllCall("COMCTL32.dll\ImageList_LoadImageA", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return HIMAGELIST({Value: result}, True)
@@ -11590,8 +11590,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static ImageList_LoadImageW(hi, lpbmp, cx, cGrow, crMask, uType, uFlags) {
-        lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
         hi := hi is Win32Handle ? NumGet(hi, "ptr") : hi
+        lpbmp := lpbmp is String ? StrPtr(lpbmp) : lpbmp
 
         result := DllCall("COMCTL32.dll\ImageList_LoadImageW", "ptr", hi, "ptr", lpbmp, "int", cx, "int", cGrow, "uint", crMask, "uint", uType, "uint", uFlags, "ptr")
         return HIMAGELIST({Value: result}, True)
@@ -12278,8 +12278,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DrawStatusTextA(hDC, lprc, pszText, uFlags) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         DllCall("COMCTL32.dll\DrawStatusTextA", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
     }
@@ -12351,8 +12351,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DrawStatusTextW(hDC, lprc, pszText, uFlags) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         DllCall("COMCTL32.dll\DrawStatusTextW", "ptr", hDC, "ptr", lprc, "ptr", pszText, "uint", uFlags)
     }
@@ -12909,12 +12909,12 @@ class Controls {
      * @since windows6.0.6000
      */
     static TaskDialog(hwndOwner, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, pnButton) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
         pszWindowTitle := pszWindowTitle is String ? StrPtr(pszWindowTitle) : pszWindowTitle
         pszMainInstruction := pszMainInstruction is String ? StrPtr(pszMainInstruction) : pszMainInstruction
         pszContent := pszContent is String ? StrPtr(pszContent) : pszContent
         pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
         result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, "int*", pnButton, "int")
         if(result != 0)
@@ -14236,8 +14236,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static LoadIconMetric(hinst, pszName, lims, phico) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "int")
         if(result != 0)
@@ -14407,8 +14407,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", cy, "ptr", phico, "int")
         if(result != 0)
@@ -14453,8 +14453,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DrawShadowText(hdc, pszText, cch, prc, dwFlags, crText, crShadow, ixOffset, iyOffset) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("COMCTL32.dll\DrawShadowText", "ptr", hdc, "ptr", pszText, "uint", cch, "ptr", prc, "uint", dwFlags, "uint", crText, "uint", crShadow, "int", ixOffset, "int", iyOffset, "int")
         return result
@@ -14638,8 +14638,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static OpenThemeData(hwnd, pszClassList) {
-        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UXTHEME.dll\OpenThemeData", "ptr", hwnd, "ptr", pszClassList, "ptr")
         return HTHEME({Value: result}, True)
@@ -14661,8 +14661,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static OpenThemeDataEx(hwnd, pszClassList, dwFlags) {
-        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UXTHEME.dll\OpenThemeDataEx", "ptr", hwnd, "ptr", pszClassList, "uint", dwFlags, "ptr")
         return HTHEME({Value: result}, True)
@@ -14802,9 +14802,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static DrawThemeText(hTheme, hdc, iPartId, iStateId, pszText, cchText, dwTextFlags, dwTextFlags2, pRect) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\DrawThemeText", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "uint", dwTextFlags2, "ptr", pRect, "int")
         if(result != 0)
@@ -14998,9 +14998,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetThemeTextExtent(hTheme, hdc, iPartId, iStateId, pszText, cchCharCount, dwTextFlags, pBoundingRect, pExtentRect) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UxTheme.dll\GetThemeTextExtent", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchCharCount, "uint", dwTextFlags, "ptr", pBoundingRect, "ptr", pExtentRect, "int")
         if(result != 0)
@@ -15469,8 +15469,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetThemeString(hTheme, iPartId, iStateId, iPropId, pszBuff, cchMaxBuffChars) {
-        pszBuff := pszBuff is String ? StrPtr(pszBuff) : pszBuff
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
+        pszBuff := pszBuff is String ? StrPtr(pszBuff) : pszBuff
 
         result := DllCall("UxTheme.dll\GetThemeString", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszBuff, "int", cchMaxBuffChars, "int")
         if(result != 0)
@@ -15801,9 +15801,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static SetWindowTheme(hwnd, pszSubAppName, pszSubIdList) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszSubAppName := pszSubAppName is String ? StrPtr(pszSubAppName) : pszSubAppName
         pszSubIdList := pszSubIdList is String ? StrPtr(pszSubIdList) : pszSubIdList
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("UXTHEME.dll\SetWindowTheme", "ptr", hwnd, "ptr", pszSubAppName, "ptr", pszSubIdList, "int")
         if(result != 0)
@@ -15839,8 +15839,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetThemeFilename(hTheme, iPartId, iStateId, iPropId, pszThemeFileName, cchMaxBuffChars) {
-        pszThemeFileName := pszThemeFileName is String ? StrPtr(pszThemeFileName) : pszThemeFileName
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
+        pszThemeFileName := pszThemeFileName is String ? StrPtr(pszThemeFileName) : pszThemeFileName
 
         result := DllCall("UxTheme.dll\GetThemeFilename", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pszThemeFileName, "int", cchMaxBuffChars, "int")
         if(result != 0)
@@ -16099,8 +16099,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static GetThemeSysString(hTheme, iStringId, pszStringBuff, cchMaxStringChars) {
-        pszStringBuff := pszStringBuff is String ? StrPtr(pszStringBuff) : pszStringBuff
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
+        pszStringBuff := pszStringBuff is String ? StrPtr(pszStringBuff) : pszStringBuff
 
         result := DllCall("UxTheme.dll\GetThemeSysString", "ptr", hTheme, "int", iStringId, "ptr", pszStringBuff, "int", cchMaxStringChars, "int")
         if(result != 0)
@@ -16729,9 +16729,9 @@ class Controls {
      * @since windows6.0.6000
      */
     static DrawThemeTextEx(hTheme, hdc, iPartId, iStateId, pszText, cchText, dwTextFlags, pRect, pOptions) {
-        pszText := pszText is String ? StrPtr(pszText) : pszText
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszText := pszText is String ? StrPtr(pszText) : pszText
 
         result := DllCall("UXTHEME.dll\DrawThemeTextEx", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pszText, "int", cchText, "uint", dwTextFlags, "ptr", pRect, "ptr", pOptions, "int")
         if(result != 0)
@@ -17620,8 +17620,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirListA(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
-        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
 
         result := DllCall("USER32.dll\DlgDirListA", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType, "int")
         return result
@@ -17661,8 +17661,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirListW(hDlg, lpPathSpec, nIDListBox, nIDStaticPath, uFileType) {
-        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
 
         result := DllCall("USER32.dll\DlgDirListW", "ptr", hDlg, "ptr", lpPathSpec, "int", nIDListBox, "int", nIDStaticPath, "uint", uFileType, "int")
         return result
@@ -17693,8 +17693,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirSelectExA(hwndDlg, lpString, chCount, idListBox) {
-        lpString := lpString is String ? StrPtr(lpString) : lpString
         hwndDlg := hwndDlg is Win32Handle ? NumGet(hwndDlg, "ptr") : hwndDlg
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -17730,8 +17730,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirSelectExW(hwndDlg, lpString, chCount, idListBox) {
-        lpString := lpString is String ? StrPtr(lpString) : lpString
         hwndDlg := hwndDlg is Win32Handle ? NumGet(hwndDlg, "ptr") : hwndDlg
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -17774,8 +17774,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirListComboBoxA(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype) {
-        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
 
         A_LastError := 0
 
@@ -17818,8 +17818,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirListComboBoxW(hDlg, lpPathSpec, nIDComboBox, nIDStaticPath, uFiletype) {
-        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpPathSpec := lpPathSpec is String ? StrPtr(lpPathSpec) : lpPathSpec
 
         A_LastError := 0
 
@@ -17855,8 +17855,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirSelectComboBoxExA(hwndDlg, lpString, cchOut, idComboBox) {
-        lpString := lpString is String ? StrPtr(lpString) : lpString
         hwndDlg := hwndDlg is Win32Handle ? NumGet(hwndDlg, "ptr") : hwndDlg
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 
@@ -17892,8 +17892,8 @@ class Controls {
      * @since windows6.0.6000
      */
     static DlgDirSelectComboBoxExW(hwndDlg, lpString, cchOut, idComboBox) {
-        lpString := lpString is String ? StrPtr(lpString) : lpString
         hwndDlg := hwndDlg is Win32Handle ? NumGet(hwndDlg, "ptr") : hwndDlg
+        lpString := lpString is String ? StrPtr(lpString) : lpString
 
         A_LastError := 0
 

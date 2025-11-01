@@ -31565,8 +31565,8 @@ class MsHtml {
      * @returns {HRESULT} 
      */
     static DoPrivacyDlg(hwndOwner, pszUrl, pPrivacyEnum, fReportAllSites) {
-        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
         result := DllCall("SHDOCVW.dll\DoPrivacyDlg", "ptr", hwndOwner, "ptr", pszUrl, "ptr", pPrivacyEnum, "int", fReportAllSites, "int")
         if(result != 0)

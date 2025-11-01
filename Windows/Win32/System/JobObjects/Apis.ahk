@@ -286,8 +286,8 @@ class JobObjects {
      * @since windows10.0.10240
      */
     static QueryIoRateControlInformationJobObject(hJob, VolumeName, InfoBlocks, InfoBlockCount) {
-        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
         hJob := hJob is Win32Handle ? NumGet(hJob, "ptr") : hJob
+        VolumeName := VolumeName is String ? StrPtr(VolumeName) : VolumeName
 
         A_LastError := 0
 

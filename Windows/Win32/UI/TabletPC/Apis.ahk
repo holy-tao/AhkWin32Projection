@@ -2497,8 +2497,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetBestResultString(hrc, pcSize, pwcBestResult) {
-        pwcBestResult := pwcBestResult is String ? StrPtr(pwcBestResult) : pwcBestResult
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcBestResult := pwcBestResult is String ? StrPtr(pwcBestResult) : pwcBestResult
 
         result := DllCall("inkobjcore.dll\GetBestResultString", "ptr", hrc, "uint*", pcSize, "ptr", pwcBestResult, "int")
         if(result != 0)
@@ -3318,8 +3318,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetFactoid(hrc, cwcFactoid, pwcFactoid) {
-        pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcFactoid := pwcFactoid is String ? StrPtr(pwcFactoid) : pwcFactoid
 
         result := DllCall("inkobjcore.dll\SetFactoid", "ptr", hrc, "uint", cwcFactoid, "ptr", pwcFactoid, "int")
         if(result != 0)
@@ -3687,9 +3687,9 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static SetTextContext(hrc, cwcBefore, pwcBefore, cwcAfter, pwcAfter) {
+        hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
         pwcBefore := pwcBefore is String ? StrPtr(pwcBefore) : pwcBefore
         pwcAfter := pwcAfter is String ? StrPtr(pwcAfter) : pwcAfter
-        hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
         result := DllCall("inkobjcore.dll\SetTextContext", "ptr", hrc, "uint", cwcBefore, "ptr", pwcBefore, "uint", cwcAfter, "ptr", pwcAfter, "int")
         if(result != 0)
@@ -4234,8 +4234,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static IsStringSupported(hrc, wcString, pwcString) {
-        pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcString := pwcString is String ? StrPtr(pwcString) : pwcString
 
         result := DllCall("inkobjcore.dll\IsStringSupported", "ptr", hrc, "uint", wcString, "ptr", pwcString, "int")
         if(result != 0)
@@ -4364,8 +4364,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetRightSeparator(hrc, pcSize, pwcRightSeparator) {
-        pwcRightSeparator := pwcRightSeparator is String ? StrPtr(pwcRightSeparator) : pwcRightSeparator
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcRightSeparator := pwcRightSeparator is String ? StrPtr(pwcRightSeparator) : pwcRightSeparator
 
         result := DllCall("inkobjcore.dll\GetRightSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcRightSeparator, "int")
         if(result != 0)
@@ -4384,8 +4384,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static GetLeftSeparator(hrc, pcSize, pwcLeftSeparator) {
-        pwcLeftSeparator := pwcLeftSeparator is String ? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
+        pwcLeftSeparator := pwcLeftSeparator is String ? StrPtr(pwcLeftSeparator) : pwcLeftSeparator
 
         result := DllCall("inkobjcore.dll\GetLeftSeparator", "ptr", hrc, "uint*", pcSize, "ptr", pwcLeftSeparator, "int")
         if(result != 0)
@@ -4522,8 +4522,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static AddWordsToWordList(hwl, pwcWords) {
-        pwcWords := pwcWords is String ? StrPtr(pwcWords) : pwcWords
         hwl := hwl is Win32Handle ? NumGet(hwl, "ptr") : hwl
+        pwcWords := pwcWords is String ? StrPtr(pwcWords) : pwcWords
 
         result := DllCall("inkobjcore.dll\AddWordsToWordList", "ptr", hwl, "ptr", pwcWords, "int")
         if(result != 0)
@@ -4615,8 +4615,8 @@ class TabletPC {
      * @since windows5.1.2600
      */
     static MakeWordList(hrec, pBuffer, phwl) {
-        pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
         hrec := hrec is Win32Handle ? NumGet(hrec, "ptr") : hrec
+        pBuffer := pBuffer is String ? StrPtr(pBuffer) : pBuffer
 
         result := DllCall("inkobjcore.dll\MakeWordList", "ptr", hrec, "ptr", pBuffer, "ptr", phwl, "int")
         if(result != 0)

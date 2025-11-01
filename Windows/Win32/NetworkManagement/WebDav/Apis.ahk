@@ -278,8 +278,8 @@ class WebDav {
      * @since windows6.0.6000
      */
     static DavGetExtendedError(hFile, ExtError, ExtErrorString, cChSize) {
-        ExtErrorString := ExtErrorString is String ? StrPtr(ExtErrorString) : ExtErrorString
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        ExtErrorString := ExtErrorString is String ? StrPtr(ExtErrorString) : ExtErrorString
 
         result := DllCall("NETAPI32.dll\DavGetExtendedError", "ptr", hFile, "uint*", ExtError, "ptr", ExtErrorString, "uint*", cChSize, "uint")
         return result

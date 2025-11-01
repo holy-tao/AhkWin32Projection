@@ -53,8 +53,8 @@ class EnterpriseData {
      * @since windows10.0.10240
      */
     static SrpSetTokenEnterpriseId(tokenHandle, enterpriseId) {
-        enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
+        enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
         result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", "ptr", tokenHandle, "ptr", enterpriseId, "int")
         if(result != 0)

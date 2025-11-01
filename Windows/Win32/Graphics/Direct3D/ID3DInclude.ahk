@@ -40,6 +40,8 @@ class ID3DInclude extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-open
      */
     Open(IncludeType, pFileName, pParentData, ppData, pBytes) {
+        pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
+
         result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, "ptr", pParentData, "ptr*", ppData, "uint*", pBytes, "HRESULT")
         return result
     }

@@ -5075,8 +5075,8 @@ class QoS {
      * @since windows5.0
      */
     static TcGetFlowNameA(FlowHandle, StrSize, pFlowName) {
-        pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
         FlowHandle := FlowHandle is Win32Handle ? NumGet(FlowHandle, "ptr") : FlowHandle
+        pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
         result := DllCall("TRAFFIC.dll\TcGetFlowNameA", "ptr", FlowHandle, "uint", StrSize, "ptr", pFlowName, "uint")
         return result
@@ -5141,8 +5141,8 @@ class QoS {
      * @since windows5.0
      */
     static TcGetFlowNameW(FlowHandle, StrSize, pFlowName) {
-        pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
         FlowHandle := FlowHandle is Win32Handle ? NumGet(FlowHandle, "ptr") : FlowHandle
+        pFlowName := pFlowName is String ? StrPtr(pFlowName) : pFlowName
 
         result := DllCall("TRAFFIC.dll\TcGetFlowNameW", "ptr", FlowHandle, "uint", StrSize, "ptr", pFlowName, "uint")
         return result

@@ -36,6 +36,8 @@ class IUniformResourceLocatorA extends IUnknown{
      * @returns {HRESULT} 
      */
     SetURL(pcszURL, dwInFlags) {
+        pcszURL := pcszURL is String ? StrPtr(pcszURL) : pcszURL
+
         result := ComCall(3, this, "ptr", pcszURL, "uint", dwInFlags, "HRESULT")
         return result
     }

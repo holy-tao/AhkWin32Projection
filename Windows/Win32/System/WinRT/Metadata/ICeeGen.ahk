@@ -135,6 +135,8 @@ class ICeeGen extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSectionCreate(name, flags, section) {
+        name := name is String ? StrPtr(name) : name
+
         result := ComCall(12, this, "ptr", name, "uint", flags, "ptr*", section, "HRESULT")
         return result
     }

@@ -37,6 +37,8 @@ class IResourceManagerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     Create(pguidRM, pszRMName, pIResMgrSink, ppResMgr) {
+        pszRMName := pszRMName is String ? StrPtr(pszRMName) : pszRMName
+
         result := ComCall(3, this, "ptr", pguidRM, "ptr", pszRMName, "ptr", pIResMgrSink, "ptr*", ppResMgr, "HRESULT")
         return result
     }

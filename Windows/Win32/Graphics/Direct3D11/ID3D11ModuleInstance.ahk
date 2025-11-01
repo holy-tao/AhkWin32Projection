@@ -62,6 +62,8 @@ class ID3D11ModuleInstance extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbufferbyname
      */
     BindConstantBufferByName(pName, uDstSlot, cbDstOffset) {
+        pName := pName is String ? StrPtr(pName) : pName
+
         result := ComCall(4, this, "ptr", pName, "uint", uDstSlot, "uint", cbDstOffset, "HRESULT")
         return result
     }
@@ -88,6 +90,8 @@ class ID3D11ModuleInstance extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourcebyname
      */
     BindResourceByName(pName, uDstSlot, uCount) {
+        pName := pName is String ? StrPtr(pName) : pName
+
         result := ComCall(6, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
         return result
     }
@@ -114,6 +118,8 @@ class ID3D11ModuleInstance extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsamplerbyname
      */
     BindSamplerByName(pName, uDstSlot, uCount) {
+        pName := pName is String ? StrPtr(pName) : pName
+
         result := ComCall(8, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
         return result
     }
@@ -140,6 +146,8 @@ class ID3D11ModuleInstance extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessviewbyname
      */
     BindUnorderedAccessViewByName(pName, uDstSlot, uCount) {
+        pName := pName is String ? StrPtr(pName) : pName
+
         result := ComCall(10, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
         return result
     }
@@ -166,6 +174,8 @@ class ID3D11ModuleInstance extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessviewbyname
      */
     BindResourceAsUnorderedAccessViewByName(pSrvName, uDstUavSlot, uCount) {
+        pSrvName := pSrvName is String ? StrPtr(pSrvName) : pSrvName
+
         result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
         return result
     }

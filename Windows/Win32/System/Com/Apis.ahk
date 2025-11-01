@@ -1629,8 +1629,8 @@ class Com {
      * @returns {HRESULT} 
      */
     static CreateStdProgressIndicator(hwndParent, pszTitle, pIbscCaller, ppIbsc) {
-        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
         result := DllCall("ole32.dll\CreateStdProgressIndicator", "ptr", hwndParent, "ptr", pszTitle, "ptr", pIbscCaller, "ptr*", ppIbsc, "int")
         if(result != 0)

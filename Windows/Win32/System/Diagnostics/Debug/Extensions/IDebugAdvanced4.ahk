@@ -84,6 +84,8 @@ class IDebugAdvanced4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSourceFileInformation(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
+        SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
+
         result := ComCall(6, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "HRESULT")
         return result
     }
@@ -103,6 +105,9 @@ class IDebugAdvanced4 extends IUnknown{
      * @returns {HRESULT} 
      */
     FindSourceFileAndToken(StartElement, ModAddr, File, Flags, FileToken, FileTokenSize, FoundElement, Buffer, BufferSize, FoundSize) {
+        File := File is String ? StrPtr(File) : File
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(7, this, "uint", StartElement, "uint", ModAddr, "ptr", File, "uint", Flags, "ptr", FileToken, "uint", FileTokenSize, "uint*", FoundElement, "ptr", Buffer, "uint", BufferSize, "uint*", FoundSize, "HRESULT")
         return result
     }
@@ -121,6 +126,8 @@ class IDebugAdvanced4 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolInformation(Which, Arg64, Arg32, Buffer, BufferSize, InfoSize, StringBuffer, StringBufferSize, StringSize) {
+        StringBuffer := StringBuffer is String ? StrPtr(StringBuffer) : StringBuffer
+
         result := ComCall(8, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", InfoSize, "ptr", StringBuffer, "uint", StringBufferSize, "uint*", StringSize, "HRESULT")
         return result
     }

@@ -42,6 +42,8 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-open
      */
     Open(pchDictPath, pshf) {
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
         result := ComCall(3, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
         return result
     }
@@ -66,6 +68,8 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getheader
      */
     GetHeader(pchDictPath, pshf, pjfmt, pulType) {
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
         result := ComCall(5, this, "ptr", pchDictPath, "ptr", pshf, "int*", pjfmt, "uint*", pulType, "HRESULT")
         return result
     }
@@ -139,6 +143,8 @@ class IFEDictionary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-create
      */
     Create(pchDictPath, pshf) {
+        pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
+
         result := ComCall(10, this, "ptr", pchDictPath, "ptr", pshf, "HRESULT")
         return result
     }
@@ -243,6 +249,8 @@ class IFEDictionary extends IUnknown{
      * @returns {HRESULT} 
      */
     ConvertFromOldMSIME(pchDic, pfnLog, reg) {
+        pchDic := pchDic is String ? StrPtr(pchDic) : pchDic
+
         result := ComCall(18, this, "ptr", pchDic, "ptr", pfnLog, "int", reg, "HRESULT")
         return result
     }

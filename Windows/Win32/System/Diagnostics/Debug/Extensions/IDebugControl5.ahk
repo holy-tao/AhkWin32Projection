@@ -76,6 +76,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLogFile(Buffer, BufferSize, FileSize, Append) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(7, this, "ptr", Buffer, "uint", BufferSize, "uint*", FileSize, "ptr", Append, "HRESULT")
         return result
     }
@@ -87,6 +89,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenLogFile(File, Append) {
+        File := File is String ? StrPtr(File) : File
+
         result := ComCall(8, this, "ptr", File, "int", Append, "HRESULT")
         return result
     }
@@ -128,6 +132,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Input(Buffer, BufferSize, InputSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(12, this, "ptr", Buffer, "uint", BufferSize, "uint*", InputSize, "HRESULT")
         return result
     }
@@ -138,6 +144,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     ReturnInput(Buffer) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(13, this, "ptr", Buffer, "HRESULT")
         return result
     }
@@ -149,6 +157,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Output(Mask, Format) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(14, this, "uint", Mask, "ptr", Format, "HRESULT")
         return result
     }
@@ -161,6 +171,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputVaList(Mask, Format, Args) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(15, this, "uint", Mask, "ptr", Format, "char*", Args, "HRESULT")
         return result
     }
@@ -173,6 +185,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     ControlledOutput(OutputControl, Mask, Format) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(16, this, "uint", OutputControl, "uint", Mask, "ptr", Format, "HRESULT")
         return result
     }
@@ -186,6 +200,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     ControlledOutputVaList(OutputControl, Mask, Format, Args) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(17, this, "uint", OutputControl, "uint", Mask, "ptr", Format, "char*", Args, "HRESULT")
         return result
     }
@@ -197,6 +213,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputPrompt(OutputControl, Format) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(18, this, "uint", OutputControl, "ptr", Format, "HRESULT")
         return result
     }
@@ -209,6 +227,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputPromptVaList(OutputControl, Format, Args) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(19, this, "uint", OutputControl, "ptr", Format, "char*", Args, "HRESULT")
         return result
     }
@@ -221,6 +241,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPromptText(Buffer, BufferSize, TextSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(20, this, "ptr", Buffer, "uint", BufferSize, "uint*", TextSize, "HRESULT")
         return result
     }
@@ -277,6 +299,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Assemble(Offset, Instr, EndOffset) {
+        Instr := Instr is String ? StrPtr(Instr) : Instr
+
         result := ComCall(25, this, "uint", Offset, "ptr", Instr, "uint*", EndOffset, "HRESULT")
         return result
     }
@@ -292,6 +316,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Disassemble(Offset, Flags, Buffer, BufferSize, DisassemblySize, EndOffset) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(26, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, "uint*", DisassemblySize, "uint*", EndOffset, "HRESULT")
         return result
     }
@@ -465,6 +491,9 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSystemVersion(PlatformId, Major, Minor, ServicePackString, ServicePackStringSize, ServicePackStringUsed, ServicePackNumber, BuildString, BuildStringSize, BuildStringUsed) {
+        ServicePackString := ServicePackString is String ? StrPtr(ServicePackString) : ServicePackString
+        BuildString := BuildString is String ? StrPtr(BuildString) : BuildString
+
         result := ComCall(40, this, "uint*", PlatformId, "uint*", Major, "uint*", Minor, "ptr", ServicePackString, "uint", ServicePackStringSize, "uint*", ServicePackStringUsed, "uint*", ServicePackNumber, "ptr", BuildString, "uint", BuildStringSize, "uint*", BuildStringUsed, "HRESULT")
         return result
     }
@@ -536,6 +565,9 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetProcessorTypeNames(Type, FullNameBuffer, FullNameBufferSize, FullNameSize, AbbrevNameBuffer, AbbrevNameBufferSize, AbbrevNameSize) {
+        FullNameBuffer := FullNameBuffer is String ? StrPtr(FullNameBuffer) : FullNameBuffer
+        AbbrevNameBuffer := AbbrevNameBuffer is String ? StrPtr(AbbrevNameBuffer) : AbbrevNameBuffer
+
         result := ComCall(46, this, "uint", Type, "ptr", FullNameBuffer, "uint", FullNameBufferSize, "uint*", FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, "uint*", AbbrevNameSize, "HRESULT")
         return result
     }
@@ -671,6 +703,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTextMacro(Slot, Buffer, BufferSize, MacroSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(59, this, "uint", Slot, "ptr", Buffer, "uint", BufferSize, "uint*", MacroSize, "HRESULT")
         return result
     }
@@ -682,6 +716,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTextMacro(Slot, Macro) {
+        Macro := Macro is String ? StrPtr(Macro) : Macro
+
         result := ComCall(60, this, "uint", Slot, "ptr", Macro, "HRESULT")
         return result
     }
@@ -715,6 +751,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Evaluate(Expression, DesiredType, Value, RemainderIndex) {
+        Expression := Expression is String ? StrPtr(Expression) : Expression
+
         result := ComCall(63, this, "ptr", Expression, "uint", DesiredType, "ptr", Value, "uint*", RemainderIndex, "HRESULT")
         return result
     }
@@ -752,6 +790,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     Execute(OutputControl, Command, Flags) {
+        Command := Command is String ? StrPtr(Command) : Command
+
         result := ComCall(66, this, "uint", OutputControl, "ptr", Command, "uint", Flags, "HRESULT")
         return result
     }
@@ -764,6 +804,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     ExecuteCommandFile(OutputControl, CommandFile, Flags) {
+        CommandFile := CommandFile is String ? StrPtr(CommandFile) : CommandFile
+
         result := ComCall(67, this, "uint", OutputControl, "ptr", CommandFile, "uint", Flags, "HRESULT")
         return result
     }
@@ -843,6 +885,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddExtension(Path, Flags, Handle) {
+        Path := Path is String ? StrPtr(Path) : Path
+
         result := ComCall(74, this, "ptr", Path, "uint", Flags, "uint*", Handle, "HRESULT")
         return result
     }
@@ -864,6 +908,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExtensionByPath(Path, Handle) {
+        Path := Path is String ? StrPtr(Path) : Path
+
         result := ComCall(76, this, "ptr", Path, "uint*", Handle, "HRESULT")
         return result
     }
@@ -876,6 +922,9 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     CallExtension(Handle, Function, Arguments) {
+        Function := Function is String ? StrPtr(Function) : Function
+        Arguments := Arguments is String ? StrPtr(Arguments) : Arguments
+
         result := ComCall(77, this, "uint", Handle, "ptr", Function, "ptr", Arguments, "HRESULT")
         return result
     }
@@ -888,6 +937,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExtensionFunction(Handle, FuncName, Function) {
+        FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
+
         result := ComCall(78, this, "uint", Handle, "ptr", FuncName, "ptr*", Function, "HRESULT")
         return result
     }
@@ -933,6 +984,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventFilterText(Index, Buffer, BufferSize, TextSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(82, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", TextSize, "HRESULT")
         return result
     }
@@ -946,6 +999,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventFilterCommand(Index, Buffer, BufferSize, CommandSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(83, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", CommandSize, "HRESULT")
         return result
     }
@@ -957,6 +1012,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEventFilterCommand(Index, Command) {
+        Command := Command is String ? StrPtr(Command) : Command
+
         result := ComCall(84, this, "uint", Index, "ptr", Command, "HRESULT")
         return result
     }
@@ -994,6 +1051,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSpecificFilterArgument(Index, Buffer, BufferSize, ArgumentSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(87, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", ArgumentSize, "HRESULT")
         return result
     }
@@ -1005,6 +1064,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSpecificFilterArgument(Index, Argument) {
+        Argument := Argument is String ? StrPtr(Argument) : Argument
+
         result := ComCall(88, this, "uint", Index, "ptr", Argument, "HRESULT")
         return result
     }
@@ -1042,6 +1103,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExceptionFilterSecondCommand(Index, Buffer, BufferSize, CommandSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(91, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", CommandSize, "HRESULT")
         return result
     }
@@ -1053,6 +1116,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetExceptionFilterSecondCommand(Index, Command) {
+        Command := Command is String ? StrPtr(Command) : Command
+
         result := ComCall(92, this, "uint", Index, "ptr", Command, "HRESULT")
         return result
     }
@@ -1082,6 +1147,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLastEventInformation(Type, ProcessId, ThreadId, ExtraInformation, ExtraInformationSize, ExtraInformationUsed, Description, DescriptionSize, DescriptionUsed) {
+        Description := Description is String ? StrPtr(Description) : Description
+
         result := ComCall(94, this, "uint*", Type, "uint*", ProcessId, "uint*", ThreadId, "ptr", ExtraInformation, "uint", ExtraInformationSize, "uint*", ExtraInformationUsed, "ptr", Description, "uint", DescriptionSize, "uint*", DescriptionUsed, "HRESULT")
         return result
     }
@@ -1139,6 +1206,10 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetTextReplacement(SrcText, Index, SrcBuffer, SrcBufferSize, SrcSize, DstBuffer, DstBufferSize, DstSize) {
+        SrcText := SrcText is String ? StrPtr(SrcText) : SrcText
+        SrcBuffer := SrcBuffer is String ? StrPtr(SrcBuffer) : SrcBuffer
+        DstBuffer := DstBuffer is String ? StrPtr(DstBuffer) : DstBuffer
+
         result := ComCall(99, this, "ptr", SrcText, "uint", Index, "ptr", SrcBuffer, "uint", SrcBufferSize, "uint*", SrcSize, "ptr", DstBuffer, "uint", DstBufferSize, "uint*", DstSize, "HRESULT")
         return result
     }
@@ -1150,6 +1221,9 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetTextReplacement(SrcText, DstText) {
+        SrcText := SrcText is String ? StrPtr(SrcText) : SrcText
+        DstText := DstText is String ? StrPtr(DstText) : DstText
+
         result := ComCall(100, this, "ptr", SrcText, "ptr", DstText, "HRESULT")
         return result
     }
@@ -1240,6 +1314,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetExpressionSyntaxByName(AbbrevName) {
+        AbbrevName := AbbrevName is String ? StrPtr(AbbrevName) : AbbrevName
+
         result := ComCall(109, this, "ptr", AbbrevName, "HRESULT")
         return result
     }
@@ -1266,6 +1342,9 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExpressionSyntaxNames(Index, FullNameBuffer, FullNameBufferSize, FullNameSize, AbbrevNameBuffer, AbbrevNameBufferSize, AbbrevNameSize) {
+        FullNameBuffer := FullNameBuffer is String ? StrPtr(FullNameBuffer) : FullNameBuffer
+        AbbrevNameBuffer := AbbrevNameBuffer is String ? StrPtr(AbbrevNameBuffer) : AbbrevNameBuffer
+
         result := ComCall(111, this, "uint", Index, "ptr", FullNameBuffer, "uint", FullNameBufferSize, "uint*", FullNameSize, "ptr", AbbrevNameBuffer, "uint", AbbrevNameBufferSize, "uint*", AbbrevNameSize, "HRESULT")
         return result
     }
@@ -1290,6 +1369,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetEventIndexDescription(Index, Which, Buffer, BufferSize, DescSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(113, this, "uint", Index, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", DescSize, "HRESULT")
         return result
     }
@@ -1898,6 +1979,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLogFile2(Buffer, BufferSize, FileSize, Flags) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(156, this, "ptr", Buffer, "uint", BufferSize, "uint*", FileSize, "uint*", Flags, "HRESULT")
         return result
     }
@@ -1909,6 +1992,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenLogFile2(File, Flags) {
+        File := File is String ? StrPtr(File) : File
+
         result := ComCall(157, this, "ptr", File, "uint", Flags, "HRESULT")
         return result
     }
@@ -1964,6 +2049,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSystemVersionString(Which, Buffer, BufferSize, StringSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(161, this, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", StringSize, "HRESULT")
         return result
     }
@@ -2044,6 +2131,8 @@ class IDebugControl5 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetManagedStatus(Flags, WhichString, String, StringSize, StringNeeded) {
+        String := String is String ? StrPtr(String) : String
+
         result := ComCall(166, this, "uint*", Flags, "uint", WhichString, "ptr", String, "uint", StringSize, "uint*", StringNeeded, "HRESULT")
         return result
     }

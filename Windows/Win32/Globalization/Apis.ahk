@@ -10955,8 +10955,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptShape(hdc, psc, pwcChars, cChars, cMaxGlyphs, psa, pwOutGlyphs, pwLogClust, psva, pcGlyphs) {
-        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptShape", "ptr", hdc, "ptr*", psc, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ptr", psa, "ushort*", pwOutGlyphs, "ushort*", pwLogClust, "ptr", psva, "int*", pcGlyphs, "int")
         if(result != 0)
@@ -11013,8 +11013,8 @@ class Globalization {
     static ScriptTextOut(hdc, psc, x, y, fuOptions, lprc, psa, pwGlyphs, cGlyphs, piAdvance, piJustify, pGoffset) {
         static pwcReserved := 0, iReserved := 0 ;Reserved parameters must always be NULL
 
-        pwcReserved := pwcReserved is String ? StrPtr(pwcReserved) : pwcReserved
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pwcReserved := pwcReserved is String ? StrPtr(pwcReserved) : pwcReserved
 
         result := DllCall("USP10.dll\ScriptTextOut", "ptr", hdc, "ptr*", psc, "int", x, "int", y, "uint", fuOptions, "ptr", lprc, "ptr", psa, "ptr", pwcReserved, "int", iReserved, "ushort*", pwGlyphs, "int", cGlyphs, "int*", piAdvance, "int*", piJustify, "ptr", pGoffset, "int")
         if(result != 0)
@@ -11199,8 +11199,8 @@ class Globalization {
      * @since windows5.0
      */
     static ScriptGetCMap(hdc, psc, pwcInChars, cChars, dwFlags, pwOutGlyphs) {
-        pwcInChars := pwcInChars is String ? StrPtr(pwcInChars) : pwcInChars
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pwcInChars := pwcInChars is String ? StrPtr(pwcInChars) : pwcInChars
 
         result := DllCall("USP10.dll\ScriptGetCMap", "ptr", hdc, "ptr*", psc, "ptr", pwcInChars, "int", cChars, "uint", dwFlags, "ushort*", pwOutGlyphs, "int")
         if(result != 0)
@@ -11728,8 +11728,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static ScriptShapeOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, cChars, cMaxGlyphs, pwLogClust, pCharProps, pwOutGlyphs, pOutGlyphProps, pcGlyphs) {
-        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptShapeOpenType", "ptr", hdc, "ptr*", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int*", rcRangeChars, "ptr*", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "int", cChars, "int", cMaxGlyphs, "ushort*", pwLogClust, "ptr", pCharProps, "ushort*", pwOutGlyphs, "ptr", pOutGlyphProps, "int*", pcGlyphs, "int")
         if(result != 0)
@@ -11770,8 +11770,8 @@ class Globalization {
      * @since windows6.0.6000
      */
     static ScriptPlaceOpenType(hdc, psc, psa, tagScript, tagLangSys, rcRangeChars, rpRangeProperties, cRanges, pwcChars, pwLogClust, pCharProps, cChars, pwGlyphs, pGlyphProps, cGlyphs, piAdvance, pGoffset, pABC) {
-        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pwcChars := pwcChars is String ? StrPtr(pwcChars) : pwcChars
 
         result := DllCall("USP10.dll\ScriptPlaceOpenType", "ptr", hdc, "ptr*", psc, "ptr", psa, "uint", tagScript, "uint", tagLangSys, "int*", rcRangeChars, "ptr*", rpRangeProperties, "int", cRanges, "ptr", pwcChars, "ushort*", pwLogClust, "ptr", pCharProps, "int", cChars, "ushort*", pwGlyphs, "ptr", pGlyphProps, "int", cGlyphs, "int*", piAdvance, "ptr", pGoffset, "ptr", pABC, "int")
         if(result != 0)

@@ -38,6 +38,8 @@ class ICLRStrongName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHashFromAssemblyFile(pszFilePath, piHashAlg, pbHash, cchHash, pchHash) {
+        pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
+
         result := ComCall(3, this, "ptr", pszFilePath, "uint*", piHashAlg, "char*", pbHash, "uint", cchHash, "uint*", pchHash, "HRESULT")
         return result
     }
@@ -83,6 +85,8 @@ class ICLRStrongName extends IUnknown{
      * @returns {HRESULT} 
      */
     GetHashFromFile(pszFilePath, piHashAlg, pbHash, cchHash, pchHash) {
+        pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
+
         result := ComCall(6, this, "ptr", pszFilePath, "uint*", piHashAlg, "char*", pbHash, "uint", cchHash, "uint*", pchHash, "HRESULT")
         return result
     }

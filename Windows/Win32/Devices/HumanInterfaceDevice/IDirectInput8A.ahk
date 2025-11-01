@@ -109,6 +109,8 @@ class IDirectInput8A extends IUnknown{
      * @returns {HRESULT} 
      */
     FindDevice(param0, param1, param2) {
+        param1 := param1 is String ? StrPtr(param1) : param1
+
         result := ComCall(8, this, "ptr", param0, "ptr", param1, "ptr", param2, "HRESULT")
         return result
     }
@@ -123,6 +125,8 @@ class IDirectInput8A extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumDevicesBySemantics(param0, param1, param2, param3, param4) {
+        param0 := param0 is String ? StrPtr(param0) : param0
+
         result := ComCall(9, this, "ptr", param0, "ptr", param1, "ptr", param2, "ptr", param3, "uint", param4, "HRESULT")
         return result
     }

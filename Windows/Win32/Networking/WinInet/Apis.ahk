@@ -8339,9 +8339,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -8398,9 +8398,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -8457,9 +8457,9 @@ class WinInet {
      * @since windows5.0
      */
     static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
@@ -10515,8 +10515,8 @@ class WinInet {
     static InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetDialA", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -10575,8 +10575,8 @@ class WinInet {
     static InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetDialW", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "ptr*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -10634,8 +10634,8 @@ class WinInet {
      * @since windows5.0
      */
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
-        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
 
         result := DllCall("WININET.dll\InternetDial", "ptr", hwndParent, "ptr", lpszConnectoid, "uint", dwFlags, "uint*", lpdwConnection, "uint", dwReserved, "uint")
         return result
@@ -11991,9 +11991,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static RunOnceUrlCache(hwnd, hinst, lpszCmd, nCmdShow) {
-        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
         result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
@@ -12008,9 +12008,9 @@ class WinInet {
      * @returns {Integer} 
      */
     static DeleteIE3Cache(hwnd, hinst, lpszCmd, nCmdShow) {
-        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+        lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
         result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result

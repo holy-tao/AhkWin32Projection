@@ -35,6 +35,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     AttachKernel(Flags, ConnectOptions) {
+        ConnectOptions := ConnectOptions is String ? StrPtr(ConnectOptions) : ConnectOptions
+
         result := ComCall(3, this, "uint", Flags, "ptr", ConnectOptions, "HRESULT")
         return result
     }
@@ -47,6 +49,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetKernelConnectionOptions(Buffer, BufferSize, OptionsSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(4, this, "ptr", Buffer, "uint", BufferSize, "uint*", OptionsSize, "HRESULT")
         return result
     }
@@ -57,6 +61,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetKernelConnectionOptions(Options) {
+        Options := Options is String ? StrPtr(Options) : Options
+
         result := ComCall(5, this, "ptr", Options, "HRESULT")
         return result
     }
@@ -70,6 +76,8 @@ class IDebugClient7 extends IUnknown{
     StartProcessServer(Flags, Options) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        Options := Options is String ? StrPtr(Options) : Options
+
         result := ComCall(6, this, "uint", Flags, "ptr", Options, "ptr", Reserved, "HRESULT")
         return result
     }
@@ -81,6 +89,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     ConnectProcessServer(RemoteOptions, Server) {
+        RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
+
         result := ComCall(7, this, "ptr", RemoteOptions, "uint*", Server, "HRESULT")
         return result
     }
@@ -117,6 +127,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRunningProcessSystemIdByExecutableName(Server, ExeName, Flags, Id) {
+        ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
+
         result := ComCall(10, this, "uint", Server, "ptr", ExeName, "uint", Flags, "uint*", Id, "HRESULT")
         return result
     }
@@ -135,6 +147,9 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRunningProcessDescription(Server, SystemId, Flags, ExeName, ExeNameSize, ActualExeNameSize, Description, DescriptionSize, ActualDescriptionSize) {
+        ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
+        Description := Description is String ? StrPtr(Description) : Description
+
         result := ComCall(11, this, "uint", Server, "uint", SystemId, "uint", Flags, "ptr", ExeName, "uint", ExeNameSize, "uint*", ActualExeNameSize, "ptr", Description, "uint", DescriptionSize, "uint*", ActualDescriptionSize, "HRESULT")
         return result
     }
@@ -165,6 +180,8 @@ class IDebugClient7 extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-createprocessa
      */
     CreateProcessA(Server, CommandLine, CreateFlags) {
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
+
         result := ComCall(13, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "HRESULT")
         return result
     }
@@ -179,6 +196,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateProcessAndAttach(Server, CommandLine, CreateFlags, ProcessId, AttachFlags) {
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
+
         result := ComCall(14, this, "uint", Server, "ptr", CommandLine, "uint", CreateFlags, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
         return result
     }
@@ -229,6 +248,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenDumpFile(DumpFile) {
+        DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
+
         result := ComCall(19, this, "ptr", DumpFile, "HRESULT")
         return result
     }
@@ -240,6 +261,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteDumpFile(DumpFile, Qualifier) {
+        DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
+
         result := ComCall(20, this, "ptr", DumpFile, "uint", Qualifier, "HRESULT")
         return result
     }
@@ -261,6 +284,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     StartServer(Options) {
+        Options := Options is String ? StrPtr(Options) : Options
+
         result := ComCall(22, this, "ptr", Options, "HRESULT")
         return result
     }
@@ -273,6 +298,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputServers(OutputControl, Machine, Flags) {
+        Machine := Machine is String ? StrPtr(Machine) : Machine
+
         result := ComCall(23, this, "uint", OutputControl, "ptr", Machine, "uint", Flags, "HRESULT")
         return result
     }
@@ -455,6 +482,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutputLinePrefix(Buffer, BufferSize, PrefixSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(41, this, "ptr", Buffer, "uint", BufferSize, "uint*", PrefixSize, "HRESULT")
         return result
     }
@@ -465,6 +494,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetOutputLinePrefix(Prefix) {
+        Prefix := Prefix is String ? StrPtr(Prefix) : Prefix
+
         result := ComCall(42, this, "ptr", Prefix, "HRESULT")
         return result
     }
@@ -477,6 +508,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetIdentity(Buffer, BufferSize, IdentitySize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, "uint*", IdentitySize, "HRESULT")
         return result
     }
@@ -489,6 +522,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputIdentity(OutputControl, Flags, Format) {
+        Format := Format is String ? StrPtr(Format) : Format
+
         result := ComCall(44, this, "uint", OutputControl, "uint", Flags, "ptr", Format, "HRESULT")
         return result
     }
@@ -531,6 +566,9 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteDumpFile2(DumpFile, Qualifier, FormatFlags, Comment) {
+        DumpFile := DumpFile is String ? StrPtr(DumpFile) : DumpFile
+        Comment := Comment is String ? StrPtr(Comment) : Comment
+
         result := ComCall(48, this, "ptr", DumpFile, "uint", Qualifier, "uint", FormatFlags, "ptr", Comment, "HRESULT")
         return result
     }
@@ -542,6 +580,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDumpInformationFile(InfoFile, Type) {
+        InfoFile := InfoFile is String ? StrPtr(InfoFile) : InfoFile
+
         result := ComCall(49, this, "ptr", InfoFile, "uint", Type, "HRESULT")
         return result
     }
@@ -733,6 +773,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDumpFile(Index, Buffer, BufferSize, NameSize, Handle, Type) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(64, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "uint*", Handle, "uint*", Type, "HRESULT")
         return result
     }
@@ -952,6 +994,10 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateProcess2(Server, CommandLine, OptionsBuffer, OptionsBufferSize, InitialDirectory, Environment) {
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
+        InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
+        Environment := Environment is String ? StrPtr(Environment) : Environment
+
         result := ComCall(81, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "HRESULT")
         return result
     }
@@ -988,6 +1034,10 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateProcessAndAttach2(Server, CommandLine, OptionsBuffer, OptionsBufferSize, InitialDirectory, Environment, ProcessId, AttachFlags) {
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
+        InitialDirectory := InitialDirectory is String ? StrPtr(InitialDirectory) : InitialDirectory
+        Environment := Environment is String ? StrPtr(Environment) : Environment
+
         result := ComCall(83, this, "uint", Server, "ptr", CommandLine, "ptr", OptionsBuffer, "uint", OptionsBufferSize, "ptr", InitialDirectory, "ptr", Environment, "uint", ProcessId, "uint", AttachFlags, "HRESULT")
         return result
     }
@@ -1020,6 +1070,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     PushOutputLinePrefix(NewPrefix, Handle) {
+        NewPrefix := NewPrefix is String ? StrPtr(NewPrefix) : NewPrefix
+
         result := ComCall(85, this, "ptr", NewPrefix, "uint*", Handle, "HRESULT")
         return result
     }
@@ -1086,6 +1138,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetQuitLockString(Buffer, BufferSize, StringSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(91, this, "ptr", Buffer, "uint", BufferSize, "uint*", StringSize, "HRESULT")
         return result
     }
@@ -1096,6 +1150,8 @@ class IDebugClient7 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetQuitLockString(String) {
+        String := String is String ? StrPtr(String) : String
+
         result := ComCall(92, this, "ptr", String, "HRESULT")
         return result
     }

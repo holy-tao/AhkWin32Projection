@@ -36,6 +36,8 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAttributeElementCount(name, type, elementCount) {
+        name := name is String ? StrPtr(name) : name
+
         result := ComCall(3, this, "ptr", name, "uint", type, "uint*", elementCount, "HRESULT")
         return result
     }
@@ -50,6 +52,8 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAttribute(name, type, elementCount, elementByteSize, value) {
+        name := name is String ? StrPtr(name) : name
+
         result := ComCall(4, this, "ptr", name, "uint", type, "uint", elementCount, "ptr", elementByteSize, "ptr", value, "HRESULT")
         return result
     }
@@ -62,6 +66,8 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStringAttributeElementLength(name, elementIndex, attributeElementByteSize) {
+        name := name is String ? StrPtr(name) : name
+
         result := ComCall(5, this, "ptr", name, "uint", elementIndex, "uint*", attributeElementByteSize, "HRESULT")
         return result
     }
@@ -75,6 +81,9 @@ class IMLOperatorAttributes extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStringAttributeElement(name, elementIndex, attributeElementByteSize, attributeElement) {
+        name := name is String ? StrPtr(name) : name
+        attributeElement := attributeElement is String ? StrPtr(attributeElement) : attributeElement
+
         result := ComCall(6, this, "ptr", name, "uint", elementIndex, "uint", attributeElementByteSize, "ptr", attributeElement, "HRESULT")
         return result
     }

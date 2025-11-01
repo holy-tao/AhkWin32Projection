@@ -1025,8 +1025,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -1833,8 +1833,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaW(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -1943,8 +1943,8 @@ class Memory {
      * @since windows8.0
      */
     static CreateFileMappingFromApp(hFile, SecurityAttributes, PageProtection, MaximumSize, Name) {
-        Name := Name is String ? StrPtr(Name) : Name
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -3061,8 +3061,8 @@ class Memory {
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-createfilemapping2
      */
     static CreateFileMapping2(File, SecurityAttributes, DesiredAccess, PageProtection, AllocationAttributes, MaximumSize, Name, ExtendedParameters, ParameterCount) {
-        Name := Name is String ? StrPtr(Name) : Name
         File := File is Win32Handle ? NumGet(File, "ptr") : File
+        Name := Name is String ? StrPtr(Name) : Name
 
         A_LastError := 0
 
@@ -3674,8 +3674,8 @@ class Memory {
      * @since windows5.1.2600
      */
     static CreateFileMappingA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 
@@ -3779,8 +3779,8 @@ class Memory {
      * @since windows6.0.6000
      */
     static CreateFileMappingNumaA(hFile, lpFileMappingAttributes, flProtect, dwMaximumSizeHigh, dwMaximumSizeLow, lpName, nndPreferred) {
-        lpName := lpName is String ? StrPtr(lpName) : lpName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpName := lpName is String ? StrPtr(lpName) : lpName
 
         A_LastError := 0
 

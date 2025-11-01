@@ -559,8 +559,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullName(hProcess, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("KERNEL32.dll\GetPackageFullName", "ptr", hProcess, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -608,8 +608,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFullNameFromToken(token, packageFullNameLength, packageFullName) {
-        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFullNameFromToken", "ptr", token, "uint*", packageFullNameLength, "ptr", packageFullName, "uint")
         return result
@@ -662,8 +662,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyName(hProcess, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("KERNEL32.dll\GetPackageFamilyName", "ptr", hProcess, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -716,8 +716,8 @@ class Appx {
      * @since windows8.0
      */
     static GetPackageFamilyNameFromToken(token, packageFamilyNameLength, packageFamilyName) {
-        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        packageFamilyName := packageFamilyName is String ? StrPtr(packageFamilyName) : packageFamilyName
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetPackageFamilyNameFromToken", "ptr", token, "uint*", packageFamilyNameLength, "ptr", packageFamilyName, "uint")
         return result
@@ -1144,8 +1144,8 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelid
      */
     static GetApplicationUserModelId(hProcess, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
         result := DllCall("KERNEL32.dll\GetApplicationUserModelId", "ptr", hProcess, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result
@@ -1189,8 +1189,8 @@ class Appx {
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getapplicationusermodelidfromtoken
      */
     static GetApplicationUserModelIdFromToken(token, applicationUserModelIdLength, applicationUserModelId) {
-        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
         token := token is Win32Handle ? NumGet(token, "ptr") : token
+        applicationUserModelId := applicationUserModelId is String ? StrPtr(applicationUserModelId) : applicationUserModelId
 
         result := DllCall("api-ms-win-appmodel-runtime-l1-1-1.dll\GetApplicationUserModelIdFromToken", "ptr", token, "uint*", applicationUserModelIdLength, "ptr", applicationUserModelId, "uint")
         return result

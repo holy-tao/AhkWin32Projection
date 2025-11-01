@@ -389,6 +389,8 @@ class IDXGIInfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addmessage
      */
     AddMessage(Producer, Category, Severity, ID, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(30, this, "ptr", Producer, "int", Category, "int", Severity, "int", ID, "ptr", pDescription, "HRESULT")
         return result
     }
@@ -401,6 +403,8 @@ class IDXGIInfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/nf-dxgidebug-idxgiinfoqueue-addapplicationmessage
      */
     AddApplicationMessage(Severity, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(31, this, "int", Severity, "ptr", pDescription, "HRESULT")
         return result
     }

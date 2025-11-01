@@ -433,6 +433,10 @@ class ID3D11Device extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkcounter
      */
     CheckCounter(pDesc, pType, pActiveCounters, szName, pNameLength, szUnits, pUnitsLength, szDescription, pDescriptionLength) {
+        szName := szName is String ? StrPtr(szName) : szName
+        szUnits := szUnits is String ? StrPtr(szUnits) : szUnits
+        szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
+
         result := ComCall(32, this, "ptr", pDesc, "int*", pType, "uint*", pActiveCounters, "ptr", szName, "uint*", pNameLength, "ptr", szUnits, "uint*", pUnitsLength, "ptr", szDescription, "uint*", pDescriptionLength, "HRESULT")
         return result
     }

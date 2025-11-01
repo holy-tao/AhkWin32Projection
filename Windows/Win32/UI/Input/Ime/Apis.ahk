@@ -3068,8 +3068,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetDescriptionA(param0, lpszDescription, uBufLen) {
-        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
         result := DllCall("IMM32.dll\ImmGetDescriptionA", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
@@ -3087,8 +3087,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetDescriptionW(param0, lpszDescription, uBufLen) {
-        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        lpszDescription := lpszDescription is String ? StrPtr(lpszDescription) : lpszDescription
 
         result := DllCall("IMM32.dll\ImmGetDescriptionW", "ptr", param0, "ptr", lpszDescription, "uint", uBufLen, "uint")
         return result
@@ -3106,8 +3106,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameA(param0, lpszFileName, uBufLen) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("IMM32.dll\ImmGetIMEFileNameA", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
@@ -3125,8 +3125,8 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetIMEFileNameW(param0, lpszFileName, uBufLen) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("IMM32.dll\ImmGetIMEFileNameW", "ptr", param0, "ptr", lpszFileName, "uint", uBufLen, "uint")
         return result
@@ -3959,9 +3959,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetConversionListA(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
-        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
 
         result := DllCall("IMM32.dll\ImmGetConversionListA", "ptr", param0, "ptr", param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, "uint", uFlag, "uint")
         return result
@@ -3980,9 +3980,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmGetConversionListW(param0, param1, lpSrc, lpDst, dwBufLen, uFlag) {
-        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
 
         result := DllCall("IMM32.dll\ImmGetConversionListW", "ptr", param0, "ptr", param1, "ptr", lpSrc, "ptr", lpDst, "uint", dwBufLen, "uint", uFlag, "uint")
         return result
@@ -4155,9 +4155,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmRegisterWordA(param0, lpszReading, param2, lpszRegister) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmRegisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "int")
         return result
@@ -4174,9 +4174,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmRegisterWordW(param0, lpszReading, param2, lpszRegister) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmRegisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszRegister, "int")
         return result
@@ -4193,9 +4193,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmUnregisterWordA(param0, lpszReading, param2, lpszUnregister) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmUnregisterWordA", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "int")
         return result
@@ -4212,9 +4212,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmUnregisterWordW(param0, lpszReading, param2, lpszUnregister) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszUnregister := lpszUnregister is String ? StrPtr(lpszUnregister) : lpszUnregister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmUnregisterWordW", "ptr", param0, "ptr", lpszReading, "uint", param2, "ptr", lpszUnregister, "int")
         return result
@@ -4265,9 +4265,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordA(param0, param1, lpszReading, param3, lpszRegister, param5) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmEnumRegisterWordA", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result
@@ -4286,9 +4286,9 @@ class Ime {
      * @since windows5.1.2600
      */
     static ImmEnumRegisterWordW(param0, param1, lpszReading, param3, lpszRegister, param5) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         lpszReading := lpszReading is String ? StrPtr(lpszReading) : lpszReading
         lpszRegister := lpszRegister is String ? StrPtr(lpszRegister) : lpszRegister
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("IMM32.dll\ImmEnumRegisterWordW", "ptr", param0, "ptr", param1, "ptr", lpszReading, "uint", param3, "ptr", lpszRegister, "ptr", param5, "uint")
         return result

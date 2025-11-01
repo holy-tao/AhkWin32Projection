@@ -340,6 +340,8 @@ class ID3D11InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addmessage
      */
     AddMessage(Category, Severity, ID, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(28, this, "int", Category, "int", Severity, "int", ID, "ptr", pDescription, "HRESULT")
         return result
     }
@@ -352,6 +354,8 @@ class ID3D11InfoQueue extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11sdklayers/nf-d3d11sdklayers-id3d11infoqueue-addapplicationmessage
      */
     AddApplicationMessage(Severity, pDescription) {
+        pDescription := pDescription is String ? StrPtr(pDescription) : pDescription
+
         result := ComCall(29, this, "int", Severity, "ptr", pDescription, "HRESULT")
         return result
     }

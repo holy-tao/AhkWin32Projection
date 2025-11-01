@@ -6701,13 +6701,13 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupPromptForDiskA(hwndParent, DialogTitle, DiskName, PathToSource, FileSought, TagFile, DiskPromptStyle, PathBuffer, PathBufferSize, PathRequiredSize) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         DiskName := DiskName is String ? StrPtr(DiskName) : DiskName
         PathToSource := PathToSource is String ? StrPtr(PathToSource) : PathToSource
         FileSought := FileSought is String ? StrPtr(FileSought) : FileSought
         TagFile := TagFile is String ? StrPtr(TagFile) : TagFile
         PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6746,13 +6746,13 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupPromptForDiskW(hwndParent, DialogTitle, DiskName, PathToSource, FileSought, TagFile, DiskPromptStyle, PathBuffer, PathBufferSize, PathRequiredSize) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         DiskName := DiskName is String ? StrPtr(DiskName) : DiskName
         PathToSource := PathToSource is String ? StrPtr(PathToSource) : PathToSource
         FileSought := FileSought is String ? StrPtr(FileSought) : FileSought
         TagFile := TagFile is String ? StrPtr(TagFile) : TagFile
         PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6803,13 +6803,13 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupCopyErrorA(hwndParent, DialogTitle, DiskName, PathToSource, SourceFile, TargetPathFile, Win32ErrorCode, Style, PathBuffer, PathBufferSize, PathRequiredSize) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         DiskName := DiskName is String ? StrPtr(DiskName) : DiskName
         PathToSource := PathToSource is String ? StrPtr(PathToSource) : PathToSource
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetPathFile := TargetPathFile is String ? StrPtr(TargetPathFile) : TargetPathFile
         PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6860,13 +6860,13 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupCopyErrorW(hwndParent, DialogTitle, DiskName, PathToSource, SourceFile, TargetPathFile, Win32ErrorCode, Style, PathBuffer, PathBufferSize, PathRequiredSize) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         DiskName := DiskName is String ? StrPtr(DiskName) : DiskName
         PathToSource := PathToSource is String ? StrPtr(PathToSource) : PathToSource
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetPathFile := TargetPathFile is String ? StrPtr(TargetPathFile) : TargetPathFile
         PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6893,10 +6893,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupRenameErrorA(hwndParent, DialogTitle, SourceFile, TargetFile, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6923,10 +6923,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupRenameErrorW(hwndParent, DialogTitle, SourceFile, TargetFile, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6952,9 +6952,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupDeleteErrorA(hwndParent, DialogTitle, File, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         File := File is String ? StrPtr(File) : File
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -6980,9 +6980,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupDeleteErrorW(hwndParent, DialogTitle, File, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         File := File is String ? StrPtr(File) : File
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -7009,10 +7009,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupBackupErrorA(hwndParent, DialogTitle, SourceFile, TargetFile, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -7039,10 +7039,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupBackupErrorW(hwndParent, DialogTitle, SourceFile, TargetFile, Win32ErrorCode, Style) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DialogTitle := DialogTitle is String ? StrPtr(DialogTitle) : DialogTitle
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
         TargetFile := TargetFile is String ? StrPtr(TargetFile) : TargetFile
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -10261,10 +10261,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupInstallFromInfSectionA(Owner, InfHandle, SectionName, Flags, RelativeKeyRoot, SourceRootPath, CopyFlags, MsgHandler, Context, DeviceInfoSet, DeviceInfoData) {
-        SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
-        SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
         Owner := Owner is Win32Handle ? NumGet(Owner, "ptr") : Owner
+        SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
         RelativeKeyRoot := RelativeKeyRoot is Win32Handle ? NumGet(RelativeKeyRoot, "ptr") : RelativeKeyRoot
+        SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
         A_LastError := 0
@@ -10333,10 +10333,10 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupInstallFromInfSectionW(Owner, InfHandle, SectionName, Flags, RelativeKeyRoot, SourceRootPath, CopyFlags, MsgHandler, Context, DeviceInfoSet, DeviceInfoData) {
-        SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
-        SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
         Owner := Owner is Win32Handle ? NumGet(Owner, "ptr") : Owner
+        SectionName := SectionName is String ? StrPtr(SectionName) : SectionName
         RelativeKeyRoot := RelativeKeyRoot is Win32Handle ? NumGet(RelativeKeyRoot, "ptr") : RelativeKeyRoot
+        SourceRootPath := SourceRootPath is String ? StrPtr(SourceRootPath) : SourceRootPath
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
 
         A_LastError := 0
@@ -11239,9 +11239,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static InstallHinfSectionA(Window, ModuleHandle, CommandLine, ShowCommand) {
-        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
         Window := Window is Win32Handle ? NumGet(Window, "ptr") : Window
         ModuleHandle := ModuleHandle is Win32Handle ? NumGet(ModuleHandle, "ptr") : ModuleHandle
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
         DllCall("SETUPAPI.dll\InstallHinfSectionA", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
     }
@@ -11333,9 +11333,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static InstallHinfSectionW(Window, ModuleHandle, CommandLine, ShowCommand) {
-        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
         Window := Window is Win32Handle ? NumGet(Window, "ptr") : Window
         ModuleHandle := ModuleHandle is Win32Handle ? NumGet(ModuleHandle, "ptr") : ModuleHandle
+        CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
 
         DllCall("SETUPAPI.dll\InstallHinfSectionW", "ptr", Window, "ptr", ModuleHandle, "ptr", CommandLine, "int", ShowCommand)
     }
@@ -12003,8 +12003,8 @@ class DeviceAndDriverInstallation {
     static SetupDiCreateDeviceInfoListExA(ClassGuid, hwndParent, MachineName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
         A_LastError := 0
 
@@ -12027,8 +12027,8 @@ class DeviceAndDriverInstallation {
     static SetupDiCreateDeviceInfoListExW(ClassGuid, hwndParent, MachineName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
         A_LastError := 0
 
@@ -12113,9 +12113,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDeviceInfoA(DeviceInfoSet, DeviceName, ClassGuid, DeviceDescription, hwndParent, CreationFlags, DeviceInfoData) {
+        DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
         DeviceName := DeviceName is String ? StrPtr(DeviceName) : DeviceName
         DeviceDescription := DeviceDescription is String ? StrPtr(DeviceDescription) : DeviceDescription
-        DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
@@ -12141,9 +12141,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDeviceInfoW(DeviceInfoSet, DeviceName, ClassGuid, DeviceDescription, hwndParent, CreationFlags, DeviceInfoData) {
+        DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
         DeviceName := DeviceName is String ? StrPtr(DeviceName) : DeviceName
         DeviceDescription := DeviceDescription is String ? StrPtr(DeviceDescription) : DeviceDescription
-        DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
@@ -12167,8 +12167,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiOpenDeviceInfoA(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenFlags, DeviceInfoData) {
-        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
@@ -12192,8 +12192,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiOpenDeviceInfoW(DeviceInfoSet, DeviceInstanceId, hwndParent, OpenFlags, DeviceInfoData) {
-        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
@@ -12217,8 +12217,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiGetDeviceInstanceIdA(DeviceInfoSet, DeviceInfoData, DeviceInstanceId, DeviceInstanceIdSize, RequiredSize) {
-        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
         A_LastError := 0
 
@@ -12241,8 +12241,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiGetDeviceInstanceIdW(DeviceInfoSet, DeviceInfoData, DeviceInstanceId, DeviceInstanceIdSize, RequiredSize) {
-        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DeviceInstanceId := DeviceInstanceId is String ? StrPtr(DeviceInstanceId) : DeviceInstanceId
 
         A_LastError := 0
 
@@ -12351,8 +12351,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDeviceInterfaceA(DeviceInfoSet, DeviceInfoData, InterfaceClassGuid, ReferenceString, CreationFlags, DeviceInterfaceData) {
-        ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
 
         A_LastError := 0
 
@@ -12376,8 +12376,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDeviceInterfaceW(DeviceInfoSet, DeviceInfoData, InterfaceClassGuid, ReferenceString, CreationFlags, DeviceInterfaceData) {
-        ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        ReferenceString := ReferenceString is String ? StrPtr(ReferenceString) : ReferenceString
 
         A_LastError := 0
 
@@ -12399,8 +12399,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiOpenDeviceInterfaceA(DeviceInfoSet, DevicePath, OpenFlags, DeviceInterfaceData) {
-        DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
 
         A_LastError := 0
 
@@ -12422,8 +12422,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiOpenDeviceInterfaceW(DeviceInfoSet, DevicePath, OpenFlags, DeviceInterfaceData) {
-        DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        DevicePath := DevicePath is String ? StrPtr(DevicePath) : DevicePath
 
         A_LastError := 0
 
@@ -13006,9 +13006,9 @@ class DeviceAndDriverInstallation {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         Enumerator := Enumerator is String ? StrPtr(Enumerator) : Enumerator
-        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
         A_LastError := 0
 
@@ -13049,9 +13049,9 @@ class DeviceAndDriverInstallation {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
         Enumerator := Enumerator is String ? StrPtr(Enumerator) : Enumerator
-        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        MachineName := MachineName is String ? StrPtr(MachineName) : MachineName
 
         A_LastError := 0
 
@@ -13490,8 +13490,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiInstallClassA(hwndParent, InfFileName, Flags, FileQueue) {
-        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
         A_LastError := 0
 
@@ -13513,8 +13513,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiInstallClassW(hwndParent, InfFileName, Flags, FileQueue) {
-        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
         A_LastError := 0
 
@@ -13539,8 +13539,8 @@ class DeviceAndDriverInstallation {
     static SetupDiInstallClassExA(hwndParent, InfFileName, Flags, FileQueue, InterfaceClassGuid) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
         A_LastError := 0
 
@@ -13565,8 +13565,8 @@ class DeviceAndDriverInstallation {
     static SetupDiInstallClassExW(hwndParent, InfFileName, Flags, FileQueue, InterfaceClassGuid) {
         static Reserved1 := 0, Reserved2 := 0 ;Reserved parameters must always be NULL
 
-        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfFileName := InfFileName is String ? StrPtr(InfFileName) : InfFileName
 
         A_LastError := 0
 
@@ -13659,8 +13659,8 @@ class DeviceAndDriverInstallation {
     static SetupDiCreateDeviceInterfaceRegKeyA(DeviceInfoSet, DeviceInterfaceData, samDesired, InfHandle, InfSectionName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
         A_LastError := 0
 
@@ -13685,8 +13685,8 @@ class DeviceAndDriverInstallation {
     static SetupDiCreateDeviceInterfaceRegKeyW(DeviceInfoSet, DeviceInterfaceData, samDesired, InfHandle, InfSectionName) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
-        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
         A_LastError := 0
 
@@ -13756,8 +13756,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDevRegKeyA(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, InfHandle, InfSectionName) {
-        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
         A_LastError := 0
 
@@ -13782,8 +13782,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static SetupDiCreateDevRegKeyW(DeviceInfoSet, DeviceInfoData, Scope, HwProfile, KeyType, InfHandle, InfSectionName) {
-        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        InfSectionName := InfSectionName is String ? StrPtr(InfSectionName) : InfSectionName
 
         A_LastError := 0
 
@@ -17233,8 +17233,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupDiGetCustomDevicePropertyA(DeviceInfoSet, DeviceInfoData, CustomPropertyName, Flags, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
-        CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
 
         A_LastError := 0
 
@@ -17260,8 +17260,8 @@ class DeviceAndDriverInstallation {
      * @since windows5.1.2600
      */
     static SetupDiGetCustomDevicePropertyW(DeviceInfoSet, DeviceInfoData, CustomPropertyName, Flags, PropertyRegDataType, PropertyBuffer, PropertyBufferSize, RequiredSize) {
-        CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
         DeviceInfoSet := DeviceInfoSet is Win32Handle ? NumGet(DeviceInfoSet, "ptr") : DeviceInfoSet
+        CustomPropertyName := CustomPropertyName is String ? StrPtr(CustomPropertyName) : CustomPropertyName
 
         A_LastError := 0
 
@@ -22436,9 +22436,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static UpdateDriverForPlugAndPlayDevicesA(hwndParent, HardwareId, FullInfPath, InstallFlags, bRebootRequired) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
         FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -22530,9 +22530,9 @@ class DeviceAndDriverInstallation {
      * @since windows5.0
      */
     static UpdateDriverForPlugAndPlayDevicesW(hwndParent, HardwareId, FullInfPath, InstallFlags, bRebootRequired) {
+        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         HardwareId := HardwareId is String ? StrPtr(HardwareId) : HardwareId
         FullInfPath := FullInfPath is String ? StrPtr(FullInfPath) : FullInfPath
-        hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         A_LastError := 0
 
@@ -22676,8 +22676,8 @@ class DeviceAndDriverInstallation {
      * @since windows6.0.6000
      */
     static DiInstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
-        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
         A_LastError := 0
 
@@ -22756,8 +22756,8 @@ class DeviceAndDriverInstallation {
      * @since windows6.0.6000
      */
     static DiInstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
-        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
         A_LastError := 0
 
@@ -22842,8 +22842,8 @@ class DeviceAndDriverInstallation {
      * @since windows10.0.10240
      */
     static DiUninstallDriverW(hwndParent, InfPath, Flags, NeedReboot) {
-        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
         A_LastError := 0
 
@@ -22922,8 +22922,8 @@ class DeviceAndDriverInstallation {
      * @see https://docs.microsoft.com/windows/win32/api//newdev/nf-newdev-diuninstalldrivera
      */
     static DiUninstallDriverA(hwndParent, InfPath, Flags, NeedReboot) {
-        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        InfPath := InfPath is String ? StrPtr(InfPath) : InfPath
 
         A_LastError := 0
 
@@ -23101,8 +23101,8 @@ class DeviceAndDriverInstallation {
      * @returns {BOOL} 
      */
     static DiShowUpdateDriver(hwndParent, FilePath, Flags, NeedReboot) {
-        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        FilePath := FilePath is String ? StrPtr(FilePath) : FilePath
 
         result := DllCall("newdev.dll\DiShowUpdateDriver", "ptr", hwndParent, "ptr", FilePath, "uint", Flags, "ptr", NeedReboot, "int")
         return result

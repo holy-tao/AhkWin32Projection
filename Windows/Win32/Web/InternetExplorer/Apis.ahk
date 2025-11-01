@@ -2319,8 +2319,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IESaveFile(hState, lpwstrSourceFile) {
-        lpwstrSourceFile := lpwstrSourceFile is String ? StrPtr(lpwstrSourceFile) : lpwstrSourceFile
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
+        lpwstrSourceFile := lpwstrSourceFile is String ? StrPtr(lpwstrSourceFile) : lpwstrSourceFile
 
         result := DllCall("Ieframe.dll\IESaveFile", "ptr", hState, "ptr", lpwstrSourceFile, "int")
         if(result != 0)
@@ -2358,11 +2358,11 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IEShowSaveFileDialog(hwnd, lpwstrInitialFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, lppwstrDestinationFilePath, phState) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrInitialFileName := lpwstrInitialFileName is String ? StrPtr(lpwstrInitialFileName) : lpwstrInitialFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("Ieframe.dll\IEShowSaveFileDialog", "ptr", hwnd, "ptr", lpwstrInitialFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", lppwstrDestinationFilePath, "ptr", phState, "int")
         if(result != 0)
@@ -2385,11 +2385,11 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static IEShowOpenFileDialog(hwnd, lpwstrFileName, cchMaxFileName, lpwstrInitialDir, lpwstrFilter, lpwstrDefExt, dwFilterIndex, dwFlags, phFile) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpwstrFileName := lpwstrFileName is String ? StrPtr(lpwstrFileName) : lpwstrFileName
         lpwstrInitialDir := lpwstrInitialDir is String ? StrPtr(lpwstrInitialDir) : lpwstrInitialDir
         lpwstrFilter := lpwstrFilter is String ? StrPtr(lpwstrFilter) : lpwstrFilter
         lpwstrDefExt := lpwstrDefExt is String ? StrPtr(lpwstrDefExt) : lpwstrDefExt
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("Ieframe.dll\IEShowOpenFileDialog", "ptr", hwnd, "ptr", lpwstrFileName, "uint", cchMaxFileName, "ptr", lpwstrInitialDir, "ptr", lpwstrFilter, "ptr", lpwstrDefExt, "uint", dwFilterIndex, "uint", dwFlags, "ptr", phFile, "int")
         if(result != 0)
@@ -2724,8 +2724,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingEnable(hwndParent, pszUsername, fEnable) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingEnable", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         if(result != 0)
@@ -2742,8 +2742,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingEnableW(hwndParent, pszUsername, fEnable) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingEnableW", "ptr", hwndParent, "ptr", pszUsername, "int", fEnable, "int")
         if(result != 0)
@@ -2805,9 +2805,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
         if(result != 0)
@@ -2825,9 +2825,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialogW(hDlg, pszUsername, pszContentDescription, pRatingDetails) {
+        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszContentDescription := pszContentDescription is String ? StrPtr(pszContentDescription) : pszContentDescription
-        hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
 
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialogW", "ptr", hDlg, "ptr", pszUsername, "ptr", pszContentDescription, "ptr", pRatingDetails, "int")
         if(result != 0)
@@ -2844,8 +2844,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog2(hDlg, pszUsername, pRatingDetails) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
         if(result != 0)
@@ -2862,8 +2862,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAccessDeniedDialog2W(hDlg, pszUsername, pRatingDetails) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingAccessDeniedDialog2W", "ptr", hDlg, "ptr", pszUsername, "ptr", pRatingDetails, "int")
         if(result != 0)
@@ -2943,8 +2943,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingSetupUI(hDlg, pszUsername) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingSetupUI", "ptr", hDlg, "ptr", pszUsername, "int")
         if(result != 0)
@@ -2960,8 +2960,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingSetupUIW(hDlg, pszUsername) {
-        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
 
         result := DllCall("MSRATING.dll\RatingSetupUIW", "ptr", hDlg, "ptr", pszUsername, "int")
         if(result != 0)
@@ -2982,8 +2982,8 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingAddToApprovedSites(hDlg, cbPasswordBlob, pbPasswordBlob, lpszUrl, fAlwaysNever, fSitePage, fApprovedSitesEnforced) {
-        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
 
         result := DllCall("MSRATING.dll\RatingAddToApprovedSites", "ptr", hDlg, "uint", cbPasswordBlob, "ptr", pbPasswordBlob, "ptr", lpszUrl, "int", fAlwaysNever, "int", fSitePage, "int", fApprovedSitesEnforced, "int")
         if(result != 0)
@@ -3001,9 +3001,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingClickedOnPRFInternal(hWndOwner, param1, lpszFileName, nShow) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("MSRATING.dll\RatingClickedOnPRFInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         if(result != 0)
@@ -3021,9 +3021,9 @@ class InternetExplorer {
      * @returns {HRESULT} 
      */
     static RatingClickedOnRATInternal(hWndOwner, param1, lpszFileName, nShow) {
-        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
         hWndOwner := hWndOwner is Win32Handle ? NumGet(hWndOwner, "ptr") : hWndOwner
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1
+        lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
         result := DllCall("MSRATING.dll\RatingClickedOnRATInternal", "ptr", hWndOwner, "ptr", param1, "ptr", lpszFileName, "int", nShow, "int")
         if(result != 0)

@@ -5082,10 +5082,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserW(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
         lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -6519,10 +6519,10 @@ class Threading {
      * @since windows5.1.2600
      */
     static CreateProcessAsUserA(hToken, lpApplicationName, lpCommandLine, lpProcessAttributes, lpThreadAttributes, bInheritHandles, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
         lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -6736,8 +6736,8 @@ class Threading {
      * @since windows10.0.14393
      */
     static SetThreadDescription(hThread, lpThreadDescription) {
-        lpThreadDescription := lpThreadDescription is String ? StrPtr(lpThreadDescription) : lpThreadDescription
         hThread := hThread is Win32Handle ? NumGet(hThread, "ptr") : hThread
+        lpThreadDescription := lpThreadDescription is String ? StrPtr(lpThreadDescription) : lpThreadDescription
 
         result := DllCall("KERNEL32.dll\SetThreadDescription", "ptr", hThread, "ptr", lpThreadDescription, "int")
         if(result != 0)
@@ -10712,8 +10712,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameA(hProcess, dwFlags, lpExeName, lpdwSize) {
-        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
 
         A_LastError := 0
 
@@ -10739,8 +10739,8 @@ class Threading {
      * @since windows6.0.6000
      */
     static QueryFullProcessImageNameW(hProcess, dwFlags, lpExeName, lpdwSize) {
-        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        lpExeName := lpExeName is String ? StrPtr(lpExeName) : lpExeName
 
         A_LastError := 0
 
@@ -11014,10 +11014,10 @@ class Threading {
      * @since windows6.0.6000
      */
     static CreateProcessWithTokenW(hToken, dwLogonFlags, lpApplicationName, lpCommandLine, dwCreationFlags, lpEnvironment, lpCurrentDirectory, lpStartupInfo, lpProcessInformation) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpApplicationName := lpApplicationName is String ? StrPtr(lpApplicationName) : lpApplicationName
         lpCommandLine := lpCommandLine is String ? StrPtr(lpCommandLine) : lpCommandLine
         lpCurrentDirectory := lpCurrentDirectory is String ? StrPtr(lpCurrentDirectory) : lpCurrentDirectory
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 

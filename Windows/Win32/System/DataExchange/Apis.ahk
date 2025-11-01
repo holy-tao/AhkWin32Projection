@@ -1583,8 +1583,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringA(idInst, hsz, psz, cchMax, iCodePage) {
-        psz := psz is String ? StrPtr(psz) : psz
         hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeQueryStringA", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result
@@ -1622,8 +1622,8 @@ class DataExchange {
      * @since windows5.0
      */
     static DdeQueryStringW(idInst, hsz, psz, cchMax, iCodePage) {
-        psz := psz is String ? StrPtr(psz) : psz
         hsz := hsz is Win32Handle ? NumGet(hsz, "ptr") : hsz
+        psz := psz is String ? StrPtr(psz) : psz
 
         result := DllCall("USER32.dll\DdeQueryStringW", "uint", idInst, "ptr", hsz, "ptr", psz, "uint", cchMax, "int", iCodePage, "uint")
         return result

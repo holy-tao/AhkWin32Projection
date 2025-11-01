@@ -230,8 +230,8 @@ class Catalog {
      * @returns {Pointer<CRYPTCATATTRIBUTE>} 
      */
     static CryptCATGetCatAttrInfo(hCatalog, pwszReferenceTag) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         result := DllCall("WINTRUST.dll\CryptCATGetCatAttrInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
@@ -367,8 +367,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutCatAttrInfo(hCatalog, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         A_LastError := 0
 
@@ -403,8 +403,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATGetMemberInfo(hCatalog, pwszReferenceTag) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         result := DllCall("WINTRUST.dll\CryptCATGetMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
@@ -417,8 +417,8 @@ class Catalog {
      * @returns {Pointer<CRYPTCATMEMBER>} 
      */
     static CryptCATAllocSortedMemberInfo(hCatalog, pwszReferenceTag) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         result := DllCall("WINTRUST.dll\CryptCATAllocSortedMemberInfo", "ptr", hCatalog, "ptr", pwszReferenceTag, "ptr")
         return result
@@ -485,8 +485,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATGetAttrInfo(hCatalog, pCatMember, pwszReferenceTag) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         A_LastError := 0
 
@@ -545,9 +545,9 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutMemberInfo(hCatalog, pwszFileName, pwszReferenceTag, pgSubjectType, dwCertVersion, cbSIPIndirectData, pbSIPIndirectData) {
+        hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
-        hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
 
         A_LastError := 0
 
@@ -689,8 +689,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static CryptCATPutAttrInfo(hCatalog, pCatMember, pwszReferenceTag, dwAttrTypeAndAction, cbData, pbData) {
-        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
         hCatalog := hCatalog is Win32Handle ? NumGet(hCatalog, "ptr") : hCatalog
+        pwszReferenceTag := pwszReferenceTag is String ? StrPtr(pwszReferenceTag) : pwszReferenceTag
 
         A_LastError := 0
 
@@ -807,8 +807,8 @@ class Catalog {
      * @since windows5.1.2600
      */
     static IsCatalogFile(hFile, pwszFileName) {
-        pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
 
         result := DllCall("WINTRUST.dll\IsCatalogFile", "ptr", hFile, "ptr", pwszFileName, "int")
         return result

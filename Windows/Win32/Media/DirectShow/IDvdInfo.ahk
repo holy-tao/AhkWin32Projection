@@ -297,6 +297,8 @@ class IDvdInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo-getroot
      */
     GetRoot(pRoot, ulBufSize, pulActualSize) {
+        pRoot := pRoot is String ? StrPtr(pRoot) : pRoot
+
         result := ComCall(25, this, "ptr", pRoot, "uint", ulBufSize, "uint*", pulActualSize, "HRESULT")
         return result
     }

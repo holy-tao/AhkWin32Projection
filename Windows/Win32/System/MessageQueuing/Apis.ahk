@@ -1070,8 +1070,8 @@ class MessageQueuing {
      * @returns {HRESULT} 
      */
     static MQCreateQueue(pSecurityDescriptor, pQueueProps, lpwcsFormatName, lpdwFormatNameLength) {
-        lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+        lpwcsFormatName := lpwcsFormatName is String ? StrPtr(lpwcsFormatName) : lpwcsFormatName
 
         result := DllCall("mqrt.dll\MQCreateQueue", "ptr", pSecurityDescriptor, "ptr", pQueueProps, "ptr", lpwcsFormatName, "uint*", lpdwFormatNameLength, "int")
         if(result != 0)

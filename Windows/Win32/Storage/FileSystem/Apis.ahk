@@ -3319,8 +3319,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeW(hFindVolume, lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
         hFindVolume := hFindVolume is Win32Handle ? NumGet(hFindVolume, "ptr") : hFindVolume
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
@@ -4251,8 +4251,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleA(hFile, lpszFilePath, cchFilePath, dwFlags) {
-        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
 
         A_LastError := 0
 
@@ -4334,8 +4334,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetFinalPathNameByHandleW(hFile, lpszFilePath, cchFilePath, dwFlags) {
-        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpszFilePath := lpszFilePath is String ? StrPtr(lpszFilePath) : lpszFilePath
 
         A_LastError := 0
 
@@ -5031,9 +5031,9 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetVolumeInformationByHandleW(hFile, lpVolumeNameBuffer, nVolumeNameSize, lpVolumeSerialNumber, lpMaximumComponentLength, lpFileSystemFlags, lpFileSystemNameBuffer, nFileSystemNameSize) {
+        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
         lpVolumeNameBuffer := lpVolumeNameBuffer is String ? StrPtr(lpVolumeNameBuffer) : lpVolumeNameBuffer
         lpFileSystemNameBuffer := lpFileSystemNameBuffer is String ? StrPtr(lpFileSystemNameBuffer) : lpFileSystemNameBuffer
-        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -7134,8 +7134,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static FindNextFileNameW(hFindStream, StringLength, LinkName) {
-        LinkName := LinkName is String ? StrPtr(LinkName) : LinkName
         hFindStream := hFindStream is Win32Handle ? NumGet(hFindStream, "ptr") : hFindStream
+        LinkName := LinkName is String ? StrPtr(LinkName) : LinkName
 
         A_LastError := 0
 
@@ -10164,8 +10164,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static AddLogContainer(hLog, pcbContainer, pwszContainerPath, pReserved) {
-        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         A_LastError := 0
 
@@ -10239,8 +10239,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static RemoveLogContainer(hLog, pwszContainerPath, fForce, pReserved) {
-        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        pwszContainerPath := pwszContainerPath is String ? StrPtr(pwszContainerPath) : pwszContainerPath
 
         A_LastError := 0
 
@@ -11300,8 +11300,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static PrepareLogArchive(hLog, pszBaseLogFileName, cLen, plsnLow, plsnHigh, pcActualLength, poffBaseLogFileData, pcbBaseLogFileLength, plsnBase, plsnLast, plsnCurrentArchiveTail, ppvArchiveContext) {
-        pszBaseLogFileName := pszBaseLogFileName is String ? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        pszBaseLogFileName := pszBaseLogFileName is String ? StrPtr(pszBaseLogFileName) : pszBaseLogFileName
 
         A_LastError := 0
 
@@ -11464,8 +11464,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetLogContainerName(hLog, cidLogicalContainer, pwstrContainerName, cLenContainerName, pcActualLenContainerName) {
-        pwstrContainerName := pwstrContainerName is String ? StrPtr(pwstrContainerName) : pwstrContainerName
         hLog := hLog is Win32Handle ? NumGet(hLog, "ptr") : hLog
+        pwstrContainerName := pwstrContainerName is String ? StrPtr(pwstrContainerName) : pwstrContainerName
 
         A_LastError := 0
 
@@ -13352,8 +13352,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static GetTransactionInformation(TransactionHandle, Outcome, IsolationLevel, IsolationFlags, Timeout, BufferLength, Description) {
-        Description := Description is String ? StrPtr(Description) : Description
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+        Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
@@ -13381,8 +13381,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static SetTransactionInformation(TransactionHandle, IsolationLevel, IsolationFlags, Timeout, Description) {
-        Description := Description is String ? StrPtr(Description) : Description
         TransactionHandle := TransactionHandle is Win32Handle ? NumGet(TransactionHandle, "ptr") : TransactionHandle
+        Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
@@ -13646,8 +13646,8 @@ class FileSystem {
      * @since windows6.0.6000
      */
     static CreateResourceManager(lpResourceManagerAttributes, ResourceManagerId, CreateOptions, TmHandle, Description) {
-        Description := Description is String ? StrPtr(Description) : Description
         TmHandle := TmHandle is Win32Handle ? NumGet(TmHandle, "ptr") : TmHandle
+        Description := Description is String ? StrPtr(Description) : Description
 
         A_LastError := 0
 
@@ -16436,8 +16436,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameA(hFile, lpShortName) {
-        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
 
         A_LastError := 0
 
@@ -16498,8 +16498,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static SetFileShortNameW(hFile, lpShortName) {
-        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
+        lpShortName := lpShortName is String ? StrPtr(lpShortName) : lpShortName
 
         A_LastError := 0
 
@@ -23521,8 +23521,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeA(hFindVolume, lpszVolumeName, cchBufferLength) {
-        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
         hFindVolume := hFindVolume is Win32Handle ? NumGet(hFindVolume, "ptr") : hFindVolume
+        lpszVolumeName := lpszVolumeName is String ? StrPtr(lpszVolumeName) : lpszVolumeName
 
         A_LastError := 0
 
@@ -23609,8 +23609,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointA(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
         hFindVolumeMountPoint := hFindVolumeMountPoint is Win32Handle ? NumGet(hFindVolumeMountPoint, "ptr") : hFindVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 
@@ -23639,8 +23639,8 @@ class FileSystem {
      * @since windows5.1.2600
      */
     static FindNextVolumeMountPointW(hFindVolumeMountPoint, lpszVolumeMountPoint, cchBufferLength) {
-        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
         hFindVolumeMountPoint := hFindVolumeMountPoint is Win32Handle ? NumGet(hFindVolumeMountPoint, "ptr") : hFindVolumeMountPoint
+        lpszVolumeMountPoint := lpszVolumeMountPoint is String ? StrPtr(lpszVolumeMountPoint) : lpszVolumeMountPoint
 
         A_LastError := 0
 

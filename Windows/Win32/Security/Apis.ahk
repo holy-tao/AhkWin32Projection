@@ -656,9 +656,9 @@ class Security {
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleW(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccessList, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
+        ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
 
         result := DllCall("ADVAPI32.dll\AccessCheckByTypeResultListAndAuditAlarmByHandleW", "ptr", SubsystemName, "ptr", HandleId, "ptr", ClientToken, "ptr", ObjectTypeName, "ptr", ObjectName, "ptr", SecurityDescriptor, "ptr", PrincipalSelfSid, "uint", DesiredAccess, "int", AuditType, "uint", Flags, "ptr", ObjectTypeList, "uint", ObjectTypeListLength, "ptr", GenericMapping, "int", ObjectCreation, "uint*", GrantedAccessList, "uint*", AccessStatusList, "ptr", pfGenerateOnClose, "int")
@@ -4404,9 +4404,9 @@ class Security {
      */
     static AccessCheckByTypeResultListAndAuditAlarmByHandleA(SubsystemName, HandleId, ClientToken, ObjectTypeName, ObjectName, SecurityDescriptor, PrincipalSelfSid, DesiredAccess, AuditType, Flags, ObjectTypeList, ObjectTypeListLength, GenericMapping, ObjectCreation, GrantedAccess, AccessStatusList, pfGenerateOnClose) {
         SubsystemName := SubsystemName is String ? StrPtr(SubsystemName) : SubsystemName
+        ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         ObjectTypeName := ObjectTypeName is String ? StrPtr(ObjectTypeName) : ObjectTypeName
         ObjectName := ObjectName is String ? StrPtr(ObjectName) : ObjectName
-        ClientToken := ClientToken is Win32Handle ? NumGet(ClientToken, "ptr") : ClientToken
         SecurityDescriptor := SecurityDescriptor is Win32Handle ? NumGet(SecurityDescriptor, "ptr") : SecurityDescriptor
 
         A_LastError := 0

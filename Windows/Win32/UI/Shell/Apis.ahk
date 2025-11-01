@@ -8500,8 +8500,8 @@ class Shell {
      * @since windows5.0
      */
     static GetUserProfileDirectoryA(hToken, lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8534,8 +8534,8 @@ class Shell {
      * @since windows5.0
      */
     static GetUserProfileDirectoryW(hToken, lpProfileDir, lpcchSize) {
-        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        lpProfileDir := lpProfileDir is String ? StrPtr(lpProfileDir) : lpProfileDir
 
         A_LastError := 0
 
@@ -8877,8 +8877,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static WinHelpA(hWndMain, lpszHelp, uCommand, dwData) {
-        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
         hWndMain := hWndMain is Win32Handle ? NumGet(hWndMain, "ptr") : hWndMain
+        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
 
         A_LastError := 0
 
@@ -8914,8 +8914,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static WinHelpW(hWndMain, lpszHelp, uCommand, dwData) {
-        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
         hWndMain := hWndMain is Win32Handle ? NumGet(hWndMain, "ptr") : hWndMain
+        lpszHelp := lpszHelp is String ? StrPtr(lpszHelp) : lpszHelp
 
         A_LastError := 0
 
@@ -9470,9 +9470,9 @@ class Shell {
      * @since windows6.1
      */
     static SHShowManageLibraryUI(psiLibrary, hwndOwner, pszTitle, pszInstruction, lmdOptions) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszInstruction := pszInstruction is String ? StrPtr(pszInstruction) : pszInstruction
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("SHELL32.dll\SHShowManageLibraryUI", "ptr", psiLibrary, "ptr", hwndOwner, "ptr", pszTitle, "ptr", pszInstruction, "int", lmdOptions, "int")
         if(result != 0)
@@ -10267,8 +10267,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreateDirectory(hwnd, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateDirectory", "ptr", hwnd, "ptr", pszPath, "int")
         return result
@@ -10365,8 +10365,8 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateDirectoryExA(hwnd, pszPath, psa) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateDirectoryExA", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
@@ -10463,8 +10463,8 @@ class Shell {
      * @since windows5.0
      */
     static SHCreateDirectoryExW(hwnd, pszPath, psa) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHCreateDirectoryExW", "ptr", hwnd, "ptr", pszPath, "ptr", psa, "int")
         return result
@@ -10595,8 +10595,8 @@ class Shell {
     static SHGetSpecialFolderPathA(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
@@ -10622,8 +10622,8 @@ class Shell {
     static SHGetSpecialFolderPathW(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
         return result
@@ -10689,9 +10689,9 @@ class Shell {
     static SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10741,9 +10741,9 @@ class Shell {
     static SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10879,8 +10879,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetFolderPathA(csidl, hToken, dwFlags, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathA", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10952,8 +10952,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHSetFolderPathW(csidl, hToken, dwFlags, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetFolderPathW", "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszPath, "int")
         if(result != 0)
@@ -10988,10 +10988,10 @@ class Shell {
     static SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirA", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0)
@@ -11026,10 +11026,10 @@ class Shell {
     static SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetFolderPathAndSubDirW", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr", pszSubDir, "ptr", pszPath, "int")
         if(result != 0)
@@ -11135,8 +11135,8 @@ class Shell {
      * @since windows6.0.6000
      */
     static SHSetKnownFolderPath(rfid, dwFlags, hToken, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHSetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", pszPath, "int")
         if(result != 0)
@@ -11826,8 +11826,8 @@ class Shell {
      * @since windows5.0
      */
     static RestartDialog(hwnd, pszPrompt, dwReturn) {
-        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
         result := DllCall("SHELL32.dll\RestartDialog", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "int")
         return result
@@ -11858,8 +11858,8 @@ class Shell {
      * @since windows5.0
      */
     static RestartDialogEx(hwnd, pszPrompt, dwReturn, dwReasonCode) {
-        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPrompt := pszPrompt is String ? StrPtr(pszPrompt) : pszPrompt
 
         result := DllCall("SHELL32.dll\RestartDialogEx", "ptr", hwnd, "ptr", pszPrompt, "uint", dwReturn, "uint", dwReasonCode, "int")
         return result
@@ -12436,12 +12436,12 @@ class Shell {
      * @since windows5.0
      */
     static GetFileNameFromBrowse(hwnd, pszFilePath, cchFilePath, pszWorkingDir, pszDefExt, pszFilters, pszTitle) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
         pszWorkingDir := pszWorkingDir is String ? StrPtr(pszWorkingDir) : pszWorkingDir
         pszDefExt := pszDefExt is String ? StrPtr(pszDefExt) : pszDefExt
         pszFilters := pszFilters is String ? StrPtr(pszFilters) : pszFilters
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\GetFileNameFromBrowse", "ptr", hwnd, "ptr", pszFilePath, "uint", cchFilePath, "ptr", pszWorkingDir, "ptr", pszDefExt, "ptr", pszFilters, "ptr", pszTitle, "int")
         return result
@@ -12761,9 +12761,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHObjectProperties(hwnd, shopObjectType, pszObjectName, pszPropertyPage) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszObjectName := pszObjectName is String ? StrPtr(pszObjectName) : pszObjectName
         pszPropertyPage := pszPropertyPage is String ? StrPtr(pszPropertyPage) : pszPropertyPage
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHObjectProperties", "ptr", hwnd, "uint", shopObjectType, "ptr", pszObjectName, "ptr", pszPropertyPage, "int")
         return result
@@ -12919,9 +12919,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static OpenRegStream(hkey, pszSubkey, pszValue, grfMode) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHELL32.dll\OpenRegStream", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -13090,8 +13090,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHStartNetConnectionDialogW(hwnd, pszRemoteName, dwType) {
-        pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszRemoteName := pszRemoteName is String ? StrPtr(pszRemoteName) : pszRemoteName
 
         result := DllCall("SHELL32.dll\SHStartNetConnectionDialogW", "ptr", hwnd, "ptr", pszRemoteName, "uint", dwType, "int")
         if(result != 0)
@@ -13373,8 +13373,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHValidateUNC(hwndOwner, pszFile, fConnect) {
-        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
+        pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
         result := DllCall("SHELL32.dll\SHValidateUNC", "ptr", hwndOwner, "ptr", pszFile, "uint", fConnect, "int")
         return result
@@ -13862,8 +13862,8 @@ class Shell {
      * @since windows5.0
      */
     static SHPathPrepareForWriteA(hwnd, punkEnableModless, pszPath, dwFlags) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteA", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -13891,8 +13891,8 @@ class Shell {
      * @since windows5.0
      */
     static SHPathPrepareForWriteW(hwnd, punkEnableModless, pszPath, dwFlags) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHPathPrepareForWriteW", "ptr", hwnd, "ptr", punkEnableModless, "ptr", pszPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -14076,8 +14076,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static PickIconDlg(hwnd, pszIconPath, cchIconPath, piIconIndex) {
-        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\PickIconDlg", "ptr", hwnd, "ptr", pszIconPath, "uint", cchIconPath, "int*", piIconIndex, "int")
         return result
@@ -14213,8 +14213,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHCreatePropSheetExtArray(hKey, pszSubKey, max_iface) {
-        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHELL32.dll\SHCreatePropSheetExtArray", "ptr", hKey, "ptr", pszSubKey, "uint", max_iface, "ptr")
         return HPSXA({Value: result}, True)
@@ -14329,8 +14329,8 @@ class Shell {
      * @since windows5.0
      */
     static SoftwareUpdateMessageBox(hWnd, pszDistUnit, dwFlags, psdi) {
-        pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszDistUnit := pszDistUnit is String ? StrPtr(pszDistUnit) : pszDistUnit
 
         result := DllCall("SHDOCVW.dll\SoftwareUpdateMessageBox", "ptr", hWnd, "ptr", pszDistUnit, "uint", dwFlags, "ptr", psdi, "uint")
         return result
@@ -14625,8 +14625,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragQueryFileA(hDrop, iFile, lpszFile, cch) {
-        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
         hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
         result := DllCall("SHELL32.dll\DragQueryFileA", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
@@ -14659,8 +14659,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static DragQueryFileW(hDrop, iFile, lpszFile, cch) {
-        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
         hDrop := hDrop is Win32Handle ? NumGet(hDrop, "ptr") : hDrop
+        lpszFile := lpszFile is String ? StrPtr(lpszFile) : lpszFile
 
         result := DllCall("SHELL32.dll\DragQueryFileW", "ptr", hDrop, "uint", iFile, "ptr", lpszFile, "uint", cch, "uint")
         return result
@@ -14923,11 +14923,11 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellExecuteA(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\ShellExecuteA", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         return HINSTANCE({Value: result}, False)
@@ -15132,11 +15132,11 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpOperation := lpOperation is String ? StrPtr(lpOperation) : lpOperation
         lpFile := lpFile is String ? StrPtr(lpFile) : lpFile
         lpParameters := lpParameters is String ? StrPtr(lpParameters) : lpParameters
         lpDirectory := lpDirectory is String ? StrPtr(lpDirectory) : lpDirectory
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\ShellExecuteW", "ptr", hwnd, "ptr", lpOperation, "ptr", lpFile, "ptr", lpParameters, "ptr", lpDirectory, "int", nShowCmd, "ptr")
         return HINSTANCE({Value: result}, False)
@@ -15363,9 +15363,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellAboutA(hWnd, szApp, szOtherStuff, hIcon) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\ShellAboutA", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
@@ -15399,9 +15399,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellAboutW(hWnd, szApp, szOtherStuff, hIcon) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         szApp := szApp is String ? StrPtr(szApp) : szApp
         szOtherStuff := szOtherStuff is String ? StrPtr(szOtherStuff) : szOtherStuff
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\ShellAboutW", "ptr", hWnd, "ptr", szApp, "ptr", szOtherStuff, "ptr", hIcon, "int")
@@ -15458,8 +15458,8 @@ class Shell {
     static ExtractAssociatedIconA(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
         return HICON({Value: result}, True)
@@ -15494,8 +15494,8 @@ class Shell {
     static ExtractAssociatedIconW(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIcon, "ptr")
         return HICON({Value: result}, True)
@@ -15533,8 +15533,8 @@ class Shell {
     static ExtractAssociatedIconExA(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExA", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
         return HICON({Value: result}, True)
@@ -15572,8 +15572,8 @@ class Shell {
     static ExtractAssociatedIconExW(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         result := DllCall("SHELL32.dll\ExtractAssociatedIconExW", "ptr", hInst, "ptr", pszIconPath, "ushort*", piIconIndex, "ushort*", piIconId, "ptr")
         return HICON({Value: result}, True)
@@ -15602,8 +15602,8 @@ class Shell {
     static ExtractIconA(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
         return HICON({Value: result}, True)
@@ -15632,8 +15632,8 @@ class Shell {
     static ExtractIconW(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
         hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
+        pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
         return HICON({Value: result}, True)
@@ -16362,8 +16362,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEmptyRecycleBinA(hwnd, pszRootPath, dwFlags) {
-        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinA", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -16388,8 +16388,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEmptyRecycleBinW(hwnd, pszRootPath, dwFlags) {
-        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszRootPath := pszRootPath is String ? StrPtr(pszRootPath) : pszRootPath
 
         result := DllCall("SHELL32.dll\SHEmptyRecycleBinW", "ptr", hwnd, "ptr", pszRootPath, "uint", dwFlags, "int")
         if(result != 0)
@@ -16820,9 +16820,9 @@ class Shell {
      * @since windows5.0
      */
     static SHInvokePrinterCommandA(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHInvokePrinterCommandA", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
@@ -16850,9 +16850,9 @@ class Shell {
      * @since windows5.0
      */
     static SHInvokePrinterCommandW(hwnd, uAction, lpBuf1, lpBuf2, fModal) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpBuf1 := lpBuf1 is String ? StrPtr(lpBuf1) : lpBuf1
         lpBuf2 := lpBuf2 is String ? StrPtr(lpBuf2) : lpBuf2
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHInvokePrinterCommandW", "ptr", hwnd, "uint", uAction, "ptr", lpBuf1, "ptr", lpBuf2, "int", fModal, "int")
         return result
@@ -17046,10 +17046,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellMessageBoxA(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
-        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
-        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
+        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
@@ -17088,10 +17088,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static ShellMessageBoxW(hAppInst, hWnd, lpcText, lpcTitle, fuStyle) {
-        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
-        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
         hAppInst := hAppInst is Win32Handle ? NumGet(hAppInst, "ptr") : hAppInst
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        lpcText := lpcText is String ? StrPtr(lpcText) : lpcText
+        lpcTitle := lpcTitle is String ? StrPtr(lpcTitle) : lpcTitle
 
         A_LastError := 0
 
@@ -17147,8 +17147,8 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHEnumerateUnreadMailAccountsW(hKeyUser, dwIndex, pszMailAddress, cchMailAddress) {
-        pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
         hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
+        pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
 
         result := DllCall("SHELL32.dll\SHEnumerateUnreadMailAccountsW", "ptr", hKeyUser, "uint", dwIndex, "ptr", pszMailAddress, "int", cchMailAddress, "int")
         if(result != 0)
@@ -17184,9 +17184,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pdwCount, pFileTime, pszShellExecuteCommand, cchShellExecuteCommand) {
+        hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
         pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
         pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
-        hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
 
         result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, "uint*", pdwCount, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
         if(result != 0)
@@ -19820,8 +19820,8 @@ class Shell {
      * @since windows5.0
      */
     static PathCompactPathA(hDC, pszPath, dx) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCompactPathA", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
@@ -19845,8 +19845,8 @@ class Shell {
      * @since windows5.0
      */
     static PathCompactPathW(hDC, pszPath, dx) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHLWAPI.dll\PathCompactPathW", "ptr", hDC, "ptr", pszPath, "uint", dx, "int")
         return result
@@ -21617,8 +21617,8 @@ class Shell {
      * @since windows5.0
      */
     static PathSetDlgItemPathA(hDlg, id, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathSetDlgItemPathA", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
@@ -21644,8 +21644,8 @@ class Shell {
      * @since windows5.0
      */
     static PathSetDlgItemPathW(hDlg, id, pszPath) {
-        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         hDlg := hDlg is Win32Handle ? NumGet(hDlg, "ptr") : hDlg
+        pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         DllCall("SHLWAPI.dll\PathSetDlgItemPathW", "ptr", hDlg, "int", id, "ptr", pszPath)
     }
@@ -23061,8 +23061,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteEmptyKeyA(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -23086,8 +23086,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteEmptyKeyW(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHLWAPI.dll\SHDeleteEmptyKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -23111,8 +23111,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteKeyA(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHLWAPI.dll\SHDeleteKeyA", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -23136,8 +23136,8 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteKeyW(hkey, pszSubKey) {
-        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
 
         result := DllCall("SHLWAPI.dll\SHDeleteKeyW", "ptr", hkey, "ptr", pszSubKey, "uint")
         return result
@@ -23179,9 +23179,9 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteValueA(hkey, pszSubKey, pszValue) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
@@ -23205,9 +23205,9 @@ class Shell {
      * @since windows5.0
      */
     static SHDeleteValueW(hkey, pszSubKey, pszValue) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHDeleteValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint")
         return result
@@ -23240,9 +23240,9 @@ class Shell {
      * @since windows5.0
      */
     static SHGetValueA(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23275,9 +23275,9 @@ class Shell {
      * @since windows5.0
      */
     static SHGetValueW(hkey, pszSubKey, pszValue, pdwType, pvData, pcbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23310,9 +23310,9 @@ class Shell {
      * @since windows5.0
      */
     static SHSetValueA(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHSetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
@@ -23345,9 +23345,9 @@ class Shell {
      * @since windows5.0
      */
     static SHSetValueW(hkey, pszSubKey, pszValue, dwType, pvData, cbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHSetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "uint", dwType, "ptr", pvData, "uint", cbData, "int")
         return result
@@ -23410,9 +23410,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHRegGetValueA(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHRegGetValueA", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23475,9 +23475,9 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHRegGetValueW(hkey, pszSubKey, pszValue, srrfFlags, pdwType, pvData, pcbData) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubKey := pszSubKey is String ? StrPtr(pszSubKey) : pszSubKey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHRegGetValueW", "ptr", hkey, "ptr", pszSubKey, "ptr", pszValue, "int", srrfFlags, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23543,8 +23543,8 @@ class Shell {
     static SHQueryValueExA(hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHQueryValueExA", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23576,8 +23576,8 @@ class Shell {
     static SHQueryValueExW(hkey, pszValue, pdwType, pvData, pcbData) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
 
-        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
         result := DllCall("SHLWAPI.dll\SHQueryValueExW", "ptr", hkey, "ptr", pszValue, "uint*", pdwReserved, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23604,8 +23604,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumKeyExA(hkey, dwIndex, pszName, pcchName) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHLWAPI.dll\SHEnumKeyExA", "ptr", hkey, "uint", dwIndex, "ptr", pszName, "uint*", pcchName, "uint")
         return result
@@ -23632,8 +23632,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumKeyExW(hkey, dwIndex, pszName, pcchName) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("SHLWAPI.dll\SHEnumKeyExW", "ptr", hkey, "uint", dwIndex, "ptr", pszName, "uint*", pcchName, "uint")
         return result
@@ -23669,8 +23669,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumValueA(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("SHLWAPI.dll\SHEnumValueA", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23706,8 +23706,8 @@ class Shell {
      * @since windows5.0
      */
     static SHEnumValueW(hkey, dwIndex, pszValueName, pcchValueName, pdwType, pvData, pcbData) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("SHLWAPI.dll\SHEnumValueW", "ptr", hkey, "uint", dwIndex, "ptr", pszValueName, "uint*", pcchValueName, "uint*", pdwType, "ptr", pvData, "uint*", pcbData, "uint")
         return result
@@ -23793,8 +23793,8 @@ class Shell {
     static SHCopyKeyA(hkeySrc, pszSrcSubKey, hkeyDest) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
         hkeySrc := hkeySrc is Win32Handle ? NumGet(hkeySrc, "ptr") : hkeySrc
+        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
         hkeyDest := hkeyDest is Win32Handle ? NumGet(hkeyDest, "ptr") : hkeyDest
 
         result := DllCall("SHLWAPI.dll\SHCopyKeyA", "ptr", hkeySrc, "ptr", pszSrcSubKey, "ptr", hkeyDest, "uint", fReserved, "uint")
@@ -23821,8 +23821,8 @@ class Shell {
     static SHCopyKeyW(hkeySrc, pszSrcSubKey, hkeyDest) {
         static fReserved := 0 ;Reserved parameters must always be NULL
 
-        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
         hkeySrc := hkeySrc is Win32Handle ? NumGet(hkeySrc, "ptr") : hkeySrc
+        pszSrcSubKey := pszSrcSubKey is String ? StrPtr(pszSrcSubKey) : pszSrcSubKey
         hkeyDest := hkeyDest is Win32Handle ? NumGet(hkeyDest, "ptr") : hkeyDest
 
         result := DllCall("SHLWAPI.dll\SHCopyKeyW", "ptr", hkeySrc, "ptr", pszSrcSubKey, "ptr", hkeyDest, "uint", fReserved, "uint")
@@ -23853,10 +23853,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetPathA(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegGetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
@@ -23886,10 +23886,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetPathW(hKey, pcszSubKey, pcszValue, pszPath, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegGetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pszPath, "uint", dwFlags, "uint")
         return result
@@ -23919,10 +23919,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetPathA(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegSetPathA", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
@@ -23952,10 +23952,10 @@ class Shell {
      * @since windows5.0
      */
     static SHRegSetPathW(hKey, pcszSubKey, pcszValue, pcszPath, dwFlags) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pcszSubKey := pcszSubKey is String ? StrPtr(pcszSubKey) : pcszSubKey
         pcszValue := pcszValue is String ? StrPtr(pcszValue) : pcszValue
         pcszPath := pcszPath is String ? StrPtr(pcszPath) : pcszPath
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("SHLWAPI.dll\SHRegSetPathW", "ptr", hKey, "ptr", pcszSubKey, "ptr", pcszValue, "ptr", pcszPath, "uint", dwFlags, "uint")
         return result
@@ -24743,8 +24743,8 @@ class Shell {
      * @since windows5.0
      */
     static SHRegGetIntW(hk, pwzKey, iDefault) {
-        pwzKey := pwzKey is String ? StrPtr(pwzKey) : pwzKey
         hk := hk is Win32Handle ? NumGet(hk, "ptr") : hk
+        pwzKey := pwzKey is String ? StrPtr(pwzKey) : pwzKey
 
         result := DllCall("SHLWAPI.dll\SHRegGetIntW", "ptr", hk, "ptr", pwzKey, "int", iDefault, "int")
         return result
@@ -25005,9 +25005,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringByKeyA(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
+        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
-        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyA", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         return result
@@ -25067,9 +25067,9 @@ class Shell {
      * @since windows5.0
      */
     static AssocQueryStringByKeyW(flags, str, hkAssoc, pszExtra, pszOut, pcchOut) {
+        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
         pszOut := pszOut is String ? StrPtr(pszOut) : pszOut
-        hkAssoc := hkAssoc is Win32Handle ? NumGet(hkAssoc, "ptr") : hkAssoc
 
         result := DllCall("SHLWAPI.dll\AssocQueryStringByKeyW", "uint", flags, "int", str, "ptr", hkAssoc, "ptr", pszExtra, "ptr", pszOut, "uint*", pcchOut, "int")
         return result
@@ -25213,9 +25213,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStreamA(hkey, pszSubkey, pszValue, grfMode) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStreamA", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25245,9 +25245,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStreamW(hkey, pszSubkey, pszValue, grfMode) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStreamW", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25272,9 +25272,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStream2A(hkey, pszSubkey, pszValue, grfMode) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStream2A", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -25299,9 +25299,9 @@ class Shell {
      * @since windows5.0
      */
     static SHOpenRegStream2W(hkey, pszSubkey, pszValue, grfMode) {
+        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         pszSubkey := pszSubkey is String ? StrPtr(pszSubkey) : pszSubkey
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
 
         result := DllCall("SHLWAPI.dll\SHOpenRegStream2W", "ptr", hkey, "ptr", pszSubkey, "ptr", pszValue, "uint", grfMode, "ptr")
         return result
@@ -26097,10 +26097,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHMessageBoxCheckA(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHLWAPI.dll\SHMessageBoxCheckA", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
@@ -26142,10 +26142,10 @@ class Shell {
      * @since windows5.1.2600
      */
     static SHMessageBoxCheckW(hwnd, pszText, pszCaption, uType, iDefault, pszRegVal) {
+        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszText := pszText is String ? StrPtr(pszText) : pszText
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
         pszRegVal := pszRegVal is String ? StrPtr(pszRegVal) : pszRegVal
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHLWAPI.dll\SHMessageBoxCheckW", "ptr", hwnd, "ptr", pszText, "ptr", pszCaption, "uint", uType, "int", iDefault, "ptr", pszRegVal, "int")
         return result
@@ -27115,9 +27115,9 @@ class Shell {
      */
     static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid, ppvObj) {
         pwzAdditionalHeaders := pwzAdditionalHeaders is String ? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
+        phwnd := phwnd is Win32Handle ? NumGet(phwnd, "ptr") : phwnd
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
-        phwnd := phwnd is Win32Handle ? NumGet(phwnd, "ptr") : phwnd
 
         result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr*", ppvObj, "int")
         if(result != 0)

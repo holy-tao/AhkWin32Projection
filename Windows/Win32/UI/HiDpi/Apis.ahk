@@ -48,8 +48,8 @@ class HiDpi {
      * @since windows10.0.15063
      */
     static OpenThemeDataForDpi(hwnd, pszClassList, dpi) {
-        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszClassList := pszClassList is String ? StrPtr(pszClassList) : pszClassList
 
         result := DllCall("UxTheme.dll\OpenThemeDataForDpi", "ptr", hwnd, "ptr", pszClassList, "uint", dpi, "ptr")
         return HTHEME({Value: result}, True)

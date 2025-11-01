@@ -358,9 +358,9 @@ class ClrHosting {
      * @deprecated
      */
     static RunDll32ShimW(hwnd, hinst, lpszCmdLine, nCmdShow) {
-        lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
+        lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
 
         result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
         if(result != 0)
@@ -524,8 +524,8 @@ class ClrHosting {
      * @deprecated
      */
     static GetVersionFromProcess(hProcess, pVersion, cchBuffer, dwLength) {
-        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
         result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", dwLength, "int")
         if(result != 0)

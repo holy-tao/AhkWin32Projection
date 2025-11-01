@@ -63,6 +63,8 @@ class ID3D12ShaderReflectionConstantBuffer extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionconstantbuffer-getvariablebyname
      */
     GetVariableByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(2, this, "ptr", Name, "ptr")
         return result
     }

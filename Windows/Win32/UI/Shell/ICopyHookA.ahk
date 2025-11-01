@@ -65,6 +65,8 @@ class ICopyHookA extends IUnknown{
      */
     CopyCallback(hwnd, wFunc, wFlags, pszSrcFile, dwSrcAttribs, pszDestFile, dwDestAttribs) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszSrcFile := pszSrcFile is String ? StrPtr(pszSrcFile) : pszSrcFile
+        pszDestFile := pszDestFile is String ? StrPtr(pszDestFile) : pszDestFile
 
         result := ComCall(3, this, "ptr", hwnd, "uint", wFunc, "uint", wFlags, "ptr", pszSrcFile, "uint", dwSrcAttribs, "ptr", pszDestFile, "uint", dwDestAttribs, "uint")
         return result

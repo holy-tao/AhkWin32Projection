@@ -18139,9 +18139,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyA(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
-        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
         result := DllCall("msi.dll\MsiGetProductPropertyA", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -18220,9 +18220,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetProductPropertyW(hProduct, szProperty, lpValueBuf, pcchValueBuf) {
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
         szProperty := szProperty is String ? StrPtr(szProperty) : szProperty
         lpValueBuf := lpValueBuf is String ? StrPtr(lpValueBuf) : lpValueBuf
-        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
         result := DllCall("msi.dll\MsiGetProductPropertyW", "ptr", hProduct, "ptr", szProperty, "ptr", lpValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -18440,10 +18440,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoA(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
         lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
-        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
         result := DllCall("msi.dll\MsiGetFeatureInfoA", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
         return result
@@ -18527,10 +18527,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureInfoW(hProduct, szFeature, lpAttributes, lpTitleBuf, pcchTitleBuf, lpHelpBuf, pcchHelpBuf) {
+        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
         szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         lpTitleBuf := lpTitleBuf is String ? StrPtr(lpTitleBuf) : lpTitleBuf
         lpHelpBuf := lpHelpBuf is String ? StrPtr(lpHelpBuf) : lpHelpBuf
-        hProduct := hProduct is Win32Handle ? NumGet(hProduct, "ptr") : hProduct
 
         result := DllCall("msi.dll\MsiGetFeatureInfoW", "ptr", hProduct, "ptr", szFeature, "uint*", lpAttributes, "ptr", lpTitleBuf, "uint*", pcchTitleBuf, "ptr", lpHelpBuf, "uint*", pcchHelpBuf, "uint")
         return result
@@ -25223,8 +25223,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseOpenViewA(hDatabase, szQuery, phView) {
-        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
 
         result := DllCall("msi.dll\MsiDatabaseOpenViewA", "ptr", hDatabase, "ptr", szQuery, "ptr", phView, "uint")
         return result
@@ -25242,8 +25242,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseOpenViewW(hDatabase, szQuery, phView) {
-        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szQuery := szQuery is String ? StrPtr(szQuery) : szQuery
 
         result := DllCall("msi.dll\MsiDatabaseOpenViewW", "ptr", hDatabase, "ptr", szQuery, "ptr", phView, "uint")
         return result
@@ -25639,8 +25639,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorA(hView, szColumnNameBuffer, pcchBuf) {
-        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
         hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
 
         result := DllCall("msi.dll\MsiViewGetErrorA", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
         return result
@@ -26036,8 +26036,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiViewGetErrorW(hView, szColumnNameBuffer, pcchBuf) {
-        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
         hView := hView is Win32Handle ? NumGet(hView, "ptr") : hView
+        szColumnNameBuffer := szColumnNameBuffer is String ? StrPtr(szColumnNameBuffer) : szColumnNameBuffer
 
         result := DllCall("msi.dll\MsiViewGetErrorW", "ptr", hView, "ptr", szColumnNameBuffer, "uint*", pcchBuf, "int")
         return result
@@ -26136,8 +26136,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysA(hDatabase, szTableName, phRecord) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysA", "ptr", hDatabase, "ptr", szTableName, "ptr", phRecord, "uint")
         return result
@@ -26154,8 +26154,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGetPrimaryKeysW(hDatabase, szTableName, phRecord) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseGetPrimaryKeysW", "ptr", hDatabase, "ptr", szTableName, "ptr", phRecord, "uint")
         return result
@@ -26170,8 +26170,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentA(hDatabase, szTableName) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseIsTablePersistentA", "ptr", hDatabase, "ptr", szTableName, "int")
         return result
@@ -26186,8 +26186,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseIsTablePersistentW(hDatabase, szTableName) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseIsTablePersistentW", "ptr", hDatabase, "ptr", szTableName, "int")
         return result
@@ -26205,8 +26205,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSummaryInformationA(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
-        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
 
         result := DllCall("msi.dll\MsiGetSummaryInformationA", "ptr", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo, "uint")
         return result
@@ -26224,8 +26224,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSummaryInformationW(hDatabase, szDatabasePath, uiUpdateCount, phSummaryInfo) {
-        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szDatabasePath := szDatabasePath is String ? StrPtr(szDatabasePath) : szDatabasePath
 
         result := DllCall("msi.dll\MsiGetSummaryInformationW", "ptr", hDatabase, "ptr", szDatabasePath, "uint", uiUpdateCount, "ptr", phSummaryInfo, "uint")
         return result
@@ -26261,8 +26261,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyA(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSummaryInfoSetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
         return result
@@ -26283,8 +26283,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoSetPropertyW(hSummaryInfo, uiProperty, uiDataType, iValue, pftValue, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiSummaryInfoSetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, "uint", uiDataType, "int", iValue, "ptr", pftValue, "ptr", szValue, "uint")
         return result
@@ -26306,8 +26306,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyA(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
         result := DllCall("msi.dll\MsiSummaryInfoGetPropertyA", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -26329,8 +26329,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSummaryInfoGetPropertyW(hSummaryInfo, uiProperty, puiDataType, piValue, pftValue, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
         hSummaryInfo := hSummaryInfo is Win32Handle ? NumGet(hSummaryInfo, "ptr") : hSummaryInfo
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
         result := DllCall("msi.dll\MsiSummaryInfoGetPropertyW", "ptr", hSummaryInfo, "uint", uiProperty, "uint*", puiDataType, "int*", piValue, "ptr", pftValue, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -26531,9 +26531,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseImportA(hDatabase, szFolderPath, szFileName) {
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
-        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
         result := DllCall("msi.dll\MsiDatabaseImportA", "ptr", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
@@ -26550,9 +26550,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseImportW(hDatabase, szFolderPath, szFileName) {
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
-        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
         result := DllCall("msi.dll\MsiDatabaseImportW", "ptr", hDatabase, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
@@ -26632,10 +26632,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportA(hDatabase, szTableName, szFolderPath, szFileName) {
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
-        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
         result := DllCall("msi.dll\MsiDatabaseExportA", "ptr", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
@@ -26715,10 +26715,10 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseExportW(hDatabase, szTableName, szFolderPath, szFileName) {
+        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
-        hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
 
         result := DllCall("msi.dll\MsiDatabaseExportW", "ptr", hDatabase, "ptr", szTableName, "ptr", szFolderPath, "ptr", szFileName, "uint")
         return result
@@ -26798,9 +26798,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeA(hDatabase, hDatabaseMerge, szTableName) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseMerge := hDatabaseMerge is Win32Handle ? NumGet(hDatabaseMerge, "ptr") : hDatabaseMerge
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseMergeA", "ptr", hDatabase, "ptr", hDatabaseMerge, "ptr", szTableName, "uint")
         return result
@@ -26880,9 +26880,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseMergeW(hDatabase, hDatabaseMerge, szTableName) {
-        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseMerge := hDatabaseMerge is Win32Handle ? NumGet(hDatabaseMerge, "ptr") : hDatabaseMerge
+        szTableName := szTableName is String ? StrPtr(szTableName) : szTableName
 
         result := DllCall("msi.dll\MsiDatabaseMergeW", "ptr", hDatabase, "ptr", hDatabaseMerge, "ptr", szTableName, "uint")
         return result
@@ -26902,9 +26902,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformA(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiDatabaseGenerateTransformA", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
         return result
@@ -26924,9 +26924,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseGenerateTransformW(hDatabase, hDatabaseReference, szTransformFile, iReserved1, iReserved2) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiDatabaseGenerateTransformW", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iReserved1, "int", iReserved2, "uint")
         return result
@@ -27030,8 +27030,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformA(hDatabase, szTransformFile, iErrorConditions) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiDatabaseApplyTransformA", "ptr", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
         return result
@@ -27135,8 +27135,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDatabaseApplyTransformW(hDatabase, szTransformFile, iErrorConditions) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiDatabaseApplyTransformW", "ptr", hDatabase, "ptr", szTransformFile, "int", iErrorConditions, "uint")
         return result
@@ -27154,9 +27154,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoA(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiCreateTransformSummaryInfoA", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
         return result
@@ -27174,9 +27174,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiCreateTransformSummaryInfoW(hDatabase, hDatabaseReference, szTransformFile, iErrorConditions, iValidation) {
-        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
         hDatabase := hDatabase is Win32Handle ? NumGet(hDatabase, "ptr") : hDatabase
         hDatabaseReference := hDatabaseReference is Win32Handle ? NumGet(hDatabaseReference, "ptr") : hDatabaseReference
+        szTransformFile := szTransformFile is String ? StrPtr(szTransformFile) : szTransformFile
 
         result := DllCall("msi.dll\MsiCreateTransformSummaryInfoW", "ptr", hDatabase, "ptr", hDatabaseReference, "ptr", szTransformFile, "int", iErrorConditions, "int", iValidation, "uint")
         return result
@@ -27288,8 +27288,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStringA(hRecord, iField, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiRecordSetStringA", "ptr", hRecord, "uint", iField, "ptr", szValue, "uint")
         return result
@@ -27305,8 +27305,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStringW(hRecord, iField, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("msi.dll\MsiRecordSetStringW", "ptr", hRecord, "uint", iField, "ptr", szValue, "uint")
         return result
@@ -27339,8 +27339,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringA(hRecord, iField, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
         result := DllCall("msi.dll\MsiRecordGetStringA", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -27358,8 +27358,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordGetStringW(hRecord, iField, szValueBuf, pcchValueBuf) {
-        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
 
         result := DllCall("msi.dll\MsiRecordGetStringW", "ptr", hRecord, "uint", iField, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -27390,8 +27390,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStreamA(hRecord, iField, szFilePath) {
-        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
 
         result := DllCall("msi.dll\MsiRecordSetStreamA", "ptr", hRecord, "uint", iField, "ptr", szFilePath, "uint")
         return result
@@ -27408,8 +27408,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiRecordSetStreamW(hRecord, iField, szFilePath) {
-        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szFilePath := szFilePath is String ? StrPtr(szFilePath) : szFilePath
 
         result := DllCall("msi.dll\MsiRecordSetStreamW", "ptr", hRecord, "uint", iField, "ptr", szFilePath, "uint")
         return result
@@ -27470,9 +27470,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetPropertyA(hInstall, szName, szValue) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiSetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValue, "uint")
         return result
@@ -27488,9 +27488,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetPropertyW(hInstall, szName, szValue) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiSetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValue, "uint")
         return result
@@ -27507,9 +27507,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPropertyA(hInstall, szName, szValueBuf, pcchValueBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szName := szName is String ? StrPtr(szName) : szName
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetPropertyA", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -27526,9 +27526,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetPropertyW(hInstall, szName, szValueBuf, pcchValueBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szName := szName is String ? StrPtr(szName) : szName
         szValueBuf := szValueBuf is String ? StrPtr(szValueBuf) : szValueBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetPropertyW", "ptr", hInstall, "ptr", szName, "ptr", szValueBuf, "uint*", pcchValueBuf, "uint")
         return result
@@ -27595,9 +27595,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordA(hInstall, hRecord, szResultBuf, pcchResultBuf) {
-        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
 
         result := DllCall("msi.dll\MsiFormatRecordA", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
         return result
@@ -27615,9 +27615,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiFormatRecordW(hInstall, hRecord, szResultBuf, pcchResultBuf) {
-        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         hRecord := hRecord is Win32Handle ? NumGet(hRecord, "ptr") : hRecord
+        szResultBuf := szResultBuf is String ? StrPtr(szResultBuf) : szResultBuf
 
         result := DllCall("msi.dll\MsiFormatRecordW", "ptr", hInstall, "ptr", hRecord, "ptr", szResultBuf, "uint*", pcchResultBuf, "uint")
         return result
@@ -27632,8 +27632,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDoActionA(hInstall, szAction) {
-        szAction := szAction is String ? StrPtr(szAction) : szAction
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szAction := szAction is String ? StrPtr(szAction) : szAction
 
         result := DllCall("msi.dll\MsiDoActionA", "ptr", hInstall, "ptr", szAction, "uint")
         return result
@@ -27648,8 +27648,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiDoActionW(hInstall, szAction) {
-        szAction := szAction is String ? StrPtr(szAction) : szAction
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szAction := szAction is String ? StrPtr(szAction) : szAction
 
         result := DllCall("msi.dll\MsiDoActionW", "ptr", hInstall, "ptr", szAction, "uint")
         return result
@@ -27665,8 +27665,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSequenceA(hInstall, szTable, iSequenceMode) {
-        szTable := szTable is String ? StrPtr(szTable) : szTable
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szTable := szTable is String ? StrPtr(szTable) : szTable
 
         result := DllCall("msi.dll\MsiSequenceA", "ptr", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
         return result
@@ -27682,8 +27682,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSequenceW(hInstall, szTable, iSequenceMode) {
-        szTable := szTable is String ? StrPtr(szTable) : szTable
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szTable := szTable is String ? StrPtr(szTable) : szTable
 
         result := DllCall("msi.dll\MsiSequenceW", "ptr", hInstall, "ptr", szTable, "int", iSequenceMode, "uint")
         return result
@@ -27863,8 +27863,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEvaluateConditionA(hInstall, szCondition) {
-        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
 
         result := DllCall("msi.dll\MsiEvaluateConditionA", "ptr", hInstall, "ptr", szCondition, "int")
         return result
@@ -27880,8 +27880,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEvaluateConditionW(hInstall, szCondition) {
-        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szCondition := szCondition is String ? StrPtr(szCondition) : szCondition
 
         result := DllCall("msi.dll\MsiEvaluateConditionW", "ptr", hInstall, "ptr", szCondition, "int")
         return result
@@ -27899,8 +27899,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateA(hInstall, szFeature, piInstalled, piAction) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureStateA", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
         return result
@@ -27918,8 +27918,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureStateW(hInstall, szFeature, piInstalled, piAction) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureStateW", "ptr", hInstall, "ptr", szFeature, "int*", piInstalled, "int*", piAction, "uint")
         return result
@@ -27936,8 +27936,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateA(hInstall, szFeature, iState) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiSetFeatureStateA", "ptr", hInstall, "ptr", szFeature, "int", iState, "uint")
         return result
@@ -27954,8 +27954,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureStateW(hInstall, szFeature, iState) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiSetFeatureStateW", "ptr", hInstall, "ptr", szFeature, "int", iState, "uint")
         return result
@@ -28052,8 +28052,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesA(hInstall, szFeature, dwAttributes) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiSetFeatureAttributesA", "ptr", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
         return result
@@ -28150,8 +28150,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetFeatureAttributesW(hInstall, szFeature, dwAttributes) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiSetFeatureAttributesW", "ptr", hInstall, "ptr", szFeature, "uint", dwAttributes, "uint")
         return result
@@ -28169,8 +28169,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateA(hInstall, szComponent, piInstalled, piAction) {
-        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiGetComponentStateA", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
         return result
@@ -28188,8 +28188,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetComponentStateW(hInstall, szComponent, piInstalled, piAction) {
-        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiGetComponentStateW", "ptr", hInstall, "ptr", szComponent, "int*", piInstalled, "int*", piAction, "uint")
         return result
@@ -28206,8 +28206,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateA(hInstall, szComponent, iState) {
-        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiSetComponentStateA", "ptr", hInstall, "ptr", szComponent, "int", iState, "uint")
         return result
@@ -28224,8 +28224,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetComponentStateW(hInstall, szComponent, iState) {
-        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
 
         result := DllCall("msi.dll\MsiSetComponentStateW", "ptr", hInstall, "ptr", szComponent, "int", iState, "uint")
         return result
@@ -28244,8 +28244,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostA(hInstall, szFeature, iCostTree, iState, piCost) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureCostA", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
         return result
@@ -28264,8 +28264,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureCostW(hInstall, szFeature, iCostTree, iState, piCost) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureCostW", "ptr", hInstall, "ptr", szFeature, "int", iCostTree, "int", iState, "int*", piCost, "uint")
         return result
@@ -28386,9 +28386,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsA(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiEnumComponentCostsA", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
         return result
@@ -28509,9 +28509,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiEnumComponentCostsW(hInstall, szComponent, dwIndex, iState, szDriveBuf, pcchDriveBuf, piCost, piTempCost) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szComponent := szComponent is String ? StrPtr(szComponent) : szComponent
         szDriveBuf := szDriveBuf is String ? StrPtr(szDriveBuf) : szDriveBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiEnumComponentCostsW", "ptr", hInstall, "ptr", szComponent, "uint", dwIndex, "int", iState, "ptr", szDriveBuf, "uint*", pcchDriveBuf, "int*", piCost, "int*", piTempCost, "uint")
         return result
@@ -28544,8 +28544,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesA(hInstall, szFeature, lpInstallStates) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureValidStatesA", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
         return result
@@ -28562,8 +28562,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetFeatureValidStatesW(hInstall, szFeature, lpInstallStates) {
-        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
         hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
+        szFeature := szFeature is String ? StrPtr(szFeature) : szFeature
 
         result := DllCall("msi.dll\MsiGetFeatureValidStatesW", "ptr", hInstall, "ptr", szFeature, "uint*", lpInstallStates, "uint")
         return result
@@ -28582,9 +28582,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetSourcePathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -28603,9 +28603,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetSourcePathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetSourcePathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -28624,9 +28624,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathA(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -28645,9 +28645,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiGetTargetPathW(hInstall, szFolder, szPathBuf, pcchPathBuf) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szPathBuf := szPathBuf is String ? StrPtr(szPathBuf) : szPathBuf
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiGetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szPathBuf, "uint*", pcchPathBuf, "uint")
         return result
@@ -28664,9 +28664,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetTargetPathA(hInstall, szFolder, szFolderPath) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiSetTargetPathA", "ptr", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
         return result
@@ -28683,9 +28683,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiSetTargetPathW(hInstall, szFolder, szFolderPath) {
+        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
         szFolder := szFolder is String ? StrPtr(szFolder) : szFolder
         szFolderPath := szFolderPath is String ? StrPtr(szFolderPath) : szFolderPath
-        hInstall := hInstall is Win32Handle ? NumGet(hInstall, "ptr") : hInstall
 
         result := DllCall("msi.dll\MsiSetTargetPathW", "ptr", hInstall, "ptr", szFolder, "ptr", szFolderPath, "uint")
         return result
@@ -28729,8 +28729,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewDialogA(hPreview, szDialogName) {
-        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
         hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
+        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
 
         result := DllCall("msi.dll\MsiPreviewDialogA", "ptr", hPreview, "ptr", szDialogName, "uint")
         return result
@@ -28745,8 +28745,8 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewDialogW(hPreview, szDialogName) {
-        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
         hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
+        szDialogName := szDialogName is String ? StrPtr(szDialogName) : szDialogName
 
         result := DllCall("msi.dll\MsiPreviewDialogW", "ptr", hPreview, "ptr", szDialogName, "uint")
         return result
@@ -28762,9 +28762,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewBillboardA(hPreview, szControlName, szBillboard) {
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
         szControlName := szControlName is String ? StrPtr(szControlName) : szControlName
         szBillboard := szBillboard is String ? StrPtr(szBillboard) : szBillboard
-        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
         result := DllCall("msi.dll\MsiPreviewBillboardA", "ptr", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
         return result
@@ -28780,9 +28780,9 @@ class ApplicationInstallationAndServicing {
      * @since windows8.0
      */
     static MsiPreviewBillboardW(hPreview, szControlName, szBillboard) {
+        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
         szControlName := szControlName is String ? StrPtr(szControlName) : szControlName
         szBillboard := szBillboard is String ? StrPtr(szBillboard) : szBillboard
-        hPreview := hPreview is Win32Handle ? NumGet(hPreview, "ptr") : hPreview
 
         result := DllCall("msi.dll\MsiPreviewBillboardW", "ptr", hPreview, "ptr", szControlName, "ptr", szBillboard, "uint")
         return result
@@ -28843,8 +28843,8 @@ class ApplicationInstallationAndServicing {
      * @since windows5.1.2600
      */
     static SfcIsFileProtected(RpcHandle, ProtFileName) {
-        ProtFileName := ProtFileName is String ? StrPtr(ProtFileName) : ProtFileName
         RpcHandle := RpcHandle is Win32Handle ? NumGet(RpcHandle, "ptr") : RpcHandle
+        ProtFileName := ProtFileName is String ? StrPtr(ProtFileName) : ProtFileName
 
         result := DllCall("sfc.dll\SfcIsFileProtected", "ptr", RpcHandle, "ptr", ProtFileName, "int")
         return result
@@ -28911,8 +28911,8 @@ class ApplicationInstallationAndServicing {
      * @since windows6.0.6000
      */
     static SfcIsKeyProtected(KeyHandle, SubKeyName, KeySam) {
-        SubKeyName := SubKeyName is String ? StrPtr(SubKeyName) : SubKeyName
         KeyHandle := KeyHandle is Win32Handle ? NumGet(KeyHandle, "ptr") : KeyHandle
+        SubKeyName := SubKeyName is String ? StrPtr(SubKeyName) : SubKeyName
 
         result := DllCall("sfc.dll\SfcIsKeyProtected", "ptr", KeyHandle, "ptr", SubKeyName, "uint", KeySam, "int")
         return result
@@ -30279,9 +30279,9 @@ class ApplicationInstallationAndServicing {
      * @since windows6.0.6000
      */
     static QueryActCtxSettingsW(dwFlags, hActCtx, settingsNameSpace, settingName, pvBuffer, dwBuffer, pdwWrittenOrRequired) {
+        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
         settingsNameSpace := settingsNameSpace is String ? StrPtr(settingsNameSpace) : settingsNameSpace
         settingName := settingName is String ? StrPtr(settingName) : settingName
-        hActCtx := hActCtx is Win32Handle ? NumGet(hActCtx, "ptr") : hActCtx
 
         A_LastError := 0
 

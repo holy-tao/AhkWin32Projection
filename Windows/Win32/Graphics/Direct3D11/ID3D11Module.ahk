@@ -48,6 +48,8 @@ class ID3D11Module extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11module-createinstance
      */
     CreateInstance(pNamespace, ppModuleInstance) {
+        pNamespace := pNamespace is String ? StrPtr(pNamespace) : pNamespace
+
         result := ComCall(3, this, "ptr", pNamespace, "ptr*", ppModuleInstance, "HRESULT")
         return result
     }

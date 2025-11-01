@@ -155,6 +155,9 @@ class IDebugEventCallbacks extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-createprocessa
      */
     CreateProcessA(ImageFileHandle, Handle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp, InitialThreadHandle, ThreadDataOffset, StartOffset) {
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+
         result := ComCall(8, this, "uint", ImageFileHandle, "uint", Handle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "uint", InitialThreadHandle, "uint", ThreadDataOffset, "uint", StartOffset, "HRESULT")
         return result
     }
@@ -271,6 +274,9 @@ class IDebugEventCallbacks extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-loadmodule
      */
     LoadModule(ImageFileHandle, BaseOffset, ModuleSize, ModuleName, ImageName, CheckSum, TimeDateStamp) {
+        ModuleName := ModuleName is String ? StrPtr(ModuleName) : ModuleName
+        ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
+
         result := ComCall(10, this, "uint", ImageFileHandle, "uint", BaseOffset, "uint", ModuleSize, "ptr", ModuleName, "ptr", ImageName, "uint", CheckSum, "uint", TimeDateStamp, "HRESULT")
         return result
     }
@@ -282,6 +288,8 @@ class IDebugEventCallbacks extends IUnknown{
      * @returns {HRESULT} 
      */
     UnloadModule(ImageBaseName, BaseOffset) {
+        ImageBaseName := ImageBaseName is String ? StrPtr(ImageBaseName) : ImageBaseName
+
         result := ComCall(11, this, "ptr", ImageBaseName, "uint", BaseOffset, "HRESULT")
         return result
     }

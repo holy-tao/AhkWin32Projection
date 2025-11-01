@@ -10944,8 +10944,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegCreateKey(hKey, lpszSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegCreateKey", "ptr", hKey, "ptr", lpszSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "int")
         return result
@@ -10964,9 +10964,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegCreateKeyEx(hKey, lpSubKey, dwOptions, samDesired, lpSecurityAttributes, phkResult, lpdwDisposition, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegCreateKeyEx", "ptr", hKey, "ptr", lpSubKey, "uint", dwOptions, "uint", samDesired, "ptr", lpSecurityAttributes, "ptr", phkResult, "uint*", lpdwDisposition, "ptr", lpszReason, "int")
         return result
@@ -10993,8 +10993,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegOpenKey(hKey, lpszSubKey, samDesired, phkResult) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegOpenKey", "ptr", hKey, "ptr", lpszSubKey, "uint", samDesired, "ptr", phkResult, "int")
         return result
@@ -11015,8 +11015,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegDeleteKey(hKey, lpszSubKey) {
-        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszSubKey := lpszSubKey is String ? StrPtr(lpszSubKey) : lpszSubKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteKey", "ptr", hKey, "ptr", lpszSubKey, "int")
         return result
@@ -11030,9 +11030,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegDeleteKeyEx(hKey, lpSubKey, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpSubKey := lpSubKey is String ? StrPtr(lpSubKey) : lpSubKey
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteKeyEx", "ptr", hKey, "ptr", lpSubKey, "ptr", lpszReason, "int")
         return result
@@ -11133,8 +11133,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegEnumKey(hKey, dwIndex, lpszName, lpcchName, lpftLastWriteTime) {
-        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszName := lpszName is String ? StrPtr(lpszName) : lpszName
 
         result := DllCall("CLUSAPI.dll\ClusterRegEnumKey", "ptr", hKey, "uint", dwIndex, "ptr", lpszName, "uint*", lpcchName, "ptr", lpftLastWriteTime, "int")
         return result
@@ -11160,8 +11160,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegSetValue(hKey, lpszValueName, dwType, lpData, cbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         A_LastError := 0
 
@@ -11184,8 +11184,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegDeleteValue(hKey, lpszValueName) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteValue", "ptr", hKey, "ptr", lpszValueName, "uint")
         return result
@@ -11202,9 +11202,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegSetValueEx(hKey, lpszValueName, dwType, lpData, cbData, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegSetValueEx", "ptr", hKey, "ptr", lpszValueName, "uint", dwType, "char*", lpData, "uint", cbData, "ptr", lpszReason, "uint")
         return result
@@ -11218,9 +11218,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegDeleteValueEx(hKey, lpszValueName, lpszReason) {
+        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
-        hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
 
         result := DllCall("CLUSAPI.dll\ClusterRegDeleteValueEx", "ptr", hKey, "ptr", lpszValueName, "ptr", lpszReason, "uint")
         return result
@@ -11278,8 +11278,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegQueryValue(hKey, lpszValueName, lpdwValueType, lpData, lpcbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         result := DllCall("CLUSAPI.dll\ClusterRegQueryValue", "ptr", hKey, "ptr", lpszValueName, "uint*", lpdwValueType, "ptr", lpData, "uint*", lpcbData, "int")
         return result
@@ -11369,8 +11369,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ClusterRegEnumValue(hKey, dwIndex, lpszValueName, lpcchValueName, lpdwType, lpData, lpcbData) {
-        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
+        lpszValueName := lpszValueName is String ? StrPtr(lpszValueName) : lpszValueName
 
         result := DllCall("CLUSAPI.dll\ClusterRegEnumValue", "ptr", hKey, "uint", dwIndex, "ptr", lpszValueName, "uint*", lpcchValueName, "uint*", lpdwType, "ptr", lpData, "uint*", lpcbData, "uint")
         return result
@@ -11452,9 +11452,9 @@ class Clustering {
      * @returns {Integer} 
      */
     static ClusterRegSetKeySecurityEx(hKey, SecurityInformation, pSecurityDescriptor, lpszReason) {
-        lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
         hKey := hKey is Win32Handle ? NumGet(hKey, "ptr") : hKey
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
+        lpszReason := lpszReason is String ? StrPtr(lpszReason) : lpszReason
 
         result := DllCall("CLUSAPI.dll\ClusterRegSetKeySecurityEx", "ptr", hKey, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "ptr", lpszReason, "int")
         return result
@@ -13943,8 +13943,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryValue(hkeyClusterKey, pszValueName, ppbOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr*", ppbOutValue, "uint*", pcbOutValueSize, "uint")
         return result
@@ -13963,8 +13963,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetSzValue(hkeyClusterKey, pszValueName) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         A_LastError := 0
 
@@ -14007,8 +14007,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetDwordValue(hkeyClusterKey, pszValueName, pdwOutValue, dwDefaultValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilGetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pdwOutValue, "uint", dwDefaultValue, "uint")
         return result
@@ -14025,8 +14025,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetQwordValue(hkeyClusterKey, pszValueName, pqwOutValue, qwDefaultValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilGetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint*", pqwOutValue, "uint", qwDefaultValue, "uint")
         return result
@@ -14066,8 +14066,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetBinaryValue(hkeyClusterKey, pszValueName, pbNewValue, cbNewValueSize, ppbOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pbNewValue, "uint", cbNewValueSize, "ptr", ppbOutValue, "uint*", pcbOutValueSize, "uint")
         return result
@@ -14105,9 +14105,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
+        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
-        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
         result := DllCall("RESUTILS.dll\ResUtilSetSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14145,9 +14145,9 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetExpandSzValue(hkeyClusterKey, pszValueName, pszNewValue, ppszOutString) {
+        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszNewValue := pszNewValue is String ? StrPtr(pszNewValue) : pszNewValue
-        hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
 
         result := DllCall("RESUTILS.dll\ResUtilSetExpandSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "ptr", ppszOutString, "uint")
         return result
@@ -14187,8 +14187,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetMultiSzValue(hkeyClusterKey, pszValueName, pszNewValue, cbNewValueSize, ppszOutValue, pcbOutValueSize) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetMultiSzValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr", pszNewValue, "uint", cbNewValueSize, "ptr", ppszOutValue, "uint*", pcbOutValueSize, "uint")
         return result
@@ -14208,8 +14208,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetDwordValue(hkeyClusterKey, pszValueName, dwNewValue, pdwOutValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetDwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", dwNewValue, "uint*", pdwOutValue, "uint")
         return result
@@ -14226,8 +14226,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilSetQwordValue(hkeyClusterKey, pszValueName, qwNewValue, pqwOutValue) {
-        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetQwordValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "uint", qwNewValue, "uint*", pqwOutValue, "uint")
         return result
@@ -14246,8 +14246,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilSetValueEx(hkeyClusterKey, valueName, valueType, valueData, valueSize, flags) {
-        valueName := valueName is String ? StrPtr(valueName) : valueName
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
+        valueName := valueName is String ? StrPtr(valueName) : valueName
 
         result := DllCall("RESUTILS.dll\ResUtilSetValueEx", "ptr", hkeyClusterKey, "ptr", valueName, "uint", valueType, "ptr", valueData, "uint", valueSize, "uint", flags, "uint")
         return result
@@ -15320,8 +15320,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependency(hSelf, lpszResourceType) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -15371,8 +15371,8 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetResourceDependencyByName(hCluster, hSelf, lpszResourceType, bRecurse) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -15950,8 +15950,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyEx(hSelf, lpszResourceType, dwDesiredAccess) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -16002,8 +16002,8 @@ class Clustering {
      * @since windowsserver2012
      */
     static ResUtilGetResourceDependencyByNameEx(hCluster, hSelf, lpszResourceType, bRecurse, dwDesiredAccess) {
-        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
         hSelf := hSelf is Win32Handle ? NumGet(hSelf, "ptr") : hSelf
+        lpszResourceType := lpszResourceType is String ? StrPtr(lpszResourceType) : lpszResourceType
 
         A_LastError := 0
 
@@ -16222,8 +16222,8 @@ class Clustering {
      * @returns {Integer} 
      */
     static ResUtilsDeleteKeyTree(key, keyName, treatNoKeyAsError) {
-        keyName := keyName is String ? StrPtr(keyName) : keyName
         key := key is Win32Handle ? NumGet(key, "ptr") : key
+        keyName := keyName is String ? StrPtr(keyName) : keyName
 
         result := DllCall("RESUTILS.dll\ResUtilsDeleteKeyTree", "ptr", key, "ptr", keyName, "int", treatNoKeyAsError, "uint")
         return result

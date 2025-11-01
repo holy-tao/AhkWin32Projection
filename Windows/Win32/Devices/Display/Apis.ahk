@@ -3905,8 +3905,8 @@ class Display {
      * @since windows6.0.6000
      */
     static CapabilitiesRequestAndCapabilitiesReply(hMonitor, pszASCIICapabilitiesString, dwCapabilitiesStringLengthInCharacters) {
-        pszASCIICapabilitiesString := pszASCIICapabilitiesString is String ? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
         hMonitor := hMonitor is Win32Handle ? NumGet(hMonitor, "ptr") : hMonitor
+        pszASCIICapabilitiesString := pszASCIICapabilitiesString is String ? StrPtr(pszASCIICapabilitiesString) : pszASCIICapabilitiesString
 
         A_LastError := 0
 

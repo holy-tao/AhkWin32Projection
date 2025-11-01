@@ -399,10 +399,10 @@ class DirectoryServices {
      * @since windowsserver2008
      */
     static DSEditSecurity(hwndOwner, pwszObjectPath, pwszObjectClass, dwFlags, pwszCaption, pfnReadSD, pfnWriteSD, lpContext) {
+        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
         pwszCaption := pwszCaption is String ? StrPtr(pwszCaption) : pwszCaption
-        hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
         result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
         if(result != 0)

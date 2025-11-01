@@ -98,6 +98,8 @@ class IRichEditOle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-convertobject
      */
     ConvertObject(iob, rclsidNew, lpstrUserTypeNew) {
+        lpstrUserTypeNew := lpstrUserTypeNew is String ? StrPtr(lpstrUserTypeNew) : lpstrUserTypeNew
+
         result := ComCall(8, this, "int", iob, "ptr", rclsidNew, "ptr", lpstrUserTypeNew, "HRESULT")
         return result
     }
@@ -122,6 +124,9 @@ class IRichEditOle extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditole-sethostnames
      */
     SetHostNames(lpstrContainerApp, lpstrContainerObj) {
+        lpstrContainerApp := lpstrContainerApp is String ? StrPtr(lpstrContainerApp) : lpstrContainerApp
+        lpstrContainerObj := lpstrContainerObj is String ? StrPtr(lpstrContainerObj) : lpstrContainerObj
+
         result := ComCall(10, this, "ptr", lpstrContainerApp, "ptr", lpstrContainerObj, "HRESULT")
         return result
     }

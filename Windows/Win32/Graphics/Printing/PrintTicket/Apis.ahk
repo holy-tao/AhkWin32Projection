@@ -210,8 +210,8 @@ class PrintTicket {
      * @since windows10.0.15063
      */
     static PTGetPrintDeviceResources(hProvider, pszLocaleName, pPrintTicket, pDeviceResources, pbstrErrorMessage) {
-        pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
+        pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
         result := DllCall("prntvpt.dll\PTGetPrintDeviceResources", "ptr", hProvider, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr", pDeviceResources, "ptr", pbstrErrorMessage, "int")
         if(result != 0)

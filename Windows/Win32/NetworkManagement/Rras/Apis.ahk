@@ -4261,8 +4261,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryA(param0, param1) {
-        param1 := param1 is String ? StrPtr(param1) : param1
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryA", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -4297,8 +4297,8 @@ class Rras {
      * @since windows5.0
      */
     static RasCreatePhonebookEntryW(param0, param1) {
-        param1 := param1 is String ? StrPtr(param1) : param1
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
+        param1 := param1 is String ? StrPtr(param1) : param1
 
         result := DllCall("RASAPI32.dll\RasCreatePhonebookEntryW", "ptr", param0, "ptr", param1, "uint")
         return result
@@ -4356,9 +4356,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryA(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is String ? StrPtr(param1) : param1
         param2 := param2 is String ? StrPtr(param2) : param2
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -4416,9 +4416,9 @@ class Rras {
      * @since windows5.0
      */
     static RasEditPhonebookEntryW(param0, param1, param2) {
+        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
         param1 := param1 is String ? StrPtr(param1) : param1
         param2 := param2 is String ? StrPtr(param2) : param2
-        param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
         result := DllCall("RASAPI32.dll\RasEditPhonebookEntryW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
         return result
@@ -7338,9 +7338,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasGetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint*", pdwSizeofEapData, "uint")
         return result
@@ -7431,9 +7431,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, pdwSizeofEapData) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasGetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint*", pdwSizeofEapData, "uint")
         return result
@@ -7505,9 +7505,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataA(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasSetEapUserDataA", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
@@ -7579,9 +7579,9 @@ class Rras {
      * @since windows5.0
      */
     static RasSetEapUserDataW(hToken, pszPhonebook, pszEntry, pbEapData, dwSizeofEapData) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPhonebook := pszPhonebook is String ? StrPtr(pszPhonebook) : pszPhonebook
         pszEntry := pszEntry is String ? StrPtr(pszEntry) : pszEntry
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         result := DllCall("RASAPI32.dll\RasSetEapUserDataW", "ptr", hToken, "ptr", pszPhonebook, "ptr", pszEntry, "char*", pbEapData, "uint", dwSizeofEapData, "uint")
         return result
@@ -10378,8 +10378,8 @@ class Rras {
      * @since windows5.0
      */
     static MprAdminSendUserMessage(hMprServer, hConnection, lpwszMessage) {
-        lpwszMessage := lpwszMessage is String ? StrPtr(lpwszMessage) : lpwszMessage
         hConnection := hConnection is Win32Handle ? NumGet(hConnection, "ptr") : hConnection
+        lpwszMessage := lpwszMessage is String ? StrPtr(lpwszMessage) : lpwszMessage
 
         result := DllCall("MPRAPI.dll\MprAdminSendUserMessage", "ptr", hMprServer, "ptr", hConnection, "ptr", lpwszMessage, "uint")
         return result
@@ -14797,8 +14797,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerBackup(hMprConfig, lpwsPath) {
-        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
 
         result := DllCall("MPRAPI.dll\MprConfigServerBackup", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
@@ -14861,8 +14861,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigServerRestore(hMprConfig, lpwsPath) {
-        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        lpwsPath := lpwsPath is String ? StrPtr(lpwsPath) : lpwsPath
 
         result := DllCall("MPRAPI.dll\MprConfigServerRestore", "ptr", hMprConfig, "ptr", lpwsPath, "uint")
         return result
@@ -14968,9 +14968,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportCreate(hMprConfig, dwTransportId, lpwsTransportName, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath, phRouterTransport) {
+        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
         lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
-        hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
 
         result := DllCall("MPRAPI.dll\MprConfigTransportCreate", "ptr", hMprConfig, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "ptr", phRouterTransport, "uint")
         return result
@@ -15223,9 +15223,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigTransportSetInfo(hMprConfig, hRouterTransport, pGlobalInfo, dwGlobalInfoSize, pClientInterfaceInfo, dwClientInterfaceInfoSize, lpwsDLLPath) {
-        lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterTransport := hRouterTransport is Win32Handle ? NumGet(hRouterTransport, "ptr") : hRouterTransport
+        lpwsDLLPath := lpwsDLLPath is String ? StrPtr(lpwsDLLPath) : lpwsDLLPath
 
         result := DllCall("MPRAPI.dll\MprConfigTransportSetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, "ptr", pGlobalInfo, "uint", dwGlobalInfoSize, "ptr", pClientInterfaceInfo, "uint", dwClientInterfaceInfoSize, "ptr", lpwsDLLPath, "uint")
         return result
@@ -15698,8 +15698,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceGetHandle(hMprConfig, lpwsInterfaceName, phRouterInterface) {
-        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        lpwsInterfaceName := lpwsInterfaceName is String ? StrPtr(lpwsInterfaceName) : lpwsInterfaceName
 
         result := DllCall("MPRAPI.dll\MprConfigInterfaceGetHandle", "ptr", hMprConfig, "ptr", lpwsInterfaceName, "ptr", phRouterInterface, "uint")
         return result
@@ -16128,9 +16128,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigInterfaceTransportAdd(hMprConfig, hRouterInterface, dwTransportId, lpwsTransportName, pInterfaceInfo, dwInterfaceInfoSize, phRouterIfTransport) {
-        lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
         hRouterInterface := hRouterInterface is Win32Handle ? NumGet(hRouterInterface, "ptr") : hRouterInterface
+        lpwsTransportName := lpwsTransportName is String ? StrPtr(lpwsTransportName) : lpwsTransportName
 
         result := DllCall("MPRAPI.dll\MprConfigInterfaceTransportAdd", "ptr", hMprConfig, "ptr", hRouterInterface, "uint", dwTransportId, "ptr", lpwsTransportName, "ptr", pInterfaceInfo, "uint", dwInterfaceInfoSize, "ptr", phRouterIfTransport, "uint")
         return result
@@ -16680,8 +16680,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetFriendlyName(hMprConfig, pszGuidName, pszBuffer, dwBufferSize) {
-        pszGuidName := pszGuidName is String ? StrPtr(pszGuidName) : pszGuidName
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        pszGuidName := pszGuidName is String ? StrPtr(pszGuidName) : pszGuidName
 
         result := DllCall("MPRAPI.dll\MprConfigGetFriendlyName", "ptr", hMprConfig, "ptr", pszGuidName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result
@@ -16745,8 +16745,8 @@ class Rras {
      * @since windowsserver2000
      */
     static MprConfigGetGuidName(hMprConfig, pszFriendlyName, pszBuffer, dwBufferSize) {
-        pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
         hMprConfig := hMprConfig is Win32Handle ? NumGet(hMprConfig, "ptr") : hMprConfig
+        pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
 
         result := DllCall("MPRAPI.dll\MprConfigGetGuidName", "ptr", hMprConfig, "ptr", pszFriendlyName, "ptr", pszBuffer, "uint", dwBufferSize, "uint")
         return result

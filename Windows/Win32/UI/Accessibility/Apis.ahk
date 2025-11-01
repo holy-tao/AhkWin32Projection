@@ -3278,8 +3278,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid, ppvObject) {
-        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
@@ -3314,8 +3314,8 @@ class Accessibility {
      * @since windows5.0
      */
     static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid, ppvObject) {
-        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
         result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", ppvObject, "int")
         if(result != 0)
@@ -4660,8 +4660,8 @@ class Accessibility {
      * @since windows5.1.2600
      */
     static ValuePattern_SetValue(hobj, pVal) {
-        pVal := pVal is String ? StrPtr(pVal) : pVal
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
+        pVal := pVal is String ? StrPtr(pVal) : pVal
 
         result := DllCall("UIAutomationCore.dll\ValuePattern_SetValue", "ptr", hobj, "ptr", pVal, "int")
         if(result != 0)
@@ -5507,8 +5507,8 @@ class Accessibility {
      * @since windows6.1
      */
     static LegacyIAccessiblePattern_SetValue(hobj, szValue) {
-        szValue := szValue is String ? StrPtr(szValue) : szValue
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
+        szValue := szValue is String ? StrPtr(szValue) : szValue
 
         result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_SetValue", "ptr", hobj, "ptr", szValue, "int")
         if(result != 0)

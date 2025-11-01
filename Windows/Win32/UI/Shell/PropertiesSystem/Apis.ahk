@@ -2394,8 +2394,8 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static PifMgr_GetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
-        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
         hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
+        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         result := DllCall("SHELL32.dll\PifMgr_GetProperties", "ptr", hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, "int")
         return result
@@ -2425,8 +2425,8 @@ class PropertiesSystem {
      * @since windows5.0
      */
     static PifMgr_SetProperties(hProps, pszGroup, lpProps, cbProps, flOpt) {
-        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
         hProps := hProps is Win32Handle ? NumGet(hProps, "ptr") : hProps
+        pszGroup := pszGroup is String ? StrPtr(pszGroup) : pszGroup
 
         result := DllCall("SHELL32.dll\PifMgr_SetProperties", "ptr", hProps, "ptr", pszGroup, "ptr", lpProps, "int", cbProps, "uint", flOpt, "int")
         return result

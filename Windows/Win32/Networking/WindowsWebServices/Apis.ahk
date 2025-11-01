@@ -15296,8 +15296,8 @@ class WindowsWebServices {
      * @see https://learn.microsoft.com/windows/win32/api/webauthn/nf-webauthn-webauthnauthenticatorgetassertion
      */
     static WebAuthNAuthenticatorGetAssertion(hWnd, pwszRpId, pWebAuthNClientData, pWebAuthNGetAssertionOptions, ppWebAuthNAssertion) {
-        pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pwszRpId := pwszRpId is String ? StrPtr(pwszRpId) : pwszRpId
 
         result := DllCall("webauthn.dll\WebAuthNAuthenticatorGetAssertion", "ptr", hWnd, "ptr", pwszRpId, "ptr", pWebAuthNClientData, "ptr", pWebAuthNGetAssertionOptions, "ptr*", ppWebAuthNAssertion, "int")
         if(result != 0)

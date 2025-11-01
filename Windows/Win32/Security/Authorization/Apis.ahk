@@ -2122,11 +2122,11 @@ class Authorization {
      * @since windows5.1.2600
      */
     static AuthzInitializeObjectAccessAuditEvent(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, phAuditEvent, dwAdditionalParameterCount) {
+        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
         szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
         szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szAdditionalInfo := szAdditionalInfo is String ? StrPtr(szAdditionalInfo) : szAdditionalInfo
-        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
 
         A_LastError := 0
 
@@ -2192,12 +2192,12 @@ class Authorization {
      * @since windowsserver2003
      */
     static AuthzInitializeObjectAccessAuditEvent2(Flags, hAuditEventType, szOperationType, szObjectType, szObjectName, szAdditionalInfo, szAdditionalInfo2, phAuditEvent, dwAdditionalParameterCount) {
+        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
         szOperationType := szOperationType is String ? StrPtr(szOperationType) : szOperationType
         szObjectType := szObjectType is String ? StrPtr(szObjectType) : szObjectType
         szObjectName := szObjectName is String ? StrPtr(szObjectName) : szObjectName
         szAdditionalInfo := szAdditionalInfo is String ? StrPtr(szAdditionalInfo) : szAdditionalInfo
         szAdditionalInfo2 := szAdditionalInfo2 is String ? StrPtr(szAdditionalInfo2) : szAdditionalInfo2
-        hAuditEventType := hAuditEventType is Win32Handle ? NumGet(hAuditEventType, "ptr") : hAuditEventType
 
         A_LastError := 0
 

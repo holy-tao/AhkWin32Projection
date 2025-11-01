@@ -23448,8 +23448,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mciLoadCommandResource(hInstance, lpResName, wType) {
-        lpResName := lpResName is String ? StrPtr(lpResName) : lpResName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpResName := lpResName is String ? StrPtr(lpResName) : lpResName
 
         result := DllCall("WINMM.dll\mciLoadCommandResource", "ptr", hInstance, "ptr", lpResName, "uint", wType, "uint")
         return result
@@ -23737,8 +23737,8 @@ class Multimedia {
      * @returns {Integer} 
      */
     static mmDrvInstall(hDriver, wszDrvEntry, drvMessage, wFlags) {
-        wszDrvEntry := wszDrvEntry is String ? StrPtr(wszDrvEntry) : wszDrvEntry
         hDriver := hDriver is Win32Handle ? NumGet(hDriver, "ptr") : hDriver
+        wszDrvEntry := wszDrvEntry is String ? StrPtr(wszDrvEntry) : wszDrvEntry
 
         result := DllCall("WINMM.dll\mmDrvInstall", "ptr", hDriver, "ptr", wszDrvEntry, "ptr", drvMessage, "uint", wFlags, "uint")
         return result
@@ -24387,8 +24387,8 @@ class Multimedia {
      * @since windows5.0
      */
     static mmioSetBuffer(hmmio, pchBuffer, cchBuffer, fuBuffer) {
-        pchBuffer := pchBuffer is String ? StrPtr(pchBuffer) : pchBuffer
         hmmio := hmmio is Win32Handle ? NumGet(hmmio, "ptr") : hmmio
+        pchBuffer := pchBuffer is String ? StrPtr(pchBuffer) : pchBuffer
 
         result := DllCall("WINMM.dll\mmioSetBuffer", "ptr", hmmio, "ptr", pchBuffer, "int", cchBuffer, "uint", fuBuffer, "uint")
         return result
@@ -25737,8 +25737,8 @@ class Multimedia {
      * @since windows5.0
      */
     static ICCompressorChoose(hwnd, uiFlags, pvIn, lpData, pc, lpszTitle) {
-        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        lpszTitle := lpszTitle is String ? StrPtr(lpszTitle) : lpszTitle
 
         result := DllCall("MSVFW32.dll\ICCompressorChoose", "ptr", hwnd, "uint", uiFlags, "ptr", pvIn, "ptr", lpData, "ptr", pc, "ptr", lpszTitle, "int")
         return result
@@ -27806,9 +27806,9 @@ class Multimedia {
      * @since windows5.0
      */
     static MCIWndCreateA(hwndParent, hInstance, dwStyle, szFile) {
-        szFile := szFile is String ? StrPtr(szFile) : szFile
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("MSVFW32.dll\MCIWndCreateA", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         return HWND({Value: result}, True)
@@ -27906,9 +27906,9 @@ class Multimedia {
      * @since windows5.0
      */
     static MCIWndCreateW(hwndParent, hInstance, dwStyle, szFile) {
-        szFile := szFile is String ? StrPtr(szFile) : szFile
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        szFile := szFile is String ? StrPtr(szFile) : szFile
 
         result := DllCall("MSVFW32.dll\MCIWndCreateW", "ptr", hwndParent, "ptr", hInstance, "uint", dwStyle, "ptr", szFile, "CDecl ptr")
         return HWND({Value: result}, True)

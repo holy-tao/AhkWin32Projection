@@ -85,6 +85,8 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     GetString(Tag, Str, MaxSize) {
+        Str := Str is String ? StrPtr(Str) : Str
+
         result := ComCall(8, this, "int", Tag, "ptr", Str, "uint", MaxSize, "ptr")
         return result
     }
@@ -140,6 +142,8 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetString(Tag, Str) {
+        Str := Str is String ? StrPtr(Str) : Str
+
         result := ComCall(13, this, "int", Tag, "ptr", Str, "ptr")
         return result
     }
@@ -151,6 +155,8 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     SetExtensionCommand(Tag, Extension) {
+        Extension := Extension is String ? StrPtr(Extension) : Extension
+
         result := ComCall(14, this, "int", Tag, "ptr", Extension, "ptr")
         return result
     }
@@ -197,6 +203,8 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddString(Tag, Str) {
+        Str := Str is String ? StrPtr(Str) : Str
+
         result := ComCall(18, this, "int", Tag, "ptr", Str, "ptr")
         return result
     }
@@ -208,6 +216,8 @@ class IDebugFailureAnalysis2 extends IUnknown{
      * @returns {Pointer<FA_ENTRY>} 
      */
     AddExtensionCommand(Tag, Extension) {
+        Extension := Extension is String ? StrPtr(Extension) : Extension
+
         result := ComCall(19, this, "int", Tag, "ptr", Extension, "ptr")
         return result
     }

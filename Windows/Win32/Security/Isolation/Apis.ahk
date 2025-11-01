@@ -30,8 +30,8 @@ class Isolation {
      * @since windows8.0
      */
     static GetAppContainerNamedObjectPath(Token, AppContainerSid, ObjectPathLength, ObjectPath, ReturnLength) {
-        ObjectPath := ObjectPath is String ? StrPtr(ObjectPath) : ObjectPath
         Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
+        ObjectPath := ObjectPath is String ? StrPtr(ObjectPath) : ObjectPath
 
         A_LastError := 0
 

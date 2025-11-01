@@ -5854,8 +5854,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipCreateBitmapFromResource(hInstance, lpBitmapName, bitmap) {
-        lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+        lpBitmapName := lpBitmapName is String ? StrPtr(lpBitmapName) : lpBitmapName
 
         result := DllCall("gdiplus.dll\GdipCreateBitmapFromResource", "ptr", hInstance, "ptr", lpBitmapName, "ptr*", bitmap, "int")
         return result
@@ -8370,8 +8370,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafile(referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafile", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8388,8 +8388,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileI(referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileI", "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8408,8 +8408,8 @@ class GdiPlus {
      */
     static GdipRecordMetafileFileName(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileName", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8428,8 +8428,8 @@ class GdiPlus {
      */
     static GdipRecordMetafileFileNameI(fileName, referenceHdc, type, frameRect, frameUnit, description, metafile) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileFileNameI", "ptr", fileName, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8447,8 +8447,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStream(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileStream", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result
@@ -8466,8 +8466,8 @@ class GdiPlus {
      * @returns {Integer} 
      */
     static GdipRecordMetafileStreamI(stream, referenceHdc, type, frameRect, frameUnit, description, metafile) {
-        description := description is String ? StrPtr(description) : description
         referenceHdc := referenceHdc is Win32Handle ? NumGet(referenceHdc, "ptr") : referenceHdc
+        description := description is String ? StrPtr(description) : description
 
         result := DllCall("gdiplus.dll\GdipRecordMetafileStreamI", "ptr", stream, "ptr", referenceHdc, "int", type, "ptr", frameRect, "int", frameUnit, "ptr", description, "ptr*", metafile, "int")
         return result

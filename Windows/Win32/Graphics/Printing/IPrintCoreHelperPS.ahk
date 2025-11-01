@@ -37,6 +37,8 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetGlobalAttribute(pszAttribute, pdwDataType, ppbData, pcbSize) {
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
         result := ComCall(12, this, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
         return result
     }
@@ -51,6 +53,9 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetFeatureAttribute(pszFeatureKeyword, pszAttribute, pdwDataType, ppbData, pcbSize) {
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
         result := ComCall(13, this, "ptr", pszFeatureKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
         return result
     }
@@ -66,6 +71,10 @@ class IPrintCoreHelperPS extends IPrintCoreHelper{
      * @returns {HRESULT} 
      */
     GetOptionAttribute(pszFeatureKeyword, pszOptionKeyword, pszAttribute, pdwDataType, ppbData, pcbSize) {
+        pszFeatureKeyword := pszFeatureKeyword is String ? StrPtr(pszFeatureKeyword) : pszFeatureKeyword
+        pszOptionKeyword := pszOptionKeyword is String ? StrPtr(pszOptionKeyword) : pszOptionKeyword
+        pszAttribute := pszAttribute is String ? StrPtr(pszAttribute) : pszAttribute
+
         result := ComCall(14, this, "ptr", pszFeatureKeyword, "ptr", pszOptionKeyword, "ptr", pszAttribute, "uint*", pdwDataType, "ptr*", ppbData, "uint*", pcbSize, "HRESULT")
         return result
     }

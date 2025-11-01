@@ -73,6 +73,8 @@ class IMLangLineBreakConsole extends IUnknown{
      * @returns {HRESULT} 
      */
     BreakLineA(locale, uCodePage, pszSrc, cchSrc, cMaxColumns, pcchLine, pcchSkip) {
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+
         result := ComCall(5, this, "uint", locale, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int", cMaxColumns, "int*", pcchLine, "int*", pcchSkip, "HRESULT")
         return result
     }

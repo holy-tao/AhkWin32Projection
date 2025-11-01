@@ -277,8 +277,8 @@ class Recovery {
      * @since windows6.0.6000
      */
     static GetApplicationRestartSettings(hProcess, pwzCommandline, pcchSize, pdwFlags) {
-        pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
+        pwzCommandline := pwzCommandline is String ? StrPtr(pwzCommandline) : pwzCommandline
 
         result := DllCall("KERNEL32.dll\GetApplicationRestartSettings", "ptr", hProcess, "ptr", pwzCommandline, "uint*", pcchSize, "uint*", pdwFlags, "int")
         if(result != 0)

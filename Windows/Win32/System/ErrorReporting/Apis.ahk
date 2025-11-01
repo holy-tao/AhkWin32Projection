@@ -301,9 +301,9 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportSetParameter(hReportHandle, dwparamID, pwzName, pwzValue) {
+        hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
         pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
-        hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
 
         result := DllCall("wer.dll\WerReportSetParameter", "ptr", hReportHandle, "uint", dwparamID, "ptr", pwzName, "ptr", pwzValue, "int")
         if(result != 0)
@@ -352,8 +352,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportAddFile(hReportHandle, pwzPath, repFileType, dwFileFlags) {
-        pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
+        pwzPath := pwzPath is String ? StrPtr(pwzPath) : pwzPath
 
         result := DllCall("wer.dll\WerReportAddFile", "ptr", hReportHandle, "ptr", pwzPath, "int", repFileType, "uint", dwFileFlags, "int")
         if(result != 0)
@@ -372,8 +372,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportSetUIOption(hReportHandle, repUITypeID, pwzValue) {
-        pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
         hReportHandle := hReportHandle is Win32Handle ? NumGet(hReportHandle, "ptr") : hReportHandle
+        pwzValue := pwzValue is String ? StrPtr(pwzValue) : pwzValue
 
         result := DllCall("wer.dll\WerReportSetUIOption", "ptr", hReportHandle, "int", repUITypeID, "ptr", pwzValue, "int")
         if(result != 0)
@@ -1383,8 +1383,8 @@ class ErrorReporting {
      * @since windows10.0.15063
      */
     static WerStoreQueryReportMetadataV2(hReportStore, pszReportKey, pReportMetadata) {
-        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV2", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0)
@@ -1401,8 +1401,8 @@ class ErrorReporting {
      * @returns {HRESULT} 
      */
     static WerStoreQueryReportMetadataV3(hReportStore, pszReportKey, pReportMetadata) {
-        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV3", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0)
@@ -1476,8 +1476,8 @@ class ErrorReporting {
      * @returns {HRESULT} 
      */
     static WerStoreQueryReportMetadataV1(hReportStore, pszReportKey, pReportMetadata) {
-        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreQueryReportMetadataV1", "ptr", hReportStore, "ptr", pszReportKey, "ptr", pReportMetadata, "int")
         if(result != 0)
@@ -1495,8 +1495,8 @@ class ErrorReporting {
      * @returns {HRESULT} 
      */
     static WerStoreUploadReport(hReportStore, pszReportKey, dwFlags, pSubmitResult) {
-        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
         hReportStore := hReportStore is Win32Handle ? NumGet(hReportStore, "ptr") : hReportStore
+        pszReportKey := pszReportKey is String ? StrPtr(pszReportKey) : pszReportKey
 
         result := DllCall("wer.dll\WerStoreUploadReport", "ptr", hReportStore, "ptr", pszReportKey, "uint", dwFlags, "int*", pSubmitResult, "int")
         if(result != 0)
@@ -1669,8 +1669,8 @@ class ErrorReporting {
      * @since windows6.0.6000
      */
     static WerReportHang(hwndHungApp, pwzHungApplicationName) {
-        pwzHungApplicationName := pwzHungApplicationName is String ? StrPtr(pwzHungApplicationName) : pwzHungApplicationName
         hwndHungApp := hwndHungApp is Win32Handle ? NumGet(hwndHungApp, "ptr") : hwndHungApp
+        pwzHungApplicationName := pwzHungApplicationName is String ? StrPtr(pwzHungApplicationName) : pwzHungApplicationName
 
         result := DllCall("faultrep.dll\WerReportHang", "ptr", hwndHungApp, "ptr", pwzHungApplicationName, "int")
         if(result != 0)

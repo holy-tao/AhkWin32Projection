@@ -45,6 +45,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     AddSymbol(Name, Index) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(4, this, "ptr", Name, "uint*", Index, "HRESULT")
         return result
     }
@@ -55,6 +57,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSymbolByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(5, this, "ptr", Name, "HRESULT")
         return result
     }
@@ -78,6 +82,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSymbolName(Index, Buffer, BufferSize, NameSize) {
+        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+
         result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", NameSize, "HRESULT")
         return result
     }
@@ -125,6 +131,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteSymbol(Index, Value) {
+        Value := Value is String ? StrPtr(Value) : Value
+
         result := ComCall(11, this, "uint", Index, "ptr", Value, "HRESULT")
         return result
     }
@@ -136,6 +144,8 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputAsType(Index, Type) {
+        Type := Type is String ? StrPtr(Type) : Type
+
         result := ComCall(12, this, "uint", Index, "ptr", Type, "HRESULT")
         return result
     }

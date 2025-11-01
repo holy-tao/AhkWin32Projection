@@ -680,10 +680,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListA(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
         lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -726,10 +726,10 @@ class GroupPolicy {
      * @since windows6.0.6000
      */
     static GetGPOListW(hToken, lpName, lpHostName, lpComputerName, dwFlags, pGPOList) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpName := lpName is String ? StrPtr(lpName) : lpName
         lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
         lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 

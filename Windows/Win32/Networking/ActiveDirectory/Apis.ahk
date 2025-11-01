@@ -4074,10 +4074,10 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static BinarySDToSecurityDescriptor(pSecurityDescriptor, pVarsec, pszServerName, userName, passWord, dwFlags) {
+        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
         pszServerName := pszServerName is String ? StrPtr(pszServerName) : pszServerName
         userName := userName is String ? StrPtr(userName) : userName
         passWord := passWord is String ? StrPtr(passWord) : passWord
-        pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
         result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
         if(result != 0)
@@ -5364,8 +5364,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsWriteAccountSpnA(hDS, Operation, pszAccount, cSpn, rpszSpn) {
-        pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
 
         result := DllCall("NTDSAPI.dll\DsWriteAccountSpnA", "ptr", hDS, "int", Operation, "ptr", pszAccount, "uint", cSpn, "ptr", rpszSpn, "uint")
         return result
@@ -5385,8 +5385,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsWriteAccountSpnW(hDS, Operation, pszAccount, cSpn, rpszSpn) {
-        pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszAccount := pszAccount is String ? StrPtr(pszAccount) : pszAccount
 
         result := DllCall("NTDSAPI.dll\DsWriteAccountSpnW", "ptr", hDS, "int", Operation, "ptr", pszAccount, "uint", cSpn, "ptr", rpszSpn, "uint")
         return result
@@ -5483,8 +5483,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaSyncA(hDS, NameContext, pUuidDsaSrc, Options) {
-        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaSyncA", "ptr", hDS, "ptr", NameContext, "ptr", pUuidDsaSrc, "uint", Options, "uint")
         return result
@@ -5505,8 +5505,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaSyncW(hDS, NameContext, pUuidDsaSrc, Options) {
-        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaSyncW", "ptr", hDS, "ptr", NameContext, "ptr", pUuidDsaSrc, "uint", Options, "uint")
         return result
@@ -5530,11 +5530,11 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaAddA(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddress, pSchedule, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         SourceDsaDn := SourceDsaDn is String ? StrPtr(SourceDsaDn) : SourceDsaDn
         TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
         SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaAddA", "ptr", hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, "ptr", pSchedule, "uint", Options, "uint")
         return result
@@ -5558,11 +5558,11 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaAddW(hDS, NameContext, SourceDsaDn, TransportDn, SourceDsaAddress, pSchedule, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         SourceDsaDn := SourceDsaDn is String ? StrPtr(SourceDsaDn) : SourceDsaDn
         TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
         SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaAddW", "ptr", hDS, "ptr", NameContext, "ptr", SourceDsaDn, "ptr", TransportDn, "ptr", SourceDsaAddress, "ptr", pSchedule, "uint", Options, "uint")
         return result
@@ -5583,9 +5583,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaDelA(hDS, NameContext, DsaSrc, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         DsaSrc := DsaSrc is String ? StrPtr(DsaSrc) : DsaSrc
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaDelA", "ptr", hDS, "ptr", NameContext, "ptr", DsaSrc, "uint", Options, "uint")
         return result
@@ -5606,9 +5606,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaDelW(hDS, NameContext, DsaSrc, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         DsaSrc := DsaSrc is String ? StrPtr(DsaSrc) : DsaSrc
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaDelW", "ptr", hDS, "ptr", NameContext, "ptr", DsaSrc, "uint", Options, "uint")
         return result
@@ -5634,10 +5634,10 @@ class ActiveDirectory {
     static DsReplicaModifyA(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSchedule, ModifyFields, Options) {
         static TransportDn := 0, ReplicaFlags := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
         SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaModifyA", "ptr", hDS, "ptr", NameContext, "ptr", pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, "ptr", pSchedule, "uint", ReplicaFlags, "uint", ModifyFields, "uint", Options, "uint")
         return result
@@ -5664,10 +5664,10 @@ class ActiveDirectory {
     static DsReplicaModifyW(hDS, NameContext, pUuidSourceDsa, SourceDsaAddress, pSchedule, ReplicaFlags, ModifyFields, Options) {
         static TransportDn := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         TransportDn := TransportDn is String ? StrPtr(TransportDn) : TransportDn
         SourceDsaAddress := SourceDsaAddress is String ? StrPtr(SourceDsaAddress) : SourceDsaAddress
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaModifyW", "ptr", hDS, "ptr", NameContext, "ptr", pUuidSourceDsa, "ptr", TransportDn, "ptr", SourceDsaAddress, "ptr", pSchedule, "uint", ReplicaFlags, "uint", ModifyFields, "uint", Options, "uint")
         return result
@@ -5689,9 +5689,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaUpdateRefsA(hDS, NameContext, DsaDest, pUuidDsaDest, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         DsaDest := DsaDest is String ? StrPtr(DsaDest) : DsaDest
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaUpdateRefsA", "ptr", hDS, "ptr", NameContext, "ptr", DsaDest, "ptr", pUuidDsaDest, "uint", Options, "uint")
         return result
@@ -5713,9 +5713,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaUpdateRefsW(hDS, NameContext, DsaDest, pUuidDsaDest, Options) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         DsaDest := DsaDest is String ? StrPtr(DsaDest) : DsaDest
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaUpdateRefsW", "ptr", hDS, "ptr", NameContext, "ptr", DsaDest, "ptr", pUuidDsaDest, "uint", Options, "uint")
         return result
@@ -5739,8 +5739,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaSyncAllA(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
-        pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr*", pErrors, "uint")
         return result
@@ -5764,8 +5764,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaSyncAllW(hDS, pszNameContext, ulFlags, pFnCallBack, pCallbackData, pErrors) {
-        pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, "ptr", pCallbackData, "ptr*", pErrors, "uint")
         return result
@@ -5785,9 +5785,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsRemoveDsServerW(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
+        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         ServerDN := ServerDN is String ? StrPtr(ServerDN) : ServerDN
         DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
-        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
         result := DllCall("NTDSAPI.dll\DsRemoveDsServerW", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "int", fCommit, "uint")
         return result
@@ -5807,9 +5807,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsRemoveDsServerA(hDs, ServerDN, DomainDN, fLastDcInDomain, fCommit) {
+        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         ServerDN := ServerDN is String ? StrPtr(ServerDN) : ServerDN
         DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
-        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
         result := DllCall("NTDSAPI.dll\DsRemoveDsServerA", "ptr", hDs, "ptr", ServerDN, "ptr", DomainDN, "ptr", fLastDcInDomain, "int", fCommit, "uint")
         return result
@@ -5826,8 +5826,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsRemoveDsDomainW(hDs, DomainDN) {
-        DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
 
         result := DllCall("NTDSAPI.dll\DsRemoveDsDomainW", "ptr", hDs, "ptr", DomainDN, "uint")
         return result
@@ -5844,8 +5844,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsRemoveDsDomainA(hDs, DomainDN) {
-        DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        DomainDN := DomainDN is String ? StrPtr(DomainDN) : DomainDN
 
         result := DllCall("NTDSAPI.dll\DsRemoveDsDomainA", "ptr", hDs, "ptr", DomainDN, "uint")
         return result
@@ -5901,8 +5901,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListServersInSiteA(hDs, site, ppServers) {
-        site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        site := site is String ? StrPtr(site) : site
 
         result := DllCall("NTDSAPI.dll\DsListServersInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
         return result
@@ -5922,8 +5922,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListServersInSiteW(hDs, site, ppServers) {
-        site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        site := site is String ? StrPtr(site) : site
 
         result := DllCall("NTDSAPI.dll\DsListServersInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
         return result
@@ -5943,8 +5943,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListDomainsInSiteA(hDs, site, ppDomains) {
-        site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        site := site is String ? StrPtr(site) : site
 
         result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
         return result
@@ -5964,8 +5964,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListDomainsInSiteW(hDs, site, ppDomains) {
-        site := site is String ? StrPtr(site) : site
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        site := site is String ? StrPtr(site) : site
 
         result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
         return result
@@ -5986,9 +5986,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListServersForDomainInSiteA(hDs, domain, site, ppServers) {
+        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         domain := domain is String ? StrPtr(domain) : domain
         site := site is String ? StrPtr(site) : site
-        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
         result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
         return result
@@ -6009,9 +6009,9 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListServersForDomainInSiteW(hDs, domain, site, ppServers) {
+        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         domain := domain is String ? StrPtr(domain) : domain
         site := site is String ? StrPtr(site) : site
-        hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
         result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
         return result
@@ -6035,8 +6035,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListInfoForServerA(hDs, server, ppInfo) {
-        server := server is String ? StrPtr(server) : server
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        server := server is String ? StrPtr(server) : server
 
         result := DllCall("NTDSAPI.dll\DsListInfoForServerA", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
         return result
@@ -6060,8 +6060,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsListInfoForServerW(hDs, server, ppInfo) {
-        server := server is String ? StrPtr(server) : server
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        server := server is String ? StrPtr(server) : server
 
         result := DllCall("NTDSAPI.dll\DsListInfoForServerW", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
         return result
@@ -6134,8 +6134,8 @@ class ActiveDirectory {
     static DsQuerySitesByCostW(hDS, pwszFromSite, rgwszToSites, cToSites, prgSiteInfo) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        pwszFromSite := pwszFromSite is String ? StrPtr(pwszFromSite) : pwszFromSite
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pwszFromSite := pwszFromSite is String ? StrPtr(pwszFromSite) : pwszFromSite
 
         result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", "ptr", hDS, "ptr", pwszFromSite, "ptr", rgwszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
         return result
@@ -6158,8 +6158,8 @@ class ActiveDirectory {
     static DsQuerySitesByCostA(hDS, pszFromSite, rgszToSites, cToSites, prgSiteInfo) {
         static dwFlags := 0 ;Reserved parameters must always be NULL
 
-        pszFromSite := pszFromSite is String ? StrPtr(pszFromSite) : pszFromSite
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszFromSite := pszFromSite is String ? StrPtr(pszFromSite) : pszFromSite
 
         result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", "ptr", hDS, "ptr", pszFromSite, "ptr", rgszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
         return result
@@ -6257,8 +6257,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsGetDomainControllerInfoA(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
-        DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
         result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr*", ppInfo, "uint")
         return result
@@ -6281,8 +6281,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsGetDomainControllerInfoW(hDs, DomainName, InfoLevel, pcOut, ppInfo) {
-        DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
+        DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
         result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, "uint*", pcOut, "ptr*", ppInfo, "uint")
         return result
@@ -6345,8 +6345,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaVerifyObjectsW(hDS, NameContext, pUuidDsaSrc, ulOptions) {
-        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaVerifyObjectsW", "ptr", hDS, "ptr", NameContext, "ptr", pUuidDsaSrc, "uint", ulOptions, "uint")
         return result
@@ -6365,8 +6365,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaVerifyObjectsA(hDS, NameContext, pUuidDsaSrc, ulOptions) {
-        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        NameContext := NameContext is String ? StrPtr(NameContext) : NameContext
 
         result := DllCall("NTDSAPI.dll\DsReplicaVerifyObjectsA", "ptr", hDS, "ptr", NameContext, "ptr", pUuidDsaSrc, "uint", ulOptions, "uint")
         return result
@@ -6394,8 +6394,8 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaGetInfoW(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, ppInfo) {
-        pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
+        pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
 
         result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr*", ppInfo, "uint")
         return result
@@ -6422,10 +6422,10 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static DsReplicaGetInfo2W(hDS, InfoType, pszObject, puuidForSourceDsaObjGuid, pszAttributeName, pszValue, dwFlags, dwEnumerationContext, ppInfo) {
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, "uint", dwFlags, "uint", dwEnumerationContext, "ptr*", ppInfo, "uint")
         return result
@@ -6470,12 +6470,12 @@ class ActiveDirectory {
     static DsAddSidHistoryW(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDomainCreds, DstDomain, DstPrincipal) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         SrcDomain := SrcDomain is String ? StrPtr(SrcDomain) : SrcDomain
         SrcPrincipal := SrcPrincipal is String ? StrPtr(SrcPrincipal) : SrcPrincipal
         SrcDomainController := SrcDomainController is String ? StrPtr(SrcDomainController) : SrcDomainController
         DstDomain := DstDomain is String ? StrPtr(DstDomain) : DstDomain
         DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsAddSidHistoryW", "ptr", hDS, "uint", Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, "ptr", SrcDomainController, "ptr", SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, "uint")
         return result
@@ -6508,12 +6508,12 @@ class ActiveDirectory {
     static DsAddSidHistoryA(hDS, SrcDomain, SrcPrincipal, SrcDomainController, SrcDomainCreds, DstDomain, DstPrincipal) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         SrcDomain := SrcDomain is String ? StrPtr(SrcDomain) : SrcDomain
         SrcPrincipal := SrcPrincipal is String ? StrPtr(SrcPrincipal) : SrcPrincipal
         SrcDomainController := SrcDomainController is String ? StrPtr(SrcDomainController) : SrcDomainController
         DstDomain := DstDomain is String ? StrPtr(DstDomain) : DstDomain
         DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsAddSidHistoryA", "ptr", hDS, "uint", Flags, "ptr", SrcDomain, "ptr", SrcPrincipal, "ptr", SrcDomainController, "ptr", SrcDomainCreds, "ptr", DstDomain, "ptr", DstPrincipal, "uint")
         return result
@@ -6533,9 +6533,9 @@ class ActiveDirectory {
     static DsInheritSecurityIdentityW(hDS, SrcPrincipal, DstPrincipal) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         SrcPrincipal := SrcPrincipal is String ? StrPtr(SrcPrincipal) : SrcPrincipal
         DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsInheritSecurityIdentityW", "ptr", hDS, "uint", Flags, "ptr", SrcPrincipal, "ptr", DstPrincipal, "uint")
         return result
@@ -6555,9 +6555,9 @@ class ActiveDirectory {
     static DsInheritSecurityIdentityA(hDS, SrcPrincipal, DstPrincipal) {
         static Flags := 0 ;Reserved parameters must always be NULL
 
+        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         SrcPrincipal := SrcPrincipal is String ? StrPtr(SrcPrincipal) : SrcPrincipal
         DstPrincipal := DstPrincipal is String ? StrPtr(DstPrincipal) : DstPrincipal
-        hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
         result := DllCall("NTDSAPI.dll\DsInheritSecurityIdentityA", "ptr", hDS, "uint", Flags, "ptr", SrcPrincipal, "ptr", DstPrincipal, "uint")
         return result

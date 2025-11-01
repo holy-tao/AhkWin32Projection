@@ -40,6 +40,8 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     SetAStr(lDestPos, lDestLen, uCodePage, pszSrc, cchSrc, pcchActual, plActualLen) {
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+
         result := ComCall(7, this, "int", lDestPos, "int", lDestLen, "uint", uCodePage, "ptr", pszSrc, "int", cchSrc, "int*", pcchActual, "int*", plActualLen, "HRESULT")
         return result
     }
@@ -72,6 +74,8 @@ class IMLangStringAStr extends IMLangString{
      */
     GetAStr(lSrcPos, lSrcLen, uCodePageIn, pszDest, cchDest, pcchActual, plActualLen) {
         static puCodePageOut := 0 ;Reserved parameters must always be NULL
+
+        pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
 
         result := ComCall(9, this, "int", lSrcPos, "int", lSrcLen, "uint", uCodePageIn, "uint*", puCodePageOut, "ptr", pszDest, "int", cchDest, "int*", pcchActual, "int*", plActualLen, "HRESULT")
         return result
@@ -118,6 +122,8 @@ class IMLangStringAStr extends IMLangString{
      * @returns {HRESULT} 
      */
     UnlockAStr(pszSrc, cchSrc, pcchActual, plActualLen) {
+        pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
+
         result := ComCall(12, this, "ptr", pszSrc, "int", cchSrc, "int*", pcchActual, "int*", plActualLen, "HRESULT")
         return result
     }

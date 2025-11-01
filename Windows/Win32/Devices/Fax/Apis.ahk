@@ -1649,8 +1649,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentA(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
-        FileName := FileName is String ? StrPtr(FileName) : FileName
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
         A_LastError := 0
 
@@ -1764,8 +1764,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentW(FaxHandle, FileName, JobParams, CoverpageInfo, FaxJobId) {
-        FileName := FileName is String ? StrPtr(FileName) : FileName
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
         A_LastError := 0
 
@@ -1859,8 +1859,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentForBroadcastA(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
-        FileName := FileName is String ? StrPtr(FileName) : FileName
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
         A_LastError := 0
 
@@ -1954,8 +1954,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSendDocumentForBroadcastW(FaxHandle, FileName, FaxJobId, FaxRecipientCallback, Context) {
-        FileName := FileName is String ? StrPtr(FileName) : FileName
         FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
+        FileName := FileName is String ? StrPtr(FileName) : FileName
 
         A_LastError := 0
 
@@ -3752,8 +3752,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxEnableRoutingMethodA(FaxPortHandle, RoutingGuid, Enabled) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -3828,8 +3828,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxEnableRoutingMethodW(FaxPortHandle, RoutingGuid, Enabled) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -4196,8 +4196,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxGetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -4286,8 +4286,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxGetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -4365,8 +4365,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSetRoutingInfoA(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -4444,8 +4444,8 @@ class Fax {
      * @since windows5.0
      */
     static FaxSetRoutingInfoW(FaxPortHandle, RoutingGuid, RoutingInfoBuffer, RoutingInfoBufferSize) {
-        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
         FaxPortHandle := FaxPortHandle is Win32Handle ? NumGet(FaxPortHandle, "ptr") : FaxPortHandle
+        RoutingGuid := RoutingGuid is String ? StrPtr(RoutingGuid) : RoutingGuid
 
         A_LastError := 0
 
@@ -4952,10 +4952,10 @@ class Fax {
      * @since windows5.0
      */
     static FaxRegisterRoutingExtensionW(FaxHandle, ExtensionName, FriendlyName, ImageName, CallBack, Context) {
+        FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
         ExtensionName := ExtensionName is String ? StrPtr(ExtensionName) : ExtensionName
         FriendlyName := FriendlyName is String ? StrPtr(FriendlyName) : FriendlyName
         ImageName := ImageName is String ? StrPtr(ImageName) : ImageName
-        FaxHandle := FaxHandle is Win32Handle ? NumGet(FaxHandle, "ptr") : FaxHandle
 
         A_LastError := 0
 

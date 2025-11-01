@@ -466,8 +466,8 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIDlgViewContext(dwContextType, pvContext, hwnd, pwszTitle, dwFlags, pvReserved) {
-        pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewContext", "uint", dwContextType, "ptr", pvContext, "ptr", hwnd, "ptr", pwszTitle, "uint", dwFlags, "ptr", pvReserved, "int")
         return result
@@ -558,10 +558,10 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIDlgSelectCertificateFromStore(hCertStore, hwnd, pwszTitle, pwszDisplayString, dwDontUseColumn, dwFlags, pvReserved) {
-        pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
-        pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
         hCertStore := hCertStore is Win32Handle ? NumGet(hCertStore, "ptr") : hCertStore
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pwszTitle := pwszTitle is String ? StrPtr(pwszTitle) : pwszTitle
+        pwszDisplayString := pwszDisplayString is String ? StrPtr(pwszDisplayString) : pwszDisplayString
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgSelectCertificateFromStore", "ptr", hCertStore, "ptr", hwnd, "ptr", pwszTitle, "ptr", pwszDisplayString, "uint", dwDontUseColumn, "uint", dwFlags, "ptr", pvReserved, "ptr")
         return result
@@ -630,8 +630,8 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIWizDigitalSign(dwFlags, hwndParent, pwszWizardTitle, pDigitalSignInfo, ppSignContext) {
-        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
         result := DllCall("CRYPTUI.dll\CryptUIWizDigitalSign", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pDigitalSignInfo, "ptr*", ppSignContext, "int")
         return result
@@ -710,8 +710,8 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIWizExport(dwFlags, hwndParent, pwszWizardTitle, pExportInfo, pvoid) {
-        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
 
         A_LastError := 0
 
@@ -737,8 +737,8 @@ class UI {
      * @since windows5.1.2600
      */
     static CryptUIWizImport(dwFlags, hwndParent, pwszWizardTitle, pImportSrc, hDestCertStore) {
-        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
+        pwszWizardTitle := pwszWizardTitle is String ? StrPtr(pwszWizardTitle) : pwszWizardTitle
         hDestCertStore := hDestCertStore is Win32Handle ? NumGet(hDestCertStore, "ptr") : hDestCertStore
 
         A_LastError := 0

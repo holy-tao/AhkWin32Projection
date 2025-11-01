@@ -68,6 +68,8 @@ class ID3D12FunctionReflection extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(2, this, "ptr", Name, "ptr")
         return result
     }
@@ -91,6 +93,8 @@ class ID3D12FunctionReflection extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getvariablebyname
      */
     GetVariableByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(4, this, "ptr", Name, "ptr")
         return result
     }
@@ -103,6 +107,8 @@ class ID3D12FunctionReflection extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name, pDesc) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(5, this, "ptr", Name, "ptr", pDesc, "HRESULT")
         return result
     }

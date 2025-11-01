@@ -550,9 +550,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserA(hToken, lpSrc, lpDest, dwSize) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 
@@ -588,9 +588,9 @@ class Environment {
      * @since windows5.0
      */
     static ExpandEnvironmentStringsForUserW(hToken, lpSrc, lpDest, dwSize) {
+        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         lpSrc := lpSrc is String ? StrPtr(lpSrc) : lpSrc
         lpDest := lpDest is String ? StrPtr(lpDest) : lpDest
-        hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
         A_LastError := 0
 

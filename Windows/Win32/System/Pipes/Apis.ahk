@@ -733,8 +733,8 @@ class Pipes {
      * @see https://docs.microsoft.com/windows/win32/api//namedpipeapi/nf-namedpipeapi-getnamedpipehandlestatew
      */
     static GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
-        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
         result := DllCall("KERNEL32.dll\GetNamedPipeHandleStateW", "ptr", hNamedPipe, "uint*", lpState, "uint*", lpCurInstances, "uint*", lpMaxCollectionCount, "uint*", lpCollectDataTimeout, "ptr", lpUserName, "uint", nMaxUserNameSize, "int")
         return result
@@ -1149,8 +1149,8 @@ class Pipes {
      * @since windows5.0
      */
     static GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
-        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
+        lpUserName := lpUserName is String ? StrPtr(lpUserName) : lpUserName
 
         A_LastError := 0
 

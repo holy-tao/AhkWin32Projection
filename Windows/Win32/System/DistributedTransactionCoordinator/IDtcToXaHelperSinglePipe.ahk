@@ -36,6 +36,9 @@ class IDtcToXaHelperSinglePipe extends IUnknown{
      * @returns {HRESULT} 
      */
     XARMCreate(pszDSN, pszClientDll, pdwRMCookie) {
+        pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN
+        pszClientDll := pszClientDll is String ? StrPtr(pszClientDll) : pszClientDll
+
         result := ComCall(3, this, "ptr", pszDSN, "ptr", pszClientDll, "uint*", pdwRMCookie, "HRESULT")
         return result
     }

@@ -639,8 +639,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileA(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
         return result
@@ -658,8 +658,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static GetICMProfileW(hdc, pBufSize, pszFilename) {
-        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, "uint*", pBufSize, "ptr", pszFilename, "int")
         return result
@@ -676,8 +676,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileA(hdc, lpFileName) {
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
         return result
@@ -694,8 +694,8 @@ class ColorSystem {
      * @since windows5.0
      */
     static SetICMProfileW(hdc, lpFileName) {
-        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+        lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
         result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
         return result

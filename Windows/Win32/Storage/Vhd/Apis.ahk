@@ -651,8 +651,8 @@ class Vhd {
      * @since windows8.0
      */
     static AddVirtualDiskParent(VirtualDiskHandle, ParentPath) {
-        ParentPath := ParentPath is String ? StrPtr(ParentPath) : ParentPath
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+        ParentPath := ParentPath is String ? StrPtr(ParentPath) : ParentPath
 
         result := DllCall("VirtDisk.dll\AddVirtualDiskParent", "ptr", VirtualDiskHandle, "ptr", ParentPath, "uint")
         return result
@@ -683,8 +683,8 @@ class Vhd {
      * @since windows10.0.10240
      */
     static QueryChangesVirtualDisk(VirtualDiskHandle, ChangeTrackingId, ByteOffset, ByteLength, Flags, Ranges, RangeCount, ProcessedLength) {
-        ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
         VirtualDiskHandle := VirtualDiskHandle is Win32Handle ? NumGet(VirtualDiskHandle, "ptr") : VirtualDiskHandle
+        ChangeTrackingId := ChangeTrackingId is String ? StrPtr(ChangeTrackingId) : ChangeTrackingId
 
         result := DllCall("VirtDisk.dll\QueryChangesVirtualDisk", "ptr", VirtualDiskHandle, "ptr", ChangeTrackingId, "uint", ByteOffset, "uint", ByteLength, "int", Flags, "ptr", Ranges, "uint*", RangeCount, "uint*", ProcessedLength, "uint")
         return result

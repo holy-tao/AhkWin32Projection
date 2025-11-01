@@ -38,6 +38,8 @@ class ID3D12SDKConfiguration extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12sdkconfiguration-setsdkversion
      */
     SetSDKVersion(SDKVersion, SDKPath) {
+        SDKPath := SDKPath is String ? StrPtr(SDKPath) : SDKPath
+
         result := ComCall(3, this, "uint", SDKVersion, "ptr", SDKPath, "HRESULT")
         return result
     }

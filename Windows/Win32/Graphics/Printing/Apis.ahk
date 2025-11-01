@@ -7705,8 +7705,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
      */
     static GetPrinterDriverA(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriverA", "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -7724,8 +7724,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver
      */
     static GetPrinterDriverW(hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriverW", "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -8237,9 +8237,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
     static DocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("winspool.drv\DocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
@@ -8257,9 +8257,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/documentproperties
      */
     static DocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput, fMode) {
-        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("winspool.drv\DocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "uint", fMode, "int")
         return result
@@ -8276,9 +8276,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
     static AdvancedDocumentPropertiesA(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("winspool.drv\AdvancedDocumentPropertiesA", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
@@ -8295,9 +8295,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/advanceddocumentproperties
      */
     static AdvancedDocumentPropertiesW(hWnd, hPrinter, pDeviceName, pDevModeOutput, pDevModeInput) {
-        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
         result := DllCall("winspool.drv\AdvancedDocumentPropertiesW", "ptr", hWnd, "ptr", hPrinter, "ptr", pDeviceName, "ptr", pDevModeOutput, "ptr", pDevModeInput, "int")
         return result
@@ -8316,11 +8316,11 @@ class Printing {
      * @returns {Integer} 
      */
     static ExtDeviceMode(hWnd, hInst, pDevModeOutput, pDeviceName, pPort, pDevModeInput, pProfile, fMode) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
         pPort := pPort is String ? StrPtr(pPort) : pPort
         pProfile := pProfile is String ? StrPtr(pProfile) : pProfile
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
 
         result := DllCall("winspool.drv\ExtDeviceMode", "ptr", hWnd, "ptr", hInst, "ptr", pDevModeOutput, "ptr", pDeviceName, "ptr", pPort, "ptr", pDevModeInput, "ptr", pProfile, "uint", fMode, "int")
         return result
@@ -8338,8 +8338,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
      */
     static GetPrinterDataA(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\GetPrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8357,8 +8357,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdata
      */
     static GetPrinterDataW(hPrinter, pValueName, pType, pData, nSize, pcbNeeded) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\GetPrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8377,9 +8377,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
      */
     static GetPrinterDataExA(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8398,9 +8398,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdataex
      */
     static GetPrinterDataExW(hPrinter, pKeyName, pValueName, pType, pData, nSize, pcbNeeded) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\GetPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint*", pType, "ptr", pData, "uint", nSize, "uint*", pcbNeeded, "uint")
         return result
@@ -8460,8 +8460,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExA(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\EnumPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pEnumValues, "uint", cbEnumValues, "uint*", pcbEnumValues, "uint*", pnEnumValues, "uint")
         return result
@@ -8479,8 +8479,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterdataex
      */
     static EnumPrinterDataExW(hPrinter, pKeyName, pEnumValues, cbEnumValues, pcbEnumValues, pnEnumValues) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\EnumPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pEnumValues, "uint", cbEnumValues, "uint*", pcbEnumValues, "uint*", pnEnumValues, "uint")
         return result
@@ -8497,8 +8497,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
      */
     static EnumPrinterKeyA(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\EnumPrinterKeyA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pSubkey, "uint", cbSubkey, "uint*", pcbSubkey, "uint")
         return result
@@ -8515,8 +8515,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/enumprinterkey
      */
     static EnumPrinterKeyW(hPrinter, pKeyName, pSubkey, cbSubkey, pcbSubkey) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\EnumPrinterKeyW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pSubkey, "uint", cbSubkey, "uint*", pcbSubkey, "uint")
         return result
@@ -8533,8 +8533,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
      */
     static SetPrinterDataA(hPrinter, pValueName, Type, pData, cbData) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\SetPrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8551,8 +8551,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdata
      */
     static SetPrinterDataW(hPrinter, pValueName, Type, pData, cbData) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\SetPrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8570,9 +8570,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
      */
     static SetPrinterDataExA(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8590,9 +8590,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setprinterdataex
      */
     static SetPrinterDataExW(hPrinter, pKeyName, pValueName, Type, pData, cbData) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\SetPrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint", Type, "ptr", pData, "uint", cbData, "uint")
         return result
@@ -8606,8 +8606,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
      */
     static DeletePrinterDataA(hPrinter, pValueName) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\DeletePrinterDataA", "ptr", hPrinter, "ptr", pValueName, "uint")
         return result
@@ -8621,8 +8621,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdata
      */
     static DeletePrinterDataW(hPrinter, pValueName) {
-        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
         result := DllCall("winspool.drv\DeletePrinterDataW", "ptr", hPrinter, "ptr", pValueName, "uint")
         return result
@@ -8637,9 +8637,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExA(hPrinter, pKeyName, pValueName) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataExA", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint")
         return result
@@ -8654,9 +8654,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterdataex
      */
     static DeletePrinterDataExW(hPrinter, pKeyName, pValueName) {
+        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
-        hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\DeletePrinterDataExW", "ptr", hPrinter, "ptr", pKeyName, "ptr", pValueName, "uint")
         return result
@@ -8670,8 +8670,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyA(hPrinter, pKeyName) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\DeletePrinterKeyA", "ptr", hPrinter, "ptr", pKeyName, "uint")
         return result
@@ -8685,8 +8685,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteprinterkey
      */
     static DeletePrinterKeyW(hPrinter, pKeyName) {
-        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pKeyName := pKeyName is String ? StrPtr(pKeyName) : pKeyName
 
         result := DllCall("winspool.drv\DeletePrinterKeyW", "ptr", hPrinter, "ptr", pKeyName, "uint")
         return result
@@ -8772,10 +8772,10 @@ class Printing {
      * @returns {Integer} 
      */
     static PrinterMessageBoxA(hPrinter, Error, hWnd, pText, pCaption, dwType) {
-        pText := pText is String ? StrPtr(pText) : pText
-        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pText := pText is String ? StrPtr(pText) : pText
+        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
         result := DllCall("winspool.drv\PrinterMessageBoxA", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
@@ -8792,10 +8792,10 @@ class Printing {
      * @returns {Integer} 
      */
     static PrinterMessageBoxW(hPrinter, Error, hWnd, pText, pCaption, dwType) {
-        pText := pText is String ? StrPtr(pText) : pText
-        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pText := pText is String ? StrPtr(pText) : pText
+        pCaption := pCaption is String ? StrPtr(pCaption) : pCaption
 
         result := DllCall("winspool.drv\PrinterMessageBoxW", "ptr", hPrinter, "uint", Error, "ptr", hWnd, "ptr", pText, "ptr", pCaption, "uint", dwType, "uint")
         return result
@@ -8855,8 +8855,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
      */
     static DeleteFormA(hPrinter, pFormName) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\DeleteFormA", "ptr", hPrinter, "ptr", pFormName, "int")
         return result
@@ -8870,8 +8870,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/deleteform
      */
     static DeleteFormW(hPrinter, pFormName) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\DeleteFormW", "ptr", hPrinter, "ptr", pFormName, "int")
         return result
@@ -8889,8 +8889,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getform
      */
     static GetFormA(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\GetFormA", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -8908,8 +8908,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getform
      */
     static GetFormW(hPrinter, pFormName, Level, pForm, cbBuf, pcbNeeded) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\GetFormW", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "ptr", pForm, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -8925,8 +8925,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setform
      */
     static SetFormA(hPrinter, pFormName, Level, pForm) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\SetFormA", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "char*", pForm, "int")
         return result
@@ -8942,8 +8942,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/setform
      */
     static SetFormW(hPrinter, pFormName, Level, pForm) {
-        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pFormName := pFormName is String ? StrPtr(pFormName) : pFormName
 
         result := DllCall("winspool.drv\SetFormW", "ptr", hPrinter, "ptr", pFormName, "uint", Level, "char*", pForm, "int")
         return result
@@ -9151,8 +9151,8 @@ class Printing {
      */
     static AddPortA(pName, hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
@@ -9173,8 +9173,8 @@ class Printing {
      */
     static AddPortW(pName, hWnd, pMonitorName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pMonitorName := pMonitorName is String ? StrPtr(pMonitorName) : pMonitorName
 
         A_LastError := 0
 
@@ -9195,8 +9195,8 @@ class Printing {
      */
     static ConfigurePortA(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         result := DllCall("winspool.drv\ConfigurePortA", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
         return result
@@ -9212,8 +9212,8 @@ class Printing {
      */
     static ConfigurePortW(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         result := DllCall("winspool.drv\ConfigurePortW", "ptr", pName, "ptr", hWnd, "ptr", pPortName, "int")
         return result
@@ -9229,8 +9229,8 @@ class Printing {
      */
     static DeletePortA(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
@@ -9251,8 +9251,8 @@ class Printing {
      */
     static DeletePortW(pName, hWnd, pPortName) {
         pName := pName is String ? StrPtr(pName) : pName
-        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pPortName := pPortName is String ? StrPtr(pPortName) : pPortName
 
         A_LastError := 0
 
@@ -9276,8 +9276,8 @@ class Printing {
      * @returns {BOOL} 
      */
     static XcvDataW(hXcv, pszDataName, pInputData, cbInputData, pOutputData, cbOutputData, pcbOutputNeeded, pdwStatus) {
-        pszDataName := pszDataName is String ? StrPtr(pszDataName) : pszDataName
         hXcv := hXcv is Win32Handle ? NumGet(hXcv, "ptr") : hXcv
+        pszDataName := pszDataName is String ? StrPtr(pszDataName) : pszDataName
 
         result := DllCall("winspool.drv\XcvDataW", "ptr", hXcv, "ptr", pszDataName, "ptr", pInputData, "uint", cbInputData, "ptr", pOutputData, "uint", cbOutputData, "uint*", pcbOutputNeeded, "uint*", pdwStatus, "int")
         return result
@@ -9586,8 +9586,8 @@ class Printing {
      * @returns {BOOL} 
      */
     static AddPrinterConnection2A(hWnd, pszName, dwLevel, pConnectionInfo) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\AddPrinterConnection2A", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, "ptr", pConnectionInfo, "int")
         return result
@@ -9603,8 +9603,8 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/addprinterconnection2
      */
     static AddPrinterConnection2W(hWnd, pszName, dwLevel, pConnectionInfo) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\AddPrinterConnection2W", "ptr", hWnd, "ptr", pszName, "uint", dwLevel, "ptr", pConnectionInfo, "int")
         return result
@@ -9672,8 +9672,8 @@ class Printing {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageA", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
         if(result != 0)
@@ -9698,8 +9698,8 @@ class Printing {
         pszServer := pszServer is String ? StrPtr(pszServer) : pszServer
         pszInfPath := pszInfPath is String ? StrPtr(pszInfPath) : pszInfPath
         pszEnvironment := pszEnvironment is String ? StrPtr(pszEnvironment) : pszEnvironment
-        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        pszDestInfPath := pszDestInfPath is String ? StrPtr(pszDestInfPath) : pszDestInfPath
 
         result := DllCall("winspool.drv\UploadPrinterDriverPackageW", "ptr", pszServer, "ptr", pszInfPath, "ptr", pszEnvironment, "uint", dwFlags, "ptr", hwnd, "ptr", pszDestInfPath, "uint*", pcchDestInfPath, "int")
         if(result != 0)
@@ -9919,9 +9919,9 @@ class Printing {
      * @returns {BOOL} 
      */
     static GetPrinterDriver2A(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriver2A", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -9940,9 +9940,9 @@ class Printing {
      * @see https://learn.microsoft.com/windows/win32/printdocs/getprinterdriver2
      */
     static GetPrinterDriver2W(hWnd, hPrinter, pEnvironment, Level, pDriverInfo, cbBuf, pcbNeeded) {
-        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pEnvironment := pEnvironment is String ? StrPtr(pEnvironment) : pEnvironment
 
         result := DllCall("winspool.drv\GetPrinterDriver2W", "ptr", hWnd, "ptr", hPrinter, "ptr", pEnvironment, "uint", Level, "ptr", pDriverInfo, "uint", cbBuf, "uint*", pcbNeeded, "int")
         return result
@@ -9968,8 +9968,8 @@ class Printing {
      * @returns {Integer} 
      */
     static GetJobNamedPropertyValue(hPrinter, JobId, pszName, pValue) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\GetJobNamedPropertyValue", "ptr", hPrinter, "uint", JobId, "ptr", pszName, "ptr", pValue, "uint")
         return result
@@ -10016,8 +10016,8 @@ class Printing {
      * @returns {Integer} 
      */
     static DeleteJobNamedProperty(hPrinter, JobId, pszName) {
-        pszName := pszName is String ? StrPtr(pszName) : pszName
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
+        pszName := pszName is String ? StrPtr(pszName) : pszName
 
         result := DllCall("winspool.drv\DeleteJobNamedProperty", "ptr", hPrinter, "uint", JobId, "ptr", pszName, "uint")
         return result
@@ -10047,8 +10047,8 @@ class Printing {
      * @returns {HRESULT} 
      */
     static GetPrintOutputInfo(hWnd, pszPrinter, phFile, ppszOutputFile) {
-        pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        pszPrinter := pszPrinter is String ? StrPtr(pszPrinter) : pszPrinter
 
         result := DllCall("winspool.drv\GetPrintOutputInfo", "ptr", hWnd, "ptr", pszPrinter, "ptr", phFile, "ptr", ppszOutputFile, "int")
         if(result != 0)

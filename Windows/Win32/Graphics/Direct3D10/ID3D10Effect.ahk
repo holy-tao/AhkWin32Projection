@@ -110,6 +110,8 @@ class ID3D10Effect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(8, this, "ptr", Name, "ptr")
         return result
     }
@@ -132,6 +134,8 @@ class ID3D10Effect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyname
      */
     GetVariableByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(10, this, "ptr", Name, "ptr")
         return result
     }
@@ -143,6 +147,8 @@ class ID3D10Effect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebysemantic
      */
     GetVariableBySemantic(Semantic) {
+        Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
+
         result := ComCall(11, this, "ptr", Semantic, "ptr")
         return result
     }
@@ -165,6 +171,8 @@ class ID3D10Effect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyname
      */
     GetTechniqueByName(Name) {
+        Name := Name is String ? StrPtr(Name) : Name
+
         result := ComCall(13, this, "ptr", Name, "ptr")
         return result
     }

@@ -184,8 +184,8 @@ class NetShell {
      * @since windows5.1.2600
      */
     static MatchEnumTag(hModule, pwcArg, dwNumArg, pEnumTable, pdwValue) {
-        pwcArg := pwcArg is String ? StrPtr(pwcArg) : pwcArg
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
+        pwcArg := pwcArg is String ? StrPtr(pwcArg) : pwcArg
 
         result := DllCall("NETSH.dll\MatchEnumTag", "ptr", hModule, "ptr", pwcArg, "uint", dwNumArg, "ptr", pEnumTable, "uint*", pdwValue, "uint")
         return result

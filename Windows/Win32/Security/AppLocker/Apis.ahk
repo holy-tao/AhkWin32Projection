@@ -846,8 +846,8 @@ class AppLocker {
     static SaferRecordEventLogEntry(hLevel, szTargetPath) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
 
-        szTargetPath := szTargetPath is String ? StrPtr(szTargetPath) : szTargetPath
         hLevel := hLevel is Win32Handle ? NumGet(hLevel, "ptr") : hLevel
+        szTargetPath := szTargetPath is String ? StrPtr(szTargetPath) : szTargetPath
 
         A_LastError := 0
 

@@ -110,6 +110,8 @@ class ICLRRuntimeInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-getprocaddress
      */
     GetProcAddress(pszProcName, ppProc) {
+        pszProcName := pszProcName is String ? StrPtr(pszProcName) : pszProcName
+
         result := ComCall(8, this, "ptr", pszProcName, "ptr*", ppProc, "HRESULT")
         return result
     }

@@ -77,6 +77,8 @@ class IOleUILinkContainerA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oledlg/nf-oledlg-ioleuilinkcontainera-setlinksource
      */
     SetLinkSource(dwLink, lpszDisplayName, lenFileName, pchEaten, fValidateSource) {
+        lpszDisplayName := lpszDisplayName is String ? StrPtr(lpszDisplayName) : lpszDisplayName
+
         result := ComCall(6, this, "uint", dwLink, "ptr", lpszDisplayName, "uint", lenFileName, "uint*", pchEaten, "int", fValidateSource, "HRESULT")
         return result
     }

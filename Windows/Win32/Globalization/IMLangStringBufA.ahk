@@ -61,6 +61,8 @@ class IMLangStringBufA extends IUnknown{
      * @returns {HRESULT} 
      */
     UnlockBuf(pszBuf, cchOffset, cchWrite) {
+        pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
+
         result := ComCall(5, this, "ptr", pszBuf, "int", cchOffset, "int", cchWrite, "HRESULT")
         return result
     }

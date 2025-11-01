@@ -277,6 +277,8 @@ class IWTSProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolconnection-createvirtualchannel
      */
     CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority, phChannel) {
+        szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
+
         result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, "ptr*", phChannel, "HRESULT")
         return result
     }

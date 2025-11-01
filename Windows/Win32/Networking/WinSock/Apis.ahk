@@ -11361,9 +11361,9 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetServByName(hWnd, wMsg, name, proto, buf, buflen) {
+        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         name := name is String ? StrPtr(name) : name
         proto := proto is String ? StrPtr(proto) : proto
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
         A_LastError := 0
 
@@ -11515,8 +11515,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetServByPort(hWnd, wMsg, port, proto, buf, buflen) {
-        proto := proto is String ? StrPtr(proto) : proto
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        proto := proto is String ? StrPtr(proto) : proto
 
         A_LastError := 0
 
@@ -11665,8 +11665,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetProtoByName(hWnd, wMsg, name, buf, buflen) {
-        name := name is String ? StrPtr(name) : name
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        name := name is String ? StrPtr(name) : name
 
         A_LastError := 0
 
@@ -11960,8 +11960,8 @@ class WinSock {
      * @since windows5.0
      */
     static WSAAsyncGetHostByName(hWnd, wMsg, name, buf, buflen) {
-        name := name is String ? StrPtr(name) : name
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        name := name is String ? StrPtr(name) : name
 
         A_LastError := 0
 
@@ -13070,9 +13070,9 @@ class WinSock {
     static WSAConnectByNameW(s, nodename, servicename, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        s := s is Win32Handle ? NumGet(s, "ptr") : s
         nodename := nodename is String ? StrPtr(nodename) : nodename
         servicename := servicename is String ? StrPtr(servicename) : servicename
-        s := s is Win32Handle ? NumGet(s, "ptr") : s
 
         A_LastError := 0
 
@@ -13172,9 +13172,9 @@ class WinSock {
     static WSAConnectByNameA(s, nodename, servicename, LocalAddressLength, LocalAddress, RemoteAddressLength, RemoteAddress, timeout) {
         static Reserved := 0 ;Reserved parameters must always be NULL
 
+        s := s is Win32Handle ? NumGet(s, "ptr") : s
         nodename := nodename is String ? StrPtr(nodename) : nodename
         servicename := servicename is String ? StrPtr(servicename) : servicename
-        s := s is Win32Handle ? NumGet(s, "ptr") : s
 
         A_LastError := 0
 

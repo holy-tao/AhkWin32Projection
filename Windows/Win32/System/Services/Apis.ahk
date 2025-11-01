@@ -946,13 +946,13 @@ class Services {
      * @since windows5.1.2600
      */
     static ChangeServiceConfigA(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
+        hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
         lpBinaryPathName := lpBinaryPathName is String ? StrPtr(lpBinaryPathName) : lpBinaryPathName
         lpLoadOrderGroup := lpLoadOrderGroup is String ? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
         lpDependencies := lpDependencies is String ? StrPtr(lpDependencies) : lpDependencies
         lpServiceStartName := lpServiceStartName is String ? StrPtr(lpServiceStartName) : lpServiceStartName
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
-        hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         A_LastError := 0
 
@@ -1209,13 +1209,13 @@ class Services {
      * @since windows5.1.2600
      */
     static ChangeServiceConfigW(hService, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword, lpDisplayName) {
+        hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
         lpBinaryPathName := lpBinaryPathName is String ? StrPtr(lpBinaryPathName) : lpBinaryPathName
         lpLoadOrderGroup := lpLoadOrderGroup is String ? StrPtr(lpLoadOrderGroup) : lpLoadOrderGroup
         lpDependencies := lpDependencies is String ? StrPtr(lpDependencies) : lpDependencies
         lpServiceStartName := lpServiceStartName is String ? StrPtr(lpServiceStartName) : lpServiceStartName
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
-        hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         A_LastError := 0
 
@@ -1837,6 +1837,7 @@ class Services {
      * @since windows5.1.2600
      */
     static CreateServiceA(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
         lpBinaryPathName := lpBinaryPathName is String ? StrPtr(lpBinaryPathName) : lpBinaryPathName
@@ -1844,7 +1845,6 @@ class Services {
         lpDependencies := lpDependencies is String ? StrPtr(lpDependencies) : lpDependencies
         lpServiceStartName := lpServiceStartName is String ? StrPtr(lpServiceStartName) : lpServiceStartName
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -2044,6 +2044,7 @@ class Services {
      * @since windows5.1.2600
      */
     static CreateServiceW(hSCManager, lpServiceName, lpDisplayName, dwDesiredAccess, dwServiceType, dwStartType, dwErrorControl, lpBinaryPathName, lpLoadOrderGroup, lpdwTagId, lpDependencies, lpServiceStartName, lpPassword) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
         lpBinaryPathName := lpBinaryPathName is String ? StrPtr(lpBinaryPathName) : lpBinaryPathName
@@ -2051,7 +2052,6 @@ class Services {
         lpDependencies := lpDependencies is String ? StrPtr(lpDependencies) : lpDependencies
         lpServiceStartName := lpServiceStartName is String ? StrPtr(lpServiceStartName) : lpServiceStartName
         lpPassword := lpPassword is String ? StrPtr(lpPassword) : lpPassword
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -2594,8 +2594,8 @@ class Services {
      * @since windows5.1.2600
      */
     static EnumServicesStatusExA(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
-        pszGroupName := pszGroupName is String ? StrPtr(pszGroupName) : pszGroupName
         hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
+        pszGroupName := pszGroupName is String ? StrPtr(pszGroupName) : pszGroupName
 
         A_LastError := 0
 
@@ -2711,8 +2711,8 @@ class Services {
      * @since windows5.1.2600
      */
     static EnumServicesStatusExW(hSCManager, InfoLevel, dwServiceType, dwServiceState, lpServices, cbBufSize, pcbBytesNeeded, lpServicesReturned, lpResumeHandle, pszGroupName) {
-        pszGroupName := pszGroupName is String ? StrPtr(pszGroupName) : pszGroupName
         hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
+        pszGroupName := pszGroupName is String ? StrPtr(pszGroupName) : pszGroupName
 
         A_LastError := 0
 
@@ -2742,9 +2742,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceKeyNameA(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -2774,9 +2774,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceKeyNameW(hSCManager, lpDisplayName, lpServiceName, lpcchBuffer) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -2816,9 +2816,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameA(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -2859,9 +2859,9 @@ class Services {
      * @since windows5.1.2600
      */
     static GetServiceDisplayNameW(hSCManager, lpServiceName, lpDisplayName, lpcchBuffer) {
+        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
         lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         lpDisplayName := lpDisplayName is String ? StrPtr(lpDisplayName) : lpDisplayName
-        hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
 
         A_LastError := 0
 
@@ -3183,8 +3183,8 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenServiceA(hSCManager, lpServiceName, dwDesiredAccess) {
-        lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
+        lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
         A_LastError := 0
 
@@ -3270,8 +3270,8 @@ class Services {
      * @since windows5.1.2600
      */
     static OpenServiceW(hSCManager, lpServiceName, dwDesiredAccess) {
-        lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
         hSCManager := hSCManager is Win32Handle ? NumGet(hSCManager, "ptr") : hSCManager
+        lpServiceName := lpServiceName is String ? StrPtr(lpServiceName) : lpServiceName
 
         A_LastError := 0
 
@@ -5573,8 +5573,8 @@ class Services {
      * @since windows10.0.19041
      */
     static GetServiceDirectory(hServiceStatus, eDirectoryType, lpPathBuffer, cchPathBufferLength, lpcchRequiredBufferLength) {
-        lpPathBuffer := lpPathBuffer is String ? StrPtr(lpPathBuffer) : lpPathBuffer
         hServiceStatus := hServiceStatus is Win32Handle ? NumGet(hServiceStatus, "ptr") : hServiceStatus
+        lpPathBuffer := lpPathBuffer is String ? StrPtr(lpPathBuffer) : lpPathBuffer
 
         result := DllCall("api-ms-win-service-core-l1-1-4.dll\GetServiceDirectory", "ptr", hServiceStatus, "int", eDirectoryType, "ptr", lpPathBuffer, "uint", cchPathBufferLength, "uint*", lpcchRequiredBufferLength, "uint")
         return result
@@ -5607,8 +5607,8 @@ class Services {
      * @see https://learn.microsoft.com/windows/win32/api/winsvc/nf-winsvc-getsharedservicedirectory
      */
     static GetSharedServiceDirectory(ServiceHandle, DirectoryType, PathBuffer, PathBufferLength, RequiredBufferLength) {
-        PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
         ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
+        PathBuffer := PathBuffer is String ? StrPtr(PathBuffer) : PathBuffer
 
         result := DllCall("api-ms-win-service-core-l1-1-5.dll\GetSharedServiceDirectory", "ptr", ServiceHandle, "int", DirectoryType, "ptr", PathBuffer, "uint", PathBufferLength, "uint*", RequiredBufferLength, "uint")
         return result

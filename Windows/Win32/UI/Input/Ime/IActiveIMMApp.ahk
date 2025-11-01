@@ -224,6 +224,8 @@ class IActiveIMMApp extends IUnknown{
      */
     EnumRegisterWordA(hKL, szReading, dwStyle, szRegister, pData, pEnum) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         result := ComCall(8, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "ptr", pData, "ptr*", pEnum, "HRESULT")
         return result
@@ -454,6 +456,7 @@ class IActiveIMMApp extends IUnknown{
     GetConversionListA(hKL, hIMC, pSrc, uBufLen, uFlag, pDst, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+        pSrc := pSrc is String ? StrPtr(pSrc) : pSrc
 
         result := ComCall(23, this, "ptr", hKL, "ptr", hIMC, "ptr", pSrc, "uint", uBufLen, "uint", uFlag, "ptr", pDst, "uint*", puCopied, "HRESULT")
         return result
@@ -516,6 +519,7 @@ class IActiveIMMApp extends IUnknown{
      */
     GetDescriptionA(hKL, uBufLen, szDescription, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szDescription := szDescription is String ? StrPtr(szDescription) : szDescription
 
         result := ComCall(27, this, "ptr", hKL, "uint", uBufLen, "ptr", szDescription, "uint*", puCopied, "HRESULT")
         return result
@@ -548,6 +552,7 @@ class IActiveIMMApp extends IUnknown{
      */
     GetGuideLineA(hIMC, dwIndex, dwBufLen, pBuf, pdwResult) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
+        pBuf := pBuf is String ? StrPtr(pBuf) : pBuf
 
         result := ComCall(29, this, "ptr", hIMC, "uint", dwIndex, "uint", dwBufLen, "ptr", pBuf, "uint*", pdwResult, "HRESULT")
         return result
@@ -580,6 +585,7 @@ class IActiveIMMApp extends IUnknown{
      */
     GetIMEFileNameA(hKL, uBufLen, szFileName, puCopied) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szFileName := szFileName is String ? StrPtr(szFileName) : szFileName
 
         result := ComCall(31, this, "ptr", hKL, "uint", uBufLen, "ptr", szFileName, "uint*", puCopied, "HRESULT")
         return result
@@ -691,6 +697,9 @@ class IActiveIMMApp extends IUnknown{
      * @returns {HRESULT} 
      */
     InstallIMEA(szIMEFileName, szLayoutText, phKL) {
+        szIMEFileName := szIMEFileName is String ? StrPtr(szIMEFileName) : szIMEFileName
+        szLayoutText := szLayoutText is String ? StrPtr(szLayoutText) : szLayoutText
+
         result := ComCall(39, this, "ptr", szIMEFileName, "ptr", szLayoutText, "ptr", phKL, "HRESULT")
         return result
     }
@@ -777,6 +786,8 @@ class IActiveIMMApp extends IUnknown{
      */
     RegisterWordA(hKL, szReading, dwStyle, szRegister) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         result := ComCall(45, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, "HRESULT")
         return result
@@ -962,6 +973,8 @@ class IActiveIMMApp extends IUnknown{
      */
     UnregisterWordA(hKL, szReading, dwStyle, szUnregister) {
         hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+        szReading := szReading is String ? StrPtr(szReading) : szReading
+        szUnregister := szUnregister is String ? StrPtr(szUnregister) : szUnregister
 
         result := ComCall(58, this, "ptr", hKL, "ptr", szReading, "uint", dwStyle, "ptr", szUnregister, "HRESULT")
         return result
