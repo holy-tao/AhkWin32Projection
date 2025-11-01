@@ -183,8 +183,13 @@ class D3D12_STATE_SUBOBJECT_TYPE{
     static D3D12_STATE_SUBOBJECT_TYPE_COMPILER_EXISITING_COLLECTION => 33
 
     /**
+     * @type {Integer (Int32)}
+     */
+    static D3D12_STATE_SUBOBJECT_TYPE_EXISTING_COLLECTION_BY_KEY => 36
+
+    /**
      * The maximum valid subobject type value.
      * @type {Integer (Int32)}
      */
-    static D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID => 34
+    static D3D12_STATE_SUBOBJECT_TYPE_MAX_VALID => 37
 }

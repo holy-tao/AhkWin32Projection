@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\PRINTER_HANDLE.ahk
+#Include .\FINDPRINTERCHANGENOTIFICATION_HANDLE.ahk
 #Include ..\Gdi\HDC.ahk
 
 /**
@@ -7430,7 +7432,7 @@ class Printing {
      * @param {PSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Integer>} pPrinter 
-     * @returns {HANDLE} 
+     * @returns {PRINTER_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
      */
     static AddPrinterA(pName, Level, pPrinter) {
@@ -7442,7 +7444,7 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        return PRINTER_HANDLE({Value: result}, True)
     }
 
     /**
@@ -7450,7 +7452,7 @@ class Printing {
      * @param {PWSTR} pName 
      * @param {Integer} Level 
      * @param {Pointer<Integer>} pPrinter 
-     * @returns {HANDLE} 
+     * @returns {PRINTER_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/addprinter
      */
     static AddPrinterW(pName, Level, pPrinter) {
@@ -7462,7 +7464,7 @@ class Printing {
         if(A_LastError)
             throw OSError()
 
-        return HANDLE({Value: result}, True)
+        return PRINTER_HANDLE({Value: result}, True)
     }
 
     /**
@@ -8709,19 +8711,19 @@ class Printing {
      * @param {Integer} fdwFilter 
      * @param {Integer} fdwOptions 
      * @param {Pointer<Void>} pPrinterNotifyOptions 
-     * @returns {HANDLE} 
+     * @returns {FINDPRINTERCHANGENOTIFICATION_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/findfirstprinterchangenotification
      */
     static FindFirstPrinterChangeNotification(hPrinter, fdwFilter, fdwOptions, pPrinterNotifyOptions) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         result := DllCall("winspool.drv\FindFirstPrinterChangeNotification", "ptr", hPrinter, "uint", fdwFilter, "uint", fdwOptions, "ptr", pPrinterNotifyOptions, "ptr")
-        return HANDLE({Value: result}, True)
+        return FINDPRINTERCHANGENOTIFICATION_HANDLE({Value: result}, True)
     }
 
     /**
      * 
-     * @param {HANDLE} hChange 
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange 
      * @param {Pointer<Integer>} pdwChange 
      * @param {Pointer<Void>} pvReserved 
      * @param {Pointer<Pointer<Void>>} ppPrinterNotifyInfo 
@@ -8748,7 +8750,7 @@ class Printing {
 
     /**
      * 
-     * @param {HANDLE} hChange 
+     * @param {FINDPRINTERCHANGENOTIFICATION_HANDLE} hChange 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/printdocs/findcloseprinterchangenotification
      */
